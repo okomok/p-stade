@@ -22,12 +22,13 @@
 #include <stdexcept> // runtime_error
 #include <string>
 #include <boost/current_function.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/what.hpp>
 
 
@@ -95,39 +96,41 @@ namespace pstade {
         }
 
 
+        struct baby
+        {
+            template< class Myself, class T, class StringT = void >
+            struct apply :
+                boost::add_reference<T>
+            { };
+
+            template< class Result, class T >
+            Result call(T& x) const
+            {
+                if (!x)
+                    require_detail::throw_error("");
+
+                return x;
+            }
+
+            template< class Result, class T, class StringT >
+            Result call(T& x, StringT& info) const
+            {
+                if (!x)
+                    require_detail::throw_error(info);
+
+                return x;
+            }
+        };
+
+
     } // namespace require_detail
 
 
-    struct op_require :
-        callable<op_require>
-    {
-        template< class Myself, class T, class StringT = void >
-        struct apply :
-            boost::add_reference<T>
-        { };
+    typedef egg::function<require_detail::baby> op_require;
+    PSTADE_POD_CONSTANT((op_require), require) = {{}};
 
-        template< class Result, class T >
-        Result call(T& x) const
-        {
-            if (!x)
-                require_detail::throw_error("");
-
-            return x;
-        }
-
-        template< class Result, class T, class StringT >
-        Result call(T& x, StringT& info) const
-        {
-            if (!x)
-                require_detail::throw_error(info);
-
-            return x;
-        }
-    };
-
-
-    PSTADE_CONSTANT(require, (op_require))
-    PSTADE_PIPABLE(required, (op_require))
+    PSTADE_POD_CONSTANT((egg::result_of_pipable<op_require>::type), required)
+        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}});
 
 
 } // namespace pstade

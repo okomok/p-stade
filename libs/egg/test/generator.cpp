@@ -10,7 +10,6 @@
 
 
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/deduce.hpp>
 #include <pstade/minimal_test.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/egg/function.hpp>

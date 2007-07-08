@@ -25,9 +25,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/not.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 
 
@@ -38,7 +37,7 @@ namespace dropped_while_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             iter_range_of<Range>::type const
@@ -62,8 +61,7 @@ namespace dropped_while_detail {
 } // namespace dropped_while_detail
 
 
-PSTADE_FUNCTION(make_dropped_while, (dropped_while_detail::baby<_>))
-PSTADE_PIPABLE(dropped_while, (op_make_dropped_while))
+PSTADE_OVEN_BASE_TO_ADAPTOR(dropped_while, (dropped_while_detail::base<_>))
 
 
 } } // namespace pstade::oven

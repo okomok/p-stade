@@ -36,7 +36,7 @@ void pstade_minimal_test()
     }
 
     // This has no pitfalls.
-    BOOST_FOREACH (std::string line, text|lines|transformed(op_copy_range<std::string>())) {
+    BOOST_FOREACH (std::string line, text|lines|transformed(xp_copy_range<std::string>())) {
         std::cout << line << std::endl;
     }
 

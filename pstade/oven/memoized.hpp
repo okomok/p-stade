@@ -17,10 +17,8 @@
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/any_movable.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/memoize_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -43,76 +41,80 @@ private:
 };
 
 
-struct op_make_memoized :
-    callable<op_make_memoized>
-{
-    template< class Myself, class Range, class MemoTable = void >
-    struct apply
-    {
-        typedef
-            detail::memoize_iterator<
-                typename range_iterator<Range>::type,
-                boost::mpl::true_
-            >
-        iter_t;
+namespace memoized_detail {
 
-        typedef
-            iter_range<iter_t> const
-        type;
+
+    struct baby
+    {
+        template< class Myself, class Range, class MemoTable = void >
+        struct apply
+        {
+            typedef
+                detail::memoize_iterator<
+                    typename range_iterator<Range>::type,
+                    boost::mpl::true_
+                >
+            iter_t;
+
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range >
+        Result call(Range& rng, memo_table& tb) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
+            typedef typename Result::iterator iter_t;
+            typedef typename iter_t::memo_type memo_t;
+
+            // They live outside of recursive cycles.
+            std::auto_ptr<memo_t>
+                pfirstData( new memo_t(boost::begin(rng)) ),
+                plastData ( new memo_t(boost::end(rng))   );
+
+            Result ret(iter_t(pfirstData.get()), iter_t(plastData.get()));
+            tb.detail_reset(pfirstData, plastData);
+            return ret;
+        }
+
+        template< class Myself, class Range >
+        struct apply<Myself, Range>
+        {
+            typedef
+                detail::memoize_iterator<
+                    typename range_iterator<Range>::type,
+                    boost::mpl::false_
+                >
+            iter_t;
+
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
+            typedef typename Result::iterator iter_t;
+            typedef typename iter_t::memo_type memo_t;
+
+            boost::shared_ptr<memo_t>
+                pfirstData( new memo_t(boost::begin(rng)) ),
+                plastData ( new memo_t(boost::end(rng))   );
+
+            return Result(iter_t(pfirstData), iter_t(plastData));
+        }
     };
 
-    template< class Result, class Range >
-    Result call(Range& rng, memo_table& tb) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
-        typedef typename Result::iterator iter_t;
-        typedef typename iter_t::memo_type memo_t;
-
-        // They live outside of recursive cycles.
-        std::auto_ptr<memo_t>
-            pfirstData( new memo_t(boost::begin(rng)) ),
-            plastData ( new memo_t(boost::end(rng))   );
-
-        Result ret(iter_t(pfirstData.get()), iter_t(plastData.get()));
-        tb.detail_reset(pfirstData, plastData);
-        return ret;
-    }
-
-    template< class Myself, class Range >
-    struct apply<Myself, Range>
-    {
-        typedef
-            detail::memoize_iterator<
-                typename range_iterator<Range>::type,
-                boost::mpl::false_
-            >
-        iter_t;
-
-        typedef
-            iter_range<iter_t> const
-        type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
-        typedef typename Result::iterator iter_t;
-        typedef typename iter_t::memo_type memo_t;
-
-        boost::shared_ptr<memo_t>
-            pfirstData( new memo_t(boost::begin(rng)) ),
-            plastData ( new memo_t(boost::end(rng))   );
-
-        return Result(iter_t(pfirstData), iter_t(plastData));
-    }
-};
+} // namespace memoized_detail
 
 
-PSTADE_CONSTANT(make_memoized, (op_make_memoized))
-PSTADE_PIPABLE(memoized, (op_make_memoized))
+PSTADE_OVEN_BABY_TO_ADAPTOR(memoized, (memoized_detail::baby))
 
 
 } } // namespace pstade::oven

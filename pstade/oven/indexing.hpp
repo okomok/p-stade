@@ -11,10 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./counting.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./transformed.hpp"
 
 
@@ -25,32 +24,45 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct op_indexing :
-    callable< op_indexing<Reference, Value> >
+struct tp_indexing
 {
-    template< class Myself, class Incrementable1, class Incrementable2, class UnaryFun >
-    struct apply :
-        result_of<
-            op_make_transformed<Reference, Value>(
-                typename result_of<op_counting<>(Incrementable1&, Incrementable2&)>::type,
-                UnaryFun&
-            )
-        >
-    { };
-
-    template< class Result, class Incrementable1, class Incrementable2, class UnaryFun >
-    Result call(Incrementable1& i, Incrementable2& j, UnaryFun& fun) const
+    struct baby
     {
-        return
-            op_make_transformed<Reference, Value>()(
-                counting(i, j),
-                fun
-            );
-    }
+        template< class Myself, class Incrementable1, class Incrementable2, class UnaryFun >
+        struct apply :
+            result_of<
+                xp_make_transformed<Reference, Value>(
+                    typename result_of<op_counting(Incrementable1&, Incrementable2&)>::type,
+                    UnaryFun&
+                )
+            >
+        { };
+
+        template< class Result, class Incrementable1, class Incrementable2, class UnaryFun >
+        Result call(Incrementable1& i, Incrementable2& j, UnaryFun& fun) const
+        {
+            return
+                xp_make_transformed<Reference, Value>()(
+                    counting(i, j),
+                    fun
+                );
+        }
+    };
+
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_CONSTANT(indexing, (op_indexing<>))
+template<
+    class Reference = boost::use_default,
+    class Value     = boost::use_default
+>
+struct xp_indexing :
+    tp_indexing<Reference, Value>::type
+{ };
+
+
+PSTADE_OVEN_BABY_TO_ADAPTOR(indexing, (tp_indexing<>::baby))
 
 
 } } // namespace pstade::oven

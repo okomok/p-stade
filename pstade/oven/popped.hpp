@@ -23,10 +23,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/begin_end_tag.hpp"
 #include "./detail/pop_iterator_of_forward.hpp"
 #include "./detail/pop_iterator_of_single_pass.hpp"
@@ -42,7 +41,7 @@ namespace popped_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_iterator<Range>::type
@@ -97,8 +96,7 @@ namespace popped_detail {
 } // namespace popped_detail
 
 
-PSTADE_FUNCTION(make_popped, (popped_detail::baby<_>))
-PSTADE_PIPABLE(popped, (op_make_popped))
+PSTADE_OVEN_BASE_TO_ADAPTOR(popped, (popped_detail::base<_>))
 
 
 } } // namespace pstade::oven

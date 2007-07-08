@@ -11,11 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./converted.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./range_iterator.hpp"
 
@@ -27,7 +26,7 @@ namespace constants_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             detail::constant_reference<
@@ -37,14 +36,14 @@ namespace constants_detail {
 
         typedef typename
             result_of<
-                op_make_converted<ref_t>(Range&)
+                xp_make_converted<ref_t>(Range&)
             >::type
         result_type;
 
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return op_make_converted<ref_t>()(rng);
+            return xp_make_converted<ref_t>()(rng);
         }
     };
 
@@ -52,8 +51,7 @@ namespace constants_detail {
 } // namespace constants_detail
 
 
-PSTADE_FUNCTION(make_constants, (constants_detail::baby<_>))
-PSTADE_PIPABLE(constants, (op_make_constants))
+PSTADE_OVEN_BASE_TO_ADAPTOR(constants, (constants_detail::base<_>))
 
 
 } } // namespace pstade::oven

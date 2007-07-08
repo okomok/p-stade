@@ -24,10 +24,10 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/any_movable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/egg/new_auto.hpp>
+#include <pstade/egg/sig_template.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/provide_sig.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/config.hpp"
 #include "./detail/indirect_iterator.hpp"
@@ -131,8 +131,7 @@ namespace initial_ptrs_detail {
 
 
 template< class Value = boost::use_default >
-struct op_initial_ptrs :
-    provide_sig
+struct xp_initial_ptrs
 {
     template< class FunCall >
     struct result;
@@ -150,10 +149,13 @@ struct op_initial_ptrs :
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_INITIAL_PTRS_MAX_ARITY, <pstade/oven/initial_ptrs.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_move_to
+
+    #include PSTADE_EGG_SIG_TEMPLATE()
 };
 
 
-PSTADE_CONSTANT(initial_ptrs, (op_initial_ptrs<>))
+typedef xp_initial_ptrs<> op_initial_ptrs;
+PSTADE_POD_CONSTANT((op_initial_ptrs), initial_ptrs) = {};
 
 
 template< class Value, std::size_t N >

@@ -14,11 +14,10 @@
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/egg/copy.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/specified.hpp>
 #include <pstade/unevaluated.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
@@ -44,7 +43,7 @@ namespace copy_range_detail {
     {
         template< class From >
         static typename result_of<
-            op_make_transformed<>(From&, egg::xp_copy<ValueTo>)
+            op_make_transformed(From&, egg::xp_copy<ValueTo>)
         >::type call(From& from)
         {
             return make_transformed(from, egg::xp_copy<ValueTo>());
@@ -67,7 +66,7 @@ namespace copy_range_detail {
 
 
 template< class To >
-struct op_copy_range
+struct xp_copy_range
 {
     typedef To result_type;
 
@@ -97,7 +96,7 @@ struct op_copy_range
 
 
 PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
-    PSTADE_SPECIFIED1(copy_range, op_copy_range, 1)
+    PSTADE_EGG_SPECIFIED1(copy_range, xp_copy_range, (class))
 }
 
 
@@ -110,7 +109,7 @@ struct Copyable :
     PSTADE_CONCEPT_USAGE(Copyable)
     {
         rng_t& from = unevaluated<rng_t&>();
-        rng_t rng = op_copy_range<rng_t>()(make_identities(from)); 
+        rng_t rng = xp_copy_range<rng_t>()(make_identities(from)); 
     }
 };
 

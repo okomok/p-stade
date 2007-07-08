@@ -70,8 +70,8 @@ namespace pstade { namespace gravy {
     } // namespace size_initialize_detail
 
 
-    PSTADE_POD_CONSTANT((egg::result_of_auxiliary0<size_initialize_detail::op>::type), size_initialize)
-        = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    typedef egg::result_of_auxiliary0<size_initialize_detail::op>::type op_size_initialize;
+    PSTADE_POD_CONSTANT((op_size_initialize), size_initialize) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } } // namespace pstade::gravy

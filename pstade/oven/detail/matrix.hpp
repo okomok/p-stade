@@ -79,8 +79,8 @@ namespace rows_detail {
 
         typedef typename
             result_of<
-                op_make_transformed<>(
-                    typename result_of<op_counting<>(int, diff_t&)>::type,
+                op_make_transformed(
+                    typename result_of<op_counting(int, diff_t&)>::type,
                     to_row<Range, diff_t>
                 )
             >::type
@@ -149,8 +149,8 @@ namespace columns_detail {
 
         typedef typename
             result_of<
-                op_make_transformed<>(
-                    typename result_of<op_counting<>(int, diff_t&)>::type,
+                op_make_transformed(
+                    typename result_of<op_counting(int, diff_t&)>::type,
                     to_column<Range, diff_t>
                 )
             >::type
@@ -226,8 +226,8 @@ namespace matrix3_detail {
 
         typedef typename
             result_of<
-                op_make_transformed<>(
-                typename result_of<op_counting<>(int, diff_t&)>::type,
+                op_make_transformed(
+                typename result_of<op_counting(int, diff_t&)>::type,
                     to_rows<Range, diff_t>
                 )
             >::type

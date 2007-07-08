@@ -37,12 +37,13 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <pstade/automatic.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/specified.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -50,7 +51,7 @@ namespace pstade { namespace oven {
 
 
 template< class Base >
-struct op_adapted_to
+struct xp_adapted_to
 {
     typedef Base result_type;
 
@@ -85,36 +86,62 @@ struct op_adapted_to
     }
 };
 
-PSTADE_SPECIFIED1(adapted_to, op_adapted_to, 1)
-PSTADE_AUXILIARY(0, to_base, (automatic< op_adapted_to<_> >))
+
+PSTADE_EGG_SPECIFIED1(adapted_to, xp_adapted_to, (class))
+
+
+namespace to_base_detail {
+    typedef egg::automatic< xp_adapted_to<boost::mpl::_> >::type op;
+}
+
+typedef egg::result_of_auxiliary0<to_base_detail::op>::type op_to_base;
+PSTADE_POD_CONSTANT((op_to_base), to_base) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
 
 
 // range version
 //
 
 template< class Base >
-struct op_adapted_range_to :
-    callable< op_adapted_range_to<Base> >
+struct tp_adapted_range_to
 {
-    template< class Myself, class Adapted >
-    struct apply
+    struct baby
     {
-        typedef Base type;
+        template< class Myself, class Adapted >
+        struct apply
+        {
+            typedef Base type;
+        };
+
+        template< class Result, class Adapted >
+        Result call(Adapted& ad) const
+        {
+            typedef typename range_iterator<Result>::type iter_t;
+            return Result(
+                xp_adapted_to<iter_t>()(boost::begin(ad)),
+                xp_adapted_to<iter_t>()(boost::end(ad))
+            );
+        }
     };
 
-    template< class Result, class Adapted >
-    Result call(Adapted& ad) const
-    {
-        typedef typename range_iterator<Result>::type iter_t;
-        return Result(
-            op_adapted_to<iter_t>()(boost::begin(ad)),
-            op_adapted_to<iter_t>()(boost::end(ad))
-        );
-    }
+    typedef egg::function<baby> type;
 };
 
-PSTADE_SPECIFIED1(adapted_range_to, op_adapted_range_to, 1)
-PSTADE_AUXILIARY(0, to_base_range, (automatic< op_adapted_range_to<_> >))
+
+template< class Base >
+struct xp_adapted_range_to :
+    tp_adapted_range_to<Base>::type
+{ };
+
+
+PSTADE_EGG_SPECIFIED1(adapted_range_to, xp_adapted_range_to, (class))
+
+
+namespace to_base_range_detail {
+    typedef egg::automatic< xp_adapted_range_to<boost::mpl::_> >::type op;
+}
+
+typedef egg::result_of_auxiliary0<to_base_range_detail::op>::type op_to_base_range;
+PSTADE_POD_CONSTANT((op_to_base_range), to_base_range) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
 
 
 } } // namespace pstade::oven

@@ -13,9 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable_by_value.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function_by_value.hpp>
 #include <pstade/egg/to_shared_ptr.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./detail/shared_range_iterator.hpp"
@@ -25,41 +25,47 @@
 namespace pstade { namespace oven {
 
 
-struct op_shared :
-    callable_by_value<op_shared>
-{
-    template< class Myself, class Ptr >
-    struct apply
+namespace shared_detail {
+
+
+    struct baby
     {
-        typedef typename
-            result_of<egg::op_to_shared_ptr(Ptr&)>::type
-        sprng_t;
+        template< class Myself, class Ptr >
+        struct apply
+        {
+            typedef typename
+                result_of<egg::op_to_shared_ptr(Ptr&)>::type
+            sprng_t;
 
-        typedef
-            detail::shared_range_iterator<sprng_t>
-        iter_t;
+            typedef
+                detail::shared_range_iterator<sprng_t>
+            iter_t;
 
-        typedef
-            iter_range<iter_t> const
-        type;
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Ptr >
+        Result call(Ptr prng) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
+
+            typedef typename Result::iterator iter_t;
+            typename result_of<egg::op_to_shared_ptr(Ptr&)>::type sprng = egg::to_shared_ptr(prng);
+            return Result(
+                iter_t(boost::begin(*sprng), sprng),
+                iter_t(boost::end(*sprng),   sprng)
+            );
+        }
     };
 
-    template< class Result, class Ptr >
-    Result call(Ptr prng) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
-        typedef typename Result::iterator iter_t;
-        typename result_of<egg::op_to_shared_ptr(Ptr&)>::type sprng = egg::to_shared_ptr(prng);
-        return Result(
-            iter_t(boost::begin(*sprng), sprng),
-            iter_t(boost::end(*sprng),   sprng)
-        );
-    }
-};
+} // namespace shared_detail
 
 
-PSTADE_CONSTANT(shared, (op_shared))
+typedef egg::function_by_value<shared_detail::baby> op_shared;
+PSTADE_POD_CONSTANT((op_shared), shared) = {{}};
 
 
 } } // namespace pstade::oven

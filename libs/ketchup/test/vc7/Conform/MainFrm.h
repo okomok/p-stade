@@ -7,6 +7,9 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/ketchup.hpp>
 
+namespace egg = pstade::egg;
+
+
 template< class D >
 struct CMainFrameCommand1 :
 	pstade::ketchup::message_processor< CMainFrameCommand1<D> >

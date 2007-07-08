@@ -23,7 +23,7 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
-pstade::result_of<op_shared_values<>(int, int, int, int, int, int, int, int, int, int)>::type
+pstade::result_of<op_shared_values(int, int, int, int, int, int, int, int, int, int)>::type
 make_values()
 {
     return shared_values(0,1,2,3,4,5,6,7,8,9);

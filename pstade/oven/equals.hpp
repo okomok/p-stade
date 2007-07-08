@@ -30,8 +30,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/egg/equal_to.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./range_traversal.hpp"
@@ -108,7 +108,7 @@ struct op_equals
 
 
 PSTADE_ADL_BARRIER(equals) { // for 'boost'
-    PSTADE_CONSTANT(equals, (op_equals))
+    PSTADE_POD_CONSTANT((op_equals), equals) = {};
 }
 
 

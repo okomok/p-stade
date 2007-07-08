@@ -33,10 +33,10 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/sig_template.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/provide_sig.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./copy_range.hpp"
@@ -114,8 +114,7 @@ namespace initial_values_detail {
 
 
 template< class Value = boost::use_default >
-struct op_initial_values :
-    provide_sig
+struct xp_initial_values
 {
     template< class FunCall >
     struct result;
@@ -128,10 +127,13 @@ struct op_initial_values :
     // 1ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_INITIAL_VALUES_MAX_ARITY, <pstade/oven/initial_values.hpp>))
     #include BOOST_PP_ITERATE()
+
+    #include PSTADE_EGG_SIG_TEMPLATE()
 };
 
 
-PSTADE_CONSTANT(initial_values, (op_initial_values<>))
+typedef xp_initial_values<> op_initial_values;
+PSTADE_POD_CONSTANT((op_initial_values), initial_values) = {};
 
 
 template< class Value, std::size_t N >

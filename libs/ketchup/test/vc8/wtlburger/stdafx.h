@@ -30,3 +30,5 @@
 
 #include <pstade/ketchup.hpp>
 #include <pstade/lime.hpp>
+
+#include <pstade/gravy/auto_link.hpp>

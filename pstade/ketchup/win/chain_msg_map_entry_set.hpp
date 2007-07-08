@@ -13,7 +13,7 @@
 #include <boost/mpl/integral_c.hpp>
 #include <boost/type.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
-#include <pstade/gravy/boolean_cast.hpp>
+#include <pstade/gravy/booleanize.hpp>
 #include <pstade/unused.hpp>
 #include "../core/access.hpp"
 
@@ -67,7 +67,7 @@ struct chain_msg_map_entry_set
         {
             pstade::unused(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
 
-            return F_ChainClass()(derived).ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID)|gravy::to_boolean;
+            return F_ChainClass()(derived).ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID)|gravy::booleanize();
         }
     };
 

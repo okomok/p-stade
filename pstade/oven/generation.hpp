@@ -12,9 +12,10 @@
 
 
 #include <boost/optional/optional.hpp>
-#include <pstade/function.hpp>
-#include <pstade/object_generator.hpp>
+#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/generator.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/begin_end_tag.hpp"
 #include "./detail/generator_iterator.hpp"
@@ -28,7 +29,7 @@ namespace generation_detail {
 
 
     template< class StoppableGenerator >
-    struct baby
+    struct base
     {
         typedef
             detail::generator_iterator<
@@ -53,7 +54,8 @@ namespace generation_detail {
 } // namespace generation_detail
 
 
-PSTADE_FUNCTION(generation, (generation_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((generation_detail::base<boost::mpl::_1>)) op_generation;
+PSTADE_POD_CONSTANT((op_generation), generation) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 namespace nonstop_detail {
@@ -88,8 +90,13 @@ namespace nonstop_detail {
 } // namespace nonstop_detail
 
 
-PSTADE_OBJECT_GENERATOR(nonstop,
-    (nonstop_detail::return_op< deduce<_1, as_value> >))
+typedef
+    egg::generator<
+        nonstop_detail::return_op< egg::deduce<boost::mpl::_1, egg::as_value> >
+    >::type
+op_nonstop;
+
+PSTADE_POD_CONSTANT((op_nonstop), nonstop) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::oven

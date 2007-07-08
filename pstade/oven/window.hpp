@@ -13,10 +13,9 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./advance_from.hpp"
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
@@ -31,7 +30,7 @@ namespace window_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
@@ -63,8 +62,7 @@ namespace window_detail {
 } // namespace window_detail
 
 
-PSTADE_FUNCTION(make_window, (window_detail::baby<_>))
-PSTADE_PIPABLE(window, (op_make_window))
+PSTADE_OVEN_BASE_TO_ADAPTOR(window, (window_detail::base<_>))
 
 
 } } // namespace pstade::oven

@@ -11,9 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_adaptor.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/mb_from_wchar.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -24,8 +22,9 @@ namespace pstade { namespace oven {
 
 namespace mb_encoded_detail {
 
+
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             detail::mb_from_wchar<
@@ -47,8 +46,7 @@ namespace mb_encoded_detail {
 } // namespace mb_encoded_detail
 
 
-PSTADE_FUNCTION(make_mb_encoded, (mb_encoded_detail::baby<_>))
-PSTADE_PIPABLE(mb_encoded, (op_make_mb_encoded))
+PSTADE_OVEN_BASE_TO_ADAPTOR(mb_encoded, (mb_encoded_detail::base<_>))
 
 
 } } // namespace pstade::oven

@@ -20,3 +20,5 @@ extern CAppModule _Module;
 
 #include <pstade/tomato/wtl/app.hpp>
 #include <pstade/tomato/atl/win.hpp>
+
+#include <pstade/gravy/auto_link.hpp>

@@ -12,8 +12,7 @@
 
 
 #include <boost/algorithm/string/find_iterator.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -25,7 +24,7 @@ namespace string_found_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             boost::algorithm::find_iterator<
@@ -48,8 +47,7 @@ namespace string_found_detail {
 } // namespace string_found_detail
 
 
-PSTADE_FUNCTION(make_string_found, (string_found_detail::baby<_>))
-PSTADE_PIPABLE(string_found, (op_make_string_found))
+PSTADE_OVEN_BASE_TO_ADAPTOR(string_found, (string_found_detail::base<_>))
 
 
 } } // namespace pstade::oven

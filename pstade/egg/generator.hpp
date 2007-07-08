@@ -11,6 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
+#include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <pstade/pass_by.hpp>
 #include "./detail/baby_generator.hpp"
 #include "./function.hpp"
 
@@ -34,6 +41,46 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_GENERATOR_INITIALIZER() \
         { {} } \
     /**/
+
+
+    struct generator_error_argument_required;
+
+
+    template<
+        class A, class Deducer,
+        class Default = generator_error_argument_required
+    >
+    struct deduce :
+        boost::mpl::eval_if< boost::is_same<A, void>,
+            boost::mpl::identity<Default>,
+            boost::mpl::apply1<Deducer, A>
+        >
+    { };
+
+
+    struct as_value
+    {
+        template<class A>
+        struct apply :
+            pass_by_value<A>
+        { };
+    };
+
+    struct as_reference
+    {
+        template<class A>
+        struct apply :
+            boost::add_reference<A>
+        { };
+    };
+
+    struct as_qualified
+    {
+        template<class A>
+        struct apply :
+            boost::mpl::identity<A>
+        { };
+    };
 
 
 } } // namespace pstade::egg

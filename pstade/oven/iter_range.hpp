@@ -28,13 +28,13 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/do_swap.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include "./concepts.hpp"
@@ -226,45 +226,51 @@ struct iter_range_of
 };
 
 
-struct op_make_iter_range :
-    callable<op_make_iter_range>
-{
-    template< class Myself, class Iterator, class Iterator_ = void >
-    struct apply
-    {
-        typedef typename
-            pass_by_value<Iterator>::type
-        iter_t;
+namespace make_iter_range_detail {
 
-        typedef
-            iter_range<iter_t> const
-        type;
+
+    struct baby
+    {
+        template< class Myself, class Iterator, class Iterator_ = void >
+        struct apply
+        {
+            typedef typename
+                pass_by_value<Iterator>::type
+            iter_t;
+
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        // Two iterators may have different cv-qualifier.
+        template< class Result, class Iterator, class Iterator_ >
+        Result call(Iterator& first, Iterator_& last) const
+        {
+            return Result(first, last);
+        }
+
+        template< class Myself, class Range >
+        struct apply<Myself, Range>
+        {
+            typedef typename
+                iter_range_of<Range>::type const
+            type;
+        };
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            return Result(rng);
+        }
     };
 
-    // Two iterators may have different cv-qualifier.
-    template< class Result, class Iterator, class Iterator_ >
-    Result call(Iterator& first, Iterator_& last) const
-    {
-        return Result(first, last);
-    }
 
-    template< class Myself, class Range >
-    struct apply<Myself, Range>
-    {
-        typedef typename
-            iter_range_of<Range>::type const
-        type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
+} // namespace make_iter_range_detail
 
 
-PSTADE_CONSTANT(make_iter_range, (op_make_iter_range))
+typedef egg::function<make_iter_range_detail::baby> op_make_iter_range;
+PSTADE_POD_CONSTANT((op_make_iter_range), make_iter_range) = {{}};
 
 
 } } // namespace pstade::oven

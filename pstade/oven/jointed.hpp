@@ -13,9 +13,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/joint_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -28,7 +27,7 @@ namespace jointed_detail {
 
 
     template< class RangeL, class RangeR >
-    struct baby
+    struct base
     {
         typedef
             detail::joint_iterator<
@@ -59,8 +58,7 @@ namespace jointed_detail {
 } // namespace jointed_detail
 
 
-PSTADE_FUNCTION(make_jointed, (jointed_detail::baby<_, _>))
-PSTADE_PIPABLE(jointed, (op_make_jointed))
+PSTADE_OVEN_BASE_TO_ADAPTOR(jointed, (jointed_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

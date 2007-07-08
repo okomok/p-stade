@@ -13,9 +13,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/default_newline.hpp"
 #include "./detail/default_space.hpp"
 #include "./detail/default_tab.hpp"
@@ -33,7 +32,7 @@ namespace tab_expanded_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_value<Range>::type
@@ -70,8 +69,7 @@ namespace tab_expanded_detail {
 } // namespace tab_expanded_detail
 
 
-PSTADE_FUNCTION(make_tab_expanded, (tab_expanded_detail::baby<_>))
-PSTADE_PIPABLE(tab_expanded, (op_make_tab_expanded))
+PSTADE_OVEN_BASE_TO_ADAPTOR(tab_expanded, (tab_expanded_detail::base<_>))
 
 
 } } // namespace pstade::oven

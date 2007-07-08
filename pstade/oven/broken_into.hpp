@@ -14,11 +14,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/token_iterator.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/specified.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -28,42 +28,52 @@ namespace pstade { namespace oven {
 
 
 template< class Type >
-struct op_make_broken_into :
-    callable< op_make_broken_into<Type> >
+struct tp_make_broken_into
 {
-    template< class Myself, class Range, class TokenizerFun >
-    struct apply
+    struct baby
     {
-        typedef
-            boost::token_iterator<
-                typename pass_by_value<TokenizerFun>::type,
-                typename range_iterator<Range>::type,
-                Type
-            >
-        iter_t;
+        template< class Myself, class Range, class TokenizerFun >
+        struct apply
+        {
+            typedef
+                boost::token_iterator<
+                    typename pass_by_value<TokenizerFun>::type,
+                    typename range_iterator<Range>::type,
+                    Type
+                >
+            iter_t;
 
-        typedef
-            iter_range<iter_t> const
-        type;
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range, class TokenizerFun >
+        Result call(Range& rng, TokenizerFun& fun) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return aux<Result>(boost::begin(rng), boost::end(rng), fun);
+        }
+
+        template< class Result, class Iterator, class TokenizerFun >
+        Result aux(Iterator first, Iterator last, TokenizerFun& fun) const
+        {
+            typedef typename Result::iterator iter_t;
+            return Result(iter_t(fun, first, last), iter_t(fun, last, last));
+        }
     };
 
-    template< class Result, class Range, class TokenizerFun >
-    Result call(Range& rng, TokenizerFun& fun) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return aux<Result>(boost::begin(rng), boost::end(rng), fun);
-    }
-
-    template< class Result, class Iterator, class TokenizerFun >
-    Result aux(Iterator first, Iterator last, TokenizerFun& fun) const
-    {
-        typedef typename Result::iterator iter_t;
-        return Result(iter_t(fun, first, last), iter_t(fun, last, last));
-    }
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_SPECIFIED1(make_broken_into, op_make_broken_into, 1)
+template< class Type >
+struct xp_make_broken_into :
+    tp_make_broken_into<Type>::type
+{ };
+
+
+PSTADE_EGG_SPECIFIED1(make_broken_into, xp_make_broken_into, (class))
 
 
 namespace broken_into_detail_ {
@@ -84,17 +94,17 @@ namespace broken_into_detail_ {
 
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename result_of<op_make_broken_into<Type>(Range&, TokenizerFun&)>::type
+    typename result_of<xp_make_broken_into<Type>(Range&, TokenizerFun&)>::type
     operator|(Range& rng, pipe<Type, TokenizerFun> pi)
     {
-        return op_make_broken_into<Type>()(rng, pi.m_fun);
+        return xp_make_broken_into<Type>()(rng, pi.m_fun);
     }
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename result_of<op_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun&)>::type
+    typename result_of<xp_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun&)>::type
     operator|(Range const& rng, pipe<Type, TokenizerFun> pi)
     {
-        return op_make_broken_into<Type>()(rng, pi.m_fun);
+        return xp_make_broken_into<Type>()(rng, pi.m_fun);
     }
 
 

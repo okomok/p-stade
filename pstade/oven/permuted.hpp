@@ -13,9 +13,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/permutation_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -28,7 +27,7 @@ namespace permuted_detail {
 
 
     template< class ElementRange, class IndexRange >
-    struct baby
+    struct base
     {
         typedef
             detail::permutation_iterator<
@@ -59,8 +58,7 @@ namespace permuted_detail {
 } // namespace permuted_detail
 
 
-PSTADE_FUNCTION(make_permuted, (permuted_detail::baby<_, _>))
-PSTADE_PIPABLE(permuted, (op_make_permuted))
+PSTADE_OVEN_BASE_TO_ADAPTOR(permuted, (permuted_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

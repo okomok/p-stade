@@ -11,17 +11,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include <boost/mpl/int.hpp>
+#include "./detail/baby_to_adaptor.hpp"
 #include "./elements.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-typedef op_make_elements_c<1> op_make_map_values;
-PSTADE_CONSTANT(make_map_values, (op_make_map_values))
-PSTADE_PIPABLE(map_values, (op_make_map_values))
+PSTADE_OVEN_BABY_TO_ADAPTOR(map_values, (tp_make_elements< boost::mpl::int_<1> >::baby))
 
 
 } } // namespace pstade::oven

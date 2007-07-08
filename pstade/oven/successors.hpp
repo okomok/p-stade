@@ -13,10 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/succeed_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -29,7 +28,7 @@ namespace successors_detail {
 
 
     template< class Range, class BinaryFun >
-    struct baby
+    struct base
     {
         typedef
             detail::succeed_iterator<
@@ -59,8 +58,7 @@ namespace successors_detail {
 } // namespace successors_detail
 
 
-PSTADE_FUNCTION(make_successors, (successors_detail::baby<_, _>))
-PSTADE_PIPABLE(successors, (op_make_successors))
+PSTADE_OVEN_BASE_TO_ADAPTOR(successors, (successors_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

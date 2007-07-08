@@ -13,10 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/take_while_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -51,7 +50,7 @@ namespace taken_while_detail {
 
 
     template< class Range, class Predicate >
-    struct baby
+    struct base
     {
         typedef
             read_then<typename pass_by_value<Predicate>::type>
@@ -85,8 +84,7 @@ namespace taken_while_detail {
 } // namespace taken_while_detail
 
 
-PSTADE_FUNCTION(make_taken_while, (taken_while_detail::baby<_, _>))
-PSTADE_PIPABLE(taken_while, (op_make_taken_while))
+PSTADE_OVEN_BASE_TO_ADAPTOR(taken_while, (taken_while_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

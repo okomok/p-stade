@@ -21,13 +21,11 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/egg/less.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/merge_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -120,9 +118,14 @@ namespace merged_detail {
     };
 
 
-    template< class MergeRoutine >
-    struct op_make :
-        callable< op_make<MergeRoutine> >
+} // namespace merged_detail
+
+
+
+template< class MergeRoutine = merged_detail::merge_routine >
+struct tp_make_merged
+{
+    struct baby
     {
         template< class Myself, class Range1, class Range2, class Compare = egg::op_less const >
         struct apply
@@ -165,13 +168,17 @@ namespace merged_detail {
         }
     };
 
+    typedef egg::function<baby> type;
+};
 
-} // namespace merged_detail
+
+template< class MergeRoutine = merged_detail::merge_routine >
+struct xp_make_merged :
+    tp_make_merged<MergeRoutine>::type
+{ };
 
 
-typedef merged_detail::op_make<merged_detail::merge_routine> op_make_merged;
-PSTADE_CONSTANT(make_merged, (op_make_merged))
-PSTADE_PIPABLE(merged, (op_make_merged))
+PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (tp_make_merged<>::baby))
 
 
 } } // namespace pstade::oven

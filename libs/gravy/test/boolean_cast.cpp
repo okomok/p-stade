@@ -18,7 +18,7 @@
 
 void test_boolean_cast()
 {
-    using namespace pstade::gravy;
+    using pstade::gravy::boolean_cast;
 
     // to bool
     BOOST_CHECK( boolean_cast<bool>(true) == true );
@@ -54,149 +54,6 @@ void test_boolean_cast()
 }
 
 
-void test_boolean()
-{
-    using namespace pstade;
-
-#if 0 // rejected
-    {
-        bool t, f;
-        t = gravy::boolean(true);
-        f = gravy::boolean(false);
-        BOOST_CHECK( t == true );
-        BOOST_CHECK( f == false );
-        t = gravy::boolean(TRUE);
-        f = gravy::boolean(FALSE);
-        BOOST_CHECK( t == true );
-        BOOST_CHECK( f == false );
-        t = gravy::boolean(VARIANT_TRUE);
-        f = gravy::boolean(VARIANT_FALSE);
-        BOOST_CHECK( t == true );
-        BOOST_CHECK( f == false );
-    }
-
-    {
-        BOOL t, f;
-        t = gravy::boolean(true);
-        f = gravy::boolean(false);
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = gravy::boolean(TRUE);
-        f = gravy::boolean(FALSE);
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = gravy::boolean(VARIANT_TRUE);
-        f = gravy::boolean(VARIANT_FALSE);
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-    }
-
-    {
-        VARIANT_BOOL t, f;
-        t = gravy::boolean(true);
-        f = gravy::boolean(false);
-        BOOST_CHECK( t == VARIANT_TRUE );
-        BOOST_CHECK( f == VARIANT_FALSE );
-        t = gravy::boolean(TRUE);
-        f = gravy::boolean(FALSE);
-        BOOST_CHECK( t == VARIANT_TRUE );
-        BOOST_CHECK( f == VARIANT_FALSE );
-        t = gravy::boolean(VARIANT_TRUE);
-        f = gravy::boolean(VARIANT_FALSE);
-        BOOST_CHECK( t == VARIANT_TRUE );
-        BOOST_CHECK( f == VARIANT_FALSE );
-    }
-
-    {
-        BOOLEAN t, f;
-        t = gravy::boolean(true);
-        f = gravy::boolean(false);
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = gravy::boolean(TRUE);
-        f = gravy::boolean(FALSE);
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = gravy::boolean(VARIANT_TRUE);
-        f = gravy::boolean(VARIANT_FALSE);
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-    }
-#endif
-}
-
-
-void test_booleanized()
-{
-    using namespace pstade;
-    using namespace gravy;
-
-    {
-        bool t, f;
-        t = true|to_boolean;
-        f = false|to_boolean;
-        BOOST_CHECK( t == true );
-        BOOST_CHECK( f == false );
-        t = TRUE|to_boolean;
-        f = FALSE|to_boolean;
-        BOOST_CHECK( t == true );
-        BOOST_CHECK( f == false );
-        t = VARIANT_TRUE|to_boolean;
-        f = VARIANT_FALSE|to_boolean;
-        BOOST_CHECK( t == true );
-        BOOST_CHECK( f == false );
-    }
-
-    {
-        BOOL t, f;
-        t = true|to_boolean;
-        f = false|to_boolean;
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = TRUE|to_boolean;
-        f = FALSE|to_boolean;
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = VARIANT_TRUE|to_boolean;
-        f = VARIANT_FALSE|to_boolean;
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-    }
-
-    {
-        VARIANT_BOOL t, f;
-        t = true|to_boolean;
-        f = false|to_boolean;
-        BOOST_CHECK( t == VARIANT_TRUE );
-        BOOST_CHECK( f == VARIANT_FALSE );
-        t = TRUE|to_boolean;
-        f = FALSE|to_boolean;
-        BOOST_CHECK( t == VARIANT_TRUE );
-        BOOST_CHECK( f == VARIANT_FALSE );
-        t = VARIANT_TRUE|to_boolean;
-        f = VARIANT_FALSE|to_boolean;
-        BOOST_CHECK( t == VARIANT_TRUE );
-        BOOST_CHECK( f == VARIANT_FALSE );
-    }
-
-    {
-        BOOLEAN t, f;
-        t = true|to_boolean;
-        f = false|to_boolean;
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = TRUE|to_boolean;
-        f = FALSE|to_boolean;
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-        t = VARIANT_TRUE|to_boolean;
-        f = VARIANT_FALSE|to_boolean;
-        BOOST_CHECK( t == TRUE );
-        BOOST_CHECK( f == FALSE );
-    }
-}
-
-
 void test_compare()
 {
 #if 0
@@ -208,7 +65,7 @@ void test_compare()
 
     bool t1 = gravy::boolean_cast<bool>(b); // faster than 't0' code.
     bool t2 = gravy::boolean(b); // has function call.
-    bool t3 = b|to_boolean; // nearly same as above.
+    bool t3 = b|booleanize(); // nearly same as above.
 
     std::cout << t0 << t1 << t2 << t3;
 #endif
@@ -218,7 +75,5 @@ void test_compare()
 void pstade_minimal_test()
 {
     ::test_boolean_cast();
-    ::test_boolean();
-    ::test_booleanized();
     ::test_compare();
 }

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/gravy/boolean_cast.hpp>
+#include <pstade/gravy/booleanize.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/nonconstructible.hpp>
 
@@ -25,13 +25,13 @@ namespace pstade { namespace tomato {
         template< class T > static
         BOOL detail_on_idle(T& x)
         {
-            return x.on_idle()|gravy::to_boolean;
+            return x.on_idle()|gravy::booleanize();
         }
 
         template< class T > static
         BOOL detail_pre_translate_message(T& x, MSG *pMsg)
         {
-            return x.pre_translate_message(*pMsg)|gravy::to_boolean;
+            return x.pre_translate_message(*pMsg)|gravy::booleanize();
         }
     };
 

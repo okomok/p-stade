@@ -15,7 +15,6 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./deduce.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
 

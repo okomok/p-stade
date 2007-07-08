@@ -586,17 +586,16 @@ PSTADE_OVEN_EXTENSION_OF_TYPE((ATL)(CComBSTR))
 //
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/tomato/atl/comcli_fwd.hpp> // CAdapt
 
 
 namespace pstade { namespace oven {
 
 
-    struct op_make_CAdapt :
-        callable<op_make_CAdapt>
+    struct baby_make_CAdapt
     {
         template< class Myself, class T >
         struct apply
@@ -611,7 +610,8 @@ namespace pstade { namespace oven {
         }
     };
 
-    PSTADE_CONSTANT(make_CAdapt, (op_make_CAdapt))
+    typedef egg::function<baby_make_CAdapt> op_make_CAdapt;
+    PSTADE_POD_CONSTANT((op_make_CAdapt), make_CAdapt) = {{}};
 
 
 } } // namespae pstade::oven

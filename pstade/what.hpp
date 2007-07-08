@@ -13,9 +13,9 @@
 
 #include <string>
 #include <boost/lexical_cast.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade {
@@ -47,7 +47,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(what, (op_what))
+    PSTADE_POD_CONSTANT((op_what), what) = {};
 
 
 } // namespace pstade

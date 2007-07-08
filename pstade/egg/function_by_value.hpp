@@ -26,8 +26,8 @@
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/nullary_result.hpp"
-#include "./detail/sig_template.hpp"
 #include "./nullary_result_of.hpp"
+#include "./sig_template.hpp"
 
 
 namespace pstade { namespace egg {

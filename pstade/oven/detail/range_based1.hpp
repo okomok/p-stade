@@ -24,9 +24,13 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/egg/sig_template.hpp>
 #include <pstade/egg/to_ref.hpp>
-#include <pstade/object_generator.hpp>
+#include <pstade/egg/use_brace_level1.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../range_iterator.hpp"
@@ -36,10 +40,18 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class IterBased >
-struct range_based1_return_op :
-    callable< range_based1_return_op<IterBased> >
+struct baby_range_based1_result
 {
-    template< class Myself, class Range0, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_CALLABLE_MAX_ARITY, class A, = void) >
+    IterBased m_base;
+
+    typedef IterBased base_type;
+
+    IterBased base() const
+    {
+        return m_base;
+    }
+
+    template< class Myself, class Range0, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_ARITY, class A, = void) >
     struct apply
     { }; // complete for SFINAE.
 
@@ -57,38 +69,43 @@ struct range_based1_return_op :
     template< class Result, class Range0 >
     Result call(Range0& rng0) const
     {
-        return m_fun(
+        return m_base(
             egg::to_cref(boost::begin(rng0)),
             egg::to_cref(boost::end(rng0))
         );
     }
 
     // rng0 + 1ary-
-#define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
+#define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/oven/detail/range_based1.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_max_arity
 
-    explicit range_based1_return_op()
-    { }
-
-    explicit range_based1_return_op(IterBased fun) :
-        m_fun(fun)
-    { }
-
-    typedef IterBased base_type;
-
-    IterBased base() const
-    {
-        return m_fun;
-    }
-
-private:
-    IterBased m_fun;
+    #include PSTADE_EGG_SIG_TEMPLATE()
 };
 
 
-PSTADE_OBJECT_GENERATOR(range_based1, (range_based1_return_op< deduce<_1, as_value> >))
+template< class IterBased >
+struct result_of_range_based1
+{
+    typedef egg::function< baby_range_based1_result<IterBased> > type;
+};
+
+
+#define PSTADE_OVEN_RANGE_BASED1_RESULT_INITIALIZER(B) \
+    { { B() } } \
+/**/
+
+
+typedef
+    egg::generator<
+        result_of_range_based1< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
+        boost::use_default,
+        egg::use_brace_level1
+    >::type
+op_range_based1;
+
+PSTADE_POD_CONSTANT((op_range_based1), range_based1) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } } // namespace pstade::oven::detail
@@ -99,26 +116,26 @@ PSTADE_OBJECT_GENERATOR(range_based1, (range_based1_return_op< deduce<_1, as_val
 #define n BOOST_PP_ITERATION()
 
 
-template< class Myself, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct apply<Myself, Range0, BOOST_PP_ENUM_PARAMS(n, A)> :
-    result_of<
-        IterBased const(
-            typename range_iterator<Range0>::type const&,
-            typename range_iterator<Range0>::type const&,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
-        )
-    >
-{ };
+    template< class Myself, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct apply<Myself, Range0, BOOST_PP_ENUM_PARAMS(n, A)> :
+        result_of<
+            IterBased const(
+                typename range_iterator<Range0>::type const&,
+                typename range_iterator<Range0>::type const&,
+                PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
+            )
+        >
+    { };
 
-template< class Result, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call(Range0& rng0, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-{
-    return m_fun(
-        egg::to_cref(boost::begin(rng0)),
-        egg::to_cref(boost::end(rng0)),
-        BOOST_PP_ENUM_PARAMS(n, a)
-    );
-}
+    template< class Result, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
+    Result call(Range0& rng0, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    {
+        return m_base(
+            egg::to_cref(boost::begin(rng0)),
+            egg::to_cref(boost::end(rng0)),
+            BOOST_PP_ENUM_PARAMS(n, a)
+        );
+    }
 
 
 #undef n

@@ -12,14 +12,21 @@
 
 
 #include <boost/regex/pending/unicode_iterator.hpp> // utf8_output_iterator
-#include <pstade/object_generator.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/egg/pod_constant.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-PSTADE_OBJECT_GENERATOR(utf8_encoder,
-    (boost::utf8_output_iterator< deduce<_1, as_value> >) const)
+typedef
+    egg::generator<
+        boost::utf8_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> > const
+    >::type
+op_utf8_encoder;
+
+
+PSTADE_POD_CONSTANT((op_utf8_encoder), utf8_encoder) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::oven

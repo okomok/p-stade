@@ -18,7 +18,8 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/function.hpp>
+#include <pstade/egg/adapt.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./iter_range.hpp"
 
 
@@ -29,7 +30,7 @@ namespace single_detail {
 
 
     template< class X >
-    struct baby
+    struct base
     {
         typedef
             iter_range<X *> const
@@ -45,7 +46,8 @@ namespace single_detail {
 } // namespace single_detail
 
 
-PSTADE_FUNCTION(single, (single_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((single_detail::base<boost::mpl::_1>)) op_single;
+PSTADE_POD_CONSTANT((op_single), single) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::oven

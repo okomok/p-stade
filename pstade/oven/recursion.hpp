@@ -11,7 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/function.hpp>
+#include <pstade/egg/adapt.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./detail/lazy_iterator.hpp"
 #include "./iter_range.hpp"
@@ -24,7 +25,7 @@ namespace recursion_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             detail::lazy_iterator<Range>
@@ -45,7 +46,8 @@ namespace recursion_detail {
 } // recursion_detail
 
 
-PSTADE_FUNCTION(recursion, (recursion_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((recursion_detail::base<boost::mpl::_>)) op_recursion;
+PSTADE_POD_CONSTANT((op_recursion), recursion) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::oven

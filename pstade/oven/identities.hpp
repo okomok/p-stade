@@ -12,14 +12,12 @@
 
 
 #include <boost/mpl/assert.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/identity_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
@@ -31,12 +29,10 @@
 namespace pstade { namespace oven {
 
 
-namespace identities_detail {
-
-
-    template< class Difference = boost::use_default >
-    struct op_make :
-        callable< op_make<Difference> >
+template< class Difference = boost::use_default >
+struct tp_make_identities
+{
+    struct baby
     {
         template< class Myself, class Range, class Traversal = boost::use_default >
         struct apply
@@ -81,13 +77,17 @@ namespace identities_detail {
         }
     };
 
+    typedef egg::function<baby> type;
+};
 
-} // namespace identities_detail
+
+template< class Difference = boost::use_default >
+struct xp_make_identities :
+    tp_make_identities<Difference>::type
+{ };
 
 
-typedef identities_detail::op_make<> op_make_identities;
-PSTADE_CONSTANT(make_identities, (op_make_identities))
-PSTADE_PIPABLE(identities, (op_make_identities))
+PSTADE_OVEN_BABY_TO_ADAPTOR(identities, (tp_make_identities<>::baby))
 
 
 } } // namespace pstade::oven

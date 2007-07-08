@@ -12,9 +12,9 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/result_of.hpp>
-#include "./deferred_sig.hpp"
+#include <boost/preprocessor/facilities/identity.hpp>
+#include <pstade/egg/adapt_sig.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./range_based1.hpp"
 #include "./range_based2.hpp"
 
@@ -24,38 +24,41 @@ namespace pstade { namespace oven { namespace detail {
 
 template< class SigFun >
 struct range_based1_sig_fun :
-    result_of<
-        op_range_based1(
-            typename result_of<op_deferred_sig(SigFun)>::type
-        )
+    result_of_range_based1<
+        typename egg::result_of_adapt_sig<SigFun>::type
     >
 { };
 
 template< class SigFun >
 struct range_based2_sig_fun :
-    result_of<
-        op_range_based2(
-            typename result_of<op_deferred_sig(SigFun)>::type
-        )
+    result_of_range_based2<
+        typename egg::result_of_adapt_sig<SigFun>::type
     >
 { };
 
 
-#define PSTADE_OVEN_DETAIL_RANGE_BASED1_LL(R, _, Name) \
+#define PSTADE_OVEN_RANGE_BASED1_LL(R, _, Name) \
     typedef \
-        ::pstade::oven::detail::range_based1_sig_fun< ::boost::lambda::ll::Name >::type \
+        pstade::oven::detail::range_based1_sig_fun< boost::lambda::ll::Name >::type \
     BOOST_PP_CAT(op_, Name); \
     \
-    PSTADE_CONSTANT(Name, (BOOST_PP_CAT(op_, Name))) \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
+        = PSTADE_OVEN_RANGE_BASED1_RESULT_INITIALIZER(PSTADE_OVEN_RANGE_BASED_LL_init);
 /**/
 
-#define PSTADE_OVEN_DETAIL_RANGE_BASED2_LL(R, _, Name) \
+#define PSTADE_OVEN_RANGE_BASED2_LL(R, _, Name) \
     typedef \
-        ::pstade::oven::detail::range_based2_sig_fun< ::boost::lambda::ll::Name >::type \
+        pstade::oven::detail::range_based2_sig_fun< boost::lambda::ll::Name >::type \
     BOOST_PP_CAT(op_, Name); \
     \
-    PSTADE_CONSTANT(Name, (BOOST_PP_CAT(op_, Name))) \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
+        = PSTADE_OVEN_RANGE_BASED2_RESULT_INITIALIZER(PSTADE_OVEN_RANGE_BASED_LL_init);
 /**/
+
+    
+    #define PSTADE_OVEN_RANGE_BASED_LL_init() \
+        PSTADE_EGG_ADAPT_SIG_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})) \
+    /**/
 
 
 } } } // namespace pstade::oven::detail

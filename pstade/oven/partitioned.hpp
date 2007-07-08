@@ -13,10 +13,9 @@
 
 #include <utility> // pair
 #include <pstade/egg/not.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./filtered.hpp"
 
 
@@ -27,7 +26,7 @@ namespace partitioned_detail {
 
 
     template< class Range, class Predicate >
-    struct baby
+    struct base
     {
         typedef typename
             result_of<
@@ -60,8 +59,7 @@ namespace partitioned_detail {
 } // namespace partitioned_detail
 
 
-PSTADE_FUNCTION(make_partitioned, (partitioned_detail::baby<_, _>))
-PSTADE_PIPABLE(partitioned, (op_make_partitioned))
+PSTADE_OVEN_BASE_TO_ADAPTOR(partitioned, (partitioned_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

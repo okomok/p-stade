@@ -22,12 +22,13 @@
 #include <sstream> // ostringstream
 #include <string>
 #include <boost/current_function.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/preprocessor/stringize.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/what.hpp>
 
 
@@ -87,30 +88,34 @@ namespace pstade {
             return info.str();
         }
 
+
+        struct baby
+        {
+            template< class Myself, class T, class StringT >
+            struct apply
+            {
+                typedef T& type;
+            };
+
+            template< class Result, class T, class StringT >
+            Result call(T& x, StringT& info) const
+            {
+                if (!x)
+                    check_detail::report(info);
+
+                return x;
+            }
+        };
+
+
     } // namespace check_detail
 
 
-    struct op_check :
-        callable<op_check>
-    {
-        template< class Myself, class T, class StringT >
-        struct apply
-        {
-            typedef T& type;
-        };
+    typedef egg::function<check_detail::baby> op_check;
+    PSTADE_POD_CONSTANT((op_check), check)
 
-        template< class Result, class T, class StringT >
-        Result call(T& x, StringT& info) const
-        {
-            if (!x)
-                check_detail::report(info);
-
-            return x;
-        }
-    };
-
-    PSTADE_CONSTANT(check, (op_check))
-    PSTADE_PIPABLE(checked, (op_check))
+    PSTADE_POD_CONSTANT((egg::result_of_pipable<op_check>::type), checked)
+        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}});
 
 
     template< class StringOutputable > inline

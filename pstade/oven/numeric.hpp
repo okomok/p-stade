@@ -36,7 +36,7 @@ namespace pstade { namespace oven {
 
 
 PSTADE_ADL_BARRIER(numeric) {
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_numeric)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_RANGE_BASED1_LL, ~, PSTADE_numeric)
 }
 
 

@@ -13,10 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./dropped_while.hpp"
 #include "./zipped.hpp"
 
@@ -28,7 +27,7 @@ namespace spanned_detail {
 
 
     template< class Range, class Predicate >
-    struct baby
+    struct base
     {
         typedef typename
             result_of<
@@ -64,8 +63,7 @@ namespace spanned_detail {
 } // namespace spanned_detail
 
 
-PSTADE_FUNCTION(make_spanned, (spanned_detail::baby<_, _>))
-PSTADE_PIPABLE(spanned, (op_make_spanned))
+PSTADE_OVEN_BASE_TO_ADAPTOR(spanned, (spanned_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

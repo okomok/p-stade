@@ -21,7 +21,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/tuple.hpp> // tuple_pack
+#include <pstade/egg/tuple_pack.hpp> // tuple_pack
 
 #if BOOST_VERSION >= 103500
 #include <boost/fusion/sequence/generation/vector_tie.hpp>
@@ -61,8 +61,8 @@ void test()
         std::vector<int> expected = ans|copied;
 
        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            pstade::tuple_pack(xs, ys)|zipped_with(&::plus2),
-            expected
+           pstade::egg::tuple_pack(xs, ys)|zipped_with(&::plus2),
+           expected
         ) );
     }
 
@@ -110,7 +110,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            op_make_zipped_with<int>()(pstade::tuple_pack(xs, ys), ::poor_plus2()),
+            xp_make_zipped_with<int>()(pstade::tuple_pack(xs, ys), ::poor_plus2()),
             expected
         ) );
     }

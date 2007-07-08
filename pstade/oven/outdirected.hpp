@@ -13,11 +13,10 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./counting.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -28,7 +27,7 @@ namespace outdirected_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_iterator<Range>::type
@@ -36,7 +35,7 @@ namespace outdirected_detail {
 
         typedef typename
             result_of<
-                op_counting<>(iter_t, iter_t)
+                op_counting(iter_t, iter_t)
             >::type
         result_type;
 
@@ -51,8 +50,7 @@ namespace outdirected_detail {
 } // namespace outdirected_detail
 
 
-PSTADE_FUNCTION(make_outdirected, (outdirected_detail::baby<_>))
-PSTADE_PIPABLE(outdirected, (op_make_outdirected))
+PSTADE_OVEN_BASE_TO_ADAPTOR(outdirected, (outdirected_detail::base<_>))
 
 
 } } // namespace pstade::oven

@@ -12,41 +12,50 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade {
 
 
-    struct op_verify :
-        callable<op_verify>
-    {
-        template<class Myself, class X, class Assert = void>
-        struct apply
+    namespace verify_detail {
+
+
+        struct baby
         {
-            typedef X& type;
+            template<class Myself, class X, class Assert = void>
+            struct apply
+            {
+                typedef X& type;
+            };
+
+            template<class Result, class X, class Assert>
+            Result call(X& x, Assert& a) const
+            {
+                a(x);
+                return x;
+            }
+
+            template<class Result, class X>
+            Result call(X& x) const
+            {
+                BOOST_ASSERT(!!x); // 'operator!' is safer.
+                return x;
+            }
         };
 
-        template<class Result, class X, class Assert>
-        Result call(X& x, Assert& a) const
-        {
-            a(x);
-            return x;
-        }
 
-        template<class Result, class X>
-        Result call(X& x) const
-        {
-            BOOST_ASSERT(!!x); // 'operator!' is safer.
-            return x;
-        }
-    };
+    } // namespace verify_detail
 
 
-    PSTADE_CONSTANT(verify, (op_verify))
-    PSTADE_PIPABLE(verified, (op_verify))
+    typedef egg::function<verify_detail::baby> op_verify;
+    PSTADE_POD_CONSTANT((op_verify), verify) = {{}};
+
+    PSTADE_POD_CONSTANT((egg::result_of_pipable<op_verify>::type), verified)
+        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}});
 
 
 } // namespace pstade

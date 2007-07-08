@@ -11,6 +11,7 @@
 
 
 #include "./boolean_cast.hpp"
+#include "./booleanize.hpp"
 #include "./brush_ref.hpp"
 #include "./c_str.hpp"
 #include "./check_window.hpp"

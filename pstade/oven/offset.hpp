@@ -21,10 +21,9 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./advance_from.hpp"
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
@@ -38,7 +37,7 @@ namespace offset_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
@@ -66,8 +65,7 @@ namespace offset_detail {
 } // namespace offset_detail
 
 
-PSTADE_FUNCTION(make_offset, (offset_detail::baby<_>))
-PSTADE_PIPABLE(offset, (op_make_offset))
+PSTADE_OVEN_BASE_TO_ADAPTOR(_offset, (offset_detail::base<_>))
 
 
 } } // namespace pstade::oven

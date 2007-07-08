@@ -11,11 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/egg/identity.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/specified.hpp>
 #include "./concepts.hpp"
 #include "./transformed.hpp"
 
@@ -24,26 +24,36 @@ namespace pstade { namespace oven {
 
 
 template< class To >
-struct op_make_converted :
-    callable< op_make_converted<To> >
+struct tp_make_converted
 {
-    template< class Myself, class Range >
-    struct apply :
-        result_of<
-            op_make_transformed<To>(Range&, egg::op_identity const&)
-        >
-    { };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
+    struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return op_make_transformed<To>()(rng, egg::identity);
-    }
+        template< class Myself, class Range >
+        struct apply :
+            result_of<
+                xp_make_transformed<To>(Range&, egg::op_identity const&)
+            >
+        { };
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return xp_make_transformed<To>()(rng, egg::identity);
+        }
+    };
+
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_SPECIFIED1(make_converted, op_make_converted, 1)
+template< class To >
+struct xp_make_converted :
+    tp_make_converted<To>::type
+{ };
+
+
+PSTADE_EGG_SPECIFIED1(make_converted, xp_make_converted, (class))
 
 
 namespace converted_detail_ {
@@ -58,17 +68,17 @@ namespace converted_detail_ {
 
 
     template< class Range, class To > inline
-    typename result_of<op_make_converted<To>(Range&)>::type
+    typename result_of<xp_make_converted<To>(Range&)>::type
     operator|(Range& rng, converted<To>)
     {
-        return op_make_converted<To>()(rng);
+        return xp_make_converted<To>()(rng);
     }
 
     template< class Range, class To > inline
-    typename result_of<op_make_converted<To>(PSTADE_DEDUCED_CONST(Range)&)>::type
+    typename result_of<xp_make_converted<To>(PSTADE_DEDUCED_CONST(Range)&)>::type
     operator|(Range const& rng, converted<To>)
     {
-        return op_make_converted<To>()(rng);
+        return xp_make_converted<To>()(rng);
     }
 
 

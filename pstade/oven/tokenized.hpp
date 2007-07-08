@@ -15,13 +15,11 @@
 #include <boost/range/end.hpp>
 #include <boost/regex.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/use_default.hpp>
 #include "./iter_range.hpp"
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./extension.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -34,72 +32,84 @@ template<
     class CharT  = boost::use_default,
     class Traits = boost::use_default
 >
-struct op_make_tokenized :
-    callable< op_make_tokenized<CharT, Traits> >
+struct tp_make_tokenized 
 {
-    template< class Myself, class Range, class Regex, class IntOrRandRange = void, class Flag  = void >
-    struct apply
+    struct baby
     {
-        typedef typename
-            eval_if_use_default< CharT, range_value<Range> >::type
-        char_t;
+        template< class Myself, class Range, class Regex, class IntOrRandRange = void, class Flag  = void >
+        struct apply
+        {
+            typedef typename
+                eval_if_use_default< CharT, range_value<Range> >::type
+            char_t;
 
-        typedef typename
-            if_use_default< Traits, boost::regex_traits<char_t> >::type
-        traits_t;
+            typedef typename
+                if_use_default< Traits, boost::regex_traits<char_t> >::type
+            traits_t;
 
-        typedef
-            boost::regex_token_iterator<
-                typename range_iterator<Range>::type,
-                char_t,
-                traits_t                
-            >
-        iter_t;
+            typedef
+                boost::regex_token_iterator<
+                    typename range_iterator<Range>::type,
+                    char_t,
+                    traits_t                
+                >
+            iter_t;
 
-        typedef
-            iter_range<iter_t> const
-        type;
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range, class Regex >
+        Result call(
+            Range& rng, Regex& re,
+            int submatch = 0,
+            boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
+        ) const
+        {
+            PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+
+            typedef typename Result::iterator iter_t;
+            return Result(
+                iter_t(boost::begin(rng), boost::end(rng), re, submatch, flag),
+                iter_t()
+            );
+        }
+
+        template< class Result, class Range, class Regex, class RandRange >
+        Result call(
+            Range& rng, Regex& re,
+            RandRange const& submatches,
+            boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
+    #if defined(__GNUC__) // See <pstade/const_overloaded.hpp>.
+            , typename disable_if< boost::is_same<int, RandRange> >::type = 0
+    #endif
+        ) const
+        {
+            PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+
+            typedef typename Result::iterator iter_t;
+            return Result(
+                iter_t(boost::begin(rng), boost::end(rng), re, submatches, flag),
+                iter_t()
+            );
+        }
     };
 
-    template< class Result, class Range, class Regex >
-    Result call(
-        Range& rng, Regex& re,
-        int submatch = 0,
-        boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
-    ) const
-    {
-        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-
-        typedef typename Result::iterator iter_t;
-        return Result(
-            iter_t(boost::begin(rng), boost::end(rng), re, submatch, flag),
-            iter_t()
-        );
-    }
-
-    template< class Result, class Range, class Regex, class RandRange >
-    Result call(
-        Range& rng, Regex& re,
-        RandRange const& submatches,
-        boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
-#if defined(__GNUC__) // See <pstade/const_overloaded.hpp>.
-        , typename disable_if< boost::is_same<int, RandRange> >::type = 0
-#endif
-    ) const
-    {
-        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-
-        typedef typename Result::iterator iter_t;
-        return Result(
-            iter_t(boost::begin(rng), boost::end(rng), re, submatches, flag),
-            iter_t()
-        );
-    }
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_CONSTANT(make_tokenized, (op_make_tokenized<>))
-PSTADE_PIPABLE(tokenized, (op_make_tokenized<>))
+template<
+    class CharT  = boost::use_default,
+    class Traits = boost::use_default
+>
+struct xp_make_tokenized :
+    tp_make_tokenized<CharT, Traits>::type
+{ };
+
+
+PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (tp_make_tokenized<>::baby))
 
 
 } } // namespace pstade::oven

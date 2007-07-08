@@ -11,9 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./deduce.hpp"
 #include "./detail/baby_unfuse_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"

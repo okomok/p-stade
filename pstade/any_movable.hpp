@@ -24,7 +24,7 @@
 #include <typeinfo>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/specified.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/egg/static_downcast.hpp>
 
 
@@ -99,7 +99,7 @@ namespace pstade {
 
 
     template<class X>
-    struct op_any_movable_cast
+    struct xp_any_movable_cast
     {
         typedef X& result_type;
 
@@ -109,7 +109,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_SPECIFIED1(any_movable_cast, op_any_movable_cast, 1)
+    PSTADE_EGG_SPECIFIED1(any_movable_cast, xp_any_movable_cast, 1)
 
 
 } // namespace pstade

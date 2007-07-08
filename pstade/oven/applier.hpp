@@ -20,15 +20,22 @@
 // 'iterator_facade'; because of the postfix-increment implementation.
 
 
-#include <pstade/object_generator.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./detail/function_output_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-PSTADE_OBJECT_GENERATOR(applier,
-    (detail::function_output_iterator< deduce<_1, as_value> >) const)
+typedef
+    egg::generator<
+        detail::function_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> > const
+    >::type
+op_applier;
+
+
+PSTADE_POD_CONSTANT((op_applier), applier) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::oven

@@ -36,7 +36,7 @@ namespace counting_from_detail {
 
         typedef typename
             boost::result_of<
-                op_counting<>(Incrementable&, inc_t)
+                op_counting(Incrementable&, inc_t)
             >::type
         result_type;
 

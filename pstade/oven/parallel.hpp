@@ -23,8 +23,8 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/thread/thread.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -81,34 +81,34 @@ namespace parallel_detail {
     };
 
 
+    struct baby
+    {
+        template< class Myself, class Range, class UnaryFun, class Difference = void >
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template< class Result, class Range, class UnaryFun, class Difference >
+        void call(Range& rng, UnaryFun fun, Difference grain) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
+            typedef typename range_difference<Range>::type diff_t;
+            // Range type must be "erased" to avoid infinite recursion
+            // of 'for_each_' template-instantiation.
+            typedef typename iter_range_of<Range>::type base_t;
+
+            parallel_detail::for_each_<base_t, UnaryFun, diff_t>(rng, fun, grain)();
+        }
+    };
+
+
 } // namespace parallel_detail
 
 
-struct op_parallel_for_each :
-    callable<op_parallel_for_each>
-{
-    template< class Myself, class Range, class UnaryFun, class Difference = void >
-    struct apply
-    {
-        typedef void type;
-    };
-
-    template< class Result, class Range, class UnaryFun, class Difference >
-    void call(Range& rng, UnaryFun fun, Difference grain) const
-    {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
-        typedef typename range_difference<Range>::type diff_t;
-        // Range type must be "erased" to avoid infinite recursion
-        // of 'for_each_' template-instantiation.
-        typedef typename iter_range_of<Range>::type base_t;
-
-        parallel_detail::for_each_<base_t, UnaryFun, diff_t>(rng, fun, grain)();
-    }
-};
-
-
-PSTADE_CONSTANT(parallel_for_each, (op_parallel_for_each))
+typedef egg::function<parallel_detail::baby> op_parallel_for_each;
+PSTADE_POD_CONSTANT((op_parallel_for_each), parallel_for_each) = {{}};
 
 
 } } // namespace pstade::oven

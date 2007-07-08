@@ -14,9 +14,8 @@
 #include <algorithm> // min
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
@@ -29,7 +28,7 @@ namespace dropped_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
@@ -72,8 +71,7 @@ namespace dropped_detail {
 } // namespace dropped_detail
 
 
-PSTADE_FUNCTION(make_dropped, (dropped_detail::baby<_>))
-PSTADE_PIPABLE(dropped, (op_make_dropped))
+PSTADE_OVEN_BASE_TO_ADAPTOR(dropped, (dropped_detail::base<_>))
 
 
 } } // namespace pstade::oven

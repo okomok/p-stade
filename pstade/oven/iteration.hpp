@@ -19,8 +19,9 @@
 // because 'counting' can't represent "infinity".
 
 
-#include <pstade/function.hpp>
+#include <pstade/egg/adapt.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./detail/iterate_iterator.hpp"
 #include "./iter_range.hpp"
 
@@ -32,7 +33,7 @@ namespace iteration_detail {
 
 
     template< class State, class UnaryFun >
-    struct baby
+    struct base
     {
         typedef
             detail::iterate_iterator<
@@ -58,7 +59,8 @@ namespace iteration_detail {
 } // namespace iteration_detail
 
 
-PSTADE_FUNCTION(iteration, (iteration_detail::baby<_, _>))
+typedef PSTADE_EGG_ADAPT((iteration_detail::base<boost::mpl::_, boost::mpl::_>)) op_iteration;
+PSTADE_POD_CONSTANT((op_iteration), iteration) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::oven

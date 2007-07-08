@@ -48,35 +48,37 @@ private:
 
 
 template< class BinaryFun >
-struct xxx_chars :
-    callable< xxx_chars<BinaryFun> >
+struct xxx_chars
 {
-    template< class Myself, class Range, class Locale = std::locale const >
-    struct apply :
-        result_of<
-            op_make_transformed<>(
-                Range&,
-                to_xxx_char<BinaryFun, typename range_value<Range>::type>
-            )
-        >
-    { };
-
-    template< class Result, class Range >
-    Result call(Range& rng, std::locale const& loc) const
+    struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+        template< class Myself, class Range, class Locale = std::locale const >
+        struct apply :
+            result_of<
+                op_make_transformed(
+                    Range&,
+                    to_xxx_char<BinaryFun, typename range_value<Range>::type>
+                )
+            >
+        { };
 
-        return make_transformed(
-            rng,
-            to_xxx_char<BinaryFun, typename range_value<Range>::type>(loc)
-        );
-    }
+        template< class Result, class Range >
+        Result call(Range& rng, std::locale const& loc) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return (*this)(rng, std::locale());
-    }
+            return make_transformed(
+                rng,
+                to_xxx_char<BinaryFun, typename range_value<Range>::type>(loc)
+            );
+        }
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            return (*this)(rng, std::locale());
+        }
+    };
 };
 
 

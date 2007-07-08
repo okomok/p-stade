@@ -14,9 +14,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_iterator.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_constant_iterator.hpp"
 
@@ -31,7 +30,7 @@ namespace xpressive_matches_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             boost::xpressive::regex_iterator<
@@ -61,8 +60,7 @@ namespace xpressive_matches_detail {
 } // namespace xpressive_matches_detail
 
 
-PSTADE_FUNCTION(make_xpressive_matches, (xpressive_matches_detail::baby<_>))
-PSTADE_PIPABLE(xpressive_matches, (op_make_xpressive_matches))
+PSTADE_OVEN_BASE_TO_ADAPTOR(xpressive_matches, (xpressive_matches_detail::base<_>))
 
 
 } } // namespace pstade::oven

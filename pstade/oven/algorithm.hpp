@@ -39,9 +39,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./detail/range_based_ll.hpp"
 
 
@@ -86,8 +86,7 @@ namespace pstade { namespace oven {
 
 // 'partial_sort' etc use "middle".
 #define PSTADE_range_based_partial_sort(R, _, Name) \
-    struct BOOST_PP_CAT(op_, Name) : \
-        callable<BOOST_PP_CAT(op_, Name)> \
+    struct BOOST_PP_CAT(baby_, Name) \
     { \
         template< class Myself, class Range, class MiddleFun, class Compare = void > \
         struct apply \
@@ -108,25 +107,25 @@ namespace pstade { namespace oven {
         } \
     }; \
     \
-    PSTADE_CONSTANT(Name, (BOOST_PP_CAT(op_, Name))) \
+    typedef pstade::egg::function<BOOST_PP_CAT(baby_, Name)> BOOST_PP_CAT(op_, Name); \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) = {{}}; \
 /**/
 
 
 PSTADE_ADL_BARRIER(algorithm) {
 
 
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_nonmodifying1)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED2_LL, ~, PSTADE_nonmodifying2)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_mutating1)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_sorting_and_related1)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED2_LL, ~, PSTADE_sorting_and_related2)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_RANGE_BASED1_LL, ~, PSTADE_nonmodifying1)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_RANGE_BASED2_LL, ~, PSTADE_nonmodifying2)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_RANGE_BASED1_LL, ~, PSTADE_mutating1)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_RANGE_BASED1_LL, ~, PSTADE_sorting_and_related1)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_RANGE_BASED2_LL, ~, PSTADE_sorting_and_related2)
     BOOST_PP_SEQ_FOR_EACH(PSTADE_range_based_partial_sort, ~, PSTADE_partial_sort_form)
 
 
     // For some reason, they have the different names.
 
-    struct op_rotate :
-        callable<op_rotate>
+    struct baby_rotate
     {
         template< class Myself, class Range, class MiddleFun >
         struct apply
@@ -141,10 +140,10 @@ PSTADE_ADL_BARRIER(algorithm) {
         }
     };
 
-    PSTADE_CONSTANT(rotate, (op_rotate))
+    typedef egg::function<baby_rotate> op_rotate;
+    PSTADE_POD_CONSTANT((op_rotate), rotate) = {{}};
 
-    struct op_rotate_copy :
-        callable<op_rotate_copy>
+    struct baby_rotate_copy
     {
         template< class Myself, class Range, class MiddleFun, class OutIter >
         struct apply :
@@ -158,7 +157,8 @@ PSTADE_ADL_BARRIER(algorithm) {
         }
     };
 
-    PSTADE_CONSTANT(rotate_copy, (op_rotate_copy))
+    typedef egg::function<baby_rotate_copy> op_rotate_copy;
+    PSTADE_POD_CONSTANT((op_rotate_copy), rotate_copy) = {{}};
 
 
 } // ADL barrier

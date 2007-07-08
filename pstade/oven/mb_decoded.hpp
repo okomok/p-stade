@@ -11,8 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/wchar_from_mb.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -25,7 +24,7 @@ namespace mb_decoded_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             detail::wchar_from_mb<
@@ -47,8 +46,7 @@ namespace mb_decoded_detail {
 } // namespace mb_decoded_detail
 
 
-PSTADE_FUNCTION(make_mb_decoded, (mb_decoded_detail::baby<_>))
-PSTADE_PIPABLE(mb_decoded, (op_make_mb_decoded))
+PSTADE_OVEN_BASE_TO_ADAPTOR(mb_decoded, (mb_decoded_detail::base<_>))
 
 
 } } // namespace pstade::oven

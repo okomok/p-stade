@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace oven {
@@ -35,7 +35,7 @@ struct op_write
 };
 
 
-PSTADE_CONSTANT(write, (op_write))
+PSTADE_POD_CONSTANT((op_write), write) = {};
 
 
 } } // namespace pstade::oven

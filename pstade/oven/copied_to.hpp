@@ -12,10 +12,12 @@
 
 
 #include <algorithm> // copy
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 
@@ -26,8 +28,7 @@ namespace pstade { namespace oven {
 namespace copied_to_detail {
 
 
-    struct op :
-        callable<op>
+    struct baby
     {
         template< class Myself, class Range, class OutIter >
         struct apply
@@ -47,10 +48,14 @@ namespace copied_to_detail {
     };
 
 
+    typedef egg::function<baby> op;
+
+
 } // namespace copied_to_detail
 
 
-PSTADE_PIPABLE(copied_to, (copied_to_detail::op))
+PSTADE_POD_CONSTANT((egg::result_of_pipable<copied_to_detail::op>::type), copied_to)
+    = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } } // namespace pstade::oven

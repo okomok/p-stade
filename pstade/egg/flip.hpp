@@ -13,10 +13,8 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./deduce.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"

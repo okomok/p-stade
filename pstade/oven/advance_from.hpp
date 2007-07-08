@@ -28,7 +28,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/function.hpp>
+#include <pstade/egg/adapt.hpp>
 #include <pstade/pass_by.hpp>
 
 
@@ -62,7 +62,7 @@ namespace advance_from_detail {
 
 
     template< class Iterator >
-    struct baby
+    struct base
     {
         typedef typename
             pass_by_value<Iterator>::type
@@ -83,7 +83,8 @@ namespace advance_from_detail {
 } // namespace advance_from_detail
 
 
-PSTADE_FUNCTION(advance_from, (advance_from_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((advance_from_detail::base<boost::mpl::_>)) op_advance_from;
+PSTADE_POD_CONSTANT((op_advance_from), advance_from) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::oven

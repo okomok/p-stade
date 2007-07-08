@@ -18,8 +18,8 @@
 
 
 #include <boost/range/result_iterator.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 
@@ -174,8 +174,7 @@ namespace range_detail
 
 ///////////////////////////////////////////////////////////////////////////////
 
-    struct pstade_op_begin :
-        pstade::callable<pstade_op_begin>
+    struct pstade_baby_begin
     {
         template<class Myself, class Range>
         struct apply :
@@ -190,11 +189,9 @@ namespace range_detail
         }
     };
 
-    PSTADE_CONSTANT(begin, (pstade_op_begin))
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_begin>), begin) = {{}};
 
-
-    struct pstade_op_const_begin :
-        pstade::callable<pstade_op_const_begin>
+    struct pstade_baby_const_begin
     {
         template<class Myself, class Range>
         struct apply :
@@ -209,7 +206,7 @@ namespace range_detail
         }
     };
 
-    PSTADE_CONSTANT(const_begin, (pstade_op_const_begin))
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_const_begin>), const_begin) = {{}};
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -362,8 +359,7 @@ namespace range_detail
 
 ///////////////////////////////////////////////////////////////////////////////
 
-    struct pstade_op_end :
-        pstade::callable<pstade_op_end>
+    struct pstade_baby_end
     {
         template<class Myself, class Range>
         struct apply :
@@ -378,11 +374,9 @@ namespace range_detail
         }
     };
 
-    PSTADE_CONSTANT(end, (pstade_op_end))
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_end>), end) = {{}};
 
-
-    struct pstade_op_const_end :
-        pstade::callable<pstade_op_const_end>
+    struct pstade_baby_const_end
     {
         template<class Myself, class Range>
         struct apply :
@@ -397,7 +391,7 @@ namespace range_detail
         }
     };
 
-    PSTADE_CONSTANT(const_end, (pstade_op_const_end))
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_const_end>), const_end) = {{}};
 
 ///////////////////////////////////////////////////////////////////////////////
 

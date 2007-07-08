@@ -35,6 +35,7 @@ test-suite "egg" :
     [ run identity.cpp ]
     [ run iequal_to.cpp ]
     [ run indirect.cpp ]
+    [ run indirected.cpp ]
     [ run is_classified_as.cpp ]
     [ run is_same.cpp ]
     [ run lambda.cpp ]

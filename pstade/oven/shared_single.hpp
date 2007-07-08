@@ -13,9 +13,10 @@
 
 #include <boost/array.hpp>
 #include <boost/pointee.hpp>
-#include <pstade/callable_by_value.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/function_by_value.hpp>
 #include <pstade/egg/to_shared_ptr.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./indirected.hpp"
 #include "./shared.hpp"
@@ -27,8 +28,7 @@ namespace pstade { namespace oven {
 namespace shared_single_detail {
 
 
-    struct new_array1 :
-        callable_by_value<new_array1>
+    struct baby_new_array1
     {
         template< class Myself, class Ptr >
         struct apply
@@ -47,48 +47,50 @@ namespace shared_single_detail {
         }
     };
 
+    typedef egg::function_by_value<baby_new_array1> new_array1;
+
+
+    struct baby
+    {
+        template< class Myself, class Ptr >
+        struct apply :
+            result_of<
+                op_make_indirected(
+                    typename result_of<
+                        op_shared(
+                            typename result_of<
+                                new_array1(
+                                    typename result_of<
+                                        egg::op_to_shared_ptr(Ptr&)
+                                    >::type
+                                )
+                            >::type
+                        )
+                    >::type
+                )
+            >
+        { };
+
+        template< class Result, class Ptr >
+        Result call(Ptr p) const
+        {
+            return
+                make_indirected(
+                    shared(
+                        new_array1()(
+                            egg::to_shared_ptr(p)
+                        )
+                    )
+                );
+        }
+    };
+
 
 } // namespace shared_single_detail
 
 
-struct op_shared_single :
-    callable_by_value<op_shared_single>
-{
-    template< class Myself, class Ptr >
-    struct apply :
-        result_of<
-            op_make_indirected<>(
-                typename result_of<
-                    op_shared(
-                        typename result_of<
-                            shared_single_detail::new_array1(
-                                typename result_of<
-                                    egg::op_to_shared_ptr(Ptr&)
-                                >::type
-                            )
-                        >::type
-                    )
-                >::type
-            )
-        >
-    { };
-
-    template< class Result, class Ptr >
-    Result call(Ptr p) const
-    {
-        return
-            make_indirected(
-                shared(
-                    shared_single_detail::new_array1()(
-                        egg::to_shared_ptr(p)
-                    )
-                )
-            );
-    }
-};
-
-
-PSTADE_CONSTANT(shared_single, (op_shared_single))
+typedef egg::function<shared_single_detail::baby> op_shared_single;
+PSTADE_POD_CONSTANT((op_shared_single), shared_single) = {{}};
 
 
 } } // namespace pstade::oven

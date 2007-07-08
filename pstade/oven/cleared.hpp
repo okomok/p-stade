@@ -12,9 +12,8 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 
 
@@ -25,7 +24,7 @@ namespace cleared_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             iter_range_of<Range>::type const
@@ -48,8 +47,7 @@ namespace cleared_detail {
 } // namespace cleared_detail
 
 
-PSTADE_FUNCTION(make_cleared, (cleared_detail::baby<_>))
-PSTADE_PIPABLE(cleared, (op_make_cleared))
+PSTADE_OVEN_BASE_TO_ADAPTOR(cleared, (cleared_detail::base<_>))
 
 
 } } // namespace pstade::oven
