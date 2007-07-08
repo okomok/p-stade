@@ -13,7 +13,7 @@
 
 #include <boost/regex/pending/unicode_iterator.hpp> // utf8_output_iterator
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/pod_constant.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace oven {

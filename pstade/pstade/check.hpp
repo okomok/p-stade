@@ -112,10 +112,10 @@ namespace pstade {
 
 
     typedef egg::function<check_detail::baby> op_check;
-    PSTADE_POD_CONSTANT((op_check), check)
+    PSTADE_POD_CONSTANT((op_check), check) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<op_check>::type), checked)
-        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}});
+        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
     template< class StringOutputable > inline

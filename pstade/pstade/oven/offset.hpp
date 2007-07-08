@@ -65,7 +65,7 @@ namespace offset_detail {
 } // namespace offset_detail
 
 
-PSTADE_OVEN_BASE_TO_ADAPTOR(_offset, (offset_detail::base<_>))
+PSTADE_OVEN_BASE_TO_ADAPTOR(offset, (offset_detail::base<_>))
 
 
 } } // namespace pstade::oven

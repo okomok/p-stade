@@ -55,7 +55,7 @@ namespace pstade {
     PSTADE_POD_CONSTANT((op_verify), verify) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<op_verify>::type), verified)
-        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}});
+        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } // namespace pstade
