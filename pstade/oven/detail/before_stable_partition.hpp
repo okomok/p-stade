@@ -18,8 +18,6 @@
 // See 'stable_partition_adaptive' and 'Temporary_buffer::size()'.
 
 
-
-
 #include <algorithm>
 #if !defined(_ALGORITHM_) // except for VC++ STL
 
@@ -32,7 +30,7 @@
     namespace pstade { namespace oven {
 
         PSTADE_POD_CONSTANT((egg::result_of_pipable<tp_make_identities<std::ptrdiff_t>::type>::type), before_stable_partition)
-            = PSTADE_EGG_PIPABLE_RESULT_INITIALIZATION(BOOST_PP_IDENTITY({{}}));
+            = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
     } }
 

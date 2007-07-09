@@ -631,6 +631,9 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, suc
 [h3 Header]
 * `<pstade/oven/zipped_with.hpp>`
 
+[h3 Model of]
+* _pipable_object_
+
 [h3 Notation]
 * `fuse` is an imaginary function to turn the argument into the one taking a `boost::tuple` as the parameter.
 
@@ -641,34 +644,34 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, suc
         [[*Semantics]]
     ]
     [
-        [`op_make_zipped_with<R>`]
+        [`xp_make_zipped_with<R>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_zipped_with<R>()(u, _fun)`]
+        [`xp_make_zipped_with<R>()(u, _fun)`]
         [
-            `u|fuzipped|op_make_transformed<R>()(fuse(_fun))`
+            `u|fuzipped|xp_make_transformed<R>()(fuse(_fun))`
         ]
     ]
     [
-        [`op_make_zipped_with<>()(u, _cal)`]
+        [`xp_make_zipped_with<>()(u, _cal)`]
         [
-            `u|fuzipped|op_make_transformed<>()(fuse(_cal))`
+            `u|fuzipped|xp_make_transformed<>()(fuse(_cal))`
         ]
     ]
     [
         [`u|zipped_with(_cal)`]
         [
-            `op_make_zipped_with<>()(u, _cal)`
+            `xp_make_zipped_with<>()(u, _cal)`
         ]
     ]
 ]
 
 [h3 Preconditions]
 * `u` is a `boost::tuple` or _fusion_forward_sequence_.
-* `u|zipped|op_make_transformed<R>(fuse(_fun))` or `u|fuzipped|op_make_transformed<R>(fuse(_fun))` is a valid expressin.
+* `u|zipped|xp_make_transformed<R>(fuse(_fun))` or `u|fuzipped|xp_make_transformed<R>(fuse(_fun))` is a valid expressin.
 * `u|zipped|transformed(fuse(_cal))` or `u|fuzipped|transformed(fuse(_cal))` is a valid expressin.
 
 [h3 See also]

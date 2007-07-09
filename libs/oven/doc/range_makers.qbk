@@ -144,6 +144,9 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [h3 Header]
 * `<pstade/oven/counting.hpp>`
 
+[h3 Model of]
+* _operatable_object_
+
 [h3 Valid expressions]
 [table 
     [
@@ -151,24 +154,24 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`op_counting<X1,..,XN>`]
+        [`xp_counting<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_counting<X1,..,XN>()(i, j)`]
+        [`xp_counting<X1,..,XN>()(i, j)`]
         [
             `[T(i), T(j))`
         ]
     ]
     [
         [`counting(i, j)`]
-        [`op_counting<>()(i, j)`]
+        [`xp_counting<>()(i, j)`]
     ]
     [
         [`counting(i, max_count)`]
-        [`op_counting<>()(i, std::numeric_limits<_typeof(i)>::max())`]
+        [`xp_counting<>()(i, std::numeric_limits<_typeof(i)>::max())`]
     ]
 ]
 
@@ -275,33 +278,33 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`op_initial_values<T>`]
+        [`xp_initial_values<T>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_initial_values<T>()(a1,..,aN)`]
+        [`xp_initial_values<T>()(a1,..,aN)`]
         [
             A _random_access_ _readable_ _lvalue_ _constant_ `{a1,..,aN}`
         ]
     ]
     [
-        [`Rng rng = op_initial_values<T>()(a1,..,aN);`]
+        [`Rng rng = xp_initial_values<T>()(a1,..,aN);`]
         [
-            `Rng rng = op_initial_values<T>()(a1,..,aN)|copied;`
+            `Rng rng = xp_initial_values<T>()(a1,..,aN)|copied;`
         ]
     ]
     [
-        [`Rng2 rng2(op_initial_values<T>()(a1,..,aN));`]
+        [`Rng2 rng2(xp_initial_values<T>()(a1,..,aN));`]
         [
-            `Rng2 rng2(op_initial_values<T>()(a1,..,aN)|copied);`
+            `Rng2 rng2(xp_initial_values<T>()(a1,..,aN)|copied);`
         ]
     ]
     [
         [`initial_values`]
         [
-            `op_initial_values<t>()`, where `t` is deduced from the first argument.
+            `xp_initial_values<t>()`, where `t` is deduced from the first argument.
         ]
     ]
 ]
@@ -312,8 +315,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `1 <= N && N <= 20`
 * `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
 * `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
-* `Rng rng = op_initial_values<T>()(a1,..,aN)|copied;` is a valid expression.
-* `Rng2 rng2(op_initial_values<T>()(a1,..,aN)|copied);` is a valid expression.
+* `Rng rng = xp_initial_values<T>()(a1,..,aN)|copied;` is a valid expression.
+* `Rng2 rng2(xp_initial_values<T>()(a1,..,aN)|copied);` is a valid expression.
 
 [tip `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
       Also, it doesn't require the arguments to be _assignable_.]
@@ -582,6 +585,9 @@ and the iterators manage the allocation.
 [h3 Header]
 * `<pstade/oven/stream_lines.hpp>`
 
+[h3 Model of]
+* _operatable_object_
+
 [h3 Notation]
 * `DefaultA` is `std::allocator<_typeof(s)::char_type>`.
 
@@ -592,21 +598,21 @@ and the iterators manage the allocation.
         [[*Semantics]]
     ]
     [
-        [`op_stream_lines<A = DefaultA>`]
+        [`xp_stream_lines<A = DefaultA>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_stream_lines<A>()(s)`]
+        [`xp_stream_lines<A>()(s)`]
         [
            `[T(s), T())`
         ]
     ]
     [
-        [`op_stream_lines`]
+        [`stream_lines`]
         [
-           `op_stream_lines<>()`
+           `xp_stream_lines<>()`
         ]
     ]
 ]
@@ -640,13 +646,13 @@ and the iterators manage the allocation.
         [[*Semantics]]
     ]
     [
-        [`op_stream_read<V, D = std::ptrdiff_t>`]
+        [`xp_stream_read<V, D = std::ptrdiff_t>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_stream_read<V, D>()(s)`]
+        [`xp_stream_read<V, D>()(s)`]
         [
            `[T(s), T())`
         ]
@@ -654,7 +660,7 @@ and the iterators manage the allocation.
     [
         [`oven::stream_read<V>()(s)`]
         [
-           `op_stream_read<V>()(s)`
+           `xp_stream_read<V>()(s)`
         ]
     ]
 ]

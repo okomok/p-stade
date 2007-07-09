@@ -299,6 +299,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/matches.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -307,27 +308,27 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`op_make_matches<X1,..,XN>`]
+        [`xp_make_matches<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
+        [`xp_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
         [
-            `[T(_begin(_rng), _end(_rng), y1,..,yM), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), y1,..,yM), T())`
         ]
     ]
     [
-        [`make_matches`]
+        [`_bidrng|matches`]
         [
-            A _pipable_ `op_make_matches<>()`
+            `xp_make_matches<>()(_bidrng)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::regex_iterator<_iter_of<_typeof(_rng)>::type, X1,..,XN>` such that `T(_begin(_rng), _end(_rng), y0,..,yM)` is a valid expression.
+* `T` is `boost::regex_iterator<_iter_of<_typeof(_bidrng)>::type, X1,..,XN>` such that `T(_begin(_bidrng), _end(_bidrng), y0,..,yM)` is a valid expression.
 
 [h3 Example]
 
@@ -349,6 +350,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/tokenized.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -357,27 +359,27 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`op_make_tokenized<Y1,..,YN>`]
+        [`xp_make_tokenized<Y1,..,YN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
+        [`xp_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
         [
-            `[T(_begin(_rng), _end(_rng), x1,..,xM), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x1,..,xM), T())`
         ]
     ]
     [
-        [`make_tokenized`]
+        [`_bidrng|tokenized`]
         [
-            A _pipable_ `op_make_tokenized<>()`
+            `xp_make_tokenized<>()(_bidrng)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::regex_token_iterator<_iter_of<_typeof(_rng)>::type, Y1,..,YN>` such that `T(_begin(_rng), _end(_rng), x1,..,xM)` is a valid expression.
+* `T` is `boost::regex_token_iterator<_iter_of<_typeof(_bidrng)>::type, Y1,..,YN>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xM)` is a valid expression.
 
 [h3 Example]
 
@@ -399,6 +401,7 @@ Pending...
 * `<pstade/oven/utf8_decoded.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -407,21 +410,21 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`op_make_utf8_decoded<U1,..,UN>`]
+        [`xp_make_utf8_decoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
+        [`xp_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
     ]
     [
-        [`make_utf8_decoded`]
+        [`_fwdrng|utf8_decoded`]
         [
-            A _pipable_ `op_make_utf8_decoded<>()`
+            `xp_make_utf8_decoded<>()(_fwdrng)`
         ]
     ]
 ]
@@ -455,6 +458,7 @@ Pending...
 * `<pstade/oven/utf8_encoded.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -463,21 +467,21 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`op_make_utf8_encoded<U1,..,UN>`]
+        [`xp_make_utf8_encoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_utf8_encoded<U1,..,UN>()(_rng)`]
+        [`xp_make_utf8_encoded<U1,..,UN>()(_rng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
         ]
     ]
     [
-        [`make_utf8_encoded`]
+        [`_rng|utf8_encoded`]
         [
-            A _pipable_ `op_make_utf8_encoded<>()`
+            `xp_make_utf8_encoded<>()(_rng)`
         ]
     ]
 ]

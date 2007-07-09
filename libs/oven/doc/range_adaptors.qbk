@@ -69,6 +69,9 @@ It passes adjacent pairs to a function to transform repeatedly.
 [h3 Header]
 * `<pstade/oven/adjacent_transformed.hpp>`
 
+[h3 Model of]
+* _pipable_object_
+
 [h3 Notation]
 * `{a1,..,aN}` is `_rng`.
 
@@ -79,19 +82,19 @@ It passes adjacent pairs to a function to transform repeatedly.
         [[*Semantics]]
     ]
     [
-        [`op_make_adjacent_transformed<R>`]
+        [`xp_make_adjacent_transformed<R>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_adjacent_transformed<R>()(_rng, _fun)`]
+        [`xp_make_adjacent_transformed<R>()(_rng, _fun)`]
         [
             `{_fun(a1,a2),_fun(a2,a3),..,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
-        [`op_make_adjacent_transformed<>()(_rng, _cal)`]
+        [`xp_make_adjacent_transformed<>()(_rng, _cal)`]
         [
             `{_cal(a1,a2),_cal(a2,a3),..,_cal(a(N-1),aN)}`
         ]
@@ -99,7 +102,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`_rng|adjacent_transformed(_cal)`]
         [
-            `op_make_adjacent_transformed<>()(_rng, _cal)`
+            `xp_make_adjacent_transformed<>()(_rng, _cal)`
         ]
     ]
 ]
@@ -237,13 +240,13 @@ It passes adjacent pairs to a function to transform repeatedly.
         [[*Semantics]]
     ]
     [
-        [`op_make_broken_into<V>`]
+        [`xp_make_broken_into<V>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_broken_into<V>()(_rng, k)`]
+        [`xp_make_broken_into<V>()(_rng, k)`]
         [
             `[T(k, _begin(_rng), _end(_rng)), T(k, _end(_rng), boost:end(_rng)))`
         ]
@@ -251,7 +254,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`_rng|oven::broken_into<V>(k)`]
         [
-            `op_make_broken_into<V>()(_rng, k)`
+            `xp_make_broken_into<V>()(_rng, k)`
         ]
     ]
 ]
@@ -776,13 +779,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`op_make_elements<N>`]
+        [`xp_make_elements<N>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_elements<N>()(_rng)`]
+        [`xp_make_elements<N>()(_rng)`]
         [
             `_rng|transformed(to_Nth)`
         ]
@@ -790,13 +793,13 @@ then pretends to be a range of _forward_iterator_.
     [
         [`oven::make_elements<N>(_rng)`]
         [
-            `op_make_elements<N>()(_rng)`
+            `xp_make_elements<N>()(_rng)`
         ]
     ]
     [
         [`_rng|elements<N>()`]
         [
-            `op_make_elements<N>()(_rng)`
+            `xp_make_elements<N>()(_rng)`
         ]
     ]
 ]
@@ -834,27 +837,27 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`op_make_elements_c<n>`]
+        [`xp_make_elements_c<n>`]
         [
-            `op_make_elements< boost::mpl::int_<n> >`
+            `xp_make_elements< boost::mpl::int_<n> >`
         ]
     ]
     [
         [`oven::make_elements_c<n>(_rng)`]
         [
-            `op_make_elements_c<n>()(_rng)`
+            `xp_make_elements_c<n>()(_rng)`
         ]
     ]
     [
         [`_rng|elements_c<n>()`]
         [
-            `op_make_elements_c<n>()(_rng)`
+            `xp_make_elements_c<n>()(_rng)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `op_make_elements< boost::mpl::int_<n> >` is a valid expression.
+* `xp_make_elements< boost::mpl::int_<n> >` is a valid expression.
 
 [h3 Example]
 
@@ -965,6 +968,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/indirected.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -973,21 +977,21 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`op_make_indirected<X1,..,XN>`]
+        [`xp_make_indirected<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_indirected<X1,..,XN>()(_rng)`]
+        [`xp_make_indirected<X1,..,XN>()(_rng)`]
         [
             `[T(_begin(_rng), T(_end(_rng)))`
         ]
     ]
     [
-        [`make_indirected`]
+        [`_rng|indirected`]
         [
-            A _pipable_ `op_make_indirected<>()`
+           `xp_make_indirected<>()(_rng)`
         ]
     ]
 ]
@@ -1905,6 +1909,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * `<pstade/oven/transformed.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -1913,33 +1918,33 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`op_make_transformed<R>`]
+        [`xp_make_transformed<R>`]
         [
            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_transformed<R>()(_rng, _fun)`]
+        [`xp_make_transformed<R>()(_rng, _fun)`]
         [
             `[T(_begin(_rng), _fun), T(_end(_rng), _fun))`, whose `boost::range_reference` type is `R`.
         ]
     ]
     [
-        [`op_make_transformed<>`]
+        [`xp_make_transformed<>`]
         [
            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_transformed<>()(_rng, _cal)`]
+        [`xp_make_transformed<>()(_rng, _cal)`]
         [
             `[U(_begin(_rng), _cal), U(_end(_rng), _cal))`
         ]
     ]
     [
-        [`make_transformed`]
+        [`_rng|transformed`]
         [
-            A _pipable_ `op_make_transformed<>()`
+            `xp_make_transformed<>()(_rng)`
         ]
     ]
 ]
