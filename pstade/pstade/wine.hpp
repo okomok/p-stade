@@ -31,7 +31,6 @@
 #include "./implicitly_defined.hpp"
 #include "./in_unnamed.hpp"
 #include "./instance.hpp"
-#include "./integral_cast.hpp"
 // #include "./ios_init.hpp"
 #include "./is_convertible.hpp"
 #include "./is_ndebug.hpp"

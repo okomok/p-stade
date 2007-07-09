@@ -17,10 +17,10 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/sig_template.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/provide_sig.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./shared.hpp"
@@ -35,24 +35,26 @@ namespace pstade { namespace oven {
 
 
 template< class Value = boost::use_default >
-struct op_shared_values :
-    provide_sig
+struct xp_shared_values
 {
-    template< class FunCall >
-    struct result;
-
     template< class A >
     struct value_ :
         eval_if_use_default< Value, pass_by_value<A> >
     { };
 
-    // 1ary-
+// 1ary-
+    template< class FunCall >
+    struct result;
+
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_SHARED_VALUES_MAX_ARITY, <pstade/oven/shared_values.hpp>))
     #include BOOST_PP_ITERATE()
+
+    #include PSTADE_EGG_SIG_TEMPLATE()
 };
 
 
-PSTADE_CONSTANT(shared_values, (op_shared_values<>))
+typedef xp_shared_values<> op_shared_values;
+PSTADE_POD_CONSTANT((op_shared_values), shared_values) = {};
 
 
 template< class Value, std::size_t N >

@@ -34,12 +34,12 @@ namespace pstade { namespace egg {
     {
         typedef 
             function< detail::baby_generator<Lambda, How, NullaryResult> >
-        type; // = { {} };
+        type; // = {{}};
     };
 
 
     #define PSTADE_EGG_GENERATOR_INITIALIZER() \
-        { {} } \
+        {{}} \
     /**/
 
 

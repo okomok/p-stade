@@ -28,10 +28,10 @@
 namespace pstade { namespace egg {
 
 
-    template<class Indirectable>
+    template<class Ptr_>
     struct result_of_indirected
     {
-        typedef egg::function< detail::baby_indirected_result<Indirectable> > type;
+        typedef egg::function< detail::baby_indirected_result<Ptr_> > type;
     };
 
 

@@ -12,7 +12,7 @@
 
 
 #include <iostream> // cin
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade {
@@ -32,7 +32,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(pause, (op_pause))
+    PSTADE_POD_CONSTANT((op_pause), pause) = {};
 
 
 } // namespace pstade

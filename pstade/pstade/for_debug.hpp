@@ -13,7 +13,7 @@
 
 #include <stdexcept> // logic_error
 #include <boost/throw_exception.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade {
@@ -33,7 +33,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(for_debug, (op_for_debug))
+    PSTADE_POD_CONSTANT((op_for_debug), for_debug) = {};
 
 
 } // namespace pstade

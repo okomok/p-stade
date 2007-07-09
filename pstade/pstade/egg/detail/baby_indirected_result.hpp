@@ -19,42 +19,42 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "../indirect.hpp"
+#include "../dereference.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Indirectable>
-    struct indirectable_base :
+    template<class Ptr_>
+    struct indirecting_fun :
         boost::remove_reference<
-            typename result_of<op_indirect(Indirectable const&)>::type
+            typename result_of<op_dereference(Ptr_ const&)>::type
         >
     { };
 
 
-    template<class Indirectable>
+    template<class Ptr_>
     struct baby_indirected_result
     {
-        Indirectable m_ind;
+        Ptr_ m_ptr;
 
-        typedef typename indirectable_base<Indirectable>::type base_type;
+        typedef typename indirecting_fun<Ptr_>::type base_type;
 
-        typename result_of<op_indirect(Indirectable const&)>::type
+        typename result_of<op_dereference(Ptr_ const&)>::type
         base() const
         {
-            return *m_ind;
+            return *m_ptr;
         }
 
     // 0ary
         typedef typename
-            result_of<typename indirectable_base<Indirectable>::type()>::type
+            result_of<typename indirecting_fun<Ptr_>::type()>::type
         nullary_result_type;
 
         template<class Result>
         Result call() const
         {
-            return (*m_ind)();
+            return (*m_ptr)();
         }
 
     // 1ary-
@@ -82,7 +82,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return (*m_ind)(BOOST_PP_ENUM_PARAMS(n, a));
+        return (*m_ptr)(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

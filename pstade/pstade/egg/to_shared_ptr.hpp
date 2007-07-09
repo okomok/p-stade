@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_to_shared_ptr<>::type op_to_shared_ptr;
-    PSTADE_POD_CONSTANT((op_to_shared_ptr), to_shared_ptr) = { {} };
+    PSTADE_POD_CONSTANT((op_to_shared_ptr), to_shared_ptr) = {{}};
 
 
     template<class X, class Ptr>

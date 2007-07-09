@@ -24,12 +24,15 @@
 #if !defined(_ALGORITHM_) // except for VC++ STL
 
     #include <cstddef> // ptrdiff_t
-    #include <pstade/pipable.hpp>
+    #include <boost/preprocessor/facilities/identity.hpp>
+    #include <pstade/egg/pipable.hpp>
+    #include <pstade/pod_constant.hpp>
     #include "../identities.hpp"
 
     namespace pstade { namespace oven {
 
-        PSTADE_PIPABLE(before_stable_partition, (tp_make_identities<std::ptrdiff_t>::type))
+        PSTADE_POD_CONSTANT((egg::result_of_pipable<tp_make_identities<std::ptrdiff_t>::type>::type), before_stable_partition)
+            = PSTADE_EGG_PIPABLE_RESULT_INITIALIZATION(BOOST_PP_IDENTITY({{}}));
 
     } }
 

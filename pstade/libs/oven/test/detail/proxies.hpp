@@ -42,7 +42,7 @@ struct base_make_proxies
 };
 
 
-PSTADE_OVEN_BASE_TO_ADAPTOR(proxies, (baby_make_proxies<_>))
+PSTADE_OVEN_BASE_TO_ADAPTOR(proxies, (base_make_proxies<_>))
 
 
 } } } // namespace pstade::oven::test

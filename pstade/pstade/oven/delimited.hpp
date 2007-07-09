@@ -67,12 +67,10 @@ namespace delimited_detail {
             egg::function< baby_join<DelimiterRange> >
         join_t;
 
-        typedef
-            typename result_of<
+        typedef typename
+            result_of<
                 op_make_concatenated(
-                    typename result_of<
-                        op_make_transformed(SegmentRange&, join_t)
-                    >::type
+                    typename result_of<op_make_transformed(SegmentRange&, join_t&)>::type
                 )
             >::type
         result_type;
@@ -82,8 +80,9 @@ namespace delimited_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<DelimiterRange>));
 
+            join_t join = { baby_join<DelimiterRange>(delim) };
             return make_concatenated(
-                make_transformed(rngs, join_t(delim))
+                make_transformed(rngs, join)
             );
         }
     };

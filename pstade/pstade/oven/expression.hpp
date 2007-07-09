@@ -21,7 +21,7 @@
 
 
 #include <boost/typeof/typeof.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./typeof.hpp"
 #if !defined(BOOST_TYPEOF_NATIVE)
     #include "./any_range.hpp"
@@ -40,7 +40,8 @@ namespace pstade { namespace oven {
     typedef op_make_iter_range op_expression;
 #endif
 
-PSTADE_CONSTANT(expression, (op_expression))
+// Fortunately, initializers are the same.
+PSTADE_POD_CONSTANT((op_expression), expression) = {{}};
 
 
 } } // namespace pstade::oven

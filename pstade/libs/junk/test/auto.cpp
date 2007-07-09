@@ -13,8 +13,8 @@
 //#include <pstade/../libs/wine/test/to_ref_value.cpp>
 
 //#include <pstade/../libs/oven/test/functions.cpp>
-//#include <pstade/../libs/oven/test/xpressive_tokenized.cpp>
-#include <pstade/../libs/oven/test/multiple_defs1.cpp>
+//#include <pstade/../libs/oven/test/adjacent_filtered.cpp>
+#include <pstade/../libs/oven/test/delimited.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>

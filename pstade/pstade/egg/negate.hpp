@@ -42,8 +42,9 @@ namespace pstade { namespace egg {
 
 
     typedef function<negate_detail::baby> op_negate;
+
     PSTADE_ADL_BARRIER(negate) { // for 'std'
-        PSTADE_POD_CONSTANT((op_negate), negate) = { {} };
+        PSTADE_POD_CONSTANT((op_negate), negate) = {{}};
     }
 
 

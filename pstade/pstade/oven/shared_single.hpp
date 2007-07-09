@@ -13,7 +13,6 @@
 
 #include <boost/array.hpp>
 #include <boost/pointee.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/egg/function_by_value.hpp>
 #include <pstade/egg/to_shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
@@ -89,7 +88,7 @@ namespace shared_single_detail {
 } // namespace shared_single_detail
 
 
-typedef egg::function<shared_single_detail::baby> op_shared_single;
+typedef egg::function_by_value<shared_single_detail::baby> op_shared_single;
 PSTADE_POD_CONSTANT((op_shared_single), shared_single) = {{}};
 
 

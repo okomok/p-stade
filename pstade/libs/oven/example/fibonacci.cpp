@@ -17,7 +17,6 @@
 #include <iostream>
 #include <pstade/oven.hpp>
 #include <pstade/egg/to_value.hpp>
-#include <pstade/tuple.hpp> // tuple_pack
 #include <boost/assign/list_of.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>

@@ -13,6 +13,7 @@
 
 #include <pstade/biscuit/range/token_iterator.hpp>
 #include <pstade/biscuit/state/null_state.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
@@ -54,7 +55,7 @@ namespace biscuit_tokenized_detail {
         template< class Result, class Range, class Parser >
         Result call(Range& rng, Parser& par) const
         {
-            return (*this)(rng, par, biscuit::null_state);
+            return egg::make_function(*this)(rng, par, biscuit::null_state);
         }
 
         template< class Result, class Iterator, class UserState >

@@ -116,15 +116,15 @@ namespace initial_values_detail {
 template< class Value = boost::use_default >
 struct xp_initial_values
 {
-    template< class FunCall >
-    struct result;
-
     template< class A >
     struct value_ :
         eval_if_use_default< Value, pass_by_value<A> >
     { };
 
-    // 1ary-
+// 1ary-
+    template< class FunCall >
+    struct result;
+
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_INITIAL_VALUES_MAX_ARITY, <pstade/oven/initial_values.hpp>))
     #include BOOST_PP_ITERATE()
 

@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
 
 
     typedef function<always_detail::baby> op_always;
-    PSTADE_POD_CONSTANT((op_always), always) = { {} };
+    PSTADE_POD_CONSTANT((op_always), always) = {{}};
 
 
 } } // namespace pstade::egg
