@@ -18,7 +18,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace make_function_detail {
+    namespace make_function_by_value_detail {
 
 
         struct baby
@@ -38,10 +38,10 @@ namespace pstade { namespace egg {
         };
 
 
-    } // namespace make_function_detail
+    } // namespace make_function_by_value_detail
 
 
-    typedef function_by_value<make_function_detail::baby> op_make_function_by_value;
+    typedef function_by_value<make_function_by_value_detail::baby> op_make_function_by_value;
     PSTADE_POD_CONSTANT((op_make_function_by_value), make_function_by_value) = {{}};
 
 

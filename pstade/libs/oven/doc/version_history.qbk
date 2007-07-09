@@ -156,6 +156,8 @@
 
 [h2 Version 0.94.2]
 * Changed `copied` header.
+* Renamed `op_xxx<..>` to `xp_xxx<..>`.
+* All the predefined function objects are now POD.
 
 
 
