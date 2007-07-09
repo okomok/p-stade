@@ -11,12 +11,12 @@
 
 
 #include <pstade/detail/overload.hpp>
+#include <pstade/egg/integralize.hpp>
 #include <pstade/gravy/c_str.hpp>
 #include <pstade/gravy/module_file_name.hpp>
 #include <pstade/gravy/tstring.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
-#include <pstade/integral_cast.hpp>
 #include <pstade/oven/copied.hpp>
 #include <pstade/tomato/atl/base.hpp> // CRegKey
 #include <pstade/tomato/atl/config.hpp> // ATL_VER
@@ -51,10 +51,10 @@ inline
 bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast, pstade::detail::overload<>)
 {
 #if !(PSTADE_TOMATO_ATL_VER < 0x0700)
-    ULONG ulBufs = (pLast - pFirst)|pstade::to_integer;
+    ULONG ulBufs = (pLast - pFirst)|pstade::egg::integralize();
     return key.QueryStringValue(pszValueName, pFirst, &ulBufs) == ERROR_SUCCESS;
 #else
-    DWORD dwCount = (pLast - pFirst)|pstade::to_integer;
+    DWORD dwCount = (pLast - pFirst)|pstade::egg::integralize();
     return key.QueryValue(pFirst, pszValueName, &dwCount) == ERROR_SUCCESS;
 #endif
 }

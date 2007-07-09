@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
 #include <pstade/egg/lexicalize.hpp>
 #include <pstade/if_debug.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./log.hpp"
 
@@ -41,7 +41,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_CONSTANT(z_order, (op_z_order))
+    PSTADE_POD_CONSTANT((op_z_order), z_order) = {};
 
 
     struct op_z_order_sort
@@ -55,7 +55,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_CONSTANT(z_order_sort, (op_z_order_sort))
+    PSTADE_POD_CONSTANT((op_z_order_sort), z_order_sort) = {};
 
 
 } } // namespace pstade::hamburger

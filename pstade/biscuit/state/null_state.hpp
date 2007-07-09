@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace biscuit {
@@ -24,7 +24,7 @@ typedef null_state_type_impl const null_state_type;
 typedef null_state_type_impl const null_state_t;
 
 
-PSTADE_CONSTANT(null_state, (null_state_type_impl))
+PSTADE_POD_CONSTANT((null_state_type_impl), null_state) = {};
 
 
 } } // namespace pstade::biscuit

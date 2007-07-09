@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
     typedef function<to_lower_detail::baby> op_to_lower;
 
     PSTADE_ADL_BARRIER(to_lower) { // for 'boost'
-        PSTADE_POD_CONSTANT((op_to_lower), to_lower) = { {} };
+        PSTADE_POD_CONSTANT((op_to_lower), to_lower) = {{}};
     }
 
 

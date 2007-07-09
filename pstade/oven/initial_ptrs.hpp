@@ -133,9 +133,6 @@ namespace initial_ptrs_detail {
 template< class Value = boost::use_default >
 struct xp_initial_ptrs
 {
-    template< class FunCall >
-    struct result;
-
     template< class A >
     struct auto_ptr_of :
         eval_if_use_default< Value,
@@ -144,7 +141,10 @@ struct xp_initial_ptrs
         >
     { };
 
-    // 1ary-
+// 1ary-
+    template< class FunCall >
+    struct result;
+
 #define PSTADE_move_to(Z, N, _) initial_ptrs_detail::move_to<typename auto_ptr_of<A0>::type>(BOOST_PP_CAT(a, N))
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_INITIAL_PTRS_MAX_ARITY, <pstade/oven/initial_ptrs.hpp>))
     #include BOOST_PP_ITERATE()

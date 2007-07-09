@@ -23,6 +23,7 @@
 
 
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/pass_by.hpp>
 #include "./function.hpp"
@@ -87,11 +88,11 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_nullary_result
         >
-    { }; // ::type = { { { {} }, {} } }
+    { }; // ::type = { { {{}}, {} } }
 
 
     #define PSTADE_EGG_AUTOMATIC_INITIALIZER() \
-        PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({ {} }), BOOST_PP_IDENTITY({}))
+        PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}), BOOST_PP_IDENTITY({}))
     /**/
 
 

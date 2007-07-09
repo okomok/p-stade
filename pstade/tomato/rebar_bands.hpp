@@ -52,7 +52,7 @@ namespace pstade { namespace tomato {
     struct op_make_rebar_bands
     {
         typedef
-            result_of<oven::op_indexing<>(int, UINT, rebar_bands_detail::op_get)>::type
+            result_of<oven::op_indexing(int, UINT, rebar_bands_detail::op_get)>::type
         result_type;
 
         result_type operator()(gravy::window_ref rebar) const

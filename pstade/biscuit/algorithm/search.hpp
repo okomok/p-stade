@@ -13,6 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
@@ -59,7 +60,7 @@ struct tp_results_search
         template< class Result, class ParsingRange, class MatchResults >
         Result search(ParsingRange& r, MatchResults& rs) const
         {
-            return (*this)(r, rs, null_state);
+            return egg::make_function(*this)(r, rs, null_state);
         }
     };
 

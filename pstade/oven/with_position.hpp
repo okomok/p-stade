@@ -12,6 +12,7 @@
 
 
 #include <boost/spirit/iterator/position_iterator.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
@@ -56,7 +57,7 @@ namespace with_position_detail {
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            return (*this)(rng, boost::spirit::file_position());
+            return egg::make_function(*this)(rng, boost::spirit::file_position());
         }
     };
 

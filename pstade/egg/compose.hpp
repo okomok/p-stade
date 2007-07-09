@@ -104,7 +104,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_compose<>::type op_compose;
-    PSTADE_POD_CONSTANT((op_compose), compose) = { {} };
+    PSTADE_POD_CONSTANT((op_compose), compose) = {{}};
 
 
 } } // namespace pstade::egg

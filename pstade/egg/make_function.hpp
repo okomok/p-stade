@@ -12,6 +12,7 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./function.hpp"
 #include "./function_by_value.hpp"
 
 
@@ -41,7 +42,7 @@ namespace pstade { namespace egg {
     } // namespace make_function_detail
 
 
-    typedef egg::function_by_value<make_function_detail::baby> op_make_function;
+    typedef function_by_value<make_function_detail::baby> op_make_function;
     PSTADE_POD_CONSTANT((op_make_function), make_function) = {{}};
 
 

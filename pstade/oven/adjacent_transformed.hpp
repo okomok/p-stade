@@ -155,7 +155,7 @@ struct tp_make_adjacent_transformed
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             return xp_make_zipped_with<Reference, Value>()(
-                tuple_pack(make_popped(rng), make_dropped(rng, 1)), fun
+                egg::tuple_pack(make_popped(rng), make_dropped(rng, 1)), fun
             );
         }
 

@@ -78,7 +78,7 @@ public:
         return *this;
     }
 
-// Indirectable
+// Ptr_
     X& operator*()
     {
         return (*m_opx).m_x;
@@ -120,12 +120,12 @@ private:
 } } } // namespace pstade::oven::detail
 
 
-#include <pstade/egg/indirect.hpp>
+#include <pstade/egg/dereference.hpp>
 
 namespace pstade { namespace egg {
 
     template< class X >
-    struct indirect_value_impl< oven::detail::regularized<X> >
+    struct dereference_value_impl< oven::detail::regularized<X> >
     {
         typedef X type;
     };

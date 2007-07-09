@@ -22,6 +22,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/less.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
@@ -157,7 +158,7 @@ struct tp_make_merged
         template< class Result, class Range1, class Range2 >
         Result call(Range1& rng1, Range2& rng2) const
         {
-            return (*this)(rng1, rng2, egg::less);
+            return egg::make_function(*this)(rng1, rng2, egg::less);
         }
 
         template< class Result, class Iterator1, class Iterator2, class Compare >

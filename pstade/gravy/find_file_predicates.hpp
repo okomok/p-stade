@@ -33,9 +33,8 @@ namespace pstade { namespace gravy {
 
 
     #define PSTADE_GRAVY_define_pred(suffix, SUFFIX) \
-        typedef find_file_matches_mask< BOOST_PP_CAT(FILE_ATTRIBUTE_, SUFFIX) > \
-        PSTADE_GRAVY_pred_t(suffix); \
-        PSTADE_CONSTANT( PSTADE_GRAVY_pred(suffix), (PSTADE_GRAVY_pred_t(suffix)) ) \
+        typedef find_file_matches_mask< BOOST_PP_CAT(FILE_ATTRIBUTE_, SUFFIX) > PSTADE_GRAVY_pred_t(suffix); \
+        PSTADE_POD_CONSTANT( (PSTADE_GRAVY_pred_t(suffix)), PSTADE_GRAVY_pred(suffix) ) = {}; \
     /**/
 
         #define PSTADE_GRAVY_pred(suffix) \

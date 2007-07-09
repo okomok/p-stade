@@ -65,7 +65,7 @@ struct baby_range_based2_result
     template< class Result, class Range0, class Range1 >
     Result call(Range0& rng0, Range1& rng1) const
     {
-        return m_fun(
+        return m_base(
             egg::to_cref(boost::begin(rng0)),
             egg::to_cref(boost::end(rng0)),
             egg::to_cref(boost::begin(rng1)),
@@ -98,7 +98,6 @@ struct result_of_range_based2
 typedef
     egg::generator<
         result_of_range_based2< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
-        boost::use_default,
         egg::use_brace_level1
     >::type
 op_range_based2;
@@ -130,7 +129,7 @@ PSTADE_POD_CONSTANT((op_range_based2), range_based2) = PSTADE_EGG_GENERATOR_INIT
     template< class Result, class Range0, class Range1, BOOST_PP_ENUM_PARAMS(n, class A) >
     Result call(Range0& rng0, Range1& rng1, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return m_fun(
+        return m_base(
             egg::to_cref(boost::begin(rng0)),
             egg::to_cref(boost::end(rng0)),
             egg::to_cref(boost::begin(rng1)),

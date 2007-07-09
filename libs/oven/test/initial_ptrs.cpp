@@ -52,7 +52,7 @@ make_ptrs2()
     xp_new_auto< ::ncint2 > a2_;
     pstade::egg::xp_new_ptr< boost::ptr_container_detail::static_move_ptr<test::ncint> > m_;
     return
-        op_initial_ptrs< test::ncint >()(
+        xp_initial_ptrs< test::ncint >()(
             a2_(3), a_(1), a2_(3), a_(6), m_(2), a2_(1), a_(7), a2_(0), a_(9)
         );
 }

@@ -50,7 +50,6 @@
 #include <boost/range/size.hpp>
 #include <boost/next_prior.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/object_generator.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/oven/concepts.hpp>

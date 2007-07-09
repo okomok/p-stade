@@ -32,7 +32,6 @@
 #include <boost/static_warning.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>

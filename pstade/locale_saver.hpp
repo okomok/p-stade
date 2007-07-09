@@ -21,7 +21,7 @@
 
 #include <locale>
 #include <boost/scoped_ptr.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade {
@@ -74,7 +74,7 @@ namespace locale_saver_detail {
         }
     };
 
-    PSTADE_CONSTANT(global, (global_t))
+    PSTADE_POD_CONSTANT((global_t), global) = {};
 
 
     template< class = void >

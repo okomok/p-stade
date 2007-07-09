@@ -11,9 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./counting.hpp"
-#include "./detail/baby_to_adaptor.hpp"
 #include "./transformed.hpp"
 
 
@@ -62,7 +63,8 @@ struct xp_indexing :
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(indexing, (tp_indexing<>::baby))
+typedef tp_indexing<>::type op_indexing;
+PSTADE_POD_CONSTANT((op_indexing), indexing) = {{}};
 
 
 } } // namespace pstade::oven

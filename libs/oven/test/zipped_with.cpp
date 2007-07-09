@@ -110,7 +110,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            xp_make_zipped_with<int>()(pstade::tuple_pack(xs, ys), ::poor_plus2()),
+            xp_make_zipped_with<int>()(pstade::egg::tuple_pack(xs, ys), ::poor_plus2()),
             expected
         ) );
     }

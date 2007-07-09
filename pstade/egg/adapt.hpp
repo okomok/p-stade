@@ -25,12 +25,12 @@ namespace pstade { namespace egg {
     {
         typedef
             function< detail::baby_adapt<Lambda> >
-        type; // = { {} };
+        type; // = {{}};
     };
 
 
     #define PSTADE_EGG_ADAPT_INITIALIZER() \
-        { {} } \
+        {{}} \
     /**/
 
 

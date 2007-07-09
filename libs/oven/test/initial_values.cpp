@@ -187,7 +187,7 @@ void test()
         typedef std::vector<int>  row;
         typedef std::vector<row>  matrix;
 
-        matrix m = op_initial_values<row>()(
+        matrix m = xp_initial_values<row>()(
             initial_values(1,2,3),
             initial_values(4,5),
             initial_values(7)

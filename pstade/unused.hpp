@@ -15,7 +15,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 
 
@@ -46,7 +46,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(unused, (op_unused))
+    PSTADE_POD_CONSTANT((op_unused), unused) = {};
 
 
 } // namespace pstade

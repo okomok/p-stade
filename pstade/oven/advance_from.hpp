@@ -30,6 +30,7 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/adapt.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace oven {

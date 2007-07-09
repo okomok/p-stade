@@ -26,7 +26,6 @@
 template< class F >
 void regular_check(F const f)
 {
-    f.base();
     F f1(f);
     F f2;
     f2 = f1;

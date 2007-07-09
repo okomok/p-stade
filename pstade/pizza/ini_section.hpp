@@ -22,13 +22,13 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/empty.hpp>
+#include <pstade/egg/integralize.hpp>
 #include <pstade/gravy/c_str.hpp>
 #include <pstade/gravy/module_file_name.hpp>
 #include <pstade/gravy/tstring.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/instance.hpp>
-#include <pstade/integral_cast.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/copied.hpp>
@@ -60,7 +60,7 @@ namespace ini_section_detail {
             ::GetPrivateProfileString(
                 pszSectionName, pszValueName,
                 gravy::c_str(magicStr), // default
-                boost::begin(buf), oven::distance(buf)|to_integer,
+                boost::begin(buf), oven::distance(buf)|egg::integralize(),
                 pszFileName);
 
             if (oven::equals(buf|oven::as_c_str, magicStr))
@@ -69,7 +69,7 @@ namespace ini_section_detail {
 
         ::GetPrivateProfileString( // bufsz contains NULL (== buffer size) >= 1
             pszSectionName, pszValueName,
-            _T(""), pFirst, (pLast - pFirst)|to_integer, pszFileName);
+            _T(""), pFirst, (pLast - pFirst)|egg::integralize(), pszFileName);
 
         return true;
     }

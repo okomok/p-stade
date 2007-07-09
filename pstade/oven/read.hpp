@@ -24,6 +24,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/egg/adapt.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./detail/is_reference_iterator.hpp"
 
 

@@ -12,6 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include "../state/null_state.hpp"
@@ -48,7 +49,7 @@ struct tp_results_parse
         template< class Result, class ParsingRange, class MatchResults >
         Result parse(ParsingRange& r, MatchResults& rs) const
         {
-            return (*this)(r, rs, null_state);
+            return egg::make_function(*this)(r, rs, null_state);
         }
     };
 

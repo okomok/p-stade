@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
             template<class Result>
             Result call() const
             {
-                Result result = { {} };
+                Result result = {{}};
                 return result;
             }
 
@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
 
 
     typedef to_value_detail_::op op_to_value;
-    PSTADE_POD_CONSTANT((op_to_value), to_value) = { {} };
+    PSTADE_POD_CONSTANT((op_to_value), to_value) = {{}};
 
 
 } } // namespace pstade::egg

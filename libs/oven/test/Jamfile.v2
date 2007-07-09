@@ -73,7 +73,6 @@ test-suite "oven" :
     [ run map_keys.cpp ]
     [ run map_values.cpp ]
     [ run matches.cpp ]
-    [ run matrix.cpp ]
     [ run mb_decoded.cpp ]
     [ run mb_encoded.cpp ]
     [ run memoized.cpp ]
