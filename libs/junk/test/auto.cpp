@@ -13,14 +13,14 @@
 //#include <pstade/../libs/wine/test/to_ref_value.cpp>
 
 //#include <pstade/../libs/oven/test/functions.cpp>
-//#include <pstade/../libs/oven/test/adjacent_filtered.cpp>
-#include <pstade/../libs/oven/test/delimited.cpp>
+//#include <pstade/../libs/oven/test/to_lower.cpp>
+//#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
-//#include <pstade/../libs/biscuit/test/capture.cpp>
+#include <pstade/../libs/biscuit/test/parse.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-//#include <pstade/../libs/egg/test/indirected.cpp>
+//#include <pstade/../libs/egg/test/to_upper.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

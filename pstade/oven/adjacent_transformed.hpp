@@ -131,9 +131,7 @@ struct tp_make_adjacent_transformed
         template< class Myself, class Range, class BinaryFun >
         struct apply :
             boost::mpl::eval_if<
-                is_convertible<
-                    typename range_traversal<Range>::type, boost::forward_traversal_tag
-                >,
+                is_convertible<typename range_traversal<Range>::type, boost::forward_traversal_tag>,
                 adjacent_transformed_detail::make_multi_pass< Range, BinaryFun, Reference, Value>,
                 adjacent_transformed_detail::make_single_pass<Range, BinaryFun, Reference, Value>
             >

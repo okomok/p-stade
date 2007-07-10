@@ -71,6 +71,7 @@ void pstade_minimal_test()
     }
     {
         std::string b("abc\nef\ng\nh\ngkln\nopq\n\n");
+        ::check_line_number(b|with_line_number(0), 12, 4);
         ::check_line_number(b|with_line_number(0)|identities|identities, 12, 4);
     }
 }

@@ -1,6 +1,5 @@
 #include "./prefix.hpp"
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -12,8 +11,9 @@
 
 
 #define PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING
-#include "./detail/v1_tests.hpp"
 #include <pstade/oven/reversed.hpp>
+#include <boost/test/minimal.hpp>
+#include "./detail/v1_tests.hpp"
 
 
 #include <iterator>

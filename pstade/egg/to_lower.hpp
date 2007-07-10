@@ -11,48 +11,12 @@
 
 
 #include <locale> // tolower
-#include <pstade/adl_barrier.hpp>
-#include <pstade/pass_by.hpp>
-#include <pstade/pod_constant.hpp>
-#include "./function.hpp"
+#include "./detail/char_conversion.hpp"
 
 
 namespace pstade { namespace egg {
 
-
-    namespace to_lower_detail {
-
-
-        struct baby
-        {
-            template<class Myself, class CharT, class Locale = void>
-            struct apply :
-                pass_by_value<CharT>
-            { };
-
-            template<class Result, class CharT>
-            Result call(CharT ch, std::locale const& loc) const
-            {
-                return std::tolower(ch, loc);
-            }
-
-            template<class Result, class CharT>
-            Result call(CharT ch) const
-            {
-                return std::tolower(ch, std::locale());
-            }
-        };
-
-
-    } // namespace to_lower_detail
-
-
-    typedef function<to_lower_detail::baby> op_to_lower;
-
-    PSTADE_ADL_BARRIER(to_lower) { // for 'boost'
-        PSTADE_POD_CONSTANT((op_to_lower), to_lower) = {{}};
-    }
-
+    PSTADE_EGG_CHAR_CONVERSION(to_lower, std::tolower)
 
 } } // namespace pstade::egg
 

@@ -17,15 +17,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class Value >
 struct default_space
 {
-    // C++0x won't require this?
-    static Value value();
-};
-
-
-template< >
-struct default_space<char>
-{
-    static char value()
+    static Value value()
     {
         return ' ';
     }

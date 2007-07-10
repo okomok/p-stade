@@ -1,6 +1,7 @@
 #include "./prefix.hpp"
-#include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+
+
+#define _WIN32_WINNT 0x0400 // Boost.Test needs this.
 
 
 // PStade.Oven
@@ -14,6 +15,9 @@
 #include <pstade/oven.hpp>
 #undef PSTADE_OVEN_OVEN_HPP
 #include <pstade/oven/oven.hpp>
+
+
+#include <boost/test/minimal.hpp>
 
 
 using namespace pstade::oven;

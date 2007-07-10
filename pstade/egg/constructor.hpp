@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./automatic.hpp"
 #include "./construct.hpp"

@@ -109,7 +109,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_EGG_SPECIFIED1(any_movable_cast, xp_any_movable_cast, 1)
+    PSTADE_EGG_SPECIFIED1(any_movable_cast, xp_any_movable_cast, (class))
 
 
 } // namespace pstade

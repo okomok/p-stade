@@ -1,6 +1,5 @@
 #include "./prefix.hpp"
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -11,12 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/v1_tests.hpp"
 #include <pstade/oven/lower_chars.hpp>
 #include <pstade/oven/upper_chars.hpp>
 #include <pstade/oven/const_refs.hpp>
 #include <pstade/oven/wide_chars.hpp>
 #include <pstade/oven/narrow_chars.hpp>
+#include <boost/test/minimal.hpp>
+#include "./detail/v1_tests.hpp"
 
 
 #include <string>

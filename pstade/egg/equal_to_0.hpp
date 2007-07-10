@@ -21,7 +21,7 @@ namespace pstade { namespace egg {
     {
         typedef bool result_type;
 
-        template< class X >
+        template<class X>
         bool operator()(X const& x) const
         {
             return x == X(0);

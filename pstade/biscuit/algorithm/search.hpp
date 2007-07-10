@@ -58,7 +58,7 @@ struct tp_results_search
         }
 
         template< class Result, class ParsingRange, class MatchResults >
-        Result search(ParsingRange& r, MatchResults& rs) const
+        Result call(ParsingRange& r, MatchResults& rs) const
         {
             return egg::make_function(*this)(r, rs, null_state);
         }

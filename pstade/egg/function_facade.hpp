@@ -12,7 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_MSVC
+#include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
             template<class Result>
             Result call() const
             {
-                return derived().template call<Result>();
+                return derived().BOOST_NESTED_TEMPLATE call<Result>();
             }
 
         // 1ary-
@@ -114,15 +114,13 @@ namespace pstade { namespace egg {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        Derived::template apply<
-            Derived, BOOST_PP_ENUM_PARAMS(n, A)
-        >
+        Derived::BOOST_NESTED_TEMPLATE apply<Derived, BOOST_PP_ENUM_PARAMS(n, A)>
     { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return derived().template call<Result>(BOOST_PP_ENUM_PARAMS(n, a));
+        return derived().BOOST_NESTED_TEMPLATE call<Result>(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

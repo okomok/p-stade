@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/pod_constant.hpp>

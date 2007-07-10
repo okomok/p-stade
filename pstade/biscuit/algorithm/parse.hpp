@@ -47,7 +47,7 @@ struct tp_results_parse
         }
 
         template< class Result, class ParsingRange, class MatchResults >
-        Result parse(ParsingRange& r, MatchResults& rs) const
+        Result call(ParsingRange& r, MatchResults& rs) const
         {
             return egg::make_function(*this)(r, rs, null_state);
         }
