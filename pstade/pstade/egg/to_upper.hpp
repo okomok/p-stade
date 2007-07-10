@@ -11,48 +11,12 @@
 
 
 #include <locale> // toupper
-#include <pstade/adl_barrier.hpp>
-#include <pstade/pass_by.hpp>
-#include <pstade/pod_constant.hpp>
-#include "./function.hpp"
+#include "./detail/char_conversion.hpp"
 
 
 namespace pstade { namespace egg {
 
-
-    namespace to_upper_detail {
-
-
-        struct baby
-        {
-            template<class Myself, class CharT, class Locale = void>
-            struct apply :
-                pass_by_value<CharT>
-            { };
-
-            template<class Result, class CharT>
-            Result call(CharT ch, std::locale const& loc) const
-            {
-                return std::toupper(ch, loc);
-            }
-
-            template<class Result, class CharT>
-            Result call(CharT ch) const
-            {
-                return std::toupper(ch, std::locale());
-            }
-        };
-
-
-    } // namespace to_upper_detail
-
-
-    typedef function<to_upper_detail::baby> op_to_upper;
-
-    PSTADE_ADL_BARRIER(to_upper) { // for 'boost'
-        PSTADE_POD_CONSTANT((op_to_upper), to_upper) = {{}};
-    }
-
+    PSTADE_EGG_CHAR_CONVERSION(to_upper, std::toupper)
 
 } } // namespace pstade::egg
 

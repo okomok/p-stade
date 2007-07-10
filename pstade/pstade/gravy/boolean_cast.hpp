@@ -79,7 +79,7 @@ namespace pstade { namespace gravy {
         }
     };
 
-    PSTADE_EGG_SPECIFIED1(boolean_cast, xp_boolean_cast, 1)
+    PSTADE_EGG_SPECIFIED1(boolean_cast, xp_boolean_cast, (class))
 
 
 } } // namespace pstade::gravy

@@ -90,7 +90,7 @@ struct xp_line_number
     }
 };
 
-PSTADE_EGG_SPECIFIED1(line_number, xp_line_number, 1)
+PSTADE_EGG_SPECIFIED1(line_number, xp_line_number, (class))
 
 
 } } // namespace pstade::oven

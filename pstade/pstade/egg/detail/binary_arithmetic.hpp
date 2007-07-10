@@ -37,13 +37,13 @@ namespace pstade { namespace egg { namespace detail {
     struct error_failed_to_deduce_arithmetic_operation_result_type;
 
 
-    template< class X, class Y >
+    template<class X, class Y>
     boost::type_traits::yes_type are_you_x(X const&);
 
-    template< class X, class Y >
+    template<class X, class Y>
     boost::type_traits::no_type  are_you_x(Y const&, typename disable_if< boost::is_same<X, Y> >::type = 0);
 
-    template< class X, class Y >
+    template<class X, class Y>
     error_failed_to_deduce_arithmetic_operation_result_type are_you_x(...);
 
 

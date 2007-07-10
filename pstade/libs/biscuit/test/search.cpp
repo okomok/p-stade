@@ -57,6 +57,16 @@ void test()
         boost::sub_range<const int [4]> rng = biscuit::search< bchseq2<int, 2, 3> >(text);
         BOOST_CHECK( oven::equal(rng, "\2\3") );
     }
+
+    { // compile check only
+        std::string str;
+        biscuit::search<eps>(str);
+        biscuit::search<eps>(str, biscuit::null_state);
+
+        biscuit::match_results<std::string> r;
+        biscuit::results_search<eps>(str, r);
+        biscuit::results_search<eps>(str, r, biscuit::null_state);
+    }
 }
 
 

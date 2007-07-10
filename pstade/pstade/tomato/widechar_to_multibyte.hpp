@@ -11,7 +11,6 @@
 
 
 #include <string>
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/oven/as_c_str.hpp>

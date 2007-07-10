@@ -1,6 +1,5 @@
 #include "./prefix.hpp"
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -15,9 +14,10 @@
 #if BOOST_VERSION >= 103500
 
 
-#include "./detail/v1_tests.hpp"
 #include <pstade/oven/unfuzipped.hpp>
 #include <pstade/oven/fuzipped.hpp>
+#include <boost/test/minimal.hpp>
+#include "./detail/v1_tests.hpp"
 
 
 #include <iterator>
@@ -106,6 +106,7 @@ void test()
 
 
 #else
+#include <boost/test/minimal.hpp>
 void test() { }
 #endif
 

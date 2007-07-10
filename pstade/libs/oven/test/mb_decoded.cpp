@@ -1,6 +1,5 @@
 #include "./prefix.hpp"
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -11,10 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/v1_tests.hpp"
-#if defined(BOOST_MSVC)
+#if defined(_MSC_VER)
 #include <pstade/oven/mb_decoded.hpp>
 #endif
+#include <boost/test/minimal.hpp>
+#include "./detail/v1_tests.hpp"
+
 
 #include <string>
 #include <boost/range.hpp>

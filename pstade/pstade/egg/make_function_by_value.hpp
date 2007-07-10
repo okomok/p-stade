@@ -30,9 +30,9 @@ namespace pstade { namespace egg {
             };
 
             template<class Result, class Baby>
-            Result call(Baby baby) const
+            Result call(Baby b) const
             {
-                Result r = { baby };
+                Result r = { b };
                 return r;
             }
         };

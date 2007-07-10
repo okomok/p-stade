@@ -39,7 +39,6 @@
 #include <pstade/oven/utf8_encoded.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/wine.hpp>
-#include <pstade/egg/to_ref.hpp>
 #include "./start.hpp"
 #include "./hatena_mode.hpp"
 
@@ -104,9 +103,8 @@ int main(int argc, char *argv[])
                     | biscuit::tokenized< or_<wnewline, any> >()         // 改行とそうでないものに分ける
                     | oven::transformed(::newline_cvter())               // 改行なら'\n'に変換する
                     | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
-                    | oven::memoized
-                    ,                                    // 速くするためキャッシュする
-                oven::utf8_encoder(oven::stream_writer(fout))|egg::to_ref// UTF-8に戻して出力
+                    | oven::memoized,                                    // 速くするためキャッシュする
+                oven::utf8_encoder(oven::stream_writer(fout))            // UTF-8に戻して出力
             );
 
             oven::copy("</pre>"|oven::as_literal, oven::stream_writer(fout));

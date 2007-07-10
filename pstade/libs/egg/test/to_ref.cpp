@@ -39,7 +39,7 @@ void pstade_minimal_test()
         BOOST_CHECK( (i|to_ref()) == 3 );
         BOOST_CHECK( to_ref(3) == 3 );
     }
-   {
+    {
         int i = 3;
         BOOST_CHECK( to_cref(i) == 3 );
         BOOST_CHECK( (i|to_cref()) == 3 );

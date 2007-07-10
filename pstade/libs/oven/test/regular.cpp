@@ -1,4 +1,4 @@
-#include <pstade/unit_test.hpp>
+#include "./prefix.hpp"
 
 
 // PStade.Oven
@@ -9,9 +9,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/v1_tests.hpp"
 #include <pstade/oven/regular.hpp>
 #include <pstade/oven/shared_regular.hpp>
+#include <pstade/unit_test.hpp>
+#include "./detail/v1_tests.hpp"
 
 
 #include <string>

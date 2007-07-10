@@ -23,6 +23,7 @@ test-suite "biscuit" :
     [ run literal.cpp ]
     [ run match.cpp ]
     [ run min_max_repeat.cpp ]
+    [ run parse.cpp ]
     [ run rngseq.cpp ]
     [ run rngset.cpp ]
     [ run repeat.cpp ]

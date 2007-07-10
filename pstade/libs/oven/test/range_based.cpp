@@ -1,6 +1,5 @@
 #include "./prefix.hpp"
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -13,6 +12,7 @@
 
 #include <pstade/oven/detail/range_based1.hpp>
 #include <pstade/oven/detail/range_based2.hpp>
+#include <boost/test/minimal.hpp>
 
 
 #include <algorithm>

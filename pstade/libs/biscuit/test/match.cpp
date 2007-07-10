@@ -84,6 +84,15 @@ void test()
         BOOST_CHECK( biscuit::match<eps>(str) );
         BOOST_CHECK( !biscuit::match<any>(str) );
     }
+    { // compile check only
+        std::string str;
+        biscuit::match<eps>(str);
+        biscuit::match<eps>(str, biscuit::null_state);
+
+        biscuit::match_results<std::string> r;
+        biscuit::results_match<eps>(str, r);
+        biscuit::results_match<eps>(str, r, biscuit::null_state);
+    }
 }
 
 

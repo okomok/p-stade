@@ -1,6 +1,5 @@
 #include "./prefix.hpp"
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -12,6 +11,7 @@
 
 
 #include <pstade/oven/lightweight_copyable.hpp>
+#include <boost/test/minimal.hpp>
 
 
 #include <string>

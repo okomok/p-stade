@@ -17,7 +17,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-using namespace pstade::egg;
+#include <pstade/egg/alias.hpp>
 
 
 void pstade_minimal_test()

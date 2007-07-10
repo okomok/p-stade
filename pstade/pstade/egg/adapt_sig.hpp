@@ -24,6 +24,7 @@
 // a nullary-callable function must be identified by 'adapt_nullary_sig'.
 
 
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
@@ -70,7 +71,7 @@ namespace pstade { namespace egg {
 
         // 0ary
             struct result0 :
-                SigFun::template sig<
+                SigFun::BOOST_NESTED_TEMPLATE sig<
                     boost::tuples::tuple<SigFun>
                 >
             { };
@@ -155,7 +156,7 @@ PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::adapt_sig_detail::result_, (c
 private:
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
-        SigFun::template sig<
+        SigFun::BOOST_NESTED_TEMPLATE sig<
             boost::tuples::tuple<
                 SigFun,
                 PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::nonref_arg<A, >::type)

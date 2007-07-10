@@ -28,16 +28,28 @@
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/distance.hpp>
+#include <pstade/oven/identities.hpp>
 #include <pstade/egg/compose.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <pstade/result_of_lambda.hpp> // composing lambdafunctor
 
 
+namespace lambda = boost::lambda;
+namespace oven = pstade::oven;
+using namespace oven;
+
+
+template<class Iterator>
+void check_cycle_count(Iterator first)
+{
+    BOOST_CHECK( oven::cycle_count<int>(first) == 5 );
+    std::advance(first, 9);
+    BOOST_CHECK( oven::cycle_count<int>(first) == 6);
+}
+
+
 void pstade_minimal_test()
 {
-    namespace lambda = boost::lambda;
-    namespace oven = pstade::oven;
-    using namespace oven;
 
     {
         int a[] = { 1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4 };
@@ -113,5 +125,10 @@ void pstade_minimal_test()
         std::string src("abcdefg");
         BOOST_CHECK( (src|cycled(5)).begin()[8] == 'b' );
         BOOST_CHECK( (src|cycled(5)|reversed).begin()[8] == 'f' );
+    }
+    {
+        std::string src("abcdefg");
+        ::check_cycle_count(boost::begin(src|cycled(5, 12)));
+        ::check_cycle_count(boost::begin(src|cycled(5, 12)|identities|identities));
     }
 }

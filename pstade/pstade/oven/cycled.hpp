@@ -16,9 +16,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/copy.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/egg/specified.hpp>
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
 #include "./detail/cycle_iterator.hpp"
