@@ -19,7 +19,7 @@
 
 #include <boost/version.hpp>
 #include <pstade/egg/fuse.hpp>
-#include <pstade/egg/perfect.hpp>
+#include <pstade/egg/ret.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/baby_to_adaptor.hpp"
 #include "./fuzipped.hpp"
@@ -55,7 +55,7 @@ struct tp_make_zipped_with
                 xp_make_transformed<Reference, Value>(
                     typename result_of<zip_(RangeTuple&)>::type,
                     typename result_of<
-                        egg::op_fuse(typename result_of<egg::xp_perfect<Reference>(Function&)>::type)
+                        egg::op_fuse(typename result_of<egg::xp_ret<Reference>(Function&)>::type)
                     >::type
                 )
             >
@@ -67,7 +67,7 @@ struct tp_make_zipped_with
             return
                 xp_make_transformed<Reference, Value>()(
                     zip_()(tup),
-                    egg::fuse(egg::xp_perfect<Reference>()(fun))
+                    egg::fuse(egg::xp_ret<Reference>()(fun))
                 );
         }
     };

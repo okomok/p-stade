@@ -56,6 +56,7 @@ test-suite "egg" :
     [ run not.cpp ]
     [ run perfect.cpp ]
     [ run pipable.cpp ]
+    [ run ret.cpp ]
     [ run shared_object.cpp ]
     [ run specified.cpp ]
     [ run static_downcast.cpp ]

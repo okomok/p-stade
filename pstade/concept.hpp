@@ -23,7 +23,7 @@
 
 #if !defined(NDEBUG) \
     && defined(PSTADE_CONCEPT_CHECK) \
-    && !BOOST_WORKAROUND(__GNUC__, <= 3) \
+    && BOOST_WORKAROUND(__GNUC__, >= 4) \
     // && BOOST_VERSION >= 103500
 
     #include <boost/concept/assert.hpp>

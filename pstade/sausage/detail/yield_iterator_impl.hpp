@@ -28,7 +28,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/perfect.hpp>
+#include <pstade/egg/ret.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/static_c.hpp>
@@ -132,7 +132,7 @@ private:
     void work()
     {
         try {
-            m_rou(egg::xp_perfect<void>()(
+            m_rou(egg::ret<void>(
                 boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)
             ));
         }
