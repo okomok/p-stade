@@ -31,7 +31,7 @@ void pstade_minimal_test()
     {
         int i = 3;
         BOOST_CHECK( to_value(i) == 3 );
-//        BOOST_CHECK( (i|to_value) == 3 );
+        BOOST_CHECK( (i|to_value) == 3 );
         BOOST_CHECK( (i|to_value()) == 3 );
         BOOST_CHECK( to_value(3) == 3 );
     }

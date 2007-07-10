@@ -26,7 +26,7 @@
 #include <functional>
 #include <pstade/egg/to_value.hpp>
 #include <pstade/egg/identity.hpp>
-#include <pstade/egg/perfect.hpp>
+#include <pstade/egg/ret.hpp>
 #include <pstade/oven/regular.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -97,7 +97,7 @@ void test()
         str |
             transformed(pstade::egg::to_value) |
             // transformed(pstade::identity); // dangling!
-            transformed(pstade::egg::xp_perfect<char>()(pstade::egg::identity));
+            transformed(pstade::egg::ret<char>(pstade::egg::identity));
     }
 }
 
