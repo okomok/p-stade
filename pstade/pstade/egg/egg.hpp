@@ -77,6 +77,7 @@
 #include "./sig_template.hpp"
 #include "./specified.hpp"
 #include "./static_downcast.hpp"
+#include "./swap_assign.hpp"
 #include "./to_lower.hpp"
 #include "./to_ref.hpp"
 #include "./to_shared_ptr.hpp"

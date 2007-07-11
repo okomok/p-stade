@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/egg/function_facade.hpp>
 #include <pstade/result_of.hpp>
 #include "./concatenated.hpp"
 #include "./concepts.hpp"
@@ -28,7 +28,8 @@ namespace delimited_detail {
 
 
     template< class DelimiterRange >
-    struct baby_join
+    struct join :
+        egg::function_facade< join<DelimiterRange> >
     {
         // Hold the base range by value for copying to outer scope.
         typedef typename
@@ -48,10 +49,10 @@ namespace delimited_detail {
             return make_jointed(m_delim, local);
         }
 
-        explicit baby_join()
+        explicit join()
         { }
 
-        explicit baby_join(DelimiterRange& delim) :
+        explicit join(DelimiterRange& delim) :
             m_delim(delim)
         { }
 
@@ -63,14 +64,10 @@ namespace delimited_detail {
     template< class SegmentRange, class DelimiterRange >
     struct base
     {
-        typedef
-            egg::function< baby_join<DelimiterRange> >
-        join_t;
-
         typedef typename
             result_of<
                 op_make_concatenated(
-                    typename result_of<op_make_transformed(SegmentRange&, join_t&)>::type
+                    typename result_of<op_make_transformed(SegmentRange&, join<DelimiterRange>)>::type
                 )
             >::type
         result_type;
@@ -80,9 +77,8 @@ namespace delimited_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<DelimiterRange>));
 
-            join_t join = { baby_join<DelimiterRange>(delim) };
             return make_concatenated(
-                make_transformed(rngs, join)
+                make_transformed(rngs, join<DelimiterRange>(delim))
             );
         }
     };

@@ -11,20 +11,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Can't wait for the upcoming Boost.Concept...
-
-
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/version.hpp>
 
 
+// Note the new concept library is broken on gcc-3.4
+// , which wrongly requires DefaultConstructible.
 #if !defined(NDEBUG) \
     && defined(PSTADE_CONCEPT_CHECK) \
-    && BOOST_WORKAROUND(__GNUC__, >= 4) \
-    // && BOOST_VERSION >= 103500
+    && !BOOST_WORKAROUND(__GNUC__, <= 3) \
+    && BOOST_VERSION >= 103500
 
     #include <boost/concept/assert.hpp>
     #include <boost/concept/usage.hpp>
@@ -37,7 +34,7 @@
     #define PSTADE_CONCEPT_ASSERT(ModelInParens)
     #define PSTADE_CONCEPT_USAGE(Model) ~Model()
 
-#endif // !defined(NDEBUG) && defined(PSTADE_CONCEPT_CHECK)
+#endif
 
 
 #endif

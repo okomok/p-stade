@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_COPY_ASSIGN_HPP
-#define PSTADE_EGG_COPY_ASSIGN_HPP
+#ifndef PSTADE_EGG_SWAP_ASSIGN_HPP
+#define PSTADE_EGG_SWAP_ASSIGN_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -13,20 +13,20 @@
 
 // What:
 //
-// The ambiguity buster; call copy-assignment explicitly.
+// Force exception-safe copy-assignment.
 
 
-#include <boost/implicit_cast.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
+#include "./do_swap.hpp"
 #include "./function.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    namespace copy_assign_detail {
+    namespace swap_assign_detail {
 
 
         struct baby
@@ -40,7 +40,8 @@ namespace pstade { namespace egg {
             template<class Result, class To, class From>
             Result call(To& to, From& from) const
             {
-                to = boost::implicit_cast<To const&>(from);
+                To tmp = from; // copy-initialization
+                do_swap(tmp, to);
                 return to;
             }
         };
@@ -49,11 +50,11 @@ namespace pstade { namespace egg {
         typedef function<baby> op;
 
 
-    } // namespace copy_assign_detail
+    } // namespace swap_assign_detail
 
 
-    typedef result_of_auxiliary1<copy_assign_detail::op>::type op_copy_assign;
-    PSTADE_POD_CONSTANT((op_copy_assign), copy_assign) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    typedef result_of_auxiliary1<swap_assign_detail::op>::type op_swap_assign;
+    PSTADE_POD_CONSTANT((op_swap_assign), swap_assign) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } } // namespace pstade::egg
