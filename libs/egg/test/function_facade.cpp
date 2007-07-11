@@ -209,6 +209,27 @@ A const volatile get_cv()
 }
 
 
+struct our_identity :
+    pstade::egg::function_facade<our_identity>
+{
+    template< class Myself, class A0 >
+    struct apply
+    {
+        typedef A0& type;
+    };
+
+    template< class Result, class A0 >
+    Result call(A0& a0) const
+    {
+        return a0;
+    }
+
+    int m_dummy1;
+    int m_dummy2;
+    int m_dummy3;
+};
+
+
 void pstade_minimal_test()
 {
     {
@@ -276,4 +297,40 @@ void pstade_minimal_test()
         pstade::unused(x_);
     }
 #endif
+    {
+        ::our_identity id0, id1;
+        BOOST_CHECK(id0(1) == 1);
+        BOOST_CHECK(id1(1) == 1);
+        id0 = id1;
+        BOOST_CHECK(id0(1) == 1);
+        BOOST_CHECK(id1(1) == 1);
+
+        {
+            ::our_identity *pid = new ::our_identity();
+            ::our_identity id2 = *pid;
+            delete pid;
+
+            BOOST_ASSERT(id2.m_baby.m_pfacade != pid);
+
+            BOOST_CHECK(id2(3) == 3);
+            id0 = id2;
+            BOOST_CHECK(id0(3) == 3);
+            BOOST_CHECK(id2(3) == 3);
+        }
+        {
+            ::our_identity *pid = new ::our_identity();
+            ::our_identity id2;
+            {
+                id2 = *pid;
+                delete pid;
+            }
+
+            BOOST_ASSERT(id2.m_baby.m_pfacade != pid);
+
+            BOOST_CHECK(id2(3) == 3);
+            id0 = id2;
+            BOOST_CHECK(id0(3) == 3);
+            BOOST_CHECK(id2(3) == 3);
+        }
+    }
 }
