@@ -55,6 +55,8 @@ test-suite "oven" :
     [ run extension.cpp ]
     [ run file_range.cpp ]
     [ run filtered.cpp ]
+    [ run foreach.cpp ]
+    [ run foreach.cpp : : : <define>BOOST_TYPEOF_EMULATION : expression_emulation ]
     [ run front_back.cpp ]
     [ run functions.cpp ]
     [ run fuzipped.cpp ]

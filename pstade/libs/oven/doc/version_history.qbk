@@ -155,9 +155,11 @@
 * `checked` requires `ForwardRange`.
 
 [h2 Version 0.94.2]
-* Changed `copied` header.
+* Changed the header of `copied` to `copied.hpp`.
 * Renamed `op_xxx<..>` to `xp_xxx<..>`.
 * All the predefined function objects are now POD.
+* The precondition of `expression` was slightly changed.
+* Added `OVEN_FOREACH`.
 
 
 

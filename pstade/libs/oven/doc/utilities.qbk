@@ -79,7 +79,8 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 ]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` and `boost::range_reference<_typeof(_rng)>::type` are registered to _boost_typeof_.
+* `_typeof(*boost::begin(_rng))` is the same as `_value_of<_typeof(_rng)>::type`.
+* `_value_of<_typeof(_rng)>::type` is registered to _boost_typeof_.
 
 [note As far as the precondition met, `expression` with _boost_typeof_ macros is portable
       even where native typeof isn't available.]
@@ -91,6 +92,66 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 [h3 See also]
 * _boost_typeof_
 * [link oven.any_range any_range]
+
+[endsect]
+
+
+
+
+[section FOREACH]
+
+[h3 Description]
+`PSTADE_OVEN_FOREACH` is similar to `BOOST_FOREACH`.
+Unlike `BOOST_FOREACH`, there is no need to write the referent type of iterating.
+
+[h3 Header]
+* `<pstade/oven/foreach.hpp>`
+
+[h3 Notation]
+* `auto` is an imaginary operator such that `auto x = y;` is the same as  `_typeof(y) x = y;`
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`PSTADE_OVEN_FOREACH(var, _rng) statement`]
+        [See below.]
+    ]
+    [
+        [`PSTADE_OVEN_FOREACH_TPL(var, _rng) statement`]
+        [See below.]
+    ]
+]
+
+[h3 Semantics]
+* `PSTADE_OVEN_FOREACH(var, _rng) statement` is conceptually equivalent to
+
+    auto __irng = boost::make_iterator_range(_rng);
+    for (auto __first = boost::begin(_rng), __last = boost::end(_rng); __first != __last; ++__first) {
+         boost::iterator_reference<_typeof(__first)>::type var = *__first;
+         statement
+    }
+
+, where `__irng`, `__first` and `__last` are variables defined for exposition only.
+
+[h3 Preconditions]
+* The preconditions of `expression(_rng)`.
+* The corresponding semantics behavior is well-defined.
+* If `_rng` is a dependent name, `PSTADE_OVEN_FOREACH_TPL` must be used.
+
+[h3 Example]
+    std::string hello("Hello, world!");
+    PSTADE_OVEN_FOREACH (ch, hello) {
+        std::cout << ch;
+    }
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2196.html Wording for range-based for-loop]
+* _boost_typeof_
+* [link oven.expression expression]
 
 [endsect]
 
