@@ -17,7 +17,8 @@
 // 'BOOST_TYPEOF(rng)' is impossible if 'rng' is 'iterator_range'.
 //
 // Precondition:
-// 'range_value/range_reference/range_difference<Range>::type' are registered.
+//  1. Range is not a proxy range.
+//  2. 'range_value<Range>::type' is registered.
 
 
 #include <boost/typeof/typeof.hpp>
@@ -39,6 +40,7 @@ namespace pstade { namespace oven {
     // 'op_identity' would be inconsistent.
     typedef op_make_iter_range op_expression;
 #endif
+
 
 // Fortunately, initializers are the same.
 PSTADE_POD_CONSTANT((op_expression), expression) = {{}};

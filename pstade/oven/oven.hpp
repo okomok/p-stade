@@ -56,6 +56,7 @@
 #include "./extension.hpp"
 #include "./file_range.hpp"
 #include "./filtered.hpp"
+#include "./foreach.hpp"
 #include "./front.hpp"
 #include "./fuzipped.hpp"
 #include "./generation.hpp"
