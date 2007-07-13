@@ -28,44 +28,42 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct dereference_value_impl :
-        boost::indirect_reference<X>
-    { };
-
-    template<class X>
-    struct dereference_value_impl<X const> :
-        dereference_value_impl<X>
-    { };
-
-    template<class T>
-    struct dereference_value_impl< boost::optional<T> >
+    struct Dereferenceable
     {
-        typedef T type;
+        typedef typename
+            boost::indirect_reference<X>::type
+        reference;
     };
 
-
-    template<class Ptr_>
-    struct dereference_value :
-        dereference_value_impl<Ptr_>
+    template<class X>
+    struct Dereferenceable<X const> :
+        Dereferenceable<X>
     { };
+
+
+    template<class T>
+    struct Dereferenceable< boost::optional<T> >
+    {
+        typedef T reference;
+    };
 
 
     namespace dereference_detail {
 
 
-        template<class Ptr_>
+        template<class Der>
         struct base
         {
             typedef typename
                 affect<
-                    Ptr_&,
-                    typename dereference_value<Ptr_>::type
+                    Der&,
+                    typename Dereferenceable<Der>::reference
                 >::type
             result_type;
 
-            result_type operator()(Ptr_& ptr) const
+            result_type operator()(Der& der) const
             {
-                return *ptr;
+                return *der;
             }
         };
 

@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/foreach.hpp>
+#include <pstade/oven/foreach_.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -69,12 +69,12 @@ void test_()
 {
     {
         std::string str;
-        PSTADE_OVEN_FOREACH (v, str)
+        PSTADE_OVEN_FOREACH (auto_ v, str)
             (void)v, BOOST_CHECK(false);
     }
     {
         std::string str("a");
-        PSTADE_OVEN_FOREACH (r, str) {
+        PSTADE_OVEN_FOREACH (reference r, str) {
             r = 'b';
         }
 
@@ -83,20 +83,20 @@ void test_()
     {
         std::string str("01234");
         int i = 0;
-        PSTADE_OVEN_FOREACH (v, str) {
+        PSTADE_OVEN_FOREACH (auto_& v, str) {
             PSTADE_contents_check()
         }
         BOOST_CHECK(i == 5);
     }
     {
         int i = 0;
-        PSTADE_OVEN_FOREACH (v, ::make_string_once()) {
+        PSTADE_OVEN_FOREACH (auto_ const& v, ::make_string_once()) {
             PSTADE_contents_check()
         }
     }
     {
         int i = 0;
-        PSTADE_OVEN_FOREACH (v, ::make_const_string_once()) {
+        PSTADE_OVEN_FOREACH (reference v, ::make_const_string_once()) {
             PSTADE_contents_check()
         }
     }
@@ -108,12 +108,12 @@ void test_tpl()
 {
     {
         Range str;
-        PSTADE_OVEN_FOREACH_TPL (v, str)
+        PSTADE_OVEN_FOREACH_TPL (auto_ v, str)
             (void)v, BOOST_CHECK(false);
     }
     {
         Range str("a");
-        PSTADE_OVEN_FOREACH_TPL (r, str) {
+        PSTADE_OVEN_FOREACH_TPL (reference r, str) {
             r = 'b';
         }
 
@@ -122,7 +122,7 @@ void test_tpl()
     {
         Range str("01234");
         int i = 0;
-        PSTADE_OVEN_FOREACH_TPL (v, str) {
+        PSTADE_OVEN_FOREACH_TPL (auto_ const& v, str) {
             PSTADE_contents_check()
         }
         BOOST_CHECK(i == 5);
@@ -130,13 +130,13 @@ void test_tpl()
 
     {
         int i = 0;
-        PSTADE_OVEN_FOREACH_TPL (v, ::make_string_once_tpl<Range>()) {
+        PSTADE_OVEN_FOREACH_TPL (auto_& v, ::make_string_once_tpl<Range>()) {
             PSTADE_contents_check()
         }
     }
     {
         int i = 0;
-        PSTADE_OVEN_FOREACH_TPL (v, ::make_const_string_once_tpl<Range>()) {
+        PSTADE_OVEN_FOREACH_TPL (reference v, ::make_const_string_once_tpl<Range>()) {
             PSTADE_contents_check()
         }
     }
@@ -158,9 +158,9 @@ void test_nested()
 
     int c = 0;
     int i = 0;
-    PSTADE_OVEN_FOREACH (s1, vs1) {
+    PSTADE_OVEN_FOREACH (auto_& s1, vs1) {
         int j = 0;
-        PSTADE_OVEN_FOREACH (c1, s1) {
+        PSTADE_OVEN_FOREACH (auto_ const& c1, s1) {
             BOOST_CHECK(ans[i][j] == c1);
             ++j;
             ++c;
@@ -178,7 +178,7 @@ void test_nested()
     {
         {
             std::string str;
-            BOOST_OVEN_FOREACH (v, str)
+            BOOST_OVEN_FOREACH (auto_ v, str)
                 (void)v, BOOST_CHECK(false);
         }
     }
@@ -188,7 +188,7 @@ void test_nested()
     {
         {
             Range str;
-            BOOST_OVEN_FOREACH_TPL (v, str)
+            BOOST_OVEN_FOREACH_TPL (reference v, str)
                 (void)v, BOOST_CHECK(false);
         }
     }

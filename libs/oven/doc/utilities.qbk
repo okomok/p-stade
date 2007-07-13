@@ -101,8 +101,8 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 [section FOREACH]
 
 [h3 Description]
-`PSTADE_OVEN_FOREACH` is similar to `BOOST_FOREACH`.
-Unlike `BOOST_FOREACH`, there is no need to write the referent type of iterating.
+`PSTADE_OVEN_FOREACH` is similar to `BOOST_FOREACH`,
+but there is no need to write the referent type of iterating.
 
 [h3 Header]
 * `<pstade/oven/foreach.hpp>`
@@ -110,37 +110,27 @@ Unlike `BOOST_FOREACH`, there is no need to write the referent type of iterating
 [h3 Notation]
 * `auto` is an imaginary operator such that `auto x = y;` is the same as  `_typeof(y) x = y;`
 
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`PSTADE_OVEN_FOREACH(var, _rng) statement`]
-        [See below.]
-    ]
-    [
-        [`PSTADE_OVEN_FOREACH_TPL(var, _rng) statement`]
-        [See below.]
-    ]
-]
+[h3 Valid expression and Semantics]
+    PSTADE_OVEN_FOREACH(var, _rng)
+        statement
 
-[h3 Semantics]
-* `PSTADE_OVEN_FOREACH(var, _rng) statement` is conceptually equivalent to
+is conceptually equivalent to
 
-    auto __irng = boost::make_iterator_range(_rng);
-    for (auto __first = boost::begin(_rng), __last = boost::end(_rng); __first != __last; ++__first) {
-         boost::iterator_reference<_typeof(__first)>::type var = *__first;
+    auto __rng = expression(_rng);
+    for (auto __begin = boost::begin(__rng), __end = boost::end(__rng); __begin != __end; ++__begin) {
+         boost::iterator_reference<_typeof(__begin)>::type var = *__begin;
          statement
     }
 
-, where `__irng`, `__first` and `__last` are variables defined for exposition only.
+, where `__rng`, `__begin` and `__end` are variables defined for exposition only.
+
+[important The semantics implies that the range referents must outlive the `PSTADE_OVEN_FOREACH` statement.
+           Unlike `BOOST_FOREACH`, it doens't copy a rvalue `_rng`.]
 
 [h3 Preconditions]
 * The preconditions of `expression(_rng)`.
 * The corresponding semantics behavior is well-defined.
-* If `_rng` is a dependent name, `PSTADE_OVEN_FOREACH_TPL` must be used.
+* If `_rng` is a dependent name, `PSTADE_OVEN_FOREACH_TPL` must be used instead.
 
 [h3 Example]
     std::string hello("Hello, world!");
@@ -149,7 +139,7 @@ Unlike `BOOST_FOREACH`, there is no need to write the referent type of iterating
     }
 
 [h3 See also]
-* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2196.html Wording for range-based for-loop]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2243.html Wording for range-based for-loop]
 * _boost_typeof_
 * [link oven.expression expression]
 

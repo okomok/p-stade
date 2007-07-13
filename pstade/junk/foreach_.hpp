@@ -40,7 +40,7 @@
         for (Typeof(pstade_oven_rng.begin()) pstade_oven_begin = pstade_oven_rng.begin(), pstade_oven_end = pstade_oven_rng.end(); \
             pstade_oven_begin != pstade_oven_end; ++pstade_oven_begin) \
             PSTADE_OVEN_FOREACH_local_open() \
-            PSTADE_OVEN_FOREACH_local( Typename() boost::iterator_reference< Typeof(pstade_oven_rng.begin()) >::type Var = *pstade_oven_begin; ) \
+            PSTADE_OVEN_FOREACH_local( Typename() pstade::oven::foreach_detail::traits_of< Typeof(pstade_oven_rng.begin()) >:: Var = *pstade_oven_begin; ) \
             PSTADE_OVEN_FOREACH_local_close() \
     /**/
 
@@ -61,6 +61,20 @@
     #define BOOST_OVEN_FOREACH     PSTADE_OVEN_FOREACH
     #define BOOST_OVEN_FOREACH_TPL PSTADE_OVEN_FOREACH_TPL
 #endif
+
+
+namespace pstade { namespace oven { namespace foreach_detail {
+
+
+    template< class Iterator >
+    struct traits_of
+    {
+        typedef typename boost::iterator_value<Iterator>::type auto_;
+        typedef typename boost::iterator_reference<Iterator>::type reference;
+    };
+
+
+} } } // namespace pstade::oven::foreach
 
 
 #endif

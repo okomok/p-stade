@@ -13,7 +13,7 @@
 
 // What:
 //
-// Force exception-safe copy-assignment.
+// Force exception-safe copy-assignment using swap.
 
 
 #include <boost/preprocessor/facilities/identity.hpp>
