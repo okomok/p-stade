@@ -74,7 +74,7 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(fuzipped, (fuzipped_detail::base<_>))
 } } // namespace pstade::oven
 
 
-#endif // #if BOOST_VERSION >= 103500
+#endif // BOOST_VERSION >= 103500
 
 
 #endif

@@ -78,7 +78,7 @@ public:
         return *this;
     }
 
-// Ptr_
+// Dereferenceable
     X& operator*()
     {
         return (*m_opx).m_x;
@@ -120,14 +120,17 @@ private:
 } } } // namespace pstade::oven::detail
 
 
+// Dereferenceable extension
+//
+
 #include <pstade/egg/dereference.hpp>
 
 namespace pstade { namespace egg {
 
     template< class X >
-    struct dereference_value_impl< oven::detail::regularized<X> >
+    struct Dereferenceable< oven::detail::regularized<X> >
     {
-        typedef X type;
+        typedef X reference;
     };
 
 } } // namespace pstade::egg

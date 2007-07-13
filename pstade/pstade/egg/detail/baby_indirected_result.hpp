@@ -25,25 +25,25 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Ptr_>
+    template<class Dereferenceable>
     struct indirecting_fun :
         boost::remove_reference<
-            typename result_of<op_dereference(Ptr_ const&)>::type
+            typename result_of<op_dereference(Dereferenceable const&)>::type
         >
     { };
 
 
-    template<class Ptr_>
+    template<class Dereferenceable>
     struct baby_indirected_result
     {
-        Ptr_ m_ptr;
+        Dereferenceable m_der;
 
-        typedef typename indirecting_fun<Ptr_>::type base_type;
+        typedef typename indirecting_fun<Dereferenceable>::type base_type;
 
-        typename result_of<op_dereference(Ptr_ const&)>::type
+        typename result_of<op_dereference(Dereferenceable const&)>::type
         base() const
         {
-            return *m_ptr;
+            return *m_der;
         }
 
     // 0ary
@@ -54,7 +54,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result>
         Result call() const
         {
-            return (*m_ptr)();
+            return (*m_der)();
         }
 
     // 1ary-
@@ -82,7 +82,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return (*m_ptr)(BOOST_PP_ENUM_PARAMS(n, a));
+        return (*m_der)(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 
