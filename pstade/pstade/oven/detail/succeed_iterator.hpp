@@ -29,7 +29,7 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class Iterator, class Traversal = typename pure_traversal<Iterator>::type >
-struct assert_not_old_return_op
+struct assert_not_old_result
 {
     Iterator operator()(Iterator now) const
     {
@@ -37,7 +37,7 @@ struct assert_not_old_return_op
         return now;
     }
 
-    explicit assert_not_old_return_op(Iterator old) :
+    explicit assert_not_old_result(Iterator old) :
         m_old(old)
     { }
 
@@ -46,18 +46,18 @@ private:
 };
 
 template< class Iterator >
-struct assert_not_old_return_op<Iterator, boost::single_pass_traversal_tag> :
+struct assert_not_old_result<Iterator, boost::single_pass_traversal_tag> :
     egg::op_identity
 {
-    explicit assert_not_old_return_op(Iterator)
+    explicit assert_not_old_result(Iterator)
     { }
 };
 
 #if !defined(NDEBUG)
 template< class Iterator > inline
-assert_not_old_return_op<Iterator> assert_not_old(Iterator old)
+assert_not_old_result<Iterator> assert_not_old(Iterator old)
 {
-    return assert_not_old_return_op<Iterator>(old);
+    return assert_not_old_result<Iterator>(old);
 }
 #else
 template< class Iterator> inline

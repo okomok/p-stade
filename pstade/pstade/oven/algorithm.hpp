@@ -23,17 +23,6 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
-// <boost/lambda/core.hpp> is too big.
-#include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#if !defined(BOOST_LAMBDA_CORE_HPP)
-    #define BOOST_LAMBDA_CORE_HPP
-    #include <boost/lambda/algorithm.hpp>
-    #undef  BOOST_LAMBDA_CORE_HPP
-#else
-    #include <boost/lambda/algorithm.hpp>
-#endif
-
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/range/begin.hpp>
@@ -42,6 +31,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
+#include "./detail/lambda_algorithm.hpp"
 #include "./detail/range_based_ll.hpp"
 
 

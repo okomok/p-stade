@@ -11,19 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// <boost/lambda/core.hpp> is too big.
-#include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#if !defined(BOOST_LAMBDA_CORE_HPP)
-    #define BOOST_LAMBDA_CORE_HPP
-    #include <boost/lambda/numeric.hpp>
-    #undef  BOOST_LAMBDA_CORE_HPP
-#else
-    #include <boost/lambda/numeric.hpp>
-#endif
-
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <pstade/adl_barrier.hpp>
+#include "./detail/lambda_numeric.hpp"
 #include "./detail/range_based_ll.hpp"
 
 

@@ -184,7 +184,7 @@ void test_nested()
     }
 
     template<class Range>
-    void test_boost()
+    void test_boost_tpl()
     {
         {
             Range str;

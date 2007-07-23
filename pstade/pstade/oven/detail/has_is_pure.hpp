@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_DETAIL_HAS_IS_CONSTANT_HPP
-#define PSTADE_OVEN_DETAIL_HAS_IS_CONSTANT_HPP
+#ifndef PSTADE_OVEN_DETAIL_HAS_IS_PURE_HPP
+#define PSTADE_OVEN_DETAIL_HAS_IS_PURE_HPP
 #include "./prefix.hpp"
 
 
@@ -21,14 +21,14 @@ namespace pstade { namespace oven { namespace detail {
 
 
 namespace aux {
-    PSTADE_HAS_TYPE(is_constant)
+    PSTADE_HAS_TYPE(is_pure)
 }
 
 template< class X >
-struct has_is_constant :
+struct has_is_pure :
     boost::mpl::and_<
         boost::mpl::not_< boost::is_function<X> >,
-        aux::has_is_constant<X>
+        aux::has_is_pure<X>
     >
 { };
 

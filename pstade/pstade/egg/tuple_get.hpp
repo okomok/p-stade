@@ -66,7 +66,16 @@ namespace pstade { namespace egg {
         {
             template<class Myself, class Tuple>
             struct apply :
+#if defined(PSTADE_EGG_SUPPORTS_FUSION_SEQUENCE)
+                boost::fusion::result_of::deref<
+                    typename boost::fusion::result_of::advance<
+                        typename boost::fusion::result_of::begin<Tuple>::type,
+                        N
+                    >::type
+                >
+#else
                 affect<Tuple&, typename tuple_element<N, Tuple>::type>
+#endif
             { };
 
             template<class Result, class Tuple>

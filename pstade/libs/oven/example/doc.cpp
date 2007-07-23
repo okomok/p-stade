@@ -33,6 +33,7 @@
 
 namespace oven = pstade::oven;
 using namespace oven;
+namespace lambda = boost::lambda;
 
 
 void test_introduction()
@@ -253,8 +254,6 @@ void test_always()
 
 void test_copied_as_adaptor()
 {
-    using namespace boost;
-
     std::string src("axaxaxbxbxbx");
     std::string snapshot;
     std::string answer("bbb");
@@ -285,8 +284,6 @@ struct less_than
 
 void test_outdirected()
 {
-    using namespace boost;
-
     std::string const str("gefadcb");
     std::string const answer("abcdefg");
 
@@ -309,8 +306,6 @@ void test_dropped()
 
 void test_filtered()
 {
-    using namespace boost;
-
     int src[]    = { 2,5,2,6,1,3,2 };
     int answer[] = { 0,5,0,6,1,3,0 };
 

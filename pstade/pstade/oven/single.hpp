@@ -46,7 +46,7 @@ namespace single_detail {
 } // namespace single_detail
 
 
-typedef PSTADE_EGG_ADAPT((single_detail::base<boost::mpl::_1>)) op_single;
+typedef PSTADE_EGG_ADAPT((single_detail::base<boost::mpl::_>)) op_single;
 PSTADE_POD_CONSTANT((op_single), single) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 

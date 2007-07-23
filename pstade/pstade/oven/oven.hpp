@@ -144,6 +144,7 @@
 #include "./traversal_tags.hpp"
 #include "./tuple.hpp"
 #include "./typeof.hpp"
+#include "./unfold.hpp"
 #include "./unfuzipped.hpp"
 #include "./uniqued.hpp"
 #include "./unzipped.hpp"
