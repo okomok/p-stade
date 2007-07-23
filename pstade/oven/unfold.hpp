@@ -1,0 +1,109 @@
+#ifndef PSTADE_OVEN_UNFOLD_HPP
+#define PSTADE_OVEN_UNFOLD_HPP
+#include "./detail/prefix.hpp"
+
+
+// PStade.Oven
+//
+// Copyright Shunsuke Sogame 2005-2007.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/function_facade.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
+#include <pstade/result_of.hpp>
+#include "./detail/unfold_iterator.hpp"
+#include "./iter_range.hpp"
+
+
+namespace pstade { namespace oven {
+
+
+namespace unfold_detail {
+
+
+    template< class State, class Operate, class Next >
+    struct base
+    {
+        typedef
+            detail::unfold_iterator<
+                typename pass_by_value<State>::type,
+                typename pass_by_value<Operate>::type,
+                typename pass_by_value<Next>::type
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
+        result_type;
+
+        result_type operator()(State& init, Operate& op, Next& next) const
+        {
+            return result_type(
+                iter_t(init, op, next, detail::begin_tag()),
+                iter_t(init, op, next, detail::end_tag())
+            );
+        }
+    };
+
+
+} // namespace unfold_detail
+
+
+typedef PSTADE_EGG_ADAPT((unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_>)) op_unfold;
+PSTADE_POD_CONSTANT((op_unfold), unfold) = PSTADE_EGG_ADAPT_INITIALIZER();
+
+
+namespace pure_detail {
+
+
+    template< class UnaryFun >
+    struct result_ :
+        egg::function_facade< result_<UnaryFun> >
+    {
+        typedef result_ is_pure;
+
+        template< class Myself, class State >
+        struct apply :
+            result_of<UnaryFun const(State&)>
+        { };
+
+        template< class Result, class State >
+        Result call(State& b) const
+        {
+            return m_f(b);
+        }
+
+        explicit result_()
+        { }
+
+        explicit result_(UnaryFun f) :
+            m_f(f)
+        { }
+
+    private:
+        UnaryFun m_f;        
+    };
+
+
+} // namespace pure_detail
+
+
+typedef
+    egg::generator<
+        pure_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >
+    >::type
+op_pure;
+
+PSTADE_POD_CONSTANT((op_pure), pure) = PSTADE_EGG_GENERATOR_INITIALIZER();
+
+
+} } // namespace pstade::oven
+
+
+#endif

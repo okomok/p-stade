@@ -36,6 +36,16 @@ bool not_10(int x)
     return x != 10;
 }
 
+struct my_inc
+{
+    // no result_type ok;
+
+    int operator()(int x) const
+    {
+        return x + 1;
+    }
+};
+
 
 void test()
 {
@@ -64,7 +74,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::equals(
-            ans, iteration(0, &increment)|taken(10)
+            ans, iteration(0, my_inc())|taken(10)
         ) );
 
         BOOST_FOREACH (int i , iteration(0, &increment)|taken(10)) {

@@ -19,12 +19,13 @@
 // because 'counting' can't represent "infinity".
 
 
+#include <utility> // pair
 #include <boost/optional/optional.hpp>
 #include <pstade/egg/adapt.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./unfold.hpp"
+#include "./unfoldr.hpp"
 
 
 namespace pstade { namespace oven {
@@ -33,38 +34,51 @@ namespace pstade { namespace oven {
 namespace iteration_detail {
 
 
-    template< class State >
-    struct just
+    template< class State, class UnaryFun >
+    struct just_call
     {
-        typedef just is_pure;
+        typedef just_call is_pure;
 
         typedef
-            boost::optional<State>
+            boost::optional< std::pair<State, State> >
         result_type;
 
-        result_type operator()(State const& s) const
+        result_type operator()(State const& b) const
         {
-            return s;
+            return std::make_pair(b, m_fun(b));
         }
+
+        explicit just_call()
+        { }
+
+        explicit just_call(UnaryFun fun) :
+            m_fun(fun)
+        { }
+
+    private:
+        UnaryFun m_fun;
     };
 
 
     template< class State, class UnaryFun >
     struct base
     {
-        typedef typename
-            pass_by_value<State>::type
-        state_t;
+        typedef
+            just_call<
+                typename pass_by_value<State>::type,
+                typename pass_by_value<UnaryFun>::type
+            >
+        just_call_t;
 
         typedef typename
             result_of<
-                op_unfold(State&, just<state_t>, UnaryFun&)
+                op_unfoldr(State&, just_call_t)
             >::type
         result_type;
 
         result_type operator()(State& init, UnaryFun& fun) const
         {
-            return unfold(init, just<state_t>(), fun);
+            return unfoldr(init, just_call_t(fun));
         }
     };
 
