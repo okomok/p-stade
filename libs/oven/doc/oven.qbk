@@ -1,6 +1,6 @@
 
 [library Oven
-    [version 0.94.2]
+    [version 0.94.3]
     [authors [Sogame, Shunsuke]]
     [copyright 2005-2007 Shunsuke Sogame]
     [category generic]

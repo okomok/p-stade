@@ -15,10 +15,14 @@
 // unfold f g b = case f b of Nothing    -> []
 //                            Just (a,b) -> a : unfold f g (g b)
 
-
 // See:
 //
 // http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/haskell/haskell-jp/27
+
+
+// Preconditions:
+//
+// 'Next' must be pure if 'Operate' is pure.
 
 
 #include <boost/assert.hpp>
@@ -30,7 +34,7 @@
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include "./begin_end_tag.hpp"
-#include "./has_is_pure.hpp"
+#include "./has_is_nonpure.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -59,9 +63,9 @@ struct unfold_iterator_super
         boost::iterator_facade<
             unfold_iterator<State, Operate, Next>,
             val_t,
-            typename boost::mpl::if_< has_is_pure<Operate>,
-                boost::forward_traversal_tag,
-                boost::single_pass_traversal_tag
+            typename boost::mpl::if_< has_is_nonpure<Operate>,
+                boost::single_pass_traversal_tag,
+                boost::forward_traversal_tag
             >::type,
             ref_t
         >

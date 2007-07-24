@@ -222,7 +222,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 ]
 
 [h3 Preconditions]
-* `g` is a _stoppable_generator_.
+* `g` is a nullary _stoppable_generator_.
 * `g` is _assignable_.
 * `_typeof(*g())` is _copy_constructible_ and _assignable_.
 
@@ -251,6 +251,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 See also]
 * [@http://www.boost.org/libs/utility/generator_iterator.htm boost::generator_iterator]
+* [link oven.iteration iteration]
+* [link oven.unfold unfold]
 * [link oven.nonstop nonstop]
 * [link oven.regular regular]
 * [link oven.regular_ref regular_ref]
@@ -351,6 +353,9 @@ on the first argument, the second item by applying the function on the previous 
 [h3 Model of]
 * _operatable_object_
 
+[h3 Notation]
+* `just` is an imaginary function object such that `y -> boost::optional<_typeof(x)>(y)`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -360,18 +365,13 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`iteration(x, _fun)`]
         [
-            An infinite _forward_ _readable_ non-_lvalue_ _constant_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
+            `unfold(x, just, _fun)`
         ]
     ]
 ]
 
-[note `x` is copied, meaning that it is not referenced from Oven later.]
-
 [h3 Preconditions]
-* `x` is _assignable_, _default_constructible_, _copy_constructible_, and _equality_comparable_.
-* `x1 = _fun(x1)` is well-formed, where `_typeof(x) x1 = x`.
-* `_fun` is _assignable_ and _default_constructible_.
-* `_fun` is a [@http://mathworld.wolfram.com/Map.html Map], meaning that `a == b` implies `_fun(a) == _fun(b)`.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
     int answer[] = { 1,2,4,8,16 };
@@ -380,6 +380,8 @@ on the first argument, the second item by applying the function on the previous 
     ) );
 
 [h3 See also]
+* [link oven.unfold unfold]
+* [link oven.generation generation]
 * [link oven.taken taken]
 
 [endsect]
@@ -723,6 +725,63 @@ and the iterators manage the allocation.
 [h3 Preconditions]
 * `T` is `std::istreambuf_iterator<_typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s)` is a valid expression.
 * `U` is `std::istreambuf_iterator<_typeof(*p)::char_type, _typeof(*p)::traits_type>` such that `U(p)` is a valid expression.
+
+[endsect]
+
+
+
+
+[section unfold]
+
+[h3 Description]
+`unfold` makes a range from a seed.
+
+[h3 Header]
+* `<pstade/oven/unfold.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`unfold(z, f, g)`]
+        [
+            The longest _forward_ `{f(z),f(g(z)),f(g(g(z))),f(g(g(g(z)))),..}` such that `f(..)` is not /uninitialized/.
+        ]
+    ]
+]
+
+[note `z` is copied, meaning that it is not referenced from Oven later.]
+
+[h3 Preconditions]
+* `z`, `f(..)` and `g` is _assignable_, _copy_constructible_ and _default_constructible_.
+* `f` is a unary _stoppable_generator_.
+* `g` is a _function_object_ such that `z1 = g(z1)` is well-formed, where `_typeof(z) z1 = z`.
+* `f` and `g` is a [@http://planetmath.org/encyclopedia/Mapping.html mapping], meaning that `a == b` implies `f(a) == f(b)`.
+
+[h3 Example]
+    boost::optional<int> mod(int i)
+    {
+        if (i == 0)
+            return boost::optional<int>();
+
+        return i % 10;
+    }
+
+    void test()
+    {
+        int const answer[] = { 1,5,4,1,9,2,3,6,1 };
+        BOOST_CHECK( equals(unfold(163291451, &mod, lambda::_1 / 10), answer) );
+    }
+
+[h3 See also]
+* [link oven.generation generation]
+* [link oven.iteration iteration]
 
 [endsect]
 

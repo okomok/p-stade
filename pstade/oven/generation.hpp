@@ -35,6 +35,8 @@ namespace generation_detail {
     template< class StoppableGenerator >
     struct ignore_then
     {
+        typedef ignore_then is_nonpure;
+
         typedef typename
             result_of<StoppableGenerator()>::type
         result_type;

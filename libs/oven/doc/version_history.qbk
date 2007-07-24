@@ -161,6 +161,9 @@
 * The precondition of `expression` was slightly changed.
 * Added `OVEN_FOREACH`.
 
+[h2 Version 0.94.3]
+* Added `unfold`.
+
 
 
 

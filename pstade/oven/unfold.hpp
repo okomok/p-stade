@@ -59,14 +59,14 @@ typedef PSTADE_EGG_ADAPT((unfold_detail::base<boost::mpl::_, boost::mpl::_, boos
 PSTADE_POD_CONSTANT((op_unfold), unfold) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
-namespace pure_detail {
+namespace nonpure_detail {
 
 
     template< class UnaryFun >
     struct result_ :
         egg::function_facade< result_<UnaryFun> >
     {
-        typedef result_ is_pure;
+        typedef result_ is_nonpure;
 
         template< class Myself, class State >
         struct apply :
@@ -74,33 +74,33 @@ namespace pure_detail {
         { };
 
         template< class Result, class State >
-        Result call(State& b) const
+        Result call(State& s) const
         {
-            return m_f(b);
+            return m_fun(s);
         }
 
         explicit result_()
         { }
 
-        explicit result_(UnaryFun f) :
-            m_f(f)
+        explicit result_(UnaryFun fun) :
+            m_fun(fun)
         { }
 
     private:
-        UnaryFun m_f;        
+        UnaryFun m_fun;        
     };
 
 
-} // namespace pure_detail
+} // namespace nonpure_detail
 
 
 typedef
     egg::generator<
-        pure_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >
+        nonpure_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >
     >::type
-op_pure;
+op_nonpure;
 
-PSTADE_POD_CONSTANT((op_pure), pure) = PSTADE_EGG_GENERATOR_INITIALIZER();
+PSTADE_POD_CONSTANT((op_nonpure), nonpure) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::oven
