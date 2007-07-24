@@ -4,8 +4,8 @@
 <title>Merge Adaptors</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="../index.html" title="Chapter 1. Oven 0.94.2">
-<link rel="up" href="../index.html" title="Chapter 1. Oven 0.94.2">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 0.94.3">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 0.94.3">
 <link rel="prev" href="string_adaptors.html" title="String Adaptors">
 <link rel="next" href="utilities.html" title="Utilities">
 </head>
@@ -33,7 +33,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.merged"></a>merged</h3></div></div></div>
 <a name="merged.description"></a><h4>
-<a name="id570517"></a>
+<a name="id571471"></a>
         Description
       </h4>
 <p>
@@ -41,29 +41,29 @@
         ranges into a single sorted range.
       </p>
 <a name="merged.header"></a><h4>
-<a name="id570545"></a>
+<a name="id571499"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">merged</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="merged.model_of"></a><h4>
-<a name="id570615"></a>
+<a name="id571569"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="merged.notation"></a><h4>
-<a name="id570644"></a>
+<a name="id571598"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">less</span></code> is <code class="computeroutput"><span class="identifier">regular</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_2</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="merged.valid_expressions"></a><h4>
-<a name="id570754"></a>
+<a name="id571708"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id570765"></a>
+<a name="id571719"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -91,7 +91,7 @@
 </table>
 </div>
 <a name="merged.preconditions"></a><h4>
-<a name="id571025"></a>
+<a name="id571979"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -113,7 +113,7 @@
         </li>
 </ul></div>
 <a name="merged.example"></a><h4>
-<a name="id571251"></a>
+<a name="id572205"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -123,7 +123,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">A1</span><span class="special">|</span><span class="identifier">merged</span><span class="special">(</span><span class="identifier">A2</span><span class="special">,</span> <span class="special">&amp;::</span><span class="identifier">lt_nocase</span><span class="special">),</span> <span class="identifier">AA</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="merged.see_also"></a><h4>
-<a name="id571467"></a>
+<a name="id572421"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -137,26 +137,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.set_cap"></a>set_cap</h3></div></div></div>
 <a name="set_cap.description"></a><h4>
-<a name="id571548"></a>
+<a name="id572502"></a>
         Description
       </h4>
 <a name="set_cap.header"></a><h4>
-<a name="id571560"></a>
+<a name="id572514"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_cap</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="set_cap.model_of"></a><h4>
-<a name="id571631"></a>
+<a name="id572585"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="set_cap.valid_expressions"></a><h4>
-<a name="id571661"></a>
+<a name="id572615"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id571672"></a>
+<a name="id572626"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -184,18 +184,18 @@
 </table>
 </div>
 <a name="set_cap.preconditions"></a><h4>
-<a name="id571933"></a>
+<a name="id572887"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
 <a name="set_cap.example"></a><h4>
-<a name="id571964"></a>
+<a name="id572919"></a>
         Example
       </h4>
 <a name="set_cap.see_also"></a><h4>
-<a name="id571979"></a>
+<a name="id572933"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -209,26 +209,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.set_cup"></a>set_cup</h3></div></div></div>
 <a name="set_cup.description"></a><h4>
-<a name="id572055"></a>
+<a name="id573009"></a>
         Description
       </h4>
 <a name="set_cup.header"></a><h4>
-<a name="id572068"></a>
+<a name="id573022"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_cup</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="set_cup.model_of"></a><h4>
-<a name="id572139"></a>
+<a name="id573093"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="set_cup.valid_expressions"></a><h4>
-<a name="id572168"></a>
+<a name="id573123"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id572180"></a>
+<a name="id573134"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -256,18 +256,18 @@
 </table>
 </div>
 <a name="set_cup.preconditions"></a><h4>
-<a name="id572440"></a>
+<a name="id573394"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
 <a name="set_cup.example"></a><h4>
-<a name="id572472"></a>
+<a name="id573426"></a>
         Example
       </h4>
 <a name="set_cup.see_also"></a><h4>
-<a name="id572486"></a>
+<a name="id573440"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -281,26 +281,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.set_delta"></a>set_delta</h3></div></div></div>
 <a name="set_delta.description"></a><h4>
-<a name="id572561"></a>
+<a name="id573515"></a>
         Description
       </h4>
 <a name="set_delta.header"></a><h4>
-<a name="id572575"></a>
+<a name="id573529"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_delta</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="set_delta.model_of"></a><h4>
-<a name="id572645"></a>
+<a name="id573599"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="set_delta.valid_expressions"></a><h4>
-<a name="id572675"></a>
+<a name="id573629"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id572686"></a>
+<a name="id573640"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -328,18 +328,18 @@
 </table>
 </div>
 <a name="set_delta.preconditions"></a><h4>
-<a name="id572947"></a>
+<a name="id573901"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
 <a name="set_delta.example"></a><h4>
-<a name="id572979"></a>
+<a name="id573933"></a>
         Example
       </h4>
 <a name="set_delta.see_also"></a><h4>
-<a name="id572993"></a>
+<a name="id573947"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -353,26 +353,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.set_minus"></a>set_minus</h3></div></div></div>
 <a name="set_minus.description"></a><h4>
-<a name="id573068"></a>
+<a name="id574022"></a>
         Description
       </h4>
 <a name="set_minus.header"></a><h4>
-<a name="id573082"></a>
+<a name="id574036"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_minus</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="set_minus.model_of"></a><h4>
-<a name="id573153"></a>
+<a name="id574107"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="set_minus.valid_expressions"></a><h4>
-<a name="id573182"></a>
+<a name="id574136"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id573194"></a>
+<a name="id574148"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -400,18 +400,18 @@
 </table>
 </div>
 <a name="set_minus.preconditions"></a><h4>
-<a name="id573454"></a>
+<a name="id574408"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
 <a name="set_minus.example"></a><h4>
-<a name="id573487"></a>
+<a name="id574440"></a>
         Example
       </h4>
 <a name="set_minus.see_also"></a><h4>
-<a name="id573500"></a>
+<a name="id574454"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">

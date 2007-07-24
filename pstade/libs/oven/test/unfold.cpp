@@ -18,6 +18,7 @@
 #include <boost/optional/optional.hpp>
 #include <string>
 #include <pstade/oven/equals.hpp>
+#include <pstade/oven/range_traversal.hpp>
 #include <boost/lexical_cast.hpp>
 
 
@@ -52,12 +53,12 @@ struct my_next
 
 
 
-struct my_pure_inc :
+struct my_nonpure_inc :
     my_inc
 {
-    typedef my_pure_inc is_pure;
+    typedef my_nonpure_inc is_nonpure;
 
-    my_pure_inc() : my_inc("10")
+    my_nonpure_inc() : my_inc("10")
     { }
 };
 
@@ -77,6 +78,23 @@ int next_fun(int i)
 }
 
 
+void check_single_pass_aux(boost::single_pass_traversal_tag)
+{
+}
+
+void check_single_pass_aux(boost::forward_traversal_tag)
+{
+    BOOST_CHECK(false && "check_single_pass failed.");
+}
+
+
+template<class Range>
+void check_single_pass(Range& rng)
+{
+    ::check_single_pass_aux(typename pstade::oven::range_traversal<Range>::type());
+}
+
+
 void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
@@ -84,22 +102,24 @@ void pstade_minimal_test()
 
     {
         int a[] = { 0,1,2,3,4,5,6,7,8,9 };
-        test::single_pass_readable(unfold(std::string("0"), my_inc("10"), my_next()), a);
+        test::forward_constant(unfold(std::string("0"), my_inc("10"), my_next()), a);
     }
     {
         int a[] = { 0,1,2,3,4,5,6,7,8,9 };
-        test::forward_constant(unfold(std::string("0"), pure(my_inc("10")), my_next()), a);
+        test::single_pass_readable(unfold(std::string("0"), nonpure(my_inc("10")), my_next()), a);
+        ::check_single_pass( unfold(std::string("0"), nonpure(my_inc("10")), my_next()) );
     }
     {
         int a[] = { 0,1,2,3,4,5,6,7,8,9 };
-        test::forward_constant(unfold(std::string("0"), my_pure_inc(), my_next()), a);
+        test::single_pass_readable(unfold(std::string("0"), my_nonpure_inc(), my_next()), a);
+        ::check_single_pass( unfold(std::string("0"), my_nonpure_inc(), my_next()) );
     }
     {
         int a[] = { 0,1,2,3,4,5,6,7,8,9 };
-        test::single_pass_readable(unfold(0, &::inc_fun, &::next_fun), a);
+        test::forward_constant(unfold(0, &::inc_fun, &::next_fun), a);
     }
     {
         int a[] = { 0,1,2,3,4,5,6,7,8,9 };
-        test::forward_constant(unfold(0, pure(&::inc_fun), &::next_fun), a);
+        test::single_pass_readable(unfold(0, nonpure(&::inc_fun), &::next_fun), a);
     }
 }

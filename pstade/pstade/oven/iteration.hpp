@@ -36,8 +36,6 @@ namespace iteration_detail {
     template< class State >
     struct just
     {
-        typedef just is_pure;
-
         typedef
             boost::optional<State>
         result_type;

@@ -17,6 +17,7 @@
 #include <boost/none.hpp>
 
 
+#include <pstade/oven/range_traversal.hpp>
 #include <cstdlib> // rand
 #include <iostream>
 #include <sstream>
@@ -167,6 +168,23 @@ private:
 };
 
 
+void check_single_pass_aux(boost::single_pass_traversal_tag)
+{
+}
+
+void check_single_pass_aux(boost::forward_traversal_tag)
+{
+    BOOST_CHECK(false && "check_single_pass failed.");
+}
+
+
+template<class Range>
+void check_single_pass(Range& rng)
+{
+    ::check_single_pass_aux(typename pstade::oven::range_traversal<Range>::type());
+}
+
+
 void test()
 {
     namespace oven = pstade::oven;
@@ -189,7 +207,9 @@ void test()
         }
         std::cout << std::endl;
     }
-
+    {
+        ::check_single_pass( generation(nonstop(&std::rand)) );
+    }
     {
         ::rock_generator gen(10);
 
