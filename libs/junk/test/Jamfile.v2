@@ -14,6 +14,7 @@ project
       <find-static-library>comdlg32
       <find-static-library>gdi32
       <find-static-library>user32
+      <threading>multi
     ;
 
 

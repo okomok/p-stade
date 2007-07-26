@@ -62,7 +62,7 @@ namespace pstade { namespace gravy {
     struct for_each_child_window :
         egg::function_facade<for_each_child_window>
     {
-        typedef window_ref routine_result_type;
+        typedef window_ref yield_type;
 
         template<class Myself, class UnaryFun>
         struct apply :

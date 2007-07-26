@@ -1,32 +1,24 @@
 
-#include <boost/fusion/include/as_vector.hpp>
-#include <boost/fusion/include/transform_view.hpp>
-#include <boost/fusion/include/vector.hpp>
+#include <boost/range.hpp>
+#include <string>
 
-
-struct identity
-{
-    template<class FunCall>
-    struct result;
-
-    template<class Fun>
-    struct result<Fun(int&)>
-    {
-        typedef int& type;
-    };
-
-    int& operator()(int& i) const
-    {
-        return i;
-    }
-};
+using namespace boost;
 
 
 int main()
 {
-    typedef boost::fusion::vector<int, int> from_t;
-    from_t from;
-    boost::fusion::transform_view<from_t, ::identity> v(from, ::identity());
+    std::string rng; // mutable range
 
-    boost::fusion::as_vector(v);
+    {// (a)
+        std::string::iterator first
+            = boost::begin(iterator_range<std::string::iterator>(rng)); // returns mutable iterator
+    }
+    {// (b)
+        std::string::iterator first
+            = sub_range<std::string>(rng).begin(); // returns mutable iterator
+    }
+    {// (c)
+        std::string::const_iterator first
+            = boost::begin(sub_range<std::string>(rng)); // returns "constant" iterator
+    }
 }

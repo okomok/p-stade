@@ -18,7 +18,7 @@
 #include <boost/foreach.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/window_ref.hpp>
-#include <pstade/sausage/yield_range.hpp>
+#include <pstade/oven/in_block.hpp>
 
 
 bool output(HWND hWnd)
@@ -48,7 +48,7 @@ void pstade_minimal_test()
     gravy::for_each_child_window wnds(::GetDesktopWindow());
 
     {
-        BOOST_FOREACH (gravy::window_ref wnd, wnds|sausage::yielded) {
+        BOOST_FOREACH (gravy::window_ref wnd, oven::in_block(wnds)) {
             //::output(wnd);
             (void)wnd;
         }

@@ -22,16 +22,9 @@ template< class Iterator >
 void iter_emptiness(Iterator first, Iterator last)
 {
     BOOST_CHECK(first == last);
-    Iterator first_ = first;
-    BOOST_CHECK(first_ == last);
-    Iterator last_ = last;
-    BOOST_CHECK(last_ == last);
-    BOOST_CHECK(first_ == last_);
-    first = last_;
-    BOOST_CHECK(first == last_);
-    last = first_;
-    BOOST_CHECK(last == first_);
-    BOOST_CHECK(last == first);
+    Iterator first1 = first;
+    Iterator last1 = last;
+    BOOST_CHECK(first1 == last1);
 }
 
 
