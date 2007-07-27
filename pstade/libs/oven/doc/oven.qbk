@@ -31,6 +31,7 @@
 [def _boost_range_           [@http://www.boost.org/libs/range/index.html Boost.Range]]
 [def _boost_regex_           [@http://boost.org/libs/regex/doc/index.html Boost.Regex]]
 [def _boost_result_of_       [@http://www.boost.org/libs/utility/utility.htm#result_of Boost.ResultOf]]
+[def _boost_thread_          [@http://www.boost.org/doc/html/thread.html Boost.Thread]]
 [def _boost_typeof_          [@http://boost.org/libs/typeof/doc/index.html Boost.Typeof]]
 [def _pstade_release_        [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
 [def _string_algo_proposal_  [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html Proposal for new string algorithms in TR2]]
@@ -81,7 +82,7 @@
 [def _pipable_               [link oven.pipable_object Pipable]]
 [def _auxiliary_interface_   [link oven.auxiliary_interface Auxiliary Interface]]
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
-
+[def _iterator_block_        [link oven.iterator_block Iterator Block]]
 
 [include preface.qbk]
 [include concepts.qbk]

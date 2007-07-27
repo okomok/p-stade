@@ -34,13 +34,13 @@ struct power
     void operator()(Yield yield) const
     {
         if (m_number < 0)
-            yield.break_();
+            return;
 
         int counter = 0;
         int result = 1;
         while (counter++ < m_exponent) {
             result = result * m_number;
-            yield.return_(result);
+            yield(result);
         }
     }
 };

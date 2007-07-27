@@ -30,9 +30,9 @@ struct my_block1
     {
         for (int i = 0; i < 500; ++i) {
             if (i == 10)
-                yield.break_();
+                break;
             else
-                yield.return_(i);
+                yield(i);
         }
     }
 };
@@ -52,13 +52,13 @@ struct my_block2
         for (int i = 0; i < m_c; ++i) {
             yield(1);
             yield(2);
-            yield.return_(3);
+            yield(3);
         }
     }
 };
 
 
-struct empty_block1
+struct empty_block
 {
     typedef int yield_type;
 
@@ -68,19 +68,6 @@ struct empty_block1
 
     }
 };
-
-struct empty_block2
-{
-    typedef int yield_type;
-
-    template< class Yield >
-    void operator()(Yield yield) const
-    {
-        yield.break_();
-        yield(1);
-    }
-};
-
 
 
 int g_int1 = 1, g_int2 = 2, g_int3 = 3;
@@ -133,10 +120,8 @@ void pstade_unit_test()
                 std::cout << "my_block2 pass" << std::endl;
             }
             {
-                test::emptiness(in_block(::empty_block1()));
-                std::cout << "empty_block1 pass" << std::endl;
-                test::emptiness(in_block(::empty_block2()));
-                std::cout << "empty_block2 pass" << std::endl;
+                test::emptiness(in_block(::empty_block()));
+                std::cout << "empty_block pass" << std::endl;
             }
         }
     }

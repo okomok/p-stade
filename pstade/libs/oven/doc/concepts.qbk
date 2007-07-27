@@ -130,6 +130,28 @@ for any _stoppable_generator_ `g` the following must be met:
 
 
 
+[section Iterator Block]
+
+[h3 Description]
+An _iterator_block_ is a unary _function_object_ that yields an ordered sequence of values.
+
+[h3 Refinement of]
+* _function_object_
+
+[h3 Requirements]
+In addition to the requirements defined in _function_object_,
+for any _iterator_block_ `b` the following must be met:
+
+* For an unspecified unary _function_object_ `y`, `b(y)` is a valid expression.
+* `_typeof(b)::yield_type` is a type of object passed to `y`.
+
+[h3 Models]
+
+[endsect]
+
+
+
+
 [section Constant Range]
 
 [h3 Description]
