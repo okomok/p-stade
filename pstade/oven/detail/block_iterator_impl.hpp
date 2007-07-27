@@ -17,6 +17,7 @@
 
 #include <bitset>
 #include <cstddef> // size_t
+#include <exception>
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/lambda/bind.hpp>
@@ -27,11 +28,11 @@
 #include <boost/thread/thread.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/egg/ret.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/static_c.hpp>
 #include "./ref_to_ptr.hpp"
-#include "./yield.hpp"
 
 
 #if defined(BOOST_MSVC)
@@ -41,6 +42,16 @@
 
 
 namespace pstade { namespace oven { namespace detail {
+
+
+struct yield_break_exception :
+    std::exception
+{
+    char const *what() const throw() // override
+    {
+        return "yield_break_exception";
+    }
+};
 
 
 typedef std::bitset<3> block_status_type;
@@ -128,13 +139,15 @@ private:
     void work()
     {
         try {
-            m_block(detail::make_yield(boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)));
+            m_block(egg::ret<void>(boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)));
         }
         catch (yield_break_exception const&) {
-            m_presult = PSTADE_NULLPTR;
         }
 
         boost::mutex::scoped_lock lock(m_mutex);
+#if !defined(NDEBUG)
+        m_presult = PSTADE_NULLPTR;
+#endif
         m_status.set(block_end::value);
         m_cond.notify_one();
     }

@@ -163,6 +163,7 @@
 
 [h2 Version 0.94.3]
 * Added `unfold`.
+* Added `in_block`.
 
 
 

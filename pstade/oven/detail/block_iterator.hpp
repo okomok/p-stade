@@ -24,7 +24,6 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/remove_cvr.hpp>
-#include <pstade/unused.hpp>
 #include "./block_iterator_impl.hpp"
 
 

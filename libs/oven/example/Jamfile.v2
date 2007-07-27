@@ -27,5 +27,6 @@ test-suite range :
     [ run quick_sort.cpp ]
     [ run read.cpp ]
     [ run specification.cpp ]
+    [ run unfoldr.cpp ]
     [ run zip.cpp ]
     ;
