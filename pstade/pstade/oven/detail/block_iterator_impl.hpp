@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
-//
-// http://d.hatena.ne.jp/y-hamigaki/20060409#1144593955
-
-
 #include <bitset>
 #include <cstddef> // size_t
 #include <exception>

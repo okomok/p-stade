@@ -15,7 +15,7 @@
 // *IteratorBlock* is a unary functor which has nested 'yield_type',
 // and its 'operator()' takes a unary functor as templated argument.
 // See <gravy/for_each_child_window.hpp> as an example.
-// This iterator was originally implemeted by
+// This iterator was originally implemented by
 // http://d.hatena.ne.jp/y-hamigaki/20060409#1144593955
 
 
