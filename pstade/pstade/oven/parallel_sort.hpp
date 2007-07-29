@@ -84,11 +84,11 @@ namespace parallel_sort_detail {
         template< class Result, class Range, class Difference, class Compare >
         void call(Range& rng, Difference grain, Compare comp) const
         {
-            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT(grain > 0);
 
-            typedef typename range_difference<Range>::type diff_t;
             typedef typename iter_range_of<Range>::type base_t;
+            typedef typename range_difference<Range>::type diff_t;
 
             aux<base_t, diff_t, Compare>(rng, grain, comp)();
         }

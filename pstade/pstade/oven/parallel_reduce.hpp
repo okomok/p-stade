@@ -108,8 +108,8 @@ namespace parallel_reduce_detail {
             BOOST_ASSERT(grain > 0);
             BOOST_ASSERT(!boost::empty(rng));
 
-            typedef typename range_difference<Range>::type diff_t;
             typedef typename iter_range_of<Range>::type base_t;
+            typedef typename range_difference<Range>::type diff_t;
 
             aux<base_t, diff_t, BinaryFun> auxRoot(rng, grain, fun);
             auxRoot();
