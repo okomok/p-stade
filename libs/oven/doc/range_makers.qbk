@@ -308,9 +308,6 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         template<typename Yield>
         void operator()(Yield yield) const
         {
-            if (m_number < 0)
-                return;
-
             int counter = 0;
             int result = 1;
             while (counter++ < m_exponent) {
