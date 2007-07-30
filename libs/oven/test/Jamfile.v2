@@ -85,6 +85,7 @@ test-suite "oven" :
     [ run offset.cpp ]
     [ run outdirected.cpp ]
     [ run outplaced.cpp ]
+    [ run parallel_copy.cpp ]
     [ run parallel_for_each.cpp ]
     [ run parallel_reduce.cpp ]
     [ run parallel_sort.cpp ]
