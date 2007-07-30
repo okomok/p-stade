@@ -20,6 +20,10 @@
 
 void output(char ch)
 {
+    for (int i = 0; i < 1000000; ++i)
+        ;
+
+    // std::cout << ch;
     (void)ch;
 }
 
@@ -31,7 +35,7 @@ void test()
 
     {
         std::string rng("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz");
-        oven::parallel_for_each(rng, 16, &output);
+        oven::parallel_for_each(16, rng, &output);
     }
 }
 

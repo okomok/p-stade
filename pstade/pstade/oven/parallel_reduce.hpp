@@ -24,7 +24,6 @@
 #include <pstade/egg/plus.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
-#include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_value.hpp"
@@ -38,47 +37,35 @@ namespace pstade { namespace oven {
 namespace parallel_reduce_detail {
 
 
-    template< class IterRange, class Difference, class BinaryFun >
+    template< class IterRange, class BinaryFun >
     struct aux
     {
     private:
+        typedef typename range_difference<IterRange>::type diff_t;
         typedef typename range_value<IterRange>::type value_t;
 
     public:
         void operator()()
         {
-            Difference dist = distance(m_rng);
+            BOOST_ASSERT(!boost::empty(m_rng));
 
-            if (dist <= m_grain) {
-                m_value = std::accumulate(
-                    boost::next(boost::begin(m_rng)), boost::end(m_rng), m_value, m_fun );
-                return;
+            typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
+
+            if (boost::empty(xs_ys.second)) {
+                m_value = std::accumulate(boost::next(boost::begin(xs_ys.first)), boost::end(xs_ys.first), m_value, m_fun);
             }
-
-            typename result_of<op_make_split_at(IterRange&, Difference)>::type
-                xs_ys = make_split_at(m_rng, dist/2);
-
-            IterRange rngL = xs_ys.first;
-            IterRange rngR = xs_ys.second;
-
-            BOOST_ASSERT(!boost::empty(rngL));
-            BOOST_ASSERT(!boost::empty(rngR));
-
-            aux auxL(rngL, m_grain, m_fun);
-            aux auxR(rngR, m_grain, m_fun);
-
-            boost::thread thrdL(boost::ref(auxL));
-            boost::thread thrdR(boost::ref(auxR));
-
-            thrdL.join();
-            thrdR.join();
-
-            m_value = m_fun(auxL.value(), auxR.value());
+            else {
+                aux auxR(m_grain, xs_ys.second, m_fun);
+                boost::thread thrd(boost::ref(auxR));
+                m_value = std::accumulate(boost::next(boost::begin(xs_ys.first)), boost::end(xs_ys.first), m_value, m_fun);
+                thrd.join();
+                m_value = m_fun(m_value, auxR.value());
+            }
         }
 
         template< class Range >
-        aux(Range& rng, Difference grain, BinaryFun fun) :
-            m_rng(rng), m_grain(grain), m_fun(fun), m_value(read(boost::begin(rng)))
+        aux(diff_t grain, Range& rng, BinaryFun fun) :
+            m_grain(grain), m_rng(rng), m_fun(fun), m_value(read(boost::begin(rng)))
         { }
 
         value_t value() const
@@ -87,39 +74,36 @@ namespace parallel_reduce_detail {
         }
 
     private:
-        IterRange  m_rng;
-        Difference m_grain;
-        BinaryFun  m_fun;
-        value_t    m_value;
+        diff_t m_grain;
+        IterRange m_rng;
+        BinaryFun m_fun;
+        value_t m_value;
     };
 
 
     struct baby
     {
-        template< class Myself, class Range, class Difference, class BinaryFun = egg::op_plus const >
+        template< class Myself, class Difference, class Range, class BinaryFun = egg::op_plus const >
         struct apply :
             range_value<Range>
         { };
 
-        template< class Result, class Range, class Difference, class BinaryFun >
-        Result call(Range& rng, Difference grain, BinaryFun fun) const
+        template< class Result, class Difference, class Range, class BinaryFun >
+        Result call(Difference grain, Range& rng, BinaryFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(grain > 0);
             BOOST_ASSERT(!boost::empty(rng));
 
-            typedef typename iter_range_of<Range>::type base_t;
-            typedef typename range_difference<Range>::type diff_t;
-
-            aux<base_t, diff_t, BinaryFun> auxRoot(rng, grain, fun);
+            aux<typename iter_range_of<Range>::type, BinaryFun> auxRoot(grain, rng, fun);
             auxRoot();
             return auxRoot.value();
         }
 
-        template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference grain) const
+        template< class Result, class Difference, class Range >
+        Result call(Difference grain, Range& rng) const
         {
-            return egg::make_function(*this)(rng, grain, egg::plus);
+            return egg::make_function(*this)(grain, rng, egg::plus);
         }
     };
 

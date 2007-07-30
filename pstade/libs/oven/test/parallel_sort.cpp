@@ -26,7 +26,7 @@ void pstade_unit_test()
         int b1[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
         oven::sort(b1);
         int b2[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
-        parallel_sort(b2, 5);
+        parallel_sort(5, b2);
 
         BOOST_CHECK( equals(b1, b2) );
     }
@@ -34,7 +34,7 @@ void pstade_unit_test()
         int b1[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
         oven::sort(b1, pstade::egg::less);
         int b2[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
-        parallel_sort(b2, 5, pstade::egg::less);
+        parallel_sort(5, b2, pstade::egg::less);
 
         BOOST_CHECK( equals(b1, b2) );
     }

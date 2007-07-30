@@ -42,8 +42,6 @@ test-suite "wine" :
     [ run pause.cpp ]
     [ link pod_constant1.cpp pod_constant2.cpp : : pod_constant ]
     [ run preprocessor.cpp ]
-    [ run provide_result_of_sig.cpp ]
-    [ run provide_sig.cpp ]
     [ run remove_cvr.cpp ]
     [ run require.cpp ]
     [ run result_of.cpp ]

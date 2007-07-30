@@ -14,7 +14,6 @@
 
 #include <pstade/oven/numeric.hpp> // accumulate
 #include <pstade/egg/multiplies.hpp>
-#include <iostream>
 
 
 void pstade_unit_test()
@@ -24,14 +23,10 @@ void pstade_unit_test()
 
     {
         int b[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
-        std::cout << accumulate(b, 0) << std::endl;
-        std::cout << parallel_reduce(b, 5) << std::endl;
-        BOOST_CHECK( accumulate(b, 0) == parallel_reduce(b, 5) );
+        BOOST_CHECK( accumulate(b, 0) == parallel_reduce(5, b) );
     }
     {
         int b[] = { 1,2,1,3,5,1,1,7,4,1,2,3,6,2,2,1,2,3 };
-        std::cout << accumulate(b, 1, pstade::egg::multiplies) << std::endl;
-        std::cout << parallel_reduce(b, 5, pstade::egg::multiplies) << std::endl;
-        BOOST_CHECK( accumulate(b, 1, pstade::egg::multiplies) == parallel_reduce(b, 5, pstade::egg::multiplies) );
+        BOOST_CHECK( accumulate(b, 1, pstade::egg::multiplies) == parallel_reduce(5, b, pstade::egg::multiplies) );
     }
 }
