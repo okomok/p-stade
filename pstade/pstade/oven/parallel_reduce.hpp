@@ -47,9 +47,8 @@ namespace parallel_reduce_detail {
     public:
         void operator()()
         {
-            BOOST_ASSERT(!boost::empty(m_rng));
-
             typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
+            BOOST_ASSERT(!boost::empty(xs_ys.first));
 
             if (boost::empty(xs_ys.second)) {
                 m_value = std::accumulate(boost::next(boost::begin(xs_ys.first)), boost::end(xs_ys.first), m_value, m_fun);

@@ -12,6 +12,7 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/detail/atomic_count.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/ref.hpp>
 #include <boost/thread/thread.hpp>
@@ -33,6 +34,42 @@ namespace pstade { namespace oven {
 namespace parallel_equals_detail {
 
 
+    typedef boost::detail::atomic_count atomic_bool;
+
+
+    template< class Predicate >
+    struct breakable
+    {
+        template< class X, class Y >
+        bool operator()(X const& x, Y const& y) const
+        {
+            if (*m_pbreak)
+                return false;
+            else
+                return m_pred(x, y);
+        }
+
+        void break_()
+        {
+            BOOST_ASSERT(*m_pbreak == 0);
+            ++*m_pbreak;
+        }
+
+        breakable(Predicate pred, atomic_bool *pbreak) :
+            m_pred(pred), m_pbreak(pbreak)
+        { }
+
+        Predicate base() const
+        {
+            return m_pred;
+        }
+
+    private:
+        Predicate m_pred;
+        atomic_bool *m_pbreak;
+    };
+
+
     template< class IterRange1, class IterRange2, class Predicate >
     struct aux
     {
@@ -43,29 +80,32 @@ namespace parallel_equals_detail {
         void operator()()
         {
             typename result_of<op_make_split_at(IterRange1&, diff_t&)>::type xs_ys1 = make_split_at(m_rng1, m_grain);
-
             if (boost::empty(xs_ys1.second)) {
-                m_equal = equals(xs_ys1.first, m_rng2);
+                m_equal = equals(xs_ys1.first, m_rng2, m_breakable_pred);
+                return;
             }
-            else {
-                typename result_of<op_make_split_at(IterRange2&, diff_t&)>::type xs_ys2 = make_split_at(m_rng2, m_grain);
 
-                if (boost::empty(xs_ys2.second)) {
-                    m_equal = false;
-                }
-                else {
-                    aux auxR(m_grain, xs_ys1.second, xs_ys2.second, m_pred);
-                    boost::thread thrd(boost::ref(auxR));
-                    m_equal = equals(xs_ys1.first, xs_ys2.first);
-                    thrd.join();
-                    m_equal = m_equal && auxR.equal();
-                }
+            typename result_of<op_make_split_at(IterRange2&, diff_t&)>::type xs_ys2 = make_split_at(m_rng2, m_grain);
+            if (boost::empty(xs_ys2.second)) {
+                m_equal = false;
+                return;
             }
+
+            aux auxR(m_grain, xs_ys1.second, xs_ys2.second, m_breakable_pred.base());
+            boost::thread thrd(boost::ref(auxR));
+
+            m_equal = equals(xs_ys1.first, xs_ys2.first, m_breakable_pred);
+            if (!m_equal)
+                auxR.m_breakable_pred.break_();
+
+            thrd.join();
+            m_equal = m_equal && auxR.equal();
         }
 
         template< class Range1, class Range2 >
         aux(diff_t grain, Range1& rng1, Range2& rng2, Predicate pred) :
-            m_grain(grain), m_rng1(rng1), m_rng2(rng2), m_pred(pred), m_equal(false)
+            m_grain(grain), m_rng1(rng1), m_rng2(rng2),
+            m_bool(0), m_breakable_pred(pred, &m_bool), m_equal(false)
         { }
 
         bool equal() const
@@ -77,8 +117,12 @@ namespace parallel_equals_detail {
         diff_t m_grain;
         IterRange1 m_rng1;
         IterRange2 m_rng2;
-        Predicate m_pred;
+        atomic_bool m_bool;
+        breakable<Predicate> m_breakable_pred;
         bool m_equal;
+
+        aux(aux const&);
+        aux& operator=(aux const&);
     };
 
 
