@@ -46,14 +46,20 @@ namespace parallel_sort_detail {
             typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
 
             if (boost::empty(xs_ys.second)) {
-                std::sort(boost::begin(xs_ys.first), boost::end(xs_ys.first), m_comp);
+                algo(xs_ys.first);
             }
             else {
                 boost::thread thrd(aux(m_grain, xs_ys.second, m_comp));
-                std::sort(boost::begin(xs_ys.first), boost::end(xs_ys.first), m_comp);
+                algo(xs_ys.first);
                 thrd.join();
                 std::inplace_merge(boost::begin(xs_ys.first), boost::end(xs_ys.first), boost::end(xs_ys.second), m_comp);
             }
+        }
+
+        template< class Range >
+        void algo(Range& rng) const
+        {
+            std::sort(boost::begin(rng), boost::end(rng), m_comp);
         }
 
         template< class Range >

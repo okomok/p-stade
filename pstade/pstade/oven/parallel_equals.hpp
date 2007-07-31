@@ -83,7 +83,7 @@ namespace parallel_equals_detail {
         {
             typename result_of<op_make_split_at(IterRange1&, diff_t&)>::type xs_ys1 = make_split_at(m_rng1, m_grain);
             if (boost::empty(xs_ys1.second)) {
-                m_equal = equals(xs_ys1.first, m_rng2, m_breakable_pred);
+                m_equal = algo(xs_ys1.first, m_rng2);
                 return;
             }
 
@@ -96,12 +96,18 @@ namespace parallel_equals_detail {
             aux auxR(m_grain, xs_ys1.second, xs_ys2.second, m_breakable_pred.base());
             boost::thread thrd(boost::ref(auxR));
 
-            m_equal = equals(xs_ys1.first, xs_ys2.first, m_breakable_pred);
+            m_equal = algo(xs_ys1.first, xs_ys2.first);
             if (!m_equal)
                 auxR.m_breakable_pred.break_();
 
             thrd.join();
             m_equal = m_equal && auxR.equal();
+        }
+
+        template< class Range1, class Range2 >
+        bool algo(Range1& rng1, Range2& rng2) const
+        {
+            return equals(rng1, rng2, m_breakable_pred);
         }
 
         template< class Range1, class Range2 >

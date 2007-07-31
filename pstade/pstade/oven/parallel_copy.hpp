@@ -45,13 +45,19 @@ namespace parallel_copy_detail {
             typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_from, m_grain);
 
             if (boost::empty(xs_ys.second)) {
-                std::copy(boost::begin(xs_ys.first), boost::end(xs_ys.first), m_to);
+                algo(xs_ys.first);
             }
             else {
                 boost::thread thrd(aux(m_grain, xs_ys.second, advance_from(m_to, m_grain)));
-                std::copy(boost::begin(xs_ys.first), boost::end(xs_ys.first), m_to);
+                algo(xs_ys.first);
                 thrd.join();
             }
+        }
+
+        template< class Range >
+        void algo(Range& rng) const
+        {
+            std::copy(boost::begin(rng), boost::end(rng), m_to);
         }
 
         template< class Range >

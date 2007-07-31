@@ -15,6 +15,7 @@
 #include <boost/progress.hpp>
 #include <pstade/oven/identities.hpp>
 #include <iostream>
+#include <string>
 
 
 bool int_equal(int x, int y)
@@ -78,5 +79,16 @@ void pstade_unit_test()
         int b[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
         BOOST_CHECK( !parallel_equals(3, a, b) );
         BOOST_CHECK( !parallel_equals(3, a, b, &::int_equal) );
+    }
+    {
+        std::string b("0123401234");
+        std::string a = b;
+        BOOST_CHECK( parallel_equals(5, a, b) );
+    }
+    {
+        std::string b;
+        std::string a;
+        BOOST_CHECK( parallel_equals(1, a, b) );
+        BOOST_CHECK( parallel_equals(100, a, b) );
     }
 }

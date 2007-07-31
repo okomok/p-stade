@@ -17,6 +17,7 @@
 #include <pstade/egg/less.hpp>
 #include <boost/progress.hpp>
 #include <iostream>
+#include <string>
 
 
 bool slow_less(int x, int y)
@@ -62,5 +63,19 @@ void pstade_unit_test()
         parallel_sort(5, b2, pstade::egg::less);
 
         BOOST_CHECK( equals(b1, b2) );
+    }
+    {
+        std::string b1("4321043210");
+        oven::sort(b1);
+        std::string b2("4321043210");
+        parallel_sort(5, b2);
+        BOOST_CHECK( equals(b1, b2) );
+    }
+    {
+        std::string b1;
+        parallel_sort(1, b1);
+        BOOST_CHECK( equals(b1, std::string()) );
+        parallel_sort(100, b1);
+        BOOST_CHECK( equals(b1, std::string()) );
     }
 }

@@ -37,6 +37,15 @@ void test()
         std::string rng("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz");
         oven::parallel_for_each(16, rng, &output);
     }
+    {
+        std::string b("0123401234");
+        parallel_for_each(5, b, &output);
+    }
+    {
+        std::string b;
+        parallel_for_each(1, b, &output);
+        parallel_for_each(100, b, &output);
+    }
 }
 
 

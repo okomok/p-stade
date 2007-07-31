@@ -16,6 +16,8 @@
 #include <pstade/egg/multiplies.hpp>
 #include <boost/progress.hpp>
 #include <iostream>
+#include <string>
+#include <vector>
 
 
 int slow_plus(int x, int y)
@@ -53,5 +55,14 @@ void pstade_unit_test()
     {
         int b[] = { 1,2,1,3,5,1,1,7,4,1,2,3,6,2,2,1,2,3 };
         BOOST_CHECK( accumulate(b, 1, pstade::egg::multiplies) == parallel_reduce(5, b, pstade::egg::multiplies) );
+    }
+    {
+        int b[] = { 1,2,3,4,5 };
+        BOOST_CHECK( accumulate(b, 0) == parallel_reduce(5, b) );
+    }
+    {
+        std::vector<int> v; v.push_back(12);
+        BOOST_CHECK( 12 == parallel_reduce(1, v) );
+        BOOST_CHECK( 12 == parallel_reduce(100, v) );
     }
 }
