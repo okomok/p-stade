@@ -23,6 +23,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/default_grainsize.hpp"
 #include "./equals.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
@@ -111,8 +112,8 @@ namespace parallel_equals_detail {
         }
 
         template< class Range1, class Range2 >
-        aux(diff_t grain, Range1& rng1, Range2& rng2, Predicate pred) :
-            m_grain(grain), m_rng1(rng1), m_rng2(rng2),
+        aux(diff_t grainsize, Range1& rng1, Range2& rng2, Predicate pred) :
+            m_grain(grainsize), m_rng1(rng1), m_rng2(rng2),
             m_bool(0), m_breakable_pred(pred, &m_bool), m_equal(false)
         { }
 
@@ -140,21 +141,21 @@ namespace parallel_equals_detail {
         };
 
         template< class Result, class Difference, class Range1, class Range2, class Predicate >
-        Result call(Difference grain, Range1& rng1, Range2& rng2, Predicate pred) const
+        Result call(Difference grainsize, Range1& rng1, Range2& rng2, Predicate pred) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range1>));
             PSTADE_CONCEPT_ASSERT((Forward<Range2>));
-            BOOST_ASSERT(grain > 0);
 
-            aux<typename iter_range_of<Range1>::type, typename iter_range_of<Range2>::type, Predicate> auxRoot(grain, rng1, rng2, pred);
+            aux<typename iter_range_of<Range1>::type, typename iter_range_of<Range2>::type, Predicate>
+                auxRoot(detail::default_grainsize(grainsize, rng1), rng1, rng2, pred);
             auxRoot();
             return auxRoot.equal();
         }
 
         template< class Result, class Difference, class Range1, class Range2 >
-        Result call(Difference grain, Range1& rng1, Range2& rng2) const
+        Result call(Difference grainsize, Range1& rng1, Range2& rng2) const
         {
-            return egg::make_function(*this)(grain, rng1, rng2, egg::equal_to);
+            return egg::make_function(*this)(grainsize, rng1, rng2, egg::equal_to);
         }
     };
 

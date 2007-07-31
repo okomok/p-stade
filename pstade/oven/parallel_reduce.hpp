@@ -36,9 +36,9 @@ namespace parallel_reduce_detail {
     struct algo
     {
         template< class Difference, class Iterator >
-        algo make_right(Difference grain, Iterator firstR, Iterator lastR) const
+        algo make_right(Difference grainsize, Iterator firstR, Iterator lastR) const
         {
-            unused(grain, lastR);
+            unused(grainsize, lastR);
             return algo(read(firstR), m_fun);
         }
 
@@ -79,19 +79,19 @@ namespace parallel_reduce_detail {
         { };
 
         template< class Result, class Difference, class Range, class BinaryFun >
-        Result call(Difference grain, Range& rng, BinaryFun fun) const
+        Result call(Difference grainsize, Range& rng, BinaryFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(!boost::empty(rng));
-            return detail::simple_parallel(grain, rng,
+            return detail::simple_parallel(grainsize, rng,
                 algo<typename range_value<Range>::type, BinaryFun>(read(boost::begin(rng)), fun)
             ).algo().value();
         }
 
         template< class Result, class Difference, class Range >
-        Result call(Difference grain, Range& rng) const
+        Result call(Difference grainsize, Range& rng) const
         {
-            return egg::make_function(*this)(grain, rng, egg::plus);
+            return egg::make_function(*this)(grainsize, rng, egg::plus);
         }
     };
 
