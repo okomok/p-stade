@@ -35,11 +35,16 @@
 
 #include <deque>
 #include <boost/assert.hpp>
+#include <boost/config.hpp> // BOOST_HAS_THREADS
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+
+#if defined(BOOST_HAS_THREADS)
+    #include <boost/detail/lightweight_mutex.hpp>
+#endif
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -62,17 +67,21 @@ public:
 
     bool is_in_table(index_type i) const
     {
-        BOOST_ASSERT(invariant());
-        BOOST_ASSERT(0 <= i && i <= m_baseIndex);
-        return i != m_table.size();
+#if defined(BOOST_HAS_THREADS)
+        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
+#endif
+        return is_in_table_aux(i);
     }
 
     value_t const& deref(index_type i)
     {
+#if defined(BOOST_HAS_THREADS)
+        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
+#endif
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
-        if (!is_in_table(i)) {
+        if (!is_in_table_aux(i)) {
             BOOST_ASSERT(i == m_baseIndex && m_baseIndex == m_table.size());
             m_table.push_back(*m_base);
         }
@@ -82,12 +91,15 @@ public:
 
     index_type next(index_type i)
     {
+#if defined(BOOST_HAS_THREADS)
+        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
+#endif
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
         if (i == m_baseIndex) {
             if (m_baseIndex == m_table.size())
-                    m_table.push_back(*m_base);
+                m_table.push_back(*m_base);
 
             ++m_base;
             ++m_baseIndex;
@@ -98,6 +110,9 @@ public:
 
     Iterator base() const
     {
+#if defined(BOOST_HAS_THREADS)
+        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
+#endif
         BOOST_ASSERT(invariant());
         return m_base;
     }
@@ -106,10 +121,20 @@ private:
     Iterator m_base;
     index_type m_baseIndex;
     table_t m_table;
+#if defined(BOOST_HAS_THREADS)
+    mutable boost::detail::lightweight_mutex m_mutex;
+#endif
 
     bool invariant() const
     {
         return m_baseIndex == m_table.size() || m_baseIndex + 1 == m_table.size();
+    }
+
+    bool is_in_table_aux(index_type i) const
+    {
+        BOOST_ASSERT(invariant());
+        BOOST_ASSERT(0 <= i && i <= m_baseIndex);
+        return i != m_table.size();
     }
 };
 

@@ -13,6 +13,7 @@
 
 
 #include <boost/progress.hpp>
+#include <pstade/oven/identities.hpp>
 #include <iostream>
 
 
@@ -57,7 +58,7 @@ void pstade_unit_test()
         int a[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
         int b[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
         BOOST_CHECK( parallel_equals(3, a, b) );
-        BOOST_CHECK( parallel_equals(3, a, b, &::int_equal) );
+        BOOST_CHECK( parallel_equals(3, a, b|identities, &::int_equal) );
         BOOST_CHECK( !parallel_equals(3, a, b, &::always_not_equal) );
     }
     {

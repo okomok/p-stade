@@ -58,7 +58,7 @@ namespace do_iter_swap_detail {
     }
 
 
-    // Unless these are in the same namespace,
+    // If these aren't in the same namespace,
     // msvc-7.1 ADL randomly fails.
 
     template< class Iterator1, class Iterator2 > inline
