@@ -12,9 +12,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
-#include <boost/range/end.hpp>
 #include <boost/ref.hpp>
 #include <boost/thread/thread.hpp>
 #include <pstade/result_of.hpp>
@@ -22,6 +20,7 @@
 #include "../iter_range.hpp"
 #include "../range_difference.hpp"
 #include "../split_at.hpp"
+#include "./default_grainsize.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -37,23 +36,23 @@ private:
 public:
     void operator()()
     {
-        typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
+        typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grainsize);
 
         if (boost::empty(xs_ys.second)) {
-            m_algo.before_join(boost::begin(xs_ys.first), boost::end(xs_ys.first));
+            m_algo.before_join(xs_ys.first.begin(), xs_ys.first.end());
         }
         else {
-            self_t other(m_grain, xs_ys.second, m_algo.make_right(m_grain, boost::begin(xs_ys.second), boost::end(xs_ys.second)));
+            self_t other(m_grainsize, xs_ys.second, m_algo.make_right(m_grainsize, xs_ys.second.begin(), xs_ys.second.end()));
             boost::thread thrd(boost::ref(other));
-            m_algo.before_join(boost::begin(xs_ys.first), boost::end(xs_ys.first));
+            m_algo.before_join(xs_ys.first.begin(), xs_ys.first.end());
             thrd.join();
-            m_algo.after_join(boost::begin(xs_ys.first), boost::end(xs_ys.first), boost::begin(xs_ys.second), boost::end(xs_ys.second), other.m_algo);
+            m_algo.after_join( xs_ys.first.begin(), xs_ys.first.end(), xs_ys.second.begin(), xs_ys.second.end(), other.m_algo);
         }
     }
 
     template< class Range >
-    simple_parallel_aux(diff_t grain, Range& rng, Algo algo) :
-        m_grain(grain), m_rng(rng), m_algo(algo)
+    simple_parallel_aux(diff_t grainsize, Range& rng, Algo algo) :
+        m_grainsize(grainsize), m_rng(rng), m_algo(algo)
     { }
 
     Algo algo() const
@@ -62,18 +61,17 @@ public:
     }
 
 private:
-    diff_t m_grain;
+    diff_t m_grainsize;
     IterRange m_rng;
     Algo m_algo;
 };
 
 
-template< class Difference, class Range, class Algo > inline
+template< class Difference, class Range, class Algo >
 simple_parallel_aux<typename iter_range_of<Range>::type, Algo>
-simple_parallel(Difference grain, Range& rng, Algo algo)
+simple_parallel(Difference grainsize, Range& rng, Algo algo)
 {
-    BOOST_ASSERT(grain > 0);
-    simple_parallel_aux<typename iter_range_of<Range>::type, Algo> tmp(grain, rng, algo);
+    simple_parallel_aux<typename iter_range_of<Range>::type, Algo> tmp(detail::default_grainsize(grainsize, rng), rng, algo);
     tmp();
     return tmp;
 }
@@ -83,9 +81,9 @@ template< class Derived >
 struct simple_parallel_algo
 {
     template< class Difference, class Iterator >
-    Derived make_right(Difference grain, Iterator firstR, Iterator lastR) const
+    Derived make_right(Difference grainsize, Iterator firstR, Iterator lastR) const
     {
-        unused(grain, firstR, lastR);
+        unused(grainsize, firstR, lastR);
         return static_cast<Derived const&>(*this);
     }
 

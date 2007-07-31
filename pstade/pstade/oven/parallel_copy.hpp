@@ -31,10 +31,10 @@ namespace parallel_copy_detail {
         detail::simple_parallel_algo< algo<ForwardIter> >
     {
         template< class Difference, class Iterator >
-        algo make_right(Difference grain, Iterator firstR, Iterator lastR) const
+        algo make_right(Difference grainsize, Iterator firstR, Iterator lastR) const
         {
             unused(firstR, lastR);
-            return algo(advance_from(m_to, grain));
+            return algo(advance_from(m_to, grainsize));
         }
 
         template< class Iterator >
@@ -61,10 +61,10 @@ namespace parallel_copy_detail {
         };
 
         template< class Result, class Difference, class Range, class ForwardIter >
-        void call(Difference grain, Range& from, ForwardIter to) const
+        void call(Difference grainsize, Range& from, ForwardIter to) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            detail::simple_parallel(grain, from, algo<ForwardIter>(to));
+            detail::simple_parallel(grainsize, from, algo<ForwardIter>(to));
         }
     };
 

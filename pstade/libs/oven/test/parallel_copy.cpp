@@ -25,7 +25,12 @@ void pstade_unit_test()
         int a[21] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
         int b[21];
         parallel_copy(5, a, &b[0]);
-
+        BOOST_CHECK( equals(a, b) );
+    }
+    {
+        int a[21] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
+        int b[21];
+        parallel_copy(0, a, &b[0]); // default grainsize
         BOOST_CHECK( equals(a, b) );
     }
     {
