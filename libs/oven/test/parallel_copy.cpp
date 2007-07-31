@@ -13,6 +13,7 @@
 
 
 #include <pstade/oven/equals.hpp>
+#include <string>
 
 
 void pstade_unit_test()
@@ -26,5 +27,19 @@ void pstade_unit_test()
         parallel_copy(5, a, &b[0]);
 
         BOOST_CHECK( equals(a, b) );
+    }
+    {
+        std::string b("0123401234");
+        std::string a("**********");
+        parallel_copy(5, b, a.begin());
+        BOOST_CHECK( equals(a, b) );
+    }
+    {
+        std::string b;
+        std::string a;
+        parallel_copy(1, b, a.begin());
+        BOOST_CHECK( a.empty() );
+        parallel_copy(100, b, a.begin());
+        BOOST_CHECK( a.empty() );
     }
 }

@@ -49,13 +49,19 @@ namespace parallel_for_each_detail {
             typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
 
             if (boost::empty(xs_ys.second)) {
-                std::for_each(boost::begin(xs_ys.first), boost::end(xs_ys.first), m_fun);
+                algo(xs_ys.first);
             }
             else {
                 boost::thread thrd(aux(m_grain, xs_ys.second, m_fun));
-                std::for_each(boost::begin(xs_ys.first), boost::end(xs_ys.first), m_fun);
+                algo(xs_ys.first);
                 thrd.join();
             }
+        }
+
+        template< class Range >
+        void algo(Range& rng) const
+        {
+            std::for_each(boost::begin(rng), boost::end(rng), m_fun);
         }
 
         template< class Range >

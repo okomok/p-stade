@@ -51,15 +51,21 @@ namespace parallel_reduce_detail {
             BOOST_ASSERT(!boost::empty(xs_ys.first));
 
             if (boost::empty(xs_ys.second)) {
-                m_value = std::accumulate(boost::next(boost::begin(xs_ys.first)), boost::end(xs_ys.first), m_value, m_fun);
+                m_value = algo(xs_ys.first);
             }
             else {
                 aux auxR(m_grain, xs_ys.second, m_fun);
                 boost::thread thrd(boost::ref(auxR));
-                m_value = std::accumulate(boost::next(boost::begin(xs_ys.first)), boost::end(xs_ys.first), m_value, m_fun);
+                m_value = algo(xs_ys.first);
                 thrd.join();
                 m_value = m_fun(m_value, auxR.value());
             }
+        }
+
+        template< class Range >
+        value_t algo(Range& rng) const
+        {
+            return std::accumulate(boost::next(boost::begin(rng)), boost::end(rng), m_value, m_fun);
         }
 
         template< class Range >
