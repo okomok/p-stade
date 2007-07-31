@@ -17,18 +17,11 @@
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2104.pdf
 
 
-#include <boost/assert.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/empty.hpp>
-#include <boost/range/end.hpp>
-#include <boost/thread/thread.hpp>
+#include <algorithm> // for_each
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
-#include "./iter_range.hpp"
-#include "./range_difference.hpp"
-#include "./split_at.hpp"
+#include "./detail/simple_parallel.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,41 +30,21 @@ namespace pstade { namespace oven {
 namespace parallel_for_each_detail {
 
 
-    template< class IterRange, class UnaryFun >
-    struct aux
+    template< class UnaryFun >
+    struct algo :
+        detail::simple_parallel_algo< algo<UnaryFun> >
     {
-    private:
-        typedef typename range_difference<IterRange>::type diff_t;
-
-    public:
-        void operator()()
+        template< class Iterator >
+        void before_join(Iterator first, Iterator last) const
         {
-            typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
-
-            if (boost::empty(xs_ys.second)) {
-                algo(xs_ys.first);
-            }
-            else {
-                boost::thread thrd(aux(m_grain, xs_ys.second, m_fun));
-                algo(xs_ys.first);
-                thrd.join();
-            }
+            std::for_each(first, last, m_fun);
         }
 
-        template< class Range >
-        void algo(Range& rng) const
-        {
-            std::for_each(boost::begin(rng), boost::end(rng), m_fun);
-        }
-
-        template< class Range >
-        aux(diff_t grain, Range& rng, UnaryFun fun) :
-            m_grain(grain), m_rng(rng), m_fun(fun)
+        explicit algo(UnaryFun fun) :
+            m_fun(fun)
         { }
 
     private:
-        diff_t m_grain;
-        IterRange m_rng;
         UnaryFun m_fun;
     };
 
@@ -88,8 +61,7 @@ namespace parallel_for_each_detail {
         void call(Difference grain, Range& rng, UnaryFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            BOOST_ASSERT(grain > 0);
-            aux<typename iter_range_of<Range>::type, UnaryFun>(grain, rng, fun)();
+            detail::simple_parallel(grain, rng, algo<UnaryFun>(fun));
         }
     };
 

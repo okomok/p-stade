@@ -7,7 +7,7 @@
 //
 // Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
+// (See acfunanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
@@ -15,20 +15,15 @@
 #include <boost/assert.hpp>
 #include <boost/next_prior.hpp> // next
 #include <boost/range/begin.hpp>
-#include <boost/range/empty.hpp>
-#include <boost/range/end.hpp>
-#include <boost/ref.hpp>
-#include <boost/thread/thread.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <pstade/egg/plus.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/unused.hpp>
 #include "./concepts.hpp"
-#include "./iter_range.hpp"
-#include "./range_difference.hpp"
+#include "./detail/simple_parallel.hpp"
 #include "./range_value.hpp"
 #include "./read.hpp"
-#include "./split_at.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,52 +32,42 @@ namespace pstade { namespace oven {
 namespace parallel_reduce_detail {
 
 
-    template< class IterRange, class BinaryFun >
-    struct aux
+    template< class Value, class BinaryFun >
+    struct algo
     {
-    private:
-        typedef typename range_difference<IterRange>::type diff_t;
-        typedef typename range_value<IterRange>::type value_t;
-
-    public:
-        void operator()()
+        template< class Difference, class Iterator >
+        algo make_right(Difference grain, Iterator firstR, Iterator lastR) const
         {
-            typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
-            BOOST_ASSERT(!boost::empty(xs_ys.first));
-
-            if (boost::empty(xs_ys.second)) {
-                m_value = algo(xs_ys.first);
-            }
-            else {
-                aux auxR(m_grain, xs_ys.second, m_fun);
-                boost::thread thrd(boost::ref(auxR));
-                m_value = algo(xs_ys.first);
-                thrd.join();
-                m_value = m_fun(m_value, auxR.value());
-            }
+            unused(grain, lastR);
+            return algo(read(firstR), m_fun);
         }
 
-        template< class Range >
-        value_t algo(Range& rng) const
+        template< class Iterator >
+        void before_join(Iterator first, Iterator last)
         {
-            return std::accumulate(boost::next(boost::begin(rng)), boost::end(rng), m_value, m_fun);
+            BOOST_ASSERT(first != last);
+            m_value = std::accumulate(boost::next(first), last, m_value, m_fun);
         }
 
-        template< class Range >
-        aux(diff_t grain, Range& rng, BinaryFun fun) :
-            m_grain(grain), m_rng(rng), m_fun(fun), m_value(read(boost::begin(rng)))
+        template< class Iterator >
+        void after_join(Iterator first, Iterator last, Iterator firstR, Iterator lastR, algo const& right)
+        {
+            unused(first, last, firstR, lastR);
+            m_value = m_fun(m_value, right.value());
+        }
+
+        algo(Value init, BinaryFun fun) :
+            m_value(init), m_fun(fun)
         { }
 
-        value_t value() const
+        Value value() const
         {
             return m_value;
         }
 
     private:
-        diff_t m_grain;
-        IterRange m_rng;
+        Value m_value;
         BinaryFun m_fun;
-        value_t m_value;
     };
 
 
@@ -97,12 +82,10 @@ namespace parallel_reduce_detail {
         Result call(Difference grain, Range& rng, BinaryFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            BOOST_ASSERT(grain > 0);
             BOOST_ASSERT(!boost::empty(rng));
-
-            aux<typename iter_range_of<Range>::type, BinaryFun> auxRoot(grain, rng, fun);
-            auxRoot();
-            return auxRoot.value();
+            return detail::simple_parallel(grain, rng,
+                algo<typename range_value<Range>::type, BinaryFun>(read(boost::begin(rng)), fun)
+            ).algo().value();
         }
 
         template< class Result, class Difference, class Range >
