@@ -5,14 +5,14 @@
 
 // PStade.Oven
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/matrix.hpp>
 #include "./detail/v1_tests.hpp"
-#include <pstade/oven/detail/matrix.hpp>
 
 
 #include <boost/foreach.hpp>
@@ -58,6 +58,9 @@ void test_2d()
         BOOST_CHECK( (rng|rows(5, 7)|at(2)|at(5)) == arr[2][5] );
         BOOST_CHECK( (rng|rows(5, 7))[2][5] == arr[2][5] );
         BOOST_CHECK( arr[2][5] == 12 );
+
+        BOOST_CHECK( (rng|matrix(5, 7)|at(2)|at(5)) == arr[2][5] );
+        BOOST_CHECK( (rng|matrix(5, 7))[2][5] == arr[2][5] );
     }
     {
         std::vector<int> rng = src|copied;
@@ -135,16 +138,19 @@ void test_3d()
         int ans[] = { 78,83,86,34,22,86,77 };
         std::vector<int> expected = ans|copied;
 
-        std::cout << (rng|matrix(3, 5, 7));
+        std::cout << (rng|matrix3d(3, 5, 7));
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|matrix(3, 5, 7)|at(1)|at(3),
+            rng|matrix3d(3, 5, 7)|at(1)|at(3),
             expected
         ) );
 
+        BOOST_CHECK( (rng|matrix3d(3, 5, 7)|at(1)|at(2)|at(3)) == arr[1][2][3] );
+        BOOST_CHECK( (rng|matrix3d(3, 5, 7))[1][2][3] == arr[1][2][3] );
+        BOOST_CHECK( arr[1][2][3] == 86 );
+        
         BOOST_CHECK( (rng|matrix(3, 5, 7)|at(1)|at(2)|at(3)) == arr[1][2][3] );
         BOOST_CHECK( (rng|matrix(3, 5, 7))[1][2][3] == arr[1][2][3] );
-        BOOST_CHECK( arr[1][2][3] == 86 );
     }
     {
         std::vector<int> rng = src|copied;

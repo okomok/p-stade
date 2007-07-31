@@ -13,6 +13,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/detail/atomic_count.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/ref.hpp>
 #include <boost/thread/thread.hpp>
@@ -71,7 +72,8 @@ namespace parallel_equals_detail {
 
 
     template< class IterRange1, class IterRange2, class Predicate >
-    struct aux
+    struct aux :
+        private boost::noncopyable
     {
     private:
         typedef typename range_difference<IterRange1>::type diff_t;
@@ -120,9 +122,6 @@ namespace parallel_equals_detail {
         atomic_bool m_bool;
         breakable<Predicate> m_breakable_pred;
         bool m_equal;
-
-        aux(aux const&);
-        aux& operator=(aux const&);
     };
 
 

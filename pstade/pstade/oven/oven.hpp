@@ -78,6 +78,7 @@
 #include "./map_keys.hpp"
 #include "./map_values.hpp"
 // #include "./matches.hpp"
+#include "./matrix.hpp"
 // #include "./mb_decoded.hpp"
 // #include "./mb_encoded.hpp"
 #include "./memoized.hpp"

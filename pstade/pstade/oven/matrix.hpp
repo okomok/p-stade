@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_MATRIX_HPP
 #define PSTADE_OVEN_MATRIX_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven
@@ -11,19 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Pending...
-//
-
-
 #include <boost/assert.hpp>
-#include <boost/utility/result_of.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
 #include "./counting.hpp"
+#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
@@ -47,7 +41,7 @@ namespace rows_detail {
         rng_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_window(rng_t const&, Difference, Difference)
             >::type
         result_type;
@@ -71,16 +65,16 @@ namespace rows_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
         diff_t;
 
         typedef typename
-            boost::result_of<
-                op_make_transformed<>(
-                    typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+            result_of<
+                op_make_transformed(
+                    typename result_of<op_counting(int, diff_t&)>::type,
                     to_row<Range, diff_t>
                 )
             >::type
@@ -102,8 +96,7 @@ namespace rows_detail {
 } // namespace rows_detail
 
 
-PSTADE_FUNCTION(make_rows, (rows_detail::baby<_>))
-PSTADE_PIPABLE(rows, (op_make_rows))
+PSTADE_OVEN_BASE_TO_ADAPTOR(rows, (rows_detail::base<_>))
 
 
 namespace columns_detail {
@@ -117,7 +110,7 @@ namespace columns_detail {
         rng_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_sliced(rng_t const&, Difference&, Difference const&)
             >::type
         result_type;
@@ -141,16 +134,16 @@ namespace columns_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
         diff_t;
 
         typedef typename
-            boost::result_of<
-                op_make_transformed<>(
-                    typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+            result_of<
+                op_make_transformed(
+                    typename result_of<op_counting(int, diff_t&)>::type,
                     to_column<Range, diff_t>
                 )
             >::type
@@ -173,11 +166,10 @@ namespace columns_detail {
 } // namespace columns_detail
 
 
-PSTADE_FUNCTION(make_columns, (columns_detail::baby<_>))
-PSTADE_PIPABLE(columns, (op_make_columns))
+PSTADE_OVEN_BASE_TO_ADAPTOR(columns, (columns_detail::base<_>))
 
 
-namespace matrix3_detail {
+namespace matrix3d_detail {
 
 
     template< class Range, class Difference >
@@ -188,9 +180,9 @@ namespace matrix3_detail {
         rng_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_rows(
-                    typename boost::result_of<op_make_window(rng_t const&, Difference, Difference)>::type,
+                    typename result_of<op_make_window(rng_t const&, Difference, Difference)>::type,
                     Difference&, Difference&
                 )
             >::type
@@ -218,16 +210,16 @@ namespace matrix3_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
         diff_t;
 
         typedef typename
-            boost::result_of<
-                op_make_transformed<>(
-                typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+            result_of<
+                op_make_transformed(
+                    typename result_of<op_counting(int, diff_t&)>::type,
                     to_rows<Range, diff_t>
                 )
             >::type
@@ -246,46 +238,49 @@ namespace matrix3_detail {
     };
 
 
-} // namespace matrix3_detail
+} // namespace matrix3d_detail
 
 
-PSTADE_FUNCTION(make_matrix3, (matrix3_detail::baby<_>))
-PSTADE_PIPABLE(matrix3, (op_make_matrix3))
+PSTADE_OVEN_BASE_TO_ADAPTOR(matrix3d, (matrix3d_detail::base<_>))
 
 
-struct op_make_matrix :
-    callable<op_make_matrix>
-{
-    template< class Myself, class Range, class D1, class D2, class D3 = void, class D4 = void >
-    struct apply
-    { };
+namespace matrix_detail {
 
-    template< class Myself, class Range, class D1, class D2 >
-    struct apply<Myself, Range, D1, D2> :
-        boost::result_of<op_make_rows(Range&, D1&, D2&)>
-    { };
 
-    template< class Result, class Range, class D1, class D2 >
-    Result call(Range& rng, D1& d1, D2& d2) const
+    struct baby
     {
-        return make_rows(rng, d1, d2);
-    }
+        template< class Myself, class Range, class D1, class D2, class D3 = void, class D4 = void >
+        struct apply
+        { };
 
-    template< class Myself, class Range, class D1, class D2, class D3 >
-    struct apply<Myself, Range, D1, D2, D3> :
-        boost::result_of<op_make_matrix3(Range&, D1&, D2&, D3&)>
-    { };
+        template< class Myself, class Range, class D1, class D2 >
+        struct apply<Myself, Range, D1, D2> :
+            result_of<op_make_rows(Range&, D1&, D2&)>
+        { };
 
-    template< class Result, class Range, class D1, class D2, class D3 >
-    Result call(Range& rng, D1& d1, D2& d2, D3& d3) const
-    {
-        return make_matrix3(rng, d1, d2, d3);
-    }
-};
+        template< class Result, class Range, class D1, class D2 >
+        Result call(Range& rng, D1& d1, D2& d2) const
+        {
+            return make_rows(rng, d1, d2);
+        }
+
+        template< class Myself, class Range, class D1, class D2, class D3 >
+        struct apply<Myself, Range, D1, D2, D3> :
+            result_of<op_make_matrix3d(Range&, D1&, D2&, D3&)>
+        { };
+
+        template< class Result, class Range, class D1, class D2, class D3 >
+        Result call(Range& rng, D1& d1, D2& d2, D3& d3) const
+        {
+            return make_matrix3d(rng, d1, d2, d3);
+        }
+    };
 
 
-PSTADE_CONSTANT(make_matrix, (op_make_matrix))
-PSTADE_PIPABLE(matrix, (op_make_matrix))
+} // namespace matrix_detail
+
+
+PSTADE_OVEN_BABY_TO_ADAPTOR(matrix, (matrix_detail::baby))
 
 
 } } // namespace pstade::oven
