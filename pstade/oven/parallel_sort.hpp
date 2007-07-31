@@ -12,20 +12,13 @@
 
 
 #include <algorithm> // inplace_merge, sort
-#include <boost/assert.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/empty.hpp>
-#include <boost/range/end.hpp>
-#include <boost/thread/thread.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/less.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/result_of.hpp>
+#include <pstade/unused.hpp>
 #include "./concepts.hpp"
-#include "./iter_range.hpp"
-#include "./range_difference.hpp"
-#include "./split_at.hpp"
+#include "./detail/simple_parallel.hpp"
 
 
 namespace pstade { namespace oven {
@@ -34,42 +27,28 @@ namespace pstade { namespace oven {
 namespace parallel_sort_detail {
 
 
-    template< class IterRange, class Compare >
-    struct aux
+    template< class Compare >
+    struct algo :
+        detail::simple_parallel_algo< algo<Compare> >
     {
-    private:
-        typedef typename range_difference<IterRange>::type diff_t;
-
-    public:
-        void operator()()
+        template< class Iterator >
+        void before_join(Iterator first, Iterator last) const
         {
-            typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grain);
-
-            if (boost::empty(xs_ys.second)) {
-                algo(xs_ys.first);
-            }
-            else {
-                boost::thread thrd(aux(m_grain, xs_ys.second, m_comp));
-                algo(xs_ys.first);
-                thrd.join();
-                std::inplace_merge(boost::begin(xs_ys.first), boost::end(xs_ys.first), boost::end(xs_ys.second), m_comp);
-            }
+            std::sort(first, last, m_comp);
         }
 
-        template< class Range >
-        void algo(Range& rng) const
+        template< class Iterator >
+        void after_join(Iterator first, Iterator last, Iterator firstR, Iterator lastR, algo const& right) const
         {
-            std::sort(boost::begin(rng), boost::end(rng), m_comp);
+            unused(firstR, right);
+            std::inplace_merge(first, last, lastR, m_comp);
         }
 
-        template< class Range >
-        aux(diff_t grain, Range& rng, Compare comp) :
-            m_grain(grain), m_rng(rng), m_comp(comp)
+        explicit algo(Compare comp) :
+            m_comp(comp)
         { }
 
     private:
-        diff_t m_grain;
-        IterRange m_rng;
         Compare m_comp;
     };
 
@@ -86,8 +65,7 @@ namespace parallel_sort_detail {
         void call(Difference grain, Range& rng, Compare comp) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
-            BOOST_ASSERT(grain > 0);
-            aux<typename iter_range_of<Range>::type, Compare>(grain, rng, comp)();
+            detail::simple_parallel(grain, rng, algo<Compare>(comp));
         }
 
         template< class Result, class Difference, class Range >

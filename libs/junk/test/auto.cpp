@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/to_ref_value.cpp>
 
-#include <pstade/../libs/oven/test/parallel_copy.cpp>
+#include <pstade/../libs/oven/test/parallel_sort.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/power.cpp>

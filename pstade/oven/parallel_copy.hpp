@@ -12,19 +12,12 @@
 
 
 #include <algorithm> // copy
-#include <boost/assert.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/empty.hpp>
-#include <boost/range/end.hpp>
-#include <boost/thread/thread.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/result_of.hpp>
+#include <pstade/unused.hpp>
 #include "./advance_from.hpp"
 #include "./concepts.hpp"
-#include "./iter_range.hpp"
-#include "./range_difference.hpp"
-#include "./split_at.hpp"
+#include "./detail/simple_parallel.hpp"
 
 
 namespace pstade { namespace oven {
@@ -33,41 +26,28 @@ namespace pstade { namespace oven {
 namespace parallel_copy_detail {
 
 
-    template< class IterRange, class ForwardIter >
-    struct aux
+    template< class ForwardIter >
+    struct algo :
+        detail::simple_parallel_algo< algo<ForwardIter> >
     {
-    private:
-        typedef typename range_difference<IterRange>::type diff_t;
-
-    public:
-        void operator()()
+        template< class Difference, class Iterator >
+        algo make_right(Difference grain, Iterator firstR, Iterator lastR) const
         {
-            typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_from, m_grain);
-
-            if (boost::empty(xs_ys.second)) {
-                algo(xs_ys.first);
-            }
-            else {
-                boost::thread thrd(aux(m_grain, xs_ys.second, advance_from(m_to, m_grain)));
-                algo(xs_ys.first);
-                thrd.join();
-            }
+            unused(firstR, lastR);
+            return algo(advance_from(m_to, grain));
         }
 
-        template< class Range >
-        void algo(Range& rng) const
+        template< class Iterator >
+        void before_join(Iterator first, Iterator last) const
         {
-            std::copy(boost::begin(rng), boost::end(rng), m_to);
+            std::copy(first, last, m_to);
         }
 
-        template< class Range >
-        aux(diff_t grain, Range& from, ForwardIter to) :
-            m_grain(grain), m_from(from), m_to(to)
+        explicit algo(ForwardIter to) :
+            m_to(to)
         { }
 
     private:
-        diff_t m_grain;
-        IterRange m_from;
         ForwardIter m_to;
     };
 
@@ -84,8 +64,7 @@ namespace parallel_copy_detail {
         void call(Difference grain, Range& from, ForwardIter to) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            BOOST_ASSERT(grain > 0);
-            aux<typename iter_range_of<Range>::type, ForwardIter>(grain, from, to)();
+            detail::simple_parallel(grain, from, algo<ForwardIter>(to));
         }
     };
 
