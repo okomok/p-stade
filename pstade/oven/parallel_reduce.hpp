@@ -14,7 +14,7 @@
 #include <numeric> // accumulate
 #include <boost/assert.hpp>
 #include <boost/next_prior.hpp> // next
-#include <boost/range/begin.hpp>
+#include <boost/range/empty.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <pstade/egg/plus.hpp>
@@ -50,7 +50,7 @@ namespace parallel_reduce_detail {
         }
 
         template< class Iterator >
-        void after_join(Iterator first, Iterator last, Iterator firstR, Iterator lastR, algo const& right)
+        void after_join(Iterator first, Iterator last, algo const& right, Iterator firstR, Iterator lastR)
         {
             unused(first, last, firstR, lastR);
             m_value = m_fun(m_value, right.value());

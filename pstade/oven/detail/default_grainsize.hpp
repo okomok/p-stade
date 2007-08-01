@@ -24,6 +24,7 @@ namespace pstade { namespace oven {
 
 // Do you need a name instead of zero?
 PSTADE_POD_CONSTANT((int), use_default_grainsize) = 0;
+// Fortunately, negative grainsize might be used for affinity record etc.
 
 
 namespace detail {

@@ -23,12 +23,22 @@
 #include <boost/lambda/core.hpp>
 #include <boost/tuple/tuple_io.hpp>
 #include <pstade/oven/recursion.hpp>
+#include <pstade/oven/parallel_equals.hpp>
 
 
 namespace assign = boost::assign;
 namespace lambda = boost::lambda;
 namespace oven = pstade::oven;
 using namespace oven;
+
+
+bool slow_equal_to(int x, int y)
+{
+    for (int i = 0; i < 10000000; ++i)
+        ;
+
+    return x == y;
+}
 
 
 void pstade_unit_test()
@@ -53,6 +63,7 @@ void pstade_unit_test()
         ;
 
         BOOST_CHECK( oven::test_Forward_Readable(fibs|taken(howMany), expected) );
+        BOOST_CHECK( parallel_equals(7, fibs|taken(howMany), expected, &::slow_equal_to) );
     }
 }
 

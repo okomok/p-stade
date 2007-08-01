@@ -46,7 +46,7 @@ public:
             boost::thread thrd(boost::ref(other));
             m_algo.before_join(xs_ys.first.begin(), xs_ys.first.end());
             thrd.join();
-            m_algo.after_join( xs_ys.first.begin(), xs_ys.first.end(), xs_ys.second.begin(), xs_ys.second.end(), other.m_algo);
+            m_algo.after_join( xs_ys.first.begin(), xs_ys.first.end(), other.m_algo, xs_ys.second.begin(), xs_ys.second.end());
         }
     }
 
@@ -77,6 +77,8 @@ simple_parallel(Difference grainsize, Range& rng, Algo algo)
 }
 
 
+// provide the default behaviors
+
 template< class Derived >
 struct simple_parallel_algo
 {
@@ -94,9 +96,9 @@ struct simple_parallel_algo
     }
 
     template< class Iterator >
-    void after_join(Iterator first, Iterator last, Iterator firstR, Iterator lastR, Derived const& right) const
+    void after_join(Iterator first, Iterator last, Derived const& right, Iterator firstR, Iterator lastR) const
     {
-        unused(first, last, firstR, lastR, right);
+        unused(first, last, right, firstR, lastR);
     }
 };
 

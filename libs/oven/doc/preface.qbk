@@ -82,6 +82,7 @@ Oven is known to work on the following platforms:
 * [@http://sourceforge.jp/projects/cradle/ Cradle - A C++ Sandbox]
 * [@http://www.ddj.com/dept/cpp/196513737 C++ View Objects]
 * [@http://hamigaki.sourceforge.jp/doc/html/index.html Hamigaki C++ Libraries]
+* [@http://www.threadingbuildingblocks.org/ Intel Threading Building Blocks]
 * [@http://www.torjo.com/rangelib/index.html RangeLib - The Boost Iterable Range Library]
 * [@http://www.zib.de/weiser/vtl/ VTL (View Template Library)]
 * [@http://www.zeta.org.au/~jon/STL/views/doc/views.html Views - a C++ Standard Library extension]

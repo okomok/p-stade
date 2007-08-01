@@ -94,6 +94,7 @@
 [include merge_adaptors.qbk]
 [include utilities.qbk]
 [include output_iterator_adaptors.qbk]
+[include parallel_algorithms.qbk]
 [include extending_boost_range.qbk]
 [include version_history.qbk]
 
