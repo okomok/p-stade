@@ -38,9 +38,9 @@ namespace parallel_sort_detail {
         }
 
         template< class Iterator >
-        void after_join(Iterator first, Iterator last, Iterator firstR, Iterator lastR, algo const& right) const
+        void after_join(Iterator first, Iterator last, algo const& right, Iterator firstR, Iterator lastR) const
         {
-            unused(firstR, right);
+            unused(right, firstR);
             std::inplace_merge(first, last, lastR, m_comp);
         }
 
