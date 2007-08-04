@@ -415,7 +415,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * Destruction of a `SegmentIterator` doesn't invalidate the `LocalIterator` previously obtained from that iterator.
 
 [important The last precondition implies that `SegmentIterator` isn't allowed to manage the lifetime of `LocalIterator` referents.
-      Hence `broken_into` and `xpressive_tokenized` can't meets the precondition.
+      Hence `broken_into` can't meets the precondition. (`xpressive_tokenized` with Boost 1.35 works well.)
       Fortunately, `memoized` can turn them into _lvalue_ _range_ which meets it trivially.]
 
 [h3 Example]

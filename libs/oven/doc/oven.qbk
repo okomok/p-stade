@@ -83,6 +83,7 @@
 [def _auxiliary_interface_   [link oven.auxiliary_interface Auxiliary Interface]]
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
 [def _iterator_block_        [link oven.iterator_block Iterator Block]]
+[def _parallel_safe_         [link oven.parallel_safe Parallel Safe]]
 
 [include preface.qbk]
 [include concepts.qbk]

@@ -17,7 +17,6 @@
 #include <boost/range/empty.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/make_function.hpp>
-#include <pstade/egg/plus.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
@@ -73,7 +72,7 @@ namespace parallel_reduce_detail {
 
     struct baby
     {
-        template< class Myself, class Difference, class Range, class BinaryFun = egg::op_plus const >
+        template< class Myself, class Difference, class Range, class A1, class A2 = void >
         struct apply :
             range_value<Range>
         { };
@@ -83,15 +82,21 @@ namespace parallel_reduce_detail {
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(!boost::empty(rng));
+
             return detail::simple_parallel(grainsize, rng,
                 algo<typename range_value<Range>::type, BinaryFun>(read(boost::begin(rng)), fun)
             ).algo().value();
         }
 
-        template< class Result, class Difference, class Range >
-        Result call(Difference grainsize, Range& rng) const
+        template< class Result, class Difference, class Range, class BinaryFun >
+        Result call(Difference grainsize, Range& rng, Result init, BinaryFun fun) const
         {
-            return egg::make_function(*this)(grainsize, rng, egg::plus);
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
+            if (boost::empty(rng))
+                return init;
+            else
+                return fun(init, egg::make_function(*this)(grainsize, rng, fun));
         }
     };
 
