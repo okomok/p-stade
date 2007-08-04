@@ -200,4 +200,25 @@ for any _contiguous_ _range_ `r` the following must be met:
 
 
 
+[section Parallel Safe]
+
+[h3 Description]
+A _parallel_safe_ type offers the same level of thread safety as built-in types.
+
+[h3 Refinement of]
+
+[h3 Requirements]
+For any _parallel_safe_ type `t` the following must be met:
+
+* Different instances of `t` can be accessed simultaneosly by multiple threads (even when these instances are copies).
+
+[h3 Models]
+* `boost::shared_ptr<int>`
+* All the iterator types that oven predefines.
+
+[endsect]
+
+
+
+
 [endsect]

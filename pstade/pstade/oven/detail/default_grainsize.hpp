@@ -52,7 +52,7 @@ namespace detail {
         typedef typename range_difference<Range>::type diff_t;
 
         if (d == 0)
-            return detail::check_positive( default_grainsize_aux<diff_t>(rng, typename range_traversal<Range>::type()) );
+            return detail::check_positive( detail::default_grainsize_aux<diff_t>(rng, typename range_traversal<Range>::type()) );
         else
             return detail::check_positive(d);
     }

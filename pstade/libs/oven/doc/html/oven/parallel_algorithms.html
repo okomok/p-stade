@@ -32,26 +32,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_copy"></a>parallel_copy</h3></div></div></div>
 <a name="parallel_copy.description"></a><h4>
-<a name="id589581"></a>
+<a name="id589754"></a>
         Description
       </h4>
 <a name="parallel_copy.header"></a><h4>
-<a name="id589594"></a>
+<a name="id589768"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_copy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_copy.model_of"></a><h4>
-<a name="id589665"></a>
+<a name="id589838"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="parallel_copy.valid_expressions"></a><h4>
-<a name="id589694"></a>
+<a name="id589868"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id589705"></a>
+<a name="id589879"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -70,21 +70,25 @@
 </table>
 </div>
 <a name="parallel_copy.preconditions"></a><h4>
-<a name="id589850"></a>
+<a name="id590024"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">it</span><span class="special">)</span></code>
+          are <a href="concepts.html#oven.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
 <li>
 <code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
           is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">it</span></code> is a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators" target="_top">Writable</a>
-          iterator.
+          Iterator.
         </li>
 </ul></div>
 <a name="parallel_copy.example"></a><h4>
-<a name="id589964"></a>
+<a name="id590205"></a>
         Example
       </h4>
 </div>
@@ -92,26 +96,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_equals"></a>parallel_equals</h3></div></div></div>
 <a name="parallel_equals.description"></a><h4>
-<a name="id589990"></a>
+<a name="id590232"></a>
         Description
       </h4>
 <a name="parallel_equals.header"></a><h4>
-<a name="id590003"></a>
+<a name="id590245"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_equals</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_equals.model_of"></a><h4>
-<a name="id590074"></a>
+<a name="id590316"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="parallel_equals.valid_expressions"></a><h4>
-<a name="id590104"></a>
+<a name="id590347"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id590115"></a>
+<a name="id590357"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -135,10 +139,15 @@
 </table>
 </div>
 <a name="parallel_equals.preconditions"></a><h4>
-<a name="id590362"></a>
+<a name="id590604"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng1</span><span class="special">&gt;::</span><span class="identifier">type</span></code>, <code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng2</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+          and <code class="computeroutput"><span class="identifier">_prd</span></code> are <a href="concepts.html#oven.parallel_safe" title="Parallel Safe">Parallel
+          Safe</a>.
+        </li>
 <li>
 <code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
           is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng1</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
@@ -148,7 +157,7 @@
         </li>
 </ul></div>
 <a name="parallel_equals.example"></a><h4>
-<a name="id590450"></a>
+<a name="id590777"></a>
         Example
       </h4>
 </div>
@@ -156,26 +165,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_for_each"></a>parallel_for_each</h3></div></div></div>
 <a name="parallel_for_each.description"></a><h4>
-<a name="id590476"></a>
+<a name="id590802"></a>
         Description
       </h4>
 <a name="parallel_for_each.header"></a><h4>
-<a name="id590489"></a>
+<a name="id590816"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_for_each.model_of"></a><h4>
-<a name="id590561"></a>
+<a name="id590888"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="parallel_for_each.valid_expressions"></a><h4>
-<a name="id590591"></a>
+<a name="id590917"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id590601"></a>
+<a name="id590928"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -194,10 +203,14 @@
 </table>
 </div>
 <a name="parallel_for_each.preconditions"></a><h4>
-<a name="id590747"></a>
+<a name="id591074"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_fun</span></code>
+          are <a href="concepts.html#oven.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
 <li>
 <code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
           is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
@@ -207,7 +220,7 @@
         </li>
 </ul></div>
 <a name="parallel_for_each.example"></a><h4>
-<a name="id590836"></a>
+<a name="id591216"></a>
         Example
       </h4>
 </div>
@@ -215,26 +228,33 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_reduce"></a>parallel_reduce</h3></div></div></div>
 <a name="parallel_reduce.description"></a><h4>
-<a name="id590862"></a>
+<a name="id591242"></a>
         Description
       </h4>
 <a name="parallel_reduce.header"></a><h4>
-<a name="id590875"></a>
+<a name="id591256"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_reduce</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_reduce.model_of"></a><h4>
-<a name="id590946"></a>
+<a name="id591326"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<a name="parallel_reduce.notation"></a><h4>
+<a name="id591356"></a>
+        Notation
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">V</span></code> is <code class="computeroutput"><span class="identifier">_value_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li></ul></div>
 <a name="parallel_reduce.valid_expressions"></a><h4>
-<a name="id590976"></a>
+<a name="id591429"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id590987"></a>
+<a name="id591439"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -248,25 +268,31 @@
 <tbody>
 <tr>
 <td><code class="computeroutput"><span class="identifier">parallel_reduce</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng</span><span class="special">,</span> <span class="identifier">_fun</span><span class="special">)</span></code></td>
-<td><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="special">*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">_fun</span><span class="special">)</span></code></td>
+<td><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">V</span><span class="special">(*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span> <span class="identifier">_fun</span><span class="special">)</span></code></td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">parallel_reduce</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng</span><span class="special">)</span></code></td>
-<td><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="special">*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">))</span></code></td>
+<td><code class="computeroutput"><span class="identifier">parallel_reduce</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng</span><span class="special">,</span> <span class="identifier">z</span><span class="special">,</span> <span class="identifier">_fun</span><span class="special">)</span></code></td>
+<td><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">V</span><span class="special">(</span><span class="identifier">z</span><span class="special">),</span> <span class="identifier">_fun</span><span class="special">)</span></code></td>
 </tr>
 </tbody>
 </table>
 </div>
 <a name="parallel_reduce.preconditions"></a><h4>
-<a name="id591362"></a>
+<a name="id591828"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_fun</span></code>
+          are <a href="concepts.html#oven.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
+<li>
 <code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
           is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li>
-<li><code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code></li>
+<li>
+<code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code> in the case of the first expression.
+        </li>
 <li>
           The corresponding semantics is a valid expression.
         </li>
@@ -275,7 +301,7 @@
         </li>
 </ul></div>
 <a name="parallel_reduce.example"></a><h4>
-<a name="id591515"></a>
+<a name="id592035"></a>
         Example
       </h4>
 </div>
@@ -283,26 +309,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_sort"></a>parallel_sort</h3></div></div></div>
 <a name="parallel_sort.description"></a><h4>
-<a name="id591541"></a>
+<a name="id592061"></a>
         Description
       </h4>
 <a name="parallel_sort.header"></a><h4>
-<a name="id591554"></a>
+<a name="id592075"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_sort</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_sort.model_of"></a><h4>
-<a name="id591625"></a>
+<a name="id592145"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="parallel_sort.valid_expressions"></a><h4>
-<a name="id591654"></a>
+<a name="id592175"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id591666"></a>
+<a name="id592186"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -326,10 +352,14 @@
 </table>
 </div>
 <a name="parallel_sort.preconditions"></a><h4>
-<a name="id591865"></a>
+<a name="id592386"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_rndrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_fun</span></code>
+          are <a href="concepts.html#oven.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
 <li>
 <code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
           is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
@@ -339,7 +369,7 @@
         </li>
 </ul></div>
 <a name="parallel_sort.example"></a><h4>
-<a name="id591953"></a>
+<a name="id592526"></a>
         Example
       </h4>
 </div>

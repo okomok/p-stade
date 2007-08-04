@@ -28,8 +28,9 @@ Pending section...
 ]
 
 [h3 Preconditions]
+* `_iter_of<_fwdrng>::type` and `_typeof(it)` are _parallel_safe_.
 * `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng)>::type`.
-* `it` is a _forward_ _writable_ iterator.
+* `it` is a _forward_ _writable_ Iterator.
 
 [h3 Example]
 
@@ -65,6 +66,7 @@ Pending section...
 ]
 
 [h3 Preconditions]
+* `_iter_of<_fwdrng1>::type`, `_iter_of<_fwdrng2>::type` and `_prd` are _parallel_safe_.
 * `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng1)>::type`.
 * The corresponding semantics is a valid expression.
 
@@ -98,6 +100,7 @@ Pending section...
 ]
 
 [h3 Preconditions]
+* `_iter_of<_fwdrng>::type` and `_fun` are _parallel_safe_.
 * `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng)>::type`.
 * The corresponding semantics is a valid expression.
 
@@ -118,6 +121,9 @@ Pending section...
 [h3 Model of]
 * _operatable_object_
 
+[h3 Notation]
+* `V` is `_value_of<_typeof(_fwdrng)>::type`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -126,17 +132,18 @@ Pending section...
     ]
     [
         [`parallel_reduce(s, _fwdrng, _fun)`]
-        [`std::accumulate(boost::next(_begin(_fwdrng)), _end(_fwdrng), *_begin(_fwdrng), _fun)`]
+        [`std::accumulate(boost::next(_begin(_fwdrng)), _end(_fwdrng), V(*_begin(_fwdrng)), _fun)`]
     ]
     [
-        [`parallel_reduce(s, _fwdrng)`]
-        [`std::accumulate(boost::next(_begin(_fwdrng)), _end(_fwdrng), *_begin(_fwdrng))`]
+        [`parallel_reduce(s, _fwdrng, z, _fun)`]
+        [`std::accumulate(_begin(_fwdrng), _end(_fwdrng), V(z), _fun)`]
     ]
 ]
 
 [h3 Preconditions]
+* `_iter_of<_fwdrng>::type` and `_fun` are _parallel_safe_.
 * `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng)>::type`.
-* `!boost::empty(_fwdrng)`
+* `!boost::empty(_fwdrng)` in the case of the first expression.
 * The corresponding semantics is a valid expression.
 * `_fun` is [@http://planetmath.org/encyclopedia/Associative.html associative].
 
@@ -174,6 +181,7 @@ Pending section...
 ]
 
 [h3 Preconditions]
+* `_iter_of<_rndrng>::type` and `_fun` are _parallel_safe_.
 * `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * The corresponding semantics is a valid expression.
 

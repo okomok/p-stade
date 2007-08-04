@@ -14,6 +14,7 @@
 
 #include <pstade/oven/numeric.hpp> // accumulate
 #include <pstade/egg/multiplies.hpp>
+#include <pstade/egg/plus.hpp>
 #include <boost/progress.hpp>
 #include <iostream>
 #include <string>
@@ -50,19 +51,36 @@ void pstade_unit_test()
     }
     {
         int b[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
-        BOOST_CHECK( accumulate(b, 0) == parallel_reduce(5, b) );
+        BOOST_CHECK( accumulate(b, 0, pstade::egg::plus) == parallel_reduce(5, b, pstade::egg::plus) );
+    }
+    {
+        int b[] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
+        BOOST_CHECK( accumulate(b, 0, pstade::egg::plus) == parallel_reduce(5, b, 0, pstade::egg::plus) );
     }
     {
         int b[] = { 1,2,1,3,5,1,1,7,4,1,2,3,6,2,2,1,2,3 };
         BOOST_CHECK( accumulate(b, 1, pstade::egg::multiplies) == parallel_reduce(5, b, pstade::egg::multiplies) );
     }
     {
+        int b[] = { 1,2,1,3,5,1,1,7,4,1,2,3,6,2,2,1,2,3 };
+        BOOST_CHECK( accumulate(b, 1, pstade::egg::multiplies) == parallel_reduce(5, b, 1, pstade::egg::multiplies) );
+    }
+    {
         int b[] = { 1,2,3,4,5 };
-        BOOST_CHECK( accumulate(b, 0) == parallel_reduce(5, b) );
+        BOOST_CHECK( accumulate(b, 0, pstade::egg::plus) == parallel_reduce(5, b, pstade::egg::plus) );
+    }
+    {
+        int b[] = { 1,2,3,4,5 };
+        BOOST_CHECK( accumulate(b, 0, pstade::egg::plus) == parallel_reduce(5, b, 0, pstade::egg::plus) );
     }
     {
         std::vector<int> v; v.push_back(12);
-        BOOST_CHECK( 12 == parallel_reduce(1, v) );
-        BOOST_CHECK( 12 == parallel_reduce(100, v) );
+        BOOST_CHECK( 12 == parallel_reduce(1, v, pstade::egg::plus) );
+        BOOST_CHECK( 12 == parallel_reduce(100, v, pstade::egg::plus) );
+    }
+    {
+        std::vector<int> v;
+        BOOST_CHECK( 12 == parallel_reduce(1, v, 12, pstade::egg::plus) );
+        BOOST_CHECK( 12 == parallel_reduce(100, v, 12, pstade::egg::plus) );
     }
 }
