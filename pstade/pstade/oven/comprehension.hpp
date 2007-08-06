@@ -301,7 +301,7 @@ namespace comprehension_detail {
     };
 
 
-} // comprehension_detail
+} // namespace comprehension_detail
 
 
 typedef egg::function<comprehension_detail::baby> op_comprehension;

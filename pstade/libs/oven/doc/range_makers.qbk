@@ -136,6 +136,86 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 
 
+[section comprehension]
+
+[h3 Description]
+`comprehension` emulates set-builder notation.
+
+[h3 Header]
+* `<pstade/oven/comprehension.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Notation]
+* `d(I) = distance(_rngI)`
+* `a(I,j)` is a `j`-th element of `_rngI`.
+* `always_true` is `boost::lambda::constant(true)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`comprehension(_fun, _prd, _rng1,..,_rngN)`]
+        [
+            A _forward_ _lvalue_ _constant_ `{_fun(a(1,1),a(2,1),..a(N,1)),_fun(a(1,1),a(2,1),..a(N,2)),..,_fun(a(1,1),a(2,1),..a(N,d(N))),..}` but filtered using `_prd`.
+        ]
+    ]
+    [
+        [`comprehension(_fun, no_guard, _rng1,..,_rngN)`]
+        [
+            `comprehension(_fun, always_true, _rng1,.._rngN)`
+        ]
+    ]
+]
+
+[note A result object of `_fun(..)` is copied. Oven doesn't refer it later.]
+
+[h3 Preconditions]
+* `_fun` is a _deferred_callable_object_ or _boost_lambda_ functor.
+* `N <= 3`
+* `_fun` is `N`-ary.
+* `_prd` is up-to-`N`-ary.
+* `_typeof(_fun(..))` is _copy_constructible_.
+
+[h3 Example]
+    namespace bll = boost::lambda;
+
+    struct make_pair
+    {
+        typedef boost::tuple<int, int> result_type;
+
+        result_type operator()(int i, int j) const
+        {
+            return result_type(i, j);
+        }
+    };
+
+    void test()
+    {
+        std::stringstream sout;
+        sout <<
+            comprehension(
+                bll::bind(make_pair(), bll::_1, bll::_2), // expression
+                bll::_1 < bll::_2,                        // guard
+                initial_values(1,3,5),                    // -> _1
+                initial_values(2,4,6)                     // -> _2
+            );
+
+        BOOST_CHECK(sout.str() == "{(1 2),(1 4),(1 6),(3 4),(3 6),(5 6)}");
+    }
+
+[h3 See also]
+* [@http://en.wikipedia.org/wiki/List_comprehension List comprehension]
+
+[endsect]
+
+
+
+
 [section counting]
 
 [h3 Description]
