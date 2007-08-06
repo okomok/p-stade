@@ -49,8 +49,10 @@ struct baby_monad_bind
     Result call(Range& rng, UnaryFun& fun) const
     {
         return make_concatenated(
-            // Once you call shared_single, it won't concatenatable without memoization.
+            // Once you call 'shared', it won't concatenatable without memoization,
+            // because a new range is created every dereference.
             make_memoized(
+                // It is nice to regularize 'fun' which is usually a LambdaExpression which isn't Assignable.
                 make_transformed(rng, regular(fun))
             )
         );
@@ -63,6 +65,9 @@ PSTADE_POD_CONSTANT((op_monad_bind), monad_bind) = {{}};
 
 // Use 'shared' instead of 'shared_single'
 // to synchronize the result type with 'monad_zero'.
+//
+// Todo: 'std::vector' is too "heavy".
+//       'shared_ptr_to_array' is a candidate?
 
 struct baby_monad_unit
 {

@@ -165,6 +165,7 @@
 * Added `unfold`.
 * Added `in_block`.
 * Added `parallel_xxx`.
+* Added `comprehension`.
 
 
 

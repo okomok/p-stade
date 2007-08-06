@@ -11,6 +11,7 @@ project
       <library>/boost/test//boost_test_exec_monitor/<link>static
       <library>/boost/test//boost_unit_test_framework/<link>static
       <library>/boost/thread//boost_thread/<link>static
+      <toolset>gcc:<cxxflags>-ftemplate-depth-1024
       <threading>multi
     ;
 
@@ -23,6 +24,7 @@ test-suite range :
     [ run factorials.cpp ]
     [ run fibonacci.cpp ]
     [ run foreach_line.cpp ]
+    [ run list_comprehension.cpp ]
     [ run merge_sort.cpp ]
     [ run newton.cpp ]
     [ run one_year.cpp ]
