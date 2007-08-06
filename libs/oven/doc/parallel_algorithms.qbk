@@ -23,7 +23,7 @@ Pending section...
     ]
     [
         [`parallel_copy(s, _fwdrng, it)`]
-        [`copy(_fwdrng, it)` but returns `void`.]
+        [`copy(_fwdrng, it)`]
     ]
 ]
 
@@ -31,6 +31,7 @@ Pending section...
 * `_iter_of<_fwdrng>::type` and `_typeof(it)` are _parallel_safe_.
 * `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng)>::type`.
 * `it` is a _forward_ _writable_ Iterator.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
 

@@ -62,14 +62,14 @@ namespace parallel_sort_detail {
         };
 
         template< class Result, class Difference, class Range, class Compare >
-        void call(Difference grainsize, Range& rng, Compare comp) const
+        void call(Difference& grainsize, Range& rng, Compare comp) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             detail::simple_parallel(grainsize, rng, algo<Compare>(comp));
         }
 
         template< class Result, class Difference, class Range >
-        void call(Difference grainsize, Range& rng) const
+        void call(Difference& grainsize, Range& rng) const
         {
             egg::make_function(*this)(grainsize, rng, egg::less);
         }

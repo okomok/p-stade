@@ -9,6 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/lambda_unlambda.hpp>
 #include <pstade/egg/lambda_bind.hpp>
 #include <pstade/egg/lambda_placeholders.hpp>
 #include <pstade/result_of_lambda.hpp>
@@ -45,5 +46,14 @@ void pstade_minimal_test()
 
         pstade::result_of<b_t()>::type b_ = b();
         BOOST_CHECK(b_ == 10);
+    }
+    {
+        op_plus f = lambda_unlambda(plus); // no effect
+        BOOST_CHECK( f(1,2) == 3 );
+
+        // unlambda it!
+        pstade::result_of<op_lambda_unlambda(op_lambda_1)>::type u = lambda_unlambda(lambda_1);
+        int i = 10;
+        BOOST_CHECK( boost::lambda::bind(u, lambda_1)(i) == 10 );
     }
 }

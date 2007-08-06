@@ -78,7 +78,7 @@ namespace parallel_reduce_detail {
         { };
 
         template< class Result, class Difference, class Range, class BinaryFun >
-        Result call(Difference grainsize, Range& rng, BinaryFun fun) const
+        Result call(Difference& grainsize, Range& rng, BinaryFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(!boost::empty(rng));
@@ -89,7 +89,7 @@ namespace parallel_reduce_detail {
         }
 
         template< class Result, class Difference, class Range, class BinaryFun >
-        Result call(Difference grainsize, Range& rng, Result init, BinaryFun fun) const
+        Result call(Difference& grainsize, Range& rng, Result init, BinaryFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

@@ -213,8 +213,8 @@ For any _parallel_safe_ type `t` the following must be met:
 * Different instances of `t` can be accessed simultaneosly by multiple threads (even when these instances are copies).
 
 [h3 Models]
+* `int`
 * `boost::shared_ptr<int>`
-* All the iterator types that oven predefines.
 
 [endsect]
 

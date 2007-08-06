@@ -58,7 +58,7 @@ namespace parallel_for_each_detail {
         };
 
         template< class Result, class Difference, class Range, class UnaryFun >
-        void call(Difference grainsize, Range& rng, UnaryFun fun) const
+        void call(Difference& grainsize, Range& rng, UnaryFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             detail::simple_parallel(grainsize, rng, algo<UnaryFun>(fun));
