@@ -13,6 +13,7 @@
 
 #include <algorithm> // copy
 #include <pstade/egg/function.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./advance_from.hpp"
@@ -38,9 +39,21 @@ namespace parallel_copy_detail {
         }
 
         template< class Iterator >
-        void before_join(Iterator first, Iterator last) const
+        void before_join(Iterator first, Iterator last)
         {
-            std::copy(first, last, m_to);
+            m_to = std::copy(first, last, m_to);
+        }
+
+        template< class Iterator >
+        void after_join(Iterator first, Iterator last, algo const& right, Iterator firstR, Iterator lastR)
+        {
+            unused(first, last, firstR, lastR);
+            m_to = right.to();
+        }
+
+        ForwardIter to() const
+        {
+            return m_to;
         }
 
         explicit algo(ForwardIter to) :
@@ -55,16 +68,15 @@ namespace parallel_copy_detail {
     struct baby
     {
         template< class Myself, class Difference, class Range, class ForwardIter >
-        struct apply
-        {
-            typedef void type;
-        };
+        struct apply :
+            pass_by_value<ForwardIter>
+        { };
 
         template< class Result, class Difference, class Range, class ForwardIter >
-        void call(Difference grainsize, Range& from, ForwardIter to) const
+        Result call(Difference& grainsize, Range& from, ForwardIter& to) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            detail::simple_parallel(grainsize, from, algo<ForwardIter>(to));
+            return detail::simple_parallel(grainsize, from, algo<Result>(to)).algo().to();
         }
     };
 

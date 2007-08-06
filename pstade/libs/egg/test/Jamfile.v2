@@ -38,6 +38,7 @@ test-suite "egg" :
     [ run identity.cpp ]
     [ run iequal_to.cpp ]
     [ run indirected.cpp ]
+    [ run infix.cpp ]
     [ run integral_cast.cpp ]
     [ run integralize.cpp ]
     [ run is_classified_as.cpp ]

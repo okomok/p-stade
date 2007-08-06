@@ -14,6 +14,7 @@
 
 #include <pstade/oven/equals.hpp>
 #include <string>
+#include <vector>
 
 
 void pstade_unit_test()
@@ -23,28 +24,32 @@ void pstade_unit_test()
 
     {
         int a[21] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
-        int b[21];
-        parallel_copy(5, a, &b[0]);
-        BOOST_CHECK( equals(a, b) );
+        std::vector<int> b(25);
+        BOOST_CHECK( equals(a, make_iter_range(b.begin(), parallel_copy(5, a, b.begin()))) );
     }
     {
         int a[21] = { 1,2,13,6,1,3,4,16,3,1,7,4,2,1,7,4,2,1,3,5,1 };
-        int b[21];
-        parallel_copy(0, a, &b[0]); // default grainsize
-        BOOST_CHECK( equals(a, b) );
+        std::vector<int> b(21);
+        BOOST_CHECK( equals(a, make_iter_range(b.begin(), parallel_copy(0, a, b.begin()))) ); // default grainsize
     }
     {
         std::string b("0123401234");
         std::string a("**********");
-        parallel_copy(5, b, a.begin());
+        BOOST_CHECK( a.end() == parallel_copy(5, b, a.begin()) );
+        BOOST_CHECK( equals(a, b) );
+    }
+    {
+        std::string b("01234012");
+        std::string a("********");
+        BOOST_CHECK( a.end() == parallel_copy(5, b, a.begin()) );
         BOOST_CHECK( equals(a, b) );
     }
     {
         std::string b;
-        std::string a;
-        parallel_copy(1, b, a.begin());
+        std::vector<char> a;
+        BOOST_CHECK( a.begin() == parallel_copy(1, b, a.begin()) );
         BOOST_CHECK( a.empty() );
-        parallel_copy(100, b, a.begin());
+        BOOST_CHECK( a.begin() == parallel_copy(100, b, a.begin()) );
         BOOST_CHECK( a.empty() );
     }
 }

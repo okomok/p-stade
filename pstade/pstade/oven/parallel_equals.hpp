@@ -13,6 +13,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/detail/atomic_count.hpp>
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/ref.hpp>
@@ -24,9 +25,12 @@
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./detail/default_grainsize.hpp"
+#include "./detail/minimum_pure.hpp"
+#include "./distance.hpp"
 #include "./equals.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
+#include "./range_traversal.hpp"
 #include "./split_at.hpp"
 
 
@@ -134,6 +138,23 @@ namespace parallel_equals_detail {
 
     struct baby
     {
+        template< class Difference, class IterRange1, class IterRange2, class Predicate >
+        bool call_aux(Difference grainsize, IterRange1 rng1, IterRange2 rng2, Predicate pred, boost::random_access_traversal_tag) const
+        {
+            if (distance(rng1) != distance(rng2))
+                return false;
+
+            return call_aux(grainsize, rng1, rng2, pred, boost::forward_traversal_tag()); 
+        }
+
+        template< class Difference, class IterRange1, class IterRange2, class Predicate >
+        bool call_aux(Difference grainsize, IterRange1 rng1, IterRange2 rng2, Predicate pred, boost::forward_traversal_tag) const
+        {
+            aux<IterRange1, IterRange2, Predicate> auxRoot(detail::default_grainsize(grainsize, rng1), rng1, rng2, pred);
+            auxRoot();
+            return auxRoot.equal();
+        }
+
         template< class Myself, class Difference, class Range1, class Range2, class Predicate = egg::op_equal_to const >
         struct apply
         {
@@ -141,19 +162,21 @@ namespace parallel_equals_detail {
         };
 
         template< class Result, class Difference, class Range1, class Range2, class Predicate >
-        Result call(Difference grainsize, Range1& rng1, Range2& rng2, Predicate pred) const
+        Result call(Difference& grainsize, Range1& rng1, Range2& rng2, Predicate& pred) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range1>));
             PSTADE_CONCEPT_ASSERT((Forward<Range2>));
 
-            aux<typename iter_range_of<Range1>::type, typename iter_range_of<Range2>::type, Predicate>
-                auxRoot(detail::default_grainsize(grainsize, rng1), rng1, rng2, pred);
-            auxRoot();
-            return auxRoot.equal();
+            typedef typename detail::minimum_pure<
+                typename range_traversal<Range1>::type,
+                typename range_traversal<Range2>::type
+            >::type trv_t;
+
+            return call_aux(grainsize, make_iter_range(rng1), make_iter_range(rng2), pred, trv_t());
         }
 
         template< class Result, class Difference, class Range1, class Range2 >
-        Result call(Difference grainsize, Range1& rng1, Range2& rng2) const
+        Result call(Difference& grainsize, Range1& rng1, Range2& rng2) const
         {
             return egg::make_function(*this)(grainsize, rng1, rng2, egg::equal_to);
         }

@@ -13,6 +13,7 @@
 
 #include <boost/assert.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/unused.hpp>
 #include "../distance.hpp"
 #include "../range_difference.hpp"
 #include "../range_traversal.hpp"
@@ -40,6 +41,7 @@ namespace detail {
     template< class Difference, class Range > inline
     Difference default_grainsize_aux(Range& rng, boost::forward_traversal_tag)
     {
+        unused(rng);
         return 777; // who knows?
     }
 
