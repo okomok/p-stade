@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <memory>
+#include <memory> // auto_ptr
 #include <vector>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
@@ -90,14 +90,18 @@ template< class Value >
 struct xp_monad_zero
 {
     typedef typename
+        pass_by_value<Value>::type
+    val_t;
+
+    typedef typename
         result_of<
-            op_shared(std::vector<Value> *)
+            op_shared(std::vector<val_t> *)
         >::type
     result_type;
 
     result_type operator()() const
     {
-        std::auto_ptr< std::vector<Value> > p(new std::vector<Value>());
+        std::auto_ptr< std::vector<val_t> > p(new std::vector<val_t>());
         return shared(p.release());
     }
 };

@@ -36,6 +36,7 @@ test-suite "oven" :
     [ run broken_into.cpp ]
     [ run checked.cpp ]
     [ run cleared.cpp ]
+    [ run comprehension.cpp ]
     [ run concatenated.cpp ]
     [ run const_refs.cpp ]
     [ run constants.cpp ]
