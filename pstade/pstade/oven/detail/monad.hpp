@@ -52,7 +52,7 @@ struct baby_monad_bind
             // Once you call 'shared', it won't concatenatable without memoization,
             // because a new range is created every dereference.
             make_memoized(
-                // It is nice to regularize 'fun' which is usually a LambdaExpression which isn't Assignable.
+                // It is nice to regularize 'fun', which is usually a LambdaExpression that isn't Assignable.
                 make_transformed(rng, regular(fun))
             )
         );
@@ -66,8 +66,7 @@ PSTADE_POD_CONSTANT((op_monad_bind), monad_bind) = {{}};
 // Use 'shared' instead of 'shared_single'
 // to synchronize the result type with 'monad_zero'.
 //
-// Todo: 'std::vector' is too "heavy".
-//       'shared_ptr_to_array' is a candidate?
+// Todo: 'std::vector' is too "heavy"?
 
 struct baby_monad_unit
 {
@@ -79,10 +78,12 @@ struct baby_monad_unit
     { };
 
     template< class Result, class Value >
-    Result call(Value const& v) const
+    Result call(Value& v) const
     {
+        typedef std::vector<typename pass_by_value<Value>::type> vec_t;
+
         // "share" it to avoid dangling; lambda expressions usually return "value".
-        std::auto_ptr< std::vector<Value> > p(new std::vector<Value>(boost::addressof(v), boost::addressof(v)+1));
+        std::auto_ptr<vec_t> p(new vec_t(boost::addressof(v), boost::addressof(v) + 1));
         return shared(p.release());
     }
 };

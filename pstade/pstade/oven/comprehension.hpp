@@ -11,14 +11,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <pstade/egg/adapt.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/lambda_bind.hpp>
 #include <pstade/egg/lambda_placeholders.hpp>
 #include <pstade/egg/lambda_unlambda.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/egg/nullary_result_of.hpp>
+#include <pstade/dont_care.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include "./detail/monad.hpp"
 #include "./iter_range.hpp"
@@ -30,22 +36,18 @@ namespace pstade { namespace oven {
 namespace comprehension_detail {
 
 
-    template< class Range, class Fun >
+    template< class MakeRange, class Function >
     struct nested :
-        egg::function_facade< nested<Range, Fun> >
+        egg::function_facade< nested<MakeRange, Function> >
     {
-        typedef typename
-            iter_range_of<Range>::type
-        rng_t;
-
         template< class Myself, class Value1, class Value2 = void >
         struct apply :
             result_of<
                 detail::op_monad_bind(
-                    rng_t const&,
+                    typename result_of<MakeRange const(Value1&, Value2&)>::type,
                     typename result_of<
                         egg::op_lambda_bind(
-                            typename result_of<egg::op_lambda_unlambda(Fun const&)>::type,
+                            typename result_of<egg::op_lambda_unlambda(Function const&)>::type,
                             Value1&,
                             Value2&,
                             egg::op_lambda_1 const&
@@ -59,7 +61,7 @@ namespace comprehension_detail {
         Result call(Value1& v1, Value2& v2) const
         {
             return detail::monad_bind(
-                m_rng,
+                m_makeRng(v1, v2),
                 egg::lambda_bind(
                     egg::lambda_unlambda(m_fun),
                     v1,
@@ -73,10 +75,10 @@ namespace comprehension_detail {
         struct apply<Myself, Value1> :
             result_of<
                 detail::op_monad_bind(
-                    rng_t const&,
+                    typename result_of<MakeRange const(Value1&)>::type,
                     typename result_of<
                         egg::op_lambda_bind(
-                            typename result_of<egg::op_lambda_unlambda(Fun const&)>::type,
+                            typename result_of<egg::op_lambda_unlambda(Function const&)>::type,
                             Value1&,
                             egg::op_lambda_1 const&
                         )
@@ -89,7 +91,7 @@ namespace comprehension_detail {
         Result call(Value1& v1) const
         {
             return detail::monad_bind(
-                m_rng,
+                m_makeRng(v1),
                 egg::lambda_bind(
                     egg::lambda_unlambda(m_fun),
                     v1,
@@ -98,13 +100,13 @@ namespace comprehension_detail {
             );
         }
 
-        nested(Range& rng, Fun fun) :
-            m_rng(rng), m_fun(fun)
+        nested(MakeRange makeRng, Function fun) :
+            m_makeRng(makeRng), m_fun(fun)
         { }
 
     private:
-        rng_t m_rng;
-        Fun m_fun;
+        MakeRange m_makeRng;
+        Function m_fun;
     };
 
     struct baby_make_nested
@@ -218,17 +220,17 @@ namespace comprehension_detail {
 
     struct baby
     {
-        template< class Myself, class Expr, class Guard, class Range1, class Range2 = void, class Range3 = void >
+        template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 = void, class MakeRange3 = void >
         struct apply :
             result_of<
                 detail::op_monad_bind(
-                    Range1&,
+                    typename result_of<MakeRange1()>::type,
                     typename result_of<
                         op_make_nested(
-                            Range2&,
+                            MakeRange2&,
                             typename result_of<
                                 op_make_nested(
-                                    Range3&,
+                                    MakeRange3&,
                                     typename result_of<op_make_to_unit(Expr&, Guard&)>::type
                                 )
                             >::type
@@ -238,29 +240,29 @@ namespace comprehension_detail {
             >
         { };
 
-        template< class Result, class Expr, class Guard, class Range1, class Range2, class Range3 >
-        Result call(Expr& expr, Guard& guard, Range1& rng1, Range2& rng2, Range3& rng3) const
+        template< class Result, class Expr, class Guard, class MakeRange1, class MakeRange2, class MakeRange3 >
+        Result call(Expr& expr, Guard& guard, MakeRange1& makeRng1, MakeRange2& makeRng2, MakeRange3& makeRng3) const
         {
             return detail::monad_bind(
-                rng1,
+                makeRng1(),
                 make_nested(
-                    rng2,
+                    makeRng2,
                     make_nested(
-                        rng3,
+                        makeRng3,
                         make_to_unit(expr, guard) // 3ary
                     ) // 2ary
                 ) // 1ary
             );
         }
 
-        template< class Myself, class Expr, class Guard, class Range1, class Range2 >
-        struct apply<Myself, Expr, Guard, Range1, Range2> :
+        template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 >
+        struct apply<Myself, Expr, Guard, MakeRange1, MakeRange2> :
             result_of<
                 detail::op_monad_bind(
-                    Range1&,
+                    typename result_of<MakeRange1()>::type,
                     typename result_of<
                         op_make_nested(
-                            Range2&,
+                            MakeRange2&,
                             typename result_of<op_make_to_unit(Expr&, Guard&)>::type
                         )
                     >::type
@@ -268,33 +270,33 @@ namespace comprehension_detail {
             >
         { };
 
-        template< class Result, class Expr, class Guard, class Range1, class Range2 >
-        Result call(Expr& expr, Guard& guard, Range1& rng1, Range2& rng2) const
+        template< class Result, class Expr, class Guard, class MakeRange1, class MakeRange2 >
+        Result call(Expr& expr, Guard& guard, MakeRange1& makeRng1, MakeRange2& makeRng2) const
         {
             return detail::monad_bind(
-                rng1,
+                makeRng1(),
                 make_nested(
-                    rng2,
+                    makeRng2,
                     make_to_unit(expr, guard) // 2ary
                 ) // 1ary
             );
         }
 
-        template< class Myself, class Expr, class Guard, class Range1 >
-        struct apply<Myself, Expr, Guard, Range1> :
+        template< class Myself, class Expr, class Guard, class MakeRange1 >
+        struct apply<Myself, Expr, Guard, MakeRange1> :
             result_of<
                 detail::op_monad_bind(
-                    Range1&,
+                    typename result_of<MakeRange1()>::type,
                     typename result_of<op_make_to_unit(Expr&, Guard&)>::type
                 )
             >
         { };
 
-        template< class Result, class Expr, class Guard, class Range1 >
-        Result call(Expr& expr, Guard& guard, Range1& rng1) const
+        template< class Result, class Expr, class Guard, class MakeRange1 >
+        Result call(Expr& expr, Guard& guard, MakeRange1& makeRng1) const
         {
             return detail::monad_bind(
-                rng1,
+                makeRng1(),
                 make_to_unit(expr, guard) // 1ary
             );
         }
@@ -308,24 +310,14 @@ typedef egg::function<comprehension_detail::baby> op_comprehension;
 PSTADE_POD_CONSTANT((op_comprehension), comprehension) = {{}};
 
 
+// no guard
+//
+
 struct op_no_guard
 {
     typedef bool result_type;
 
-    template< class A1, class A2, class A3 >
-    bool operator()(A1 const&, A2 const&, A3 const&) const
-    {
-        return true;
-    }
-
-    template< class A1, class A2 >
-    bool operator()(A1 const&, A2 const&) const
-    {
-        return true;
-    }
-
-    template< class A1 >
-    bool operator()(A1 const&) const
+    bool operator()(dont_care = 0, dont_care = 0, dont_care = 0) const
     {
         return true;
     }
@@ -334,7 +326,63 @@ struct op_no_guard
 PSTADE_POD_CONSTANT((op_no_guard), no_guard) = {};
 
 
+// always_return
+//
+
+namespace always_return_detail {
+
+    template< class Range >
+    struct result_
+    {
+        typedef typename
+            iter_range_of<Range>::type
+        result_type;
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+        // For some reason, msvc needs this unless compiled on IDE.
+        // I'm not sure this workaround is needed even under Boost1.35.
+        // See also <pstade/result_of.hpp> comments.
+
+        typedef result_type nullary_result_type; // for Egg's macro
+
+        template< class Signature >
+        struct result
+        {
+            typedef result_type type;
+        };
+#endif
+
+        result_type operator()(dont_care = 0, dont_care = 0, dont_care = 0) const
+        {
+            return m_rng;
+        }
+
+        explicit result_(Range& rng) :
+            m_rng(rng)
+        { }
+
+    private:
+        // Hold by value to avoid dangling.
+        result_type m_rng;
+    };
+
+} // namespace always_return_detail
+
+typedef
+    egg::generator<
+        always_return_detail::result_< egg::deduce<boost::mpl::_1, egg::as_qualified> >
+    >::type
+op_always_return;
+
+PSTADE_POD_CONSTANT((op_always_return), always_return) = PSTADE_EGG_GENERATOR_INITIALIZER();
+
+
 } } // namespace pstade::oven
+
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+    PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::always_return_detail::result_, (class))
+#endif
 
 
 #endif

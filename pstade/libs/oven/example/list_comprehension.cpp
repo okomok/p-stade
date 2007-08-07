@@ -42,8 +42,8 @@ void pstade_minimal_test()
         comprehension(
             bll::bind(make_pair(), bll::_1, bll::_2), // expression
             bll::_1 < bll::_2,                        // guard
-            initial_values(1,3,5),                    // -> _1
-            initial_values(2,4,6)                     // -> _2
+            always_return(initial_values(1,3,5)),     // -> _1
+            always_return(initial_values(2,4,6))      // -> _2
         );
 
     BOOST_CHECK(sout.str() == "{(1 2),(1 4),(1 6),(3 4),(3 6),(5 6)}");

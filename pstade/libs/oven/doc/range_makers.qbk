@@ -149,8 +149,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 Notation]
 * `d(I) = distance(_rngI)`
-* `a(I,j)` is a `j`-th element of `_rngI`.
-* `always_true` is `boost::lambda::constant(true)`.
+* `a(1,j)` ia a `j`-th element of `makerng1()`.
+* If `I >= 2`, `a(I,j)` is a `j`-th element of `makerngI(a(I-1, u))`.
 
 [h3 Valid expressions]
 [table 
@@ -159,27 +159,33 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`comprehension(_fun, _prd, _rng1,..,_rngN)`]
+        [`comprehension(_fun, _prd, makerng1,..,makerngN)`]
         [
             A _forward_ _lvalue_ _constant_ `{_fun(a(1,1),a(2,1),..a(N,1)),_fun(a(1,1),a(2,1),..a(N,2)),..,_fun(a(1,1),a(2,1),..a(N,d(N))),..}` but filtered using `_prd`.
         ]
     ]
     [
-        [`comprehension(_fun, no_guard, _rng1,..,_rngN)`]
+        [`no_guard`]
         [
-            `comprehension(_fun, always_true, _rng1,.._rngN)`
+            An _operatable_object_ which behaves as if it were `regular(boost::lambda::constant(true))`.
+        ]
+    ]
+    [
+        [`always_return`]
+        [
+            An _operatable_object_ which behaves as if returned `regular(boost::lambda::constant([_begin(rng), _end(rng))))`, where `rng` is the first argument of `always_return`.
         ]
     ]
 ]
 
-[note A result object of `_fun(..)` is copied. Oven doesn't refer it later.]
+[note A result object of `_fun(..)` is copied, whereas range referents which `makerngI` returns must outlive `comprehension(..)`.] 
 
 [h3 Preconditions]
-* `_fun` is a _deferred_callable_object_ or _boost_lambda_ functor.
 * `N <= 3`
-* `_fun` is `N`-ary.
-* `_prd` is up-to-`N`-ary.
+* `_fun` is a `N`-ary _deferred_callable_object_ or _boost_lambda_ functor.
 * `_typeof(_fun(..))` is _copy_constructible_.
+* For any `I`, `makerngI` is a `I-1`-ary _deferred_callable_object_ or _boost_lambda_ functor which returns a _range_.
+* `_prd` is `N`-ary.
 
 [h3 Example]
     namespace bll = boost::lambda;
@@ -201,8 +207,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
             comprehension(
                 bll::bind(make_pair(), bll::_1, bll::_2), // expression
                 bll::_1 < bll::_2,                        // guard
-                initial_values(1,3,5),                    // -> _1
-                initial_values(2,4,6)                     // -> _2
+                always_return(initial_values(1,3,5)),     // -> _1
+                always_return(initial_values(2,4,6))      // -> _2
             );
 
         BOOST_CHECK(sout.str() == "{(1 2),(1 4),(1 6),(3 4),(3 6),(5 6)}");

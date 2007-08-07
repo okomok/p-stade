@@ -35,14 +35,6 @@ void pstade_unit_test()
         int rng2[] = { 4,5,6,7 };
         int rng3[] = { 8,9 };
 
-#if 0
-        std::cout <<
-            detail::monad_bind(
-                rng1,
-                comprehension_detail::make_to_unit(bll::_1)
-            ) << std::endl;
-#endif
-
         int ans[] = {
             1*4+8, 1*4+9, 1*5+8, 1*5+9, 1*6+8, 1*6+9, 1*7+8, 1*7+9,
             2*4+8, 2*4+9, 2*5+8, 2*5+9, 2*6+8, 2*6+9, 2*7+8, 2*7+9,
@@ -51,9 +43,16 @@ void pstade_unit_test()
 
         test::forward_constant(
             ans,
-            comprehension(bll::_1 * bll::_2 + bll::_3, no_guard, rng1, rng2, rng3)
+            comprehension(
+                bll::_1 * bll::_2 + bll::_3,
+                no_guard,
+                always_return(rng1),
+                always_return(rng2),
+                always_return(rng3)
+            )
         );
     }
+
     {
         int rng1[] = {1,2,3,4};
         int rng2[] = {3,5,7,9};
@@ -62,7 +61,7 @@ void pstade_unit_test()
 
         test::forward_constant(
             ans,
-            comprehension(bll::_1 * bll::_2, no_guard, rng1, rng2)
+            comprehension(bll::_1 * bll::_2, no_guard, always_return(rng1), always_return(rng2))
         );
     }
 
@@ -73,7 +72,7 @@ void pstade_unit_test()
 
         test::forward_constant(
             ans,
-            comprehension(bll::_1, bll::_1 > 10, rng1)
+            comprehension(bll::_1, bll::_1 > 10, always_return(rng1))
         );
     }
 
@@ -85,7 +84,7 @@ void pstade_unit_test()
 
         test::forward_constant(
             ans,
-            comprehension(bll::_1+bll::_2, bll::_2 > bll::_1, rng1, rng2)
+            comprehension(bll::_1+bll::_2, bll::_2 > bll::_1, always_return(rng1), always_return(rng2))
         );
     }
 }
