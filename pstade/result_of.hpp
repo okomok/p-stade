@@ -18,9 +18,9 @@
 //   1. boost::result_of can't work with cv-qualified function-pointer.
 //   2. boost::result_of of Boost1.34 + msvc-7.1/8.0 can't work with template pod functor.
 //
-// Hmm, this still fails to work around msvc unless compiled on IDE.
-// I guess msvc fails to inspect whether 'result_type' is defined or not.
-// If you are lost, define functor using nested 'result' template.
+// Also note that BOOST_MPL_HAS_XXX_TRAIT_DEF, which is used by boost::result_of, sometimes doesn't work.
+// (Interestingly, if compiled on IDE, it seems to always work.)
+// If you are lost, use <pstade/detail/before_mpl_has_xxx.hpp> to replace BOOST_MPL_HAS_XXX_TRAIT_DEF.
 
 
 // <boost/preprocessor.hpp> is too big.

@@ -332,7 +332,7 @@ struct op_no_guard
     }
 };
 
-PSTADE_POD_CONSTANT((op_no_guard), no_guard) = {};
+PSTADE_POD_CONSTANT((op_no_guard), always_return(true)) = {};
 
 
 } } // namespace pstade::oven

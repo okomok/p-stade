@@ -12,6 +12,9 @@
 // pythagorean triads
 
 
+#include <pstade/detail/before_mpl_has_xxx.hpp>
+
+
 #include <pstade/unit_test.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
@@ -53,8 +56,8 @@ triples_t triples(int n)
 {
     return
         comprehension(
-            bll::bind(::make_triple(), bll::_1, bll::_2, bll::_3),
-            no_guard,
+            ::make_triple(),
+            always_return(true),
             always_return(counting(1, n+1)),
             bll::bind(counting, bll::_1, n+1),
             bll::bind(counting, bll::_2, n+1)

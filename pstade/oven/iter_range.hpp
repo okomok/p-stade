@@ -261,7 +261,8 @@ namespace make_iter_range_detail {
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            return Result(rng);
+            // Prefer two arguments constructor for 'initial_values'.
+            return Result(boost::begin(rng), boost::end(rng));
         }
     };
 

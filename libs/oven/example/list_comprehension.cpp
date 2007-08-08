@@ -9,6 +9,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/detail/before_mpl_has_xxx.hpp>
+
+
 #include <pstade/minimal_test.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
@@ -40,7 +43,7 @@ void pstade_minimal_test()
     std::stringstream sout;
     sout <<
         comprehension(
-            bll::bind(make_pair(), bll::_1, bll::_2), // expression
+            make_pair(),                              // expression
             bll::_1 < bll::_2,                        // guard
             always_return(initial_values(1,3,5)),     // -> _1
             always_return(initial_values(2,4,6))      // -> _2

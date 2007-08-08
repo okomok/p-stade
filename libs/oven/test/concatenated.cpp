@@ -186,6 +186,11 @@ void pstade_unit_test()
     ::test_iter_range_range(lambda::bind(make_const_refs,    lambda::_1));
     ::test_iter_range_range(lambda::bind(make_rvalues,       lambda::_1));
     ::test_iter_range_range(lambda::bind(test::make_proxies, lambda::_1));
+    
+    {
+        std::string rng[] = { std::string(), std::string(), std::string() };
+        test::emptiness(rng|concatenated);
+    }
 
     {
         namespace biscuit = pstade::biscuit;

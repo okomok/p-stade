@@ -21,6 +21,7 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/io.hpp>
 #include <iostream>
+#include <vector>
 
 
 namespace bll = boost::lambda;
@@ -45,7 +46,7 @@ void pstade_unit_test()
             ans,
             comprehension(
                 bll::_1 * bll::_2 + bll::_3,
-                no_guard,
+                always_return(true),
                 always_return(rng1),
                 always_return(rng2),
                 always_return(rng3)
@@ -61,7 +62,7 @@ void pstade_unit_test()
 
         test::forward_constant(
             ans,
-            comprehension(bll::_1 * bll::_2, no_guard, always_return(rng1), always_return(rng2))
+            comprehension(bll::_1 * bll::_2, always_return(true), always_return(rng1), always_return(rng2))
         );
     }
 
@@ -85,6 +86,49 @@ void pstade_unit_test()
         test::forward_constant(
             ans,
             comprehension(bll::_1+bll::_2, bll::_2 > bll::_1, always_return(rng1), always_return(rng2))
+        );
+    }
+    {// empty test
+        int rngX[] = { 1,2,3 };
+        std::vector<double> rngY;
+        rngY.push_back(1.2), rngY.push_back(12.3);
+        std::string emptyrng;
+
+        test::emptiness(
+            comprehension(
+                bll::constant(122),
+                always_return(true),
+                always_return(emptyrng),
+                always_return(rngX),
+                always_return(rngY)
+            )
+        );
+        test::emptiness(
+            comprehension(
+                bll::constant(122),
+                always_return(true),
+                always_return(rngX),
+                always_return(emptyrng),
+                always_return(rngY)
+            )
+        );
+        test::emptiness(
+            comprehension(
+                bll::constant(122),
+                always_return(true),
+                always_return(rngX),
+                always_return(rngY),
+                always_return(emptyrng)
+            )
+        );
+        test::emptiness(
+            comprehension(
+                bll::constant(122),
+                bll::constant(false),
+                always_return(rngX),
+                always_return(rngY),
+                always_return(rngY)
+            )
         );
     }
 }
