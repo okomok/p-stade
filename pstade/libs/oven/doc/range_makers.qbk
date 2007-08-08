@@ -165,15 +165,21 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         ]
     ]
     [
-        [`no_guard`]
+        [`always_return`]
         [
-            An _operatable_object_ which behaves as if it were `regular(boost::lambda::constant(true))`.
+            An _operatable_object_.
         ]
     ]
     [
-        [`always_return`]
+        [`always_return(b)`]
         [
-            An _operatable_object_ which behaves as if returned `regular(boost::lambda::constant([_begin(rng), _end(rng))))`, where `rng` is the first argument of `always_return`.
+            `boost::lambda::constant(b)`
+        ]
+    ]
+    [
+        [`always_return(_rng)`]
+        [
+            `boost::lambda::constant([_begin(_rng), _end(_rng)))`
         ]
     ]
 ]
@@ -186,6 +192,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `_typeof(_fun(..))` is _copy_constructible_.
 * For any `I`, `makerngI` is a `I-1`-ary _deferred_callable_object_ or _boost_lambda_ functor which returns a _range_.
 * `_prd` is `N`-ary.
+* `_typeof(b)` is `bool`.
 
 [h3 Example]
     namespace bll = boost::lambda;

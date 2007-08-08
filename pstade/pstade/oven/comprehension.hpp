@@ -11,18 +11,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/type.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/lambda_bind.hpp>
 #include <pstade/egg/lambda_placeholders.hpp>
 #include <pstade/egg/lambda_unlambda.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/nullary_result_of.hpp>
 #include <pstade/dont_care.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/result_of_lambda.hpp>
@@ -35,6 +33,8 @@ namespace pstade { namespace oven {
 
 namespace comprehension_detail {
 
+
+    // Note that 'nested' is always regularized by 'monad_bind'.
 
     template< class MakeRange, class Function >
     struct nested :
@@ -109,25 +109,13 @@ namespace comprehension_detail {
         Function m_fun;
     };
 
-    struct baby_make_nested
-    {
-        template< class Myself, class Range, class Fun >
-        struct apply
-        {
-            typedef
-                nested<Range, typename pass_by_value<Fun>::type>
-            type;
-        };
+    typedef
+        egg::generator<
+            nested< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >
+        >::type
+    op_make_nested;
 
-        template< class Result, class Range, class Fun >
-        Result call(Range& rng, Fun& fun) const
-        {
-            return Result(rng, fun);
-        }
-    };
-
-    typedef egg::function<baby_make_nested> op_make_nested;
-    PSTADE_POD_CONSTANT((op_make_nested), make_nested) = {};
+    PSTADE_POD_CONSTANT((op_make_nested), make_nested) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
     template< class Expr, class Guard >
@@ -197,25 +185,13 @@ namespace comprehension_detail {
         Guard m_guard;
     };
 
-    struct baby_make_to_unit
-    {
-        template< class Myself, class Expr, class Guard >
-        struct apply
-        {
-            typedef
-                to_unit<typename pass_by_value<Expr>::type, typename pass_by_value<Guard>::type>
-            type;
-        };
+    typedef
+        egg::generator<
+            to_unit< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >
+        >::type
+    op_make_to_unit;
 
-        template< class Result, class Expr, class Guard >
-        Result call(Expr& expr, Guard& guard) const
-        {
-            return Result(expr, guard);
-        }
-    };
-
-    typedef egg::function<baby_make_to_unit> op_make_to_unit;
-    PSTADE_POD_CONSTANT((op_make_to_unit), make_to_unit) = {};
+    PSTADE_POD_CONSTANT((op_make_to_unit), make_to_unit) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
     struct baby
@@ -310,79 +286,92 @@ typedef egg::function<comprehension_detail::baby> op_comprehension;
 PSTADE_POD_CONSTANT((op_comprehension), comprehension) = {{}};
 
 
-// no guard
-//
-
-struct op_no_guard
-{
-    typedef bool result_type;
-
-    bool operator()(dont_care = 0, dont_care = 0, dont_care = 0) const
-    {
-        return true;
-    }
-};
-
-PSTADE_POD_CONSTANT((op_no_guard), no_guard) = {};
-
-
 // always_return
 //
 
 namespace always_return_detail {
 
-    template< class Range >
-    struct result_
+    template< class Value >
+    struct result_abc
     {
-        typedef typename
-            iter_range_of<Range>::type
-        result_type;
+        typedef Value result_type;
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
-        // For some reason, msvc needs this unless compiled on IDE.
-        // I'm not sure this workaround is needed even under Boost1.35.
-        // See also <pstade/result_of.hpp> comments.
-
-        typedef result_type nullary_result_type; // for Egg's macro
-
-        template< class Signature >
-        struct result
+        Value operator()(dont_care = 0, dont_care = 0, dont_care = 0) const
         {
-            typedef result_type type;
-        };
-#endif
-
-        result_type operator()(dont_care = 0, dont_care = 0, dont_care = 0) const
-        {
-            return m_rng;
+            return m_value;
         }
 
-        explicit result_(Range& rng) :
-            m_rng(rng)
+        explicit result_abc(Value const& v) :
+            m_value(v)
+        { }
+
+        template< class Iterator >
+        result_abc(Iterator first, Iterator last) :
+            m_value(first, last)
         { }
 
     private:
-        // Hold by value to avoid dangling.
-        result_type m_rng;
+        Value m_value;
+    };
+
+    struct baby
+    {
+        template< class Myself, class Range >
+        struct apply
+        {
+            typedef
+                // Hold by value to avoid dangling.
+                result_abc<typename iter_range_of<Range>::type>
+            type;
+        };
+
+        template< class Result, class X >
+        Result call(X& x) const
+        {
+            // gcc-3.4 needs "type2type" to work around ambiguity.
+            return call_aux(boost::type<Result>(), x);
+        }
+
+        template< class Result, class Range >
+        Result call_aux(boost::type<Result>, Range& rng) const
+        {
+            // If 'rng' is 'initial_values(..)',
+            // neither copy-initialization nor direct-initialization doesn't work;
+            //   copy-initialization => 'copy_range' to iter_range is impossible.
+            //   direct-initialization => ambiguous: template constructor vs conversion-operator.
+            return Result(boost::begin(rng), boost::end(rng));
+        }
+
+        template< class Myself >
+        struct apply<Myself, bool>
+        {
+            typedef
+                result_abc<bool>
+            type;
+        };
+
+        template< class Myself >
+        struct apply<Myself, bool const>
+        {
+            typedef
+                result_abc<bool>
+            type;
+        };
+
+        template< class Result >
+        Result call_aux(boost::type<Result>, bool b) const
+        {
+            return Result(b);
+        }
     };
 
 } // namespace always_return_detail
 
-typedef
-    egg::generator<
-        always_return_detail::result_< egg::deduce<boost::mpl::_1, egg::as_qualified> >
-    >::type
-op_always_return;
-
-PSTADE_POD_CONSTANT((op_always_return), always_return) = PSTADE_EGG_GENERATOR_INITIALIZER();
+typedef egg::function<always_return_detail::baby> op_always_return;
+PSTADE_POD_CONSTANT((op_always_return), always_return) = {{}};
 
 
 } } // namespace pstade::oven
-
-
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
-    PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::always_return_detail::result_, (class))
-#endif
 
 
 #endif
