@@ -30,10 +30,10 @@ test-suite range :
     [ run one_year.cpp ]
     [ run power.cpp ]
     [ run primes.cpp ]
+    [ run pythagorean_triples.cpp ]
     [ run quick_sort.cpp ]
     [ run read.cpp ]
     [ run specification.cpp ]
-    [ run triads.cpp ]
     [ run unfoldr.cpp ]
     [ run zip.cpp ]
     ;

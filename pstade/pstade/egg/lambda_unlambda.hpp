@@ -12,9 +12,9 @@
 
 
 #include <boost/lambda/core.hpp> // unlambda
-#include <boost/type.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./function_by_value.hpp"
+#include "./envelope.hpp"
 
 
 namespace pstade { namespace egg {
@@ -40,18 +40,17 @@ namespace pstade { namespace egg {
             template<class Result, class Function>
             Result call(Function fun) const
             {
-                // "type2type" helps gcc-3.4 to overload.
-                return call_aux(boost::type<Result>(), fun);
+                return call_aux(fun, envelope<Result>());
             }
 
             template<class Result, class Function>
-            Result call_aux(boost::type<Result>, Function fun) const
+            Result call_aux(Function fun, envelope<Result>) const
             {
                 return fun;
             }
 
             template<class Result, class Arg>
-            Result call_aux(boost::type<Result>, boost::lambda::lambda_functor<Arg> lam) const
+            Result call_aux(boost::lambda::lambda_functor<Arg> lam, envelope<Result>) const
             {
                 return boost::lambda::unlambda(lam);
             }

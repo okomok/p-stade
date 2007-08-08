@@ -13,12 +13,12 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/lambda_bind.hpp>
 #include <pstade/egg/lambda_placeholders.hpp>
 #include <pstade/egg/lambda_unlambda.hpp>
+#include <pstade/egg/envelope.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
@@ -291,8 +291,9 @@ PSTADE_POD_CONSTANT((op_comprehension), comprehension) = {{}};
 
 namespace always_return_detail {
 
+
     template< class Value >
-    struct result_abc
+    struct result_
     {
         typedef Value result_type;
 
@@ -301,18 +302,19 @@ namespace always_return_detail {
             return m_value;
         }
 
-        explicit result_abc(Value const& v) :
+        explicit result_(Value const& v) :
             m_value(v)
         { }
 
         template< class Iterator >
-        result_abc(Iterator first, Iterator last) :
+        result_(Iterator first, Iterator last) :
             m_value(first, last)
         { }
 
     private:
         Value m_value;
     };
+
 
     struct baby
     {
@@ -321,19 +323,18 @@ namespace always_return_detail {
         {
             typedef
                 // Hold by value to avoid dangling.
-                result_abc<typename iter_range_of<Range>::type>
+                result_<typename iter_range_of<Range>::type>
             type;
         };
 
         template< class Result, class X >
         Result call(X& x) const
         {
-            // gcc-3.4 needs "type2type" to work around ambiguity.
-            return call_aux(boost::type<Result>(), x);
+            return call_aux(x, egg::envelope<Result>());
         }
 
         template< class Result, class Range >
-        Result call_aux(boost::type<Result>, Range& rng) const
+        Result call_aux(Range& rng, egg::envelope<Result>) const
         {
             // If 'rng' is 'initial_values(..)',
             // neither copy-initialization nor direct-initialization doesn't work;
@@ -346,7 +347,7 @@ namespace always_return_detail {
         struct apply<Myself, bool>
         {
             typedef
-                result_abc<bool>
+                result_<bool>
             type;
         };
 
@@ -354,18 +355,20 @@ namespace always_return_detail {
         struct apply<Myself, bool const>
         {
             typedef
-                result_abc<bool>
+                result_<bool>
             type;
         };
 
         template< class Result >
-        Result call_aux(boost::type<Result>, bool b) const
+        Result call_aux(bool b, egg::envelope<Result>) const
         {
             return Result(b);
         }
     };
 
+
 } // namespace always_return_detail
+
 
 typedef egg::function<always_return_detail::baby> op_always_return;
 PSTADE_POD_CONSTANT((op_always_return), always_return) = {{}};

@@ -28,6 +28,7 @@
 #include "./dereference.hpp"
 #include "./divides.hpp"
 #include "./do_swap.hpp"
+#include "./envelope.hpp"
 #include "./equal_to.hpp"
 #include "./equal_to_0.hpp"
 #include "./flip.hpp"

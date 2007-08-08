@@ -21,9 +21,9 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/type.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/copy.hpp>
+#include <pstade/egg/envelope.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
@@ -94,7 +94,7 @@ namespace counting_detail {
         };
 
         template< class Result, class Incrementable1, class Incrementable2 >
-        Result call_aux(Incrementable1 i, Incrementable2 j, boost::type<Result>) const
+        Result call_aux(Incrementable1 i, Incrementable2 j, egg::envelope<Result>) const
         {
             return
                 simple_base<Traversal, Difference, Incrementable1, Incrementable2>()(i, j);
@@ -109,7 +109,7 @@ namespace counting_detail {
         };
 
         template< class Result, class Incrementable >
-        Result call_aux(Incrementable i, max_count_tag, boost::type<Result>) const
+        Result call_aux(Incrementable i, max_count_tag, egg::envelope<Result>) const
         {
             return
                 simple_base<Traversal, Difference, Incrementable, Incrementable const>()(i, (std::numeric_limits<Incrementable>::max)());
@@ -124,7 +124,7 @@ namespace counting_detail {
         };
 
         template< class Result, class Incrementable >
-        Result call_aux(min_count_tag, Incrementable j, boost::type<Result>) const
+        Result call_aux(min_count_tag, Incrementable j, egg::envelope<Result>) const
         {
             return
                 simple_base<Traversal, Difference, Incrementable const, Incrementable>()((std::numeric_limits<Incrementable>::min)(), j);
@@ -142,7 +142,7 @@ namespace counting_detail {
         Result call(Incrementable1& i, Incrementable2& j) const
         {
             // Use type2type for gcc-3.4; see <pstade/const_overloaded.hpp>.
-            return call_aux(i, j, boost::type<Result>());
+            return call_aux(i, j, egg::envelope<Result>());
         }
     };
 
