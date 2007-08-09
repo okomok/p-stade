@@ -96,18 +96,17 @@ template< class Value >
 struct xp_monad_zero
 {
     typedef typename
-        pass_by_value<Value>::type
-    val_t;
-
-    typedef typename
         result_of<
-            op_shared(std::vector<val_t> *)
+            op_shared(std::vector<typename pass_by_value<Value>::type> *)
         >::type
     result_type;
 
     result_type operator()() const
     {
-        std::auto_ptr< std::vector<val_t> > p(new std::vector<val_t>());
+        typedef std::vector<typename pass_by_value<Value>::type> vec_t;
+
+        // empty range
+        std::auto_ptr<vec_t> p(new vec_t());
         return shared(p.release());
     }
 };
