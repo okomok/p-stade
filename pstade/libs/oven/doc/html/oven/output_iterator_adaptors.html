@@ -27,7 +27,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.applier"></a>applier</h3></div></div></div>
 <a name="applier.description"></a><h4>
-<a name="id590390"></a>
+<a name="id592907"></a>
         Description
       </h4>
 <p>
@@ -35,53 +35,62 @@
         which passes each item assigned as an argument to the unary function.
       </p>
 <a name="applier.header"></a><h4>
-<a name="id590425"></a>
+<a name="id592942"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">applier</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="applier.model_of"></a><h4>
-<a name="id590495"></a>
+<a name="id593012"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="applier.valid_expressions"></a><h4>
-<a name="id590525"></a>
+<a name="id593042"></a>
         Valid expressions
       </h4>
-<div class="informaltable">
-<h5>
-<a name="id590536"></a>
-        </h5>
-<table class="table">
+<div class="informaltable"><table class="table">
 <colgroup>
 <col>
 <col>
 </colgroup>
 <thead><tr>
-<th><span class="bold"><strong>Valid expression</strong></span></th>
-<th><span class="bold"><strong>Semantics</strong></span></th>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
 </tr></thead>
 <tbody><tr>
-<td><code class="computeroutput"><span class="identifier">applier</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code></td>
 <td>
-              <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code>
+              <p>
+                <code class="computeroutput"><span class="identifier">applier</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
               </td>
 </tr></tbody>
-</table>
-</div>
+</table></div>
 <a name="applier.preconditions"></a><h4>
-<a name="id590638"></a>
+<a name="id593171"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function_output_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code> is a valid expression.
         </li></ul></div>
 <a name="applier.example"></a><h4>
-<a name="id590739"></a>
+<a name="id593272"></a>
         Example
       </h4>
 <a name="applier.see_also"></a><h4>
-<a name="id590753"></a>
+<a name="id593286"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -93,7 +102,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stream_writer"></a>stream_writer</h3></div></div></div>
 <a name="stream_writer.description"></a><h4>
-<a name="id590807"></a>
+<a name="id593339"></a>
         Description
       </h4>
 <p>
@@ -106,63 +115,88 @@
         though.
       </p>
 <a name="stream_writer.header"></a><h4>
-<a name="id590887"></a>
+<a name="id593420"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="stream_writer.model_of"></a><h4>
-<a name="id590957"></a>
+<a name="id593490"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="stream_writer.valid_expressions"></a><h4>
-<a name="id590987"></a>
+<a name="id593520"></a>
         Valid expressions
       </h4>
-<div class="informaltable">
-<h5>
-<a name="id590999"></a>
-        </h5>
-<table class="table">
+<div class="informaltable"><table class="table">
 <colgroup>
 <col>
 <col>
 </colgroup>
 <thead><tr>
-<th><span class="bold"><strong>Valid expression</strong></span></th>
-<th><span class="bold"><strong>Semantics</strong></span></th>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
 </tr></thead>
 <tbody>
 <tr>
-<td><code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code> </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="number">0</span><span class="special">)</span></code> </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="number">0</span><span class="special">)</span></code>
+              </p>
+              </td>
 </tr>
 </tbody>
-</table>
-</div>
+</table></div>
 <div class="note"><table border="0" summary="Note">
 <tr>
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
 <th align="left">Note</th>
 </tr>
-<tr><td align="left" valign="top"><p>
-          <code class="computeroutput"><span class="identifier">stream_writer</span></code> doesn't write
-          an extra delimiter after the last element.
-        </p></td></tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            <code class="computeroutput"><span class="identifier">stream_writer</span></code> doesn't
+            write an extra delimiter after the last element.
+          </p>
+<p>
+        </p>
+</td></tr>
 </table></div>
 <a name="stream_writer.preconditions"></a><h4>
-<a name="id591209"></a>
+<a name="id593769"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">hamigaki</span><span class="special">::</span><span class="identifier">ostream_iterator</span><span class="special">&lt;</span><span class="identifier">unspecified</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
-          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code> is
-          a valid expressin.
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">hamigaki</span><span class="special">::</span><span class="identifier">ostream_iterator</span><span class="special">&lt;</span><span class="identifier">unspecified</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span>
+          <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code> is a valid expressin.
         </li>
 <li>
           An object which is passed to <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">))::</span><span class="keyword">operator</span><span class="special">=</span></code>
@@ -171,7 +205,7 @@
         </li>
 </ul></div>
 <a name="stream_writer.example"></a><h4>
-<a name="id591432"></a>
+<a name="id593992"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -192,7 +226,7 @@
 <span class="special">}</span>
 </pre>
 <a name="stream_writer.see_also"></a><h4>
-<a name="id591794"></a>
+<a name="id594353"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -207,47 +241,58 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utf8_encoder"></a>utf8_encoder</h3></div></div></div>
 <a name="utf8_encoder.description"></a><h4>
-<a name="id591882"></a>
+<a name="id594441"></a>
         Description
       </h4>
 <p>
         Pending...
       </p>
 <a name="utf8_encoder.header"></a><h4>
-<a name="id591899"></a>
+<a name="id594459"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf8_encoder</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="utf8_encoder.model_of"></a><h4>
-<a name="id591970"></a>
+<a name="id594529"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="utf8_encoder.valid_expressions"></a><h4>
-<a name="id591999"></a>
+<a name="id594559"></a>
         Valid expressions
       </h4>
-<div class="informaltable">
-<h5>
-<a name="id592010"></a>
-        </h5>
-<table class="table">
+<div class="informaltable"><table class="table">
 <colgroup>
 <col>
 <col>
 </colgroup>
 <thead><tr>
-<th><span class="bold"><strong>Valid expression</strong></span></th>
-<th><span class="bold"><strong>Semantics</strong></span></th>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
 </tr></thead>
 <tbody><tr>
-<td><code class="computeroutput"><span class="identifier">utf8_encoder</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">utf8_encoder</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
+              </p>
+              </td>
 </tr></tbody>
-</table>
-</div>
+</table></div>
 <a name="utf8_encoder.preconditions"></a><h4>
-<a name="id592111"></a>
+<a name="id594687"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -256,11 +301,11 @@
           a valid expression.
         </li></ul></div>
 <a name="utf8_encoder.example"></a><h4>
-<a name="id592213"></a>
+<a name="id594788"></a>
         Example
       </h4>
 <a name="utf8_encoder.see_also"></a><h4>
-<a name="id592226"></a>
+<a name="id594801"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="string_adaptors.html#oven.utf8_decoded" title="utf8_decoded">utf8_decoded</a></li></ul></div>

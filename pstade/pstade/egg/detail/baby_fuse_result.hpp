@@ -18,8 +18,8 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../config.hpp" // PSTADE_EGG_FUSE_MAX_ARITY
-#include "../tuple_get.hpp"
-#include "../tuple_size.hpp"
+#include "../tuple/get.hpp"
+#include "../tuple/size.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {

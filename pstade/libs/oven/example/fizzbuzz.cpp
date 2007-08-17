@@ -15,7 +15,7 @@
 #include <pstade/oven/zipped_with.hpp>
 #include <pstade/oven/taken.hpp>
 #include <pstade/egg/plus.hpp>
-#include <pstade/egg/tuple_pack.hpp> // tuple_pack
+#include <pstade/egg/tuple/pack.hpp> // tuple_pack
 #include <pstade/oven/rvalues.hpp>
 #include <pstade/oven/const_refs.hpp>
 

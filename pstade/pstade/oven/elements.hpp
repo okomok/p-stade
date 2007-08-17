@@ -16,8 +16,8 @@
 #include <pstade/deduced_const.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/specified.hpp>
-#include <pstade/egg/tuple_element.hpp>
-#include <pstade/egg/tuple_get.hpp>
+#include <pstade/egg/tuple/element.hpp>
+#include <pstade/egg/tuple/get.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"

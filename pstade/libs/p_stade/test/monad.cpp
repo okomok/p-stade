@@ -1,140 +1,127 @@
 #include <pstade/vodka/drink.hpp>
 
 
+#include <boost/function.hpp>
+#include <iostream>
 #include <string>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/type.hpp>
-#include <boost/function.hpp>
 #include <boost/utility/result_of.hpp>
-#include <iostream>
 
 
-namespace my {
+namespace bll = boost::lambda;
 
 
-    namespace bll = boost::lambda;
+template<typename X>
+struct Monad;
+
+template<typename Ma, typename a_Mb>
+typename boost::result_of<a_Mb(typename Monad<Ma>::a_type)>::type
+operator>>=(Ma m, a_Mb f)
+{
+    return Monad<Ma>().bind(m, f);
+}
+
+template<typename Ma, typename Mb>
+Mb operator>>(Ma m, Mb k)
+{
+    return Monad<Ma>().abandon(m, k);
+}
+
+template<typename Ma, typename a>
+Ma return_(a u)
+{
+    return Monad<Ma>().return_(u);
+};
 
 
-    template<typename a>
-    struct IO
+template<typename a>
+struct IO
+{
+    boost::function<a()> operate;
+};
+
+template<typename IOa>
+struct call_operate;
+
+template<typename a>
+struct call_operate<IO<a> >
+{
+    typedef a result_type;
+
+    a operator()(IO<a> m) const
     {
-        boost::function<a()> side_effect;
-    };
+        return m.operate();
+    }
+};
 
-
-    template<typename IOa>
-    struct call_side_effect;
-
-    template<typename a>
-    struct call_side_effect<IO<a> >
-    {
-        typedef a result_type;
-
-        a operator()(IO<a> m) const
-        {
-            return m.side_effect();
-        }
-    };
-
+template<typename a_>
+struct Monad<IO<a_> >
+{
+    typedef a_ a_type;
 
     template<typename a, typename a_IOb>
-    typename boost::result_of<a_IOb(a)>::type operator>>=(IO<a> m, a_IOb f)
+    typename boost::result_of<a_IOb(a)>::type bind(IO<a> m, a_IOb f)
     {
         typedef typename boost::result_of<a_IOb(a)>::type IOb;
 
-        // function composition: call_effect . f . m.side_effect
-        IOb r = { bll::bind(call_side_effect<IOb>(), bll::bind(f, bll::bind(m.side_effect))) };
+        // function composition: call_operate . f . m.operate
+        IOb r = { bll::bind(call_operate<IOb>(), bll::bind(f, bll::bind(m.operate))) };
         return r;
     }
 
     template<typename a, typename IOb>
-    IOb operator>>(IO<a> m, IOb k)
+    IOb abandon(IO<a> m, IOb k)
     {
-        IOb r = { bll::bind(call_side_effect<IOb>(), ( bll::bind(m.side_effect) , bll::constant(k)) ) };
+        IOb r = { bll::bind(call_operate<IOb>(), ( bll::bind(m.operate) , bll::constant(k)) ) };
         return r;
     }
 
-#if 0
     template<typename a>
-    IO<a> return_(boost::type<IO<a> >, a u)
+    IO<a> return_(a u)
     {
         IO<a> r = { bll::constant(u) };
         return r;
     }
-#endif
-
-    template<typename a>
-    struct return_
-    {
-        typedef IO<a> result_type;
-
-        IO<a> operator()(a u) const
-        {
-            IO<a> r = { bll::constant(u) };
-            return r;
-        }
-    };
-
-#if 0
-    inline
-    void do_nothing() { }
-
-    template<>
-    struct return_<void>
-    {
-        typedef IO<void> result_type;
-
-        IO<void> operator()() const
-        {
-            IO<void> r = { &do_nothing };
-            return r;
-        }
-    };
-#endif
+};
 
 
-    inline IO<void> putStr(std::string str)
-    {
-        IO<void> r = { std::cout << bll::constant(str) };
-        return r;
-    }
+inline
+IO<void> putStr(std::string str)
+{
+    IO<void> r = { std::cout << bll::constant(str) };
+    return r;
+}
 
+inline
+std::string getLine_impl()
+{
+    std::string r;
+    std::getline(std::cin, r);
+    return r;
+}
 
-    inline std::string getLine_impl()
-    {
-        std::string r;
-        std::getline(std::cin, r);
-        return r;
-    }
+IO<std::string> const getLine = { &getLine_impl };
 
-    IO<std::string> const getLine = { &getLine_impl };
-
-
-    inline IO<void> putStrLn(std::string str)
-    {
-        return putStr(str + "\n");
-    }
-
-
-    //IO<std::string> const getHello = my::return_(boost::type<IO<std::string> >(), std::string("Hello"));
-
-
-} // namespace my
+inline
+IO<void> putStrLn(std::string str)
+{
+    return putStr(str + "\n");
+}
 
 
 template<class IOa>
 void eval(IOa m)
 {
-    m.side_effect();
+    m.operate();
 }
-
 
 int main()
 {
-    ::eval( my::getLine >>= my::putStrLn );
-    ::eval( my::putStrLn("hello,") >> my::putStrLn("monad") >> my::putStrLn("in C++!") );
+    ::eval( getLine >>= putStrLn );
+    ::eval( putStrLn("hello,") >> putStrLn("monad") >> putStrLn("in C++!") );
 
-    ::eval( ( my::getLine >>= my::return_<std::string>() ) >>= my::putStrLn );
+//    ::eval( ( getLine >>= return_<IO<std::string>>() ) >>= my::putStrLn );
 }

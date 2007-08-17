@@ -15,12 +15,9 @@
 <div class="titlepage"><div>
 <div><h2 class="title">
 <a name="oven"></a>Chapter 1. Oven 0.94.3</h2></div>
-<div><div class="author"><h3 class="author">
-<span class="firstname">Shunsuke</span> <span class="surname">Sogame</span>
-</h3></div></div>
 <div><p class="copyright">Copyright © 2005 -2007 Shunsuke Sogame</p></div>
 <div><div class="legalnotice">
-<a name="id501999"></a><p>
+<a name="id487345"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">
         http://www.boost.org/LICENSE_1_0.txt </a>)
@@ -218,9 +215,15 @@
 <dt><span class="section"><a href="index.html#oven.related_work">Related Work</a></span></dt>
 <dt><span class="section"><a href="index.html#oven.notation">Notation</a></span></dt>
 </dl></div>
-<div class="blockquote"><blockquote class="blockquote"><p>
-        &#8220;<span class="quote">Oh Paulie!</span>&#8221;<br> <span class="bold"><strong><span class="emphasis"><em>-- Adrian</em></span></strong></span>
-      </p></blockquote></div>
+<div class="blockquote"><blockquote class="blockquote">
+<p>
+        </p>
+<p>
+          &#8220;<span class="quote">Oh Paulie!</span>&#8221;<br> <span class="bold"><strong><span class="emphasis"><em>-- Adrian</em></span></strong></span>
+        </p>
+<p>
+      </p>
+</blockquote></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.introduction"></a>Introduction</h3></div></div></div>
@@ -250,7 +253,8 @@
 <span class="special">}</span>
 </pre>
 <p>
-        All the types, functions and objects are defined in <code class="computeroutput"><span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
+        All the types, functions and objects are defined in <code class="computeroutput"><span class="keyword">namespace</span>
+        <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
       </p>
 </div>
 <div class="section" lang="en">
@@ -345,112 +349,226 @@
 <p>
         This document uses the following notation:
       </p>
-<div class="informaltable">
-<h5>
-<a name="id431444"></a>
-        </h5>
-<table class="table">
+<div class="informaltable"><table class="table">
 <colgroup>
 <col>
 <col>
 </colgroup>
 <thead><tr>
-<th><span class="bold"><strong>Expression</strong></span></th>
-<th><span class="bold"><strong>Semantics</strong></span></th>
+<th>
+              <p>
+                <span class="bold"><strong>Expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
 </tr></thead>
 <tbody>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_typeof</span></code></td>
-<td>An
-              imaginary operator to get the type of an expression.</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_typeof</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An imaginary operator to get the type of an expression.
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_rng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-              such that it is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a>
-              or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+                such that it is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a>
+                or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_fwdrng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_fwdrng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Any <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a>
+                <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_bidrng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_bidrng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Any <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+                <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_rndrng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
-              Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rndrng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Any <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
+                Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_fun</span></code></td>
-<td>Any
-              <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_fun</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Any <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+                Object</a>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_cal</span></code></td>
-<td>Any
-              <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-              Callable Object</a>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_cal</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Any <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_prd</span></code></td>
-<td>Any
-              <a href="http://www.sgi.com/tech/stl/Predicate.html" target="_top">Predicate</a>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_prd</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Any <a href="http://www.sgi.com/tech/stl/Predicate.html" target="_top">Predicate</a>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_begin</span></code></td>
-<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span></code></td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_begin</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span></code>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_end</span></code></td>
-<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span></code></td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_end</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span></code>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_iter_of</span></code></td>
-<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_result_iterator</span></code></td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_iter_of</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_result_iterator</span></code>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_value_of</span></code></td>
-<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span></code></td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_value_of</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span></code>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">)</span></code></td>
-<td>A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-              which behaves as if <code class="computeroutput"><span class="identifier">i</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code> and <code class="computeroutput"><span class="identifier">j</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code>.</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+                which behaves as if <code class="computeroutput"><span class="identifier">i</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code> and <code class="computeroutput"><span class="identifier">j</span>
+                <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code>.
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="special">{</span><span class="identifier">a0</span><span class="special">,</span><span class="identifier">a1</span><span class="special">,</span><span class="identifier">a2</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">}</span></code></td>
-<td>A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">{</span><span class="identifier">a0</span><span class="special">,</span><span class="identifier">a1</span><span class="special">,</span><span class="identifier">a2</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">}</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="special">(</span><span class="identifier">a0</span> <span class="identifier">a1</span> <span class="identifier">a2</span> <span class="special">..</span> <span class="identifier">aN</span><span class="special">)</span></code></td>
-<td>A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code>
-</td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">(</span><span class="identifier">a0</span>
+                <span class="identifier">a1</span> <span class="identifier">a2</span>
+                <span class="special">..</span> <span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code>
+              </p>
+              </td>
 </tr>
 </tbody>
-</table>
-</div>
+</table></div>
 <p>
-        Also, assume that every expression is placed after <code class="computeroutput"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
+        Also, assume that every expression is placed after <code class="computeroutput"><span class="keyword">using</span>
+        <span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
       </p>
 </div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: August 11, 2007 at 04:02:27 GMT</p></small></td>
+<td align="left"><small><p>Last revised: August 13, 2007 at 06:04:51 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

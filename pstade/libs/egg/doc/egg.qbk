@@ -1,0 +1,47 @@
+
+[library Egg
+    [quickbook 1.4]
+    [version 0.90.0]
+    [authors [Sogame, Shunsuke]]
+    [copyright 2007 Shunsuke Sogame]
+    [category functional]
+    [id egg]
+    [dirname egg]
+    [purpose functional programming utilities]
+    [source-mode c++]
+    [license
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+[@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+
+
+
+[/ External Links ]
+[def __DEFAULT_CONSTRUCTIBLE__ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
+[def __DEFERRED_CALLABLE_OBJECT__ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html Deferred Callable Object]]
+[def __FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/functors.html Function Object]]
+
+
+
+
+[/ Internal Links ]
+
+[def __BABY_FUNCTION__ [link egg.concepts.baby_function Baby Function]]
+[def __BINDABLE_OBJECT__ [@http://p-stade.sourceforge.net/oven/doc/html/oven/concepts.html#oven.bindable_object Bindable Object]]
+[def __BINDABLE__ [@http://p-stade.sourceforge.net/oven/doc/html/oven/concepts.html#oven.bindable_object Bindable]]
+
+[def __EGG_FUNCTION__ [link egg.function_makers.function function]]
+[def __EGG_FUNCTION_BY_VALUE__ [link egg.function_makers.function_by_value function_by_value]]
+[def __EGG_FUNCTION_FACADE__ [link egg.function_makers.function_facade function_facade]]
+
+
+
+
+[include preface.qbk]
+[include function_makers.qbk]
+[include function_adaptors.qbk]
+
+

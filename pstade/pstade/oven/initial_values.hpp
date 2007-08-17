@@ -55,7 +55,7 @@ namespace initial_values_detail {
 
 
     template< class Value, std::size_t N >
-    struct return_range
+    struct result_range
     {
         // Prefer 'boost::array' to built-in array;
         // If 'To' also is 'boost::array', the initialization can be
@@ -101,11 +101,11 @@ namespace initial_values_detail {
     };
 
 
-    // 'return_range' also is CopyableRange.
+    // 'result_range' also is CopyableRange.
     template< class Value, std::size_t N, class From > inline
-    return_range<Value, N> pstade_oven_copy_range(boost::type< return_range<Value, N> >, From& from)
+    result_range<Value, N> pstade_oven_copy_range(boost::type< result_range<Value, N> >, From& from)
     {
-        return_range<Value, N> r = { oven::copy_range< boost::array<Value, N> >(from) };
+        result_range<Value, N> r = { oven::copy_range< boost::array<Value, N> >(from) };
         return r;
     }
 
@@ -140,7 +140,7 @@ template< class Value, std::size_t N >
 struct result_of_initial_values
 {
     typedef
-        initial_values_detail::return_range<Value, N> const
+        initial_values_detail::result_range<Value, N> const
     type;
 };
 
@@ -158,7 +158,7 @@ private:
     struct BOOST_PP_CAT(result, n)
     {
         typedef
-            initial_values_detail::return_range<typename value_<A0>::type, n> const
+            initial_values_detail::result_range<typename value_<A0>::type, n> const
         type;
     };
 
@@ -172,7 +172,7 @@ public:
     typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
-        initial_values_detail::return_range<typename value_<A0 const&>::type, n> r = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
+        initial_values_detail::result_range<typename value_<A0 const&>::type, n> r = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
         return r;
     }
 

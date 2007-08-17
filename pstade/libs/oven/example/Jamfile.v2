@@ -15,7 +15,7 @@ project
       <threading>multi
     ;
 
-test-suite range :
+test-suite "oven_example" :
     [ run adjacent_difference.cpp ]
     [ run auto_factorials.cpp ]
     [ run change_array.cpp ]

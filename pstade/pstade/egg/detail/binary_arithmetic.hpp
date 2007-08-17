@@ -34,6 +34,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
+    template<class X, class Y>
     struct error_failed_to_deduce_arithmetic_operation_result_type;
 
 
@@ -44,7 +45,7 @@ namespace pstade { namespace egg { namespace detail {
     boost::type_traits::no_type  are_you_x(Y const&, typename disable_if< boost::is_same<X, Y> >::type = 0);
 
     template<class X, class Y>
-    error_failed_to_deduce_arithmetic_operation_result_type are_you_x(...);
+    error_failed_to_deduce_arithmetic_operation_result_type<X, Y> are_you_x(...);
 
 
 #define PSTADE_EGG_BINARY_ARITHMETIC(F, Op) \

@@ -1,10 +1,14 @@
 
 [library Oven
+    [quickbook 1.1]
     [version 0.94.3]
     [authors [Sogame, Shunsuke]]
     [copyright 2005-2007 Shunsuke Sogame]
-    [category generic]
+    [category range]
+    [id oven]
+    [dirname oven]
     [purpose range library proposal implementation]
+    [source-mode c++]
     [license
         Distributed under the Boost Software License, Version 1.0.
         (See accompanying file LICENSE_1_0.txt or copy at
