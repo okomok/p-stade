@@ -15,6 +15,9 @@ boostbook standalone
         <xsl:param>boost.image.alt=pstade
         <xsl:param>boost.image.w=200
         <xsl:param>boost.image.h=164
+#        <xsl:param>chunk.section.depth=4
+#        <xsl:param>chunk.first.sections=1
+#        <xsl:param>generate.section.toc.level=4
 #        <xsl:param>boost.root=../../../../..
     ;
 

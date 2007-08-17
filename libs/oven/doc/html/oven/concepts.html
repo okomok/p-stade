@@ -33,7 +33,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.bindable_object"></a>Bindable Object</h3></div></div></div>
 <a name="bindable_object.description"></a><h4>
-<a name="id502662"></a>
+<a name="id502826"></a>
         Description
       </h4>
 <p>
@@ -41,29 +41,29 @@
         can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
       </p>
 <a name="bindable_object.refinement_of"></a><h4>
-<a name="id502725"></a>
+<a name="id502888"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="bindable_object.requirements"></a><h4>
-<a name="id502750"></a>
+<a name="id502913"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-        Object</a>, for any <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable Object</a> <code class="computeroutput"><span class="identifier">b</span></code> the following must be met:
+        Object</a>, for any <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable Object</a>
+        <code class="computeroutput"><span class="identifier">b</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc"><li>
           There is a <code class="computeroutput"><span class="identifier">N</span></code> such that
-          <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">b</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,..,</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_N</span><span class="special">)</span></code> is
-          a valid expression.
+          <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">b</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,..,</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_N</span><span class="special">)</span></code> is a valid expression.
         </li></ul></div>
 <a name="bindable_object.models"></a><h4>
-<a name="id502919"></a>
+<a name="id503082"></a>
         Models
       </h4>
 <a name="bindable_object.see_also"></a><h4>
-<a name="id502930"></a>
+<a name="id503093"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost.org/libs/lambda/doc/index.html" target="_top">Boost.Lambda</a></li></ul></div>
@@ -72,7 +72,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.operatable_object"></a>Operatable Object</h3></div></div></div>
 <a name="operatable_object.description"></a><h4>
-<a name="id502968"></a>
+<a name="id503130"></a>
         Description
       </h4>
 <p>
@@ -82,7 +82,7 @@
         <code class="computeroutput"><span class="identifier">op_</span></code>.
       </p>
 <a name="operatable_object.refinement_of"></a><h4>
-<a name="id503014"></a>
+<a name="id503176"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -91,33 +91,39 @@
 <li><a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable Object</a></li>
 </ul></div>
 <a name="operatable_object.requirements"></a><h4>
-<a name="id503052"></a>
+<a name="id503214"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
         Callable Object</a> and <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable
         Object</a>, for any <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable
-        Object</a> <code class="computeroutput"><span class="identifier">f</span></code> the
-        following must be met:
+        Object</a> <code class="computeroutput"><span class="identifier">f</span></code> the following
+        must be met:
       </p>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">op_</span> ## <span class="identifier">f</span></code>
-          is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
+<code class="computeroutput"><span class="identifier">op_</span> #<span class="preprocessor">#
+          f</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
         </li></ul></div>
 <div class="note"><table border="0" summary="Note">
 <tr>
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
 <th align="left">Note</th>
 </tr>
-<tr><td align="left" valign="top"><p>
-          <code class="computeroutput">##</code> means the token concatenation. For example, <code class="computeroutput"><span class="identifier">make_filtered</span></code> is an <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable
-          Object</a>, so that <code class="computeroutput"><span class="identifier">op_make_filteterd</span></code>
-          is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">make_filtered</span><span class="special">)</span></code>.
-        </p></td></tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            <code class="computeroutput">##</code> means the token concatenation. For example, <code class="computeroutput"><span class="identifier">make_filtered</span></code> is an <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable
+            Object</a>, so that <code class="computeroutput"><span class="identifier">op_make_filteterd</span></code>
+            is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">make_filtered</span><span class="special">)</span></code>.
+          </p>
+<p>
+        </p>
+</td></tr>
 </table></div>
 <a name="operatable_object.models"></a><h4>
-<a name="id503221"></a>
+<a name="id503387"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -130,17 +136,24 @@
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
 <th align="left">Caution</th>
 </tr>
-<tr><td align="left" valign="top"><p>
-        Because of a compiler bug, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>
-        of Boost version 1.34 or below is utterly broken on msvc-7.1 and 8.0. <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span> </code> in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
-        can be used for the workaround.
-      </p></td></tr>
+<tr><td align="left" valign="top">
+<p>
+        </p>
+<p>
+          Because of a compiler bug, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>
+          of Boost version 1.34 or below is utterly broken on msvc-7.1 and 8.0.
+          <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span> </code> in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+          can be used for the workaround.
+        </p>
+<p>
+      </p>
+</td></tr>
 </table></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.pipable_object"></a>Pipable Object</h3></div></div></div>
 <a name="pipable_object.description"></a><h4>
-<a name="id503366"></a>
+<a name="id503536"></a>
         Description
       </h4>
 <p>
@@ -150,42 +163,42 @@
         Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
       </p>
 <a name="pipable_object.refinement_of"></a><h4>
-<a name="id503426"></a>
+<a name="id503595"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="pipable_object.requirements"></a><h4>
-<a name="id503453"></a>
+<a name="id503623"></a>
         Requirements
       </h4>
 <p>
-        For any <a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a> <code class="computeroutput"><span class="identifier">p</span></code> the following must be met:
+        For any <a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a> <code class="computeroutput"><span class="identifier">p</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
-          <code class="computeroutput"><span class="identifier">make_</span> ## <span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> is
-          a valid expression.
+          <code class="computeroutput"><span class="identifier">make_</span> #<span class="preprocessor">#
+          p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">make_</span>
-          ## <span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> have
-          the same effects.
+          #<span class="preprocessor"># p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> have the same effects.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">make_</span> ## <span class="identifier">p</span></code>
-          is an <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a>.
+<code class="computeroutput"><span class="identifier">make_</span> #<span class="preprocessor">#
+          p</span></code> is an <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable
+          Object</a>.
         </li>
 <li>
           If <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="number">0</span></code>,
           <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span></code> and <code class="computeroutput"><span class="identifier">make_</span>
-          ## <span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> are
+          #<span class="preprocessor"># p</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> are
           valid expressions which have the same effects.
         </li>
 </ul></div>
 <a name="pipable_object.models"></a><h4>
-<a name="id503800"></a>
+<a name="id503968"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -197,7 +210,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.auxiliary_interface"></a>Auxiliary Interface</h3></div></div></div>
 <a name="auxiliary_interface.description"></a><h4>
-<a name="id503850"></a>
+<a name="id504018"></a>
         Description
       </h4>
 <p>
@@ -206,28 +219,28 @@
         supports also a pipe-like syntax used as if it were a member function.
       </p>
 <a name="auxiliary_interface.refinement_of"></a><h4>
-<a name="id503886"></a>
+<a name="id504055"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="auxiliary_interface.requirements"></a><h4>
-<a name="id503916"></a>
+<a name="id504084"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable
         Object</a>, for any <a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary
-        Interface</a> <code class="computeroutput"><span class="identifier">i</span></code> the
-        following must be met:
+        Interface</a> <code class="computeroutput"><span class="identifier">i</span></code> the following
+        must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
-          <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is
-          a valid expression.
+          <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> have
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span>
+          <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> have
           the same effects.
         </li>
 <li>
@@ -238,7 +251,7 @@
         </li>
 </ul></div>
 <a name="auxiliary_interface.models"></a><h4>
-<a name="id504220"></a>
+<a name="id504386"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -246,7 +259,7 @@
 <li><a href="range_algorithms.html#oven.begin_end" title="begin/end">begin/end</a></li>
 </ul></div>
 <a name="auxiliary_interface.see_also"></a><h4>
-<a name="id504260"></a>
+<a name="id504427"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -256,7 +269,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stoppable_generator"></a>Stoppable Generator</h3></div></div></div>
 <a name="stoppable_generator.description"></a><h4>
-<a name="id504297"></a>
+<a name="id504464"></a>
         Description
       </h4>
 <p>
@@ -265,20 +278,20 @@
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="stoppable_generator.refinement_of"></a><h4>
-<a name="id504340"></a>
+<a name="id504507"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="stoppable_generator.requirements"></a><h4>
-<a name="id504369"></a>
+<a name="id504536"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
         Callable Object</a>, for any <a href="concepts.html#oven.stoppable_generator" title="Stoppable Generator">Stoppable
-        Generator</a> <code class="computeroutput"><span class="identifier">g</span></code> the
-        following must be met:
+        Generator</a> <code class="computeroutput"><span class="identifier">g</span></code> the following
+        must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -291,7 +304,7 @@
         </li>
 </ul></div>
 <a name="stoppable_generator.models"></a><h4>
-<a name="id504474"></a>
+<a name="id504640"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -304,7 +317,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.iterator_block"></a>Iterator Block</h3></div></div></div>
 <a name="iterator_block.description"></a><h4>
-<a name="id504523"></a>
+<a name="id504690"></a>
         Description
       </h4>
 <p>
@@ -313,24 +326,23 @@
         that yields an ordered sequence of values.
       </p>
 <a name="iterator_block.refinement_of"></a><h4>
-<a name="id504557"></a>
+<a name="id504724"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="iterator_block.requirements"></a><h4>
-<a name="id504583"></a>
+<a name="id504750"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-        Object</a>, for any <a href="concepts.html#oven.iterator_block" title="Iterator Block">Iterator Block</a> <code class="computeroutput"><span class="identifier">b</span></code> the following must be met:
+        Object</a>, for any <a href="concepts.html#oven.iterator_block" title="Iterator Block">Iterator Block</a>
+        <code class="computeroutput"><span class="identifier">b</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
           For an unspecified unary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-          Object</a> <code class="computeroutput"><span class="identifier">y</span></code>,
-          <code class="computeroutput"><span class="identifier">b</span><span class="special">(</span><span class="identifier">y</span><span class="special">)</span></code> is
-          a valid expression.
+          Object</a><code class="computeroutput"><span class="identifier">y</span></code>, <code class="computeroutput"><span class="identifier">b</span><span class="special">(</span><span class="identifier">y</span><span class="special">)</span></code> is a valid expression.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">b</span><span class="special">)::</span><span class="identifier">yield_type</span></code> is a type of object passed
@@ -338,7 +350,7 @@
         </li>
 </ul></div>
 <a name="iterator_block.models"></a><h4>
-<a name="id504722"></a>
+<a name="id504888"></a>
         Models
       </h4>
 </div>
@@ -346,30 +358,31 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.constant_range"></a>Constant Range</h3></div></div></div>
 <a name="constant_range.description"></a><h4>
-<a name="id504745"></a>
+<a name="id504911"></a>
         Description
       </h4>
 <p>
-        A <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        A <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         is a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         whose elements are not modifiable.
       </p>
 <a name="constant_range.refinement_of"></a><h4>
-<a name="id504786"></a>
+<a name="id504951"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
-          Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+          Pass</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="constant_range.requirements"></a><h4>
-<a name="id504818"></a>
+<a name="id504983"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
-        Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
-        for any <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
+        Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
+        for any <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -382,67 +395,72 @@
         </li>
 </ul></div>
 <a name="constant_range.models"></a><h4>
-<a name="id505003"></a>
+<a name="id505167"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
-<li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="keyword">const</span></code></li>
-<li><code class="computeroutput"><span class="keyword">int</span> <span class="keyword">const</span><span class="special">[</span><span class="number">10</span><span class="special">]</span></code></li>
+<li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="keyword">const</span></code></li>
+<li><code class="computeroutput"><span class="keyword">int</span> <span class="keyword">const</span><span class="special">[</span><span class="number">10</span><span class="special">]</span></code></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.contiguous_range"></a>Contiguous Range</h3></div></div></div>
 <a name="contiguous_range.description"></a><h4>
-<a name="id505108"></a>
+<a name="id505272"></a>
         Description
       </h4>
 <p>
-        A <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        A <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         is a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
-        Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         whose elements are stored contiguously.
       </p>
 <a name="contiguous_range.refinement_of"></a><h4>
-<a name="id505157"></a>
+<a name="id505321"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
-          Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+          Access</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li>
 <li>
-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li>
 </ul></div>
 <a name="contiguous_range.requirements"></a><h4>
-<a name="id505210"></a>
+<a name="id505373"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
-        Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
-        for any <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
+        Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
+        for any <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="special">&amp;*(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">n</span><span class="special">)</span> <span class="special">==</span> <span class="special">&amp;*(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span> <span class="special">+</span> <span class="identifier">n</span></code>
-          for all <code class="computeroutput"><span class="identifier">n</span></code> such that <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span> <span class="identifier">n</span> <span class="special">&lt;</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">-</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
+<code class="computeroutput"><span class="special">&amp;*(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span>
+          <span class="special">+</span> <span class="identifier">n</span><span class="special">)</span> <span class="special">==</span> <span class="special">&amp;*(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span> <span class="special">+</span> <span class="identifier">n</span></code> for
+          all <code class="computeroutput"><span class="identifier">n</span></code> such that <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">n</span> <span class="special">&lt;</span>
+          <span class="identifier">_end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">-</span>
+          <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="contiguous_range.models"></a><h4>
-<a name="id505472"></a>
+<a name="id505630"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>
-<li><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="number">50</span><span class="special">&gt;</span></code></li>
+<li><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="number">50</span><span class="special">&gt;</span></code></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_safe"></a>Parallel Safe</h3></div></div></div>
 <a name="parallel_safe.description"></a><h4>
-<a name="id505587"></a>
+<a name="id505745"></a>
         Description
       </h4>
 <p>
@@ -450,11 +468,11 @@
         same level of thread safety as built-in types.
       </p>
 <a name="parallel_safe.refinement_of"></a><h4>
-<a name="id505613"></a>
+<a name="id505771"></a>
         Refinement of
       </h4>
 <a name="parallel_safe.requirements"></a><h4>
-<a name="id505624"></a>
+<a name="id505782"></a>
         Requirements
       </h4>
 <p>
@@ -466,7 +484,7 @@
           are copies).
         </li></ul></div>
 <a name="parallel_safe.models"></a><h4>
-<a name="id505679"></a>
+<a name="id505837"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">

@@ -11,13 +11,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://www.cc.gatech.edu/~yannis/fc++/fcpp-lambda.pdf
+//
+// [x+y| x<-[1,2,3], y<-[2,3], x<y]
+//     is equivalent to
+// [1,2,3] `bind` (\x ->
+//     [2,3] `bind` (\y ->
+//         if not (x<y) then zero
+//                      else unit (x+y) ))
+
+
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/function_facade.hpp>
-#include <pstade/egg/lambda_bind.hpp>
-#include <pstade/egg/lambda_placeholders.hpp>
-#include <pstade/egg/lambda_unlambda.hpp>
+#include <pstade/egg/lambda/bind.hpp>
+#include <pstade/egg/lambda/placeholders.hpp>
+#include <pstade/egg/lambda/unlambda.hpp>
 #include <pstade/egg/envelope.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/dont_care.hpp>

@@ -15,7 +15,7 @@
 
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/noncopyable.hpp>
-#include <pstade/egg/tuple_pack.hpp>
+#include <pstade/egg/tuple/pack.hpp>
 #include <pstade/unused.hpp>
 
 

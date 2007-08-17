@@ -21,7 +21,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/egg/tuple_pack.hpp> // tuple_pack
+#include <pstade/egg/tuple/pack.hpp> // tuple_pack
 
 #if BOOST_VERSION >= 103500
 #include <boost/fusion/sequence/generation/vector_tie.hpp>

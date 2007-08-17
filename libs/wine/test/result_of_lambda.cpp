@@ -18,7 +18,7 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/egg/identity.hpp>
-#include <pstade/egg/lambda_placeholders.hpp>
+#include <pstade/egg/lambda/placeholders.hpp>
 #include <pstade/result_of.hpp>
 
 

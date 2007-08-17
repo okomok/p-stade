@@ -215,7 +215,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         any_range<triple_t, boost::forward_traversal_tag>
     triples_t;
 
-    triples_t triads(int n)
+    triples_t triples(int n)
     {
         return
             comprehension(
@@ -230,7 +230,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     void test()
     {
         std::stringstream sout;
-        sout << ::triads(20);
+        sout << ::triples(20);
         BOOST_CHECK(sout.str() == "{(3 4 5),(5 12 13),(6 8 10),(8 15 17),(9 12 15),(12 16 20)}");
     }
 

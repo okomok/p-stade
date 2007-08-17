@@ -29,6 +29,9 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <iostream>
+#include <vector>
+#include <pstade/oven/transformed.hpp>
+#include <algorithm>
 
 
 namespace lambda = boost::lambda;
@@ -36,8 +39,46 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
+std::vector<int> g_call_vec;
+
+struct call_once_checker
+{
+    typedef int result_type;
+
+    int operator()(int i) const
+    {
+        g_call_vec.push_back(i);
+        return i;
+    }
+};
+
+struct do_null
+{
+    template<class T>
+    void operator()(T const&) const
+    { }
+};
+
+template<class Range>
+void call_twice(Range rng)
+{
+    std::for_each(rng.begin(), rng.end(), ::do_null());
+    std::for_each(rng.begin(), rng.end(), ::do_null());
+}
+
+void test_call_once()
+{
+    int const src[] = {1,2,3,4,5,6,7};
+
+    ::call_twice(src|transformed(::call_once_checker())|memoized);
+    BOOST_CHECK(equals(src, g_call_vec));
+}
+
+
 void pstade_unit_test()
 {
+    ::test_call_once();
+
     {
         std::string a("18284610528192");
         std::stringstream ss;
@@ -54,7 +95,7 @@ void pstade_unit_test()
         int const src[] = { 1,2,5,3,6,8,6,1 };
         std::cout << (src|memoized);
     }
-   {
+    {
         int a[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
         int b[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
         memo_table tb;
