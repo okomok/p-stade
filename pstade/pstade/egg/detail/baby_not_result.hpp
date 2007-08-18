@@ -60,7 +60,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-} } } // namespace pstade::detail
+} } } // namespace pstade::egg::detail
 
 
 #endif

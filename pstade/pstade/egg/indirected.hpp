@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
     template<class Dereferenceable>
     struct result_of_indirected
     {
-        typedef egg::function< detail::baby_indirected_result<Dereferenceable> > type;
+        typedef function< detail::baby_indirected_result<Dereferenceable> > type;
     };
 
 
