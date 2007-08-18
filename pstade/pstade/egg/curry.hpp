@@ -19,7 +19,8 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./detail/bind.hpp"
+#include "./detail/bind1.hpp"
+#include "./detail/bind2.hpp"
 #include "./function.hpp"
 
 
@@ -29,15 +30,15 @@ namespace pstade { namespace egg {
 // 1ary
     struct baby_curry1
     {
-        template<class Myself, class Function1>
+        template<class Myself, class Base>
         struct apply :
-            pass_by_value<Function1>
+            pass_by_value<Base>
         { };
 
-        template<class Result, class Function1>
-        Result call(Function1& fun1) const
+        template<class Result, class Base>
+        Result call(Base& base) const
         {
-            return fun1;
+            return base;
         }
     };
 
@@ -56,6 +57,7 @@ namespace pstade { namespace egg {
 #endif
 #else
 #define n BOOST_PP_ITERATION()
+#define n_ BOOST_PP_DEC(n)
 
 
     struct BOOST_PP_CAT(baby_curry, n)
@@ -63,9 +65,9 @@ namespace pstade { namespace egg {
         template<class Myself, class Function>
         struct apply :
             result_of<
-                BOOST_PP_CAT(op_curry, BOOST_PP_DEC(n))(
+                BOOST_PP_CAT(op_curry, n_)(
                     typename result_of<
-                        detail::op_bind(detail::op_bind const&, Function&)
+                        detail::op_bind1(detail::BOOST_PP_CAT(op_bind, n_) const&, Function&)
                     >::type
                 )
             >
@@ -74,12 +76,12 @@ namespace pstade { namespace egg {
         template<class Result, class Function>
         Result call(Function& fun) const
         {
-            // curry3(bind(bind, fun4))(a1)(a2)(a3)(a4)
-            // => bind(bind, fun4)(a1, a2, a3)(a4)
-            // => bind(fun4, a1, a2, a3)(a4)
+            // curry3(bind1(bind3, fun4))(a1)(a2)(a3)(a4)
+            // => bind1(bind3, fun4)(a1, a2, a3)(a4)
+            // => bind3(fun4, a1, a2, a3)(a4)
             // => fun4(a1, a2, a3, a4)
-            return BOOST_PP_CAT(curry, BOOST_PP_DEC(n))(
-                detail::bind(detail::bind, fun)
+            return BOOST_PP_CAT(curry, n_)(
+                detail::bind1(detail::BOOST_PP_CAT(bind, n_), fun)
             );
         }
     };
@@ -88,5 +90,6 @@ namespace pstade { namespace egg {
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
 
 
+#undef n_
 #undef n
 #endif
