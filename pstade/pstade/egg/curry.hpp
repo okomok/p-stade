@@ -14,44 +14,53 @@
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/bind1.hpp"
 #include "./detail/bind2.hpp"
 #include "./function.hpp"
+#include "./function_by_value.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-// 1ary
-    struct baby_curry1
-    {
-        template<class Myself, class Base>
-        struct apply :
-            pass_by_value<Base>
-        { };
+// 2ary-
 
-        template<class Result, class Base>
-        Result call(Base& base) const
-        {
-            return base;
-        }
+    // for curry2 implementation.
+    template<class Base>
+    struct result_of_curry1
+    {
+        typedef Base type;
     };
 
-    typedef function<baby_curry1> op_curry1;
-    PSTADE_POD_CONSTANT((op_curry1), curry1) = {{}};
+    #define PSTADE_EGG_CURRY2_RESULT_INITIALIZER(B) \
+        { { {{}}, B() } } \
+    /**/
+    #define PSTADE_EGG_CURRY3_RESULT_INITIALIZER(B) \
+        { { {{}}, PSTADE_EGG_CURRY2_RESULT_INITIALIZER(B) } } \
+    /**/
+    #define PSTADE_EGG_CURRY4_RESULT_INITIALIZER(B) \
+        { { {{}}, PSTADE_EGG_CURRY3_RESULT_INITIALIZER(B) } } \
+    /**/
+    #define PSTADE_EGG_CURRY5_RESULT_INITIALIZER(B) \
+        { { {{}}, PSTADE_EGG_CURRY4_RESULT_INITIALIZER(B) } } \
+    /**/
 
+    #define PSTADE_EGG_CURRY_RESULT_INITIALIZER_aux(N) \
+        PSTADE_PP_CAT3(PSTADE_EGG_CURRY, N, _RESULT_INITIALIZER) \
+    /**/
 
-// 2ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/curry.hpp>))
     #include BOOST_PP_ITERATE()
 
 
-} } // namespace pstade::egg::detail
+} } // namespace pstade::egg
 
 
 #endif
@@ -60,33 +69,60 @@ namespace pstade { namespace egg {
 #define n_ BOOST_PP_DEC(n)
 
 
+    template<class Base>
+    struct BOOST_PP_CAT(result_of_curry, n) :
+        BOOST_PP_CAT(result_of_curry, n_)<
+            function<
+                detail::baby_bind1_result<
+                    function<detail::BOOST_PP_CAT(baby_bind, n_)>,
+                    Base
+                >
+            >
+        >
+    { };
+
     struct BOOST_PP_CAT(baby_curry, n)
     {
-        template<class Myself, class Function>
+        template<class Myself, class Base>
+        struct apply :
+            BOOST_PP_CAT(result_of_curry, n)<Base>
+        { };
+
+        template<class Result, class Base>
+        Result call(Base base) const
+        {
+            Result r = PSTADE_EGG_CURRY_RESULT_INITIALIZER_aux(n)(BOOST_PP_IDENTITY(base));
+            return r;
+        }
+
+#if 0 // These were used to look into result_of_curryN<>::type.
+        template<class Myself, class Base>
         struct apply :
             result_of<
                 BOOST_PP_CAT(op_curry, n_)(
                     typename result_of<
-                        detail::op_bind1(detail::BOOST_PP_CAT(op_bind, n_) const&, Function&)
+                        detail::op_bind1(detail::BOOST_PP_CAT(op_bind, n_) const&, Base&)
                     >::type
                 )
             >
         { };
 
-        template<class Result, class Function>
-        Result call(Function& fun) const
+        template<class Result, class Base>
+        Result call(Base base) const
         {
+            // Assume fun4 is 4ary.
             // curry3(bind1(bind3, fun4))(a1)(a2)(a3)(a4)
             // => bind1(bind3, fun4)(a1, a2, a3)(a4)
             // => bind3(fun4, a1, a2, a3)(a4)
             // => fun4(a1, a2, a3, a4)
             return BOOST_PP_CAT(curry, n_)(
-                detail::bind1(detail::BOOST_PP_CAT(bind, n_), fun)
+                detail::bind1(detail::BOOST_PP_CAT(bind, n_), base)
             );
         }
+#endif
     };
 
-    typedef function<BOOST_PP_CAT(baby_curry, n)> BOOST_PP_CAT(op_curry, n);
+    typedef function_by_value<BOOST_PP_CAT(baby_curry, n)> BOOST_PP_CAT(op_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
 
 
