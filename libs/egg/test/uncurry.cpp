@@ -14,22 +14,11 @@
 #include <pstade/minimal_test.hpp>
 
 
-struct my_identity
-{
-    template<class Signature>
-    struct result;
+#include <pstade/egg/to_string.hpp>
+#include <pstade/pod_constant.hpp>
 
-    template<class Self, class Int1>
-    struct result<Self(Int1)>
-    {
-        typedef int type;
-    };
+using pstade::egg::to_string;
 
-    int operator()(int x) const
-    {
-        return x;
-    }
-};
 
 struct my_plus2
 {
@@ -39,14 +28,21 @@ struct my_plus2
     template<class Self, class Int1, class Int2>
     struct result<Self(Int1, Int2)>
     {
-        typedef int type;
+        typedef std::string type;
     };
 
-    int operator()(int x, int y) const
+    std::string operator()(int x, int y) const
     {
-        return x + y;
+        return to_string(x) + to_string(y);
     }
 };
+
+typedef pstade::egg::result_of_curry2<my_plus2>::type op_curried_plus2;
+PSTADE_POD_CONSTANT((op_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+
+typedef pstade::egg::result_of_uncurry<op_curried_plus2>::type op_still_plus2;
+PSTADE_POD_CONSTANT((op_still_plus2), still_plus2) = PSTADE_EGG_UNCURRY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+
 
 struct my_plus3
 {
@@ -56,14 +52,15 @@ struct my_plus3
     template<class Self, class Int1, class Int2, class Int3>
     struct result<Self(Int1, Int2, Int3)>
     {
-        typedef int type;
+        typedef std::string type;
     };
 
-    int operator()(int x, int y, int z) const
+    std::string operator()(int x, int y, int z) const
     {
-        return x + y + z;
+        return to_string(x) + to_string(y) + to_string(z);
     }
 };
+
 
 struct my_plus4
 {
@@ -73,14 +70,15 @@ struct my_plus4
     template<class Self, class Int1, class Int2, class Int3, class Int4>
     struct result<Self(Int1, Int2, Int3, Int4)>
     {
-        typedef int type;
+        typedef std::string type;
     };
 
-    int operator()(int x, int y, int z, int q) const
+    std::string operator()(int x, int y, int z, int q) const
     {
-        return x + y + z + q;
+        return to_string(x) + to_string(y) + to_string(z) + to_string(q);
     }
 };
+
 
 struct my_plus5
 {
@@ -90,14 +88,20 @@ struct my_plus5
     template<class Self, class Int1, class Int2, class Int3, class Int4, class Int5>
     struct result<Self(Int1, Int2, Int3, Int4, Int5)>
     {
-        typedef int type;
+        typedef std::string type;
     };
 
-    int operator()(int x, int y, int z, int q, int r) const
+    std::string operator()(int x, int y, int z, int q, int r) const
     {
-        return x + y + z + q + r;
+        return to_string(x) + to_string(y) + to_string(z) + to_string(q) + to_string(r);
     }
 };
+
+typedef pstade::egg::result_of_curry5<my_plus5>::type op_curried_plus5;
+PSTADE_POD_CONSTANT((op_curried_plus5), curried_plus5) = PSTADE_EGG_CURRY5_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+
+typedef pstade::egg::result_of_uncurry<op_curried_plus5>::type op_still_plus5;
+PSTADE_POD_CONSTANT((op_still_plus5), still_plus5) = PSTADE_EGG_UNCURRY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
 
 
 void pstade_minimal_test()
@@ -106,27 +110,32 @@ void pstade_minimal_test()
 
     {
         BOOST_CHECK(
-            uncurry(curry1(::my_identity()))(3) == 3
+            uncurry(curry2(::my_plus2()))(5, 7) == "57"
         );
     }
     {
         BOOST_CHECK(
-            uncurry(curry2(::my_plus2()))(5, 7) == 12
+            still_plus2(5, 7) == "57"
         );
     }
     {
         BOOST_CHECK(
-            uncurry(curry3(::my_plus3()))(5, 7, 2) == 14
+            uncurry(curry3(::my_plus3()))(5, 7, 2) == "572"
         );
     }
     {
         BOOST_CHECK(
-            uncurry(curry4(::my_plus4()))(5, 7, 2, 3) == 17
+            uncurry(curry4(::my_plus4()))(5, 7, 2, 3) == "5723"
         );
     }
     {
         BOOST_CHECK(
-            uncurry(curry5(::my_plus5()))(5, 7, 2, 3, 4) == 21
+            uncurry(curry5(::my_plus5()))(5, 7, 2, 3, 4) == "57234"
+        );
+    }
+    {
+        BOOST_CHECK(
+            still_plus5(5, 7, 2, 3, 4) == "57234"
         );
     }
 }

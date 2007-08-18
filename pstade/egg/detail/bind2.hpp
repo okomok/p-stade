@@ -23,6 +23,7 @@
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <pstade/pass_by.hpp>
@@ -31,8 +32,6 @@
 #include <pstade/result_of.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../function.hpp"
-#include "./add_const_reference.hpp"
-#include "./unwrap_ref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -74,7 +73,7 @@ namespace pstade { namespace egg { namespace detail {
         struct apply :
             result_of<
                 Base const(
-                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename add_const_reference<Arg, >::type),
+                    PSTADE_PP_ENUM_PARAMS_WITH(n, Arg, const&),
                     ArgZ&
                 )
             >
@@ -100,7 +99,7 @@ namespace pstade { namespace egg { namespace detail {
                 function<
                     PSTADE_PP_CAT3(baby_bind, n, _result)<
                         typename pass_by_value<Base>::type,
-                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename unwrapped_of<A, >::type)
+                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename pass_by_value<A, >::type)
                     >
                 >
             type;
@@ -109,7 +108,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
         Result call(Base& base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
         {
-            Result r = { { base BOOST_PP_REPEAT(n, PSTADE_unwrap_ref, ~) } };
+            Result r = { { base, BOOST_PP_ENUM_PARAMS(n, a) } };
             return r;
         }
     };

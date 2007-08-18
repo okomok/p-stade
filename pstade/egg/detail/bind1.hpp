@@ -28,8 +28,6 @@
 #include "../apply_params.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../function.hpp"
-#include "./add_const_reference.hpp"
-#include "./unwrap_ref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -68,7 +66,7 @@ namespace pstade { namespace egg { namespace detail {
                 function<
                     baby_bind1_result<
                         typename pass_by_value<Base>::type,
-                        typename unwrapped_of<Arg>::type
+                        typename pass_by_value<Arg>::type
                     >
                 >
             type;
@@ -77,7 +75,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result, class Base, class Arg>
         Result call(Base& base, Arg& arg) const
         {
-            Result r = { { base, detail::unwrap_ref(arg) } };
+            Result r = { { base, arg } };
             return r;
         }
     };
@@ -98,7 +96,7 @@ namespace pstade { namespace egg { namespace detail {
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             Base const(
-                typename add_const_reference<Arg>::type,
+                Arg const&,
                 PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
             )
         >
