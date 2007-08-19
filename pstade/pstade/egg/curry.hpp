@@ -18,11 +18,11 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/bind1.hpp"
 #include "./detail/bind2.hpp"
+#include "./detail/curry_result_initializers.hpp"
 #include "./function.hpp"
 #include "./function_by_value.hpp"
 
@@ -30,32 +30,14 @@
 namespace pstade { namespace egg {
 
 
-// 2ary-
-
-    // for curry2 implementation.
+    // for curry2 implementation
     template<class Base>
     struct result_of_curry1
     {
         typedef Base type;
     };
 
-    #define PSTADE_EGG_CURRY2_RESULT_INITIALIZER(B) \
-        { { {{}}, B() } } \
-    /**/
-    #define PSTADE_EGG_CURRY3_RESULT_INITIALIZER(B) \
-        { { {{}}, PSTADE_EGG_CURRY2_RESULT_INITIALIZER(B) } } \
-    /**/
-    #define PSTADE_EGG_CURRY4_RESULT_INITIALIZER(B) \
-        { { {{}}, PSTADE_EGG_CURRY3_RESULT_INITIALIZER(B) } } \
-    /**/
-    #define PSTADE_EGG_CURRY5_RESULT_INITIALIZER(B) \
-        { { {{}}, PSTADE_EGG_CURRY4_RESULT_INITIALIZER(B) } } \
-    /**/
-
-    #define PSTADE_EGG_CURRY_RESULT_INITIALIZER_aux(N) \
-        PSTADE_PP_CAT3(PSTADE_EGG_CURRY, N, _RESULT_INITIALIZER) \
-    /**/
-
+// 2ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/curry.hpp>))
     #include BOOST_PP_ITERATE()
 
@@ -81,6 +63,7 @@ namespace pstade { namespace egg {
         >
     { };
 
+
     struct BOOST_PP_CAT(baby_curry, n)
     {
         template<class Myself, class Base>
@@ -91,7 +74,7 @@ namespace pstade { namespace egg {
         template<class Result, class Base>
         Result call(Base base) const
         {
-            Result r = PSTADE_EGG_CURRY_RESULT_INITIALIZER_aux(n)(BOOST_PP_IDENTITY(base));
+            Result r = PSTADE_EGG_CURRY_RESULT_INITIALIZER_AUX(n)(BOOST_PP_IDENTITY(base));
             return r;
         }
 
@@ -121,6 +104,7 @@ namespace pstade { namespace egg {
         }
 #endif
     };
+
 
     typedef function_by_value<BOOST_PP_CAT(baby_curry, n)> BOOST_PP_CAT(op_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
