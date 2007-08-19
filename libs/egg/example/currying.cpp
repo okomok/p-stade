@@ -10,164 +10,30 @@
 
 
 #include <pstade/minimal_test.hpp>
-
 #include <pstade/egg/curry.hpp>
+#include <pstade/egg/uncurry.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
+
+
 using namespace pstade::egg;
 
 
-//[code_second_argument
-
-bool less(int i, int j)
+//[code_curried_plus
+int plus(int x, int y)
 {
-    return i < j;
+    return x + y;
 }
 
-int plus3(int a1, int a2, int a3)
-{
-    return a1+a2+a3;
-}
-
-//]
-
-
-template<class F>
-void look_into(F f)
-{
-    BOOST_MPL_ASSERT((boost::is_same<F, int>));
-}
-
-#if 0
-pstade::egg::function<
-    pstade::egg::detail::baby_bind1_result<
-        pstade::egg::function<
-            pstade::egg::detail::baby_bind1
-        >,
-        bool (*)(int, int)
-    >
->
-template<class Base>
-struct result_of_curry2
-{
-    typedef
-        function<
-            detail::baby_bind1_result<
-                function<detail::baby_bind1>,
-                Base
-            >
-        >
-    type;
-};
-
-
-typedef result_of_curry2<bool (*)(int, int)>::type op_curried_less;
-op_curried_less const curried_less = { { {{}}, &::less } };
-
-
-template<class Base>
-struct result_of_curry3
-{
-    typedef
-        result_of_curry2<
-//        function<
-//            detail::baby_bind1_result<
- //               function<baby_bind1>,
-                function<
-                    detail::baby_bind1_result<
-                        function<detail::baby_bind2>,
-                        Base
-                    >
-  //              >
-  //          >
-        >
-    type;
-};
-
-typedef result_of_curry3<int (*)(int, int, int)>::type op_curried_plus;
-op_curried_plus const curried_plus = {
-
-template<class Base>
-{
-    typedef
-        function<
-            detail::baby_bind0_result<
-                function<
-                    detail::baby_bind1_result<
-                        function<detail::baby_bind1>,
-                        bool (*)(int, int)
-                    >
-                >
-            >
-        >
-    type;
-};
-
-
-
-#endif
-
-
-template<class Base>
-struct result_of_curry2
-{
-    typedef
-        function<
-            detail::baby_bind0_result<
-                function<
-                    detail::baby_bind1_result<
-                        function<detail::baby_bind1>,
-                        Base
-                    >
-                >
-            >
-        >
-    type;
-};
-                function<
-                    detail::baby_bind1_result<
-                        function<detail::baby_bind1>,
-                        bool (*)(int, int)
-                    >
-                > const ppp = { { {{}}, &::less } };
-
-            detail::baby_bind0_result<
-                function<
-                    detail::baby_bind1_result<
-                        function<detail::baby_bind1>,
-                        bool (*)(int, int)
-                    >
-                >
-            > const qqqq = {  { { {{}}, &::less } }     };
-
-typedef ::result_of_curry2<bool (*)(int, int)>::type op_curried_less;
-op_curried_less const curried_less = { { { { {{}}, &::less } } } };
-
-
-pstade::egg::function<
-    pstade::egg::detail::baby_bind0_result<
-        pstade::egg::function<
-            pstade::egg::detail::baby_bind1_result<
-                pstade::egg::function<pstade::egg::detail::baby_bind1>,
-                pstade::egg::function<
-                    pstade::egg::detail::baby_bind1_result<
-                        pstade::egg::function<pstade::egg::detail::baby_bind2>,
-                        int (*)(int, int, int)
-                    >
-                >
-            >
-        >
-    >
->
-
+typedef result_of_curry2<int (*)(int, int)>::type op_curried_plus;
+op_curried_plus const curried_plus = PSTADE_EGG_CURRY2_RESULT_INITIALIZER(BOOST_PP_IDENTITY(&::plus));
 
 void test()
 {
-    (void)ppp;
-    (void)qqq;
-
-    BOOST_CHECK( curry2(&::less)(3)(4) );
-    ::look_into(curry3(&::plus3));
-    //BOOST_CHECK( curried_less(3)(4) );
+    BOOST_CHECK( curry2(&::plus)(4)(9) == 13 );
+    BOOST_CHECK( curried_plus(4)(9) == plus(4, 9) );
+    BOOST_CHECK( uncurry(curry2(plus))(4, 9) == 13 );
 }
+//]
 
 
 void pstade_minimal_test()
