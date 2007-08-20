@@ -20,12 +20,12 @@
 #include <boost/preprocessor/facilities/identity.hpp>
 
 
-    #define PSTADE_EGG_PIPABLE(O, F) \
+    #define PSTADE_decl_pipable(O, F) \
         namespace BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O) { \
             using namespace boost::mpl::placeholders; \
             typedef pstade::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
         } \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE({} BOOST_PP_EMPTY)(); \
     /**/
 
 
@@ -40,7 +40,7 @@ struct my_fun_t
     }
 };
 
-PSTADE_EGG_PIPABLE(my_fun, (my_fun_t))
+PSTADE_decl_pipable(my_fun, (my_fun_t))
 
 
 struct your_fun_t
@@ -53,7 +53,7 @@ struct your_fun_t
     }
 };
 
-PSTADE_EGG_PIPABLE(your_fun, (your_fun_t))
+PSTADE_decl_pipable(your_fun, (your_fun_t))
 
 
 void pstade_minimal_test()

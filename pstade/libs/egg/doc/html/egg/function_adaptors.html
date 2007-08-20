@@ -18,27 +18,737 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="egg.function_adaptors"></a><a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a></h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.auxiliary">auxiliary</a></span></dt>
+<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.auxiliaryn">auxiliaryN</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.compose">compose</a></span></dt>
+<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.curryn">curryN</a></span></dt>
+<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.uncurry">uncurry</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.fuse">fuse</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.unfuse">unfuse</a></span></dt>
+<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.perfect">perfect</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.pipable">pipable</a></span></dt>
-<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.unary_adaptable">unary_adaptable</a></span></dt>
-<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.binary_adaptable">binary_adaptable</a></span></dt>
 </dl></div>
+<p>
+      Function Adaptor is a higher-order function that takes a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+      Object</a> and returns an adapted <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+      Object</a>. Function Adaptor provides two interfaces :A normal higher-order
+      <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>,
+      and a <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html" target="_top">Metafunction</a>
+      with the corresponding macro for <span class="emphasis"><em>static-initialization</em></span>.
+    </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_adaptors.auxiliary"></a><a href="function_adaptors.html#egg.function_adaptors.auxiliary" title="auxiliary">auxiliary</a></h3></div></div></div>
+<a name="egg.function_adaptors.auxiliaryn"></a><a href="function_adaptors.html#egg.function_adaptors.auxiliaryn" title="auxiliaryN">auxiliaryN</a></h3></div></div></div>
+<a name="egg.function_adaptors.auxiliaryn.description"></a><h5>
+<a name="id508921"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.description">Description</a>
+      </h5>
 <p>
-        Todo
+        <code class="computeroutput"><span class="identifier">auxiliary</span></code> family makes an
+        <a href="concepts.html#egg.concepts.auxiliary_interface_object" title="Auxiliary Interface Object">Auxiliary Interface
+        Object</a> from the base <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+        Object</a>.
       </p>
+<a name="egg.function_adaptors.auxiliaryn.header"></a><h5>
+<a name="id508976"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">auxiliary</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_adaptors.auxiliaryn.model_of"></a><h5>
+<a name="id509058"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></li>
+<li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
+</ul></div>
+<a name="egg.function_adaptors.auxiliaryn.notation"></a><h5>
+<a name="id509108"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_auxiliary</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco</span></code>.
+        </li></ul></div>
+<a name="egg.function_adaptors.auxiliaryn.valid_expressions"></a><h5>
+<a name="id509212"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">result_of_auxiliary</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="concepts.html#egg.concepts.auxiliary_interface_object" title="Auxiliary Interface Object">Auxiliary Interface
+                Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_AUXILIARY</span><span class="special">(</span><span class="identifier">_NMA</span><span class="special">)()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A braced initializer of <code class="computeroutput"><span class="identifier">result_of_auxiliary</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">auxiliary</span><span class="special">++</span><span class="identifier">N</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A unary <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a>
+                <a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">auxiliary</span><span class="special">++</span><span class="identifier">N</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span><span class="special">(</span><span class="identifier">x</span><span class="special">(</span><span class="number">1</span><span class="special">),...,</span><span class="identifier">x</span><span class="special">(</span><span class="identifier">N</span><span class="special">+</span><span class="number">1</span><span class="special">))</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">x</span><span class="special">(</span><span class="number">1</span><span class="special">),...,</span><span class="identifier">x</span><span class="special">(</span><span class="identifier">N</span><span class="special">+</span><span class="number">1</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_adaptors.auxiliaryn.preconditions"></a><h5>
+<a name="id509700"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">N</span><span class="special">+</span><span class="number">1</span></code> is the arity of <code class="computeroutput"><span class="identifier">_Dco</span></code>
+          such that <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="number">5</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_Dco</span> <span class="identifier">d</span>
+          <span class="special">=</span> <span class="identifier">_NMA</span><span class="special">();</span></code> is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">x</span><span class="special">(</span><span class="number">1</span><span class="special">),...,</span><span class="identifier">x</span><span class="special">(</span><span class="identifier">N</span><span class="special">+</span><span class="number">1</span><span class="special">))</span></code> is a
+          valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_adaptors.auxiliaryn.invariants"></a><h5>
+<a name="id509914"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          If <code class="computeroutput"><span class="identifier">_Dco</span></code> is <span class="emphasis"><em>POD</em></span>,
+          <code class="computeroutput"><span class="identifier">result_of_auxiliary</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <span class="emphasis"><em>POD</em></span>.
+        </li></ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            Arguments passed to <code class="computeroutput"><span class="identifier">res</span></code>
+            are not copied. Those are bound to references, then forwarded to the
+            base <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+            Object</a>.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.function_adaptors.auxiliaryn.example"></a><h5>
+<a name="id510036"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">struct</span> <span class="identifier">base_my_plus</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="keyword">int</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">y</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">+</span> <span class="identifier">y</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="keyword">typedef</span> <span class="identifier">result_of_auxiliary1</span><span class="special">&lt;</span><span class="identifier">base_my_plus</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">op_my_plus</span><span class="special">;</span> <span class="callout_bug"><a name="egg8co" href="function_adaptors.html#egg8"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+<span class="identifier">op_my_plus</span> <span class="keyword">const</span> <span class="identifier">my_plus</span> <span class="special">=</span> <span class="identifier">PSTADE_EGG_AUXILIARY</span><span class="special">({}</span> <span class="identifier">BOOST_PP_EMPTY</span><span class="special">)();</span> <span class="callout_bug"><a name="egg9co" href="function_adaptors.html#egg9"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+
+<span class="keyword">void</span> <span class="identifier">test_auxiliary</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">my_plus</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">2</span><span class="special">)</span> <span class="special">==</span> <span class="number">3</span> <span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="special">(</span> <span class="number">1</span><span class="special">|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">2</span><span class="special">)</span> <span class="special">)</span> <span class="special">==</span> <span class="number">3</span> <span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">std_plus</span><span class="special">;</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">auxiliary1</span><span class="special">(</span><span class="identifier">std_plus</span><span class="special">)(</span><span class="number">1</span><span class="special">,</span> <span class="number">2</span><span class="special">)</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="special">(</span> <span class="number">1</span><span class="special">|</span><span class="identifier">auxiliary1</span><span class="special">(</span><span class="identifier">std_plus</span><span class="special">)(</span><span class="number">2</span><span class="special">)</span> <span class="special">)</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg8"></a><a href="#egg8co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<td valign="top" align="left"><p> Notice that <code class="computeroutput"><span class="identifier">N</span></code> is not <code class="computeroutput"><span class="number">2</span></code> but <code class="computeroutput"><span class="number">1</span></code>.
+          </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg9"></a><a href="#egg9co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<td valign="top" align="left"><p> Don't forget a trailing <code class="computeroutput"><span class="special">()</span></code>,
+          a nullary macro invocation. </p></td>
+</tr>
+</table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.function_adaptors.auxiliaryn.see_also"></a><h5>
+<a name="id510771"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.compose"></a><a href="function_adaptors.html#egg.function_adaptors.compose" title="compose">compose</a></h3></div></div></div>
+<a name="egg.function_adaptors.compose.description"></a><h5>
+<a name="id510820"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.description">Description</a>
+      </h5>
 <p>
-        Todo
+        <code class="computeroutput"><span class="identifier">compose</span></code> is a Function Adaptor
+        for function composition.
       </p>
+<a name="egg.function_adaptors.compose.header"></a><h5>
+<a name="id510859"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">compose</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_adaptors.compose.model_of"></a><h5>
+<a name="id510939"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></li>
+<li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
+</ul></div>
+<a name="egg.function_adaptors.compose.notation"></a><h5>
+<a name="id510989"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_compose</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco1</span><span class="special">),</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco2</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco1</span></code>
+          and <code class="computeroutput"><span class="identifier">_dco2</span></code>.
+        </li></ul></div>
+<a name="egg.function_adaptors.compose.valid_expressions"></a><h5>
+<a name="id511114"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">result_of_compose</span><span class="special">&lt;</span><span class="identifier">_Dco1</span><span class="special">,</span> <span class="identifier">_Dco2</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_COMPOSE</span><span class="special">(</span><span class="identifier">_NMA1</span><span class="special">,</span> <span class="identifier">_NMA2</span><span class="special">)()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A braced initializer of <code class="computeroutput"><span class="identifier">result_of_compose</span><span class="special">&lt;</span><span class="identifier">_Dco1</span><span class="special">,</span> <span class="identifier">_Dco2</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">compose</span><span class="special">(</span><span class="identifier">_dco1</span><span class="special">,</span>
+                <span class="identifier">_dco2</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_dco1</span><span class="special">(</span><span class="identifier">_dco2</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_adaptors.compose.preconditions"></a><h5>
+<a name="id511517"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="number">1</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="number">5</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_Dco1</span> <span class="identifier">d1</span>
+          <span class="special">=</span> <span class="identifier">_NMA1</span><span class="special">();</span> <span class="identifier">_Dco2</span> <span class="identifier">d2</span> <span class="special">=</span> <span class="identifier">_NMA2</span><span class="special">();</span></code>
+          is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_dco1</span><span class="special">(</span><span class="identifier">_dco2</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">))</span></code>
+          is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_adaptors.compose.invariants"></a><h5>
+<a name="id511714"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          If <code class="computeroutput"><span class="identifier">_Dco1</span></code> and <code class="computeroutput"><span class="identifier">_Dco2</span></code> is <span class="emphasis"><em>POD</em></span>, <code class="computeroutput"><span class="identifier">result_of_compose</span><span class="special">&lt;</span><span class="identifier">_Dco1</span><span class="special">,</span> <span class="identifier">_Dco2</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <span class="emphasis"><em>POD</em></span>.
+        </li></ul></div>
+<a name="egg.function_adaptors.compose.see_also"></a><h5>
+<a name="id511816"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.compose.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_adaptors.curryn"></a><a href="function_adaptors.html#egg.function_adaptors.curryn" title="curryN">curryN</a></h3></div></div></div>
+<a name="egg.function_adaptors.curryn.description"></a><h5>
+<a name="id511864"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">curry</span></code> family turns a base
+        <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+        into curried one.
+      </p>
+<a name="egg.function_adaptors.curryn.header"></a><h5>
+<a name="id511909"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">curry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_adaptors.curryn.model_of"></a><h5>
+<a name="id511989"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></li>
+<li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
+</ul></div>
+<a name="egg.function_adaptors.curryn.notation"></a><h5>
+<a name="id512039"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_curry</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco</span></code>.
+        </li></ul></div>
+<a name="egg.function_adaptors.curryn.valid_expressions"></a><h5>
+<a name="id512143"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">result_of_curry</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_CURRY</span><span class="special">++</span><span class="identifier">N</span><span class="special">(</span><span class="identifier">_NMA</span><span class="special">)()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A braced initializer of <code class="computeroutput"><span class="identifier">result_of_curry</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">curry</span><span class="special">++</span><span class="identifier">N</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">curry</span><span class="special">++</span><span class="identifier">N</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span><span class="special">(</span><span class="identifier">x1</span><span class="special">)...(</span><span class="identifier">xN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_adaptors.curryn.preconditions"></a><h5>
+<a name="id512582"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">N</span></code> is the arity of <code class="computeroutput"><span class="identifier">_Dco</span></code> such that <code class="computeroutput"><span class="number">2</span>
+          <span class="special">&lt;=</span> <span class="identifier">N</span>
+          <span class="special">&amp;&amp;</span> <span class="identifier">N</span>
+          <span class="special">&lt;=</span> <span class="number">5</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_Dco</span> <span class="identifier">d</span>
+          <span class="special">=</span> <span class="identifier">_NMA</span><span class="special">();</span></code> is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is
+          a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_adaptors.curryn.invariants"></a><h5>
+<a name="id512757"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          If <code class="computeroutput"><span class="identifier">_Dco</span></code> is <span class="emphasis"><em>POD</em></span>,
+          <code class="computeroutput"><span class="identifier">result_of_curry</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <span class="emphasis"><em>POD</em></span>.
+        </li></ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            Arguments passed to <code class="computeroutput"><span class="identifier">res</span></code>
+            are copied unless <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">ref</span></code>
+            is used.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.function_adaptors.curryn.example"></a><h5>
+<a name="id512890"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">typedef</span> <span class="identifier">result_of_curry2</span><span class="special">&lt;</span><span class="identifier">op_my_plus</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">op_curried_plus</span><span class="special">;</span>
+<span class="identifier">op_curried_plus</span> <span class="keyword">const</span> <span class="identifier">curried_plus</span> <span class="special">=</span> <span class="identifier">PSTADE_EGG_CURRY2</span><span class="special">(</span><span class="identifier">PSTADE_EGG_AUXILIARY</span><span class="special">({}</span> <span class="identifier">BOOST_PP_EMPTY</span><span class="special">))();</span>
+
+<span class="keyword">void</span> <span class="identifier">test_curry</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">curried_plus</span><span class="special">(</span><span class="number">4</span><span class="special">)(</span><span class="number">9</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">my_plus</span><span class="special">(</span><span class="number">4</span><span class="special">,</span> <span class="number">9</span><span class="special">)</span> <span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">curry2</span><span class="special">(</span><span class="identifier">my_plus</span><span class="special">)(</span><span class="number">4</span><span class="special">)(</span><span class="number">9</span><span class="special">)</span> <span class="special">==</span> <span class="number">13</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.function_adaptors.curryn.see_also"></a><h5>
+<a name="id513222"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.curryn.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://en.wikipedia.org/wiki/Currying" target="_top">Curring</a></li>
+<li><a href="function_adaptors.html#egg.function_adaptors.uncurry" title="uncurry">uncurry</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_adaptors.uncurry"></a><a href="function_adaptors.html#egg.function_adaptors.uncurry" title="uncurry">uncurry</a></h3></div></div></div>
+<a name="egg.function_adaptors.uncurry.description"></a><h5>
+<a name="id513287"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">uncurry</span></code> reverses <code class="computeroutput"><span class="identifier">curry</span></code>.
+      </p>
+<a name="egg.function_adaptors.uncurry.header"></a><h5>
+<a name="id513335"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">uncurry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_adaptors.uncurry.model_of"></a><h5>
+<a name="id513416"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></li>
+<li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
+</ul></div>
+<a name="egg.function_adaptors.uncurry.notation"></a><h5>
+<a name="id513464"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_uncurry</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco</span></code>.
+        </li></ul></div>
+<a name="egg.function_adaptors.uncurry.valid_expressions"></a><h5>
+<a name="id513559"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">result_of_uncurry</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_UNCURRY</span><span class="special">(</span><span class="identifier">_NMA</span><span class="special">)()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A braced initializer of <code class="computeroutput"><span class="identifier">result_of_uncurry</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">uncurry</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">x1</span><span class="special">)...(</span><span class="identifier">xN</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_adaptors.uncurry.preconditions"></a><h5>
+<a name="id513907"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="number">2</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="number">5</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_Dco</span> <span class="identifier">d</span>
+          <span class="special">=</span> <span class="identifier">_NMA</span><span class="special">();</span></code> is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">x1</span><span class="special">)...(</span><span class="identifier">xN</span><span class="special">)</span></code> is
+          a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_adaptors.uncurry.invariants"></a><h5>
+<a name="id514062"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          If <code class="computeroutput"><span class="identifier">_Dco</span></code> is <span class="emphasis"><em>POD</em></span>,
+          <code class="computeroutput"><span class="identifier">result_of_uncurry</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <span class="emphasis"><em>POD</em></span>.
+        </li></ul></div>
+<a name="egg.function_adaptors.uncurry.see_also"></a><h5>
+<a name="id514144"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.uncurry.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://en.wikipedia.org/wiki/Currying" target="_top">Curring</a></li>
+<li><a href="function_adaptors.html#egg.function_adaptors.curryn" title="curryN">curryN</a></li>
+</ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -56,21 +766,14 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_adaptors.perfect"></a><a href="function_adaptors.html#egg.function_adaptors.perfect" title="perfect">perfect</a></h3></div></div></div>
+<p>
+        Todo
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.pipable"></a><a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable">pipable</a></h3></div></div></div>
-<p>
-        Todo
-      </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_adaptors.unary_adaptable"></a><a href="function_adaptors.html#egg.function_adaptors.unary_adaptable" title="unary_adaptable">unary_adaptable</a></h3></div></div></div>
-<p>
-        Todo
-      </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_adaptors.binary_adaptable"></a><a href="function_adaptors.html#egg.function_adaptors.binary_adaptable" title="binary_adaptable">binary_adaptable</a></h3></div></div></div>
 <p>
         Todo
       </p>

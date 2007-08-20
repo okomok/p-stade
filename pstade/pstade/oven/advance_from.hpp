@@ -85,7 +85,7 @@ namespace advance_from_detail {
 
 
 typedef PSTADE_EGG_ADAPT((advance_from_detail::base<boost::mpl::_>)) op_advance_from;
-PSTADE_POD_CONSTANT((op_advance_from), advance_from) = PSTADE_EGG_ADAPT_INITIALIZER();
+PSTADE_POD_CONSTANT((op_advance_from), advance_from) = PSTADE_EGG_ADAPT_TYPE();
 
 
 } } // namespace pstade::oven

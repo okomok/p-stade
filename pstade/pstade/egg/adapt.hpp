@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_ADAPT_INITIALIZER() \
+    #define PSTADE_EGG_ADAPT_TYPE() \
         {{}} \
     /**/
 

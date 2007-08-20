@@ -25,7 +25,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/function.hpp>
@@ -71,7 +70,7 @@ namespace pstade { namespace gravy {
 
 
     typedef egg::result_of_auxiliary0<size_initialize_detail::op>::type op_size_initialize;
-    PSTADE_POD_CONSTANT((op_size_initialize), size_initialize) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_size_initialize), size_initialize) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::gravy

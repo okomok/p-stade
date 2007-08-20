@@ -11,48 +11,49 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/preprocessor.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 
 
-#define PSTADE_EGG_CURRY_RESULT_INITIALIZER_AUX(N) \
-    PSTADE_PP_CAT3(PSTADE_EGG_CURRY, N, _RESULT_INITIALIZER) \
+#define PSTADE_EGG_CURRY_AUX(N) \
+    BOOST_PP_CAT(PSTADE_EGG_CURRY, N) \
 /**/
 
 
-#define PSTADE_EGG_CURRY2_RESULT_INITIALIZER(B) \
-    { { {{}}, B() } } \
+#define PSTADE_EGG_CURRY2(B) \
+    { { {{}}, B() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY3_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY2_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY3(B) \
+    { { {{}}, PSTADE_EGG_CURRY2(B)() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY4_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY3_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY4(B) \
+    { { {{}}, PSTADE_EGG_CURRY3(B)() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY5_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY4_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY5(B) \
+    { { {{}}, PSTADE_EGG_CURRY4(B)() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY6_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY5_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY6(B) \
+    { { {{}}, PSTADE_EGG_CURRY5(B)() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY7_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY6_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY7(B) \
+    { { {{}}, PSTADE_EGG_CURRY6(B)() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY8_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY7_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY8(B) \
+    { { {{}}, PSTADE_EGG_CURRY7(B)() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY9_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY8_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY9(B) \
+    { { {{}}, PSTADE_EGG_CURRY8(B)() } } BOOST_PP_EMPTY \
 /**/
 
-#define PSTADE_EGG_CURRY10_RESULT_INITIALIZER(B) \
-    { { {{}}, PSTADE_EGG_CURRY9_RESULT_INITIALIZER(B) } } \
+#define PSTADE_EGG_CURRY10(B) \
+    { { {{}}, PSTADE_EGG_CURRY9(B)() } } BOOST_PP_EMPTY \
 /**/
 
 

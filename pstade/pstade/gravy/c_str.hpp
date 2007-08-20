@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/apple/basic_string_fwd.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/pod_constant.hpp>
@@ -69,7 +68,7 @@ namespace pstade { namespace gravy {
 
 
     typedef egg::result_of_auxiliary0<c_str_detail::op>::type op_c_str;
-    PSTADE_POD_CONSTANT((op_c_str), c_str) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+    PSTADE_POD_CONSTANT((op_c_str), c_str) = PSTADE_EGG_AUXILIARY({} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::gravy

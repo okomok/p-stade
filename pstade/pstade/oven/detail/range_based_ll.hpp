@@ -12,7 +12,6 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/egg/adapt_sig.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./range_based1.hpp"
@@ -43,7 +42,7 @@ struct range_based2_sig_fun :
     BOOST_PP_CAT(op_, Name); \
     \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
-        = PSTADE_OVEN_RANGE_BASED1_RESULT_INITIALIZER(PSTADE_OVEN_RANGE_BASED_LL_init);
+        = PSTADE_OVEN_RANGE_BASED1(PSTADE_OVEN_RANGE_BASED_LL_init)(); \
 /**/
 
 #define PSTADE_OVEN_RANGE_BASED2_LL(R, _, Name) \
@@ -52,12 +51,12 @@ struct range_based2_sig_fun :
     BOOST_PP_CAT(op_, Name); \
     \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
-        = PSTADE_OVEN_RANGE_BASED2_RESULT_INITIALIZER(PSTADE_OVEN_RANGE_BASED_LL_init);
+        = PSTADE_OVEN_RANGE_BASED2(PSTADE_OVEN_RANGE_BASED_LL_init)(); \
 /**/
 
     
     #define PSTADE_OVEN_RANGE_BASED_LL_init() \
-        PSTADE_EGG_ADAPT_SIG_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})) \
+        PSTADE_EGG_ADAPT_SIG({} BOOST_PP_EMPTY)() \
     /**/
 
 

@@ -71,7 +71,7 @@ namespace iteration_detail {
 
 
 typedef PSTADE_EGG_ADAPT((iteration_detail::base<boost::mpl::_, boost::mpl::_>)) op_iteration;
-PSTADE_POD_CONSTANT((op_iteration), iteration) = PSTADE_EGG_ADAPT_INITIALIZER();
+PSTADE_POD_CONSTANT((op_iteration), iteration) = PSTADE_EGG_ADAPT_TYPE();
 
 
 } } // namespace pstade::oven

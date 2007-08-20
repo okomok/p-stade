@@ -1,0 +1,84 @@
+[section Concepts]
+
+
+
+
+[section Operatable Object]
+
+[heading Description]
+An __OPERATABLE_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which can specify the type of itself by using prefix `op_`.
+
+[heading Refinement of]
+* __DEFERRED_CALLABLE_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
+for any __OPERATABLE_OBJECT__ `f` the following must be met:
+
+* `op_++f` is `_typeof(f)`.
+
+[heading Models]
+* ...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section Auxiliary Interface Object]
+
+[heading Description]
+An __AUXILIARY_INTERFACE_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which supports a pipe-like syntax
+used as if it were a /member function/.
+
+[heading Refinement of]
+* __DEFERRED_CALLABLE_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
+for any __AUXILIARY_INTERFACE_OBJECT__ `i` the following must be met:
+
+* `x|i(x1,..,xN)` is a valid expression if and only if `i(x, x1,..,xN)` is a valid expression.
+* `x|i(x1,..xN)` and `i(x, x1,..,xN)` have the same effects.
+* If `N` is `0`, `x|i()` and `x|i` are valid expressions which have the same effects.
+
+[heading Models]
+* ...
+
+[heading See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf Auxiliary class interfaces]
+
+[endsect]
+
+
+
+
+[section Bindable Object]
+
+[heading Description]
+A __BINDABLE_OBJECT__ is a __FUNCTION_OBJECT__ which can be passed to `boost::lambda::bind`.
+
+[heading Refinement of]
+* __FUNCTION_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in __FUNCTION_OBJECT__,
+for any __BINDABLE_OBJECT__ `b` the following must be met:
+
+* There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,...,boost::lambda::_++N)` is a valid expression.
+
+[heading Models]
+* ...
+
+[heading See also]
+* __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
+[endsect]

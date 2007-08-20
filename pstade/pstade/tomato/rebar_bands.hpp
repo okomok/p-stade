@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/gravy/window_ptr.hpp>
 #include <pstade/gravy/window_ref.hpp>
@@ -64,7 +63,7 @@ namespace pstade { namespace tomato {
 
     PSTADE_POD_CONSTANT((op_make_rebar_bands), make_rebar_bands) = {};
     PSTADE_POD_CONSTANT((egg::result_of_pipable<op_make_rebar_bands>::type), rebar_bands)
-        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+        = PSTADE_EGG_PIPABLE({} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::tomato

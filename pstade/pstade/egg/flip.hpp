@@ -13,6 +13,7 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./function.hpp"
@@ -72,8 +73,8 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_FLIP_RESULT_INITIALIZER(B) \
-        { { B() } } \
+    #define PSTADE_EGG_FLIP(B) \
+        { { B() } } BOOST_PP_EMPTY \
     /**/
 
 
@@ -85,7 +86,7 @@ namespace pstade { namespace egg {
     op_flip;
 
 
-    PSTADE_POD_CONSTANT((op_flip), flip) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_flip), flip) = PSTADE_EGG_GENERATOR_TYPE();
 
 
 } } // namespace pstade::egg

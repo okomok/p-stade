@@ -39,7 +39,7 @@ void pstade_minimal_test()
         ::op_foo foo;
 
         typedef pstade::result_of<op_indirected(::op_foo *)>::type ip_t;
-        ip_t ip = PSTADE_EGG_INDIRECTED_RESULT_INITIALIZER(BOOST_PP_IDENTITY(&foo));
+        ip_t ip = PSTADE_EGG_INDIRECTED(BOOST_PP_IDENTITY(&foo))();
 
         PSTADE_TEST_IS_RESULT_OF((int), ip_t(int, int))
 

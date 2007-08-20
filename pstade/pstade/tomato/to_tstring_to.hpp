@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
@@ -65,7 +64,7 @@ namespace pstade { namespace tomato {
 
 
     PSTADE_POD_CONSTANT((egg::result_of_auxiliary0<to_tstring_detail::op>::type), to_tstring)
-        = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+        = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::tomato

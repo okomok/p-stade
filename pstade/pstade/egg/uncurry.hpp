@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/baby_uncurry_result.hpp"
 #include "./function.hpp"
@@ -28,8 +29,8 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_UNCURRY_RESULT_INITIALIZER(B) \
-        { { B() } } \
+    #define PSTADE_EGG_UNCURRY(B) \
+        { { B() } } BOOST_PP_EMPTY \
     /**/
 
 

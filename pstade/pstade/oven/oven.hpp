@@ -91,7 +91,7 @@
 #include "./outdirected.hpp"
 #include "./outplaced.hpp"
 // #include "./parallel_copy.hpp"
-// #include "./parallel_for.hpp"
+// #include "./parallel_equals.hpp"
 // #include "./parallel_for_each.hpp"
 // #include "./parallel_reduce.hpp"
 // #include "./parallel_sort.hpp"

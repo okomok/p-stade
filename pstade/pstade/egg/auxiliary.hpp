@@ -21,6 +21,7 @@
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -100,8 +101,8 @@ namespace pstade { namespace egg {
         type; // = { { UnaryBase } };
     };
 
-    #define PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(B) \
-        { { B() } } \
+    #define PSTADE_EGG_AUXILIARY(B) \
+        { { B() } } BOOST_PP_EMPTY \
     /**/
 
     typedef
@@ -111,7 +112,7 @@ namespace pstade { namespace egg {
         >::type
     op_auxiliary0;
 
-    PSTADE_POD_CONSTANT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR_TYPE();
 
 
     // 1ary-
@@ -187,7 +188,7 @@ namespace pstade { namespace egg {
         >::type
     BOOST_PP_CAT(op_auxiliary, n);
 
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR_TYPE();
 
 
 #undef n

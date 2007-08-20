@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -57,7 +56,7 @@ namespace distance_detail {
 typedef egg::result_of_auxiliary0<distance_detail::op>::type op_distance;
 
 PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
-    PSTADE_POD_CONSTANT((op_distance), distance) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_distance), distance) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 }
 
 

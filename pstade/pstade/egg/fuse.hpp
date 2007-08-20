@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/baby_fuse_result.hpp"
 #include "./function.hpp"
@@ -30,8 +31,8 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_FUSE_RESULT_INITIALIZER(B) \
-        { { B() } } \
+    #define PSTADE_EGG_FUSE(B) \
+        { { B() } } BOOST_PP_EMPTY \
     /**/
 
 
@@ -43,7 +44,7 @@ namespace pstade { namespace egg {
     op_fuse;
 
 
-    PSTADE_POD_CONSTANT((op_fuse), fuse) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_fuse), fuse) = PSTADE_EGG_GENERATOR_TYPE();
 
 
 } } // namespace pstade::egg

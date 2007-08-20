@@ -13,6 +13,7 @@
 
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -90,8 +91,8 @@ struct result_of_range_based2
 };
 
 
-#define PSTADE_OVEN_RANGE_BASED2_RESULT_INITIALIZER(B) \
-    { { B() } } \
+#define PSTADE_OVEN_RANGE_BASED2(B) \
+    { { B() } } BOOST_PP_EMPTY \
 /**/
 
 
@@ -102,7 +103,7 @@ typedef
     >::type
 op_range_based2;
 
-PSTADE_POD_CONSTANT((op_range_based2), range_based2) = PSTADE_EGG_GENERATOR_INITIALIZER();
+PSTADE_POD_CONSTANT((op_range_based2), range_based2) = PSTADE_EGG_GENERATOR_TYPE();
 
 
 } } } // namespace pstade::oven::detail

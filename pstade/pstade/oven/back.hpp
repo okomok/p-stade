@@ -13,7 +13,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/next_prior.hpp> // prior
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/auxiliary.hpp>
@@ -57,10 +56,10 @@ namespace back_detail {
 
 
 typedef egg::result_of_auxiliary0<back_detail::op>::type op_back;
-PSTADE_POD_CONSTANT((op_back), back) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+PSTADE_POD_CONSTANT((op_back), back) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 typedef egg::result_of_auxiliary0<back_detail::value_op>::type op_value_back;
-PSTADE_POD_CONSTANT((op_value_back), value_back) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+PSTADE_POD_CONSTANT((op_value_back), value_back) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::oven

@@ -38,7 +38,7 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_GENERATOR_INITIALIZER() \
+    #define PSTADE_EGG_GENERATOR_TYPE() \
         {{}} \
     /**/
 

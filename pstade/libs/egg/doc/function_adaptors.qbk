@@ -1,11 +1,74 @@
 [section Function Adaptors]
 
+[import ../example/function_adaptors.cpp]
+
+Function Adaptor is a higher-order function that takes a __FUNCTION_OBJECT__
+and returns an adapted __FUNCTION_OBJECT__.
+Function Adaptor provides two interfaces :A normal higher-order __FUNCTION_OBJECT__, and
+a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 
 
-[section auxiliary]
 
-Todo
+[section auxiliaryN]
+
+[heading Description]
+`auxiliary` family makes an __AUXILIARY_INTERFACE_OBJECT__ from the base __FUNCTION_OBJECT__.
+
+[heading Header]
+* `<pstade/egg/auxiliary.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* `res` is an object of `result_of_auxiliary++N<_typeof(_dco)>::type` initialized by `_dco`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_auxiliary++N<_Dco>::type`]
+        [A __BINDABLE__ __AUXILIARY_INTERFACE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_AUXILIARY(_NMA)()`]
+        [A braced initializer of `result_of_auxiliary++N<_Dco>::type`]
+    ]
+    [
+        [`auxiliary++N`]
+        [A unary __BINDABLE__ __OPERATABLE_OBJECT__]
+    ]
+    [
+        [`auxiliary++N(_dco)`]
+        [`res`]
+    ]
+    [
+        [`res(x(1),...,x(N+1))`]
+        [`_dco(x(1),...,x(N+1))`]
+    ]
+]
+
+[heading Preconditions]
+* `N+1` is the arity of `_Dco` such that `0 <= N && N <= 5`.
+* `_Dco d = _NMA();` is a valid expression.
+* `_dco(x(1),...,x(N+1))` is a valid expression.
+
+[heading Invariants]
+* If `_Dco` is /POD/, `result_of_auxiliary++N<_Dco>::type` is /POD/.
+
+[note Arguments passed to `res` are not copied.
+      Those are bound to references, then forwarded to the base __FUNCTION_OBJECT__.]
+
+[heading Example]
+[code_auxiliary_example]
+
+[heading See also]
+* ...
 
 [endsect]
 
@@ -14,16 +77,118 @@ Todo
 
 [section compose]
 
-Todo
+[heading Description]
+`compose` is a Function Adaptor for function composition.
+
+[heading Header]
+* `<pstade/egg/compose.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* `res` is an object of `result_of_compose<_typeof(_dco1),_typeof(_dco2)>::type`  initialized by `_dco1` and `_dco2`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_compose<_Dco1, _Dco2>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_COMPOSE(_NMA1, _NMA2)()`]
+        [A braced initializer of `result_of_compose<_Dco1, _Dco2>::type`]
+    ]
+    [
+        [`compose(_dco1, _dco2)`]
+        [`res`]
+    ]
+    [
+        [`res(x1,...,xN)`]
+        [`_dco1(_dco2(x1,...,xN))`]
+    ]
+]
+
+[heading Preconditions]
+* `1 <= N && N <= 5`.
+* `_Dco1 d1 = _NMA1(); _Dco2 d2 = _NMA2();` is a valid expression.
+* `_dco1(_dco2(x1,...,xN))` is a valid expression.
+
+[heading Invariants]
+* If `_Dco1` and `_Dco2` is /POD/, `result_of_compose<_Dco1, _Dco2>::type` is /POD/.
+
+[heading See also]
+* ...
 
 [endsect]
 
 
 
 
-[section curry]
+[section curryN]
 
-Todo
+[heading Description]
+`curry` family turns a base __FUNCTION_OBJECT__ into curried one.
+
+[heading Header]
+* `<pstade/egg/curry.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* `res` is an object of `result_of_curry++N<_typeof(_dco)>::type` initialized by `_dco`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_curry++N<_Dco>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_CURRY++N(_NMA)()`]
+        [A braced initializer of `result_of_curry++N<_Dco>::type`]
+    ]
+    [
+        [`curry++N`]
+        [A __BINDABLE__ __OPERATABLE_OBJECT__]
+    ]
+    [
+        [`curry++N(_dco)`]
+        [`res`]
+    ]
+    [
+        [`res(x1)...(xN)`]
+        [`_dco(x1,...,xN))`]
+    ]
+]
+
+[heading Preconditions]
+* `N` is the arity of `_Dco` such that `2 <= N && N <= 5`.
+* `_Dco d = _NMA();` is a valid expression.
+* `_dco(x1,...,xN)` is a valid expression.
+
+[heading Invariants]
+* If `_Dco` is /POD/, `result_of_curry++N<_Dco>::type` is /POD/.
+
+[note Arguments passed to `res` are copied unless `boost::ref` is used.]
+
+[heading Example]
+[code_curry_example]
+
+[heading See also]
+* [@http://en.wikipedia.org/wiki/Currying Curring]
+* __EGG_UNCURRY__
 
 [endsect]
 
@@ -32,7 +197,54 @@ Todo
 
 [section uncurry]
 
-Todo
+[heading Description]
+`uncurry` reverses `curry`.
+
+[heading Header]
+* `<pstade/egg/uncurry.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* `res` is an object of `result_of_uncurry<_typeof(_dco)>::type` initialized by `_dco`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_uncurry<_Dco>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_UNCURRY(_NMA)()`]
+        [A braced initializer of `result_of_uncurry<_Dco>::type`]
+    ]
+    [
+        [`uncurry(_dco)`]
+        [`res`]
+    ]
+    [
+        [`res(x1,...,xN)`]
+        [`_dco(x1)...(xN)`]
+    ]
+]
+
+[heading Preconditions]
+* `2 <= N && N <= 5`.
+* `_Dco d = _NMA();` is a valid expression.
+* `_dco(x1)...(xN)` is a valid expression.
+
+[heading Invariants]
+* If `_Dco` is /POD/, `result_of_uncurry<_Dco>::type` is /POD/.
+
+[heading See also]
+* [@http://en.wikipedia.org/wiki/Currying Curring]
+* __EGG_CURRY__
 
 [endsect]
 
@@ -57,25 +269,16 @@ Todo
 
 
 
+[section perfect]
+
+Todo
+
+[endsect]
+
+
+
+
 [section pipable]
-
-Todo
-
-[endsect]
-
-
-
-
-[section unary_adaptable]
-
-Todo
-
-[endsect]
-
-
-
-
-[section binary_adaptable]
 
 Todo
 

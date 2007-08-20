@@ -28,7 +28,7 @@
             typedef ::pstade::result_of< ::pstade::egg::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_auxiliary_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Object)), Object) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Object)), Object) = PSTADE_EGG_AUXILIARY({} BOOST_PP_EMPTY)(); \
     /**/
 
 

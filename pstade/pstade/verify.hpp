@@ -12,7 +12,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pod_constant.hpp>
@@ -55,7 +54,7 @@ namespace pstade {
     PSTADE_POD_CONSTANT((op_verify), verify) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<op_verify>::type), verified)
-        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+        = PSTADE_EGG_PIPABLE({{}} BOOST_PP_EMPTY)();
 
 
 } // namespace pstade

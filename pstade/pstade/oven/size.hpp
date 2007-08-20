@@ -17,7 +17,6 @@
 // For some historical reason, 'boost::size' result type is wrong.
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -61,7 +60,7 @@ namespace size_detail {
 
 typedef egg::result_of_auxiliary0<size_detail::op>::type op_size;
 PSTADE_ADL_BARRIER(size) { // for 'boost'
-    PSTADE_POD_CONSTANT((op_size), size) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_size), size) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 }
 
 

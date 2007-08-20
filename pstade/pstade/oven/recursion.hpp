@@ -47,7 +47,7 @@ namespace recursion_detail {
 
 
 typedef PSTADE_EGG_ADAPT((recursion_detail::base<boost::mpl::_>)) op_recursion;
-PSTADE_POD_CONSTANT((op_recursion), recursion) = PSTADE_EGG_ADAPT_INITIALIZER();
+PSTADE_POD_CONSTANT((op_recursion), recursion) = PSTADE_EGG_ADAPT_TYPE();
 
 
 } } // namespace pstade::oven

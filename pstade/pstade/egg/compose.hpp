@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./function.hpp"
@@ -68,10 +68,10 @@ namespace pstade { namespace egg {
     { }; // ::type = { { { { F, G } }, {} } };
 
 
-    // Unfortunately, "{ { F(), G() } }, {}" can't be passed
-    // to PSTADE_PP_UNFUSE_RESULT_INITIALIZER because of commas.
-    #define PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(F, G) \
-        { { { { F(), G() } }, {} } } \
+    // Unfortunately, "{ { F(), G() } }, {}" can't be
+    // passed to PSTADE_PP_UNFUSE without "lambda macro".
+    #define PSTADE_EGG_COMPOSE(F, G) \
+        { { { { F(), G() } }, {} } } BOOST_PP_EMPTY \
     /**/
 
 
@@ -88,7 +88,7 @@ namespace pstade { namespace egg {
             template<class Result, class F, class G>
             Result call(F f, G g) const
             {
-                Result r = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY(f), BOOST_PP_IDENTITY(g));
+                Result r = PSTADE_EGG_COMPOSE(f BOOST_PP_EMPTY, g BOOST_PP_EMPTY)();
                 return r;
             }
         };

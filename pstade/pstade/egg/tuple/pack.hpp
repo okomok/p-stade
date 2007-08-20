@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
     op_tuple_pack;
 
 
-    PSTADE_POD_CONSTANT((op_tuple_pack), tuple_pack) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_tuple_pack), tuple_pack) = PSTADE_EGG_GENERATOR_TYPE();
 
 
 } } // namespace pstade::egg

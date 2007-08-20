@@ -3,7 +3,87 @@
 
 [section Introduction]
 
-Todo
+Unlike other modern languages, it is very difficult to make a function in C++.
+Egg is a small header-only framework of making functions, and offers higher-order functions.
+
+[endsect]
+
+
+
+
+[section Requirements]
+
+* __BOOST__ Version 1.34.0 or later (build not required)
+* __PSTADE_RELEASE__ Version 1.03.5 or later (build not required)
+
+[endsect]
+
+
+
+
+[section Portability]
+
+Egg is known to work on the following platforms:
+
+* Microsoft Visual C++ .NET Version 7.1 SP1
+* Microsoft Visual C++ 2005 Express Edition SP1
+* GCC 3.4.4
+* GCC 4.1.2
+
+[endsect]
+
+
+
+
+[section Limitation]
+
+* The maximum arity of any __FUNCTION_OBJECT__ which Egg offers is `5`.
+
+* Any __FUNCTION_OBJECT__ which Egg offers is not `volatile`-aware, meaning that you can't
+  make it `volatile`-qualified nor pass any `volatile` object to it.
+
+* Any __FUNCTION_OBJECT__ which Egg offers doesn't guarantee to decay the argument passed, meaning that
+  you have to add `&` to turn a function name into /function pointer/.
+
+[endsect]
+
+
+
+
+[section Notation]
+
+This document uses the following notation.
+
+[table
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_decltype`]
+        [An imaginary operator which is the same as `decltype` of C++0x.]
+    ]
+    [
+        [`_typeof(a)`]
+        [`boost::remove_cv<boost::remove_reference<_decltype(a)>::type>::type`]
+    ]
+    [
+        [`_dco`]
+        [A __DEFERRED_CALLABLE_OBJECT__]
+    ]
+    [
+        [`_Dco`]
+        [A __DEFERRED_CALLABLE_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
+    ]
+    [
+        [`_NMA`]
+        [A macro argument such that `_NMA()` is a valid expression.]
+    ]
+    [
+        [`++`]
+        [An imaginary operator to concatenate tokens.]
+    ]
+]
 
 [endsect]
 

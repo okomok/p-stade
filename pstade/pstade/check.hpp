@@ -22,7 +22,6 @@
 #include <sstream> // ostringstream
 #include <string>
 #include <boost/current_function.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
@@ -115,7 +114,7 @@ namespace pstade {
     PSTADE_POD_CONSTANT((op_check), check) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<op_check>::type), checked)
-        = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+        = PSTADE_EGG_PIPABLE({{}} BOOST_PP_EMPTY)();
 
 
     template< class StringOutputable > inline

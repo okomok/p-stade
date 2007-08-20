@@ -18,7 +18,6 @@
 
 
 #include <cstddef> // size_t
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/function.hpp>
@@ -63,7 +62,7 @@ namespace as_literal_detail {
 
 
 typedef egg::result_of_auxiliary0<as_literal_detail::op>::type op_as_literal;
-PSTADE_POD_CONSTANT((op_as_literal), as_literal) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+PSTADE_POD_CONSTANT((op_as_literal), as_literal) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::oven

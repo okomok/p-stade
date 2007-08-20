@@ -28,7 +28,7 @@ namespace pstade { namespace egg {
 
 
     typedef result_of_auxiliary0<integralize_detail::op>::type op_integralize;
-    PSTADE_POD_CONSTANT((op_integralize), integralize) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
+    PSTADE_POD_CONSTANT((op_integralize), integralize) = PSTADE_EGG_AUXILIARY(PSTADE_EGG_AUTOMATIC_TYPE)();
 
 
 } } // namespace pstade::egg
