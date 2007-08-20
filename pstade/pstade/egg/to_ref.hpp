@@ -63,8 +63,8 @@ namespace pstade { namespace egg {
 
     typedef result_of_auxiliary0<to_ref_detail::op>::type  op_to_ref;
     typedef result_of_auxiliary0<to_ref_detail::cop>::type op_to_cref;
-    PSTADE_POD_CONSTANT((op_to_ref), to_ref)   = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
-    PSTADE_POD_CONSTANT((op_to_cref), to_cref) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_to_ref), to_ref)   = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((op_to_cref), to_cref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

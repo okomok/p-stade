@@ -44,9 +44,8 @@ namespace pstade { namespace egg {
         }
     }; // ::type = { Base };
 
-    #define PSTADE_EGG_UNARY_ADAPTABLE_INITIALIZER(B) \
-        { B() } \
-    /**/
+    #define PSTADE_EGG_UNARY_ADAPTABLE_L {
+    #define PSTADE_EGG_UNARY_ADAPTABLE_R }
 
     template<class A0>
     struct tp_unary_adaptable :
@@ -83,9 +82,8 @@ namespace pstade { namespace egg {
         }
     }; // ::type = { Base };
 
-    #define PSTADE_EGG_BINARY_ADAPTABLE_INITIALIZER(B) \
-        { B() } \
-    /**/
+    #define PSTADE_EGG_BINARY_ADAPTABLE_L {
+    #define PSTADE_EGG_BINARY_ADAPTABLE_R }
 
     template<class A0, class A1>
     struct tp_binary_adaptable :

@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
 
 
     typedef result_of_auxiliary1<swap_assign_detail::op>::type op_swap_assign;
-    PSTADE_POD_CONSTANT((op_swap_assign), swap_assign) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_swap_assign), swap_assign) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

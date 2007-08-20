@@ -60,7 +60,7 @@ namespace size_detail {
 
 typedef egg::result_of_auxiliary0<size_detail::op>::type op_size;
 PSTADE_ADL_BARRIER(size) { // for 'boost'
-    PSTADE_POD_CONSTANT((op_size), size) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_size), size) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 }
 
 

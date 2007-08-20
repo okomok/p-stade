@@ -26,6 +26,8 @@
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.unfuse">unfuse</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.perfect">perfect</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.pipable">pipable</a></span></dt>
+<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.macro_expansion_workaround">Macro
+      Expansion Workaround</a></span></dt>
 </dl></div>
 <p>
       Function Adaptor is a higher-order function that takes a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
@@ -39,7 +41,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.auxiliaryn"></a><a href="function_adaptors.html#egg.function_adaptors.auxiliaryn" title="auxiliaryN">auxiliaryN</a></h3></div></div></div>
 <a name="egg.function_adaptors.auxiliaryn.description"></a><h5>
-<a name="id508921"></a>
+<a name="id508932"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.description">Description</a>
       </h5>
 <p>
@@ -49,12 +51,12 @@
         Object</a>.
       </p>
 <a name="egg.function_adaptors.auxiliaryn.header"></a><h5>
-<a name="id508976"></a>
+<a name="id508986"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">auxiliary</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.auxiliaryn.model_of"></a><h5>
-<a name="id509058"></a>
+<a name="id509069"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -62,14 +64,14 @@
 <li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
 </ul></div>
 <a name="egg.function_adaptors.auxiliaryn.notation"></a><h5>
-<a name="id509108"></a>
+<a name="id509118"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_auxiliary</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco</span></code>.
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_auxiliary</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized using <code class="computeroutput"><span class="identifier">_dco</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.auxiliaryn.valid_expressions"></a><h5>
-<a name="id509212"></a>
+<a name="id509223"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -156,7 +158,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.auxiliaryn.preconditions"></a><h5>
-<a name="id509700"></a>
+<a name="id509710"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -177,7 +179,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.auxiliaryn.invariants"></a><h5>
-<a name="id509914"></a>
+<a name="id509925"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -203,7 +205,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_adaptors.auxiliaryn.example"></a><h5>
-<a name="id510036"></a>
+<a name="id510047"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.example">Example</a>
       </h5>
 <p>
@@ -260,7 +262,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.auxiliaryn.see_also"></a><h5>
-<a name="id510771"></a>
+<a name="id510781"></a>
         <a href="function_adaptors.html#egg.function_adaptors.auxiliaryn.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -271,7 +273,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.compose"></a><a href="function_adaptors.html#egg.function_adaptors.compose" title="compose">compose</a></h3></div></div></div>
 <a name="egg.function_adaptors.compose.description"></a><h5>
-<a name="id510820"></a>
+<a name="id510830"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.description">Description</a>
       </h5>
 <p>
@@ -279,12 +281,12 @@
         for function composition.
       </p>
 <a name="egg.function_adaptors.compose.header"></a><h5>
-<a name="id510859"></a>
+<a name="id510869"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">compose</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.compose.model_of"></a><h5>
-<a name="id510939"></a>
+<a name="id510950"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -292,15 +294,14 @@
 <li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
 </ul></div>
 <a name="egg.function_adaptors.compose.notation"></a><h5>
-<a name="id510989"></a>
+<a name="id510999"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_compose</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco1</span><span class="special">),</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco2</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco1</span></code>
-          and <code class="computeroutput"><span class="identifier">_dco2</span></code>.
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_compose</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco1</span><span class="special">),</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco2</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized using <code class="computeroutput"><span class="identifier">_dco1</span></code> and <code class="computeroutput"><span class="identifier">_dco2</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.compose.valid_expressions"></a><h5>
-<a name="id511114"></a>
+<a name="id511124"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -374,7 +375,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.compose.preconditions"></a><h5>
-<a name="id511517"></a>
+<a name="id511527"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -395,14 +396,14 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.compose.invariants"></a><h5>
-<a name="id511714"></a>
+<a name="id511724"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           If <code class="computeroutput"><span class="identifier">_Dco1</span></code> and <code class="computeroutput"><span class="identifier">_Dco2</span></code> is <span class="emphasis"><em>POD</em></span>, <code class="computeroutput"><span class="identifier">result_of_compose</span><span class="special">&lt;</span><span class="identifier">_Dco1</span><span class="special">,</span> <span class="identifier">_Dco2</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <span class="emphasis"><em>POD</em></span>.
         </li></ul></div>
 <a name="egg.function_adaptors.compose.see_also"></a><h5>
-<a name="id511816"></a>
+<a name="id511826"></a>
         <a href="function_adaptors.html#egg.function_adaptors.compose.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -413,7 +414,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.curryn"></a><a href="function_adaptors.html#egg.function_adaptors.curryn" title="curryN">curryN</a></h3></div></div></div>
 <a name="egg.function_adaptors.curryn.description"></a><h5>
-<a name="id511864"></a>
+<a name="id511875"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.description">Description</a>
       </h5>
 <p>
@@ -422,12 +423,12 @@
         into curried one.
       </p>
 <a name="egg.function_adaptors.curryn.header"></a><h5>
-<a name="id511909"></a>
+<a name="id511919"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">curry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.curryn.model_of"></a><h5>
-<a name="id511989"></a>
+<a name="id512000"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -435,14 +436,14 @@
 <li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
 </ul></div>
 <a name="egg.function_adaptors.curryn.notation"></a><h5>
-<a name="id512039"></a>
+<a name="id512049"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_curry</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco</span></code>.
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_curry</span><span class="special">++</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized using <code class="computeroutput"><span class="identifier">_dco</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.curryn.valid_expressions"></a><h5>
-<a name="id512143"></a>
+<a name="id512153"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -527,7 +528,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.curryn.preconditions"></a><h5>
-<a name="id512582"></a>
+<a name="id512592"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -547,7 +548,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.curryn.invariants"></a><h5>
-<a name="id512757"></a>
+<a name="id512767"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -572,7 +573,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_adaptors.curryn.example"></a><h5>
-<a name="id512890"></a>
+<a name="id512900"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.example">Example</a>
       </h5>
 <p>
@@ -602,11 +603,11 @@
 <p>
       </p>
 <a name="egg.function_adaptors.curryn.see_also"></a><h5>
-<a name="id513222"></a>
+<a name="id513232"></a>
         <a href="function_adaptors.html#egg.function_adaptors.curryn.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
-<li><a href="http://en.wikipedia.org/wiki/Currying" target="_top">Curring</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Currying" target="_top">Currying</a></li>
 <li><a href="function_adaptors.html#egg.function_adaptors.uncurry" title="uncurry">uncurry</a></li>
 </ul></div>
 </div>
@@ -614,19 +615,19 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.uncurry"></a><a href="function_adaptors.html#egg.function_adaptors.uncurry" title="uncurry">uncurry</a></h3></div></div></div>
 <a name="egg.function_adaptors.uncurry.description"></a><h5>
-<a name="id513287"></a>
+<a name="id513297"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">uncurry</span></code> reverses <code class="computeroutput"><span class="identifier">curry</span></code>.
       </p>
 <a name="egg.function_adaptors.uncurry.header"></a><h5>
-<a name="id513335"></a>
+<a name="id513345"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">uncurry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.uncurry.model_of"></a><h5>
-<a name="id513416"></a>
+<a name="id513426"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -634,14 +635,14 @@
 <li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
 </ul></div>
 <a name="egg.function_adaptors.uncurry.notation"></a><h5>
-<a name="id513464"></a>
+<a name="id513475"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_uncurry</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">_dco</span></code>.
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_uncurry</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized using <code class="computeroutput"><span class="identifier">_dco</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.uncurry.valid_expressions"></a><h5>
-<a name="id513559"></a>
+<a name="id513569"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -714,7 +715,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.uncurry.preconditions"></a><h5>
-<a name="id513907"></a>
+<a name="id513917"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -734,7 +735,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.uncurry.invariants"></a><h5>
-<a name="id514062"></a>
+<a name="id514072"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -742,11 +743,11 @@
           <code class="computeroutput"><span class="identifier">result_of_uncurry</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <span class="emphasis"><em>POD</em></span>.
         </li></ul></div>
 <a name="egg.function_adaptors.uncurry.see_also"></a><h5>
-<a name="id514144"></a>
+<a name="id514154"></a>
         <a href="function_adaptors.html#egg.function_adaptors.uncurry.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
-<li><a href="http://en.wikipedia.org/wiki/Currying" target="_top">Curring</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Currying" target="_top">Currying</a></li>
 <li><a href="function_adaptors.html#egg.function_adaptors.curryn" title="curryN">curryN</a></li>
 </ul></div>
 </div>
@@ -776,6 +777,91 @@
 <a name="egg.function_adaptors.pipable"></a><a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable">pipable</a></h3></div></div></div>
 <p>
         Todo
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_adaptors.macro_expansion_workaround"></a><a href="function_adaptors.html#egg.function_adaptors.macro_expansion_workaround" title="Macro Expansion Workaround">Macro
+      Expansion Workaround</a></h3></div></div></div>
+<p>
+        See the following code snippet.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">struct</span> <span class="identifier">op_your_plus</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="keyword">int</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">y</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">+</span> <span class="identifier">y</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="identifier">result_of_curry2</span><span class="special">&lt;</span>
+    <span class="identifier">result_of_uncurry</span><span class="special">&lt;</span>
+        <span class="identifier">result_of_curry2</span><span class="special">&lt;</span><span class="identifier">op_your_plus</span><span class="special">&gt;::</span><span class="identifier">type</span>
+    <span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span> <span class="identifier">complicated_</span>
+<span class="line_callout_bug"><a name="egg10co" href="function_adaptors.html#egg10"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="special">=</span> <span class="identifier">PSTADE_EGG_CURRY2</span><span class="special">(</span><span class="identifier">PSTADE_EGG_UNCURRY</span><span class="special">(</span><span class="identifier">PSTADE_EGG_CURRY2_7</span><span class="special">({}</span> <span class="identifier">BOOST_PP_EMPTY</span><span class="special">)))();</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left">
+<a name="egg10"></a><a href="#egg10co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<td valign="top" align="left"><p> Not Guaranteed to be expanded successfully. </p></td>
+</tr></table></div>
+<p>
+        </p>
+<p>
+        <code class="computeroutput"><span class="identifier">PSTADE_EGG_UNCURRY</span><span class="special">(</span><span class="identifier">PSTADE_EGG_CURRY2</span><span class="special">({}</span>
+        <span class="identifier">BOOST_PP_EMPTY</span><span class="special">))</span></code>
+        clearly contains two macro expansions, so that this macro argument doesn't
+        satisfy the condition of <code class="computeroutput"><span class="identifier">_NMA</span></code>.
+        For the workaround, you have to define <span class="emphasis"><em>function-like</em></span>
+        macro to reduce macro expansions.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="line_callout_bug"><a name="egg11co" href="function_adaptors.html#egg11"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="preprocessor">#define</span> <span class="identifier">UNCURRY_AND_CURRY_YOUR_PLUS</span><span class="special">()</span> <span class="identifier">PSTADE_EGG_UNCURRY</span><span class="special">(</span><span class="identifier">PSTADE_EGG_CURRY2_7</span><span class="special">({}</span> <span class="identifier">BOOST_PP_EMPTY</span><span class="special">))()</span>
+
+<span class="identifier">result_of_curry2</span><span class="special">&lt;</span>
+    <span class="identifier">result_of_uncurry</span><span class="special">&lt;</span>
+        <span class="identifier">result_of_curry2</span><span class="special">&lt;</span><span class="identifier">op_your_plus</span><span class="special">&gt;::</span><span class="identifier">type</span>
+    <span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span> <span class="identifier">complicated</span>
+<span class="line_callout_bug"><a name="egg12co" href="function_adaptors.html#egg12"><img src="../images/callouts/2.png" alt="2" border="0"></a></span><span class="special">=</span> <span class="identifier">PSTADE_EGG_CURRY2</span><span class="special">(</span><span class="identifier">UNCURRY_AND_CURRY_YOUR_PLUS</span><span class="special">)();</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg11"></a><a href="#egg11co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<td valign="top" align="left"><p> Define a function-like macro. </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg12"></a><a href="#egg12co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<td valign="top" align="left"><p> Guaranteed to be expanded successfully. </p></td>
+</tr>
+</table></div>
+<p>
+        </p>
+<p>
       </p>
 </div>
 </div>

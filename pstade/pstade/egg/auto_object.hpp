@@ -90,7 +90,7 @@ namespace pstade { namespace egg {
 
 
     PSTADE_POD_CONSTANT((op_auto_object), auto_object)
-        = PSTADE_EGG_UNFUSE({{}} BOOST_PP_EMPTY, {} BOOST_PP_EMPTY)();
+        = PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R;
 
 
 } } // namespace pstade::egg

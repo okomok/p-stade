@@ -26,7 +26,7 @@ typedef
 op_utf8_encoder;
 
 
-PSTADE_POD_CONSTANT((op_utf8_encoder), utf8_encoder) = PSTADE_EGG_GENERATOR_TYPE();
+PSTADE_POD_CONSTANT((op_utf8_encoder), utf8_encoder) = PSTADE_EGG_GENERATOR_TYPE;
 
 
 } } // namespace pstade::oven

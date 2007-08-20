@@ -114,7 +114,7 @@ namespace pstade {
     PSTADE_POD_CONSTANT((op_check), check) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<op_check>::type), checked)
-        = PSTADE_EGG_PIPABLE({{}} BOOST_PP_EMPTY)();
+        = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
 
 
     template< class StringOutputable > inline

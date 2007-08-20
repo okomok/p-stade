@@ -38,10 +38,10 @@ struct my_plus2
 };
 
 typedef pstade::egg::result_of_curry2<my_plus2>::type op_curried_plus2;
-PSTADE_POD_CONSTANT((op_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2({} BOOST_PP_EMPTY)();
+PSTADE_POD_CONSTANT((op_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R;
 
 typedef pstade::egg::result_of_uncurry<op_curried_plus2>::type op_still_plus2;
-PSTADE_POD_CONSTANT((op_still_plus2), still_plus2) = PSTADE_EGG_UNCURRY({} BOOST_PP_EMPTY)();
+PSTADE_POD_CONSTANT((op_still_plus2), still_plus2) = PSTADE_EGG_UNCURRY_L PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R PSTADE_EGG_UNCURRY_R;
 
 
 struct my_plus3
@@ -98,10 +98,10 @@ struct my_plus5
 };
 
 typedef pstade::egg::result_of_curry5<my_plus5>::type op_curried_plus5;
-PSTADE_POD_CONSTANT((op_curried_plus5), curried_plus5) = PSTADE_EGG_CURRY5({} BOOST_PP_EMPTY)();
+PSTADE_POD_CONSTANT((op_curried_plus5), curried_plus5) = PSTADE_EGG_CURRY5_L {} PSTADE_EGG_CURRY5_R;
 
 typedef pstade::egg::result_of_uncurry<op_curried_plus5>::type op_still_plus5;
-PSTADE_POD_CONSTANT((op_still_plus5), still_plus5) = PSTADE_EGG_UNCURRY({} BOOST_PP_EMPTY)();
+PSTADE_POD_CONSTANT((op_still_plus5), still_plus5) = PSTADE_EGG_UNCURRY_L PSTADE_EGG_CURRY5_L {} PSTADE_EGG_CURRY5_R PSTADE_EGG_UNCURRY_R;
 
 
 void pstade_minimal_test()

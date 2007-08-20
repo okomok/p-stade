@@ -77,7 +77,7 @@ This document uses the following notation.
     ]
     [
         [`_NMA`]
-        [A macro argument such that `_NMA()` is a valid expression.]
+        [A macro argument such that `_NMA()` is a valid expression where `_NMA` contains at most one macro expansion.]
     ]
     [
         [`++`]

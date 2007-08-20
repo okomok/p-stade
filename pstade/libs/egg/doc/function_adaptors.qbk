@@ -23,7 +23,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_auxiliary++N<_typeof(_dco)>::type` initialized by `_dco`.
+* `res` is an object of `result_of_auxiliary++N<_typeof(_dco)>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -88,7 +88,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_compose<_typeof(_dco1),_typeof(_dco2)>::type`  initialized by `_dco1` and `_dco2`.
+* `res` is an object of `result_of_compose<_typeof(_dco1),_typeof(_dco2)>::type`  initialized using `_dco1` and `_dco2`.
 
 [heading Valid expressions]
 [table 
@@ -143,7 +143,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_curry++N<_typeof(_dco)>::type` initialized by `_dco`.
+* `res` is an object of `result_of_curry++N<_typeof(_dco)>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -187,7 +187,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 [code_curry_example]
 
 [heading See also]
-* [@http://en.wikipedia.org/wiki/Currying Curring]
+* [@http://en.wikipedia.org/wiki/Currying Currying]
 * __EGG_UNCURRY__
 
 [endsect]
@@ -208,7 +208,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_uncurry<_typeof(_dco)>::type` initialized by `_dco`.
+* `res` is an object of `result_of_uncurry<_typeof(_dco)>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -243,7 +243,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * If `_Dco` is /POD/, `result_of_uncurry<_Dco>::type` is /POD/.
 
 [heading See also]
-* [@http://en.wikipedia.org/wiki/Currying Curring]
+* [@http://en.wikipedia.org/wiki/Currying Currying]
 * __EGG_CURRY__
 
 [endsect]
@@ -281,6 +281,20 @@ Todo
 [section pipable]
 
 Todo
+
+[endsect]
+
+
+
+
+[section Macro Expansion Workaround]
+
+See the following code snippet.
+[code_macro_expansion_workaround1]
+`PSTADE_EGG_UNCURRY(PSTADE_EGG_CURRY2({} BOOST_PP_EMPTY))` clearly contains two macro expansions,
+so that this macro argument doesn't satisfy the condition of `_NMA`.
+For the workaround, you have to define /function-like/ macro to reduce macro expansions.
+[code_macro_expansion_workaround2]
 
 [endsect]
 

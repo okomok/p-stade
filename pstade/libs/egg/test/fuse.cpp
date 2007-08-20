@@ -66,8 +66,8 @@ void pstade_minimal_test()
     }
     {
         ::my_f f0;
-        result_of_fuse< ::my_f >::type f1 = PSTADE_EGG_FUSE(BOOST_PP_IDENTITY(f0))();
-        result_of_fuse< ::my_f >::type f2 = PSTADE_EGG_FUSE({} BOOST_PP_EMPTY)();
+        result_of_fuse< ::my_f >::type f1 = PSTADE_EGG_FUSE_L f0 PSTADE_EGG_FUSE_R;
+        result_of_fuse< ::my_f >::type f2 = PSTADE_EGG_FUSE_L {} PSTADE_EGG_FUSE_R;
         pstade::unused(f1, f2);
     }
 }

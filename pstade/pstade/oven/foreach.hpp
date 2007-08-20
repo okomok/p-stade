@@ -18,7 +18,6 @@
 
 
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/typeof/typeof.hpp>
 #include "./expression.hpp"
 #include "./typeof.hpp"

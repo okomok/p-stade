@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./function.hpp"
@@ -68,11 +67,10 @@ namespace pstade { namespace egg {
     { }; // ::type = { { { { F, G } }, {} } };
 
 
-    // Unfortunately, "{ { F(), G() } }, {}" can't be
-    // passed to PSTADE_PP_UNFUSE without "lambda macro".
-    #define PSTADE_EGG_COMPOSE(F, G) \
-        { { { { F(), G() } }, {} } } BOOST_PP_EMPTY \
-    /**/
+    // PSTADE_EGG_UNFUSE_L { { F, G } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_COMPOSE_L PSTADE_EGG_UNFUSE_L { {
+    #define PSTADE_EGG_COMPOSE_M ,
+    #define PSTADE_EGG_COMPOSE_R } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
 
 
     template<class NullaryResult = boost::use_default>
@@ -88,7 +86,7 @@ namespace pstade { namespace egg {
             template<class Result, class F, class G>
             Result call(F f, G g) const
             {
-                Result r = PSTADE_EGG_COMPOSE(f BOOST_PP_EMPTY, g BOOST_PP_EMPTY)();
+                Result r = PSTADE_EGG_COMPOSE_L f PSTADE_EGG_COMPOSE_M g PSTADE_EGG_COMPOSE_R;
                 return r;
             }
         };

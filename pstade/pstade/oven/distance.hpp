@@ -56,7 +56,7 @@ namespace distance_detail {
 typedef egg::result_of_auxiliary0<distance_detail::op>::type op_distance;
 
 PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
-    PSTADE_POD_CONSTANT((op_distance), distance) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_distance), distance) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 }
 
 

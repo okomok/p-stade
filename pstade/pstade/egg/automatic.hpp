@@ -24,7 +24,6 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
-#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pass_by.hpp>
 #include "./function.hpp"
 #include "./fuse.hpp"
@@ -91,8 +90,8 @@ namespace pstade { namespace egg {
     { }; // ::type = { { {{}}, {} } }
 
 
-    #define PSTADE_EGG_AUTOMATIC_TYPE() \
-        PSTADE_EGG_UNFUSE({{}} BOOST_PP_EMPTY, {} BOOST_PP_EMPTY)()
+    #define PSTADE_EGG_AUTOMATIC_TYPE \
+        PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
     /**/
 
 

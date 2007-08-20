@@ -47,7 +47,7 @@ namespace in_block_detail {
 
 
 typedef PSTADE_EGG_ADAPT((in_block_detail::base<boost::mpl::_>)) op_in_block;
-PSTADE_POD_CONSTANT((op_in_block), in_block) = PSTADE_EGG_ADAPT_TYPE();
+PSTADE_POD_CONSTANT((op_in_block), in_block) = PSTADE_EGG_ADAPT_TYPE;
 
 
 } } // namespace pstade::oven

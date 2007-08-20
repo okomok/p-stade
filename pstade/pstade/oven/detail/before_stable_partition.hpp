@@ -29,7 +29,7 @@
     namespace pstade { namespace oven {
 
         PSTADE_POD_CONSTANT((egg::result_of_pipable<tp_make_identities<std::ptrdiff_t>::type>::type), before_stable_partition)
-            = PSTADE_EGG_PIPABLE({{}} BOOST_PP_EMPTY)();
+            = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
 
     } }
 

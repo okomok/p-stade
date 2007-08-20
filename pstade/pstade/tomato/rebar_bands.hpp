@@ -63,7 +63,7 @@ namespace pstade { namespace tomato {
 
     PSTADE_POD_CONSTANT((op_make_rebar_bands), make_rebar_bands) = {};
     PSTADE_POD_CONSTANT((egg::result_of_pipable<op_make_rebar_bands>::type), rebar_bands)
-        = PSTADE_EGG_PIPABLE({} BOOST_PP_EMPTY)();
+        = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
 
 
 } } // namespace pstade::tomato
