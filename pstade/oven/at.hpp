@@ -18,7 +18,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/function.hpp>
@@ -63,10 +62,10 @@ namespace at_detail {
 
 
 typedef egg::result_of_auxiliary1<at_detail::op>::type op_at;
-PSTADE_POD_CONSTANT((op_at), at) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+PSTADE_POD_CONSTANT((op_at), at) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 typedef egg::result_of_auxiliary1<at_detail::value_op>::type op_value_at;
-PSTADE_POD_CONSTANT((op_value_at), value_at) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+PSTADE_POD_CONSTANT((op_value_at), value_at) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::oven

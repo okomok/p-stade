@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
@@ -22,7 +21,7 @@
 #define PSTADE_OVEN_BABY_TO_ADAPTOR(O, F) \
     typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(F)> BOOST_PP_CAT(op_make_, O); \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_make_, O)), BOOST_PP_CAT(make_, O)) = {{}}; \
-    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(op_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}})); \
+    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(op_make_, O)>::type), O) = PSTADE_EGG_PIPABLE({{}} BOOST_PP_EMPTY)(); \
 /**/
 
 

@@ -29,6 +29,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -110,8 +111,8 @@ namespace pstade { namespace egg {
         type;
     };
 
-    #define PSTADE_EGG_ADAPT_SIG_RESULT_INITIALIZER(B) \
-        { B() } \
+    #define PSTADE_EGG_ADAPT_SIG(B) \
+        { B() } BOOST_PP_EMPTY \
     /**/
 
     typedef
@@ -121,7 +122,7 @@ namespace pstade { namespace egg {
         >::type
     op_adapt_sig;
 
-    PSTADE_POD_CONSTANT((op_adapt_sig), adapt_sig) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_adapt_sig), adapt_sig) = PSTADE_EGG_GENERATOR_TYPE();
 
 
     template<class SigFun>
@@ -139,7 +140,7 @@ namespace pstade { namespace egg {
         >::type
     op_adapt_nullary_sig;
 
-    PSTADE_POD_CONSTANT((op_adapt_nullary_sig), adapt_nullary_sig) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_adapt_nullary_sig), adapt_nullary_sig) = PSTADE_EGG_GENERATOR_TYPE();
 
 
 } } // namespace pstade::egg

@@ -1,0 +1,191 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Concepts</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.0">
+<link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.0">
+<link rel="prev" href="../index.html" title="Chapter 1. Egg 0.90.0">
+<link rel="next" href="function_makers.html" title="Function Makers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_makers.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="egg.concepts"></a><a href="concepts.html" title="Concepts">Concepts</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="concepts.html#egg.concepts.operatable_object">Operatable Object</a></span></dt>
+<dt><span class="section"><a href="concepts.html#egg.concepts.auxiliary_interface_object">Auxiliary Interface
+      Object</a></span></dt>
+<dt><span class="section"><a href="concepts.html#egg.concepts.bindable_object">Bindable Object</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.concepts.operatable_object"></a><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></h3></div></div></div>
+<a name="egg.concepts.operatable_object.description"></a><h5>
+<a name="id432476"></a>
+        <a href="concepts.html#egg.concepts.operatable_object.description">Description</a>
+      </h5>
+<p>
+        An <a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a>
+        is a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+        Callable Object</a> which can specify the type of itself by using prefix
+        <code class="computeroutput"><span class="identifier">op_</span></code>.
+      </p>
+<a name="egg.concepts.operatable_object.refinement_of"></a><h5>
+<a name="id431271"></a>
+        <a href="concepts.html#egg.concepts.operatable_object.refinement_of">Refinement of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+          Callable Object</a></li></ul></div>
+<a name="egg.concepts.operatable_object.requirements"></a><h5>
+<a name="id431310"></a>
+        <a href="concepts.html#egg.concepts.operatable_object.requirements">Requirements</a>
+      </h5>
+<p>
+        In addition to the requirements defined in <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+        Callable Object</a>, for any <a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable
+        Object</a> <code class="computeroutput"><span class="identifier">f</span></code> the following
+        must be met:
+      </p>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
+        </li></ul></div>
+<a name="egg.concepts.operatable_object.models"></a><h5>
+<a name="id431416"></a>
+        <a href="concepts.html#egg.concepts.operatable_object.models">Models</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.concepts.operatable_object.see_also"></a><h5>
+<a name="id431447"></a>
+        <a href="concepts.html#egg.concepts.operatable_object.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.concepts.auxiliary_interface_object"></a><a href="concepts.html#egg.concepts.auxiliary_interface_object" title="Auxiliary Interface Object">Auxiliary Interface
+      Object</a></h3></div></div></div>
+<a name="egg.concepts.auxiliary_interface_object.description"></a><h5>
+<a name="id431500"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_interface_object.description">Description</a>
+      </h5>
+<p>
+        An <a href="concepts.html#egg.concepts.auxiliary_interface_object" title="Auxiliary Interface Object">Auxiliary Interface
+        Object</a> is a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+        Callable Object</a> which supports a pipe-like syntax used as if it were
+        a <span class="emphasis"><em>member function</em></span>.
+      </p>
+<a name="egg.concepts.auxiliary_interface_object.refinement_of"></a><h5>
+<a name="id431553"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_interface_object.refinement_of">Refinement
+        of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+          Callable Object</a></li></ul></div>
+<a name="egg.concepts.auxiliary_interface_object.requirements"></a><h5>
+<a name="id501977"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_interface_object.requirements">Requirements</a>
+      </h5>
+<p>
+        In addition to the requirements defined in <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+        Callable Object</a>, for any <a href="concepts.html#egg.concepts.auxiliary_interface_object" title="Auxiliary Interface Object">Auxiliary
+        Interface Object</a> <code class="computeroutput"><span class="identifier">i</span></code>
+        the following must be met:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
+          <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span>
+          <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> have
+          the same effects.
+        </li>
+<li>
+          If <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="number">0</span></code>,
+          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">()</span></code> and
+          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span></code> are valid expressions which have the
+          same effects.
+        </li>
+</ul></div>
+<a name="egg.concepts.auxiliary_interface_object.models"></a><h5>
+<a name="id502297"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_interface_object.models">Models</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.concepts.auxiliary_interface_object.see_also"></a><h5>
+<a name="id502329"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_interface_object.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
+          class interfaces</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.concepts.bindable_object"></a><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></h3></div></div></div>
+<a name="egg.concepts.bindable_object.description"></a><h5>
+<a name="id502386"></a>
+        <a href="concepts.html#egg.concepts.bindable_object.description">Description</a>
+      </h5>
+<p>
+        A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a> is
+        a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+        which can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
+      </p>
+<a name="egg.concepts.bindable_object.refinement_of"></a><h5>
+<a name="id502460"></a>
+        <a href="concepts.html#egg.concepts.bindable_object.refinement_of">Refinement of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
+<a name="egg.concepts.bindable_object.requirements"></a><h5>
+<a name="id502499"></a>
+        <a href="concepts.html#egg.concepts.bindable_object.requirements">Requirements</a>
+      </h5>
+<p>
+        In addition to the requirements defined in <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+        Object</a>, for any <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable
+        Object</a> <code class="computeroutput"><span class="identifier">b</span></code> the following
+        must be met:
+      </p>
+<div class="itemizedlist"><ul type="disc"><li>
+          There is a <code class="computeroutput"><span class="identifier">N</span></code> such that
+          <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">b</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,...,</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_</span><span class="special">++</span><span class="identifier">N</span><span class="special">)</span></code> is
+          a valid expression.
+        </li></ul></div>
+<a name="egg.concepts.bindable_object.models"></a><h5>
+<a name="id502686"></a>
+        <a href="concepts.html#egg.concepts.bindable_object.models">Models</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.concepts.bindable_object.see_also"></a><h5>
+<a name="id502717"></a>
+        <a href="concepts.html#egg.concepts.bindable_object.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_makers.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

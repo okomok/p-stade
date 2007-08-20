@@ -12,8 +12,7 @@ project
 
 test-suite "egg_example" :
     [ run currying.cpp ]
-    [ run function.cpp ]
-    [ run function_by_value.cpp ]
-    [ run function_facade.cpp ]
+    [ run function_adaptors.cpp ]
+    [ run function_makers.cpp ]
     ;
 

@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
     op_shared_object;
 
 
-    PSTADE_POD_CONSTANT((op_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC_TYPE();
 
 
 } } // namespace pstade::egg

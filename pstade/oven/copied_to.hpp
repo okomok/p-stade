@@ -12,7 +12,6 @@
 
 
 #include <algorithm> // copy
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
@@ -55,7 +54,7 @@ namespace copied_to_detail {
 
 
 PSTADE_POD_CONSTANT((egg::result_of_pipable<copied_to_detail::op>::type), copied_to)
-    = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    = PSTADE_EGG_PIPABLE({{}} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::oven

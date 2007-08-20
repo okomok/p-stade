@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -67,10 +66,10 @@ namespace begin_end_detail {
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
 
     typedef egg::result_of_auxiliary0<begin_end_detail::op_begin>::type op_begin;
-    PSTADE_POD_CONSTANT((op_begin), begin) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_begin), begin) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
     typedef egg::result_of_auxiliary0<begin_end_detail::op_end>::type op_end;
-    PSTADE_POD_CONSTANT((op_end), end) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_end), end) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 }
 

@@ -94,7 +94,7 @@ namespace is_heap_until_detail {
 
 
 typedef PSTADE_EGG_ADAPT((is_heap_until_detail::base<boost::mpl::_>)) op_is_heap_until;
-PSTADE_POD_CONSTANT((op_is_heap_until), is_heap_until) = PSTADE_EGG_ADAPT_INITIALIZER();
+PSTADE_POD_CONSTANT((op_is_heap_until), is_heap_until) = PSTADE_EGG_ADAPT_TYPE();
 
 
 struct op_is_heap

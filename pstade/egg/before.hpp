@@ -16,7 +16,7 @@
 // http://www.cc.gatech.edu/~yannis/fc++/
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./function.hpp"
@@ -66,8 +66,8 @@ namespace pstade { namespace egg {
     { }; // ::type = { { { { Thunk, Function } }, {} } };
 
 
-    #define PSTADE_EGG_BEFORE_RESULT_INITIALIZER(T, F) \
-        { { { { T(), F() } }, {} } } \
+    #define PSTADE_EGG_BEFORE(T, F) \
+        { { { { T(), F() } }, {} } } BOOST_PP_EMPTY \
     /**/
 
 
@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
             template<class Result, class Thunk, class Function>
             Result call(Thunk t, Function f) const
             {
-                Result r = PSTADE_EGG_BEFORE_RESULT_INITIALIZER(BOOST_PP_IDENTITY(t), BOOST_PP_IDENTITY(f));
+                Result r = PSTADE_EGG_BEFORE(t BOOST_PP_EMPTY, f BOOST_PP_EMPTY)();
                 return r;
             }
         };

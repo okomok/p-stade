@@ -39,7 +39,7 @@ struct my_plus2
 };
 
 typedef pstade::egg::result_of_curry2<my_plus2>::type op_curried_plus2;
-PSTADE_POD_CONSTANT((op_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+PSTADE_POD_CONSTANT((op_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2({} BOOST_PP_EMPTY)();
 
 
 struct my_plus3
@@ -60,7 +60,7 @@ struct my_plus3
 };
 
 typedef pstade::egg::result_of_curry3<my_plus3>::type op_curried_plus3;
-PSTADE_POD_CONSTANT((op_curried_plus3), curried_plus3) = PSTADE_EGG_CURRY3_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+PSTADE_POD_CONSTANT((op_curried_plus3), curried_plus3) = PSTADE_EGG_CURRY3({} BOOST_PP_EMPTY)();
 
 
 struct my_plus4
@@ -81,7 +81,7 @@ struct my_plus4
 };
 
 typedef pstade::egg::result_of_curry4<my_plus4>::type op_curried_plus4;
-PSTADE_POD_CONSTANT((op_curried_plus4), curried_plus4) = PSTADE_EGG_CURRY4_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+PSTADE_POD_CONSTANT((op_curried_plus4), curried_plus4) = PSTADE_EGG_CURRY4({} BOOST_PP_EMPTY)();
 
 
 struct my_plus5
@@ -99,10 +99,13 @@ struct my_plus5
     {
         return to_string(x) + to_string(y) + to_string(z) + to_string(q) + to_string(r);
     }
+
+    int dummy1, dummy2; // for checking braced initialization.
 };
 
+#define INIT_my_plus5() {1,2}
 typedef pstade::egg::result_of_curry5<my_plus5>::type op_curried_plus5;
-PSTADE_POD_CONSTANT((op_curried_plus5), curried_plus5) = PSTADE_EGG_CURRY5_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+PSTADE_POD_CONSTANT((op_curried_plus5), curried_plus5) = PSTADE_EGG_CURRY5(INIT_my_plus5)();
 
 
 template<class F>

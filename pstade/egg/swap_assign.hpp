@@ -16,7 +16,6 @@
 // Force exception-safe copy-assignment using swap.
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
 #include "./do_swap.hpp"
@@ -54,7 +53,7 @@ namespace pstade { namespace egg {
 
 
     typedef result_of_auxiliary1<swap_assign_detail::op>::type op_swap_assign;
-    PSTADE_POD_CONSTANT((op_swap_assign), swap_assign) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_swap_assign), swap_assign) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::egg

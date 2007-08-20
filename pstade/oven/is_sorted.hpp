@@ -86,7 +86,7 @@ namespace is_sorted_until_detail {
 
 
 typedef PSTADE_EGG_ADAPT((is_sorted_until_detail::base<boost::mpl::_>)) op_is_sorted_until;
-PSTADE_POD_CONSTANT((op_is_sorted_until), is_sorted_until) = PSTADE_EGG_ADAPT_INITIALIZER();
+PSTADE_POD_CONSTANT((op_is_sorted_until), is_sorted_until) = PSTADE_EGG_ADAPT_TYPE();
 
 
 struct op_is_sorted

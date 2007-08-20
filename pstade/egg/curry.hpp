@@ -14,14 +14,12 @@
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/bind1.hpp"
-#include "./detail/bind2.hpp"
+#include "./detail/bind2_.hpp"
 #include "./detail/curry_result_initializers.hpp"
 #include "./function.hpp"
 #include "./function_by_value.hpp"
@@ -74,7 +72,7 @@ namespace pstade { namespace egg {
         template<class Result, class Base>
         Result call(Base base) const
         {
-            Result r = PSTADE_EGG_CURRY_RESULT_INITIALIZER_AUX(n)(BOOST_PP_IDENTITY(base));
+            Result r = PSTADE_EGG_CURRY_AUX(n)(base BOOST_PP_EMPTY)();
             return r;
         }
 
@@ -104,7 +102,6 @@ namespace pstade { namespace egg {
         }
 #endif
     };
-
 
     typedef function_by_value<BOOST_PP_CAT(baby_curry, n)> BOOST_PP_CAT(op_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};

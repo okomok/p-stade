@@ -6,9 +6,7 @@
 Function makers build a "baby" function into a __FUNCTION_OBJECT__ which can be used
 with `boost::lambda::bind` and `boost::resul_of`.
 
-[import ../example/function.cpp]
-[import ../example/function_by_value.cpp]
-[import ../example/function_facade.cpp]
+[import ../example/function_makers.cpp]
 
 
 This section uses the following notation.
@@ -17,14 +15,6 @@ This section uses the following notation.
     [
         [[*Valid expression]]
         [[*Semantics]]
-    ]
-    [
-        [`_decltype`]
-        [An imaginary operator which is the same as `decltype` of C++0x]
-    ]
-    [
-        [`_typeof(a)`]
-        [`boost::remove_cv<boost::remove_reference<_decltype(a)>::type>::type`]
     ]
     [
         [`_arg(a)`]
@@ -54,8 +44,12 @@ This section uses the following notation.
         B b; // exposition only
         B baby() const { return b; }
 
-        // unspecified...
+        // unspecified
+        // ...
     };
+
+[heading Notation]
+* `f` is an object of `function<B> const`.
 
 [heading Valid expressions]
 [table 
@@ -65,15 +59,15 @@ This section uses the following notation.
     ]
     [
         [`function<B>`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /aggregate/ type]
     ]
     [
-        [`function<B>()(a1,...,aN)`]
-        [`boost::add_const<B>::type().call<B::apply<_arg(a1),...,_arg(aN)>::type>(_ref(a1),...,_ref(aN))`]
+        [`f(a1,...,aN)`]
+        [`f.baby().call<B::apply<_arg(a1),...,_arg(aN)>::type>(_ref(a1),...,_ref(aN))`]
     ]
     [
-        [`function<B>()()`]
-        [`boost::add_const<B>::type().call<B::nullary_result_type>()`]
+        [`f()`]
+        [`f.baby().call<B::nullary_result_type>()`]
     ]
 ]
 
@@ -81,10 +75,10 @@ This section uses the following notation.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* If `B` is a POD type, `function<B>` too is a POD type.
+* If `B` is /POD/, `function<B>` is /POD/.
 
 [heading Example]
-[code_second_argument]
+[code_function_example]
 
 [heading See also]
 * __EGG_FUNCTION_BY_VALUE__
@@ -98,7 +92,7 @@ This section uses the following notation.
 [section function_by_value]
 
 [heading Description]
-`function` turns the rvalue argument into `const` reference, which is not applicable to a "movable" type like `std::auto_ptr`.
+`function` turns a rvalue argument into `const` reference, which is not acceptable to a "movable" type like `std::auto_ptr`.
 `function_by_value` simply passes the arguments to the baby by value.
 
 [heading Header]
@@ -111,8 +105,12 @@ This section uses the following notation.
         B b; // exposition only
         B baby() const { return b; }
 
-        // unspecified...
+        // unspecified
+        // ...
     };
+
+[heading Notation]
+* `f` is an object of `function_by_value<B> const`.
 
 [heading Valid expressions]
 [table 
@@ -122,15 +120,15 @@ This section uses the following notation.
     ]
     [
         [`function_by_value<B>`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /aggregate/ type]
     ]
     [
-        [`function_by_value<B>()(a1,...,aN)`]
-        [`boost::add_const<B>::type().call<B::apply<_typeof(a1),...,_typeof(aN)>::type>(a1,...,aN)`]
+        [`f(a1,...,aN)`]
+        [`f.baby().call<B::apply<_typeof(a1),...,_typeof(aN)>::type>(a1,...,aN)`]
     ]
     [
-        [`function_by_value<B>()()`]
-        [`boost::add_const<B>::type().call<B::nullary_result_type>()`]
+        [`f()`]
+        [`f.baby().call<B::nullary_result_type>()`]
     ]
 ]
 
@@ -138,10 +136,10 @@ This section uses the following notation.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* If `B` is a POD type, `function_by_value<B>` too is a POD type.
+* If `B` is /POD/, `function_by_value<B>` is /POD/.
 
 [heading Example]
-[code_value_identity]
+[code_function_by_value_example]
 
 [heading See also]
 * __EGG_FUNCTION__
@@ -181,12 +179,67 @@ Though a type made from `function_facade` can't be a POD type, it can have non-d
 * The corresponding semantics is a valid expression.
 
 [heading Example]
-[code_plus_to]
+[code_function_facade_example]
 
 [heading See also]
 * __EGG_FUNCTION__
 * __EGG_FUNCTION_BY_VALUE__
 
+[endsect]
+
+
+
+
+[section envelope]
+
+[heading Description]
+The overload resolution system of GCC 3.4.x or below is broken when you call a function with explicit template parameter types.
+If you overload `apply` in "baby" function under GCC 3.4.x, explicit template parameters must be removed using a "type envelope".
+
+[heading Header]
+* `<pstade/egg/envelope.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`envelope<T>`]
+        [`boost::type<T>`]
+    ]
+]
+
+[heading Example]
+[code_envelope_example]
+
+[note You can of course use `boost::type` instead of `envelope`, but it would be slightly less self-documenting.]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section adapt]
+Todo
+[endsect]
+
+
+
+
+[section automatic]
+Todo
+[endsect]
+
+
+
+
+[section generator]
+Todo
 [endsect]
 
 

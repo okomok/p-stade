@@ -64,7 +64,7 @@ namespace read_detail {
 
 
 typedef PSTADE_EGG_ADAPT((read_detail::base<boost::mpl::_>)) op_read;
-PSTADE_POD_CONSTANT((op_read), read) = PSTADE_EGG_ADAPT_INITIALIZER();
+PSTADE_POD_CONSTANT((op_read), read) = PSTADE_EGG_ADAPT_TYPE();
 
 
 } } // namespace pstade::oven

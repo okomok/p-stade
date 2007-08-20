@@ -35,8 +35,8 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_INDIRECTED_RESULT_INITIALIZER(B) \
-        { { B() } } \
+    #define PSTADE_EGG_INDIRECTED(B) \
+        { { B() } } BOOST_PP_EMPTY \
     /**/
 
 

@@ -24,7 +24,6 @@
 #include <cwchar>    // wcslen
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/auxiliary.hpp>
@@ -140,7 +139,7 @@ namespace as_c_str_detail {
 
 
 typedef egg::result_of_auxiliary0<as_c_str_detail::op>::type op_as_c_str;
-PSTADE_POD_CONSTANT((op_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+PSTADE_POD_CONSTANT((op_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
 
 
 struct op_contains_zero

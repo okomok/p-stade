@@ -12,7 +12,6 @@
 
 
 #include <memory> // auto_ptr
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/any_movable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
@@ -91,7 +90,7 @@ namespace pstade { namespace egg {
 
 
     PSTADE_POD_CONSTANT((op_auto_object), auto_object)
-        = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}), BOOST_PP_IDENTITY({}));
+        = PSTADE_EGG_UNFUSE({{}} BOOST_PP_EMPTY, {} BOOST_PP_EMPTY)();
 
 
 } } // namespace pstade::egg
