@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
         >::type
     op_to_string;
 
-    PSTADE_POD_CONSTANT((op_to_string), to_string) = PSTADE_EGG_AUXILIARY({} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_to_string), to_string) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
 
 
     typedef
@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
         >::type
     op_to_wstring;
 
-    PSTADE_POD_CONSTANT((op_to_wstring), to_wstring) = PSTADE_EGG_AUXILIARY({} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_to_wstring), to_wstring) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

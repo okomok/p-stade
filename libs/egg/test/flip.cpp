@@ -43,7 +43,7 @@ void pstade_minimal_test()
     }
     {
         ::less l;
-        result_of_flip< ::less >::type fl = PSTADE_EGG_FLIP(BOOST_PP_IDENTITY(l))();
+        result_of_flip< ::less >::type fl = PSTADE_EGG_FLIP_L l PSTADE_EGG_FLIP_R;
         BOOST_CHECK( l(0, 1) );
         BOOST_CHECK( !fl(0, 1) );
     }

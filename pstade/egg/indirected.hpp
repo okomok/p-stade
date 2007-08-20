@@ -35,9 +35,8 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_INDIRECTED(B) \
-        { { B() } } BOOST_PP_EMPTY \
-    /**/
+    #define PSTADE_EGG_INDIRECTED_L { {
+    #define PSTADE_EGG_INDIRECTED_R } }
 
 
     typedef

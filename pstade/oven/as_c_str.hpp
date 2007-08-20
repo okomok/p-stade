@@ -139,7 +139,7 @@ namespace as_c_str_detail {
 
 
 typedef egg::result_of_auxiliary0<as_c_str_detail::op>::type op_as_c_str;
-PSTADE_POD_CONSTANT((op_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+PSTADE_POD_CONSTANT((op_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 struct op_contains_zero

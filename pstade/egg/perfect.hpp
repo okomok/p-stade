@@ -24,13 +24,12 @@ namespace pstade { namespace egg {
     { };
 
 
-    #define PSTADE_EGG_PERFECT \
-        PSTADE_EGG_RET \
-    /**/
+    #define PSTADE_EGG_PERFECT_L PSTADE_EGG_RET_L
+    #define PSTADE_EGG_PERFECT_R PSTADE_EGG_RET_R
 
 
     typedef tp_ret<>::type op_perfect;
-    PSTADE_POD_CONSTANT((op_perfect), perfect) = PSTADE_EGG_GENERATOR_TYPE();
+    PSTADE_POD_CONSTANT((op_perfect), perfect) = PSTADE_EGG_GENERATOR_TYPE;
 
 
 } } // namespace pstade::egg

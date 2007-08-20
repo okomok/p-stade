@@ -54,7 +54,7 @@ namespace copied_to_detail {
 
 
 PSTADE_POD_CONSTANT((egg::result_of_pipable<copied_to_detail::op>::type), copied_to)
-    = PSTADE_EGG_PIPABLE({{}} BOOST_PP_EMPTY)();
+    = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
 
 
 } } // namespace pstade::oven

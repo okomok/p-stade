@@ -62,7 +62,7 @@ namespace as_literal_detail {
 
 
 typedef egg::result_of_auxiliary0<as_literal_detail::op>::type op_as_literal;
-PSTADE_POD_CONSTANT((op_as_literal), as_literal) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+PSTADE_POD_CONSTANT((op_as_literal), as_literal) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::oven

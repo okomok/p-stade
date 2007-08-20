@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/empty.hpp>
 #include "./detail/baby_ret_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
@@ -31,9 +30,8 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_RET(B) \
-        { { B() } } BOOST_PP_EMPTY \
-    /**/
+    #define PSTADE_EGG_RET_L { {
+    #define PSTADE_EGG_RET_R } }
 
 
     template<class ResultType = boost::use_default>

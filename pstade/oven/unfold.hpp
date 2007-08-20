@@ -56,7 +56,7 @@ namespace unfold_detail {
 
 
 typedef PSTADE_EGG_ADAPT((unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_>)) op_unfold;
-PSTADE_POD_CONSTANT((op_unfold), unfold) = PSTADE_EGG_ADAPT_TYPE();
+PSTADE_POD_CONSTANT((op_unfold), unfold) = PSTADE_EGG_ADAPT_TYPE;
 
 
 namespace nonpure_detail {
@@ -100,7 +100,7 @@ typedef
     >::type
 op_nonpure;
 
-PSTADE_POD_CONSTANT((op_nonpure), nonpure) = PSTADE_EGG_GENERATOR_TYPE();
+PSTADE_POD_CONSTANT((op_nonpure), nonpure) = PSTADE_EGG_GENERATOR_TYPE;
 
 
 } } // namespace pstade::oven

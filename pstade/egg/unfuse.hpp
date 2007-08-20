@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/baby_unfuse_result.hpp"
 #include "./function.hpp"
@@ -35,9 +34,9 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_UNFUSE(B, P) \
-        { { B(), P() } } BOOST_PP_EMPTY \
-    /**/
+    #define PSTADE_EGG_UNFUSE_L { {
+    #define PSTADE_EGG_UNFUSE_M ,
+    #define PSTADE_EGG_UNFUSE_R } }
 
 
     template<class NullaryResult = boost::use_default>
@@ -60,7 +59,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_unfuse<>::type op_unfuse;
-    PSTADE_POD_CONSTANT((op_unfuse), unfuse) = PSTADE_EGG_GENERATOR_TYPE();
+    PSTADE_POD_CONSTANT((op_unfuse), unfuse) = PSTADE_EGG_GENERATOR_TYPE;
 
 
 } } // namespace pstade::egg

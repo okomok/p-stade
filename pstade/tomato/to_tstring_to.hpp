@@ -64,7 +64,7 @@ namespace pstade { namespace tomato {
 
 
     PSTADE_POD_CONSTANT((egg::result_of_auxiliary0<to_tstring_detail::op>::type), to_tstring)
-        = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+        = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::tomato

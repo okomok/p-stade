@@ -27,7 +27,7 @@ using namespace egg;
 
 
 typedef result_of_adapt_sig<ll::equal>::type adapted_equal;
-adapted_equal const adapted_equal_fun = PSTADE_EGG_ADAPT_SIG({} BOOST_PP_EMPTY)();
+adapted_equal const adapted_equal_fun = PSTADE_EGG_ADAPT_SIG_L {} PSTADE_EGG_ADAPT_SIG_R;
 PSTADE_TEST_IS_RESULT_OF((bool), adapted_equal(int*, int*, int*))
 
 
@@ -47,7 +47,7 @@ struct nullary_sig
 };
 
 typedef result_of_adapt_nullary_sig< ::nullary_sig >::type adapted_nullary;
-adapted_nullary const adapted_nullary_fun = PSTADE_EGG_ADAPT_SIG({} BOOST_PP_EMPTY)();
+adapted_nullary const adapted_nullary_fun = PSTADE_EGG_ADAPT_SIG_L {} PSTADE_EGG_ADAPT_SIG_R;
 PSTADE_TEST_IS_RESULT_OF((int), adapted_nullary())
 
 

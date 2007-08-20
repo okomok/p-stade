@@ -84,7 +84,7 @@ namespace generation_detail {
 
 
 typedef PSTADE_EGG_ADAPT((generation_detail::base<boost::mpl::_>)) op_generation;
-PSTADE_POD_CONSTANT((op_generation), generation) = PSTADE_EGG_ADAPT_TYPE();
+PSTADE_POD_CONSTANT((op_generation), generation) = PSTADE_EGG_ADAPT_TYPE;
 
 
 namespace nonstop_detail {
@@ -125,7 +125,7 @@ typedef
     >::type
 op_nonstop;
 
-PSTADE_POD_CONSTANT((op_nonstop), nonstop) = PSTADE_EGG_GENERATOR_TYPE();
+PSTADE_POD_CONSTANT((op_nonstop), nonstop) = PSTADE_EGG_GENERATOR_TYPE;
 
 
 } } // namespace pstade::oven

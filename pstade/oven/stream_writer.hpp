@@ -104,7 +104,7 @@ namespace stream_writer_detail {
 
 
 typedef PSTADE_EGG_ADAPT((stream_writer_detail::base<boost::mpl::_>)) op_stream_writer;
-PSTADE_POD_CONSTANT((op_stream_writer), stream_writer) = PSTADE_EGG_ADAPT_TYPE();
+PSTADE_POD_CONSTANT((op_stream_writer), stream_writer) = PSTADE_EGG_ADAPT_TYPE;
 
 
 } } // namespace pstade::oven

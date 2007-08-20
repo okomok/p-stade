@@ -29,9 +29,7 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_ADAPT_TYPE() \
-        {{}} \
-    /**/
+    #define PSTADE_EGG_ADAPT_TYPE {{}}
 
 
     // If you are a msvc-8.0 user, prefer this macro.

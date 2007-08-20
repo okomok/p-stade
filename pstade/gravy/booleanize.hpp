@@ -32,7 +32,7 @@ namespace pstade { namespace gravy {
 
 
     PSTADE_POD_CONSTANT((op_booleanize), booleanize)
-        = PSTADE_EGG_AUXILIARY(PSTADE_EGG_AUTOMATIC_TYPE)();
+        = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC_TYPE PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::gravy

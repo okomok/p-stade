@@ -66,10 +66,10 @@ namespace begin_end_detail {
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
 
     typedef egg::result_of_auxiliary0<begin_end_detail::op_begin>::type op_begin;
-    PSTADE_POD_CONSTANT((op_begin), begin) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_begin), begin) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
     typedef egg::result_of_auxiliary0<begin_end_detail::op_end>::type op_end;
-    PSTADE_POD_CONSTANT((op_end), end) = PSTADE_EGG_AUXILIARY({{}} BOOST_PP_EMPTY)();
+    PSTADE_POD_CONSTANT((op_end), end) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 }
 

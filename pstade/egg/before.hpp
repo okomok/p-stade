@@ -16,7 +16,6 @@
 // http://www.cc.gatech.edu/~yannis/fc++/
 
 
-#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./function.hpp"
@@ -66,9 +65,10 @@ namespace pstade { namespace egg {
     { }; // ::type = { { { { Thunk, Function } }, {} } };
 
 
-    #define PSTADE_EGG_BEFORE(T, F) \
-        { { { { T(), F() } }, {} } } BOOST_PP_EMPTY \
-    /**/
+    // PSTADE_EGG_UNFUSE_L { { T, F } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_BEFORE_L PSTADE_EGG_UNFUSE_L { {
+    #define PSTADE_EGG_BEFORE_M ,
+    #define PSTADE_EGG_BEFORE_R } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
 
 
     namespace before_detail {
@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
             template<class Result, class Thunk, class Function>
             Result call(Thunk t, Function f) const
             {
-                Result r = PSTADE_EGG_BEFORE(t BOOST_PP_EMPTY, f BOOST_PP_EMPTY)();
+                Result r = PSTADE_EGG_BEFORE_L t PSTADE_EGG_BEFORE_M f PSTADE_EGG_BEFORE_R;
                 return r;
             }
         };

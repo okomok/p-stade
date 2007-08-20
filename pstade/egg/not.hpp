@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/empty.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/baby_not_result.hpp"
 #include "./function.hpp"
@@ -31,9 +30,8 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_NOT(B) \
-        { { B() } } BOOST_PP_EMPTY \
-    /**/
+    #define PSTADE_EGG_NOT_L { {
+    #define PSTADE_EGG_NOT_R } }
 
 
     typedef
@@ -44,7 +42,7 @@ namespace pstade { namespace egg {
     op_not_;
 
 
-    PSTADE_POD_CONSTANT((op_not_), not_) = PSTADE_EGG_GENERATOR_TYPE();
+    PSTADE_POD_CONSTANT((op_not_), not_) = PSTADE_EGG_GENERATOR_TYPE;
 
 
 } } // namespace pstade::egg

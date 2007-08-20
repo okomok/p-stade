@@ -106,13 +106,13 @@ namespace regular_detail {
 
 
 typedef PSTADE_EGG_ADAPT((regular_detail::base<boost::mpl::_>)) op_regular;
-PSTADE_POD_CONSTANT((op_regular), regular) = PSTADE_EGG_ADAPT_TYPE();
+PSTADE_POD_CONSTANT((op_regular), regular) = PSTADE_EGG_ADAPT_TYPE;
 
 typedef PSTADE_EGG_ADAPT((regular_detail::base_c<boost::mpl::_>)) op_regular_c;
-PSTADE_POD_CONSTANT((op_regular_c), regular_c) = PSTADE_EGG_ADAPT_TYPE();
+PSTADE_POD_CONSTANT((op_regular_c), regular_c) = PSTADE_EGG_ADAPT_TYPE;
 
 typedef PSTADE_EGG_ADAPT((regular_detail::base_ref<boost::mpl::_>)) op_regular_ref;
-PSTADE_POD_CONSTANT((op_regular_ref), regular_ref) = PSTADE_EGG_ADAPT_TYPE();
+PSTADE_POD_CONSTANT((op_regular_ref), regular_ref) = PSTADE_EGG_ADAPT_TYPE;
 
 
 } } // namespace pstade::oven

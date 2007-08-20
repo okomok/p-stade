@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
 
 
     typedef PSTADE_EGG_ADAPT((dereference_detail::base<boost::mpl::_>)) op_dereference;
-    PSTADE_POD_CONSTANT((op_dereference), dereference) = PSTADE_EGG_ADAPT_TYPE();
+    PSTADE_POD_CONSTANT((op_dereference), dereference) = PSTADE_EGG_ADAPT_TYPE;
 
 
 } } // namespace pstade::egg

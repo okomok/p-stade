@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
         template<class Result, class Base>
         Result call(Base base) const
         {
-            Result r = PSTADE_EGG_CURRY_AUX(n)(base BOOST_PP_EMPTY)();
+            Result r = PSTADE_EGG_CURRY_L(n) base PSTADE_EGG_CURRY_R(n);
             return r;
         }
 

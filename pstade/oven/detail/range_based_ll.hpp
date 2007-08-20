@@ -42,7 +42,7 @@ struct range_based2_sig_fun :
     BOOST_PP_CAT(op_, Name); \
     \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
-        = PSTADE_OVEN_RANGE_BASED1(PSTADE_OVEN_RANGE_BASED_LL_init)(); \
+        = PSTADE_OVEN_RANGE_BASED1_L PSTADE_OVEN_RANGE_BASED_LL_init PSTADE_OVEN_RANGE_BASED1_R; \
 /**/
 
 #define PSTADE_OVEN_RANGE_BASED2_LL(R, _, Name) \
@@ -51,12 +51,12 @@ struct range_based2_sig_fun :
     BOOST_PP_CAT(op_, Name); \
     \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
-        = PSTADE_OVEN_RANGE_BASED2(PSTADE_OVEN_RANGE_BASED_LL_init)(); \
+        = PSTADE_OVEN_RANGE_BASED2_L PSTADE_OVEN_RANGE_BASED_LL_init PSTADE_OVEN_RANGE_BASED2_R; \
 /**/
 
-    
-    #define PSTADE_OVEN_RANGE_BASED_LL_init() \
-        PSTADE_EGG_ADAPT_SIG({} BOOST_PP_EMPTY)() \
+
+    #define PSTADE_OVEN_RANGE_BASED_LL_init \
+        PSTADE_EGG_ADAPT_SIG_L {} PSTADE_EGG_ADAPT_SIG_R \
     /**/
 
 
