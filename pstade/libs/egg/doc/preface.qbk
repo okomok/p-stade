@@ -76,10 +76,6 @@ This document uses the following notation.
         [A __DEFERRED_CALLABLE_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
     ]
     [
-        [`_NMA`]
-        [A macro argument such that `_NMA()` is a valid expression where `_NMA` contains at most one macro expansion.]
-    ]
-    [
         [`++`]
         [An imaginary operator to concatenate tokens.]
     ]

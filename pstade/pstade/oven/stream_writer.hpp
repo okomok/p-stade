@@ -32,7 +32,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./applier.hpp"
@@ -103,8 +103,8 @@ namespace stream_writer_detail {
 } // namespace stream_writer_detail
 
 
-typedef PSTADE_EGG_ADAPT((stream_writer_detail::base<boost::mpl::_>)) op_stream_writer;
-PSTADE_POD_CONSTANT((op_stream_writer), stream_writer) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((stream_writer_detail::base<boost::mpl::_>)) op_stream_writer;
+PSTADE_POD_CONSTANT((op_stream_writer), stream_writer) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

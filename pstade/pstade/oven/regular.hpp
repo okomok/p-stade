@@ -29,7 +29,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/indirected.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
@@ -105,14 +105,14 @@ namespace regular_detail {
 } // namespace regular_detail
 
 
-typedef PSTADE_EGG_ADAPT((regular_detail::base<boost::mpl::_>)) op_regular;
-PSTADE_POD_CONSTANT((op_regular), regular) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((regular_detail::base<boost::mpl::_>)) op_regular;
+PSTADE_POD_CONSTANT((op_regular), regular) = PSTADE_EGG_DEFERRED;
 
-typedef PSTADE_EGG_ADAPT((regular_detail::base_c<boost::mpl::_>)) op_regular_c;
-PSTADE_POD_CONSTANT((op_regular_c), regular_c) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((regular_detail::base_c<boost::mpl::_>)) op_regular_c;
+PSTADE_POD_CONSTANT((op_regular_c), regular_c) = PSTADE_EGG_DEFERRED;
 
-typedef PSTADE_EGG_ADAPT((regular_detail::base_ref<boost::mpl::_>)) op_regular_ref;
-PSTADE_POD_CONSTANT((op_regular_ref), regular_ref) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((regular_detail::base_ref<boost::mpl::_>)) op_regular_ref;
+PSTADE_POD_CONSTANT((op_regular_ref), regular_ref) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

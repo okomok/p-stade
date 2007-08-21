@@ -34,7 +34,7 @@ struct base_my_plus
 };
 
 typedef result_of_auxiliary1<base_my_plus>::type op_my_plus; /*< Notice that `N` is not `2` but `1`. >*/
-op_my_plus const my_plus = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R; /*< Don't forget a trailing `()`, a nullary macro invocation. >*/
+op_my_plus const my_plus = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R; /*< Sandwich base object initializer using macro. >*/
 
 void test_auxiliary()
 {
@@ -50,7 +50,8 @@ void test_auxiliary()
 
 //[code_curry_example
 typedef result_of_curry2<op_my_plus>::type op_curried_plus;
-op_curried_plus const curried_plus = PSTADE_EGG_CURRY2_L PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R PSTADE_EGG_CURRY2_R;
+op_curried_plus const curried_plus
+    = PSTADE_EGG_CURRY2_L PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R PSTADE_EGG_CURRY2_R;
 
 void test_curry()
 {

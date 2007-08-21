@@ -103,6 +103,7 @@ namespace pstade { namespace egg {
 #endif
     };
 
+
     typedef function_by_value<BOOST_PP_CAT(baby_curry, n)> BOOST_PP_CAT(op_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
 

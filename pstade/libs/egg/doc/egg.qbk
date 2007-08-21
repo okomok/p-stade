@@ -36,6 +36,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __DEFERRED_CALLABLE_OBJECT__ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html Deferred Callable Object]]
 [def __FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/functors.html Function Object]]
 [def __METAFUNCTION__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html Metafunction]]
+[def __MPL_LAMBDA_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html MPL Lambda Expression]]
 
 
 
@@ -54,6 +55,9 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION_FACADE__ [link egg.function_makers.function_facade function_facade]]
 [def __EGG_CURRY__ [link egg.function_adaptors.curryn curryN]]
 [def __EGG_UNCURRY__ [link egg.function_adaptors.uncurry uncurry]]
+[def __EGG_FUSE__ [link egg.function_adaptors.fuse fuse]]
+[def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse unfuse]]
+
 
 
 

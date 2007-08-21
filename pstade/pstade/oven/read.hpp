@@ -23,7 +23,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/is_reference_iterator.hpp"
 
@@ -63,8 +63,8 @@ namespace read_detail {
 } // namespace read_detail
 
 
-typedef PSTADE_EGG_ADAPT((read_detail::base<boost::mpl::_>)) op_read;
-PSTADE_POD_CONSTANT((op_read), read) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((read_detail::base<boost::mpl::_>)) op_read;
+PSTADE_POD_CONSTANT((op_read), read) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

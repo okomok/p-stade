@@ -110,7 +110,7 @@ namespace pstade { namespace egg {
         >::type
     op_auxiliary0;
 
-    PSTADE_POD_CONSTANT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR_TYPE;
+    PSTADE_POD_CONSTANT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR;
 
 
     // 1ary-
@@ -186,7 +186,7 @@ namespace pstade { namespace egg {
         >::type
     BOOST_PP_CAT(op_auxiliary, n);
 
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR_TYPE;
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR;
 
 
 #undef n

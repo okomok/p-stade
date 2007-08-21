@@ -131,7 +131,7 @@ typedef
     >::type
 op_make_any_range;
 
-PSTADE_POD_CONSTANT((op_make_any_range), make_any_range) = PSTADE_EGG_GENERATOR_TYPE;
+PSTADE_POD_CONSTANT((op_make_any_range), make_any_range) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

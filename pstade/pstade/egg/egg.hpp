@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./adapt.hpp"
-#include "./adapt_sig.hpp"
 #include "./adaptable.hpp"
 #include "./after.hpp"
 #include "./always.hpp"
@@ -26,6 +24,8 @@
 #include "./copy.hpp"
 #include "./copy_assign.hpp"
 #include "./curry.hpp"
+#include "./defer_sig.hpp"
+#include "./deferred.hpp"
 #include "./delete.hpp"
 #include "./delete_array.hpp"
 #include "./dereference.hpp"

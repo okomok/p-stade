@@ -21,7 +21,7 @@
 #include <boost/optional/optional_fwd.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./adapt.hpp"
+#include "./deferred.hpp"
 
 
 namespace pstade { namespace egg {
@@ -71,8 +71,8 @@ namespace pstade { namespace egg {
     } // namespace dereference_detail
 
 
-    typedef PSTADE_EGG_ADAPT((dereference_detail::base<boost::mpl::_>)) op_dereference;
-    PSTADE_POD_CONSTANT((op_dereference), dereference) = PSTADE_EGG_ADAPT_TYPE;
+    typedef PSTADE_EGG_DEFER((dereference_detail::base<boost::mpl::_>)) op_dereference;
+    PSTADE_POD_CONSTANT((op_dereference), dereference) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::egg

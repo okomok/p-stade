@@ -17,7 +17,7 @@
 <a name="egg"></a>Chapter 1. Egg 0.90.0</h2></div>
 <div><p class="copyright">Copyright © 2007 Shunsuke Sogame</p></div>
 <div><div class="legalnotice">
-<a name="id431591"></a><p>
+<a name="id433632"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -47,8 +47,8 @@
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.function_by_value">function_by_value</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.function_facade">function_facade</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.envelope">envelope</a></span></dt>
-<dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.adapt">adapt</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.automatic">automatic</a></span></dt>
+<dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.deferred">deferred</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.generator">generator</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/function_adaptors.html">Function Adaptors</a></span></dt>
@@ -59,10 +59,7 @@
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.uncurry">uncurry</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.fuse">fuse</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.unfuse">unfuse</a></span></dt>
-<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.perfect">perfect</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.pipable">pipable</a></span></dt>
-<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.macro_expansion_workaround">Macro
-      Expansion Workaround</a></span></dt>
 </dl></dd>
 </dl>
 </div>
@@ -222,19 +219,6 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_NMA</span></code>
-              </p>
-              </td>
-<td>
-              <p>
-                A macro argument such that <code class="computeroutput"><span class="identifier">_NMA</span><span class="special">()</span></code> is a valid expression where <code class="computeroutput"><span class="identifier">_NMA</span></code> contains at most one macro
-                expansion.
-              </p>
-              </td>
-</tr>
-<tr>
-<td>
-              <p>
                 <code class="computeroutput"><span class="special">++</span></code>
               </p>
               </td>
@@ -250,7 +234,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: August 20, 2007 at 15:24:34 GMT</p></small></td>
+<td align="left"><small><p>Last revised: August 21, 2007 at 08:38:46 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

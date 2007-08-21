@@ -16,8 +16,14 @@
 #include <pstade/egg/function_by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/envelope.hpp>
+#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/generator.hpp>
 
 
+#include <boost/lexical_cast.hpp>
+#include <utility> //pair
+#include <string>
 #include <vector>
 
 
@@ -167,10 +173,84 @@ void test_envelope()
 }
 
 
+//[code_automatic_example
+template<class To>
+struct xp_lexical_cast
+{
+    typedef To result_type;
+
+    template<class From>
+    To operator()(From from) const
+    {
+        return boost::lexical_cast<To>(from);
+    }
+};
+
+typedef
+    automatic< xp_lexical_cast<boost::mpl::_> >::type
+op_lexicalize;
+
+op_lexicalize const lexicalize = PSTADE_EGG_AUTOMATIC;
+
+void test_automatic()
+{
+    std::string str = lexicalize(20);
+    BOOST_CHECK( str == "20" );
+}
+//]
+
+
+//[code_deferred_example
+template<class X>
+struct base_my_identity
+{
+    typedef X &result_type;
+
+    result_type operator()(X &x) const
+    {
+        return x;
+    }
+};
+
+typedef
+    deferred< base_my_identity<boost::mpl::_1> >::type
+op_my_identity;
+
+op_my_identity const my_identity = PSTADE_EGG_DEFERRED;
+//]
+
+void test_deferred()
+{
+    int i = 10;
+    BOOST_CHECK( &(my_identity(i)) == &i );
+    BOOST_CHECK( my_identity(10) == 10 );
+}
+
+
+//[code_generator_example
+typedef
+    generator<
+        std::pair< deduce<boost::mpl::_1, as_value>, deduce<boost::mpl::_2, as_value> >
+    >::type
+op_make_pair;
+
+op_make_pair const make_pair = PSTADE_EGG_GENERATOR;
+
+void test_generator()
+{
+    BOOST_CHECK( make_pair(10, std::string("generator"))
+        == std::make_pair(10, std::string("generator")) );
+}
+//]
+
+
 void pstade_minimal_test()
 {
     test_function();
     test_function_by_value();
     test_function_facade();
     test_envelope();
+    test_automatic();
+    test_deferred();
+    test_generator();
 }
