@@ -4,7 +4,7 @@
 
 
 Function makers build a "baby" function into a __FUNCTION_OBJECT__ which can be used
-with `boost::lambda::bind` and `boost::resul_of`.
+with `boost::lambda::bind` and `boost::result_of`.
 
 [import ../example/function_makers.cpp]
 
@@ -49,7 +49,7 @@ This section uses the following notation.
     };
 
 [heading Notation]
-* `f` is an object of `function<B> const`.
+* `f` is an object of `function<B>`.
 
 [heading Valid expressions]
 [table 
@@ -72,6 +72,7 @@ This section uses the following notation.
 ]
 
 [heading Preconditions]
+* `1 <= N && N <= 5`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -110,7 +111,7 @@ This section uses the following notation.
     };
 
 [heading Notation]
-* `f` is an object of `function_by_value<B> const`.
+* `f` is an object of `function_by_value<B>`.
 
 [heading Valid expressions]
 [table 
@@ -133,6 +134,7 @@ This section uses the following notation.
 ]
 
 [heading Preconditions]
+* `1 <= N && N <= 5`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -165,8 +167,8 @@ Though a type made from `function_facade` can't be a POD type, it can have non-d
         [[*Semantics]]
     ]
     [
-        [`_typeof(b)`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+        [`b`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__]
     ]
     [
         [`b(a1,...,aN)`]
@@ -175,6 +177,7 @@ Though a type made from `function_facade` can't be a POD type, it can have non-d
 ]
 
 [heading Preconditions]
+* `1 <= N && N <= 5`.
 * `b` is an object whose type is derived from `function_facade<B>`.
 * The corresponding semantics is a valid expression.
 
@@ -193,7 +196,7 @@ Though a type made from `function_facade` can't be a POD type, it can have non-d
 [section envelope]
 
 [heading Description]
-The overload resolution system of GCC 3.4.x or below is broken when you call a function with explicit template parameter types.
+The overload resolution system of GCC 3.4.x or below is broken when you call the overloaded functions whose arity is the same with explicit template parameter types.
 If you overload `apply` in "baby" function under GCC 3.4.x, explicit template parameters must be removed using a "type envelope".
 
 [heading Header]
@@ -224,22 +227,170 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 
 
 
-[section adapt]
-Todo
+[section automatic]
+
+[heading Description]
+`automatic` makes a __FUNCTION_OBJECT__ type which adds automatic conversion support to a cast form function.
+
+[heading Header]
+* `<pstade/egg/automatic.hpp>`
+
+[heading Notation]
+* `u` is an object of `automatic<Lam>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`automatic<Lam>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_AUTOMATIC`]
+        [A braced initializer of `automatic<Lam>::type`]
+    ]
+    [
+        [`To to = u(a1,...,aN);`]
+        [`To to = boost::mpl::apply<Lam, To>::type(_ref(a1),..,_ref(aN));`]
+    ]
+    [
+        [`To to = u();`]
+        [`To to = boost::mpl::apply<Lam, To>::type();`]
+    ]
+]
+
+[heading Preconditions]
+* `Lam` is an __MPL_LAMBDA_EXPRESSION__.
+* `1 <= N && N <= 5`.
+* `boost::mpl::apply<Lam, To>::type` is a __DEFERRED_CALLABLE_OBJECT__ type.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+[code_automatic_example]
+
+[heading See also]
+* ...
+
 [endsect]
 
 
 
 
-[section automatic]
-Todo
+[section deferred]
+
+[heading Description]
+`deferred` is an emulation of `boost::detail::functionN` family.
+
+[heading Header]
+* `<pstade/egg/deferred.hpp>`
+
+[heading Notation]
+* `f` is an object of `deffered<Lam>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`deferred<Lam>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_DEFERRED`]
+        [A braced initializer of `deferred<Lam>::type`]
+    ]
+    [
+        [`f(a1,...,aN)`]
+        [`boost::add_const<boost::mpl::apply<Lam, _arg(a1),...,_arg(aN)>::type>::type()(_ref(a1),...,_ref(aN))`]
+    ]
+]
+
+[heading Preconditions]
+* `Lam` is an __MPL_LAMBDA_EXPRESSION__.
+* `1 <= N && N <= 5`.
+* `boost::mpl::apply<Lam, _arg(a1),...,_arg(aN)>::type::result_type` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+[code_deferred_example]
+
+[heading See also]
+* ...
+
 [endsect]
 
 
 
 
 [section generator]
-Todo
+
+[heading Description]
+`generator` makes an "object generator".
+
+[heading Header]
+* `<pstade/egg/generator.hpp>`
+
+[heading Notation]
+* `g` is an object of `generator<Lam>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`generator<Lam>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_GENERATOR`]
+        [A braced initializer of `generator<Lam>::type`]
+    ]
+    [
+        [`g(a1,...,aN)`]
+        [`boost::mpl::apply<Lam, _arg(a1),...,_arg(aN)>::type(_ref(a1),...,_ref(aN))`]
+    ]
+    [
+        [`deduce<A, Ded>`]
+        [` boost::mpl::apply<Ded, A>` if the corresponding argument is passed; ill-formed otherwise.]
+    ]
+    [
+        [`deduce<A, Ded, Def>`]
+        [` boost::mpl::apply<Ded, A>` if the corresponding argument is passed; `boost::mpl::identity<Def>` otherwise.]
+    ]
+    [
+        [`as_value::apply<A>`]
+        [`boost::remove_const<boost::decay<A>::type>`]
+    ]
+    [
+        [`as_reference::apply<A>`]
+        [`boost::add_reference<A>`]
+    ]
+    [
+        [`as_qualified::apply<A>`]
+        [`boost::mpl::identity<A>`]
+    ]
+]
+
+[heading Preconditions]
+* `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
+* `1 <= N && N <= 5`.
+* The corresponding semantics is a valid expression.
+
+[note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]
+
+[heading Example]
+[code_generator_example]
+
+[heading See also]
+* ...
+
 [endsect]
 
 

@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
     op_not_;
 
 
-    PSTADE_POD_CONSTANT((op_not_), not_) = PSTADE_EGG_GENERATOR_TYPE;
+    PSTADE_POD_CONSTANT((op_not_), not_) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

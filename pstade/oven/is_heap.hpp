@@ -33,7 +33,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/less.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
@@ -93,8 +93,8 @@ namespace is_heap_until_detail {
 } // namespace is_heap_until_detail
 
 
-typedef PSTADE_EGG_ADAPT((is_heap_until_detail::base<boost::mpl::_>)) op_is_heap_until;
-PSTADE_POD_CONSTANT((op_is_heap_until), is_heap_until) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((is_heap_until_detail::base<boost::mpl::_>)) op_is_heap_until;
+PSTADE_POD_CONSTANT((op_is_heap_until), is_heap_until) = PSTADE_EGG_DEFERRED;
 
 
 struct op_is_heap

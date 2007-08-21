@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
     op_flip;
 
 
-    PSTADE_POD_CONSTANT((op_flip), flip) = PSTADE_EGG_GENERATOR_TYPE;
+    PSTADE_POD_CONSTANT((op_flip), flip) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

@@ -132,7 +132,7 @@ typedef
 op_make_reverse_iterator;
 
 PSTADE_ADL_BARRIER(reverse_iterator) { // for 'boost'
-    PSTADE_POD_CONSTANT((op_make_reverse_iterator), make_reverse_iterator) = PSTADE_EGG_GENERATOR_TYPE;
+    PSTADE_POD_CONSTANT((op_make_reverse_iterator), make_reverse_iterator) = PSTADE_EGG_GENERATOR;
 }
 
 

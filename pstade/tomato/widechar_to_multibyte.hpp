@@ -67,7 +67,7 @@ namespace pstade { namespace tomato {
 
 
     PSTADE_POD_CONSTANT((op_to_multibyte), to_multibyte)
-        = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC_TYPE PSTADE_EGG_AUXILIARY_R;
+        = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::tomato

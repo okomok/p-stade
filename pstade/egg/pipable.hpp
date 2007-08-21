@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
     op_pipable;
 
 
-    PSTADE_POD_CONSTANT((op_pipable), pipable) = PSTADE_EGG_GENERATOR_TYPE;
+    PSTADE_POD_CONSTANT((op_pipable), pipable) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

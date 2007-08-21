@@ -18,7 +18,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./iter_range.hpp"
 
@@ -46,8 +46,8 @@ namespace single_detail {
 } // namespace single_detail
 
 
-typedef PSTADE_EGG_ADAPT((single_detail::base<boost::mpl::_>)) op_single;
-PSTADE_POD_CONSTANT((op_single), single) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((single_detail::base<boost::mpl::_>)) op_single;
+PSTADE_POD_CONSTANT((op_single), single) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

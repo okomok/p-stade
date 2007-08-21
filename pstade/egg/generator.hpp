@@ -38,9 +38,7 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_GENERATOR_TYPE \
-        {{}} \
-    /**/
+    #define PSTADE_EGG_GENERATOR {{}}
 
 
     struct generator_error_argument_required;

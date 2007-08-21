@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/block_iterator.hpp"
@@ -46,8 +46,8 @@ namespace in_block_detail {
 } // namespace in_block_detail
 
 
-typedef PSTADE_EGG_ADAPT((in_block_detail::base<boost::mpl::_>)) op_in_block;
-PSTADE_POD_CONSTANT((op_in_block), in_block) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((in_block_detail::base<boost::mpl::_>)) op_in_block;
+PSTADE_POD_CONSTANT((op_in_block), in_block) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

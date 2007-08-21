@@ -16,7 +16,7 @@
 // This is considered as a generalized 'regular_c'.
 
 
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/indirected.hpp>
 #include <pstade/egg/to_shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
@@ -50,8 +50,8 @@ namespace shared_regular_detail {
 } // namespace shared_regular_detail
 
 
-typedef PSTADE_EGG_ADAPT((shared_regular_detail::base<boost::mpl::_>)) op_shared_regular;
-PSTADE_POD_CONSTANT((op_shared_regular), shared_regular) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((shared_regular_detail::base<boost::mpl::_>)) op_shared_regular;
+PSTADE_POD_CONSTANT((op_shared_regular), shared_regular) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

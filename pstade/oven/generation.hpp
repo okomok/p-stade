@@ -12,7 +12,7 @@
 
 
 #include <boost/optional/optional.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/identity.hpp>
 #include <pstade/pass_by.hpp>
@@ -83,8 +83,8 @@ namespace generation_detail {
 } // namespace generation_detail
 
 
-typedef PSTADE_EGG_ADAPT((generation_detail::base<boost::mpl::_>)) op_generation;
-PSTADE_POD_CONSTANT((op_generation), generation) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((generation_detail::base<boost::mpl::_>)) op_generation;
+PSTADE_POD_CONSTANT((op_generation), generation) = PSTADE_EGG_DEFERRED;
 
 
 namespace nonstop_detail {
@@ -125,7 +125,7 @@ typedef
     >::type
 op_nonstop;
 
-PSTADE_POD_CONSTANT((op_nonstop), nonstop) = PSTADE_EGG_GENERATOR_TYPE;
+PSTADE_POD_CONSTANT((op_nonstop), nonstop) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

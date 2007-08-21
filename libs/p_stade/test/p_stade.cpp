@@ -1,15 +1,15 @@
-#define BOOST_AUTO_TEST_MAIN
-#include <boost/test/unit_test.hpp>
-#include <pstade/oven/equals.hpp>
-#include <pstade/oven/stream_read.hpp>
-#include <pstade/oven/single.hpp>
-#include <boost/range/iterator_range.hpp>
-BOOST_AUTO_TEST_CASE(iterator_range_equals) {
-  using namespace pstade::oven;
-  using namespace boost;
-  using namespace std;
 
-  stringstream ss("1");
-//  BOOST_CHECK(equals(make_iterator_range(istreambuf_iterator<char>(ss), istreambuf_iterator<char>()), single('1')));
-  BOOST_CHECK(equals(streambuf_read(ss), single('1')));
-} 
+#include <boost/shared_ptr.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+
+struct A { };
+struct B { };
+
+BOOST_STATIC_ASSERT((boost::is_convertible< boost::shared_ptr<A>, boost::shared_ptr<B> >::value));
+
+int main()
+{
+    boost::shared_ptr<A> pa;
+    //boost::shared_ptr<B> pb = pa;
+}

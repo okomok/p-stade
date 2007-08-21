@@ -15,7 +15,7 @@
 
 #include <pstade/test.hpp>
 #include <pstade/egg/auxiliary.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -50,7 +50,7 @@ namespace counting_from_detail {
 
 } // namespace counting_from_detail
 
-typedef PSTADE_EGG_ADAPT((counting_from_detail::base<boost::mpl::_>)) op_counting_from;
+typedef PSTADE_EGG_DEFER((counting_from_detail::base<boost::mpl::_>)) op_counting_from;
 op_counting_from counting_from;
 } } // namespace pstade::oven
 

@@ -34,7 +34,7 @@ namespace deducers = pstade::egg;
         typedef pstade::egg::generator<PSTADE_UNPARENTHESIZE(L)>::type op; \
     } \
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(op_, G); \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, G)), G) = PSTADE_EGG_GENERATOR_TYPE; \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, G)), G) = PSTADE_EGG_GENERATOR; \
 /**/
 
 
@@ -74,25 +74,25 @@ struct my_type
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, char >::type op_make_my_type_v;
-op_make_my_type_v const make_my_type_v = PSTADE_EGG_GENERATOR_TYPE;
+op_make_my_type_v const make_my_type_v = PSTADE_EGG_GENERATOR;
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), op_make_my_type_v(int&))
 PSTADE_TEST_IS_RESULT_OF((char), op_make_my_type_v())
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_reference> > >::type op_make_my_type_r;
-op_make_my_type_r const make_my_type_r = PSTADE_EGG_GENERATOR_TYPE;
+op_make_my_type_r const make_my_type_r = PSTADE_EGG_GENERATOR;
 PSTADE_TEST_IS_RESULT_OF((my_type<int const&>), op_make_my_type_r(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int&>), op_make_my_type_r(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > >::type op_make_my_type_q;
-op_make_my_type_q const make_my_type_q = PSTADE_EGG_GENERATOR_TYPE;
+op_make_my_type_q const make_my_type_q = PSTADE_EGG_GENERATOR;
 PSTADE_TEST_IS_RESULT_OF((my_type<int const>), op_make_my_type_q(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), op_make_my_type_q(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > >::type op_make_my_type_v_d;
-op_make_my_type_v_d const make_my_type_v_d = PSTADE_EGG_GENERATOR_TYPE;
+op_make_my_type_v_d const make_my_type_v_d = PSTADE_EGG_GENERATOR;
 
 
 
@@ -163,7 +163,7 @@ struct deduce_to_hello :
 
 typedef generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > >::type op_make_nap;
 #if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
-    op_make_nap const make_nap = PSTADE_EGG_GENERATOR_TYPE;
+    op_make_nap const make_nap = PSTADE_EGG_GENERATOR;
 #endif
 
 

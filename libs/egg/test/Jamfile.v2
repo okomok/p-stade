@@ -11,8 +11,6 @@ project
     ;
 
 test-suite "egg" :
-    [ run adapt.cpp ]
-    [ run adapt_sig.cpp ]
     [ run adaptable.cpp ]
     [ run after.cpp ]
     [ run always.cpp ]
@@ -27,6 +25,8 @@ test-suite "egg" :
     [ run copy.cpp ]
     [ run copy_assign.cpp ]
     [ run curry.cpp ]
+    [ run defer_sig.cpp ]
+    [ run deferred.cpp ]
     [ run delete.cpp ]
     [ run delete_array.cpp ]
     [ run dereference.cpp ]

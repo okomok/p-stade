@@ -90,7 +90,7 @@ namespace pstade { namespace egg {
     { }; // ::type = { { {{}}, {} } }
 
 
-    #define PSTADE_EGG_AUTOMATIC_TYPE \
+    #define PSTADE_EGG_AUTOMATIC \
         PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
     /**/
 

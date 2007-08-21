@@ -29,7 +29,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/less.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
@@ -85,8 +85,8 @@ namespace is_sorted_until_detail {
 } // namespace is_sorted_until_detail
 
 
-typedef PSTADE_EGG_ADAPT((is_sorted_until_detail::base<boost::mpl::_>)) op_is_sorted_until;
-PSTADE_POD_CONSTANT((op_is_sorted_until), is_sorted_until) = PSTADE_EGG_ADAPT_TYPE;
+typedef PSTADE_EGG_DEFER((is_sorted_until_detail::base<boost::mpl::_>)) op_is_sorted_until;
+PSTADE_POD_CONSTANT((op_is_sorted_until), is_sorted_until) = PSTADE_EGG_DEFERRED;
 
 
 struct op_is_sorted

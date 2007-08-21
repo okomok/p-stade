@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_ret<>::type op_perfect;
-    PSTADE_POD_CONSTANT((op_perfect), perfect) = PSTADE_EGG_GENERATOR_TYPE;
+    PSTADE_POD_CONSTANT((op_perfect), perfect) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg
