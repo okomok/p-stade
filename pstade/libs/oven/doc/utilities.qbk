@@ -14,7 +14,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 * `<pstade/oven/adapted_to_base.hpp>`
 
 [h3 Model of]
-* `to_base` is an _auxiliary_interface_.
+* `to_base` is an _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_.
 
 [h3 Valid expressions]
 [table 
@@ -64,7 +64,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 * `<pstade/oven/expression.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -218,7 +218,7 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
 * `<pstade/oven/generation.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -301,7 +301,7 @@ An iterator holding such a functor can't conform to even _input_iterator_.
 * `<pstade/oven/regular.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -348,7 +348,7 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 * `<pstade/oven/regular.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -386,7 +386,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `<pstade/oven/shared_regular.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 

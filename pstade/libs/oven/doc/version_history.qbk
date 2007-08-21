@@ -167,6 +167,9 @@
 * Added `parallel_xxx`.
 * Added `comprehension`.
 
+[h2 Version 0.94.4]
+* Concept semantics slightly changed.
+
 
 
 

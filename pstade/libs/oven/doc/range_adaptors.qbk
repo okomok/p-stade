@@ -1450,8 +1450,8 @@ That is, the view includes every element of the given range but in a potentially
 ]
 
 [h3 Preconditions]
-* `r` is a _contiguous_ _range_ such that `!boost::empty(r)`.
-* `q` is a _contiguous_ _range_ such that `boost::empty(q)`.
+* `r` is a _contiguous_ _s_ _range_ such that `!boost::empty(r)`.
+* `q` is a _contiguous_ _s_ _range_ such that `boost::empty(q)`.
 
 [h3 Example]
     std::string const src("hello, pointed");

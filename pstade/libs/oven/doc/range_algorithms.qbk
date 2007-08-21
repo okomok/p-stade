@@ -14,7 +14,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/algorithm.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -76,7 +76,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/numeric.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -113,7 +113,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/all.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Notation]
 * `not_` is an imaginary function to nagate a predicate.
@@ -150,7 +150,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/at.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -166,7 +166,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [h3 Preconditions]
 * `_rndrng` is _readable_ or _lvalue_.
-* If `boost::range_reference<_typeof(_rndrng)>::type` is a /reference type/, `_rndrng` is a _lvalue_ _range_.
+* If `boost::range_reference<_typeof(_rndrng)>::type` is a /reference type/, `_rndrng` is a _lvalue_ _s_ _range_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
 
@@ -194,7 +194,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/back.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -210,7 +210,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [h3 Preconditions]
 * `_bidrng` is _readable_ or _lvalue_.
-* If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _range_.
+* If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _s_ _range_.
 * `!boost::empty(_bidrng)`
 
 [h3 See also]
@@ -225,13 +225,13 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 [section begin/end]
 
 [h3 Description]
-`begin` and `end` is the _auxiliary_interface_ version of `boost::begin` and `boost::end` respectively.
+`begin` and `end` is the _auxiliary_interface_object_ version of `boost::begin` and `boost::end` respectively.
 
 [h3 Header]
 * `<pstade/oven/begin_end.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -265,7 +265,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 `copied` automagically calls the range-constructor of the target range without specifying the type.
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Header]
 * `<pstade/oven/copied.hpp>`
@@ -322,7 +322,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/distance.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -353,7 +353,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/equals.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Notation]
 * `eq` is `(boost::lambda::_1 == boost::lambda::_2)`.
@@ -391,7 +391,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/front.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -407,7 +407,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [h3 Preconditions]
 * `_rng` is _readable_ or _lvalue_.
-* If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_ _range_.
+* If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_ _s_ _range_.
 * `!boost::empty(_rng)`
 
 [h3 See also]
@@ -428,7 +428,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/none.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 
 [h3 Valid expressions]
@@ -463,7 +463,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/at.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Notation]
 `V` is `_value_of<_typeof(_rndrng)>::type`.
@@ -502,7 +502,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/back.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Notation]
 * `V` is `_value_of<_typeof(_bidrng)>::type`.
@@ -541,7 +541,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/front.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Notation]
 * `V` is `_value_of<_typeof(_rng)>::type`.

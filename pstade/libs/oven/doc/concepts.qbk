@@ -3,65 +3,10 @@
 
 
 
-[section Bindable Object]
-
-[h3 Description]
-A _bindable_object_ is a _function_object_ which can be passed to `boost::lambda::bind`.
-
-[h3 Refinement of]
-* _function_object_
-
-[h3 Requirements]
-In addition to the requirements defined in _function_object_,
-for any _bindable_object_ `b` the following must be met:
-
-* There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,..,boost::lambda::_N)` is a valid expression.
-
-[h3 Models]
-
-[h3 See also]
-* _boost_lambda_
-
-[endsect]
-
-
-
-
-[section Operatable Object]
-
-[h3 Description]
-An _operatable_object_ is a _deferred_callable_object_ which can specify the type of itself using prefix `op_`.
-
-[h3 Refinement of]
-* _deferred_callable_object_
-* _bindable_object_
-
-[h3 Requirements]
-In addition to the requirements defined in _deferred_callable_object_ and _bindable_object_,
-for any _operatable_object_ `f` the following must be met:
-
-* `op_ ## f` is `_typeof(f)`.
-
-[note `##` means the token concatenation.
-      For example, `make_filtered` is an _operatable_object_, so that `op_make_filteterd` is `_typeof(make_filtered)`.]
-
-[h3 Models]
-* [link oven.filtered make_filtered]
-* [link oven.generation generation]
-
-[endsect]
-
-
-[caution Because of a compiler bug, `boost::result_of` of Boost version 1.34 or below is utterly broken
-on msvc-7.1 and 8.0. `pstade::result_of ` in `<pstade/result_of.hpp>` can be used for the workaround.]
-
-
-
-
 [section Pipable Object]
 
 [h3 Description]
-A _pipable_object_ supports a pipe-like syntax using `operator|` and has the associated _operatable_object_ using prefix `make_`.
+A _pipable_object_ supports a pipe-like syntax using `operator|` and has the associated _bindable_ _operatable_object_ using prefix `make_`.
 
 [h3 Refinement of]
 * _deferred_callable_object_
@@ -71,41 +16,12 @@ For any _pipable_object_ `p` the following must be met:
 
 * `x|p(x1,..,xN)` is a valid expression if and only if `make_ ## p(x, x1,..xN)` is a valid expression.
 * `x|p(x1,..,xN)` and `make_ ## p(x, x1,..xN)` have the same effects.
-* `make_ ## p` is an _operatable_object_.
+* `make_ ## p` is an _bindable_ _s_ _operatable_object_.
 * If `N` is `0`, `x|p` and `make_ ## p(x)` are valid expressions which have the same effects.
 
 [h3 Models]
 * [link oven.filtered filtered]
 * [link oven.transformed transformed]
-
-[endsect]
-
-
-
-
-[section Auxiliary Interface]
-
-[h3 Description]
-An _auxiliary_interface_ is an _operatable_object_ which supports also a pipe-like syntax
-used as if it were a member function.
-
-[h3 Refinement of]
-* _operatable_object_
-
-[h3 Requirements]
-In addition to the requirements defined in _operatable_object_,
-for any _auxiliary_interface_ `i` the following must be met:
-
-* `x|i(x1,..,xN)` is a valid expression if and only if `i(x, x1,..,xN)` is a valid expression.
-* `x|i(x1,..xN)` and `i(x, x1,..,xN)` have the same effects.
-* If `N` is `0`, `x|i()` and `x|i` are valid expressions which have the same effects.
-
-[h3 Models]
-* [link oven.as_array as_array]
-* [link oven.begin_end begin/end]
-
-[h3 See also]
-* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf Auxiliary class interfaces]
 
 [endsect]
 
@@ -163,7 +79,7 @@ for any _iterator_block_ `b` the following must be met:
 A _constant_ _range_ is a _range_ whose elements are not modifiable.
 
 [h3 Refinement of]
-* _single_pass_ _range_
+* _single_pass_ _s_ _range_
 
 [h3 Requirements]
 In addition to the requirements defined in _single_pass_ _range_,
@@ -187,8 +103,8 @@ for any _constant_ _range_ `r` the following must be met:
 A _contiguous_ _range_ is a _random_access_ _range_ whose elements are stored contiguously.
 
 [h3 Refinement of]
-* _random_access_ _range_
-* _lvalue_ _range_
+* _random_access_ _s_ _range_
+* _lvalue_ _s_ _range_
 
 [h3 Requirements]
 In addition to the requirements defined in _random_access_ _range_,

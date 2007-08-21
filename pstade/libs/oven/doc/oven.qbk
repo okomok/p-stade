@@ -1,7 +1,7 @@
 
 [library Oven
     [quickbook 1.1]
-    [version 0.94.3]
+    [version 0.94.4]
     [authors [Sogame, Shunsuke]]
     [copyright 2005-2007 Shunsuke Sogame]
     [category range]
@@ -78,16 +78,22 @@
 [def _fusion_forward_sequence_  [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/forward_sequence.html Fusion Forward Sequence]]
 [def _fusion_random_access_sequence_ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Fusion Random Access Sequence]]
 
-[def _bindable_object_       [link oven.bindable_object Bindable Object]]
-[def _bindable_              [link oven.bindable_object Bindable]]
-[def _operatable_object_     [link oven.operatable_object Operatable Object]]
-[def _operatable_            [link oven.operatable_object Operatable]]
+[def _bindable_object_       [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object Bindable Object]]
+[def _bindable_              [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object Bindable]]
+[def _operatable_object_     [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object Operatable Object]]
+[def _operatable_            [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object Operatable]]
 [def _pipable_object_        [link oven.pipable_object Pipable Object]]
 [def _pipable_               [link oven.pipable_object Pipable]]
-[def _auxiliary_interface_   [link oven.auxiliary_interface Auxiliary Interface]]
+[def _auxiliary_interface_object_ [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_interface_object Auxiliary Interface Object]]
+[def _auxiliary_interface_   [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_interface_object Auxiliary Interface]]
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
 [def _iterator_block_        [link oven.iterator_block Iterator Block]]
 [def _parallel_safe_         [link oven.parallel_safe Parallel Safe]]
+
+
+[/ Workaround: Links in lists are not separated. ZERO WIDTH SPACE is used for now. ]
+[def _s_ '''&#8203;''']
+
 
 [include preface.qbk]
 [include concepts.qbk]

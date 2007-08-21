@@ -28,6 +28,12 @@ for any __OPERATABLE_OBJECT__ `f` the following must be met:
 
 
 
+[caution Because of a compiler bug, `boost::result_of` of Boost version 1.34 or below is utterly broken
+on msvc-7.1 and 8.0. `pstade::result_of ` in `<pstade/result_of.hpp>` can be used for the workaround.]
+
+
+
+
 [section Auxiliary Interface Object]
 
 [heading Description]
