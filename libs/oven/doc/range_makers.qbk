@@ -15,7 +15,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_array.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -53,7 +53,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_c_str.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -98,7 +98,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_literal.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
 
 [h3 Valid expressions]
 [table 
@@ -145,7 +145,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/comprehension.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Notation]
 * `d(I) = distance(_rngI)`
@@ -167,7 +167,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`always_return`]
         [
-            An _operatable_object_
+            An _bindable_ _operatable_object_
         ]
     ]
     [
@@ -251,7 +251,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/counting.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -311,7 +311,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/generation.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -377,7 +377,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/in_block.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Notation]
 * `yield` is an unspecified unary _function_object_ passed to `b`.
@@ -446,7 +446,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/initial_values.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -526,7 +526,7 @@ on the first argument, the second item by applying the function on the previous 
 * `<pstade/oven/iteration.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Notation]
 * `just` is an imaginary function object such that `y -> boost::optional<_typeof(x)>(y)`.
@@ -573,7 +573,7 @@ on the first argument, the second item by applying the function on the previous 
 * `<pstade/oven/recursion.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -632,7 +632,7 @@ and the iterators manage the allocation.
 * `<pstade/oven/shared.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Notation]
 * `shared_range_iterator` is an imaginary iterator which works like
@@ -685,7 +685,7 @@ and the iterators manage the allocation.
 * `<pstade/oven/shared_single.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -726,7 +726,7 @@ and the iterators manage the allocation.
 * `<pstade/oven/single.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -763,7 +763,7 @@ and the iterators manage the allocation.
 * `<pstade/oven/stream_lines.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Notation]
 * `DefaultA` is `std::allocator<_typeof(s)::char_type>`.
@@ -875,7 +875,7 @@ and the iterators manage the allocation.
 * `<pstade/oven/stream_read.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -915,7 +915,7 @@ and the iterators manage the allocation.
 * `<pstade/oven/unfold.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 

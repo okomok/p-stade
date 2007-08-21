@@ -68,8 +68,8 @@ a range presentation of dynamically allocated arrays.
 * `<pstade/oven/array_range.hpp>`
 
 [h3 Model of]
-* _random_access_ _range_
-* _contiguous_ _range_
+* _random_access_ _s_ _range_
+* _contiguous_ _s_ _range_
 
 [h3 Valid expressions]
 [table 
@@ -112,7 +112,7 @@ a range presentation of dynamically allocated arrays.
 * `<pstade/oven/directory_range.hpp>`
 
 [h3 Model of]
-* _single_pass_ _range_
+* _single_pass_ _s_ _range_
 
 [h3 Valid expressions]
 [table 
@@ -167,8 +167,8 @@ a range presentation of dynamically allocated arrays.
 * `<pstade/oven/empty_range.hpp>`
 
 [h3 Model of]
-* _random_access_ _range_
-* _contiguous_ _range_
+* _random_access_ _s_ _range_
+* _contiguous_ _s_ _range_
 
 [h3 Valid expressions]
 [table 
@@ -205,8 +205,8 @@ If the file opening failed, the range is empty.
 * `<pstade/oven/file_range.hpp>`
 
 [h3 Model of]
-* _random_access_ _range_
-* _constant_ _range_
+* _random_access_ _s_ _range_
+* _constant_ _s_ _range_
 
 [h3 Notation]
 * `r` is a `file_range`.

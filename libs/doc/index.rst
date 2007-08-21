@@ -35,6 +35,10 @@ P-Stade File Releases
 The Port of YARD_ to Boost_
 
 
+`Egg`_
+----------
+A framework of making function objects
+
 
 `Ketchup`_
 ----------

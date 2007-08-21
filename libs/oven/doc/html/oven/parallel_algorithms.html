@@ -4,8 +4,8 @@
 <title>Parallel Algorithms</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="../index.html" title="Chapter 1. Oven 0.94.3">
-<link rel="up" href="../index.html" title="Chapter 1. Oven 0.94.3">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 0.94.4">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 0.94.4">
 <link rel="prev" href="output_iterator_adaptors.html" title="Output Iterator Adaptors">
 <link rel="next" href="extending_boost_range.html" title="Extending Boost.Range">
 </head>
@@ -32,21 +32,25 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_copy"></a>parallel_copy</h3></div></div></div>
 <a name="parallel_copy.description"></a><h4>
-<a name="id594800"></a>
+<a name="id594118"></a>
         Description
       </h4>
 <a name="parallel_copy.header"></a><h4>
-<a name="id594813"></a>
+<a name="id594131"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_copy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_copy.model_of"></a><h4>
-<a name="id594884"></a>
+<a name="id594202"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
+          Object</a>
+</li></ul></div>
 <a name="parallel_copy.valid_expressions"></a><h4>
-<a name="id594913"></a>
+<a name="id594239"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -82,7 +86,7 @@
 </tr></tbody>
 </table></div>
 <a name="parallel_copy.preconditions"></a><h4>
-<a name="id595076"></a>
+<a name="id594402"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -95,7 +99,8 @@
           is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">it</span></code> is a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a><a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators" target="_top">Writable</a>
+<code class="computeroutput"><span class="identifier">it</span></code> is a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a>
+          &#8203; <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators" target="_top">Writable</a>
           Iterator.
         </li>
 <li>
@@ -103,7 +108,7 @@
         </li>
 </ul></div>
 <a name="parallel_copy.example"></a><h4>
-<a name="id595262"></a>
+<a name="id594588"></a>
         Example
       </h4>
 </div>
@@ -111,21 +116,25 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_equals"></a>parallel_equals</h3></div></div></div>
 <a name="parallel_equals.description"></a><h4>
-<a name="id595288"></a>
+<a name="id594614"></a>
         Description
       </h4>
 <a name="parallel_equals.header"></a><h4>
-<a name="id595301"></a>
+<a name="id594627"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_equals</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_equals.model_of"></a><h4>
-<a name="id595372"></a>
+<a name="id594699"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
+          Object</a>
+</li></ul></div>
 <a name="parallel_equals.valid_expressions"></a><h4>
-<a name="id595403"></a>
+<a name="id594738"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -179,7 +188,7 @@
 </tbody>
 </table></div>
 <a name="parallel_equals.preconditions"></a><h4>
-<a name="id595688"></a>
+<a name="id595023"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -197,7 +206,7 @@
         </li>
 </ul></div>
 <a name="parallel_equals.example"></a><h4>
-<a name="id595860"></a>
+<a name="id595196"></a>
         Example
       </h4>
 </div>
@@ -205,21 +214,25 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_for_each"></a>parallel_for_each</h3></div></div></div>
 <a name="parallel_for_each.description"></a><h4>
-<a name="id595886"></a>
+<a name="id595221"></a>
         Description
       </h4>
 <a name="parallel_for_each.header"></a><h4>
-<a name="id595900"></a>
+<a name="id595235"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_for_each.model_of"></a><h4>
-<a name="id595971"></a>
+<a name="id595306"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
+          Object</a>
+</li></ul></div>
 <a name="parallel_for_each.valid_expressions"></a><h4>
-<a name="id596001"></a>
+<a name="id595345"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -255,7 +268,7 @@
 </tr></tbody>
 </table></div>
 <a name="parallel_for_each.preconditions"></a><h4>
-<a name="id596174"></a>
+<a name="id595518"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -272,7 +285,7 @@
         </li>
 </ul></div>
 <a name="parallel_for_each.example"></a><h4>
-<a name="id596316"></a>
+<a name="id595660"></a>
         Example
       </h4>
 </div>
@@ -280,28 +293,32 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_reduce"></a>parallel_reduce</h3></div></div></div>
 <a name="parallel_reduce.description"></a><h4>
-<a name="id596342"></a>
+<a name="id595686"></a>
         Description
       </h4>
 <a name="parallel_reduce.header"></a><h4>
-<a name="id596356"></a>
+<a name="id595700"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_reduce</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_reduce.model_of"></a><h4>
-<a name="id596427"></a>
+<a name="id595771"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
+          Object</a>
+</li></ul></div>
 <a name="parallel_reduce.notation"></a><h4>
-<a name="id596456"></a>
+<a name="id595808"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">V</span></code> is <code class="computeroutput"><span class="identifier">_value_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
 <a name="parallel_reduce.valid_expressions"></a><h4>
-<a name="id596529"></a>
+<a name="id595882"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -357,7 +374,7 @@
 </tbody>
 </table></div>
 <a name="parallel_reduce.preconditions"></a><h4>
-<a name="id596956"></a>
+<a name="id596308"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -380,7 +397,7 @@
         </li>
 </ul></div>
 <a name="parallel_reduce.example"></a><h4>
-<a name="id597163"></a>
+<a name="id596516"></a>
         Example
       </h4>
 </div>
@@ -388,21 +405,25 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_sort"></a>parallel_sort</h3></div></div></div>
 <a name="parallel_sort.description"></a><h4>
-<a name="id597189"></a>
+<a name="id596541"></a>
         Description
       </h4>
 <a name="parallel_sort.header"></a><h4>
-<a name="id597202"></a>
+<a name="id596554"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_sort</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="parallel_sort.model_of"></a><h4>
-<a name="id597273"></a>
+<a name="id596625"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
+          Object</a>
+</li></ul></div>
 <a name="parallel_sort.valid_expressions"></a><h4>
-<a name="id597302"></a>
+<a name="id596663"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -452,7 +473,7 @@
 </tbody>
 </table></div>
 <a name="parallel_sort.preconditions"></a><h4>
-<a name="id597542"></a>
+<a name="id596903"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -469,7 +490,7 @@
         </li>
 </ul></div>
 <a name="parallel_sort.example"></a><h4>
-<a name="id597683"></a>
+<a name="id597043"></a>
         Example
       </h4>
 </div>

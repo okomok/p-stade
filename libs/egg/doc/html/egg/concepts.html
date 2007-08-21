@@ -28,7 +28,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.operatable_object"></a><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></h3></div></div></div>
 <a name="egg.concepts.operatable_object.description"></a><h5>
-<a name="id432458"></a>
+<a name="id432504"></a>
         <a href="concepts.html#egg.concepts.operatable_object.description">Description</a>
       </h5>
 <p>
@@ -38,13 +38,13 @@
         <code class="computeroutput"><span class="identifier">op_</span></code>.
       </p>
 <a name="egg.concepts.operatable_object.refinement_of"></a><h5>
-<a name="id432514"></a>
+<a name="id431285"></a>
         <a href="concepts.html#egg.concepts.operatable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="egg.concepts.operatable_object.requirements"></a><h5>
-<a name="id431278"></a>
+<a name="id431324"></a>
         <a href="concepts.html#egg.concepts.operatable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -57,26 +57,44 @@
 <code class="computeroutput"><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="egg.concepts.operatable_object.models"></a><h5>
-<a name="id431383"></a>
+<a name="id431429"></a>
         <a href="concepts.html#egg.concepts.operatable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.operatable_object.see_also"></a><h5>
-<a name="id431415"></a>
+<a name="id431461"></a>
         <a href="concepts.html#egg.concepts.operatable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 </div>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+        </p>
+<p>
+          Because of a compiler bug, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>
+          of Boost version 1.34 or below is utterly broken on msvc-7.1 and 8.0.
+          <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span> </code> in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+          can be used for the workaround.
+        </p>
+<p>
+      </p>
+</td></tr>
+</table></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.auxiliary_interface_object"></a><a href="concepts.html#egg.concepts.auxiliary_interface_object" title="Auxiliary Interface Object">Auxiliary Interface
       Object</a></h3></div></div></div>
 <a name="egg.concepts.auxiliary_interface_object.description"></a><h5>
-<a name="id431468"></a>
+<a name="id502061"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface_object.description">Description</a>
       </h5>
 <p>
@@ -86,14 +104,14 @@
         a <span class="emphasis"><em>member function</em></span>.
       </p>
 <a name="egg.concepts.auxiliary_interface_object.refinement_of"></a><h5>
-<a name="id431520"></a>
+<a name="id502114"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="egg.concepts.auxiliary_interface_object.requirements"></a><h5>
-<a name="id431562"></a>
+<a name="id502155"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -120,14 +138,14 @@
         </li>
 </ul></div>
 <a name="egg.concepts.auxiliary_interface_object.models"></a><h5>
-<a name="id502333"></a>
+<a name="id502475"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.auxiliary_interface_object.see_also"></a><h5>
-<a name="id502365"></a>
+<a name="id502508"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -137,7 +155,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.bindable_object"></a><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></h3></div></div></div>
 <a name="egg.concepts.bindable_object.description"></a><h5>
-<a name="id502422"></a>
+<a name="id502564"></a>
         <a href="concepts.html#egg.concepts.bindable_object.description">Description</a>
       </h5>
 <p>
@@ -146,12 +164,12 @@
         which can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
       </p>
 <a name="egg.concepts.bindable_object.refinement_of"></a><h5>
-<a name="id502496"></a>
+<a name="id502638"></a>
         <a href="concepts.html#egg.concepts.bindable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="egg.concepts.bindable_object.requirements"></a><h5>
-<a name="id502535"></a>
+<a name="id502677"></a>
         <a href="concepts.html#egg.concepts.bindable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -166,14 +184,14 @@
           a valid expression.
         </li></ul></div>
 <a name="egg.concepts.bindable_object.models"></a><h5>
-<a name="id502722"></a>
+<a name="id502864"></a>
         <a href="concepts.html#egg.concepts.bindable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.bindable_object.see_also"></a><h5>
-<a name="id502753"></a>
+<a name="id502896"></a>
         <a href="concepts.html#egg.concepts.bindable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>

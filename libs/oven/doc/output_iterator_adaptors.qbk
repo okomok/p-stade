@@ -12,7 +12,7 @@
 * `<pstade/oven/applier.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -53,7 +53,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 * `<pstade/oven/stream_writer.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 
@@ -119,7 +119,7 @@ Pending...
 * `<pstade/oven/utf8_encoder.hpp>`
 
 [h3 Model of]
-* _operatable_object_
+* _bindable_ _s_ _operatable_object_
 
 [h3 Valid expressions]
 [table 

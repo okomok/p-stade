@@ -19,7 +19,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 
 
-[/ Workaround: Links in lists are not separated. ZERO WIDTH SPACE is used for now.]
+[/ Workaround: Links in lists are not separated. ZERO WIDTH SPACE is used for now. ]
 
 [def __S__ '''&#8203;''']
 
@@ -65,5 +65,6 @@ Distributed under the Boost Software License, Version 1.0.
 [include concepts.qbk]
 [include function_makers.qbk]
 [include function_adaptors.qbk]
+[include version_history.qbk]
 
 

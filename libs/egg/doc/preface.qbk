@@ -3,6 +3,8 @@
 
 [section Introduction]
 
+["No clever arrangement of bad eggs ever made a good omelet.] -- C.S. Lewis
+
 Unlike other modern languages, it is very difficult to make a function in C++.
 Egg is a small header-only framework of making functions, and offers higher-order functions.
 
@@ -14,7 +16,7 @@ Egg is a small header-only framework of making functions, and offers higher-orde
 [section Requirements]
 
 * __BOOST__ Version 1.34.0 or later (build not required)
-* __PSTADE_RELEASE__ Version 1.03.5 or later (build not required)
+* __PSTADE_RELEASE__ Version 1.03.9 or later (build not required)
 
 [endsect]
 
@@ -80,6 +82,8 @@ This document uses the following notation.
         [An imaginary operator to concatenate tokens.]
     ]
 ]
+
+Also, assume that every expression is placed after `using namespace pstade::egg`.
 
 [endsect]
 
