@@ -22,6 +22,6 @@
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
 //#include <pstade/../libs/egg/test/compose.cpp>
-#include <pstade/../libs/egg/example/function_makers.cpp>
+#include <pstade/../libs/egg/example/macro_lr.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

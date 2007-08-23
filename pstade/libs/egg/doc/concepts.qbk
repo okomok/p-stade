@@ -34,10 +34,10 @@ on msvc-7.1 and 8.0. `pstade::result_of ` in `<pstade/result_of.hpp>` can be use
 
 
 
-[section Auxiliary Interface Object]
+[section Auxiliary Interface]
 
 [heading Description]
-An __AUXILIARY_INTERFACE_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which supports a pipe-like syntax
+An __AUXILIARY_INTERFACE__ is a __DEFERRED_CALLABLE_OBJECT__ which supports a pipe-like syntax
 used as if it were a /member function/.
 
 [heading Refinement of]
@@ -45,7 +45,7 @@ used as if it were a /member function/.
 
 [heading Requirements]
 In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
-for any __AUXILIARY_INTERFACE_OBJECT__ `i` the following must be met:
+for any __AUXILIARY_INTERFACE__ `i` the following must be met:
 
 * `x|i(x1,..,xN)` is a valid expression if and only if `i(x, x1,..,xN)` is a valid expression.
 * `x|i(x1,..xN)` and `i(x, x1,..,xN)` have the same effects.

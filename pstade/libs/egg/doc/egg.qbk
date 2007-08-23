@@ -45,8 +45,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __OPERATABLE_OBJECT__ [link egg.concepts.operatable_object Operatable Object]]
 [def __OPERATABLE__ [link egg.concepts.operatable_object Operatable]]
-[def __AUXILIARY_INTERFACE_OBJECT__ [link egg.concepts.auxiliary_interface_object Auxiliary Interface Object]]
-[def __AUXILIARY_INTERFACE__ [link egg.concepts.auxiliary_interface_object Auxiliary Interface]]
+[def __AUXILIARY_INTERFACE__ [link egg.concepts.auxiliary_interface Auxiliary Interface]]
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]
 [def __BINDABLE__ [link egg.concepts.bindable_object Bindable]]
 

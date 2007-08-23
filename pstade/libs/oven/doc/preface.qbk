@@ -106,6 +106,10 @@ This document uses the following notation:
         [An imaginary operator to get the type of an expression.]
     ]
     [
+        [`++`]
+        [An imaginary operator to concatenate tokens.]
+    ]
+    [
         [`_rng`]
         [Any _range_ such that it is _forward_ or _readable_.]
     ]

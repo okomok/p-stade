@@ -15,7 +15,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_array.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_
 
 [h3 Valid expressions]
 [table 
@@ -53,7 +53,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_c_str.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_
 
 [h3 Valid expressions]
 [table 
@@ -98,7 +98,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_literal.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_
+* _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_
 
 [h3 Valid expressions]
 [table 
@@ -167,7 +167,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`always_return`]
         [
-            An _bindable_ _operatable_object_
+            A _bindable_ _operatable_object_
         ]
     ]
     [

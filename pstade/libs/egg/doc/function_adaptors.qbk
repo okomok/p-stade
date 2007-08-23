@@ -16,7 +16,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 [section auxiliaryN]
 
 [heading Description]
-`auxiliary` family makes an __AUXILIARY_INTERFACE_OBJECT__ from the base __FUNCTION_OBJECT__.
+`auxiliary` family makes an __AUXILIARY_INTERFACE__ from the base __FUNCTION_OBJECT__.
 
 [heading Header]
 * `<pstade/egg/auxiliary.hpp>`
@@ -36,7 +36,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`result_of_auxiliary++N<_Dco>::type`]
-        [A __BINDABLE__ __AUXILIARY_INTERFACE_OBJECT__ type]
+        [A __BINDABLE__ __AUXILIARY_INTERFACE__ type]
     ]
     [
         [`PSTADE_EGG_AUXILIARY_L init PSTADE_EGG_AUXILIARY_R`]
@@ -183,8 +183,6 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading Invariants]
 * If `_Dco` is /POD/, `result_of_curry++N<_Dco>::type` is /POD/.
-
-[note Arguments passed to `res` are copied unless `boost::ref` is used.]
 
 [heading Example]
 [code_curry_example]
