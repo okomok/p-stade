@@ -30,7 +30,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.pipable_object"></a>Pipable Object</h3></div></div></div>
 <a name="pipable_object.description"></a><h4>
-<a name="id502826"></a>
+<a name="id502854"></a>
         Description
       </h4>
 <p>
@@ -41,13 +41,13 @@
         Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
       </p>
 <a name="pipable_object.refinement_of"></a><h4>
-<a name="id502892"></a>
+<a name="id502920"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="pipable_object.requirements"></a><h4>
-<a name="id502919"></a>
+<a name="id502947"></a>
         Requirements
       </h4>
 <p>
@@ -56,28 +56,24 @@
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
-          <code class="computeroutput"><span class="identifier">make_</span> #<span class="preprocessor">#
-          p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
+          <code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">make_</span>
-          #<span class="preprocessor"># p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> have the same effects.
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> have the same effects.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">make_</span> #<span class="preprocessor">#
-          p</span></code> is an <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+<code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span></code> is a <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
           &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
           Object</a>.
         </li>
 <li>
           If <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="number">0</span></code>,
-          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span></code> and <code class="computeroutput"><span class="identifier">make_</span>
-          #<span class="preprocessor"># p</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> are
+          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span></code> and <code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> are
           valid expressions which have the same effects.
         </li>
 </ul></div>
 <a name="pipable_object.models"></a><h4>
-<a name="id503273"></a>
+<a name="id503314"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -89,7 +85,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stoppable_generator"></a>Stoppable Generator</h3></div></div></div>
 <a name="stoppable_generator.description"></a><h4>
-<a name="id503324"></a>
+<a name="id503365"></a>
         Description
       </h4>
 <p>
@@ -98,13 +94,13 @@
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="stoppable_generator.refinement_of"></a><h4>
-<a name="id503368"></a>
+<a name="id503409"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="stoppable_generator.requirements"></a><h4>
-<a name="id503397"></a>
+<a name="id503438"></a>
         Requirements
       </h4>
 <p>
@@ -124,7 +120,7 @@
         </li>
 </ul></div>
 <a name="stoppable_generator.models"></a><h4>
-<a name="id503501"></a>
+<a name="id503542"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -137,7 +133,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.iterator_block"></a>Iterator Block</h3></div></div></div>
 <a name="iterator_block.description"></a><h4>
-<a name="id503550"></a>
+<a name="id503591"></a>
         Description
       </h4>
 <p>
@@ -146,12 +142,12 @@
         that yields an ordered sequence of values.
       </p>
 <a name="iterator_block.refinement_of"></a><h4>
-<a name="id503584"></a>
+<a name="id503625"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="iterator_block.requirements"></a><h4>
-<a name="id503609"></a>
+<a name="id503650"></a>
         Requirements
       </h4>
 <p>
@@ -162,7 +158,7 @@
 <div class="itemizedlist"><ul type="disc">
 <li>
           For an unspecified unary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-          Object</a><code class="computeroutput"><span class="identifier">y</span></code>, <code class="computeroutput"><span class="identifier">b</span><span class="special">(</span><span class="identifier">y</span><span class="special">)</span></code> is a valid expression.
+          Object</a> &#8203; <code class="computeroutput"><span class="identifier">y</span></code>, <code class="computeroutput"><span class="identifier">b</span><span class="special">(</span><span class="identifier">y</span><span class="special">)</span></code> is a valid expression.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">b</span><span class="special">)::</span><span class="identifier">yield_type</span></code> is a type of object passed
@@ -170,7 +166,7 @@
         </li>
 </ul></div>
 <a name="iterator_block.models"></a><h4>
-<a name="id503747"></a>
+<a name="id503789"></a>
         Models
       </h4>
 </div>
@@ -178,7 +174,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.constant_range"></a>Constant Range</h3></div></div></div>
 <a name="constant_range.description"></a><h4>
-<a name="id503770"></a>
+<a name="id503812"></a>
         Description
       </h4>
 <p>
@@ -187,7 +183,7 @@
         whose elements are not modifiable.
       </p>
 <a name="constant_range.refinement_of"></a><h4>
-<a name="id503810"></a>
+<a name="id503852"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -195,7 +191,7 @@
           Pass</a> &#8203; <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="constant_range.requirements"></a><h4>
-<a name="id503842"></a>
+<a name="id503883"></a>
         Requirements
       </h4>
 <p>
@@ -215,7 +211,7 @@
         </li>
 </ul></div>
 <a name="constant_range.models"></a><h4>
-<a name="id504026"></a>
+<a name="id504068"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -227,7 +223,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.contiguous_range"></a>Contiguous Range</h3></div></div></div>
 <a name="contiguous_range.description"></a><h4>
-<a name="id504131"></a>
+<a name="id504173"></a>
         Description
       </h4>
 <p>
@@ -237,7 +233,7 @@
         whose elements are stored contiguously.
       </p>
 <a name="contiguous_range.refinement_of"></a><h4>
-<a name="id504180"></a>
+<a name="id504221"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -251,7 +247,7 @@
 </li>
 </ul></div>
 <a name="contiguous_range.requirements"></a><h4>
-<a name="id504233"></a>
+<a name="id504275"></a>
         Requirements
       </h4>
 <p>
@@ -269,7 +265,7 @@
           <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="contiguous_range.models"></a><h4>
-<a name="id504491"></a>
+<a name="id504532"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -281,7 +277,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_safe"></a>Parallel Safe</h3></div></div></div>
 <a name="parallel_safe.description"></a><h4>
-<a name="id504606"></a>
+<a name="id504647"></a>
         Description
       </h4>
 <p>
@@ -289,11 +285,11 @@
         same level of thread safety as built-in types.
       </p>
 <a name="parallel_safe.refinement_of"></a><h4>
-<a name="id504632"></a>
+<a name="id504673"></a>
         Refinement of
       </h4>
 <a name="parallel_safe.requirements"></a><h4>
-<a name="id504643"></a>
+<a name="id504684"></a>
         Requirements
       </h4>
 <p>
@@ -305,7 +301,7 @@
           are copies).
         </li></ul></div>
 <a name="parallel_safe.models"></a><h4>
-<a name="id504697"></a>
+<a name="id504739"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">

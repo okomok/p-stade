@@ -14,7 +14,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 * `<pstade/oven/adapted_to_base.hpp>`
 
 [h3 Model of]
-* `to_base` is an _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_object_.
+* `to_base` is a _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_.
 
 [h3 Valid expressions]
 [table 
