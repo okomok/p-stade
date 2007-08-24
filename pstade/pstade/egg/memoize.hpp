@@ -11,31 +11,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Concept:
-//
-// Any RecusionBlock b, the following must be met:
-//   1. typeof(b)::result_type is a valid expression.
-//   2. typeof(b)::argument_type is a valid expression.
-//   3. For any unspecified object r and typeof(b)::argument_type object a,
-//        b(r, a) is a valid expression.
-//
-// See also:
+// See:
 //
 // http://www.kmonos.net/wlog/52.php
 // http://d.hatena.ne.jp/Cryolite/20050902#p1
+//
+// Todo:
+//
+// thread-safe.
 
 
 #include <map>
-#include <boost/assert.hpp>
-#include <boost/config.hpp> // BOOST_HAS_THREADS
-#include <boost/noncopyable.hpp>
+#include <boost/any.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./generator.hpp"
-
-#if defined(BOOST_HAS_THREADS)
-    #include <boost/detail/lightweight_mutex.hpp>
-#endif
+#include <pstade/result_of.hpp>
+#include "./fix.hpp"
+#include "./function_facade.hpp"
 
 
 namespace pstade { namespace egg {
@@ -44,69 +36,71 @@ namespace pstade { namespace egg {
     namespace memoize_detail {
 
 
-        template<class Argument, class Result>
-        struct memo :
-            private boost::noncopyable
+        struct op_uncurried_wrap :
+            function_facade<op_uncurried_wrap>
         {
-        private:
-            typedef std::map<Argument, Result> table_t;
+            template<class Myself, class Fun, class Fixed, class Arg>
+            struct apply :
+                result_of<
+                    typename result_of<Fun(Fixed&)>::type(Arg&)
+                >
+            { };
 
-        public:
-            template<class Fix, class RecursionBlock>
-            Result const& apply(Fix fix, RecursionBlock block, Argument const& a)
+            template<class Result, class Fun, class Fixed, class Arg>
+            Result call(Fun& fun, Fixed& fixed, Arg const& arg) const
             {
-#if defined(BOOST_HAS_THREADS)
-                boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
-#endif
-                typename table_t::iterator it = m_table.find(a);
-                if (it != m_table.end())
+                typedef std::map<Arg, Result> map_t;
+
+                if (m_pany->empty()) {
+                    *m_pany = map_t();
+                }
+
+                map_t *pmap = boost::any_cast<map_t>(m_pany.get());
+
+                typename map_t::iterator it = pmap->find(arg);
+                if (it != pmap->end())
                     return it->second;
                 else
-                    return m_table[a] = block(fix, a);
+                    return (*pmap)[arg] = fun(fixed)(arg);
             }
 
-        private:
-            table_t m_table;
-#if defined(BOOST_HAS_THREADS)
-    mutable boost::detail::lightweight_mutex m_mutex;
-#endif
-        };
-
-
-        // This can't be static-initialized.
-
-        template<class RecursionBlock>
-        struct fix
-        {
-            typedef typename RecursionBlock::argument_type argument_type;
-            typedef typename RecursionBlock::result_type result_type;
-            typedef memo<argument_type, result_type> memo_type;
-
-            result_type operator()(argument_type const& a) const
-            {
-                return m_pmemo->apply(*this, m_block, a);
-            }
-
-            explicit fix(RecursionBlock block) :
-                m_block(block), m_pmemo(new memo_type())
+            op_uncurried_wrap() :
+                m_pany(new boost::any())
             { }
 
         private:
-            RecursionBlock m_block;
-            memo_type *m_pmemo;
+            boost::shared_ptr<boost::any> m_pany;
+        };
+
+
+        struct baby
+        {
+            template<class Myself, class Base>
+            struct apply :
+                result_of<
+                    op_fix(
+                        typename result_of<
+                            typename result_of<op_curry3(op_uncurried_wrap)>::type(typename result_of<op_curry2(Base&)>::type)
+                        >::type
+                    )
+                >
+            { };
+
+            template<class Result, class Base>
+            Result call(Base& base) const
+            {
+                return fix(
+                    curry3(op_uncurried_wrap())(curry2(base))
+                );
+            }
         };
 
 
     } // namespace memoize_detail
 
 
-    typedef
-        generator<
-            memoize_detail::fix< deduce<boost::mpl::_1, as_value> >
-        >::type
-    op_memoize;
-
-    PSTADE_POD_CONSTANT((op_memoize), memoize) = PSTADE_EGG_GENERATOR;
+    typedef function<memoize_detail::baby> op_memoize;
+    PSTADE_POD_CONSTANT((op_memoize), memoize) = {{}};
 
 
 } } // namespace pstade::egg
