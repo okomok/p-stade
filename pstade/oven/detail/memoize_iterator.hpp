@@ -33,6 +33,12 @@
 // 2. No end-iterator-check; it seems redundant.
 
 
+// Note:
+//
+// According to 28.2.2.3/1, references to elements of deque is always valid
+// if you don't insert the middle of the deque.
+
+
 #include <deque>
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_HAS_THREADS

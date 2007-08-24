@@ -52,12 +52,10 @@ namespace pstade { namespace egg {
     template<class Base>
     struct BOOST_PP_CAT(result_of_curry, n) :
         BOOST_PP_CAT(result_of_curry, n_)<
-            function<
-                detail::baby_bind1_result<
-                    function<detail::BOOST_PP_CAT(baby_bind, n_)>,
-                    Base
-                >
-            >
+            typename detail::result_of_bind1<
+                function<detail::BOOST_PP_CAT(baby_bind, n_)>,
+                Base
+            >::type
         >
     { };
 

@@ -45,7 +45,7 @@
 #include "./greater_equal.hpp"
 #include "./identity.hpp"
 #include "./iequal_to.hpp"
-#include "./indirected.hpp"
+#include "./indirect.hpp"
 #include "./infix.hpp"
 #include "./integral_cast.hpp"
 #include "./integralize.hpp"

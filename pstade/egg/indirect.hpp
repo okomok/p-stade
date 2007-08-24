@@ -11,78 +11,43 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// This name will be changed, following boost::proto.
-
-
-// Note:
+// What:
 //
-// These will be replaced by <boost/numeric/functional.hpp>.
+// 'boost::indirect_iterator<>' is famous.
+// This is intended as "indirect_function<>".
+// See also 'boost::indirect_fun'.
 
 
-// References:
-//
-// [1] OptionalPointee Concept
-//     http://www.boost.org/libs/utility/OptionalPointee.html
-
-
-#include <boost/indirect_reference.hpp>
-#include <boost/optional/optional_fwd.hpp>
-#include <pstade/affect.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./adapt.hpp"
+#include "./detail/baby_indirect_result.hpp"
+#include "./function.hpp"
+#include "./generator.hpp"
+#include "./use_brace_level1.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class X>
-    struct indirect_value_impl :
-        boost::indirect_reference<X>
-    { };
-
-    template<class X>
-    struct indirect_value_impl<X const> :
-        indirect_value_impl<X>
-    { };
-
-    template<class T>
-    struct indirect_value_impl< boost::optional<T> >
+    template<class Dereferenceable>
+    struct result_of_indirect
     {
-        typedef T type;
+        typedef function< detail::baby_indirect_result<Dereferenceable> > type;
     };
 
 
-    template<class Indirectable>
-    struct indirect_value :
-        indirect_value_impl<Indirectable>
-    { };
+    #define PSTADE_EGG_INDIRECT_L { {
+    #define PSTADE_EGG_INDIRECT_R } }
 
 
-    namespace indirect_detail {
+    typedef
+        generator<
+            result_of_indirect< deduce<boost::mpl::_1, as_value> >::type,
+            use_brace_level1
+        >::type
+    op_indirect;
 
 
-        template<class Indirectable>
-        struct base
-        {
-            typedef typename
-                affect<
-                    Indirectable&,
-                    typename indirect_value<Indirectable>::type
-                >::type
-            result_type;
-
-            result_type operator()(Indirectable& ind) const
-            {
-                return *ind;
-            }
-        };
-
-
-    } // namespace indirect_detail
-
-
-    typedef PSTADE_EGG_ADAPT((indirect_detail::base<boost::mpl::_>)) op_indirect;
-    PSTADE_POD_CONSTANT((op_indirect), indirect) = PSTADE_EGG_ADAPT_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_indirect), indirect) = {{}};
 
 
 } } // namespace pstade::egg

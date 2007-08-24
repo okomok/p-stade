@@ -21,16 +21,16 @@
 // nor a lambda functor.
 //
 // These could be...
-//   egg::indirected(make_regularized(f))      // regular
-//   egg::indirected(make_shared_ptr(new F())) // regular_c, shared_regular
-//   egg::indirected(&f)                       // regular_ref
+//   egg::indirect(make_regularized(f))      // regular
+//   egg::indirect(make_shared_ptr(new F())) // regular_c, shared_regular
+//   egg::indirect(&f)                       // regular_ref
 // , which would be cumbersome.
 
 
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/deferred.hpp>
-#include <pstade/egg/indirected.hpp>
+#include <pstade/egg/indirect.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -61,7 +61,7 @@ namespace regular_detail {
 
         result_type operator()(Function& fun) const
         {
-            return egg::indirected(reg_t(fun));
+            return egg::indirect(reg_t(fun));
         }
     };
 
@@ -83,7 +83,7 @@ namespace regular_detail {
 
         result_type operator()(Function& fun) const
         {
-            return egg::indirected(pf_t(new fun_t(fun)));
+            return egg::indirect(pf_t(new fun_t(fun)));
         }
     };
 
@@ -97,7 +97,7 @@ namespace regular_detail {
 
         result_type operator()(Function& fun) const
         {
-            return egg::indirected(boost::addressof(fun));
+            return egg::indirect(boost::addressof(fun));
         }
     };
 
