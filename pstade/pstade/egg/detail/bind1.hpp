@@ -57,25 +57,35 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
+    template<class Base, class Arg>
+    struct result_of_bind1
+    {
+        typedef
+            function<
+                baby_bind1_result<Base, Arg>
+            >
+        type;
+    };
+
+    #define PSTADE_EGG_DETAIL_BIND1_L { {
+    #define PSTADE_EGG_DETAIL_BIND1_M ,
+    #define PSTADE_EGG_DETAIL_BIND1_R } }
+
+
     struct baby_bind1
     {
         template<class Myself, class Base, class Arg>
-        struct apply
-        {
-            typedef
-                function<
-                    baby_bind1_result<
-                        typename pass_by_value<Base>::type,
-                        typename pass_by_value<Arg>::type
-                    >
-                >
-            type;
-        };
+        struct apply :
+            result_of_bind1<
+                typename pass_by_value<Base>::type,
+                typename pass_by_value<Arg>::type
+            >
+        { };
 
         template<class Result, class Base, class Arg>
         Result call(Base& base, Arg& arg) const
         {
-            Result r = { { base, arg } };
+            Result r = PSTADE_EGG_DETAIL_BIND1_L base PSTADE_EGG_DETAIL_BIND1_M arg PSTADE_EGG_DETAIL_BIND1_R;
             return r;
         }
     };

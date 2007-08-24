@@ -17,7 +17,7 @@
 
 
 #include <pstade/egg/deferred.hpp>
-#include <pstade/egg/indirected.hpp>
+#include <pstade/egg/indirect.hpp>
 #include <pstade/egg/to_shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -42,7 +42,7 @@ namespace shared_regular_detail {
 
         result_type operator()(Ptr& pf) const
         {
-            return egg::indirected(egg::to_shared_ptr(pf));
+            return egg::indirect(egg::to_shared_ptr(pf));
         }
     };
 

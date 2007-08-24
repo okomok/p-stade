@@ -13,61 +13,39 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <boost/shared_ptr.hpp>
 #include <pstade/test.hpp>
 #include <pstade/result_of.hpp>
-#include <boost/optional/optional.hpp>
-#include <pstade/egg/is_same.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 
 
-using namespace pstade::egg;
-using pstade::result_of;
+namespace egg = pstade::egg;
+using namespace egg;
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(int *))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(int * const))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(int * &))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(int * const &))
+struct op_foo
+{
+    typedef int result_type;
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::shared_ptr<int>))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::shared_ptr<int> const))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::shared_ptr<int> &))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::shared_ptr<int> const &))
-
-PSTADE_TEST_IS_RESULT_OF((int const&), op_indirect(boost::optional<int>))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_indirect(boost::optional<int> const))
-PSTADE_TEST_IS_RESULT_OF((int&),       op_indirect(boost::optional<int> &))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_indirect(boost::optional<int> const &))
-
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::optional<int&>))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::optional<int&> const))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::optional<int&> &))
-PSTADE_TEST_IS_RESULT_OF((int&), op_indirect(boost::optional<int&> const &))
+    int operator()(int x, int y) const
+    {
+        return x + y;
+    }
+};
 
 
 void pstade_minimal_test()
 {
     {
-        int x = 12;
-        int *p = &x;
-        result_of<op_indirect(int *&)>::type
-            r = indirect(p);
-        BOOST_CHECK(is_same(r, *p));
-    }
-    {
-        boost::optional<int> o;
-        o = 12;
-        result_of<op_indirect(boost::optional<int>&)>::type
-            r = indirect(o);
-        BOOST_CHECK(is_same(r, *o));
-    }
-    {
-        int x = 12;
-        boost::optional<int&> o;
-        o = x;
-        result_of<op_indirect(boost::optional<int&>&)>::type
-            r = indirect(o);
-        BOOST_CHECK(is_same(x, *o));
-        BOOST_CHECK(is_same(r, *o));
+        ::op_foo foo;
+
+        typedef pstade::result_of<op_indirect(::op_foo *)>::type ip_t;
+        ip_t ip = PSTADE_EGG_INDIRECT_L &foo PSTADE_EGG_INDIRECT_R;
+
+        PSTADE_TEST_IS_RESULT_OF((int), ip_t(int, int))
+
+        int r = ip(1, 2);
+        BOOST_CHECK( r == 3 );
+        r = indirect(&foo)(4, 5);
+        BOOST_CHECK( r == 9 );
     }
 }

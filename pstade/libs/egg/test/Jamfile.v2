@@ -40,7 +40,7 @@ test-suite "egg" :
     [ run generator.cpp ]
     [ run identity.cpp ]
     [ run iequal_to.cpp ]
-    [ run indirected.cpp ]
+    [ run indirect.cpp ]
     [ run infix.cpp ]
     [ run integral_cast.cpp ]
     [ run integralize.cpp ]
