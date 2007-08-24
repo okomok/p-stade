@@ -13,6 +13,7 @@
 #include <pstade/unit_test.hpp>
 
 
+#include <boost/progress.hpp>
 #include <iostream>
 
 
@@ -22,13 +23,12 @@ using namespace egg;
 
 struct fib_block
 {
-    typedef int argument_type;
     typedef int result_type;
 
-    template<class Recur>
-    int operator()(Recur rec, int x) const
+    template<class Fixed>
+    int operator()(Fixed f, int x) const
     {
-        return x <= 1 ? 1 : rec(x-1) + rec(x-2);
+        return x <= 1 ? 1 : f(x-1) + f(x-2);
     }
 };
 
@@ -37,5 +37,13 @@ void pstade_unit_test()
 {
     {
         BOOST_CHECK(memoize(fib_block())(10) == 89);
+    }
+    {
+        boost::progress_timer t;
+        BOOST_CHECK(memoize(fib_block())(30) == 1346269);
+    }
+    {
+        boost::progress_timer t;
+        BOOST_CHECK(fix(curry2(fib_block()))(30) == 1346269);
     }
 }

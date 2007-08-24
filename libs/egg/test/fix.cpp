@@ -79,27 +79,37 @@ typedef result_of_curry3<op_uncurried_wrap>::type op_wrap;
 PSTADE_POD_CONSTANT((op_wrap), wrap) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
 
 #if 0
-template<class Arg>
-struct xp_memoize :
-    function_facade< xp_memoize<Signature> >
+struct op_uncurried_memoize
 {
-    template<class Myself, class F, class F_, class P>
+    template<class Myself, class Fun, class Fixed, class Arg>
     struct apply :
         result_of<
-            typename result_of<F(F_&)>::type(P&)
+            typename result_of<Fun(Fixed&)>::type(Arg&)
         >
     { };
 
-    template<class Result, class F, class F_, class P>
-    Result call(F& f, F_& f_, P const& p) const
+    template<class Result, class Fun, class Fixed, class Arg>
+    Result call(Fun& fun, Fixed& fixed, Arg const& arg) const
     {
-        if (!m_map)
-            m_map = new std::map<Result, P>();
+        typedef std::map<Arg, Result> map_t;
+        typedef boost::shared_ptr<map_t> sp_t;
 
-        return m_map->apply(f(f_), p);
+        if (m_pmap.empty()) {
+            sp_t sp(new map_t());
+            m_pmap = sp;
+        }
+    
+        sp_t sp = boost::any_cast<sp_t>(m_pmap);
+        
+        typename map_t::iterator it = sp->find(arg);
+        if (it != sp->end())
+            return it->second;
+        else
+            return (*sp)[a] = fun(fixed)(arg);
     }
 
-    any_map m_map;
+private:
+    mutable boost::any m_pmap;
 };
 #endif
 
