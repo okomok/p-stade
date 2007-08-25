@@ -372,6 +372,114 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 
 
+[section indirect]
+
+[heading Description]
+You might remember `boost::indirect_iterator` that is one of the iterator adaptors.
+`indirect` is the "indirect_function" in the context of function adaptors.
+
+[note Don't be confused with `boost::indirect_fun` that means "indirect arguments".]
+
+[heading Header]
+* `<pstade/egg/indirect.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* `res` is an object of `result_of_indirect<_typeof(_dco)>::type` initialized using `_dco`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_indirect<_Dco>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_INDIRECT_L init PSTADE_EGG_INDIRECT_R`]
+        [A braced initializer of `result_of_indirect<_Dco>::type`]
+    ]
+    [
+        [`indirect(_dco)`]
+        [`res`]
+    ]
+    [
+        [`res(a1,...aN)`]
+        [`(*_dco)(a1,...,aN)`]
+    ]
+]
+
+[heading Preconditions]
+* `1 <= N && N <= 5`.
+* `_Dco d = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+* ...
+
+[heading See also]
+* __BOOST_INDIRECT_ITERATOR__
+
+[endsect]
+
+
+
+
+[section memoize]
+
+[heading Description]
+`memoize` stores the result of function for later reuse.
+
+[heading Header]
+* `<pstade/egg/memoize.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* `fixed` is an unspecified unary __FUNCTION_OBJECT__ which represents `_dco` itself.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`memoize(_dco)`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__]
+    ]
+    [
+        [`memoize(_dco)(a1)`]
+        [`_dco(fixed, a1)`]
+    ]
+]
+
+[note It is impossible to /static-initialize/ memoized __FUNCTION_OBJECT__.]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+* A __FUNCTION_OBJECT__ returned from `memoize(_dco)` must always be called with the same type objects.
+* `_typeof(a1)` is __ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
+* `_decltype(_dco(fixed, a1))` is __COPY_CONSTRUCTIBLE__.
+
+[heading Example]
+[code_memoize_example]
+
+[heading See also]
+* [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]
+
+[endsect]
+
+
+
+
 [section pipable]
 
 [heading Description]

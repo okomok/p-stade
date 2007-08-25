@@ -83,6 +83,7 @@ test-suite "oven" :
     [ run mb_decoded.cpp ]
     [ run mb_encoded.cpp ]
     [ run memoized.cpp ]
+    [ run memoized.cpp : : : <define>PSTADE_OVEN_DISABLE_THREADS : memoized_no_threads ]
     [ run merged.cpp ]
     [ run moved.cpp ]
     [ run offset.cpp ]

@@ -19,11 +19,17 @@
 
 #include <map>
 #include <boost/any.hpp>
+#include <boost/assert.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
+#include "./config.hpp" // PSTADE_EGG_HAS_THREADS
 #include "./fix.hpp"
 #include "./function_facade.hpp"
+
+#if defined(PSTADE_EGG_HAS_THREADS)
+    #include <boost/detail/lightweight_mutex.hpp>
+#endif
 
 
 namespace pstade { namespace egg {
@@ -31,6 +37,11 @@ namespace pstade { namespace egg {
 
     namespace memoize_detail {
 
+
+#if defined(PSTADE_EGG_HAS_THREADS)
+        typedef boost::detail::lightweight_mutex mutex_t;
+        typedef boost::detail::lightweight_mutex::scoped_lock scoped_lock_t;
+#endif
 
         struct op_wrap_ :
             function_facade<op_wrap_>
@@ -47,6 +58,11 @@ namespace pstade { namespace egg {
             {
                 typedef std::map<Arg, Result> map_t;
 
+                // Hmm, cleary recursive lock...
+#if defined(PSTADE_EGG_HAS_THREADS)
+                scoped_lock_t lock(*m_pmtx);
+#endif
+
                 if (m_pany->empty()) {
                     *m_pany = map_t();
                 }
@@ -62,10 +78,16 @@ namespace pstade { namespace egg {
 
             op_wrap_() :
                 m_pany(new boost::any())
+#if defined(PSTADE_EGG_HAS_THREADS)
+                , m_pmtx(new mutex_t())
+#endif
             { }
 
         private:
             boost::shared_ptr<boost::any> m_pany;
+#if defined(PSTADE_EGG_HAS_THREADS)
+            boost::shared_ptr<mutex_t> m_pmtx;
+#endif
         };
 
 

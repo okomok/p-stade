@@ -30,6 +30,12 @@ struct fib_block
     {
         return x <= 1 ? 1 : f(x-1) + f(x-2);
     }
+
+    template<class Fixed>
+    int operator()(Fixed f, std::string) const
+    {
+        return 1;
+    }
 };
 
 
@@ -37,6 +43,19 @@ void pstade_unit_test()
 {
     {
         BOOST_CHECK(memoize(fib_block())(10) == 89);
+    }
+    {
+        pstade::result_of<op_memoize(fib_block)>::type mfib = memoize(fib_block());
+        BOOST_CHECK( mfib(10) == 89);
+
+        bool thrown = false;
+        try {
+            mfib(std::string("bad"));
+        }
+        catch (boost::bad_any_cast) {
+            thrown = true;
+        }
+        BOOST_CHECK(thrown);
     }
     {
         boost::progress_timer t;
