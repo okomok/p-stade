@@ -56,7 +56,7 @@ namespace regular_detail {
         reg_t;
 
         typedef typename
-            result_of<egg::op_indirected(reg_t)>::type
+            result_of<egg::op_indirect(reg_t)>::type
         result_type;
 
         result_type operator()(Function& fun) const
@@ -78,7 +78,7 @@ namespace regular_detail {
         pf_t;
 
         typedef typename
-            result_of<egg::op_indirected(pf_t)>::type
+            result_of<egg::op_indirect(pf_t)>::type
         result_type;
 
         result_type operator()(Function& fun) const
@@ -92,7 +92,7 @@ namespace regular_detail {
     struct base_ref
     {
         typedef typename
-            result_of<egg::op_indirected(Function *)>::type
+            result_of<egg::op_indirect(Function *)>::type
         result_type;
 
         result_type operator()(Function& fun) const

@@ -15,6 +15,7 @@
 #include <pstade/egg/curry.hpp>
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/compose.hpp>
+#include <pstade/egg/memoize.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <functional>
 
@@ -61,8 +62,29 @@ void test_curry()
 //]
 
 
+//[code_memoize_example
+struct op_fib_block
+{
+    typedef int result_type;
+
+    template<class Fixed>
+    int operator()(Fixed f, int x) const
+    {
+        return x <= 1 ? 1 : f(x-1) + f(x-2);
+    }
+};
+
+op_fib_block const fib_block = {};
+
+void test_memoize()
+{
+    BOOST_CHECK( memoize(fib_block)(30) == 1346269 );
+}
+//]
+
 void pstade_minimal_test()
 {
     test_auxiliary();
     test_curry();
+    test_memoize();
 }

@@ -47,7 +47,7 @@ namespace pstade { namespace egg {
     op_indirect;
 
 
-    PSTADE_POD_CONSTANT((op_indirect), indirect) = {{}};
+    PSTADE_POD_CONSTANT((op_indirect), indirect) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

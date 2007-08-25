@@ -25,6 +25,8 @@
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.uncurry">uncurry</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.fuse">fuse</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.unfuse">unfuse</a></span></dt>
+<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.indirect">indirect</a></span></dt>
+<dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.memoize">memoize</a></span></dt>
 <dt><span class="section"><a href="function_adaptors.html#egg.function_adaptors.pipable">pipable</a></span></dt>
 </dl></div>
 <p>
@@ -1059,9 +1061,331 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_adaptors.indirect"></a><a href="function_adaptors.html#egg.function_adaptors.indirect" title="indirect">indirect</a></h3></div></div></div>
+<a name="egg.function_adaptors.indirect.description"></a><h5>
+<a name="id520939"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.description">Description</a>
+      </h5>
+<p>
+        You might remember <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">indirect_iterator</span></code>
+        that is one of the iterator adaptors. <code class="computeroutput"><span class="identifier">indirect</span></code>
+        is the "indirect_function" in the context of function adaptors.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            Don't be confused with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">indirect_fun</span></code>
+            that means "indirect arguments".
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.function_adaptors.indirect.header"></a><h5>
+<a name="id521033"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">indirect</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_adaptors.indirect.model_of"></a><h5>
+<a name="id521114"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></li>
+<li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
+</ul></div>
+<a name="egg.function_adaptors.indirect.notation"></a><h5>
+<a name="id521167"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_indirect</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized using <code class="computeroutput"><span class="identifier">_dco</span></code>.
+        </li></ul></div>
+<a name="egg.function_adaptors.indirect.valid_expressions"></a><h5>
+<a name="id521261"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">result_of_indirect</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_INDIRECT_L</span> <span class="identifier">init</span> <span class="identifier">PSTADE_EGG_INDIRECT_R</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A braced initializer of <code class="computeroutput"><span class="identifier">result_of_indirect</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">indirect</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">res</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">(*</span><span class="identifier">_dco</span><span class="special">)(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_adaptors.indirect.preconditions"></a><h5>
+<a name="id521614"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="number">1</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="number">5</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_Dco</span> <span class="identifier">d</span>
+          <span class="special">=</span> <span class="identifier">init</span><span class="special">;</span></code> is a valid expression.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_adaptors.indirect.example"></a><h5>
+<a name="id521734"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.example">Example</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_adaptors.indirect.see_also"></a><h5>
+<a name="id521766"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.indirect.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/iterator/doc/indirect_iterator.html" target="_top">boost:indirect_iterator</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_adaptors.memoize"></a><a href="function_adaptors.html#egg.function_adaptors.memoize" title="memoize">memoize</a></h3></div></div></div>
+<a name="egg.function_adaptors.memoize.description"></a><h5>
+<a name="id521825"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">memoize</span></code> stores the result
+        of function for later reuse.
+      </p>
+<a name="egg.function_adaptors.memoize.header"></a><h5>
+<a name="id521864"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">memoize</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_adaptors.memoize.model_of"></a><h5>
+<a name="id521945"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></li>
+<li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
+</ul></div>
+<a name="egg.function_adaptors.memoize.notation"></a><h5>
+<a name="id521997"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">fixed</span></code> is an unspecified
+          unary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+          which represents <code class="computeroutput"><span class="identifier">_dco</span></code> itself.
+        </li></ul></div>
+<a name="egg.function_adaptors.memoize.valid_expressions"></a><h5>
+<a name="id522057"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">memoize</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">memoize</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)(</span><span class="identifier">a1</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">fixed</span><span class="special">,</span>
+                <span class="identifier">a1</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            It is impossible to <span class="emphasis"><em>static-initialize</em></span> memoized
+            <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.function_adaptors.memoize.preconditions"></a><h5>
+<a name="id522301"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+<li>
+          A <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+          returned from <code class="computeroutput"><span class="identifier">memoize</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)</span></code>
+          must always be called with the same type objects.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a1</span><span class="special">)</span></code> is
+          <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>,
+          <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a>
+          and <a href="http://boost.org/doc/html/EqualityComparable.html" target="_top">Equality
+          Comparable</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_decltype</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">fixed</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">))</span></code>
+          is <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a>.
+        </li>
+</ul></div>
+<a name="egg.function_adaptors.memoize.example"></a><h5>
+<a name="id522480"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">struct</span> <span class="identifier">op_fib_block</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Fixed</span><span class="special">&gt;</span>
+    <span class="keyword">int</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">Fixed</span> <span class="identifier">f</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">&lt;=</span> <span class="number">1</span> <span class="special">?</span> <span class="number">1</span> <span class="special">:</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">x</span><span class="special">-</span><span class="number">1</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">x</span><span class="special">-</span><span class="number">2</span><span class="special">);</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="identifier">op_fib_block</span> <span class="keyword">const</span> <span class="identifier">fib_block</span> <span class="special">=</span> <span class="special">{};</span>
+
+<span class="keyword">void</span> <span class="identifier">test_memoize</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">memoize</span><span class="special">(</span><span class="identifier">fib_block</span><span class="special">)(</span><span class="number">30</span><span class="special">)</span> <span class="special">==</span> <span class="number">1346269</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.function_adaptors.memoize.see_also"></a><h5>
+<a name="id522900"></a>
+        <a href="function_adaptors.html#egg.function_adaptors.memoize.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://en.wikipedia.org/wiki/Y_combinator" target="_top">Fixed point combinator</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.pipable"></a><a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable">pipable</a></h3></div></div></div>
 <a name="egg.function_adaptors.pipable.description"></a><h5>
-<a name="id520938"></a>
+<a name="id522959"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.description">Description</a>
       </h5>
 <p>
@@ -1069,12 +1393,12 @@
         syntax.
       </p>
 <a name="egg.function_adaptors.pipable.header"></a><h5>
-<a name="id520977"></a>
+<a name="id522998"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">pipable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.pipable.model_of"></a><h5>
-<a name="id521057"></a>
+<a name="id523079"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1082,14 +1406,14 @@
 <li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
 </ul></div>
 <a name="egg.function_adaptors.pipable.notation"></a><h5>
-<a name="id521109"></a>
+<a name="id523131"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">res</span></code> is an object of <code class="computeroutput"><span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_dco</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized using <code class="computeroutput"><span class="identifier">_dco</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.pipable.valid_expressions"></a><h5>
-<a name="id521205"></a>
+<a name="id523226"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -1162,7 +1486,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.pipable.preconditions"></a><h5>
-<a name="id521563"></a>
+<a name="id523585"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1181,7 +1505,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.pipable.invariants"></a><h5>
-<a name="id521685"></a>
+<a name="id523706"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1189,14 +1513,14 @@
           <code class="computeroutput"><span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="identifier">_Dco</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <span class="emphasis"><em>POD</em></span>.
         </li></ul></div>
 <a name="egg.function_adaptors.pipable.example"></a><h5>
-<a name="id521766"></a>
+<a name="id523788"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.example">Example</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.function_adaptors.pipable.see_also"></a><h5>
-<a name="id521799"></a>
+<a name="id523820"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>

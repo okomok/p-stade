@@ -32,11 +32,16 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]
 [def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
 
+[def __ASSIGNABLE__            [@http://boost.org/doc/html/Assignable.html Assignable]]
+[def __COPY_CONSTRUCTIBLE__    [@http://boost.org/doc/html/CopyConstructible.html Copy Constructible]]
+[def __EQUALITY_COMPARABLE__   [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
 [def __DEFAULT_CONSTRUCTIBLE__ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
 [def __DEFERRED_CALLABLE_OBJECT__ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html Deferred Callable Object]]
 [def __FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/functors.html Function Object]]
 [def __METAFUNCTION__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html Metafunction]]
 [def __MPL_LAMBDA_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html MPL Lambda Expression]]
+
+[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost:indirect_iterator]]
 
 
 
@@ -48,6 +53,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __AUXILIARY_INTERFACE__ [link egg.concepts.auxiliary_interface Auxiliary Interface]]
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]
 [def __BINDABLE__ [link egg.concepts.bindable_object Bindable]]
+
 
 [def __EGG_FUNCTION__ [link egg.function_makers.function function]]
 [def __EGG_FUNCTION_BY_VALUE__ [link egg.function_makers.function_by_value function_by_value]]

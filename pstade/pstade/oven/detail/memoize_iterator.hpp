@@ -41,14 +41,14 @@
 
 #include <deque>
 #include <boost/assert.hpp>
-#include <boost/config.hpp> // BOOST_HAS_THREADS
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include "./config.hpp" // PSTADE_OVEN_HAS_THREADS
 
-#if defined(BOOST_HAS_THREADS)
+#if defined(PSTADE_OVEN_HAS_THREADS)
     #include <boost/detail/lightweight_mutex.hpp>
 #endif
 
@@ -73,7 +73,7 @@ public:
 
     bool is_in_table(index_type i) const
     {
-#if defined(BOOST_HAS_THREADS)
+#if defined(PSTADE_OVEN_HAS_THREADS)
         boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
 #endif
         return is_in_table_aux(i);
@@ -81,7 +81,7 @@ public:
 
     value_t const& deref(index_type i)
     {
-#if defined(BOOST_HAS_THREADS)
+#if defined(PSTADE_OVEN_HAS_THREADS)
         boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
 #endif
         BOOST_ASSERT(invariant());
@@ -97,7 +97,7 @@ public:
 
     index_type next(index_type i)
     {
-#if defined(BOOST_HAS_THREADS)
+#if defined(PSTADE_OVEN_HAS_THREADS)
         boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
 #endif
         BOOST_ASSERT(invariant());
@@ -116,7 +116,7 @@ public:
 
     Iterator base() const
     {
-#if defined(BOOST_HAS_THREADS)
+#if defined(PSTADE_OVEN_HAS_THREADS)
         boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
 #endif
         BOOST_ASSERT(invariant());
@@ -127,7 +127,7 @@ private:
     Iterator m_base;
     index_type m_baseIndex;
     table_t m_table;
-#if defined(BOOST_HAS_THREADS)
+#if defined(PSTADE_OVEN_HAS_THREADS)
     mutable boost::detail::lightweight_mutex m_mutex;
 #endif
 

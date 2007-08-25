@@ -34,7 +34,7 @@ namespace shared_regular_detail {
     {
         typedef typename
             result_of<
-                egg::op_indirected(
+                egg::op_indirect(
                     typename result_of<egg::op_to_shared_ptr(Ptr&)>::type
                 )
             >::type

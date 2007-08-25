@@ -11,7 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp> // BOOST_HAS_THREADS
 #include <boost/range/iterator.hpp>
+
+
 #if !defined(BOOST_RANGE_MUTABLE_ITERATOR_HPP)
     #define PSTADE_OVEN_BOOST_RANGE_VERSION_1
 #endif
@@ -25,6 +28,11 @@
     #define PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR range_iterator
     #define PSTADE_OVEN_BOOST_RANGE_BEGIN            boost_range_begin
     #define PSTADE_OVEN_BOOST_RANGE_END              boost_range_end
+#endif
+
+
+#if defined(BOOST_HAS_THREADS) && !defined(PSTADE_OVEN_DISABLE_THREADS)
+    #define PSTADE_OVEN_HAS_THREADS
 #endif
 
 
