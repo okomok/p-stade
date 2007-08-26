@@ -167,7 +167,11 @@ This document uses the following notation:
     ]
 ]
 
-Also, assume that every expression is placed after `using namespace pstade::oven`.
+Also, assume that every expression is placed after:
+
+    namespace oven = pstade::oven;
+    using namespace oven;
+
 
 [endsect]
 
