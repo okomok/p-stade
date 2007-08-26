@@ -61,7 +61,7 @@ test-suite "egg" :
     [ run new_shared.cpp ]
     [ run new_shared_array.cpp ]
     [ run not.cpp ]
-    [ run parallel.cpp : : : <threading>multi ]
+    [ run parallel.cpp : : : <library>/boost/thread//boost_thread/<link>static <threading>multi ]
     [ run parallel.cpp : : : <define>PSTADE_EGG_DISABLE_THREADS : parallel_no_threads ]
     [ run perfect.cpp ]
     [ run pipable.cpp ]

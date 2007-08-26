@@ -19,6 +19,7 @@
 #include <pstade/egg/tuple/element.hpp>
 #include <pstade/egg/tuple/get.hpp>
 #include <pstade/result_of.hpp>
+#include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -29,15 +30,17 @@
 namespace pstade { namespace oven {
 
 
-template< class N >
+template< class N, class Reference = boost::use_default >
 struct tp_make_elements
 {
 private:
     template< class TupleRange >
     struct ref_of :
-        affect<
-            typename iterator_read<typename range_iterator<TupleRange>::type>::type,
-            typename egg::tuple_element<N, typename range_value<TupleRange>::type>::type
+        eval_if_use_default<Reference,
+            affect<
+                typename iterator_read<typename range_iterator<TupleRange>::type>::type,
+                typename egg::tuple_element<N, typename range_value<TupleRange>::type>::type
+            >
         >
     { };
 
@@ -68,14 +71,14 @@ public:
 };
 
 
-template< class N >
+template< class N, class Reference = boost::use_default >
 struct xp_make_elements :
-    tp_make_elements<N>::type
+    tp_make_elements<N, Reference>::type
 { };
 
-template< int N >
+template< int N, class Reference = boost::use_default >
 struct xp_make_elements_c :
-    tp_make_elements< boost::mpl::int_<N> >::type
+    tp_make_elements<boost::mpl::int_<N>, Reference>::type
 { };
 
 
@@ -86,7 +89,7 @@ PSTADE_EGG_SPECIFIED1(make_elements_c, xp_make_elements_c, (int))
 namespace elements_detail_ {
 
 
-    template< class N >
+    template< class N, class Reference = boost::use_default >
     struct elements
     {
     private:
@@ -94,24 +97,24 @@ namespace elements_detail_ {
     };
 
 
-    template< int N >
+    template< int N, class Reference = boost::use_default >
     struct elements_c :
-        elements< boost::mpl::int_<N> >
+        elements<boost::mpl::int_<N>, Reference>
     { };
 
 
-    template< class TupleRange, class N > inline
-    typename result_of<xp_make_elements<N>(TupleRange&)>::type
-    operator|(TupleRange& rng, elements<N>)
+    template< class TupleRange, class N, class Reference > inline
+    typename result_of<xp_make_elements<N, Reference>(TupleRange&)>::type
+    operator|(TupleRange& rng, elements<N, Reference>)
     {
-        return xp_make_elements<N>()(rng);
+        return xp_make_elements<N, Reference>()(rng);
     }
 
-    template< class TupleRange, class N > inline
-    typename result_of<xp_make_elements<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
-    operator|(TupleRange const& rng, elements<N>)
+    template< class TupleRange, class N, class Reference > inline
+    typename result_of<xp_make_elements<N, Reference>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
+    operator|(TupleRange const& rng, elements<N, Reference>)
     {
-        return xp_make_elements<N>()(rng);
+        return xp_make_elements<N, Reference>()(rng);
     }
 
 

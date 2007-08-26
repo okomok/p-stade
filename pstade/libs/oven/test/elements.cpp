@@ -73,6 +73,15 @@ void pstade_minimal_test()
         test::random_access_swappable(b|elements_c<0>(), a);
     }
 
+   {
+        int a[] = { 5,1,3,45,63,1,1,7,4,2,1 };
+        ::rng_t b = ::make_b();
+        test::random_access_constant(b|elements_c<0, int const&>(), a);
+        test::random_access_constant(b|const_refs|elements_c<0, int const&>(), a);
+        test::random_access_swappable(b|elements_c<0, int&>(), a);
+    }
+
+
 #if !BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
     // fustion::vector over-optimistic template constructor breaks down 'oven::read'.
     // No way to copyconstruct fustion::vector from proxy under msvc.
