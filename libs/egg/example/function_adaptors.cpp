@@ -15,6 +15,7 @@
 #include <pstade/egg/curry.hpp>
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/compose.hpp>
+#include <pstade/egg/indirect.hpp>
 #include <pstade/egg/memoize.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <functional>
@@ -62,6 +63,26 @@ void test_curry()
 //]
 
 
+//[code_indirect_example
+result_of_uncurry<
+    result_of_indirect<op_curried_plus const *>::type
+>::type const another_plus
+    =
+PSTADE_EGG_UNCURRY_L
+    PSTADE_EGG_INDIRECT_L
+        /*<< `&curried_plus` is an /address constant expression/, so that `another_plus` can be /static-initialized/. >>*/
+        &curried_plus
+    PSTADE_EGG_INDIRECT_R
+PSTADE_EGG_UNCURRY_R
+    ;
+//]
+
+void test_indirect()
+{
+    BOOST_CHECK( another_plus(4, 9) == 13 );
+}
+
+
 //[code_memoize_example
 struct op_fib_block
 {
@@ -82,9 +103,12 @@ void test_memoize()
 }
 //]
 
+
+
 void pstade_minimal_test()
 {
     test_auxiliary();
     test_curry();
     test_memoize();
+    test_indirect();
 }
