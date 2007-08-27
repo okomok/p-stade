@@ -31,7 +31,9 @@
 <dt><span class="section"><a href="index.html#egg.preface.introduction">Introduction</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.requirements">Requirements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.preface.rationale">Rationale</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.limitation">Limitation</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.preface.acknowledgements">Acknowledgements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.notation">Notation</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/concepts.html">Concepts</a></span></dt>
@@ -39,6 +41,7 @@
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.operatable_object">Operatable Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.bindable_object">Bindable Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/function_makers.html">Function Makers</a></span></dt>
 <dd><dl>
@@ -72,20 +75,24 @@
 <dt><span class="section"><a href="index.html#egg.preface.introduction">Introduction</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.requirements">Requirements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.preface.rationale">Rationale</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.limitation">Limitation</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.preface.acknowledgements">Acknowledgements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.notation">Notation</a></span></dt>
 </dl></div>
+<p>
+      &#8220;<span class="quote">No clever arrangement of bad eggs ever made a good omelet.</span>&#8221; --
+      C.S. Lewis
+    </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.preface.introduction"></a><a href="index.html#egg.preface.introduction" title="Introduction">Introduction</a></h3></div></div></div>
 <p>
-        &#8220;<span class="quote">No clever arrangement of bad eggs ever made a good omelet.</span>&#8221;
-        -- C.S. Lewis
-      </p>
-<p>
         Unlike other modern languages, it is very difficult to make a function in
-        C++. Egg is a small header-only framework of making functions, and offers
-        higher-order functions.
+        C++ especially if you want to support <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
+        and <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>.
+        Egg is a small header-only framework of making functions, and offers higher-order
+        functions.
       </p>
 </div>
 <div class="section" lang="en">
@@ -125,6 +132,20 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="egg.preface.rationale"></a><a href="index.html#egg.preface.rationale" title="Rationale">Rationale</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Egg works around <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
+          Forwarding Problem</a>.
+        </li>
+<li>
+          Egg framework provides the way of <span class="emphasis"><em>static-initialization</em></span>
+          as much as possible.
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="egg.preface.limitation"></a><a href="index.html#egg.preface.limitation" title="Limitation">Limitation</a></h3></div></div></div>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -133,10 +154,9 @@
         </li>
 <li>
           Any <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-          which Egg offers is not <code class="computeroutput"><span class="keyword">volatile</span></code>-aware,
-          meaning that you can't make it <code class="computeroutput"><span class="keyword">volatile</span></code>-qualified
-          nor pass any <code class="computeroutput"><span class="keyword">volatile</span></code> object
-          to it.
+          which Egg offers is not <span class="emphasis"><em>volatile</em></span>-aware, meaning that
+          you can't make it <span class="emphasis"><em>volatile-qualified</em></span> nor pass any
+          <span class="emphasis"><em>volatile</em></span> object to it.
         </li>
 <li>
           Any <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
@@ -145,6 +165,14 @@
           to turn a function name into <span class="emphasis"><em>function pointer</em></span>.
         </li>
 </ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.preface.acknowledgements"></a><a href="index.html#egg.preface.acknowledgements" title="Acknowledgements">Acknowledgements</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
+          Forwarding Problem</a> workaround is based on David Abrahams' <a href="http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826" target="_top">callable</a>.
+        </li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -244,7 +272,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: August 26, 2007 at 16:23:10 GMT</p></small></td>
+<td align="left"><small><p>Last revised: August 27, 2007 at 03:57:08 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

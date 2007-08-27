@@ -16,6 +16,8 @@ In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
 for any __OPERATABLE_OBJECT__ `f` the following must be met:
 
 * `op_++f` is `_typeof(f)`.
+* If `boost::result_of<op_++f const(a1,...,aN)>::type` is a valid expression,
+  `boost::result_of<op_++f(a1,...,aN)>::type` is a valid expression with the same effect.
 
 [heading Models]
 * ...
@@ -24,12 +26,6 @@ for any __OPERATABLE_OBJECT__ `f` the following must be met:
 * ...
 
 [endsect]
-
-
-
-
-[caution Because of a compiler bug, `boost::result_of` of Boost version 1.34 or below is utterly broken
-on msvc-7.1 and 8.0. `pstade::result_of ` in `<pstade/result_of.hpp>` can be used for the workaround.]
 
 
 
@@ -81,6 +77,41 @@ for any __BINDABLE_OBJECT__ `b` the following must be met:
 
 [heading See also]
 * __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
+[import ../example/result_of_tutorial.cpp]
+
+[section result_of tutorial]
+
+[caution The document of __BOOST_RESULT_OF__ is outdated for now.]
+
+[heading How to call]
+
+If you pass an lvalue argument, it must be a /reference type/; It can't be a /reference type/, otherwise:
+[code_result_of_tutorial1]
+
+Thanks to these two convention, you can easily write a "chain" of __BOOST_RESULT_OF__:
+[code_result_of_tutorial2]
+
+A /callable type/ can't be a /reference type/ but must be "const-correct",
+meaning that you must add `const` to /const-qualified/ __FUNCTION_OBJECT__ type:
+[code_result_of_tutorial3]
+
+However, if a library guarantees the same behavior between /const-qualified/ type and
+non-/const-qualified/ type (as __OPERATABLE_OBJECT__ does so), you could omit `const`:
+[code_result_of_tutorial4]
+
+[heading Bugs]
+
+* msvc-7.1 and msvc-8.0 doesn't work with /POD/ templates.
+* A /const-qualified/ function pointer doen't work.
+
+These bugs can be work around by `pstade::result_of` in `<pstade/result_of.hpp>`.
+The first bug is fixed with Boost1.35.
 
 [endsect]
 

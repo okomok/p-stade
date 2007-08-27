@@ -22,12 +22,13 @@
 <dt><span class="section"><a href="concepts.html#egg.concepts.operatable_object">Operatable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.bindable_object">Bindable Object</a></span></dt>
+<dt><span class="section"><a href="concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.operatable_object"></a><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></h3></div></div></div>
 <a name="egg.concepts.operatable_object.description"></a><h5>
-<a name="id432504"></a>
+<a name="id431306"></a>
         <a href="concepts.html#egg.concepts.operatable_object.description">Description</a>
       </h5>
 <p>
@@ -37,13 +38,13 @@
         <code class="computeroutput"><span class="identifier">op_</span></code>.
       </p>
 <a name="egg.concepts.operatable_object.refinement_of"></a><h5>
-<a name="id431285"></a>
+<a name="id431362"></a>
         <a href="concepts.html#egg.concepts.operatable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="egg.concepts.operatable_object.requirements"></a><h5>
-<a name="id431324"></a>
+<a name="id431401"></a>
         <a href="concepts.html#egg.concepts.operatable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -52,47 +53,35 @@
         Object</a> <code class="computeroutput"><span class="identifier">f</span></code> the following
         must be met:
       </p>
-<div class="itemizedlist"><ul type="disc"><li>
+<div class="itemizedlist"><ul type="disc">
+<li>
 <code class="computeroutput"><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
-        </li></ul></div>
+        </li>
+<li>
+          If <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span> <span class="keyword">const</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is a valid expression, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>
+          is a valid expression with the same effect.
+        </li>
+</ul></div>
 <a name="egg.concepts.operatable_object.models"></a><h5>
-<a name="id431429"></a>
+<a name="id502110"></a>
         <a href="concepts.html#egg.concepts.operatable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.operatable_object.see_also"></a><h5>
-<a name="id431461"></a>
+<a name="id502142"></a>
         <a href="concepts.html#egg.concepts.operatable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 </div>
-<div class="caution"><table border="0" summary="Caution">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
-<th align="left">Caution</th>
-</tr>
-<tr><td align="left" valign="top">
-<p>
-        </p>
-<p>
-          Because of a compiler bug, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>
-          of Boost version 1.34 or below is utterly broken on msvc-7.1 and 8.0.
-          <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span> </code> in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
-          can be used for the workaround.
-        </p>
-<p>
-      </p>
-</td></tr>
-</table></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.auxiliary_interface"></a><a href="concepts.html#egg.concepts.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></h3></div></div></div>
 <a name="egg.concepts.auxiliary_interface.description"></a><h5>
-<a name="id502062"></a>
+<a name="id502196"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.description">Description</a>
       </h5>
 <p>
@@ -102,14 +91,14 @@
         a <span class="emphasis"><em>member function</em></span>.
       </p>
 <a name="egg.concepts.auxiliary_interface.refinement_of"></a><h5>
-<a name="id502113"></a>
+<a name="id502248"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="egg.concepts.auxiliary_interface.requirements"></a><h5>
-<a name="id502153"></a>
+<a name="id502288"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.requirements">Requirements</a>
       </h5>
 <p>
@@ -136,14 +125,14 @@
         </li>
 </ul></div>
 <a name="egg.concepts.auxiliary_interface.models"></a><h5>
-<a name="id502472"></a>
+<a name="id502606"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.auxiliary_interface.see_also"></a><h5>
-<a name="id502504"></a>
+<a name="id502639"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -153,7 +142,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.bindable_object"></a><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></h3></div></div></div>
 <a name="egg.concepts.bindable_object.description"></a><h5>
-<a name="id502558"></a>
+<a name="id502693"></a>
         <a href="concepts.html#egg.concepts.bindable_object.description">Description</a>
       </h5>
 <p>
@@ -162,12 +151,12 @@
         which can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
       </p>
 <a name="egg.concepts.bindable_object.refinement_of"></a><h5>
-<a name="id502633"></a>
+<a name="id502767"></a>
         <a href="concepts.html#egg.concepts.bindable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="egg.concepts.bindable_object.requirements"></a><h5>
-<a name="id502672"></a>
+<a name="id502807"></a>
         <a href="concepts.html#egg.concepts.bindable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -182,17 +171,180 @@
           a valid expression.
         </li></ul></div>
 <a name="egg.concepts.bindable_object.models"></a><h5>
-<a name="id502861"></a>
+<a name="id502996"></a>
         <a href="concepts.html#egg.concepts.bindable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.bindable_object.see_also"></a><h5>
-<a name="id502892"></a>
+<a name="id503027"></a>
         <a href="concepts.html#egg.concepts.bindable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.concepts.result_of_tutorial"></a><a href="concepts.html#egg.concepts.result_of_tutorial" title="result_of tutorial">result_of tutorial</a></h3></div></div></div>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            The document of <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
+            is outdated for now. Ignore that.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.concepts.result_of_tutorial.how_to_call"></a><h5>
+<a name="id503100"></a>
+        <a href="concepts.html#egg.concepts.result_of_tutorial.how_to_call">How to call</a>
+      </h5>
+<p>
+        If you pass an lvalue argument, it must be a <span class="emphasis"><em>reference type</em></span>;
+        It can't be a <span class="emphasis"><em>reference type</em></span>, otherwise:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">utility</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">;</span>
+
+<span class="keyword">struct</span> <span class="identifier">op_plus</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">j</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">i</span> <span class="special">+</span> <span class="identifier">j</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="keyword">void</span> <span class="identifier">test_lvalue</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span>
+    <span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_plus</span><span class="special">(</span><span class="keyword">int</span> <span class="special">&amp;,</span> <span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">op_plus</span><span class="special">()(</span><span class="identifier">i</span><span class="special">,</span> <span class="number">3</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">r</span> <span class="special">==</span> <span class="number">5</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<p>
+        Thanks to these two convention, you can easily write a "chain"
+        of <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">void</span> <span class="identifier">test_chain</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">3</span><span class="special">;</span>
+    <span class="identifier">result_of</span><span class="special">&lt;</span>
+        <span class="identifier">op_plus</span><span class="special">(</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_plus</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="keyword">int</span> <span class="keyword">const</span> <span class="special">&amp;)</span>
+    <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span>
+        <span class="special">=</span> <span class="identifier">op_plus</span><span class="special">()(</span><span class="identifier">op_plus</span><span class="special">()(</span><span class="number">1</span><span class="special">,</span> <span class="number">2</span><span class="special">),</span> <span class="identifier">i</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<p>
+        A <span class="emphasis"><em>callable type</em></span> can't be a <span class="emphasis"><em>reference type</em></span>
+        but must be "const-correct", meaning that you must add <code class="computeroutput"><span class="keyword">const</span></code> to <span class="emphasis"><em>const-qualified</em></span>
+        <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+        type:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="identifier">op_plus</span> <span class="keyword">const</span> <span class="identifier">plus</span> <span class="special">=</span> <span class="special">{};</span>
+
+<span class="keyword">void</span> <span class="identifier">test_const</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_plus</span> <span class="keyword">const</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">2</span><span class="special">,</span> <span class="number">3</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">r</span> <span class="special">==</span> <span class="number">5</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<p>
+        However, if a library guarantees the same behavior between <span class="emphasis"><em>const-qualified</em></span>
+        type and non-<span class="emphasis"><em>const-qualified</em></span> type (as <a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable
+        Object</a> does so), you could omit <code class="computeroutput"><span class="keyword">const</span></code>:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">void</span> <span class="identifier">test_operatable</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_plus</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">2</span><span class="special">,</span> <span class="number">3</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">r</span> <span class="special">==</span> <span class="number">5</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.concepts.result_of_tutorial.bugs"></a><h5>
+<a name="id504278"></a>
+        <a href="concepts.html#egg.concepts.result_of_tutorial.bugs">Bugs</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          msvc-7.1 and msvc-8.0 doesn't work with <span class="emphasis"><em>POD</em></span> templates.
+        </li>
+<li>
+          A <span class="emphasis"><em>const-qualified</em></span> function pointer doen't work.
+        </li>
+</ul></div>
+<p>
+        These bugs can be work around by <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span></code>
+        in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
+        The first bug is fixed with Boost1.35.
+      </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

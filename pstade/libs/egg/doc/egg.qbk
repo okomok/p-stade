@@ -30,6 +30,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __BOOST__ [@http://www.boost.org Boost C++ Libraries]]
 [def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]
+[def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of Boost.ResultOf]]
 [def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
 
 [def __ASSIGNABLE__            [@http://boost.org/doc/html/Assignable.html Assignable]]
@@ -43,6 +44,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost:indirect_iterator]]
 
+[def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
+[def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826  callable]]
 
 
 

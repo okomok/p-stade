@@ -1,11 +1,14 @@
 [section Preface]
 
+["No clever arrangement of bad eggs ever made a good omelet.] -- C.S. Lewis
+
+
+
 
 [section Introduction]
 
-["No clever arrangement of bad eggs ever made a good omelet.] -- C.S. Lewis
-
-Unlike other modern languages, it is very difficult to make a function in C++.
+Unlike other modern languages, it is very difficult to make a function in C++
+especially if you want to support __BOOST_RESULT_OF__ and __BOOST_LAMBDA__.
 Egg is a small header-only framework of making functions, and offers higher-order functions.
 
 [endsect]
@@ -37,15 +40,34 @@ Egg is known to work on the following platforms:
 
 
 
+[section Rationale]
+
+* Egg works around __FORWARDING_PROBLEM__.
+* Egg framework provides the way of /static-initialization/ as much as possible.
+
+[endsect]
+
+
+
+
 [section Limitation]
 
 * The maximum arity of any __FUNCTION_OBJECT__ which Egg offers is `5`.
 
-* Any __FUNCTION_OBJECT__ which Egg offers is not `volatile`-aware, meaning that you can't
-  make it `volatile`-qualified nor pass any `volatile` object to it.
+* Any __FUNCTION_OBJECT__ which Egg offers is not /volatile/-aware, meaning that you can't
+  make it /volatile-qualified/ nor pass any /volatile/ object to it.
 
 * Any __FUNCTION_OBJECT__ which Egg offers doesn't guarantee to decay the argument passed, meaning that
   you have to add `&` to turn a function name into /function pointer/.
+
+[endsect]
+
+
+
+
+[section Acknowledgements]
+
+* __FORWARDING_PROBLEM__ workaround is based on David Abrahams' __DAVID_CALLABLE__.
 
 [endsect]
 

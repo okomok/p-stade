@@ -418,7 +418,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
-* ...
+[code_indirect_example]
 
 [heading See also]
 * __BOOST_INDIRECT_ITERATOR__
