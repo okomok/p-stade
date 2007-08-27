@@ -308,6 +308,10 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
         [`f(a1,...,aN)`]
         [`boost::add_const<boost::mpl::apply<Lam, _arg(a1),...,_arg(aN)>::type>::type()(_ref(a1),...,_ref(aN))`]
     ]
+    [
+        [`PSTADE_EGG_DEFER((Lam))`]
+        [`deferred<Lam>::type` with a msvc-8.0 workaround]
+    ]
 ]
 
 [heading Preconditions]
@@ -315,6 +319,10 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 * `1 <= N && N <= 5`.
 * `boost::mpl::apply<Lam, _arg(a1),...,_arg(aN)>::type::result_type` is a valid expression.
 * The corresponding semantics is a valid expression.
+* `PSTADE_EGG_DEFER` is placed in namespace scope.
+
+[caution msvc-8.0 randomly fails to make `deferred<Lam>::type` be a __DEFERRED_CALLABLE_OBJECT__ in deduced context.
+         Prefer `PSTADE_EGG_DEFER` if you need portability.]
 
 [heading Example]
 [code_deferred_example]
