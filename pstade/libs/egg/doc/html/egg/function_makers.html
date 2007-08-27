@@ -1026,10 +1026,22 @@
               </p>
               </td>
 </tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER</span><span class="special">((</span><span class="identifier">Lam</span><span class="special">))</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span></code> with a msvc-8.0 workaround
+              </p>
+              </td>
+</tr>
 </tbody>
 </table></div>
 <a name="egg.function_makers.deferred.preconditions"></a><h5>
-<a name="id511171"></a>
+<a name="id511244"></a>
         <a href="function_makers.html#egg.function_makers.deferred.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1049,9 +1061,31 @@
 <li>
           The corresponding semantics is a valid expression.
         </li>
+<li>
+<code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER</span></code> is placed
+          in namespace scope.
+        </li>
 </ul></div>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            msvc-8.0 randomly fails to make <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+            be a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+            Callable Object</a> in deduced context. Prefer <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER</span></code>
+            if you need portability.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
 <a name="egg.function_makers.deferred.example"></a><h5>
-<a name="id511380"></a>
+<a name="id511530"></a>
         <a href="function_makers.html#egg.function_makers.deferred.example">Example</a>
       </h5>
 <p>
@@ -1089,7 +1123,7 @@
 <p>
       </p>
 <a name="egg.function_makers.deferred.see_also"></a><h5>
-<a name="id511697"></a>
+<a name="id511848"></a>
         <a href="function_makers.html#egg.function_makers.deferred.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1100,7 +1134,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_makers.generator"></a><a href="function_makers.html#egg.function_makers.generator" title="generator">generator</a></h3></div></div></div>
 <a name="egg.function_makers.generator.description"></a><h5>
-<a name="id511745"></a>
+<a name="id511896"></a>
         <a href="function_makers.html#egg.function_makers.generator.description">Description</a>
       </h5>
 <p>
@@ -1108,19 +1142,19 @@
         generator".
       </p>
 <a name="egg.function_makers.generator.header"></a><h5>
-<a name="id511783"></a>
+<a name="id511934"></a>
         <a href="function_makers.html#egg.function_makers.generator.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_makers.generator.notation"></a><h5>
-<a name="id511864"></a>
+<a name="id512015"></a>
         <a href="function_makers.html#egg.function_makers.generator.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">g</span></code> is an object of <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
 <a name="egg.function_makers.generator.valid_expressions"></a><h5>
-<a name="id511939"></a>
+<a name="id512090"></a>
         <a href="function_makers.html#egg.function_makers.generator.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -1247,7 +1281,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_makers.generator.preconditions"></a><h5>
-<a name="id512906"></a>
+<a name="id513056"></a>
         <a href="function_makers.html#egg.function_makers.generator.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1284,7 +1318,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_makers.generator.example"></a><h5>
-<a name="id513068"></a>
+<a name="id513218"></a>
         <a href="function_makers.html#egg.function_makers.generator.example">Example</a>
       </h5>
 <p>
@@ -1319,7 +1353,7 @@
 <p>
       </p>
 <a name="egg.function_makers.generator.see_also"></a><h5>
-<a name="id513487"></a>
+<a name="id513638"></a>
         <a href="function_makers.html#egg.function_makers.generator.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>

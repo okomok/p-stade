@@ -770,6 +770,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Model of]
 
 [h3 Notation]
+* `Tup` is `_value_of<_typeof(_rng)>::type`.
 * `to_Nth` is an imaginary function object to get the Nth element of _boost_fusion_ Sequence.
 
 [h3 Valid expressions]
@@ -779,13 +780,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`xp_make_elements<N>`]
+        [`xp_make_elements<N, Ref = boost::use_default>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_elements<N>()(_rng)`]
+        [`xp_make_elements<N, Ref = boost::use_default>()(_rng)`]
         [
             `_rng|transformed(to_Nth)`
         ]
@@ -806,8 +807,12 @@ then pretends to be a range of _forward_iterator_.
 
 [h3 Preconditions]
 * `_rng` is _readable_ or _lvalue_.
-* `_value_of<_typeof(_rng)>::type` is _fusion_forward_sequence_.
+* `Tup` is _fusion_forward_sequence_.
 * `N` is a [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant].
+* If `boost::range_reference<_typeof(_rng)>::type` is a /reference/ type
+  and `boost::fusion::result_of::deref<typename boost::fusion::result_of::advance<typename boost::fusion::result_of::begin<Tup>::type, N>::type>`
+  is not a /reference/ type, `Ref` that specifies `boost::range_reference` of the result range must be explicitly passed.
+  
 
 [h3 Example]
 
@@ -837,9 +842,9 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`xp_make_elements_c<n>`]
+        [`xp_make_elements_c<n, Ref = boost::use_default>`]
         [
-            `xp_make_elements< boost::mpl::int_<n> >`
+            `xp_make_elements<boost::mpl::int_<n>, Ref>`
         ]
     ]
     [
@@ -857,7 +862,7 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
-* `xp_make_elements< boost::mpl::int_<n> >` is a valid expression.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
 
@@ -1918,41 +1923,30 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`xp_make_transformed<R>`]
+        [`xp_make_transformed<R = boost::use_default>`]
         [
            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_transformed<R>()(_rng, _fun)`]
+        [`xp_make_transformed<R = boost::use_default>()(_rng, _fun)`]
         [
-            `[T(_begin(_rng), _fun), T(_end(_rng), _fun))`, whose `boost::range_reference` type is `R`.
+            `[T(_begin(_rng), _fun), T(_end(_rng), _fun))`
         ]
     ]
     [
-        [`xp_make_transformed<>`]
+        [`_rng|transformed(_cal)`]
         [
-           A _bindable_ _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`xp_make_transformed<>()(_rng, _cal)`]
-        [
-            `[U(_begin(_rng), _cal), U(_end(_rng), _cal))`
-        ]
-    ]
-    [
-        [`_rng|transformed`]
-        [
-            `xp_make_transformed<>()(_rng)`
+            `xp_make_transformed<>()(_rng, _cal)`
         ]
     ]
 ]
 
 [h3 Preconditions]
+* `R` specifies `boost::range_reference` of the result range.
 * `T` is `boost::transform_iterator<_typeof(_fun), _typeof(_begin(_rng)), R>` such that `T(_begin(_rng), _fun)` is a valid expression.
-* `U` is `boost::transform_iterator<_typeof(_cal), _typeof(_begin(_rng)), boost::result_of<_typeof(_cal)(*_begin(_rng))>::type>` such that `U(_begin(_rng), _cal)` is a valid expression.
-* `_fun` and `_cal` are _assignable_ and _default_constructible_.
+* If `R` is `boost::use_default`, `_fun` must be a _deferred_callable_object_. Then `R` is regarded as `boost::result_of<_typeof(_fun)(boost::range_reference<_typeof(_rng)>::type)>::type`.
+* `_fun` is _assignable_ and _default_constructible_.
 
 [h3 Example]
 

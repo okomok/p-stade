@@ -89,7 +89,7 @@ PSTADE_EGG_SPECIFIED1(make_elements_c, xp_make_elements_c, (int))
 namespace elements_detail_ {
 
 
-    template< class N, class Reference = boost::use_default >
+    template< class N >
     struct elements
     {
     private:
@@ -97,24 +97,24 @@ namespace elements_detail_ {
     };
 
 
-    template< int N, class Reference = boost::use_default >
+    template< int N >
     struct elements_c :
-        elements<boost::mpl::int_<N>, Reference>
+        elements< boost::mpl::int_<N> >
     { };
 
 
-    template< class TupleRange, class N, class Reference > inline
-    typename result_of<xp_make_elements<N, Reference>(TupleRange&)>::type
-    operator|(TupleRange& rng, elements<N, Reference>)
+    template< class TupleRange, class N > inline
+    typename result_of<xp_make_elements<N>(TupleRange&)>::type
+    operator|(TupleRange& rng, elements<N>)
     {
-        return xp_make_elements<N, Reference>()(rng);
+        return xp_make_elements<N>()(rng);
     }
 
-    template< class TupleRange, class N, class Reference > inline
-    typename result_of<xp_make_elements<N, Reference>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
-    operator|(TupleRange const& rng, elements<N, Reference>)
+    template< class TupleRange, class N > inline
+    typename result_of<xp_make_elements<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
+    operator|(TupleRange const& rng, elements<N>)
     {
-        return xp_make_elements<N, Reference>()(rng);
+        return xp_make_elements<N>()(rng);
     }
 
 
