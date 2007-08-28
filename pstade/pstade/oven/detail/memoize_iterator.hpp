@@ -79,7 +79,7 @@ public:
         return is_in_table_aux(i);
     }
 
-    value_t const& deref(index_type i)
+    value_t const& deref(index_type i) // strong
     {
 #if defined(PSTADE_OVEN_HAS_THREADS)
         boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
@@ -89,13 +89,13 @@ public:
 
         if (!is_in_table_aux(i)) {
             BOOST_ASSERT(i == m_baseIndex && m_baseIndex == m_table.size());
-            m_table.push_back(*m_base);
+            m_table.push_back(*m_base); // strong
         }
 
         return m_table[i];
     }
 
-    index_type next(index_type i)
+    index_type next(index_type i) // strong
     {
 #if defined(PSTADE_OVEN_HAS_THREADS)
         boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
@@ -103,12 +103,23 @@ public:
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
+        bool pushed = false;
         if (i == m_baseIndex) {
-            if (m_baseIndex == m_table.size())
-                m_table.push_back(*m_base);
+            if (m_baseIndex == m_table.size()) {
+                m_table.push_back(*m_base); // strong
+                pushed = true;
+            }
 
-            ++m_base;
-            ++m_baseIndex;
+            try {
+                ++m_base;
+            }
+            catch (...) {
+                if (pushed)
+                    m_table.pop_back(); // nothrow
+                throw;
+            }
+
+            ++m_baseIndex; // nothrow
         }
 
         return i + 1;
