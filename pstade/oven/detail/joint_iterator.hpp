@@ -125,7 +125,11 @@ private:
 
     bool invariant() const
     {
+#if defined(PSTADE_OVEN_TESTING)
         return is_in_left() ? (m_itR == m_firstR) : true;
+#else
+        return true;
+#endif
     }
 
     template< class Other >
