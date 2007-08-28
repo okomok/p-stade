@@ -18,7 +18,6 @@
 //   no deep equality-comparison.
 //   neither 'front' nor 'back'.
 //   no implicit template-constructor.
-//   strong guarantee assignment.
 
 
 #include <cstddef> // size_t
@@ -52,17 +51,6 @@ namespace pstade { namespace oven {
 
 
 namespace iter_range_detail {
-
-
-    // 'begin/end' can throw (http://tinyurl.com/2ov9mw),
-    // while copy/assign of iterator doesn't throw (23.1/11).
-    template< class Iterator, class Range > inline
-    void assign(Iterator& first, Iterator& last, Range& rng)
-    {
-        typename range_iterator<Range>::type l = boost::end(rng);
-        first = boost::begin(rng);
-        last  = l;
-    }
 
 
     // See <pstade/radish/null_injector.hpp>.
@@ -117,14 +105,16 @@ public:
     template< class Range >
     typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
-        iter_range_detail::assign(m_first, m_last, rng);
+        m_first = boost::begin(rng);
+        m_last = boost::end(rng);
         return *this;
     }
 
     template< class Range >
     self_t& operator=(Range const& rng)
     {
-        iter_range_detail::assign(m_first, m_last, rng);
+        m_first = boost::begin(rng);
+        m_last = boost::end(rng);
         return *this;
     }
 
