@@ -47,6 +47,11 @@ void test()
         BOOST_CHECK( oven::make_iter_range(src)[4] == 'o' );
     }
     {
+        iter_range<std::string::iterator> rng;
+        rng.reset(src.begin(), src.end());
+        BOOST_CHECK(rng == make_iter_range(src));
+    }
+    {
         oven::iter_range<std::string::iterator> rng1(src);
         oven::iter_range<std::string::iterator> rng2(src);
         oven::iter_range<std::string::iterator> rng3(rng1);
