@@ -288,7 +288,7 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 * `<pstade/egg/deferred.hpp>`
 
 [heading Notation]
-* `f` is an object of `deffered<Lam>::type`.
+* `f` is an object of `deferred<Lam>::type`.
 
 [heading Valid expressions]
 [table 

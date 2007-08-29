@@ -25,13 +25,13 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/compose2.hpp>
+#include <pstade/egg/curry.hpp>
+#include <pstade/egg/envelope.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/function_facade.hpp>
-#include <pstade/egg/lambda/bind.hpp>
-#include <pstade/egg/lambda/placeholders.hpp>
-#include <pstade/egg/lambda/unlambda.hpp>
-#include <pstade/egg/envelope.hpp>
 #include <pstade/egg/generator.hpp>
+#include <pstade/egg/uncurry.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -44,90 +44,6 @@ namespace pstade { namespace oven {
 
 
 namespace comprehension_detail {
-
-
-    // Note that 'nested' is always regularized by 'monad_bind'.
-
-    template< class MakeRange, class Function >
-    struct nested :
-        egg::function_facade< nested<MakeRange, Function> >
-    {
-        template< class Myself, class Value1, class Value2 = void >
-        struct apply :
-            result_of<
-                detail::op_monad_bind(
-                    typename result_of<MakeRange const(Value1&, Value2&)>::type,
-                    typename result_of<
-                        egg::op_lambda_bind(
-                            typename result_of<egg::op_lambda_unlambda(Function const&)>::type,
-                            Value1&,
-                            Value2&,
-                            egg::op_lambda_1 const&
-                        )
-                    >::type
-                )
-            >
-        { };
-
-        template< class Result, class Value1, class Value2 >
-        Result call(Value1& v1, Value2& v2) const
-        {
-            return detail::monad_bind(
-                m_makeRng(v1, v2),
-                egg::lambda_bind(
-                    egg::lambda_unlambda(m_fun),
-                    v1,
-                    v2,
-                    egg::lambda_1
-                )
-            );
-        }
-
-        template< class Myself, class Value1 >
-        struct apply<Myself, Value1> :
-            result_of<
-                detail::op_monad_bind(
-                    typename result_of<MakeRange const(Value1&)>::type,
-                    typename result_of<
-                        egg::op_lambda_bind(
-                            typename result_of<egg::op_lambda_unlambda(Function const&)>::type,
-                            Value1&,
-                            egg::op_lambda_1 const&
-                        )
-                    >::type
-                )
-            >
-        { };
-
-        template< class Result, class Value1 >
-        Result call(Value1& v1) const
-        {
-            return detail::monad_bind(
-                m_makeRng(v1),
-                egg::lambda_bind(
-                    egg::lambda_unlambda(m_fun),
-                    v1,
-                    egg::lambda_1
-                )
-            );
-        }
-
-        nested(MakeRange makeRng, Function fun) :
-            m_makeRng(makeRng), m_fun(fun)
-        { }
-
-    private:
-        MakeRange m_makeRng;
-        Function m_fun;
-    };
-
-    typedef
-        egg::generator<
-            nested< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >
-        >::type
-    op_make_nested;
-
-    PSTADE_POD_CONSTANT((op_make_nested), make_nested) = PSTADE_EGG_GENERATOR;
 
 
     template< class Expr, class Guard >
@@ -208,94 +124,112 @@ namespace comprehension_detail {
 
     struct baby
     {
-        template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 = void, class MakeRange3 = void >
-        struct apply :
+        template< class UnitExpr, class GenRange1 >
+        struct result_of_aux1 :
             result_of<
-                detail::op_monad_bind(
-                    typename result_of<MakeRange1()>::type,
-                    typename result_of<
-                        op_make_nested(
-                            MakeRange2&,
-                            typename result_of<
-                                op_make_nested(
-                                    MakeRange3&,
-                                    typename result_of<op_make_unit_expr(Expr&, Guard&)>::type
-                                )
-                            >::type
-                        )
-                    >::type
-                )
+                detail::op_monad_bind(typename result_of<GenRange1()>::type, UnitExpr)
             >
         { };
 
-        template< class Result, class Expr, class Guard, class MakeRange1, class MakeRange2, class MakeRange3 >
-        Result call(Expr& expr, Guard& guard, MakeRange1& makeRng1, MakeRange2& makeRng2, MakeRange3& makeRng3) const
+        template< class UnitExpr, class GenRange1, class GenRange2 >
+        struct result_of_aux2 :
+            result_of_aux1<
+                typename result_of<
+                    egg::op_compose2(detail::op_monad_bind, GenRange2, typename result_of<egg::op_curry2(UnitExpr)>::type)
+                >::type,
+                GenRange1
+            >
+        { };
+
+        template< class UnitExpr, class GenRange1, class GenRange2, class GenRange3 >
+        struct result_of_aux3 :
+            result_of_aux2<
+                typename result_of<
+                    egg::op_compose2(detail::op_monad_bind, GenRange3, typename result_of<egg::op_uncurry(typename result_of<egg::op_curry3(UnitExpr)>::type)>::type)
+                >::type,
+                GenRange1, GenRange2
+            >
+        { };
+
+        template< class Myself, class Expr, class Guard, class GenRange1, class GenRange2 = void, class GenRange3 = void >
+        struct apply :
+            result_of_aux3<
+                typename result_of<op_make_unit_expr(Expr&, Guard&)>::type,
+                GenRange1, GenRange2, GenRange3
+            >
+        { };
+
+        template< class Result, class Expr, class Guard, class GenRange1, class GenRange2, class GenRange3 >
+        Result call(Expr& expr, Guard& guard, GenRange1& genRng1, GenRange2& genRng2, GenRange3& genRng3) const
         {
             // monad_bind(genRng1(), \x ->
             //     monad_bind(genRng2(x), \y ->
             //         monad_bind(genRng3(y), \z ->
             //             make_unit_expr(expr, guard)(x, y, z) ) ) )
+
             return detail::monad_bind(
-                makeRng1(),
-                make_nested(
-                    makeRng2,
-                    make_nested(
-                        makeRng3,
-                        make_unit_expr(expr, guard) // 3ary
-                    ) // 2ary
-                ) // 1ary
+                genRng1(),
+                egg::compose2(
+                    detail::monad_bind,
+                    genRng2,
+                    egg::curry2(
+
+                        egg::compose2(
+                            detail::monad_bind,
+                            genRng3,
+                            egg::uncurry(egg::curry3(make_unit_expr(expr, guard)))
+                        )
+
+                    )
+                )
             );
         }
 
-        template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 >
-        struct apply<Myself, Expr, Guard, MakeRange1, MakeRange2> :
-            result_of<
-                detail::op_monad_bind(
-                    typename result_of<MakeRange1()>::type,
-                    typename result_of<
-                        op_make_nested(
-                            MakeRange2&,
-                            typename result_of<op_make_unit_expr(Expr&, Guard&)>::type
-                        )
-                    >::type
-                )
+        template< class Myself, class Expr, class Guard, class GenRange1, class GenRange2 >
+        struct apply<Myself, Expr, Guard, GenRange1, GenRange2> :
+            result_of_aux2<
+                typename result_of<op_make_unit_expr(Expr&, Guard&)>::type,
+                GenRange1, GenRange2
             >
         { };
 
-        template< class Result, class Expr, class Guard, class MakeRange1, class MakeRange2 >
-        Result call(Expr& expr, Guard& guard, MakeRange1& makeRng1, MakeRange2& makeRng2) const
+        template< class Result, class Expr, class Guard, class GenRange1, class GenRange2 >
+        Result call(Expr& expr, Guard& guard, GenRange1& genRng1, GenRange2& genRng2) const
         {
             // monad_bind(genRng1(), \x ->
             //     monad_bind(genRng2(x), \y ->
             //         make_unit_expr(expr, guard)(x, y) ) )
+
             return detail::monad_bind(
-                makeRng1(),
-                make_nested(
-                    makeRng2,
-                    make_unit_expr(expr, guard) // 2ary
-                ) // 1ary
+                genRng1(),
+
+                egg::compose2(
+                    detail::monad_bind,
+                    genRng2,
+                    egg::curry2(make_unit_expr(expr, guard))
+                )
+
             );
         }
 
-        template< class Myself, class Expr, class Guard, class MakeRange1 >
-        struct apply<Myself, Expr, Guard, MakeRange1> :
-            result_of<
-                detail::op_monad_bind(
-                    typename result_of<MakeRange1()>::type,
-                    typename result_of<op_make_unit_expr(Expr&, Guard&)>::type
-                )
+        template< class Myself, class Expr, class Guard, class GenRange1 >
+        struct apply<Myself, Expr, Guard, GenRange1> :
+            result_of_aux1<
+                typename result_of<op_make_unit_expr(Expr&, Guard&)>::type,
+                GenRange1
             >
         { };
 
-        template< class Result, class Expr, class Guard, class MakeRange1 >
-        Result call(Expr& expr, Guard& guard, MakeRange1& makeRng1) const
+        template< class Result, class Expr, class Guard, class GenRange1 >
+        Result call(Expr& expr, Guard& guard, GenRange1& genRng1) const
         {
             return detail::monad_bind(
-                makeRng1(),
+                genRng1(),
                 make_unit_expr(expr, guard) // 1ary
             );
         }
     };
+
 
 
 } // namespace comprehension_detail

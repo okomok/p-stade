@@ -125,15 +125,15 @@ private:
 
 #include <pstade/egg/dereference.hpp>
 
-namespace pstade { namespace egg {
+namespace pstade_egg_extension {
 
     template< class X >
-    struct Dereferenceable< oven::detail::regularized<X> >
+    struct Dereferenceable< pstade::oven::detail::regularized<X> >
     {
         typedef X reference;
     };
 
-} } // namespace pstade::egg
+} // namespace pstade_egg_extension
 
 
 #endif

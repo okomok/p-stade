@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Result, class To>
-            Result call(To& to, To from) const // copy-initialization
+            Result call(To& to, To from) const // copy-initialization for automatic object.
             {
                 do_swap(to, from);
                 return to;

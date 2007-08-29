@@ -14,7 +14,7 @@
 
 // Note:
 //
-// This could be implementedy by 'compose' with 'tuple_pack',
+// This could be implementedy by 'compose1' with 'tuple_pack',
 // but this is the basis together with 'fuse'.
 
 
