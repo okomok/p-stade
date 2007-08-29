@@ -18,6 +18,8 @@
 #include "./automatic.hpp"
 #include "./auxiliary.hpp"
 #include "./before.hpp"
+#include "./compose1.hpp"
+#include "./compose2.hpp"
 #include "./config.hpp"
 #include "./construct.hpp"
 #include "./constructor.hpp"

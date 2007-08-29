@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_ALWAYS_HPP
 #define PSTADE_EGG_ALWAYS_HPP
 #include "./detail/prefix.hpp"
@@ -11,9 +12,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/addressof.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/preprocessor.hpp>
+#include "./apply_params.hpp"
+#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./function.hpp"
+#include "./generator.hpp"
+#include "./use_brace_level1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -23,44 +30,67 @@ namespace pstade { namespace egg {
 
 
         template<class X>
-        struct result_
-        {
-            X *m_px;
-
-            typedef X& result_type;
-
-            X& operator()() const
-            {
-                return *m_px;
-            }
-        };
-
-
         struct baby
         {
-            template<class Myself, class X>
+            X m_x;
+
+        // 0ary
+            typedef X nullary_result_type;
+
+            template<class Result>
+            Result call() const
+            {
+                return m_x;
+            }
+
+        // 1ary-
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
             struct apply
             {
-                typedef result_<X> type;
+                typedef X type;
             };
 
-            template<class Result, class X>
-            Result call(X& x) const
-            {
-                Result r = { boost::addressof(x) };
-                return r;
-            }
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/always.hpp>))
+            #include BOOST_PP_ITERATE()
         };
 
 
     } // namespace always_detail
 
 
-    typedef function<always_detail::baby> op_always;
-    PSTADE_POD_CONSTANT((op_always), always) = {{}};
+    template<class X>
+    struct result_of_always
+    {
+        typedef function< always_detail::baby<X> > type;
+    };
+
+    #define PSTADE_EGG_ALWAYS_L { {
+    #define PSTADE_EGG_ALWAYS_R } }
+
+    typedef
+        generator<
+            result_of_always< deduce<boost::mpl::_1, as_value> >::type,
+            use_brace_level1
+        >::type
+    op_always;
+
+    PSTADE_POD_CONSTANT((op_always), always) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Result call(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)) const
+    {
+        return m_x;
+    }
+
+
+#undef n
 #endif

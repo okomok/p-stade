@@ -14,7 +14,7 @@
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/curry.hpp>
 #include <pstade/egg/uncurry.hpp>
-#include <pstade/egg/compose.hpp>
+#include <pstade/egg/compose1.hpp>
 #include <pstade/egg/indirect.hpp>
 #include <pstade/egg/memoize.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>

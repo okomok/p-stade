@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/to_ref_value.cpp>
 
-//#include <pstade/../libs/oven/test/utf16_encoder.cpp>
+#include <pstade/../libs/oven/test/comprehension.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/permutations.cpp>
@@ -21,7 +21,7 @@
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-//#include <pstade/../libs/egg/test/parallel.cpp>
-#include <pstade/../libs/egg/example/tutorial.cpp>
+//#include <pstade/../libs/egg/test/monad.cpp>
+//#include <pstade/../libs/egg/example/tutorial.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

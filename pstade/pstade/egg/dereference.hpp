@@ -24,7 +24,7 @@
 #include "./deferred.hpp"
 
 
-namespace pstade { namespace egg {
+namespace pstade_egg_extension {
 
 
     template<class X>
@@ -48,7 +48,16 @@ namespace pstade { namespace egg {
     };
 
 
+} // namespace pstade_egg_extension
+
+
+namespace pstade { namespace egg {
+
+
     namespace dereference_detail {
+
+
+        namespace ext = pstade_egg_extension;
 
 
         template<class Der>
@@ -57,7 +66,7 @@ namespace pstade { namespace egg {
             typedef typename
                 affect<
                     Der&,
-                    typename Dereferenceable<Der>::reference
+                    typename ext::Dereferenceable<Der>::reference
                 >::type
             result_type;
 

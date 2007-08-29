@@ -17,7 +17,6 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/static_warning.hpp>
-#include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
@@ -157,15 +156,8 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-
-        Iterator1 first1(this->base()); // for exception safety
-        Iterator2 first2(m_it2);        //
-
-        MergeRoutine::after_yield( first1, egg::to_cref(m_last1), first2, egg::to_cref(m_last2), egg::to_cref(m_comp));
-        MergeRoutine::before_yield(first1, egg::to_cref(m_last1), first2, egg::to_cref(m_last2), egg::to_cref(m_comp));
-
-        egg::do_swap(first1, this->base_reference());
-        egg::do_swap(first2, m_it2);
+        MergeRoutine::after_yield (this->base_reference(), egg::to_cref(m_last1), m_it2, egg::to_cref(m_last2), egg::to_cref(m_comp));
+        MergeRoutine::before_yield(this->base_reference(), egg::to_cref(m_last1), m_it2, egg::to_cref(m_last2), egg::to_cref(m_comp));
     }
 };
 

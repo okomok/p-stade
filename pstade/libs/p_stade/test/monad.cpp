@@ -17,6 +17,7 @@ namespace bll = boost::lambda;
 template<typename X>
 struct Monad;
 
+// m a -> (a -> m b) -> m b
 template<typename Ma, typename a_Mb>
 typename boost::result_of<a_Mb(typename Monad<Ma>::a_type)>::type
 operator>>=(Ma m, a_Mb f)
@@ -24,12 +25,14 @@ operator>>=(Ma m, a_Mb f)
     return Monad<Ma>().bind(m, f);
 }
 
+// m a -> m b -> m b
 template<typename Ma, typename Mb>
 Mb operator>>(Ma m, Mb k)
 {
     return Monad<Ma>().abandon(m, k);
 }
 
+// a -> Ma
 template<typename Ma, typename a>
 Ma return_(a u)
 {
