@@ -18,7 +18,7 @@
 
 #include <iostream>
 #include <utility>
-#include <pstade/oven/in_block.hpp>
+#include <pstade/oven/block.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/taken.hpp>
 #include <pstade/minimal_test.hpp>
@@ -56,11 +56,11 @@ struct unfoldr_block
 
 
 template<typename A, typename B, typename F>
-typename result_of<op_in_block(unfoldr_block<A, B, F>&)>::type
+typename result_of<op_block(unfoldr_block<A, B, F>&)>::type
 unfoldr(F f, B b)
 {
     unfoldr_block<A, B, F> r = { b, f };
-    return in_block(r);
+    return block(r);
 }
 
 

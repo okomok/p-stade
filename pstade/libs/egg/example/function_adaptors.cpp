@@ -17,6 +17,7 @@
 #include <pstade/egg/compose1.hpp>
 #include <pstade/egg/indirect.hpp>
 #include <pstade/egg/memoize.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <functional>
 
@@ -53,7 +54,11 @@ void test_auxiliary()
 //[code_curry_example
 typedef result_of_curry2<op_my_plus>::type op_curried_plus;
 op_curried_plus const curried_plus
-    = PSTADE_EGG_CURRY2_L PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R PSTADE_EGG_CURRY2_R;
+    =
+PSTADE_EGG_CURRY2_L
+    PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R
+PSTADE_EGG_CURRY2_R
+    ;
 
 void test_curry()
 {
@@ -84,7 +89,7 @@ void test_indirect()
 
 
 //[code_memoize_example
-struct op_fib_block
+struct op_fib
 {
     typedef int result_type;
 
@@ -93,13 +98,45 @@ struct op_fib_block
     {
         return x <= 1 ? 1 : f(x-1) + f(x-2);
     }
+
+    int operator()(int x) const
+    {
+        return (*this)(*this, x);
+    }
 };
 
-op_fib_block const fib_block = {};
+op_fib const fib = {};
 
 void test_memoize()
 {
-    BOOST_CHECK( memoize(fib_block)(30) == 1346269 );
+    BOOST_CHECK( fib(30) == 1346269 );
+    BOOST_CHECK( memoize(fib)(30) == 1346269 );
+}
+//]
+
+
+//[code_pipable_example
+struct op_multiplies
+{
+    typedef int result_type;
+
+    int operator()(int x, int y) const
+    {
+        return x * y;
+    }
+
+    int operator()(int x, int y, int z) const
+    {
+        return x * y * z;
+    }
+};
+
+op_multiplies const multiplies = {};
+
+void test_pipable()
+{
+    BOOST_CHECK( ( 2|pipable(multiplies)(3) ) == 2 * 3 );
+    BOOST_CHECK( ( 2|pipable(multiplies)(3, 4) ) == 2 * 3 * 4 );
 }
 //]
 
@@ -109,6 +146,7 @@ void pstade_minimal_test()
 {
     test_auxiliary();
     test_curry();
-    test_memoize();
     test_indirect();
+    test_memoize();
+    test_pipable();
 }

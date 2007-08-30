@@ -809,10 +809,9 @@ then pretends to be a range of _forward_iterator_.
 * `_rng` is _readable_ or _lvalue_.
 * `Tup` is _fusion_forward_sequence_.
 * `N` is a [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant].
-* If `boost::range_reference<_typeof(_rng)>::type` is a /reference/ type
-  and `boost::fusion::result_of::deref<typename boost::fusion::result_of::advance<typename boost::fusion::result_of::begin<Tup>::type, N>::type>`
-  is not a /reference/ type, `Ref` that specifies `boost::range_reference` of the result range must be explicitly passed.
-  
+* `Ref` specifies `boost::range_reference` of the result range. If `Ref` is `boost::use_default`, `Ref` is determined by the following:
+    * If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, it is a /reference type/.
+    * Otherwise `boost::fusion::result_of::value_of` is used to specify it.
 
 [h3 Example]
 
@@ -1040,7 +1039,7 @@ then pretends to be a range of _forward_iterator_.
 * `{a1,..,aN}` is `_rng1`.
 * `{b1,..,bM}` is `_rng2`.
 * `cK = a1` for all `K` such that `1 <= K && K <= N`.
-* `cK = static_cast<boost::range_reference<_typeof(_rng1)>::type>(b(K-N))` for all `K` such that `N+1 <= K && K <= N+M`.
+* `cK = boost::implicit_cast<boost::range_reference<_typeof(_rng1)>::type>(b(K-N))` for all `K` such that `N+1 <= K && K <= N+M`.
 
 [h3 Valid expressions]
 [table 

@@ -16,8 +16,8 @@ In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
 for any __OPERATABLE_OBJECT__ `f` the following must be met:
 
 * `op_++f` is `_typeof(f)`.
-* If `boost::result_of<op_++f const(a1,...,aN)>::type` is a valid expression,
-  `boost::result_of<op_++f(a1,...,aN)>::type` is a valid expression with the same effect.
+* `f` is a /const-qualified/ lvalue.
+* `boost::result_of<op_++f(a1,...aN)>::type` is the same as `boost::result_of<op_++f const(a1,...aN)>::type`.
 
 [heading Models]
 * ...
@@ -110,7 +110,7 @@ non-/const-qualified/ type (as __OPERATABLE_OBJECT__ does so), you could omit `c
 * msvc-7.1 and msvc-8.0 doesn't work with /POD/ templates.
 * A /const-qualified/ function pointer doen't work.
 
-These bugs can be work around by `pstade::result_of` in `<pstade/result_of.hpp>`.
+These bugs can be worked around by `pstade::result_of` in `<pstade/result_of.hpp>`.
 The first bug is fixed with Boost1.35.
 
 [endsect]

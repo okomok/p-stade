@@ -57,14 +57,16 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]
 [def __BINDABLE__ [link egg.concepts.bindable_object Bindable]]
 
-
 [def __EGG_FUNCTION__ [link egg.function_makers.function function]]
 [def __EGG_FUNCTION_BY_VALUE__ [link egg.function_makers.function_by_value function_by_value]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_makers.function_facade function_facade]]
+
+[def __EGG_AUXILIARY__ [link egg.function_adaptors.auxiliaryn auxiliaryN]]
 [def __EGG_CURRY__ [link egg.function_adaptors.curryn curryN]]
 [def __EGG_UNCURRY__ [link egg.function_adaptors.uncurry uncurry]]
 [def __EGG_FUSE__ [link egg.function_adaptors.fuse fuse]]
 [def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse unfuse]]
+[def __EGG_PIPABLE__ [link egg.function_adaptors.pipable pipable]]
 
 
 

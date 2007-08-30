@@ -17,6 +17,7 @@ project
 
 test-suite "oven_example" :
     [ run adjacent_difference.cpp ]
+    [ run as_xxx.cpp ]
     [ run auto_factorials.cpp ]
     [ run change_array.cpp ]
     [ run digits.cpp ]

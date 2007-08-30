@@ -34,6 +34,11 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [h3 Preconditions]
 * `a` is an array.
 
+[h3 Example]
+    BOOST_CHECK( distance(as_array("abc\0de")) == 7 );   // contains the trailing null.
+    BOOST_CHECK( distance(as_c_str("abc\0de")) == 3 );   // null means the end.
+    BOOST_CHECK( distance(as_literal("abc\0de")) == 6 ); // null doesn't affect.
+
 [h3 See also]
 * _string_algo_proposal_
 * [link oven.as_c_str as_c_str]
@@ -130,6 +135,77 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * _string_algo_proposal_
 * [link oven.as_array as_array]
 * [link oven.as_c_str as_c_str]
+
+[endsect]
+
+
+
+
+[section block]
+
+[h3 Description]
+`block` makes a _single_pass_ _range_ from an _iterator_block_.
+
+[h3 Header]
+* `<pstade/oven/block.hpp>`
+
+[h3 Model of]
+* _bindable_ _s_ _operatable_object_
+
+[h3 Notation]
+* `yield` is an unspecified unary _function_object_ passed to `b`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`block(b)`]
+        [
+            A _single_pass_ _range_ whose values are the objects passed to `yield`.
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `b` is an _iterator_block_.
+* Multithreaded compilation must be invoked.
+
+[h3 Example]
+    struct power
+    {
+        int m_number, m_exponent;
+
+        power(int number, int exponent) :
+            m_number(number), m_exponent(exponent)
+        { }
+
+        typedef int yield_type;
+
+        template<typename Yield>
+        void operator()(Yield yield) const
+        {
+            int counter = 0;
+            int result = 1;
+            while (counter++ < m_exponent) {
+                result = result * m_number;
+                yield(result);
+            }
+        }
+    };
+
+    void test()
+    {
+        power(2, 8)(std::cout << boost::lambda::_1 << ',');
+
+        BOOST_FOREACH (int x, block(power(2, 8)))
+            std::cout << x << ',';
+    }
+
+[h3 See also]
+* [@http://en.csharp-online.net/ECMA-334:_26.1_Iterator_blocks Iterator blocks at C# Online.Net]
 
 [endsect]
 
@@ -362,75 +438,6 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * [link oven.nonstop nonstop]
 * [link oven.regular regular]
 * [link oven.regular_ref regular_ref]
-
-[endsect]
-
-
-
-
-[section in_block]
-
-[h3 Description]
-`in_block` makes a _single_pass_ _range_ from an _iterator_block_.
-
-[h3 Header]
-* `<pstade/oven/in_block.hpp>`
-
-[h3 Model of]
-* _bindable_ _s_ _operatable_object_
-
-[h3 Notation]
-* `yield` is an unspecified unary _function_object_ passed to `b`.
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`in_block(b)`]
-        [
-            A _single_pass_ _range_ whose values are the objects passed to `yield`.
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `b` is an _iterator_block_.
-* Multithreaded compilation must be invoked.
-
-[h3 Example]
-    struct power
-    {
-        int m_number, m_exponent;
-
-        power(int number, int exponent) :
-            m_number(number), m_exponent(exponent)
-        { }
-
-        typedef int yield_type;
-
-        template<typename Yield>
-        void operator()(Yield yield) const
-        {
-            int counter = 0;
-            int result = 1;
-            while (counter++ < m_exponent) {
-                result = result * m_number;
-                yield(result);
-            }
-        }
-    };
-
-    void test()
-    {
-        BOOST_FOREACH (int x, in_block(power(2, 8)))
-            std::cout << x << ',';
-    }
-
-[h3 See also]
-* [@http://en.csharp-online.net/ECMA-334:_26.1_Iterator_blocks Iterator blocks at C# Online.Net]
 
 [endsect]
 
