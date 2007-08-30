@@ -10,7 +10,9 @@
 
 
 #include <iostream>
-#include <pstade/oven/in_block.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/core.hpp>
+#include <pstade/oven/block.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/minimal_test.hpp>
 #include <boost/foreach.hpp>
@@ -18,6 +20,7 @@
 
 
 using namespace pstade::oven;
+namespace lambda = boost::lambda;
 
 
 struct power
@@ -48,11 +51,13 @@ struct power
 
 void pstade_minimal_test()
 {
-    BOOST_FOREACH (int x, in_block(power(2, 8)))
+    power(2, 8)(std::cout << lambda::_1 << ',');
+
+    BOOST_FOREACH (int x, block(power(2, 8)))
         std::cout << x << ',';
 
     int a[] = { 2,4,8,16,32,64,128,256 };
-    BOOST_CHECK( equals(in_block(power(2, 8)), a) );
+    BOOST_CHECK( equals(block(power(2, 8)), a) );
 
-    BOOST_CHECK( boost::empty(in_block(power(-1, 8))) );
+    BOOST_CHECK( boost::empty(block(power(-1, 8))) );
 }

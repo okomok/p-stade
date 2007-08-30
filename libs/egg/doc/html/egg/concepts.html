@@ -58,19 +58,23 @@
 <code class="computeroutput"><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
         </li>
 <li>
-          If <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span> <span class="keyword">const</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is a valid expression, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>
-          is a valid expression with the same effect.
+<code class="computeroutput"><span class="identifier">f</span></code> is a <span class="emphasis"><em>const-qualified</em></span>
+          lvalue.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>
+          is the same as <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">op_</span><span class="special">++</span><span class="identifier">f</span> <span class="keyword">const</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li>
 </ul></div>
 <a name="egg.concepts.operatable_object.models"></a><h5>
-<a name="id502110"></a>
+<a name="id502127"></a>
         <a href="concepts.html#egg.concepts.operatable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.operatable_object.see_also"></a><h5>
-<a name="id502142"></a>
+<a name="id502159"></a>
         <a href="concepts.html#egg.concepts.operatable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -81,7 +85,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.auxiliary_interface"></a><a href="concepts.html#egg.concepts.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></h3></div></div></div>
 <a name="egg.concepts.auxiliary_interface.description"></a><h5>
-<a name="id502196"></a>
+<a name="id502213"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.description">Description</a>
       </h5>
 <p>
@@ -91,14 +95,14 @@
         a <span class="emphasis"><em>member function</em></span>.
       </p>
 <a name="egg.concepts.auxiliary_interface.refinement_of"></a><h5>
-<a name="id502248"></a>
+<a name="id502264"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="egg.concepts.auxiliary_interface.requirements"></a><h5>
-<a name="id502288"></a>
+<a name="id502304"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.requirements">Requirements</a>
       </h5>
 <p>
@@ -125,14 +129,14 @@
         </li>
 </ul></div>
 <a name="egg.concepts.auxiliary_interface.models"></a><h5>
-<a name="id502606"></a>
+<a name="id502622"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.auxiliary_interface.see_also"></a><h5>
-<a name="id502639"></a>
+<a name="id502655"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -142,7 +146,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.bindable_object"></a><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></h3></div></div></div>
 <a name="egg.concepts.bindable_object.description"></a><h5>
-<a name="id502693"></a>
+<a name="id502709"></a>
         <a href="concepts.html#egg.concepts.bindable_object.description">Description</a>
       </h5>
 <p>
@@ -151,12 +155,12 @@
         which can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
       </p>
 <a name="egg.concepts.bindable_object.refinement_of"></a><h5>
-<a name="id502767"></a>
+<a name="id502784"></a>
         <a href="concepts.html#egg.concepts.bindable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="egg.concepts.bindable_object.requirements"></a><h5>
-<a name="id502807"></a>
+<a name="id502823"></a>
         <a href="concepts.html#egg.concepts.bindable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -171,14 +175,14 @@
           a valid expression.
         </li></ul></div>
 <a name="egg.concepts.bindable_object.models"></a><h5>
-<a name="id502996"></a>
+<a name="id503012"></a>
         <a href="concepts.html#egg.concepts.bindable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.bindable_object.see_also"></a><h5>
-<a name="id503027"></a>
+<a name="id503043"></a>
         <a href="concepts.html#egg.concepts.bindable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
@@ -196,14 +200,14 @@
           </p>
 <p>
             The document of <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
-            is outdated for now. Ignore that.
+            is outdated for now.
           </p>
 <p>
         </p>
 </td></tr>
 </table></div>
 <a name="egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id503100"></a>
+<a name="id503116"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.how_to_call">How to call</a>
       </h5>
 <p>
@@ -329,7 +333,7 @@
 <p>
       </p>
 <a name="egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id504278"></a>
+<a name="id504294"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -341,7 +345,7 @@
         </li>
 </ul></div>
 <p>
-        These bugs can be work around by <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span></code>
+        These bugs can be worked around by <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span></code>
         in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
         The first bug is fixed with Boost1.35.
       </p>

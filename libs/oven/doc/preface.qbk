@@ -42,7 +42,7 @@ All the types, functions and objects are defined in `namespace pstade::oven`.
 * _boost_ Version 1.34.0 or later
     * [link oven.directory_range directory_range] requires _boost_filesystem_ to be built.
     * [link oven.matches matches] and [link oven.tokenized tokenized] requires _boost_regex_ to be built.
-    * [link oven.in_block in_block] requires _boost_thread_ to be built.
+    * [link oven.block block] requires _boost_thread_ to be built.
 * _pstade_release_ Version 1.03.5 or later (build not required)
 
 [endsect]
