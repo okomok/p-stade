@@ -19,12 +19,20 @@
 #include <boost/fusion/sequence/adapted/mpl.hpp>
 #include <boost/fusion/sequence/conversion/as_vector.hpp>
 #include <boost/fusion/sequence/intrinsic/mpl.hpp>
+#include <boost/mpl/always.hpp>
+#include <boost/mpl/at.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/range_c.hpp>
 #include <boost/mpl/size.hpp>
+#include <boost/mpl/transform_view.hpp>
+#include <boost/mpl/vector/vector20.hpp>
+#include <boost/mpl/zip_view.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
+#include <pstade/use_default.hpp>
 #include "./concepts.hpp"
-#include "./detail/base_to_adaptor.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./elements.hpp"
 #include "./range_value.hpp"
 
@@ -42,26 +50,26 @@ namespace unfuzipped_detail {
     template< class TupleRange >
     struct make_at_range
     {
-        template< class N >
+        template< class N_Ref >
         struct result_aux :
             result_of<
-                xp_make_elements<N>(TupleRange&)
+                xp_make_elements<typename mpl::at_c<N_Ref, 0>::type, typename mpl::at_c<N_Ref, 1>::type>(TupleRange&)
             >
         { };
 
         template< class FunCall >
         struct result;
 
-        template< class Fun, class N >
-        struct result<Fun(N)> :
-            result_aux<typename remove_cvr<N>::type>
+        template< class Fun, class N_Ref >
+        struct result<Fun(N_Ref)> :
+            result_aux<typename remove_cvr<N_Ref>::type>
         { };
 
-        template< class N >
-        typename result_aux<N>::type
-        operator()(N) const
+        template< class N_Ref >
+        typename result_aux<N_Ref>::type
+        operator()(N_Ref) const
         {
-            return xp_make_elements<N>()(m_rng);
+            return xp_make_elements<typename mpl::at_c<N_Ref, 0>::type, typename mpl::at_c<N_Ref, 1>::type>()(m_rng);
         }
 
         explicit make_at_range(TupleRange& rng) :
@@ -73,41 +81,79 @@ namespace unfuzipped_detail {
     };
 
 
-    template< class TupleRange >
-    struct base
+
+    template< class Tuple >
+    struct use_default_tuple
     {
-        typedef typename
-            range_value<TupleRange>::type
-        tup_t;
-
         typedef
-            mpl::range_c<int, 0, mpl::size<tup_t>::value>
-        counting_tup_t;
+            mpl::transform_view< Tuple, mpl::always<boost::use_default> >
+        type;
+    };
 
-        typedef typename
-            fusion::result_of::as_vector<
-                typename fusion::result_of::transform<
-                    counting_tup_t const,
-                    make_at_range<TupleRange>
-                >::type const            
-            >::type
-        result_type;
 
-        result_type operator()(TupleRange& rng) const
+    template< class RefTuple = boost::use_default >
+    struct tp_make_unfuzipped
+    {
+        struct baby
         {
-            PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
+            template< class Myself, class TupleRange >
+            struct apply
+            {
+                typedef typename
+                    range_value<TupleRange>::type
+                tup_t;
 
-            return fusion::as_vector(
-                fusion::transform(counting_tup_t(), make_at_range<TupleRange>(rng))
-            );
-        }
+                typedef
+                    mpl::range_c<int, 0, mpl::size<tup_t>::value>
+                counting_tup_t;
+
+                typedef typename
+                    eval_if_use_default< RefTuple, use_default_tuple<counting_tup_t> >::type
+                ref_tup_t;
+
+                typedef
+                    mpl::zip_view< mpl::vector2<counting_tup_t, ref_tup_t> >
+                count_and_ref_tup_t;
+
+                typedef typename
+                    fusion::result_of::as_vector<
+                        typename fusion::result_of::transform<
+                            count_and_ref_tup_t const,
+                            make_at_range<TupleRange>
+                        >::type const            
+                    >::type
+                type;
+            };
+
+            template< class Result, class TupleRange >
+            Result call(TupleRange& rng) const
+            {
+                PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
+
+                typedef apply<void, TupleRange> apply_t;
+                return fusion::as_vector(
+                    fusion::transform(typename apply_t::count_and_ref_tup_t(), make_at_range<TupleRange>(rng))
+                );
+            }
+        };
+
+        typedef egg::function<baby> type;
     };
 
 
 } // namespace unfuzipped_detail
 
 
-PSTADE_OVEN_BASE_TO_ADAPTOR(unfuzipped, (unfuzipped_detail::base<_>))
+using unfuzipped_detail::tp_make_unfuzipped;
+
+
+template< class RefTuple = boost::use_default >
+struct xp_make_unfuzipped :
+    tp_make_unfuzipped<RefTuple>::type
+{ };
+
+
+PSTADE_OVEN_BABY_TO_ADAPTOR(unfuzipped, (tp_make_unfuzipped<>::baby))
 
 
 } } // namespace pstade::oven

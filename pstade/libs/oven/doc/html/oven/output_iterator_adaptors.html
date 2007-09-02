@@ -22,12 +22,13 @@
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.applier">applier</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.stream_writer">stream_writer</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.utf8_encoder">utf8_encoder</a></span></dt>
+<dt><span class="section"><a href="output_iterator_adaptors.html#oven.utf16_encoder">utf16_encoder</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.applier"></a>applier</h3></div></div></div>
 <a name="applier.description"></a><h4>
-<a name="id592617"></a>
+<a name="id594293"></a>
         Description
       </h4>
 <p>
@@ -35,12 +36,12 @@
         which passes each item assigned as an argument to the unary function.
       </p>
 <a name="applier.header"></a><h4>
-<a name="id592652"></a>
+<a name="id594328"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">applier</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="applier.model_of"></a><h4>
-<a name="id592722"></a>
+<a name="id594398"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -49,7 +50,7 @@
           Object</a>
 </li></ul></div>
 <a name="applier.valid_expressions"></a><h4>
-<a name="id592760"></a>
+<a name="id594436"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -83,18 +84,18 @@
 </tr></tbody>
 </table></div>
 <a name="applier.preconditions"></a><h4>
-<a name="id592889"></a>
+<a name="id594565"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function_output_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code> is a valid expression.
         </li></ul></div>
 <a name="applier.example"></a><h4>
-<a name="id592990"></a>
+<a name="id594666"></a>
         Example
       </h4>
 <a name="applier.see_also"></a><h4>
-<a name="id593004"></a>
+<a name="id594680"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -106,25 +107,25 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stream_writer"></a>stream_writer</h3></div></div></div>
 <a name="stream_writer.description"></a><h4>
-<a name="id593057"></a>
+<a name="id594733"></a>
         Description
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">stream_writer</span></code> returns an
         <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output Iterator</a>
         which is a shorthand version of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream_iterator</span></code>.
-        It needs no an explicit template parameter to specify the <code class="computeroutput"><span class="identifier">value_type</span></code>
+        It needs no explicit template parameter to specify the <code class="computeroutput"><span class="identifier">value_type</span></code>
         to output, but one extra precondition below must be met. It can be easily
         guaranteed by using <code class="computeroutput"><span class="identifier">transformed</span></code>,
         though.
       </p>
 <a name="stream_writer.header"></a><h4>
-<a name="id593138"></a>
+<a name="id594814"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="stream_writer.model_of"></a><h4>
-<a name="id593208"></a>
+<a name="id594884"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -133,7 +134,7 @@
           Object</a>
 </li></ul></div>
 <a name="stream_writer.valid_expressions"></a><h4>
-<a name="id593246"></a>
+<a name="id594922"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -197,7 +198,7 @@
 </td></tr>
 </table></div>
 <a name="stream_writer.preconditions"></a><h4>
-<a name="id593496"></a>
+<a name="id595172"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -213,7 +214,7 @@
         </li>
 </ul></div>
 <a name="stream_writer.example"></a><h4>
-<a name="id593718"></a>
+<a name="id595394"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -234,7 +235,7 @@
 <span class="special">}</span>
 </pre>
 <a name="stream_writer.see_also"></a><h4>
-<a name="id594080"></a>
+<a name="id595756"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -249,19 +250,19 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utf8_encoder"></a>utf8_encoder</h3></div></div></div>
 <a name="utf8_encoder.description"></a><h4>
-<a name="id594168"></a>
+<a name="id595844"></a>
         Description
       </h4>
 <p>
         Pending...
       </p>
 <a name="utf8_encoder.header"></a><h4>
-<a name="id594186"></a>
+<a name="id595861"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf8_encoder</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="utf8_encoder.model_of"></a><h4>
-<a name="id594256"></a>
+<a name="id595932"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -270,7 +271,7 @@
           Object</a>
 </li></ul></div>
 <a name="utf8_encoder.valid_expressions"></a><h4>
-<a name="id594294"></a>
+<a name="id595969"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -304,7 +305,7 @@
 </tr></tbody>
 </table></div>
 <a name="utf8_encoder.preconditions"></a><h4>
-<a name="id594422"></a>
+<a name="id596097"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -313,14 +314,91 @@
           a valid expression.
         </li></ul></div>
 <a name="utf8_encoder.example"></a><h4>
-<a name="id594523"></a>
+<a name="id596199"></a>
         Example
       </h4>
 <a name="utf8_encoder.see_also"></a><h4>
-<a name="id594537"></a>
+<a name="id596212"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="string_adaptors.html#oven.utf8_decoded" title="utf8_decoded">utf8_decoded</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.utf16_encoder"></a>utf16_encoder</h3></div></div></div>
+<a name="utf16_encoder.description"></a><h4>
+<a name="id596254"></a>
+        Description
+      </h4>
+<p>
+        Pending...
+      </p>
+<a name="utf16_encoder.header"></a><h4>
+<a name="id596271"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf16_encoder</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="utf16_encoder.model_of"></a><h4>
+<a name="id596342"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
+          Object</a>
+</li></ul></div>
+<a name="utf16_encoder.valid_expressions"></a><h4>
+<a name="id596379"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">utf16_encoder</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="utf16_encoder.preconditions"></a><h4>
+<a name="id596507"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">utf16_output_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> is
+          a valid expression.
+        </li></ul></div>
+<a name="utf16_encoder.example"></a><h4>
+<a name="id596609"></a>
+        Example
+      </h4>
+<a name="utf16_encoder.see_also"></a><h4>
+<a name="id596623"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="string_adaptors.html#oven.utf16_decoded" title="utf16_decoded">utf16_decoded</a></li></ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

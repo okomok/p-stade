@@ -11,12 +11,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <stdexcept> // logic_error
+#include <exception>
 #include <boost/throw_exception.hpp>
 #include <pstade/pod_constant.hpp>
 
 
 namespace pstade {
+
+
+    struct for_debug_error :
+        std::exception
+    {
+        char const *what() const throw() // override
+        {
+            return "pstade::for_debug_error";
+        }
+    };
 
 
     struct op_for_debug
@@ -26,8 +36,7 @@ namespace pstade {
         void operator()() const
         {
         #if defined(NDEBUG)
-            std::logic_error err("'for_debug' is called in release mode.");
-            boost::throw_exception(err);
+            boost::throw_exception(for_debug_error());
         #endif
         }
     };

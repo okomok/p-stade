@@ -19,14 +19,20 @@
 namespace pstade { namespace egg {
 
 
-    // These are not pod.
-    typedef boost::remove_const<boost::lambda::placeholder1_type>::type op_lambda_1;
-    typedef boost::remove_const<boost::lambda::placeholder2_type>::type op_lambda_2;
-    typedef boost::remove_const<boost::lambda::placeholder3_type>::type op_lambda_3;
+    namespace lambda_placeholders {
 
-    PSTADE_CONSTANT(lambda_1, (op_lambda_1))
-    PSTADE_CONSTANT(lambda_2, (op_lambda_2))
-    PSTADE_CONSTANT(lambda_3, (op_lambda_3))
+        // These are not pod.
+        typedef boost::remove_const<boost::lambda::placeholder1_type>::type op_lambda_1;
+        typedef boost::remove_const<boost::lambda::placeholder2_type>::type op_lambda_2;
+        typedef boost::remove_const<boost::lambda::placeholder3_type>::type op_lambda_3;
+
+        PSTADE_CONSTANT(lambda_1, (op_lambda_1))
+        PSTADE_CONSTANT(lambda_2, (op_lambda_2))
+        PSTADE_CONSTANT(lambda_3, (op_lambda_3))
+
+    }
+
+    using namespace lambda_placeholders;
 
 
 } } // namespace pstade::egg

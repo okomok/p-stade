@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/type_traits/remove_const.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
 #include "./function.hpp"
@@ -55,27 +54,8 @@ namespace pstade { namespace egg {
         };
 
 
-        struct mbaby
-        {
-            template<class Myself, class X>
-            struct apply
-            {
-                typedef typename
-                    boost::remove_const<X>::type&
-                type;
-            };
-
-            template<class Result, class X>
-            Result call(X const& x) const
-            {
-                return const_cast<X&>(x);
-            }
-        };
-
-
-        typedef function<baby>  op;
+        typedef function<baby> op;
         typedef function<cbaby> cop;
-        typedef function<mbaby> mop;
 
 
     } // namespace to_ref_detail
@@ -83,10 +63,8 @@ namespace pstade { namespace egg {
 
     typedef result_of_auxiliary0<to_ref_detail::op>::type  op_to_ref;
     typedef result_of_auxiliary0<to_ref_detail::cop>::type op_to_cref;
-    typedef result_of_auxiliary0<to_ref_detail::mop>::type op_to_mref;
-    PSTADE_POD_CONSTANT((op_to_ref),  to_ref)  = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((op_to_ref), to_ref)   = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
     PSTADE_POD_CONSTANT((op_to_cref), to_cref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
-    PSTADE_POD_CONSTANT((op_to_mref), to_mref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

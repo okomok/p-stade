@@ -27,7 +27,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/tuple.hpp> // tuple_pack
+#include <pstade/egg/tuple/pack.hpp> // tuple_pack
 #include <boost/fusion/sequence/generation/vector_tie.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/comparison.hpp> // DON'T FORGET for Readable test
@@ -53,6 +53,16 @@ void test()
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             fusion::at_c<1>(fusion::vector_tie(rng0, rng1)|fuzipped|unfuzipped),
+            ans1
+        ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            fusion::at_c<0>(xp_make_unfuzipped<boost::mpl::vector2<char&, int&> >()(fusion::vector_tie(rng0, rng1)|fuzipped)),
+            ans0
+        ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            fusion::at_c<1>(xp_make_unfuzipped<boost::mpl::vector2<char&, int&> >()(fusion::vector_tie(rng0, rng1)|fuzipped)),
             ans1
         ) );
     }

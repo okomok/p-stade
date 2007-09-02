@@ -589,7 +589,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 [section fuzipped]
 
 [h3 Description]
-`fuzipped` takes a _fusion_sequence_ of ranges and returns a range of corresponding _fusion_sequence_s.
+`fuzipped` takes a _fusion_sequence_ of ranges and returns a range of corresponding _fusion_sequence_.
 
 [h3 Header]
 * `<pstade/oven/fuzipped.hpp>`
@@ -644,7 +644,8 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * _pipable_object_
 
 [h3 Notation]
-* `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
+* `{a1,..,aN}` is `_rng`.
+* `at<RefSeq, I>::type` is `boost::mpl::at_c<RefSeq, I>::type`.
 
 [h3 Valid expressions]
 [table 
@@ -653,17 +654,31 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
         [[*Semantics]]
     ]
     [
+        [`xp_make_unfuzipped<RefSeq = boost::use_default>`]
+        [
+            A _bindable_ _s_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`xp_make_unfuzipped<RefSeq = boost::use_default>()(_rng)`]
+        [
+            A _fusion_random_access_sequence_ `(xp_make_elements_c<0, at<RefSeq, 0>::type>()(a1) .. xp_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
+        ]
+    ]
+    [
         [`_rng|unfuzipped`]
         [
-            A _fusion_random_access_sequence_ `({a11,a21,..,aM1} {a12,a22,..,aM2} .. {a1N,a2N,..,aMN})`
+            `xp_make_unfuzipped<>()(_rng)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is a _fusion_forward_sequence_.
+* The corresponding semantics is a valid expression.
 
 [h3 See also]
+* [link oven.elements elements]
+* [link oven.elements_c elements_c]
 * [link oven.fuzipped fuzipped]
 * [link oven.zipped zipped]
 * [link oven.unzipped unzipped]

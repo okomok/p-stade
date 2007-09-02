@@ -21,7 +21,7 @@
 // Used with Boost.Concept and Boost.Typeof.
 
 
-#include <stdexcept> // logic_error
+#include <exception>
 #include <boost/assert.hpp>
 #include <boost/throw_exception.hpp>
 
@@ -29,12 +29,21 @@
 namespace pstade {
 
 
+    struct unevaluated_error :
+        std::exception
+    {
+        char const *what() const throw() // override
+        {
+            return "pstade::unevaluated_error";
+        }
+    };
+
+
     template<class X> inline
     X unevaluated()
     { 
         BOOST_ASSERT("unevaluated was evaluated." && false);
-        std::logic_error err("unevaluated was evaluated.");
-        boost::throw_exception(err);
+        boost::throw_exception(unevaluated_error());
     }
 
 
