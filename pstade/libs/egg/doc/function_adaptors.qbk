@@ -597,4 +597,124 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 
 
+[section ret]
+
+[heading Description]
+`ret` is akin to `boost::lambda::ret` in the context of __BOOST_RESULT_OF__.
+
+[heading Header]
+* `<pstade/egg/ret.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `res` is an object of `result_of_ret<_typeof(fun), Result>::type` initialized using `fun`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_ret<Fun, Result = boost::use_default>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_RET_L init PSTADE_EGG_RET_R`]
+        [A braced initializer of `result_of_ret<Fun, Result>::type`]
+    ]
+    [
+        [`xp_ret<Result = boost::use_default>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`xp_ret<Result = boost::use_default>()(fun)`]
+        [`res`]
+    ]
+    [
+        [`res(a1,...,aN)`]
+        [`fun(a1,...,aN))`]
+    ]
+    [
+        [`egg::ret<Result>(fun)`]
+        [`xp_ret<Result>()(fun)`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= 5`.
+* `Fun` is a __FUNCTION_OBJECT__ type.
+* If `Result` is `boost::use_default`, `Fun` must be a __DEFERRED_CALLABLE_OBJECT__ type.
+* `Fun f = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* If `Fun` is /POD/, `result_of_ret<Fun, Result>::type` is /POD/.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section perfect]
+
+[heading Description]
+`perfect` does the "perfect forwarding".
+
+[heading Header]
+* `<pstade/egg/perfect.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_perfect<_Dco>::type`]
+        [`result_of_ret<_Dco>::type`]
+    ]
+    [
+        [`PSTADE_EGG_PERFECT_L init PSTADE_EGG_PERFECT_R`]
+        [`PSTADE_EGG_RET_L init PSTADE_EGG_RET_R`]
+    ]
+    [
+        [`perfect`]
+        [`xp_ret<>()`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* If `_Dco` is /POD/, `result_of_perfect<_Dco>::type` is /POD/.
+
+[heading Example]
+
+    BOOST_CHECK( perfect(boost::lambda::_1)(12) == 12 );
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
 [endsect]
