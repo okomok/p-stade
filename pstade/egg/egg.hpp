@@ -55,6 +55,7 @@
 #include "./is_classified_as.hpp"
 #include "./is_same.hpp"
 #include "./lambda/bind.hpp"
+#include "./lambda/lazy_bind.hpp"
 #include "./lambda/placeholders.hpp"
 #include "./lambda/unlambda.hpp"
 #include "./lazy.hpp"
