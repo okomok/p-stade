@@ -502,6 +502,112 @@ Pending...
 
 
 
+[section utf16_decoded]
+
+[h3 Description]
+Pending...
+
+[h3 Header]
+* `<pstade/oven/utf16_decoded.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`xp_make_utf16_decoded<U1,..,UN>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`xp_make_utf16_decoded<U1,..,UN>()(_fwdrng)`]
+        [
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
+        ]
+    ]
+    [
+        [`_fwdrng|utf16_decoded`]
+        [
+            `xp_make_utf16_decoded<>()(_fwdrng)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_fwdrng` is _readable_.
+* `T` is `boost::u16_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,..,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.file_range file_range]
+* [link oven.utf16_encoded utf16_encoded]
+* [link oven.utf16_encoder utf16_encoder]
+
+[endsect]
+
+
+
+
+[section utf16_encoded]
+
+[h3 Description]
+Pending...
+
+[h3 Header]
+* `<pstade/oven/utf16_encoded.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`xp_make_utf16_encoded<U1,..,UN>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`xp_make_utf16_encoded<U1,..,UN>()(_rng)`]
+        [
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
+        ]
+    ]
+    [
+        [`_rng|utf16_encoded`]
+        [
+            `xp_make_utf16_encoded<>()(_rng)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_rng` is _readable_.
+* `T` is `boost::u32_to_u16_iterator<_iter_of<_typeof(_rng)>::type, U1,..,UN>` such that `T(_begin(_rng))` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.file_range file_range]
+* [link oven.utf16_decoded utf16_decoded]
+* [link oven.utf16_encoder utf16_encoder]
+
+[endsect]
+
+
+
+
 [section xpressive_matches]
 
 [h3 Description]

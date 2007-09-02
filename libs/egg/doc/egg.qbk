@@ -30,6 +30,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __BOOST__ [@http://www.boost.org Boost C++ Libraries]]
 [def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]
+[def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html Boost.Phoenix]]
 [def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of Boost.ResultOf]]
 [def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
 

@@ -50,6 +50,7 @@ test-suite "egg" :
     [ run is_classified_as.cpp ]
     [ run is_same.cpp ]
     [ run lambda.cpp ]
+    [ run lazy.cpp ]
     [ run lexical_cast.cpp ]
     [ run lexicalize.cpp ]
     [ run make_function.cpp ]

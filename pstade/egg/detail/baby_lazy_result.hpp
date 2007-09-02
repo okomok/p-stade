@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DETAIL_BABY_RET_RESULT_HPP
-#define PSTADE_EGG_DETAIL_BABY_RET_RESULT_HPP
+#ifndef PSTADE_EGG_DETAIL_BABY_LAZY_RESULT_HPP
+#define PSTADE_EGG_DETAIL_BABY_LAZY_RESULT_HPP
 #include "./prefix.hpp"
 
 
@@ -12,12 +12,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// This can't be implemented by fusing;
-// fuse/unfuse requires a functor to support result_of.
-
-
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -26,13 +20,15 @@
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../lambda/bind.hpp"
+#include "./bind1.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base, class ResultType = boost::use_default>
-    struct baby_ret_result
+    template<class Base>
+    struct baby_lazy_result
     {
         typedef Base base_type;
 
@@ -45,20 +41,20 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            eval_if_use_default< ResultType, result_of<Base const()> >::type
+            result_of<op_lambda_bind(Base const&)>::type
         nullary_result_type;
 
         template<class Result>
         Result call() const
         {
-            return m_base();
+            return boost::lambda::bind(m_base);
         }
 
     // 1ary-
         template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
         struct apply { };
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/baby_ret_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/baby_lazy_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -71,18 +67,28 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
+    // Increase arity by using bind1.
+    // Notice that we can't make this "perfect",
+    // which would disable nested bind expressions.
+
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        eval_if_use_default<
-            ResultType,
-            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
+        result_of<
+            typename result_of<
+                op_bind1(op_lambda_bind const&, Base const&)
+            >::type(
+                PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
+            )
         >
     { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return m_base(BOOST_PP_ENUM_PARAMS(n, a));
+        return   
+            bind1(lambda_bind, m_base)(
+                BOOST_PP_ENUM_PARAMS(n, a)
+            );
     }
 
 

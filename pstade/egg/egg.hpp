@@ -57,6 +57,7 @@
 #include "./lambda/bind.hpp"
 #include "./lambda/placeholders.hpp"
 #include "./lambda/unlambda.hpp"
+#include "./lazy.hpp"
 #include "./less.hpp"
 #include "./less_equal.hpp"
 #include "./lexical_cast.hpp"

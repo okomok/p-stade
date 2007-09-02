@@ -8,7 +8,7 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-
+#include <pstade/detail/before_mpl_has_xxx.hpp>
 #include <pstade/minimal_test.hpp>
 
 #include <pstade/egg/auxiliary.hpp>
@@ -16,9 +16,12 @@
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/compose1.hpp>
 #include <pstade/egg/indirect.hpp>
+#include <pstade/egg/lazy.hpp>
 #include <pstade/egg/memoize.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/lambda/lambda.hpp>
 #include <functional>
 
 
@@ -88,6 +91,22 @@ void test_indirect()
 }
 
 
+//[code_lazy_example
+result_of_lazy<base_my_plus>::type const lazy_plus = PSTADE_EGG_LAZY_L {} PSTADE_EGG_LAZY_R;
+
+void test_lazy()
+{
+    namespace bll = boost::lambda;
+
+    /*<< Boost1.35 or later won't require `make_const`. >>*/
+    BOOST_CHECK( lazy_plus(bll::_1, 3)(bll::make_const(2)) == 2+3 );
+
+    int two = 2, four = 4;
+    BOOST_CHECK( lazy_plus(lazy_plus(bll::_1, 2), lazy_plus(bll::_2, bll::_1))(two, four) == (2+2)+(4+2) );
+}
+//]
+
+
 //[code_memoize_example
 struct op_fib
 {
@@ -147,6 +166,7 @@ void pstade_minimal_test()
     test_auxiliary();
     test_curry();
     test_indirect();
+    test_lazy();
     test_memoize();
     test_pipable();
 }

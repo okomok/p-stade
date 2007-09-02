@@ -168,7 +168,7 @@
 * Added `comprehension`.
 
 [h2 Version 0.94.4]
-* `elements` takes an extra template parameter.
+* `elements` takes an optional template parameter.
 * Concept semantics slightly changed.
 * `in_block` renamed to `block`.
 

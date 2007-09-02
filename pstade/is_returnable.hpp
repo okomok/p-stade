@@ -18,6 +18,7 @@
 //
 // In general, this is overly negative.
 // Consider 'struct From { operator To&() { return m_to; } };'.
+// Hence, this should be used only for static warning.
 
 
 #include <boost/mpl/and.hpp>

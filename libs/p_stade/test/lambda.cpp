@@ -94,6 +94,19 @@ struct u_
 u_ const u = {};
 
 
+struct q_
+{
+    typedef int result_type;
+
+    int operator()(int i) const
+    {
+        return i+1;
+    }
+};
+
+q_ const q = {};
+
+
 void pstade_minimal_test()
 {
     int x = 3;
@@ -134,6 +147,31 @@ void pstade_minimal_test()
             f,
             bll::bind(
                 bll::unlambda(bll::bind(egg::lambda_bind, g, bll::_1, bll::protect(bll::_1))),
+                bll::_1
+            )
+        )(x)
+    );
+
+
+    // \x -> f(q(x), \y -> g(x,y))
+
+    BOOST_CHECK(-4 ==
+        bll::bind(
+            h1,
+            bll::bind(q, bll::_1),
+            bll::bind(
+                bll::unlambda(bll::bind(egg::lambda_bind, g, bll::_1, bll::protect(bll::_1))),
+                bll::_1
+            )
+        )(x)
+    );
+
+    BOOST_CHECK(-4 ==
+        bll::bind(
+            h1,
+            bll::bind(q, bll::_1),
+            bll::bind(
+                egg::curry2(g),
                 bll::_1
             )
         )(x)

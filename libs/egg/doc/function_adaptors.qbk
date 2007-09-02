@@ -125,6 +125,9 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 [heading Invariants]
 * If `_Dco1` and `_Dco2` is /POD/, `result_of_compose1<_Dco1, _Dco2>::type` is /POD/.
 
+[heading Example]
+...
+
 [heading See also]
 * ...
 
@@ -347,7 +350,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [`res`]
     ]
     [
-        [`res(a1,...aN)`]
+        [`res(a1,...,aN)`]
         [`_dco(boost::tuple<_decltype(a1),..._decltype(aN)>(a1,...,aN))`]
     ]
 ]
@@ -361,7 +364,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * If `_Dco` is /POD/, `result_of_unfuse<_Dco>::type` is /POD/.
 
 [heading Example]
-* ...
+...
 
 [heading See also]
 * [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adaptors]
@@ -406,14 +409,14 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [`res`]
     ]
     [
-        [`res(a1,...aN)`]
+        [`res(a1,...,aN)`]
         [`(*pco)(a1,...,aN)`]
     ]
 ]
 
 [heading Preconditions]
 * `1 <= N && N <= 5`.
-* `boost::pointee<_Pco>::type` is __DEFERRED_CALLABLE_OBJECT__ type.
+* `boost::pointee<Pco>::type` is __DEFERRED_CALLABLE_OBJECT__ type.
 * `Pco p = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -422,6 +425,62 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading See also]
 * __BOOST_INDIRECT_ITERATOR__
+
+[endsect]
+
+
+
+
+[section lazy]
+
+[heading Description]
+__BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
+`lazy` turns a base __FUNCTION_OBJECT__ into such one which can be used with __BOOST_LAMBDA__.
+
+[heading Header]
+* `<pstade/egg/lazy.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* `res` is an object of `result_of_lazy<_typeof(_Dco)>::type` initialized using `_dco`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_lazy<_Dco>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_LAZY_L init PSTADE_EGG_LAZY_R`]
+        [A braced initializer of `result_of_lazy<_Dco>::type`]
+    ]
+    [
+        [`lazy(_dco)`]
+        [`res`]
+    ]
+    [
+        [`res(a1,...,aN)`]
+        [`boost::lambda::bind(_dco, a1,...,aN)`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= 5`.
+* `_Dco d = init;` is a valid expression.
+* The corresponding semantics is a valid expression, meaning that `_Dco` is a __BINDABLE_OBJECT__ type.
+
+[heading Example]
+[code_lazy_example]
+
+[heading See also]
+* __BOOST_PHOENIX__
 
 [endsect]
 
@@ -512,7 +571,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [`res`]
     ]
     [
-        [`a0|res(a1,...aN)`]
+        [`a0|res(a1,...,aN)`]
         [`_dco(a0,...,aN)`]
     ]
 ]

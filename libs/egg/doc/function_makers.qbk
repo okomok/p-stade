@@ -267,6 +267,10 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 * `1 <= N && N <= 5`.
 * `boost::mpl::apply<Lam, To>::type` is a __DEFERRED_CALLABLE_OBJECT__ type.
 * The corresponding semantics is a valid expression.
+* `u` is not placed in a default argument list.
+
+[note These valid expressions imply that the automatic deduction is available everywhere /copy-initialization/ is invoked.
+      For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Example]
 [code_automatic_example]
