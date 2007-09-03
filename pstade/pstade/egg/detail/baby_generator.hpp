@@ -85,11 +85,7 @@ namespace pstade { namespace egg { namespace detail {
     // Even if using 'to_substitute', 'NullaryResult' must be explicitly specified.
     // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
 
-    template<
-        class Lambda,
-        class How           = boost::use_default,
-        class NullaryResult = boost::use_default
-    >
+    template<class Lambda, class NullaryResult, class How>
     struct baby_generator
     {
         typedef typename

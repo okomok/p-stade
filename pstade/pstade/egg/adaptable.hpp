@@ -51,6 +51,7 @@ namespace pstade { namespace egg {
     struct tp_unary_adaptable :
         generator<
             result_of_unary_adaptable<deduce<boost::mpl::_1, as_value>, A0>,
+            boost::use_default,
             use_brace_level0
         >
     { };
@@ -89,6 +90,7 @@ namespace pstade { namespace egg {
     struct tp_binary_adaptable :
         generator<
             result_of_binary_adaptable<deduce<boost::mpl::_1, as_value>, A0, A1>,
+            boost::use_default,
             use_brace_level0
         >
     { };

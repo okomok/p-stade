@@ -72,7 +72,7 @@ This section uses the following notation.
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 5`.
+* `1 <= N && N <= _MAX_ARITY`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -134,7 +134,7 @@ This section uses the following notation.
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 5`.
+* `1 <= N && N <= 10`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -177,7 +177,7 @@ Though a type made from `function_facade` can't be a POD type, it can have non-d
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 5`.
+* `1 <= N && N <= _MAX_ARITY`.
 * `b` is an object whose type is derived from `function_facade<B>`.
 * The corresponding semantics is a valid expression.
 
@@ -264,7 +264,7 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 
 [heading Preconditions]
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__.
-* `1 <= N && N <= 5`.
+* `1 <= N && N <= _MAX_ARITY`.
 * `boost::mpl::apply<Lam, To>::type` is a __DEFERRED_CALLABLE_OBJECT__ type.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
@@ -320,7 +320,7 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 
 [heading Preconditions]
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__.
-* `1 <= N && N <= 5`.
+* `1 <= N && N <= _MAX_ARITY`.
 * `boost::mpl::apply<Lam, _arg(a1),...,_arg(aN)>::type::result_type` is a valid expression.
 * The corresponding semantics is a valid expression.
 * `PSTADE_EGG_DEFER` is placed in namespace scope.
@@ -392,7 +392,7 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 
 [heading Preconditions]
 * `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
-* `1 <= N && N <= 5`.
+* `1 <= N && N <= _MAX_ARITY`.
 * The corresponding semantics is a valid expression.
 
 [note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]

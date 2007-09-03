@@ -26,12 +26,12 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../function.hpp"
+#include "../function_by_cref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -98,22 +98,22 @@ namespace pstade { namespace egg { namespace detail {
             typedef
                 function<
                     PSTADE_PP_CAT3(baby_bind, n, _result)<
-                        typename pass_by_value<Base>::type,
-                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename pass_by_value<A, >::type)
+                        Base,
+                        BOOST_PP_ENUM_PARAMS(n, A)
                     >
                 >
             type;
         };
 
         template<class Result, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
-        Result call(Base& base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+        Result call(Base const& base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
         {
             Result r = { { base, BOOST_PP_ENUM_PARAMS(n, a) } };
             return r;
         }
     };
 
-    typedef function<BOOST_PP_CAT(baby_bind, n)> BOOST_PP_CAT(op_bind, n);
+    typedef function_by_cref<BOOST_PP_CAT(baby_bind, n)> BOOST_PP_CAT(op_bind, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_bind, n)), BOOST_PP_CAT(bind, n)) = {{}};
 
 

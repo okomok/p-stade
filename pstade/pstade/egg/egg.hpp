@@ -40,6 +40,7 @@
 #include "./flip.hpp"
 #include "./function.hpp"
 #include "./function_facade.hpp"
+#include "./function_by_cref.hpp"
 #include "./function_by_value.hpp"
 #include "./function_fwd.hpp"
 #include "./fuse.hpp"

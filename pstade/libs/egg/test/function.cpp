@@ -144,6 +144,33 @@ PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const&))
 PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const))
 
 
+struct baby_keep_const
+{
+    template< class Myself, class A0 >
+    struct apply
+    {
+        typedef A0 type;
+    };
+
+    template< class Result, class A0 >
+    Result call(A0& a0) const
+    {
+        return a0;
+    }
+};
+typedef pstade::egg::function<baby_keep_const> op_keep_const;
+op_keep_const const keep_const = { {} };
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int&>::type, int >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int const&>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int const>::type, int const >));
+PSTADE_TEST_IS_RESULT_OF((int), op_keep_const(int&))
+PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int))
+PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int const&))
+PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int const))
+
+
+
 void pstade_minimal_test()
 {
     {
@@ -175,5 +202,9 @@ void pstade_minimal_test()
         int i = 10;
         pstade::result_of<op_identity(int&)>::type x = identity(i);
         BOOST_CHECK( &x == &i );
+    }
+    {
+        pstade::result_of<op_keep_const(int)>::type x = keep_const(3);
+        (void)x;
     }
 }

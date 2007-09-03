@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_FUNTION_BY_VALUE_HPP
-#define PSTADE_EGG_FUNTION_BY_VALUE_HPP
+#ifndef PSTADE_EGG_FUNTION_BY_CREF_HPP
+#define PSTADE_EGG_FUNTION_BY_CREF_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -12,18 +12,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// A "movable type" like 'auto_ptr' must be called by value.
-// "./function.hpp" makes rvalue unmovable.
-
-
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/remove_cvr.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
 #include "./detail/nullary_result.hpp"
@@ -36,7 +30,7 @@ namespace pstade { namespace egg {
 
 
     template<class Baby>
-    struct function_by_value
+    struct function_by_cref
     {
         typedef Baby baby_type;
 
@@ -49,7 +43,7 @@ namespace pstade { namespace egg {
 
     // 0ary
         typedef typename
-            detail::nullary_result<Baby, function_by_value>::type
+            detail::nullary_result<Baby, function_by_cref>::type
         nullary_result_type;
 
         nullary_result_type operator()() const
@@ -63,7 +57,7 @@ namespace pstade { namespace egg {
         template<class FunCall>
         struct result;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/function_by_value.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/function_by_cref.hpp>))
         #include BOOST_PP_ITERATE()
 
         #include PSTADE_EGG_SIG_TEMPLATE()
@@ -73,7 +67,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function_by_value, (class))
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function_by_cref, (class))
 
 
 #endif
@@ -94,13 +88,13 @@ public:
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(result, n)<
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename pass_by_value<A, >::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename remove_cvr<A, >::type)
         >
     { };
 
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
         return m_baby.BOOST_NESTED_TEMPLATE call<
             typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type

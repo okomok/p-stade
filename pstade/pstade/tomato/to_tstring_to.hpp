@@ -11,7 +11,7 @@
 
 
 #include <pstade/egg/auxiliary.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/egg/function_by_cref.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/tstring.hpp>
 #include <pstade/oven/copied.hpp>
@@ -57,7 +57,7 @@ namespace pstade { namespace tomato {
         };
 
 
-        typedef egg::function<baby> op;
+        typedef egg::function_by_cref<baby> op;
 
 
     } // namespace to_string_detail

@@ -28,7 +28,7 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
-#include "../function.hpp"
+#include "../function_by_cref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -53,19 +53,16 @@ namespace pstade { namespace egg { namespace detail {
     struct BOOST_PP_CAT(result_of_, F) \
     { \
     private: \
-        typedef typename boost::remove_const<X>::type x_t; \
-        typedef typename boost::remove_const<Y>::type y_t; \
-        \
-        static x_t x; \
-        static y_t y; \
+        static X x; \
+        static Y y; \
         \
         static bool const is_x = \
-            sizeof( detail::are_you_x<x_t, y_t>(x Op y) ) == sizeof(boost::type_traits::yes_type); \
+            sizeof( detail::are_you_x<X, Y>(x Op y) ) == sizeof(boost::type_traits::yes_type); \
         \
     public: \
         typedef typename \
             boost::mpl::if_c< is_x, \
-                x_t, y_t \
+                X, Y \
             >::type \
         type; \
     }; \
@@ -78,13 +75,13 @@ namespace pstade { namespace egg { namespace detail {
         { }; \
         \
         template<class Result, class X, class Y> \
-        Result call(X& x, Y& y) const \
+        Result call(X const& x, Y const& y) const \
         { \
             return x Op y; \
         } \
     }; \
     \
-    typedef function<BOOST_PP_CAT(baby_, F)> BOOST_PP_CAT(op_, F); \
+    typedef function_by_cref<BOOST_PP_CAT(baby_, F)> BOOST_PP_CAT(op_, F); \
     PSTADE_ADL_BARRIER(F) { \
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, F)), F) = {{}}; \
     } \

@@ -18,7 +18,7 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./function.hpp"
+#include "./function_by_cref.hpp"
 #include "./function_by_value.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
@@ -39,12 +39,12 @@ namespace pstade { namespace egg {
             template<class Myself, class ArgTuple>
             struct apply :
                 result_of<
-                    typename result_of<op_fuse(Function const&)>::type(ArgTuple&)
+                    typename result_of<op_fuse(Function const&)>::type(ArgTuple const&)
                 >
             { };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            Result call(ArgTuple const& args) const
             {
                 Result r = fuse(m_fun)(args);
                 m_thunk();
@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
     template<class Function, class Thunk>
     struct result_of_after :
         result_of_unfuse<
-            function< after_detail::baby_fused_result<Function, Thunk> >,
+            function_by_cref< after_detail::baby_fused_result<Function, Thunk> >,
             boost::use_default,
             use_nullary_result
         >

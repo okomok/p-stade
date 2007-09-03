@@ -38,6 +38,7 @@ namespace pstade { namespace egg {
     struct tp_ret :
         generator<
             typename result_of_ret<deduce<boost::mpl::_1, as_value>, ResultType>::type,
+            boost::use_default,
             use_brace_level1
         >
     { };

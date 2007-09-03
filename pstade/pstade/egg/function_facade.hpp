@@ -13,14 +13,17 @@
 
 
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp>
 #include <pstade/use_default.hpp>
 #include "./apply_params.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
 #include "./function.hpp"
+#include "./function_fwd.hpp"
 #include "./use_brace_level1.hpp"
 
 
@@ -33,20 +36,16 @@
 namespace pstade { namespace egg {
 
 
-    template<class Derived, class NullaryResult>
-    struct function_facade;
-
-
     namespace function_facade_detail {
 
 
         template<class Facade>
         struct baby;
 
-        template<class Derived, class NullaryResult>
-        struct baby< function_facade<Derived, NullaryResult> >
+        template<class Derived, class NullaryResult, class ByHow>
+        struct baby< function_facade<Derived, NullaryResult, ByHow> >
         {
-            function_facade<Derived, NullaryResult> *m_pfacade;
+            function_facade<Derived, NullaryResult, ByHow> *m_pfacade;
 
             Derived const& derived() const
             {
@@ -63,21 +62,26 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+            template<class Myself, PSTADE_EGG_FLAT_APPLY_PARAMS(A)>
             struct apply { }; // msvc warns if incomplete.
 
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/function_facade.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/function_facade.hpp>))
             #include BOOST_PP_ITERATE()
         };
 
 
-        template<class Derived, class NullaryResult>
+        template<class Derived, class NullaryResult, class ByHow>
         struct super_
         {
-            typedef
-                function<
-                    baby< function_facade<Derived, NullaryResult> >
-                >
+            typedef typename
+                if_use_default< ByHow, function<boost::mpl::_1> >::type
+            how_t;
+
+            typedef typename
+                boost::mpl::apply1<
+                    how_t,
+                    baby< function_facade<Derived, NullaryResult, ByHow> >
+                >::type
             type;
         };
 
@@ -85,12 +89,16 @@ namespace pstade { namespace egg {
     } // namespace function_facade_detail
 
 
-    template<class Derived, class NullaryResult = boost::use_default>
+    template<
+        class Derived,
+        class NullaryResult = boost::use_default,
+        class ByHow         = boost::use_default
+    >
     struct function_facade :
-        function_facade_detail::super_<Derived, NullaryResult>::type        
+        function_facade_detail::super_<Derived, NullaryResult, ByHow>::type        
     {
     private:
-        typedef typename function_facade_detail::super_<Derived, NullaryResult>::type super_t;
+        typedef typename function_facade_detail::super_<Derived, NullaryResult, ByHow>::type super_t;
 
     public:
         function_facade() :

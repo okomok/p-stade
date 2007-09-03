@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/egg/function_by_value.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./counting.hpp"
@@ -40,7 +40,7 @@ struct tp_indexing
         { };
 
         template< class Result, class Incrementable1, class Incrementable2, class UnaryFun >
-        Result call(Incrementable1& i, Incrementable2& j, UnaryFun& fun) const
+        Result call(Incrementable1 i, Incrementable2 j, UnaryFun fun) const
         {
             return
                 xp_make_transformed<Reference, Value>()(
@@ -50,7 +50,7 @@ struct tp_indexing
         }
     };
 
-    typedef egg::function<baby> type;
+    typedef egg::function_by_value<baby> type;
 };
 
 

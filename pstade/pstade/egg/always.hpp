@@ -18,7 +18,7 @@
 #include <pstade/preprocessor.hpp>
 #include "./apply_params.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./function.hpp"
+#include "./function_by_cref.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
 
@@ -61,7 +61,7 @@ namespace pstade { namespace egg {
     template<class X>
     struct result_of_always
     {
-        typedef function< always_detail::baby<X> > type;
+        typedef function_by_cref< always_detail::baby<X> > type;
     };
 
     #define PSTADE_EGG_ALWAYS_L { {
@@ -70,6 +70,7 @@ namespace pstade { namespace egg {
     typedef
         generator<
             result_of_always< deduce<boost::mpl::_1, as_value> >::type,
+            boost::use_default,
             use_brace_level1
         >::type
     op_always;
@@ -86,7 +87,7 @@ namespace pstade { namespace egg {
 
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)) const
+    Result call(PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)) const
     {
         return m_x;
     }

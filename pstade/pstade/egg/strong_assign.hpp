@@ -31,10 +31,11 @@ namespace pstade { namespace egg {
                 typedef To& type;
             };
 
-            template<class Result, class To>
-            Result call(To& to, To from) const // copy-initialization for automatic object.
+            template<class Result, class To, class From>
+            Result call(To& to, From& from) const
             {
-                do_swap(to, from);
+                To tmp = from;
+                do_swap(to, tmp);
                 return to;
             }
         };

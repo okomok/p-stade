@@ -23,6 +23,8 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./fix.hpp"
+#include "./function_by_cref.hpp"
+#include "./function_by_value.hpp"
 #include "./function_facade.hpp"
 
 
@@ -33,17 +35,17 @@ namespace pstade { namespace egg {
 
 
         struct op_wrap_ :
-            function_facade<op_wrap_>
+            function_facade< op_wrap_, boost::use_default, function_by_cref<boost::mpl::_> >
         {
             template<class Myself, class Base, class Fixed, class Arg>
             struct apply :
                 result_of<
-                    typename result_of<Base(Fixed&)>::type(Arg&)
+                    typename result_of<Base(Fixed const&)>::type(Arg const&)
                 >
             { };
 
             template<class Result, class Base, class Fixed, class Arg>
-            Result call(Base& base, Fixed& fixed, Arg const& arg) const
+            Result call(Base const& base, Fixed const& fixed, Arg const& arg) const
             {
                 typedef std::map<Arg, Result> map_t;
 
@@ -83,7 +85,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Result, class Base_>
-            Result call(Base_& base) const
+            Result call(Base_ base) const
             {
                 return fix(
                     curry3(op_wrap_())(curry2(base))
@@ -95,7 +97,7 @@ namespace pstade { namespace egg {
     } // namespace memoize_detail
 
 
-    typedef function<memoize_detail::baby> op_memoize;
+    typedef function_by_value<memoize_detail::baby> op_memoize;
     PSTADE_POD_CONSTANT((op_memoize), memoize) = {{}};
 
 

@@ -22,12 +22,12 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../function.hpp"
+#include "../function_by_cref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -76,21 +76,18 @@ namespace pstade { namespace egg { namespace detail {
     {
         template<class Myself, class Base, class Arg>
         struct apply :
-            result_of_bind1<
-                typename pass_by_value<Base>::type,
-                typename pass_by_value<Arg>::type
-            >
+            result_of_bind1<Base, Arg>
         { };
 
         template<class Result, class Base, class Arg>
-        Result call(Base& base, Arg& arg) const
+        Result call(Base const& base, Arg const& arg) const
         {
             Result r = PSTADE_EGG_DETAIL_BIND1_L base PSTADE_EGG_DETAIL_BIND1_M arg PSTADE_EGG_DETAIL_BIND1_R;
             return r;
         }
     };
 
-    typedef function<baby_bind1> op_bind1;
+    typedef function_by_cref<baby_bind1> op_bind1;
     PSTADE_POD_CONSTANT((op_bind1), bind1) = {{}};
 
 

@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function_by_value.hpp>
+#include <pstade/egg/function_by_ref.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -23,8 +23,8 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 
-    #define PSTADE_EGG_FUNCTION_BY_VALUE(O, B) \
-        typedef pstade::egg::function_by_value<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(op_, O); \
+    #define PSTADE_EGG_FUNCTION_BY_REF(O, B) \
+        typedef pstade::egg::function_by_ref<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(op_, O); \
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, O)), O) = { { } }; \
     /**/
 
@@ -38,7 +38,7 @@ struct baby_foo
     };
 
     template< class Result, class A0, class A1 >
-    Result call(A0 a0, A1 a1) const
+    Result call(A0& a0, A1 const& a1) const
     {
         return a0 + a1;
     }
@@ -46,11 +46,11 @@ struct baby_foo
     template< class Myself, class A0 >
     struct apply<Myself, A0>
     {
-        typedef A0 type;
+        typedef A0& type;
     };
 
     template< class Result, class A0 >
-    Result call(A0 a0) const
+    Result call(A0& a0) const
     {
         return a0;
     }
@@ -64,19 +64,13 @@ struct baby_foo
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_VALUE(foo, (baby_foo))
+PSTADE_EGG_FUNCTION_BY_REF(foo, (baby_foo))
 
-PSTADE_TEST_IS_RESULT_OF((int), op_foo(int, int))
-PSTADE_TEST_IS_RESULT_OF((int), op_foo(int&, int))
-PSTADE_TEST_IS_RESULT_OF((int), op_foo(int const&, int))
-PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), op_foo(std::auto_ptr<int>))
+PSTADE_TEST_IS_RESULT_OF((int), op_foo(int&, int&))
+PSTADE_TEST_IS_RESULT_OF((int) const, op_foo(int const&, int&))
+PSTADE_TEST_IS_RESULT_OF((int&), op_foo(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), op_foo(int const&))
 PSTADE_TEST_IS_RESULT_OF((char), op_foo())
-
-
-std::auto_ptr<int> make_auto_ptr()
-{
-    return std::auto_ptr<int>(new int(3));
-}
 
 
 struct baby_big_arity
@@ -84,35 +78,39 @@ struct baby_big_arity
     template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
     {
-        typedef A0 type;
+        typedef A0& type;
     };
 
     template<class Result, class A0>
-    Result call(A0 a0, ...) const
+    Result call(A0& a0, ...) const
     {
         return a0;
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_VALUE(big_arity, (baby_big_arity))
+PSTADE_EGG_FUNCTION_BY_REF(big_arity, (baby_big_arity))
 
 
 
 void pstade_minimal_test()
 {
     {
-        pstade::result_of<op_foo(int, int)>::type x = foo(1, 2);
+        int i = 1, j = 2;
+        pstade::result_of<op_foo(int&, int&)>::type x = foo(i, j);
         BOOST_CHECK( x == 3 );
     }
     {
-        pstade::result_of<op_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
-        BOOST_CHECK( *x == 3 );
+        int i = 1;
+        pstade::result_of<op_foo(int&)>::type x = foo(i);
+        BOOST_CHECK( &i == &x );
     }
     {
         pstade::result_of<op_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {
-        BOOST_CHECK( big_arity(3,1,2,3,4,5,6,7,8,9) == 3 );
+        int const i0 = 1, i1 = 1, i2 = 2, i3 = 3, i4 = 4;
+        int i5 = 5, i6 = 6, i7 = 7, i8 = 8, i9 = 9;
+        BOOST_CHECK( &(big_arity(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9)) == &i0 );
     }
 }

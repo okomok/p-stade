@@ -25,7 +25,10 @@
 
 
 #define PSTADE_TEST_IS_RESULT_OF(Result, FunCall) \
-    PSTADE_TEST_IS_SAME(Result, (::pstade::result_of<FunCall>::type)) \
+    BOOST_MPL_ASSERT((::boost::is_same< \
+        PSTADE_UNPARENTHESIZE(Result), \
+        pstade::result_of<FunCall>::type \
+    >)); \
 /**/
 
 

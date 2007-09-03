@@ -52,8 +52,6 @@ Egg is known to work on the following platforms:
 
 [section Limitation]
 
-* The maximum arity of any __FUNCTION_OBJECT__ which Egg offers is `5`.
-
 * Any __FUNCTION_OBJECT__ which Egg offers is not /volatile/-aware, meaning that you can't
   make it /volatile-qualified/ nor pass any /volatile/ object to it.
 
@@ -103,9 +101,18 @@ This document uses the following notation.
         [`++`]
         [An imaginary operator to concatenate tokens.]
     ]
+    [
+        [`_MAX_ARITY`]
+        [`PSTADE_EGG_MAX_ARITY`, which is `5` by default.]
+    ]
 ]
 
-Also, assume that every expression is placed after `using namespace pstade::egg`.
+[caution You can replace `PSTADE_EGG_MAX_ARITY` up-to `10`, but `7` or more arity tends to make compile-time very slow.]
+
+Also, assume that every expression is placed after:
+
+    namespace egg = pstade::egg;
+    using namespace egg;
 
 [endsect]
 

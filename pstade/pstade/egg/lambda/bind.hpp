@@ -18,8 +18,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "../function.hpp"
+#include "../config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
+#include "../function_by_cref.hpp"
 
 
 namespace pstade { namespace egg {
@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
         struct baby
         {
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+            template<class Myself, PSTADE_EGG_FLAT_APPLY_PARAMS(A)>
             struct apply { };
 
         #define PSTADE_bind_tuple_mapper(N) \
@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
                 PSTADE_bind_tuple_mapper(N) \
             > \
         /**/
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/lambda/bind.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/lambda/bind.hpp>))
             #include BOOST_PP_ITERATE()
         #undef  PSTADE_lambda_functor_base
         #undef  PSTADE_bind_tuple_mapper
@@ -55,7 +55,7 @@ namespace pstade { namespace egg {
     } // namespace lambda_bind_detail
 
 
-    typedef function<lambda_bind_detail::baby> op_lambda_bind;
+    typedef function_by_cref<lambda_bind_detail::baby> op_lambda_bind;
     PSTADE_POD_CONSTANT((op_lambda_bind), lambda_bind) = {{}};
 
 
@@ -78,7 +78,7 @@ namespace pstade { namespace egg {
     };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
         return PSTADE_lambda_functor_base(n)(
             PSTADE_bind_tuple_mapper(n)(

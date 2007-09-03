@@ -92,17 +92,19 @@ void test_indirect()
 
 
 //[code_lazy_example
-result_of_lazy<base_my_plus>::type const lazy_plus = PSTADE_EGG_LAZY_L {} PSTADE_EGG_LAZY_R;
+result_of_lazy<base_my_plus>::type const
+    my_Plus = PSTADE_EGG_LAZY_L {} PSTADE_EGG_LAZY_R;
 
 void test_lazy()
 {
     namespace bll = boost::lambda;
 
     /*<< Boost1.35 or later won't require `make_const`. >>*/
-    BOOST_CHECK( lazy_plus(bll::_1, 3)(bll::make_const(2)) == 2+3 );
+    BOOST_CHECK( my_Plus(bll::_1, 3)(bll::make_const(2)) == 2+3 );
 
     int two = 2, four = 4;
-    BOOST_CHECK( lazy_plus(lazy_plus(bll::_1, 2), lazy_plus(bll::_2, bll::_1))(two, four) == (2+2)+(4+2) );
+    BOOST_CHECK( my_Plus(my_Plus(bll::_1, 2), my_Plus(bll::_2, bll::_1))
+        (two, four) == (2+2)+(4+2) );
 }
 //]
 

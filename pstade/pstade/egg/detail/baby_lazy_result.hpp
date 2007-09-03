@@ -12,6 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -19,7 +20,7 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
 #include "../lambda/bind.hpp"
 #include "./bind1.hpp"
 
@@ -51,10 +52,10 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_FLAT_APPLY_PARAMS(A)>
         struct apply { };
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/baby_lazy_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/detail/baby_lazy_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -67,28 +68,20 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    // Increase arity by using bind1.
     // Notice that we can't make this "perfect",
-    // which would disable nested bind expressions.
+    // which would disable nested bind-expression magics.
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            typename result_of<
-                op_bind1(op_lambda_bind const&, Base const&)
-            >::type(
-                PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
-            )
+            op_lambda_bind(Base const&, PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&))
         >
     { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
-        return   
-            bind1(lambda_bind, m_base)(
-                BOOST_PP_ENUM_PARAMS(n, a)
-            );
+        return boost::lambda::bind(m_base, BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/type_traits/remove_const.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./function.hpp"
@@ -26,12 +25,13 @@ namespace pstade { namespace egg {
         struct baby
         {
             template<class Myself, class X>
-            struct apply :
-                boost::remove_const<X>
-            { };
+            struct apply
+            {
+                typedef X type;
+            };
 
             template<class Result, class X>
-            Result call(X& x) const
+            Result call(X const& x) const
             {
                 return -x;
             }
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
     } // negate_detail
 
 
-    typedef function<negate_detail::baby> op_negate;
+    typedef function_by_cref<negate_detail::baby> op_negate;
 
     PSTADE_ADL_BARRIER(negate) { // for 'std'
         PSTADE_POD_CONSTANT((op_negate), negate) = {{}};

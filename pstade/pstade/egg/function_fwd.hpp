@@ -17,9 +17,18 @@ namespace pstade { namespace egg {
     template<class Baby>
     struct function;
 
+    template<class Baby>
+    struct function_by_ref;
+
+    template<class Baby>
+    struct function_by_cref;
 
     template<class Baby>
     struct function_by_value;
+
+
+    template<class Derived, class NullaryResult, class ByHow>
+    struct function_facade;
 
 
 } } // namespace pstade::egg

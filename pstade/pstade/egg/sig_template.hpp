@@ -16,11 +16,7 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/result_of.hpp>
-
-
-#if !defined(PSTADE_EGG_SIG_TEMPLATE_MAX_ARITY)
-    #define PSTADE_EGG_SIG_TEMPLATE_MAX_ARITY 10 // follows 'tuple'.
-#endif
+#include "./config.hpp" // PSTADE_EGG_TUPLE_MAX_ARITY
 
 
 #define PSTADE_EGG_SIG_TEMPLATE() <pstade/egg/detail/sig_template_iteration.hpp>

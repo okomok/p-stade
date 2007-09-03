@@ -24,8 +24,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/egg/envelope.hpp>
-#include <pstade/egg/function.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/egg/function_by_value.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./iter_range.hpp"
@@ -58,22 +57,18 @@ namespace counting_detail {
     struct simple_base
     {
         // Prefer 'Incrementable2'; [0:int, size():uint) often happens.
-        typedef typename
-            pass_by_value<Incrementable2>::type
-        inc_t;
-
         typedef
-            boost::counting_iterator<inc_t, Traversal, Difference>
+            boost::counting_iterator<Incrementable2, Traversal, Difference>
         iter_t;
 
         typedef
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(Incrementable1& i, Incrementable2& j) const
+        result_type operator()(Incrementable1 i, Incrementable2 j) const
         {
             BOOST_ASSERT(here::is_valid(i, j, typename boost::iterator_traversal<iter_t>::type()));
-            return result_type(iter_t(egg::copy<inc_t>(i)), iter_t(j));
+            return result_type(iter_t(egg::copy<Incrementable2>(i)), iter_t(j));
         }
     };
 
@@ -104,7 +99,7 @@ namespace counting_detail {
         struct apply_aux<Incrementable, max_count_tag>
         {
             typedef typename
-                simple_base<Traversal, Difference, Incrementable, Incrementable const>::result_type
+                simple_base<Traversal, Difference, Incrementable, Incrementable>::result_type
             type;
         };
 
@@ -112,14 +107,14 @@ namespace counting_detail {
         Result call_aux(Incrementable i, max_count_tag, egg::envelope<Result>) const
         {
             return
-                simple_base<Traversal, Difference, Incrementable, Incrementable const>()(i, (std::numeric_limits<Incrementable>::max)());
+                simple_base<Traversal, Difference, Incrementable, Incrementable>()(i, (std::numeric_limits<Incrementable>::max)());
         }
 
         template< class Incrementable >
         struct apply_aux<min_count_tag, Incrementable>
         {
             typedef typename
-                simple_base<Traversal, Difference, Incrementable const, Incrementable>::result_type
+                simple_base<Traversal, Difference, Incrementable, Incrementable>::result_type
             type;
         };
 
@@ -127,19 +122,16 @@ namespace counting_detail {
         Result call_aux(min_count_tag, Incrementable j, egg::envelope<Result>) const
         {
             return
-                simple_base<Traversal, Difference, Incrementable const, Incrementable>()((std::numeric_limits<Incrementable>::min)(), j);
+                simple_base<Traversal, Difference, Incrementable, Incrementable>()((std::numeric_limits<Incrementable>::min)(), j);
         }
 
         template< class Myself, class Incrementable1, class Incrementable2 >
         struct apply :
-            apply_aux<
-                typename pass_by_value<Incrementable1>::type,
-                typename pass_by_value<Incrementable2>::type
-            >
+            apply_aux<Incrementable1, Incrementable2>
         { };
 
         template< class Result, class Incrementable1, class Incrementable2 >
-        Result call(Incrementable1& i, Incrementable2& j) const
+        Result call(Incrementable1 i, Incrementable2 j) const
         {
             // Use type2type for gcc-3.4; see <pstade/const_overloaded.hpp>.
             return call_aux(i, j, egg::envelope<Result>());
@@ -156,7 +148,7 @@ template<
 >
 struct tp_counting
 {
-    typedef egg::function< counting_detail::baby<Traversal, Difference> > type;
+    typedef egg::function_by_value< counting_detail::baby<Traversal, Difference> > type;
 };
 
 
