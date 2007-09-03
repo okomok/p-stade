@@ -17,6 +17,10 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
+struct A { A() { } template<class X> explicit A(X) { } };
+struct B { operator A() const { return A(); } };
+
+
 void pstade_minimal_test()
 {
     {
@@ -24,5 +28,9 @@ void pstade_minimal_test()
         BOOST_CHECK( copy_assign(i, 3) == 3 );
         BOOST_CHECK( (i|copy_assign(4)) == 4 );
         BOOST_CHECK( i == 4 );
+    }
+    {// copy-initialization with no ambiguity.
+        A a; B b;
+        copy_assign(a, b);
     }
 }

@@ -27,7 +27,7 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <pstade/adl_barrier.hpp>
-#include "./function.hpp"
+#include "./function_by_cref.hpp"
 #include "./specified.hpp"
 
 
@@ -56,7 +56,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Result, class From>
-            To call(From& from) const
+            To call(From const& from) const
             {
                 BOOST_MPL_ASSERT_NOT((boost::is_reference<To>));
 
@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
             }
 
             template<class From>
-            To aux(From& from, boost::mpl::true_) const
+            To aux(From const& from, boost::mpl::true_) const
             {
 #if !defined(NDEBUG)
                 return boost::numeric_cast<To>(from);
@@ -78,7 +78,7 @@ namespace pstade { namespace egg {
             }
 
             template<class From>
-            To aux(From& from, boost::mpl::false_) const
+            To aux(From const& from, boost::mpl::false_) const
             {
                 return from;
             }
@@ -92,7 +92,7 @@ namespace pstade { namespace egg {
     struct tp_copy
     {
         typedef
-            function< copy_detail::baby<To> >
+            function_by_cref< copy_detail::baby<To> >
         type;
     };
 

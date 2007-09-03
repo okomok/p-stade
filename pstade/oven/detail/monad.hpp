@@ -15,8 +15,8 @@
 #include <vector>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include "../concatenated.hpp"
 #include "../memoized.hpp"
@@ -73,14 +73,14 @@ struct baby_monad_unit
     template< class Myself, class Value >
     struct apply :
         result_of<
-            op_shared(std::vector<typename pass_by_value<Value>::type> *)
+            op_shared(std::vector<Value> *)
         >
     { };
 
     template< class Result, class Value >
-    Result call(Value& v) const
+    Result call(Value const& v) const
     {
-        typedef std::vector<typename pass_by_value<Value>::type> vec_t;
+        typedef std::vector<Value> vec_t;
 
         // "share" it to avoid dangling; lambda expressions usually return "value".
         std::auto_ptr<vec_t> p(new vec_t(boost::addressof(v), boost::addressof(v) + 1));
@@ -88,7 +88,7 @@ struct baby_monad_unit
     }
 };
 
-typedef egg::function<baby_monad_unit> op_monad_unit;
+typedef egg::function_by_cref<baby_monad_unit> op_monad_unit;
 PSTADE_POD_CONSTANT((op_monad_unit), monad_unit) = {{}};
 
 
@@ -97,13 +97,13 @@ struct xp_monad_zero
 {
     typedef typename
         result_of<
-            op_shared(std::vector<typename pass_by_value<Value>::type> *)
+            op_shared(std::vector<typename remove_cvr<Value>::type> *)
         >::type
     result_type;
 
     result_type operator()() const
     {
-        typedef std::vector<typename pass_by_value<Value>::type> vec_t;
+        typedef std::vector<typename remove_cvr<Value>::type> vec_t;
 
         // empty range
         std::auto_ptr<vec_t> p(new vec_t());

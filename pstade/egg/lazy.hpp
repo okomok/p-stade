@@ -13,7 +13,7 @@
 
 #include <pstade/result_of_lambda.hpp> // inclusion guaranteed.
 #include "./detail/baby_lazy_result.hpp"
-#include "./function.hpp"
+#include "./function_by_cref.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
 #include "./use_brace_level1.hpp"
@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
     struct result_of_lazy
     {
         typedef
-            function< detail::baby_lazy_result<Base> >
+            function_by_cref< detail::baby_lazy_result<Base> >
         type;
     };
 
@@ -38,6 +38,7 @@ namespace pstade { namespace egg {
     typedef
         generator<
             result_of_lazy< deduce<boost::mpl::_1, as_value> >::type,
+            boost::use_default,
             use_brace_level1
         >::type
     op_lazy;

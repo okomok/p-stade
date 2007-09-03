@@ -53,7 +53,6 @@ namespace pstade { namespace egg {
     typedef
         generator<
             tuple_pack_detail::klass,
-            boost::use_default,
             boost::tuples::tuple<>
         >::type
     op_tuple_pack;

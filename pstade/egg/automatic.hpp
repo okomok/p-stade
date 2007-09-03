@@ -24,8 +24,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
-#include <pstade/pass_by.hpp>
-#include "./function.hpp"
+#include "./function_by_cref.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
 
@@ -60,14 +59,12 @@ namespace pstade { namespace egg {
             struct apply
             {
                 typedef
-                    automator<
-                        Lambda, typename pass_by_value<ArgTuple>::type
-                    > const
+                    automator<Lambda, ArgTuple> const
                 type;
             };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            Result call(ArgTuple const& args) const
             {
                 // 'automator' must *copy* it to 'm_args';
                 // 'args' is destructed as soon as this 'call' returns.
@@ -83,7 +80,7 @@ namespace pstade { namespace egg {
     template<class Lambda>
     struct automatic :
         result_of_unfuse<
-            function< automatic_detail::baby_fused<Lambda> >,
+            function_by_cref< automatic_detail::baby_fused<Lambda> >,
             boost::use_default,
             use_nullary_result
         >

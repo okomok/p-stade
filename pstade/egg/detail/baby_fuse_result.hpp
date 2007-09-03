@@ -17,7 +17,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "../config.hpp" // PSTADE_EGG_FUSE_MAX_ARITY
+#include "../config.hpp" // PSTADE_EGG_TUPLE_MAX_ARITY
 #include "../tuple/get.hpp"
 #include "../tuple/size.hpp"
 
@@ -70,7 +70,7 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FUSE_MAX_ARITY, <pstade/egg/detail/baby_fuse_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_ARITY, <pstade/egg/detail/baby_fuse_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

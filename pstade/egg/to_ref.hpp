@@ -11,10 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/type_traits/remove_const.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
 #include "./function.hpp"
+#include "./function_by_cref.hpp"
 
 
 namespace pstade { namespace egg {
@@ -60,9 +60,7 @@ namespace pstade { namespace egg {
             template<class Myself, class X>
             struct apply
             {
-                typedef typename
-                    boost::remove_const<X>::type&
-                type;
+                typedef X& type;
             };
 
             template<class Result, class X>
@@ -74,8 +72,8 @@ namespace pstade { namespace egg {
 
 
         typedef function<baby>  op;
-        typedef function<cbaby> cop;
-        typedef function<mbaby> mop;
+        typedef function_by_cref<cbaby> cop;
+        typedef function_by_cref<mbaby> mop;
 
 
     } // namespace to_ref_detail

@@ -34,6 +34,25 @@ struct base_minus
     }
 };
 
+#if 0
+// For some reason, gcc-3.4 fails to deduce the result type in this case.
+int big_arity(int, int, int, int, int, int, int, int, int)
+{
+    return 13;
+}
+#endif
+
+struct big_arity
+{
+    typedef int result_type;
+
+    int operator()(int, int, int, int, int, int, int, int, int) const
+    {
+        return 13;
+    }
+};
+
+
 PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = PSTADE_EGG_LAZY_L {} PSTADE_EGG_LAZY_R;
 
 
@@ -58,5 +77,8 @@ void pstade_minimal_test()
     }
     {
         BOOST_CHECK(lazy_minus(lazy_minus(bll::_2, bll::_1), lazy_minus(bll::_1, bll::_2))(3|to_ref, 5|to_ref) == (5-3) - (3-5));
+    }
+    {
+        BOOST_CHECK( lazy(::big_arity())(1,2,3,bll::_1,5,6,bll::_2,8,9)(3|to_ref, 4|to_ref) == 13 );
     }
 }

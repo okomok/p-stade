@@ -472,7 +472,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= 5`.
+* `0 <= N && N <= 9`.
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression, meaning that `_Dco` is a __BINDABLE_OBJECT__ type.
 
@@ -577,7 +577,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 5`.
+* `1 <= N && N <= _MAX_ARITY`.
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -644,7 +644,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= 5`.
+* `0 <= N && N <= _MAX_ARITY`.
 * `Fun` is a __FUNCTION_OBJECT__ type.
 * If `Result` is `boost::use_default`, `Fun` must be a __DEFERRED_CALLABLE_OBJECT__ type.
 * `Fun f = init;` is a valid expression.

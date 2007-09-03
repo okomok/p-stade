@@ -30,6 +30,11 @@ int sum_of_args_1(int a) { return a; }
 
 int my_minus(int i, int j) { return i - j; }
 
+int big_arity(int, int, int, int, int, int, int, int, int)
+{
+    return 3;
+}
+
 void pstade_minimal_test()
 {
     {
@@ -37,6 +42,7 @@ void pstade_minimal_test()
             lambda_bind(plus, lambda_1, 10);
 
         BOOST_CHECK( b(20|to_ref) == 30 );
+        BOOST_CHECK( lambda_bind(&big_arity, 1,2,3,4,lambda_1,6,lambda_2,8,9)(3|to_ref, 4|to_ref) == 3 );
     }
     {
         typedef

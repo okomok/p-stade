@@ -47,6 +47,7 @@ namespace pstade { namespace egg {
                 deduce<boost::mpl::_2, as_value, boost::use_default>,
                 NullaryResult
             >::type,
+            boost::use_default,
             use_brace_level1
         >
     { };

@@ -106,6 +106,7 @@ namespace pstade { namespace egg {
     typedef
         generator<
             result_of_auxiliary0< deduce<boost::mpl::_1, as_value> >::type,
+            boost::use_default,
             use_brace_level1
         >::type
     op_auxiliary0;
@@ -182,6 +183,7 @@ namespace pstade { namespace egg {
     typedef
         generator<
             PSTADE_PP_CAT3(result_of_, auxiliary, n)< deduce<boost::mpl::_1, as_value> >::type,
+            boost::use_default,
             use_brace_level1
         >::type
     BOOST_PP_CAT(op_auxiliary, n);

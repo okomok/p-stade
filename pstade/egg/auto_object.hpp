@@ -13,9 +13,8 @@
 
 #include <memory> // auto_ptr
 #include <pstade/any_movable.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./function.hpp"
+#include "./function_by_cref.hpp"
 #include "./fuse.hpp"
 #include "./new.hpp"
 #include "./unfuse.hpp"
@@ -62,19 +61,19 @@ namespace pstade { namespace egg {
             struct apply
             {
                 typedef
-                    automator<typename pass_by_value<ArgTuple>::type>
+                    automator<ArgTuple>
                 type;
             };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            Result call(ArgTuple const& args) const
             {
                 return Result(args); 
             }
         };
 
 
-        typedef function<baby_fused> fused;
+        typedef function_by_cref<baby_fused> fused;
 
 
     } // namespace auto_object_detail

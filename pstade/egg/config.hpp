@@ -20,8 +20,13 @@
 #endif
 
 
-#if !defined(PSTADE_EGG_FUSE_MAX_ARITY)
-    #define PSTADE_EGG_FUSE_MAX_ARITY 10 // follows 'boost::tuple'.
+#if !defined(PSTADE_EGG_FLAT_MAX_ARITY)
+    #define PSTADE_EGG_FLAT_MAX_ARITY 10
+#endif
+
+
+#if !defined(PSTADE_EGG_TUPLE_MAX_ARITY)
+    #define PSTADE_EGG_TUPLE_MAX_ARITY 10
 #endif
 
 

@@ -35,7 +35,7 @@ PSTADE_TEST_IS_RESULT_OF((int), xp_construct<int>(int))
 
 
 PSTADE_TEST_IS_RESULT_OF((udt), xp_construct<udt>(int,int))
-PSTADE_TEST_IS_RESULT_OF((udt const), xp_construct<udt const>(int,int))
+PSTADE_TEST_IS_RESULT_OF((udt) const, xp_construct<udt const>(int,int))
 
 
 void pstade_unit_test()
