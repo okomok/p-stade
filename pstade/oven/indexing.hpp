@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function_by_value.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./counting.hpp"
@@ -50,7 +50,7 @@ struct tp_indexing
         }
     };
 
-    typedef egg::function_by_value<baby> type;
+    typedef egg::function<baby, egg::by_value> type;
 };
 
 

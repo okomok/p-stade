@@ -18,8 +18,9 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./function_by_cref.hpp"
-#include "./function_by_value.hpp"
+#include "./by_cref.hpp"
+#include "./by_value.hpp"
+#include "./function.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
 
@@ -39,12 +40,12 @@ namespace pstade { namespace egg {
             template<class Myself, class ArgTuple>
             struct apply :
                 result_of<
-                    typename result_of<op_fuse(Function const&)>::type(ArgTuple const&)
+                    typename result_of<op_fuse(Function const&)>::type(ArgTuple&)
                 >
             { };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple const& args) const
+            Result call(ArgTuple& args) const
             {
                 Result r = fuse(m_fun)(args);
                 m_thunk();
@@ -56,20 +57,21 @@ namespace pstade { namespace egg {
     } // namespace after_detail
 
 
-    template<class Function, class Thunk>
+    template<class Function, class Thunk, class Pass = boost::use_default>
     struct result_of_after :
         result_of_unfuse<
-            function_by_cref< after_detail::baby_fused_result<Function, Thunk> >,
+            function<after_detail::baby_fused_result<Function, Thunk>, by_cref>,
             boost::use_default,
-            use_nullary_result
+            use_nullary_result,
+            Pass
         >
-    { }; // ::type = { { { { Function, Thunk } }, {} } };
+    { };
 
 
-    // PSTADE_EGG_UNFUSE_L { { F, T } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    // PSTADE_EGG_UNFUSE_L { { F, T } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_AFTER_L PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_AFTER_M ,
-    #define PSTADE_EGG_AFTER_R } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_AFTER_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
 
 
     namespace after_detail {
@@ -94,7 +96,7 @@ namespace pstade { namespace egg {
     } // namespace after_detail
 
 
-    typedef egg::function_by_value<after_detail::baby> op_after;
+    typedef egg::function<after_detail::baby, by_value> op_after;
     PSTADE_POD_CONSTANT((op_after), after) = {{}};
 
 

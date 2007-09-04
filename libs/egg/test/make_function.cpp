@@ -14,6 +14,7 @@
 
 
 #include <pstade/test.hpp>
+#include <pstade/egg/function.hpp>
 
 
 namespace egg = pstade::egg;

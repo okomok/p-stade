@@ -12,11 +12,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/limits/arity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp>
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 
 
 namespace pstade { namespace egg {
@@ -24,8 +24,16 @@ namespace pstade { namespace egg {
 
     struct use_brace_level1
     {
-        // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/use_brace_level1.hpp>))
+   // 0ary
+        template<class X>
+        X operator()(boost::type<X>) const
+        {
+            X x = {{}};
+            return x;
+        }
+
+    // 1ary-
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/use_brace_level1.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

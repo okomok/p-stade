@@ -13,7 +13,7 @@
 
 #include <boost/lambda/core.hpp> // unlambda
 #include <pstade/pod_constant.hpp>
-#include "../function_by_value.hpp"
+#include "../by_value.hpp"
 #include "../envelope.hpp"
 
 
@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
     } // namespace lambda_unlambda
 
 
-    typedef function_by_value<lambda_unlambda_detail::baby> op_lambda_unlambda;
+    typedef function<lambda_unlambda_detail::baby, by_value> op_lambda_unlambda;
     PSTADE_POD_CONSTANT((op_lambda_unlambda), lambda_unlambda) = {{}};
 
 

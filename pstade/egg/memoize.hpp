@@ -22,9 +22,9 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
+#include "./by_cref.hpp"
+#include "./by_value.hpp"
 #include "./fix.hpp"
-#include "./function_by_cref.hpp"
-#include "./function_by_value.hpp"
 #include "./function_facade.hpp"
 
 
@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
 
 
         struct op_wrap_ :
-            function_facade< op_wrap_, boost::use_default, function_by_cref<boost::mpl::_> >
+            function_facade<op_wrap_, boost::use_default, by_cref>
         {
             template<class Myself, class Base, class Fixed, class Arg>
             struct apply :
@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Result, class Base, class Fixed, class Arg>
-            Result call(Base const& base, Fixed const& fixed, Arg const& arg) const
+            Result call(Base& base, Fixed& fixed, Arg const& arg) const
             {
                 typedef std::map<Arg, Result> map_t;
 
@@ -97,7 +97,7 @@ namespace pstade { namespace egg {
     } // namespace memoize_detail
 
 
-    typedef function_by_value<memoize_detail::baby> op_memoize;
+    typedef function<memoize_detail::baby, by_value> op_memoize;
     PSTADE_POD_CONSTANT((op_memoize), memoize) = {{}};
 
 

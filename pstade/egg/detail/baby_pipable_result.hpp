@@ -20,7 +20,7 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
 
@@ -57,10 +57,10 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_FLAT_MAX_ARITY, A)>
         struct apply { }; // msvc warns if incomplete.
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/baby_pipable_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/detail/baby_pipable_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

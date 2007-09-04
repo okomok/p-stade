@@ -55,10 +55,12 @@ void pstade_minimal_test()
     BOOST_CHECK( Plus(Plus(4, _1), _2)
         (a, b) == plus(plus(4, a), b) );
 
-    // currying
+    //[code_lazy_lambda_bind_example
+    /*<< This is currying in Boost.Lambda way. >>*/
     // \x -> (\y -> plus(x, y))
     BOOST_CHECK( lambda_Bind(plus, _1, bll::protect(_1))
         (a)(b) == plus(a, b) );
+    //]
 
     // complicated
     // \x -> my_apply(\y -> plus(x, y), plus(x, 3))

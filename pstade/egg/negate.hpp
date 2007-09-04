@@ -13,7 +13,7 @@
 
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./function.hpp"
+#include "./by_cref.hpp"
 
 
 namespace pstade { namespace egg {
@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Result, class X>
-            Result call(X const& x) const
+            Result call(X& x) const
             {
                 return -x;
             }
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
     } // negate_detail
 
 
-    typedef function_by_cref<negate_detail::baby> op_negate;
+    typedef function<negate_detail::baby, by_cref> op_negate;
 
     PSTADE_ADL_BARRIER(negate) { // for 'std'
         PSTADE_POD_CONSTANT((op_negate), negate) = {{}};

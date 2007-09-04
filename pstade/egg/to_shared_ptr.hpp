@@ -23,7 +23,7 @@
 #include <pstade/apple/auto_ptr_fwd.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
-#include "./function_by_value.hpp"
+#include "./by_value.hpp"
 
 
 namespace pstade { namespace egg {
@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
     struct tp_to_shared_ptr
     {
         typedef
-            function_by_value< to_shared_ptr_detail::baby<Element> >
+            function<to_shared_ptr_detail::baby<Element>, by_value>
         type;
     };
 

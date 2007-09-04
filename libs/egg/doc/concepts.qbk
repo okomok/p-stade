@@ -83,6 +83,32 @@ for any __BINDABLE_OBJECT__ `b` the following must be met:
 
 
 
+[section Baby Function]
+
+[heading Description]
+A __BABY_FUNCTION__ type is a type which __EGG_FUNCTION_MAKERS__ requires.
+
+[heading Refinement of]
+* ...
+
+[heading Requirements]
+For any __BABY_FUNCTION__ type `B` the following must be met:
+
+* `B` has a nested class template named `apply`.
+* `B` has a /member function/ named `call` whose return type is explicitly specified by the first template parameter.
+
+[heading Models]
+* ...
+
+[heading See also]
+* __EGG_FUNCTION_MAKERS__
+* __EGG_FORWARDING_STRATEGIES__
+
+[endsect]
+
+
+
+
 [import ../example/result_of_tutorial.cpp]
 
 [section result_of tutorial]

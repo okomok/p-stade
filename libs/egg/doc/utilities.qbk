@@ -1,8 +1,10 @@
 [section Utilities]
 
-It is difficult or impossible to get a __FUNCTION_OBJECT__ from a function template.
+It is difficult or even impossible to get a __FUNCTION_OBJECT__ from a function template.
 Egg no longer considers function templates to be useful, so that it provides
 "objectified" functions which replaces some famous function templates.
+
+[import ../example/nested_lambda.cpp]
 
 
 
@@ -42,7 +44,7 @@ Egg no longer considers function templates to be useful, so that it provides
 ...
 
 [heading See also]
-* ...
+* __EGG_LAZY_LAMBDA_BIND__
 
 [endsect]
 
@@ -53,7 +55,7 @@ Egg no longer considers function templates to be useful, so that it provides
 Pending...
 
 [heading Description]
-`lambda_Bind` is a lazy `lambda_bind`.
+`lambda_Bind` is a lazy `lambda_bind`, which lets a complicated lambda expression readable.
 
 [heading Header]
 * `<pstade/egg/lambda/lazy_bind.hpp>`
@@ -81,10 +83,11 @@ Pending...
 * The corresponding semantics is a valid expression.
 
 [heading Example]
-...
+[code_lazy_lambda_bind_example]
 
 [heading See also]
 * __EGG_LAZY__
+* __EGG_LAMBDA_BIND__
 
 [endsect]
 
@@ -162,7 +165,7 @@ Pending...
     ]
     [
         [`tuple_pack(a1,...,aN)`]
-        [`boost::tuples::tuple<_decltype(a1),...,_decltype(aN)>(a1,...,aN)`]
+        [`boost::tuples::tuple<_arg(a1)&,...,_arg(aN)&>(a1,...,aN)`]
     ]
 ]
 

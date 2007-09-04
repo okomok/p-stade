@@ -11,27 +11,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/use_default.hpp>
+#include "./nullary_result_of.hpp"
+
+
 namespace pstade { namespace egg {
 
 
-    template<class Baby>
+    template<class Baby, class Pass = boost::use_default>
     struct function;
 
-    template<class Baby>
-    struct function_by_ref;
 
-    template<class Baby>
-    struct function_by_cref;
-
-    template<class Baby>
-    struct function_by_value;
-
-
-    template<class Derived, class NullaryResult, class ByHow>
+    template<class Derived, class NullaryResult = boost::use_default, class Pass = boost::use_default>
     struct function_facade;
 
 
 } } // namespace pstade::egg
+
+
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, (class)(class))
 
 
 #endif

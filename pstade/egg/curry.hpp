@@ -17,12 +17,12 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
+#include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/bind1.hpp"
 #include "./detail/bind2_.hpp"
 #include "./detail/curry_result_initializers.hpp"
 #include "./function.hpp"
-#include "./function_by_value.hpp"
 
 
 namespace pstade { namespace egg {
@@ -102,7 +102,7 @@ namespace pstade { namespace egg {
     };
 
 
-    typedef function_by_value<BOOST_PP_CAT(baby_curry, n)> BOOST_PP_CAT(op_curry, n);
+    typedef function<BOOST_PP_CAT(baby_curry, n), by_value> BOOST_PP_CAT(op_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
 
 

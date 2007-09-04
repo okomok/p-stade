@@ -13,8 +13,8 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./function_by_cref.hpp"
-#include "./function_by_value.hpp"
+#include "./by_cref.hpp"
+#include "./by_value.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
 
@@ -36,14 +36,14 @@ namespace pstade { namespace egg {
             struct apply :
                 result_of<
                     F const(
-                        typename result_of<typename result_of<op_fuse(G1 const&)>::type(ArgTuple const&)>::type,
-                        typename result_of<typename result_of<op_fuse(G2 const&)>::type(ArgTuple const&)>::type
+                        typename result_of<typename result_of<op_fuse(G1 const&)>::type(ArgTuple&)>::type,
+                        typename result_of<typename result_of<op_fuse(G2 const&)>::type(ArgTuple&)>::type
                     )
                 >
             { };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple const& args) const
+            Result call(ArgTuple& args) const
             {
                 return m_f(fuse(m_g1)(args), fuse(m_g2)(args));
             }
@@ -56,18 +56,18 @@ namespace pstade { namespace egg {
     template<class F, class G1, class G2, class NullaryResult = boost::use_default>
     struct result_of_compose2 :
         result_of_unfuse<
-            function_by_cref< compose2_detail::baby_fused_result<F, G1, G2> >,
+            function<compose2_detail::baby_fused_result<F, G1, G2>, by_cref>,
             boost::use_default,
             NullaryResult
         >
     { };
 
 
-    // PSTADE_EGG_UNFUSE_L { { F, G1, G2 } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    // PSTADE_EGG_UNFUSE_L { { F, G1, G2 } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_COMPOSE2_L  PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_COMPOSE2_M1 ,
     #define PSTADE_EGG_COMPOSE2_M2 ,
-    #define PSTADE_EGG_COMPOSE2_R  } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_COMPOSE2_R  } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
 
 
     template<class NullaryResult = boost::use_default>
@@ -88,7 +88,7 @@ namespace pstade { namespace egg {
             }
         };
 
-        typedef function_by_value<baby> type;
+        typedef function<baby, by_value> type;
     };
 
 

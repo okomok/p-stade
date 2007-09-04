@@ -1,0 +1,69 @@
+[section Configuration]
+
+
+
+
+[section MAX_ARITY]
+
+[heading Description]
+`PSTADE_EGG_MAX_ARITY` is an overridable configuration macro
+regulating the maximum supported arity of `by_perfect`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`PSTADE_EGG_MAX_ARITY`]
+        [`5` unless overridden.]
+    ]
+    [
+        [`#define PSTADE_EGG_MAX_ARITY N`]
+        [Overrides `PSTADE_EGG_MAX_ARITY` by `N`.]
+    ]
+]
+
+[heading Precondition]
+* `1 <= N && N <= 10`.
+* The second expression must be placed before including any Egg header.
+
+[caution `7` or more arity tends to make compile-time very slow.]
+
+[endsect]
+
+
+
+
+[section FLAT_MAX_ARITY]
+
+[heading Description]
+`PSTADE_EGG_FLAT_MAX_ARITY` affects the maximum supported arity of `by_ref`, `by_cref` and `by_value` etc.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`PSTADE_EGG_FLAT_MAX_ARITY`]
+        [`10` unless overridden.]
+    ]
+    [
+        [`#define PSTADE_EGG_FLAT_MAX_ARITY N`]
+        [Overrides `PSTADE_EGG_FLAT_MAX_ARITY` by `N`.]
+    ]
+]
+
+[heading Precondition]
+* `1 <= N`.
+* The second expression must be placed before including any Egg header.
+
+[endsect]
+
+
+
+
+[endsect]

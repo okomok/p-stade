@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
 #endif
 
 
-    template<class BinaryBase>
+    template<class BinaryBase, class Pass = boost::use_default>
     struct result_of_flip
     {
 #if !BOOST_WORKAROUND(__GNUC__, == 3)
@@ -65,9 +65,9 @@ namespace pstade { namespace egg {
             }
         };
 
-        typedef function< baby<BinaryBase> > type;
+        typedef function<baby<BinaryBase>, Pass> type;
 #else
-        typedef function< baby_flip_result<BinaryBase> > type;
+        typedef function<baby_flip_result<BinaryBase>, Pass> type;
 #endif
     };
 

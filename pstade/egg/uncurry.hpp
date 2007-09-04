@@ -21,10 +21,10 @@
 namespace pstade { namespace egg {
 
 
-    template<class Base>
+    template<class Base, class Pass = boost::use_default>
     struct result_of_uncurry
     {
-        typedef function< detail::baby_uncurry_result<Base> > type;
+        typedef function<detail::baby_uncurry_result<Base>, Pass> type;
     };
 
 

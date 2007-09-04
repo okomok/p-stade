@@ -12,16 +12,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp"
+#include "./lambda_config.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -45,7 +43,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         struct result0 :
-            SigFun::BOOST_NESTED_TEMPLATE sig<
+            SigFun::template sig<
                 boost::tuples::tuple<SigFun>
             >
         { };
@@ -64,13 +62,11 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_FLAT_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, A)>
         struct apply { }; // msvc warns if incomplete.
 
-    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/baby_defer_sig_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/baby_defer_sig_result.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_max_arity
     };
 
 
@@ -84,7 +80,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        SigFun::BOOST_NESTED_TEMPLATE sig<
+        SigFun::template sig<
             boost::tuples::tuple<
                 SigFun,
                 BOOST_PP_ENUM_PARAMS(n, A)

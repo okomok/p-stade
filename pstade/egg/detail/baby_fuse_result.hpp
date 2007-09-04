@@ -17,9 +17,9 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "../config.hpp" // PSTADE_EGG_TUPLE_MAX_ARITY
 #include "../tuple/get.hpp"
 #include "../tuple/size.hpp"
+#include "./tuple_config.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {

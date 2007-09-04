@@ -39,7 +39,7 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
         struct apply { }; // msvc warns if incomplete.
 
     #define PSTADE_open_result_of(Z, N, _)  typename result_of<

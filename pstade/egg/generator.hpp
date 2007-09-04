@@ -28,12 +28,13 @@ namespace pstade { namespace egg {
     template<
         class Lambda,
         class NullaryResult = boost::use_default,
-        class How           = boost::use_default
+        class Make          = boost::use_default,
+        class Pass          = boost::use_default
     >
     struct generator
     {
         typedef 
-            function< detail::baby_generator<Lambda, NullaryResult, How> >
+            function<detail::baby_generator<Lambda, NullaryResult, Make>, Pass>
         type; // = {{}};
     };
 

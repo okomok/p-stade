@@ -21,11 +21,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Base>
+    template<class Base, class Pass = boost::use_default>
     struct result_of_pipable
     {
         typedef
-            function< detail::baby_pipable_result<Base> >
+            function<detail::baby_pipable_result<Base>, Pass>
         type; // = { { Base } };
     };
 

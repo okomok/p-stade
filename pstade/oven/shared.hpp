@@ -13,7 +13,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function_by_value.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/to_shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -64,7 +64,7 @@ namespace shared_detail {
 } // namespace shared_detail
 
 
-typedef egg::function_by_value<shared_detail::baby> op_shared;
+typedef egg::function<shared_detail::baby, egg::by_value> op_shared;
 PSTADE_POD_CONSTANT((op_shared), shared) = {{}};
 
 

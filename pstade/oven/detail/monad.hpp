@@ -13,7 +13,9 @@
 
 #include <memory> // auto_ptr
 #include <vector>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/egg/by_cref.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -73,14 +75,14 @@ struct baby_monad_unit
     template< class Myself, class Value >
     struct apply :
         result_of<
-            op_shared(std::vector<Value> *)
+            op_shared(std::vector<typename boost::remove_cv<Value>::type> *)
         >
     { };
 
     template< class Result, class Value >
-    Result call(Value const& v) const
+    Result call(Value& v) const
     {
-        typedef std::vector<Value> vec_t;
+        typedef std::vector<typename boost::remove_cv<Value>::type> vec_t;
 
         // "share" it to avoid dangling; lambda expressions usually return "value".
         std::auto_ptr<vec_t> p(new vec_t(boost::addressof(v), boost::addressof(v) + 1));
@@ -88,7 +90,7 @@ struct baby_monad_unit
     }
 };
 
-typedef egg::function_by_cref<baby_monad_unit> op_monad_unit;
+typedef egg::function<baby_monad_unit, egg::by_cref> op_monad_unit;
 PSTADE_POD_CONSTANT((op_monad_unit), monad_unit) = {{}};
 
 

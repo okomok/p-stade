@@ -41,17 +41,25 @@
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.operatable_object">Operatable Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.bindable_object">Bindable Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.baby_function">Baby Function</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/forwarding_strategies.html">Forwarding Strategies</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_perfect">by_perfect</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_ref">by_ref</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_cref">by_cref</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_value">by_value</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types">Deducing
+      nullary return types</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/function_makers.html">Function Makers</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.function">function</a></span></dt>
-<dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.function_by_value">function_by_value</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.function_facade">function_facade</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.envelope">envelope</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.automatic">automatic</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.deferred">deferred</a></span></dt>
-<dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.generator">generator</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/function_adaptors.html">Function Adaptors</a></span></dt>
 <dd><dl>
@@ -68,12 +76,23 @@
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.ret">ret</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.perfect">perfect</a></span></dt>
 </dl></dd>
+<dt><span class="section"><a href="egg/object_generator.html">Object Generator</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.generator">generator</a></span></dt>
+<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.how_to_generate">How to generate</a></span></dt>
+<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.deducers">Deducers</a></span></dt>
+</dl></dd>
 <dt><span class="section"><a href="egg/utilities.html">Utilities</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.lambda_bind">lambda_bind</a></span></dt>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.lazy_lambda_bind"> lambda_Bind</a></span></dt>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.tuple_get">tuple_get</a></span></dt>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.tuple_pack">tuple_pack</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/configuration.html">Configuration</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/configuration.html#egg.configuration.max_arity">MAX_ARITY</a></span></dt>
+<dt><span class="section"><a href="egg/configuration.html#egg.configuration.flat_max_arity">FLAT_MAX_ARITY</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/version_history.html">Version History</a></span></dt>
 </dl>
@@ -259,6 +278,32 @@
 <tr>
 <td>
               <p>
+                <code class="computeroutput"><span class="identifier">_baby</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="egg/concepts.html#egg.concepts.baby_function" title="Baby Function">Baby Function</a>
+                object
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_Stg</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A type which is one of the <a href="egg/forwarding_strategies.html" title="Forwarding Strategies">Forwarding
+                Strageties</a>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
                 <code class="computeroutput"><span class="special">++</span></code>
               </p>
               </td>
@@ -268,37 +313,7 @@
               </p>
               </td>
 </tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">_MAX_ARITY</span></code>
-              </p>
-              </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">PSTADE_EGG_MAX_ARITY</span></code>,
-                which is <code class="computeroutput"><span class="number">5</span></code> by default.
-              </p>
-              </td>
-</tr>
 </tbody>
-</table></div>
-<div class="caution"><table border="0" summary="Caution">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="images/caution.png"></td>
-<th align="left">Caution</th>
-</tr>
-<tr><td align="left" valign="top">
-<p>
-          </p>
-<p>
-            You can replace <code class="computeroutput"><span class="identifier">PSTADE_EGG_MAX_ARITY</span></code>
-            up-to <code class="computeroutput"><span class="number">10</span></code>, but <code class="computeroutput"><span class="number">7</span></code> or more arity tends to make compile-time
-            very slow.
-          </p>
-<p>
-        </p>
-</td></tr>
 </table></div>
 <p>
         Also, assume that every expression is placed after:
@@ -311,7 +326,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: September 02, 2007 at 15:32:27 GMT</p></small></td>
+<td align="left"><small><p>Last revised: September 04, 2007 at 13:28:31 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

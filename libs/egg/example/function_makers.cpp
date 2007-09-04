@@ -13,7 +13,7 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/function_by_value.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/envelope.hpp>
 #include <pstade/egg/automatic.hpp>
@@ -79,7 +79,7 @@ struct baby_value_identity
     }
 };
 
-typedef function_by_value<baby_value_identity> op_value_identity;
+typedef function<baby_value_identity, by_value> op_value_identity;
 op_value_identity const value_identity = {{}};
 
 void test_function_by_value()
@@ -102,7 +102,7 @@ struct plus_to
     };
 
     template<class Result, class A>
-    Result call(A& a) const
+    Result call(A &a) const
     {
         return m_x + a;
     }
@@ -147,7 +147,7 @@ struct baby_size
     }
 
     template<class Result, class Container>
-    Result call_aux(Container& c, envelope<Result>) const
+    Result call_aux(Container &c, envelope<Result>) const
     {
         return c.size();
     }

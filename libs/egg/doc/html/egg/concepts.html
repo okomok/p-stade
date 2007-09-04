@@ -7,13 +7,13 @@
 <link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.0">
 <link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.0">
 <link rel="prev" href="../index.html" title="Chapter 1. Egg 0.90.0">
-<link rel="next" href="function_makers.html" title="Function Makers">
+<link rel="next" href="forwarding_strategies.html" title="Forwarding Strategies">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_makers.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="forwarding_strategies.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -22,13 +22,14 @@
 <dt><span class="section"><a href="concepts.html#egg.concepts.operatable_object">Operatable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.bindable_object">Bindable Object</a></span></dt>
+<dt><span class="section"><a href="concepts.html#egg.concepts.baby_function">Baby Function</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.operatable_object"></a><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></h3></div></div></div>
 <a name="egg.concepts.operatable_object.description"></a><h5>
-<a name="id431399"></a>
+<a name="id431380"></a>
         <a href="concepts.html#egg.concepts.operatable_object.description">Description</a>
       </h5>
 <p>
@@ -38,13 +39,13 @@
         <code class="computeroutput"><span class="identifier">op_</span></code>.
       </p>
 <a name="egg.concepts.operatable_object.refinement_of"></a><h5>
-<a name="id431455"></a>
+<a name="id431436"></a>
         <a href="concepts.html#egg.concepts.operatable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="egg.concepts.operatable_object.requirements"></a><h5>
-<a name="id431494"></a>
+<a name="id431476"></a>
         <a href="concepts.html#egg.concepts.operatable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -67,14 +68,14 @@
         </li>
 </ul></div>
 <a name="egg.concepts.operatable_object.models"></a><h5>
-<a name="id502152"></a>
+<a name="id502135"></a>
         <a href="concepts.html#egg.concepts.operatable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.operatable_object.see_also"></a><h5>
-<a name="id502184"></a>
+<a name="id502167"></a>
         <a href="concepts.html#egg.concepts.operatable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -85,7 +86,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.auxiliary_interface"></a><a href="concepts.html#egg.concepts.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></h3></div></div></div>
 <a name="egg.concepts.auxiliary_interface.description"></a><h5>
-<a name="id502238"></a>
+<a name="id502221"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.description">Description</a>
       </h5>
 <p>
@@ -95,14 +96,14 @@
         a <span class="emphasis"><em>member function</em></span>.
       </p>
 <a name="egg.concepts.auxiliary_interface.refinement_of"></a><h5>
-<a name="id502289"></a>
+<a name="id502272"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="egg.concepts.auxiliary_interface.requirements"></a><h5>
-<a name="id502329"></a>
+<a name="id502312"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.requirements">Requirements</a>
       </h5>
 <p>
@@ -129,14 +130,14 @@
         </li>
 </ul></div>
 <a name="egg.concepts.auxiliary_interface.models"></a><h5>
-<a name="id502647"></a>
+<a name="id502630"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.auxiliary_interface.see_also"></a><h5>
-<a name="id502680"></a>
+<a name="id502663"></a>
         <a href="concepts.html#egg.concepts.auxiliary_interface.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -146,7 +147,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.bindable_object"></a><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></h3></div></div></div>
 <a name="egg.concepts.bindable_object.description"></a><h5>
-<a name="id502734"></a>
+<a name="id502717"></a>
         <a href="concepts.html#egg.concepts.bindable_object.description">Description</a>
       </h5>
 <p>
@@ -155,12 +156,12 @@
         which can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
       </p>
 <a name="egg.concepts.bindable_object.refinement_of"></a><h5>
-<a name="id502808"></a>
+<a name="id502792"></a>
         <a href="concepts.html#egg.concepts.bindable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="egg.concepts.bindable_object.requirements"></a><h5>
-<a name="id502848"></a>
+<a name="id502831"></a>
         <a href="concepts.html#egg.concepts.bindable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -175,17 +176,70 @@
           a valid expression.
         </li></ul></div>
 <a name="egg.concepts.bindable_object.models"></a><h5>
-<a name="id503036"></a>
+<a name="id503020"></a>
         <a href="concepts.html#egg.concepts.bindable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.bindable_object.see_also"></a><h5>
-<a name="id503068"></a>
+<a name="id503051"></a>
         <a href="concepts.html#egg.concepts.bindable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.concepts.baby_function"></a><a href="concepts.html#egg.concepts.baby_function" title="Baby Function">Baby Function</a></h3></div></div></div>
+<a name="egg.concepts.baby_function.description"></a><h5>
+<a name="id503103"></a>
+        <a href="concepts.html#egg.concepts.baby_function.description">Description</a>
+      </h5>
+<p>
+        A <a href="concepts.html#egg.concepts.baby_function" title="Baby Function">Baby Function</a> type is
+        a type which <a href="function_makers.html" title="Function Makers">Function Makers</a> requires.
+      </p>
+<a name="egg.concepts.baby_function.refinement_of"></a><h5>
+<a name="id503150"></a>
+        <a href="concepts.html#egg.concepts.baby_function.refinement_of">Refinement of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.concepts.baby_function.requirements"></a><h5>
+<a name="id503180"></a>
+        <a href="concepts.html#egg.concepts.baby_function.requirements">Requirements</a>
+      </h5>
+<p>
+        For any <a href="concepts.html#egg.concepts.baby_function" title="Baby Function">Baby Function</a> type
+        <code class="computeroutput"><span class="identifier">B</span></code> the following must be met:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">B</span></code> has a nested class template
+          named <code class="computeroutput"><span class="identifier">apply</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">B</span></code> has a <span class="emphasis"><em>member
+          function</em></span> named <code class="computeroutput"><span class="identifier">call</span></code>
+          whose return type is explicitly specified by the first template parameter.
+        </li>
+</ul></div>
+<a name="egg.concepts.baby_function.models"></a><h5>
+<a name="id503284"></a>
+        <a href="concepts.html#egg.concepts.baby_function.models">Models</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.concepts.baby_function.see_also"></a><h5>
+<a name="id503315"></a>
+        <a href="concepts.html#egg.concepts.baby_function.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="function_makers.html" title="Function Makers">Function Makers</a></li>
+<li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li>
+</ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -207,7 +261,7 @@
 </td></tr>
 </table></div>
 <a name="egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id503141"></a>
+<a name="id503401"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.how_to_call">How to call</a>
       </h5>
 <p>
@@ -333,7 +387,7 @@
 <p>
       </p>
 <a name="egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id504319"></a>
+<a name="id504578"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -357,7 +411,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_makers.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="../index.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="forwarding_strategies.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

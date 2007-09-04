@@ -14,6 +14,8 @@
 #include <pstade/egg/use_constructor.hpp>
 #include <pstade/minimal_test.hpp>
 
+#include <pstade/egg/generator.hpp>
+
 
 #include <string>
 
@@ -39,6 +41,17 @@ struct your
 };
 
 
+
+struct nullary_check_pod0 { };
+struct nullary_check_pod1 { nullary_check_pod0 m; };
+pstade::egg::generator<nullary_check_pod0, nullary_check_pod0, pstade::egg::use_brace_level0>::type const
+    make_nullary_check_pod0 = PSTADE_EGG_GENERATOR;
+pstade::egg::generator<nullary_check_pod1, nullary_check_pod1, pstade::egg::use_brace_level1>::type const
+    make_nullary_check_pod1 = PSTADE_EGG_GENERATOR;
+pstade::egg::generator<nullary_check_pod0, nullary_check_pod0, pstade::egg::use_constructor>::type const
+    make_nullary_check_type = PSTADE_EGG_GENERATOR;
+
+
 void pstade_minimal_test()
 {
     std::string s1, s2("hello");
@@ -51,4 +64,11 @@ void pstade_minimal_test()
 
     your c = pstade::egg::use_constructor()(boost::type<your>(), s1, s2);
     BOOST_CHECK(c.s2 == "hello");
+
+
+    {
+        nullary_check_pod0 r0 = make_nullary_check_pod0();
+        nullary_check_pod1 r1 = make_nullary_check_pod1();
+        nullary_check_pod0 rt = make_nullary_check_type();
+    }
 }
