@@ -12,7 +12,7 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./function_by_value.hpp"
+#include "./by_value.hpp"
 
 
 namespace pstade { namespace egg {
@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
         struct baby
         {
             typedef
-                function_by_value<baby>
+                function<baby, by_value>
             nullary_result_type;
 
             template<class Result>
@@ -48,7 +48,7 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function_by_value<baby> op;
+        typedef function<baby, by_value> op;
 
 
         template<class A> inline

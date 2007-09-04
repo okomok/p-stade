@@ -97,6 +97,7 @@ struct result_of_range_based2
 typedef
     egg::generator<
         result_of_range_based2< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
+        boost::use_default,
         egg::use_brace_level1
     >::type
 op_range_based2;

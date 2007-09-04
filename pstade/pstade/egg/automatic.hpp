@@ -24,7 +24,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
-#include "./function_by_cref.hpp"
+#include "./by_cref.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
 
@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple const& args) const
+            Result call(ArgTuple& args) const
             {
                 // 'automator' must *copy* it to 'm_args';
                 // 'args' is destructed as soon as this 'call' returns.
@@ -77,18 +77,19 @@ namespace pstade { namespace egg {
     } // namespace automatic_detail
 
 
-    template<class Lambda>
+    template<class Lambda, class Pass = boost::use_default>
     struct automatic :
         result_of_unfuse<
-            function_by_cref< automatic_detail::baby_fused<Lambda> >,
+            function<automatic_detail::baby_fused<Lambda>, by_cref>,
             boost::use_default,
-            use_nullary_result
+            use_nullary_result,
+            Pass
         >
-    { }; // ::type = { { {{}}, {} } }
+    { };
 
 
     #define PSTADE_EGG_AUTOMATIC \
-        PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+        PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     /**/
 
 

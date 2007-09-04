@@ -16,6 +16,10 @@
 #include <boost/noncopyable.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include "./large_arity_id0.hpp"
+
+
+using namespace pstade::egg;
 
 
 int my_plus(boost::tuples::tuple<int const&, int const&, int const&> tup)
@@ -65,9 +69,30 @@ struct zero
 };
 
 
+struct op_fused_get0
+{
+    typedef int const &result_type;
+
+    template<class Tuple>
+    result_type operator()(Tuple t) const
+    {
+        return boost::tuples::get<0>(t);
+    }
+};
+
+result_of_unfuse<op_fused_get0, boost::use_default, boost::use_default, by_ref>::type const
+    id0r = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
+
+result_of_unfuse<op_fused_get0, boost::use_default, boost::use_default, by_cref>::type const
+    id0c = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
+
+result_of_unfuse<op_fused_get0, boost::use_default, boost::use_default, by_value>::type const
+    id0v = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
+
+
+
 void pstade_minimal_test()
 {
-    using namespace pstade::egg;
 
     {
         BOOST_CHECK(
@@ -102,7 +127,13 @@ void pstade_minimal_test()
         BOOST_CHECK( unfuse(&::take_nc)(x, y) == 3 );
     }
     {
-        result_of_unfuse< ::zero >::type x = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R;
+        result_of_unfuse< ::zero >::type x = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
         (void)x;
+    }
+    {
+        using namespace large_arity_helpers;
+        BOOST_CHECK(&(id0r(ci0,i1,i2,i3,i4,i5,i6,i7,i8,i9)) == &ci0);
+        BOOST_CHECK(&(id0c(ci0,1,2,3,4,5,6,7,8,9)) == &ci0);
+        BOOST_CHECK(id0v(i0,1,2,3,4,5,6,7,8,9) == i0);
     }
 }

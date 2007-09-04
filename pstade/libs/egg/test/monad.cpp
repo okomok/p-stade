@@ -47,7 +47,7 @@ struct baby_lookup
     }
 };
 
-result_of_curry2< function_by_value<baby_lookup> >::type
+result_of_curry2< function<baby_lookup, by_value> >::type
 const lookup = PSTADE_EGG_CURRY2_L {{}} PSTADE_EGG_CURRY2_R;
 
 

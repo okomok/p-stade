@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
             struct apply { };
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/parallel.hpp>))

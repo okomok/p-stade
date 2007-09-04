@@ -18,8 +18,8 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./function_by_cref.hpp"
-#include "./function_by_value.hpp"
+#include "./by_cref.hpp"
+#include "./by_value.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
 
@@ -39,12 +39,12 @@ namespace pstade { namespace egg {
             template<class Myself, class ArgTuple>
             struct apply :
                 result_of<
-                    typename result_of<op_fuse(Function const&)>::type(ArgTuple const&)
+                    typename result_of<op_fuse(Function const&)>::type(ArgTuple&)
                 >
             { };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple const& args) const
+            Result call(ArgTuple& args) const
             {
                 m_thunk();
                 return fuse(m_fun)(args);
@@ -55,20 +55,21 @@ namespace pstade { namespace egg {
     } // namespace before_detail
 
 
-    template<class Thunk, class Function>
+    template<class Thunk, class Function, class Pass = boost::use_default>
     struct result_of_before :
         result_of_unfuse<
-            function_by_cref< before_detail::baby_fused_result<Thunk, Function> >,
+            function<before_detail::baby_fused_result<Thunk, Function>, by_cref>,
             boost::use_default,
-            use_nullary_result
+            use_nullary_result,
+            Pass
         >
-    { }; // ::type = { { { { Thunk, Function } }, {} } };
+    { };
 
 
-    // PSTADE_EGG_UNFUSE_L { { T, F } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    // PSTADE_EGG_UNFUSE_L { { T, F } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_BEFORE_L PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_BEFORE_M ,
-    #define PSTADE_EGG_BEFORE_R } } PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_BEFORE_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
 
 
     namespace before_detail {
@@ -93,7 +94,7 @@ namespace pstade { namespace egg {
     } // namespace before_detail
 
 
-    typedef egg::function_by_value<before_detail::baby> op_before;
+    typedef egg::function<before_detail::baby, by_value> op_before;
     PSTADE_POD_CONSTANT((op_before), before) = {{}};
 
 

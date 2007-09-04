@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_AUXILIARY1_TO_HPP
-#define PSTADE_EGG_AUXILIARY1_TO_HPP
+#ifndef PSTADE_EGG_AUXILIARY_HPP
+#define PSTADE_EGG_AUXILIARY_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -142,7 +142,7 @@ namespace pstade { namespace egg {
             return m_base;
         }
 
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
         struct apply { };
 
     // as pipe
@@ -151,7 +151,7 @@ namespace pstade { namespace egg {
             result_of<
                 typename result_of<op_pipable(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
             >
-        { };    
+        { };
 
         template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
         Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const

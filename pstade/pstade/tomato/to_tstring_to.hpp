@@ -11,7 +11,7 @@
 
 
 #include <pstade/egg/auxiliary.hpp>
-#include <pstade/egg/function_by_cref.hpp>
+#include <pstade/egg/by_cref.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/tstring.hpp>
 #include <pstade/oven/copied.hpp>
@@ -46,7 +46,7 @@ namespace pstade { namespace tomato {
             };
 
             template<class Result, class WideCharSeq>
-            Result call(WideCharSeq const& from) const
+            Result call(WideCharSeq& from) const
             {
 #if defined(_UNICODE)
                 return from|oven::copied;
@@ -57,7 +57,7 @@ namespace pstade { namespace tomato {
         };
 
 
-        typedef egg::function_by_cref<baby> op;
+        typedef egg::function<baby, egg::by_cref> op;
 
 
     } // namespace to_string_detail

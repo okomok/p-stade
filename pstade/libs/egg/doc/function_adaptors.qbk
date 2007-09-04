@@ -51,15 +51,15 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [`res`]
     ]
     [
-        [`res(x(1),...,x(N+1))`]
-        [`_dco(x(1),...,x(N+1))`]
+        [`res(a(1),...,a(N+1))`]
+        [`_dco(_arg_seq(a, _Stg))`]
     ]
 ]
 
 [heading Preconditions]
-* `N+1` is the arity of `_Dco` such that `0 <= N && N <= 5`.
+* `N+1` is the arity of `_Dco` such that `0 <= N && N <= PSTADE_EGG_MAX_ARITY`.
 * `_Dco d = init;` is a valid expression.
-* `_dco(x(1),...,x(N+1))` is a valid expression.
+* The corresponding expression is a valid expression.
 
 [heading Invariants]
 * If `_Dco` is /POD/, `result_of_auxiliary++N<_Dco>::type` is /POD/.
@@ -91,7 +91,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_compose1<_typeof(_dco1),_typeof(_dco2)>::type`  initialized using `_dco1` and `_dco2`.
+* `res(_Stg)` is an object of `result_of_compose1<_typeof(_dco1),_typeof(_dco2), R0, _Stg>::type`  initialized using `_dco1` and `_dco2`.
 
 [heading Valid expressions]
 [table 
@@ -100,36 +100,37 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [[*Semantics]]
     ]
     [
-        [`result_of_compose1<_Dco1, _Dco2>::type`]
+        [`result_of_compose1<_Dco1, _Dco2, R0 = boost::use_default, _Stg = boost::use_default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_COMPOSE1_L init1 PSTADE_EGG_COMPOSE1_M init2 PSTADE_EGG_COMPOSE1_R`]
-        [A braced initializer of `result_of_compose1<_Dco1, _Dco2>::type`]
+        [A braced initializer of `result_of_compose1<_Dco1, _Dco2, R0, _Stg>::type`]
     ]
     [
         [`compose1(_dco1, _dco2)`]
-        [`res`]
+        [`res(boost::use_default)`]
     ]
     [
-        [`res(x1,...,xN)`]
-        [`_dco1(_dco2(x1,...,xN))`]
+        [`res(Stg)(a1,...,aN)`]
+        [`_dco1(_dco2(_arg_seq(a, _Stg)))`]
     ]
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 5`.
+* `0 <= N && N <= 10`.
 * `_Dco1 d1 = init1; _Dco2 d2 = init2;` is a valid expression.
-* `_dco1(_dco2(x1,...,xN))` is a valid expression.
+* The corresponding expression is a valid expression.
+* `_deduce_r0(R0, _dco1(_dco2()))` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
-* If `_Dco1` and `_Dco2` is /POD/, `result_of_compose1<_Dco1, _Dco2>::type` is /POD/.
+* If `_Dco1` and `_Dco2` is /POD/, `result_of_compose1<_Dco1, _Dco2, R0, _Stg>::type` is /POD/.
 
 [heading Example]
 ...
 
 [heading See also]
-* ...
+* __EGG_DEDUCING_NULLARY_RETURN_TYPE__
 
 [endsect]
 
@@ -174,15 +175,15 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [`res`]
     ]
     [
-        [`res(x1)...(xN)`]
-        [`_dco(x1,...,xN)`]
+        [`res(a1)...(aN)`]
+        [`_dco(_arg_seq(a, by_cref))`]
     ]
 ]
 
 [heading Preconditions]
 * `N` is the arity of `_Dco` such that `2 <= N && N <= 5`.
 * `_Dco d = init;` is a valid expression.
-* `_dco(x1,...,xN)` is a valid expression.
+* The corresponding expression is a valid expression.
 
 [heading Invariants]
 * If `_Dco` is /POD/, `result_of_curry++N<_Dco>::type` is /POD/.
@@ -212,7 +213,8 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_uncurry<_typeof(_dco)>::type` initialized using `_dco`.
+* `res(_Stg)` is an object of `result_of_uncurry<_typeof(_dco), _Stg>::type` initialized using `_dco`.
+* `parens(b1,...,bN)` is `(b1)(b2),...,(bN)`.
 
 [heading Valid expressions]
 [table 
@@ -221,7 +223,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [[*Semantics]]
     ]
     [
-        [`result_of_uncurry<_Dco>::type`]
+        [`result_of_uncurry<_Dco, _Stg = boost::use_default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
@@ -230,18 +232,18 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`uncurry(_dco)`]
-        [`res`]
+        [`res(boost::use_default)`]
     ]
     [
-        [`res(x1,...,xN)`]
-        [`_dco(x1)...(xN)`]
+        [`res(_Stg)(a1,...,aN)`]
+        [`_dco(parens(_arg_seq(a, _Stg)))`]
     ]
 ]
 
 [heading Preconditions]
-* `2 <= N && N <= 5`.
+* `2 <= N && N <= PSTADE_EGG_MAX_ARITY`.
 * `_Dco d = init;` is a valid expression.
-* `_dco(x1)...(xN)` is a valid expression.
+* The corresponding expression is a valid expression.
 
 [heading Invariants]
 * If `_Dco` is /POD/, `result_of_uncurry<_Dco>::type` is /POD/.
@@ -269,6 +271,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading Notation]
 * `res` is an object of `result_of_fuse<_typeof(_dco)>::type` initialized using `_dco`.
+* `t_` is `_arg_seq(t, by_perfect)`, where `t` is regared as one element token sequence.
 
 [heading Valid expressions]
 [table 
@@ -290,7 +293,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`res(t)`]
-        [`_dco(boost::get<0>(t),...,boost::get<N-1>(t))`]
+        [`_dco(boost::get<0>(t_),...,boost::get<N-1>(t_))`]
     ]
     [
         [`res(t0)`]
@@ -320,6 +323,8 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading Description]
 `unfuse` reverses `fuse`.
+The technique using `fuse` and `unfuse` (I call it "fusing")
+might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
 
 [heading Header]
 * `<pstade/egg/unfuse.hpp>`
@@ -329,7 +334,8 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_unfuse<_typeof(_dco)>::type` initialized using `_dco`.
+* `res(_Stg)` is an object of `result_of_unfuse<_typeof(_dco), Pack, R0, _Stg>::type` initialized using `_dco`.
+* `ref(b1,...,bN)` is `b1&,...,bN&`.
 
 [heading Valid expressions]
 [table 
@@ -338,27 +344,29 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [[*Semantics]]
     ]
     [
-        [`result_of_unfuse<_Dco>::type`]
+        [`result_of_unfuse<_Dco, Pack = boost::use_default, R0 = boost::use_default, _Stg>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_UNFUSE_L init PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R`]
-        [A braced initializer of `result_of_unfuse<_Dco>::type`]
+        [`PSTADE_EGG_UNFUSE_L init PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R`]
+        [A braced initializer of `result_of_unfuse<_Dco, Pack, R0, _Stg>::type`]
     ]
     [
         [`unfuse(_dco)`]
-        [`res`]
+        [`res(boost::use_default)`]
     ]
     [
-        [`res(a1,...,aN)`]
-        [`_dco(boost::tuple<_decltype(a1),..._decltype(aN)>(a1,...,aN))`]
+        [`res(_Stg)(a1,...,aN)`]
+        [`_dco( boost::tuples::tuple<ref(_meta_arg_seq(a, by_ref))>(_arg_seq(a, _Stg)) )`]
     ]
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 5`.
+* `0 <= N && N <= 10`.
+* `Pack` is `boost::use_default` (for now).
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
+* `_deduce_r0(R0, `_decltype(_dco( boost::tuples::tuple<>() ))` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
 * If `_Dco` is /POD/, `result_of_unfuse<_Dco>::type` is /POD/.
@@ -369,6 +377,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 [heading See also]
 * [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adaptors]
 * __EGG_FUSE__
+* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
 
 [endsect]
 
@@ -388,7 +397,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_indirect<_typeof(Pco)>::type` initialized using `pco`.
+* `res(_Stg)` is an object of `result_of_indirect<_typeof(Pco), _Stg>::type` initialized using `pco`.
 
 [heading Valid expressions]
 [table 
@@ -397,25 +406,24 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [[*Semantics]]
     ]
     [
-        [`result_of_indirect<Pco>::type`]
+        [`result_of_indirect<Pco, _Stg = boost::use_default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_INDIRECT_L init PSTADE_EGG_INDIRECT_R`]
-        [A braced initializer of `result_of_indirect<Pco>::type`]
+        [A braced initializer of `result_of_indirect<Pco, _Stg>::type`]
     ]
     [
         [`indirect(pco)`]
-        [`res`]
+        [`res(boost::use_default)`]
     ]
     [
-        [`res(a1,...,aN)`]
-        [`(*pco)(a1,...,aN)`]
+        [`res(_Stg)(a1,...,aN)`]
+        [`(*pco)(_arg_seq(a, _Stg))`]
     ]
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 5`.
 * `boost::pointee<Pco>::type` is __DEFERRED_CALLABLE_OBJECT__ type.
 * `Pco p = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
@@ -467,12 +475,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`res(a1,...,aN)`]
-        [`boost::lambda::bind(_dco, a1,...,aN)`]
+        [`boost::lambda::bind(_dco, _arg_seq(a, by_cref))`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= 9`.
+* `0 <= N && N <= PSTADE_EGG_FLAT_MAX_ARITY-1`.
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression, meaning that `_Dco` is a __BINDABLE_OBJECT__ type.
 
@@ -514,17 +522,17 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_dco)(a1)`]
-        [`_dco(fixed, a1)`]
+        [`_dco(fixed, _arg_seq(a, by_cref))`]
     ]
 ]
 
-[note `memoize` doesn't offer the way to /static-initialize/ a memoized __FUNCTION_OBJECT__.]
+[note `memoize` can't offer the way to /static-initialize/ a memoized __FUNCTION_OBJECT__.]
 
 [heading Preconditions]
 * The corresponding semantics is a valid expression.
 * A __FUNCTION_OBJECT__ returned from `memoize(_dco)` must always be called with the same type arguments.
 * `_typeof(a1)` is __ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
-* `_decltype(_dco(fixed, a1))` is __COPY_CONSTRUCTIBLE__.
+* `_decltype( _dco(fixed, _arg_seq(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
 
 [heading Example]
 [code_memoize_example]
@@ -550,7 +558,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_pipable<_typeof(_dco)>::type` initialized using `_dco`.
+* `res(_Stg)` is an object of `result_of_pipable<_typeof(_dco), _Stg>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -559,25 +567,24 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_pipable<_Dco>::type`]
+        [`result_of_pipable<_Dco, _Stg = boost::use_default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_PIPABLE_L init PSTADE_EGG_PIPABLE_R`]
-        [A braced initializer of `result_of_pipable<_Dco>::type`]
+        [A braced initializer of `result_of_pipable<_Dco, _Stg>::type`]
     ]
     [
         [`pipable(_dco)`]
-        [`res`]
+        [`res(boost::use_default)`]
     ]
     [
-        [`a0|res(a1,...,aN)`]
-        [`_dco(a0,...,aN)`]
+        [`a1|res(_Stg)(a2,...,aN)`]
+        [`_dco(_arg_seq(a, _Stg))`]
     ]
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= _MAX_ARITY`.
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -609,7 +616,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * ...
 
 [heading Notation]
-* `res` is an object of `result_of_ret<_typeof(fun), Result>::type` initialized using `fun`.
+* `res(_Stg)` is an object of `result_of_ret<_typeof(fun), R, _Stg>::type` initialized using `fun`.
 
 [heading Valid expressions]
 [table 
@@ -618,40 +625,39 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_ret<Fun, Result = boost::use_default>::type`]
+        [`result_of_ret<Fun, R = boost::use_default, _Stg = boost::use_default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_RET_L init PSTADE_EGG_RET_R`]
-        [A braced initializer of `result_of_ret<Fun, Result>::type`]
+        [A braced initializer of `result_of_ret<Fun, R, _Stg>::type`]
     ]
     [
-        [`xp_ret<Result = boost::use_default>`]
+        [`xp_ret<R = boost::use_default>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`xp_ret<Result = boost::use_default>()(fun)`]
-        [`res`]
+        [`xp_ret<R = boost::use_default>()(fun)`]
+        [`res(boost::use_default)`]
     ]
     [
-        [`res(a1,...,aN)`]
-        [`fun(a1,...,aN))`]
+        [`res(_Stg)(a1,...,aN)`]
+        [`fun(_arg_seq(a, _Stg))`]
     ]
     [
-        [`egg::ret<Result>(fun)`]
-        [`xp_ret<Result>()(fun)`]
+        [`egg::ret<R>(fun)`]
+        [`xp_ret<R>()(fun)`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _MAX_ARITY`.
 * `Fun` is a __FUNCTION_OBJECT__ type.
-* If `Result` is `boost::use_default`, `Fun` must be a __DEFERRED_CALLABLE_OBJECT__ type.
+* If `R` is `boost::use_default`, `Fun` must be a __DEFERRED_CALLABLE_OBJECT__ type.
 * `Fun f = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* If `Fun` is /POD/, `result_of_ret<Fun, Result>::type` is /POD/.
+* If `Fun` is /POD/, `result_of_ret<Fun, R, _Stg>::type` is /POD/.
 
 [heading Example]
 ...
@@ -667,7 +673,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [section perfect]
 
 [heading Description]
-`perfect` does the "perfect forwarding".
+`perfect` performs the "perfect forwarding".
 
 [heading Header]
 * `<pstade/egg/perfect.hpp>`
@@ -677,7 +683,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* ...
+* `res` is an object of `result_of_perfect<_typeof(_dco)>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -695,7 +701,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`perfect`]
-        [`xp_ret<>()`]
+        [`res`]
     ]
 ]
 

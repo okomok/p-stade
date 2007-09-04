@@ -12,7 +12,7 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/egg/function.hpp> // inclusion guaranteed
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>

@@ -16,8 +16,7 @@
 // Converts a poor functor type holding 'sig'
 // into the function which supports 'boost::result_of'.
 //
-// For "big" arity, this use 'function_by_ref<>' instead 'function<>',
-// hence can't take non-const-rvalue.
+// For "big" arity, this use 'by_ref', hence can't take non-const-rvalue.
 //
 // As we can't detect the arity without 'lambda::bind',
 // a nullary-callable function must be identified by 'defer_nullary_sig'.
@@ -25,8 +24,8 @@
 
 #include <boost/mpl/bool.hpp>
 #include <pstade/pod_constant.hpp>
+#include "./by_ref.hpp"
 #include "./detail/baby_defer_sig_result.hpp"
-#include "./function_by_ref.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
 
@@ -38,7 +37,7 @@ namespace pstade { namespace egg {
     struct result_of_defer_sig
     {
         typedef
-            function_by_ref< detail::baby_defer_sig_result<SigFun, boost::mpl::false_> >
+            function<detail::baby_defer_sig_result<SigFun, boost::mpl::false_>, by_ref>
         type;
     };
 
@@ -60,7 +59,7 @@ namespace pstade { namespace egg {
     struct result_of_defer_nullary_sig
     {
         typedef
-            function_by_ref< detail::baby_defer_sig_result<SigFun, boost::mpl::true_> >
+            function<detail::baby_defer_sig_result<SigFun, boost::mpl::true_>, by_ref>
         type;
     };
 

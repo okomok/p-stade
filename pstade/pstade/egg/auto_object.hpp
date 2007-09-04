@@ -14,7 +14,7 @@
 #include <memory> // auto_ptr
 #include <pstade/any_movable.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./function_by_cref.hpp"
+#include "./by_cref.hpp"
 #include "./fuse.hpp"
 #include "./new.hpp"
 #include "./unfuse.hpp"
@@ -66,14 +66,14 @@ namespace pstade { namespace egg {
             };
 
             template<class Result, class ArgTuple>
-            Result call(ArgTuple const& args) const
+            Result call(ArgTuple& args) const
             {
                 return Result(args); 
             }
         };
 
 
-        typedef function_by_cref<baby_fused> fused;
+        typedef function<baby_fused, by_cref> fused;
 
 
     } // namespace auto_object_detail

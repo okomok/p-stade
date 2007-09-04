@@ -28,8 +28,8 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../tuple/pack.hpp"
+#include "./tuple_config.hpp"
 #include "./use_nullary_result.hpp"
 
 
@@ -57,7 +57,7 @@ namespace pstade { namespace egg { namespace detail {
     struct baby_unfuse_result
     {
         typedef Base base_type;
-        typedef typename if_use_default<Pack, op_tuple_pack>::type pack_type;
+        typedef typename if_use_default<Pack, op_tuple_pack_by_ref>::type pack_type;
 
         Base m_base;
         pack_type m_pack;
@@ -82,10 +82,10 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_TUPLE_MAX_ARITY, A)>
         struct apply { }; // msvc warns if incomplete.
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/baby_unfuse_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_ARITY, <pstade/egg/detail/baby_unfuse_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

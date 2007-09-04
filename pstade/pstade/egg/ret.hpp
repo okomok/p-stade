@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/adl_barrier.hpp>
 #include "./detail/baby_ret_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
@@ -21,11 +22,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Base, class ResultType = boost::use_default>
+    template<class Base, class ResultType = boost::use_default, class Pass = boost::use_default>
     struct result_of_ret
     {
         typedef
-            function< detail::baby_ret_result<Base, ResultType> >
+            function<detail::baby_ret_result<Base, ResultType>, Pass>
         type;
     };
 
@@ -50,7 +51,9 @@ namespace pstade { namespace egg {
     { };
 
 
-    PSTADE_EGG_SPECIFIED1(ret, xp_ret, (class))
+    PSTADE_ADL_BARRIER(ret) { // for 'boost'
+        PSTADE_EGG_SPECIFIED1(ret, xp_ret, (class))
+    }
 
 
 } } // namespace pstade::egg

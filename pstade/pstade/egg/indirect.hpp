@@ -28,10 +28,10 @@
 namespace pstade { namespace egg {
 
 
-    template<class Dereferenceable>
+    template<class Dereferenceable, class Pass = boost::use_default>
     struct result_of_indirect
     {
-        typedef function< detail::baby_indirect_result<Dereferenceable> > type;
+        typedef function<detail::baby_indirect_result<Dereferenceable>, Pass> type;
     };
 
 

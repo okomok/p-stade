@@ -12,7 +12,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/mpl/bool.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
@@ -26,7 +25,6 @@
 #include "./detail/nonref_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
-#include "./nullary_result_of.hpp"
 #include "./sig_template.hpp"
 
 
@@ -34,7 +32,7 @@ namespace pstade { namespace egg {
 
 
     template<class Baby>
-    struct function
+    struct function<Baby, boost::use_default>
     {
         typedef Baby baby_type;
 
@@ -52,7 +50,7 @@ namespace pstade { namespace egg {
 
         nullary_result_type operator()() const
         {
-            return m_baby.BOOST_NESTED_TEMPLATE call<
+            return m_baby.template call<
                 nullary_result_type
             >();
         }
@@ -72,7 +70,7 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
         operator()(Params) const \
         { \
-            return m_baby.BOOST_NESTED_TEMPLATE call< \
+            return m_baby.template call< \
                 typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
@@ -101,9 +99,6 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, (class))
-
-
 #endif
 #else
 #define n BOOST_PP_ITERATION()
@@ -112,7 +107,7 @@ PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, (class))
 private:
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
-        Baby::BOOST_NESTED_TEMPLATE apply<
+        Baby::template apply<
             Baby,
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::nonref_arg<A, >::type)
         >

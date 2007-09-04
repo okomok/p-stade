@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
+#include <boost/config.hpp> // BOOST_MSVC, template
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/copy.hpp>
@@ -76,7 +76,7 @@ struct xp_copy_range
         PSTADE_CONCEPT_ASSERT((SinglePass<To>));
         PSTADE_CONCEPT_ASSERT((SinglePass<From>));
 
-        return pstade_oven_extension::Range<To>().BOOST_NESTED_TEMPLATE copy<To>(
+        return pstade_oven_extension::Range<To>().template copy<To>(
             copy_range_detail::to_strictly_convertibles<
                 typename remove_cvr<typename range_reference<From>::type>::type,
                 typename range_value<To>::type

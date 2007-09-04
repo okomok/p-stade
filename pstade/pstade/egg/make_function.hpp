@@ -12,8 +12,7 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./function.hpp"
-#include "./function_by_value.hpp"
+#include "./by_value.hpp"
 
 
 namespace pstade { namespace egg {
@@ -22,12 +21,13 @@ namespace pstade { namespace egg {
     namespace make_function_detail {
 
 
+        template<class Pass>
         struct baby
         {
             template<class Myself, class Baby>
             struct apply
             {
-                typedef function<Baby> type;
+                typedef function<Baby, Pass> type;
             };
 
             template<class Result, class Baby>
@@ -42,7 +42,22 @@ namespace pstade { namespace egg {
     } // namespace make_function_detail
 
 
-    typedef function_by_value<make_function_detail::baby> op_make_function;
+    template<class Pass = boost::use_default>
+    struct tp_make_function
+    {
+        typedef
+            function<make_function_detail::baby<Pass>, by_value>
+        type;
+    };
+
+
+    template<class Pass = boost::use_default>
+    struct xp_make_function :
+        tp_make_function<Pass>::type
+    { };
+
+
+    typedef tp_make_function<>::type op_make_function;
     PSTADE_POD_CONSTANT((op_make_function), make_function) = {{}};
 
 

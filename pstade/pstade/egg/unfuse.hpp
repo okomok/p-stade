@@ -24,19 +24,22 @@ namespace pstade { namespace egg {
     template<
         class Base,
         class Pack          = boost::use_default,
-        class NullaryResult = boost::use_default
+        class NullaryResult = boost::use_default,
+        class Pass          = boost::use_default
     >
     struct result_of_unfuse
     {
         typedef
-            function< detail::baby_unfuse_result<Base, Pack, NullaryResult> >
+            function<detail::baby_unfuse_result<Base, Pack, NullaryResult>, Pass>
         type; // = { { Base, Pack } };
     };
 
 
     #define PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_UNFUSE_M ,
+    #define PSTADE_EGG_UNFUSE_DEFAULT_PACK {{}}
     #define PSTADE_EGG_UNFUSE_R } }
+
 
 
     template<class NullaryResult = boost::use_default>

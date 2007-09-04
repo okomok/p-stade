@@ -15,6 +15,7 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/limits/arity.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -26,7 +27,6 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../use_constructor.hpp"
 #include "./template_arguments.hpp"
 
@@ -61,7 +61,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<
         class Lambda,
-        PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_ARITY, class A, = void)
+        PSTADE_PP_ENUM_PARAMS_WITH(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, class A, = void)
     >
     struct generated_object
     {
@@ -70,9 +70,9 @@ namespace pstade { namespace egg { namespace detail {
         lambda_t;
 
         typedef typename
-            boost::mpl::BOOST_PP_CAT(apply, PSTADE_EGG_MAX_ARITY)<
+            boost::mpl::BOOST_PP_CAT(apply, BOOST_MPL_LIMIT_METAFUNCTION_ARITY)<
                 typename to_substitute<lambda_t>::type,
-                BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, A)
+                BOOST_PP_ENUM_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)
             >::type
         alt_object_t;
 
@@ -85,11 +85,11 @@ namespace pstade { namespace egg { namespace detail {
     // Even if using 'to_substitute', 'NullaryResult' must be explicitly specified.
     // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
 
-    template<class Lambda, class NullaryResult, class How>
+    template<class Lambda, class NullaryResult, class Make>
     struct baby_generator
     {
         typedef typename
-            if_use_default<How, use_constructor>::type
+            if_use_default<Make, use_constructor>::type
         how_t;
 
     // 0ary
@@ -98,14 +98,14 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result>
         Result call() const
         {
-            return Result();
+            return how_t()(boost::type<Result>());
         }
 
      // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct apply { }; // msvc warns if incomplete.
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/baby_generator.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/baby_generator.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

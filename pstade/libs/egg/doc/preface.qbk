@@ -98,16 +98,18 @@ This document uses the following notation.
         [A __DEFERRED_CALLABLE_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
     ]
     [
+        [`_baby`]
+        [A __BABY_FUNCTION__ object]
+    ]
+    [
+        [`_Stg`]
+        [A type which is one of the __EGG_FORWARDING_STRATEGIES__.]
+    ]
+    [
         [`++`]
         [An imaginary operator to concatenate tokens.]
     ]
-    [
-        [`_MAX_ARITY`]
-        [`PSTADE_EGG_MAX_ARITY`, which is `5` by default.]
-    ]
 ]
-
-[caution You can replace `PSTADE_EGG_MAX_ARITY` up-to `10`, but `7` or more arity tends to make compile-time very slow.]
 
 Also, assume that every expression is placed after:
 

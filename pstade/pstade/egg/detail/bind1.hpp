@@ -22,12 +22,13 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
+#include "../by_cref.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../function.hpp"
-#include "../function_by_cref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -47,7 +48,7 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
         struct apply { }; // msvc warns if incomplete.
 
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
@@ -76,18 +77,21 @@ namespace pstade { namespace egg { namespace detail {
     {
         template<class Myself, class Base, class Arg>
         struct apply :
-            result_of_bind1<Base, Arg>
+            result_of_bind1<
+                typename boost::remove_cv<Base>::type,
+                typename boost::remove_cv<Arg>::type
+            >
         { };
 
         template<class Result, class Base, class Arg>
-        Result call(Base const& base, Arg const& arg) const
+        Result call(Base& base, Arg& arg) const
         {
             Result r = PSTADE_EGG_DETAIL_BIND1_L base PSTADE_EGG_DETAIL_BIND1_M arg PSTADE_EGG_DETAIL_BIND1_R;
             return r;
         }
     };
 
-    typedef function_by_cref<baby_bind1> op_bind1;
+    typedef function<baby_bind1, by_cref> op_bind1;
     PSTADE_POD_CONSTANT((op_bind1), bind1) = {{}};
 
 

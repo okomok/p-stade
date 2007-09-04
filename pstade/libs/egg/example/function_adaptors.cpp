@@ -103,8 +103,8 @@ void test_lazy()
     BOOST_CHECK( my_Plus(bll::_1, 3)(bll::make_const(2)) == 2+3 );
 
     int two = 2, four = 4;
-    BOOST_CHECK( my_Plus(my_Plus(bll::_1, 2), my_Plus(bll::_2, bll::_1))
-        (two, four) == (2+2)+(4+2) );
+    BOOST_CHECK( my_Plus(my_Plus(bll::_1, 3), my_Plus(bll::_2, bll::_1))
+        (two, four) == (2+3)+(4+2) );
 }
 //]
 

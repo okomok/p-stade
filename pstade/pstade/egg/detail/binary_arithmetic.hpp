@@ -24,11 +24,11 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/type_traits/detail/yes_no_type.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
-#include "../function_by_cref.hpp"
+#include "../by_cref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -71,17 +71,19 @@ namespace pstade { namespace egg { namespace detail {
     { \
         template<class Myself, class X, class Y> \
         struct apply : \
-            BOOST_PP_CAT(result_of_, F)<X, Y> \
+            BOOST_PP_CAT(result_of_, F)< \
+                typename boost::remove_cv<X>::type, typename boost::remove_cv<Y>::type \
+            > \
         { }; \
         \
         template<class Result, class X, class Y> \
-        Result call(X const& x, Y const& y) const \
+        Result call(X& x, Y& y) const \
         { \
             return x Op y; \
         } \
     }; \
     \
-    typedef function_by_cref<BOOST_PP_CAT(baby_, F)> BOOST_PP_CAT(op_, F); \
+    typedef function<BOOST_PP_CAT(baby_, F), by_cref> BOOST_PP_CAT(op_, F); \
     PSTADE_ADL_BARRIER(F) { \
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, F)), F) = {{}}; \
     } \

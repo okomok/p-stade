@@ -11,10 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
 #include "./function.hpp"
-#include "./function_by_cref.hpp"
+#include "./by_cref.hpp"
 
 
 namespace pstade { namespace egg {
@@ -44,11 +45,11 @@ namespace pstade { namespace egg {
             template<class Myself, class X>
             struct apply
             {
-                typedef X const& type;
+                typedef X& type;
             };
 
             template<class Result, class X>
-            Result call(X const& x) const
+            Result call(X& x) const
             {
                 return x;
             }
@@ -60,7 +61,7 @@ namespace pstade { namespace egg {
             template<class Myself, class X>
             struct apply
             {
-                typedef X& type;
+                typedef typename boost::remove_cv<X>::type& type;
             };
 
             template<class Result, class X>
@@ -72,8 +73,8 @@ namespace pstade { namespace egg {
 
 
         typedef function<baby>  op;
-        typedef function_by_cref<cbaby> cop;
-        typedef function_by_cref<mbaby> mop;
+        typedef function<cbaby, by_cref> cop;
+        typedef function<mbaby, by_cref> mop;
 
 
     } // namespace to_ref_detail

@@ -49,6 +49,8 @@ Distributed under the Boost Software License, Version 1.0.
 [def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
 [def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826  callable]]
 
+[def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
+
 
 
 
@@ -59,9 +61,15 @@ Distributed under the Boost Software License, Version 1.0.
 [def __AUXILIARY_INTERFACE__ [link egg.concepts.auxiliary_interface Auxiliary Interface]]
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]
 [def __BINDABLE__ [link egg.concepts.bindable_object Bindable]]
+[def __BABY_FUNCTION__ [link egg.concepts.baby_function Baby Function]]
 
+[def __EGG_FORWARDING_STRATEGIES__ [link egg.forwarding_strategies Forwarding Strageties]]
+[def __EGG_DEDUCING_NULLARY_RETURN_TYPES__ [link egg.forwarding_strategies.deducing_nullary_return_types Deducing nullary return types]]
+[def __EGG_HOW_TO_GENERATE__ [link egg.object_generator.how_to_generate How to generate]]
+
+[def __EGG_FUNCTION_MAKERS__ [link egg.function_makers Function Makers]]
+[def __EGG_FUNCTION_ADAPTORS__ [link egg.function_adaptors Function Adaptors]]
 [def __EGG_FUNCTION__ [link egg.function_makers.function function]]
-[def __EGG_FUNCTION_BY_VALUE__ [link egg.function_makers.function_by_value function_by_value]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_makers.function_facade function_facade]]
 
 [def __EGG_AUXILIARY__ [link egg.function_adaptors.auxiliaryn auxiliaryN]]
@@ -71,15 +79,21 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse unfuse]]
 [def __EGG_LAZY__ [link egg.function_adaptors.lazy lazy]]
 [def __EGG_PIPABLE__ [link egg.function_adaptors.pipable pipable]]
+[def __EGG_LAMBDA_BIND__ [link egg.utilities.lambda_bind lambda_bind]]
+[def __EGG_LAZY_LAMBDA_BIND__ [link egg.utilities.lazy_lambda_bind lambda_Bind]]
 
+[def __EGG_GENERATOR__ [link egg.object_generator.generator Generator]]
 
 
 
 [include preface.qbk]
 [include concepts.qbk]
+[include forwarding_strategies.qbk]
 [include function_makers.qbk]
 [include function_adaptors.qbk]
+[include object_generator.qbk]
 [include utilities.qbk]
+[include configuration.qbk]
 [include version_history.qbk]
 
 

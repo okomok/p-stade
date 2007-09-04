@@ -18,6 +18,7 @@
 
 
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/limits/arity.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/void.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -26,7 +27,6 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -41,11 +41,11 @@ namespace pstade { namespace egg { namespace detail {
     #undef  PSTADE_typedef_default_arg
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct apply { }; // msvc warns if incomplete.
 
     #define PSTADE_typedef_arg(Z, N, _) typedef BOOST_PP_CAT(A, N) BOOST_PP_CAT(arg, N);
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/baby_deferred.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/baby_deferred.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_typedef_arg
     };

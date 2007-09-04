@@ -22,9 +22,9 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/egg/envelope.hpp>
-#include <pstade/egg/function_by_value.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./iter_range.hpp"
@@ -148,7 +148,7 @@ template<
 >
 struct tp_counting
 {
-    typedef egg::function_by_value< counting_detail::baby<Traversal, Difference> > type;
+    typedef egg::function<counting_detail::baby<Traversal, Difference>, egg::by_value> type;
 };
 
 

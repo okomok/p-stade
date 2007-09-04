@@ -18,7 +18,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/pair_fwd.hpp>
 #include "../config.hpp"
-#include "../detail/is_boost_tuple.hpp"
+#include "./detail/is_boost_tuple.hpp"
 
 #if defined(PSTADE_EGG_SUPPORTS_FUSION_SEQUENCE)
     #include <boost/fusion/sequence/intrinsic/mpl.hpp> // lets FusionSequence be MPLSequence
@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
 
         template<class Tuple>
         struct aux :
-            boost::mpl::eval_if< detail::is_boost_tuple<Tuple>,
+            boost::mpl::eval_if< tuple_detail::is_boost_tuple<Tuple>,
                 boost_tuple_size<Tuple>,
                 boost::mpl::size<Tuple>
             >::type

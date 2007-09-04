@@ -19,12 +19,20 @@ namespace pstade { namespace egg { namespace detail {
 
 
     // Add const-qualifier if rvalue is specified.
-
     template<class A>
     struct nonref_arg :
         boost::remove_reference<
             // msvc warns against 'A const' if 'A' is reference.
             typename boost::add_const<A>::type
+        >
+    { };
+
+
+    // Always const-qualified
+    template<class A>
+    struct nonref_carg :
+        boost::add_const<
+            typename boost::remove_reference<A>::type
         >
     { };
 
