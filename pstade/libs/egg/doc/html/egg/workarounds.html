@@ -1,0 +1,415 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Workarounds</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.0">
+<link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.0">
+<link rel="prev" href="configuration.html" title="Configuration">
+<link rel="next" href="version_history.html" title="Version History">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="configuration.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="version_history.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="egg.workarounds"></a><a href="workarounds.html" title="Workarounds">Workarounds</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="workarounds.html#egg.workarounds.pstade__result_of">pstade::result_of</a></span></dt>
+<dt><span class="section"><a href="workarounds.html#egg.workarounds.before_mpl_has_xxx_hpp">before_mpl_has_xxx.hpp</a></span></dt>
+<dt><span class="section"><a href="workarounds.html#egg.workarounds.envelope">envelope</a></span></dt>
+<dt><span class="section"><a href="workarounds.html#egg.workarounds.defer">DEFER</a></span></dt>
+</dl></div>
+<p>
+      Egg provides some workaround utilities.
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.workarounds.pstade__result_of"></a><a href="workarounds.html#egg.workarounds.pstade__result_of" title="pstade::result_of">pstade::result_of</a></h3></div></div></div>
+<a name="egg.workarounds.pstade__result_of.description"></a><h5>
+<a name="id538325"></a>
+        <a href="workarounds.html#egg.workarounds.pstade__result_of.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code> has some problems especially
+        under Boost1.34 or below:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code> can't take a <span class="emphasis"><em>const-qualified
+          function pointer</em></span> as the target function.
+        </li>
+<li>
+          Under msvc-7.1 or msvc-8.0 with Boost1.34 or below, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>
+          can't take a <span class="emphasis"><em>POD</em></span> template as the target function.
+        </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            If you already use Boost1.35 and don't pass a <span class="emphasis"><em>const-qualified
+            function pointer</em></span>, you don't need this workaround.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.workarounds.pstade__result_of.header"></a><h5>
+<a name="id538455"></a>
+        <a href="workarounds.html#egg.workarounds.pstade__result_of.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.workarounds.pstade__result_of.valid_expressions"></a><h5>
+<a name="id538529"></a>
+        <a href="workarounds.html#egg.workarounds.pstade__result_of.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">pstade</span><span class="special">::</span><span class="identifier">result_of</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code> with some workaround.
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.workarounds.before_mpl_has_xxx_hpp"></a><a href="workarounds.html#egg.workarounds.before_mpl_has_xxx_hpp" title="before_mpl_has_xxx.hpp">before_mpl_has_xxx.hpp</a></h3></div></div></div>
+<a name="egg.workarounds.before_mpl_has_xxx_hpp.description"></a><h5>
+<a name="id538683"></a>
+        <a href="workarounds.html#egg.workarounds.before_mpl_has_xxx_hpp.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">BOOST_MPL_HAS_XXX_TRAIT_DEF</span></code>
+        randomly fails to work under the msvc complilers, so that you might see a
+        weird error message such that "nested <code class="computeroutput"><span class="identifier">sig</span></code>
+        template is undefined" or "nested <code class="computeroutput"><span class="identifier">result</span></code>
+        template is undefined". So that, <code class="computeroutput"><span class="identifier">BOOST_MPL_HAS_XXX_TRAIT_DEF</span></code>
+        must be overridden with a workaround.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            The minimum condition is still not found, hence this workaround can't
+            guarantee to always work around. Boost1.34 tried to fix this problem,
+            but seems to fail.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.workarounds.before_mpl_has_xxx_hpp.valid_expressions"></a><h5>
+<a name="id538772"></a>
+        <a href="workarounds.html#egg.workarounds.before_mpl_has_xxx_hpp.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">before_mpl_has_xxx</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Override <code class="computeroutput"><span class="identifier">BOOST_MPL_HAS_XXX_TRAIT_DEF</span></code>
+                with some msvc workaround.
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="egg.workarounds.before_mpl_has_xxx_hpp.preconditions"></a><h5>
+<a name="id538924"></a>
+        <a href="workarounds.html#egg.workarounds.before_mpl_has_xxx_hpp.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The valid expression is placed before any <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
+          or <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>
+          headers.
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.workarounds.envelope"></a><a href="workarounds.html#egg.workarounds.envelope" title="envelope">envelope</a></h3></div></div></div>
+<a name="egg.workarounds.envelope.description"></a><h5>
+<a name="id538991"></a>
+        <a href="workarounds.html#egg.workarounds.envelope.description">Description</a>
+      </h5>
+<p>
+        The overload resolution system of GCC 3.4.x or below is broken when you call
+        the overloaded functions whose arity is the same with explicit template parameter
+        types. If you overload <code class="computeroutput"><span class="identifier">apply</span></code>
+        in "baby" function under GCC 3.4.x, explicit template parameters
+        must be removed using a "type envelope".
+      </p>
+<a name="egg.workarounds.envelope.header"></a><h5>
+<a name="id539035"></a>
+        <a href="workarounds.html#egg.workarounds.envelope.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">envelope</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.workarounds.envelope.valid_expressions"></a><h5>
+<a name="id539117"></a>
+        <a href="workarounds.html#egg.workarounds.envelope.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">envelope</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">type</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="egg.workarounds.envelope.example"></a><h5>
+<a name="id539267"></a>
+        <a href="workarounds.html#egg.workarounds.envelope.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">struct</span> <span class="identifier">baby_size</span>
+<span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Myself</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">X</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">apply</span>
+    <span class="special">{</span>
+        <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">type</span><span class="special">;</span>
+    <span class="special">};</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Result</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">X</span><span class="special">&gt;</span>
+    <span class="identifier">Result</span> <span class="identifier">call</span><span class="special">(</span><span class="identifier">X</span> <span class="special">&amp;</span><span class="identifier">x</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="line_callout_bug"><a name="egg6co" href="workarounds.html#egg6"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="keyword">return</span> <span class="identifier">call_aux</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">envelope</span><span class="special">&lt;</span><span class="identifier">Result</span><span class="special">&gt;());</span>
+    <span class="special">}</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Result</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Container</span><span class="special">&gt;</span>
+    <span class="identifier">Result</span> <span class="identifier">call_aux</span><span class="special">(</span><span class="identifier">Container</span> <span class="special">&amp;</span><span class="identifier">c</span><span class="special">,</span> <span class="identifier">envelope</span><span class="special">&lt;</span><span class="identifier">Result</span><span class="special">&gt;)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">c</span><span class="special">.</span><span class="identifier">size</span><span class="special">();</span>
+    <span class="special">}</span>
+
+    <span class="line_callout_bug"><a name="egg7co" href="workarounds.html#egg7"><img src="../images/callouts/2.png" alt="2" border="0"></a></span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Result</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">sz</span><span class="special">&gt;</span>
+    <span class="identifier">Result</span> <span class="identifier">call_aux</span><span class="special">(</span><span class="identifier">T</span> <span class="special">(&amp;</span><span class="identifier">a</span><span class="special">)[</span><span class="identifier">sz</span><span class="special">],</span> <span class="identifier">envelope</span><span class="special">&lt;</span><span class="identifier">Result</span><span class="special">&gt;)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">sz</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg6"></a><a href="#egg6co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<td valign="top" align="left"><p> Call without explicit template arguments. </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg7"></a><a href="#egg7co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<td valign="top" align="left"><p> Overload for array reference.
+          </p></td>
+</tr>
+</table></div>
+<p>
+        </p>
+<p>
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            You can of course use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">type</span></code>
+            instead of <code class="computeroutput"><span class="identifier">envelope</span></code>,
+            but it would be slightly less self-documenting.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.workarounds.envelope.see_also"></a><h5>
+<a name="id540018"></a>
+        <a href="workarounds.html#egg.workarounds.envelope.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.workarounds.defer"></a><a href="workarounds.html#egg.workarounds.defer" title="DEFER">DEFER</a></h3></div></div></div>
+<a name="egg.workarounds.defer.description"></a><h5>
+<a name="id540067"></a>
+        <a href="workarounds.html#egg.workarounds.defer.description">Description</a>
+      </h5>
+<p>
+        Under msvc-8.0, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">PlaceholderExpression</span><span class="special">,..&gt;</span></code> randomly fails at the instantiation
+        process in <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>. So that, <code class="computeroutput"><span class="identifier">deferred</span></code>
+        which depends on <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span></code>
+        needs a workaround.
+      </p>
+<a name="egg.workarounds.defer.header"></a><h5>
+<a name="id540204"></a>
+        <a href="workarounds.html#egg.workarounds.defer.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">deferred</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.workarounds.defer.valid_expressions"></a><h5>
+<a name="id540286"></a>
+        <a href="workarounds.html#egg.workarounds.defer.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER</span><span class="special">((</span><span class="identifier">Lam</span><span class="special">))</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span></code> with some workaround.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER_BY</span><span class="special">((</span><span class="identifier">Lam</span><span class="special">),</span> <span class="identifier">_Stg</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
+                <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code> with some workaround.
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.workarounds.defer.preconditions"></a><h5>
+<a name="id540527"></a>
+        <a href="workarounds.html#egg.workarounds.defer.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER</span></code> and <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER_BY</span></code> is placed in namespace
+          scope.
+        </li></ul></div>
+<a name="egg.workarounds.defer.see_also"></a><h5>
+<a name="id540579"></a>
+        <a href="workarounds.html#egg.workarounds.defer.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="function_makers.html#egg.function_makers.deferred" title="deferred">deferred</a></li></ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="configuration.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="version_history.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
