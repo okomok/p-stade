@@ -12,6 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -20,15 +21,15 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
-#include "../config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
+#include "../tuple/config.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    // 'boost::tuples::null_type' is a pod.
+    // Fortunately, 'boost::tuples::null_type' is a pod.
 
     template<class Base, class ArgTuple = boost::tuples::null_type>
     struct baby_pipable_result
@@ -56,12 +57,14 @@ namespace pstade { namespace egg { namespace detail {
             return r;
         }
 
+#define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_ARITY)
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_FLAT_MAX_ARITY, A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_max_arity, A)>
         struct apply { }; // msvc warns if incomplete.
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/detail/baby_pipable_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/baby_pipable_result.hpp>))
         #include BOOST_PP_ITERATE()
+#undef  PSTADE_max_arity
     };
 
 

@@ -20,7 +20,7 @@
 #include <pstade/preprocessor.hpp>
 #include "../../apply_params.hpp"
 #include "../../by_ref.hpp"
-#include "../../detail/tuple_config.hpp"
+#include "../config.hpp"
 
 
 namespace pstade { namespace egg { namespace tuple_detail {

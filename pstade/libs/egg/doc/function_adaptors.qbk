@@ -52,7 +52,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`res(a(1),...,a(N+1))`]
-        [`_dco(_arg_seq(a, _Stg))`]
+        [`_dco(_arg_list(a, _Stg))`]
     ]
 ]
 
@@ -113,12 +113,12 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`res(Stg)(a1,...,aN)`]
-        [`_dco1(_dco2(_arg_seq(a, _Stg)))`]
+        [`_dco1(_dco2(_arg_list(a, _Stg)))`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= 10`.
+* `0 <= N && N <= _TUPLE_MAX_ARITY`.
 * `_Dco1 d1 = init1; _Dco2 d2 = init2;` is a valid expression.
 * The corresponding expression is a valid expression.
 * `_deduce_r0(R0, _dco1(_dco2()))` is a valid expression which specifies the nullary return type.
@@ -130,7 +130,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 ...
 
 [heading See also]
-* __EGG_DEDUCING_NULLARY_RETURN_TYPE__
+* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
 
 [endsect]
 
@@ -176,7 +176,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`res(a1)...(aN)`]
-        [`_dco(_arg_seq(a, by_cref))`]
+        [`_dco(_arg_list(a, by_cref))`]
     ]
 ]
 
@@ -236,7 +236,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`res(_Stg)(a1,...,aN)`]
-        [`_dco(parens(_arg_seq(a, _Stg)))`]
+        [`_dco(parens(_arg_list(a, _Stg)))`]
     ]
 ]
 
@@ -271,7 +271,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading Notation]
 * `res` is an object of `result_of_fuse<_typeof(_dco)>::type` initialized using `_dco`.
-* `t_` is `_arg_seq(t, by_perfect)`, where `t` is regared as one element token sequence.
+* `t_` is `_arg_list(t, by_perfect)`, where `t` is regared as one element token list.
 
 [heading Valid expressions]
 [table 
@@ -302,7 +302,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 10`.
+* `1 <= N && N <= _TUPLE_MAX_ARITY`.
 * `_Dco d = init;` is a valid expression.
 * `t0` is an empty tuple.
 * The corresponding semantics is a valid expression.
@@ -357,16 +357,16 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
     ]
     [
         [`res(_Stg)(a1,...,aN)`]
-        [`_dco( boost::tuples::tuple<ref(_meta_arg_seq(a, by_ref))>(_arg_seq(a, _Stg)) )`]
+        [`_dco( boost::tuples::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= 10`.
+* `0 <= N && N <= _TUPLE_MAX_ARITY`.
 * `Pack` is `boost::use_default` (for now).
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
-* `_deduce_r0(R0, `_decltype(_dco( boost::tuples::tuple<>() ))` is a valid expression which specifies the nullary return type.
+* `_deduce_r0(R0, _decltype(_dco( boost::tuples::tuple<>() ))` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
 * If `_Dco` is /POD/, `result_of_unfuse<_Dco>::type` is /POD/.
@@ -375,9 +375,9 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
 ...
 
 [heading See also]
+* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
 * [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adaptors]
 * __EGG_FUSE__
-* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
 
 [endsect]
 
@@ -419,7 +419,7 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
     ]
     [
         [`res(_Stg)(a1,...,aN)`]
-        [`(*pco)(_arg_seq(a, _Stg))`]
+        [`(*pco)(_arg_list(a, _Stg))`]
     ]
 ]
 
@@ -443,7 +443,7 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
 
 [heading Description]
 __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
-`lazy` turns a base __FUNCTION_OBJECT__ into such one which can be used with __BOOST_LAMBDA__.
+`lazy` turns a __BINDABLE_OBJECT__ into such one which can be used with __BOOST_LAMBDA__.
 
 [heading Header]
 * `<pstade/egg/lazy.hpp>`
@@ -453,7 +453,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_lazy<_typeof(_Dco)>::type` initialized using `_dco`.
+* `res` is an object of `result_of_lazy<_typeof(Bin)>::type` initialized using `bin`.
 
 [heading Valid expressions]
 [table 
@@ -462,33 +462,36 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_lazy<_Dco>::type`]
+        [`result_of_lazy<Bin>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_LAZY_L init PSTADE_EGG_LAZY_R`]
-        [A braced initializer of `result_of_lazy<_Dco>::type`]
+        [A braced initializer of `result_of_lazy<Bin>::type`]
     ]
     [
-        [`lazy(_dco)`]
+        [`lazy(bin)`]
         [`res`]
     ]
     [
         [`res(a1,...,aN)`]
-        [`boost::lambda::bind(_dco, _arg_seq(a, by_cref))`]
+        [`boost::lambda::bind(bin, _arg_list(a, by_cref))`]
     ]
 ]
 
 [heading Preconditions]
 * `0 <= N && N <= PSTADE_EGG_FLAT_MAX_ARITY-1`.
-* `_Dco d = init;` is a valid expression.
-* The corresponding semantics is a valid expression, meaning that `_Dco` is a __BINDABLE_OBJECT__ type.
+* `Bin` is __BINDABLE_OBJECT__ type.
+* `bin` is a __BINDABLE_OBJECT__.
+* `Bin b = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
 
 [heading Example]
 [code_lazy_example]
 
 [heading See also]
 * __BOOST_PHOENIX__
+* __BOOST_LAMBDA__
 
 [endsect]
 
@@ -522,7 +525,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_dco)(a1)`]
-        [`_dco(fixed, _arg_seq(a, by_cref))`]
+        [`_dco(fixed, _arg_list(a, by_cref))`]
     ]
 ]
 
@@ -532,7 +535,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * The corresponding semantics is a valid expression.
 * A __FUNCTION_OBJECT__ returned from `memoize(_dco)` must always be called with the same type arguments.
 * `_typeof(a1)` is __ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
-* `_decltype( _dco(fixed, _arg_seq(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
+* `_decltype( _dco(fixed, _arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
 
 [heading Example]
 [code_memoize_example]
@@ -580,11 +583,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`a1|res(_Stg)(a2,...,aN)`]
-        [`_dco(_arg_seq(a, _Stg))`]
+        [`_dco(_arg_list(a, _Stg))`]
     ]
 ]
 
 [heading Preconditions]
+* `1 <= N && N <= _TUPLE_MAX_ARITY`.
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -642,7 +646,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`res(_Stg)(a1,...,aN)`]
-        [`fun(_arg_seq(a, _Stg))`]
+        [`fun(_arg_list(a, _Stg))`]
     ]
     [
         [`egg::ret<R>(fun)`]

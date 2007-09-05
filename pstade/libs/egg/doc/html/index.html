@@ -32,7 +32,6 @@
 <dt><span class="section"><a href="index.html#egg.preface.requirements">Requirements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.portability">Portability</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.rationale">Rationale</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.limitation">Limitation</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.acknowledgements">Acknowledgements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.notation">Notation</a></span></dt>
 </dl></dd>
@@ -57,7 +56,6 @@
 <dd><dl>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.function">function</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.function_facade">function_facade</a></span></dt>
-<dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.envelope">envelope</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.automatic">automatic</a></span></dt>
 <dt><span class="section"><a href="egg/function_makers.html#egg.function_makers.deferred">deferred</a></span></dt>
 </dl></dd>
@@ -86,6 +84,7 @@
 <dd><dl>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.lambda_bind">lambda_bind</a></span></dt>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.lazy_lambda_bind"> lambda_Bind</a></span></dt>
+<dt><span class="section"><a href="egg/utilities.html#egg.utilities.lambda_result_of_hpp">lambda/result_of.hpp</a></span></dt>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.tuple_get">tuple_get</a></span></dt>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.tuple_pack">tuple_pack</a></span></dt>
 </dl></dd>
@@ -93,6 +92,13 @@
 <dd><dl>
 <dt><span class="section"><a href="egg/configuration.html#egg.configuration.max_arity">MAX_ARITY</a></span></dt>
 <dt><span class="section"><a href="egg/configuration.html#egg.configuration.flat_max_arity">FLAT_MAX_ARITY</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/workarounds.html">Workarounds</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.pstade__result_of">pstade::result_of</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.before_mpl_has_xxx_hpp">before_mpl_has_xxx.hpp</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.envelope">envelope</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.defer">DEFER</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/version_history.html">Version History</a></span></dt>
 </dl>
@@ -105,7 +111,6 @@
 <dt><span class="section"><a href="index.html#egg.preface.requirements">Requirements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.portability">Portability</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.rationale">Rationale</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.limitation">Limitation</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.acknowledgements">Acknowledgements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.preface.notation">Notation</a></span></dt>
 </dl></div>
@@ -170,24 +175,6 @@
 <li>
           Egg framework provides the way of <span class="emphasis"><em>static-initialization</em></span>
           if possible.
-        </li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.preface.limitation"></a><a href="index.html#egg.preface.limitation" title="Limitation">Limitation</a></h3></div></div></div>
-<div class="itemizedlist"><ul type="disc">
-<li>
-          Any <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-          which Egg offers is not <span class="emphasis"><em>volatile</em></span>-aware, meaning that
-          you can't make it <span class="emphasis"><em>volatile-qualified</em></span> nor pass any
-          <span class="emphasis"><em>volatile</em></span> object to it.
-        </li>
-<li>
-          Any <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-          which Egg offers doesn't guarantee to decay the argument passed, meaning
-          that you have to add <code class="computeroutput"><span class="special">&amp;</span></code>
-          to turn a function name into <span class="emphasis"><em>function pointer</em></span>.
         </li>
 </ul></div>
 </div>
@@ -313,6 +300,18 @@
               </p>
               </td>
 </tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_TUPLE_MAX_ARITY</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="number">10</span></code>
+              </p>
+              </td>
+</tr>
 </tbody>
 </table></div>
 <p>
@@ -326,7 +325,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: September 04, 2007 at 13:28:31 GMT</p></small></td>
+<td align="left"><small><p>Last revised: September 05, 2007 at 05:50:23 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/detail/before_mpl_has_xxx.hpp>
+#include <pstade/before_mpl_has_xxx.hpp>
 
 
 #include <pstade/minimal_test.hpp>

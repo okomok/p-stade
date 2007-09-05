@@ -16,7 +16,7 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/result_of.hpp>
-#include "./detail/tuple_config.hpp"
+#include "./lambda/config.hpp"
 
 
 #define PSTADE_EGG_SIG_TEMPLATE() <pstade/egg/detail/sig_template_iteration.hpp>

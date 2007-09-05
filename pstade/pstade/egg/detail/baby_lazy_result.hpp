@@ -21,7 +21,7 @@
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
 #include "../lambda/bind.hpp"
-#include "./lambda_config.hpp"
+#include "../lambda/config.hpp"
 #include "./bind1.hpp"
 
 

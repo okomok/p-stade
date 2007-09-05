@@ -19,7 +19,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include "../apply_params.hpp"
-#include "./lambda_config.hpp"
+#include "../lambda/config.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {

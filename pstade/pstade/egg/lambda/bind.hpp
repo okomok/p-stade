@@ -19,7 +19,7 @@
 #include <pstade/pod_constant.hpp>
 #include "../apply_params.hpp"
 #include "../by_cref.hpp"
-#include "../detail/lambda_config.hpp"
+#include "./config.hpp"
 
 
 namespace pstade { namespace egg {

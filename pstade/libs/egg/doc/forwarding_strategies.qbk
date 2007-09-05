@@ -1,7 +1,7 @@
 [section Forwarding Strategies]
 
 A Forwarding Strategy is a type which has two associated imaginary operators
-`_arg_seq` and `_meta_arg_seq`.
+`_arg_list` and `_meta_arg_list`.
 If you omit a strategy parameter for __EGG_FUNCTION_MAKERS__ or __EGG_FUNCTION_ADAPTORS__,
 `by_perfect` is implicitly set.
 
@@ -46,20 +46,23 @@ Egg performs the "perfect forwarding" by default.
         [[*Semantics]]
     ]
     [
-        [`_arg_seq(a, by_perfect)`]
+        [`_arg_list(a, by_perfect)`]
         [`_arg(a1),...,_arg(aK)`]
     ]
     [
-        [`_meta_arg_seq(a, by_perfect)`]
+        [`_meta_arg_list(a, by_perfect)`]
         [`_ref(a1),...,_ref(aK)`]
     ]
 ]
 
 [heading Preconditions]
 * `0 <= K && K <= PSTADE_EGG_MAX_ARITY`.
+* `aI` is not a /function reference/.
+* `aI` is not /volatile-qualified/.
+
 
 [heading Example]
-* `_meta_arg_seq(a, by_perfect)` is `int,const int,int const` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
+* `_meta_arg_list(a, by_perfect)` is `int,const int,int const` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
 
 [heading See also]
 * __FORWARDING_PROBLEM__
@@ -84,11 +87,11 @@ Egg performs the "perfect forwarding" by default.
         [[*Semantics]]
     ]
     [
-        [`_arg_seq(a, by_ref)`]
+        [`_arg_list(a, by_ref)`]
         [`_arg(a1),...,_arg(aK)`]
     ]
     [
-        [`_meta_arg_seq(a, by_ref)`]
+        [`_meta_arg_list(a, by_ref)`]
         [`_ref(a1),...,_ref(aK)`]
     ]
 ]
@@ -98,7 +101,7 @@ Egg performs the "perfect forwarding" by default.
 * `aI` is not a rvalue.
 
 [heading Example]
-* `_meta_arg_seq(a, by_ref)` is `int,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
+* `_meta_arg_list(a, by_ref)` is `int,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
 
 [heading See also]
 * __FORWARDING_PROBLEM__
@@ -123,11 +126,11 @@ Egg performs the "perfect forwarding" by default.
         [[*Semantics]]
     ]
     [
-        [`_arg_seq(a, by_cref)`]
+        [`_arg_list(a, by_cref)`]
         [`_cref(a1),...,_cref(aK)`]
     ]
     [
-        [`_meta_arg_seq(a, by_cref)`]
+        [`_meta_arg_list(a, by_cref)`]
         [`_typeof(a1) const,...,_typeof(aK) const`]
     ]
 ]
@@ -136,7 +139,7 @@ Egg performs the "perfect forwarding" by default.
 * `0 <= K && K <= PSTADE_EGG_FLAT_MAX_ARITY`.
 
 [heading Example]
-* `_meta_arg_seq(a, by_cref)` is `int const,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
+* `_meta_arg_list(a, by_cref)` is `int const,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
 
 [heading See also]
 * __FORWARDING_PROBLEM__
@@ -165,11 +168,11 @@ Egg performs the "perfect forwarding" by default.
         [[*Semantics]]
     ]
     [
-        [`_arg_seq(a, by_value)`]
+        [`_arg_list(a, by_value)`]
         [`_val(a1),...,_val(aK)`]
     ]
     [
-        [`_meta_arg_seq(a, by_value)`]
+        [`_meta_arg_list(a, by_value)`]
         [`_typeof(a1),...,_typeof(aK)`]
     ]
 ]
@@ -178,7 +181,7 @@ Egg performs the "perfect forwarding" by default.
 * `0 <= K && K <= PSTADE_EGG_FLAT_MAX_ARITY`.
 
 [heading Example]
-* `_meta_arg_seq(a, by_value)` is `int,int,int` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
+* `_meta_arg_list(a, by_value)` is `int,int,int` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
 
 [heading See also]
 * __FORWARDING_PROBLEM__

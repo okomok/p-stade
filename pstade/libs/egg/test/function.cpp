@@ -18,6 +18,10 @@
 #include <pstade/unused.hpp>
 #include <pstade/test.hpp>
 
+#include <boost/lambda/bind.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/lambda/lambda.hpp>
+
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
@@ -176,14 +180,24 @@ void pstade_minimal_test()
     {
         pstade::result_of<op_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
+
+        int i = 5;
+        BOOST_CHECK( boost::lambda::bind(foo, 3, boost::lambda::_1)(i) == "2" );
+        BOOST_CHECK( boost::lambda::bind(foo, 3, 2)() == "2" );
     }
     {
         pstade::result_of<op_foo(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
+
+        int i = 5;
+        BOOST_CHECK( boost::lambda::bind(foo, 3)() == 1 );
+        BOOST_CHECK( boost::lambda::bind(foo, boost::lambda::_1)(i) == 1 );
     }
     {
         pstade::result_of<op_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
+
+        BOOST_CHECK( boost::lambda::bind(foo)() == '0' );
     }
 
     {
