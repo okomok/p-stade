@@ -1,4 +1,4 @@
-#include <pstade/detail/before_mpl_has_xxx.hpp>
+#include <pstade/before_mpl_has_xxx.hpp>
 #include <pstade/unit_test.hpp>
 
 

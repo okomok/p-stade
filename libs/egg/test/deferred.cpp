@@ -38,6 +38,9 @@ struct baby
 typedef PSTADE_EGG_DEFER((baby<boost::mpl::_>)) op_identity;
 PSTADE_POD_CONSTANT((op_identity), identity) = PSTADE_EGG_DEFERRED;
 
+typedef PSTADE_EGG_DEFER_BY((baby<boost::mpl::_>), boost::use_default) op_identity_;
+PSTADE_POD_CONSTANT((op_identity_), identity_) = PSTADE_EGG_DEFERRED;
+
 
 PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))
 PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int))
@@ -82,6 +85,8 @@ void pstade_minimal_test()
         BOOST_CHECK(identity(10) == 10);
         BOOST_CHECK(&(identity(i, 0)) == &i);
         BOOST_CHECK(identity(10, 0) == 10);
+
+        BOOST_CHECK(identity_(10, 0) == 10);
     }
     {
         ::nc_t x;

@@ -28,8 +28,8 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
+#include "../tuple/config.hpp"
 #include "../tuple/pack.hpp"
-#include "./tuple_config.hpp"
 #include "./use_nullary_result.hpp"
 
 

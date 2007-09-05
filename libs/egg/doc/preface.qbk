@@ -50,19 +50,6 @@ Egg is known to work on the following platforms:
 
 
 
-[section Limitation]
-
-* Any __FUNCTION_OBJECT__ which Egg offers is not /volatile/-aware, meaning that you can't
-  make it /volatile-qualified/ nor pass any /volatile/ object to it.
-
-* Any __FUNCTION_OBJECT__ which Egg offers doesn't guarantee to decay the argument passed, meaning that
-  you have to add `&` to turn a function name into /function pointer/.
-
-[endsect]
-
-
-
-
 [section Acknowledgements]
 
 * __FORWARDING_PROBLEM__ workaround is based on David Abrahams' __DAVID_CALLABLE__.
@@ -108,6 +95,10 @@ This document uses the following notation.
     [
         [`++`]
         [An imaginary operator to concatenate tokens.]
+    ]
+    [
+        [`_TUPLE_MAX_ARITY`]
+        [`10`]
     ]
 ]
 

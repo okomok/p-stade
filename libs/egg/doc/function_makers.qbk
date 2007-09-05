@@ -44,7 +44,7 @@ with `boost::lambda::bind` and `boost::result_of`.
     ]
     [
         [`f(a1,...,aN)`]
-        [`f.baby().call<_meta_arg_seq(a, _Stg)>(_arg_seq(a, _Stg))`]
+        [`f.baby().call<_meta_arg_list(a, _Stg)>(_arg_list(a, _Stg))`]
     ]
     [
         [`f()`]
@@ -64,6 +64,7 @@ with `boost::lambda::bind` and `boost::result_of`.
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION_FACADE__
+* __EGG_ENVELOPE__
 
 [endsect]
 
@@ -101,7 +102,7 @@ Though a type made from `function_facade` can't be a /POD type/, it can have non
     ]
     [
         [`_baby(a1,...,aN)`]
-        [`_baby.call<_meta_arg_seq(a, _Stg)>(_arg_seq(a, _Stg))`]
+        [`_baby.call<_meta_arg_list(a, _Stg)>(_arg_list(a, _Stg))`]
     ]
     [
         [`_baby()`]
@@ -119,40 +120,7 @@ Though a type made from `function_facade` can't be a /POD type/, it can have non
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION__
-
-[endsect]
-
-
-
-
-[section envelope]
-
-[heading Description]
-The overload resolution system of GCC 3.4.x or below is broken when you call the overloaded functions whose arity is the same with explicit template parameter types.
-If you overload `apply` in "baby" function under GCC 3.4.x, explicit template parameters must be removed using a "type envelope".
-
-[heading Header]
-* `<pstade/egg/envelope.hpp>`
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`envelope<T>`]
-        [`boost::type<T>`]
-    ]
-]
-
-[heading Example]
-[code_envelope_example]
-
-[note You can of course use `boost::type` instead of `envelope`, but it would be slightly less self-documenting.]
-
-[heading See also]
-* ...
+* __EGG_ENVELOPE__
 
 [endsect]
 
@@ -186,11 +154,12 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
     ]
     [
         [`To to = u(a1,...,aN);`]
-        [`To to = boost::mpl::apply<Lam, To>::type(_arg_seq(a, _Stg));`]
+        [`To to = boost::mpl::apply<Lam, To>::type(_arg_list(a, _Stg));`]
     ]
 ]
 
 [heading Preconditions]
+* `0 <= N && N <= _TUPLE_MAX_ARITY`.
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__.
 * `boost::mpl::apply<Lam, To>::type` is a __DEFERRED_CALLABLE_OBJECT__ type.
 * The corresponding semantics is a valid expression.
@@ -238,21 +207,26 @@ Pending...
     ]
     [
         [`f(a1,...,aN)`]
-        [`boost::mpl::apply<Lam, _meta_arg_seq(a, _Stg)>::type()(_arg_seq(a, _Stg))`]
+        [`boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
     ]
 ]
 
 [heading Preconditions]
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__.
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `boost::mpl::apply<Lam, _meta_arg_seq(a, _Stg)>::type::result_type` is a valid expression.
+* `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
 * The corresponding semantics is a valid expression.
+
+[caution For some compiler bug, `deferred` randomly fails to make a __DEFERRED_CALLABLE_OBJECT__ under msvc-8.0.
+         Use `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` if you need portability. ]
+
 
 [heading Example]
 [code_deferred_example]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
+* __EGG_DEFER__
 
 [endsect]
 

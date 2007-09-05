@@ -139,6 +139,9 @@ non-/const-qualified/ type (as __OPERATABLE_OBJECT__ does so), you could omit `c
 These bugs can be worked around by `pstade::result_of` in `<pstade/result_of.hpp>`.
 The first bug is fixed with Boost1.35.
 
+[heading See also]
+* __PSTADE_RESULT_OF__
+
 [endsect]
 
 

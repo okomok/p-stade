@@ -71,6 +71,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION_ADAPTORS__ [link egg.function_adaptors Function Adaptors]]
 [def __EGG_FUNCTION__ [link egg.function_makers.function function]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_makers.function_facade function_facade]]
+[def __EGG_DEFERRED__ [link egg.function_makers.deferred deferred]]
 
 [def __EGG_AUXILIARY__ [link egg.function_adaptors.auxiliaryn auxiliaryN]]
 [def __EGG_CURRY__ [link egg.function_adaptors.curryn curryN]]
@@ -82,7 +83,12 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_LAMBDA_BIND__ [link egg.utilities.lambda_bind lambda_bind]]
 [def __EGG_LAZY_LAMBDA_BIND__ [link egg.utilities.lazy_lambda_bind lambda_Bind]]
 
-[def __EGG_GENERATOR__ [link egg.object_generator.generator Generator]]
+[def __EGG_GENERATOR__ [link egg.object_generator.generator generator]]
+
+[def __PSTADE_RESULT_OF__ [link egg.workarounds.pstade_result_of pstade::result_of]]
+[def __EGG_DEFER__ [link egg.workarounds.defer PSTADE_EGG_DEFER]]
+[def __EGG_ENVELOPE__ [link egg.workarounds.envelope envelope]]
+
 
 
 
@@ -94,6 +100,7 @@ Distributed under the Boost Software License, Version 1.0.
 [include object_generator.qbk]
 [include utilities.qbk]
 [include configuration.qbk]
+[include workarounds.qbk]
 [include version_history.qbk]
 
 

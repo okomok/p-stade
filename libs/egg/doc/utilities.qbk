@@ -94,6 +94,46 @@ Pending...
 
 
 
+[section lambda/result_of.hpp]
+
+[heading Description]
+This header lets a __BOOST_LAMBDA__ functor be a __DEFERRED_CALLABLE_OBJECT__.
+
+[heading Header]
+* `<pstade/egg/lambda/result_of.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`#include <pstade/egg/lambda/result_of.hpp>`]
+        [A __BOOST_LAMBDA__ functor becomes a __DEFERRED_CALLABLE_OBJECT__.]
+    ]
+]
+
+[heading Preconditions]
+* ...
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
 [section tuple_get]
 
 [heading Description]
@@ -123,8 +163,16 @@ Pending...
         [`boost::tuples::get<N::value>(t)`]
     ]
     [
+        [`xp_tuple_get_c<n>`]
+        [`xp_tuple_get< boost::mpl::int_<n> >`]
+    ]
+    [
         [`egg::tuple_get<N>(t)`]
         [`xp_tuple_get<N>()(t)`]
+    ]
+    [
+        [`egg::tuple_get_c<n>(t)`]
+        [`xp_tuple_get_c<n>()(t)`]
     ]
 ]
 
@@ -155,7 +203,7 @@ Pending...
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* ...
+* `_refs(c1,...,cK)` is `c1&,...,cK&`.
 
 [heading Valid expressions]
 [table 
@@ -165,12 +213,18 @@ Pending...
     ]
     [
         [`tuple_pack(a1,...,aN)`]
-        [`boost::tuples::tuple<_arg(a1)&,...,_arg(aN)&>(a1,...,aN)`]
+        [`boost::tuples::tuple<_refs(_meta_arg_list(a, by_perfect))>(a1,...,aN)`]
+    ]
+    [
+        [`tuple_pack_by_ref(b1,...,bM)`]
+        [`boost::tuples::tuple<_refs(_meta_arg_list(b, by_ref))>(b1,...,bM)`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _MAX_ARITY`.
+* `0 <= N && N <= PSTADE_EGG_MAX_ARITY`.
+* `0 <= M && M <= PSTADE_EGG_FLAT_MAX_ARITY`.
+* `bI` is not a rvalue.
 * The corresponding semantics is a valid expression.
 
 [heading Example]

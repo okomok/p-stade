@@ -17,9 +17,9 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "../tuple/config.hpp"
 #include "../tuple/get.hpp"
 #include "../tuple/size.hpp"
-#include "./tuple_config.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {

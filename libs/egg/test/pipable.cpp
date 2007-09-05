@@ -18,6 +18,7 @@
 #include <pstade/unparenthesize.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
+#include "./large_arity_id0.hpp"
 
 
     #define PSTADE_decl_pipable(O, F) \
@@ -56,9 +57,19 @@ struct your_fun_t
 PSTADE_decl_pipable(your_fun, (your_fun_t))
 
 
+using namespace pstade::egg;
+
+result_of_pipable<op_large_arity_id0, by_cref>::type const lar = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
+
+
 void pstade_minimal_test()
 {
     BOOST_CHECK( (3|my_fun) == 4 );
     BOOST_CHECK( (3|my_fun()) == 4 );
     BOOST_CHECK( ("hello"|your_fun(1, 2)) == 3 );
+
+    {
+        using namespace large_arity_helpers;
+        BOOST_CHECK( &(i0|lar(i1,i2,i3,i4,i5,i6,i7,ci8,ci9)) == &i0 );        
+    }
 }
