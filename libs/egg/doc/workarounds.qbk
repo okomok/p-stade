@@ -1,0 +1,140 @@
+[section Workarounds]
+
+Egg provides some workaround utilities.
+
+
+
+
+[section pstade::result_of]
+
+[heading Description]
+`boost::result_of` has some problems especially under Boost1.34 or below:
+
+* `boost::result_of` can't take a /const-qualified function pointer/ as the target function.
+* Under msvc-7.1 or msvc-8.0 with Boost1.34 or below, `boost::result_of` can't take a /POD/ template as the target function. 
+
+[note If you already use Boost1.35 and don't pass a /const-qualified function pointer/, you don't need this workaround.]
+
+[heading Header]
+* `<pstade/result_of.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`pstade::result_of`]
+        [`boost::result_of` with some workaround.]
+    ]
+]
+
+[endsect]
+
+
+
+
+[section before_mpl_has_xxx.hpp]
+
+[heading Description]
+`BOOST_MPL_HAS_XXX_TRAIT_DEF` randomly fails to work under the msvc complilers,
+so that you might see a weird error message such that
+"nested `sig` template is undefined" or "nested `result` template is undefined".
+So that, `BOOST_MPL_HAS_XXX_TRAIT_DEF` must be overridden with a workaround.
+
+[note The minimum condition is still not found, hence this workaround can't guarantee to always work around.
+      Boost1.34 tried to fix this problem, but seems to fail. ]
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`#include <pstade/before_mpl_has_xxx.hpp>`]
+        [Override `BOOST_MPL_HAS_XXX_TRAIT_DEF` with some msvc workaround.]
+    ]
+]
+
+[heading Preconditions]
+* The valid expression is placed before any __BOOST_RESULT_OF__ or __BOOST_LAMBDA__ headers.
+
+[endsect]
+
+
+
+
+[section envelope]
+
+[heading Description]
+The overload resolution system of GCC 3.4.x or below is broken when you call the overloaded functions whose arity is the same with explicit template parameter types.
+If you overload `apply` in "baby" function under GCC 3.4.x, explicit template parameters must be removed using a "type envelope".
+
+[heading Header]
+* `<pstade/egg/envelope.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`envelope<T>`]
+        [`boost::type<T>`]
+    ]
+]
+
+[heading Example]
+[code_envelope_example]
+
+[note You can of course use `boost::type` instead of `envelope`, but it would be slightly less self-documenting.]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section DEFER]
+
+[heading Description]
+Under msvc-8.0, `boost::mpl::apply<PlaceholderExpression,..>` randomly fails
+at the instantiation process in `boost::result_of`.
+So that, `deferred` which depends on `boost::mpl::apply` needs a workaround.
+
+[heading Header]
+* `<pstade/egg/deferred.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`PSTADE_EGG_DEFER((Lam))`]
+        [`deferred<Lam>::type` with some workaround.]
+    ]
+    [
+        [`PSTADE_EGG_DEFER_BY((Lam), _Stg)`]
+        [`deferred<Lam, _Stg>::type` with some workaround.]
+    ]
+]
+
+[heading Preconditions]
+* `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` is placed in namespace scope.
+
+[heading See also]
+* __EGG_DEFERRED__
+
+[endsect]
+
+
+
+
+[endsect]
