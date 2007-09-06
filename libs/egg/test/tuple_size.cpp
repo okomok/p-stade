@@ -21,7 +21,7 @@
 #include <pstade/egg/is_same.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#if defined(PSTADE_EGG_SUPPORTS_FUSION_SEQUENCE)
+#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
 #include <boost/fusion/sequence/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #endif
@@ -43,7 +43,7 @@ BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<tup_t>, boost::mpl::int_<2> >
 BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<tup_t> const, boost::mpl::int_<2> >));
 
 
-#if defined(PSTADE_EGG_SUPPORTS_FUSION_SEQUENCE)
+#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
 
 typedef boost::fusion::vector<int&, double> seq_t;
 
@@ -59,7 +59,7 @@ void pstade_minimal_test()
 
     tup_t t(p.first, 1.0);
 
-#if defined(PSTADE_EGG_SUPPORTS_FUSION_SEQUENCE)
+#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
     seq_t s(p.first, 1.0);
     BOOST_CHECK( tuple_size<seq_t>::value == 2);
 #endif

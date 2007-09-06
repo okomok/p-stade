@@ -1,6 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_RESULT_OF_FWD_HPP
-#define PSTADE_EGG_DETAIL_RESULT_OF_FWD_HPP
-#include "./prefix.hpp"
+#ifndef PSTADE_EGG_TUPLE_HPP
+#define PSTADE_EGG_TUPLE_HPP
 
 
 // PStade.Egg
@@ -11,12 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace boost {
-
-    template<class Signature>
-    struct result_of;
-
-}
+#include "./tuple/config.hpp"
+#include "./tuple/element.hpp"
+#include "./tuple/get.hpp"
+#include "./tuple/pack.hpp"
+#include "./tuple/size.hpp"
 
 
 #endif

@@ -50,6 +50,7 @@
 #include "./singleton.hpp"
 #include "./statement.hpp"
 #include "./static_c.hpp"
+#include "./template_arguments.hpp"
 #include "./unevaluated.hpp"
 // #include "./unit_test.hpp"
 #include "./unparenthesize.hpp"

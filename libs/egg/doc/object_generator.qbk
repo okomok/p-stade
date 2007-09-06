@@ -13,19 +13,6 @@ A simple object generator can be made automatically using the following family.
 [heading Header]
 * `<pstade/egg/generator.hpp>`
 
-[heading Synopsys]
-    template<
-        class Lam, class R0 = boost::use_default,
-        class How = boost::use_default, class Stg = boost::use_default
-    >
-    struct generator
-    {
-        typedef unspecified type;
-
-        // unspecified
-        // ...
-    };
-
 [heading Notation]
 * `g` is an object of `generator<Lam, R0, How, _Stg>::type`.
 * `X` is `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type`.
@@ -38,7 +25,7 @@ A simple object generator can be made automatically using the following family.
         [[*Semantics]]
     ]
     [
-        [`generator<Lam, R0, How, _Stg>::type`]
+        [`generator<Lam, R0 = _default, How = _default, _Stg = _default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD type/]
     ]
     [
@@ -58,7 +45,7 @@ A simple object generator can be made automatically using the following family.
 [heading Preconditions]
 * `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `How` is `boost::use_default` or one of the type in __EGG_HOW_TO_GENERATE__.
+* `How` is `_default` or one of the type in __EGG_HOW_TO_GENERATE__.
 * The corresponding semantics is a valid expression.
 
 [note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]

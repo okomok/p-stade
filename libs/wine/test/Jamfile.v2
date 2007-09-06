@@ -50,6 +50,7 @@ test-suite "wine" :
     [ run statement.cpp ]
     [ link statement_m1.cpp statement_m2.cpp : : statement_m ]
     [ run static_c.cpp ]
+    [ run template_arguments.cpp ]
     [ run test_test.cpp ]
     [ run unevaluated.cpp ]
     [ run unparenthesize.cpp ]

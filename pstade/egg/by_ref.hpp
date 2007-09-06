@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/nonref_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
@@ -58,7 +58,7 @@ namespace pstade { namespace egg {
         template<class FunCall>
         struct result;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/by_ref.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/by_ref.hpp>))
         #include BOOST_PP_ITERATE()
 
         #include PSTADE_EGG_SIG_TEMPLATE()

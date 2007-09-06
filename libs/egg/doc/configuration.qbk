@@ -36,10 +36,10 @@ regulating the maximum supported arity of `by_perfect`.
 
 
 
-[section FLAT_MAX_ARITY]
+[section MAX_LINEAR_ARITY]
 
 [heading Description]
-`PSTADE_EGG_FLAT_MAX_ARITY` affects the maximum supported arity of `by_ref`, `by_cref` and `by_value` etc.
+`PSTADE_EGG_MAX_LINEAR_ARITY` affects the maximum supported arity of `by_ref`, `by_cref` and `by_value` etc.
 
 [heading Valid expressions]
 [table 
@@ -48,12 +48,12 @@ regulating the maximum supported arity of `by_perfect`.
         [[*Semantics]]
     ]
     [
-        [`PSTADE_EGG_FLAT_MAX_ARITY`]
+        [`PSTADE_EGG_MAX_LINEAR_ARITY`]
         [`10` unless overridden.]
     ]
     [
-        [`#define PSTADE_EGG_FLAT_MAX_ARITY N`]
-        [Overrides `PSTADE_EGG_FLAT_MAX_ARITY` by `N`.]
+        [`#define PSTADE_EGG_MAX_LINEAR_ARITY N`]
+        [Overrides `PSTADE_EGG_MAX_LINEAR_ARITY` by `N`.]
     ]
 ]
 

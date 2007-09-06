@@ -38,10 +38,10 @@ namespace pstade { namespace egg { namespace tuple_detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_TUPLE_MAX_ARITY, A)>
+        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, A)>
         struct apply { }; // msvc warns if incomplete.
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_ARITY, <pstade/egg/tuple/detail/baby_pack.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_SIZE, <pstade/egg/tuple/detail/baby_pack.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

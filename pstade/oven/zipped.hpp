@@ -26,7 +26,7 @@
 
 
 #include <boost/iterator/zip_iterator.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/result_of.hpp>
 #include "./begin_end.hpp"
@@ -60,7 +60,7 @@ namespace zipped_detail {
 
       template<typename Tuple, typename Fun>
       typename tuple_meta_transform<
-          typename boost::remove_const<Tuple>::type // FIXED
+          typename boost::remove_cv<Tuple>::type // FIXED
         , Fun
       >::type
 
@@ -88,7 +88,7 @@ namespace zipped_detail {
 #ifdef BOOST_TUPLE_ALGO_DISPATCH
       template<typename Tuple, typename Fun>
       typename tuple_meta_transform<
-          typename boost::remove_const<Tuple>::type
+          typename boost::remove_cv<Tuple>::type
         , Fun
       >::type
       
@@ -149,7 +149,7 @@ namespace zipped_detail {
         typedef
             boost::zip_iterator<
                 typename tuple_meta_transform<
-                    typename boost::remove_const<RangeTuple>::type,
+                    typename boost::remove_cv<RangeTuple>::type,
                     with_apply<RangeTuple>
                 >::type
             >

@@ -1,6 +1,6 @@
-#ifndef PSTADE_EGG_DETAIL_RESULT_OF_FWD_HPP
-#define PSTADE_EGG_DETAIL_RESULT_OF_FWD_HPP
-#include "./prefix.hpp"
+#ifndef PSTADE_EGG_LAMBDA_FUNCTOR_FWD_HPP
+#define PSTADE_EGG_LAMBDA_FUNCTOR_FWD_HPP
+#include "../detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -11,12 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace boost {
+namespace boost { namespace lambda {
 
-    template<class Signature>
-    struct result_of;
+    template<class T>
+    class lambda_functor;
 
-}
+} }
 
 
 #endif

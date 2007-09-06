@@ -25,10 +25,10 @@
 #include <pstade/affect.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/template_arguments.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
 #include "../use_constructor.hpp"
-#include "./template_arguments.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -45,7 +45,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Lambda>
     struct to_substitute :
         boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            detail::template_arguments_of<Lambda>,
+            template_arguments_of<Lambda>,
             boost::mpl::identity<Lambda>
         >
     { };
@@ -53,7 +53,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Substitute, class Lambda>
     struct substitute_to :
         boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            detail::template_arguments_copy<Substitute, Lambda>,
+            template_arguments_copy<Substitute, Lambda>,
             boost::mpl::identity<Substitute>
         >
     { };

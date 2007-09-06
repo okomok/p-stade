@@ -77,7 +77,6 @@ test-suite "egg" :
     [ run static_downcast.cpp ]
     [ run-fail static_downcast_fail.cpp ]
     [ run strong_assign.cpp ]
-    [ run template_arguments.cpp ]
     [ run to_lower.cpp ]
     [ run to_ref.cpp ]
     [ run to_shared_ptr.cpp ]
@@ -91,6 +90,7 @@ test-suite "egg" :
     [ run uncurry.cpp ]
     [ run unfuse.cpp ]
     [ run use_xxx.cpp ]
+    [ run volatile_correct.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 

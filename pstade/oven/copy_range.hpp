@@ -12,7 +12,7 @@
 
 
 #include <boost/config.hpp> // BOOST_MSVC, template
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/egg/specified.hpp>
@@ -104,7 +104,7 @@ template< class Range >
 struct Copyable :
     SinglePass<Range>
 {
-    typedef typename boost::remove_const<Range>::type rng_t;
+    typedef typename boost::remove_cv<Range>::type rng_t;
 
     PSTADE_CONCEPT_USAGE(Copyable)
     {
