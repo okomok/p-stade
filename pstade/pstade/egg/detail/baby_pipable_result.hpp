@@ -57,7 +57,7 @@ namespace pstade { namespace egg { namespace detail {
             return r;
         }
 
-#define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_ARITY)
+#define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
     // 1ary-
         template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_max_arity, A)>
         struct apply { }; // msvc warns if incomplete.

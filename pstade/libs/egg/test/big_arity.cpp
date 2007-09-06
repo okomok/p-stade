@@ -10,7 +10,7 @@
 
 
 #define PSTADE_EGG_MAX_ARITY 8
-#define PSTADE_EGG_FLAT_MAX_ARITY 20
+#define PSTADE_EGG_MAX_LINEAR_ARITY 20
 #include <pstade/egg/egg.hpp>
 #include <pstade/minimal_test.hpp>
 

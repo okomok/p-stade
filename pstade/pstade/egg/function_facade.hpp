@@ -20,7 +20,7 @@
 #include <pstade/use_default.hpp>
 #include "./function.hpp"
 #include "./apply_params.hpp"
-#include "./config.hpp" // PSTADE_EGG_FLAT_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./use_brace_level1.hpp"
 
 
@@ -59,10 +59,10 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_FLAT_MAX_ARITY, A)>
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct apply { }; // msvc warns if incomplete.
 
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_FLAT_MAX_ARITY, <pstade/egg/function_facade.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/function_facade.hpp>))
             #include BOOST_PP_ITERATE()
         };
 

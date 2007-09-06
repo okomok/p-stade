@@ -223,7 +223,7 @@ This header lets a __BOOST_LAMBDA__ functor be a __DEFERRED_CALLABLE_OBJECT__.
 
 [heading Preconditions]
 * `0 <= N && N <= PSTADE_EGG_MAX_ARITY`.
-* `0 <= M && M <= PSTADE_EGG_FLAT_MAX_ARITY`.
+* `0 <= M && M <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 * `bI` is not a rvalue.
 * The corresponding semantics is a valid expression.
 

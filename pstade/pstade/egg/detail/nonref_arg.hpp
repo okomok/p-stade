@@ -19,6 +19,9 @@ namespace pstade { namespace egg { namespace detail {
 
 
     // Add const-qualifier if rvalue is specified.
+    //     int        -> int const
+    //     int&       -> int
+    //     int const& -> int const
     template<class A>
     struct nonref_arg :
         boost::remove_reference<

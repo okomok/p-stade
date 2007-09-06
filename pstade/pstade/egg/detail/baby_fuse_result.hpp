@@ -70,7 +70,7 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_ARITY, <pstade/egg/detail/baby_fuse_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_SIZE, <pstade/egg/detail/baby_fuse_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

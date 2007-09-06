@@ -19,7 +19,7 @@ with `boost::lambda::bind` and `boost::result_of`.
 
 
 [heading Synopsys]
-    template<class Baby, class Stg = boost::use_default>
+    template<class Baby, class Stg = _default>
     struct function
     {
         Baby b; // exposition only
@@ -79,14 +79,6 @@ Though a type made from `function_facade` can't be a /POD type/, it can have non
 [heading Header]
 * `<pstade/egg/function_facade.hpp>`
 
-[heading Synopsys]
-    template<class D, class R0 = boost::use_default, class Stg = boost::use_default>
-    struct function_facade
-    {
-        // unspecified
-        // ...
-    };
-
 [heading Notation]
 * ...
 
@@ -111,7 +103,7 @@ Though a type made from `function_facade` can't be a /POD type/, it can have non
 ]
 
 [heading Preconditions]
-* `_baby` is an object whose type is derived from `function_facade<_typeof(_baby), R0, _Stg>`.
+* `_baby` is an object whose type is derived from `function_facade<_typeof(_baby), R0 = _default, _Stg = _default>`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -145,7 +137,7 @@ Though a type made from `function_facade` can't be a /POD type/, it can have non
         [[*Semantics]]
     ]
     [
-        [`automatic<Lam, _Stg = boost::use_default>::type`]
+        [`automatic<Lam, _Stg = _default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD type/]
     ]
     [
@@ -159,7 +151,7 @@ Though a type made from `function_facade` can't be a /POD type/, it can have non
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _TUPLE_MAX_ARITY`.
+* `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__.
 * `boost::mpl::apply<Lam, To>::type` is a __DEFERRED_CALLABLE_OBJECT__ type.
 * The corresponding semantics is a valid expression.
@@ -198,7 +190,7 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`deferred<Lam, _Stg = boost::use_default>::type`]
+        [`deferred<Lam, _Stg = _default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD type/]
     ]
     [

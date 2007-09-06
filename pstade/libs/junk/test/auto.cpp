@@ -10,7 +10,7 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/test_test.cpp>
+//#include <pstade/../libs/wine/test/template_arguments.cpp>
 
 //#include <pstade/../libs/oven/test/comprehension.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
@@ -21,7 +21,7 @@
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-#include <pstade/../libs/egg/test/lambda_result_of.cpp>
+#include <pstade/../libs/egg/test/generator.cpp>
 //#include <pstade/../libs/egg/example/nested_lambda.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

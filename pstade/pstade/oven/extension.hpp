@@ -25,7 +25,7 @@
 #include <boost/range/size_type.hpp>
 #include <boost/type.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
@@ -115,7 +115,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     template< class T >
     struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
     {
-        typedef typename boost::remove_const<T>::type plain_t;
+        typedef typename boost::remove_cv<T>::type plain_t;
         typedef typename pstade_oven_extension::Range<plain_t>::
             template associate<plain_t>::mutable_iterator type;
     };
@@ -124,7 +124,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     template< class T >
     struct range_const_iterator
     {
-        typedef typename boost::remove_const<T>::type plain_t;
+        typedef typename boost::remove_cv<T>::type plain_t;
         typedef typename pstade_oven_extension::Range<plain_t>::
             template associate<plain_t>::constant_iterator type;
     };
@@ -149,7 +149,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         template< class Result, class T >
         Result call(T& x) const
         {
-            typedef typename boost::remove_const<T>::type plain_t;
+            typedef typename boost::remove_cv<T>::type plain_t;
             return pstade_oven_extension::Range<plain_t>().template begin<Result>(x);
         }
     };
@@ -168,7 +168,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         template< class Result, class T >
         Result call(T& x) const
         {
-            typedef typename boost::remove_const<T>::type plain_t;
+            typedef typename boost::remove_cv<T>::type plain_t;
             return pstade_oven_extension::Range<plain_t>().template end<Result>(x);
         }
     };

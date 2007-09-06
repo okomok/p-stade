@@ -93,11 +93,15 @@ This document uses the following notation.
         [A type which is one of the __EGG_FORWARDING_STRATEGIES__.]
     ]
     [
+	    [`_default`]
+	    [`boost::use_default`]
+    ]
+    [
         [`++`]
         [An imaginary operator to concatenate tokens.]
     ]
     [
-        [`_TUPLE_MAX_ARITY`]
+        [`_TUPLE_MAX_SIZE`]
         [`10`]
     ]
 ]
