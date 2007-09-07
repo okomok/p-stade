@@ -97,12 +97,12 @@ This document uses the following notation.
 	    [`boost::use_default`]
     ]
     [
-        [`++`]
-        [An imaginary operator to concatenate tokens.]
-    ]
-    [
         [`_TUPLE_MAX_SIZE`]
         [`10`]
+    ]
+    [
+        [`++`]
+        [An imaginary operator to concatenate tokens.]
     ]
 ]
 

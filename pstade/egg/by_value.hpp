@@ -25,6 +25,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./detail/call_baby.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
 #include "./sig_template.hpp"
@@ -36,8 +37,8 @@ namespace pstade { namespace egg {
     struct by_value;
 
 
-    template<class Baby>
-    struct function<Baby, by_value>
+    template<class Baby, class Form>
+    struct function<Baby, by_value, Form>
     {
         typedef Baby baby_type;
 
@@ -55,9 +56,9 @@ namespace pstade { namespace egg {
 
         nullary_result_type operator()() const
         {
-            return m_baby.template call<
-                nullary_result_type
-            >();
+            return detail::call_baby<
+                Form, nullary_result_type
+            >::call(m_baby);
         }
 
     // 1ary-
@@ -100,9 +101,9 @@ public:
     typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
     {
-        return m_baby.template call<
-            typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
-        >(BOOST_PP_ENUM_PARAMS(n, a));
+        return detail::call_baby<
+            Form, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
+        >::call(m_baby, BOOST_PP_ENUM_PARAMS(n, a));
     }
     
 

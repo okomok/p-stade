@@ -30,7 +30,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/empty.hpp>
-#include <pstade/egg/envelope.hpp>
+#include <boost/type.hpp>
 #include <pstade/egg/tuple/pack.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
@@ -143,11 +143,12 @@ struct tp_make_adjacent_transformed
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(!boost::empty(rng));
 
-            return aux(rng, fun, typename range_traversal<Range>::type(), egg::envelope<Result>());
+            // Gcc needs a type envelope; see <pstade/egg/use_deduced_form.hpp>.
+            return call_aux(rng, fun, typename range_traversal<Range>::type(), boost::type<Result>());
         }
 
         template< class Result, class Range, class BinaryFun >
-        Result aux(Range& rng, BinaryFun& fun, boost::forward_traversal_tag, egg::envelope<Result>) const
+        Result call_aux(Range& rng, BinaryFun& fun, boost::forward_traversal_tag, boost::type<Result>) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
@@ -157,7 +158,7 @@ struct tp_make_adjacent_transformed
         }
 
         template< class Result, class Range, class BinaryFun >
-        Result aux(Range& rng, BinaryFun& fun, boost::single_pass_traversal_tag, egg::envelope<Result>) const
+        Result call_aux(Range& rng, BinaryFun& fun, boost::single_pass_traversal_tag, boost::type<Result>) const
         {
             typedef typename Result::iterator iter_t;
             return Result(

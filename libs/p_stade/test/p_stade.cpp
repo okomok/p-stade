@@ -1,13 +1,19 @@
 
-#include <pstade/oven/counting.hpp>
-#include <pstade/oven/as_literal.hpp>
-#include <iostream>
+
+
+template<class X, class A>
+void foo(A&, X* = 0)
+{ }
+
+template<class X, class A>
+void foo(A const&, X* = 0)
+{ }
 
 
 int main()
 {
-    for each (int i in pstade::oven::counting(0, 10))
-        std::cout << i << std::endl;
-    for each (char i in pstade::oven::as_literal("abcdefg"))
-        std::cout << i << std::endl;
+    double *p = 0;
+    int const i = 0;
+    foo<double>(i, p);
 }
+

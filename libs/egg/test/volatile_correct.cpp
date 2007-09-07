@@ -50,37 +50,45 @@ void pstade_minimal_test()
 {
     {
         int i = 12;
-        BOOST_CHECK( &i == &(identity(i)) );
+        int& i_ = identity(i);
+        BOOST_CHECK( &i == &i_ );
     }
     {
         int const i = 12;
-        BOOST_CHECK( &i == &(identity(i)) );
+        int const& i_ = identity(i);
+        BOOST_CHECK( &i == &i_ );
     }
     {
         int volatile i = 12;
-        BOOST_CHECK( &i == &(identity(i)) );
+        int volatile& i_ = identity(i);
+        BOOST_CHECK( &i == &i_ );
     }
     {
         int const volatile i = 12;
-        BOOST_CHECK( &i == &(identity(i)) );
+        int const volatile& i_ = identity(i);
+        BOOST_CHECK( &i == &i_ );
     }
 
 
     func_t func = lambda_bind(identity, lambda_1);
     {
         int i = 12;
-        BOOST_CHECK( &i == &(func(i)) );
+        int& i_ = func(i);
+        BOOST_CHECK( &i == &i_ );
     }
     {
         int const i = 12;
-        BOOST_CHECK( &i == &(func(i)) );
+        int const& i_ = func(i);
+        BOOST_CHECK( &i == &i_ );
     }
     {
         int volatile i = 12;
-        BOOST_CHECK( &i == &(func(i)) );
+        int volatile& i_ = func(i);
+        BOOST_CHECK( &i == &i_ );
     }
     {
         int const volatile i = 12;
-        BOOST_CHECK( &i == &(func(i)) );
+        int const volatile& i_ = func(i);
+        BOOST_CHECK( &i == &i_ );
     }
 }

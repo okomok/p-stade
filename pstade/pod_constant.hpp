@@ -52,23 +52,15 @@
 #if !defined(PSTADE_POD_CONSTANT_NO_STATIC_INITIALIZATION)
 
     #define PSTADE_POD_CONSTANT_aux2(F, O) \
-        PSTADE_POD_CONSTANT_static_const(O) \
-        namespace { \
-            PSTADE_IN_UNNAMED F const& O \
-                = BOOST_PP_CAT(static_const_of_, O)< F >::value; \
-        } \
-        PSTADE_POD_CONSTANT_static_const_value(O) \
-    /**/
-
-    #define PSTADE_POD_CONSTANT_static_const(O) \
         template<class T> \
         struct BOOST_PP_CAT(static_const_of_, O) \
         { \
             static T const value; \
         }; \
-    /**/
-
-    #define PSTADE_POD_CONSTANT_static_const_value(O) \
+        namespace { \
+            PSTADE_IN_UNNAMED F const& O \
+                = BOOST_PP_CAT(static_const_of_, O)< F >::value; \
+        } \
         template<class T> \
         T const BOOST_PP_CAT(static_const_of_, O)<T>::value \
     /**/

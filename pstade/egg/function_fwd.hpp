@@ -18,18 +18,27 @@
 namespace pstade { namespace egg {
 
 
-    template<class Baby, class Pass = boost::use_default>
+    template<
+        class Baby,
+        class Pass = boost::use_default,
+        class Form = boost::use_default
+    >
     struct function;
 
 
-    template<class Derived, class NullaryResult = boost::use_default, class Pass = boost::use_default>
+    template<
+        class Derived,
+        class NullaryResult = boost::use_default,
+        class Pass          = boost::use_default,
+        class From          = boost::use_default
+    >
     struct function_facade;
 
 
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, (class)(class))
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, (class)(class)(class))
 
 
 #endif
