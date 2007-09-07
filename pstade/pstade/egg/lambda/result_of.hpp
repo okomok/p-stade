@@ -21,7 +21,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/preprocessor.hpp>
-#include "../detail/nonref_arg.hpp"
+#include "../detail/meta_arg.hpp"
 #include "../detail/result_of_fwd.hpp"
 #include "./config.hpp"
 #include "./functor_fwd.hpp"
@@ -65,7 +65,7 @@ namespace boost {
             tuples::tuple<
                 lambda::lambda_functor<T>,
 #if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
-                PSTADE_PP_ENUM_PARAMS_WITH(n, typename pstade::egg::detail::nonref_arg<A, >::type &)
+                PSTADE_PP_ENUM_PARAMS_WITH(n, typename pstade::egg::detail::meta_arg<A, >::type &)
 #else
                 BOOST_PP_ENUM_PARAMS(n, A)
 #endif

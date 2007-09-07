@@ -37,7 +37,6 @@
 #include "./dereference.hpp"
 #include "./divides.hpp"
 #include "./do_swap.hpp"
-#include "./envelope.hpp"
 #include "./equal_to.hpp"
 #include "./equal_to_0.hpp"
 #include "./fix.hpp"
@@ -102,6 +101,7 @@
 #include "./use_brace_level0.hpp"
 #include "./use_brace_level1.hpp"
 #include "./use_constructor.hpp"
+#include "./use_deduced_form.hpp"
 
 
 #endif

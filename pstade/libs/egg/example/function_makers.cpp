@@ -15,7 +15,6 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
-#include <pstade/egg/envelope.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/generator.hpp>
@@ -129,8 +128,8 @@ void test_function_facade()
 }
 //]
 
-
-//[code_envelope_example
+#if 0
+//[code_deduced_example
 struct baby_size
 {
     template<class Myself, class X>
@@ -171,6 +170,7 @@ void test_envelope()
     int a[12];
     BOOST_CHECK( size(a) == 12 );
 }
+#endif
 
 
 //[code_automatic_example
@@ -249,7 +249,9 @@ void pstade_minimal_test()
     test_function();
     test_function_by_value();
     test_function_facade();
+#if 0
     test_envelope();
+#endif
     test_automatic();
     test_deferred();
     test_generator();

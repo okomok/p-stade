@@ -43,16 +43,16 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_auxiliary++N<_Dco>::type`]
     ]
     [
+        [`res(a(1),...,a(N+1))`]
+        [`_dco(_arg_list(a, _Stg))`]
+    ]
+    [
         [`auxiliary++N`]
         [A __BINDABLE__ __OPERATABLE_OBJECT__]
     ]
     [
         [`auxiliary++N(_dco)`]
         [`res`]
-    ]
-    [
-        [`res(a(1),...,a(N+1))`]
-        [`_dco(_arg_list(a, _Stg))`]
     ]
 ]
 
@@ -91,7 +91,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res(_Stg)` is an object of `result_of_compose1<_typeof(_dco1),_typeof(_dco2), R0, _Stg>::type`  initialized using `_dco1` and `_dco2`.
+* `res(R0, _Stg)` is an object of `result_of_compose1<_typeof(_dco1),_typeof(_dco2), R0, _Stg>::type`  initialized using `_dco1` and `_dco2`.
 
 [heading Valid expressions]
 [table 
@@ -108,12 +108,20 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_compose1<_Dco1, _Dco2, R0, _Stg>::type`]
     ]
     [
-        [`compose1(_dco1, _dco2)`]
-        [`res(_default)`]
+        [`res(R0, Stg)(a1,...,aN)`]
+        [`_dco1(_dco2(_arg_list(a, _Stg)))`]
     ]
     [
-        [`res(Stg)(a1,...,aN)`]
-        [`_dco1(_dco2(_arg_list(a, _Stg)))`]
+        [`xp_compose1<R0 = _default>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`xp_compose1<R0>()(_dco1, _dco2)`]
+        [`res(R0, _default)`]
+    ]
+    [
+        [`compose1`]
+        [`xp_compose1<R0>()`]
     ]
 ]
 
@@ -167,16 +175,16 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_curry++N<_Dco>::type`]
     ]
     [
+        [`res(a1)...(aN)`]
+        [`_dco(_arg_list(a, by_cref))`]
+    ]
+    [
         [`curry++N`]
         [A __BINDABLE__ __OPERATABLE_OBJECT__]
     ]
     [
         [`curry++N(_dco)`]
         [`res`]
-    ]
-    [
-        [`res(a1)...(aN)`]
-        [`_dco(_arg_list(a, by_cref))`]
     ]
 ]
 
@@ -231,12 +239,12 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_uncurry<_Dco>::type`]
     ]
     [
-        [`uncurry(_dco)`]
-        [`res(_default)`]
-    ]
-    [
         [`res(_Stg)(a1,...,aN)`]
         [`_dco(parens(_arg_list(a, _Stg)))`]
+    ]
+    [
+        [`uncurry(_dco)`]
+        [`res(_default)`]
     ]
 ]
 
@@ -288,16 +296,16 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_fuse<_Dco>::type`]
     ]
     [
-        [`fuse(_dco)`]
-        [`res`]
-    ]
-    [
         [`res(t)`]
         [`_dco(boost::get<0>(t_),...,boost::get<N-1>(t_))`]
     ]
     [
         [`res(t0)`]
         [`_dco()`]
+    ]
+    [
+        [`fuse(_dco)`]
+        [`res`]
     ]
 ]
 
@@ -312,6 +320,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading See also]
 * [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adaptors]
+* __VARIADIC_TEMPLATES__
 * __EGG_UNFUSE__
 
 [endsect]
@@ -323,8 +332,6 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading Description]
 `unfuse` reverses `fuse`.
-The technique using `fuse` and `unfuse` (I call it "fusing")
-might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
 
 [heading Header]
 * `<pstade/egg/unfuse.hpp>`
@@ -334,7 +341,7 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res(_Stg)` is an object of `result_of_unfuse<_typeof(_dco), Pack, R0, _Stg>::type` initialized using `_dco`.
+* `res(R0, _Stg)` is an object of `result_of_unfuse<_typeof(_dco), Pack, R0, _Stg>::type` initialized using `_dco`.
 * `ref(b1,...,bN)` is `b1&,...,bN&`.
 
 [heading Valid expressions]
@@ -344,7 +351,7 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
         [[*Semantics]]
     ]
     [
-        [`result_of_unfuse<_Dco, Pack = _default, R0 = _default, _Stg>::type`]
+        [`result_of_unfuse<_Dco, Pack = _default, R0 = _default, _Stg = _default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
@@ -352,12 +359,20 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
         [A braced initializer of `result_of_unfuse<_Dco, Pack, R0, _Stg>::type`]
     ]
     [
-        [`unfuse(_dco)`]
-        [`res(_default)`]
+        [`res(R0, _Stg)(a1,...,aN)`]
+        [`_dco( boost::tuples::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
     ]
     [
-        [`res(_Stg)(a1,...,aN)`]
-        [`_dco( boost::tuples::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
+        [`xp_unfuse<R0 = _default>`]
+        [`A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type`]
+    ]
+    [
+        [`xp_unfuse<R0>()(_dco)`]
+        [`res(R0, _default)`]
+    ]
+    [
+        [`unfuse`]
+        [`xp_unfuse<>()`]
     ]
 ]
 
@@ -377,6 +392,7 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
 [heading See also]
 * __EGG_DEDUCING_NULLARY_RETURN_TYPES__
 * [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adaptors]
+* __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
 
 [endsect]
@@ -414,12 +430,12 @@ might be considered as an emulation of __VARIADIC_TEMPLATES__ in C++98.
         [A braced initializer of `result_of_indirect<Pco, _Stg>::type`]
     ]
     [
-        [`indirect(pco)`]
-        [`res(_default)`]
-    ]
-    [
         [`res(_Stg)(a1,...,aN)`]
         [`(*pco)(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`indirect(pco)`]
+        [`res(_default)`]
     ]
 ]
 
@@ -470,12 +486,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_lazy<Bin>::type`]
     ]
     [
-        [`lazy(bin)`]
-        [`res`]
-    ]
-    [
         [`res(a1,...,aN)`]
         [`boost::lambda::bind(bin, _arg_list(a, by_cref))`]
+    ]
+    [
+        [`lazy(bin)`]
+        [`res`]
     ]
 ]
 
@@ -578,12 +594,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_pipable<_Dco, _Stg>::type`]
     ]
     [
-        [`pipable(_dco)`]
-        [`res(_default)`]
-    ]
-    [
         [`a1|res(_Stg)(a2,...,aN)`]
         [`_dco(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`pipable(_dco)`]
+        [`res(_default)`]
     ]
 ]
 
@@ -620,7 +636,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * ...
 
 [heading Notation]
-* `res(_Stg)` is an object of `result_of_ret<_typeof(fun), R, _Stg>::type` initialized using `fun`.
+* `res(R, _Stg)` is an object of `result_of_ret<_typeof(fun), R, _Stg>::type` initialized using `fun`.
 
 [heading Valid expressions]
 [table 
@@ -637,20 +653,20 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_ret<Fun, R, _Stg>::type`]
     ]
     [
+        [`res(R, _Stg)(a1,...,aN)`]
+        [`fun(_arg_list(a, _Stg))`]
+    ]
+    [
         [`xp_ret<R = _default>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`xp_ret<R = _default>()(fun)`]
-        [`res(_default)`]
-    ]
-    [
-        [`res(_Stg)(a1,...,aN)`]
-        [`fun(_arg_list(a, _Stg))`]
-    ]
-    [
-        [`egg::ret<R>(fun)`]
         [`xp_ret<R>()(fun)`]
+        [`res(R, _default)`]
+    ]
+    [
+        [`egg::ret<R>`]
+        [`xp_ret<R>()`]
     ]
 ]
 

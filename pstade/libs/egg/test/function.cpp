@@ -164,10 +164,10 @@ struct baby_keep_const
 };
 typedef pstade::egg::function<baby_keep_const> op_keep_const;
 op_keep_const const keep_const = { {} };
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int&>::type, int >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int const&>::type, int const >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int>::type, int const >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::nonref_arg<int const>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int&>::type, int >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int const&>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int const>::type, int const >));
 PSTADE_TEST_IS_RESULT_OF((int), op_keep_const(int&))
 PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int))
 PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int const&))

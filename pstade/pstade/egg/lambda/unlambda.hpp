@@ -14,7 +14,7 @@
 #include <boost/lambda/core.hpp> // unlambda
 #include <pstade/pod_constant.hpp>
 #include "../by_value.hpp"
-#include "../envelope.hpp"
+#include "../use_deduced_form.hpp"
 
 
 namespace pstade { namespace egg {
@@ -38,19 +38,13 @@ namespace pstade { namespace egg {
             };
 
             template<class Result, class Function>
-            Result call(Function fun) const
-            {
-                return call_aux(fun, envelope<Result>());
-            }
-
-            template<class Result, class Function>
-            Result call_aux(Function fun, envelope<Result>) const
+            Result call(boost::type<Result>, Function fun) const
             {
                 return fun;
             }
 
             template<class Result, class Arg>
-            Result call_aux(boost::lambda::lambda_functor<Arg> lam, envelope<Result>) const
+            Result call(boost::type<Result>, boost::lambda::lambda_functor<Arg> lam) const
             {
                 return boost::lambda::unlambda(lam);
             }
@@ -60,7 +54,7 @@ namespace pstade { namespace egg {
     } // namespace lambda_unlambda
 
 
-    typedef function<lambda_unlambda_detail::baby, by_value> op_lambda_unlambda;
+    typedef function<lambda_unlambda_detail::baby, by_value, use_deduced_form> op_lambda_unlambda;
     PSTADE_POD_CONSTANT((op_lambda_unlambda), lambda_unlambda) = {{}};
 
 

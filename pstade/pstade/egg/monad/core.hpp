@@ -64,9 +64,9 @@
 #include <pstade/pod_constant.hpp>
 #include "../always.hpp"
 #include "../copy.hpp"
-#include "../envelope.hpp"
 #include "../function.hpp"
 #include "../make_function.hpp"
+#include "../use_deduced_form.hpp"
 
 
 namespace pstade_egg_extension {
@@ -157,7 +157,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Result, class MA, class A_MB>
-            Result call_aux(MA const& m, A_MB& f, envelope<Result>) const
+            Result call(boost::type<Result>, MA const& m, A_MB& f) const
             {
                 typedef ext::Monad<MA> extM_t;
                 return extM_t().template bind<Result>(m, f);
@@ -171,7 +171,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Result, class A, class A_MB>
-            Result call_aux(wrapper<A> const& w, A_MB& f, envelope<Result>) const
+            Result call(boost::type<Result>, wrapper<A> const& w, A_MB& f) const
             {
                 typedef ext::Monad<Result> extM_t_;
                 typedef typename extM_t_::template wrap<A>::type MA_t;
@@ -182,12 +182,6 @@ namespace pstade { namespace egg {
             struct apply :
                 apply_aux<typename pass_by_value<MA>::type, A_MB>
             { };
-
-            template<class Result, class MA, class A_MB>
-            Result call(MA& m, A_MB& f) const
-            {
-                return call_aux(m, f, envelope<Result>());
-            }
         };
 
 
@@ -230,7 +224,7 @@ namespace pstade { namespace egg {
     } // namespace monad_detail
 
 
-    typedef function<monad_detail::baby_bind> op_monad_bind;
+    typedef function<monad_detail::baby_bind, boost::use_default, use_deduced_form> op_monad_bind;
     PSTADE_POD_CONSTANT((op_monad_bind), monad_bind) = {{}};
 
     typedef function<monad_detail::baby_bind_> op_monad_bind_;

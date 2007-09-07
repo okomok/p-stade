@@ -30,8 +30,8 @@
 #include <pstade/egg/lambda/bind.hpp>
 #include <pstade/egg/lambda/placeholders.hpp>
 #include <pstade/egg/lambda/unlambda.hpp>
-#include <pstade/egg/envelope.hpp>
 #include <pstade/egg/generator.hpp>
+#include <pstade/egg/use_deduced_form.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -346,14 +346,8 @@ namespace always_return_detail {
             type;
         };
 
-        template< class Result, class X >
-        Result call(X& x) const
-        {
-            return call_aux(x, egg::envelope<Result>());
-        }
-
         template< class Result, class Range >
-        Result call_aux(Range& rng, egg::envelope<Result>) const
+        Result call(boost::type<Result>, Range& rng) const
         {
             // If 'rng' is 'initial_values(..)',
             // neither copy-initialization nor direct-initialization doesn't work;
@@ -365,21 +359,16 @@ namespace always_return_detail {
         template< class Myself >
         struct apply<Myself, bool>
         {
-            typedef
-                result_<bool>
-            type;
+            typedef result_<bool> type;
         };
 
         template< class Myself >
-        struct apply<Myself, bool const>
-        {
-            typedef
-                result_<bool>
-            type;
-        };
+        struct apply<Myself, bool const> :
+            apply<Myself, bool>
+        { };
 
         template< class Result >
-        Result call_aux(bool b, egg::envelope<Result>) const
+        Result call(boost::type<Result>, bool b) const
         {
             return Result(b);
         }
@@ -389,7 +378,7 @@ namespace always_return_detail {
 } // namespace always_return_detail
 
 
-typedef egg::function<always_return_detail::baby> op_always_return;
+typedef egg::function<always_return_detail::baby, boost::use_default, egg::use_deduced_form> op_always_return;
 PSTADE_POD_CONSTANT((op_always_return), always_return) = {{}};
 
 

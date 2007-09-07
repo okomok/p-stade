@@ -26,7 +26,7 @@ struct op_large_arity_id0
     template<class Self, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct result<Self(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9)>
     {
-        typedef typename pstade::egg::detail::nonref_arg<A0>::type &type;
+        typedef typename pstade::egg::detail::meta_arg<A0>::type &type;
     };
 
     template<class A0>

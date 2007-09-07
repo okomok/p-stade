@@ -2,7 +2,7 @@
 
 Egg provides some workaround utilities.
 
-
+[import ../test/use_deduced_form.cpp]
 
 
 [section pstade::result_of]
@@ -38,8 +38,9 @@ Egg provides some workaround utilities.
 [section before_mpl_has_xxx.hpp]
 
 [heading Description]
-`BOOST_MPL_HAS_XXX_TRAIT_DEF` randomly fails to work under the msvc complilers,
-so that you might see a weird error message such that
+`BOOST_MPL_HAS_XXX_TRAIT_DEF`, which __BOOST_RESULT_OF__ and __BOOST_LAMBDA__ depend on,
+randomly fails to work under the msvc complilers.
+You might see a weird error message such that
 "nested `sig` template is undefined" or "nested `result` template is undefined".
 So that, `BOOST_MPL_HAS_XXX_TRAIT_DEF` must be overridden with a workaround.
 
@@ -66,14 +67,16 @@ So that, `BOOST_MPL_HAS_XXX_TRAIT_DEF` must be overridden with a workaround.
 
 
 
-[section envelope]
+[section use_deduced_form]
 
 [heading Description]
 The overload resolution system of GCC 3.4.x or below is broken when you call the overloaded functions whose arity is the same with explicit template parameter types.
-If you overload `apply` in "baby" function under GCC 3.4.x, explicit template parameters must be removed using a "type envelope".
+If you overload `call` in "baby" function with the same arity under GCC 3.4.x,
+you must pass an extra parameter to __EGG_FUNCTION__ or __EGG_FUNCTION_FACADE__.
+Then, the "baby" interface is slightly changed.
 
 [heading Header]
-* `<pstade/egg/envelope.hpp>`
+* `<pstade/egg/use_deduced_form.hpp>`
 
 [heading Valid expressions]
 [table 
@@ -82,18 +85,19 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
         [[*Semantics]]
     ]
     [
-        [`envelope<T>`]
-        [`boost::type<T>`]
+        [`use_deduced_form`]
+        [A type]
     ]
 ]
 
 [heading Example]
-[code_envelope_example]
+[code_use_deduced_form_example]
 
-[note You can of course use `boost::type` instead of `envelope`, but it would be slightly less self-documenting.]
+[note you can also use __BOOST_ENABLE_IF__ instead. ]
 
 [heading See also]
-* ...
+* __EGG_FUNCTION__
+* __EGG_FUNCTION_FACADE__
 
 [endsect]
 
@@ -105,7 +109,7 @@ If you overload `apply` in "baby" function under GCC 3.4.x, explicit template pa
 [heading Description]
 Under msvc-8.0, `boost::mpl::apply<PlaceholderExpression,..>` randomly fails
 at the instantiation process in `boost::result_of`.
-So that, `deferred` which depends on `boost::mpl::apply` needs a workaround.
+So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
 
 [heading Header]
 * `<pstade/egg/deferred.hpp>`

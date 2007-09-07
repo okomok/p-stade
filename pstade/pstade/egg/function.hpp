@@ -22,7 +22,8 @@
 #include <pstade/deduced_const.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./detail/nonref_arg.hpp"
+#include "./detail/call_baby.hpp"
+#include "./detail/meta_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
 #include "./sig_template.hpp"
@@ -31,8 +32,8 @@
 namespace pstade { namespace egg {
 
 
-    template<class Baby>
-    struct function<Baby, boost::use_default>
+    template<class Baby, class Form>
+    struct function<Baby, boost::use_default, Form>
     {
         typedef Baby baby_type;
 
@@ -50,9 +51,9 @@ namespace pstade { namespace egg {
 
         nullary_result_type operator()() const
         {
-            return m_baby.template call<
-                nullary_result_type
-            >();
+            return detail::call_baby<
+                Form, nullary_result_type
+            >::call(m_baby);
         }
 
     // 1ary-
@@ -70,9 +71,9 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
         operator()(Params) const \
         { \
-            return m_baby.template call< \
-                typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
-            >(BOOST_PP_ENUM_PARAMS(n, a)); \
+            return detail::call_baby< \
+                Form, typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
+            >::call(m_baby, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
@@ -109,7 +110,7 @@ private:
     struct BOOST_PP_CAT(result, n) :
         Baby::template apply<
             Baby,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::nonref_arg<A, >::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::meta_arg<A, >::type)
         >
     { };
 

@@ -18,7 +18,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/nonref_arg.hpp"
+#include "./detail/call_baby.hpp"
+#include "./detail/meta_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
 #include "./sig_template.hpp"
@@ -30,8 +31,8 @@ namespace pstade { namespace egg {
     struct by_ref;
 
 
-    template<class Baby>
-    struct function<Baby, by_ref>
+    template<class Baby, class Form>
+    struct function<Baby, by_ref, Form>
     {
         typedef Baby baby_type;
 
@@ -49,9 +50,9 @@ namespace pstade { namespace egg {
 
         nullary_result_type operator()() const
         {
-            return m_baby.template call<
-                nullary_result_type
-            >();
+            return detail::call_baby<
+                Form, nullary_result_type
+            >::call(m_baby);
         }
 
     // 1ary-
@@ -86,7 +87,7 @@ public:
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(result, n)<
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::nonref_arg<A, >::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::meta_arg<A, >::type)
         >
     { };
 
@@ -94,9 +95,9 @@ public:
     typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return m_baby.template call<
-            typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
-        >(BOOST_PP_ENUM_PARAMS(n, a));
+        return detail::call_baby<
+            Form, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
+        >::call(m_baby, BOOST_PP_ENUM_PARAMS(n, a));
     }
     
 
