@@ -64,9 +64,9 @@
 #include <pstade/pod_constant.hpp>
 #include "../always.hpp"
 #include "../copy.hpp"
+#include "../deduced_form.hpp"
 #include "../function.hpp"
-#include "../make_function.hpp"
-#include "../use_deduced_form.hpp"
+#include "../make_function_of.hpp"
 
 
 namespace pstade_egg_extension {
@@ -149,6 +149,8 @@ namespace pstade { namespace egg {
 
         struct baby_bind
         {
+            typedef deduced_form calling_strategy;
+
             template<class MA, class A_MB>
             struct apply_aux :
                 result_of<
@@ -175,7 +177,7 @@ namespace pstade { namespace egg {
             {
                 typedef ext::Monad<Result> extM_t_;
                 typedef typename extM_t_::template wrap<A>::type MA_t;
-                return make_function(*this)(egg::copy<MA_t>(w), f);
+                return make_function_of(*this)(egg::copy<MA_t>(w), f);
             }
 
             template<class Myself, class MA, class A_MB>
@@ -224,7 +226,7 @@ namespace pstade { namespace egg {
     } // namespace monad_detail
 
 
-    typedef function<monad_detail::baby_bind, boost::use_default, use_deduced_form> op_monad_bind;
+    typedef function<monad_detail::baby_bind> op_monad_bind;
     PSTADE_POD_CONSTANT((op_monad_bind), monad_bind) = {{}};
 
     typedef function<monad_detail::baby_bind_> op_monad_bind_;

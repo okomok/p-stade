@@ -22,13 +22,15 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
 #include "../by_cref.hpp"
+#include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "../function.hpp"
+#include "./bound_arg.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -62,11 +64,10 @@ namespace pstade { namespace egg { namespace detail {
     struct result_of_bind1
     {
         typedef
-            function<
-                baby_bind1_result<Base, Arg>
-            >
+            function<baby_bind1_result<Base, Arg>, by_perfect>
         type;
     };
+
 
     #define PSTADE_EGG_DETAIL_BIND1_L { {
     #define PSTADE_EGG_DETAIL_BIND1_M ,
@@ -78,8 +79,8 @@ namespace pstade { namespace egg { namespace detail {
         template<class Myself, class Base, class Arg>
         struct apply :
             result_of_bind1<
-                typename boost::remove_cv<Base>::type,
-                typename boost::remove_cv<Arg>::type
+                typename pass_by_value<Base>::type,
+                typename bound_arg<Arg>::type
             >
         { };
 

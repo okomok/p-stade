@@ -10,11 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./tuple/config.hpp"
-#include "./tuple/element.hpp"
-#include "./tuple/get.hpp"
-#include "./tuple/pack.hpp"
-#include "./tuple/size.hpp"
+#include "./tuple/tuple.hpp"
 
 
 #endif

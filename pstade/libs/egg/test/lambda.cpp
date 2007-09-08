@@ -9,7 +9,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/lambda/lazy_bind.hpp>
 #include <pstade/egg/lambda/unlambda.hpp>
 #include <pstade/egg/lambda/bind.hpp>
 #include <pstade/egg/lambda/placeholders.hpp>
@@ -17,6 +16,7 @@
 #include <pstade/minimal_test.hpp>
 
 
+#include <pstade/egg/lazy.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/egg/plus.hpp>
 #include <pstade/egg/to_ref.hpp>
@@ -68,6 +68,6 @@ void pstade_minimal_test()
     {
         int i = 3;
         int (*pf)(int,int) = &my_minus;
-        BOOST_CHECK( lambda_Bind(lambda_1, boost::lambda::protect(lambda_1), 10)(pf)(i) == -7 );
+        BOOST_CHECK( lazy(lambda_bind)(lambda_1, boost::lambda::protect(lambda_1), 10)(pf)(i) == -7 );
     }
 }

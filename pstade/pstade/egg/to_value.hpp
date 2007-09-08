@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/bool.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_value.hpp"
 
@@ -66,7 +67,6 @@ namespace pstade { namespace egg {
 
 
 } } // namespace pstade::egg
-
 
 
 #endif

@@ -31,7 +31,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // Fortunately, 'boost::tuples::null_type' is a pod.
 
-    template<class Base, class ArgTuple = boost::tuples::null_type>
+    template<class Base, class Strategy, class ArgTuple = boost::tuples::null_type>
     struct baby_pipable_result
     {
         typedef Base base_type;
@@ -47,7 +47,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef
-            function<baby_pipable_result>
+            function<baby_pipable_result, Strategy>
         nullary_result_type;
 
         template<class Result>
@@ -83,16 +83,16 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
 
-    template<class A, class Base, class ArgTuple> inline
+    template<class A, class Base, class Strategy, class ArgTuple> inline
     typename result_of_output<A, Base, ArgTuple>::type
-    operator|(A& a, function< baby_pipable_result<Base, ArgTuple> > const& pi)
+    operator|(A& a, function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
     }
 
-    template<class A, class Base, class ArgTuple> inline
+    template<class A, class Base, class Strategy, class ArgTuple> inline
     typename result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple>::type
-    operator|(A const& a, function< baby_pipable_result<Base, ArgTuple> > const& pi)
+    operator|(A const& a, function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
     }
@@ -111,7 +111,8 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef
             function<
-                baby_pipable_result< Base, boost::tuples::tuple<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)> >
+                baby_pipable_result< Base, Strategy, boost::tuples::tuple<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)> >,
+                Strategy
             >
         type;
     };

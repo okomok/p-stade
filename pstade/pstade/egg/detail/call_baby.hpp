@@ -22,8 +22,8 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Result>
-    struct call_baby<boost::use_default, Result>
+    template<class Baby_, class Result, class EnableIf>
+    struct call_baby
     {
     // 0ary
         template<class Baby>

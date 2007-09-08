@@ -19,7 +19,7 @@
 #include <boost/implicit_cast.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
-#include "./function.hpp"
+#include "./by_perfect.hpp"
 
 
 namespace pstade { namespace egg {
@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby> op;
+        typedef function<baby, by_perfect> op;
 
 
     } // namespace copy_assign_detail

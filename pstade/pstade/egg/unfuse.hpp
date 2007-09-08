@@ -12,8 +12,8 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./by_perfect.hpp"
 #include "./detail/baby_unfuse_result.hpp"
-#include "./function.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
 
@@ -25,13 +25,13 @@ namespace pstade { namespace egg {
         class Base,
         class Pack          = boost::use_default,
         class NullaryResult = boost::use_default,
-        class Pass          = boost::use_default
+        class Strategy      = by_perfect
     >
     struct result_of_unfuse
     {
         typedef
-            function<detail::baby_unfuse_result<Base, Pack, NullaryResult>, Pass>
-        type; // = { { Base, Pack } };
+            function<detail::baby_unfuse_result<Base, Pack, NullaryResult>, Strategy>
+        type;
     };
 
 

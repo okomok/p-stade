@@ -11,13 +11,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/use_default.hpp>
+#include <pstade/enable_if.hpp>
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Form, class Result>
+    // Baby_ is guaranteed to be complete when call_baby instantiated,
+    // because this is instantiated only in function body.
+    template<class Baby_, class Result, class EnableIf = enabler>
     struct call_baby;
 
 

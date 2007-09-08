@@ -9,11 +9,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/lazy.hpp>
+#include <pstade/egg/lambda.hpp>
 #include <pstade/minimal_test.hpp>
 
 
 #include <pstade/egg/plus.hpp>
-#include <pstade/egg/lambda/lazy_bind.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 
@@ -55,15 +56,15 @@ void pstade_minimal_test()
     BOOST_CHECK( Plus(Plus(4, _1), _2)
         (a, b) == plus(plus(4, a), b) );
 
-    //[code_lazy_lambda_bind_example
-    /*<< This is currying in Boost.Lambda way. >>*/
+    //[code_lambda_bind_example
+    /*<< This is currying in __BOOST_LAMBDA__. >>*/
     // \x -> (\y -> plus(x, y))
-    BOOST_CHECK( lambda_Bind(plus, _1, bll::protect(_1))
+    BOOST_CHECK( lazy(lambda_bind)(plus, _1, bll::protect(_1))
         (a)(b) == plus(a, b) );
     //]
 
     // complicated
     // \x -> my_apply(\y -> plus(x, y), plus(x, 3))
-    BOOST_CHECK( my_Apply(lambda_Bind(plus, _1, bll::protect(_1)), Plus(_1, 3))
+    BOOST_CHECK( my_Apply(lazy(lambda_bind)(plus, _1, bll::protect(_1)), Plus(_1, 3))
         (a) == plus(a, a+3) );
 }

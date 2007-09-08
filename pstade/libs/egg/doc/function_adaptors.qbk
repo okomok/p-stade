@@ -44,7 +44,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`res(a(1),...,a(N+1))`]
-        [`_dco(_arg_list(a, _Stg))`]
+        [`_dco(_arg_list(a, by_perfect))`]
     ]
     [
         [`auxiliary++N`]
@@ -279,7 +279,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading Notation]
 * `res` is an object of `result_of_fuse<_typeof(_dco)>::type` initialized using `_dco`.
-* `t_` is `_arg_list(t, by_perfect)`, where `t` is regared as one element token list.
+* `t_` is `_arg_list(t, by_perfect)`.
 
 [heading Valid expressions]
 [table 
@@ -496,7 +496,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY-1`.
+* `0 <= N && N <= 9`.
 * `Bin` is __BINDABLE_OBJECT__ type.
 * `bin` is a __BINDABLE_OBJECT__.
 * `Bin b = init;` is a valid expression.
@@ -594,8 +594,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_pipable<_Dco, _Stg>::type`]
     ]
     [
-        [`a1|res(_Stg)(a2,...,aN)`]
-        [`_dco(_arg_list(a, _Stg))`]
+        [`a|res(_Stg)(b1,...,bN)`]
+        [`_dco(_arg_list(a, by_perfect), _arg_list(b, _Stg))`]
     ]
     [
         [`pipable(_dco)`]
@@ -604,12 +604,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= _TUPLE_MAX_SIZE`.
+* `1 <= N && N <= _TUPLE_MAX_SIZE-1`.
 * `_Dco d = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* If `_Dco` is /POD/, `result_of_pipable<_Dco>::type` is /POD/.
+* If `_Dco` is /POD/, `result_of_pipable<_Dco, _Stg>::type` is /POD/.
 
 [heading Example]
 [code_pipable_example]

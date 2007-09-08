@@ -12,8 +12,8 @@
 
 
 #include <pstade/adl_barrier.hpp>
+#include "./by_perfect.hpp"
 #include "./detail/baby_ret_result.hpp"
-#include "./function.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
 #include "./use_brace_level1.hpp"
@@ -22,11 +22,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Base, class ResultType = boost::use_default, class Pass = boost::use_default>
+    template<class Base, class ResultType = boost::use_default, class Strategy = by_perfect>
     struct result_of_ret
     {
         typedef
-            function<detail::baby_ret_result<Base, ResultType>, Pass>
+            function<detail::baby_ret_result<Base, ResultType>, Strategy>
         type;
     };
 

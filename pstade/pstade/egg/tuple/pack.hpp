@@ -12,15 +12,15 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "../by_perfect.hpp"
 #include "../by_ref.hpp"
-#include "../function.hpp"
 #include "./detail/baby_pack.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    typedef function<tuple_detail::baby_pack> op_tuple_pack;
+    typedef function<tuple_detail::baby_pack, by_perfect> op_tuple_pack;
     PSTADE_POD_CONSTANT((op_tuple_pack), tuple_pack) = {{}};
 
     typedef function<tuple_detail::baby_pack, by_ref> op_tuple_pack_by_ref;

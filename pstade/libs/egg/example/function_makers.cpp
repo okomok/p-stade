@@ -12,7 +12,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/egg/by_perfect.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/automatic.hpp>
@@ -47,7 +47,7 @@ struct baby_second_argument
     }
 };
 
-typedef function<baby_second_argument> op_second_argument;
+typedef function<baby_second_argument, by_perfect> op_second_argument;
 op_second_argument const second_argument = {{}}; /*< A braced initialization is ok, because `op_second_argument` is /POD/. >*/
 
 void test_function()
@@ -78,7 +78,7 @@ struct baby_value_identity
     }
 };
 
-typedef function<baby_value_identity, by_value> op_value_identity;
+typedef function<baby_value_identity, by_value>::type op_value_identity;
 op_value_identity const value_identity = {{}};
 
 void test_function_by_value()
@@ -127,50 +127,6 @@ void test_function_facade()
     BOOST_CHECK( make_plus_to(1)(3) == 4 );
 }
 //]
-
-#if 0
-//[code_deduced_example
-struct baby_size
-{
-    template<class Myself, class X>
-    struct apply
-    {
-        typedef std::size_t type;
-    };
-
-    template<class Result, class X>
-    Result call(X &x) const
-    {
-        /*<< Call without explicit template arguments. >>*/
-        return call_aux(x, envelope<Result>());
-    }
-
-    template<class Result, class Container>
-    Result call_aux(Container &c, envelope<Result>) const
-    {
-        return c.size();
-    }
-
-    /*<< Overload for array reference. >>*/
-    template<class Result, class T, std::size_t sz>
-    Result call_aux(T (&a)[sz], envelope<Result>) const
-    {
-        return sz;
-    }
-};
-//]
-
-typedef function<baby_size> op_size;
-op_size const size = {{}};
-
-void test_envelope()
-{
-    std::vector<int> v(12);
-    BOOST_CHECK( size(v) == 12 );
-    int a[12];
-    BOOST_CHECK( size(a) == 12 );
-}
-#endif
 
 
 //[code_automatic_example

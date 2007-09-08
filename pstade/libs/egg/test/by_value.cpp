@@ -22,6 +22,9 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/is_const.hpp>
 
     #define PSTADE_EGG_FUNCTION_BY_VALUE(O, B) \
         typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_value> BOOST_PP_CAT(op_, O); \
@@ -34,6 +37,8 @@ struct baby_foo
     template< class Myself, class A0, class A1 = void >
     struct apply
     {
+        BOOST_MPL_ASSERT_NOT((boost::is_reference<A0>));
+        BOOST_MPL_ASSERT_NOT((boost::is_const<A0>));
         typedef A0 type;
     };
 
@@ -46,6 +51,8 @@ struct baby_foo
     template< class Myself, class A0 >
     struct apply<Myself, A0>
     {
+        BOOST_MPL_ASSERT_NOT((boost::is_reference<A0>));
+        BOOST_MPL_ASSERT_NOT((boost::is_const<A0>));
         typedef A0 type;
     };
 
@@ -84,6 +91,9 @@ struct baby_big_arity
     template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
     {
+
+        BOOST_MPL_ASSERT_NOT((boost::is_reference<A0>));
+        BOOST_MPL_ASSERT_NOT((boost::is_const<A0>));
         typedef A0 type;
     };
 

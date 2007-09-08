@@ -12,14 +12,14 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <pstade/egg/function.hpp> // inclusion guaranteed
+#include <pstade/egg/function_of.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
 #define PSTADE_OVEN_BABY_TO_ADAPTOR(O, F) \
-    typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(F)> BOOST_PP_CAT(op_make_, O); \
+    typedef pstade::egg::function_of<PSTADE_UNPARENTHESIZE(F)>::type BOOST_PP_CAT(op_make_, O); \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_make_, O)), BOOST_PP_CAT(make_, O)) = {{}}; \
     PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(op_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R; \
 /**/

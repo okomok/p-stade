@@ -30,6 +30,7 @@
 #include "./copy.hpp"
 #include "./copy_assign.hpp"
 #include "./curry.hpp"
+#include "./deduced_form.hpp"
 #include "./defer_sig.hpp"
 #include "./deferred.hpp"
 #include "./delete.hpp"
@@ -44,6 +45,7 @@
 #include "./function.hpp"
 #include "./function_facade.hpp"
 #include "./function_fwd.hpp"
+#include "./function_of.hpp"
 #include "./fuse.hpp"
 #include "./generator.hpp"
 #include "./greater.hpp"
@@ -66,6 +68,7 @@
 #include "./logical_not.hpp"
 #include "./logical_or.hpp"
 #include "./make_function.hpp"
+#include "./make_function_of.hpp"
 #include "./memoize.hpp"
 #include "./minus.hpp"
 #include "./modulus.hpp"
@@ -101,7 +104,6 @@
 #include "./use_brace_level0.hpp"
 #include "./use_brace_level1.hpp"
 #include "./use_constructor.hpp"
-#include "./use_deduced_form.hpp"
 
 
 #endif

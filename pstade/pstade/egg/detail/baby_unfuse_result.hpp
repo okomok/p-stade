@@ -49,11 +49,7 @@ namespace pstade { namespace egg { namespace detail {
     // as callable with an empty tuple, then the result is inspected.
     // Otherwise, a passed type is the result type of this.
 
-    template<
-        class Base,
-        class Pack          = boost::use_default,
-        class NullaryResult = boost::use_default
-    >
+    template<class Base, class Pack, class NullaryResult>
     struct baby_unfuse_result
     {
         typedef Base base_type;

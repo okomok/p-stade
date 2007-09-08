@@ -61,7 +61,9 @@ namespace pstade { namespace egg {
     template<class X>
     struct result_of_always
     {
-        typedef function<always_detail::baby<X>, by_cref> type;
+        typedef
+            function<always_detail::baby<X>, by_cref>
+        type;
     };
 
     #define PSTADE_EGG_ALWAYS_L { {

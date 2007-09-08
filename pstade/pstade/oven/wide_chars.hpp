@@ -12,7 +12,7 @@
 
 
 #include <locale>
-#include <pstade/egg/make_function.hpp>
+#include <pstade/egg/make_function_of.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/baby_to_adaptor.hpp"
 #include "./transformed.hpp"
@@ -71,7 +71,7 @@ struct tp_make_wide_chars
         template< class Result, class Range > inline
         Result call(Range& rng) const
         {
-            return egg::make_function(*this)(rng, std::locale());
+            return egg::make_function_of(*this)(rng, std::locale());
         }
     };
 

@@ -24,7 +24,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/copy.hpp>
-#include <pstade/egg/use_deduced_form.hpp>
+#include <pstade/egg/deduced_form.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./iter_range.hpp"
@@ -80,6 +80,8 @@ namespace counting_detail {
     template< class Traversal, class Difference >
     struct baby
     {
+        typedef egg::deduced_form calling_strategy;
+
         template< class Myself, class Incrementable1, class Incrementable2 >
         struct apply
         {
@@ -137,9 +139,7 @@ template<
 struct tp_counting
 {
     typedef
-        egg::function<
-            counting_detail::baby<Traversal, Difference>, egg::by_value, egg::use_deduced_form
-        >
+        egg::function<counting_detail::baby<Traversal, Difference>, egg::by_value>
     type;
 };
 

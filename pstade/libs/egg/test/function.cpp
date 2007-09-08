@@ -117,7 +117,7 @@ struct baby_bar
 
 template<class T0, class T1>
 struct op_bar :
-    pstade::egg::function< baby_bar<T0, T1> >
+    pstade::egg::function< baby_bar<T0, T1>, pstade::egg::by_perfect >
 { };
 
 PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(op_bar, 2)
@@ -138,7 +138,7 @@ struct baby_identity
     }
 };
 
-typedef pstade::egg::function<baby_identity> op_identity;
+typedef pstade::egg::function<baby_identity, pstade::egg::by_perfect> op_identity;
 op_identity const identity = { {} };
 
 
@@ -162,7 +162,7 @@ struct baby_keep_const
         return a0;
     }
 };
-typedef pstade::egg::function<baby_keep_const> op_keep_const;
+typedef pstade::egg::function<baby_keep_const, pstade::egg::by_perfect> op_keep_const;
 op_keep_const const keep_const = { {} };
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int&>::type, int >));
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int const&>::type, int const >));

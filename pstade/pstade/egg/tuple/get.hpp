@@ -16,7 +16,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
-#include "../function.hpp"
+#include "../by_perfect.hpp"
 #include "../specified.hpp"
 #include "./config.hpp"
 #include "./element.hpp"
@@ -111,7 +111,7 @@ namespace pstade { namespace egg {
     struct tp_tuple_get
     {
         typedef
-            function< tuple_get_detail::baby<N> >
+            function<tuple_get_detail::baby<N>, by_perfect>
         type;
     };
 

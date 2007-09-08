@@ -24,8 +24,8 @@
 
 #include <boost/mpl/bool.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./by_ref.hpp"
 #include "./detail/baby_defer_sig_result.hpp"
+#include "./by_ref.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
 

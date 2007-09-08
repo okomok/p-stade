@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
                             >::type
                          )
                     >::type(Arg&)
-                > 
+                >
             { };
 
             template<class Result, class Base, class Arg>
@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
     template<class Base>
     struct result_of_fix :
         detail::result_of_bind1<
-            function<fix_detail::baby_uncurried>,
+            fix_detail::uncurried,
             Base
         >
     { };

@@ -26,13 +26,14 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "../function.hpp"
 #include "../by_cref.hpp"
+#include "../by_perfect.hpp"
+#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./bound_arg.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -40,12 +41,10 @@ namespace pstade { namespace egg { namespace detail {
 
     // 2ary-
 #define PSTADE_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
-#define PSTADE_unwrap_ref(Z, N, _) , detail::unwrap_ref(BOOST_PP_CAT(a, N))
 #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/egg/detail/bind2_.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_max_arity
-#undef  PSTADE_unwrap_ref
 #undef  PSTADE_arg
 
 
@@ -99,9 +98,10 @@ namespace pstade { namespace egg { namespace detail {
             typedef
                 function<
                     PSTADE_PP_CAT3(baby_bind, n, _result)<
-                        typename boost::remove_cv<Base>::type,
-                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::remove_cv<A, >::type)
-                    >
+                        typename pass_by_value<Base>::type,
+                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename bound_arg<A, >::type)
+                    >,
+                    by_perfect
                 >
             type;
         };

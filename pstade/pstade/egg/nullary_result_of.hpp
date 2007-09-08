@@ -25,7 +25,7 @@
         \
         template< > \
         struct result_of< X const(void) > : \
-               result_of< X(void) > \
+               result_of< X() > \
         { }; \
         \
     } \
@@ -47,7 +47,7 @@
             \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T)> \
             struct result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)> const(void) > : \
-                   result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>(void) > \
+                   result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>() > \
             { }; \
             \
          } \

@@ -20,6 +20,7 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
+#include "../by_cref.hpp"
 #include "../lambda/bind.hpp"
 #include "../lambda/config.hpp"
 #include "./bind1.hpp"
