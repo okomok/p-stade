@@ -15,7 +15,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/less.hpp>
-#include <pstade/egg/make_function_of.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
@@ -71,7 +71,7 @@ namespace sorted_detail {
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            return egg::make_function_of(*this)(rng, egg::less);
+            return egg::make_function(*this)(rng, egg::less);
         }
     };
 

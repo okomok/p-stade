@@ -16,7 +16,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/make_function_of.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
@@ -102,7 +102,7 @@ namespace scanned_detail {
         Result call(Range& rng, BinaryFun& fun) const
         {
             BOOST_ASSERT(!boost::empty(rng));
-            return egg::make_function_of(*this)(
+            return egg::make_function(*this)(
                 make_dropped(rng, 1),
                 value_front(rng),
                 fun

@@ -27,7 +27,7 @@ using namespace pstade::egg;
 struct baby_foo
 {
     /*<< This enables the workaround. >>*/
-    typedef deduced_form calling_strategy;
+    typedef deduced_form call_strategy;
 
     template<class Myself, class A1>
     struct apply
@@ -49,15 +49,14 @@ struct baby_foo
     }
 };
 
-/*<< Pass `deduced_form` as the last template argument. >>*/
-typedef function<baby_foo, by_perfect> op_foo;
+typedef function<baby_foo> op_foo;
 //]
 typedef function<baby_foo, by_ref> op_rfoo;
 typedef function<baby_foo, by_cref> op_crfoo;
 
 struct baby_vfoo
 {
-    typedef deduced_form calling_strategy;
+    typedef deduced_form call_strategy;
 
     template<class Myself, class A1>
     struct apply
@@ -83,7 +82,7 @@ typedef function<baby_vfoo, by_value> op_vfoo;
 struct op_foo_ :
     function_facade<op_foo_>
 {
-    typedef deduced_form calling_strategy;
+    typedef deduced_form call_strategy;
 
     template<class Myself, class A1>
     struct apply

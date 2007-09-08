@@ -28,7 +28,7 @@ This section uses the following notation.
     ]
     [
         [`_val(a)`]
-        [`const_cast<A &>(static_cast<A const &>(a))`, where `A` is `boost::remove_cv<boost::decay<_typeof(a)>::type>::type`.]
+        [`_decltype(to_val(a))`, where `template<class T> T to_val(T t) { return t; }`.]
     ]
 ]
 

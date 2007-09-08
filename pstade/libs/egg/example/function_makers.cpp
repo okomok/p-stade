@@ -78,7 +78,7 @@ struct baby_value_identity
     }
 };
 
-typedef function<baby_value_identity, by_value>::type op_value_identity;
+typedef function<baby_value_identity, by_value> op_value_identity;
 op_value_identity const value_identity = {{}};
 
 void test_function_by_value()

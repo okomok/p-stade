@@ -18,7 +18,7 @@
 #include <boost/type.hpp>
 #include <pstade/enable_if.hpp>
 #include "./config.hpp"
-#include "./detail/is_calling_strategy_of.hpp"
+#include "./detail/is_call_strategy_of.hpp"
 #include "./detail/call_baby_fwd.hpp"
 
 
@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
 
         template<class Baby_, class Result>
         struct call_baby<Baby_, Result,
-            typename enable_if< is_calling_strategy_of<deduced_form, Baby_> >::type >
+            typename enable_if< is_call_strategy_of<deduced_form, Baby_> >::type >
         {
         // 0ary
             template<class Baby>

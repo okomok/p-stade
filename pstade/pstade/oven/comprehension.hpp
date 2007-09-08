@@ -337,7 +337,7 @@ namespace always_return_detail {
 
     struct baby
     {
-        typedef egg::deduced_form calling_strategy;
+        typedef egg::deduced_form call_strategy;
 
         template< class Myself, class Range >
         struct apply

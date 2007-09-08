@@ -2,7 +2,7 @@
 
 Egg provides some workaround utilities.
 
-[import ../test/use_deduced_form.cpp]
+[import ../test/deduced_form.cpp]
 
 
 [section pstade::result_of]
@@ -67,7 +67,7 @@ So that, `BOOST_MPL_HAS_XXX_TRAIT_DEF` must be overridden with a workaround.
 
 
 
-[section use_deduced_form]
+[section deduced_form]
 
 [heading Description]
 The overload resolution system of GCC 3.4.x or below is broken when you call the overloaded functions whose arity is the same with explicit template parameter types.
@@ -76,7 +76,7 @@ you must pass an extra parameter to __EGG_FUNCTION__ or __EGG_FUNCTION_FACADE__.
 Then, the "baby" interface is slightly changed.
 
 [heading Header]
-* `<pstade/egg/use_deduced_form.hpp>`
+* `<pstade/egg/deduced_form.hpp>`
 
 [heading Valid expressions]
 [table 
@@ -85,13 +85,13 @@ Then, the "baby" interface is slightly changed.
         [[*Semantics]]
     ]
     [
-        [`use_deduced_form`]
+        [`deduced_form`]
         [A type]
     ]
 ]
 
 [heading Example]
-[code_use_deduced_form_example]
+[code_deduced_form_example]
 
 [note you can also use __BOOST_ENABLE_IF__ instead. ]
 
