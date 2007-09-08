@@ -12,7 +12,7 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/make_function_of.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/egg/specified.hpp>
 #include "../state/null_state.hpp"
 #include "../state/parsing_range_state_type.hpp"
@@ -45,7 +45,7 @@ struct tp_results_match
         template< class Result, class ParsingRange, class MatchResults >
         Result call(ParsingRange& r, MatchResults& rs) const
         {
-            return egg::make_function_of(*this)(r, rs, null_state);
+            return egg::make_function(*this)(r, rs, null_state);
         }
     };
 

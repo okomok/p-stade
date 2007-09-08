@@ -80,7 +80,7 @@ namespace counting_detail {
     template< class Traversal, class Difference >
     struct baby
     {
-        typedef egg::deduced_form calling_strategy;
+        typedef egg::deduced_form call_strategy;
 
         template< class Myself, class Incrementable1, class Incrementable2 >
         struct apply

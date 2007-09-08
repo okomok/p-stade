@@ -26,7 +26,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_auxiliary++N<_typeof(_dco)>::type` initialized using `_dco`.
+* `fc` is an object of `result_of_auxiliary++N<_typeof(_dco)>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -43,7 +43,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_auxiliary++N<_Dco>::type`]
     ]
     [
-        [`res(a(1),...,a(N+1))`]
+        [`fc(a(1),...,a(N+1))`]
         [`_dco(_arg_list(a, by_perfect))`]
     ]
     [
@@ -52,7 +52,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`auxiliary++N(_dco)`]
-        [`res`]
+        [`fc`]
     ]
 ]
 
@@ -64,7 +64,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 [heading Invariants]
 * If `_Dco` is /POD/, `result_of_auxiliary++N<_Dco>::type` is /POD/.
 
-[note Arguments passed to `res` are not copied.
+[note Arguments passed to `fc` are not copied.
       Those are bound to references, then forwarded to the base __FUNCTION_OBJECT__.]
 
 [heading Example]
@@ -91,7 +91,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res(R0, _Stg)` is an object of `result_of_compose1<_typeof(_dco1),_typeof(_dco2), R0, _Stg>::type`  initialized using `_dco1` and `_dco2`.
+* `fc(R0, _Stg)` is an object of `result_of_compose1<_typeof(_dco1),_typeof(_dco2), R0, _Stg>::type`  initialized using `_dco1` and `_dco2`.
 
 [heading Valid expressions]
 [table 
@@ -108,7 +108,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_compose1<_Dco1, _Dco2, R0, _Stg>::type`]
     ]
     [
-        [`res(R0, Stg)(a1,...,aN)`]
+        [`fc(R0, Stg)(a1,...,aN)`]
         [`_dco1(_dco2(_arg_list(a, _Stg)))`]
     ]
     [
@@ -117,7 +117,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`xp_compose1<R0>()(_dco1, _dco2)`]
-        [`res(R0, _default)`]
+        [`fc(R0, _default)`]
     ]
     [
         [`compose1`]
@@ -158,7 +158,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_curry++N<_typeof(_dco)>::type` initialized using `_dco`.
+* `fc` is an object of `result_of_curry++N<_typeof(_dco)>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -175,8 +175,8 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_curry++N<_Dco>::type`]
     ]
     [
-        [`res(a1)...(aN)`]
-        [`_dco(_arg_list(a, by_cref))`]
+        [`fc(a1)...(aN)`]
+        [`_dco(_arg_list(_arg_list(a, by_cref), by_value))`]
     ]
     [
         [`curry++N`]
@@ -184,7 +184,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`curry++N(_dco)`]
-        [`res`]
+        [`fc`]
     ]
 ]
 
@@ -221,7 +221,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res(_Stg)` is an object of `result_of_uncurry<_typeof(_dco), _Stg>::type` initialized using `_dco`.
+* `fc(_Stg)` is an object of `result_of_uncurry<_typeof(_dco), _Stg>::type` initialized using `_dco`.
 * `parens(b1,...,bN)` is `(b1)(b2),...,(bN)`.
 
 [heading Valid expressions]
@@ -239,12 +239,12 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_uncurry<_Dco>::type`]
     ]
     [
-        [`res(_Stg)(a1,...,aN)`]
+        [`fc(_Stg)(a1,...,aN)`]
         [`_dco(parens(_arg_list(a, _Stg)))`]
     ]
     [
         [`uncurry(_dco)`]
-        [`res(_default)`]
+        [`fc(_default)`]
     ]
 ]
 
@@ -278,7 +278,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_fuse<_typeof(_dco)>::type` initialized using `_dco`.
+* `fc` is an object of `result_of_fuse<_typeof(_dco)>::type` initialized using `_dco`.
 * `t_` is `_arg_list(t, by_perfect)`.
 
 [heading Valid expressions]
@@ -296,16 +296,16 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_fuse<_Dco>::type`]
     ]
     [
-        [`res(t)`]
+        [`fc(t)`]
         [`_dco(boost::get<0>(t_),...,boost::get<N-1>(t_))`]
     ]
     [
-        [`res(t0)`]
+        [`fc(t0)`]
         [`_dco()`]
     ]
     [
         [`fuse(_dco)`]
-        [`res`]
+        [`fc`]
     ]
 ]
 
@@ -341,7 +341,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res(R0, _Stg)` is an object of `result_of_unfuse<_typeof(_dco), Pack, R0, _Stg>::type` initialized using `_dco`.
+* `fc(R0, _Stg)` is an object of `result_of_unfuse<_typeof(_dco), Pack, R0, _Stg>::type` initialized using `_dco`.
 * `ref(b1,...,bN)` is `b1&,...,bN&`.
 
 [heading Valid expressions]
@@ -359,7 +359,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_unfuse<_Dco, Pack, R0, _Stg>::type`]
     ]
     [
-        [`res(R0, _Stg)(a1,...,aN)`]
+        [`fc(R0, _Stg)(a1,...,aN)`]
         [`_dco( boost::tuples::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
     ]
     [
@@ -368,7 +368,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
     ]
     [
         [`xp_unfuse<R0>()(_dco)`]
-        [`res(R0, _default)`]
+        [`fc(R0, _default)`]
     ]
     [
         [`unfuse`]
@@ -413,7 +413,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res(_Stg)` is an object of `result_of_indirect<_typeof(Pco), _Stg>::type` initialized using `pco`.
+* `fc(_Stg)` is an object of `result_of_indirect<_typeof(Pco), _Stg>::type` initialized using `pco`.
 
 [heading Valid expressions]
 [table 
@@ -430,12 +430,12 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
         [A braced initializer of `result_of_indirect<Pco, _Stg>::type`]
     ]
     [
-        [`res(_Stg)(a1,...,aN)`]
+        [`fc(_Stg)(a1,...,aN)`]
         [`(*pco)(_arg_list(a, _Stg))`]
     ]
     [
         [`indirect(pco)`]
-        [`res(_default)`]
+        [`fc(_default)`]
     ]
 ]
 
@@ -469,7 +469,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_lazy<_typeof(Bin)>::type` initialized using `bin`.
+* `fc` is an object of `result_of_lazy<_typeof(Bin)>::type` initialized using `bin`.
 
 [heading Valid expressions]
 [table 
@@ -486,12 +486,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_lazy<Bin>::type`]
     ]
     [
-        [`res(a1,...,aN)`]
+        [`fc(a1,...,aN)`]
         [`boost::lambda::bind(bin, _arg_list(a, by_cref))`]
     ]
     [
         [`lazy(bin)`]
-        [`res`]
+        [`fc`]
     ]
 ]
 
@@ -577,7 +577,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res(_Stg)` is an object of `result_of_pipable<_typeof(_dco), _Stg>::type` initialized using `_dco`.
+* `fc(_Stg)` is an object of `result_of_pipable<_typeof(_dco), _Stg>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -594,12 +594,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_pipable<_Dco, _Stg>::type`]
     ]
     [
-        [`a|res(_Stg)(b1,...,bN)`]
+        [`a|fc(_Stg)(b1,...,bN)`]
         [`_dco(_arg_list(a, by_perfect), _arg_list(b, _Stg))`]
     ]
     [
         [`pipable(_dco)`]
-        [`res(_default)`]
+        [`fc(_default)`]
     ]
 ]
 
@@ -636,7 +636,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * ...
 
 [heading Notation]
-* `res(R, _Stg)` is an object of `result_of_ret<_typeof(fun), R, _Stg>::type` initialized using `fun`.
+* `fc(R, _Stg)` is an object of `result_of_ret<_typeof(fun), R, _Stg>::type` initialized using `fun`.
 
 [heading Valid expressions]
 [table 
@@ -653,7 +653,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_ret<Fun, R, _Stg>::type`]
     ]
     [
-        [`res(R, _Stg)(a1,...,aN)`]
+        [`fc(R, _Stg)(a1,...,aN)`]
         [`fun(_arg_list(a, _Stg))`]
     ]
     [
@@ -662,7 +662,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`xp_ret<R>()(fun)`]
-        [`res(R, _default)`]
+        [`fc(R, _default)`]
     ]
     [
         [`egg::ret<R>`]
@@ -703,7 +703,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* `res` is an object of `result_of_perfect<_typeof(_dco)>::type` initialized using `_dco`.
+* `fc` is an object of `result_of_perfect<_typeof(_dco)>::type` initialized using `_dco`.
 
 [heading Valid expressions]
 [table 
@@ -721,7 +721,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`perfect`]
-        [`res`]
+        [`fc`]
     ]
 ]
 

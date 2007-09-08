@@ -66,7 +66,7 @@
 #include "../copy.hpp"
 #include "../deduced_form.hpp"
 #include "../function.hpp"
-#include "../make_function_of.hpp"
+#include "../make_function.hpp"
 
 
 namespace pstade_egg_extension {
@@ -149,7 +149,7 @@ namespace pstade { namespace egg {
 
         struct baby_bind
         {
-            typedef deduced_form calling_strategy;
+            typedef deduced_form call_strategy;
 
             template<class MA, class A_MB>
             struct apply_aux :
@@ -177,7 +177,7 @@ namespace pstade { namespace egg {
             {
                 typedef ext::Monad<Result> extM_t_;
                 typedef typename extM_t_::template wrap<A>::type MA_t;
-                return make_function_of(*this)(egg::copy<MA_t>(w), f);
+                return make_function(*this)(egg::copy<MA_t>(w), f);
             }
 
             template<class Myself, class MA, class A_MB>

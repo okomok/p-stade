@@ -12,7 +12,7 @@
 
 
 #include <pstade/egg/equal_to.hpp>
-#include <pstade/egg/make_function_of.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/egg/not.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
@@ -51,7 +51,7 @@ namespace uniqued_detail {
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            return egg::make_function_of(*this)(rng, egg::equal_to);
+            return egg::make_function(*this)(rng, egg::equal_to);
         }
     };
 

@@ -25,7 +25,7 @@ namespace pstade { namespace egg {
 
         struct baby
         {
-            typedef deduced_form calling_strategy;
+            typedef deduced_form call_strategy;
 
             template<class Myself, class Function>
             struct apply

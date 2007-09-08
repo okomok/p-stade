@@ -57,7 +57,7 @@ namespace pstade { namespace tomato {
         };
 
 
-        typedef egg::function<baby, by_cref> op;
+        typedef egg::function<baby, egg::by_cref> op;
 
 
     } // namespace to_string_detail
