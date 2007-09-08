@@ -14,7 +14,7 @@
 #include <boost/lambda/core.hpp> // unlambda
 #include <pstade/pod_constant.hpp>
 #include "../by_value.hpp"
-#include "../use_deduced_form.hpp"
+#include "../deduced_form.hpp"
 
 
 namespace pstade { namespace egg {
@@ -25,6 +25,8 @@ namespace pstade { namespace egg {
 
         struct baby
         {
+            typedef deduced_form calling_strategy;
+
             template<class Myself, class Function>
             struct apply
             {
@@ -54,7 +56,7 @@ namespace pstade { namespace egg {
     } // namespace lambda_unlambda
 
 
-    typedef function<lambda_unlambda_detail::baby, by_value, use_deduced_form> op_lambda_unlambda;
+    typedef function<lambda_unlambda_detail::baby, by_value> op_lambda_unlambda;
     PSTADE_POD_CONSTANT((op_lambda_unlambda), lambda_unlambda) = {{}};
 
 

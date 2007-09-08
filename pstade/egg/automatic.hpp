@@ -77,13 +77,13 @@ namespace pstade { namespace egg {
     } // namespace automatic_detail
 
 
-    template<class Lambda, class Pass = boost::use_default>
+    template<class Lambda, class Strategy = boost::use_default>
     struct automatic :
         result_of_unfuse<
             function<automatic_detail::baby_fused<Lambda>, by_cref>,
             boost::use_default,
             use_nullary_result,
-            Pass
+            Strategy
         >
     { };
 

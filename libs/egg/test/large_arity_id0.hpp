@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
 
 // inclusion guaranteed
+#include <pstade/egg/by_perfect.hpp>
 #include <pstade/egg/by_ref.hpp>
 #include <pstade/egg/by_cref.hpp>
 #include <pstade/egg/by_value.hpp>

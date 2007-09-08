@@ -13,7 +13,7 @@
 
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./function.hpp"
+#include "./by_perfect.hpp"
 
 
 namespace pstade { namespace egg {
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
     } // namespace identity_detail
 
 
-    typedef function<identity_detail::baby> op_identity;
+    typedef function<identity_detail::baby, by_perfect> op_identity;
     PSTADE_ADL_BARRIER(identity) { // for 'std'
         PSTADE_POD_CONSTANT((op_identity), identity) = {{}};
     }

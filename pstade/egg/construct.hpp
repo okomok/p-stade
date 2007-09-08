@@ -16,8 +16,8 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "./apply_params.hpp"
+#include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./function.hpp"
 #include "./nullary_result_of.hpp"
 
 
@@ -58,7 +58,7 @@ namespace pstade { namespace egg {
     struct tp_construct
     {
         typedef
-            function< construct_detail::baby<X> >
+            function<construct_detail::baby<X>, by_perfect>
         type;
     };
 

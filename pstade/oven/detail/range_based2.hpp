@@ -86,7 +86,9 @@ struct baby_range_based2_result
 template< class IterBased >
 struct result_of_range_based2
 {
-    typedef egg::function< baby_range_based2_result<IterBased> > type;
+    typedef
+        egg::function< baby_range_based2_result<IterBased> >
+    type;
 };
 
 

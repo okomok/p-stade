@@ -18,8 +18,8 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/pass_by.hpp>
+#include "./by_perfect.hpp"
 #include "./detail/baby_generator.hpp"
-#include "./function.hpp"
 
 
 namespace pstade { namespace egg {
@@ -29,13 +29,13 @@ namespace pstade { namespace egg {
         class Lambda,
         class NullaryResult = boost::use_default,
         class Make          = boost::use_default,
-        class Pass          = boost::use_default
+        class Strategy      = by_perfect
     >
     struct generator
     {
-        typedef 
-            function<detail::baby_generator<Lambda, NullaryResult, Make>, Pass>
-        type; // = {{}};
+        typedef
+            function<detail::baby_generator<Lambda, NullaryResult, Make>, Strategy>
+        type;
     };
 
 

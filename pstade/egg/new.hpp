@@ -15,8 +15,8 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "./apply_params.hpp"
+#include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./function.hpp"
 #include "./nullary_result_of.hpp"
 
 
@@ -48,7 +48,7 @@ namespace pstade { namespace egg {
             #include BOOST_PP_ITERATE()
         };
 
-        typedef function<baby> type;
+        typedef function<baby, by_perfect> type;
     };
 
 

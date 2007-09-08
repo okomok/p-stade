@@ -16,6 +16,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/call_baby.hpp"
@@ -28,11 +29,8 @@
 namespace pstade { namespace egg {
 
 
-    struct by_cref;
-
-
-    template<class Baby, class Form>
-    struct function<Baby, by_cref, Form>
+    template<class Baby>
+    struct function<Baby, by_cref>
     {
         typedef Baby baby_type;
 
@@ -51,7 +49,7 @@ namespace pstade { namespace egg {
         nullary_result_type operator()() const
         {
             return detail::call_baby<
-                Form, nullary_result_type
+                Baby, nullary_result_type
             >::call(m_baby);
         }
 
@@ -96,7 +94,7 @@ public:
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
         return detail::call_baby<
-            Form, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
+            Baby, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
         >::call(m_baby, BOOST_PP_ENUM_PARAMS(n, a));
     }
     

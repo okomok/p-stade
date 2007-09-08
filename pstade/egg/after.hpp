@@ -20,7 +20,6 @@
 #include <pstade/result_of.hpp>
 #include "./by_cref.hpp"
 #include "./by_value.hpp"
-#include "./function.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
 
@@ -57,13 +56,13 @@ namespace pstade { namespace egg {
     } // namespace after_detail
 
 
-    template<class Function, class Thunk, class Pass = boost::use_default>
+    template<class Function, class Thunk, class Strategy = boost::use_default>
     struct result_of_after :
         result_of_unfuse<
             function<after_detail::baby_fused_result<Function, Thunk>, by_cref>,
             boost::use_default,
             use_nullary_result,
-            Pass
+            Strategy
         >
     { };
 
@@ -96,7 +95,7 @@ namespace pstade { namespace egg {
     } // namespace after_detail
 
 
-    typedef egg::function<after_detail::baby, by_value> op_after;
+    typedef function<after_detail::baby, by_value> op_after;
     PSTADE_POD_CONSTANT((op_after), after) = {{}};
 
 

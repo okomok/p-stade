@@ -15,7 +15,7 @@
 #include <boost/detail/workaround.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./function.hpp"
+#include "./by_perfect.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
 
@@ -43,14 +43,14 @@ namespace pstade { namespace egg {
 #endif
 
 
-    template<class BinaryBase, class Pass = boost::use_default>
+    template<class BinaryBase, class Strategy = by_perfect>
     struct result_of_flip
     {
 #if !BOOST_WORKAROUND(__GNUC__, == 3)
         // Keep 'baby' a template for 'generator'.
         template<class Base>
         struct baby
-        {            
+        {
             Base m_base;
 
             template<class Myself, class A0, class A1>
@@ -65,9 +65,9 @@ namespace pstade { namespace egg {
             }
         };
 
-        typedef function<baby<BinaryBase>, Pass> type;
+        typedef function<baby<BinaryBase>, Strategy> type;
 #else
-        typedef function<baby_flip_result<BinaryBase>, Pass> type;
+        typedef function<baby_flip_result<BinaryBase>, Strategy> type;
 #endif
     };
 

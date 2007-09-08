@@ -29,8 +29,8 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
+#include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./function.hpp"
 #include "./generator.hpp"
 #include "./pipable.hpp"
 #include "./use_brace_level1.hpp"
@@ -55,7 +55,7 @@ namespace pstade { namespace egg {
 
     // as pipe
         typedef
-            function<baby_auxiliary0_result>
+            function<baby_auxiliary0_result, by_perfect>
         nullary_result_type;
 
         template<class Result>
@@ -80,14 +80,14 @@ namespace pstade { namespace egg {
 
     template<class A0, class UnaryBase> inline
     typename result_of<UnaryBase(A0&)>::type
-    operator|(A0& a0, function< baby_auxiliary0_result<UnaryBase> > pi)
+    operator|(A0& a0, function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi)
     {
         return pi.baby().m_base(a0);
     }
 
     template<class A0, class UnaryBase> inline
     typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
-    operator|(A0 const& a0, function< baby_auxiliary0_result<UnaryBase> > pi)
+    operator|(A0 const& a0, function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi)
     {
         return pi.baby().m_base(a0);
     }
@@ -96,8 +96,8 @@ namespace pstade { namespace egg {
     struct result_of_auxiliary0
     {
         typedef
-            function< baby_auxiliary0_result<UnaryBase> >
-        type; // = { { UnaryBase } };
+            function<baby_auxiliary0_result<UnaryBase>, by_perfect>
+        type;
     };
 
     #define PSTADE_EGG_AUXILIARY_L { {
@@ -176,8 +176,8 @@ namespace pstade { namespace egg {
     struct PSTADE_PP_CAT3(result_of_, auxiliary, n)
     {
         typedef
-            function< PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base> >
-        type; // = { { Base } };
+            function<PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base>, by_perfect>
+        type;
     };
 
     typedef

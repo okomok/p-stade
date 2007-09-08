@@ -57,13 +57,13 @@ namespace pstade { namespace egg {
     } // namespace compose1_detail
 
 
-    template<class F, class G, class NullaryResult = boost::use_default, class Pass = boost::use_default>
+    template<class F, class G, class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct result_of_compose1 :
         result_of_unfuse<
             function<compose1_detail::baby_fused_result<F, G>, by_cref>,
             boost::use_default,
             NullaryResult,
-            Pass
+            Strategy
         >
     { };
 

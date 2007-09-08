@@ -33,7 +33,7 @@
 #include <boost/utility/addressof.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/enable_if.hpp>
-#include "./function.hpp"
+#include "./by_perfect.hpp"
 #include "./specified.hpp"
 
 
@@ -86,7 +86,7 @@ namespace pstade { namespace egg {
     struct tp_static_downcast
     {
         typedef
-            function< static_downcast_detail::baby<Derived> >
+            function<static_downcast_detail::baby<Derived>, by_perfect>
         type;
     };
 

@@ -12,6 +12,7 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./by_perfect.hpp"
 #include "./by_value.hpp"
 
 
@@ -21,13 +22,13 @@ namespace pstade { namespace egg {
     namespace make_function_detail {
 
 
-        template<class Pass>
+        template<class Strategy>
         struct baby
         {
             template<class Myself, class Baby>
             struct apply
             {
-                typedef function<Baby, Pass> type;
+                typedef function<Baby, Strategy> type;
             };
 
             template<class Result, class Baby>
@@ -42,18 +43,18 @@ namespace pstade { namespace egg {
     } // namespace make_function_detail
 
 
-    template<class Pass = boost::use_default>
+    template<class Strategy = by_perfect>
     struct tp_make_function
     {
         typedef
-            function<make_function_detail::baby<Pass>, by_value>
+            function<make_function_detail::baby<Strategy>, by_value>
         type;
     };
 
 
-    template<class Pass = boost::use_default>
+    template<class Strategy = by_perfect>
     struct xp_make_function :
-        tp_make_function<Pass>::type
+        tp_make_function<Strategy>::type
     { };
 
 

@@ -83,7 +83,7 @@ namespace pstade { namespace egg { namespace detail {
         } \
     }; \
     \
-    typedef function<BOOST_PP_CAT(baby_, F), by_cref> BOOST_PP_CAT(op_, F); \
+    typedef pstade::egg::function<BOOST_PP_CAT(baby_, F), by_cref> BOOST_PP_CAT(op_, F); \
     PSTADE_ADL_BARRIER(F) { \
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, F)), F) = {{}}; \
     } \

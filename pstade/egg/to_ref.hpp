@@ -14,8 +14,8 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
-#include "./function.hpp"
 #include "./by_cref.hpp"
+#include "./by_perfect.hpp"
 
 
 namespace pstade { namespace egg {
@@ -72,9 +72,9 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby>  op;
-        typedef function<cbaby, by_cref> cop;
-        typedef function<mbaby, by_cref> mop;
+        typedef function<baby,  by_perfect> op;
+        typedef function<cbaby, by_cref>   cop;
+        typedef function<mbaby, by_cref>   mop;
 
 
     } // namespace to_ref_detail

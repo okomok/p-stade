@@ -19,8 +19,8 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./by_perfect.hpp"
 #include "./detail/baby_indirect_result.hpp"
-#include "./function.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
 
@@ -28,10 +28,12 @@
 namespace pstade { namespace egg {
 
 
-    template<class Dereferenceable, class Pass = boost::use_default>
+    template<class Dereferenceable, class Strategy = by_perfect>
     struct result_of_indirect
     {
-        typedef function<detail::baby_indirect_result<Dereferenceable>, Pass> type;
+        typedef
+            function<detail::baby_indirect_result<Dereferenceable>, Strategy>
+        type;
     };
 
 

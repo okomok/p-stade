@@ -31,7 +31,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base, class ResultType = boost::use_default>
+    template<class Base, class ResultType>
     struct baby_ret_result
     {
         typedef Base base_type;

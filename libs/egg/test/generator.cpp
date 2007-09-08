@@ -12,7 +12,7 @@
 #include <pstade/egg/generator.hpp>
 #include <pstade/minimal_test.hpp>
 #include <pstade/unparenthesize.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/egg/by_perfect.hpp>
 #include <pstade/pod_constant.hpp>
 
 
@@ -36,19 +36,6 @@ namespace deducers = pstade::egg;
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(op_, G); \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, G)), G) = PSTADE_EGG_GENERATOR; \
 /**/
-
-
-#if 0
-
-template<class Lambda, class How = boost::use_default, class NullaryResult = boost::use_default>
-struct generator
-{
-    typedef 
-        pstade::egg::function< pstade::egg::baby::generator<Lambda, How, NullaryResult> >
-    type;
-};
-
-#endif
 
 
 template< class A0 >

@@ -55,13 +55,13 @@ namespace pstade { namespace egg {
     } // namespace before_detail
 
 
-    template<class Thunk, class Function, class Pass = boost::use_default>
+    template<class Thunk, class Function, class Strategy = boost::use_default>
     struct result_of_before :
         result_of_unfuse<
             function<before_detail::baby_fused_result<Thunk, Function>, by_cref>,
             boost::use_default,
             use_nullary_result,
-            Pass
+            Strategy
         >
     { };
 
@@ -94,7 +94,7 @@ namespace pstade { namespace egg {
     } // namespace before_detail
 
 
-    typedef egg::function<before_detail::baby, by_value> op_before;
+    typedef function<before_detail::baby, by_value> op_before;
     PSTADE_POD_CONSTANT((op_before), before) = {{}};
 
 

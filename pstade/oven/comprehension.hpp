@@ -30,8 +30,8 @@
 #include <pstade/egg/lambda/bind.hpp>
 #include <pstade/egg/lambda/placeholders.hpp>
 #include <pstade/egg/lambda/unlambda.hpp>
+#include <pstade/egg/deduced_form.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/use_deduced_form.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -337,6 +337,8 @@ namespace always_return_detail {
 
     struct baby
     {
+        typedef egg::deduced_form calling_strategy;
+
         template< class Myself, class Range >
         struct apply
         {
@@ -378,7 +380,7 @@ namespace always_return_detail {
 } // namespace always_return_detail
 
 
-typedef egg::function<always_return_detail::baby, boost::use_default, egg::use_deduced_form> op_always_return;
+typedef egg::function<always_return_detail::baby> op_always_return;
 PSTADE_POD_CONSTANT((op_always_return), always_return) = {{}};
 
 
