@@ -83,7 +83,7 @@ Egg performs the "perfect forwarding" by default.
 [section by_ref]
 
 [heading Description]
-`by_ref` offers a large arity, but can neither take a non-const rvalue nor "movable type" like `std::auto_ptr<>`.
+`by_ref` offers a large arity, but can't take a non-const rvalue.
 
 [heading Header]
 * `<pstade/egg/by_ref.hpp>`
@@ -168,7 +168,7 @@ Egg performs the "perfect forwarding" by default.
 [section by_value]
 
 [heading Description]
-`by_value` takes the arguments by value, which means that it can take a "movable type" like `std::auto_ptr<>`.
+`by_value` takes the arguments by value, which means that it can take a temporary "movable type" like `std::auto_ptr<>`.
 
 [heading Header]
 * `<pstade/egg/by_value.hpp>`

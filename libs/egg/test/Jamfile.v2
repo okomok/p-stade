@@ -81,6 +81,7 @@ test-suite "egg" :
     [ run specified.cpp ]
     [ run static_downcast.cpp ]
     [ run-fail static_downcast_fail.cpp ]
+    [ run static_initialization1.cpp static_initialization2.cpp : : : : static_initialization ]
     [ run strong_assign.cpp ]
     [ run to_lower.cpp ]
     [ run to_ref.cpp ]

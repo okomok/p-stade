@@ -24,4 +24,14 @@ A const g_a2 = { };
 B const g_b2 = { { }, 3 };
 
 
+// suppress warning check under gcc4 which says warning around templates.
+template<class B>
+struct ff
+{
+    B b;
+};
+
+PSTADE_POD_CONSTANT((ff<B>), g_ffb) = {{}};
+
+
 #endif
