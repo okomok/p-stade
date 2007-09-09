@@ -7,6 +7,7 @@ assume it is "one element" sequence.
 If you omit a strategy parameter for __EGG_FUNCTION_MAKERS__ or __EGG_FUNCTION_ADAPTORS__,
 `by_perfect` is implicitly set.
 
+
 This section uses the following notation.
 
 [table
@@ -28,9 +29,11 @@ This section uses the following notation.
     ]
     [
         [`_val(a)`]
-        [`_decltype(to_val(a))`, where `template<class T> T to_val(T t) { return t; }`.]
+        [`const_cast<V &>(static_cast<V const &>(a))`, where `V` is `boost::remove_cv<boost::decay<_typeof(a)>::type>::type`.]
     ]
 ]
+
+
 
 
 [section by_perfect]
@@ -55,12 +58,15 @@ Egg performs the "perfect forwarding" by default.
         [`_meta_arg_list(a, by_perfect)`]
         [`_ref(a1),...,_ref(aK)`]
     ]
+    [
+        [`function<B, by_perfect>`]
+        [See __EGG_FUNCTION__.]
+    ]
 ]
 
 [heading Preconditions]
 * `0 <= K && K <= PSTADE_EGG_MAX_ARITY`.
 * `aI` is not a /function reference/.
-* `aI` is not /volatile-qualified/.
 
 
 [heading Example]
@@ -95,6 +101,10 @@ Egg performs the "perfect forwarding" by default.
     [
         [`_meta_arg_list(a, by_ref)`]
         [`_ref(a1),...,_ref(aK)`]
+    ]
+    [
+        [`function<B, by_ref>`]
+        [See __EGG_FUNCTION__.]
     ]
 ]
 
@@ -135,6 +145,10 @@ Egg performs the "perfect forwarding" by default.
         [`_meta_arg_list(a, by_cref)`]
         [`_typeof(a1) const,...,_typeof(aK) const`]
     ]
+    [
+        [`function<B, by_cref>`]
+        [See __EGG_FUNCTION__.]
+    ]
 ]
 
 [heading Preconditions]
@@ -159,10 +173,6 @@ Egg performs the "perfect forwarding" by default.
 [heading Header]
 * `<pstade/egg/by_value.hpp>`
 
-[heading Notation]
-* `f` is an object which performs a forwarding.
-* `_dco` or `_baby` is an object which is the forwarding target.
-
 [heading Valid expressions]
 [table 
     [
@@ -176,6 +186,10 @@ Egg performs the "perfect forwarding" by default.
     [
         [`_meta_arg_list(a, by_value)`]
         [`_typeof(a1),...,_typeof(aK)`]
+    ]
+    [
+        [`function<B, by_value>`]
+        [See __EGG_FUNCTION__.]
     ]
 ]
 
@@ -198,7 +212,7 @@ Egg performs the "perfect forwarding" by default.
 [heading Description]
 C++ instantiates the declarations of non-dependent member function templates, so that
 some __EGG_FUNCTION_MAKERS__ and __EGG_FUNCTION_ADAPTORS__ require a special workaround.
-Hence, an imaginary operator is provided for the documentation.
+Here an imaginary operator is defined for the documentation.
 
 [heading Valid expressions and semantics]
 * `_deduce_r0(R0, expr)` is defined by the following:

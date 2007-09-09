@@ -135,6 +135,48 @@ This header lets a __BOOST_LAMBDA__ functor be a __DEFERRED_CALLABLE_OBJECT__.
 
 
 
+[section infix]
+
+[heading Description]
+Egg provides __FCPP__ infix operator syntax.
+
+[heading Header]
+* `<pstade/egg/infix.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`a1 ^_dco^ a2`]
+        [`_dco(_arg_list(a1, by_perfect), _arg_list(a2, by_perfect))`]
+    ]
+]
+
+[heading Preconditions]
+* `using namespace infix;` is placed before the valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+    using namespace infix;
+    BOOST_CHECK( (10 ^plus^ 12 ^plus^ 3) == 25 );
+
+[heading See also]
+* __FCPP__
+
+[endsect]
+
+
+
+
 [section tuple_get]
 
 [heading Description]
@@ -214,18 +256,15 @@ This header lets a __BOOST_LAMBDA__ functor be a __DEFERRED_CALLABLE_OBJECT__.
     ]
     [
         [`tuple_pack(a1,...,aN)`]
-        [`boost::tuples::tuple<_refs(_meta_arg_list(a, by_perfect))>(a1,...,aN)`]
+        [`boost::tuples::tuple<_refs(_meta_arg_list(a, by_perfect))>(_arg_list(a, by_perfect))`]
     ]
     [
-        [`tuple_pack_by_ref(b1,...,bM)`]
-        [`boost::tuples::tuple<_refs(_meta_arg_list(b, by_ref))>(b1,...,bM)`]
+        [`tuple_pack_by_ref(a1,...,aN)`]
+        [`boost::tuples::tuple<_refs(_meta_arg_list(a, by_ref))>(_arg_list(a, by_ref))`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= PSTADE_EGG_MAX_ARITY`.
-* `0 <= M && M <= PSTADE_EGG_MAX_LINEAR_ARITY`.
-* `bI` is not a rvalue.
 * The corresponding semantics is a valid expression.
 
 [heading Example]

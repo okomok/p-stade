@@ -14,6 +14,7 @@ test-suite "egg_example" :
     [ run currying.cpp ]
     [ run function_adaptors.cpp ]
     [ run function_makers.cpp ]
+    [ run mono_lambda.cpp ]
     [ run nested_lambda.cpp ]
     [ run result_of_tutorial.cpp ]
     ;

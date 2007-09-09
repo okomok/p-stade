@@ -17,7 +17,6 @@ with `boost::lambda::bind` and `boost::result_of`.
 [heading Header]
 * `<pstade/egg/function.hpp>`
 
-
 [heading Synopsys]
     template<class Baby, class Stg = _default>
     struct function
@@ -65,6 +64,7 @@ with `boost::lambda::bind` and `boost::result_of`.
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION_FACADE__
 * __EGG_DEDUCED_FORM__
+* __EGG_MAKE_FUNCTION__
 
 [endsect]
 
@@ -219,6 +219,57 @@ Pending...
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_DEFER__
+
+[endsect]
+
+
+
+
+[section make_function]
+
+[heading Description]
+`make_function` is the object generator of `function<>`.
+This is useful when you need a "self" function in baby `call` template.
+
+[heading Header]
+* `<pstade/egg/make_function.hpp>`
+
+[heading Model of]
+* __OPERATABLE_OBJECT__
+* __BINDABLE_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`xp_make_function<_Stg = _default>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`xp_make_function<_Stg>()(b)`]
+        [`function<_typeof(b), _Stg> f = {b}; return f;`]
+    ]
+    [
+        [`make_function`]
+        [`xp_make_function<>()`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_FUNCTION__
 
 [endsect]
 

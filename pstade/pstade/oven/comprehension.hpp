@@ -245,6 +245,8 @@ namespace comprehension_detail {
                     ) // 2ary
                 ) // 1ary
             );
+            // In fact, you can make this on the fly without 'make_nested',
+            // But such implementation would be nightmare and slow to compile.
         }
 
         template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 >

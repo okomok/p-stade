@@ -9,11 +9,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/make_function_of.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/minimal_test.hpp>
 
 
 #include <pstade/test.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/by_perfect.hpp>
 
 
@@ -37,10 +38,13 @@ struct baby
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((function<baby, by_perfect>), op_make_function_of(baby))
+PSTADE_TEST_IS_RESULT_OF((function<baby>), op_make_function(baby))
 
 
 void pstade_minimal_test()
 {
-    BOOST_CHECK( make_function_of(baby())(1) == 1 );
+    baby b;
+    int i = 10;
+    BOOST_CHECK( make_function(b)(1) == 1 );
+    BOOST_CHECK( &(xp_make_function<by_value>()(b)(i)) != &i );
 }

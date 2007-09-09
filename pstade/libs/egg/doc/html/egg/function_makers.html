@@ -23,6 +23,7 @@
 <dt><span class="section"><a href="function_makers.html#egg.function_makers.function_facade">function_facade</a></span></dt>
 <dt><span class="section"><a href="function_makers.html#egg.function_makers.automatic">automatic</a></span></dt>
 <dt><span class="section"><a href="function_makers.html#egg.function_makers.deferred">deferred</a></span></dt>
+<dt><span class="section"><a href="function_makers.html#egg.function_makers.make_function">make_function</a></span></dt>
 </dl></div>
 <p>
       Function makers build a "baby" function into a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
@@ -33,7 +34,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_makers.function"></a><a href="function_makers.html#egg.function_makers.function" title="function">function</a></h3></div></div></div>
 <a name="egg.function_makers.function.description"></a><h5>
-<a name="id508771"></a>
+<a name="id508957"></a>
         <a href="function_makers.html#egg.function_makers.function.description">Description</a>
       </h5>
 <p>
@@ -43,12 +44,12 @@
         type.
       </p>
 <a name="egg.function_makers.function.header"></a><h5>
-<a name="id508825"></a>
+<a name="id509011"></a>
         <a href="function_makers.html#egg.function_makers.function.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_makers.function.synopsys"></a><h5>
-<a name="id508905"></a>
+<a name="id509091"></a>
         <a href="function_makers.html#egg.function_makers.function.synopsys">Synopsys</a>
       </h5>
 <pre class="programlisting">
@@ -63,14 +64,14 @@
 </span><span class="special">};</span>
 </pre>
 <a name="egg.function_makers.function.notation"></a><h5>
-<a name="id509107"></a>
+<a name="id509293"></a>
         <a href="function_makers.html#egg.function_makers.function.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>.
         </li></ul></div>
 <a name="egg.function_makers.function.valid_expressions"></a><h5>
-<a name="id509187"></a>
+<a name="id509373"></a>
         <a href="function_makers.html#egg.function_makers.function.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -131,14 +132,14 @@
 </tbody>
 </table></div>
 <a name="egg.function_makers.function.preconditions"></a><h5>
-<a name="id509568"></a>
+<a name="id509754"></a>
         <a href="function_makers.html#egg.function_makers.function.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="egg.function_makers.function.invariants"></a><h5>
-<a name="id509599"></a>
+<a name="id509785"></a>
         <a href="function_makers.html#egg.function_makers.function.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -146,7 +147,7 @@
           <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code> is <span class="emphasis"><em>POD</em></span>.
         </li></ul></div>
 <a name="egg.function_makers.function.example"></a><h5>
-<a name="id509686"></a>
+<a name="id509872"></a>
         <a href="function_makers.html#egg.function_makers.function.example">Example</a>
       </h5>
 <p>
@@ -211,20 +212,21 @@
 <p>
       </p>
 <a name="egg.function_makers.function.see_also"></a><h5>
-<a name="id510427"></a>
+<a name="id510613"></a>
         <a href="function_makers.html#egg.function_makers.function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li>
 <li><a href="function_makers.html#egg.function_makers.function_facade" title="function_facade">function_facade</a></li>
 <li><a href="workarounds.html#egg.workarounds.deduced_form" title="deduced_form">deduced_form</a></li>
+<li><a href="function_makers.html#egg.function_makers.make_function" title="make_function">make_function</a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_makers.function_facade"></a><a href="function_makers.html#egg.function_makers.function_facade" title="function_facade">function_facade</a></h3></div></div></div>
 <a name="egg.function_makers.function_facade.description"></a><h5>
-<a name="id510510"></a>
+<a name="id510711"></a>
         <a href="function_makers.html#egg.function_makers.function_facade.description">Description</a>
       </h5>
 <p>
@@ -233,19 +235,19 @@
         unlike <a href="function_makers.html#egg.function_makers.function" title="function">function</a>.
       </p>
 <a name="egg.function_makers.function_facade.header"></a><h5>
-<a name="id510563"></a>
+<a name="id510763"></a>
         <a href="function_makers.html#egg.function_makers.function_facade.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function_facade</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_makers.function_facade.notation"></a><h5>
-<a name="id510645"></a>
+<a name="id510846"></a>
         <a href="function_makers.html#egg.function_makers.function_facade.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.function_makers.function_facade.valid_expressions"></a><h5>
-<a name="id510679"></a>
+<a name="id510879"></a>
         <a href="function_makers.html#egg.function_makers.function_facade.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -307,7 +309,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_makers.function_facade.preconditions"></a><h5>
-<a name="id511000"></a>
+<a name="id511201"></a>
         <a href="function_makers.html#egg.function_makers.function_facade.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -320,7 +322,7 @@
         </li>
 </ul></div>
 <a name="egg.function_makers.function_facade.example"></a><h5>
-<a name="id511131"></a>
+<a name="id511332"></a>
         <a href="function_makers.html#egg.function_makers.function_facade.example">Example</a>
       </h5>
 <p>
@@ -381,7 +383,7 @@
 <p>
       </p>
 <a name="egg.function_makers.function_facade.see_also"></a><h5>
-<a name="id511850"></a>
+<a name="id512050"></a>
         <a href="function_makers.html#egg.function_makers.function_facade.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -394,7 +396,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_makers.automatic"></a><a href="function_makers.html#egg.function_makers.automatic" title="automatic">automatic</a></h3></div></div></div>
 <a name="egg.function_makers.automatic.description"></a><h5>
-<a name="id511926"></a>
+<a name="id512126"></a>
         <a href="function_makers.html#egg.function_makers.automatic.description">Description</a>
       </h5>
 <p>
@@ -402,19 +404,19 @@
         which adds automatic conversion support to a cast form function.
       </p>
 <a name="egg.function_makers.automatic.header"></a><h5>
-<a name="id511973"></a>
+<a name="id512173"></a>
         <a href="function_makers.html#egg.function_makers.automatic.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">automatic</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_makers.automatic.notation"></a><h5>
-<a name="id512054"></a>
+<a name="id512254"></a>
         <a href="function_makers.html#egg.function_makers.automatic.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">u</span></code> is an object of <code class="computeroutput"><span class="identifier">automatic</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
 <a name="egg.function_makers.automatic.valid_expressions"></a><h5>
-<a name="id512139"></a>
+<a name="id512339"></a>
         <a href="function_makers.html#egg.function_makers.automatic.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -479,7 +481,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_makers.automatic.preconditions"></a><h5>
-<a name="id512557"></a>
+<a name="id512757"></a>
         <a href="function_makers.html#egg.function_makers.automatic.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -524,7 +526,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_makers.automatic.example"></a><h5>
-<a name="id512783"></a>
+<a name="id512983"></a>
         <a href="function_makers.html#egg.function_makers.automatic.example">Example</a>
       </h5>
 <p>
@@ -569,7 +571,7 @@
 <p>
       </p>
 <a name="egg.function_makers.automatic.see_also"></a><h5>
-<a name="id513264"></a>
+<a name="id513464"></a>
         <a href="function_makers.html#egg.function_makers.automatic.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li></ul></div>
@@ -581,26 +583,26 @@
         Pending...
       </p>
 <a name="egg.function_makers.deferred.description"></a><h5>
-<a name="id513324"></a>
+<a name="id513524"></a>
         <a href="function_makers.html#egg.function_makers.deferred.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">deferred</span></code> is an akin to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">functionN</span></code> family.
       </p>
 <a name="egg.function_makers.deferred.header"></a><h5>
-<a name="id513392"></a>
+<a name="id513592"></a>
         <a href="function_makers.html#egg.function_makers.deferred.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">deferred</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_makers.deferred.notation"></a><h5>
-<a name="id513474"></a>
+<a name="id513673"></a>
         <a href="function_makers.html#egg.function_makers.deferred.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
 <a name="egg.function_makers.deferred.valid_expressions"></a><h5>
-<a name="id513559"></a>
+<a name="id513758"></a>
         <a href="function_makers.html#egg.function_makers.deferred.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -664,7 +666,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_makers.deferred.preconditions"></a><h5>
-<a name="id513962"></a>
+<a name="id514163"></a>
         <a href="function_makers.html#egg.function_makers.deferred.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -707,7 +709,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_makers.deferred.example"></a><h5>
-<a name="id514227"></a>
+<a name="id514428"></a>
         <a href="function_makers.html#egg.function_makers.deferred.example">Example</a>
       </h5>
 <p>
@@ -745,12 +747,133 @@
 <p>
       </p>
 <a name="egg.function_makers.deferred.see_also"></a><h5>
-<a name="id514545"></a>
+<a name="id514746"></a>
         <a href="function_makers.html#egg.function_makers.deferred.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li>
 <li><a href="workarounds.html#egg.workarounds.defer" title="DEFER">PSTADE_EGG_DEFER</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_makers.make_function"></a><a href="function_makers.html#egg.function_makers.make_function" title="make_function">make_function</a></h3></div></div></div>
+<a name="egg.function_makers.make_function.description"></a><h5>
+<a name="id514819"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">make_function</span></code> is the object
+        generator of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;&gt;</span></code>.
+        This is useful when you need a "self" function in baby <code class="computeroutput"><span class="identifier">call</span></code> template.
+      </p>
+<a name="egg.function_makers.make_function.header"></a><h5>
+<a name="id514885"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">make_function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_makers.make_function.model_of"></a><h5>
+<a name="id514967"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="concepts.html#egg.concepts.operatable_object" title="Operatable Object">Operatable Object</a></li>
+<li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
+</ul></div>
+<a name="egg.function_makers.make_function.notation"></a><h5>
+<a name="id515020"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_makers.make_function.valid_expressions"></a><h5>
+<a name="id515053"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">xp_make_function</span><span class="special">&lt;</span><span class="identifier">_Stg</span>
+                <span class="special">=</span> <span class="identifier">_default</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">xp_make_function</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">b</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">b</span><span class="special">),</span> <span class="identifier">_Stg</span><span class="special">&gt;</span>
+                <span class="identifier">f</span> <span class="special">=</span>
+                <span class="special">{</span><span class="identifier">b</span><span class="special">};</span> <span class="keyword">return</span>
+                <span class="identifier">f</span><span class="special">;</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">make_function</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">xp_make_function</span><span class="special">&lt;&gt;()</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_makers.make_function.preconditions"></a><h5>
+<a name="id515387"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<a name="egg.function_makers.make_function.example"></a><h5>
+<a name="id515420"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="egg.function_makers.make_function.see_also"></a><h5>
+<a name="id515450"></a>
+        <a href="function_makers.html#egg.function_makers.make_function.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li>
+<li><a href="function_makers.html#egg.function_makers.function" title="function">function</a></li>
 </ul></div>
 </div>
 </div>

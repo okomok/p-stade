@@ -11,7 +11,6 @@ project
     ;
 
 test-suite "egg" :
-    [ run adaptable.cpp ]
     [ run after.cpp ]
     [ run always.cpp ]
     [ run as_mpl_lambda.cpp ]
@@ -60,9 +59,11 @@ test-suite "egg" :
     [ run lazy.cpp ]
     [ run lexical_cast.cpp ]
     [ run lexicalize.cpp ]
+    [ run make_function.cpp ]
     [ run make_function_of.cpp ]
     [ run memoize.cpp ]
     [ run monad.cpp ]
+    [ run mono.cpp ]
     [ run new.cpp ]
     [ run new_array.cpp ]
     [ run new_auto.cpp ]

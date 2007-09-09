@@ -17,6 +17,9 @@
 #include <pstade/minimal_test.hpp>
 
 
+#include <pstade/egg/deduced_form.hpp> // check it.
+
+
 namespace egg = pstade::egg;
 using namespace egg;
 
@@ -35,7 +38,7 @@ my_func2;
 
 typedef
     result_of_uncurry<
-        result_of_curry2<my_func>::type
+        result_of_curry4<my_func>::type
     >::type
 my_func3;
 
@@ -43,14 +46,14 @@ my_func3;
 // borns now.
 struct my_baby
 {
-    template<class Myself, class A1, class A2>
+    template<class Myself, class A1, class A2, class A3, class A4>
     struct apply
     {
         typedef A1 &type;
     };
 
-    template<class Result, class A1, class A2>
-    Result call(A1 &a1, A2 &a2) const
+    template<class Result, class A1, class A2, class A3, class A4>
+    Result call(A1 &a1, A2 &, A3 &, A4 &) const
     {
         return a1;
     }
@@ -61,8 +64,8 @@ void pstade_minimal_test()
 {
     {
         int i = 10;
-        BOOST_CHECK( &(my_func()(i, 10)) == &i );
-        BOOST_CHECK( &(my_func2()(i, 10)) == &i );
-        BOOST_CHECK( my_func3()(12, 10) == 12 );
+        BOOST_CHECK( &(my_func()(i, 2,3,4)) == &i );
+        BOOST_CHECK( &(my_func2()(i, 2,3,4)) == &i );
+        BOOST_CHECK( my_func3()(12, 2,3,4) == 12 );
     }
 }

@@ -22,6 +22,7 @@
 #include <boost/detail/workaround.hpp>
 
 
+// Any Boost library doesn't use BOOST_MPL_HAS_XXX_TRAIT_NAMED_DEF for now.
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
     #include <boost/mpl/has_xxx.hpp>
     #include <pstade/has_xxx.hpp>

@@ -4,10 +4,10 @@
 
 Function Adaptor is a higher-order function that takes a __FUNCTION_OBJECT__
 and returns an adapted __FUNCTION_OBJECT__.
-Function Adaptor provides two interfaces :A normal higher-order __FUNCTION_OBJECT__, and
+Function Adaptor provides two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
 a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
-[note These macros might be cumbersome, but initializers tend to contain commas and
+[note These macros might be cumbersome, but initializers tend to contain commas (or even recur) and
       lazy expansion of /function-like/ macro is very limited even if using `BOOST_PP_IDENTITY` or whatever. ]
 
 
@@ -319,7 +319,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 * If `_Dco` is /POD/, `result_of_fuse<_Dco>::type` is /POD/.
 
 [heading See also]
-* [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adaptors]
+* __BOOST_FUSION_FUNCTIONAL__
 * __VARIADIC_TEMPLATES__
 * __EGG_UNFUSE__
 
@@ -391,7 +391,7 @@ a __METAFUNCTION__ with the corresponding macro for /static-initialization/.
 
 [heading See also]
 * __EGG_DEDUCING_NULLARY_RETURN_TYPES__
-* [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adaptors]
+* __BOOST_FUSION_FUNCTIONAL__
 * __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
 
@@ -541,7 +541,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_dco)(a1)`]
-        [`_dco(fixed, _arg_list(a, by_cref))`]
+        [`_dco(fixed, _arg_list(_arg_list(a, by_cref), by_value))`]
     ]
 ]
 
@@ -558,6 +558,77 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]
+
+[endsect]
+
+
+
+
+[section mono]
+
+[heading Description]
+`mono` turns a base __FUNCTION_OBJECT__ into "monomorphic" one which contains no templates.
+
+[heading Header]
+* `<pstade/egg/mono.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `fc` is an object of `result_of_mono<_typeof(fun), Seq, R>::type` initialized using `fun`.
+* `N` is `boost::mpl::size<Seq>::value`.
+* `arglist` is `b1,...,bN` such that `boost::mpl::at_c<Seq, 0>::type b1 = a1; ... boost::mpl::at_c<Seq, N-1> bN = aN;`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_mono<Fun, Seq, R = _default>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_MONO_L init PSTADE_EGG_MONO_R`]
+        [A braced initializer of `result_of_mono<Fun, Seq, R>::type`]
+    ]
+    [
+        [`fc(a1,...,aN)`]
+        [`fun(arglist)`]
+    ]
+    [
+        [`xp_mono<Seq, R = _default>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`xp_mono<Seq, R>()(fun)`]
+        [`fc`]
+    ]
+    [
+        [`egg::mono<Seq>`]
+        [`xp_mono<Seq>()`]
+    ]
+]
+
+[heading Preconditions]
+* `Fun` is a __FUNCTION_OBJECT__ type.
+* `Seq` is a __MPL_FORWARD_SEQUENCE__.
+* `Fun d = init;` is a valid expression.
+* If `R` is `_default`, `Fun` is a __DEFERRED_CALLABLE_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* If `Fun` is /POD/, `result_of_mono<Fun, Seq, R>::type` is /POD/.
+* If `N` is `1` or `2`, `result_of_mono<Fun, Seq, R>::type` is __SGI_ADAPTABLE__.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_FUSION_FUNCTIONAL__
+* __SGI_ADAPTABLE__
 
 [endsect]
 

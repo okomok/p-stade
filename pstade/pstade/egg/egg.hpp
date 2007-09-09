@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./adaptable.hpp"
 #include "./after.hpp"
 #include "./always.hpp"
 #include "./apply_params.hpp"
@@ -72,6 +71,7 @@
 #include "./memoize.hpp"
 #include "./minus.hpp"
 #include "./modulus.hpp"
+#include "./mono.hpp"
 #include "./multiplies.hpp"
 #include "./negate.hpp"
 #include "./new.hpp"
