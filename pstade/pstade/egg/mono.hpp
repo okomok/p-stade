@@ -131,10 +131,10 @@ namespace pstade { namespace egg {
         BOOST_PP_REPEAT(n, PSTADE_typedef_param, ~)
 
 #if n == 1
-        typedef typename argument_type<PSTADE_param(Z, 0, _)>::type argument_type;
+        typedef typename argument_type<parameter0_type>::type argument_type;
 #elif n == 2
-        typedef typename argument_type<PSTADE_param(Z, 0, _)>::type first_argument_type;
-        typedef typename argument_type<PSTADE_param(Z, 1, _)>::type second_argument_type;
+        typedef typename argument_type<parameter0_type>::type first_argument_type;
+        typedef typename argument_type<parameter1_type>::type second_argument_type;
 #endif
 
         typedef typename

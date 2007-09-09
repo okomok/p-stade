@@ -10,10 +10,10 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/template_arguments.cpp>
+//#include <pstade/../libs/wine/test/pod_constant1.cpp>
 
 //#include <pstade/../libs/oven/test/counting.cpp>
-//#include <pstade/../libs/oven/test/transformed.cpp>
+#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/parse.cpp>
@@ -22,6 +22,6 @@
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
 //#include <pstade/../libs/egg/test/mono.cpp>
-#include <pstade/../libs/egg/example/mono_lambda.cpp>
+//#include <pstade/../libs/egg/example/mono_lambda.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

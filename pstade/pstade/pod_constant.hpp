@@ -11,30 +11,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// Note:
 //
-// http://lists.boost.org/Archives/boost/2007/06/123353.php
+// After all, ODR violation workaround:
+//   http://lists.boost.org/Archives/boost/2007/06/123353.php
+// was given up.
+// Even gcc is broken around "address constant expression".
 
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/preprocessor/cat.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_pod.hpp>
-#include <boost/version.hpp>
-#include <pstade/in_unnamed.hpp>
 #include <pstade/unparenthesize.hpp>
-
-
-// msvc optimizers can static-initialize, though.
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
-    #define PSTADE_POD_CONSTANT_NO_STATIC_INITIALIZATION
-#endif
 
 
 // Do you know the exact condition?
 #if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
+    #include <boost/static_assert.hpp>
+    #include <boost/type_traits/is_pod.hpp>
     #define PSTADE_POD_CONSTANT_HAS_IS_POD
+#endif
+
+
+#if defined(PSTADE_POD_CONSTANT_HAS_IS_POD)
+    // 'BOOST_MPL_ASSERT' would cause error C2370 under msvc.
+    #define PSTADE_POD_CONSTANT_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
+#else
+    #define PSTADE_POD_CONSTANT_pod_check(F)
 #endif
 
 
@@ -42,43 +44,20 @@
     PSTADE_POD_CONSTANT_aux1(PSTADE_UNPARENTHESIZE(F), O) \
 /**/
 
-
     #define PSTADE_POD_CONSTANT_aux1(F, O) \
         PSTADE_POD_CONSTANT_pod_check(F) \
         PSTADE_POD_CONSTANT_aux2(F, O) \
     /**/
 
-
-#if !defined(PSTADE_POD_CONSTANT_NO_STATIC_INITIALIZATION)
-
     #define PSTADE_POD_CONSTANT_aux2(F, O) \
-        template<class T> \
-        struct BOOST_PP_CAT(static_const_of_, O) \
-        { \
-            static T const value; \
-        }; \
-        namespace { \
-            PSTADE_IN_UNNAMED F const& O \
-                = BOOST_PP_CAT(static_const_of_, O)< F >::value; \
-        } \
-        template<class T> \
-        T const BOOST_PP_CAT(static_const_of_, O)<T>::value \
+        F const PSTADE_POD_CONSTANT_ignore_unused O \
     /**/
 
+
+#if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
+    #define PSTADE_POD_CONSTANT_ignore_unused __attribute__ ((__unused__))
 #else
-
-    #define PSTADE_POD_CONSTANT_aux2(F, O) \
-        F const O \
-    /**/
-
-#endif
-
-
-#if defined(PSTADE_POD_CONSTANT_HAS_IS_POD)
-    // msvc says error C2370 in the case of 'BOOST_MPL_ASSERT'.
-    #define PSTADE_POD_CONSTANT_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
-#else
-    #define PSTADE_POD_CONSTANT_pod_check(F)
+    #define PSTADE_POD_CONSTANT_ignore_unused
 #endif
 
 

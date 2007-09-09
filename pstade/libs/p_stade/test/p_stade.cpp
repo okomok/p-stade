@@ -1,19 +1,40 @@
 
 
-#include <string>
+#include <pstade/minimal_test.hpp>
+//#include <pstade/egg/egg.hpp>
 
 
-// hmm, "..." takes only POD.
-void unused(...) { };
+template<class X>
+void ignore_unused(X const&){}
 
 
-int main()
-{
-    std::string s("abc");
-    std::string const cs("abc");
-    int i = 12;
-    int volatile vi = 10;
-    int const ci = 3;
-    int const volatile cvi = 3;
-    unused(i, vi, ci, cvi, s, std::string("abc"), "abc", unused, &unused, 3);
+namespace my {
+
+    template<class Baby>
+    struct function
+    {
+        Baby baby;
+    };
+
+
+    struct A {};
+
 }
+
+
+#if 0
+namespace {
+    extern A const a;
+}
+namespace a_detail {
+    inline void use_a() { ::ignore_unused(a); }
+}
+#endif
+
+
+namespace my {
+    function<A> const __attribute__ ((__unused__)) fa = {{}};
+}
+
+void pstade_minimal_test()
+{}

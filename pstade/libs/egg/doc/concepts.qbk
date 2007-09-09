@@ -134,7 +134,7 @@ non-/const-qualified/ type (as __OPERATABLE_OBJECT__ does so), you could omit `c
 [heading Bugs]
 
 * msvc-7.1 and msvc-8.0 doesn't work with /POD/ templates.
-* A /const-qualified/ function pointer doen't work.
+* A /const-qualified/ function pointer doesn't work.
 
 These bugs can be worked around by `pstade::result_of` in `<pstade/result_of.hpp>`.
 The first bug is fixed with Boost1.35.

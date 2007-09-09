@@ -21,21 +21,21 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-//[code_mono_example
 void test()
 {
     namespace bll = boost::lambda;
     namespace mpl = boost::mpl;
 
-    int i1 = 1, i2 = 2;
-    BOOST_CHECK(( 3 == egg::mono< mpl::vector<int, int> >(bll::_1 + bll::_2)(i1, i2) ));
+//[code_mono_example
+int i1 = 1, i2 = 2;
+BOOST_CHECK(( 3 == egg::mono< mpl::vector<int, int> >(bll::_1 + bll::_2)(i1, i2) ));
 
-#if 0 // error
-    std::string s1("abc"), s2("efg");
-    BOOST_CHECK(( 3 == egg::mono< mpl::vector<int, int> >(bll::_1 + bll::_2)(s1, s2) ));
+#if 0 // doesn't compile.
+std::string s1("abc"), s2("def");
+egg::mono< mpl::vector<int, int> >(bll::_1 + bll::_2)(s1, s2);
 #endif
-}
 //]
+}
 
 
 void pstade_minimal_test()
