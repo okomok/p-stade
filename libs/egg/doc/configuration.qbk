@@ -26,7 +26,7 @@ regulating the maximum supported arity of `by_perfect`.
 ]
 
 [heading Precondition]
-* `1 <= N && N <= 10`.
+* `1 <= N && N <= BOOST_RESULT_OF_NUM_ARGS`.
 * The second expression must be placed before including any Egg header.
 
 [caution `7` or more arity tends to make compile-time very slow.]
@@ -58,7 +58,7 @@ regulating the maximum supported arity of `by_perfect`.
 ]
 
 [heading Precondition]
-* `1 <= N`.
+* `1 <= N && N <= BOOST_RESULT_OF_NUM_ARGS`.
 * The second expression must be placed before including any Egg header.
 
 [endsect]

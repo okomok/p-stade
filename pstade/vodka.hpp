@@ -2,7 +2,7 @@
 #define PSTADE_VODKA_HPP
 
 
-// PStade.Vodka Warning Library
+// PStade.Vodka Warning Suppress Library
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.

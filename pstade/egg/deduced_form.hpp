@@ -18,8 +18,8 @@
 #include <boost/type.hpp>
 #include <pstade/enable_if.hpp>
 #include "./config.hpp"
-#include "./detail/is_call_strategy_of.hpp"
 #include "./detail/call_baby_fwd.hpp"
+#include "./detail/is_call_strategy_of.hpp"
 
 
 namespace pstade { namespace egg {
