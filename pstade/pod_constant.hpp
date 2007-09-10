@@ -23,20 +23,11 @@
 #include <boost/detail/workaround.hpp>
 #include <pstade/unparenthesize.hpp>
 
-
 // Do you know the exact condition?
 #if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
     #include <boost/static_assert.hpp>
     #include <boost/type_traits/is_pod.hpp>
-    #define PSTADE_POD_CONSTANT_HAS_IS_POD
-#endif
-
-
-#if defined(PSTADE_POD_CONSTANT_HAS_IS_POD)
-    // 'BOOST_MPL_ASSERT' would cause error C2370 under msvc.
-    #define PSTADE_POD_CONSTANT_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
-#else
-    #define PSTADE_POD_CONSTANT_pod_check(F)
+    #define PSTADE_POD_CONSTANT_has_is_pod
 #endif
 
 
@@ -50,14 +41,22 @@
     /**/
 
     #define PSTADE_POD_CONSTANT_aux2(F, O) \
-        F const PSTADE_POD_CONSTANT_ignore_unused O \
+        F const PSTADE_POD_CONSTANT_unused O \
     /**/
 
 
-#if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
-    #define PSTADE_POD_CONSTANT_ignore_unused __attribute__ ((__unused__))
+#if defined(PSTADE_POD_CONSTANT_has_is_pod)
+    // 'BOOST_MPL_ASSERT' would cause error C2370 under msvc.
+    #define PSTADE_POD_CONSTANT_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
 #else
-    #define PSTADE_POD_CONSTANT_ignore_unused
+    #define PSTADE_POD_CONSTANT_pod_check(F)
+#endif
+
+
+#if BOOST_WORKAROUND(__GNUC__, >= 4)
+    #define PSTADE_POD_CONSTANT_unused __attribute__ ((__unused__))
+#else
+    #define PSTADE_POD_CONSTANT_unused
 #endif
 
 

@@ -28,3 +28,30 @@ op_my_idr const &get_my_idr1( )
 int ir = get_my_idr2().baby().base().baby().touch;
 
 
+op_my_func const &get_my_func1( )
+{
+   return my_func;
+}
+
+
+op_my_idrr const &get_my_idrr1( )
+{
+   return my_idrr;
+}
+
+int irr = get_my_idrr2().baby().base().baby().base().baby().touch;
+
+
+int ifun = get_my_func2().
+    baby().
+    base().
+    baby().
+    m_arg.
+    baby().
+    m_arg.
+    baby().
+    m_arg.
+    baby().
+    touch;
+
+
