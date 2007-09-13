@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_LOGICAL_AND_HPP
-#define PSTADE_EGG_LOGICAL_AND_HPP
+#ifndef PSTADE_EGG_LOGICAL_XOR_HPP
+#define PSTADE_EGG_LOGICAL_XOR_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -16,7 +16,7 @@
 
 namespace pstade { namespace egg {
 
-    PSTADE_EGG_BINARY_LOGICAL(logical_and, &&)
+    PSTADE_EGG_BINARY_LOGICAL(logical_xor, ^)
 
 } }
 

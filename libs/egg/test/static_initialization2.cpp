@@ -8,9 +8,10 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-
+//#include "./pod_constant_.hpp"
 #include "./static_initialization.hpp"
 
+#include <iostream>
 
 op_my_id const &get_my_id2( )
 {
@@ -57,5 +58,6 @@ int jfun = get_my_func1().
 
 int main()
 {
+    std::cout << j;
     return 0;
 }

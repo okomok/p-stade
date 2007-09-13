@@ -30,7 +30,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.object_generator.generator"></a><a href="object_generator.html#egg.object_generator.generator" title="generator">generator</a></h3></div></div></div>
 <a name="egg.object_generator.generator.description"></a><h5>
-<a name="id533799"></a>
+<a name="id534665"></a>
         <a href="object_generator.html#egg.object_generator.generator.description">Description</a>
       </h5>
 <p>
@@ -38,12 +38,12 @@
         generator".
       </p>
 <a name="egg.object_generator.generator.header"></a><h5>
-<a name="id533838"></a>
+<a name="id534704"></a>
         <a href="object_generator.html#egg.object_generator.generator.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.object_generator.generator.notation"></a><h5>
-<a name="id533919"></a>
+<a name="id534785"></a>
         <a href="object_generator.html#egg.object_generator.generator.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -59,7 +59,7 @@
         </li>
 </ul></div>
 <a name="egg.object_generator.generator.valid_expressions"></a><h5>
-<a name="id534174"></a>
+<a name="id535039"></a>
         <a href="object_generator.html#egg.object_generator.generator.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -95,7 +95,7 @@
 <td>
               <p>
                 A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-                Callable Object</a> <span class="emphasis"><em>POD type</em></span>
+                Callable Object</a> <span class="emphasis"><em>POD</em></span> type
               </p>
               </td>
 </tr>
@@ -139,7 +139,7 @@
 </tbody>
 </table></div>
 <a name="egg.object_generator.generator.preconditions"></a><h5>
-<a name="id534594"></a>
+<a name="id535459"></a>
         <a href="object_generator.html#egg.object_generator.generator.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -164,6 +164,15 @@
           The corresponding semantics is a valid expression.
         </li>
 </ul></div>
+<a name="egg.object_generator.generator.invariants"></a><h5>
+<a name="id535618"></a>
+        <a href="object_generator.html#egg.object_generator.generator.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">g</span></code> with <span class="emphasis"><em>static
+          storage duration</em></span> is <span class="emphasis"><em>statically initialized</em></span>
+          if initialized using <code class="computeroutput"><span class="identifier">PSTADE_EGG_GENERATOR</span></code>.
+        </li></ul></div>
 <div class="note"><table border="0" summary="Note">
 <tr>
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
@@ -182,7 +191,7 @@
 </td></tr>
 </table></div>
 <a name="egg.object_generator.generator.example"></a><h5>
-<a name="id534804"></a>
+<a name="id535731"></a>
         <a href="object_generator.html#egg.object_generator.generator.example">Example</a>
       </h5>
 <p>
@@ -217,7 +226,7 @@
 <p>
       </p>
 <a name="egg.object_generator.generator.see_also"></a><h5>
-<a name="id535224"></a>
+<a name="id536152"></a>
         <a href="object_generator.html#egg.object_generator.generator.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -228,7 +237,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.object_generator.how_to_generate"></a><a href="object_generator.html#egg.object_generator.how_to_generate" title="How to generate">How to generate</a></h3></div></div></div>
 <a name="egg.object_generator.how_to_generate.description"></a><h5>
-<a name="id535278"></a>
+<a name="id536205"></a>
         <a href="object_generator.html#egg.object_generator.how_to_generate.description">Description</a>
       </h5>
 <p>
@@ -237,7 +246,7 @@
         has no constructor.
       </p>
 <a name="egg.object_generator.how_to_generate.header"></a><h5>
-<a name="id535320"></a>
+<a name="id536248"></a>
         <a href="object_generator.html#egg.object_generator.how_to_generate.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -252,14 +261,14 @@
         </li>
 </ul></div>
 <a name="egg.object_generator.how_to_generate.notation"></a><h5>
-<a name="id535542"></a>
+<a name="id536470"></a>
         <a href="object_generator.html#egg.object_generator.how_to_generate.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           Notation defined in <a href="object_generator.html#egg.object_generator.generator" title="generator">generator</a>.
         </li></ul></div>
 <a name="egg.object_generator.how_to_generate.valid_expressions"></a><h5>
-<a name="id535585"></a>
+<a name="id536512"></a>
         <a href="object_generator.html#egg.object_generator.how_to_generate.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -324,7 +333,7 @@
 </tbody>
 </table></div>
 <a name="egg.object_generator.how_to_generate.see_also"></a><h5>
-<a name="id535882"></a>
+<a name="id536810"></a>
         <a href="object_generator.html#egg.object_generator.how_to_generate.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -335,7 +344,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.object_generator.deducers"></a><a href="object_generator.html#egg.object_generator.deducers" title="Deducers">Deducers</a></h3></div></div></div>
 <a name="egg.object_generator.deducers.description"></a><h5>
-<a name="id535936"></a>
+<a name="id536864"></a>
         <a href="object_generator.html#egg.object_generator.deducers.description">Description</a>
       </h5>
 <p>
@@ -344,12 +353,12 @@
         Lambda Expression</a> in generating type, though.
       </p>
 <a name="egg.object_generator.deducers.header"></a><h5>
-<a name="id535971"></a>
+<a name="id536899"></a>
         <a href="object_generator.html#egg.object_generator.deducers.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.object_generator.deducers.valid_expressions"></a><h5>
-<a name="id536053"></a>
+<a name="id536981"></a>
         <a href="object_generator.html#egg.object_generator.deducers.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -437,7 +446,7 @@
 </tbody>
 </table></div>
 <a name="egg.object_generator.deducers.see_also"></a><h5>
-<a name="id536688"></a>
+<a name="id537615"></a>
         <a href="object_generator.html#egg.object_generator.deducers.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>

@@ -86,6 +86,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse unfuse]]
 [def __EGG_LAZY__ [link egg.function_adaptors.lazy lazy]]
 [def __EGG_PIPABLE__ [link egg.function_adaptors.pipable pipable]]
+[def __EGG_RET__ [link egg.function_adaptors.ret ret]]
 [def __EGG_LAMBDA_BIND__ [link egg.utilities.lambda_bind lambda_bind]]
 
 [def __EGG_GENERATOR__ [link egg.object_generator.generator generator]]

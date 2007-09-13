@@ -33,6 +33,10 @@ struct op_foo
 };
 
 
+result_of_indirect<op_indirect const *>::type const
+    inindirect = PSTADE_EGG_INDIRECT(&indirect);
+
+
 void pstade_minimal_test()
 {
     {
@@ -47,5 +51,11 @@ void pstade_minimal_test()
         BOOST_CHECK( r == 3 );
         r = indirect(&foo)(4, 5);
         BOOST_CHECK( r == 9 );
+    }
+    {
+        ::op_foo foo;
+        int volatile i = 1;
+        int r = inindirect(&foo)(i, 2);
+        BOOST_CHECK( r == 3 );
     }
 }

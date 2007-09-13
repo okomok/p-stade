@@ -77,10 +77,8 @@ result_of_uncurry<
 >::type const another_plus
     =
 PSTADE_EGG_UNCURRY_L
-    PSTADE_EGG_INDIRECT_L
-        /*<< `&curried_plus` is an /address constant expression/, so that `another_plus` can be /static-initialized/. >>*/
-        &curried_plus
-    PSTADE_EGG_INDIRECT_R
+    /*<< `&curried_plus` is an /address constant expression/, so that `another_plus` can be /static-initialized/. >>*/
+    PSTADE_EGG_INDIRECT(&curried_plus)
 PSTADE_EGG_UNCURRY_R
     ;
 //]

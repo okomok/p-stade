@@ -169,7 +169,7 @@
 
 [h2 Version 0.94.4]
 * `elements` takes an optional template parameter.
-* Concept semantics slightly changed.
+* Rearranged some concepts.
 * `in_block` renamed to `block`.
 
 

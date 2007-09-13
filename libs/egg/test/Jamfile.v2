@@ -59,6 +59,7 @@ test-suite "egg" :
     [ run lazy.cpp ]
     [ run lexical_cast.cpp ]
     [ run lexicalize.cpp ]
+    [ run logical.cpp ]
     [ run make_function.cpp ]
     [ run make_function_of.cpp ]
     [ run memoize.cpp ]

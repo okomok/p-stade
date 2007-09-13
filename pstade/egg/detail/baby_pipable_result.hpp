@@ -29,7 +29,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    // Fortunately, 'boost::tuples::null_type' is a pod.
+    // Fortunately, 'boost::tuples::null_type' is a POD type.
 
     template<class Base, class Strategy, class ArgTuple = boost::tuples::null_type>
     struct baby_pipable_result
@@ -57,14 +57,14 @@ namespace pstade { namespace egg { namespace detail {
             return r;
         }
 
-#define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
     // 1ary-
+    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
         template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_max_arity, A)>
         struct apply { }; // msvc warns if incomplete.
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/baby_pipable_result.hpp>))
         #include BOOST_PP_ITERATE()
-#undef  PSTADE_max_arity
+    #undef  PSTADE_max_arity
     };
 
 
