@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
 
 
     #define PSTADE_EGG_PIPABLE_L { {
-    #define PSTADE_EGG_PIPABLE_R } }
+    #define PSTADE_EGG_PIPABLE_R , {} } }
 
 
     typedef
