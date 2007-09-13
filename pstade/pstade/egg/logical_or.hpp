@@ -11,12 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/binary_pred.hpp"
+#include "./detail/binary_logical.hpp"
 
 
 namespace pstade { namespace egg {
 
-    PSTADE_EGG_BINARY_PRED(logical_or, ||)
+    PSTADE_EGG_BINARY_LOGICAL(logical_or, ||)
 
 } }
 

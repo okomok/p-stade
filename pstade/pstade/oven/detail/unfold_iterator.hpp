@@ -107,7 +107,7 @@ private:
 
     bool equal_aux(self_t const& other, boost::forward_traversal_tag) const
     {
-        if (is_end() ^ other.is_end())
+        if (is_end() != other.is_end())
             return false;
         else if (is_end() && other.is_end())
             return true;

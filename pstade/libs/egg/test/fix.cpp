@@ -13,6 +13,9 @@
 #include <pstade/minimal_test.hpp>
 
 
+#include <pstade/egg/deduced_form.hpp> // "incompletable" check.
+
+
 #include <iostream>
 
 

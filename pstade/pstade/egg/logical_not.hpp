@@ -11,7 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
+#include "./detail/to_bool.hpp"
 
 
 namespace pstade { namespace egg {
@@ -24,12 +26,14 @@ namespace pstade { namespace egg {
         template<class X>
         bool operator()(X const& x) const
         {
-            return !x;
+            return !detail::to_bool(x);
         }
     };
 
 
-    PSTADE_POD_CONSTANT((op_logical_not), logical_not) = {};
+    PSTADE_ADL_BARRIER(logical_not) {
+        PSTADE_POD_CONSTANT((op_logical_not), logical_not) = {};
+    }
 
 
 } } // namespace pstade::egg

@@ -62,7 +62,7 @@ Egg no longer considers function templates to be useful, so that it provides
 * `<pstade/egg/lambda/placeholders.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
+* __OPERATABLE_OBJECT__ but not /statically initialized/.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
@@ -180,7 +180,7 @@ Egg provides __FCPP__ infix operator syntax.
 [section tuple_get]
 
 [heading Description]
-`tuple_get` is an akin to `boost::tuples::get`.
+`tuple_get` is an akin to `boost::get`.
 
 [heading Header]
 * `<pstade/egg/tuple/get.hpp>`
@@ -203,7 +203,7 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`xp_tuple_get<N>()(t)`]
-        [`boost::tuples::get<N::value>(t)`]
+        [`boost::get<N::value>(t)`]
     ]
     [
         [`xp_tuple_get_c<n>`]
@@ -236,7 +236,7 @@ Egg provides __FCPP__ infix operator syntax.
 [section tuple_pack]
 
 [heading Description]
-`tuple_pack` is an __OPERATABLE_OBJECT__ which represents `boost::tuples::tie` but /const-qualifier/ sensitive.
+`tuple_pack` is an __OPERATABLE_OBJECT__ which represents `boost::tie` but /const-qualifier/ sensitive.
 
 [heading Header]
 * `<pstade/egg/tuple/pack.hpp>`
@@ -256,11 +256,11 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`tuple_pack(a1,...,aN)`]
-        [`boost::tuples::tuple<_refs(_meta_arg_list(a, by_perfect))>(_arg_list(a, by_perfect))`]
+        [`boost::tuple<_refs(_meta_arg_list(a, by_perfect))>(_arg_list(a, by_perfect))`]
     ]
     [
         [`tuple_pack_by_ref(a1,...,aN)`]
-        [`boost::tuples::tuple<_refs(_meta_arg_list(a, by_ref))>(_arg_list(a, by_ref))`]
+        [`boost::tuple<_refs(_meta_arg_list(a, by_ref))>(_arg_list(a, by_ref))`]
     ]
 ]
 

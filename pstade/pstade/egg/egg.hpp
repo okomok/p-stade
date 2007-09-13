@@ -66,6 +66,7 @@
 #include "./logical_and.hpp"
 #include "./logical_not.hpp"
 #include "./logical_or.hpp"
+#include "./logical_xor.hpp"
 #include "./make_function.hpp"
 #include "./make_function_of.hpp"
 #include "./memoize.hpp"

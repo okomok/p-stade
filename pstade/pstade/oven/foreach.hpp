@@ -17,6 +17,17 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2196.html
 
 
+// Note:
+//
+// OVEN_FOREACH doesn't copy a rvalue range.
+// The iterator validity is "orthogonal" to l/rvalue-ness of the range.
+// Consider:
+//     BOOST_FOREACH (char const &x, to_const_reference(std::string("abc"))) {
+//         // x is dangling!
+//     }
+// Boost.Foreach l/rvalue-detection wouldn't pay, IMHO.
+
+
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/typeof/typeof.hpp>
 #include "./expression.hpp"

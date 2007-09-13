@@ -10,7 +10,7 @@
 
 
 #include <pstade/egg/detail/bind1.hpp>
-#include <pstade/egg/detail/bind2_.hpp>
+#include <pstade/egg/detail/bindx.hpp>
 #include <pstade/minimal_test.hpp>
 
 
