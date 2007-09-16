@@ -35,42 +35,6 @@
 namespace pstade { namespace egg {
 
 
-#if 0
-    template<class Base>
-    struct baby_named3_result
-    {
-        typedef Base base_type;
-        Base m_base;
-        Base base() const { return m_base; }
-
-        template<class Myself, class A0, class A1, class A2>
-        struct apply
-        {
-            typedef boost::fusion::vector3<A0, A1, A2> nargs_t;
-
-            typedef typename result_of<detail::xp_get_arg<Base, 0>(nargs_t&, boost::fusion::vector<>)>::type t_b0;
-            typedef typename result_of<detail::xp_get_arg<Base, 1>(nargs_t&, boost::fusion::vector<t_b0>)>::type t_b1;        
-            typedef typename result_of<detail::xp_get_arg<Base, 2>(nargs_t&, boost::fusion::vector<t_b0, t_b1>)>::type t_b2;
-
-            typedef typename result_of<Base const(t_b0, t_b1, t_b2)>::type type;
-        };
-
-        template<class Result, class A0, class A1, class A2>
-        Result call(A0 a0, A1 a1, A2 a2) const
-        {
-            typedef apply<void, A0, A1, A2> apply_;
-
-            typename apply_::nargs_t nargs(a0, a1, a2);
-            typename apply_::t_b0 b0 = detail::xp_get_arg<Base, 0>()(nargs, boost::fusion::vector<>());
-            typename apply_::t_b1 b1 = detail::xp_get_arg<Base, 1>()(nargs, boost::fusion::vector<typename apply_::t_b0>(b0));
-            typename apply_::t_b2 b2 = detail::xp_get_arg<Base, 2>()(nargs, boost::fusion::vector<typename apply_::t_b0, typename apply_::t_b1>(b0, b1));
-
-            return m_base(b0, b1, b2);
-        }
-    };
-#endif
-
-
 // 1ary-
 #define PSTADE_in_apply(Z, N, _) typedef typename result_of<detail::xp_get_arg<Base, N>(NamedArgs&, boost::fusion::vector<BOOST_PP_ENUM_PARAMS(N, t_b)>)>::type BOOST_PP_CAT(t_b, N);
 #define PSTADE_in_call(Z, N, _)  typename apply_::BOOST_PP_CAT(t_b, N) BOOST_PP_CAT(b, N) = detail::xp_get_arg<Base, N>()(nargs, boost::fusion::vector<BOOST_PP_ENUM_PARAMS(N, typename apply_::t_b)>(BOOST_PP_ENUM_PARAMS(N, b)));
