@@ -14,6 +14,7 @@
 #include <pstade/minimal_test.hpp>
 
 
+#include <pstade/pod_constant.hpp>
 #include <sstream>
 #include <string>
 
@@ -36,17 +37,32 @@ struct op_foo1
     }
 };
 
-result_of_named2<op_foo1>::type const named_foo1 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+typedef result_of_named2<op_foo1>::type op_named_foo1;
+op_named_foo1 const named_foo1 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
 
-pstade::egg::keyword<0> const _in = PSTADE_EGG_KEYWORD;
-pstade::egg::keyword<1> const _out = PSTADE_EGG_KEYWORD;
+PSTADE_POD_CONSTANT((pstade::egg::keyword<0>), _in) = PSTADE_EGG_KEYWORD;
+PSTADE_POD_CONSTANT((pstade::egg::keyword<1>), _out) = PSTADE_EGG_KEYWORD;
 
 
 void pstade_minimal_test()
 {
-    std::stringstream sin, sout;
-    sin << "hello";
+    {
+        std::stringstream sin, sout;
+        sin << "hello";
+        BOOST_CHECK( named_foo1(_out = sout, _in = sin).str() == "hello" );
+    }
 
-    BOOST_CHECK( named_foo1(_out = sout, _in = sin).str() == "hello" );
+    {
+        std::stringstream sin, sout;
+        sin << "hello";
+        pstade::result_of<
+            op_named_foo1(
+                pstade::result_of<keyword<1>(std::stringstream&)>::type,
+                pstade::result_of<keyword<0>(std::stringstream&)>::type
+            )
+        >::type r = named_foo1(_out(sout), _in(sin));
+
+        BOOST_CHECK( r.str() == "hello" );
+    }
 }
