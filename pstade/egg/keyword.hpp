@@ -15,7 +15,9 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
+#include "./detail/meta_arg.hpp"
 #include "./detail/named_arg.hpp"
+#include "./sig_template.hpp"
 
 
 namespace pstade { namespace egg {
@@ -34,21 +36,48 @@ namespace pstade { namespace egg {
         typedef boost::mpl::int_<DefaultIndex> default_index_type;
         typedef Tag tag_type;
 
-        template<class A>
-        typename disable_if<boost::is_same<A, keyword>, detail::named_arg<keyword, A> const>::type
-        operator=(A& a) const
+        template<class Signature>
+        struct result;
+
+        template<class Self, class Arg>
+        struct result<Self(Arg)>
         {
-            detail::named_arg<keyword, A> r = {a};
+            typedef
+                detail::named_arg<keyword, typename detail::meta_arg<Arg>::type> const
+            type;
+        };
+
+        template<class Arg>
+        detail::named_arg<keyword, Arg> const
+        operator()(Arg& arg) const
+        {
+            detail::named_arg<keyword, Arg> r = {arg};
             return r;
         }
 
-        template<class A>
-        detail::named_arg<keyword, PSTADE_DEDUCED_CONST(A)> const
-        operator=(A const& a) const
+        template<class Arg>
+        detail::named_arg<keyword, PSTADE_DEDUCED_CONST(Arg)> const
+        operator()(Arg const& arg) const
         {
-            detail::named_arg<keyword, PSTADE_DEDUCED_CONST(A)> r = {a};
+            detail::named_arg<keyword, PSTADE_DEDUCED_CONST(Arg)> r = {arg};
             return r;
         }
+
+        template<class Arg>
+        typename disable_if<boost::is_same<Arg, keyword>, detail::named_arg<keyword, Arg> const>::type
+        operator=(Arg& arg) const
+        {
+            return (*this)(arg);
+        }
+
+        template<class Arg>
+        detail::named_arg<keyword, PSTADE_DEDUCED_CONST(Arg)> const
+        operator=(Arg const& arg) const
+        {
+            return (*this)(arg);
+        }
+
+        #include PSTADE_EGG_SIG_TEMPLATE()
     };
 
 

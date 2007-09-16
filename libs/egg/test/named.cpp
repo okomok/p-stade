@@ -57,7 +57,8 @@ struct op_foo
     }
 };
 
-result_of_named3<op_foo>::type const named_foo = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+typedef result_of_named3<op_foo>::type op_named_foo;
+op_named_foo const named_foo = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
 struct op_foo2
 {
@@ -85,6 +86,9 @@ void pstade_minimal_test()
     BOOST_CHECK( named_foo(_y = 10, _z = 9, _x = 2) == 2*10+9 );
     BOOST_CHECK( named_foo(_z = 9, _x = 2, _y = 10) == 2*10+9 );
     BOOST_CHECK( named_foo(_z = 9, _y = 10, _x = 2) == 2*10+9 );
+
+
+    BOOST_CHECK( named_foo(_x(2), _y(10), _z(9)) == 2*10+9 );
 
     // cute error message check.
     // BOOST_CHECK( named_foo(_z = 9, _y = 10) == 2*10+9 );
