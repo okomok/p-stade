@@ -314,7 +314,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 
 [heading Preconditions]
 * `1 <= N && N <= _TUPLE_MAX_SIZE`.
-* `There is a `d_` such that `_Dco d_ = init;` is a valid expression.
+* There is a `d_` such that `_Dco d_ = init;` is a valid expression.
 * `t0` is an empty tuple.
 * The corresponding semantics is a valid expression.
 
@@ -626,7 +626,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
-* `Seq` is a __MPL_FORWARD_SEQUENCE__.
+* `Seq` is an __MPL_FORWARD_SEQUENCE__.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
 * If `R` is `_default`, `Fun` is a __DEFERRED_CALLABLE_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
 * The corresponding semantics is a valid expression.

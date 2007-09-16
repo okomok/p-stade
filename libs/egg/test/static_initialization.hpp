@@ -17,6 +17,8 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/curry.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/pod_constant.hpp>
 
 
@@ -100,5 +102,27 @@ PSTADE_POD_CONSTANT((op_my_idrr), my_idrr)
 op_my_idrr const &get_my_idrr1();
 op_my_idrr const &get_my_idrr2();
 
+
+struct op_my_plus
+{
+    typedef int result_type;
+
+    int operator()(int x, int y) const
+    {
+        return x + y;
+    }
+
+    int touch;
+};
+
+typedef pstade::egg::result_of_pipable<op_my_plus>::type op_pipa;
+PSTADE_POD_CONSTANT((op_pipa), pipa) = { {999} };
+op_pipa const &get_pipa1();
+op_pipa const &get_pipa2();
+
+typedef pstade::egg::result_of_auxiliary1<op_my_plus>::type op_auxi;
+PSTADE_POD_CONSTANT((op_auxi), auxi) = { {999} };
+op_auxi const &get_auxi1();
+op_auxi const &get_auxi2();
 
 #endif

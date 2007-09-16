@@ -11,14 +11,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/tuple/tuple.hpp>
 #include <pstade/pod_constant.hpp>
+#include "../detail/baby_pack.hpp"
 #include "../by_perfect.hpp"
 #include "../by_ref.hpp"
-#include "./detail/baby_pack.hpp"
+#include "./config.hpp"
 
 
 namespace pstade { namespace egg {
 
+    namespace tuple_detail {
+        #define PSTADE_EGG_DETAIL_PACK_TEMPLATE(N) boost::tuples::tuple
+        #define PSTADE_EGG_DETAIL_PACK_MAX_ARITY PSTADE_EGG_TUPLE_MAX_SIZE
+        #include PSTADE_EGG_DETAIL_BABY_PACK()
+    }
 
     #define PSTADE_EGG_TUPLE_PACK_INIT {{}}
 

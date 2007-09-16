@@ -56,6 +56,22 @@ int jfun = get_my_func1().
     touch;
 
 
+op_pipa const &get_pipa2( )
+{
+   return pipa;
+}
+
+int jpi = get_pipa1().baby().base().touch;
+
+
+op_auxi const &get_auxi2( )
+{
+   return auxi;
+}
+
+int jau = get_auxi1().baby().base().touch;
+
+
 int main()
 {
     std::cout << j;
