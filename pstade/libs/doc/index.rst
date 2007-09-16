@@ -7,7 +7,7 @@ P-Stade C++ Libraries
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.03.x
+:Version: 1.04.x
 
 
 

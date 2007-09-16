@@ -43,7 +43,6 @@ op_my_idrr const &get_my_idrr1( )
 
 int irr = get_my_idrr2().baby().base().baby().base().baby().touch;
 
-
 int ifun = get_my_func2().
     baby().
     base().
@@ -55,5 +54,21 @@ int ifun = get_my_func2().
     m_arg.
     baby().
     touch;
+
+
+op_pipa const &get_pipa1( )
+{
+   return pipa;
+}
+
+int ipi = get_pipa2().baby().base().touch;
+
+
+op_auxi const &get_auxi1( )
+{
+   return auxi;
+}
+
+int iau = get_auxi2().baby().base().touch;
 
 

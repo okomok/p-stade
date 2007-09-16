@@ -20,6 +20,13 @@ for any __OPERATABLE_OBJECT__ `f` the following must be met:
 * `f` is /statically initialized/ unless otherwise specified.
 * `boost::result_of<op_++f(a1,...,aN)>::type` is the same as `boost::result_of<op_++f const(a1,...,aN)>::type`.
 
+[heading Example]
+    int length_impl(std::string const &) { ... }
+    typedef int (*op_length)(std::string const &);
+
+    // length is an OperatableObject.
+    op_length const length = &length_impl;
+
 [heading Models]
 * ...
 

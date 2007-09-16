@@ -128,6 +128,7 @@ namespace pstade { namespace egg {
 #endif
 #else
 #define n BOOST_PP_ITERATION()
+#define n1 BOOST_PP_INC(n)
 
 
     template<class Base>
@@ -160,15 +161,15 @@ namespace pstade { namespace egg {
         }
 
     // as function call
-        template<class Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A)> :
-            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(n), A, &))>
+        template<class Myself, BOOST_PP_ENUM_PARAMS(n1, class A)>
+        struct apply<Myself, BOOST_PP_ENUM_PARAMS(n1, A)> :
+            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n1, A, &))>
         { };    
 
-        template<class Result, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), class A)>
-        Result call(BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_INC(n), A, & a)) const
+        template<class Result, BOOST_PP_ENUM_PARAMS(n1, class A)>
+        Result call(BOOST_PP_ENUM_BINARY_PARAMS(n1, A, & a)) const
         {
-            return m_base(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), a));
+            return m_base(BOOST_PP_ENUM_PARAMS(n1, a));
         }
     };
 
@@ -191,5 +192,6 @@ namespace pstade { namespace egg {
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR;
 
 
+#undef n1
 #undef n
 #endif
