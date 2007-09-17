@@ -27,6 +27,13 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RET_R
 
 
+    template<class Function>
+    struct tag_of
+    {
+        typedef typename Function::baby_type::tag_type type;
+    };
+
+
 } } // namespace pstade::egg
 
 

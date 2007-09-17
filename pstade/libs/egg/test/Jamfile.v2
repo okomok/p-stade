@@ -104,6 +104,7 @@ test-suite "egg" :
     [ run unfuse.cpp ]
     [ run use_xxx.cpp ]
     [ run volatile_correct.cpp ]
+    [ run volatile_correct_udt.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 

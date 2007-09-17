@@ -9,4 +9,11 @@
 
 
 
+[heading Version 0.90.1]
+* `ret` and `perfect` semantics slightly changed.
+* Added `tagged`.
+
+
+
+
 [endsect]
