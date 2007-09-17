@@ -95,6 +95,7 @@
 #include "./specified.hpp"
 #include "./static_downcast.hpp"
 #include "./strong_assign.hpp"
+#include "./tagged.hpp"
 #include "./to_lower.hpp"
 #include "./to_ref.hpp"
 #include "./to_shared_ptr.hpp"

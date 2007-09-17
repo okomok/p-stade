@@ -22,11 +22,16 @@
 namespace pstade { namespace egg {
 
 
-    template<class Base, class ResultType = boost::use_default, class Strategy = by_perfect>
+    template<
+        class Base,
+        class ResultType = boost::use_default,
+        class Strategy   = by_perfect,
+        class Tag        = boost::use_default
+    >
     struct result_of_ret
     {
         typedef
-            function<detail::baby_ret_result<Base, ResultType>, Strategy>
+            function<detail::baby_ret_result<Base, ResultType, Tag>, Strategy>
         type;
     };
 
