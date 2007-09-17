@@ -682,7 +682,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`pipable(d)`]
-        [`fc(d)(_default)`]
+        [`fc(d, _default)`]
     ]
 ]
 
@@ -728,7 +728,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_ret<Fun, R = _default, _Stg = _default>::type`]
+        [`result_of_ret<Fun, R, _Stg = _default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
@@ -740,7 +740,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`f(_arg_list(a, _Stg))`]
     ]
     [
-        [`xp_ret<R = _default>`]
+        [`xp_ret<R>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
@@ -755,7 +755,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
-* If `R` is `_default`, `Fun` must be a __DEFERRED_CALLABLE_OBJECT__ type.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -786,7 +785,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __BINDABLE_OBJECT__
 
 [heading Notation]
-* ...
+* `fc(d)` is an object of `result_of_perfect<_typeof(d)>::type` initialized using `d` or the initializer.
 
 [heading Valid expressions]
 [table 
@@ -796,30 +795,92 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_perfect<_Dco>::type`]
-        [`result_of_ret<_Dco>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_PERFECT_L init PSTADE_EGG_PERFECT_R`]
-        [`PSTADE_EGG_RET_L init PSTADE_EGG_RET_R`]
+        [A braced initializer of `result_of_perfect<_Dco>::type`]
     ]
     [
-        [`perfect`]
-        [`xp_ret<>()`]
+        [`fc(d)(a1,...,aN)`]
+        [`d(_arg_list(a, by_perfect))`]
+    ]
+    [
+        [`perfect(d)`]
+        [`fc(d)`]
     ]
 ]
 
 [heading Preconditions]
+* There is a `d_` such that `_Dco d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* See __EGG_RET__.
+* `result_of_perfect<_Dco>::type` is a /POD/ type if and only if `_Dco` is a /POD/ type.
 
 [heading Example]
-
     BOOST_CHECK( perfect(boost::lambda::_1)(12) == 12 );
 
 [heading See also]
-* __EGG_RET__
+* ...
+
+[endsect]
+
+
+
+
+[section tagged]
+
+[heading Description]
+`tagged` makes a new __FUNCTION_OBJECT__ type from the same __FUNCTION_OBJECT__ type.
+
+[heading Header]
+* `<pstade/egg/tagged.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `fc(d, Tag, _Stg)` is an object of `result_of_tagged<_typeof(d), Tag, _Stg>::type` initialized using `d` or the initializer.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_tagged<_Dco, Tag, _Stg = _default>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_TAGGED_L init PSTADE_EGG_TAGGED_R`]
+        [A braced initializer of `result_of_tagged<_Dco, Tag, _Stg>::type`]
+    ]
+    [
+        [`fc(d, Tag, _Stg)(a1,...,aN)`]
+        [`d(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`tag_of<_typeof(fc(d, Tag, _Stg))>::type`]
+        [`Tag`]
+    ]
+]
+
+[heading Preconditions]
+* `Tag` is any (possibly incomplete) type.
+* There is a `d_` such that `_Dco d_ = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `result_of_tagged<_Dco, Tag, _Stg>::type` is a /POD/ type if and only if `_Dco` is a /POD/ type.
+* `result_of_tagged<_Dco, Tag1, _Stg>::type` is the same type as `result_of_tagged<_Dco, Tag2, _Stg>::type` if and only if `Tag1` is the same type as `Tag2`.
+
+[heading Example]
+...
+
+[heading See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2141.html Strong Typedefs in C++09(Revisited)]
 
 [endsect]
 

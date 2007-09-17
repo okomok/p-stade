@@ -12,6 +12,11 @@
 #include <pstade/egg/tagged.hpp>
 #include <pstade/minimal_test.hpp>
 
+
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+
 namespace egg = pstade::egg;
 using namespace egg;
 
@@ -33,6 +38,10 @@ typedef result_of_tagged<my_foo, tag2>::type op_my_foo2;
 
 op_my_foo1 const my_foo1 = PSTADE_EGG_TAGGED_L {} PSTADE_EGG_TAGGED_R;
 op_my_foo2 const my_foo2 = PSTADE_EGG_TAGGED_L {} PSTADE_EGG_TAGGED_R;
+
+
+BOOST_MPL_ASSERT((boost::is_same<tag_of<op_my_foo1>::type, tag1>));
+BOOST_MPL_ASSERT((boost::is_same<tag_of<op_my_foo2>::type, tag2>));
 
 
 template<class X>
