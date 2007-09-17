@@ -21,7 +21,7 @@
 #include "../function_facade.hpp"
 #include "./default_value.hpp"
 #include "./named_arg.hpp"
-#include "./parameter_extension.hpp"
+#include "./named_extension.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
