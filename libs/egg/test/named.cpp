@@ -22,8 +22,8 @@ struct op_foo2;
 namespace pstade_egg_extension {
 
     template<>
-    struct Parameter<op_foo2> :
-        use_default_parameter
+    struct named_parameter<op_foo2> :
+        named_parameter_default
     {
         template<class X, int Index>
         struct default_;
