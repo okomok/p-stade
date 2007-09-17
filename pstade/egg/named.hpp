@@ -25,8 +25,8 @@
 #include "./by_value.hpp"
 #include "./by_cref.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/fusion_pack.hpp"
 #include "./detail/get_arg.hpp"
+#include "./fusion/pack.hpp"
 #include "./unfuse.hpp"
 
 
@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
     struct PSTADE_PP_CAT3(result_of_, named, n) :
         result_of_unfuse<
             function<PSTADE_PP_CAT3(baby_fused_named, n, _result)<Base>, by_cref>,
-            detail::op_fusion_pack,
+            op_fusion_pack,
             NullaryResult,
             by_cref
         >
