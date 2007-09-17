@@ -29,8 +29,8 @@ using namespace egg;
 namespace pstade_egg_extension {
 
     template<>
-    struct Parameter<op_foo1> :
-        use_default_parameter
+    struct named_parameter<op_foo1> :
+        named_parameter_default
     {
         template<class X, class Keyword>
         struct index_of;
@@ -52,8 +52,8 @@ namespace pstade_egg_extension {
     };
 
     template<>
-    struct Parameter<op_foo2> :
-        use_default_parameter
+    struct named_parameter<op_foo2> :
+        named_parameter_default
     {
         template<class X, class Keyword>
         struct index_of;

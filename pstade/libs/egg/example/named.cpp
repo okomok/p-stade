@@ -27,8 +27,8 @@ struct draw_text_impl;
 namespace pstade_egg_extension {
 
     template <>
-    struct Parameter<draw_text_impl> :
-        use_default_parameter
+    struct named_parameter<draw_text_impl> :
+        named_parameter_default
     {
         template<class X, int Index>
         struct default_;

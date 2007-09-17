@@ -22,17 +22,21 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./apply_params.hpp"
 #include "./by_value.hpp"
 #include "./by_cref.hpp"
-#include "./config.hpp"
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/fusion_pack.hpp"
 #include "./detail/get_arg.hpp"
-#include "./generator.hpp"
 #include "./unfuse.hpp"
 
 
 namespace pstade { namespace egg {
+
+
+
+    // PSTADE_EGG_UNFUSE_L { { B } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_NAMED_L PSTADE_EGG_UNFUSE_L { {
+    #define PSTADE_EGG_NAMED_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
 
 
 // 1ary-
@@ -86,9 +90,6 @@ namespace pstade { namespace egg {
         >
     { };
 
-    // PSTADE_EGG_UNFUSE_L { { B } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
-    #define PSTADE_EGG_NAMED_L PSTADE_EGG_UNFUSE_L { {
-    #define PSTADE_EGG_NAMED_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
 
     struct BOOST_PP_CAT(baby_named, n)
     {
