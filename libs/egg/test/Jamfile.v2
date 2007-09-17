@@ -44,6 +44,7 @@ test-suite "egg" :
     [ run function_facade_by.cpp ]
     [ run functional.cpp ]
     [ run fuse.cpp ]
+#    [ run fusion_pack.cpp ]
     [ run generator.cpp ]
     [ run identity.cpp ]
     [ run iequal_to.cpp ]
