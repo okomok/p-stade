@@ -24,7 +24,7 @@ namespace pstade { namespace oven {
 
 
 template< class Reference, class Value = boost::use_default >
-struct tp_make_hetero
+struct tp_hetero
 {
     struct baby
     {
@@ -60,12 +60,12 @@ struct tp_make_hetero
 
 
 template< class Reference, class Value = boost::use_default >
-struct xp_make_hetero :
-    tp_make_hetero<Reference, Value>::type
+struct xp_hetero :
+    tp_hetero<Reference, Value>::type
 { };
 
 
-PSTADE_EGG_SPECIFIED1(hetero, xp_make_hetero, (class))
+PSTADE_EGG_SPECIFIED1(hetero, xp_hetero, (class))
 
 
 } } // namespace pstade::oven
