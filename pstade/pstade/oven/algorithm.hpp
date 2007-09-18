@@ -124,9 +124,9 @@ PSTADE_ADL_BARRIER(algorithm) {
         };
 
         template< class Result, class Range, class MiddleFun >
-        Result call(Range& rng, MiddleFun& fun) const
+        void call(Range& rng, MiddleFun& fun) const
         {
-            return std::rotate(boost::begin(rng), fun(rng), boost::end(rng));
+            std::rotate(boost::begin(rng), fun(rng), boost::end(rng));
         }
     };
 

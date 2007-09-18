@@ -12,7 +12,7 @@
 
 
 #include <memory> // auto_ptr
-#include <pstade/any_movable.hpp>
+#include <pstade/any.hpp> // any_movable
 #include <pstade/pod_constant.hpp>
 #include "./by_cref.hpp"
 #include "./fuse.hpp"

@@ -16,7 +16,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
-#include <pstade/any_movable.hpp>
+#include <pstade/any.hpp> // any_movable
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
 #include "./detail/memoize_iterator.hpp"

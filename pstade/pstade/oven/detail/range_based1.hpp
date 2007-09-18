@@ -28,7 +28,6 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/sig_template.hpp>
-#include <pstade/egg/to_ref.hpp>
 #include <pstade/egg/use_brace_level1.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
@@ -60,8 +59,8 @@ struct baby_range_based1_result
     struct apply<Myself, Range0> :
         result_of<
             IterBased const(
-                typename range_iterator<Range0>::type const&,
-                typename range_iterator<Range0>::type const&
+                typename range_iterator<Range0>::type,
+                typename range_iterator<Range0>::type
             )
         >
     { };
@@ -70,8 +69,8 @@ struct baby_range_based1_result
     Result call(Range0& rng0) const
     {
         return m_base(
-            egg::to_cref(boost::begin(rng0)),
-            egg::to_cref(boost::end(rng0))
+            boost::begin(rng0),
+            boost::end(rng0)
         );
     }
 
@@ -121,8 +120,8 @@ PSTADE_POD_CONSTANT((op_range_based1), range_based1) = PSTADE_EGG_GENERATOR;
     struct apply<Myself, Range0, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             IterBased const(
-                typename range_iterator<Range0>::type const&,
-                typename range_iterator<Range0>::type const&,
+                typename range_iterator<Range0>::type,
+                typename range_iterator<Range0>::type,
                 PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
             )
         >
@@ -132,8 +131,8 @@ PSTADE_POD_CONSTANT((op_range_based1), range_based1) = PSTADE_EGG_GENERATOR;
     Result call(Range0& rng0, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         return m_base(
-            egg::to_cref(boost::begin(rng0)),
-            egg::to_cref(boost::end(rng0)),
+            boost::begin(rng0),
+            boost::end(rng0),
             BOOST_PP_ENUM_PARAMS(n, a)
         );
     }

@@ -16,15 +16,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// *IteratorBlock* is a unary functor which has nested 'yield_type',
-// and its 'operator()' takes a unary functor as templated argument.
-// See <gravy/for_each_child_window.hpp> as an example.
-// This iterator was originally implemented by
-// http://d.hatena.ne.jp/y-hamigaki/20060409#1144593955
-
-
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/shared_ptr.hpp>

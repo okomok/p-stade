@@ -23,7 +23,7 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/any_movable.hpp>
+#include <pstade/any.hpp> // any_movable
 #include <pstade/egg/new_auto.hpp>
 #include <pstade/egg/sig_template.hpp>
 #include <pstade/pass_by.hpp>
