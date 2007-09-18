@@ -444,6 +444,66 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 
 
+[section hetero]
+
+[h3 Description]
+`hetero` runs through a "tuple".
+
+[h3 Header]
+* `<pstade/oven/hetero.hpp>`
+
+[h3 Model of]
+
+[h3 Notation]
+* `N` is `boost::fusion::result_of::size<_typeof(tup)>::type::value`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`xp_hetero<Ref>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`xp_hetero<Ref>()(tup)`]
+        [
+            A _random_access_ `{(Ref)boost::fusion::at_c<0>(tup),..,(Ref)boost::fusion::at_c<N-1>(tup)}`
+        ]
+    ]
+    [
+        [`oven::hetero<Ref>`]
+        [
+            `xp_hetero<Ref>()`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `tup` is a _fusion_forward_sequence_ or `boost::tuple<..>`.
+* `0 <= N && N < 20`.
+* For all `I` such that `0 <= I && I < N`, `Ref` is convertible to `boost::fusion::result_of::at_c<_typeof(tup), I>::type`
+  without binding a reference to rvalue.
+
+[h3 Example]
+    rectangle r; triangle t; circle c;
+    boost::tuple<rectangle*, triangle*, circle*> tup(&r, &t, &c);
+    BOOST_FOREACH (shape *s, oven::hetero<shape *>(tup)) {
+        s->draw();
+    }
+
+[h3 See also]
+* _boost_fusion_
+
+[endsect]
+
+
+
+
 [section initial_values]
 
 [h3 Description]
