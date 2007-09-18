@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/function.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/egg/tuple/size.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -33,9 +34,9 @@ struct tp_hetero
         {
             typedef
                 detail::hetero_iterator<
+                    Tuple,
                     Reference,
-                    typename eval_if_use_default< Value, remove_cvr<Reference> >::type,
-                    Tuple
+                    typename eval_if_use_default< Value, remove_cvr<Reference> >::type
                 >
             iter_t;
 

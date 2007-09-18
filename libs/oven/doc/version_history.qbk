@@ -172,6 +172,9 @@
 * Rearranged some concepts.
 * `in_block` renamed to `block`.
 
+[h2 Version 0.94.5]
+* Added `hetero`.
+
 
 
 

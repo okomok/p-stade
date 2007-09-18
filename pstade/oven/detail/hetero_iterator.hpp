@@ -21,8 +21,6 @@
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/tuple/get.hpp>
 #include <pstade/egg/tuple/size.hpp>
-#include <pstade/preprocessor.hpp>
-#include <pstade/use_default.hpp>
 
 
 #if !defined(PSTADE_OVEN_HETERO_MAX_SIZE)
@@ -33,7 +31,10 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class Reference, class Tuple, long Size = egg::tuple_size<Tuple>::value >
+// hetero_iterator_dereference
+//
+
+template< class Tuple, class Reference, int Size = egg::tuple_size<Tuple>::value >
 struct hetero_iterator_dereference;
 
 #define PSTADE_return_at(Z, N, _) case N: return egg::tuple_get_c<N>(tup);
@@ -42,18 +43,21 @@ struct hetero_iterator_dereference;
 #undef  PSTADE_return_at
 
 
+// hetero_iterator
+//
+
 typedef int hetero_iterator_base;
 
-template< class Reference, class Value, class Tuple >
+template< class Tuple, class Reference, class Value >
 struct hetero_iterator;
 
-template< class Reference, class Value, class Tuple >
+template< class Tuple, class Reference, class Value >
 struct hetero_iterator_super
 {
     typedef
         boost::iterator_adaptor<
             // Pass everything; hetero_iterator_base isn't an iterator.
-            hetero_iterator<Reference, Value, Tuple>,
+            hetero_iterator<Tuple, Reference, Value>,
             hetero_iterator_base,
             Value,
             boost::random_access_traversal_tag,
@@ -63,12 +67,12 @@ struct hetero_iterator_super
     type;
 };
 
-template< class Reference, class Value, class Tuple >
+template< class Tuple, class Reference, class Value >
 struct hetero_iterator :
-    hetero_iterator_super<Reference, Value, Tuple>::type
+    hetero_iterator_super<Tuple, Reference, Value>::type
 {
 private:
-    typedef typename hetero_iterator_super<Reference, Value, Tuple>::type super_t;
+    typedef typename hetero_iterator_super<Tuple, Reference, Value>::type super_t;
 
 public:
     typedef Tuple sequence_type;
@@ -80,11 +84,6 @@ public:
         super_t(it), m_ptup(boost::addressof(tup))
     { }
 
-    hetero_iterator_base& detail_base_reference()
-    {
-        return this->base_reference();
-    }
-
 private:
     Tuple *m_ptup;
 
@@ -92,7 +91,7 @@ friend class boost::iterator_core_access;
     Reference dereference() const
     {
         BOOST_ASSERT(m_ptup);
-        return hetero_iterator_dereference<Reference, Tuple>::call(*m_ptup, this->base());
+        return hetero_iterator_dereference<Tuple, Reference>::call(*m_ptup, this->base());
     }
 };
 
@@ -105,8 +104,8 @@ friend class boost::iterator_core_access;
 #define n BOOST_PP_ITERATION()
 
 
-    template< class Reference, class Tuple >
-    struct hetero_iterator_dereference<Reference, Tuple, n>
+    template< class Tuple, class Reference >
+    struct hetero_iterator_dereference<Tuple, Reference, n>
     {
         static Reference call(Tuple& tup, int index)
         {
