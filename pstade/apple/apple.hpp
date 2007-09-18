@@ -48,5 +48,7 @@
 #include "./has_unique.hpp"
 #include "./has_upper_bound.hpp"
 
+#include "./is_boost_tuple.hpp"
+
 
 #endif
