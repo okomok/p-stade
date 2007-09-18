@@ -12,6 +12,7 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <pstade/egg/by_cref.hpp>
 #include <pstade/egg/defer_sig.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./range_based1.hpp"
@@ -21,17 +22,18 @@
 namespace pstade { namespace oven { namespace detail {
 
 
+// Pass by_cref; large arity is needed.
 template< class SigFun >
 struct range_based1_sig_fun :
     result_of_range_based1<
-        typename egg::result_of_defer_sig<SigFun>::type
+        typename egg::result_of_defer_sig<SigFun, egg::by_cref>::type
     >
 { };
 
 template< class SigFun >
 struct range_based2_sig_fun :
     result_of_range_based2<
-        typename egg::result_of_defer_sig<SigFun>::type
+        typename egg::result_of_defer_sig<SigFun, egg::by_cref>::type
     >
 { };
 

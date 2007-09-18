@@ -13,7 +13,7 @@ project
 test-suite "wine" :
     [ run adl_barrier.cpp ]
     [ run affect.cpp ]
-    [ run any_movable.cpp ]
+    [ run any.cpp ]
     [ run arraya.cpp ]
     [ run check.cpp ]
     [ run clone_ptr.cpp ]
