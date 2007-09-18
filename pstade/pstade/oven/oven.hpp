@@ -62,6 +62,7 @@
 #include "./front.hpp"
 #include "./fuzipped.hpp"
 #include "./generation.hpp"
+#include "./hetero.hpp"
 #include "./identities.hpp"
 #include "./indexing.hpp"
 #include "./indirected.hpp"

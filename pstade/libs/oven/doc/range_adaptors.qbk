@@ -1426,6 +1426,7 @@ That is, the view includes every element of the given range but in a potentially
 
 [h3 Description]
 `pointed`, by returning a pointer range, provides an interface to have a conversation with legacy APIs.
+Also, you can expect STL to choose optimized implementation by passing raw pointers.
 
 [h3 Header]
 * `<pstade/oven/pointed.hpp>`

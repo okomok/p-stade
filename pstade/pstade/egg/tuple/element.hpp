@@ -18,9 +18,9 @@
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <pstade/apple/is_boost_tuple.hpp>
 #include <pstade/apple/pair_fwd.hpp>
 #include "./config.hpp"
-#include "./detail/is_boost_tuple.hpp"
 
 #if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
     #include <boost/fusion/sequence/intrinsic/mpl.hpp> // lets FusionSequence be MPLSequence
@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
 
         template<class N, class Tuple>
         struct aux :
-            boost::mpl::eval_if< tuple_detail::is_boost_tuple<Tuple>,
+            boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
                 boost::tuples::element<N::value, Tuple>,
                 boost::mpl::at<Tuple, N>
             >
