@@ -33,7 +33,7 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class Reference, class Tuple, int sz = egg::tuple_size<Tuple>::value >
+template< class Reference, class Tuple, long Size = egg::tuple_size<Tuple>::value >
 struct hetero_iterator_dereference;
 
 #define PSTADE_return_at(Z, N, _) case N: return egg::tuple_get_c<N>(tup);
