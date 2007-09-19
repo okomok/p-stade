@@ -390,7 +390,7 @@ void test_from_any()
         boost::optional<int &> o = from_any(a);
         BOOST_CHECK( !o );
 
-#if !BOOST_WORKAROUND(__GNUC__, >= 3)
+#if !defined(__GNUC__)
         // for some reason, copy-initialization doesn't work.
         boost::optional<int const &> co = from_any(a);
         BOOST_CHECK( co );
