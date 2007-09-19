@@ -14,11 +14,12 @@
 #include <typeinfo>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/disable_if_copy.hpp>
+#include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/swappable.hpp>
 
 
 namespace pstade {
@@ -47,7 +48,7 @@ namespace pstade {
                 return m_x;
             }
 
-            virtual std::type_info const &type() const
+            std::type_info const &type() const // override
             {
                 return typeid(X);
             }
@@ -57,8 +58,10 @@ namespace pstade {
         };
 
 
+        template<class Derived>
         struct super_ :
-            radish::bool_testable<super_>
+            radish::bool_testable<Derived,
+            radish::swappable    <Derived> >
         {
             explicit super_()
             { }
@@ -72,9 +75,16 @@ namespace pstade {
                 m_content.reset();
             }
 
+        // bool_testable
             operator radish::safe_bool() const
             {
                 return radish::make_safe_bool(m_content);
+            }
+
+        // swappable
+            void swap(Derived &other)
+            {
+                egg::do_swap(m_content, other.m_content);
             }
 
         // boost::any compatible
@@ -83,7 +93,7 @@ namespace pstade {
                 return !m_content;
             }
 
-            std::type_info const& type() const
+            std::type_info const &type() const
             {
                 return m_content ? m_content->type() : typeid(void);
             }
@@ -97,19 +107,23 @@ namespace pstade {
 
 
     struct any_ref :
-        any_detail::super_
+        any_detail::super_<any_ref>
     {
+    private:
+        typedef any_detail::super_<any_ref> super_t;
+
+    public:
         any_ref()
         { }
 
         template<class X>
         any_ref(X &x, typename disable_if_copy<any_ref, X>::type = 0) :
-            any_detail::super_(new any_detail::holder<X &>(x))
+            super_t(new any_detail::holder<X &>(x))
         { }
 
         template<class X>
         any_ref(X const &x) :
-            any_detail::super_(new any_detail::holder<X const &>(x))
+            super_t(new any_detail::holder<X const &>(x))
         { }
 
         template<class X>
@@ -121,14 +135,18 @@ namespace pstade {
 
 
     struct any_cref :
-        any_detail::super_
+        any_detail::super_<any_cref>
     {
+    private:
+        typedef any_detail::super_<any_cref> super_t;
+
+    public:
         any_cref()
         { }
 
         template<class X>
         any_cref(X const &x) :
-            any_detail::super_(new any_detail::holder<X const &>(x))
+            super_t(new any_detail::holder<X const &>(x))
         { }
 
         template<class X>
@@ -140,14 +158,18 @@ namespace pstade {
 
 
     struct any_movable :
-        any_detail::super_
+        any_detail::super_<any_movable>
     {
+    private:
+        typedef any_detail::super_<any_movable> super_t;
+
+    public:
         any_movable()
         { }
 
         template<class X>
         any_movable(X x) :
-            any_detail::super_(new any_detail::holder<X>(x))
+            super_t(new any_detail::holder<X>(x))
         { }
 
         template<class X>
@@ -191,7 +213,7 @@ namespace pstade {
     {
         typedef X &result_type;
 
-        X& operator()(any_movable const &a) const
+        X &operator()(any_movable const &a) const
         {
             return a.base<X>();
         }

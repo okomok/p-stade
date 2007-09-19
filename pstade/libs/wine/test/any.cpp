@@ -11,11 +11,15 @@
 
 #include <pstade/any.hpp>
 #include <pstade/unit_test.hpp>
+#include <pstade/egg/do_swap.hpp>
+#include <pstade/egg/is_same.hpp>
 
 
 using pstade::any_ref;
 using pstade::any_cref;
 using pstade::any_movable;
+using pstade::egg::do_swap;
+using pstade::egg::is_same;
 
 
 void test_ref()
@@ -39,6 +43,16 @@ void test_ref()
         BOOST_CHECK( &(a.base<int>()) == &i );
         a.base< int >() = 6;
         BOOST_CHECK(i == 6);
+    }
+    {
+        int i = 3, j = 5;
+        any_ref a1(i);
+        any_ref a2(j);
+        do_swap(a1, a2);
+        BOOST_CHECK( is_same(a1.base<int>(), j) );
+        BOOST_CHECK( a1.base<int>() == 5 );
+        BOOST_CHECK( is_same(a2.base<int>(), i) );
+        BOOST_CHECK( a2.base<int>() == 3 );
     }
     {
         int const i = 3;
@@ -141,6 +155,16 @@ void test_cref()
         a = i;
         BOOST_CHECK( a );
         BOOST_CHECK( &(a.base<int>()) == &i );
+    }
+    {
+        int i = 3, j = 5;
+        any_cref a1(i);
+        any_cref a2(j);
+        do_swap(a1, a2);
+        BOOST_CHECK( is_same(a1.base<int>(), j) );
+        BOOST_CHECK( a1.base<int>() == 5 );
+        BOOST_CHECK( is_same(a2.base<int>(), i) );
+        BOOST_CHECK( a2.base<int>() == 3 );
     }
     {
         int i = 3;
@@ -255,6 +279,14 @@ void test_movable()
         BOOST_CHECK( a );
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
         BOOST_CHECK( *pstade::any_movable_cast< std::auto_ptr<int> >(a) == 3 );
+    }
+    {
+        std::auto_ptr<int> i(std::auto_ptr<int>(new int(3))), j(std::auto_ptr<int>(new int(5)));
+        any_movable a1(i);
+        any_movable a2(j);
+        do_swap(a1, a2);
+        BOOST_CHECK( *a1.base< std::auto_ptr<int> >() == 5 );
+        BOOST_CHECK( *a2.base< std::auto_ptr<int> >() == 3 );
     }
     {
         any_movable a = std::auto_ptr<int>(new int(3));

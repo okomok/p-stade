@@ -21,7 +21,6 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/egg/deduced_form.hpp>

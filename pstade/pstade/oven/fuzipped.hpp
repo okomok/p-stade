@@ -17,7 +17,6 @@
 
 #include <boost/fusion/sequence/conversion/as_vector.hpp>
 #include <boost/fusion/sequence/view/transform_view.hpp>
-#include <boost/utility/result_of.hpp>
 #include "./begin_end.hpp"
 #include "./detail/base_to_adaptor.hpp"
 #include "./detail/fuzip_iterator.hpp"
