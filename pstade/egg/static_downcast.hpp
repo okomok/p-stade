@@ -43,6 +43,9 @@ namespace pstade { namespace egg {
     namespace static_downcast_detail {
 
 
+        namespace here = static_downcast_detail;
+
+
         template<class Derived, class Base> inline
         Derived& aux(Base& base, typename disable_if<boost::is_polymorphic<Base> >::type = 0)
         {
@@ -72,9 +75,7 @@ namespace pstade { namespace egg {
             template<class Result, class Base>
             Result call(Base& base) const
             {
-                return static_downcast_detail::aux<
-                    typename boost::remove_reference<Result>::type
-                >(base);
+                return here::aux<typename boost::remove_reference<Result>::type>(base);
             }
         };
 
