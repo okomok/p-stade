@@ -15,13 +15,13 @@
 //#include <pstade/../libs/oven/test/algorithm.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
-//#include <pstade/../libs/oven/example/primes.cpp>
+//#include <pstade/../libs/oven/example/hetero.cpp>
 //#include <pstade/../libs/biscuit/test/parse.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-//#include <pstade/../libs/egg/test/compose2.cpp>
+//#include <pstade/../libs/egg/test/dereference.cpp>
 //#include <pstade/../libs/egg/example/function_adaptors.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

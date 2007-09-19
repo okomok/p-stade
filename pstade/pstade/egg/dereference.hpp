@@ -40,6 +40,16 @@ namespace pstade_egg_extension {
         Dereferenceable<X>
     { };
 
+    template<class X>
+    struct Dereferenceable<X volatile> :
+        Dereferenceable<X>
+    { };
+
+    template<class X>
+    struct Dereferenceable<X const volatile> :
+        Dereferenceable<X>
+    { };
+
 
     template<class T>
     struct Dereferenceable< boost::optional<T> >
