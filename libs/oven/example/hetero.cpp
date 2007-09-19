@@ -12,7 +12,10 @@
 #define PSTADE_CONCEPT_CHECK
 #include <iostream>
 #include <pstade/oven/hetero.hpp>
+#include <pstade/minimal_test.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <pstade/any.hpp>
+#include <boost/optional/optional.hpp>
 
 
 namespace oven = pstade::oven;
@@ -41,11 +44,47 @@ struct circle : shape
 };
 
 
-int main()
+void pstade_minimal_test()
 {
-    rectangle r; triangle t; circle c;
-    boost::tuple<rectangle*, triangle*, circle*> tup(&r, &t, &c);
-    BOOST_FOREACH (shape *s, oven::hetero<shape *>(tup)) {
-        s->draw();
+    using pstade::any_ref;
+    using pstade::from_any;
+
+    {
+        rectangle r; triangle t; circle c;
+        boost::tuple<rectangle*, triangle*, circle*> tup(&r, &t, &c);
+        BOOST_FOREACH (shape *s, oven::hetero<shape *>(tup)) {
+            s->draw();
+        }
+    }
+
+    {
+        boost::tuple<int, char, std::string> tup(1, 'a', "hello");
+
+        BOOST_FOREACH (any_ref a, oven::hetero<any_ref>(tup)) {
+            if (a.type() == typeid(std::string)) {
+                std::string &s = pstade::any_ref_cast<std::string>(a);
+                s = "goodbye";
+                break;
+            }
+        }
+
+        BOOST_CHECK( boost::get<2>(tup) == "goodbye" );
+    }
+
+    {
+        boost::tuple<int, char, std::string> tup(1, 'a', "hello");
+
+        BOOST_FOREACH (any_ref a, oven::hetero<any_ref>(tup)) {
+            if (boost::optional<std::string &> o = from_any(a)) {
+                *o = "goodbye";
+            }
+            else if (boost::optional<int const &> o = from_any(a)) {
+                BOOST_CHECK(*o == 1);
+                const_cast<int &>(*o) = 3;
+            }
+        }
+
+        BOOST_CHECK( boost::get<0>(tup) == 3 );
+        BOOST_CHECK( boost::get<2>(tup) == "goodbye" );
     }
 }

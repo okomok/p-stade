@@ -15,8 +15,11 @@
 #include <pstade/egg/is_same.hpp>
 
 
+#include <boost/optional/optional.hpp>
+
+
 using pstade::any_ref;
-using pstade::any_cref;
+// using pstade::any_cref;
 using pstade::any_movable;
 using pstade::egg::do_swap;
 using pstade::egg::is_same;
@@ -43,6 +46,10 @@ void test_ref()
         BOOST_CHECK( &(a.base<int>()) == &i );
         a.base< int >() = 6;
         BOOST_CHECK(i == 6);
+
+        BOOST_CHECK(a.is_castable_to<int>());
+        BOOST_CHECK(a.is_castable_to<int const>());
+        BOOST_CHECK( is_same(a.base<int const>(), i) );
     }
     {
         int i = 3, j = 5;
@@ -62,6 +69,9 @@ void test_ref()
         BOOST_CHECK( a.base< int const >() == 3 );
         BOOST_CHECK( pstade::any_ref_cast< int const >(a) == 3 );
         a.type();
+
+        BOOST_CHECK(!a.is_castable_to<int>());
+        BOOST_CHECK(a.is_castable_to<int const>());
     }
 
     // const-ness doesn't affect.
@@ -142,12 +152,13 @@ void test_ref()
 
 void test_cref()
 {
+#if 0
     {
         int i = 3;
         any_cref a(i);
         BOOST_CHECK( !a.empty() );
-        BOOST_CHECK( &(a.base<int>()) == &i );
-        BOOST_CHECK( pstade::any_cref_cast< int >(a) == 3 );
+        BOOST_CHECK( &(a.base<int const>()) == &i );
+        BOOST_CHECK( pstade::any_cref_cast< int const >(a) == 3 );
         a.type();
 
         a.reset();
@@ -155,6 +166,9 @@ void test_cref()
         a = i;
         BOOST_CHECK( a );
         BOOST_CHECK( &(a.base<int>()) == &i );
+
+        BOOST_CHECK(!a.is_castable_to<int>());
+        BOOST_CHECK(a.is_castable_to<int const>());
     }
     {
         int i = 3, j = 5;
@@ -260,6 +274,7 @@ void test_cref()
         BOOST_CHECK( a.base< int const >() == 3 );
         BOOST_CHECK( b.base< int const >() == 3 );
     }
+#endif
 }
 
 
@@ -279,6 +294,9 @@ void test_movable()
         BOOST_CHECK( a );
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
         BOOST_CHECK( *pstade::any_movable_cast< std::auto_ptr<int> >(a) == 3 );
+
+        BOOST_CHECK(a.is_castable_to< std::auto_ptr<int> >());
+        BOOST_CHECK(a.is_castable_to< std::auto_ptr<int> const >());
     }
     {
         std::auto_ptr<int> i(std::auto_ptr<int>(new int(3))), j(std::auto_ptr<int>(new int(5)));
@@ -330,6 +348,13 @@ void test_movable()
         std::auto_ptr<int> p = a.base< std::auto_ptr<int> >(); // movable
         BOOST_CHECK( *p == 3 );
     }
+    {
+        any_movable a = std::auto_ptr<int>(new int(9)); // convertible
+        a = std::auto_ptr<int>(new int(3)); // assignable
+        BOOST_CHECK( *(a.base< std::auto_ptr<int> const >()) == 3 );
+        std::auto_ptr<int> p = a.base< std::auto_ptr<int> >(); // movable
+        BOOST_CHECK( *p == 3 );
+    }
     { // const-ness doesn't affect
         any_movable const a = std::auto_ptr<int>(new int(3)); // convertible
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
@@ -339,9 +364,113 @@ void test_movable()
 }
 
 
+void test_from_any()
+{
+    using pstade::from_any;
+
+    {
+        int i = 3;
+        any_ref a = i;
+
+        boost::optional<int &> o = from_any(a);
+        BOOST_CHECK( o );
+        BOOST_CHECK( is_same(*o, i) );
+
+        boost::optional<int const &> co = from_any(a);
+        BOOST_CHECK( co );
+        BOOST_CHECK( is_same(*co, i) );
+
+        boost::optional<char &> q = from_any(a);
+        BOOST_CHECK( !q );
+    }
+    {
+        int const i = 3;
+        any_ref a = i;
+
+        boost::optional<int &> o = from_any(a);
+        BOOST_CHECK( !o );
+
+#if !BOOST_WORKAROUND(__GNUC__, >= 3)
+        // for some reason, copy-initialization doesn't work.
+        boost::optional<int const &> co = from_any(a);
+        BOOST_CHECK( co );
+        BOOST_CHECK( *co == 3 );
+        BOOST_CHECK( is_same(*co, i) );
+#endif 
+
+        boost::optional<char &> q = from_any(a);
+        BOOST_CHECK( !q );
+    }
+#if 0
+    {
+        int const i = 3;
+        any_cref a = i;
+
+        boost::optional<int const &> o = from_any(a);
+        BOOST_CHECK( o );
+        BOOST_CHECK( is_same(*o, i) );
+
+        boost::optional<int &> q = from_any(a);
+        BOOST_CHECK( !q );
+    }
+#endif
+    {
+        std::auto_ptr<int> i(new int(3));
+        any_movable a = i;
+
+        boost::optional<std::auto_ptr<int> &> o = from_any(a);
+        BOOST_CHECK( o );
+        BOOST_CHECK( **o == 3 );
+        BOOST_CHECK( **o = 9 );
+        BOOST_CHECK( **o == 9 );
+
+        boost::optional<std::auto_ptr<int> const &> co = from_any(a);
+        BOOST_CHECK( co );
+        BOOST_CHECK( **co == 9);
+
+        boost::optional<char &> q = from_any(a);
+        BOOST_CHECK( !q );
+    }
+    {
+        int i = 3;
+        boost::any a = i;
+
+        boost::optional<int &> o = from_any(a);
+        BOOST_CHECK( o );
+        BOOST_CHECK( *o == i );
+
+        boost::optional<int const &> co = from_any(a);
+        BOOST_CHECK( co );
+        BOOST_CHECK( *co == i );
+
+        boost::optional<char &> q = from_any(a);
+        BOOST_CHECK( !q );
+        boost::optional<char const &> cq = from_any(a);
+        BOOST_CHECK( !cq );
+    }
+    {
+        int i = 3;
+        boost::any const a = i;
+
+        boost::optional<int &> o = from_any(a);
+        BOOST_CHECK( !o );
+
+        boost::optional<int const &> co = from_any(a);
+        BOOST_CHECK( co );
+        BOOST_CHECK( *co == i );
+
+        boost::optional<char &> q = from_any(a);
+        BOOST_CHECK( !q );
+        boost::optional<char const &> cq = from_any(a);
+        BOOST_CHECK( !cq );
+    }
+}
+
+
 void pstade_unit_test()
 {
     test_ref();
     test_cref();
     test_movable();
+    test_from_any();
 }
