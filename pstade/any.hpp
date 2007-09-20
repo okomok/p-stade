@@ -19,7 +19,6 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <pstade/adl_barrier.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/do_swap.hpp>
@@ -112,7 +111,7 @@ namespace pstade {
         };
 
 
-        template<class Result, class To, bool IsConstAny, bool IsConstTo>
+        template<class Result, class To, bool IsConstAny, bool IsConstTo = boost::is_const<To>::value>
         struct from_boost_any
         {
             template<class Any>
@@ -249,11 +248,11 @@ namespace pstade {
     };
 
 
-    // any_cast
+    // any_to
     //
 
     template<class X>
-    struct xp_any_cast
+    struct xp_any_to
     {
         typedef X &result_type;
 
@@ -275,15 +274,13 @@ namespace pstade {
         }
     };
 
-    PSTADE_ADL_BARRIER(any_cast) {
-        PSTADE_EGG_SPECIFIED1(any_cast, xp_any_cast, (class))
-    }
+    PSTADE_EGG_SPECIFIED1(any_to, xp_any_to, (class))
 
 
     // from_any
     //
 
-    template<class Optional>
+    template<class X>
     struct xp_from_any_to;
 
     template<class T>
@@ -302,12 +299,12 @@ namespace pstade {
 
         result_type operator()(boost::any &a) const
         {
-            return any_detail::from_boost_any<result_type, T, false, boost::is_const<T>::value>::call(a);
+            return any_detail::from_boost_any<result_type, T, false>::call(a);
         }
 
         result_type operator()(boost::any const &a) const
         {
-            return any_detail::from_boost_any<result_type, T, true,  boost::is_const<T>::value>::call(a);
+            return any_detail::from_boost_any<result_type, T, true >::call(a);
         }
     };
 
