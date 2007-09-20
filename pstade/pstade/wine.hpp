@@ -37,6 +37,7 @@
 #include "./is_ndebug.hpp"
 #include "./is_returnable.hpp"
 #include "./locale_saver.hpp"
+#include "./make_bool.hpp"
 #include "./nonconstructible.hpp"
 #include "./nullptr.hpp"
 #include "./pass_by.hpp"

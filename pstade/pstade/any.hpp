@@ -14,18 +14,18 @@
 #include <typeinfo>
 #include <boost/any.hpp>
 #include <boost/assert.hpp>
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/optional/optional_fwd.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/egg/static_downcast.hpp>
+#include <pstade/make_bool.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -183,6 +183,38 @@ namespace pstade {
     };
 
 
+    // any_cref
+    //
+
+    struct any_cref :
+        any_detail::super_<any_cref>
+    {
+    private:
+        typedef any_detail::super_<any_cref> super_t;
+
+    public:
+        any_cref()
+        { }
+
+        template<class X>
+        any_cref(X const &x) :
+            super_t(new any_detail::holder<X const &>(x))
+        { }
+
+        template<class X>
+        X &base() const
+        {
+            return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
+        }
+
+        template<class X>
+        bool is_castable_to() const
+        {
+            return make_bool(typeid(*m_content) == typeid(any_detail::holder<X &>));
+        }
+    };
+
+
     // any_movable
     //
 
@@ -212,60 +244,50 @@ namespace pstade {
         bool is_castable_to() const
         {
             typedef typename boost::remove_const<X>::type mx_t;
-            return
-                typeid(*m_content) == typeid(any_detail::holder<mx_t>)
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-                && true // suppress msvc-7.1 warning.
-#endif
-                ;
+            return make_bool(typeid(*m_content) == typeid(any_detail::holder<mx_t>));
         }
     };
 
 
-    // any_ref_cast
+    // any_cast
     //
 
     template<class X>
-    struct xp_any_ref_cast
+    struct xp_any_cast
     {
         typedef X &result_type;
 
-        X &operator()(any_ref const &a) const
+        template<class Any>
+        X &operator()(Any const &a) const
         {
-            BOOST_ASSERT(a.is_castable_to<X>());
-            return a.base<X>();
+            BOOST_ASSERT(a.template is_castable_to<X>());
+            return a.template base<X>();
+        }
+
+        X &operator()(boost::any &a) const
+        {
+            return boost::any_cast<X &>(a);
+        }
+
+        X const &operator()(boost::any const &a) const
+        {
+            return boost::any_cast<X const &>(a);
         }
     };
 
-    PSTADE_EGG_SPECIFIED1(any_ref_cast, xp_any_ref_cast, (class))
-
-
-    // any_movable_cast
-    //
-
-    template<class X>
-    struct xp_any_movable_cast
-    {
-        typedef X &result_type;
-
-        X &operator()(any_movable const &a) const
-        {
-            BOOST_ASSERT(a.is_castable_to<X>());
-            return a.base<X>();
-        }
-    };
-
-    PSTADE_EGG_SPECIFIED1(any_movable_cast, xp_any_movable_cast, (class))
+    PSTADE_ADL_BARRIER(any_cast) {
+        PSTADE_EGG_SPECIFIED1(any_cast, xp_any_cast, (class))
+    }
 
 
     // from_any
     //
 
     template<class Optional>
-    struct from_any_to;
+    struct xp_from_any_to;
 
     template<class T>
-    struct from_any_to< boost::optional<T &> >
+    struct xp_from_any_to< boost::optional<T &> >
     {
         typedef boost::optional<T &> result_type;
 
@@ -289,7 +311,7 @@ namespace pstade {
         }
     };
 
-    typedef egg::automatic< from_any_to<boost::mpl::_> >::type op_from_any;
+    typedef egg::automatic< xp_from_any_to<boost::mpl::_> >::type op_from_any;
     PSTADE_POD_CONSTANT((op_from_any), from_any) = PSTADE_EGG_AUTOMATIC;
 
 
