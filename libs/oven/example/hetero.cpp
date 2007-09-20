@@ -62,7 +62,7 @@ void pstade_minimal_test()
 
         BOOST_FOREACH (any_ref a, oven::hetero<any_ref>(tup)) {
             if (a.type() == typeid(std::string)) {
-                std::string &s = pstade::any_ref_cast<std::string>(a);
+                std::string &s = pstade::any_to<std::string>(a);
                 s = "goodbye";
                 break;
             }
@@ -77,14 +77,10 @@ void pstade_minimal_test()
         BOOST_FOREACH (any_ref a, oven::hetero<any_ref>(tup)) {
             if (boost::optional<std::string &> o = from_any(a)) {
                 *o = "goodbye";
-            }
-            else if (boost::optional<int const &> o = from_any(a)) {
-                BOOST_CHECK(*o == 1);
-                const_cast<int &>(*o) = 3;
+                break;
             }
         }
 
-        BOOST_CHECK( boost::get<0>(tup) == 3 );
         BOOST_CHECK( boost::get<2>(tup) == "goodbye" );
     }
 }

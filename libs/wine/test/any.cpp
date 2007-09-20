@@ -23,6 +23,7 @@ using pstade::any_cref;
 using pstade::any_movable;
 using pstade::egg::do_swap;
 using pstade::egg::is_same;
+using pstade::xp_from_any_to;
 
 
 void test_ref()
@@ -35,8 +36,8 @@ void test_ref()
         a.base< int >() = 6;
         BOOST_CHECK(i == 6);
         BOOST_CHECK( a.base< int >() == 6 );
-        pstade::any_cast< int >(a) = 3;
-        BOOST_CHECK( pstade::any_cast< int >(a) == 3 );
+        pstade::any_to< int >(a) = 3;
+        BOOST_CHECK( pstade::any_to< int >(a) == 3 );
         a.type();
 
         a.reset();
@@ -47,9 +48,10 @@ void test_ref()
         a.base< int >() = 6;
         BOOST_CHECK(i == 6);
 
-        BOOST_CHECK(a.is_castable_to<int>());
-        BOOST_CHECK(a.is_castable_to<int const>());
-        BOOST_CHECK( is_same(a.base<int const>(), i) );
+        BOOST_CHECK(a.has_base<int>());
+
+        // convertible type is no longer allowed.
+        BOOST_CHECK(!a.has_base<int const>());
     }
     {
         int i = 3, j = 5;
@@ -67,11 +69,11 @@ void test_ref()
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( &(a.base<int const>()) == &i );
         BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( pstade::any_cast< int const >(a) == 3 );
+        BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
 
-        BOOST_CHECK(!a.is_castable_to<int>());
-        BOOST_CHECK(a.is_castable_to<int const>());
+        BOOST_CHECK(!a.has_base<int>());
+        BOOST_CHECK(a.has_base<int const>());
     }
 
     // const-ness doesn't affect.
@@ -81,8 +83,8 @@ void test_ref()
         BOOST_CHECK( !a.empty() );
         a.base< int >() = 6;
         BOOST_CHECK( a.base< int >() == 6 );
-        pstade::any_cast< int >(a) = 3;
-        BOOST_CHECK( pstade::any_cast< int >(a) == 3 );
+        pstade::any_to< int >(a) = 3;
+        BOOST_CHECK( pstade::any_to< int >(a) == 3 );
         a.type();
     }
     {
@@ -90,7 +92,7 @@ void test_ref()
         any_ref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( pstade::any_cast< int const >(a) == 3 );
+        BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
 
@@ -157,7 +159,7 @@ void test_cref()
         any_cref a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( &(a.base<int const>()) == &i );
-        BOOST_CHECK( pstade::any_cast< int const >(a) == 3 );
+        BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
 
         a.reset();
@@ -166,8 +168,8 @@ void test_cref()
         BOOST_CHECK( a );
         BOOST_CHECK( &(a.base<int const>()) == &i );
 
-        BOOST_CHECK(!a.is_castable_to<int>());
-        BOOST_CHECK(a.is_castable_to<int const>());
+        BOOST_CHECK(!a.has_base<int>());
+        BOOST_CHECK(a.has_base<int const>());
     }
     {
         int i = 3, j = 5;
@@ -188,7 +190,7 @@ void test_cref()
 
         // const is optional
         BOOST_CHECK( &(a.base<int const>()) == &i );
-        BOOST_CHECK( pstade::any_cast< int const >(a) == 3 );
+        BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
     {
@@ -197,7 +199,7 @@ void test_cref()
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( &(a.base<int const>()) == &i );
         BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( pstade::any_cast< int const >(a) == 3 );
+        BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
 
@@ -207,7 +209,7 @@ void test_cref()
         any_cref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( pstade::any_cast< int const >(a) == 3 );
+        BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
     {
@@ -215,7 +217,7 @@ void test_cref()
         any_cref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( pstade::any_cast< int const >(a) == 3 );
+        BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
 
@@ -282,7 +284,7 @@ void test_movable()
         any_movable a(std::auto_ptr<int>(new int(3)));
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
-        BOOST_CHECK( *pstade::any_cast< std::auto_ptr<int> >(a) == 3 );
+        BOOST_CHECK( *pstade::any_to< std::auto_ptr<int> >(a) == 3 );
         a.type();
 
         std::auto_ptr<int> p(new int(3));
@@ -291,10 +293,12 @@ void test_movable()
         a = p;
         BOOST_CHECK( a );
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
-        BOOST_CHECK( *pstade::any_cast< std::auto_ptr<int> >(a) == 3 );
+        BOOST_CHECK( *pstade::any_to< std::auto_ptr<int> >(a) == 3 );
 
-        BOOST_CHECK(a.is_castable_to< std::auto_ptr<int> >());
-        BOOST_CHECK(a.is_castable_to< std::auto_ptr<int> const >());
+        BOOST_CHECK(a.has_base< std::auto_ptr<int> >());
+
+        // convertible type is no longer allowed.
+        BOOST_CHECK(!a.has_base< std::auto_ptr<int> const >());
     }
     {
         std::auto_ptr<int> i(std::auto_ptr<int>(new int(3))), j(std::auto_ptr<int>(new int(5)));
@@ -346,13 +350,6 @@ void test_movable()
         std::auto_ptr<int> p = a.base< std::auto_ptr<int> >(); // movable
         BOOST_CHECK( *p == 3 );
     }
-    {
-        any_movable a = std::auto_ptr<int>(new int(9)); // convertible
-        a = std::auto_ptr<int>(new int(3)); // assignable
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> const >()) == 3 );
-        std::auto_ptr<int> p = a.base< std::auto_ptr<int> >(); // movable
-        BOOST_CHECK( *p == 3 );
-    }
     { // const-ness doesn't affect
         any_movable const a = std::auto_ptr<int>(new int(3)); // convertible
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
@@ -374,9 +371,19 @@ void test_from_any()
         BOOST_CHECK( o );
         BOOST_CHECK( is_same(*o, i) );
 
+        // convertible type is no longer allowed.
         boost::optional<int const &> co = from_any(a);
-        BOOST_CHECK( co );
-        BOOST_CHECK( is_same(*co, i) );
+        BOOST_CHECK( !co );
+
+        {
+            boost::optional<int &> o = xp_from_any_to< boost::optional<int &> >()(a);
+            BOOST_CHECK( o );
+            BOOST_CHECK( is_same(*o, i) );
+
+            // convertible type is no longer allowed.
+            boost::optional<int const &> co = xp_from_any_to< boost::optional<int const &> >()(a);
+            BOOST_CHECK( !co );
+        }
 
         boost::optional<char &> q = from_any(a);
         BOOST_CHECK( !q );
@@ -426,9 +433,14 @@ void test_from_any()
         BOOST_CHECK( **o = 9 );
         BOOST_CHECK( **o == 9 );
 
-        boost::optional<std::auto_ptr<int> const &> co = from_any(a);
-        BOOST_CHECK( co );
-        BOOST_CHECK( **co == 9);
+        {
+            boost::optional<std::auto_ptr<int> &> o = xp_from_any_to< boost::optional<std::auto_ptr<int> &> >()(a);
+            BOOST_CHECK( o );
+            BOOST_CHECK( **o == 9 );
+            BOOST_CHECK( **o = 3 );
+            BOOST_CHECK( **o == 3 );
+        }
+
 
         boost::optional<char &> q = from_any(a);
         BOOST_CHECK( !q );
@@ -445,6 +457,16 @@ void test_from_any()
         BOOST_CHECK( co );
         BOOST_CHECK( *co == i );
 
+        {
+            boost::optional<int &> o = xp_from_any_to< boost::optional<int &> >()(a);
+            BOOST_CHECK( o );
+            BOOST_CHECK( *o == i );
+
+            boost::optional<int const &> co = xp_from_any_to< boost::optional<int const &> >()(a);
+            BOOST_CHECK( co );
+            BOOST_CHECK( *co == i );
+        }
+
         boost::optional<char &> q = from_any(a);
         BOOST_CHECK( !q );
         boost::optional<char const &> cq = from_any(a);
@@ -456,10 +478,10 @@ void test_from_any()
 
         boost::optional<int &> o = from_any(a);
         BOOST_CHECK( !o );
-
-        boost::optional<int const &> co = from_any(a);
-        BOOST_CHECK( co );
-        BOOST_CHECK( *co == i );
+        {
+            boost::optional<int &> o = xp_from_any_to< boost::optional<int &> >()(a);
+            BOOST_CHECK( !o );
+        }
 
         boost::optional<char &> q = from_any(a);
         BOOST_CHECK( !q );
@@ -475,14 +497,14 @@ void test_any_cast()
         int i = 10;
         boost::any a(i);
 
-        int & i_ = pstade::any_cast<int>(a);
+        int & i_ = pstade::any_to<int>(a);
         BOOST_CHECK(i_ == 10);
     }
     {
         int i = 10;
         boost::any const a(i);
 
-        int const & i_ = pstade::any_cast<int const>(a);
+        int const & i_ = pstade::any_to<int const>(a);
         BOOST_CHECK(i_ == 10);
     }
 }
