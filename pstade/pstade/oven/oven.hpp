@@ -18,6 +18,7 @@
 #include "./all.hpp"
 #include "./always.hpp"
 #include "./any_iterator.hpp"
+#include "./any_output_iterator.hpp"
 #include "./any_range.hpp"
 #include "./applied.hpp"
 #include "./applier.hpp"
