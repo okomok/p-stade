@@ -36,6 +36,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
+#include <pstade/make_bool.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_iterator_fwd.hpp"
@@ -120,10 +121,6 @@ namespace any_iterator_detail {
         placeholder<Reference, Traversal, Difference>
     {
     private:
-        BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator>::type, Reference>));
-        BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
-        BOOST_MPL_ASSERT((is_convertible_difference<typename boost::iterator_difference<Iterator>::type, Difference, Traversal>));
- 
         typedef holder self_t;
         typedef placeholder<Reference, Traversal, Difference> placeholder_t;
 
@@ -131,8 +128,11 @@ namespace any_iterator_detail {
         explicit holder(Iterator held) :
             m_held(held)
         {
-            // VC7.1 complains if this is at class scope.
-            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>::value)); 
+            // These are in function-scope for typeid. 
+            BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator>::type, Reference>));
+            BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
+            BOOST_MPL_ASSERT((is_convertible_difference<typename boost::iterator_difference<Iterator>::type, Difference, Traversal>));
+            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>::value));
         }
 
         Iterator held() const
@@ -288,6 +288,12 @@ public:
     Iterator base() const
     {
         return egg::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
+    }
+
+    template< class Iterator >
+    bool has_base() const
+    {
+        return make_bool( typeid(*m_content) == typeid(typename holder_of<Iterator>::type) );
     }
 
 // assignment to work around 'explicit' above

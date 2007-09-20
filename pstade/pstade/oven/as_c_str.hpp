@@ -43,15 +43,17 @@ namespace pstade { namespace oven {
 namespace as_c_str_detail {
 
 
+    // A const-qualified pointer might encourage gcc optimizer?
+
     inline
-    std::size_t length(char const *psz)
+    std::size_t length(char const * const psz)
     {
         using namespace std;
         return strlen(psz);
     }
 
     inline
-    std::size_t length(wchar_t const *psz)
+    std::size_t length(wchar_t const * const psz)
     {
         using namespace std;
         return wcslen(psz);
@@ -117,7 +119,7 @@ namespace as_c_str_detail {
         template< class Result, class Char >
         Result call(Char *psz) const
         {
-            return Result(psz, psz + (length)(psz));
+            return Result(psz, psz + length(psz));
         }
 
         template< class Result, class Range >

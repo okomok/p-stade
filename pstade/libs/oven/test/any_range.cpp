@@ -37,6 +37,8 @@ void test_iterator()
     std::string src("abc");
     {
         any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
+        BOOST_CHECK( it1.has_base<std::string::iterator>() );
+        BOOST_CHECK( !it1.has_base<std::string::const_iterator>() );
         std::string::iterator b = it1.base<std::string::iterator>();
         BOOST_CHECK( b == boost::begin(src) );
         any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // copy-initialization.
