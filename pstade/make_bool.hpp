@@ -1,9 +1,9 @@
-#ifndef PSTADE_EGG_LOGICAL_NOT_HPP
-#define PSTADE_EGG_LOGICAL_NOT_HPP
+#ifndef PSTADE_MAKE_BOOL_HPP
+#define PSTADE_MAKE_BOOL_HPP
 #include "./detail/prefix.hpp"
 
 
-// PStade.Egg
+// PStade.Wine
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -11,32 +11,39 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/adl_barrier.hpp>
-#include <pstade/make_bool.hpp>
+// What:
+//
+// Suppress a msvc warning.
+
+
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <pstade/pod_constant.hpp>
 
 
-namespace pstade { namespace egg {
+namespace pstade {
 
 
-    struct op_logical_not
+    struct op_make_bool
     {
         typedef bool result_type;
 
         template<class X>
         bool operator()(X const& x) const
         {
-            return !make_bool(x);
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+            return x && true;
+#else
+            return x;
+#endif
         }
     };
 
 
-    PSTADE_ADL_BARRIER(logical_not) {
-        PSTADE_POD_CONSTANT((op_logical_not), logical_not) = {};
-    }
+    PSTADE_POD_CONSTANT((op_make_bool), make_bool) = {};
 
 
-} } // namespace pstade::egg
+} // namespace pstade
 
 
 #endif

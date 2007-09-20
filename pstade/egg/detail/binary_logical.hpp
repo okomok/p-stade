@@ -13,8 +13,8 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/make_bool.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./to_bool.hpp"
 
 
 #define PSTADE_EGG_BINARY_LOGICAL(F, Op) \
@@ -25,8 +25,7 @@
         template<class X, class Y> \
         bool operator()(X const& x, Y const& y) const \
         { \
-            namespace detail = pstade::egg::detail; \
-            return detail::to_bool(x) Op detail::to_bool(y); \
+            return pstade::make_bool(x) Op pstade::make_bool(y); \
         } \
     }; \
     \

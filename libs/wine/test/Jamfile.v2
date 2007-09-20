@@ -37,6 +37,7 @@ test-suite "wine" :
     [ run is_ndebug.cpp ]
     [ run is_returnable.cpp ]
     [ run locale_saver.cpp ]
+    [ run make_bool.cpp ]
     [ run metapredicate.cpp ]
     [ run nullptr.cpp ]
     [ run pause.cpp ]
