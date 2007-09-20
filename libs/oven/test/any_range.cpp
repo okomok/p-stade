@@ -22,6 +22,7 @@
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/equals.hpp>
+#include <pstade/egg/do_swap.hpp>
 
 
 #include <pstade/unit_test.hpp>
@@ -29,10 +30,12 @@
 #include <boost/static_assert.hpp>
 
 
+namespace oven = pstade::oven;
+using namespace oven;
+
+
 void test_iterator()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
 
     std::string src("abc");
     {
@@ -68,12 +71,47 @@ void test_iterator()
     }
 }
 
+void test_type()
+{
+    std::string src("abc");
+    {
+        any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1;
+        BOOST_CHECK(it1.empty());
+        BOOST_CHECK(it1.type() == typeid(void));
+        BOOST_CHECK(!it1.has_base<int *>());
+        it1 = boost::begin(src);
+        BOOST_CHECK(!it1.empty());
+        BOOST_CHECK(it1.type() == typeid(std::string::iterator));
+        BOOST_CHECK( it1.has_base<std::string::iterator>() );
+        BOOST_CHECK( !it1.has_base<std::string::const_iterator>() );
+    }
+}
+
+
+void test_incrementable()
+{
+    std::string src("abc");
+    {
+        any_iterator<char&, boost::incrementable_traversal_tag> it1(boost::begin(src));
+        ++it1;
+        BOOST_CHECK( &*it1 == &src[1]);
+        it1++;
+        BOOST_CHECK( &*it1 == &src[2]);
+
+        BOOST_CHECK( it1.has_base<std::string::iterator>() );
+        BOOST_CHECK( !it1.has_base<std::string::const_iterator>() );
+
+        std::string::iterator b = it1.base<std::string::iterator>();
+        BOOST_CHECK( b == boost::begin(src) + 2 );
+
+        any_iterator<char const&, boost::incrementable_traversal_tag, char, std::ptrdiff_t> it2 = it1; // copy-initialization.
+        BOOST_CHECK( &*it2 == &src[2] );
+    }
+}
+
 
 void test_make()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
-
     {
         std::string str("abcdefg");
         pstade::result_of<op_make_any_range(std::string&)>::type
@@ -84,13 +122,26 @@ void test_make()
 }
 
 
+void test_swap()
+{
+    {
+        std::string s1("abdefg");
+        std::string s2("hijlkm");
+
+        any_iterator<char &, boost::random_access_traversal_tag> a1(s2.begin());
+        any_iterator<char &, boost::random_access_traversal_tag> a2(s1.begin());
+        pstade::egg::do_swap(a1, a2);
+        BOOST_CHECK( s1.begin() == a1.base<std::string::iterator>() );
+        BOOST_CHECK( s2.begin() == a2.base<std::string::iterator>() );
+    }
+}
+
+
 void pstade_unit_test()
 {
     ::test_iterator();
 
     namespace lambda = boost::lambda;
-    namespace oven = pstade::oven;
-    using namespace oven;
 
     {
         std::string a("8frj91j81hf891y2");
@@ -169,5 +220,8 @@ void pstade_unit_test()
         BOOST_CHECK( equals(str, any_) );
     }
 
+    ::test_type();
+    ::test_incrementable();
     ::test_make();
+    ::test_swap();
 }

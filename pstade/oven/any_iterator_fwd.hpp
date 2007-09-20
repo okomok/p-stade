@@ -32,6 +32,10 @@ template<
 struct any_iterator;
 
 
+template< class What >
+struct any_output_iterator;
+
+
 } } // namespace pstade::oven
 
 

@@ -18,7 +18,7 @@
 
 
 #include <cstddef> // ptrdiff_t
-#include <memory> // auto_ptr
+#include <typeinfo>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -40,6 +40,7 @@
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_iterator_fwd.hpp"
+#include "./detail/assign_new.hpp"
 #include "./detail/pure_traversal.hpp"
 
 
@@ -47,15 +48,6 @@ namespace pstade { namespace oven {
 
 
 namespace any_iterator_detail {
-
-
-    template< class T, class A, class Ptr > inline
-    void assign_new(A const& a, Ptr& p)
-    {
-        // Boost v1.34 'shared_ptr' needs lvalue 'auto_ptr'.
-        std::auto_ptr<T> ap(new T(a));
-        p = ap;
-    }
 
 
     template< class Reference, class Traversal, class Difference, class T = Traversal >
@@ -66,12 +58,19 @@ namespace any_iterator_detail {
         // but there is no way to suppress GCC warning.
         virtual ~placeholder() { }
 
-        // Dr.Becker's way!
-        typedef placeholder<Reference, T, Difference> most_derived_t;
+        // BTW, msvc-7.1/8.0 RTTI seems randomly broken.
+        virtual std::type_info const& typeid_() const = 0;
 
         virtual Reference dereference() const = 0;
-        virtual bool equal(most_derived_t const& other) const = 0;
         virtual void increment() = 0;
+    };
+
+    template< class Reference, class Difference, class T >
+    struct placeholder<Reference, boost::single_pass_traversal_tag, Difference, T> :
+        placeholder<Reference, boost::incrementable_traversal_tag, Difference, T>
+    {
+        typedef placeholder<Reference, T, Difference> most_derived_t; // Dr.Becker's way!
+        virtual bool equal(most_derived_t const& other) const = 0;
     };
 
     template< class Reference, class Difference, class T >
@@ -138,6 +137,11 @@ namespace any_iterator_detail {
         Iterator held() const
         {
             return m_held;
+        }
+
+        std::type_info const& typeid_() const // override
+        {
+            return typeid(Iterator);
         }
 
     private:
@@ -208,9 +212,9 @@ namespace any_iterator_detail {
         // A recursive range must be Forward.
         // Hence there is no reference-cycles by 'shared_ptr'.
         typedef typename
-            boost::mpl::if_< boost::is_same<Traversal, boost::single_pass_traversal_tag>,
-                boost::shared_ptr<placeholder_t>,
-                clone_ptr<placeholder_t>
+            boost::mpl::if_< is_convertible<Traversal, boost::forward_traversal_tag>,
+                clone_ptr<placeholder_t>,
+                boost::shared_ptr<placeholder_t>
             >::type
         type;
     };
@@ -284,25 +288,50 @@ public:
         m_content(new typename holder_of< any_iterator<R, T, V, D> >::type(other))
     { }
 
+// assignments
+    template< class Iterator >
+    void reset(Iterator it)
+    {
+        detail::assign_new<typename holder_of<Iterator>::type>(it, m_content);
+    }
+
+    // needed for 'explicit' above
+    template< class Iterator >
+    typename disable_if<is_convertible<Iterator, self_t>, self_t&>::type
+    operator=(Iterator it)
+    {
+        reset(it);
+        return *this;
+    }
+
+// boost::any compatibles
+    bool empty() const
+    {
+        return !m_content;
+    }
+
+    std::type_info const& type() const
+    {
+        return m_content ? m_content->typeid_() : typeid(void);
+    }
+
+// base access
+    template< class Iterator >
+    bool has_base() const
+    {
+        return make_bool(type() == typeid(Iterator));
+    }
+
     template< class Iterator >
     Iterator base() const
     {
         return egg::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
     }
 
-    template< class Iterator >
-    bool has_base() const
+// swappable
+    void swap(self_t& other)
     {
-        return make_bool( typeid(*m_content) == typeid(typename holder_of<Iterator>::type) );
-    }
-
-// assignment to work around 'explicit' above
-    template< class Iterator >
-    typename disable_if<is_convertible<Iterator, self_t>, self_t&>::type
-    operator=(Iterator it)
-    {
-        any_iterator_detail::assign_new<typename holder_of<Iterator>::type>(it, m_content);
-        return *this;
+        egg::do_swap(m_content, other.m_content);
     }
 
 private:
@@ -340,6 +369,13 @@ friend class boost::iterator_core_access;
         return m_content->difference_to(*other.m_content);
     }
 };
+
+
+template< class R, class T, class V, class D > inline
+void swap(any_iterator<R, T, V, D>& x, any_iterator<R, T, V, D>& y)
+{
+    x.swap(y);
+}
 
 
 } } // namespace pstade::oven

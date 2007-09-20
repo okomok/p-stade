@@ -48,7 +48,7 @@ struct function_output_iterator
     }
 
 private:
-    mutable UnaryFun m_fun;
+    UnaryFun m_fun;
 
 public:
     typedef std::output_iterator_tag iterator_category;
@@ -58,7 +58,7 @@ public:
 
     struct reference                      // for adaptors
     {
-        explicit reference(UnaryFun& fun) :
+        explicit reference(UnaryFun fun) :
             m_fun(fun)
         { }
 
@@ -78,7 +78,7 @@ public:
         }
 
     private:
-        UnaryFun& m_fun;
+        UnaryFun m_fun;
     };
 
     reference operator *() const { return reference(m_fun); } // 'const' for adaptors.

@@ -16,6 +16,7 @@
 
 
 #include <boost/optional/optional.hpp>
+#include <pstade/egg/do_swap.hpp>
 
 
 using pstade::any_ref;
@@ -32,6 +33,8 @@ void test_ref()
         int i = 3;
         any_ref a(i);
         BOOST_CHECK( !a.empty() );
+        BOOST_CHECK( a.type() == typeid(boost::type<int>) );
+        BOOST_CHECK( a.type() == typeid(boost::type<int>) );
         BOOST_CHECK( &(a.base<int>()) == &i );
         a.base< int >() = 6;
         BOOST_CHECK(i == 6);
@@ -81,6 +84,7 @@ void test_ref()
         int i = 3;
         any_ref const a(i);
         BOOST_CHECK( !a.empty() );
+        BOOST_CHECK( a.type() == typeid(boost::type<int>) );
         a.base< int >() = 6;
         BOOST_CHECK( a.base< int >() == 6 );
         pstade::any_to< int >(a) = 3;
@@ -91,6 +95,7 @@ void test_ref()
         int const i = 3;
         any_ref const a(i);
         BOOST_CHECK( !a.empty() );
+        BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
         BOOST_CHECK( a.base< int const >() == 3 );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
@@ -150,6 +155,49 @@ void test_ref()
         BOOST_CHECK( a.base< int const >() == 3 );
         BOOST_CHECK( b.base< int const >() == 3 );
     }
+    {
+        int i = 3;
+        any_ref a(i);
+        any_ref b;
+        b.reset(a);
+        BOOST_CHECK( is_same(b.base<any_ref>().base<int>(), i) );
+        a.reset();
+        BOOST_CHECK( !a );
+        BOOST_CHECK( !a.has_base<int>() );
+        BOOST_CHECK( b );
+        BOOST_CHECK( b.has_base< any_ref >() );
+        b.reset();
+        BOOST_CHECK( !b );
+    }
+    {
+        int const i = 3;
+        any_ref a(i);
+        any_ref b;
+        b.reset(a);
+        BOOST_CHECK( is_same(b.base< any_ref >().base<int const>(), i) );
+        a.reset();
+        BOOST_CHECK( !a );
+        BOOST_CHECK( !a.has_base<int const>() );
+        BOOST_CHECK( b );
+        BOOST_CHECK( b.has_base< any_ref >() );
+        b.reset();
+        BOOST_CHECK( !b );
+    }
+    {
+        any_ref a;
+        BOOST_CHECK(!a);
+        BOOST_CHECK(a.empty());
+        BOOST_CHECK(!a.has_base<int>());
+    }
+    {
+        int i = 3;
+        char const j = 'a';
+        any_ref a(i);
+        any_ref b(j);
+        pstade::egg::do_swap(a, b);
+        BOOST_CHECK( is_same(a.base<char const>(), j) );
+        BOOST_CHECK( is_same(b.base<int>(), i) );
+    }
 }
 
 void test_cref()
@@ -158,6 +206,8 @@ void test_cref()
         int i = 3;
         any_cref a(i);
         BOOST_CHECK( !a.empty() );
+        BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
+        BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
         BOOST_CHECK( &(a.base<int const>()) == &i );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
@@ -275,6 +325,36 @@ void test_cref()
         BOOST_CHECK( a.base< int const >() == 3 );
         BOOST_CHECK( b.base< int const >() == 3 );
     }
+    {
+        int i = 3;
+        any_cref a(i);
+        any_cref b;
+        b.reset(a);
+        BOOST_CHECK( is_same(b.base<any_cref const>(), a) );
+        BOOST_CHECK( is_same(b.base<any_cref const>().base<int const>(), i) );
+        a.reset();
+        BOOST_CHECK( !a );
+        BOOST_CHECK( !a.has_base<int const>() );
+        BOOST_CHECK( b );
+        BOOST_CHECK( b.has_base< any_cref const >() );
+        b.reset();
+        BOOST_CHECK( !b );
+    }
+    {
+        any_cref a;
+        BOOST_CHECK(!a);
+        BOOST_CHECK(a.empty());
+        BOOST_CHECK(!a.has_base<int>());
+    }
+    {
+        int i = 3;
+        char const j = 'a';
+        any_cref a(i);
+        any_cref b(j);
+        pstade::egg::do_swap(a, b);
+        BOOST_CHECK( is_same(a.base<char const>(), j) );
+        BOOST_CHECK( is_same(b.base<int const>(), i) );
+    }
 }
 
 
@@ -283,6 +363,8 @@ void test_movable()
     {
         any_movable a(std::auto_ptr<int>(new int(3)));
         BOOST_CHECK( !a.empty() );
+        BOOST_CHECK( a.type() == typeid(boost::type< std::auto_ptr<int> >) );
+        BOOST_CHECK( a.type() == typeid(boost::type< std::auto_ptr<int> >) );
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
         BOOST_CHECK( *pstade::any_to< std::auto_ptr<int> >(a) == 3 );
         a.type();
@@ -355,6 +437,36 @@ void test_movable()
         BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
         std::auto_ptr<int> p = a.base< std::auto_ptr<int> >(); // movable
         BOOST_CHECK( *p == 3 );
+    }
+    {
+        std::auto_ptr<int> i(new int(3));
+        any_movable a(i);
+        BOOST_CHECK( a.has_base< std::auto_ptr<int> >() );
+        any_movable b;
+        b.reset(a);
+        BOOST_CHECK( *b.base<any_movable>().base< std::auto_ptr<int> >() == *a.base< std::auto_ptr<int> >() );
+        a.reset();
+        BOOST_CHECK( !a );
+        BOOST_CHECK( !a.has_base< std::auto_ptr<int> >() );
+        BOOST_CHECK( b );
+        BOOST_CHECK( b.has_base<any_movable>() );
+        b.reset();
+        BOOST_CHECK( !b );
+    }
+    {
+        any_movable a;
+        BOOST_CHECK(!a);
+        BOOST_CHECK(a.empty());
+        BOOST_CHECK(!a.has_base<int>());
+    }
+    {
+        std::auto_ptr<int> i(new int(3));
+        std::auto_ptr<char> j(new char('a'));
+        any_movable a(i);
+        any_movable b(j);
+        pstade::egg::do_swap(a, b);
+        BOOST_CHECK( *a.base< std::auto_ptr<char> >() == 'a' );
+        BOOST_CHECK( *b.base< std::auto_ptr<int> >() == 3 );
     }
 }
 
