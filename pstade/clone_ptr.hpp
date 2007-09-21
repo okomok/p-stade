@@ -99,24 +99,10 @@ public:
         m_ptr(p)
     { }
 
-// assignments
+// assignment
     self_t& operator=(self_t const& other)
     {
         self_t(other).swap(*this);
-        return *this;
-    }
-
-    template<class C>
-    self_t& operator=(clone_ptr<C> const& other)
-    {
-        self_t(other).swap(*this);
-        return *this;
-    }
-
-    template<class C>
-    self_t& operator=(std::auto_ptr<C> ap)
-    {
-        self_t(ap).swap(*this);
         return *this;
     }
 
@@ -166,6 +152,13 @@ public:
 private:
     Clonable *m_ptr;
 };
+
+
+template<class C> inline
+void pstade_egg_move_assign(clone_ptr<C>& from, clone_ptr<C>& to)
+{
+    from.swap(to);
+}
 
 
 } // namespace pstade

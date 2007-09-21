@@ -32,15 +32,16 @@
 #include <boost/static_warning.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
+#include <pstade/egg/reset.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include <pstade/make_bool.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/type_erasure.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_iterator_fwd.hpp"
-#include "./detail/assign_new.hpp"
 #include "./detail/pure_traversal.hpp"
 
 
@@ -288,11 +289,15 @@ public:
         m_content(new typename holder_of< any_iterator<R, T, V, D> >::type(other))
     { }
 
-// assignments
+    any_iterator(type_erasure_type, self_t const& other) :
+        m_content(new typename holder_of<self_t>::type(other))
+    { }
+
+// assignments: I want to deprecate these.
     template< class Iterator >
     void reset(Iterator it)
     {
-        detail::assign_new<typename holder_of<Iterator>::type>(it, m_content);
+        egg::reset(m_content, new typename holder_of<Iterator>::type(it));
     }
 
     // needed for 'explicit' above
@@ -343,7 +348,7 @@ friend class boost::iterator_core_access;
         return m_content->dereference();
     }
 
-    // can't be a template; 'placeholder' type is fairly different.
+    // can't be a template; 'placeholder' type is different.
     bool equal(self_t const& other) const
     {
         return m_content->equal(*other.m_content);

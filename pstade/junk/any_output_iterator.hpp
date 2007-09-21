@@ -11,17 +11,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <iterator> // output_iterator_tag
 #include <typeinfo>
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_categories.hpp>
-#include <boost/iterator/iterator_facade.hpp>
+#include <boost/mpl/void.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/make_bool.hpp>
-#include <pstade/type_erasure.hpp>
+#include <pstade/radish/swappable.hpp>
 #include "./any_iterator_fwd.hpp"
+#include "./detail/assign_new.hpp"
 
 
 namespace pstade { namespace oven {
@@ -38,7 +40,6 @@ namespace any_output_iterator_detail {
         virtual std::type_info const& typeid_() const = 0;
 
         virtual void write(What w) = 0;
-        virtual void increment() = 0;
     };
 
 
@@ -55,67 +56,18 @@ namespace any_output_iterator_detail {
             return m_held;
         }
 
-    // override
-        std::type_info const& typeid_() const
+        std::type_info const& typeid_() const // override
         {
             return typeid(Iterator);
         }
 
-        void write(What w)
+        void write(What w) // override
         {
             *m_held = w;
         }
 
-        void increment()
-        {
-            ++m_held;
-        }
-
     private:
         Iterator m_held;
-    };
-
-
-    template< class What >
-    struct content_of
-    {
-        typedef boost::shared_ptr< placeholder<What> > type;
-    };
-
-
-    template< class What >
-    struct proxy
-    {
-    private:
-        typedef typename content_of<What>::type content_t;
-
-    public:
-        explicit proxy(content_t const& c) :
-            m_content(c)
-        { }
-
-        proxy& operator=(What w)
-        {
-            m_content->write(w);
-            return *this;
-        }
-
-    private:
-        content_t m_content;
-    };
-
-
-    template< class What >
-    struct super_
-    {
-        typedef
-            boost::iterator_facade<
-                any_output_iterator<What>,
-                proxy<What>,
-                boost::incrementable_traversal_tag,
-                proxy<What>
-            >
-        type;
     };
 
 
@@ -124,13 +76,11 @@ namespace any_output_iterator_detail {
 
 template< class What >
 struct any_output_iterator :
-    any_output_iterator_detail::super_<What>::type
+    radish::swappable< any_output_iterator<What> >
 {
 private:
     typedef any_output_iterator self_t;
-    typedef typename any_output_iterator_detail::super_<What>::type super_t;
-    typedef typename super_t::reference ref_t;
-    typedef typename any_output_iterator_detail::content_of<What>::type content_t;
+    typedef boost::shared_ptr< any_output_iterator_detail::placeholder<What> > content_t;
 
     template< class Iterator >
     struct holder_of
@@ -139,7 +89,6 @@ private:
     };
 
 public:
-// structors
     any_output_iterator()
     { }
 
@@ -148,9 +97,25 @@ public:
         m_content(new typename holder_of<Iterator>::type(it))
     { }
 
-    any_output_iterator(type_erasure_type, self_t const& other) :
-        m_content(new typename holder_of<self_t>::type(other))
-    { }
+// assignments
+    template< class Iterator >
+    void reset(Iterator it)
+    {
+        m_content.reset(new typename holder_of<Iterator>::type(it));
+    }
+
+    void reset()
+    {
+        m_content.reset();
+    }
+
+    template< class Iterator >
+    typename disable_if_copy_assign<self_t, Iterator>::type
+    operator=(Iterator it)
+    {
+        reset(it);
+        return *this;
+    }
 
 // boost::any compatibles
     bool empty() const
@@ -186,26 +151,35 @@ public:
 private:
     content_t m_content;
 
-friend class boost::iterator_core_access;
-    ref_t dereference() const
-    {
-        BOOST_ASSERT(m_content);
-        return ref_t(m_content);
-    }
+public:
+    typedef std::output_iterator_tag iterator_category;
+    typedef boost::mpl::void_ value_type; // for 'postfix_increment_result'
+    typedef boost::mpl::void_ pointer;    // for a rainy day
+    typedef int difference_type;          // for 'iterator_facade::operator[]'
 
-    void increment()
+    struct reference                      // for adaptors
     {
-        BOOST_ASSERT(m_content);
-        m_content->increment();
-    }
+        explicit reference(content_t const& content) :
+            m_content(content)
+        { }
+
+        reference& operator=(What w)
+        {
+            m_content->write(w);
+            return *this;
+        }
+
+    private:
+        content_t m_content;
+    };
+
+    reference operator *() const { return reference(m_content); } // 'const' for adaptors.
+    any_output_iterator& operator++() { return *this; }
+    any_output_iterator& operator++(int) { return *this; } // must return reference.
 };
 
 
-template< class What > inline
-void swap(any_output_iterator<What>& x, any_output_iterator<What>& y)
-{
-    x.swap(y);
-}
+// No make_any_iterator.
 
 
 } } // namespace pstade::oven

@@ -21,10 +21,14 @@
 #include <iterator>
 #include <sstream>
 #include <pstade/egg/do_swap.hpp>
+#include <pstade/egg/reset.hpp>
+#include <pstade/type_erasure.hpp>
 
 
 namespace oven = pstade::oven;
 using namespace oven;
+using pstade::egg::reset;
+using pstade::type_erasure;
 
 
 void pstade_minimal_test()
@@ -57,7 +61,7 @@ void pstade_minimal_test()
     {
         std::vector<char> v;
         any_output_iterator<char &> oi;
-        oi = std::back_inserter(v);
+        reset(oi, std::back_inserter(v));
 
         std::string src("abcdefg");
         std::copy(src.begin(), src.end(), oi);
@@ -67,7 +71,7 @@ void pstade_minimal_test()
     {
         std::stringstream sout;
         any_output_iterator<char> oi;
-        oi = std::ostream_iterator<char>(sout); // avoid vexing parse.
+        reset(oi, std::ostream_iterator<char>(sout)); // avoid vexing parse.
         BOOST_CHECK(oi.has_base< std::ostream_iterator<char> >());
         BOOST_CHECK(!oi.has_base< int * >());
 
@@ -79,12 +83,12 @@ void pstade_minimal_test()
     {
         any_output_iterator<char const&> oi;
         BOOST_CHECK( oi.empty() );
-        oi.reset();
+        reset(oi);
         BOOST_CHECK( oi.empty() );
         BOOST_CHECK(oi.type() != typeid(int *));
         BOOST_CHECK(!oi.has_base<int *>());
         int arr[7];
-        oi.reset(&arr[0]);
+        reset(oi, &arr[0]);
         BOOST_CHECK(oi.type() == typeid(int *));
         BOOST_CHECK(oi.has_base<int *>());
 
@@ -96,23 +100,28 @@ void pstade_minimal_test()
     {
         any_output_iterator<char const&> oi;
         any_output_iterator<char const&> oj;
-        oj = oi;
+        oj = oi; // just copy-assignment
         BOOST_CHECK(oj.empty());
 
-        oj.reset(oi);
+        reset(oj, oi); // still copy-assignment
+        BOOST_CHECK(oj.empty());
+
+        reset(oj, type_erasure, oi); // (1)
         BOOST_CHECK( !oj.empty() );
         BOOST_CHECK(oj.type() == typeid(any_output_iterator<char const&>));
         BOOST_CHECK(!oi.has_base<int *>());
 
-
         BOOST_CHECK( oi.empty() );
         int arr[7];
-        oi.reset(&arr[0]);
+        reset(oi, &arr[0]);
         BOOST_CHECK(oi.type() == typeid(int *));
         BOOST_CHECK(oi.has_base<int *>());
 
+        // notice the base of oj in (1) is a copy, hence you need to reset it here.
+        reset(oj, type_erasure, oi);
+
         std::string src("abcdefg");
-        std::copy(src.begin(), src.end(), oi);
+        std::copy(src.begin(), src.end(), oj); // through oj.
 
         BOOST_CHECK( equals(arr, src) );
     }
@@ -122,8 +131,8 @@ void pstade_minimal_test()
         any_output_iterator<char> oi;
         any_output_iterator<char> oj;
         pstade::egg::do_swap(oi, oj); // no effect
-        oi = std::back_inserter(vj);
-        oj = std::back_inserter(vi);
+        reset(oi, std::back_inserter(vj));
+        reset(oj, std::back_inserter(vi));
         pstade::egg::do_swap(oi, oj);
 
         std::string srci("abcdefg");

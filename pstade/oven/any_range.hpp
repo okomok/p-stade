@@ -87,7 +87,7 @@ public:
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
-// assignments
+// assignments: I want to deprecate these.
     template< class Range >
     typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
