@@ -101,7 +101,7 @@ public:
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
-// assignments
+// assignments: I want to deprecate these.
     template< class Range >
     typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
@@ -116,6 +116,13 @@ public:
         m_first = boost::begin(rng);
         m_last = boost::end(rng);
         return *this;
+    }
+
+    template< class Iterator_ >
+    void reset(Iterator_ first, Iterator_ last)
+    {
+        m_first = first;
+        m_last  = last;
     }
 
 // for "third-party" libraries
@@ -161,19 +168,13 @@ public:
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
     typedef typename boost::iterator_reference<Iterator>::type  reference;
 
+    // It seems useless to return bracket proxy when you need 'rng[i][j]' syntax.
     reference operator[](difference_type n) const
     {
         PSTADE_CONCEPT_ASSERT((RandomAccess<self_t>));
         BOOST_ASSERT(0 <= n);
         BOOST_ASSERT(n < m_last - m_first);
         return m_first[n];
-    }
-
-    template< class Iterator_ >
-    void reset(Iterator_ first, Iterator_ last)
-    {
-        m_first = first;
-        m_last  = last;
     }
 
 // equality_comparable

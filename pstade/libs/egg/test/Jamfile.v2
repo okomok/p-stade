@@ -81,6 +81,7 @@ test-suite "egg" :
     [ run parallel.cpp : : : <define>PSTADE_EGG_DISABLE_THREADS : parallel_no_threads ]
     [ run perfect.cpp ]
     [ run pipable.cpp ]
+    [ run reset.cpp ]
     [ run ret.cpp ]
     [ run shared_object.cpp ]
     [ run sig_template.cpp ]

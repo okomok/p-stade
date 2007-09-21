@@ -16,10 +16,9 @@
 #include <boost/assert.hpp>
 #include <boost/optional/optional_fwd.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/type.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/do_swap.hpp>
@@ -29,7 +28,6 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/type_erasure.hpp>
 
 
 namespace pstade {
@@ -41,7 +39,7 @@ namespace pstade {
         struct placeholder
         {
             virtual ~placeholder() { }
-            virtual std::type_info const &typeid_() const = 0;
+            virtual std::type_info const &type() const = 0;
         };
 
 
@@ -58,10 +56,9 @@ namespace pstade {
                 return m_x;
             }
 
-            std::type_info const &typeid_() const // override
+            std::type_info const &type() const // override
             {
-                typedef typename boost::remove_reference<X>::type nonref_t;
-                return typeid(boost::type<nonref_t>);
+                return typeid(X);
             }
 
         private:
@@ -81,15 +78,9 @@ namespace pstade {
                 m_content(p)
             { }
 
-        // boost::any compatibles
-            bool empty() const
+            void reset()
             {
-                return !m_content;
-            }
-
-            std::type_info const &type() const
-            {
-                return m_content ? m_content->typeid_() : typeid(void);
+                m_content.reset();
             }
 
         // bool_testable
@@ -102,6 +93,17 @@ namespace pstade {
             void swap(Derived &other)
             {
                 egg::do_swap(m_content, other.m_content);
+            }
+
+        // boost::any compatible
+            bool empty() const
+            {
+                return !m_content;
+            }
+
+            std::type_info const &type() const
+            {
+                return m_content ? m_content->type() : typeid(void);
             }
 
         protected:
@@ -144,16 +146,14 @@ namespace pstade {
         any_detail::super_<any_ref>
     {
     private:
-        typedef any_ref self_t;
         typedef any_detail::super_<any_ref> super_t;
 
     public:
-    // structors
         any_ref()
         { }
 
         template<class X>
-        any_ref(X &x, typename disable_if_copy<self_t, X>::type = 0) :
+        any_ref(X &x, typename disable_if_copy<any_ref, X>::type = 0) :
             super_t(new any_detail::holder<X &>(x))
         { }
 
@@ -162,28 +162,22 @@ namespace pstade {
             super_t(new any_detail::holder<X const &>(x))
         { }
 
-        any_ref(type_erasure_type, self_t &other) :
-            super_t(new any_detail::holder<self_t &>(other))
-        { }
-
-        any_ref(type_erasure_type, self_t const &other) :
-            super_t(new any_detail::holder<self_t const &>(other))
-        { }
-
-    // base access
-        template<class X>
-        bool has_base() const
-        {
-            return make_bool(type() == typeid(boost::type<X>));
-        }
-
         template<class X>
         X &base() const
         {
-            // `X` must be strictly the same as holder's; for consistency.
-            // Though a conversion to const type is feasible, a conversion to super type is not.
-            BOOST_ASSERT(has_base<X>());
-            return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
+            typedef typename boost::remove_const<X>::type mx_t;
+            if (typeid(*m_content) == typeid(any_detail::holder<mx_t &>))
+                return egg::static_downcast< any_detail::holder<mx_t &> >(*m_content).held();
+            else
+                return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
+        }
+
+        template<class X>
+        bool is_castable_to() const
+        {
+            typedef typename boost::remove_const<X>::type mx_t;
+            return typeid(*m_content) == typeid(any_detail::holder<mx_t &>)
+                || typeid(*m_content) == typeid(any_detail::holder<X &>);
         }
     };
 
@@ -195,11 +189,9 @@ namespace pstade {
         any_detail::super_<any_cref>
     {
     private:
-        typedef any_cref self_t;
         typedef any_detail::super_<any_cref> super_t;
 
     public:
-    // structors
         any_cref()
         { }
 
@@ -208,38 +200,30 @@ namespace pstade {
             super_t(new any_detail::holder<X const &>(x))
         { }
 
-        any_cref(type_erasure_type, self_t const &other) :
-            super_t(new any_detail::holder<self_t const &>(other))
-        { }
-
-    // base access
-        template<class X>
-        bool has_base() const
-        {
-            return make_bool(type() == typeid(boost::type<X>));
-        }
-
         template<class X>
         X &base() const
         {
-            BOOST_ASSERT(has_base<X>());
             return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
+        }
+
+        template<class X>
+        bool is_castable_to() const
+        {
+            return make_bool(typeid(*m_content) == typeid(any_detail::holder<X &>));
         }
     };
 
 
     // any_movable
-    //   This is not a Movable but CopyConstructible type.
+    //
 
     struct any_movable :
         any_detail::super_<any_movable>
     {
     private:
-        typedef any_movable self_t;
         typedef any_detail::super_<any_movable> super_t;
 
     public:
-    // structors
         any_movable()
         { }
 
@@ -248,22 +232,18 @@ namespace pstade {
             super_t(new any_detail::holder<X>(x))
         { }
 
-        any_movable(type_erasure_type, self_t other) :
-            super_t(new any_detail::holder<self_t>(other))
-        { }
-
-    // base access
-        template<class X>
-        bool has_base() const
-        {
-            return make_bool(type() == typeid(boost::type<X>));
-        }
-
         template<class X>
         X &base() const
         {
-            BOOST_ASSERT(has_base<X>());
-            return egg::static_downcast< any_detail::holder<X> >(*m_content).held();
+            typedef typename boost::remove_const<X>::type mx_t;
+            return egg::static_downcast< any_detail::holder<mx_t> >(*m_content).held();
+        }
+
+        template<class X>
+        bool is_castable_to() const
+        {
+            typedef typename boost::remove_const<X>::type mx_t;
+            return make_bool(typeid(*m_content) == typeid(any_detail::holder<mx_t>));
         }
     };
 
@@ -279,6 +259,7 @@ namespace pstade {
         template<class Any>
         X &operator()(Any const &a) const
         {
+            BOOST_ASSERT(a.template is_castable_to<X>());
             return a.template base<X>();
         }
 
@@ -310,7 +291,7 @@ namespace pstade {
         template<class Any>
         result_type operator()(Any const &a) const
         {
-            if (a.template has_base<T>())
+            if (a.template is_castable_to<T>())
                 return a.template base<T>();
             else
                 return result_type();

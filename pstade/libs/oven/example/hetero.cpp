@@ -61,7 +61,7 @@ void pstade_minimal_test()
         boost::tuple<int, char, std::string> tup(1, 'a', "hello");
 
         BOOST_FOREACH (any_ref a, oven::hetero<any_ref>(tup)) {
-            if (a.type() == typeid(std::string)) {
+            if (a.type() == typeid(boost::type<std::string>)) {
                 std::string &s = pstade::any_to<std::string>(a);
                 s = "goodbye";
                 break;

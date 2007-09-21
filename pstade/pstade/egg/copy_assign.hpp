@@ -16,10 +16,11 @@
 // The ambiguity buster; call copy-assignment explicitly.
 
 
-#include <boost/implicit_cast.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
 #include "./by_perfect.hpp"
+#include "./copy.hpp"
+#include "./move_assign.hpp"
 
 
 namespace pstade { namespace egg {
@@ -39,7 +40,7 @@ namespace pstade { namespace egg {
             template<class Result, class To, class From>
             Result call(To& to, From& from) const
             {
-                to = boost::implicit_cast<To const&>(from);
+                move_assign(egg::copy<To>(from), to);
                 return to;
             }
         };
