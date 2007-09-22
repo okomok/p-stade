@@ -31,6 +31,7 @@
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/pointable.hpp>
 #include <pstade/radish/swappable.hpp>
+#include <pstade/reset_assignment.hpp>
 
 
 namespace pstade {
@@ -99,12 +100,20 @@ public:
         m_ptr(p)
     { }
 
-// assignment
+// assignments
     self_t& operator=(self_t const& other)
     {
         self_t(other).swap(*this);
         return *this;
     }
+
+    template<class Ptr>
+    void reset(Ptr p)
+    {
+        self_t(p).swap(*this);
+    }
+
+    PSTADE_MOVE_RESET_ASSIGNMENT(self_t)
 
 // bool_testable
     operator radish::safe_bool() const
@@ -152,13 +161,6 @@ public:
 private:
     Clonable *m_ptr;
 };
-
-
-template<class C> inline
-void pstade_egg_move_assign(clone_ptr<C>& from, clone_ptr<C>& to)
-{
-    from.swap(to);
-}
 
 
 } // namespace pstade

@@ -36,6 +36,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
+#include <pstade/reset_assignment.hpp>
 #include "./concepts.hpp"
 #include "./detail/config.hpp"
 #include "./detail/iter_distance.hpp"
@@ -101,30 +102,6 @@ public:
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
-// assignments: I want to deprecate these.
-    template< class Range >
-    typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
-    {
-        m_first = boost::begin(rng);
-        m_last = boost::end(rng);
-        return *this;
-    }
-
-    template< class Range >
-    self_t& operator=(Range const& rng)
-    {
-        m_first = boost::begin(rng);
-        m_last = boost::end(rng);
-        return *this;
-    }
-
-    template< class Iterator_ >
-    void reset(Iterator_ first, Iterator_ last)
-    {
-        m_first = first;
-        m_last  = last;
-    }
-
 // for "third-party" libraries
     template< class I >
     iter_range(std::pair<I, I> const& rng,
@@ -139,6 +116,30 @@ public:
     ) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
+
+// assignments
+    template< class Range >
+    void reset(Range& rng)
+    {
+        m_first = boost::begin(rng);
+        m_last  = boost::end(rng);
+    }
+
+    template< class Range >
+    void reset(Range const& rng)
+    {
+        m_first = boost::begin(rng);
+        m_last  = boost::end(rng);
+    }
+
+    PSTADE_RESET_ASSIGNMENT(self_t)
+
+    template< class Iterator_ >
+    void reset(Iterator_ first, Iterator_ last)
+    {
+        m_first = first;
+        m_last  = last;
+    }
 
 // range implementation
     typedef Iterator iterator;

@@ -90,7 +90,6 @@
 #include "./perfect.hpp"
 #include "./pipable.hpp"
 #include "./plus.hpp"
-#include "./reset.hpp"
 #include "./ret.hpp"
 #include "./shared_object.hpp"
 #include "./sig_template.hpp"
