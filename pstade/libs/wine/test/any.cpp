@@ -13,7 +13,6 @@
 #include <pstade/unit_test.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/is_same.hpp>
-#include <pstade/egg/reset.hpp>
 
 
 #include <boost/optional/optional.hpp>
@@ -25,7 +24,6 @@ using pstade::any_cref;
 using pstade::any_movable;
 using pstade::egg::do_swap;
 using pstade::egg::is_same;
-using pstade::egg::reset;
 using pstade::xp_from_any_to;
 
 void test_ref()
