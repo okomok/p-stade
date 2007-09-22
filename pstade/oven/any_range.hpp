@@ -11,12 +11,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/implicit_cast.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/radish/swappable.hpp>
+#include <pstade/reset_assignment.hpp>
 #include "./any_iterator.hpp"
 #include "./any_range_fwd.hpp"
 #include "./iter_range.hpp"
@@ -39,8 +42,9 @@ namespace any_range_detail {
         typedef
             iter_range<
                 any_iterator<Reference, Traversal, Value, Difference>,
+                radish::swappable    < any_range<Reference, Traversal, Value, Difference>,
                 // Only SinglePass is considered as "lightweight".
-                lightweight_copyable< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> >
+                lightweight_copyable < any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> > >
             >
         type;
     };
@@ -87,21 +91,44 @@ public:
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
-// assignments: I want to deprecate these.
+// assignments
     template< class Range >
-    typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
+    void reset(Range& rng)
     {
-        super_t::operator=(rng);
-        return *this;
+        self_t(rng).swap(*this);
     }
 
     template< class Range >
-    self_t& operator=(Range const& rng)
+    void reset(Range const& rng)
     {
-        super_t::operator=(rng);
-        return *this;
+        self_t(rng).swap(*this);
     }
 
+    void reset()
+    {
+        self_t().swap(*this);
+    }
+
+    PSTADE_RESET_ASSIGNMENT(self_t)
+
+// swappable
+    void swap(self_t& other)
+    {
+        super_t::swap(other);
+    }
+
+// boost::any compatibles
+    bool iter_empty() const
+    {
+        return this->begin().empty();
+    }
+
+    std::type_info const& iter_type() const
+    {
+        return this->begin().type();
+    }
+
+// workaround
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_range, super_t)
 };
 

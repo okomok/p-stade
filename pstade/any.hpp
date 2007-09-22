@@ -29,7 +29,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/type_erasure.hpp>
+#include <pstade/reset_assignment.hpp>
 
 
 namespace pstade {
@@ -162,13 +162,35 @@ namespace pstade {
             super_t(new any_detail::holder<X const &>(x))
         { }
 
-        any_ref(type_erasure_type, self_t &other) :
-            super_t(new any_detail::holder<self_t &>(other))
-        { }
+    // assignments
+        template<class X>
+        void reset(X &x)
+        {
+            self_t(x).swap(*this);
+        }
 
-        any_ref(type_erasure_type, self_t const &other) :
-            super_t(new any_detail::holder<self_t const &>(other))
-        { }
+        template<class X>
+        void reset(X const &x)
+        {
+            self_t(x).swap(*this);
+        }
+
+        void reset()
+        {
+            self_t().swap(*this);
+        }
+
+        void reset(self_t &other)
+        {
+            m_content.reset(new any_detail::holder<self_t &>(other));
+        }
+
+        PSTADE_RESET_ASSIGNMENT(self_t)
+
+        void reset(self_t const &other)
+        {
+            m_content.reset(new any_detail::holder<self_t const &>(other));
+        }
 
     // base access
         template<class X>
@@ -208,9 +230,24 @@ namespace pstade {
             super_t(new any_detail::holder<X const &>(x))
         { }
 
-        any_cref(type_erasure_type, self_t const &other) :
-            super_t(new any_detail::holder<self_t const &>(other))
-        { }
+    // assignments
+        template<class X>
+        void reset(X const &x)
+        {
+            self_t(x).swap(*this);
+        }
+
+        void reset()
+        {
+            self_t().swap(*this);
+        }
+
+        PSTADE_RESET_ASSIGNMENT(self_t)
+
+        void reset(self_t const &other)
+        {
+            m_content.reset(new any_detail::holder<self_t const &>(other));
+        }
 
     // base access
         template<class X>
@@ -248,9 +285,24 @@ namespace pstade {
             super_t(new any_detail::holder<X>(x))
         { }
 
-        any_movable(type_erasure_type, self_t other) :
-            super_t(new any_detail::holder<self_t>(other))
-        { }
+    // assignments
+        template<class X>
+        void reset(X x)
+        {
+            self_t(x).swap(*this);
+        }
+
+        void reset()
+        {
+            self_t().swap(*this);
+        }
+
+        PSTADE_MOVE_RESET_ASSIGNMENT(self_t)
+
+        void reset(self_t other)
+        {
+            m_content.reset(new any_detail::holder<self_t>(other));
+        }
 
     // base access
         template<class X>

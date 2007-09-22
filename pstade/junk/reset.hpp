@@ -12,6 +12,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// A "resettable" type must be CopyConstructible and DefaultConstructible.
+
+
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -21,6 +26,7 @@
 #include "./apply_params.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./move_assign.hpp"
 
 
 namespace pstade { namespace egg {
@@ -50,7 +56,7 @@ namespace pstade { namespace egg {
         template<class X, class A>
         void operator()(X& x, A a) const
         {
-            x = X(a);
+            move_assign(X(a), x);
         }
     };
 
@@ -68,7 +74,7 @@ namespace pstade { namespace egg {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     void call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        a0 = A0(BOOST_PP_ENUM_SHIFTED_PARAMS(n, a));
+        move_assign(A0(BOOST_PP_ENUM_SHIFTED_PARAMS(n, a)), a0);
     }
 
 

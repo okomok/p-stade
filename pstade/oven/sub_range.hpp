@@ -23,6 +23,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
+#include <pstade/reset_assignment.hpp>
 #include "./iter_range.hpp"
 #include "./lightweight_copyable.hpp"
 #include "./range_constant_iterator.hpp"
@@ -42,8 +43,9 @@ namespace sub_range_detail {
     template< class Range >
     struct super_ :
         iter_range_of<Range,
+            radish::swappable   < sub_range<Range>,
             range_constantable  < sub_range<Range>, typename range_constant_iterator<Range>::type,
-            lightweight_copyable< sub_range<Range> > >
+            lightweight_copyable< sub_range<Range> > > >
         >
     { };
 
@@ -96,25 +98,15 @@ public:
     { }
 
 // assignments
-    template< class Range_ >
-    typename disable_if_copy_assign<self_t, Range_>::type operator=(Range_& rng)
+    PSTADE_RESET_ASSIGNMENT(self_t)
+
+// swappable
+    void swap(self_t& other)
     {
-        super_t::operator=(rng);
-        return *this;
+        super_t::swap(other);
     }
 
-    template< class Range_ >
-    self_t& operator=(Range_ const& rng)
-    {
-        super_t::operator=(rng);
-        return *this;
-    }
-
-    // VC8's broken implicitly-defined copy-constructor wrongly
-    // calls template constructor of 'iter_range'. Then,
-    // sub_range<string> const rng1(str);
-    // sub_range<string> rng2(rng1);
-    // doesn't compile. So define it from scratch using this macro.
+// workaround
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(sub_range, super_t)
 };
 

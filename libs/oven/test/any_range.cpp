@@ -134,6 +134,21 @@ void test_swap()
         BOOST_CHECK( s1.begin() == a1.base<std::string::iterator>() );
         BOOST_CHECK( s2.begin() == a2.base<std::string::iterator>() );
     }
+    {
+        std::string s1("abdefg");
+        std::string s2("hijlkm");
+        any_range<char &, boost::random_access_traversal_tag> rng1(s2);
+        any_range<char &, boost::random_access_traversal_tag> rng2(s1);
+        pstade::egg::do_swap(rng1, rng2);
+        BOOST_CHECK( equals(rng1, s1) );
+        BOOST_CHECK( equals(rng2, s2) );
+
+        BOOST_CHECK( rng1 );
+        rng1 = boost::none;
+        BOOST_CHECK( rng1.iter_empty() );
+        std::type_info const & info = rng2.iter_type();
+        (void)info;
+    }
 }
 
 

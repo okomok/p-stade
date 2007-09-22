@@ -18,10 +18,9 @@
 namespace pstade { namespace egg {
 
 
-
-    // ADL Customization point.
+    // ADL customization point.
     // In fact, optimizer will do your work, though.
-    // Note this is in the same namespace as below due to a msvc bug.
+    // Note this is in the same namespace as below for a msvc bug.
     template<class From, class To> inline
     void pstade_egg_move_assign(From& from, To& to)
     {

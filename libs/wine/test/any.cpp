@@ -27,8 +27,6 @@ using pstade::egg::do_swap;
 using pstade::egg::is_same;
 using pstade::egg::reset;
 using pstade::xp_from_any_to;
-using pstade::type_erasure;
-
 
 void test_ref()
 {
@@ -46,7 +44,7 @@ void test_ref()
         BOOST_CHECK( pstade::any_to< int >(a) == 3 );
         a.type();
 
-        reset(a);
+        a = boost::none;;
         BOOST_CHECK( !a );
         a = i;
         BOOST_CHECK( a );
@@ -162,28 +160,28 @@ void test_ref()
         int i = 3;
         any_ref a(i);
         any_ref b;
-        reset(b, type_erasure, a);
+        b.reset(a);
         BOOST_CHECK( is_same(b.base<any_ref>().base<int>(), i) );
-        reset(a);
+        a = boost::none;
         BOOST_CHECK( !a );
         BOOST_CHECK( !a.has_base<int>() );
         BOOST_CHECK( b );
         BOOST_CHECK( b.has_base< any_ref >() );
-        reset(b);
+        b = boost::none;
         BOOST_CHECK( !b );
     }
     {
         int const i = 3;
         any_ref a(i);
         any_ref b;
-        reset(b, type_erasure, a);
+        b.reset(a);
         BOOST_CHECK( is_same(b.base< any_ref >().base<int const>(), i) );
-        reset(a);
+        a = boost::none;
         BOOST_CHECK( !a );
         BOOST_CHECK( !a.has_base<int const>() );
         BOOST_CHECK( b );
         BOOST_CHECK( b.has_base< any_ref >() );
-        reset(b);
+        b = boost::none;
         BOOST_CHECK( !b );
     }
     {
@@ -215,7 +213,7 @@ void test_cref()
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
 
-        reset(a);
+        a = boost::none;
         BOOST_CHECK( !a );
         a = i;
         BOOST_CHECK( a );
@@ -332,15 +330,15 @@ void test_cref()
         int i = 3;
         any_cref a(i);
         any_cref b;
-        reset(b, type_erasure, a);
+        b.reset(a);
         BOOST_CHECK( is_same(b.base<any_cref const>(), a) );
         BOOST_CHECK( is_same(b.base<any_cref const>().base<int const>(), i) );
-        reset(a);
+        a = boost::none;
         BOOST_CHECK( !a );
         BOOST_CHECK( !a.has_base<int const>() );
         BOOST_CHECK( b );
         BOOST_CHECK( b.has_base< any_cref const >() );
-        reset(b);
+        b = boost::none;
         BOOST_CHECK( !b );
     }
     {
@@ -373,7 +371,7 @@ void test_movable()
         a.type();
 
         std::auto_ptr<int> p(new int(3));
-        reset(a);
+        a = boost::none;
         BOOST_CHECK( !a );
         a = p;
         BOOST_CHECK( a );
@@ -446,14 +444,14 @@ void test_movable()
         any_movable a(i);
         BOOST_CHECK( a.has_base< std::auto_ptr<int> >() );
         any_movable b;
-        reset(b, type_erasure, a);
+        b.reset(a);
         BOOST_CHECK( *b.base<any_movable>().base< std::auto_ptr<int> >() == *a.base< std::auto_ptr<int> >() );
-        reset(a);
+        a = boost::none;
         BOOST_CHECK( !a );
         BOOST_CHECK( !a.has_base< std::auto_ptr<int> >() );
         BOOST_CHECK( b );
         BOOST_CHECK( b.has_base<any_movable>() );
-        reset(b);
+        b = boost::none;
         BOOST_CHECK( !b );
     }
     {

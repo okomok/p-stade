@@ -32,14 +32,13 @@
 #include <boost/static_warning.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
-#include <pstade/egg/reset.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include <pstade/make_bool.hpp>
 #include <pstade/remove_cvr.hpp>
-#include <pstade/type_erasure.hpp>
+#include <pstade/reset_assignment.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_iterator_fwd.hpp"
 #include "./detail/pure_traversal.hpp"
@@ -289,24 +288,29 @@ public:
         m_content(new typename holder_of< any_iterator<R, T, V, D> >::type(other))
     { }
 
-    any_iterator(type_erasure_type, self_t const& other) :
-        m_content(new typename holder_of<self_t>::type(other))
-    { }
-
-// assignments: I want to deprecate these.
+// assignments
     template< class Iterator >
     void reset(Iterator it)
     {
-        egg::reset(m_content, new typename holder_of<Iterator>::type(it));
+        self_t(it).swap(*this);
     }
 
-    // needed for 'explicit' above
-    template< class Iterator >
-    typename disable_if<is_convertible<Iterator, self_t>, self_t&>::type
-    operator=(Iterator it)
+    void reset()
     {
-        reset(it);
-        return *this;
+        self_t().swap(*this);
+    }
+
+    PSTADE_RESET_ASSIGNMENT(self_t)
+
+    void reset(self_t const &other)
+    {
+        m_content.reset(new typename holder_of<self_t>::type(other));
+    }
+
+// swappable
+    void swap(self_t& other)
+    {
+        egg::do_swap(m_content, other.m_content);
     }
 
 // boost::any compatibles
@@ -331,12 +335,6 @@ public:
     Iterator base() const
     {
         return egg::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
-    }
-
-// swappable
-    void swap(self_t& other)
-    {
-        egg::do_swap(m_content, other.m_content);
     }
 
 private:

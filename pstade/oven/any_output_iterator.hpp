@@ -20,7 +20,7 @@
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/make_bool.hpp>
-#include <pstade/type_erasure.hpp>
+#include <pstade/reset_assignment.hpp>
 #include "./any_iterator_fwd.hpp"
 
 
@@ -148,9 +148,30 @@ public:
         m_content(new typename holder_of<Iterator>::type(it))
     { }
 
-    any_output_iterator(type_erasure_type, self_t const& other) :
-        m_content(new typename holder_of<self_t>::type(other))
-    { }
+// assignments
+    template< class Iterator >
+    void reset(Iterator it)
+    {
+        self_t(it).swap(*this);
+    }
+
+    void reset()
+    {
+        self_t().swap(*this);
+    }
+
+    void reset(self_t const& other)
+    {
+        m_content.reset(new typename holder_of<self_t>::type(other));
+    }
+
+    PSTADE_RESET_ASSIGNMENT(self_t)
+
+// swappable
+    void swap(self_t& other)
+    {
+        egg::do_swap(m_content, other.m_content);
+    }
 
 // boost::any compatibles
     bool empty() const
@@ -175,12 +196,6 @@ public:
     {
         BOOST_ASSERT(has_base<Iterator>());
         return egg::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
-    }
-
-// swappable
-    void swap(self_t& other)
-    {
-        egg::do_swap(m_content, other.m_content);
     }
 
 private:
