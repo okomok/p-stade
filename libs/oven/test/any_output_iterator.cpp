@@ -21,12 +21,10 @@
 #include <iterator>
 #include <sstream>
 #include <pstade/egg/do_swap.hpp>
-#include <pstade/egg/reset.hpp>
 
 
 namespace oven = pstade::oven;
 using namespace oven;
-using pstade::egg::reset;
 
 
 void pstade_minimal_test()

@@ -22,7 +22,6 @@
 #include <boost/optional.hpp>
 #include <pstade/oven/indirected.hpp>
 #include <pstade/egg/new_auto.hpp>
-#include <pstade/egg/reset.hpp>
 
 
 struct xxx
@@ -85,8 +84,6 @@ void pstade_unit_test()
 {
     using namespace pstade;
     using egg::xp_new_auto;
-    using egg::reset;
-    using egg::move_reset;
 
     ::xxx x(3);
 
@@ -149,14 +146,14 @@ void pstade_unit_test()
             // from auto_ptr
             clone_ptr< ::xxx > pxx(xp_new_auto< ::xxx >()(10));
             clone_ptr< ::xxx > pxy = xp_new_auto< ::yyy >()(10); // convertible
-            move_reset(pxx, xp_new_auto< ::xxx >()(10));
-            move_reset(pxy, xp_new_auto< ::yyy> ()(10));
+            pxx.reset(xp_new_auto< ::xxx >()(10));
+            pxy.reset(xp_new_auto< ::yyy> ()(10));
         }
         {
             // from convertible
             clone_ptr< ::yyy > pyy(new ::yyy(10));
             clone_ptr< ::xxx > pxy(pyy);
-            reset(pxy, pyy);
+            pxy.reset(pyy);
         }
     }
 }
