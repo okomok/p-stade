@@ -136,4 +136,25 @@ void pstade_minimal_test()
         BOOST_CHECK(equals(vi, srci));
         BOOST_CHECK(equals(vj, srcj));
     }
+    {
+        std::string src("abcdefg");
+        any_output_iterator<char const&> oi(src.begin());
+        *oi++ = 'x';
+        BOOST_CHECK( src == "xbcdefg" );
+        *oi++ = 'y';
+        BOOST_CHECK( src == "xycdefg" );
+
+        oi++;
+        BOOST_CHECK( *oi.base<std::string::iterator>() == 'd' );
+
+        any_output_iterator<char const &> oj(oi++);
+        // Already 'c'.
+        // OutputIterator has SinglePass semantics,
+        // meaning that oj is no longer considered as an Iterator here.
+        BOOST_CHECK( *oj.base<std::string::iterator>() == 'e' );
+        BOOST_CHECK( *oi.base<std::string::iterator>() == 'e' );
+
+        *oi = 'z';
+        BOOST_CHECK( src == "xycdzfg" );
+    }
 }
