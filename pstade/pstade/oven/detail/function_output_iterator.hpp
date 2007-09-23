@@ -11,24 +11,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Replaces 'boost::function_output_iterator',
-// which is not adaptable using 'iterator_adaptor',
-// and has no way to access its functor.
-// Note that OutputIterator cannot always be implemented by using
-// 'iterator_facade'; because of the postfix-increment implementation.
+// (C) Copyright Jeremy Siek 2001.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // output_iterator_tag
-#include <boost/mpl/void.hpp>
+#include <iterator>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
 template< class UnaryFun >
-struct function_output_iterator
+struct function_output_iterator :
+    std::iterator<std::output_iterator_tag, void, void, void, void>
 {
     typedef UnaryFun function_type;
 
@@ -41,7 +38,7 @@ struct function_output_iterator
         return m_fun;
     }
 
-    // as "adaptor"; 'adapted_to' kicks in!
+// for 'adapted_to'
     UnaryFun base() const
     {
         return m_fun;
@@ -50,38 +47,32 @@ struct function_output_iterator
 private:
     UnaryFun m_fun;
 
-public:
-    typedef std::output_iterator_tag iterator_category;
-    typedef boost::mpl::void_ value_type; // for 'postfix_increment_result'
-    typedef boost::mpl::void_ pointer;    // for a rainy day
-    typedef int difference_type;          // for 'iterator_facade::operator[]'
-
-    struct reference                      // for adaptors
+// iterator implentation
+    struct output_proxy
     {
-        explicit reference(UnaryFun fun) :
-            m_fun(fun)
-        { }
+        UnaryFun m_fun;
 
         // can replace 'for_each'?
         template< class Value >
-        reference& operator=(Value& val)
+        void operator=(Value& val)
         {
             m_fun(val);
-            return *this;
         }
 
         template< class Value >
-        reference& operator=(Value const& val)
+        void operator=(Value const& val)
         {
             m_fun(val);
-            return *this;
         }
-
-    private:
-        UnaryFun m_fun;
     };
 
-    reference operator *() const { return reference(m_fun); } // 'const' for adaptors.
+public:
+    output_proxy operator *() const
+    {
+        output_proxy r = {m_fun};
+        return r;
+    }
+
     function_output_iterator& operator++() { return *this; }
     function_output_iterator& operator++(int) { return *this; } // must return reference.
 };

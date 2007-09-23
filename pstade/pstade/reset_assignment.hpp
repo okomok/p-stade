@@ -11,12 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// I prefer `reset` to assignment-operator overloads.
-// But, Boost.Optional marks `reset` as deprecated.
-
-
 #include <boost/none.hpp>
 #include <pstade/disable_if_copy.hpp>
 
