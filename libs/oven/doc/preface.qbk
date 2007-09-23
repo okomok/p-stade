@@ -111,31 +111,31 @@ This document uses the following notation:
     ]
     [
         [`_rng`]
-        [Any _range_ such that it is _forward_ or _readable_.]
+        [A _range_ such that it is _forward_ or _readable_.]
     ]
     [
         [`_fwdrng`]
-        [Any _forward_ _range_]
+        [A _forward_ _range_]
     ]
     [
         [`_bidrng`]
-        [Any _bidirectional_ _range_]
+        [A _bidirectional_ _range_]
     ]
     [
         [`_rndrng`]
-        [Any _random_access_ _range_]
+        [A _random_access_ _range_]
     ]
     [
         [`_fun`]
-        [Any _function_object_]
+        [A _function_object_]
     ]
     [
         [`_cal`]
-        [Any _deferred_callable_object_]
+        [A _deferred_callable_object_]
     ]
     [
         [`_prd`]
-        [Any _predicate_]
+        [A _predicate_]
     ]
     [
         [`_begin`]
