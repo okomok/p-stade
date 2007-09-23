@@ -138,7 +138,7 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(is_compatible(other));
 
-        return this->base() == other.base() && m_count == other.m_count;
+        return m_count == other.m_count && this->base() == other.base();
     }
 
     void increment()
