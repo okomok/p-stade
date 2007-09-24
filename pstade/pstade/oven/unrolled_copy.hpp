@@ -17,11 +17,14 @@
 
 
 #include <utility> // pair
+#include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/pass_by.hpp>
+#include "./concepts.hpp"
+#include "./traversal_tags.hpp"
 
 
 namespace pstade { namespace oven {
@@ -42,7 +45,7 @@ namespace unrolled_copy_detail {
     template< class IterPair > inline
     IterPair aux(boost::mpl::int_<1>, IterPair io)
     {
-        *io.first++ = *io.second++;
+        *io.second++ = *io.first++;
         return std::make_pair(io.first, io.second);
     }
 
@@ -70,6 +73,9 @@ namespace unrolled_copy_detail {
         template< class Result, class Range, class OutIter >
         Result call(Range& rng, OutIter& out) const
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            BOOST_ASSERT(is_random_access(rng) ? N::value == distance(rng) : true);
+
             return here::aux(
                 boost::mpl::int_<N::value>(),
                 std::make_pair(boost::begin(rng), out)
