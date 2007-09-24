@@ -13,23 +13,22 @@
 
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <pstade/egg/copy.hpp>
-#include <pstade/is_convertible.hpp>
 #include "../do_iter_swap.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class Iterator, class Traversal, class Difference >
+template< class Iterator, class Traversal, class Difference, class Tag >
 struct identity_iterator;
 
 
-template< class Iterator, class Traversal, class Difference >
+template< class Iterator, class Traversal, class Difference, class Tag >
 struct identity_iterator_super
 {
     typedef
         boost::iterator_adaptor<
-            identity_iterator<Iterator, Traversal, Difference>,
+            identity_iterator<Iterator, Traversal, Difference, Tag>,
             Iterator,
             boost::use_default,
             Traversal,
@@ -40,15 +39,17 @@ struct identity_iterator_super
 };
 
 
-template< class Iterator, class Traversal, class Difference >
+template< class Iterator, class Traversal, class Difference, class Tag >
 struct identity_iterator :
-    identity_iterator_super<Iterator, Traversal, Difference>::type
+    identity_iterator_super<Iterator, Traversal, Difference, Tag>::type
 {
 private:
-    typedef typename identity_iterator_super<Iterator, Traversal, Difference>::type super_t;
+    typedef typename identity_iterator_super<Iterator, Traversal, Difference, Tag>::type super_t;
     typedef typename super_t::difference_type diff_t;
 
 public:
+    typedef Tag tag_type;
+
     explicit identity_iterator()
     { }
 
@@ -56,8 +57,8 @@ public:
         super_t(it)
     { }
 
-    template< class I, class T, class D >
-    identity_iterator(identity_iterator<I, T, D> const& other,
+    template< class I, class T, class D, class G >
+    identity_iterator(identity_iterator<I, T, D, G> const& other,
         typename boost::enable_if_convertible<I, Iterator>::type * = 0
     ) :
         super_t(other.base())
@@ -65,16 +66,16 @@ public:
 
 private:
 friend class boost::iterator_core_access;
-    template< class I, class T, class D >
-    diff_t distance_to(identity_iterator<I, T, D> const& other) const
+    template< class I, class T, class D, class G >
+    diff_t distance_to(identity_iterator<I, T, D, G> const& other) const
     {
         return egg::copy<diff_t>(other.base() - this->base());
     }
 };
 
 
-template< class I1, class T1, class D1, class I2, class T2, class D2 > inline
-void iter_swap(identity_iterator<I1, T1, D1> it1, identity_iterator<I2, T2, D2> it2, int = 0)
+template< class I1, class T1, class D1, class G1, class I2, class T2, class D2, class G2 > inline
+void iter_swap(identity_iterator<I1, T1, D1, G1> it1, identity_iterator<I2, T2, D2, G2> it2, int = 0)
 {
     do_iter_swap(it1.base(), it2.base());
 }

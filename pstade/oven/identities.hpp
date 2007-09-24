@@ -14,22 +14,17 @@
 #include <boost/mpl/assert.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/pass_by.hpp>
-#include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
-#include "./detail/identity_iterator.hpp"
-#include "./iter_range.hpp"
-#include "./range_difference.hpp"
+#include "./detail/result_of_identities.hpp"
 #include "./range_iterator.hpp"
-#include "./range_traversal.hpp"
 #include "./traversal_tags.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace oven {
 
 
-template< class Difference = boost::use_default >
+template< class Difference = boost::use_default, class Tag = boost::use_default >
 struct tp_make_identities
 {
     struct baby
@@ -38,29 +33,7 @@ struct tp_make_identities
         struct apply
         {
             typedef typename
-                eval_if_use_default<
-                    typename pass_by_value<Traversal>::type,
-                    range_pure_traversal<Range>
-                >::type
-            trv_t;
-
-            typedef typename
-                eval_if_use_default<
-                    Difference,
-                    range_difference<Range>
-                >::type
-            diff_t;
-
-            typedef
-                detail::identity_iterator<
-                    typename range_iterator<Range>::type,
-                    trv_t,
-                    diff_t
-                >
-            iter_t;
-
-            typedef
-                iter_range<iter_t> const
+                detail::result_of_identities<Range, Traversal, Difference, Tag>::type const
             type;
         };
 
@@ -81,9 +54,9 @@ struct tp_make_identities
 };
 
 
-template< class Difference = boost::use_default >
+template< class Difference = boost::use_default, class Tag = boost::use_default >
 struct xp_make_identities :
-    tp_make_identities<Difference>::type
+    tp_make_identities<Difference, Tag>::type
 { };
 
 

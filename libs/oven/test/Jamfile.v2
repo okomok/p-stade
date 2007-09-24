@@ -134,6 +134,7 @@ test-suite "oven" :
     [ run sugar.cpp ]
     [ run tab_expanded.cpp ]
     [ run tab_unexpanded.cpp ]
+    [ run tagged.cpp ]
     [ run taken.cpp ]
     [ run taken_while.cpp ]
     [ run test_test.cpp ]
