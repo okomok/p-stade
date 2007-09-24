@@ -153,4 +153,17 @@ void pstade_minimal_test()
         *oj = '0';
         BOOST_CHECK( src == "xyz0efg" );
     }
+    {
+        std::string src("abcdefg");
+        any_output_iterator<char const&> oi = boost::none;
+        BOOST_CHECK( oi.empty() );
+        oi = src.begin();
+        BOOST_CHECK(!oi.empty() );
+        oi.reset(boost::none);
+        BOOST_CHECK( oi.empty() );
+        oi = src.begin();
+        BOOST_CHECK(!oi.empty() );
+        oi = boost::none;
+        BOOST_CHECK( oi.empty() );
+    }
 }

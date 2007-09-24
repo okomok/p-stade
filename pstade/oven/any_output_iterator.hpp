@@ -15,6 +15,7 @@
 #include <typeinfo>
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
@@ -88,7 +89,7 @@ private:
 
 public:
 // structors
-    any_output_iterator()
+    any_output_iterator(boost::none_t = boost::none)
     { }
 
     template< class Iterator >
@@ -103,7 +104,7 @@ public:
         self_t(it).swap(*this);
     }
 
-    void reset()
+    void reset(boost::none_t = boost::none)
     {
         self_t().swap(*this);
     }

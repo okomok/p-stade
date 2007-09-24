@@ -152,6 +152,41 @@ void test_swap()
 }
 
 
+void test_none()
+{
+    {
+        std::string s("abdefg");
+        any_iterator<char &, boost::random_access_traversal_tag> a = boost::none;
+        BOOST_CHECK( a.empty() );
+        a = s.begin();
+        BOOST_CHECK(!a.empty() );
+        a.reset(boost::none);
+        BOOST_CHECK( a.empty() );
+        a = s.begin();
+        BOOST_CHECK(!a.empty() );
+        a = boost::none;
+        BOOST_CHECK( a.empty() );
+        a = s.begin();
+        BOOST_CHECK(!a.empty() );
+    }
+    {
+        std::string s("abdefg");
+        any_range<char &, boost::random_access_traversal_tag> a = boost::none;
+        BOOST_CHECK( a.iter_empty() );
+        a = s;
+        BOOST_CHECK(!a.iter_empty() );
+        a.reset(boost::none);
+        BOOST_CHECK( a.iter_empty() );
+        a = s;
+        BOOST_CHECK(!a.iter_empty() );
+        a = boost::none;
+        BOOST_CHECK( a.iter_empty() );
+        a = s;
+        BOOST_CHECK(!a.iter_empty() );
+    }
+}
+
+
 void pstade_unit_test()
 {
     ::test_iterator();
@@ -239,4 +274,5 @@ void pstade_unit_test()
     ::test_incrementable();
     ::test_make();
     ::test_swap();
+    ::test_none();
 }

@@ -13,6 +13,7 @@
 
 #include <boost/implicit_cast.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <boost/none.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/enable_if.hpp>
@@ -64,7 +65,7 @@ private:
 
 public:
 // structors
-    any_range()
+    any_range(boost::none_t = boost::none)
     { }
 
     template< class R, class T, class V, class D >
@@ -104,7 +105,7 @@ public:
         self_t(rng).swap(*this);
     }
 
-    void reset()
+    void reset(boost::none_t = boost::none)
     {
         self_t().swap(*this);
     }
