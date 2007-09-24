@@ -25,4 +25,10 @@
 #endif
 
 
+#ifdef _MSC_VER
+    #pragma inline_recursion(on)
+    #pragma inline_depth(255)
+#endif
+
+
 #endif

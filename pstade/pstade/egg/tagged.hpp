@@ -27,6 +27,9 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RET_R
 
 
+    // Do you need a function 'egg::tagged<...>(f)'?
+
+
     template<class Function>
     struct tag_of
     {

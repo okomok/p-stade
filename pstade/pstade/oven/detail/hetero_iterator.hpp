@@ -80,8 +80,8 @@ public:
     hetero_iterator()
     { }
 
-    hetero_iterator(Tuple& tup, hetero_iterator_base it) :
-        super_t(it), m_ptup(boost::addressof(tup))
+    hetero_iterator(Tuple& tup, hetero_iterator_base i) :
+        super_t(i), m_ptup(boost::addressof(tup))
     { }
 
 private:
@@ -112,7 +112,7 @@ friend class boost::iterator_core_access;
             switch (index) {
                 BOOST_PP_REPEAT(n, PSTADE_return_at, ~)
             default:
-                BOOST_ASSERT(false);
+                BOOST_ASSERT("out of range" && false);
                 throw "impossible"; // suppress warning.
             }
         }

@@ -21,7 +21,6 @@
 #include <pstade/make_bool.hpp>
 #include <pstade/reset_assignment.hpp>
 #include "./any_iterator_fwd.hpp"
-#include "./write.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,8 +36,7 @@ namespace any_output_iterator_detail {
         virtual ~placeholder() { }
         virtual std::type_info const& typeid_() const = 0;
 
-        virtual void write_(What w) = 0;
-        virtual void increment() = 0;
+        virtual void write_increment(What w) = 0;
     };
 
 
@@ -61,14 +59,9 @@ namespace any_output_iterator_detail {
             return typeid(Iterator);
         }
 
-        void write_(What w)
+        void write_increment(What w)
         {
-            write(m_held, w);
-        }
-
-        void increment()
-        {
-            ++m_held;
+            *m_held++ = w;
         }
 
     private:
@@ -163,8 +156,7 @@ private:
 
         void operator=(What w)
         {
-            m_content->write_(w);
-            m_content->increment();
+            m_content->write_increment(w);
         }
     };
 
