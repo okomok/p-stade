@@ -28,6 +28,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/static_warning.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -271,7 +272,7 @@ private:
 
 public:
 // structors
-    any_iterator()
+    any_iterator(boost::none_t = boost::none)
     { }
 
     // This constructor can't be implicit.
@@ -296,7 +297,7 @@ public:
         self_t(it).swap(*this);
     }
 
-    void reset()
+    void reset(boost::none_t = boost::none)
     {
         self_t().swap(*this);
     }

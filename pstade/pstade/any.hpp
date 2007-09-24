@@ -14,6 +14,7 @@
 #include <typeinfo>
 #include <boost/any.hpp>
 #include <boost/assert.hpp>
+#include <boost/none.hpp>
 #include <boost/optional/optional_fwd.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type.hpp>
@@ -149,7 +150,7 @@ namespace pstade {
 
     public:
     // structors
-        any_ref()
+        any_ref(boost::none_t = boost::none)
         { }
 
         template<class X>
@@ -175,7 +176,7 @@ namespace pstade {
             self_t(x).swap(*this);
         }
 
-        void reset()
+        void reset(boost::none_t = boost::none)
         {
             self_t().swap(*this);
         }
@@ -222,7 +223,7 @@ namespace pstade {
 
     public:
     // structors
-        any_cref()
+        any_cref(boost::none_t = boost::none)
         { }
 
         template<class X>
@@ -237,7 +238,7 @@ namespace pstade {
             self_t(x).swap(*this);
         }
 
-        void reset()
+        void reset(boost::none_t = boost::none)
         {
             self_t().swap(*this);
         }
@@ -277,7 +278,7 @@ namespace pstade {
 
     public:
     // structors
-        any_movable()
+        any_movable(boost::none_t = boost::none)
         { }
 
         template<class X>
@@ -292,7 +293,7 @@ namespace pstade {
             self_t(x).swap(*this);
         }
 
-        void reset()
+        void reset(boost::none_t = boost::none)
         {
             self_t().swap(*this);
         }

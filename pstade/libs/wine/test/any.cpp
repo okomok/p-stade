@@ -197,6 +197,19 @@ void test_ref()
         BOOST_CHECK( is_same(a.base<char const>(), j) );
         BOOST_CHECK( is_same(b.base<int>(), i) );
     }
+    { // using none
+        int i = 3;
+        any_ref a = boost::none;
+        BOOST_CHECK( !a );
+        a = i;
+        BOOST_CHECK(  a );
+        a.reset(boost::none);
+        BOOST_CHECK( !a );
+        a = i;
+        BOOST_CHECK(  a );
+        a = boost::none;
+        BOOST_CHECK( !a );
+    }
 }
 
 void test_cref()
@@ -354,6 +367,19 @@ void test_cref()
         BOOST_CHECK( is_same(a.base<char const>(), j) );
         BOOST_CHECK( is_same(b.base<int const>(), i) );
     }
+    { // using none
+        int i = 3;
+        any_cref a = boost::none;
+        BOOST_CHECK( !a );
+        a = i;
+        BOOST_CHECK(  a );
+        a.reset(boost::none);
+        BOOST_CHECK( !a );
+        a = i;
+        BOOST_CHECK(  a );
+        a = boost::none;
+        BOOST_CHECK( !a );
+    }
 }
 
 
@@ -466,6 +492,19 @@ void test_movable()
         pstade::egg::do_swap(a, b);
         BOOST_CHECK( *a.base< std::auto_ptr<char> >() == 'a' );
         BOOST_CHECK( *b.base< std::auto_ptr<int> >() == 3 );
+    }
+    { // using none
+        int i = 3;
+        any_movable a = boost::none;
+        BOOST_CHECK( !a );
+        a = i;
+        BOOST_CHECK(  a );
+        a.reset(boost::none);
+        BOOST_CHECK( !a );
+        a = i;
+        BOOST_CHECK(  a );
+        a = boost::none;
+        BOOST_CHECK( !a );
     }
 }
 
