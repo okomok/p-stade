@@ -681,6 +681,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`d(_arg_list(a, by_perfect), _arg_list(b, _Stg))`]
     ]
     [
+        [`fc(d, _Stg)(b1,...,bN) |= a`]
+        [`a|fc(d, _Stg)(b1,...,bN)`]
+    ]
+    [
         [`pipable(d)`]
         [`fc(d, _default)`]
     ]

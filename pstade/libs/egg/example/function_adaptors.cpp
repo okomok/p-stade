@@ -135,9 +135,14 @@ void test_memoize()
 
 
 //[code_pipable_example
-struct op_multiplies
+struct base_multiplies
 {
     typedef int result_type;
+
+    int operator()(int x) const
+    {
+        return x * x;
+    }
 
     int operator()(int x, int y) const
     {
@@ -150,12 +155,23 @@ struct op_multiplies
     }
 };
 
-op_multiplies const multiplies = {};
+result_of_pipable<base_multiplies>::type const
+    multiplies = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
 
 void test_pipable()
 {
-    BOOST_CHECK( ( 2|pipable(multiplies)(3) ) == 2 * 3 );
-    BOOST_CHECK( ( 2|pipable(multiplies)(3, 4) ) == 2 * 3 * 4 );
+    BOOST_CHECK( ( 2|multiplies ) == 2 * 2 );
+    BOOST_CHECK( ( 2|multiplies() ) == 2 * 2 );
+    BOOST_CHECK( ( 2|multiplies(3)|multiplies(4) ) == 2 * 3 * 4 );
+    BOOST_CHECK( ( 2|multiplies(3, 4) ) == 2 * 3 * 4 );
+
+    // `|=` seem an "apply" operator.
+    BOOST_CHECK( ( multiplies |= 2 ) == 2 * 2 );
+    BOOST_CHECK( ( multiplies() |= 2 ) == 2 * 2 );
+    BOOST_CHECK( ( multiplies |= multiplies |= 2) == (2 * 2) * (2 * 2) );
+
+    BOOST_CHECK( ( multiplies(3) |= 2 ) == 2 * 3 );
+    BOOST_CHECK( ( multiplies(3, 4) |= 2 ) == 2 * 3 * 4 );
 }
 //]
 

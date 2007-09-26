@@ -98,6 +98,21 @@ namespace pstade { namespace egg { namespace detail {
     }
 
 
+    template<class A, class Base, class Strategy, class ArgTuple> inline
+    typename result_of_output<A, Base, ArgTuple>::type
+    operator|=(function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi, A& a)
+    {
+        return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
+    }
+
+    template<class A, class Base, class Strategy, class ArgTuple> inline
+    typename result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple>::type
+    operator|=(function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi, A const& a)
+    {
+        return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
+    }
+
+
 } } } // namespace pstade::egg::detail
 
 

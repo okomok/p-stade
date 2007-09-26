@@ -10,6 +10,7 @@
 
 
 [heading Version 0.90.1]
+* `pipable` supports `|=` operator.
 * `ret` and `perfect` semantics slightly changed.
 * Added `tagged`.
 
