@@ -32,7 +32,7 @@ namespace with_data_detail {
     template< class Range, class Data >
     struct base
     {
-        typedef typename
+        typedef
             detail::data_iterator<
                 typename range_iterator<Range>::type,
                 typename detail::unwrap_ref<Data>::type
