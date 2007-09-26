@@ -1,0 +1,45 @@
+#include <pstade/vodka/drink.hpp>
+
+
+// PStade.Oven
+//
+// Copyright Shunsuke Sogame 2005-2006.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+#define PSTADE_CONCEPT_CHECK
+#include <string>
+#include <pstade/oven/with_data.hpp>
+#include <pstade/oven/outdirected.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/algorithm.hpp> // for_each
+
+
+namespace oven = pstade::oven;
+using namespace oven;
+
+
+std::string g_str("hello");
+
+
+struct op_foo
+{
+    template<class Iter>
+    void operator()(Iter it) const
+    {
+        BOOST_CHECK( &oven::data<std::string &>(it) == &g_str );
+        BOOST_CHECK( oven::data<int>(it) == 123 );
+    }
+};
+
+
+void pstade_minimal_test()
+{
+
+    for_each(
+        g_str|with_data(boost::ref(g_str))|with_data(123)|outdirected,
+        op_foo()
+    );
+}

@@ -55,7 +55,7 @@ void pstade_minimal_test()
         {
             boost::progress_timer t;
             for (int i = 0; i < count; ++i) {
-                r = oven::unrolled_reduce_c<7>(b, std::string(), ::my_str_op());
+                r = oven::unrolled_reduce< boost::mpl::int_<7> >(b, std::string(), ::my_str_op());
             }
         }
         BOOST_CHECK( equals(r, std::string("abcdefg")) );

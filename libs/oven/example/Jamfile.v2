@@ -35,6 +35,7 @@ test-suite "oven_example" :
     [ run pythagorean_triples.cpp ]
     [ run quick_sort.cpp ]
     [ run read.cpp ]
+    [ run range_map.cpp ]
     [ run specification.cpp ]
     [ run unfoldr.cpp ]
     [ run zip.cpp ]

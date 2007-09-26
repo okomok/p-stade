@@ -57,7 +57,7 @@ void pstade_minimal_test()
             boost::progress_timer t;
             for (int i = 0; i < count; ++i) {
                 a.resize(0);
-                oven::unrolled_for_each_c<7>(b, ::push_backer(a));
+                oven::unrolled_for_each< boost::mpl::int_<7> >(b, ::push_backer(a));
             }
         }
         BOOST_CHECK( equals(a, b) );

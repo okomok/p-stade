@@ -35,7 +35,7 @@ void pstade_minimal_test()
         {
             boost::progress_timer t;
             for (int i = 0; i < count; ++i) {
-                oven::unrolled_copy_c<7>(b, &a[0]);
+                oven::unrolled_copy< boost::mpl::int_<7> >(b, &a[0]);
             }
         }
         BOOST_CHECK( equals(a, std::string("abcdefg")) );

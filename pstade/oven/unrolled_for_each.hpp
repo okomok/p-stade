@@ -16,6 +16,7 @@
 #include <pstade/egg/specified.hpp>
 #include "./applier.hpp"
 #include "./concepts.hpp"
+#include "./distance.hpp"
 #include "./traversal_tags.hpp"
 #include "./unrolled_copy.hpp"
 

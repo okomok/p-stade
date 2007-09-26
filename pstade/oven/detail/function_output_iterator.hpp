@@ -50,7 +50,7 @@ private:
 // iterator implentation
     struct output_proxy
     {
-        UnaryFun m_fun;
+        UnaryFun& m_fun;
 
         // can replace 'for_each'?
         template< class Value >
@@ -67,7 +67,7 @@ private:
     };
 
 public:
-    output_proxy operator *() const
+    output_proxy operator *()
     {
         output_proxy r = {m_fun};
         return r;
