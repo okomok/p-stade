@@ -49,7 +49,7 @@ namespace pstade_lime_extension {
             return lime::save_default(node, out);
 
         if (!oven::equals(node%Name_serializable, Value_true))
-            return lime::save_default(node, oven::applier(pstade::unused));
+            return lime::save_default(node, oven::applier|=pstade::unused);
 
         try {
             hamburger::save(node, node%Name_includedHref);

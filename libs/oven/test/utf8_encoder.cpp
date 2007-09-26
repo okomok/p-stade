@@ -31,7 +31,7 @@ void test()
 
         std::vector<boost::uint8_t> result;
 
-        oven::copy(frng|utf8_decoded, utf8_encoder(std::back_inserter(result)));
+        oven::copy(frng|utf8_decoded, utf8_encoder|=std::back_inserter(result));
 
         BOOST_CHECK( oven::equals(
             frng,

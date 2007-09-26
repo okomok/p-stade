@@ -16,8 +16,9 @@ For any _pipable_object_ `p` the following must be met:
 
 * `x|p(x1,..,xN)` is a valid expression if and only if `make_++p(x, x1,..xN)` is a valid expression.
 * `x|p(x1,..,xN)` and `make_++p(x, x1,..xN)` have the same effects.
+* `p(x1,..,xN)|=x` and `make_++p(x, x1,..xN)` have the same effects.
 * `make_++p` is a _bindable_ _s_ _operatable_object_.
-* If `N` is `0`, `x|p` and `make_++p(x)` are valid expressions which have the same effects.
+* If `N` is `0`, `x|p`, `p|=x` and `make_++p(x)` are valid expressions which have the same effects.
 
 [h3 Models]
 * [link oven.filtered filtered]

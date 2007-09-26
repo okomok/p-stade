@@ -42,7 +42,7 @@ namespace unrolled_for_each_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(is_random_access(rng) ? N::value == distance(rng) : true);
 
-            return xp_unrolled_copy<N>()(rng, applier(fun)).function();
+            return xp_unrolled_copy<N>()(rng, make_applier(fun)).function();
         }
     };
 

@@ -910,6 +910,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/filter_iterator.html boost::filter_iterator]
 * [link oven.dropped_while dropped_while]
+* [link oven.filterer filterer]
 
 [endsect]
 
@@ -1952,6 +1953,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/transform_iterator.html boost::transform_iterator]
+* [link oven.transformer transformer]
 
 [endsect]
 
