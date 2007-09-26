@@ -30,6 +30,7 @@ test-suite "oven_example" :
     [ run merge_sort.cpp ]
     [ run newton.cpp ]
     [ run one_year.cpp ]
+    [ run out_pipe.cpp ]
     [ run power.cpp ]
     [ run primes.cpp ]
     [ run pythagorean_triples.cpp ]

@@ -38,20 +38,20 @@ void test()
 
     {
         g_ss.str("");
-        std::stringstream& ss = oven::adapted_to<std::stringstream&>( copy(src, stream_writer(g_ss)) );
+        std::stringstream& ss = oven::adapted_to<std::stringstream&>( copy(src, stream_writer|=g_ss) );
         BOOST_CHECK( equals(g_ss.str(), src) );
         BOOST_CHECK( pstade::egg::is_same(ss, g_ss) );
     }
     {
         g_ss.str("");
-        std::stringstream& ss = oven::adapted_to<std::stringstream&>( copy(src, stream_writer(g_ss, ",")) );
+        std::stringstream& ss = oven::adapted_to<std::stringstream&>( copy(src, stream_writer(",")|=g_ss) );
         BOOST_CHECK( equals(g_ss.str(), std::string("a,b,c,d,e,f,g")) );
         BOOST_CHECK( pstade::egg::is_same(ss, g_ss) );
     }
 #if 0 // seems not to be able to support reference type as 'to_base' target.
     {
         std::wstring rng(L"aabbbcccdddeffg");
-        std::stringstream& ss = oven::unique_copy(rng, utf8_encoder(stream_writer(g_ss)))|to_base;
+        std::stringstream& ss = oven::unique_copy(rng, utf8_encoder|=stream_writer|=g_ss)|to_base;
         BOOST_CHECK( pstade::egg::is_same(ss, g_ss) );
     }
 #endif

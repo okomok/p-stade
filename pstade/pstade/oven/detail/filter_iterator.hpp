@@ -58,6 +58,8 @@ private:
     typedef typename filter_iterator_super<Predicate, Iterator>::type super_t;
 
 public:
+    typedef Predicate predicate_type;
+
     filter_iterator()
     { }
 

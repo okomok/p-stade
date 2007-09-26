@@ -166,12 +166,12 @@ void test_pipable()
     BOOST_CHECK( ( 2|multiplies(3, 4) ) == 2 * 3 * 4 );
 
     // `|=` seem an "apply" operator.
-    BOOST_CHECK( ( multiplies |= 2 ) == 2 * 2 );
-    BOOST_CHECK( ( multiplies() |= 2 ) == 2 * 2 );
-    BOOST_CHECK( ( multiplies |= multiplies |= 2) == (2 * 2) * (2 * 2) );
+    BOOST_CHECK( ( multiplies|=2 ) == 2 * 2 );
+    BOOST_CHECK( ( multiplies()|=2 ) == 2 * 2 );
+    BOOST_CHECK( ( multiplies|=multiplies|=2) == (2 * 2) * (2 * 2) );
 
-    BOOST_CHECK( ( multiplies(3) |= 2 ) == 2 * 3 );
-    BOOST_CHECK( ( multiplies(3, 4) |= 2 ) == 2 * 3 * 4 );
+    BOOST_CHECK( ( multiplies(3)|=2 ) == 2 * 3 );
+    BOOST_CHECK( ( multiplies(3, 4)|= 2 ) == 2 * 3 * 4 );
 }
 //]
 

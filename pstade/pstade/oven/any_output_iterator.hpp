@@ -41,15 +41,15 @@ namespace any_output_iterator_detail {
     };
 
 
-    template< class Iterator, class What >
+    template< class OutIter, class What >
     struct holder :
         placeholder<What>
     {
-        explicit holder(Iterator held) :
+        explicit holder(OutIter held) :
             m_held(held)
         { }
 
-        Iterator held() const
+        OutIter held() const
         {
             return m_held;
         }
@@ -57,7 +57,7 @@ namespace any_output_iterator_detail {
     // override
         std::type_info const& typeid_() const
         {
-            return typeid(Iterator);
+            return typeid(OutIter);
         }
 
         void write_increment(What w)
@@ -66,7 +66,7 @@ namespace any_output_iterator_detail {
         }
 
     private:
-        Iterator m_held;
+        OutIter m_held;
     };
 
 
@@ -81,10 +81,10 @@ private:
     typedef any_output_iterator self_t;
     typedef boost::shared_ptr< any_output_iterator_detail::placeholder<What> > content_t;
 
-    template< class Iterator >
+    template< class OutIter >
     struct holder_of
     {
-        typedef any_output_iterator_detail::holder<Iterator, What> type;
+        typedef any_output_iterator_detail::holder<OutIter, What> type;
     };
 
 public:
@@ -92,14 +92,14 @@ public:
     any_output_iterator(boost::none_t = boost::none)
     { }
 
-    template< class Iterator >
-    explicit any_output_iterator(Iterator it) :
-        m_content(new typename holder_of<Iterator>::type(it))
+    template< class OutIter >
+    explicit any_output_iterator(OutIter it) :
+        m_content(new typename holder_of<OutIter>::type(it))
     { }
 
 // assignments
-    template< class Iterator >
-    void reset(Iterator it)
+    template< class OutIter >
+    void reset(OutIter it)
     {
         self_t(it).swap(*this);
     }
@@ -134,17 +134,17 @@ public:
     }
 
 // base access
-    template< class Iterator >
+    template< class OutIter >
     bool has_base() const
     {
-        return make_bool(type() == typeid(Iterator));
+        return make_bool(type() == typeid(OutIter));
     }
 
-    template< class Iterator >
-    Iterator base() const
+    template< class OutIter >
+    OutIter base() const
     {
-        BOOST_ASSERT(has_base<Iterator>());
-        return egg::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
+        BOOST_ASSERT(has_base<OutIter>());
+        return egg::static_downcast<typename holder_of<OutIter>::type>(*m_content).held();
     }
 
 private:

@@ -1,5 +1,14 @@
 [section Output Iterator Adaptors]
 
+Output Iterator Adaptors adapt the behavior of the underlying object or iterator.
+An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`, you can "chain" multiple adaptors:
+
+    int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
+    int const answer[] = {2*3,4*3,6*3,8*3,10*3};
+    std::vector<int> out;
+    copy(in, filterer(bll::_1 % 2 == 0)|=transformer(bll::_1 * 3)|=back_inserter|=out);
+    BOOST_CHECK( equals(out, answer) );
+
 
 
 
@@ -12,7 +21,7 @@
 * `<pstade/oven/applier.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -21,7 +30,7 @@
         [[*Semantics]]
     ]
     [
-        [`applier(_fun)`]
+        [`applier|=_fun`]
         [
             `T(_fun)`
         ]
@@ -42,6 +51,99 @@
 
 
 
+[section filterer]
+
+[h3 Description]
+`filterer` skips an input which doesn't satify a predicate.
+
+[h3 Header]
+* `<pstade/oven/filterer.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `f_(x)` is an imaginary _function_object_ such that `v -> if(_prd(*v)) *x++ = *v`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`filterer(_prd)|=x`]
+        [
+            `applier|=(f_(x))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `x` is an _output_iterator_.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.applier applier]
+* [link oven.filtered filtered]
+
+[endsect]
+
+
+
+
+[section inserter]
+
+[h3 Description]
+`inserter` family is a _pipable_object_ which is an akin to `std::inserter` family
+
+[h3 Header]
+* `<pstade/oven/inserter.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`inserter(i)|=x`]
+        [
+            `T(x, i)`
+        ]
+    ]
+    [
+        [`back_inserter|=bx`]
+        [
+            `BT(bx)`
+        ]
+    ]
+    [
+        [`front_inserter|=fx`]
+        [
+            `FT(fx)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `std::insert_iterator<_typeof(x)>` such that `T(x, i)` is a valid expression.
+* `BT` is `std::back_insert_iterator<_typeof(bx)>` such that `BT(bx)` is a valid expression.
+* `FT` is `std::front_insert_iterator<_typeof(fx)>` such that `FT(fx)` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+
+[endsect]
+
+
+
+
 [section stream_writer]
 
 [h3 Description]
@@ -53,7 +155,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 * `<pstade/oven/stream_writer.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -62,15 +164,15 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
         [[*Semantics]]
     ]
     [
-        [`stream_writer(s, d)`]
+        [`stream_writer(d)|=s`]
         [
             `T(s, d)`
         ]
     ]
     [
-        [`stream_writer(s)`]
+        [`stream_writer|=s`]
         [
-            `stream_writer(s, 0)`
+            `stream_writer(0)|=s`
         ]
     ]
 ]
@@ -87,7 +189,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 
     {
         std::ofstream fout("read.txt");
-        copy(sample, stream_writer(fout, " "));
+        copy(sample, stream_writer(" ")|=fout);
     }
 
     {
@@ -110,6 +212,48 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 
 
 
+[section transformer]
+
+[h3 Description]
+`tranformer` applies a _function_object_ to an input.
+
+[h3 Header]
+* `<pstade/oven/transformer.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `f_(x)` is an imaginary _function_object_ such that `v -> *x++ = _fun(v)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`transformer(_fun)|=x`]
+        [
+            `applier|=(f_(x))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `x` is an _output_iterator_.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.applier applier]
+* [link oven.transformed transformed]
+
+[endsect]
+
+
+
+
 [section utf8_encoder]
 
 [h3 Description]
@@ -119,7 +263,7 @@ Pending...
 * `<pstade/oven/utf8_encoder.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -128,7 +272,7 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`utf8_encoder(x)`]
+        [`utf8_encoder|=x`]
         [
             `T(x)`
         ]
@@ -157,7 +301,7 @@ Pending...
 * `<pstade/oven/utf16_encoder.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -166,7 +310,7 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`utf16_encoder(x)`]
+        [`utf16_encoder|=x`]
         [
             `T(x)`
         ]

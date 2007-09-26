@@ -12,21 +12,36 @@
 
 
 #include <boost/regex/pending/unicode_iterator.hpp> // utf8_output_iterator
-#include <pstade/egg/generator.hpp>
-#include <pstade/pod_constant.hpp>
+#include <pstade/pass_by.hpp>
+#include "./detail/base_to_adaptor.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-typedef
-    egg::generator<
-        boost::utf8_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> > const
-    >::type
-op_utf8_encoder;
+namespace utf8_encoder_detail {
 
 
-PSTADE_POD_CONSTANT((op_utf8_encoder), utf8_encoder) = PSTADE_EGG_GENERATOR;
+    template< class OutIter >
+    struct base
+    {
+        typedef
+            boost::utf8_output_iterator<
+                typename pass_by_value<OutIter>::type
+            >
+        result_type;
+
+        result_type operator()(OutIter& it) const
+        {
+            return result_type(it);
+        }
+    };
+
+
+} // namespace utf8_encoder_detail
+
+
+PSTADE_OVEN_BASE_TO_ADAPTOR(utf8_encoder, (utf8_encoder_detail::base<_>))
 
 
 } } // namespace pstade::oven
