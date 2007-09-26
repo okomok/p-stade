@@ -29,14 +29,23 @@ struct op_foo
     template<class Iter>
     void operator()(Iter it) const
     {
-        BOOST_CHECK( &oven::data<std::string &>(it) == &g_str );
-        BOOST_CHECK( oven::data<int>(it) == 123 );
+        BOOST_CHECK( &oven::iter_data<std::string &>(it) == &g_str );
+        BOOST_CHECK( oven::iter_data<int>(it) == 123 );
     }
 };
 
 
 void pstade_minimal_test()
 {
+    std::string &str = oven::data<std::string &>(
+        g_str|with_data(boost::ref(g_str))|with_data(123)
+    );
+    BOOST_CHECK(&str == &g_str);
+
+    int i = oven::data<int>(
+        g_str|with_data(boost::ref(g_str))|with_data(123)
+    );
+    BOOST_CHECK(i == 123);
 
     for_each(
         g_str|with_data(boost::ref(g_str))|with_data(123)|outdirected,

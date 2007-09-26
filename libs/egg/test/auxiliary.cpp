@@ -82,15 +82,23 @@ void pstade_minimal_test()
         BOOST_CHECK( interface0(s)    == ans );
         BOOST_CHECK( (s|interface0)   == ans );
         BOOST_CHECK( (s|interface0()) == ans );
+
+
+        BOOST_CHECK( (interface0 |= s)    == ans );
+        BOOST_CHECK( (interface0() |= s) == ans );
     }
     {
         std::string ans("interface1");
         BOOST_CHECK( interface1(s, '1')  == ans );
         BOOST_CHECK( (s|interface1('1')) == ans );
+
+        BOOST_CHECK( (interface1('1') |= s) == ans );
     }
     {
         std::string ans("interface1234");
         BOOST_CHECK( interface4(s, '1', '2', '3', '4')  == ans );
         BOOST_CHECK( (s|interface4('1', '2', '3', '4')) == ans );
+
+        BOOST_CHECK( (interface4('1', '2', '3', '4') |= s) == ans );
     }
 }

@@ -74,7 +74,7 @@ public:
     }
 
     function_output_iterator& operator++() { return *this; }
-    function_output_iterator& operator++(int) { return *this; } // must return reference.
+    function_output_iterator& operator++(int) { return *this; }
 };
 
 

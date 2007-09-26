@@ -92,6 +92,20 @@ namespace pstade { namespace egg {
         return pi.baby().m_base(a0);
     }
 
+    template<class A0, class UnaryBase> inline
+    typename result_of<UnaryBase(A0&)>::type
+    operator|=(function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi, A0& a0)
+    {
+        return pi.baby().m_base(a0);
+    }
+
+    template<class A0, class UnaryBase> inline
+    typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
+    operator|=(function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi, A0 const& a0)
+    {
+        return pi.baby().m_base(a0);
+    }
+
     template<class UnaryBase>
     struct result_of_auxiliary0
     {

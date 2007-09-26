@@ -25,14 +25,14 @@ using namespace oven;
 template<class Rng, class Data>
 void check_data(Rng& rng, Data const& dt)
 {
-    BOOST_CHECK(oven::data<Data>(boost::begin(rng)) == dt);
+    BOOST_CHECK(oven::data<Data>(rng) == dt);
 }
 
 template<class Rng, class Data>
 void check_data_ref(Rng& rng, Data& dt)
 {
-    BOOST_CHECK(oven::data<Data &>(boost::begin(rng)) == dt);
-    BOOST_CHECK(&oven::data<Data &>(boost::begin(rng)) == &dt); // holds by reference
+    BOOST_CHECK(oven::data<Data &>(rng) == dt);
+    BOOST_CHECK(&oven::data<Data &>(rng) == &dt); // holds by reference
 }
 
 
