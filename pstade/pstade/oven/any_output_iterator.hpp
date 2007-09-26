@@ -153,7 +153,7 @@ private:
 // iterator implementation
     struct output_proxy
     {
-        content_t m_content;
+        content_t const& m_content;
 
         void operator=(What w)
         {

@@ -25,7 +25,6 @@
 //     BOOST_FOREACH (char const &x, to_const_reference(std::string("abc"))) {
 //         // x is dangling!
 //     }
-// Boost.Foreach l/rvalue-detection wouldn't pay, IMHO.
 
 
 #include <boost/iterator/iterator_traits.hpp>

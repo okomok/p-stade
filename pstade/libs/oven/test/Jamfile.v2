@@ -154,6 +154,7 @@ test-suite "oven" :
     [ run utf16.cpp ]
     [ run utf16_encoder.cpp ]
     [ run window.cpp ]
+    [ run with_data.cpp ]
     [ run with_line_number.cpp ]
     [ run with_position.cpp ]
     [ run xpressive.cpp ]

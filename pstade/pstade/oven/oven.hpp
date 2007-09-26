@@ -168,6 +168,7 @@
 // #include "./utf16_encoder.hpp"
 #include "./wide_chars.hpp"
 #include "./window.hpp"
+#include "./with_data.hpp"
 #include "./with_line_number.hpp"
 #include "./with_position.hpp"
 #include "./write.hpp"

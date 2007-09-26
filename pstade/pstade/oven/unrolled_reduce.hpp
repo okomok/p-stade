@@ -20,6 +20,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/specified.hpp>
 #include "./concepts.hpp"
+#include "./distance.hpp"
 #include "./traversal_tags.hpp"
 
 
@@ -47,12 +48,12 @@ namespace unrolled_reduce_detail {
     template< class BinaryFun, class ItStPair, int N > inline
     ItStPair aux(boost::mpl::int_<N>, BinaryFun fun, ItStPair is)
     {
-        static int const firstN = N/2;
-        static int const secondN = N - firstN;
+        static int const leftN = N/2;
+        static int const rightN = N - leftN;
 
         return here::aux(
-            boost::mpl::int_<secondN>(), fun,
-            here::aux(boost::mpl::int_<firstN>(), fun, is)
+            boost::mpl::int_<rightN>(), fun,
+            here::aux(boost::mpl::int_<leftN>(), fun, is)
         );
     }
 

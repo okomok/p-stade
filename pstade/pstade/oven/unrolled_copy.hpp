@@ -24,6 +24,7 @@
 #include <pstade/egg/specified.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
+#include "./distance.hpp"
 #include "./traversal_tags.hpp"
 
 
@@ -52,12 +53,12 @@ namespace unrolled_copy_detail {
     template< class IterPair, int N > inline
     IterPair aux(boost::mpl::int_<N>, IterPair io)
     {
-        static int const firstN = N/2;
-        static int const secondN = N - firstN;
+        static int const leftN = N/2;
+        static int const rightN = N - leftN;
 
         return here::aux(
-            boost::mpl::int_<secondN>(),
-            here::aux(boost::mpl::int_<firstN>(), io)
+            boost::mpl::int_<rightN>(),
+            here::aux(boost::mpl::int_<leftN>(), io)
         );
     }
 
