@@ -21,6 +21,7 @@
 <div class="toc"><dl>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.applier">applier</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.filterer">filterer</a></span></dt>
+<dt><span class="section"><a href="output_iterator_adaptors.html#oven.indirecter">indirecter</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.inserter">inserter</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.stream_writer">stream_writer</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.transformer">transformer</a></span></dt>
@@ -30,8 +31,7 @@
 <p>
       Output Iterator Adaptors adapt the behavior of the underlying object or iterator.
       An Output Iterator Adaptor is a <a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable
-      Object</a>, so that you can "chain" multiple adaptors by using
-      <code class="computeroutput"><span class="keyword">operator</span><span class="special">|=</span></code>:
+      Object</a>, so that, by using <code class="computeroutput"><span class="keyword">operator</span><span class="special">|=</span></code>, you can "chain" multiple adaptors:
     </p>
 <pre class="programlisting">
 <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">in</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span> <span class="number">1</span><span class="special">,</span><span class="number">2</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">6</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">8</span><span class="special">,</span><span class="number">9</span><span class="special">,</span><span class="number">10</span> <span class="special">};</span>
@@ -44,7 +44,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.applier"></a>applier</h3></div></div></div>
 <a name="applier.description"></a><h4>
-<a name="id596187"></a>
+<a name="id596239"></a>
         Description
       </h4>
 <p>
@@ -52,17 +52,17 @@
         which passes each item assigned as an argument to the unary function.
       </p>
 <a name="applier.header"></a><h4>
-<a name="id596222"></a>
+<a name="id596275"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">applier</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="applier.model_of"></a><h4>
-<a name="id596292"></a>
+<a name="id596345"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="applier.valid_expressions"></a><h4>
-<a name="id596322"></a>
+<a name="id596375"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -85,7 +85,8 @@
 <tbody><tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">applier</span><span class="special">|=</span><span class="identifier">_fun</span></code>
+                <code class="computeroutput"><span class="identifier">applier</span> <span class="special">|=</span>
+                <span class="identifier">_fun</span></code>
               </p>
               </td>
 <td>
@@ -96,18 +97,18 @@
 </tr></tbody>
 </table></div>
 <a name="applier.preconditions"></a><h4>
-<a name="id596446"></a>
+<a name="id596501"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function_output_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code> is a valid expression.
         </li></ul></div>
 <a name="applier.example"></a><h4>
-<a name="id596547"></a>
+<a name="id596602"></a>
         Example
       </h4>
 <a name="applier.see_also"></a><h4>
-<a name="id596561"></a>
+<a name="id596616"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -119,7 +120,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.filterer"></a>filterer</h3></div></div></div>
 <a name="filterer.description"></a><h4>
-<a name="id596613"></a>
+<a name="id596668"></a>
         Description
       </h4>
 <p>
@@ -127,26 +128,28 @@
         doesn't satify a predicate.
       </p>
 <a name="filterer.header"></a><h4>
-<a name="id596641"></a>
+<a name="id596696"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">filterer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="filterer.model_of"></a><h4>
-<a name="id596712"></a>
+<a name="id596767"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="filterer.notation"></a><h4>
-<a name="id596741"></a>
+<a name="id596796"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
-          f_ is an imaginary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-          Object</a> such that <code class="computeroutput"><span class="identifier">v</span> <span class="special">-&gt;</span> <span class="keyword">if</span><span class="special">(</span><span class="identifier">_prd</span><span class="special">(*</span><span class="identifier">v</span><span class="special">))</span>
+<code class="computeroutput"><span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> is
+          an imaginary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+          Object</a> which behaves as if it were <code class="computeroutput"><span class="identifier">v</span>
+          <span class="special">-&gt;</span> <span class="keyword">if</span><span class="special">(</span><span class="identifier">_prd</span><span class="special">(*</span><span class="identifier">v</span><span class="special">))</span>
           <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">v</span></code>.
         </li></ul></div>
 <a name="filterer.valid_expressions"></a><h4>
-<a name="id596850"></a>
+<a name="id596930"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -169,18 +172,20 @@
 <tbody><tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">filterer</span><span class="special">(</span><span class="identifier">_prd</span><span class="special">)|=</span><span class="identifier">x</span></code>
+                <code class="computeroutput"><span class="identifier">filterer</span><span class="special">(</span><span class="identifier">_prd</span><span class="special">)</span>
+                <span class="special">|=</span> <span class="identifier">x</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">applier</span><span class="special">|=(</span><span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">))</span></code>
+                <code class="computeroutput"><span class="identifier">applier</span> <span class="special">|=</span>
+                <span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
               </p>
               </td>
 </tr></tbody>
 </table></div>
 <a name="filterer.preconditions"></a><h4>
-<a name="id596994"></a>
+<a name="id597083"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -188,11 +193,11 @@
           Iterator</a>.
         </li></ul></div>
 <a name="filterer.example"></a><h4>
-<a name="id597032"></a>
+<a name="id597121"></a>
         Example
       </h4>
 <a name="filterer.see_also"></a><h4>
-<a name="id597046"></a>
+<a name="id597134"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -202,9 +207,98 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oven.indirecter"></a>indirecter</h3></div></div></div>
+<a name="indirecter.description"></a><h4>
+<a name="id597186"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">indirecter</span></code> applies an extra
+        dereference in outputting.
+      </p>
+<a name="indirecter.header"></a><h4>
+<a name="id597214"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">indirecter</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="indirecter.model_of"></a><h4>
+<a name="id597285"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
+<a name="indirecter.notation"></a><h4>
+<a name="id597314"></a>
+        Notation
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> is
+          an imaginary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+          Object</a> which behaves as if it were <code class="computeroutput"><span class="identifier">v</span>
+          <span class="special">-&gt;</span> <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">v</span></code>.
+        </li></ul></div>
+<a name="indirecter.valid_expressions"></a><h4>
+<a name="id597417"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">indirecter</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span>
+                <span class="special">|=</span> <span class="identifier">x</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">applier</span> <span class="special">|=</span>
+                <span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="indirecter.preconditions"></a><h4>
+<a name="id597570"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">x</span></code> is an <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output
+          Iterator</a>.
+        </li></ul></div>
+<a name="indirecter.example"></a><h4>
+<a name="id597608"></a>
+        Example
+      </h4>
+<a name="indirecter.see_also"></a><h4>
+<a name="id597622"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="output_iterator_adaptors.html#oven.applier" title="applier">applier</a></li>
+<li><a href="range_adaptors.html#oven.indirected" title="indirected">indirected</a></li>
+<li><a href="range_adaptors.html#oven.outdirected" title="outdirected">outdirected</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.inserter"></a>inserter</h3></div></div></div>
 <a name="inserter.description"></a><h4>
-<a name="id597097"></a>
+<a name="id597685"></a>
         Description
       </h4>
 <p>
@@ -212,17 +306,17 @@
         <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">inserter</span></code> family
       </p>
 <a name="inserter.header"></a><h4>
-<a name="id597153"></a>
+<a name="id597741"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">inserter</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="inserter.model_of"></a><h4>
-<a name="id597224"></a>
+<a name="id597812"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="inserter.valid_expressions"></a><h4>
-<a name="id597253"></a>
+<a name="id597841"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -246,7 +340,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">inserter</span><span class="special">(</span><span class="identifier">i</span><span class="special">)|=</span><span class="identifier">x</span></code>
+                <code class="computeroutput"><span class="identifier">inserter</span><span class="special">(</span><span class="identifier">i</span><span class="special">)</span> <span class="special">|=</span> <span class="identifier">x</span></code>
               </p>
               </td>
 <td>
@@ -258,7 +352,8 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">back_inserter</span><span class="special">|=</span><span class="identifier">bx</span></code>
+                <code class="computeroutput"><span class="identifier">back_inserter</span> <span class="special">|=</span>
+                <span class="identifier">bx</span></code>
               </p>
               </td>
 <td>
@@ -270,7 +365,8 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">front_inserter</span><span class="special">|=</span><span class="identifier">fx</span></code>
+                <code class="computeroutput"><span class="identifier">front_inserter</span> <span class="special">|=</span>
+                <span class="identifier">fx</span></code>
               </p>
               </td>
 <td>
@@ -282,7 +378,7 @@
 </tbody>
 </table></div>
 <a name="inserter.preconditions"></a><h4>
-<a name="id597519"></a>
+<a name="id598119"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -302,11 +398,11 @@
         </li>
 </ul></div>
 <a name="inserter.example"></a><h4>
-<a name="id597800"></a>
+<a name="id598399"></a>
         Example
       </h4>
 <a name="inserter.see_also"></a><h4>
-<a name="id597813"></a>
+<a name="id598413"></a>
         See also
       </h4>
 </div>
@@ -314,7 +410,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stream_writer"></a>stream_writer</h3></div></div></div>
 <a name="stream_writer.description"></a><h4>
-<a name="id597840"></a>
+<a name="id598439"></a>
         Description
       </h4>
 <p>
@@ -327,17 +423,17 @@
         though.
       </p>
 <a name="stream_writer.header"></a><h4>
-<a name="id597920"></a>
+<a name="id598520"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="stream_writer.model_of"></a><h4>
-<a name="id597990"></a>
+<a name="id598590"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="stream_writer.valid_expressions"></a><h4>
-<a name="id598020"></a>
+<a name="id598620"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -361,7 +457,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">d</span><span class="special">)|=</span><span class="identifier">s</span></code>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">d</span><span class="special">)</span> <span class="special">|=</span> <span class="identifier">s</span></code>
               </p>
               </td>
 <td>
@@ -373,12 +469,13 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">|=</span><span class="identifier">s</span></code>
+                <code class="computeroutput"><span class="identifier">stream_writer</span> <span class="special">|=</span>
+                <span class="identifier">s</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="number">0</span><span class="special">)|=</span><span class="identifier">s</span></code>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="number">0</span><span class="special">)</span> <span class="special">|=</span> <span class="identifier">s</span></code>
               </p>
               </td>
 </tr>
@@ -401,7 +498,7 @@
 </td></tr>
 </table></div>
 <a name="stream_writer.preconditions"></a><h4>
-<a name="id598253"></a>
+<a name="id598869"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -417,7 +514,7 @@
         </li>
 </ul></div>
 <a name="stream_writer.example"></a><h4>
-<a name="id598475"></a>
+<a name="id599092"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -438,7 +535,7 @@
 <span class="special">}</span>
 </pre>
 <a name="stream_writer.see_also"></a><h4>
-<a name="id598835"></a>
+<a name="id599452"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -453,7 +550,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.transformer"></a>transformer</h3></div></div></div>
 <a name="transformer.description"></a><h4>
-<a name="id598923"></a>
+<a name="id599540"></a>
         Description
       </h4>
 <p>
@@ -461,25 +558,27 @@
         an input.
       </p>
 <a name="transformer.header"></a><h4>
-<a name="id598959"></a>
+<a name="id599575"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">transformer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="transformer.model_of"></a><h4>
-<a name="id599029"></a>
+<a name="id599646"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="transformer.notation"></a><h4>
-<a name="id599058"></a>
+<a name="id599675"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
-          f_ is an imaginary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-          Object</a> such that <code class="computeroutput"><span class="identifier">v</span> <span class="special">-&gt;</span> <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="identifier">_fun</span><span class="special">(</span><span class="identifier">v</span><span class="special">)</span></code>.
+<code class="computeroutput"><span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code> is
+          an imaginary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+          Object</a> which behaves as if it were <code class="computeroutput"><span class="identifier">v</span>
+          <span class="special">-&gt;</span> <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="identifier">_fun</span><span class="special">(</span><span class="identifier">v</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="transformer.valid_expressions"></a><h4>
-<a name="id599147"></a>
+<a name="id599788"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -502,18 +601,20 @@
 <tbody><tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">transformer</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)|=</span><span class="identifier">x</span></code>
+                <code class="computeroutput"><span class="identifier">transformer</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span>
+                <span class="special">|=</span> <span class="identifier">x</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">applier</span><span class="special">|=(</span><span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">))</span></code>
+                <code class="computeroutput"><span class="identifier">applier</span> <span class="special">|=</span>
+                <span class="identifier">f_</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
               </p>
               </td>
 </tr></tbody>
 </table></div>
 <a name="transformer.preconditions"></a><h4>
-<a name="id599290"></a>
+<a name="id599941"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -521,11 +622,11 @@
           Iterator</a>.
         </li></ul></div>
 <a name="transformer.example"></a><h4>
-<a name="id599328"></a>
+<a name="id599979"></a>
         Example
       </h4>
 <a name="transformer.see_also"></a><h4>
-<a name="id599342"></a>
+<a name="id599993"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -537,24 +638,24 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utf8_encoder"></a>utf8_encoder</h3></div></div></div>
 <a name="utf8_encoder.description"></a><h4>
-<a name="id599394"></a>
+<a name="id600045"></a>
         Description
       </h4>
 <p>
         Pending...
       </p>
 <a name="utf8_encoder.header"></a><h4>
-<a name="id599412"></a>
+<a name="id600063"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf8_encoder</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="utf8_encoder.model_of"></a><h4>
-<a name="id599482"></a>
+<a name="id600133"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="utf8_encoder.valid_expressions"></a><h4>
-<a name="id599511"></a>
+<a name="id600162"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -577,7 +678,8 @@
 <tbody><tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">utf8_encoder</span><span class="special">|=</span><span class="identifier">x</span></code>
+                <code class="computeroutput"><span class="identifier">utf8_encoder</span> <span class="special">|=</span>
+                <span class="identifier">x</span></code>
               </p>
               </td>
 <td>
@@ -588,7 +690,7 @@
 </tr></tbody>
 </table></div>
 <a name="utf8_encoder.preconditions"></a><h4>
-<a name="id599634"></a>
+<a name="id600288"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -597,11 +699,11 @@
           a valid expression.
         </li></ul></div>
 <a name="utf8_encoder.example"></a><h4>
-<a name="id599736"></a>
+<a name="id600390"></a>
         Example
       </h4>
 <a name="utf8_encoder.see_also"></a><h4>
-<a name="id599749"></a>
+<a name="id600403"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="string_adaptors.html#oven.utf8_decoded" title="utf8_decoded">utf8_decoded</a></li></ul></div>
@@ -610,24 +712,24 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utf16_encoder"></a>utf16_encoder</h3></div></div></div>
 <a name="utf16_encoder.description"></a><h4>
-<a name="id599791"></a>
+<a name="id600444"></a>
         Description
       </h4>
 <p>
         Pending...
       </p>
 <a name="utf16_encoder.header"></a><h4>
-<a name="id599808"></a>
+<a name="id600462"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf16_encoder</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="utf16_encoder.model_of"></a><h4>
-<a name="id599879"></a>
+<a name="id600532"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="utf16_encoder.valid_expressions"></a><h4>
-<a name="id599908"></a>
+<a name="id600562"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -650,7 +752,8 @@
 <tbody><tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">utf16_encoder</span><span class="special">|=</span><span class="identifier">x</span></code>
+                <code class="computeroutput"><span class="identifier">utf16_encoder</span> <span class="special">|=</span>
+                <span class="identifier">x</span></code>
               </p>
               </td>
 <td>
@@ -661,7 +764,7 @@
 </tr></tbody>
 </table></div>
 <a name="utf16_encoder.preconditions"></a><h4>
-<a name="id600031"></a>
+<a name="id600688"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -670,11 +773,11 @@
           a valid expression.
         </li></ul></div>
 <a name="utf16_encoder.example"></a><h4>
-<a name="id600133"></a>
+<a name="id600790"></a>
         Example
       </h4>
 <a name="utf16_encoder.see_also"></a><h4>
-<a name="id600147"></a>
+<a name="id600803"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="string_adaptors.html#oven.utf16_decoded" title="utf16_decoded">utf16_decoded</a></li></ul></div>

@@ -71,6 +71,7 @@ test-suite "oven" :
     [ run identities.cpp ]
     [ run indexing.cpp ]
     [ run indirected.cpp ]
+    [ run indirecter.cpp ]
     [ run initial_ptrs.cpp ]
     [ run initial_values.cpp ]
     [ run io.cpp ]

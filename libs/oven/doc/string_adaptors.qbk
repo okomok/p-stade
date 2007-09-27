@@ -5,6 +5,72 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 
 
+[section broken_into]
+
+[h3 Description]
+* `broken_into` is a range adaptor version of `boost::tokenizer`.
+
+[h3 Header]
+* `<pstade/oven/broken_into.hpp>`
+
+[h3 Model of]
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`xp_make_broken_into<V>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`xp_make_broken_into<V>()(_rng, k)`]
+        [
+            `[T(k, _begin(_rng), _end(_rng)), T(k, _end(_rng), boost:end(_rng)))`
+        ]
+    ]
+    [
+        [`_rng|oven::broken_into<V>(k)`]
+        [
+            `xp_make_broken_into<V>()(_rng, k)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `k` is a TokenizerFunction.
+* `T` is `boost::token_iterator<_typeof(k), _iter_of<_typeof(_rng)>::type, V>` such that `T(k, _begin(_rng), _end(_rng))` is a valid expression.
+
+[h3 Example]
+    int const offsets[] = { 2,2,4 };
+    std::string src("12252001");
+    std::vector<std::string> ans; {
+        ans.push_back("12");
+        ans.push_back("25");
+        ans.push_back("2001");
+    }
+
+    BOOST_CHECK( equals(
+        ans,
+        src|oven::broken_into<std::string>(boost::offset_separator(offsets, offsets+3))
+    ) );
+
+[h3 See also]
+* [@http://www.boost.org/libs/tokenizer/index.html boost::tokenizer]
+* [link oven.concatenated concatenated]
+* [link oven.memoized memoized]
+* [link oven.tokenized tokenized]
+* [link oven.xpressive_tokenized xpressive_tokenized]
+
+[endsect]
+
+
+
+
 [section lower_chars]
 
 [h3 Description]

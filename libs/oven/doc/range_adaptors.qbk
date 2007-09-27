@@ -223,72 +223,6 @@ It passes adjacent pairs to a function to transform repeatedly.
 
 
 
-[section broken_into]
-
-[h3 Description]
-* `broken_into` is a range adaptor version of `boost::tokenizer`.
-
-[h3 Header]
-* `<pstade/oven/broken_into.hpp>`
-
-[h3 Model of]
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`xp_make_broken_into<V>`]
-        [
-            A _bindable_ _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`xp_make_broken_into<V>()(_rng, k)`]
-        [
-            `[T(k, _begin(_rng), _end(_rng)), T(k, _end(_rng), boost:end(_rng)))`
-        ]
-    ]
-    [
-        [`_rng|oven::broken_into<V>(k)`]
-        [
-            `xp_make_broken_into<V>()(_rng, k)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `k` is a TokenizerFunction.
-* `T` is `boost::token_iterator<_typeof(k), _iter_of<_typeof(_rng)>::type, V>` such that `T(k, _begin(_rng), _end(_rng))` is a valid expression.
-
-[h3 Example]
-    int const offsets[] = { 2,2,4 };
-    std::string src("12252001");
-    std::vector<std::string> ans; {
-        ans.push_back("12");
-        ans.push_back("25");
-        ans.push_back("2001");
-    }
-
-    BOOST_CHECK( equals(
-        ans,
-        src|oven::broken_into<std::string>(boost::offset_separator(offsets, offsets+3))
-    ) );
-
-[h3 See also]
-* [@http://www.boost.org/libs/tokenizer/index.html boost::tokenizer]
-* [link oven.concatenated concatenated]
-* [link oven.memoized memoized]
-* [link oven.tokenized tokenized]
-* [link oven.xpressive_tokenized xpressive_tokenized]
-
-[endsect]
-
-
-
-
 [section checked]
 
 [h3 Description]
@@ -1019,6 +953,105 @@ then pretends to be a range of _forward_iterator_.
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]
 * [link oven.outdirected outdirected]
+* [link oven.indirecter indirecter]
+
+[endsect]
+
+
+
+
+[section outdirected]
+
+[h3 Description]
+`outdirected` returns a range whose values are iterators of the base range.
+
+[h3 Header]
+* `<pstade/oven/outdirected.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|outdirected`]
+        [
+            `counting(_begin(_rng), _end(_rng))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 Example]
+    std::string const str("gefadcb");
+    std::string const answer("abcdefg");
+
+    std::vector<std::string::const_iterator> iters;
+    copy(str|outdirected, std::back_inserter(iters));
+    sort( iters, boost::make_indirect_fun(::less_than()) );
+
+    BOOST_CHECK( equals(iters|indirected, answer) );
+
+[h3 See also]
+* [link oven.indirected indirected]
+* [link oven.indirecter indirecter]
+* [link oven.outplaced outplaced]
+* [link oven.pointed pointed]
+
+[endsect]
+
+
+
+
+[section outplaced]
+
+[h3 Description]
+`outplaced` provides a _random_access_ view through the base range iterators.
+
+[h3 Header]
+* `<pstade/oven/outplaced.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `iK = boost::next(boost::begin(_fwdrng), K-1)`
+* `N` is `distance(_fwdrng)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|outplaced`]
+        [
+            A _random_access_ _writable_ _lvalue_ `{i1,..,iN}`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 Complexity]
+* `O(N)`
+
+[h3 Example]
+    std::list<int> lst = initial_values(6,1,3,2,5,4);
+    sort(lst|outplaced|indirected);
+    BOOST_CHECK( equals(lst, initial_values(1,2,3,4,5,6)) );
+
+[h3 See also]
+* [link oven.indirected indirected]
+* [link oven.outdirected outdirected]
+* [link oven.pointed pointed]
+* [link oven.sorted sorted]
 
 [endsect]
 
@@ -1280,103 +1313,6 @@ then pretends to be a range of _forward_iterator_.
 [h3 See also]
 * [link oven.sliced sliced]
 * [link oven.window window]
-
-[endsect]
-
-
-
-
-[section outdirected]
-
-[h3 Description]
-`outdirected` returns a range whose values are iterators of the base range.
-
-[h3 Header]
-* `<pstade/oven/outdirected.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|outdirected`]
-        [
-            `counting(_begin(_rng), _end(_rng))`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-
-[h3 Example]
-    std::string const str("gefadcb");
-    std::string const answer("abcdefg");
-
-    std::vector<std::string::const_iterator> iters;
-    copy(str|outdirected, std::back_inserter(iters));
-    sort( iters, boost::make_indirect_fun(::less_than()) );
-
-    BOOST_CHECK( equals(iters|indirected, answer) );
-
-[h3 See also]
-* [link oven.indirected indirected]
-* [link oven.outplaced outplaced]
-* [link oven.pointed pointed]
-
-[endsect]
-
-
-
-
-[section outplaced]
-
-[h3 Description]
-`outplaced` provides a _random_access_ view through the base range iterators.
-
-[h3 Header]
-* `<pstade/oven/outplaced.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Notation]
-* `iK = boost::next(boost::begin(_fwdrng), K-1)`
-* `N` is `distance(_fwdrng)`.
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_fwdrng|outplaced`]
-        [
-            A _random_access_ _writable_ _lvalue_ `{i1,..,iN}`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-
-[h3 Complexity]
-* `O(N)`
-
-[h3 Example]
-    std::list<int> lst = initial_values(6,1,3,2,5,4);
-    sort(lst|outplaced|indirected);
-    BOOST_CHECK( equals(lst, initial_values(1,2,3,4,5,6)) );
-
-[h3 See also]
-* [link oven.indirected indirected]
-* [link oven.outdirected outdirected]
-* [link oven.pointed pointed]
-* [link oven.sorted sorted]
 
 [endsect]
 

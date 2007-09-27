@@ -51,7 +51,7 @@ namespace pstade { namespace hamburger {
     void save(Node& node, ustring const& path)
     {
         std::vector<utf8cp_t> tmp;
-        lime::copy_XMLDecl(std::back_inserter|=tmp);
+        lime::copy_XMLDecl(oven::back_inserter|=tmp);
         lime::save_default(node, oven::utf8_encoder|=oven::back_inserter|=tmp);
 
         gravy::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
