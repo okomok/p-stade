@@ -68,6 +68,7 @@
 #include "./identities.hpp"
 #include "./indexing.hpp"
 #include "./indirected.hpp"
+#include "./indirecter.hpp"
 #include "./initial_ptrs.hpp"
 #include "./initial_values.hpp"
 #include "./inserter.hpp"

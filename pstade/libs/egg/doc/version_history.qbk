@@ -13,6 +13,7 @@
 * `pipable` supports `|=` operator.
 * `ret` and `perfect` semantics slightly changed.
 * Added `tagged`.
+* Added `apply`.
 
 
 

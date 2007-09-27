@@ -30,7 +30,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`applier|=_fun`]
+        [`applier |= _fun`]
         [
             `T(_fun)`
         ]
@@ -63,7 +63,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * _pipable_object_
 
 [h3 Notation]
-* `f_(x)` is an imaginary _function_object_ such that `v -> if(_prd(*v)) *x++ = *v`.
+* `f_(x)` is an imaginary _function_object_ which behaves as if it were `v -> if(_prd(*v)) *x++ = *v`.
 
 [h3 Valid expressions]
 [table 
@@ -72,9 +72,9 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`filterer(_prd)|=x`]
+        [`filterer(_prd) |= x`]
         [
-            `applier|=(f_(x))`
+            `applier |= f_(x)`
         ]
     ]
 ]
@@ -87,6 +87,49 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 See also]
 * [link oven.applier applier]
 * [link oven.filtered filtered]
+
+[endsect]
+
+
+
+
+[section indirecter]
+
+[h3 Description]
+`indirecter` applies an extra dereference in outputting.
+
+[h3 Header]
+* `<pstade/oven/indirecter.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `f_(x)` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = *v`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`indirecter(_fun) |= x`]
+        [
+            `applier |= f_(x)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `x` is an _output_iterator_.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.applier applier]
+* [link oven.indirected indirected]
+* [link oven.outdirected outdirected]
 
 [endsect]
 
@@ -111,19 +154,19 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`inserter(i)|=x`]
+        [`inserter(i) |= x`]
         [
             `T(x, i)`
         ]
     ]
     [
-        [`back_inserter|=bx`]
+        [`back_inserter |= bx`]
         [
             `BT(bx)`
         ]
     ]
     [
-        [`front_inserter|=fx`]
+        [`front_inserter |= fx`]
         [
             `FT(fx)`
         ]
@@ -164,15 +207,15 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
         [[*Semantics]]
     ]
     [
-        [`stream_writer(d)|=s`]
+        [`stream_writer(d) |= s`]
         [
             `T(s, d)`
         ]
     ]
     [
-        [`stream_writer|=s`]
+        [`stream_writer |= s`]
         [
-            `stream_writer(0)|=s`
+            `stream_writer(0) |= s`
         ]
     ]
 ]
@@ -224,7 +267,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 * _pipable_object_
 
 [h3 Notation]
-* `f_(x)` is an imaginary _function_object_ such that `v -> *x++ = _fun(v)`.
+* `f_(x)` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = _fun(v)`.
 
 [h3 Valid expressions]
 [table 
@@ -233,9 +276,9 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
         [[*Semantics]]
     ]
     [
-        [`transformer(_fun)|=x`]
+        [`transformer(_fun) |= x`]
         [
-            `applier|=(f_(x))`
+            `applier |= f_(x)`
         ]
     ]
 ]
@@ -272,7 +315,7 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`utf8_encoder|=x`]
+        [`utf8_encoder |= x`]
         [
             `T(x)`
         ]
@@ -310,7 +353,7 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`utf16_encoder|=x`]
+        [`utf16_encoder |= x`]
         [
             `T(x)`
         ]

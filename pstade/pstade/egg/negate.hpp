@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_cref.hpp"
@@ -25,10 +26,9 @@ namespace pstade { namespace egg {
         struct baby
         {
             template<class Myself, class X>
-            struct apply
-            {
-                typedef X type;
-            };
+            struct apply :
+                boost::remove_cv<X>
+            { };
 
             template<class Result, class X>
             Result call(X& x) const

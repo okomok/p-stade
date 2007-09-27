@@ -12,6 +12,7 @@
 
 #include "./after.hpp"
 #include "./always.hpp"
+#include "./apply.hpp"
 #include "./apply_params.hpp"
 #include "./auto_object.hpp"
 #include "./automatic.hpp"

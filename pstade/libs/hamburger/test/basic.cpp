@@ -47,7 +47,7 @@ void pstade_unit_test()
 			oven::copy(
 				oven::file_range<utf8cp_t>(iname) |
 					oven::utf8_decoded,
-				std::back_inserter(tmp)
+				oven::back_inserter|=tmp
 			);
 		}
 
@@ -56,7 +56,7 @@ void pstade_unit_test()
 
 		lime::save(
 			root.front(),
-			oven::utf8_encoder(oven::stream_writer(fout))
+			oven::utf8_encoder|=oven::stream_writer|=fout
 		);
 
 	}

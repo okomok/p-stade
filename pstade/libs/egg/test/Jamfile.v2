@@ -13,6 +13,7 @@ project
 test-suite "egg" :
     [ run after.cpp ]
     [ run always.cpp ]
+    [ run apply.cpp ]
     [ run as_mpl_lambda.cpp ]
     [ run auto_object.cpp ]
     [ run automatic.cpp ]
