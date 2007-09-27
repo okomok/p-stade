@@ -157,13 +157,36 @@ The header `<pstade/oven/io.hpp>` lets Oven ranges be _input_streamable_ and _ou
 * `<pstade/oven/io.hpp>`
 
 [h3 Effects]
-All the ranges which Oven defines and returns become _input_streamable_ and _output_streamable_.
+* All the ranges which Oven defines and returns become _input_streamable_ and _output_streamable_.
 
 [h3 Example]
     std::string src("abc");
     std::stringstream ss;
     ss << (src|identities);
     BOOST_CHECK( ss.str() == "{a,b,c}" );
+
+[endsect]
+
+
+
+
+[section optional.hpp]
+
+[h3 Description]
+The header `<pstade/oven/optional.hpp>` lets `boost::optional` be a model of _range_,
+meaning that it can be used as "one element range".
+
+[h3 Header]
+* `<pstade/oven/optional.hpp>`
+
+[h3 Effects]
+* `boost::optional` becomes a _random_access_ _s_ _range_.
+
+[h3 Invariants]
+* An uninitialized `boost::optional` is an empty range.
+
+[h3 See also]
+* _boost_optional_
 
 [endsect]
 
@@ -179,9 +202,10 @@ The header `<pstade/oven/regex.hpp>` lets `boost::sub_match` be a model of _rang
 * `<pstade/oven/regex.hpp>`
 
 [h3 Effects]
-`boost::sub_match` becomes a _range_.
+* `boost::sub_match` becomes a _range_.
 
 [h3 See also]
+* _boost_regex_
 * [link oven.concatenated concatenated]
 
 [endsect]
@@ -198,9 +222,10 @@ The header `<pstade/oven/xpressive.hpp>` lets `boost::xpressive::sub_match` be a
 * `<pstade/oven/xpressive.hpp>`
 
 [h3 Effects]
-`boost::xpressive::sub_match` becomes a _range_.
+* `boost::xpressive::sub_match` becomes a _range_.
 
 [h3 See also]
+* _boost_xpressive_
 * [link oven.concatenated concatenated]
 
 [endsect]

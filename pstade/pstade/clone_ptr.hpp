@@ -17,12 +17,10 @@
 // T:CopyConstructible implies T:Clonable for any type T.
 
 
-// Todo: COW? Movable?
-
-
 #include <memory> // auto_ptr
 #include <boost/assert.hpp>
-#include <boost/operators.hpp> // totally_ordered
+#include <boost/none.hpp>
+#include <boost/operators.hpp> // totally_ordered1
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/enable_if.hpp>
@@ -111,6 +109,11 @@ public:
     void reset(Ptr p)
     {
         self_t(p).swap(*this);
+    }
+
+    void reset(boost::none_t = boost::none)
+    {
+        self_t().swap(*this);
     }
 
     PSTADE_MOVE_RESET_ASSIGNMENT(self_t)

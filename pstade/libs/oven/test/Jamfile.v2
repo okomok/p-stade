@@ -92,6 +92,7 @@ test-suite "oven" :
     [ run moved.cpp ]
     [ run msvc_foreach.cpp ]
     [ run offset.cpp ]
+    [ run optional.cpp ]
     [ run outdirected.cpp ]
     [ run outplaced.cpp ]
     [ run parallel.cpp ]
