@@ -156,4 +156,23 @@ void pstade_unit_test()
             pxy.reset(pyy);
         }
     }
+    {
+        clone_ptr< ::xxx > pxx(new ::xxx(10));
+        BOOST_CHECK( pxx );
+
+        pxx.reset();
+        BOOST_CHECK(!pxx );
+
+        pxx = new ::xxx(10);
+        BOOST_CHECK( pxx );
+
+        pxx.reset(boost::none);
+        BOOST_CHECK(!pxx);
+
+        pxx = new ::xxx(10);
+        BOOST_CHECK( pxx );
+
+        pxx = boost::none;
+        BOOST_CHECK(!pxx);
+    }
 }

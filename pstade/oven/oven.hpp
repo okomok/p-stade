@@ -93,6 +93,7 @@
 #include "./narrow_chars.hpp"
 #include "./none.hpp"
 #include "./offset.hpp"
+#include "./optional.hpp"
 #include "./outdirected.hpp"
 #include "./outplaced.hpp"
 // #include "./parallel_copy.hpp"
