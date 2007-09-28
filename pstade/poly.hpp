@@ -20,8 +20,8 @@
 
 // Preconditions:
 //
-// O and Q is CopyConstructible.
-// Q is Convertible to O.
+// Q is CopyConstructible.
+// Q& is Convertible to O&.
 // Q is Clonable.
 //   (http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept)
 
