@@ -14,7 +14,6 @@
 // See: Clonable
 //
 // http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept
-// T:CopyConstructible implies T:Clonable for any type T.
 
 
 #include <memory> // auto_ptr
