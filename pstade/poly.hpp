@@ -33,6 +33,7 @@
 //   poly can be lightweight copyable.
 
 
+#include <typeinfo>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/none.hpp>
@@ -40,6 +41,7 @@
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/type_traits/alignment_of.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/utility/compare_pointees.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
@@ -187,18 +189,35 @@ namespace pstade {
         };
 
 
+
+        template<class O>
+        struct vtypeid_
+        {
+            typedef std::type_info const &(*type)();
+        };
+
+        template<class O, class Q>
+        struct typeid_
+        {
+            static std::type_info const &call()
+            {
+                return typeid(Q);
+            }
+        };
+
+
         template<class O>
         struct vtable
         {
             typename vdestructor<O>::type      dtor;
             typename vcopyconstructor<O>::type copy;
             typename vgetter<O>::type          get;
+            typename vtypeid_<O>::type         tid;
 
-            vtable() :
-                dtor(PSTADE_NULLPTR),
-                copy(PSTADE_NULLPTR),
-                get(PSTADE_NULLPTR)
-            { }
+            vtable()
+            {
+                reset();
+            }
 
             template<class Q>
             void reset(Q const &)
@@ -206,6 +225,7 @@ namespace pstade {
                 dtor = &destructor<O, Q>::call;
                 copy = &copyconstructor<O, Q>::call;
                 get  = &getter<O, Q>::call;
+                tid  = &typeid_<O, Q>::call;
             }
 
             void reset()
@@ -213,6 +233,7 @@ namespace pstade {
                 dtor = PSTADE_NULLPTR;
                 copy = PSTADE_NULLPTR;
                 get  = PSTADE_NULLPTR;
+                tid  = PSTADE_NULLPTR;
             }
         };
 
@@ -303,16 +324,22 @@ namespace pstade {
                 m_vtbl.reset(); // nothrow
             }
 
-        // access
+        // boost::any compatibles
             bool empty() const
             {
                 return !m_vtbl.dtor;
             }
 
+            std::type_info const &type() const
+            {
+                return !empty() ? m_vtbl.tid() : typeid(void);
+            }
+
         protected:
             O *get_() const
             {
-                return !empty() ? m_vtbl.get(m_buff) : PSTADE_NULLPTR;
+                BOOST_ASSERT(!empty());
+                return m_vtbl.get(m_buff);
             }
 
         private:
@@ -372,37 +399,33 @@ namespace pstade {
     // pointer-like (const affects.)
         O *operator->()
         {
-            BOOST_ASSERT(this->get_());
             return this->get_();
         }
 
         O const *operator->() const
         {
-            BOOST_ASSERT(this->get_());
             return this->get_();
         }
 
         O &operator *()
         {
-            BOOST_ASSERT(this->get_());
             return *this->get_();
         }
 
         O const &operator *() const
         {
-            BOOST_ASSERT(this->get_());
             return *this->get_();
         }
 
-    // totally_ordered (todo)
+    // totally_ordered
         bool operator< (self_t const& other) const
         {
-            return this->get_() < other.get_();
+            return boost::less_pointees(*this, other);
         }
 
         bool operator==(self_t const& other) const
         {
-            return this->get_() == other.get_();
+            return boost::equal_pointees(*this, other);
         }
 
     // workaround
