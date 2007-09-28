@@ -180,9 +180,30 @@ void test_polymorphic()
 }
 
 
+struct blur {};
+struct polyblur { virtual ~polyblur() {} virtual void lalala() {} };
+
+void test_sametype()
+{
+    {
+        blur b;
+        BOOST_CHECK( is_same(b, egg::static_downcast<blur>(b)) );
+    }
+    {
+        polyblur b;
+        BOOST_CHECK( is_same(b, egg::static_downcast<polyblur>(b)) );
+    }
+    {
+        int x = 10;
+        BOOST_CHECK( is_same(x, egg::static_downcast<int>(x)) );
+    }
+}
+
+
 void pstade_minimal_test()
 {
     ::test_crtp();
     ::test_static();
     ::test_polymorphic();
+    ::test_sametype();
 }

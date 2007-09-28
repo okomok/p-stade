@@ -58,7 +58,7 @@ struct my_stringL : my_string_base
 // heap
 struct my_stringH : my_string_base
 {
-    my_stringH(std::string s) : m_str(s) { }
+    my_stringH(std::string s) : m_str(s) { index = 123; }
 
     std::string get_string() const // override
     {
@@ -71,7 +71,7 @@ struct my_stringH : my_string_base
     }
 
     std::string m_str;
-    double d1;
+    double index;
     double d2;
     double d3;
     double d4;
@@ -88,30 +88,41 @@ void pstade_unit_test()
         poly<int> p(3);
         BOOST_CHECK( p );
         BOOST_CHECK( p.type() == typeid(int) );
+        BOOST_CHECK( pstade::is_poly_castable_to<int>(p) );
+        BOOST_CHECK( pstade::poly_cast<int>(p) == 3 );
         p.reset();
         BOOST_CHECK(!p );
+        //std::cout << p.type();
     }
     {
         poly<my_string_base> p(sL);
         BOOST_CHECK( p );
+        BOOST_CHECK( pstade::is_poly_castable_to<my_stringL>(p) );
+        BOOST_CHECK( pstade::poly_cast<my_stringL>(p).get_string() == "local" );
         BOOST_CHECK( p.type() == typeid(my_stringL) );
         BOOST_CHECK( p->get_string() == "local" );
     }
     {
         poly<my_string_base> const p(sL);
         BOOST_CHECK( p );
+        BOOST_CHECK( pstade::is_poly_castable_to<my_stringL const>(p) );
+        BOOST_CHECK( pstade::poly_cast<my_stringL const>(p).get_string() == "local" );
         BOOST_CHECK( p.type() == typeid(my_stringL) );
         BOOST_CHECK( p->get_string() == "local" );
     }
     {
         poly<my_string_base> p(sH);
         BOOST_CHECK( p );
+        BOOST_CHECK( pstade::is_poly_castable_to<my_stringH>(p) );
+        BOOST_CHECK( pstade::poly_cast<my_stringH>(p).index == 123 );
         BOOST_CHECK( p.type() == typeid(my_stringH) );
         BOOST_CHECK( p->get_string() == "heap" );
     }
     {
         poly<my_string_base> const p(sH);
         BOOST_CHECK( p );
+        BOOST_CHECK( pstade::is_poly_castable_to<my_stringH const>(p) );
+        BOOST_CHECK( pstade::poly_cast<my_stringH const>(p).index == 123 );
         BOOST_CHECK( p.type() == typeid(my_stringH) );
         BOOST_CHECK( p->get_string() == "heap" );
     }
@@ -134,12 +145,16 @@ void pstade_unit_test()
     {
         poly<my_string_base> p(sH);
         BOOST_CHECK( p );
+        BOOST_CHECK( pstade::is_poly_castable_to<my_stringH>(p) );
+        BOOST_CHECK( pstade::poly_cast<my_stringH>(p).index == 123 );
         BOOST_CHECK( p.type() == typeid(my_stringH) );
         BOOST_CHECK( p->get_string() == "heap" );
         p.reset();
         BOOST_CHECK(!p );
         p = sL;
         BOOST_CHECK( p );
+        BOOST_CHECK( pstade::is_poly_castable_to<my_stringL>(p) );
+        BOOST_CHECK( pstade::poly_cast<my_stringL>(p).get_string() == "local" );
         BOOST_CHECK( p.type() == typeid(my_stringL) );
         BOOST_CHECK( p->get_string() == "local" );
         p.reset();
