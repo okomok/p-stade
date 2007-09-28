@@ -42,6 +42,7 @@ test-suite "wine" :
     [ run nullptr.cpp ]
     [ run pause.cpp ]
     [ link pod_constant1.cpp pod_constant2.cpp : : pod_constant ]
+    [ run poly.cpp ]
     [ run preprocessor.cpp ]
     [ run remove_cvr.cpp ]
     [ run require.cpp ]

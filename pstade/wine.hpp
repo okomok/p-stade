@@ -42,6 +42,7 @@
 #include "./nullptr.hpp"
 #include "./pass_by.hpp"
 #include "./pause.hpp"
+#include "./poly.hpp"
 #include "./pod_constant.hpp"
 #include "./preprocessor.hpp"
 #include "./remove_cvr.hpp"

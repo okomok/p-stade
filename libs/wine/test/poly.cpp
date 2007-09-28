@@ -10,15 +10,154 @@
 
 
 #include <pstade/poly.hpp>
-
-
 #include <pstade/unit_test.hpp>
+
+
+#include <string>
 
 
 using namespace pstade;
 
 
+struct my_string_base
+{
+    virtual ~my_string_base() {}
+    virtual std::string get_string() const = 0;
+    virtual my_string_base *clone() const = 0;
+};
+
+
+// Clonable implementation
+my_string_base *new_clone(my_string_base const &s)
+{
+    return s.clone();
+}
+
+
+// local
+struct my_stringL : my_string_base
+{
+    my_stringL() {}
+
+    std::string get_string() const // override
+    {
+        return "local";
+    }
+
+    my_string_base *clone() const // override
+    {
+        return new my_stringL();
+    }
+};
+
+// heap
+struct my_stringH : my_string_base
+{
+    my_stringH(std::string s) : m_str(s) { }
+
+    std::string get_string() const // override
+    {
+        return m_str;
+    }
+
+    my_string_base *clone() const // override
+    {
+        return new my_stringH(m_str);
+    }
+
+    std::string m_str;
+    double d1;
+    double d2;
+    double d3;
+    double d4;
+    double d5;
+};
+
+
 void pstade_unit_test()
 {
-    poly<int> p(3);
+    my_stringL sL;
+    my_stringH sH("heap");
+
+    {
+        poly<int> p(3);
+        BOOST_CHECK( p );
+        p.reset();
+        BOOST_CHECK(!p );
+    }
+    {
+        poly<my_string_base> p(sL);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "local" );
+    }
+    {
+        poly<my_string_base> const p(sL);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "local" );
+    }
+    {
+        poly<my_string_base> p(sH);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "heap" );
+    }
+    {
+        poly<my_string_base> const p(sH);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "heap" );
+    }
+    {
+        poly<my_string_base> p(sL);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "local" );
+        p.reset();
+        BOOST_CHECK(!p );
+        p = sH;
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "heap" );
+        p.reset();
+        BOOST_CHECK(!p );
+        p.reset();
+        BOOST_CHECK(!p );
+    }
+    {
+        poly<my_string_base> p(sH);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "heap" );
+        p.reset();
+        BOOST_CHECK(!p );
+        p = sL;
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "local" );
+        p.reset();
+        BOOST_CHECK(!p );
+        p.reset();
+        BOOST_CHECK(!p );
+
+        p = sH;
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "heap" );
+
+        // assign to self
+        p = p;
+        BOOST_CHECK( p );
+        BOOST_CHECK( p->get_string() == "heap" );
+
+        // direct-init
+        poly<my_string_base> p2(p);
+        BOOST_CHECK( p2 );
+        BOOST_CHECK( p2->get_string() == "heap" );
+        p2.reset();
+        BOOST_CHECK( !p2 );
+
+        // copy-init
+        poly<my_string_base> p3 = p;
+        BOOST_CHECK( p3 );
+        BOOST_CHECK( p3->get_string() == "heap" );
+        p3.reset();
+        BOOST_CHECK( !p3 );
+
+        // assign to self
+        p3 = p3;
+        BOOST_CHECK( !p3 );
+    }
 }

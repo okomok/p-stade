@@ -13,16 +13,24 @@
 
 // See:
 //
+// Boost.Function
+// Boost.Optional
 // http://homepages.fh-regensburg.de/~mpool/mpool07/proceedings/5.pdf
 
 
 // Preconditions:
 //
-// T and U is CopyConstructible.
-// U is Convertible to T.
+// O and Q is CopyConstructible.
+// Q is Convertible to O.
+// Q is Clonable.
+//   (http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept)
 
 
-// Not tested yet.
+// Note:
+//
+// clone_ptr vs poly
+//   clone_ptr is lightweight swappable.
+//   poly can be lightweight copyable.
 
 
 #include <boost/assert.hpp>
@@ -33,17 +41,17 @@
 #include <boost/type_traits/alignment_of.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
-#include <pstade/radish/pointable.hpp>
 #include <pstade/reset_assignment.hpp>
 
 
 namespace pstade {
 
 
-    template<class T>
+    template<class O>
     struct poly;
 
 
@@ -53,135 +61,138 @@ namespace pstade {
         namespace here = poly_detail;
 
 
-        template<class T> inline
-        T *new_(T const &x)
+        template<class O> inline
+        O *new_(O const &o)
         {
-            return boost::heap_clone_allocator::allocate_clone(x);
+            return boost::heap_clone_allocator::allocate_clone(o);
         }
-     
-        template<class T> inline
-        void delete_(T *ptr)
+
+        template<class O> inline
+        void delete_(O *ptr)
         {
             return boost::heap_clone_allocator::deallocate_clone(ptr);
         }
 
 
-        template<class T>
+        template<class O>
         union buffer
         {
-            T *ptr;
-            char data[sizeof(T)*2];
+            O *ptr;
+            char m_data[sizeof(O)*2]; // do you know better size?
+
+            void const *data() const { return &m_data[0]; }
+            void       *data()       { return &m_data[0]; }
         };
 
 
-        template<class T, class U>
+        template<class O, class Q>
         struct is_local_aux :
             boost::mpl::bool_<
-                (sizeof(U) <= sizeof(buffer<T>)) &&
-                (boost::alignment_of< buffer<T> >::value % boost::alignment_of<U>::value == 0)
+                (sizeof(Q) <= sizeof(buffer<O>)) &&
+                (boost::alignment_of< buffer<O> >::value % boost::alignment_of<Q>::value == 0)
             >
         { };
 
-        template<class T, class U>
+        template<class O, class Q>
         struct is_local :
-            is_local_aux<T, typename boost::remove_cv<U>::type>
+            is_local_aux<O, typename boost::remove_cv<Q>::type>
         { };
 
 
-        template<class T>
+        template<class O>
         struct vdestructor
         {
-            typedef void (*type)(buffer<T> &buf);
+            typedef void (*type)(buffer<O> &buf);
         };
 
-        template<class T, class U>
+        template<class O, class Q>
         struct destructor
         {
-            static void impl(buffer<T> &buf)
+            static void call(buffer<O> &buf)
             {
-                aux(buf, typename is_local<T, U>::type());
+                aux(buf, typename is_local<O, Q>::type());
             }
 
         private:
             // local
-            static void aux(buffer<T> &buf, boost::mpl::true_)
+            static void aux(buffer<O> &buf, boost::mpl::true_)
             {
-                reinterpret_cast<U *>(&buf.data)->~U();
+                reinterpret_cast<Q *>(buf.data())->~Q();
             }
 
             // heap
-            static void aux(buffer<T> &buf, boost::mpl::false_)
+            static void aux(buffer<O> &buf, boost::mpl::false_)
             {
                 here::delete_(buf.ptr);
             }
         };
 
 
-        template<class T>
+        template<class O>
         struct vcopyconstructor
         {
-            typedef void (*type)(buffer<T> const &buf, buffer<T> &to);
+            typedef void (*type)(buffer<O> const &buf, buffer<O> &to);
         };
 
-        template<class T, class U>
+        template<class O, class Q>
         struct copyconstructor
         {
-            static void impl(buffer<T> const &buf, buffer<T> &to)
+            static void call(buffer<O> const &buf, buffer<O> &to)
             {
-                aux(buf, to, typename is_local<T, U>::type());
+                aux(buf, to, typename is_local<O, Q>::type());
             }
 
         private:
             // local
-            static void aux(buffer<T> const &buf, buffer<T> &to, boost::mpl::true_)
+            static void aux(buffer<O> const &buf, buffer<O> &to, boost::mpl::true_)
             {
-                U const * u = reinterpret_cast<U const *>(&buf.data);
-                new ((void *)&to.data) U(*u);
+                Q const * q = reinterpret_cast<Q const *>(buf.data());
+                new (to.data()) Q(*q);
             }
 
             // heap
-            static void aux(buffer<T> const &buf, buffer<T> &to, boost::mpl::false_)
+            static void aux(buffer<O> const &buf, buffer<O> &to, boost::mpl::false_)
             {
                 to.ptr = here::new_(*buf.ptr);
             }
         };
 
 
-        template<class T>
+        template<class O>
         struct vgetter
         {
-            typedef T *(*type)(buffer<T> &buf);
+            typedef O *(*type)(buffer<O> &buf);
         };
 
-        template<class T, class U>
+        template<class O, class Q>
         struct getter
         {
-            static T *impl(buffer<T> &buf)
+            static O *call(buffer<O> &buf)
             {
-                return aux(buf, typename is_local<T, U>::type());
+                return aux(buf, typename is_local<O, Q>::type());
             }
 
         private:
             // local
-            static T *aux(buffer<T> &buf, boost::mpl::true_)
+            static O *aux(buffer<O> &buf, boost::mpl::true_)
             {
-                return reinterpret_cast<U *>(&buf.data);
+                return reinterpret_cast<Q *>(buf.data());
             }
 
             // heap
-            static T *aux(buffer<T> &buf, boost::mpl::false_)
+            static O *aux(buffer<O> &buf, boost::mpl::false_)
             {
                 return buf.ptr;
             }
         };
 
 
-        template<class T>
+        template<class O>
         struct vtable
         {
-            typename vdestructor<T>::type      dtor;
-            typename vcopyconstructor<T>::type copy;
-            typename vgetter<T>::type          get;
+            typename vdestructor<O>::type      dtor;
+            typename vcopyconstructor<O>::type copy;
+            typename vgetter<O>::type          get;
 
             vtable() :
                 dtor(PSTADE_NULLPTR),
@@ -189,12 +200,12 @@ namespace pstade {
                 get(PSTADE_NULLPTR)
             { }
 
-            template<class U>
-            void reset(U const &)
+            template<class Q>
+            void reset(Q const &)
             {
-                dtor = &destructor<T, U>::impl;
-                copy = &copyconstructor<T, U>::impl;
-                get  = &getter<T, U>::impl;
+                dtor = &destructor<O, Q>::call;
+                copy = &copyconstructor<O, Q>::call;
+                get  = &getter<O, Q>::call;
             }
 
             void reset()
@@ -206,38 +217,39 @@ namespace pstade {
         };
 
 
-        template<class T, class U>
-        void construct(buffer<T> &buf, U const &u, typename enable_if< is_local<T, U> >::type = 0)
+        template<class O, class Q>
+        void construct(buffer<O> &buf, Q const &q, typename enable_if< is_local<O, Q> >::type = 0)
         {
-            new ((void *)&buf.data) U(u);
+            new (buf.data()) Q(q);
         }
 
-        template<class T, class U>
-        void construct(buffer<T> &buf, U const &u, typename disable_if<is_local<T, U> >::type = 0)
+        template<class O, class Q>
+        void construct(buffer<O> &buf, Q const &q, typename disable_if<is_local<O, Q> >::type = 0)
         {
-            buf.ptr = here::new_(u);
+            buf.ptr = new Q(q);
         }
 
 
-        template<class T, class Injector>
-        struct storage
+        template<class O, class Injector>
+        struct impl :
+            Injector
         {
         private:
-            typedef storage self_t;
+            typedef impl self_t;
 
         public:
         // structors
-            storage()
+            impl()
             { }
 
-            template<class U>
-            explicit storage(U const &u)
+            template<class Q>
+            explicit impl(Q const &q)
             {
-                m_vtbl.reset(u);
-                construct(m_buff, u);
+                m_vtbl.reset(q);
+                construct(m_buff, q);
             }
 
-            storage(storage const &other)
+            impl(impl const &other)
             {
                 if (!other.empty()) {
                     m_vtbl = other.m_vtbl;
@@ -245,20 +257,19 @@ namespace pstade {
                 }
             }
 
-            ~storage()
+            ~impl()
             {
-                if (!empty())
-                    m_vtbl.dtor(m_buff);
+                destruct_();
             }
 
         // assignments
-            storage &operator=(storage const &other)
+            impl &operator=(impl const &other)
             {
                 if (&other == this)
                     return *this;
 
-                m_vtbl.dtor(m_buff);
-                m_vtbl = other.m_vtbl;
+                destruct_(); // nothrow
+                m_vtbl = other.m_vtbl; // nothrow
 
                 try {
                     other.m_vtbl.copy(other.m_buff, m_buff);
@@ -271,14 +282,14 @@ namespace pstade {
                 return *this;
             }
 
-            template<class U>
-            void reset(U const &u)
+            template<class Q>
+            void reset(Q const &q)
             {
-                m_vtbl.dtor(m_buff);
-                m_vtbl.reset(u);
+                destruct_(); // nothrow
+                m_vtbl.reset(q); // nothrow
 
                 try {
-                    construct(m_buff, u);
+                    construct(m_buff, q);
                 }
                 catch (...) {
                     m_vtbl.reset();
@@ -288,8 +299,8 @@ namespace pstade {
 
             void reset(boost::none_t = boost::none)
             {
-                m_vtbl.dtor(m_buff);
-                m_vtbl.reset();
+                destruct_(); // nothrow
+                m_vtbl.reset(); // nothrow
             }
 
         // access
@@ -299,25 +310,30 @@ namespace pstade {
             }
 
         protected:
-            T *get_() const
+            O *get_() const
             {
                 return !empty() ? m_vtbl.get(m_buff) : PSTADE_NULLPTR;
             }
 
         private:
-            vtable<T> m_vtbl;
-            buffer<T> m_buff;
+            vtable<O> m_vtbl;
+            mutable buffer<O> m_buff;
+
+            void destruct_() // nothrow
+            {
+                if (!empty())
+                    m_vtbl.dtor(m_buff);
+            }
         };
 
 
-        template<class T>
+        template<class O>
         struct super_
         {
             typedef
-                storage<T,
-                    radish::bool_testable  < poly<T>,
-                    radish::pointable      < poly<T>, T,
-                    boost::totally_ordered1< poly<T> > > >
+                impl<O,
+                    radish::bool_testable  < poly<O>,
+                    boost::totally_ordered1< poly<O> > >
                 >
             type;
         };
@@ -326,22 +342,22 @@ namespace pstade {
     } // namespace poly_detail
 
 
-    template<class T>
+    template<class O>
     struct poly :
-        poly_detail::super_<T>::type
+        poly_detail::super_<O>::type
     {
     private:
         typedef poly self_t;
-        typedef typename poly_detail::super_<T>::type super_t;
+        typedef typename poly_detail::super_<O>::type super_t;
 
     public:
     // structors
         poly()
         { }
 
-        template<class U>
-        poly(U const &u, typename enable_if< is_convertible<U, T> >::type = 0) :
-            super_t(u)
+        template<class Q>
+        poly(Q const &q, typename enable_if< is_convertible<Q const &, O const &> >::type = 0) :
+            super_t(q)
         { }
 
     // assignments
@@ -353,28 +369,44 @@ namespace pstade {
             return radish::make_safe_bool(!this->empty());
         }
 
-    // pointable
-        T *operator->() const
+    // pointer-like (const affects.)
+        O *operator->()
         {
             BOOST_ASSERT(this->get_());
             return this->get_();
         }
 
-        T *get() const
+        O const *operator->() const
         {
+            BOOST_ASSERT(this->get_());
             return this->get_();
+        }
+
+        O &operator *()
+        {
+            BOOST_ASSERT(this->get_());
+            return *this->get_();
+        }
+
+        O const &operator *() const
+        {
+            BOOST_ASSERT(this->get_());
+            return *this->get_();
         }
 
     // totally_ordered (todo)
         bool operator< (self_t const& other) const
         {
-            return get() < other.get();
+            return this->get_() < other.get_();
         }
 
         bool operator==(self_t const& other) const
         {
-            return get() == other.get();
+            return this->get_() == other.get_();
         }
+
+    // workaround
+        PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(poly, super_t)
     };
 
 
