@@ -57,13 +57,13 @@ namespace transformer_detail {
         proc_t;
 
         typedef typename
-            result_of<op_make_applier(proc_t&)>::type
+            result_of<op_applier(proc_t&)>::type
         result_type;
 
         result_type operator()(OutIter& it, UnaryFun& fun) const
         {
             proc_t p = {it, fun};
-            return make_applier(p);
+            return applier(p);
         }
     };
 

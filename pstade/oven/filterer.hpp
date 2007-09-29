@@ -58,13 +58,13 @@ namespace filterer_detail {
         proc_t;
 
         typedef typename
-            result_of<op_make_applier(proc_t&)>::type
+            result_of<op_applier(proc_t&)>::type
         result_type;
 
         result_type operator()(OutIter& it, Predicate& pred) const
         {
             proc_t p = {it, pred};
-            return make_applier(p);
+            return applier(p);
         }
     };
 

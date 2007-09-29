@@ -21,7 +21,7 @@
 //
 // This name comes from (24.5.2/1).
 // An object which is passed to 'typeof(stream_writer(s))::operator='
-// must be OutputStreamable. If not, you can ensure it using 'transformed'.
+// must be OutputStreamable. If not, you can ensure it using 'converter'.
 
 
 // References:
@@ -30,18 +30,24 @@
 //     http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html
 
 
+#include <iterator> // ostreambuf_iterator
 #include <boost/shared_ptr.hpp>
+#include <boost/type_traits/remove_pointer.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./applier.hpp"
-#include "./detail/base_to_adaptor.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace stream_writer_detail {
+// stream_writer
+//
 
+namespace stream_writer_detail {
 
     template< class OStream >
     struct proc
@@ -72,43 +78,129 @@ namespace stream_writer_detail {
 
         typedef OStream& base_type;
 
-        // as "adaptor"; 'adapted_to' kicks in!
         OStream& base() const
         {
             return *m_ps;
         }
 
     private:
-        OStream *m_ps; // be a pointer for Assignable.
+        OStream *m_ps;
         char_t const *m_delimiter;
         boost::shared_ptr<bool> m_beginning;
     };
 
-
     template< class OStream >
     struct base
     {
-        typedef
-            proc<OStream>
-        proc_t;
-
         typedef typename
             result_of<
-                op_make_applier(proc_t)
+                op_applier(proc<OStream>)
             >::type
         result_type;
 
         result_type operator()(OStream& s, typename OStream::char_type const *delimiter = 0) const
         {
-            return make_applier(proc_t(s, delimiter));
+            return applier(proc<OStream>(s, delimiter));
         }
     };
 
-
 } // namespace stream_writer_detail
 
+typedef PSTADE_EGG_DEFER((stream_writer_detail::base<boost::mpl::_>)) op_stream_writer;
+PSTADE_POD_CONSTANT((op_stream_writer), stream_writer) = PSTADE_EGG_DEFERRED;
 
-PSTADE_OVEN_BASE_TO_ADAPTOR(stream_writer, (stream_writer_detail::base<_>))
+
+// streambuf_writer
+//
+
+namespace streambuf_writer_detail {
+
+     struct baby
+    {
+        template< class Myself, class OStream >
+        struct apply
+        {
+            typedef typename
+                boost::remove_pointer<OStream>::type
+            stream_t;
+          
+            typedef
+                std::ostreambuf_iterator<
+                    typename stream_t::char_type,
+                    typename stream_t::traits_type
+                >
+            type;
+        };
+
+        template< class Result, class CharT, class Traits >
+        Result call(std::basic_ostream<CharT, Traits>& s) const
+        {
+            return Result(s);
+        }
+
+        template< class Result, class CharT, class Traits >
+        Result call(std::basic_streambuf<CharT, Traits> *p) const
+        {
+            return Result(p);
+        }
+    };
+
+} // namespace streambuf_writer_detail
+
+typedef egg::function<streambuf_writer_detail::baby> op_streambuf_writer;
+PSTADE_POD_CONSTANT((op_streambuf_writer), streambuf_writer) = {{}};
+
+
+// std_stream_writer
+//
+
+namespace std_stream_writer_detail {
+
+    template< class OStream >
+    struct proc
+    {
+        OStream *m_ps;
+        typename OStream::char_type const *m_delimiter;
+
+        typedef void result_type;
+
+        template< class OutputStreamable >
+        void operator()(OutputStreamable const& x) const
+        {
+            *m_ps << x;
+
+            if (m_delimiter)
+                *m_ps << m_delimiter;
+        }
+
+        typedef OStream& base_type;
+
+        OStream& base() const
+        {
+            return *m_ps;
+        }
+    };
+
+    template< class OStream >
+    struct base
+    {
+        typedef typename
+            result_of<
+                op_applier(proc<OStream>&)
+            >::type
+        result_type;
+
+        result_type operator()(OStream& s, typename OStream::char_type const *delimiter = 0) const
+        {
+            proc<OStream> p = {boost::addressof(s), delimiter};
+            return applier(p);
+        }
+    };
+
+} // namespace std_stream_writer_detail
+
+typedef PSTADE_EGG_DEFER((std_stream_writer_detail::base<boost::mpl::_>)) op_std_stream_writer;
+PSTADE_POD_CONSTANT((op_std_stream_writer), std_stream_writer) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

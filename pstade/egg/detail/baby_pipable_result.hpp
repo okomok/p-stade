@@ -29,6 +29,12 @@
 namespace pstade { namespace egg { namespace detail {
 
 
+namespace baby_pipable_resultns_ {
+
+
+    namespace here = baby_pipable_resultns_;
+
+
     // Fortunately, 'boost::tuples::null_type' is a POD type.
 
     template<class Base, class Strategy, class ArgTuple = boost::tuples::null_type>
@@ -87,14 +93,14 @@ namespace pstade { namespace egg { namespace detail {
     typename result_of_output<A, Base, ArgTuple>::type
     operator|(A& a, function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
+        return fuse(pi.baby().m_base)(here::tuple_push_front(pi.baby().m_arguments, a));
     }
 
     template<class A, class Base, class Strategy, class ArgTuple> inline
     typename result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple>::type
     operator|(A const& a, function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
+        return fuse(pi.baby().m_base)(here::tuple_push_front(pi.baby().m_arguments, a));
     }
 
 
@@ -102,15 +108,25 @@ namespace pstade { namespace egg { namespace detail {
     typename result_of_output<A, Base, ArgTuple>::type
     operator|=(function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi, A& a)
     {
-        return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
+        return fuse(pi.baby().m_base)(here::tuple_push_front(pi.baby().m_arguments, a));
     }
 
     template<class A, class Base, class Strategy, class ArgTuple> inline
     typename result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple>::type
     operator|=(function<baby_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi, A const& a)
     {
-        return fuse(pi.baby().m_base)(detail::tuple_push_front(pi.baby().m_arguments, a));
+        return fuse(pi.baby().m_base)(here::tuple_push_front(pi.baby().m_arguments, a));
     }
+
+
+    struct lookup_pipable_operator { };
+
+
+} // namespace baby_pipable_resultns_
+
+
+using baby_pipable_resultns_::baby_pipable_result;
+using baby_pipable_resultns_::lookup_pipable_operator;
 
 
 } } } // namespace pstade::egg::detail

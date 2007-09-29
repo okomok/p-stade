@@ -13,8 +13,8 @@
 
 #include <boost/mpl/int.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/deduced_const.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/egg/tuple/element.hpp>
 #include <pstade/egg/tuple/get.hpp>
@@ -86,43 +86,16 @@ PSTADE_EGG_SPECIFIED1(make_elements, xp_make_elements, (class))
 PSTADE_EGG_SPECIFIED1(make_elements_c, xp_make_elements_c, (int))
 
 
-namespace elements_detail_ {
+template< class N, class Reference = boost::use_default >
+struct elements :
+    egg::result_of_pipable<typename tp_make_elements<N, Reference>::type>::type,
+    egg::lookup_pipable_operator
+{ };
 
-
-    template< class N >
-    struct elements
-    {
-    private:
-        elements& operator=(elements const&);    
-    };
-
-
-    template< int N >
-    struct elements_c :
-        elements< boost::mpl::int_<N> >
-    { };
-
-
-    template< class TupleRange, class N > inline
-    typename result_of<xp_make_elements<N>(TupleRange&)>::type
-    operator|(TupleRange& rng, elements<N>)
-    {
-        return xp_make_elements<N>()(rng);
-    }
-
-    template< class TupleRange, class N > inline
-    typename result_of<xp_make_elements<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
-    operator|(TupleRange const& rng, elements<N>)
-    {
-        return xp_make_elements<N>()(rng);
-    }
-
-
-} // namespace elements_detail_
-
-
-using elements_detail_::elements;
-using elements_detail_::elements_c;
+template< int N, class Reference = boost::use_default >
+struct elements_c :
+    elements<boost::mpl::int_<N>, Reference>
+{ };
 
 
 } } // namespace pstade::oven

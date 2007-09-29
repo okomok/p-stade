@@ -1,27 +1,30 @@
 [section Output Iterator Adaptors]
 
-Output Iterator Adaptors adapt the behavior of the underlying object or iterator.
+Output Iterator Adaptors adapt the behavior of the underlying iterator.
 An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`, you can "chain" multiple adaptors:
 
     int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
     int const answer[] = {2*3,4*3,6*3,8*3,10*3};
     std::vector<int> out;
-    copy(in, filterer(bll::_1 % 2 == 0)|=transformer(bll::_1 * 3)|=back_inserter|=out);
+    copy(in, filterer(bll::_1 % 2 == 0) |= transformer(bll::_1 * 3) |= std::back_inserter(out));
     BOOST_CHECK( equals(out, answer) );
 
 
 
 
-[section applier]
+[section converter]
 
 [h3 Description]
-`applier` returns an _output_iterator_ which passes each item assigned as an argument to the unary function.
+`converter` changes an input to specified type.
 
 [h3 Header]
-* `<pstade/oven/applier.hpp>`
+* `<pstade/oven/converter.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* ...
+
+[h3 Notation]
+* `f_(x)` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = boost::implicit_cast<To>(v)`.
 
 [h3 Valid expressions]
 [table 
@@ -30,21 +33,40 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`applier |= _fun`]
+        [`xp_make_converter<To>`]
         [
-            `T(_fun)`
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`xp_make_converter<To>()(x)`]
+        [
+            `applier(f_(x))`
+        ]
+    ]
+    [
+        [`oven::make_converter<To>(x)`]
+        [
+            `xp_make_converter<To>()(x)`
+        ]
+    ]
+    [
+        [`converter<To>() |= x`]
+        [
+            `xp_make_converter<To>()(x)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::function_output_iterator<typeof(_fun)>` such that `T(_fun)` is a valid expression.
+* `x` is an _output_iterator_.
 
 [h3 Example]
 
 [h3 See also]
-* [@http://www.boost.org/libs/iterator/doc/function_output_iterator.html boost::function_output_iterator]
-* [link oven.applied applied]
+* [link oven.applier applier]
+* [link oven.converted converted]
+* [link oven.transformer transformer]
 
 [endsect]
 
@@ -74,7 +96,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     [
         [`filterer(_prd) |= x`]
         [
-            `applier |= f_(x)`
+            `applier(f_(x))`
         ]
     ]
 ]
@@ -116,7 +138,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     [
         [`indirecter(_fun) |= x`]
         [
-            `applier |= f_(x)`
+            `applier(f_(x))`
         ]
     ]
 ]
@@ -130,125 +152,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * [link oven.applier applier]
 * [link oven.indirected indirected]
 * [link oven.outdirected outdirected]
-
-[endsect]
-
-
-
-
-[section inserter]
-
-[h3 Description]
-`inserter` family is a _pipable_object_ which is an akin to `std::inserter` family
-
-[h3 Header]
-* `<pstade/oven/inserter.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`inserter(i) |= x`]
-        [
-            `T(x, i)`
-        ]
-    ]
-    [
-        [`back_inserter |= bx`]
-        [
-            `BT(bx)`
-        ]
-    ]
-    [
-        [`front_inserter |= fx`]
-        [
-            `FT(fx)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `T` is `std::insert_iterator<_typeof(x)>` such that `T(x, i)` is a valid expression.
-* `BT` is `std::back_insert_iterator<_typeof(bx)>` such that `BT(bx)` is a valid expression.
-* `FT` is `std::front_insert_iterator<_typeof(fx)>` such that `FT(fx)` is a valid expression.
-
-[h3 Example]
-
-[h3 See also]
-
-[endsect]
-
-
-
-
-[section stream_writer]
-
-[h3 Description]
-`stream_writer` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
-It needs no explicit template parameter to specify the `value_type` to output,
-but one extra precondition below must be met. It can be easily guaranteed by using `transformed`, though.
-
-[h3 Header]
-* `<pstade/oven/stream_writer.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`stream_writer(d) |= s`]
-        [
-            `T(s, d)`
-        ]
-    ]
-    [
-        [`stream_writer |= s`]
-        [
-            `stream_writer(0) |= s`
-        ]
-    ]
-]
-
-[note `stream_writer` doesn't write an extra delimiter after the last element.]
-
-[h3 Preconditions]
-* `T` is `hamigaki::ostream_iterator<unspecified, _typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s, d)` is a valid expressin.
-* An object which is passed to `_typeof(stream_writer(s))::operator=` is _output_streamable_.
-
-[h3 Example]
-    std::vector<std::string> sample
-        = initial_values("hello", "oven", "stream_writer");
-
-    {
-        std::ofstream fout("read.txt");
-        copy(sample, stream_writer(" ")|=fout);
-    }
-
-    {
-        std::ifstream fin("read.txt");
-        BOOST_CHECK( equals(
-            oven::stream_read<std::string>(fin),
-            sample
-        ) );
-    }
-
-[h3 See also]
-* [@http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html hamigaki::ostream_iteraotor]
-* [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
-* [link oven.delimited delimited]
-* [link oven.stream_read stream_read]
-* [link oven.transformed transformed]
 
 [endsect]
 
@@ -278,7 +181,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
     [
         [`transformer(_fun) |= x`]
         [
-            `applier |= f_(x)`
+            `applier(f_(x))`
         ]
     ]
 ]
@@ -291,6 +194,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 [h3 See also]
 * [link oven.applier applier]
 * [link oven.transformed transformed]
+* [link oven.converter converter]
 
 [endsect]
 

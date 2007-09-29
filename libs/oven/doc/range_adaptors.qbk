@@ -450,6 +450,67 @@ then pretends to be a range of _forward_iterator_.
 
 
 
+[section converted]
+
+[h3 Description]
+`converted` changes range referents to specified type.
+
+[h3 Header]
+* `<pstade/oven/converted.hpp>`
+
+[h3 Model of]
+* ...
+
+[h3 Notation]
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> boost::implicit_cast<To>(v)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`xp_make_converted<To>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`xp_make_converted<To>()(_rng)`]
+        [
+            `_rng|transformed(f_)`
+        ]
+    ]
+    [
+        [`oven::make_converted<To>(_rng)`]
+        [
+            `xp_make_converted<To>()(_rng)`
+        ]
+    ]
+    [
+        [`_rng|converted<To>()`]
+        [
+            `xp_make_converted<To>()(_rng)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* The corresponding semantics is a valid expression.
+
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.transformed transformed]
+* [link oven.converter converter]
+
+[endsect]
+
+
+
+
 [section copied_to]
 
 [h3 Description]

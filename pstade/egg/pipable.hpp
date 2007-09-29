@@ -46,6 +46,10 @@ namespace pstade { namespace egg {
     PSTADE_POD_CONSTANT((op_pipable), pipable) = PSTADE_EGG_GENERATOR;
 
 
+    // If msvc fails to find operator|, use this as super type.
+    using detail::lookup_pipable_operator;
+
+
 } } // namespace pstade::egg
 
 

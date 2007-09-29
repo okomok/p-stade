@@ -6,8 +6,9 @@ oven/range_makers.html
 oven/range_adaptors.html
 oven/string_adaptors.html
 oven/merge_adaptors.html
-oven/utilities.html
+oven/output_iterator_makers.html
 oven/output_iterator_adaptors.html
+oven/utilities.html
 oven/parallel_algorithms.html
 oven/extending_boost_range.html
 oven/version_history.html

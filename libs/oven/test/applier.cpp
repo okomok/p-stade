@@ -52,12 +52,12 @@ void pstade_minimal_test()
     std::string const src("hello,applier");
     {
         g_ss.str("");
-        oven::copy(src, oven::applier|=&::to_ss);
+        oven::copy(src, oven::applier(&::to_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::applier|=regular(&::to_ss));
+        oven::copy(src, oven::applier(regular(&::to_ss)));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {
@@ -65,17 +65,17 @@ void pstade_minimal_test()
         oven::copy(std::string("abc"), std::back_inserter(vec));
         BOOST_CHECK( oven::equals(std::string("abc"), vec) );
         // identities keeps vec mutable.
-        oven::copy(vec|identities, oven::applier|=&::modify);
+        oven::copy(vec|identities, oven::applier(&::modify));
         BOOST_CHECK( oven::equals(std::string("xxx"), vec) );
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::stream_writer|=g_ss);
+        oven::copy(src, oven::stream_writer(g_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::applier|=pstade::unused);
+        oven::copy(src, oven::applier(pstade::unused));
         BOOST_CHECK( boost::empty(g_ss.str()) );
     }
 }
