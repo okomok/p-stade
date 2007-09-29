@@ -44,6 +44,50 @@ Output Iterator Maker returns _output_iterator_.
 
 
 
+[section checker]
+
+[h3 Description]
+`checker` is a shortcut of `checked|begin`.
+
+[h3 Header]
+* `<pstade/oven/checker.hpp>`
+
+[h3 Model of]
+* _bindable_ _s_ _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`checker(_rng, _dco)`]
+        [
+            `_dco(_rng|checked)`
+        ]
+    ]
+    [
+        [`checker(_rng)`]
+        [
+            `_begin(_rng|checked)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* The corresponding semantics is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.checked checked]
+
+[endsect]
+
+
+
+
 [section stream_writer]
 
 [h3 Description]

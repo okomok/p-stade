@@ -193,19 +193,19 @@ namespace pstade {
             m_content.reset(new any_detail::holder<self_t const &>(other));
         }
 
-    // base access
+    // content access
         template<class X>
-        bool has_base() const
+        bool contains() const
         {
             return make_bool(type() == typeid(boost::type<X>));
         }
 
         template<class X>
-        X &base() const
+        X &content() const
         {
             // `X` must be strictly the same as holder's; for consistency.
             // Though a conversion to const type is feasible, a conversion to super type is not.
-            BOOST_ASSERT(has_base<X>());
+            BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
         }
     };
@@ -250,17 +250,17 @@ namespace pstade {
             m_content.reset(new any_detail::holder<self_t const &>(other));
         }
 
-    // base access
+    // content access
         template<class X>
-        bool has_base() const
+        bool contains() const
         {
             return make_bool(type() == typeid(boost::type<X>));
         }
 
         template<class X>
-        X &base() const
+        X &content() const
         {
-            BOOST_ASSERT(has_base<X>());
+            BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
         }
     };
@@ -305,17 +305,17 @@ namespace pstade {
             m_content.reset(new any_detail::holder<self_t>(other));
         }
 
-    // base access
+    // content access
         template<class X>
-        bool has_base() const
+        bool contains() const
         {
             return make_bool(type() == typeid(boost::type<X>));
         }
 
         template<class X>
-        X &base() const
+        X &content() const
         {
-            BOOST_ASSERT(has_base<X>());
+            BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X> >(*m_content).held();
         }
     };
@@ -332,7 +332,7 @@ namespace pstade {
         template<class Any>
         X &operator()(Any const &a) const
         {
-            return a.template base<X>();
+            return a.template content<X>();
         }
 
         X &operator()(boost::any &a) const
@@ -363,8 +363,8 @@ namespace pstade {
         template<class Any>
         result_type operator()(Any const &a) const
         {
-            if (a.template has_base<T>())
-                return a.template base<T>();
+            if (a.template contains<T>())
+                return a.template content<T>();
             else
                 return result_type();
         }

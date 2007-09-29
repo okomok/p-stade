@@ -40,9 +40,9 @@ void test_iterator()
     std::string src("abc");
     {
         any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
-        BOOST_CHECK( it1.has_base<std::string::iterator>() );
-        BOOST_CHECK( !it1.has_base<std::string::const_iterator>() );
-        std::string::iterator b = it1.base<std::string::iterator>();
+        BOOST_CHECK( it1.contains<std::string::iterator>() );
+        BOOST_CHECK( !it1.contains<std::string::const_iterator>() );
+        std::string::iterator b = it1.content<std::string::iterator>();
         BOOST_CHECK( b == boost::begin(src) );
         any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // copy-initialization.
         BOOST_CHECK( it2 == it1 );
@@ -60,13 +60,13 @@ void test_iterator()
     {
         any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1;
         it1 = boost::begin(src);
-        std::string::iterator b = it1.base<std::string::iterator>();
+        std::string::iterator b = it1.content<std::string::iterator>();
         BOOST_CHECK( b == boost::begin(src) );
     }
     {
         any_iterator<char&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it1;
         it1 = boost::begin(src);
-        std::string::iterator b = it1.base<std::string::iterator>();
+        std::string::iterator b = it1.content<std::string::iterator>();
         BOOST_CHECK( b == boost::begin(src) );
     }
 }
@@ -78,12 +78,12 @@ void test_type()
         any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1;
         BOOST_CHECK(it1.empty());
         BOOST_CHECK(it1.type() == typeid(void));
-        BOOST_CHECK(!it1.has_base<int *>());
+        BOOST_CHECK(!it1.contains<int *>());
         it1 = boost::begin(src);
         BOOST_CHECK(!it1.empty());
         BOOST_CHECK(it1.type() == typeid(std::string::iterator));
-        BOOST_CHECK( it1.has_base<std::string::iterator>() );
-        BOOST_CHECK( !it1.has_base<std::string::const_iterator>() );
+        BOOST_CHECK( it1.contains<std::string::iterator>() );
+        BOOST_CHECK( !it1.contains<std::string::const_iterator>() );
     }
 }
 
@@ -98,10 +98,10 @@ void test_incrementable()
         it1++;
         BOOST_CHECK( &*it1 == &src[2]);
 
-        BOOST_CHECK( it1.has_base<std::string::iterator>() );
-        BOOST_CHECK( !it1.has_base<std::string::const_iterator>() );
+        BOOST_CHECK( it1.contains<std::string::iterator>() );
+        BOOST_CHECK( !it1.contains<std::string::const_iterator>() );
 
-        std::string::iterator b = it1.base<std::string::iterator>();
+        std::string::iterator b = it1.content<std::string::iterator>();
         BOOST_CHECK( b == boost::begin(src) + 2 );
 
         any_iterator<char const&, boost::incrementable_traversal_tag, char, std::ptrdiff_t> it2 = it1; // copy-initialization.
@@ -131,8 +131,8 @@ void test_swap()
         any_iterator<char &, boost::random_access_traversal_tag> a1(s2.begin());
         any_iterator<char &, boost::random_access_traversal_tag> a2(s1.begin());
         pstade::egg::do_swap(a1, a2);
-        BOOST_CHECK( s1.begin() == a1.base<std::string::iterator>() );
-        BOOST_CHECK( s2.begin() == a2.base<std::string::iterator>() );
+        BOOST_CHECK( s1.begin() == a1.content<std::string::iterator>() );
+        BOOST_CHECK( s2.begin() == a2.content<std::string::iterator>() );
     }
     {
         std::string s1("abdefg");
@@ -257,8 +257,8 @@ void pstade_unit_test()
         std::string rng("abcd");
         typedef any_iterator<char&, boost::random_access_traversal_tag, char, std::ptrdiff_t> many_iter;
         many_iter many(boost::begin(rng));
-        // many.base<char *>(); // bad_cast!
-        many.base<std::string::iterator>();
+        // many.content<char *>(); // bad_cast!
+        many.content<std::string::iterator>();
     }
     {
         std::string str("jgi8e8qnboie");

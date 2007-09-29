@@ -1,7 +1,7 @@
 [section Output Iterator Adaptors]
 
 Output Iterator Adaptors adapt the behavior of the underlying iterator.
-An Output Iterator Adaptor is a _pipable_adaptor_, so that, by using `operator|=`, you can "chain" multiple adaptors:
+An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`, you can "chain" multiple adaptors:
 
     int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
     int const answer[] = {2*3,4*3,6*3,8*3,10*3};

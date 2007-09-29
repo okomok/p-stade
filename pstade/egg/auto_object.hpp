@@ -44,7 +44,7 @@ namespace pstade { namespace egg {
             {
                 std::auto_ptr<X> ptr(fuse(xp_new_<X>())(m_args));
                 m_any = ptr;
-                return m_any.base< std::auto_ptr<X> >();
+                return m_any.content< std::auto_ptr<X> >();
             }
 
         private:

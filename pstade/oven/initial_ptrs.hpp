@@ -65,7 +65,7 @@ namespace initial_ptrs_detail {
                 r->insert(r->end(), m_ptrs[i]);
 
             m_any = r;
-            return m_any.base< std::auto_ptr<PtrContainer> >();
+            return m_any.content< std::auto_ptr<PtrContainer> >();
         }
 
         typedef boost::array<AutoPtr, N> array_type;

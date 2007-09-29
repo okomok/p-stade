@@ -20,6 +20,7 @@
 <a name="oven.output_iterator_makers"></a>Output Iterator Makers</h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="output_iterator_makers.html#oven.applier">applier</a></span></dt>
+<dt><span class="section"><a href="output_iterator_makers.html#oven.checker">checker</a></span></dt>
 <dt><span class="section"><a href="output_iterator_makers.html#oven.stream_writer">stream_writer</a></span></dt>
 <dt><span class="section"><a href="output_iterator_makers.html#oven.streambuf_writer">streambuf_writer</a></span></dt>
 <dt><span class="section"><a href="output_iterator_makers.html#oven.std_stream_writer">std_stream_writer</a></span></dt>
@@ -109,9 +110,100 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oven.checker"></a>checker</h3></div></div></div>
+<a name="checker.description"></a><h4>
+<a name="id584543"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">checker</span></code> is a shortcut of
+        <code class="computeroutput"><span class="identifier">checked</span><span class="special">|</span><span class="identifier">begin</span></code>.
+      </p>
+<a name="checker.header"></a><h4>
+<a name="id584591"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">checker</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="checker.model_of"></a><h4>
+<a name="id584662"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
+          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
+          Object</a>
+</li></ul></div>
+<a name="checker.valid_expressions"></a><h4>
+<a name="id584700"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">checker</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">,</span>
+                <span class="identifier">_dco</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">checked</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">checker</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">checked</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="checker.preconditions"></a><h4>
+<a name="id584927"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<a name="checker.example"></a><h4>
+<a name="id584948"></a>
+        Example
+      </h4>
+<a name="checker.see_also"></a><h4>
+<a name="id584963"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.checked" title="checked">checked</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stream_writer"></a>stream_writer</h3></div></div></div>
 <a name="stream_writer.description"></a><h4>
-<a name="id584544"></a>
+<a name="id585005"></a>
         Description
       </h4>
 <p>
@@ -124,12 +216,12 @@
         though.
       </p>
 <a name="stream_writer.header"></a><h4>
-<a name="id584624"></a>
+<a name="id585086"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="stream_writer.model_of"></a><h4>
-<a name="id584695"></a>
+<a name="id585156"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -138,7 +230,7 @@
           Object</a>
 </li></ul></div>
 <a name="stream_writer.valid_expressions"></a><h4>
-<a name="id584734"></a>
+<a name="id585195"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -202,7 +294,7 @@
 </td></tr>
 </table></div>
 <a name="stream_writer.preconditions"></a><h4>
-<a name="id584983"></a>
+<a name="id585445"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -218,7 +310,7 @@
         </li>
 </ul></div>
 <a name="stream_writer.example"></a><h4>
-<a name="id585206"></a>
+<a name="id585668"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -239,7 +331,7 @@
 <span class="special">}</span>
 </pre>
 <a name="stream_writer.see_also"></a><h4>
-<a name="id585568"></a>
+<a name="id586029"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -254,7 +346,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.streambuf_writer"></a>streambuf_writer</h3></div></div></div>
 <a name="streambuf_writer.description"></a><h4>
-<a name="id585657"></a>
+<a name="id586118"></a>
         Description
       </h4>
 <p>
@@ -262,12 +354,12 @@
         generator of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostreambuf_iterator</span></code>.
       </p>
 <a name="streambuf_writer.header"></a><h4>
-<a name="id585706"></a>
+<a name="id586167"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="streambuf_writer.model_of"></a><h4>
-<a name="id585777"></a>
+<a name="id586238"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -276,7 +368,7 @@
           Object</a>
 </li></ul></div>
 <a name="streambuf_writer.valid_expressions"></a><h4>
-<a name="id585816"></a>
+<a name="id586277"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -324,7 +416,7 @@
 </tbody>
 </table></div>
 <a name="streambuf_writer.preconditions"></a><h4>
-<a name="id586010"></a>
+<a name="id586471"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -342,11 +434,11 @@
         </li>
 </ul></div>
 <a name="streambuf_writer.example"></a><h4>
-<a name="id586279"></a>
+<a name="id586740"></a>
         Example
       </h4>
 <a name="streambuf_writer.see_also"></a><h4>
-<a name="id586294"></a>
+<a name="id586755"></a>
         See also
       </h4>
 </div>
@@ -354,7 +446,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.std_stream_writer"></a>std_stream_writer</h3></div></div></div>
 <a name="std_stream_writer.description"></a><h4>
-<a name="id586320"></a>
+<a name="id586782"></a>
         Description
       </h4>
 <p>
@@ -363,12 +455,12 @@
         which behaves as if it were <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream_iterator</span></code>.
       </p>
 <a name="std_stream_writer.header"></a><h4>
-<a name="id586377"></a>
+<a name="id586838"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="std_stream_writer.model_of"></a><h4>
-<a name="id586449"></a>
+<a name="id586910"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -377,7 +469,7 @@
           Object</a>
 </li></ul></div>
 <a name="std_stream_writer.valid_expressions"></a><h4>
-<a name="id586487"></a>
+<a name="id586948"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -426,7 +518,7 @@
 </tbody>
 </table></div>
 <a name="std_stream_writer.preconditions"></a><h4>
-<a name="id586716"></a>
+<a name="id587177"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -451,11 +543,11 @@
 </td></tr>
 </table></div>
 <a name="std_stream_writer.example"></a><h4>
-<a name="id586783"></a>
+<a name="id587244"></a>
         Example
       </h4>
 <a name="std_stream_writer.see_also"></a><h4>
-<a name="id586797"></a>
+<a name="id587258"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">

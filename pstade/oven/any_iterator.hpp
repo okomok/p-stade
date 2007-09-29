@@ -19,6 +19,7 @@
 
 #include <cstddef> // ptrdiff_t
 #include <typeinfo>
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -326,16 +327,17 @@ public:
         return m_content ? m_content->typeid_() : typeid(void);
     }
 
-// base access
+// content access
     template< class Iterator >
-    bool has_base() const
+    bool contains() const
     {
         return make_bool(type() == typeid(Iterator));
     }
 
     template< class Iterator >
-    Iterator base() const
+    Iterator content() const
     {
+        BOOST_ASSERT(contains<Iterator>());
         return egg::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
     }
 

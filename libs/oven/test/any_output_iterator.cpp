@@ -33,8 +33,8 @@ void pstade_minimal_test()
         typedef std::back_insert_iterator< std::vector<char> > back_insert_iter_t;
         std::vector<char> v;
         any_output_iterator<char &> oi(std::back_inserter(v));
-        BOOST_CHECK(oi.has_base< back_insert_iter_t >());
-        BOOST_CHECK(!oi.has_base< int * >());
+        BOOST_CHECK(oi.contains< back_insert_iter_t >());
+        BOOST_CHECK(!oi.contains< int * >());
         BOOST_CHECK(oi.type() == typeid(back_insert_iter_t));
 
         std::string src("abcdefg");
@@ -46,10 +46,10 @@ void pstade_minimal_test()
         typedef std::back_insert_iterator< std::vector<char> > back_insert_iter_t;
         std::vector<char> v;
         any_output_iterator<char &> oi(std::back_inserter(v));
-        BOOST_CHECK(oi.has_base< back_insert_iter_t >());
-        BOOST_CHECK(!oi.has_base< int * >());
+        BOOST_CHECK(oi.contains< back_insert_iter_t >());
+        BOOST_CHECK(!oi.contains< int * >());
 
-        back_insert_iter_t b = oi.base< std::back_insert_iterator< std::vector<char> > >();
+        back_insert_iter_t b = oi.content< std::back_insert_iterator< std::vector<char> > >();
         std::string src("abcdefg");
         std::copy(src.begin(), src.end(), b);
         BOOST_CHECK( equals(v, src) );
@@ -68,8 +68,8 @@ void pstade_minimal_test()
         std::stringstream sout;
         any_output_iterator<char> oi;
         oi = std::ostream_iterator<char>(sout); // assignment can avoid vexing parse.
-        BOOST_CHECK(oi.has_base< std::ostream_iterator<char> >());
-        BOOST_CHECK(!oi.has_base< int * >());
+        BOOST_CHECK(oi.contains< std::ostream_iterator<char> >());
+        BOOST_CHECK(!oi.contains< int * >());
 
         std::string src("abcdefg");
         std::copy(src.begin(), src.end(), oi);
@@ -82,11 +82,11 @@ void pstade_minimal_test()
         oi = boost::none;
         BOOST_CHECK( oi.empty() );
         BOOST_CHECK(oi.type() != typeid(int *));
-        BOOST_CHECK(!oi.has_base<int *>());
+        BOOST_CHECK(!oi.contains<int *>());
         int arr[7];
         oi = &arr[0];
         BOOST_CHECK(oi.type() == typeid(int *));
-        BOOST_CHECK(oi.has_base<int *>());
+        BOOST_CHECK(oi.contains<int *>());
 
         std::string src("abcdefg");
         std::copy(src.begin(), src.end(), oi);
@@ -102,13 +102,13 @@ void pstade_minimal_test()
         oj.reset(oi); // not copy-assignment! - (1)
         BOOST_CHECK( !oj.empty() );
         BOOST_CHECK(oj.type() == typeid(any_output_iterator<char const&>));
-        BOOST_CHECK(!oi.has_base<int *>());
+        BOOST_CHECK(!oi.contains<int *>());
 
         BOOST_CHECK( oi.empty() );
         int arr[7];
         oi = &arr[0];
         BOOST_CHECK(oi.type() == typeid(int *));
-        BOOST_CHECK(oi.has_base<int *>());
+        BOOST_CHECK(oi.contains<int *>());
 
         // notice the base of oj in (1) is a copy, hence you need to reset it here.
         oj.reset(oi);
@@ -148,7 +148,7 @@ void pstade_minimal_test()
         BOOST_CHECK( src == "xyzdefg" );
 
         any_output_iterator<char const &> oj(oi++);
-        BOOST_CHECK( *oi.base<std::string::iterator>() == 'd' );
+        BOOST_CHECK( *oi.content<std::string::iterator>() == 'd' );
 
         *oj = '0';
         BOOST_CHECK( src == "xyz0efg" );
