@@ -12,7 +12,6 @@
 #define PSTADE_CONCEPT_CHECK
 #include <pstade/oven/filterer.hpp>
 #include <pstade/oven/transformer.hpp>
-#include <pstade/oven/inserter.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/equals.hpp>
 #include <vector>

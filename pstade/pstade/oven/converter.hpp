@@ -29,7 +29,7 @@ namespace converter_detail {
     {
         typedef To result_type;
 
-        To operator()(To v)
+        To operator()(To v) const
         {
             return v;
         }

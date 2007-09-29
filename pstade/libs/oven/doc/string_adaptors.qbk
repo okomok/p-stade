@@ -80,7 +80,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/lower_chars.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `loc` is a `std::locale` object.
@@ -134,7 +134,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/upper_chars.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `loc` is a `std::locale` object.
@@ -186,7 +186,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/narrow_chars.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `loc` is a `std::locale` object.
@@ -234,6 +234,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/wide_chars.hpp>`
 
 [h3 Model of]
+* _pipable_adaptor_
 
 [h3 Notation]
 * `loc` is a `std::locale` object.
@@ -252,15 +253,15 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         ]
     ]
     [
-        [`op_make_wide_chars<CharT>()(_rng, loc)`]
+        [`op_make_wide_chars<CharT>()(_rng, loc = std::locale())`]
         [
             `_rng|transformed(to_w)`
         ]
     ]
     [
-        [`make_wide_chars`]
+        [`rng|wide_chars`]
         [
-            A _pipable_ `op_make_wide_chars<>()`
+            `op_make_wide_chars<>(_rng)`
         ]
     ]
 ]
@@ -288,7 +289,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/string_found.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -326,7 +327,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/string_split.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -365,7 +366,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/matches.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -416,7 +417,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 * `<pstade/oven/tokenized.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -467,7 +468,7 @@ Pending...
 * `<pstade/oven/utf8_decoded.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -524,7 +525,7 @@ Pending...
 * `<pstade/oven/utf8_encoded.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -577,7 +578,7 @@ Pending...
 * `<pstade/oven/utf16_decoded.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -630,7 +631,7 @@ Pending...
 * `<pstade/oven/utf16_encoded.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -683,7 +684,7 @@ Pending...
 * `<pstade/oven/xpressive_matches.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -723,7 +724,7 @@ Pending...
 * `<pstade/oven/xpressive_tokenized.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 

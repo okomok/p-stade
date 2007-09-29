@@ -178,7 +178,7 @@
 * OutputIterator Adaptors revised. 
 * `boost::optional` becomes a range.
 * Added `converted`.
-
+* Concept name changed: PipableObject to PipableAdaptor.
 
 
 

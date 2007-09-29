@@ -14,13 +14,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/regex.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <pstade/enable_if.hpp>
+#include <pstade/egg/deduced_form.hpp>
 #include <pstade/use_default.hpp>
 #include "./iter_range.hpp"
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
-#include "./extension.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -36,6 +34,8 @@ struct tp_make_tokenized
 {
     struct baby
     {
+        typedef egg::deduced_form call_strategy;
+
         template< class Myself, class Range, class Regex, class IntOrRandRange = void, class Flag  = void >
         struct apply
         {
@@ -61,11 +61,10 @@ struct tp_make_tokenized
         };
 
         template< class Result, class Range, class Regex >
-        Result call(
+        Result call(boost::type<Result>,
             Range& rng, Regex& re,
             int submatch = 0,
-            boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
-        ) const
+            boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default) const
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
 
@@ -77,14 +76,10 @@ struct tp_make_tokenized
         }
 
         template< class Result, class Range, class Regex, class RandRange >
-        Result call(
+        Result call(boost::type<Result>,
             Range& rng, Regex& re,
             RandRange const& submatches,
-            boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
-    #if defined(__GNUC__) // See <pstade/const_overloaded.hpp>.
-            , typename disable_if< boost::is_same<int, RandRange> >::type = 0
-    #endif
-        ) const
+            boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default) const
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
 
