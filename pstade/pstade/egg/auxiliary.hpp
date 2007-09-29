@@ -39,78 +39,87 @@
 namespace pstade { namespace egg {
 
 
-    // 0ary
+    namespace auxiliary0_detail {
 
-    template<class UnaryBase>
-    struct baby_auxiliary0_result
-    {
-        UnaryBase m_base;
 
-        typedef UnaryBase base_type;
-
-        UnaryBase base() const
+        template<class UnaryBase>
+        struct baby_result
         {
-            return m_base;
+            UnaryBase m_base;
+
+            typedef UnaryBase base_type;
+
+            UnaryBase base() const
+            {
+                return m_base;
+            }
+
+        // as pipe
+            typedef
+                function<baby_result, by_perfect>
+            nullary_result_type;
+
+            template<class Result>
+            Result call() const
+            {
+                Result r = { { m_base } };
+                return r;
+            }
+
+        // as function call
+            template<class Myself, class A0>
+            struct apply :
+                result_of<UnaryBase const(A0&)>
+            { };
+
+            template<class Result, class A0>
+            Result call(A0& a0) const
+            {
+                return m_base(a0);
+            }
+        };
+
+
+        template<class A0, class UnaryBase> inline
+        typename result_of<UnaryBase(A0&)>::type
+        operator|(A0& a0, function<baby_result<UnaryBase>, by_perfect> pi)
+        {
+            return pi.baby().m_base(a0);
         }
 
-    // as pipe
-        typedef
-            function<baby_auxiliary0_result, by_perfect>
-        nullary_result_type;
-
-        template<class Result>
-        Result call() const
+        template<class A0, class UnaryBase> inline
+        typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
+        operator|(A0 const& a0, function<baby_result<UnaryBase>, by_perfect> pi)
         {
-            Result r = { { m_base } };
-            return r;
+            return pi.baby().m_base(a0);
         }
 
-    // as function call
-        template<class Myself, class A0>
-        struct apply :
-            result_of<UnaryBase const(A0&)>
-        { };
-
-        template<class Result, class A0>
-        Result call(A0& a0) const
+        template<class A0, class UnaryBase> inline
+        typename result_of<UnaryBase(A0&)>::type
+        operator|=(function<baby_result<UnaryBase>, by_perfect> pi, A0& a0)
         {
-            return m_base(a0);
+            return pi.baby().m_base(a0);
         }
-    };
 
-    template<class A0, class UnaryBase> inline
-    typename result_of<UnaryBase(A0&)>::type
-    operator|(A0& a0, function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi)
-    {
-        return pi.baby().m_base(a0);
-    }
+        template<class A0, class UnaryBase> inline
+        typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
+        operator|=(function<baby_result<UnaryBase>, by_perfect> pi, A0 const& a0)
+        {
+            return pi.baby().m_base(a0);
+        }
 
-    template<class A0, class UnaryBase> inline
-    typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
-    operator|(A0 const& a0, function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi)
-    {
-        return pi.baby().m_base(a0);
-    }
 
-    template<class A0, class UnaryBase> inline
-    typename result_of<UnaryBase(A0&)>::type
-    operator|=(function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi, A0& a0)
-    {
-        return pi.baby().m_base(a0);
-    }
+        struct lookup_auxiliary_operator { };
 
-    template<class A0, class UnaryBase> inline
-    typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
-    operator|=(function<baby_auxiliary0_result<UnaryBase>, by_perfect> pi, A0 const& a0)
-    {
-        return pi.baby().m_base(a0);
-    }
+
+    } // namespace auxiliary0_detail
+
 
     template<class UnaryBase>
     struct result_of_auxiliary0
     {
         typedef
-            function<baby_auxiliary0_result<UnaryBase>, by_perfect>
+            function<auxiliary0_detail::baby_result<UnaryBase>, by_perfect>
         type;
     };
 
@@ -126,6 +135,9 @@ namespace pstade { namespace egg {
     op_auxiliary0;
 
     PSTADE_POD_CONSTANT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR;
+
+    // If msvc fails to find operator|, use this as super type.
+    using auxiliary0_detail::lookup_auxiliary_operator;
 
 
     // 1ary-
@@ -145,53 +157,60 @@ namespace pstade { namespace egg {
 #define n1 BOOST_PP_INC(n)
 
 
-    template<class Base>
-    struct PSTADE_PP_CAT3(baby_auxiliary, n, _result)
-    {
-        Base m_base;
+    namespace PSTADE_PP_CAT3(auxiliary, n, _detail) {
 
-        typedef Base base_type;
 
-        Base base() const
+        template<class Base>
+        struct baby_result
         {
-            return m_base;
-        }
+            Base m_base;
 
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-        struct apply { };
+            typedef Base base_type;
 
-    // as pipe
-        template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-            result_of<
-                typename result_of<op_pipable(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
-            >
-        { };
+            Base base() const
+            {
+                return m_base;
+            }
 
-        template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-        Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-        {
-            return pipable(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
-        }
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct apply { };
 
-    // as function call
-        template<class Myself, BOOST_PP_ENUM_PARAMS(n1, class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(n1, A)> :
-            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n1, A, &))>
-        { };    
+        // as pipe
+            template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
+            struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+                result_of<
+                    typename result_of<op_pipable(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+                >
+            { };
 
-        template<class Result, BOOST_PP_ENUM_PARAMS(n1, class A)>
-        Result call(BOOST_PP_ENUM_BINARY_PARAMS(n1, A, & a)) const
-        {
-            return m_base(BOOST_PP_ENUM_PARAMS(n1, a));
-        }
-    };
+            template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
+            Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+            {
+                return pipable(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
+            }
+
+        // as function call
+            template<class Myself, BOOST_PP_ENUM_PARAMS(n1, class A)>
+            struct apply<Myself, BOOST_PP_ENUM_PARAMS(n1, A)> :
+                result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n1, A, &))>
+            { };    
+
+            template<class Result, BOOST_PP_ENUM_PARAMS(n1, class A)>
+            Result call(BOOST_PP_ENUM_BINARY_PARAMS(n1, A, & a)) const
+            {
+                return m_base(BOOST_PP_ENUM_PARAMS(n1, a));
+            }
+        };
+
+
+    } // namespace auxiliaryn_detail
+
 
     template<class Base>
     struct PSTADE_PP_CAT3(result_of_, auxiliary, n)
     {
         typedef
-            function<PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base>, by_perfect>
+            function<PSTADE_PP_CAT3(auxiliary, n, _detail)::baby_result<Base>, by_perfect>
         type;
     };
 

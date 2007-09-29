@@ -44,6 +44,7 @@ test-suite "oven" :
     [ run constants.cpp ]
     [ compile-fail constants_fail.cpp ]
     [ run converted.cpp ]
+    [ run converter.cpp ]
     [ run copied_to.cpp ]
     [ run copy_range.cpp ]
     [ run counting.cpp ]

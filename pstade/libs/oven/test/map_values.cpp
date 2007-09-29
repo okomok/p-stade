@@ -37,6 +37,7 @@ void pstade_minimal_test()
         a.push_back(p.second);
     }
 
+    test::bidirectional_constant(b|elements_c<1>(), a);
     test::bidirectional_constant(b|map_values, a);
     test::bidirectional_swappable(b|map_values, a);
 }

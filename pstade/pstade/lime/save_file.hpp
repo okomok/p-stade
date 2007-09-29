@@ -44,7 +44,7 @@ namespace pstade { namespace lime {
         }
 
         lime::copy_XMLDecl(oven::stream_writer(fout));
-        lime::save(root, oven::utf8_encoder|=oven::stream_writer|=fout);
+        lime::save(root, oven::utf8_encoder|=oven::stream_writer(fout));
     }
 
 
@@ -59,7 +59,7 @@ namespace pstade { namespace lime {
         }
 
         lime::copy_XMLDecl(oven::stream_writer(fout));
-        lime::save_default(root, oven::utf8_encoder|=oven::stream_writer|=fout);
+        lime::save_default(root, oven::utf8_encoder|=oven::stream_writer(fout));
     }
 
 

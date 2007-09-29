@@ -33,7 +33,7 @@ int test_main(int, char*[])
 
     {
         std::ofstream fout("read.txt");
-        copy(sample, stream_writer(" ")|=fout);
+        copy(sample, stream_writer(fout, " "));
     }
 
     {

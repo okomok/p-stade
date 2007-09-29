@@ -41,7 +41,7 @@ void pstade_minimal_test()
     std::string const ans("hllo,filtrr");
     {
         g_ss.str("");
-        std::copy(src.begin(), src.end(), filterer(&is_not_e)|=stream_writer|=g_ss);
+        std::copy(src.begin(), src.end(), filterer(&is_not_e) |= stream_writer(g_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), ans) );
     }
     {

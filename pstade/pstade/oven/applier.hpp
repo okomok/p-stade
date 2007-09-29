@@ -11,37 +11,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/pass_by.hpp>
-#include "./detail/base_to_adaptor.hpp"
+#include <pstade/egg/generator.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./detail/function_output_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace applier_detail {
+typedef
+    egg::generator<
+        detail::function_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> > const
+    >::type
+op_applier;
 
 
-    template< class UnaryFun >
-    struct base
-    {
-        typedef
-            detail::function_output_iterator<
-                typename pass_by_value<UnaryFun>::type
-            >
-        result_type;
-
-        result_type operator()(UnaryFun& fun) const
-        {
-            return result_type(fun);
-        }
-    };
-
-
-} // namespace applier_detail
-
-
-PSTADE_OVEN_BASE_TO_ADAPTOR(applier, (applier_detail::base<_>))
+PSTADE_POD_CONSTANT((op_applier), applier) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

@@ -177,6 +177,7 @@
 * PipableObject supports `operator|=`.
 * OutputIterator Adaptors revised. 
 * `boost::optional` becomes a range.
+* Added `converted`.
 
 
 

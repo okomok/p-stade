@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <iterator> // back_inserter
 #include <vector>
 #include <boost/range/begin.hpp>
 #include <pstade/gravy/file_range.hpp>
@@ -18,7 +19,6 @@
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/applier.hpp>
-#include <pstade/oven/inserter.hpp> // back_inserter
 #include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/tomato/to_tstring_to.hpp>
 #include <pstade/unused.hpp>
@@ -34,7 +34,7 @@ namespace pstade { namespace hamburger {
         // cache for speed
         std::vector<ucs4_t> tmp;
         gravy::ifile_range<utf8cp_t> irng(path|tomato::to_tstring);
-        oven::copy(irng|oven::utf8_decoded, oven::back_inserter|=tmp);
+        oven::copy(irng|oven::utf8_decoded, std::back_inserter(tmp));
 
         lime::load(node, tmp);
     }
@@ -43,7 +43,7 @@ namespace pstade { namespace hamburger {
     template< class Node > inline
     void save(Node& node)
     {
-        lime::save(node, oven::applier|=unused);
+        lime::save(node, oven::applier(unused));
     }
 
 
@@ -51,8 +51,8 @@ namespace pstade { namespace hamburger {
     void save(Node& node, ustring const& path)
     {
         std::vector<utf8cp_t> tmp;
-        lime::copy_XMLDecl(oven::back_inserter|=tmp);
-        lime::save_default(node, oven::utf8_encoder|=oven::back_inserter|=tmp);
+        lime::copy_XMLDecl(std::back_inserter(tmp));
+        lime::save_default(node, oven::utf8_encoder|=std::back_inserter(tmp));
 
         gravy::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
         oven::copy(tmp, boost::begin(orng));
