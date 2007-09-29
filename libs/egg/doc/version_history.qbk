@@ -11,6 +11,7 @@
 
 [heading Version 0.90.1]
 * `pipable` supports `|=` operator.
+* Introduced PipableObject concept.
 * `ret` and `perfect` semantics slightly changed.
 * Added `tagged`.
 * Added `apply`.

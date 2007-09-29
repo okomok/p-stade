@@ -19,7 +19,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 * `<pstade/oven/adjacent_filtered.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `{a1,..,aN}` is `_rng`.
@@ -70,7 +70,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `<pstade/oven/adjacent_transformed.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `{a1,..,aN}` is `_rng`.
@@ -134,7 +134,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `<pstade/oven/always.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -174,7 +174,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `<pstade/oven/applied.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -232,7 +232,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `<pstade/oven/checked.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -279,7 +279,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `<pstade/oven/cleared.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -321,7 +321,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `<pstade/oven/concatenated.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `SegmentIterator` is `_iter_of<_typeof(_rng)>::type`.
@@ -383,7 +383,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/const_refs.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -421,7 +421,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/constants.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -489,6 +489,12 @@ then pretends to be a range of _forward_iterator_.
         ]
     ]
     [
+        [`converted<To>`]
+        [
+            A _pipable_object_ type
+        ]
+    ]
+    [
         [`_rng|converted<To>()`]
         [
             `xp_make_converted<To>()(_rng)`
@@ -520,7 +526,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/copied_to.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -563,7 +569,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/cycled.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `{a1,..,aN}` is `_rng`.
@@ -612,7 +618,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/delimited.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `join` is `regular(boost::lambda::bind(make_jointed, _rng2, boost::lambda::_1))`.
@@ -664,7 +670,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/dropped.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -711,7 +717,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/dropped_while.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `not_` is an imaginary function to nagate a predicate.
@@ -793,6 +799,12 @@ then pretends to be a range of _forward_iterator_.
         ]
     ]
     [
+        [`elements<N>`]
+        [
+            A _pipable_object_ type
+        ]
+    ]
+    [
         [`_rng|elements<N>()`]
         [
             `xp_make_elements<N>()(_rng)`
@@ -844,13 +856,13 @@ then pretends to be a range of _forward_iterator_.
     [
         [`oven::make_elements_c<n>(_rng)`]
         [
-            `xp_make_elements_c<n>()(_rng)`
+            `oven::make_elements< boost::mpl::int_<n> >(_rng)`
         ]
     ]
     [
-        [`_rng|elements_c<n>()`]
+        [`elements_c<n>`]
         [
-            `xp_make_elements_c<n>()(_rng)`
+            `elements< boost::mpl::int_<n> >`
         ]
     ]
 ]
@@ -877,7 +889,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/filtered.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -921,7 +933,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/identities.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `traversal` is an imaginary metafunction which returns a traversal tag type known as `boost::xxx_traversal_tag`.
@@ -968,7 +980,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/indirected.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1030,7 +1042,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/outdirected.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1078,7 +1090,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/outplaced.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `iK = boost::next(boost::begin(_fwdrng), K-1)`
@@ -1128,7 +1140,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/jointed.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `{a1,..,aN}` is `_rng1`.
@@ -1185,7 +1197,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/map_keys.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1234,7 +1246,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/map_values.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1286,7 +1298,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/memoized.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1345,7 +1357,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/offset.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1390,7 +1402,7 @@ That is, the view includes every element of the given range but in a potentially
 * `<pstade/oven/permuted.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1430,7 +1442,7 @@ Also, you can expect STL to choose optimized implementation by passing raw point
 * `<pstade/oven/pointed.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1480,7 +1492,7 @@ Also, you can expect STL to choose optimized implementation by passing raw point
 * `<pstade/oven/popped.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1519,7 +1531,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `<pstade/oven/reversed.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1557,7 +1569,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `<pstade/oven/rvalues.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `to_v` is an imaginary function object to convert the argument to `_value_of<_typeof(_rng>)>::type`.
@@ -1601,7 +1613,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `<pstade/oven/scanned.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `{a1,a2,..,aN}` is `_rng`.
@@ -1669,7 +1681,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `<pstade/oven/sliced.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `f` is `_begin(_rndrng)`.
@@ -1721,7 +1733,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `<pstade/oven/sorted.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `less` is `boost::lambda::_1 < boost::lambda::_2`.
@@ -1774,7 +1786,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `<pstade/oven/steps.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `iK = boost::next(boost::begin(_rng), w*K-1))`
@@ -1822,7 +1834,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `<pstade/oven/taken.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1869,7 +1881,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * `<pstade/oven/taken_while.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `not_` is an imaginary function to nagate a predicate.
@@ -1912,7 +1924,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * `<pstade/oven/transformed.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -1965,7 +1977,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * `<pstade/oven/uniqued.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `not_` is an imaginary function to nagate a predicate.
@@ -2015,7 +2027,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * `<pstade/oven/window.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 

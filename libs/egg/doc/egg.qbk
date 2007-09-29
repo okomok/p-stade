@@ -66,6 +66,8 @@ Distributed under the Boost Software License, Version 1.0.
 [def __AUXILIARY_INTERFACE__ [link egg.concepts.auxiliary_interface Auxiliary Interface]]
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]
 [def __BINDABLE__ [link egg.concepts.bindable_object Bindable]]
+[def __PIPABLE_OBJECT__ [link egg.concepts.pipable_object Pipable Object]]
+[def __PIPABLE__ [link egg.concepts.pipable_object Pipable]]
 [def __BABY_FUNCTION__ [link egg.concepts.baby_function Baby Function]]
 
 [def __EGG_FORWARDING_STRATEGIES__ [link egg.forwarding_strategies Forwarding Strageties]]

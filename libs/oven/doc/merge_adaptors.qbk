@@ -14,7 +14,7 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 * `<pstade/oven/merged.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `less` is `regular(boost::lambda::_1 < boost::lambda::_2)`.
@@ -71,7 +71,7 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 * `<pstade/oven/set_cap.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -117,7 +117,7 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 * `<pstade/oven/set_cup.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -163,7 +163,7 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 * `<pstade/oven/set_delta.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -209,7 +209,7 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 * `<pstade/oven/set_minus.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Valid expressions]
 [table 

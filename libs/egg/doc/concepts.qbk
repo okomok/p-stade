@@ -53,13 +53,14 @@ for any __AUXILIARY_INTERFACE__ `i` the following must be met:
 
 * `x|i(x1,..,xN)` is a valid expression if and only if `i(x, x1,..,xN)` is a valid expression.
 * `x|i(x1,..xN)` and `i(x, x1,..,xN)` have the same effects.
-* If `N` is `0`, `x|i()` and `x|i` are valid expressions which have the same effects.
+* If `N` is `0`, `x|i()` and `x|i` are valid expressions which has the same effects.
 
 [heading Models]
 * ...
 
 [heading See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf Auxiliary class interfaces]
+* __PIPABLE_OBJECT__
 
 [endsect]
 
@@ -85,6 +86,33 @@ for any __BINDABLE_OBJECT__ `b` the following must be met:
 
 [heading See also]
 * __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
+[section Pipable Object]
+
+[heading Description]
+A __PIPABLE_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which supports a pipe-like syntax using `operator|` and `operator|=`.
+
+[heading Refinement of]
+* __DEFERRED_CALLABLE_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
+for any __PIPABLE_OBJECT__ `p` the following must be met:
+
+* `x|p(x1,..,xN)` is a valid expresion if and only if `p(x1,..,xN)|=x` is a valid expression.
+* `x|p(x1,..,xN)` and `p(x1,..,xN)|=x` have the same effects.
+* If `N` is `0`, `x|p()`, `x|p`, `p|=x` and `p()|=x` are valid expressions which has the same effects.
+
+[heading Models]
+* ...
+
+[heading See also]
+* __AUXILIARY_INTERFACE__
 
 [endsect]
 

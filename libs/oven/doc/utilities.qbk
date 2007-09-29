@@ -282,7 +282,7 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
 * `<pstade/oven/partitioned.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `not_` is an imaginary function to negate a predicate.
@@ -446,7 +446,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `<pstade/oven/split_at.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `rng2` is `_fwdrng|dropped(n)`.
@@ -510,7 +510,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `<pstade/oven/zipped.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `(_rng1 _rng2 .. _rngN)` is `u`.
@@ -565,7 +565,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `<pstade/oven/unzipped.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
@@ -620,7 +620,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `<pstade/oven/fuzipped.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `(_rng1 _rng2 .. _rngN)` is `u`.
@@ -666,7 +666,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `<pstade/oven/unfuzipped.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `{a1,..,aN}` is `_rng`.
@@ -681,7 +681,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
     [
         [`xp_make_unfuzipped<RefSeq = boost::use_default>`]
         [
-            A _bindable_ _s_ _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -723,7 +723,7 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, suc
 * `<pstade/oven/zipped_with.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _pipable_adaptor_
 
 [h3 Notation]
 * `fuse` is an imaginary function to turn the argument into the one taking a `boost::tuple` as the parameter.

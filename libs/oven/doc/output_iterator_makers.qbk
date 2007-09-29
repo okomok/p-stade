@@ -150,8 +150,6 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 [h3 Example]
 
 [h3 See also]
-* [@http://www.boost.org/libs/iterator/doc/function_output_iterator.html boost::function_output_iterator]
-* [link oven.applied applied]
 
 [endsect]
 
@@ -192,7 +190,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 [h3 Preconditions]
 * The corresponding semantics is a valid expression.
 
-[note `std_stream_writer` doesn't take a template parameter for input value type. Use `converter` when you want to specify it.]
+[note `std_stream_writer` doesn't take a template parameter for output `value_type`. Use `converter` when you want to specify it.]
 
 [h3 Example]
 
