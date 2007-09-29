@@ -34,6 +34,7 @@
 // #include "./block.hpp"
 #include "./broken_into.hpp"
 #include "./checked.hpp"
+#include "./checker.hpp"
 #include "./cleared.hpp"
 // #include "./comprehension.hpp"
 #include "./concatenated.hpp"

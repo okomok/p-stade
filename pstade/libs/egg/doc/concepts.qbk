@@ -67,31 +67,6 @@ for any __AUXILIARY_INTERFACE__ `i` the following must be met:
 
 
 
-[section Bindable Object]
-
-[heading Description]
-A __BINDABLE_OBJECT__ is a __FUNCTION_OBJECT__ which can be passed to `boost::lambda::bind`.
-
-[heading Refinement of]
-* __FUNCTION_OBJECT__
-
-[heading Requirements]
-In addition to the requirements defined in __FUNCTION_OBJECT__,
-for any __BINDABLE_OBJECT__ `b` the following must be met:
-
-* There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,...,boost::lambda::_++N)` is a valid expression.
-
-[heading Models]
-* ...
-
-[heading See also]
-* __BOOST_LAMBDA__
-
-[endsect]
-
-
-
-
 [section Pipable Object]
 
 [heading Description]
@@ -113,6 +88,31 @@ for any __PIPABLE_OBJECT__ `p` the following must be met:
 
 [heading See also]
 * __AUXILIARY_INTERFACE__
+
+[endsect]
+
+
+
+
+[section Bindable Object]
+
+[heading Description]
+A __BINDABLE_OBJECT__ is a __FUNCTION_OBJECT__ which can be passed to `boost::lambda::bind`.
+
+[heading Refinement of]
+* __FUNCTION_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in __FUNCTION_OBJECT__,
+for any __BINDABLE_OBJECT__ `b` the following must be met:
+
+* There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,...,boost::lambda::_++N)` is a valid expression.
+
+[heading Models]
+* ...
+
+[heading See also]
+* __BOOST_LAMBDA__
 
 [endsect]
 

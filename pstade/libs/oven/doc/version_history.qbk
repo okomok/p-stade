@@ -174,11 +174,11 @@
 
 [h2 Version 0.94.5]
 * Added `hetero`.
-* PipableObject supports `operator|=`.
 * OutputIterator Adaptors revised. 
 * `boost::optional` becomes a range.
 * Added `converted`.
 * Concept name changed: PipableObject to PipableAdaptor.
+
 
 
 

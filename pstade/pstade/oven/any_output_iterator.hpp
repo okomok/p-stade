@@ -133,17 +133,17 @@ public:
         return m_content ? m_content->typeid_() : typeid(void);
     }
 
-// base access
+// content access
     template< class OutIter >
-    bool has_base() const
+    bool contains() const
     {
         return make_bool(type() == typeid(OutIter));
     }
 
     template< class OutIter >
-    OutIter base() const
+    OutIter content() const
     {
-        BOOST_ASSERT(has_base<OutIter>());
+        BOOST_ASSERT(contains<OutIter>());
         return egg::static_downcast<typename holder_of<OutIter>::type>(*m_content).held();
     }
 

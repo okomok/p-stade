@@ -42,7 +42,6 @@
 #include <boost/type_traits/alignment_of.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/compare_pointees.hpp>
-#include <pstade/egg/specified.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
@@ -423,6 +422,27 @@ namespace pstade {
             return *this->get_();
         }
 
+    // content access
+        template<class Q>
+        bool contains() const
+        {
+            return make_bool(this->type() == typeid(Q));
+        }
+
+        template<class Q>
+        Q &content()
+        {
+            BOOST_ASSERT(contains<Q>());
+            return egg::static_downcast<Q>(*this->get_());
+        }
+
+        template<class Q>
+        Q const &content() const
+        {
+            BOOST_ASSERT(contains<Q>());
+            return egg::static_downcast<Q>(*this->get_());
+        }
+
     // totally_ordered
         bool operator< (self_t const& other) const
         {
@@ -437,48 +457,6 @@ namespace pstade {
     // workaround
         PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(poly, super_t)
     };
-
-
-    // A const-ness doesn't affect this run-time judgment.
-
-    template<class Q>
-    struct xp_is_poly_castable_to
-    {
-        typedef bool result_type;
-
-        template<class Poly>
-        result_type operator()(Poly &p) const
-        {
-            return make_bool(p.type() == typeid(Q));
-        }
-    };
-
-    PSTADE_EGG_SPECIFIED1(is_poly_castable_to, xp_is_poly_castable_to, (class))
-
-
-    // A const-INcorrect code just doesn't compile.
-
-    template<class Q>
-    struct xp_poly_cast
-    {
-        typedef Q &result_type;
-
-        template<class Poly>
-        result_type operator()(Poly &p) const
-        {
-            BOOST_ASSERT(xp_is_poly_castable_to<Q>()(p));
-            return egg::static_downcast<Q>(*p);
-        }
-
-        template<class Poly>
-        result_type operator()(Poly const &p) const
-        {
-            BOOST_ASSERT(xp_is_poly_castable_to<Q>()(p));
-            return egg::static_downcast<Q>(*p);
-        }
-    };
-
-    PSTADE_EGG_SPECIFIED1(poly_cast, xp_poly_cast, (class))
 
 
 } // namespace pstade

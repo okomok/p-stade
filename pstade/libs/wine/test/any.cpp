@@ -34,10 +34,10 @@ void test_ref()
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.type() == typeid(boost::type<int>) );
         BOOST_CHECK( a.type() == typeid(boost::type<int>) );
-        BOOST_CHECK( &(a.base<int>()) == &i );
-        a.base< int >() = 6;
+        BOOST_CHECK( &(a.content<int>()) == &i );
+        a.content< int >() = 6;
         BOOST_CHECK(i == 6);
-        BOOST_CHECK( a.base< int >() == 6 );
+        BOOST_CHECK( a.content< int >() == 6 );
         pstade::any_to< int >(a) = 3;
         BOOST_CHECK( pstade::any_to< int >(a) == 3 );
         a.type();
@@ -46,36 +46,36 @@ void test_ref()
         BOOST_CHECK( !a );
         a = i;
         BOOST_CHECK( a );
-        BOOST_CHECK( &(a.base<int>()) == &i );
-        a.base< int >() = 6;
+        BOOST_CHECK( &(a.content<int>()) == &i );
+        a.content< int >() = 6;
         BOOST_CHECK(i == 6);
 
-        BOOST_CHECK(a.has_base<int>());
+        BOOST_CHECK(a.contains<int>());
 
         // convertible type is no longer allowed.
-        BOOST_CHECK(!a.has_base<int const>());
+        BOOST_CHECK(!a.contains<int const>());
     }
     {
         int i = 3, j = 5;
         any_ref a1(i);
         any_ref a2(j);
         do_swap(a1, a2);
-        BOOST_CHECK( is_same(a1.base<int>(), j) );
-        BOOST_CHECK( a1.base<int>() == 5 );
-        BOOST_CHECK( is_same(a2.base<int>(), i) );
-        BOOST_CHECK( a2.base<int>() == 3 );
+        BOOST_CHECK( is_same(a1.content<int>(), j) );
+        BOOST_CHECK( a1.content<int>() == 5 );
+        BOOST_CHECK( is_same(a2.content<int>(), i) );
+        BOOST_CHECK( a2.content<int>() == 3 );
     }
     {
         int const i = 3;
         any_ref a(i);
         BOOST_CHECK( !a.empty() );
-        BOOST_CHECK( &(a.base<int const>()) == &i );
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( &(a.content<int const>()) == &i );
+        BOOST_CHECK( a.content< int const >() == 3 );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
 
-        BOOST_CHECK(!a.has_base<int>());
-        BOOST_CHECK(a.has_base<int const>());
+        BOOST_CHECK(!a.contains<int>());
+        BOOST_CHECK(a.contains<int const>());
     }
 
     // const-ness doesn't affect.
@@ -84,8 +84,8 @@ void test_ref()
         any_ref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.type() == typeid(boost::type<int>) );
-        a.base< int >() = 6;
-        BOOST_CHECK( a.base< int >() == 6 );
+        a.content< int >() = 6;
+        BOOST_CHECK( a.content< int >() == 6 );
         pstade::any_to< int >(a) = 3;
         BOOST_CHECK( pstade::any_to< int >(a) == 3 );
         a.type();
@@ -95,7 +95,7 @@ void test_ref()
         any_ref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
@@ -103,68 +103,68 @@ void test_ref()
     {
         int i = 3;
         any_ref a = i; // convertible
-        BOOST_CHECK( a.base< int >() == 3 );
+        BOOST_CHECK( a.content< int >() == 3 );
     }
     {
         int const i = 3;
         any_ref a = i; // convertible
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
     }
     {
         int i = 3;
         any_ref const a(i);
         any_ref b(a); // direct
-        BOOST_CHECK( a.base< int >() == 3 );
-        BOOST_CHECK( b.base< int >() == 3 );
+        BOOST_CHECK( a.content< int >() == 3 );
+        BOOST_CHECK( b.content< int >() == 3 );
     }
     {
         int i = 3;
         any_ref a(i);
         any_ref b = a; // copy
-        BOOST_CHECK( a.base< int >() == 3 );
-        BOOST_CHECK( b.base< int >() == 3 );
+        BOOST_CHECK( a.content< int >() == 3 );
+        BOOST_CHECK( b.content< int >() == 3 );
     }
     {
         int i = 3;
         any_ref const a(i);
         any_ref b;
         b = a; // assign
-        BOOST_CHECK( a.base< int >() == 3 );
-        BOOST_CHECK( b.base< int >() == 3 );
+        BOOST_CHECK( a.content< int >() == 3 );
+        BOOST_CHECK( b.content< int >() == 3 );
     }
     {
         int const i = 3;
         any_ref a(i);
         any_ref b(a); // direct
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int const i = 3;
         any_ref const a(i);
         any_ref b = a; // copy
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int const i = 3;
         any_ref a(i);
         any_ref b;
         b = a; // assign
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int i = 3;
         any_ref a(i);
         any_ref b;
         b.reset(a);
-        BOOST_CHECK( is_same(b.base<any_ref>().base<int>(), i) );
+        BOOST_CHECK( is_same(b.content<any_ref>().content<int>(), i) );
         a = boost::none;
         BOOST_CHECK( !a );
-        BOOST_CHECK( !a.has_base<int>() );
+        BOOST_CHECK( !a.contains<int>() );
         BOOST_CHECK( b );
-        BOOST_CHECK( b.has_base< any_ref >() );
+        BOOST_CHECK( b.contains< any_ref >() );
         b = boost::none;
         BOOST_CHECK( !b );
     }
@@ -173,12 +173,12 @@ void test_ref()
         any_ref a(i);
         any_ref b;
         b.reset(a);
-        BOOST_CHECK( is_same(b.base< any_ref >().base<int const>(), i) );
+        BOOST_CHECK( is_same(b.content< any_ref >().content<int const>(), i) );
         a = boost::none;
         BOOST_CHECK( !a );
-        BOOST_CHECK( !a.has_base<int const>() );
+        BOOST_CHECK( !a.contains<int const>() );
         BOOST_CHECK( b );
-        BOOST_CHECK( b.has_base< any_ref >() );
+        BOOST_CHECK( b.contains< any_ref >() );
         b = boost::none;
         BOOST_CHECK( !b );
     }
@@ -186,7 +186,7 @@ void test_ref()
         any_ref a;
         BOOST_CHECK(!a);
         BOOST_CHECK(a.empty());
-        BOOST_CHECK(!a.has_base<int>());
+        BOOST_CHECK(!a.contains<int>());
     }
     {
         int i = 3;
@@ -194,8 +194,8 @@ void test_ref()
         any_ref a(i);
         any_ref b(j);
         pstade::egg::do_swap(a, b);
-        BOOST_CHECK( is_same(a.base<char const>(), j) );
-        BOOST_CHECK( is_same(b.base<int>(), i) );
+        BOOST_CHECK( is_same(a.content<char const>(), j) );
+        BOOST_CHECK( is_same(b.content<int>(), i) );
     }
     { // using none
         int i = 3;
@@ -220,7 +220,7 @@ void test_cref()
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
         BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
-        BOOST_CHECK( &(a.base<int const>()) == &i );
+        BOOST_CHECK( &(a.content<int const>()) == &i );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
 
@@ -228,20 +228,20 @@ void test_cref()
         BOOST_CHECK( !a );
         a = i;
         BOOST_CHECK( a );
-        BOOST_CHECK( &(a.base<int const>()) == &i );
+        BOOST_CHECK( &(a.content<int const>()) == &i );
 
-        BOOST_CHECK(!a.has_base<int>());
-        BOOST_CHECK(a.has_base<int const>());
+        BOOST_CHECK(!a.contains<int>());
+        BOOST_CHECK(a.contains<int const>());
     }
     {
         int i = 3, j = 5;
         any_cref a1(i);
         any_cref a2(j);
         do_swap(a1, a2);
-        BOOST_CHECK( is_same(a1.base<int const>(), j) );
-        BOOST_CHECK( a1.base<int const>() == 5 );
-        BOOST_CHECK( is_same(a2.base<int const>(), i) );
-        BOOST_CHECK( a2.base<int const>() == 3 );
+        BOOST_CHECK( is_same(a1.content<int const>(), j) );
+        BOOST_CHECK( a1.content<int const>() == 5 );
+        BOOST_CHECK( is_same(a2.content<int const>(), i) );
+        BOOST_CHECK( a2.content<int const>() == 3 );
     }
     {
         int i = 3;
@@ -251,7 +251,7 @@ void test_cref()
         BOOST_CHECK( !a.empty() );
 
         // const is optional
-        BOOST_CHECK( &(a.base<int const>()) == &i );
+        BOOST_CHECK( &(a.content<int const>()) == &i );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
@@ -259,8 +259,8 @@ void test_cref()
         int const i = 3;
         any_cref a(i);
         BOOST_CHECK( !a.empty() );
-        BOOST_CHECK( &(a.base<int const>()) == &i );
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( &(a.content<int const>()) == &i );
+        BOOST_CHECK( a.content< int const >() == 3 );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
@@ -270,7 +270,7 @@ void test_cref()
         int i = 3;
         any_cref const a(i);
         BOOST_CHECK( !a.empty() );
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
@@ -278,7 +278,7 @@ void test_cref()
         int const i = 3;
         any_cref const a(i);
         BOOST_CHECK( !a.empty() );
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
         BOOST_CHECK( pstade::any_to< int const >(a) == 3 );
         a.type();
     }
@@ -286,69 +286,69 @@ void test_cref()
     {
         int i = 3;
         any_cref a = i; // convertible
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
     }
     {
         int const i = 3;
         any_cref a = i; // convertible
-        BOOST_CHECK( a.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
     }
     {
         int i = 3;
         any_cref const a(i);
         any_cref b(a); // direct
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int i = 3;
         any_cref a(i);
         any_cref b = a; // copy
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int i = 3;
         any_cref const a(i);
         any_cref b;
         b = a; // assign
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int const i = 3;
         any_cref a(i);
         any_cref b(a); // direct
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int const i = 3;
         any_cref const a(i);
         any_cref b = a; // copy
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int const i = 3;
         any_cref a(i);
         any_cref b;
         b = a; // assign
-        BOOST_CHECK( a.base< int const >() == 3 );
-        BOOST_CHECK( b.base< int const >() == 3 );
+        BOOST_CHECK( a.content< int const >() == 3 );
+        BOOST_CHECK( b.content< int const >() == 3 );
     }
     {
         int i = 3;
         any_cref a(i);
         any_cref b;
         b.reset(a);
-        BOOST_CHECK( is_same(b.base<any_cref const>(), a) );
-        BOOST_CHECK( is_same(b.base<any_cref const>().base<int const>(), i) );
+        BOOST_CHECK( is_same(b.content<any_cref const>(), a) );
+        BOOST_CHECK( is_same(b.content<any_cref const>().content<int const>(), i) );
         a = boost::none;
         BOOST_CHECK( !a );
-        BOOST_CHECK( !a.has_base<int const>() );
+        BOOST_CHECK( !a.contains<int const>() );
         BOOST_CHECK( b );
-        BOOST_CHECK( b.has_base< any_cref const >() );
+        BOOST_CHECK( b.contains< any_cref const >() );
         b = boost::none;
         BOOST_CHECK( !b );
     }
@@ -356,7 +356,7 @@ void test_cref()
         any_cref a;
         BOOST_CHECK(!a);
         BOOST_CHECK(a.empty());
-        BOOST_CHECK(!a.has_base<int>());
+        BOOST_CHECK(!a.contains<int>());
     }
     {
         int i = 3;
@@ -364,8 +364,8 @@ void test_cref()
         any_cref a(i);
         any_cref b(j);
         pstade::egg::do_swap(a, b);
-        BOOST_CHECK( is_same(a.base<char const>(), j) );
-        BOOST_CHECK( is_same(b.base<int const>(), i) );
+        BOOST_CHECK( is_same(a.content<char const>(), j) );
+        BOOST_CHECK( is_same(b.content<int const>(), i) );
     }
     { // using none
         int i = 3;
@@ -390,7 +390,7 @@ void test_movable()
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.type() == typeid(boost::type< std::auto_ptr<int> >) );
         BOOST_CHECK( a.type() == typeid(boost::type< std::auto_ptr<int> >) );
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
         BOOST_CHECK( *pstade::any_to< std::auto_ptr<int> >(a) == 3 );
         a.type();
 
@@ -399,82 +399,82 @@ void test_movable()
         BOOST_CHECK( !a );
         a = p;
         BOOST_CHECK( a );
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
         BOOST_CHECK( *pstade::any_to< std::auto_ptr<int> >(a) == 3 );
 
-        BOOST_CHECK(a.has_base< std::auto_ptr<int> >());
+        BOOST_CHECK(a.contains< std::auto_ptr<int> >());
 
         // convertible type is no longer allowed.
-        BOOST_CHECK(!a.has_base< std::auto_ptr<int> const >());
+        BOOST_CHECK(!a.contains< std::auto_ptr<int> const >());
     }
     {
         std::auto_ptr<int> i(std::auto_ptr<int>(new int(3))), j(std::auto_ptr<int>(new int(5)));
         any_movable a1(i);
         any_movable a2(j);
         do_swap(a1, a2);
-        BOOST_CHECK( *a1.base< std::auto_ptr<int> >() == 5 );
-        BOOST_CHECK( *a2.base< std::auto_ptr<int> >() == 3 );
+        BOOST_CHECK( *a1.content< std::auto_ptr<int> >() == 5 );
+        BOOST_CHECK( *a2.content< std::auto_ptr<int> >() == 3 );
     }
     {
         any_movable a = std::auto_ptr<int>(new int(3));
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
     }
     {
         any_movable a;
         BOOST_CHECK( a.empty() );
         a = any_movable(std::auto_ptr<int>(new int(3)));
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
     }
     {
         any_movable a(std::auto_ptr<int>(new int(3)));
-        std::auto_ptr<int> ap(a.base< std::auto_ptr<int> >());
+        std::auto_ptr<int> ap(a.content< std::auto_ptr<int> >());
         BOOST_CHECK( *ap == 3 );
     }
     {
         any_movable a(std::auto_ptr<int>(new int(3)));
         any_movable a_(a);
-        BOOST_CHECK( *(a_.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a_.content< std::auto_ptr<int> >()) == 3 );
     }
     {
         any_movable a(std::auto_ptr<int>(new int(3)));
         any_movable a_ = a;
-        BOOST_CHECK( *(a_.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a_.content< std::auto_ptr<int> >()) == 3 );
     }
     {
         any_movable a(std::auto_ptr<int>(new int(3)));
         any_movable a_; a_ = a;
-        BOOST_CHECK( *(a_.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a_.content< std::auto_ptr<int> >()) == 3 );
     }
     {
         any_movable a(std::auto_ptr<int>(new int(9)));
         a = std::auto_ptr<int>(new int(3));
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
+        BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
     }
     {
         any_movable a = std::auto_ptr<int>(new int(9)); // convertible
         a = std::auto_ptr<int>(new int(3)); // assignable
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
-        std::auto_ptr<int> p = a.base< std::auto_ptr<int> >(); // movable
+        BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
+        std::auto_ptr<int> p = a.content< std::auto_ptr<int> >(); // movable
         BOOST_CHECK( *p == 3 );
     }
     { // const-ness doesn't affect
         any_movable const a = std::auto_ptr<int>(new int(3)); // convertible
-        BOOST_CHECK( *(a.base< std::auto_ptr<int> >()) == 3 );
-        std::auto_ptr<int> p = a.base< std::auto_ptr<int> >(); // movable
+        BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
+        std::auto_ptr<int> p = a.content< std::auto_ptr<int> >(); // movable
         BOOST_CHECK( *p == 3 );
     }
     {
         std::auto_ptr<int> i(new int(3));
         any_movable a(i);
-        BOOST_CHECK( a.has_base< std::auto_ptr<int> >() );
+        BOOST_CHECK( a.contains< std::auto_ptr<int> >() );
         any_movable b;
         b.reset(a);
-        BOOST_CHECK( *b.base<any_movable>().base< std::auto_ptr<int> >() == *a.base< std::auto_ptr<int> >() );
+        BOOST_CHECK( *b.content<any_movable>().content< std::auto_ptr<int> >() == *a.content< std::auto_ptr<int> >() );
         a = boost::none;
         BOOST_CHECK( !a );
-        BOOST_CHECK( !a.has_base< std::auto_ptr<int> >() );
+        BOOST_CHECK( !a.contains< std::auto_ptr<int> >() );
         BOOST_CHECK( b );
-        BOOST_CHECK( b.has_base<any_movable>() );
+        BOOST_CHECK( b.contains<any_movable>() );
         b = boost::none;
         BOOST_CHECK( !b );
     }
@@ -482,7 +482,7 @@ void test_movable()
         any_movable a;
         BOOST_CHECK(!a);
         BOOST_CHECK(a.empty());
-        BOOST_CHECK(!a.has_base<int>());
+        BOOST_CHECK(!a.contains<int>());
     }
     {
         std::auto_ptr<int> i(new int(3));
@@ -490,8 +490,8 @@ void test_movable()
         any_movable a(i);
         any_movable b(j);
         pstade::egg::do_swap(a, b);
-        BOOST_CHECK( *a.base< std::auto_ptr<char> >() == 'a' );
-        BOOST_CHECK( *b.base< std::auto_ptr<int> >() == 3 );
+        BOOST_CHECK( *a.content< std::auto_ptr<char> >() == 'a' );
+        BOOST_CHECK( *b.content< std::auto_ptr<int> >() == 3 );
     }
     { // using none
         int i = 3;

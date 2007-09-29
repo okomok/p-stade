@@ -10,9 +10,9 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/poly.cpp>
+//#include <pstade/../libs/wine/test/any.cpp>
 
-#include <pstade/../libs/oven/test/tokenized.cpp>
+#include <pstade/../libs/oven/test/checker.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
