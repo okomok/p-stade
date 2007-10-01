@@ -62,9 +62,9 @@ Output Iterator Maker returns _output_iterator_.
         [[*Semantics]]
     ]
     [
-        [`checker(_rng, _dco)`]
+        [`checker(_rng, _cal)`]
         [
-            `_dco(_rng|checked)`
+            `_cal(_rng|checked)`
         ]
     ]
     [

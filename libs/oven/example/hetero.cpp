@@ -15,6 +15,7 @@
 #include <pstade/minimal_test.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/any.hpp>
+#include <pstade/egg/from_any_to.hpp>
 #include <boost/optional/optional.hpp>
 
 
@@ -47,7 +48,8 @@ struct circle : shape
 void pstade_minimal_test()
 {
     using pstade::any_ref;
-    using pstade::from_any;
+    using pstade::egg::from_any;
+    namespace egg = pstade::egg;
 
     {
         rectangle r; triangle t; circle c;
@@ -62,7 +64,7 @@ void pstade_minimal_test()
 
         BOOST_FOREACH (any_ref a, oven::hetero<any_ref>(tup)) {
             if (a.type() == typeid(boost::type<std::string>)) {
-                std::string &s = pstade::any_to<std::string>(a);
+                std::string &s = egg::any_to<std::string>(a);
                 s = "goodbye";
                 break;
             }
