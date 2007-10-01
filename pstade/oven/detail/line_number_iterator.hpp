@@ -19,13 +19,18 @@
 
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include "../do_iter_swap.hpp"
 #include "./minimum_pure.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
 
+
+// line_number_iterator
+//
 
 template< class Iterator, class Incrementable >
 struct line_number_iterator;
@@ -57,6 +62,8 @@ private:
     typedef typename super_t::value_type val_t;
 
 public:
+    typedef Incrementable number_type;
+
     line_number_iterator()
     { }
 
@@ -96,6 +103,9 @@ void iter_swap(line_number_iterator<I1, In1> it1, line_number_iterator<I2, In2> 
 }
 
 
+// has_line_number
+//
+
 template< class X >
 struct is_line_number_iterator :
     boost::mpl::false_
@@ -104,6 +114,20 @@ struct is_line_number_iterator :
 template< class I, class In >
 struct is_line_number_iterator< line_number_iterator<I, In> > :
     boost::mpl::true_
+{ };
+
+
+template< class LineNumberIter, class Incrementable >
+struct has_line_number_aux :
+    boost::is_same<typename LineNumberIter::number_type, Incrementable>
+{ };
+
+template< class X, class Incrementable >
+struct has_line_number :
+    boost::mpl::and_<
+        is_line_number_iterator<X>,
+        has_line_number_aux<X, Incrementable>
+    >
 { };
 
 

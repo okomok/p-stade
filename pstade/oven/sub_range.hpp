@@ -15,8 +15,6 @@
 //
 // The template-constructor is now explicit,
 // which seems politically correct and enables 'to_base_range'.
-//
-// I doubt this range is necessary.
 
 
 #include <pstade/disable_if_copy.hpp>

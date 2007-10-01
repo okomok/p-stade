@@ -47,6 +47,34 @@ void check_cycle_count(Iterator first)
     BOOST_CHECK( oven::cycle_count<int>(first) == 6);
 }
 
+template<class Iterator>
+void check_cycle_count_10year(Iterator first)
+{
+    BOOST_CHECK( oven::cycle_count<int>(first) == 0 );
+    BOOST_CHECK( oven::cycle_count<long>(first) == 0 );
+
+    first += 24;
+    BOOST_CHECK( oven::cycle_count<int>(first) == 1 );
+    BOOST_CHECK( oven::cycle_count<long>(first) == 0 );
+
+    first += 24;
+    BOOST_CHECK( oven::cycle_count<int>(first) == 2 );
+    BOOST_CHECK( oven::cycle_count<long>(first) == 0 );
+
+    first += 24*362;
+    BOOST_CHECK( oven::cycle_count<int>(first) == 364 );
+    BOOST_CHECK( oven::cycle_count<long>(first) == 0 );
+
+    first += 24;
+    BOOST_CHECK( oven::cycle_count<int>(first) == 0 );
+    BOOST_CHECK( oven::cycle_count<long>(first) == 1 );
+
+    first += 24;
+    BOOST_CHECK( oven::cycle_count<int>(first) == 1 );
+    BOOST_CHECK( oven::cycle_count<long>(first) == 1 );
+}
+
+
 
 void pstade_minimal_test()
 {
@@ -130,5 +158,9 @@ void pstade_minimal_test()
         std::string src("abcdefg");
         ::check_cycle_count(boost::begin(src|cycled(5, 12)));
         ::check_cycle_count(boost::begin(src|cycled(5, 12)|identities|identities));
+    }
+    {
+        int const day[24] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 };
+        ::check_cycle_count_10year(boost::begin(day|cycled((int)0, (int)365)|cycled((long)0,(long)10)));
     }
 }

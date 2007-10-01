@@ -26,13 +26,13 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-    template<class X>
-    struct unwrap_ref :
-        boost::mpl::eval_if< boost::is_reference_wrapper<X>,
-            boost::add_reference<typename boost::unwrap_reference<X>::type>,
-            boost::remove_cv<X>
-          >
-    { };
+template<class X>
+struct unwrap_ref :
+    boost::mpl::eval_if< boost::is_reference_wrapper<X>,
+        boost::add_reference<typename boost::unwrap_reference<X>::type>,
+        boost::remove_cv<X>
+      >
+{ };
 
 
 } } } // namespace pstade::oven::detail

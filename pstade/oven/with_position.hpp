@@ -13,15 +13,20 @@
 
 #include <boost/spirit/iterator/position_iterator.hpp>
 #include <pstade/egg/make_function.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
+#include "./detail/has_position.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
+
+// with_position
+//
 
 namespace with_position_detail {
 
@@ -66,6 +71,33 @@ namespace with_position_detail {
 
 
 PSTADE_OVEN_BABY_TO_ADAPTOR(with_position, (with_position_detail::baby))
+
+
+// position
+//
+
+template< class Position >
+struct xp_position
+{
+    typedef Position result_type;
+
+    template< class Adapted >
+    Position operator()(Adapted ad,
+        typename enable_if< detail::has_position<Adapted, Position> >::type = 0) const
+    {
+        return ad.get_position();
+    }
+
+    template< class Adapted >
+    Position operator()(Adapted ad,
+        typename disable_if<detail::has_position<Adapted, Position> >::type = 0) const
+    {
+        return (*this)(ad.base());
+
+    }
+};
+
+PSTADE_EGG_SPECIFIED1(position, xp_position, (class))
 
 
 } } // namespace pstade::oven

@@ -14,13 +14,18 @@
 #include <utility> // pair
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/next_prior.hpp> // prior
+#include <boost/type_traits/is_same.hpp>
 #include <pstade/for_debug.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
+
+// cycle_iterator
+//
 
 template< class Difference >
 std::pair<Difference, Difference> positive_rem_div(Difference a, Difference b)
@@ -188,6 +193,9 @@ friend class boost::iterator_core_access;
 };
 
 
+// has_cycle_count
+//
+
 template< class X >
 struct is_cycle_iterator :
     boost::mpl::false_
@@ -196,6 +204,20 @@ struct is_cycle_iterator :
 template< class F, class I >
 struct is_cycle_iterator< cycle_iterator<F, I> > :
     boost::mpl::true_
+{ };
+
+
+template< class CycleIter, class Incrementable >
+struct has_cycle_count_aux :
+    boost::is_same<typename CycleIter::count_type, Incrementable>
+{ };
+
+template< class X, class Incrementable >
+struct has_cycle_count :
+    boost::mpl::and_<
+        is_cycle_iterator<X>,
+        has_cycle_count_aux<X, Incrementable>
+    >
 { };
 
 

@@ -265,7 +265,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 `copied` automagically calls the range-constructor of the target range without specifying the type.
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _pipable_adaptor_
 
 [h3 Header]
 * `<pstade/oven/copied.hpp>`

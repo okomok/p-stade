@@ -37,6 +37,16 @@ struct on_unexpected
 };
 
 
+// compile check only :-)
+template<class Iter>
+void check_position(Iter first)
+{
+    boost::spirit::file_position pos = oven::position<boost::spirit::file_position>(first);
+    (void)pos;
+}
+
+
+
 struct checker :
     seq<
         actor< any, on_unexpected >,
@@ -61,6 +71,10 @@ void test()
         BOOST_CHECK(( !
             biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|oven::with_position)
         ));
+    }
+    {
+        std::string src("AAAAA\nAAAAA\nAA#AA");
+        ::check_position(boost::begin(src|oven::with_position));
     }
 }
 
