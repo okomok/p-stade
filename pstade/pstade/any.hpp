@@ -12,19 +12,14 @@
 
 
 #include <typeinfo>
-#include <boost/any.hpp>
 #include <boost/assert.hpp>
 #include <boost/none.hpp>
-#include <boost/optional/optional_fwd.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/disable_if_copy.hpp>
-#include <pstade/egg/automatic.hpp>
 #include <pstade/egg/do_swap.hpp>
-#include <pstade/egg/specified.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/make_bool.hpp>
 #include <pstade/pod_constant.hpp>
@@ -107,31 +102,6 @@ namespace pstade {
 
         protected:
             boost::shared_ptr<placeholder> m_content;
-        };
-
-
-        template<class Result, class To, bool IsConstAny, bool IsConstTo = boost::is_const<To>::value>
-        struct from_boost_any
-        {
-            template<class Any>
-            static Result call(Any &a)
-            {
-                To *p = boost::any_cast<To>(&a);
-                if (p)
-                    return *p;
-                else
-                    return Result();
-            }
-        };
-
-        template<class Result, class To>
-        struct from_boost_any<Result, To, true, false>
-        {
-            template<class Any>
-            static Result call(Any const &)
-            {
-                return Result();
-            }
         };
 
 
@@ -319,69 +289,6 @@ namespace pstade {
             return egg::static_downcast< any_detail::holder<X> >(*m_content).held();
         }
     };
-
-
-    // any_to
-    //
-
-    template<class X>
-    struct xp_any_to
-    {
-        typedef X &result_type;
-
-        template<class Any>
-        X &operator()(Any const &a) const
-        {
-            return a.template content<X>();
-        }
-
-        X &operator()(boost::any &a) const
-        {
-            return boost::any_cast<X &>(a);
-        }
-
-        X const &operator()(boost::any const &a) const
-        {
-            return boost::any_cast<X const &>(a);
-        }
-    };
-
-    PSTADE_EGG_SPECIFIED1(any_to, xp_any_to, (class))
-
-
-    // from_any
-    //
-
-    template<class X>
-    struct xp_from_any_to;
-
-    template<class T>
-    struct xp_from_any_to< boost::optional<T &> >
-    {
-        typedef boost::optional<T &> result_type;
-
-        template<class Any>
-        result_type operator()(Any const &a) const
-        {
-            if (a.template contains<T>())
-                return a.template content<T>();
-            else
-                return result_type();
-        }
-
-        result_type operator()(boost::any &a) const
-        {
-            return any_detail::from_boost_any<result_type, T, false>::call(a);
-        }
-
-        result_type operator()(boost::any const &a) const
-        {
-            return any_detail::from_boost_any<result_type, T, true >::call(a);
-        }
-    };
-
-    typedef egg::automatic< xp_from_any_to<boost::mpl::_> >::type op_from_any;
-    PSTADE_POD_CONSTANT((op_from_any), from_any) = PSTADE_EGG_AUTOMATIC;
 
 
 } // namespace pstade
