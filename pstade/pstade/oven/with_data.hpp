@@ -26,6 +26,9 @@
 namespace pstade { namespace oven {
 
 
+// with_data
+//
+
 namespace with_data_detail {
 
 
@@ -57,6 +60,9 @@ namespace with_data_detail {
 PSTADE_OVEN_BASE_TO_ADAPTOR(with_data, (with_data_detail::base<_, _>))
 
 
+// iter_data
+//
+
 template< class Data >
 struct xp_iter_data
 {
@@ -80,6 +86,9 @@ struct xp_iter_data
 
 PSTADE_EGG_SPECIFIED1(iter_data, xp_iter_data, (class))
 
+
+// data
+//
 
 template< class Data >
 struct xp_data

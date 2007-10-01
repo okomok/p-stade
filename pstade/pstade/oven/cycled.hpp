@@ -30,6 +30,9 @@
 namespace pstade { namespace oven {
 
 
+// cycled
+//
+
 namespace cycled_detail {
 
 
@@ -121,6 +124,9 @@ namespace cycled_detail {
 PSTADE_OVEN_BABY_TO_ADAPTOR(cycled, (cycled_detail::baby))
 
 
+// cycle_count
+//
+
 template< class Incrementable >
 struct xp_cycle_count
 {
@@ -128,14 +134,14 @@ struct xp_cycle_count
 
     template< class Adapted >
     Incrementable operator()(Adapted ad,
-        typename enable_if< detail::is_cycle_iterator<Adapted> >::type = 0) const
+        typename enable_if< detail::has_cycle_count<Adapted, Incrementable> >::type = 0) const
     {
         return ad.count();
     }
 
     template< class Adapted >
     Incrementable operator()(Adapted ad,
-        typename disable_if<detail::is_cycle_iterator<Adapted> >::type = 0) const
+        typename disable_if<detail::has_cycle_count<Adapted, Incrementable> >::type = 0) const
     {
         return (*this)(ad.base());
 

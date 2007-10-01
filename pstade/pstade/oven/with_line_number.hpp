@@ -34,6 +34,9 @@
 namespace pstade { namespace oven {
 
 
+// with_line_number
+//
+
 namespace with_line_number_detail {
 
 
@@ -69,6 +72,9 @@ namespace with_line_number_detail {
 PSTADE_OVEN_BASE_TO_ADAPTOR(with_line_number, (with_line_number_detail::base<_, _>))
 
 
+// line_number
+//
+
 template< class Incrementable >
 struct xp_line_number
 {
@@ -76,14 +82,14 @@ struct xp_line_number
 
     template< class Adapted >
     Incrementable operator()(Adapted ad,
-        typename enable_if< detail::is_line_number_iterator<Adapted> >::type = 0) const
+        typename enable_if< detail::has_line_number<Adapted, Incrementable> >::type = 0) const
     {
         return ad.line_number();
     }
 
     template< class Adapted >
     Incrementable operator()(Adapted ad,
-        typename disable_if<detail::is_line_number_iterator<Adapted> >::type = 0) const
+        typename disable_if<detail::has_line_number<Adapted, Incrementable> >::type = 0) const
     {
         return (*this)(ad.base());
 

@@ -23,6 +23,9 @@
 namespace pstade { namespace oven { namespace detail {
 
 
+// data_iterator
+//
+
 template< class Iterator, class Data >
 struct data_iterator;
 
@@ -85,6 +88,9 @@ void iter_swap(data_iterator<I1, D1> it1, data_iterator<I2, D2> it2, int = 0)
 }
 
 
+// has_data
+//
+
 template< class X >
 struct is_data_iterator :
     boost::mpl::false_
@@ -96,9 +102,9 @@ struct is_data_iterator< data_iterator<I, V> > :
 { };
 
 
-template< class VarIter, class Data >
+template< class DataIter, class Data >
 struct has_data_aux :
-    boost::is_same<typename VarIter::data_type, Data>
+    boost::is_same<typename DataIter::data_type, Data>
 { };
 
 template< class X, class Data >
