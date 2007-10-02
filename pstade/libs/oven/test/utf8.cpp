@@ -61,6 +61,7 @@ void test()
     }
     {
         file_range<boost::uint8_t> frng("utf8.txt");
+        BOOST_CHECK(frng.is_open());
 
         BOOST_CHECK( oven::equals(
             frng|utf8_decoded|utf8_encoded,

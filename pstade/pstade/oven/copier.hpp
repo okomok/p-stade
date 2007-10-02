@@ -14,6 +14,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
 #include "./applier.hpp"
+#include "./concepts.hpp"
 #include "./detail/base_to_adaptor.hpp"
 
 
@@ -23,15 +24,15 @@ namespace pstade { namespace oven {
 namespace copier_detail {
 
 
-    template< class OutIter, class PreOutIter >
+    template< class Iterator, class PreIterator >
     struct proc
     {
-        OutIter m_it;
-        PreOutIter m_pre;
+        Iterator m_it;
+        PreIterator m_pre;
 
-        typedef OutIter base_type;
+        typedef Iterator base_type;
 
-        OutIter base() const
+        Iterator base() const
         {
             return m_it;
         }
@@ -47,13 +48,13 @@ namespace copier_detail {
     };
 
 
-    template< class OutIter, class PreOutIter >
+    template< class Iterator, class PreIterator >
     struct base
     {
         typedef
             proc<
-                typename pass_by_value<OutIter>::type,
-                typename pass_by_value<PreOutIter>::type
+                typename pass_by_value<Iterator>::type,
+                typename pass_by_value<PreIterator>::type
             >
         proc_t;
 
@@ -61,8 +62,10 @@ namespace copier_detail {
             result_of<op_applier(proc_t&)>::type
         result_type;
 
-        result_type operator()(OutIter& it, PreOutIter& pre) const
+        result_type operator()(Iterator& it, PreIterator& pre) const
         {
+            PSTADE_CONCEPT_ASSERT((Output<Iterator>));
+            PSTADE_CONCEPT_ASSERT((Output<PreIterator>));
             proc_t p = {it, pre};
             return applier(p);
         }

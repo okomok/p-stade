@@ -16,9 +16,10 @@ In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
 for any __OPERATABLE_OBJECT__ `f` the following must be met:
 
 * `op_++f` is `_typeof(f)`.
-* `f` is a /const-qualified/ but not /volatile-qualified/ lvalue.
-* `f` is /statically initialized/ unless otherwise specified.
+* `op_++f` is a /POD/ type unless otherwise specified.
 * `boost::result_of<op_++f(a1,...,aN)>::type` is the same as `boost::result_of<op_++f const(a1,...,aN)>::type`.
+* `f` is a /const-qualified/ but not /volatile-qualified/ lvalue.
+* `f` is /statically initialized/ if `op_++f` is a /POD/ type.
 
 [heading Example]
     int length_impl(std::string const &str) { ... }

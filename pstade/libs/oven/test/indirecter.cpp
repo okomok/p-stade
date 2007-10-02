@@ -16,6 +16,7 @@
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/outdirected.hpp>
+#include "./detail/output_iterator.hpp"
 
 
 void pstade_minimal_test()
@@ -28,5 +29,6 @@ void pstade_minimal_test()
         int o[] = {9,8,7,6,5,4,3,2,1,0};
         copy(b|outdirected, indirecter|=&o[0]);
         BOOST_CHECK( oven::equals(o, b) );
+        test::output_iterator(indirecter|=&o[0], &b[0]);
     }
 }

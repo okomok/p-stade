@@ -17,6 +17,7 @@
 #include <iterator>
 #include <pstade/oven/equals.hpp>
 #include <vector>
+#include "./detail/output_iterator.hpp"
 
 
 void pstade_minimal_test()
@@ -37,5 +38,7 @@ void pstade_minimal_test()
         BOOST_CHECK( equals(v1, b) );
         BOOST_CHECK( equals(v2, b) );
         BOOST_CHECK( equals(v3, b) );
+
+        test::output_iterator(copier(std::back_inserter(v1)) |= std::back_inserter(v2), 123);
     }
 }

@@ -105,7 +105,7 @@ Egg no longer considers function templates to be useful, so that it provides
 * `<pstade/egg/lambda/placeholders.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__ but not /statically initialized/.
+* __OPERATABLE_OBJECT__ but not a /POD/ type.
 * __BINDABLE_OBJECT__
 
 [heading Notation]
