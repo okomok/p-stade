@@ -172,12 +172,12 @@
 * Rearranged some concepts.
 * `in_block` renamed to `block`.
 
-[h2 Version 0.94.5]
-* Added `hetero`.
+[h2 Version 0.95.0]
 * OutputIterator Adaptors revised. 
+* Concept name changed: PipableObject to PipableAdaptor.
+* Added `hetero`.
 * `boost::optional` becomes a range.
 * Added `converted`.
-* Concept name changed: PipableObject to PipableAdaptor.
 
 
 
