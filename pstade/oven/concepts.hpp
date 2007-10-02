@@ -22,6 +22,10 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
 
 
+#include <pstade/concept.hpp>
+#if defined(PSTADE_CONCEPT_CHECKING)
+
+
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/range/begin.hpp>
 #include <boost/range/const_iterator.hpp>
@@ -30,7 +34,6 @@
 #include <boost/range/size.hpp>
 #include <boost/range/size_type.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <pstade/concept.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/unevaluated.hpp>
 #include <pstade/unused.hpp>
@@ -170,7 +173,20 @@ struct RandomAccess :
 };
 
 
+template< class Iterator >
+struct Output
+{
+    typedef typename boost::remove_cv<Iterator>::type iter_t;
+
+    // PSTADE_CONCEPT_ASSERT((boost_concepts::WritableIteratorConcept<iter_t, ???>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::IncrementableIteratorConcept<iter_t>));
+};
+
+
 } } // namespace pstade::oven
+
+
+#endif // defined(PSTADE_CONCEPT_CHECKING)
 
 
 #endif

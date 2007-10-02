@@ -24,6 +24,7 @@
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.filterer">filterer</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.indirecter">indirecter</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.permuter">permuter</a></span></dt>
+<dt><span class="section"><a href="output_iterator_adaptors.html#oven.range_transformer">range_transformer</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.transformer">transformer</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.utf8_encoder">utf8_encoder</a></span></dt>
 <dt><span class="section"><a href="output_iterator_adaptors.html#oven.utf16_encoder">utf16_encoder</a></span></dt>
@@ -44,7 +45,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.converter"></a>converter</h3></div></div></div>
 <a name="converter.description"></a><h4>
-<a name="id587910"></a>
+<a name="id587924"></a>
         Description
       </h4>
 <p>
@@ -52,19 +53,19 @@
         to specified type.
       </p>
 <a name="converter.header"></a><h4>
-<a name="id587938"></a>
+<a name="id587953"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">converter</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="converter.model_of"></a><h4>
-<a name="id588009"></a>
+<a name="id588024"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="converter.notation"></a><h4>
-<a name="id588031"></a>
+<a name="id588046"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -73,7 +74,7 @@
           <span class="special">-&gt;</span> <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">implicit_cast</span><span class="special">&lt;</span><span class="identifier">To</span><span class="special">&gt;(</span><span class="identifier">v</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="converter.valid_expressions"></a><h4>
-<a name="id588150"></a>
+<a name="id588165"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -161,7 +162,7 @@
 </tbody>
 </table></div>
 <a name="converter.preconditions"></a><h4>
-<a name="id588586"></a>
+<a name="id588601"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -174,11 +175,11 @@
         </li>
 </ul></div>
 <a name="converter.example"></a><h4>
-<a name="id588630"></a>
+<a name="id588645"></a>
         Example
       </h4>
 <a name="converter.see_also"></a><h4>
-<a name="id588643"></a>
+<a name="id588658"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -191,7 +192,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.copier"></a>copier</h3></div></div></div>
 <a name="copier.description"></a><h4>
-<a name="id588709"></a>
+<a name="id588723"></a>
         Description
       </h4>
 <p>
@@ -199,17 +200,17 @@
         output iterator.
       </p>
 <a name="copier.header"></a><h4>
-<a name="id588736"></a>
+<a name="id588751"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">copier</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="copier.model_of"></a><h4>
-<a name="id588807"></a>
+<a name="id588821"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="copier.notation"></a><h4>
-<a name="id588835"></a>
+<a name="id588850"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -219,7 +220,7 @@
           <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="identifier">v</span></code>.
         </li></ul></div>
 <a name="copier.valid_expressions"></a><h4>
-<a name="id588952"></a>
+<a name="id588967"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -253,7 +254,7 @@
 </tr></tbody>
 </table></div>
 <a name="copier.preconditions"></a><h4>
-<a name="id589093"></a>
+<a name="id589108"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -267,7 +268,7 @@
         </li>
 </ul></div>
 <a name="copier.example"></a><h4>
-<a name="id589146"></a>
+<a name="id589161"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -279,10 +280,12 @@
     <span class="special">|=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">v3</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="copier.see_also"></a><h4>
-<a name="id589497"></a>
+<a name="id589512"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.ddj.com/cpp/184401483" target="_top">Common Knowledge: Output
+          Iterator Adapters</a></li>
 <li><a href="output_iterator_makers.html#oven.applier" title="applier">applier</a></li>
 <li><a href="range_adaptors.html#oven.copied_to" title="copied_to">copied_to</a></li>
 </ul></div>
@@ -291,7 +294,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.filterer"></a>filterer</h3></div></div></div>
 <a name="filterer.description"></a><h4>
-<a name="id589551"></a>
+<a name="id589577"></a>
         Description
       </h4>
 <p>
@@ -299,17 +302,17 @@
         doesn't satify a predicate.
       </p>
 <a name="filterer.header"></a><h4>
-<a name="id589580"></a>
+<a name="id589606"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">filterer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="filterer.model_of"></a><h4>
-<a name="id589651"></a>
+<a name="id589677"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="filterer.notation"></a><h4>
-<a name="id589680"></a>
+<a name="id589706"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -319,7 +322,7 @@
           <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">v</span></code>.
         </li></ul></div>
 <a name="filterer.valid_expressions"></a><h4>
-<a name="id589799"></a>
+<a name="id589826"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -354,7 +357,7 @@
 </tr></tbody>
 </table></div>
 <a name="filterer.preconditions"></a><h4>
-<a name="id589941"></a>
+<a name="id589967"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -363,15 +366,18 @@
           Iterator</a>.
         </li>
 <li>
+<code class="computeroutput"><span class="identifier">_prd</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
+        </li>
+<li>
           The corresponding semantics is a valid expression.
         </li>
 </ul></div>
 <a name="filterer.example"></a><h4>
-<a name="id589984"></a>
+<a name="id590031"></a>
         Example
       </h4>
 <a name="filterer.see_also"></a><h4>
-<a name="id589998"></a>
+<a name="id590045"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -383,7 +389,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.indirecter"></a>indirecter</h3></div></div></div>
 <a name="indirecter.description"></a><h4>
-<a name="id590050"></a>
+<a name="id590097"></a>
         Description
       </h4>
 <p>
@@ -391,17 +397,17 @@
         dereference in outputting.
       </p>
 <a name="indirecter.header"></a><h4>
-<a name="id590079"></a>
+<a name="id590126"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">indirecter</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="indirecter.model_of"></a><h4>
-<a name="id590150"></a>
+<a name="id590197"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="indirecter.notation"></a><h4>
-<a name="id590179"></a>
+<a name="id590226"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -410,7 +416,7 @@
           <span class="special">-&gt;</span> <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">v</span></code>.
         </li></ul></div>
 <a name="indirecter.valid_expressions"></a><h4>
-<a name="id590268"></a>
+<a name="id590315"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -433,8 +439,8 @@
 <tbody><tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">indirecter</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span>
-                <span class="special">|=</span> <span class="identifier">x</span></code>
+                <code class="computeroutput"><span class="identifier">indirecter</span> <span class="special">|=</span>
+                <span class="identifier">x</span></code>
               </p>
               </td>
 <td>
@@ -445,7 +451,7 @@
 </tr></tbody>
 </table></div>
 <a name="indirecter.preconditions"></a><h4>
-<a name="id590409"></a>
+<a name="id590441"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -458,11 +464,11 @@
         </li>
 </ul></div>
 <a name="indirecter.example"></a><h4>
-<a name="id590452"></a>
+<a name="id590485"></a>
         Example
       </h4>
 <a name="indirecter.see_also"></a><h4>
-<a name="id590466"></a>
+<a name="id590499"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -475,7 +481,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.permuter"></a>permuter</h3></div></div></div>
 <a name="permuter.description"></a><h4>
-<a name="id590530"></a>
+<a name="id590563"></a>
         Description
       </h4>
 <p>
@@ -483,17 +489,17 @@
         values using inputs as indices of a range.
       </p>
 <a name="permuter.header"></a><h4>
-<a name="id590559"></a>
+<a name="id590591"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">permuter</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="permuter.model_of"></a><h4>
-<a name="id590630"></a>
+<a name="id590662"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="permuter.notation"></a><h4>
-<a name="id590659"></a>
+<a name="id590692"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -502,7 +508,7 @@
           <span class="special">-&gt;</span> <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="special">*(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)+</span><span class="identifier">v</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="permuter.valid_expressions"></a><h4>
-<a name="id590773"></a>
+<a name="id590805"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -537,7 +543,7 @@
 </tr></tbody>
 </table></div>
 <a name="permuter.preconditions"></a><h4>
-<a name="id590914"></a>
+<a name="id590947"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -550,11 +556,11 @@
         </li>
 </ul></div>
 <a name="permuter.example"></a><h4>
-<a name="id590957"></a>
+<a name="id590990"></a>
         Example
       </h4>
 <a name="permuter.see_also"></a><h4>
-<a name="id590970"></a>
+<a name="id591003"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -564,9 +570,111 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oven.range_transformer"></a>range_transformer</h3></div></div></div>
+<a name="range_transformer.description"></a><h4>
+<a name="id591058"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">range_transformer</span></code> can turn
+        a Range Adaptor into Output Iterator Adaptor.
+      </p>
+<a name="range_transformer.header"></a><h4>
+<a name="id591087"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">range_transformer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="range_transformer.model_of"></a><h4>
+<a name="id591159"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="range_transformer.notation"></a><h4>
+<a name="id591188"></a>
+        Notation
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">f_</span></code> is an imaginary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+          which behaves as if it were <code class="computeroutput"><span class="identifier">v</span>
+          <span class="special">-&gt;</span> <span class="identifier">x</span>
+          <span class="special">=</span> <span class="identifier">copy</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">single</span><span class="special">(</span><span class="identifier">v</span><span class="special">)),</span>
+          <span class="identifier">x</span><span class="special">)</span></code>.
+        </li></ul></div>
+<a name="range_transformer.valid_expressions"></a><h4>
+<a name="id591309"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">range_transformer</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span> <span class="special">|=</span> <span class="identifier">x</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">applier</span><span class="special">(</span><span class="identifier">f_</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="range_transformer.preconditions"></a><h4>
+<a name="id591450"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">x</span></code> is an <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output
+          Iterator</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_fun</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="range_transformer.example"></a><h4>
+<a name="id591515"></a>
+        Example
+      </h4>
+<pre class="programlisting">
+<span class="identifier">file_range</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">uint8_t</span><span class="special">&gt;</span> <span class="identifier">frng</span><span class="special">(</span><span class="string">"utf8.txt"</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">uint8_t</span><span class="special">&gt;</span> <span class="identifier">result</span><span class="special">;</span>
+<span class="comment">// Do the same job as utf8_encoder slightly ineffective way.
+</span><span class="identifier">copy</span><span class="special">(</span><span class="identifier">frng</span><span class="special">|</span><span class="identifier">utf8_decoded</span><span class="special">,</span> <span class="identifier">range_transformer</span><span class="special">(</span><span class="identifier">make_utf8_encoded</span><span class="special">)</span> <span class="special">|=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">result</span><span class="special">));</span>
+</pre>
+<a name="range_transformer.see_also"></a><h4>
+<a name="id591738"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="output_iterator_makers.html#oven.applier" title="applier">applier</a></li>
+<li><a href="range_adaptors.html#oven.applied" title="applied">applied</a></li>
+<li><a href="range_makers.html#oven.single" title="single">single</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.transformer"></a>transformer</h3></div></div></div>
 <a name="transformer.description"></a><h4>
-<a name="id591025"></a>
+<a name="id591801"></a>
         Description
       </h4>
 <p>
@@ -574,17 +682,17 @@
         an input.
       </p>
 <a name="transformer.header"></a><h4>
-<a name="id591060"></a>
+<a name="id591837"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">transformer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="transformer.model_of"></a><h4>
-<a name="id591131"></a>
+<a name="id591908"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="transformer.notation"></a><h4>
-<a name="id591161"></a>
+<a name="id591937"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -593,7 +701,7 @@
           <span class="special">-&gt;</span> <span class="special">*</span><span class="identifier">x</span><span class="special">++</span> <span class="special">=</span> <span class="identifier">_fun</span><span class="special">(</span><span class="identifier">v</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="transformer.valid_expressions"></a><h4>
-<a name="id591260"></a>
+<a name="id592036"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -628,7 +736,7 @@
 </tr></tbody>
 </table></div>
 <a name="transformer.preconditions"></a><h4>
-<a name="id591401"></a>
+<a name="id592177"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -637,15 +745,18 @@
           Iterator</a>.
         </li>
 <li>
+<code class="computeroutput"><span class="identifier">_fun</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
+        </li>
+<li>
           The corresponding semantics is a valid expression.
         </li>
 </ul></div>
 <a name="transformer.example"></a><h4>
-<a name="id591445"></a>
+<a name="id592242"></a>
         Example
       </h4>
 <a name="transformer.see_also"></a><h4>
-<a name="id591458"></a>
+<a name="id592256"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -658,24 +769,24 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utf8_encoder"></a>utf8_encoder</h3></div></div></div>
 <a name="utf8_encoder.description"></a><h4>
-<a name="id591523"></a>
+<a name="id592321"></a>
         Description
       </h4>
 <p>
         Pending...
       </p>
 <a name="utf8_encoder.header"></a><h4>
-<a name="id591541"></a>
+<a name="id592339"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf8_encoder</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="utf8_encoder.model_of"></a><h4>
-<a name="id591612"></a>
+<a name="id592410"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="utf8_encoder.valid_expressions"></a><h4>
-<a name="id591642"></a>
+<a name="id592440"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -710,7 +821,7 @@
 </tr></tbody>
 </table></div>
 <a name="utf8_encoder.preconditions"></a><h4>
-<a name="id591768"></a>
+<a name="id592566"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -719,11 +830,11 @@
           a valid expression.
         </li></ul></div>
 <a name="utf8_encoder.example"></a><h4>
-<a name="id591870"></a>
+<a name="id592668"></a>
         Example
       </h4>
 <a name="utf8_encoder.see_also"></a><h4>
-<a name="id591884"></a>
+<a name="id592682"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="string_adaptors.html#oven.utf8_decoded" title="utf8_decoded">utf8_decoded</a></li></ul></div>
@@ -732,24 +843,24 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utf16_encoder"></a>utf16_encoder</h3></div></div></div>
 <a name="utf16_encoder.description"></a><h4>
-<a name="id591926"></a>
+<a name="id592723"></a>
         Description
       </h4>
 <p>
         Pending...
       </p>
 <a name="utf16_encoder.header"></a><h4>
-<a name="id591944"></a>
+<a name="id592741"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf16_encoder</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="utf16_encoder.model_of"></a><h4>
-<a name="id592014"></a>
+<a name="id592812"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="utf16_encoder.valid_expressions"></a><h4>
-<a name="id592044"></a>
+<a name="id592842"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -784,7 +895,7 @@
 </tr></tbody>
 </table></div>
 <a name="utf16_encoder.preconditions"></a><h4>
-<a name="id592170"></a>
+<a name="id592968"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -793,11 +904,11 @@
           a valid expression.
         </li></ul></div>
 <a name="utf16_encoder.example"></a><h4>
-<a name="id592272"></a>
+<a name="id593070"></a>
         Example
       </h4>
 <a name="utf16_encoder.see_also"></a><h4>
-<a name="id592286"></a>
+<a name="id593084"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="string_adaptors.html#oven.utf16_decoded" title="utf16_decoded">utf16_decoded</a></li></ul></div>

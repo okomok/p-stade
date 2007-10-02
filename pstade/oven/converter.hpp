@@ -15,6 +15,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/result_of.hpp>
+#include "./concepts.hpp"
 #include "./transformer.hpp"
 
 
@@ -39,16 +40,17 @@ namespace converter_detail {
     template< class To >
     struct baby
     {
-        template< class Myself, class OutIter >
+        template< class Myself, class Iterator >
         struct apply :
             result_of<
-                op_make_transformer(OutIter&, func<To>)
+                op_make_transformer(Iterator&, func<To>)
             >
         { };
 
-        template< class Result, class OutIter >
-        Result call(OutIter it) const
+        template< class Result, class Iterator >
+        Result call(Iterator it) const
         {
+            PSTADE_CONCEPT_ASSERT((Output<Iterator>));
             return make_transformer(it, func<To>());
         }
     };

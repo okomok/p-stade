@@ -1,6 +1,4 @@
 #include "./prefix.hpp"
-#include <pstade/vodka/drink.hpp>
-#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -19,7 +17,7 @@
 #include <iterator>
 #include <vector>
 #include <pstade/oven/equals.hpp>
-
+#include "./detail/output_iterator.hpp"
 
 
 struct my_length
@@ -65,5 +63,9 @@ void pstade_minimal_test()
         BOOST_CHECK( vo[0].len == 7 );
         BOOST_CHECK( vo[1].len == 5 );
         BOOST_CHECK( vo[2].len == 9 );
+    }
+    {
+        std::vector<my_length> vo;
+        test::output_iterator(converter<my_length>() |= std::back_inserter(vo), std::string("test"));
     }
 }

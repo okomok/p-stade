@@ -111,6 +111,7 @@ test-suite "oven" :
     [ run popped.cpp ]
     [ run range_based.cpp ]
     [ run range_constantable.cpp ]
+    [ run range_transformer.cpp ]
     [ run read.cpp ]
     [ run recursion.cpp ]
     [ run regex.cpp ]

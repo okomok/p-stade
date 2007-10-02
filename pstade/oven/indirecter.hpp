@@ -14,6 +14,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
 #include "./applier.hpp"
+#include "./concepts.hpp"
 #include "./detail/base_to_adaptor.hpp"
 
 
@@ -23,14 +24,14 @@ namespace pstade { namespace oven {
 namespace indirecter_detail {
 
 
-    template< class OutIter >
+    template< class Iterator >
     struct proc
     {
-        OutIter m_it;
+        Iterator m_it;
 
-        typedef OutIter base_type;
+        typedef Iterator base_type;
 
-        OutIter base() const
+        Iterator base() const
         {
             return m_it;
         }
@@ -45,12 +46,12 @@ namespace indirecter_detail {
     };
 
 
-    template< class OutIter >
+    template< class Iterator >
     struct base
     {
         typedef
             proc<
-                typename pass_by_value<OutIter>::type
+                typename pass_by_value<Iterator>::type
             >
         proc_t;
 
@@ -58,8 +59,9 @@ namespace indirecter_detail {
             result_of<op_applier(proc_t&)>::type
         result_type;
 
-        result_type operator()(OutIter& it) const
+        result_type operator()(Iterator& it) const
         {
+            PSTADE_CONCEPT_ASSERT((Output<Iterator>));
             proc_t p = {it};
             return applier(p);
         }

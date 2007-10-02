@@ -217,6 +217,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 
 [h3 See also]
 * [link oven.applier applier]
+* [link oven.range_transformer range_transformer]
 
 [endsect]
 

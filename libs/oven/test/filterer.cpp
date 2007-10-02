@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/stream_writer.hpp>
+#include "./detail/output_iterator.hpp"
 
 
 std::stringstream g_ss;
@@ -48,5 +49,9 @@ void pstade_minimal_test()
         std::vector<char> v(11);
         std::copy(src.begin(), src.end(), filterer(&is_not_e)|=v.begin());
         BOOST_CHECK( oven::equals(v, ans) );
+    }
+    {
+        std::vector<char> v(11);
+        test::output_iterator(filterer(&is_not_e)|=v.begin(), 'a');
     }
 }

@@ -29,7 +29,7 @@ namespace copied_to_detail {
 
     struct baby
     {
-        template< class Myself, class Range, class OutIter >
+        template< class Myself, class Range, class Iterator >
         struct apply
         {
             typedef typename
@@ -37,10 +37,12 @@ namespace copied_to_detail {
             type;
         };
 
-        template< class Result, class Range, class OutIter >
-        Result call(Range& rng, OutIter& out) const
+        template< class Result, class Range, class Iterator >
+        Result call(Range& rng, Iterator& out) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            PSTADE_CONCEPT_ASSERT((Output<Iterator>));
+
             std::copy(boost::begin(rng), boost::end(rng), out);
             return Result(rng);
         }

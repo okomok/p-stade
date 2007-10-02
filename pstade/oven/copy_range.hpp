@@ -100,18 +100,22 @@ PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
 }
 
 
-template< class Range >
-struct Copyable :
-    SinglePass<Range>
-{
-    typedef typename boost::remove_cv<Range>::type rng_t;
+#if defined(PSTADE_CONCEPT_CHECKING)
 
-    PSTADE_CONCEPT_USAGE(Copyable)
+    template< class Range >
+    struct Copyable :
+        SinglePass<Range>
     {
-        rng_t& from = unevaluated<rng_t&>();
-        rng_t rng = xp_copy_range<rng_t>()(make_identities(from)); 
-    }
-};
+        typedef typename boost::remove_cv<Range>::type rng_t;
+
+        PSTADE_CONCEPT_USAGE(Copyable)
+        {
+            rng_t& from = unevaluated<rng_t&>();
+            rng_t rng = xp_copy_range<rng_t>()(make_identities(from)); 
+        }
+    };
+
+#endif // defined(PSTADE_CONCEPT_CHECKING)
 
 
 } } // namespace pstade::oven

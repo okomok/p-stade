@@ -23,6 +23,8 @@
     && !BOOST_WORKAROUND(__GNUC__, <= 3) \
     // && BOOST_VERSION >= 103500
 
+    #define PSTADE_CONCEPT_CHECKING
+
     #include <boost/concept/assert.hpp>
     #include <boost/concept/usage.hpp>
 

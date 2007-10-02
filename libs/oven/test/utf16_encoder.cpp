@@ -28,6 +28,7 @@ void test()
     using namespace oven;
     {
         file_range<boost::uint16_t> frng("utf16.txt");
+        BOOST_CHECK(frng.is_open());
 
         std::vector<boost::uint16_t> result;
 
