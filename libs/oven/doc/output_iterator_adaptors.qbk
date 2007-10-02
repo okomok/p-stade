@@ -66,6 +66,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 
 [h3 Preconditions]
 * `x` is an _output_iterator_.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
 
@@ -73,6 +74,55 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * [link oven.applier applier]
 * [link oven.converted converted]
 * [link oven.transformer transformer]
+
+[endsect]
+
+
+
+
+[section copier]
+
+[h3 Description]
+`copier` outputs to another output iterator.
+
+[h3 Header]
+* `<pstade/oven/copier.hpp>`
+
+[h3 Model of]
+* _pipable_adaptor_
+
+[h3 Notation]
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *p++ = v; *x++ = v`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`copier(p) |= x`]
+        [
+            `applier(f_)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `x` and `p` is an _output_iterator_.
+* The corresponding semantics is a valid expression.
+
+[h3 Example]
+    std::vector<int> v1, v2, v3;
+    int b[] = {1,3,4,5,3,2,5,1,2};
+
+    copy(b,
+        copier(std::back_inserter(v1)) |= copier(std::back_inserter(v2))
+        |= std::back_inserter(v3) );
+  
+[h3 See also]
+* [link oven.applier applier]
+* [link oven.copied_to copied_to]
 
 [endsect]
 
@@ -109,6 +159,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 
 [h3 Preconditions]
 * `x` is an _output_iterator_.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
 
@@ -151,6 +202,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 
 [h3 Preconditions]
 * `x` is an _output_iterator_.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
 
@@ -158,6 +210,49 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * [link oven.applier applier]
 * [link oven.indirected indirected]
 * [link oven.outdirected outdirected]
+
+[endsect]
+
+
+
+
+[section permuter]
+
+[h3 Description]
+`permuter` outputs permuted values using inputs as indices of a range.
+
+[h3 Header]
+* `<pstade/oven/permuter.hpp>`
+
+[h3 Model of]
+* _pipable_adaptor_
+
+[h3 Notation]
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = *(_begin(_rndrng)+v)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`permuter(_rndrng) |= x`]
+        [
+            `applier(f_)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `x` is an _output_iterator_.
+* The corresponding semantics is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.applier applier]
+* [link oven.permuted permuted]
 
 [endsect]
 
@@ -194,6 +289,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 
 [h3 Preconditions]
 * `x` is an _output_iterator_.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
 

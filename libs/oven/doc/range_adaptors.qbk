@@ -554,6 +554,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
+* [link oven.copier copier]
 
 [endsect]
 
@@ -1426,6 +1427,7 @@ That is, the view includes every element of the given range but in a potentially
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/permutation_iterator.html boost::permutation_iterator]
 * [link oven.sliced sliced]
+* [link oven.permuter permuter]
 
 [endsect]
 

@@ -44,8 +44,6 @@ namespace pstade { namespace oven {
 namespace equals_detail {
 
 
-    // Question:
-    // Boost doesn't have this overload. Faster or slower?
     template< class Iterator1, class Iterator2, class BinaryPred >
     bool aux(
         Iterator1 first1, Iterator1 last1,

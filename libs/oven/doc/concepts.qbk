@@ -22,7 +22,7 @@ for any _pipable_adaptor_ `p` the following must be met:
 
 [h3 Models]
 * [link oven.filtered filtered]
-* [link oven.transformed transformed]
+* [link oven.transformer transformer]
 
 [endsect]
 

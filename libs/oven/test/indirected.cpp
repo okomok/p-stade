@@ -18,6 +18,9 @@
 
 
 #include <pstade/oven/outdirected.hpp>
+#include <pstade/oven/equals.hpp>
+#include <boost/shared_ptr.hpp>
+#include <vector>
 
 
 void pstade_minimal_test()
@@ -46,5 +49,17 @@ void pstade_minimal_test()
             *test::new_vector<test::ncint>(a)|outdirected|indirected,
             *test::new_vector<test::ncint>(a)
         );
+    }
+    {
+        typedef boost::shared_ptr<int> sp_t;
+        sp_t p1(new int(3));
+        sp_t p2(new int(3));
+
+        std::vector<sp_t> v;
+        v.push_back(p1);
+        v.push_back(p2);
+
+        BOOST_CHECK( &*boost::begin(v|indirected) == &*v[0] );
+        BOOST_CHECK( &*(boost::begin(v|indirected)+1) == &*v[1] );
     }
 }
