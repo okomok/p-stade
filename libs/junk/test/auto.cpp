@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/any.cpp>
 
-#include <pstade/../libs/oven/test/range_transformer.cpp>
+#include <pstade/../libs/oven/test/memoized.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>

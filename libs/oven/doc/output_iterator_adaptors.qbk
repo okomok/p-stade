@@ -6,7 +6,8 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
     int const answer[] = {2*3,4*3,6*3,8*3,10*3};
     std::vector<int> out;
-    copy(in, filterer(bll::_1 % 2 == 0) |= transformer(bll::_1 * 3) |= std::back_inserter(out));
+    copy(in, filterer(regular(bll::_1 % 2 == 0))
+        |= transformer(regular(bll::_1 * 3)) |= std::back_inserter(out) );
     BOOST_CHECK( equals(out, answer) );
 
 
@@ -261,55 +262,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 
 
 
-[section range_transformer]
-
-[h3 Description]
-`range_transformer` can turn a Range Adaptor into Output Iterator Adaptor.
-
-[h3 Header]
-* `<pstade/oven/range_transformer.hpp>`
-
-[h3 Model of]
-* _pipable_adaptor_
-
-[h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> x = copy(_fun(single(v)), x)`.
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`range_transformer(_fun) |= x`]
-        [
-            `applier(f_)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `x` is an _output_iterator_.
-* `_fun` is _assignable_.
-* The corresponding semantics is a valid expression.
-
-[h3 Example]
-    file_range<boost::uint8_t> frng("utf8.txt");
-    std::vector<boost::uint8_t> result;
-    // Do the same job as utf8_encoder slightly ineffective way.
-    copy(frng|utf8_decoded, range_transformer(make_utf8_encoded) |= std::back_inserter(result));
-
-[h3 See also]
-* [link oven.applier applier]
-* [link oven.applied applied]
-* [link oven.single single]
-
-[endsect]
-
-
-
-
 [section transformer]
 
 [h3 Description]
@@ -348,7 +300,58 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 See also]
 * [link oven.applier applier]
 * [link oven.transformed transformed]
+* [link oven.range_transformer range_transformer]
 * [link oven.converter converter]
+
+[endsect]
+
+
+
+
+[section range_transformer]
+
+[h3 Description]
+`range_transformer` can turn a Range Adaptor into Output Iterator Adaptor.
+
+[h3 Header]
+* `<pstade/oven/range_transformer.hpp>`
+
+[h3 Model of]
+* _pipable_adaptor_
+
+[h3 Notation]
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> x = copy(_fun(single(v)), x)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`range_transformer(_fun) |= x`]
+        [
+            `applier(f_)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `x` is an _output_iterator_.
+* `_fun` is _assignable_.
+* The corresponding semantics is a valid expression.
+
+[h3 Example]
+    file_range<boost::uint8_t> frng("utf8.txt");
+    std::vector<boost::uint8_t> result;
+    // Do the same job as utf8_encoder slightly inefficient way.
+    copy(frng|utf8_decoded, range_transformer(make_utf8_encoded) |= std::back_inserter(result));
+
+[h3 See also]
+* [link oven.applier applier]
+* [link oven.applied applied]
+* [link oven.single single]
+* [link oven.transformer transformer]
 
 [endsect]
 

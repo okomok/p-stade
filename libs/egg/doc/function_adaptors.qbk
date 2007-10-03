@@ -728,7 +728,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_ret<Fun, R, _Stg = _default>::type`]
+        [`result_of_ret<Fun, R = _default, _Stg = _default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
@@ -755,6 +755,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
+* `Fun` is a __DEFERRED_CALLABLE_OBJECT__ type if `R` is `_default`.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
