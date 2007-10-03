@@ -226,7 +226,7 @@ Egg provides __FCPP__ infix operator syntax.
 [section tuple_get]
 
 [heading Description]
-`tuple_get` is an akin to `boost::get`.
+`tuple_get` is akin to `boost::get`.
 
 [heading Header]
 * `<pstade/egg/tuple/get.hpp>`

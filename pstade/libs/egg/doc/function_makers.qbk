@@ -177,7 +177,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 [section deferred]
 
 [heading Description]
-`deferred` is an akin to `boost::detail::functionN` family.
+`deferred` is akin to `boost::detail::functionN` family.
 
 [heading Header]
 * `<pstade/egg/deferred.hpp>`

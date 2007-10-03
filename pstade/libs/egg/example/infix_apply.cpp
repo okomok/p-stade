@@ -17,17 +17,16 @@
 
 using namespace pstade::egg;
 
-//[code_infix_apply_example
 void test_apply()
 {
     using namespace infix;
-    BOOST_CHECK(apply(negate, apply(negate, apply(negate, 10))) == -10);
-
+//[code_infix_apply_example
+BOOST_CHECK(apply(negate, apply(negate, apply(negate, 10))) == -10);
+//]
     BOOST_CHECK((negate ^=apply^= 10) == -10);
     BOOST_CHECK((negate ^=apply^= negate ^=apply^= 10) == 10);
     BOOST_CHECK((negate ^=apply^= negate ^=apply^= negate ^=apply^= 10) == -10);
 }
-//]
 
 
 void pstade_minimal_test()

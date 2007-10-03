@@ -1329,6 +1329,9 @@ then pretends to be a range of _forward_iterator_.
 * `_value_of<_typeof(_rng)>::type` is _assignable_.
 * If `_rng` is a recursive range, `memo_table` object `t` must be passed.
 
+[h3 Invariants]
+* Iterators of `memoized` are not _parallel_safe_.
+
 [h3 Example]
     std::stringstream ss;
     ss << "hello, memoized!";

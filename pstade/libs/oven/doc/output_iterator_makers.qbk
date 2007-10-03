@@ -32,6 +32,7 @@ Output Iterator Maker returns _output_iterator_.
 
 [h3 Preconditions]
 * `T` is `boost::function_output_iterator<typeof(_fun)>` such that `T(_fun)` is a valid expression.
+* `_fun` is _assignable_.
 
 [h3 Example]
 
