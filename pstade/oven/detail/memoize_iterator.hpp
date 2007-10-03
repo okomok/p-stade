@@ -195,8 +195,6 @@ public:
 
     Iterator base() const
     {
-        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
-
         return m_pmemo->base();
     }
 
