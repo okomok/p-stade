@@ -76,16 +76,12 @@
         It doesn't modify <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         concepts to which the base range conforms.
       </li>
-<li>
-        The iterator type of adapted range is <a href="concepts.html#oven.parallel_safe" title="Parallel Safe">Parallel
-        Safe</a> if and only if the iterator type of base range is.
-      </li>
 </ul></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.adjacent_filtered"></a>adjacent_filtered</h3></div></div></div>
 <a name="adjacent_filtered.description"></a><h4>
-<a name="id536453"></a>
+<a name="id536439"></a>
         Description
       </h4>
 <p>
@@ -93,17 +89,17 @@
         while a predicate applied to adjacent pairs doesn't satisfy.
       </p>
 <a name="adjacent_filtered.header"></a><h4>
-<a name="id536483"></a>
+<a name="id536468"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">adjacent_filtered</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="adjacent_filtered.model_of"></a><h4>
-<a name="id536554"></a>
+<a name="id536540"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="adjacent_filtered.notation"></a><h4>
-<a name="id536584"></a>
+<a name="id536570"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -128,7 +124,7 @@
         </li>
 </ul></div>
 <a name="adjacent_filtered.valid_expressions"></a><h4>
-<a name="id536913"></a>
+<a name="id536899"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -163,7 +159,7 @@
 </tr></tbody>
 </table></div>
 <a name="adjacent_filtered.preconditions"></a><h4>
-<a name="id537074"></a>
+<a name="id537060"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -181,7 +177,7 @@
         </li>
 </ul></div>
 <a name="adjacent_filtered.complexity"></a><h4>
-<a name="id537217"></a>
+<a name="id537203"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -189,11 +185,11 @@
           applications of the corresponding <code class="computeroutput"><span class="identifier">_prd</span></code>.
         </li></ul></div>
 <a name="adjacent_filtered.example"></a><h4>
-<a name="id537275"></a>
+<a name="id537261"></a>
         Example
       </h4>
 <a name="adjacent_filtered.see_also"></a><h4>
-<a name="id537289"></a>
+<a name="id537275"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -205,7 +201,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.adjacent_transformed"></a>adjacent_transformed</h3></div></div></div>
 <a name="adjacent_transformed.description"></a><h4>
-<a name="id537346"></a>
+<a name="id537332"></a>
         Description
       </h4>
 <p>
@@ -214,24 +210,24 @@
         It passes adjacent pairs to a function to transform repeatedly.
       </p>
 <a name="adjacent_transformed.header"></a><h4>
-<a name="id537396"></a>
+<a name="id537381"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">adjacent_transformed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="adjacent_transformed.model_of"></a><h4>
-<a name="id537467"></a>
+<a name="id537453"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="adjacent_transformed.notation"></a><h4>
-<a name="id537497"></a>
+<a name="id537482"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="special">{</span><span class="identifier">a1</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">}</span></code> is <code class="computeroutput"><span class="identifier">_rng</span></code>.
         </li></ul></div>
 <a name="adjacent_transformed.valid_expressions"></a><h4>
-<a name="id537557"></a>
+<a name="id537543"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -306,7 +302,7 @@
 </tbody>
 </table></div>
 <a name="adjacent_transformed.preconditions"></a><h4>
-<a name="id538153"></a>
+<a name="id538139"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -329,11 +325,11 @@
         </li>
 </ul></div>
 <a name="adjacent_transformed.example"></a><h4>
-<a name="id538404"></a>
+<a name="id538390"></a>
         Example
       </h4>
 <a name="adjacent_transformed.see_also"></a><h4>
-<a name="id538418"></a>
+<a name="id538404"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -345,7 +341,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.always"></a>always</h3></div></div></div>
 <a name="always.description"></a><h4>
-<a name="id538471"></a>
+<a name="id538457"></a>
         Description
       </h4>
 <p>
@@ -353,17 +349,17 @@
         does not change as the base range varies.
       </p>
 <a name="always.header"></a><h4>
-<a name="id538499"></a>
+<a name="id538485"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">always</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="always.model_of"></a><h4>
-<a name="id538569"></a>
+<a name="id538555"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="always.valid_expressions"></a><h4>
-<a name="id538599"></a>
+<a name="id538585"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -397,11 +393,11 @@
 </tr></tbody>
 </table></div>
 <a name="always.preconditions"></a><h4>
-<a name="id538764"></a>
+<a name="id538750"></a>
         Preconditions
       </h4>
 <a name="always.example"></a><h4>
-<a name="id538777"></a>
+<a name="id538763"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -417,7 +413,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.applied"></a>applied</h3></div></div></div>
 <a name="applied.description"></a><h4>
-<a name="id538979"></a>
+<a name="id538965"></a>
         Description
       </h4>
 <p>
@@ -425,17 +421,17 @@
         object which represents an algorithm, creates an adaptor.
       </p>
 <a name="applied.header"></a><h4>
-<a name="id539007"></a>
+<a name="id538994"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">applied</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="applied.model_of"></a><h4>
-<a name="id539078"></a>
+<a name="id539065"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="applied.valid_expressions"></a><h4>
-<a name="id539108"></a>
+<a name="id539094"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -485,7 +481,7 @@
 </tbody>
 </table></div>
 <a name="applied.preconditions"></a><h4>
-<a name="id539424"></a>
+<a name="id539411"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -509,14 +505,14 @@
         </li>
 </ul></div>
 <a name="applied.complexity"></a><h4>
-<a name="id539814"></a>
+<a name="id539800"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           Depends on <code class="computeroutput"><span class="identifier">_fun1</span></code>, <code class="computeroutput"><span class="identifier">_fun2</span></code> and <code class="computeroutput"><span class="identifier">_fun3</span></code>.
         </li></ul></div>
 <a name="applied.example"></a><h4>
-<a name="id539866"></a>
+<a name="id539852"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -529,7 +525,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="applied.see_also"></a><h4>
-<a name="id540159"></a>
+<a name="id540146"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -541,7 +537,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.checked"></a>checked</h3></div></div></div>
 <a name="checked.description"></a><h4>
-<a name="id540215"></a>
+<a name="id540201"></a>
         Description
       </h4>
 <p>
@@ -549,17 +545,17 @@
         ability to the base range.
       </p>
 <a name="checked.header"></a><h4>
-<a name="id540243"></a>
+<a name="id540229"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">checked</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="checked.model_of"></a><h4>
-<a name="id540314"></a>
+<a name="id540300"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="checked.valid_expressions"></a><h4>
-<a name="id540343"></a>
+<a name="id540329"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -593,7 +589,7 @@
 </tr></tbody>
 </table></div>
 <a name="checked.effects"></a><h4>
-<a name="id540493"></a>
+<a name="id540479"></a>
         Effects
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -601,11 +597,11 @@
           <code class="computeroutput"><span class="identifier">_fwdrng</span></code>.
         </li></ul></div>
 <a name="checked.preconditions"></a><h4>
-<a name="id540545"></a>
+<a name="id540531"></a>
         Preconditions
       </h4>
 <a name="checked.example"></a><h4>
-<a name="id540558"></a>
+<a name="id540544"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -625,7 +621,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.cleared"></a>cleared</h3></div></div></div>
 <a name="cleared.description"></a><h4>
-<a name="id540834"></a>
+<a name="id540820"></a>
         Description
       </h4>
 <p>
@@ -633,17 +629,17 @@
         viewed as empty.
       </p>
 <a name="cleared.header"></a><h4>
-<a name="id540861"></a>
+<a name="id540847"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">cleared</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="cleared.model_of"></a><h4>
-<a name="id540932"></a>
+<a name="id540918"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="cleared.valid_expressions"></a><h4>
-<a name="id540962"></a>
+<a name="id540948"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -677,11 +673,11 @@
 </tr></tbody>
 </table></div>
 <a name="cleared.preconditions"></a><h4>
-<a name="id541112"></a>
+<a name="id541099"></a>
         Preconditions
       </h4>
 <a name="cleared.example"></a><h4>
-<a name="id541125"></a>
+<a name="id541111"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -692,7 +688,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="cleared.see_also"></a><h4>
-<a name="id541279"></a>
+<a name="id541265"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="ranges.html#oven.empty_range" title="empty_range">empty_range</a></li></ul></div>
@@ -701,7 +697,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concatenated"></a>concatenated</h3></div></div></div>
 <a name="concatenated.description"></a><h4>
-<a name="id541322"></a>
+<a name="id541309"></a>
         Description
       </h4>
 <p>
@@ -709,17 +705,17 @@
         whose values are ranges, concatenates them.
       </p>
 <a name="concatenated.header"></a><h4>
-<a name="id541351"></a>
+<a name="id541338"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">concatenated</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="concatenated.model_of"></a><h4>
-<a name="id541422"></a>
+<a name="id541409"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="concatenated.notation"></a><h4>
-<a name="id541452"></a>
+<a name="id541438"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -737,7 +733,7 @@
         </li>
 </ul></div>
 <a name="concatenated.valid_expressions"></a><h4>
-<a name="id541729"></a>
+<a name="id541715"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -772,7 +768,7 @@
 </tr></tbody>
 </table></div>
 <a name="concatenated.preconditions"></a><h4>
-<a name="id541937"></a>
+<a name="id541923"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -812,7 +808,7 @@
 </td></tr>
 </table></div>
 <a name="concatenated.example"></a><h4>
-<a name="id542116"></a>
+<a name="id542102"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -824,7 +820,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="concatenated.see_also"></a><h4>
-<a name="id542317"></a>
+<a name="id542303"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -838,7 +834,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.const_refs"></a>const_refs</h3></div></div></div>
 <a name="const_refs.description"></a><h4>
-<a name="id542397"></a>
+<a name="id542383"></a>
         Description
       </h4>
 <p>
@@ -864,17 +860,17 @@
 </td></tr>
 </table></div>
 <a name="const_refs.header"></a><h4>
-<a name="id542457"></a>
+<a name="id542443"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">const_refs</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="const_refs.model_of"></a><h4>
-<a name="id542528"></a>
+<a name="id542514"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="const_refs.valid_expressions"></a><h4>
-<a name="id542558"></a>
+<a name="id542544"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -911,7 +907,7 @@
 </tr></tbody>
 </table></div>
 <a name="const_refs.preconditions"></a><h4>
-<a name="id542759"></a>
+<a name="id542745"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -920,11 +916,11 @@
           Constructible</a>.
         </li></ul></div>
 <a name="const_refs.example"></a><h4>
-<a name="id542836"></a>
+<a name="id542822"></a>
         Example
       </h4>
 <a name="const_refs.see_also"></a><h4>
-<a name="id542850"></a>
+<a name="id542836"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.constants" title="constants">constants</a></li></ul></div>
@@ -933,7 +929,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.constants"></a>constants</h3></div></div></div>
 <a name="constants.description"></a><h4>
-<a name="id542892"></a>
+<a name="id542878"></a>
         Description
       </h4>
 <p>
@@ -941,17 +937,17 @@
         range into a <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
       </p>
 <a name="constants.header"></a><h4>
-<a name="id542936"></a>
+<a name="id542922"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">constants</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="constants.model_of"></a><h4>
-<a name="id543007"></a>
+<a name="id542993"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="constants.valid_expressions"></a><h4>
-<a name="id543037"></a>
+<a name="id543022"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -985,7 +981,7 @@
 </tr></tbody>
 </table></div>
 <a name="constants.preconditions"></a><h4>
-<a name="id543196"></a>
+<a name="id543182"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -993,11 +989,11 @@
           or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>.
         </li></ul></div>
 <a name="constants.example"></a><h4>
-<a name="id543243"></a>
+<a name="id543229"></a>
         Example
       </h4>
 <a name="constants.see_also"></a><h4>
-<a name="id543257"></a>
+<a name="id543242"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.const_refs" title="const_refs">const_refs</a></li></ul></div>
@@ -1006,7 +1002,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.converted"></a>converted</h3></div></div></div>
 <a name="converted.description"></a><h4>
-<a name="id543299"></a>
+<a name="id543285"></a>
         Description
       </h4>
 <p>
@@ -1014,19 +1010,19 @@
         to specified type.
       </p>
 <a name="converted.header"></a><h4>
-<a name="id543328"></a>
+<a name="id543313"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">converted</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="converted.model_of"></a><h4>
-<a name="id543398"></a>
+<a name="id543384"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="converted.notation"></a><h4>
-<a name="id543419"></a>
+<a name="id543405"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1035,7 +1031,7 @@
           <span class="special">-&gt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">implicit_cast</span><span class="special">&lt;</span><span class="identifier">To</span><span class="special">&gt;(</span><span class="identifier">v</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="converted.valid_expressions"></a><h4>
-<a name="id543517"></a>
+<a name="id543502"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1122,18 +1118,18 @@
 </tbody>
 </table></div>
 <a name="converted.preconditions"></a><h4>
-<a name="id543962"></a>
+<a name="id543947"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="converted.example"></a><h4>
-<a name="id543984"></a>
+<a name="id543970"></a>
         Example
       </h4>
 <a name="converted.see_also"></a><h4>
-<a name="id543998"></a>
+<a name="id543983"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1145,7 +1141,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.copied_to"></a>copied_to</h3></div></div></div>
 <a name="copied_to.description"></a><h4>
-<a name="id544052"></a>
+<a name="id544037"></a>
         Description
       </h4>
 <p>
@@ -1154,17 +1150,17 @@
         Iterator</a>.
       </p>
 <a name="copied_to.header"></a><h4>
-<a name="id544088"></a>
+<a name="id544074"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">copied_to</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="copied_to.model_of"></a><h4>
-<a name="id544159"></a>
+<a name="id544144"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="copied_to.valid_expressions"></a><h4>
-<a name="id544188"></a>
+<a name="id544173"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1198,12 +1194,12 @@
 </tr></tbody>
 </table></div>
 <a name="copied_to.effects"></a><h4>
-<a name="id544353"></a>
+<a name="id544339"></a>
         Effects
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">x</span><span class="special">)</span></code></li></ul></div>
 <a name="copied_to.preconditions"></a><h4>
-<a name="id544451"></a>
+<a name="id544436"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1211,18 +1207,18 @@
           a valid expression.
         </li></ul></div>
 <a name="copied_to.complexity"></a><h4>
-<a name="id544548"></a>
+<a name="id544534"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           Depends on the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span></code>.
         </li></ul></div>
 <a name="copied_to.example"></a><h4>
-<a name="id544590"></a>
+<a name="id544576"></a>
         Example
       </h4>
 <a name="copied_to.see_also"></a><h4>
-<a name="id544603"></a>
+<a name="id544589"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="output_iterator_adaptors.html#oven.copier" title="copier">copier</a></li></ul></div>
@@ -1231,7 +1227,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.cycled"></a>cycled</h3></div></div></div>
 <a name="cycled.description"></a><h4>
-<a name="id544645"></a>
+<a name="id544631"></a>
         Description
       </h4>
 <p>
@@ -1239,24 +1235,24 @@
         range from the base range.
       </p>
 <a name="cycled.header"></a><h4>
-<a name="id544673"></a>
+<a name="id544659"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">cycled</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="cycled.model_of"></a><h4>
-<a name="id544743"></a>
+<a name="id544729"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="cycled.notation"></a><h4>
-<a name="id544771"></a>
+<a name="id544757"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="special">{</span><span class="identifier">a1</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">}</span></code> is <code class="computeroutput"><span class="identifier">_rng</span></code>.
         </li></ul></div>
 <a name="cycled.valid_expressions"></a><h4>
-<a name="id544833"></a>
+<a name="id544819"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1292,7 +1288,7 @@
 </tr></tbody>
 </table></div>
 <a name="cycled.invariants"></a><h4>
-<a name="id545055"></a>
+<a name="id545041"></a>
         Invariants
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1302,7 +1298,7 @@
           <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a>.
         </li></ul></div>
 <a name="cycled.preconditions"></a><h4>
-<a name="id545139"></a>
+<a name="id545125"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1314,7 +1310,7 @@
           <span class="identifier">c</span></code></li>
 </ul></div>
 <a name="cycled.example"></a><h4>
-<a name="id545261"></a>
+<a name="id545247"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1324,7 +1320,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="cycled.see_also"></a><h4>
-<a name="id545396"></a>
+<a name="id545382"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_makers.html#oven.single" title="single">single</a></li></ul></div>
@@ -1333,7 +1329,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.delimited"></a>delimited</h3></div></div></div>
 <a name="delimited.description"></a><h4>
-<a name="id545437"></a>
+<a name="id545423"></a>
         Description
       </h4>
 <p>
@@ -1341,24 +1337,24 @@
         of range, adds a delimiter.
       </p>
 <a name="delimited.header"></a><h4>
-<a name="id545465"></a>
+<a name="id545452"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">delimited</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="delimited.model_of"></a><h4>
-<a name="id545536"></a>
+<a name="id545522"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="delimited.notation"></a><h4>
-<a name="id545565"></a>
+<a name="id545552"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">join</span></code> is <code class="computeroutput"><span class="identifier">regular</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">make_jointed</span><span class="special">,</span> <span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span><span class="special">))</span></code>.
         </li></ul></div>
 <a name="delimited.valid_expressions"></a><h4>
-<a name="id545695"></a>
+<a name="id545681"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1392,7 +1388,7 @@
 </tr></tbody>
 </table></div>
 <a name="delimited.preconditions"></a><h4>
-<a name="id545850"></a>
+<a name="id545836"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1421,7 +1417,7 @@
 </td></tr>
 </table></div>
 <a name="delimited.example"></a><h4>
-<a name="id545999"></a>
+<a name="id545985"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1432,7 +1428,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="delimited.see_also"></a><h4>
-<a name="id546186"></a>
+<a name="id546172"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1445,7 +1441,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.dropped"></a>dropped</h3></div></div></div>
 <a name="dropped.description"></a><h4>
-<a name="id546251"></a>
+<a name="id546237"></a>
         Description
       </h4>
 <p>
@@ -1454,17 +1450,17 @@
         elements.
       </p>
 <a name="dropped.header"></a><h4>
-<a name="id546289"></a>
+<a name="id546275"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">dropped</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="dropped.model_of"></a><h4>
-<a name="id546360"></a>
+<a name="id546346"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="dropped.valid_expressions"></a><h4>
-<a name="id546389"></a>
+<a name="id546375"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1498,7 +1494,7 @@
 </tr></tbody>
 </table></div>
 <a name="dropped.preconditions"></a><h4>
-<a name="id546627"></a>
+<a name="id546613"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1510,7 +1506,7 @@
           <span class="identifier">n</span></code></li>
 </ul></div>
 <a name="dropped.complexity"></a><h4>
-<a name="id546749"></a>
+<a name="id546735"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1518,7 +1514,7 @@
           Access</a>, and <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="identifier">n</span><span class="special">)</span></code> otherwise.
         </li></ul></div>
 <a name="dropped.example"></a><h4>
-<a name="id546838"></a>
+<a name="id546824"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1528,7 +1524,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="dropped.see_also"></a><h4>
-<a name="id546974"></a>
+<a name="id546960"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1540,7 +1536,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.dropped_while"></a>dropped_while</h3></div></div></div>
 <a name="dropped_while.description"></a><h4>
-<a name="id547030"></a>
+<a name="id547016"></a>
         Description
       </h4>
 <p>
@@ -1548,17 +1544,17 @@
         from the base range while a predicate satisfies.
       </p>
 <a name="dropped_while.header"></a><h4>
-<a name="id547059"></a>
+<a name="id547045"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">dropped_while</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="dropped_while.model_of"></a><h4>
-<a name="id547129"></a>
+<a name="id547115"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="dropped_while.notation"></a><h4>
-<a name="id547158"></a>
+<a name="id547144"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1566,7 +1562,7 @@
           to nagate a predicate.
         </li></ul></div>
 <a name="dropped_while.valid_expressions"></a><h4>
-<a name="id547191"></a>
+<a name="id547177"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1600,7 +1596,7 @@
 </tr></tbody>
 </table></div>
 <a name="dropped_while.preconditions"></a><h4>
-<a name="id547419"></a>
+<a name="id547405"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1608,7 +1604,7 @@
           or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>.
         </li></ul></div>
 <a name="dropped_while.complexity"></a><h4>
-<a name="id547466"></a>
+<a name="id547453"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1616,7 +1612,7 @@
           applications of the corresponding <code class="computeroutput"><span class="identifier">_prd</span></code>.
         </li></ul></div>
 <a name="dropped_while.example"></a><h4>
-<a name="id547524"></a>
+<a name="id547510"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1628,7 +1624,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="dropped_while.see_also"></a><h4>
-<a name="id547709"></a>
+<a name="id547695"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1641,7 +1637,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.elements"></a>elements</h3></div></div></div>
 <a name="elements.description"></a><h4>
-<a name="id547774"></a>
+<a name="id547761"></a>
         Description
       </h4>
 <p>
@@ -1650,16 +1646,16 @@
         and <code class="computeroutput"><span class="identifier">map_values</span></code>.
       </p>
 <a name="elements.header"></a><h4>
-<a name="id547823"></a>
+<a name="id547810"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">elements</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="elements.model_of"></a><h4>
-<a name="id547895"></a>
+<a name="id547881"></a>
         Model of
       </h4>
 <a name="elements.notation"></a><h4>
-<a name="id547908"></a>
+<a name="id547895"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1673,7 +1669,7 @@
         </li>
 </ul></div>
 <a name="elements.valid_expressions"></a><h4>
-<a name="id548005"></a>
+<a name="id547991"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1762,7 +1758,7 @@
 </tbody>
 </table></div>
 <a name="elements.preconditions"></a><h4>
-<a name="id548516"></a>
+<a name="id548502"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1794,11 +1790,11 @@
 </li>
 </ul></div>
 <a name="elements.example"></a><h4>
-<a name="id548797"></a>
+<a name="id548783"></a>
         Example
       </h4>
 <a name="elements.see_also"></a><h4>
-<a name="id548811"></a>
+<a name="id548797"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1811,20 +1807,20 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.elements_c"></a>elements_c</h3></div></div></div>
 <a name="elements_c.description"></a><h4>
-<a name="id548879"></a>
+<a name="id548864"></a>
         Description
       </h4>
 <a name="elements_c.header"></a><h4>
-<a name="id548892"></a>
+<a name="id548878"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">elements</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="elements_c.model_of"></a><h4>
-<a name="id548963"></a>
+<a name="id548949"></a>
         Model of
       </h4>
 <a name="elements_c.valid_expressions"></a><h4>
-<a name="id548978"></a>
+<a name="id548964"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1889,18 +1885,18 @@
 </tbody>
 </table></div>
 <a name="elements_c.preconditions"></a><h4>
-<a name="id549432"></a>
+<a name="id549418"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="elements_c.example"></a><h4>
-<a name="id549455"></a>
+<a name="id549441"></a>
         Example
       </h4>
 <a name="elements_c.see_also"></a><h4>
-<a name="id549468"></a>
+<a name="id549454"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.elements" title="elements">elements</a></li></ul></div>
@@ -1909,24 +1905,24 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.filtered"></a>filtered</h3></div></div></div>
 <a name="filtered.description"></a><h4>
-<a name="id549511"></a>
+<a name="id549496"></a>
         Description
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">filtered</span></code> returns a <code class="computeroutput"><span class="identifier">filter_iterator</span></code> range.
       </p>
 <a name="filtered.header"></a><h4>
-<a name="id549549"></a>
+<a name="id549534"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">filtered</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="filtered.model_of"></a><h4>
-<a name="id549620"></a>
+<a name="id549606"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="filtered.valid_expressions"></a><h4>
-<a name="id549649"></a>
+<a name="id549635"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -1960,7 +1956,7 @@
 </tr></tbody>
 </table></div>
 <a name="filtered.preconditions"></a><h4>
-<a name="id549908"></a>
+<a name="id549894"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1974,7 +1970,7 @@
         </li>
 </ul></div>
 <a name="filtered.complexity"></a><h4>
-<a name="id550113"></a>
+<a name="id550099"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1982,11 +1978,11 @@
           applications of the corresponding <code class="computeroutput"><span class="identifier">_prd</span></code>.
         </li></ul></div>
 <a name="filtered.example"></a><h4>
-<a name="id550171"></a>
+<a name="id550156"></a>
         Example
       </h4>
 <a name="filtered.see_also"></a><h4>
-<a name="id550184"></a>
+<a name="id550170"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1999,7 +1995,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.identities"></a>identities</h3></div></div></div>
 <a name="identities.description"></a><h4>
-<a name="id550249"></a>
+<a name="id550235"></a>
         Description
       </h4>
 <p>
@@ -2007,17 +2003,17 @@
         range as is, but can change the traversal category.
       </p>
 <a name="identities.header"></a><h4>
-<a name="id550278"></a>
+<a name="id550264"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">identities</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="identities.model_of"></a><h4>
-<a name="id550349"></a>
+<a name="id550335"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="identities.notation"></a><h4>
-<a name="id550378"></a>
+<a name="id550364"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2025,7 +2021,7 @@
           metafunction which returns a traversal tag type known as <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xxx_traversal_tag</span></code>.
         </li></ul></div>
 <a name="identities.valid_expressions"></a><h4>
-<a name="id550432"></a>
+<a name="id550418"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2074,7 +2070,7 @@
 </tbody>
 </table></div>
 <a name="identities.preconditions"></a><h4>
-<a name="id550736"></a>
+<a name="id550722"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2088,11 +2084,11 @@
         </li>
 </ul></div>
 <a name="identities.example"></a><h4>
-<a name="id550883"></a>
+<a name="id550869"></a>
         Example
       </h4>
 <a name="identities.see_also"></a><h4>
-<a name="id550897"></a>
+<a name="id550882"></a>
         See also
       </h4>
 </div>
@@ -2100,7 +2096,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.indirected"></a>indirected</h3></div></div></div>
 <a name="indirected.description"></a><h4>
-<a name="id550923"></a>
+<a name="id550908"></a>
         Description
       </h4>
 <p>
@@ -2108,17 +2104,17 @@
         range by applying an extra dereference inside of <code class="computeroutput"><span class="keyword">operator</span><span class="special">*()</span></code>.
       </p>
 <a name="indirected.header"></a><h4>
-<a name="id550967"></a>
+<a name="id550953"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">indirected</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="indirected.model_of"></a><h4>
-<a name="id551038"></a>
+<a name="id551024"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="indirected.valid_expressions"></a><h4>
-<a name="id551068"></a>
+<a name="id551053"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2180,14 +2176,14 @@
 </tbody>
 </table></div>
 <a name="indirected.preconditions"></a><h4>
-<a name="id551394"></a>
+<a name="id551380"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">indirect_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">X1</span><span class="special">,..,</span><span class="identifier">XN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is a valid expression.
         </li></ul></div>
 <a name="indirected.example"></a><h4>
-<a name="id551548"></a>
+<a name="id551534"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -2203,7 +2199,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="identifier">answer</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="indirected.see_also"></a><h4>
-<a name="id552033"></a>
+<a name="id552018"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2216,7 +2212,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.outdirected"></a>outdirected</h3></div></div></div>
 <a name="outdirected.description"></a><h4>
-<a name="id552100"></a>
+<a name="id552086"></a>
         Description
       </h4>
 <p>
@@ -2224,17 +2220,17 @@
         whose values are iterators of the base range.
       </p>
 <a name="outdirected.header"></a><h4>
-<a name="id552129"></a>
+<a name="id552114"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">outdirected</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="outdirected.model_of"></a><h4>
-<a name="id552200"></a>
+<a name="id552185"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="outdirected.valid_expressions"></a><h4>
-<a name="id552229"></a>
+<a name="id552215"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2269,11 +2265,11 @@
 </tr></tbody>
 </table></div>
 <a name="outdirected.preconditions"></a><h4>
-<a name="id552385"></a>
+<a name="id552371"></a>
         Preconditions
       </h4>
 <a name="outdirected.example"></a><h4>
-<a name="id552399"></a>
+<a name="id552384"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -2287,7 +2283,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">iters</span><span class="special">|</span><span class="identifier">indirected</span><span class="special">,</span> <span class="identifier">answer</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="outdirected.see_also"></a><h4>
-<a name="id552750"></a>
+<a name="id552736"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2301,7 +2297,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.outplaced"></a>outplaced</h3></div></div></div>
 <a name="outplaced.description"></a><h4>
-<a name="id552830"></a>
+<a name="id552815"></a>
         Description
       </h4>
 <p>
@@ -2309,17 +2305,17 @@
         Access</a> view through the base range iterators.
       </p>
 <a name="outplaced.header"></a><h4>
-<a name="id552867"></a>
+<a name="id552853"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">outplaced</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="outplaced.model_of"></a><h4>
-<a name="id552938"></a>
+<a name="id552924"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="outplaced.notation"></a><h4>
-<a name="id552967"></a>
+<a name="id552952"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2330,7 +2326,7 @@
         </li>
 </ul></div>
 <a name="outplaced.valid_expressions"></a><h4>
-<a name="id553115"></a>
+<a name="id553101"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2367,16 +2363,16 @@
 </tr></tbody>
 </table></div>
 <a name="outplaced.preconditions"></a><h4>
-<a name="id553270"></a>
+<a name="id553255"></a>
         Preconditions
       </h4>
 <a name="outplaced.complexity"></a><h4>
-<a name="id553283"></a>
+<a name="id553269"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="identifier">N</span><span class="special">)</span></code></li></ul></div>
 <a name="outplaced.example"></a><h4>
-<a name="id553329"></a>
+<a name="id553314"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -2385,7 +2381,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">lst</span><span class="special">,</span> <span class="identifier">initial_values</span><span class="special">(</span><span class="number">1</span><span class="special">,</span><span class="number">2</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">6</span><span class="special">))</span> <span class="special">);</span>
 </pre>
 <a name="outplaced.see_also"></a><h4>
-<a name="id553609"></a>
+<a name="id553595"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2399,7 +2395,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.jointed"></a>jointed</h3></div></div></div>
 <a name="jointed.description"></a><h4>
-<a name="id553686"></a>
+<a name="id553672"></a>
         Description
       </h4>
 <p>
@@ -2407,17 +2403,17 @@
         is jointed with its argument.
       </p>
 <a name="jointed.header"></a><h4>
-<a name="id553714"></a>
+<a name="id553700"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">jointed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="jointed.model_of"></a><h4>
-<a name="id553785"></a>
+<a name="id553771"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="jointed.notation"></a><h4>
-<a name="id553814"></a>
+<a name="id553800"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2445,7 +2441,7 @@
         </li>
 </ul></div>
 <a name="jointed.valid_expressions"></a><h4>
-<a name="id554201"></a>
+<a name="id554187"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2479,7 +2475,7 @@
 </tr></tbody>
 </table></div>
 <a name="jointed.invariants"></a><h4>
-<a name="id554364"></a>
+<a name="id554350"></a>
         Invariants
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2497,7 +2493,7 @@
         </li>
 </ul></div>
 <a name="jointed.preconditions"></a><h4>
-<a name="id554555"></a>
+<a name="id554541"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2511,7 +2507,7 @@
         </li>
 </ul></div>
 <a name="jointed.example"></a><h4>
-<a name="id554717"></a>
+<a name="id554703"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -2525,7 +2521,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="jointed.see_also"></a><h4>
-<a name="id555060"></a>
+<a name="id555046"></a>
         See also
       </h4>
 </div>
@@ -2533,7 +2529,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.map_keys"></a>map_keys</h3></div></div></div>
 <a name="map_keys.description"></a><h4>
-<a name="id555086"></a>
+<a name="id555072"></a>
         Description
       </h4>
 <p>
@@ -2541,17 +2537,17 @@
         whose values are the keys of the base associative container.
       </p>
 <a name="map_keys.header"></a><h4>
-<a name="id555115"></a>
+<a name="id555101"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">map_keys</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="map_keys.model_of"></a><h4>
-<a name="id555186"></a>
+<a name="id555172"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="map_keys.valid_expressions"></a><h4>
-<a name="id555216"></a>
+<a name="id555202"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2585,7 +2581,7 @@
 </tr></tbody>
 </table></div>
 <a name="map_keys.preconditions"></a><h4>
-<a name="id555351"></a>
+<a name="id555337"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2593,7 +2589,7 @@
           a valid expression.
         </li></ul></div>
 <a name="map_keys.example"></a><h4>
-<a name="id555407"></a>
+<a name="id555393"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -2609,7 +2605,7 @@
 <span class="special">}</span>
 </pre>
 <a name="map_keys.see_also"></a><h4>
-<a name="id555887"></a>
+<a name="id555874"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2621,7 +2617,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.map_values"></a>map_values</h3></div></div></div>
 <a name="map_values.description"></a><h4>
-<a name="id555940"></a>
+<a name="id555926"></a>
         Description
       </h4>
 <p>
@@ -2629,17 +2625,17 @@
         whose values are the mapped values of the base associative container.
       </p>
 <a name="map_values.header"></a><h4>
-<a name="id555969"></a>
+<a name="id555956"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">map_values</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="map_values.model_of"></a><h4>
-<a name="id556040"></a>
+<a name="id556026"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="map_values.valid_expressions"></a><h4>
-<a name="id556070"></a>
+<a name="id556056"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2673,7 +2669,7 @@
 </tr></tbody>
 </table></div>
 <a name="map_values.preconditions"></a><h4>
-<a name="id556204"></a>
+<a name="id556191"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2681,7 +2677,7 @@
           a valid expression.
         </li></ul></div>
 <a name="map_values.example"></a><h4>
-<a name="id556262"></a>
+<a name="id556248"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -2700,7 +2696,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">m</span><span class="special">[</span><span class="number">99</span><span class="special">]</span> <span class="special">==</span> <span class="string">"values"</span> <span class="special">);</span>
 </pre>
 <a name="map_values.see_also"></a><h4>
-<a name="id556741"></a>
+<a name="id556728"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2712,7 +2708,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.memoized"></a>memoized</h3></div></div></div>
 <a name="memoized.description"></a><h4>
-<a name="id556794"></a>
+<a name="id556780"></a>
         Description
       </h4>
 <p>
@@ -2720,17 +2716,17 @@
         whose values are cached for speed, preparing for repeated dereferences.
       </p>
 <a name="memoized.header"></a><h4>
-<a name="id556822"></a>
+<a name="id556808"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">memoized</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="memoized.model_of"></a><h4>
-<a name="id556893"></a>
+<a name="id556879"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="memoized.valid_expressions"></a><h4>
-<a name="id556923"></a>
+<a name="id556909"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2799,7 +2795,7 @@
 </td></tr>
 </table></div>
 <a name="memoized.preconditions"></a><h4>
-<a name="id557216"></a>
+<a name="id557202"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2816,15 +2812,15 @@
         </li>
 </ul></div>
 <a name="memoized.invariants"></a><h4>
-<a name="id557343"></a>
+<a name="id557330"></a>
         Invariants
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
-          An iterator of <code class="computeroutput"><span class="identifier">memoized</span></code>
+          The iterator type of <code class="computeroutput"><span class="identifier">memoized</span></code>
           range is not <a href="concepts.html#oven.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
         </li></ul></div>
 <a name="memoized.example"></a><h4>
-<a name="id557384"></a>
+<a name="id557371"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -2841,7 +2837,7 @@
 <span class="special">);</span>
 </pre>
 <a name="memoized.see_also"></a><h4>
-<a name="id557582"></a>
+<a name="id557568"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2853,21 +2849,21 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.offset"></a>offset</h3></div></div></div>
 <a name="offset.description"></a><h4>
-<a name="id557635"></a>
+<a name="id557622"></a>
         Description
       </h4>
 <a name="offset.header"></a><h4>
-<a name="id557648"></a>
+<a name="id557635"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">offset</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="offset.model_of"></a><h4>
-<a name="id557719"></a>
+<a name="id557705"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="offset.valid_expressions"></a><h4>
-<a name="id557749"></a>
+<a name="id557735"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2901,7 +2897,7 @@
 </tr></tbody>
 </table></div>
 <a name="offset.preconditions"></a><h4>
-<a name="id557986"></a>
+<a name="id557972"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2917,7 +2913,7 @@
           <span class="identifier">distance</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">m</span></code></li>
 </ul></div>
 <a name="offset.complexity"></a><h4>
-<a name="id558176"></a>
+<a name="id558163"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2926,11 +2922,11 @@
           otherwise.
         </li></ul></div>
 <a name="offset.example"></a><h4>
-<a name="id558285"></a>
+<a name="id558271"></a>
         Example
       </h4>
 <a name="offset.see_also"></a><h4>
-<a name="id558298"></a>
+<a name="id558285"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2942,7 +2938,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.permuted"></a>permuted</h3></div></div></div>
 <a name="permuted.description"></a><h4>
-<a name="id558353"></a>
+<a name="id558339"></a>
         Description
       </h4>
 <p>
@@ -2951,17 +2947,17 @@
         range but in a potentially different order.
       </p>
 <a name="permuted.header"></a><h4>
-<a name="id558383"></a>
+<a name="id558369"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">permuted</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="permuted.model_of"></a><h4>
-<a name="id558454"></a>
+<a name="id558440"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="permuted.valid_expressions"></a><h4>
-<a name="id558484"></a>
+<a name="id558470"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -2995,18 +2991,18 @@
 </tr></tbody>
 </table></div>
 <a name="permuted.preconditions"></a><h4>
-<a name="id558711"></a>
+<a name="id558698"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">permutation_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">),</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">))</span></code> is a valid expression.
         </li></ul></div>
 <a name="permuted.example"></a><h4>
-<a name="id558907"></a>
+<a name="id558893"></a>
         Example
       </h4>
 <a name="permuted.see_also"></a><h4>
-<a name="id558921"></a>
+<a name="id558907"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3019,7 +3015,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.pointed"></a>pointed</h3></div></div></div>
 <a name="pointed.description"></a><h4>
-<a name="id558985"></a>
+<a name="id558972"></a>
         Description
       </h4>
 <p>
@@ -3028,17 +3024,17 @@
         you can expect STL to choose optimized implementation by passing raw pointers.
       </p>
 <a name="pointed.header"></a><h4>
-<a name="id559012"></a>
+<a name="id558998"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">pointed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="pointed.model_of"></a><h4>
-<a name="id559083"></a>
+<a name="id559069"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="pointed.valid_expressions"></a><h4>
-<a name="id559113"></a>
+<a name="id559099"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3088,7 +3084,7 @@
 </tbody>
 </table></div>
 <a name="pointed.preconditions"></a><h4>
-<a name="id559459"></a>
+<a name="id559445"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3104,7 +3100,7 @@
         </li>
 </ul></div>
 <a name="pointed.example"></a><h4>
-<a name="id559610"></a>
+<a name="id559596"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -3115,7 +3111,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">((</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">vec</span><span class="special">|</span><span class="identifier">as_c_str</span><span class="special">,</span> <span class="identifier">src</span><span class="special">)</span> <span class="special">));</span>
 </pre>
 <a name="pointed.see_also"></a><h4>
-<a name="id559915"></a>
+<a name="id559901"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.outdirected" title="outdirected">outdirected</a></li></ul></div>
@@ -3124,7 +3120,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.popped"></a>popped</h3></div></div></div>
 <a name="popped.description"></a><h4>
-<a name="id559956"></a>
+<a name="id559942"></a>
         Description
       </h4>
 <p>
@@ -3132,17 +3128,17 @@
         the last element.
       </p>
 <a name="popped.header"></a><h4>
-<a name="id559984"></a>
+<a name="id559970"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">popped</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="popped.model_of"></a><h4>
-<a name="id560054"></a>
+<a name="id560040"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="popped.valid_expressions"></a><h4>
-<a name="id560084"></a>
+<a name="id560070"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3176,7 +3172,7 @@
 </tr></tbody>
 </table></div>
 <a name="popped.preconditions"></a><h4>
-<a name="id560292"></a>
+<a name="id560278"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3187,11 +3183,11 @@
         </li>
 </ul></div>
 <a name="popped.example"></a><h4>
-<a name="id560423"></a>
+<a name="id560409"></a>
         Example
       </h4>
 <a name="popped.see_also"></a><h4>
-<a name="id560436"></a>
+<a name="id560422"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.dropped" title="dropped">dropped</a></li></ul></div>
@@ -3200,7 +3196,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.reversed"></a>reversed</h3></div></div></div>
 <a name="reversed.description"></a><h4>
-<a name="id560477"></a>
+<a name="id560463"></a>
         Description
       </h4>
 <p>
@@ -3208,17 +3204,17 @@
         iterates in the opposite direction.
       </p>
 <a name="reversed.header"></a><h4>
-<a name="id560506"></a>
+<a name="id560492"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">reversed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="reversed.model_of"></a><h4>
-<a name="id560577"></a>
+<a name="id560563"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="reversed.valid_expressions"></a><h4>
-<a name="id560606"></a>
+<a name="id560592"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3252,18 +3248,18 @@
 </tr></tbody>
 </table></div>
 <a name="reversed.preconditions"></a><h4>
-<a name="id560786"></a>
+<a name="id560772"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">))</span></code> is a valid expression.
         </li></ul></div>
 <a name="reversed.example"></a><h4>
-<a name="id560929"></a>
+<a name="id560915"></a>
         Example
       </h4>
 <a name="reversed.see_also"></a><h4>
-<a name="id560942"></a>
+<a name="id560928"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/iterator/doc/reverse_iterator.html" target="_top">boost::reverse_iterator</a></li></ul></div>
@@ -3272,7 +3268,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.rvalues"></a>rvalues</h3></div></div></div>
 <a name="rvalues.description"></a><h4>
-<a name="id560983"></a>
+<a name="id560969"></a>
         Description
       </h4>
 <p>
@@ -3280,17 +3276,17 @@
         <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_reference</span></code> type is the same as <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span></code> type.
       </p>
 <a name="rvalues.header"></a><h4>
-<a name="id561052"></a>
+<a name="id561038"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">rvalues</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="rvalues.model_of"></a><h4>
-<a name="id561123"></a>
+<a name="id561109"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="rvalues.notation"></a><h4>
-<a name="id561151"></a>
+<a name="id561137"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3298,7 +3294,7 @@
           object to convert the argument to <code class="computeroutput"><span class="identifier">_value_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">&gt;)&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
 <a name="rvalues.valid_expressions"></a><h4>
-<a name="id561226"></a>
+<a name="id561211"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3332,18 +3328,18 @@
 </tr></tbody>
 </table></div>
 <a name="rvalues.preconditions"></a><h4>
-<a name="id561360"></a>
+<a name="id561346"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">_rng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
         </li></ul></div>
 <a name="rvalues.example"></a><h4>
-<a name="id561399"></a>
+<a name="id561384"></a>
         Example
       </h4>
 <a name="rvalues.see_also"></a><h4>
-<a name="id561413"></a>
+<a name="id561399"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3357,7 +3353,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.scanned"></a>scanned</h3></div></div></div>
 <a name="scanned.description"></a><h4>
-<a name="id561489"></a>
+<a name="id561474"></a>
         Description
       </h4>
 <p>
@@ -3365,17 +3361,17 @@
         but returns a range of successive reduced values from the base range.
       </p>
 <a name="scanned.header"></a><h4>
-<a name="id561537"></a>
+<a name="id561523"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">scanned</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="scanned.model_of"></a><h4>
-<a name="id561608"></a>
+<a name="id561594"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="scanned.notation"></a><h4>
-<a name="id561638"></a>
+<a name="id561623"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3392,7 +3388,7 @@
         </li>
 </ul></div>
 <a name="scanned.valid_expressions"></a><h4>
-<a name="id561817"></a>
+<a name="id561803"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3462,7 +3458,7 @@
 </td></tr>
 </table></div>
 <a name="scanned.preconditions"></a><h4>
-<a name="id562451"></a>
+<a name="id562436"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3504,7 +3500,7 @@
         </li>
 </ul></div>
 <a name="scanned.example"></a><h4>
-<a name="id562974"></a>
+<a name="id562959"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -3517,7 +3513,7 @@
 <span class="comment">// outputs: "" "1" "12" "123" "1234" "12345"
 </span></pre>
 <a name="scanned.see_also"></a><h4>
-<a name="id563269"></a>
+<a name="id563254"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3529,7 +3525,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.sliced"></a>sliced</h3></div></div></div>
 <a name="sliced.description"></a><h4>
-<a name="id563320"></a>
+<a name="id563305"></a>
         Description
       </h4>
 <p>
@@ -3555,24 +3551,24 @@
 </td></tr>
 </table></div>
 <a name="sliced.header"></a><h4>
-<a name="id563409"></a>
+<a name="id563394"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">sliced</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="sliced.model_of"></a><h4>
-<a name="id563480"></a>
+<a name="id563465"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="sliced.notation"></a><h4>
-<a name="id563508"></a>
+<a name="id563494"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">f</span></code> is <code class="computeroutput"><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="sliced.valid_expressions"></a><h4>
-<a name="id563565"></a>
+<a name="id563551"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3606,7 +3602,7 @@
 </tr></tbody>
 </table></div>
 <a name="sliced.preconditions"></a><h4>
-<a name="id563866"></a>
+<a name="id563851"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3626,7 +3622,7 @@
           <span class="identifier">t</span></code></li>
 </ul></div>
 <a name="sliced.example"></a><h4>
-<a name="id564147"></a>
+<a name="id564132"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -3636,7 +3632,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="sliced.see_also"></a><h4>
-<a name="id564350"></a>
+<a name="id564335"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3649,7 +3645,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.sorted"></a>sorted</h3></div></div></div>
 <a name="sorted.description"></a><h4>
-<a name="id564416"></a>
+<a name="id564401"></a>
         Description
       </h4>
 <p>
@@ -3675,24 +3671,24 @@
 </td></tr>
 </table></div>
 <a name="sorted.header"></a><h4>
-<a name="id564491"></a>
+<a name="id564477"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">sorted</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="sorted.model_of"></a><h4>
-<a name="id564562"></a>
+<a name="id564547"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="sorted.notation"></a><h4>
-<a name="id564591"></a>
+<a name="id564576"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">less</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_2</span></code>.
         </li></ul></div>
 <a name="sorted.valid_expressions"></a><h4>
-<a name="id564685"></a>
+<a name="id564671"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3741,11 +3737,11 @@
 </tbody>
 </table></div>
 <a name="sorted.preconditions"></a><h4>
-<a name="id564916"></a>
+<a name="id564902"></a>
         Preconditions
       </h4>
 <a name="sorted.complexity"></a><h4>
-<a name="id564930"></a>
+<a name="id564915"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3754,7 +3750,7 @@
           where <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="identifier">distance</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="sorted.example"></a><h4>
-<a name="id565037"></a>
+<a name="id565023"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -3763,7 +3759,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">oven</span><span class="special">::</span><span class="identifier">stream_read</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;(</span><span class="identifier">in</span><span class="special">)|</span><span class="identifier">memoized</span><span class="special">|</span><span class="identifier">sorted</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"abcdef"</span><span class="special">))</span> <span class="special">);</span>
 </pre>
 <a name="sorted.see_also"></a><h4>
-<a name="id565227"></a>
+<a name="id565213"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3775,7 +3771,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.steps"></a>steps</h3></div></div></div>
 <a name="steps.description"></a><h4>
-<a name="id565279"></a>
+<a name="id565265"></a>
         Description
       </h4>
 <p>
@@ -3787,17 +3783,17 @@
         Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
       </p>
 <a name="steps.header"></a><h4>
-<a name="id565349"></a>
+<a name="id565334"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">steps</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="steps.model_of"></a><h4>
-<a name="id565419"></a>
+<a name="id565404"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="steps.notation"></a><h4>
-<a name="id565448"></a>
+<a name="id565433"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3810,7 +3806,7 @@
         </li>
 </ul></div>
 <a name="steps.valid_expressions"></a><h4>
-<a name="id565619"></a>
+<a name="id565604"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3845,7 +3841,7 @@
 </tr></tbody>
 </table></div>
 <a name="steps.preconditions"></a><h4>
-<a name="id565800"></a>
+<a name="id565785"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3857,7 +3853,7 @@
           <span class="identifier">w</span></code></li>
 </ul></div>
 <a name="steps.example"></a><h4>
-<a name="id565923"></a>
+<a name="id565908"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -3868,7 +3864,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="steps.see_also"></a><h4>
-<a name="id566123"></a>
+<a name="id566109"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.sliced" title="sliced">sliced</a></li></ul></div>
@@ -3877,7 +3873,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.taken"></a>taken</h3></div></div></div>
 <a name="taken.description"></a><h4>
-<a name="id566165"></a>
+<a name="id566150"></a>
         Description
       </h4>
 <p>
@@ -3885,17 +3881,17 @@
         range, returns the prefix of the range of length <code class="computeroutput"><span class="identifier">n</span></code>.
       </p>
 <a name="taken.header"></a><h4>
-<a name="id566203"></a>
+<a name="id566188"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">taken</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="taken.model_of"></a><h4>
-<a name="id566273"></a>
+<a name="id566258"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="taken.valid_expressions"></a><h4>
-<a name="id566303"></a>
+<a name="id566288"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -3952,7 +3948,7 @@
 </td></tr>
 </table></div>
 <a name="taken.preconditions"></a><h4>
-<a name="id566630"></a>
+<a name="id566615"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3960,11 +3956,11 @@
           convertible to <code class="computeroutput"><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
 <a name="taken.example"></a><h4>
-<a name="id566716"></a>
+<a name="id566702"></a>
         Example
       </h4>
 <a name="taken.see_also"></a><h4>
-<a name="id566730"></a>
+<a name="id566715"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -3979,7 +3975,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.taken_while"></a>taken_while</h3></div></div></div>
 <a name="taken_while.description"></a><h4>
-<a name="id566817"></a>
+<a name="id566802"></a>
         Description
       </h4>
 <p>
@@ -3988,17 +3984,17 @@
         of the range of elements that satisfy the predicate.
       </p>
 <a name="taken_while.header"></a><h4>
-<a name="id566847"></a>
+<a name="id566832"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">taken_while</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="taken_while.model_of"></a><h4>
-<a name="id566918"></a>
+<a name="id566903"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="taken_while.notation"></a><h4>
-<a name="id566947"></a>
+<a name="id566932"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -4006,7 +4002,7 @@
           to nagate a predicate.
         </li></ul></div>
 <a name="taken_while.valid_expressions"></a><h4>
-<a name="id566979"></a>
+<a name="id566965"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -4041,7 +4037,7 @@
 </tr></tbody>
 </table></div>
 <a name="taken_while.preconditions"></a><h4>
-<a name="id567216"></a>
+<a name="id567201"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4056,11 +4052,11 @@
         </li>
 </ul></div>
 <a name="taken_while.example"></a><h4>
-<a name="id567293"></a>
+<a name="id567278"></a>
         Example
       </h4>
 <a name="taken_while.see_also"></a><h4>
-<a name="id567307"></a>
+<a name="id567292"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4072,24 +4068,24 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.transformed"></a>transformed</h3></div></div></div>
 <a name="transformed.description"></a><h4>
-<a name="id567360"></a>
+<a name="id567345"></a>
         Description
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">transformed</span></code> returns a <code class="computeroutput"><span class="identifier">transform_iterator</span></code> range.
       </p>
 <a name="transformed.header"></a><h4>
-<a name="id567398"></a>
+<a name="id567384"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">transformed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="transformed.model_of"></a><h4>
-<a name="id567469"></a>
+<a name="id567455"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="transformed.valid_expressions"></a><h4>
-<a name="id567499"></a>
+<a name="id567484"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -4153,7 +4149,7 @@
 </tbody>
 </table></div>
 <a name="transformed.preconditions"></a><h4>
-<a name="id567911"></a>
+<a name="id567896"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4176,11 +4172,11 @@
         </li>
 </ul></div>
 <a name="transformed.example"></a><h4>
-<a name="id568306"></a>
+<a name="id568292"></a>
         Example
       </h4>
 <a name="transformed.see_also"></a><h4>
-<a name="id568320"></a>
+<a name="id568305"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4192,21 +4188,21 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.uniqued"></a>uniqued</h3></div></div></div>
 <a name="uniqued.description"></a><h4>
-<a name="id568373"></a>
+<a name="id568358"></a>
         Description
       </h4>
 <a name="uniqued.header"></a><h4>
-<a name="id568386"></a>
+<a name="id568371"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">uniqued</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="uniqued.model_of"></a><h4>
-<a name="id568456"></a>
+<a name="id568442"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="uniqued.notation"></a><h4>
-<a name="id568486"></a>
+<a name="id568471"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4219,7 +4215,7 @@
         </li>
 </ul></div>
 <a name="uniqued.valid_expressions"></a><h4>
-<a name="id568609"></a>
+<a name="id568595"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -4267,7 +4263,7 @@
 </tbody>
 </table></div>
 <a name="uniqued.preconditions"></a><h4>
-<a name="id568840"></a>
+<a name="id568826"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -4275,7 +4271,7 @@
           is a valid expression.
         </li></ul></div>
 <a name="uniqued.complexity"></a><h4>
-<a name="id568907"></a>
+<a name="id568892"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -4283,11 +4279,11 @@
           applications of the corresponding <code class="computeroutput"><span class="identifier">_prd</span></code>.
         </li></ul></div>
 <a name="uniqued.example"></a><h4>
-<a name="id568964"></a>
+<a name="id568950"></a>
         Example
       </h4>
 <a name="uniqued.see_also"></a><h4>
-<a name="id568978"></a>
+<a name="id568964"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.adjacent_filtered" title="adjacent_filtered">adjacent_filtered</a></li></ul></div>
@@ -4296,21 +4292,21 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.window"></a>window</h3></div></div></div>
 <a name="window.description"></a><h4>
-<a name="id569021"></a>
+<a name="id569006"></a>
         Description
       </h4>
 <a name="window.header"></a><h4>
-<a name="id569034"></a>
+<a name="id569019"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">window</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="window.model_of"></a><h4>
-<a name="id569104"></a>
+<a name="id569090"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
 <a name="window.valid_expressions"></a><h4>
-<a name="id569134"></a>
+<a name="id569120"></a>
         Valid expressions
       </h4>
 <div class="informaltable"><table class="table">
@@ -4344,7 +4340,7 @@
 </tr></tbody>
 </table></div>
 <a name="window.preconditions"></a><h4>
-<a name="id569372"></a>
+<a name="id569357"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4360,7 +4356,7 @@
           <span class="identifier">m</span></code></li>
 </ul></div>
 <a name="window.complexity"></a><h4>
-<a name="id569535"></a>
+<a name="id569521"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -4368,11 +4364,11 @@
           Access</a>, and <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="identifier">m</span><span class="special">)</span></code> otherwise.
         </li></ul></div>
 <a name="window.example"></a><h4>
-<a name="id569624"></a>
+<a name="id569610"></a>
         Example
       </h4>
 <a name="window.see_also"></a><h4>
-<a name="id569637"></a>
+<a name="id569623"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
