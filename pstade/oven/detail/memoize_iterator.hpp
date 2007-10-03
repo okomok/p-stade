@@ -46,15 +46,13 @@
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
-#include "./mutex_lockable.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
 template< class Iterator >
-struct memo :
-    mutex_lockable
+struct memo
 {
 private:
     typedef typename boost::iterator_value<Iterator>::type value_t;
@@ -214,15 +212,11 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
-
         return m_pmemo->deref(m_index);
     }
 
     bool equal(memoize_iterator const& other) const
     {
-        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
-
         if (is_in_table() && other.is_in_table())
             return m_index == other.m_index;
         else if (!is_in_table() && !other.is_in_table())
@@ -233,8 +227,6 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
-
         m_index = m_pmemo->next(m_index);
     }
 };
