@@ -397,6 +397,9 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 [h3 Preconditions]
 * `T` is `boost::regex_iterator<_iter_of<_typeof(_bidrng)>::type, X1,..,XN>` such that `T(_begin(_bidrng), _end(_bidrng), y0,..,yM)` is a valid expression.
 
+[h3 Invariants]
+* The iterator type of `matches` range is not _parallel_safe_.
+
 [h3 Example]
 
 [h3 See also]
@@ -447,6 +450,9 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [h3 Preconditions]
 * `T` is `boost::regex_token_iterator<_iter_of<_typeof(_bidrng)>::type, Y1,..,YN>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xM)` is a valid expression.
+
+[h3 Invariants]
+* The iterator type of `tokenized` range is not _parallel_safe_.
 
 [h3 Example]
 
@@ -703,6 +709,9 @@ Pending...
 [h3 Preconditions]
 * `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xN)` is a valid expression.
 
+[h3 Invariants]
+* The iterator type of `xpressive_matches` range is not _parallel_safe_.
+
 [h3 Example]
 
 [h3 See also]
@@ -742,6 +751,9 @@ Pending...
 
 [h3 Preconditions]
 * `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xN)` is a valid expression.
+
+[h3 Invariants]
+* The iterator type of `xpressive_tokenized` range is not _parallel_safe_.
 
 [h3 Example]
 

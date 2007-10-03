@@ -6,6 +6,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 
 * The complexity is `O(1)`; it returns in constant time.
 * It doesn't modify _range_ concepts to which the base range conforms.
+* The iterator type of adapted range is _parallel_safe_ if and only if the iterator type of base range is.
 
 
 
@@ -1330,7 +1331,7 @@ then pretends to be a range of _forward_iterator_.
 * If `_rng` is a recursive range, `memo_table` object `t` must be passed.
 
 [h3 Invariants]
-* Iterators of `memoized` are not _parallel_safe_.
+* An iterator of `memoized` range is not _parallel_safe_.
 
 [h3 Example]
     std::stringstream ss;
