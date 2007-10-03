@@ -46,11 +46,7 @@
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
-#include "./config.hpp" // PSTADE_OVEN_HAS_THREADS
-
-#if defined(PSTADE_OVEN_HAS_THREADS)
-    #include <boost/detail/lightweight_mutex.hpp>
-#endif
+#include "./mutex_lockable.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -58,7 +54,7 @@ namespace pstade { namespace oven { namespace detail {
 
 template< class Iterator >
 struct memo :
-    private boost::noncopyable
+    mutex_lockable
 {
 private:
     typedef typename boost::iterator_value<Iterator>::type value_t;
@@ -73,17 +69,11 @@ public:
 
     bool is_in_table(index_type i) const
     {
-#if defined(PSTADE_OVEN_HAS_THREADS)
-        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
-#endif
         return is_in_table_aux(i);
     }
 
     value_t const& deref(index_type i) // strong
     {
-#if defined(PSTADE_OVEN_HAS_THREADS)
-        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
-#endif
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
@@ -97,9 +87,6 @@ public:
 
     index_type next(index_type i) // strong
     {
-#if defined(PSTADE_OVEN_HAS_THREADS)
-        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
-#endif
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
@@ -127,9 +114,6 @@ public:
 
     Iterator base() const
     {
-#if defined(PSTADE_OVEN_HAS_THREADS)
-        boost::detail::lightweight_mutex::scoped_lock lock(m_mutex);
-#endif
         BOOST_ASSERT(invariant());
         return m_base;
     }
@@ -138,9 +122,6 @@ private:
     Iterator m_base;
     index_type m_baseIndex;
     table_t m_table;
-#if defined(PSTADE_OVEN_HAS_THREADS)
-    mutable boost::detail::lightweight_mutex m_mutex;
-#endif
 
     bool invariant() const
     {
@@ -216,6 +197,8 @@ public:
 
     Iterator base() const
     {
+        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
+
         return m_pmemo->base();
     }
 
@@ -231,11 +214,15 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
+        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
+
         return m_pmemo->deref(m_index);
     }
 
     bool equal(memoize_iterator const& other) const
     {
+        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
+
         if (is_in_table() && other.is_in_table())
             return m_index == other.m_index;
         else if (!is_in_table() && !other.is_in_table())
@@ -246,6 +233,8 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
+        typename memo_t::scoped_lock_type lock(m_pmemo->mutex());
+
         m_index = m_pmemo->next(m_index);
     }
 };
