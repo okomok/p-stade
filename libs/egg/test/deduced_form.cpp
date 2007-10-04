@@ -35,7 +35,7 @@ struct baby_foo
         typedef A1 &type;
     };
 
-    /*<< `Result` is given as the first argument using `boost::type`. >>*/
+    /*<< `Result` is given with the first argument using `boost::type`. >>*/
     template<class Result, class A1>
     Result call(boost::type<Result>, A1 &a1) const
     {

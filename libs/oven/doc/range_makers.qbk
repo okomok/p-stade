@@ -144,7 +144,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [section block]
 
 [h3 Description]
-`block` makes a _single_pass_ _range_ from an _iterator_block_.
+`block` makes a _single_pass_ _range_ from an _iteration_block_.
 
 [h3 Header]
 * `<pstade/oven/block.hpp>`
@@ -170,7 +170,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 ]
 
 [h3 Preconditions]
-* `b` is an _iterator_block_.
+* `b` is an _iteration_block_.
 * Multithreaded compilation must be invoked.
 
 [h3 Example]

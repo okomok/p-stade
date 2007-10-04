@@ -18,6 +18,7 @@
 #include <vector>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/begin_end.hpp>
+#include "./detail/output_iterator.hpp"
 
 
 
@@ -63,5 +64,10 @@ void pstade_minimal_test()
             thrown = true;
         }
         BOOST_CHECK(thrown);
+    }
+    {
+        std::vector<char> to(10);
+        test::output_iterator(checker(to), 'a');
+        test::output_iterator(checker(to, begin), 'a');
     }
 }

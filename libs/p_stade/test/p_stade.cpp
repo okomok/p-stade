@@ -1,18 +1,41 @@
 
-#include <boost/type_traits/is_pod.hpp>
-#include <boost/static_assert.hpp>
+
+#include <boost/lambda/core.hpp>
+#include <boost/range/begin.hpp>
 
 
-struct E { };
+template<class A>
+struct wrap;
 
-struct B : E
-{};
-
-struct C
+template<class T, std::size_t N>
+struct wrap<T[N]>
 {
-    B b;
+    typedef int type;
 };
-BOOST_STATIC_ASSERT((boost::is_pod<C>::value)); // !?
 
 
-int main() {}
+// doesn't compile.
+template<class A>
+typename wrap<A const>::type
+foo(A const&)
+{
+    return 0;
+}
+
+
+// compiles.
+template<class A>
+void
+foo_(A const&)
+{
+    typename wrap<A const>::type x = 0;
+    (void)x;
+}
+
+
+int main()
+{
+    int a[] = { 1, 2 };
+    ::foo(a);
+//    ::foo_(a);
+}

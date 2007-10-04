@@ -27,19 +27,19 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class IteratorBlock >
+template< class IterationBlock >
 struct block_iterator;
 
 
-template< class IteratorBlock >
+template< class IterationBlock >
 struct block_iterator_super
 {
-    typedef typename IteratorBlock::yield_type result_t;
+    typedef typename IterationBlock::yield_type result_t;
     typedef typename remove_cvr<result_t>::type val_t;
     typedef typename pass_by_reference<result_t>::type ref_t;
 
     typedef boost::iterator_facade<
-        block_iterator<IteratorBlock>,
+        block_iterator<IterationBlock>,
         val_t,
         boost::single_pass_traversal_tag,
         ref_t
@@ -47,21 +47,21 @@ struct block_iterator_super
 };
 
 
-template< class IteratorBlock >
+template< class IterationBlock >
 struct block_iterator :
-    block_iterator_super<IteratorBlock>::type
+    block_iterator_super<IterationBlock>::type
 {
 private:
     typedef block_iterator self_t;
-    typedef typename block_iterator_super<IteratorBlock>::type super_t;
+    typedef typename block_iterator_super<IterationBlock>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef block_iterator_impl<IteratorBlock> impl_t;
+    typedef block_iterator_impl<IterationBlock> impl_t;
 
 public:
     explicit block_iterator() // the end iterator
     { }
 
-    explicit block_iterator(IteratorBlock block) :
+    explicit block_iterator(IterationBlock block) :
         m_pimpl(new impl_t(block))
     {
         if (m_pimpl->done())

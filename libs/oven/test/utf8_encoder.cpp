@@ -22,9 +22,10 @@
 #include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/oven/range_transformer.hpp>
 #include <pstade/oven/utf8_encoded.hpp>
+#include "./detail/output_iterator.hpp"
 
 
-void test()
+void test_()
 {
     namespace oven = pstade::oven;
     using namespace oven;
@@ -56,11 +57,15 @@ void test()
             result
         ) );
     }
+    {
+        boost::uint8_t buf[10];
+        test::output_iterator( utf8_encoder |= &buf[0], boost::uint32_t('a') );
+    }
 }
 
 
 int test_main(int, char*[])
 {
-    ::test();
+    ::test_();
     return 0;
 }

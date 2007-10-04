@@ -12,7 +12,7 @@
 
 
 #include <memory> // auto_ptr
-#include <boost/mpl/bool.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
@@ -51,8 +51,8 @@ namespace memoized_detail {
         {
             typedef
                 detail::memoize_iterator<
-                    typename range_iterator<Range>::type,
-                    boost::mpl::true_
+                    // a raw pointer to avoid reference cycles
+                    detail::memo<typename range_iterator<Range>::type> *
                 >
             iter_t;
 
@@ -84,8 +84,9 @@ namespace memoized_detail {
         {
             typedef
                 detail::memoize_iterator<
-                    typename range_iterator<Range>::type,
-                    boost::mpl::false_
+                    boost::shared_ptr<
+                        detail::memo<typename range_iterator<Range>::type>
+                    >
                 >
             iter_t;
 

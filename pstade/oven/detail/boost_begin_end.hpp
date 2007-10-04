@@ -1,3 +1,5 @@
+#ifndef PSTADE_OVEN_DETAIL_BOOST_BEGIN_END_HPP
+#define PSTADE_OVEN_DETAIL_BOOST_BEGIN_END_HPP
 #include "./prefix.hpp"
 
 
@@ -11,396 +13,89 @@
 
 // What:
 //
-// Works around the bug that Boost.StringAlgorithm calls
-// unqualified 'begin/end', then unintentional ADL is triggered.
-// GCC may find the name 'mpl::begin' and fail to compile.
-// Though 'mpl::begin' isn't a function, this behavior seems conforming.
+// If Boost.Range doesn't work around a bug of msvc-7.1 array,
+// we will need this...
 
 
-#include <boost/range/result_iterator.hpp>
-#include <pstade/egg/function.hpp>
+#include <cstddef> // size_t
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/utility/addressof.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/pod_constant.hpp>
+#include "../range_iterator.hpp"
 
 
+namespace pstade { namespace oven {
 
-// Boost.Range library
-//
-//  Copyright Thorsten Ottosen 2003-2004. Use, modification and
-//  distribution is subject to the Boost Software License, Version
-//  1.0. (See accompanying file LICENSE_1_0.txt or copy at
-//  http://www.boost.org/LICENSE_1_0.txt)
-//
-// For more information, see http://www.boost.org/libs/range/
+
+// boost_begin
 //
 
-
-
-// begin
-//
-
-
-#ifndef BOOST_RANGE_BEGIN_HPP
-#define BOOST_RANGE_BEGIN_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-# pragma once
-#endif
-
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/range/config.hpp>
-
-#ifdef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
-#include <boost/range/detail/begin.hpp>
-#else
-
-#include <boost/range/iterator.hpp>
-#include <boost/range/const_iterator.hpp>
-
-namespace boost
+struct boost_begin_t
 {
-
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564)) && \
-    !BOOST_WORKAROUND(__GNUC__, < 3) \
-    /**/
-namespace range_detail
-{
-#endif
-
-    //////////////////////////////////////////////////////////////////////
-    // primary template
-    //////////////////////////////////////////////////////////////////////
-
-    template< typename C >
-    inline BOOST_DEDUCED_TYPENAME range_const_iterator<C>::type
-    boost_range_begin( const C& c )
+    template< class Range >
+    typename range_iterator<Range>::type
+    operator()(Range& rng) const
     {
-        return c.begin();
+        return boost::begin(rng);
     }
 
-    template< typename C >
-    inline BOOST_DEDUCED_TYPENAME range_iterator<
-                                                                        typename remove_const<C>::type >::type
-    boost_range_begin( C& c )
+    template< class Range >
+    typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type
+    operator()(Range const& rng) const
     {
-        return c.begin();
+        return boost::begin(rng);
     }
 
-    //////////////////////////////////////////////////////////////////////
-    // pair
-    //////////////////////////////////////////////////////////////////////
-
-    template< typename Iterator >
-    inline Iterator boost_range_begin( const std::pair<Iterator,Iterator>& p )
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
+    template< class T, std::size_t N >
+    T *
+    operator()(T (&arr)[N]) const
     {
-        return p.first;
-    }
-
-    template< typename Iterator >
-    inline Iterator boost_range_begin( std::pair<Iterator,Iterator>& p )
-    {
-        return p.first;
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    // array
-    //////////////////////////////////////////////////////////////////////
-
-    template< typename T, std::size_t sz >
-    inline const T* boost_range_begin( const T (&array)[sz] )
-    {
-        return array;
-    }
-
-    template< typename T, std::size_t sz >
-    inline T* boost_range_begin( T (&array)[sz] )
-    {
-        return array;
-    }
-
-
-    //////////////////////////////////////////////////////////////////////
-    // string
-    //////////////////////////////////////////////////////////////////////
-
-#if 1 || BOOST_WORKAROUND(__MWERKS__, <= 0x3204 ) || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-// CW up to 9.3 and borland have troubles with function ordering
-    inline const char* boost_range_begin( const char* s )
-    {
-        return s;
-    }
-
-    inline char* boost_range_begin( char* s )
-    {
-        return s;
-    }
-
-    inline const wchar_t* boost_range_begin( const wchar_t* s )
-    {
-        return s;
-    }
-
-    inline wchar_t* boost_range_begin( wchar_t* s )
-    {
-        return s;
-    }
-#else
-    inline const char* boost_range_begin( const char*& s )
-    {
-        return s;
-    }
-
-    inline char* boost_range_begin( char*& s )
-    {
-        return s;
-    }
-
-    inline const wchar_t* boost_range_begin( const wchar_t*& s )
-    {
-        return s;
-    }
-
-    inline wchar_t* boost_range_begin( wchar_t*& s )
-    {
-        return s;
+        return boost::addressof(arr[0]);
     }
 #endif
+};
 
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564)) && \
-    !BOOST_WORKAROUND(__GNUC__, < 3) \
-    /**/
-} // namespace 'range_detail'
-#endif
+PSTADE_POD_CONSTANT((boost_begin_t), boost_begin) = {};
 
 
-///////////////////////////////////////////////////////////////////////////////
-
-    struct pstade_baby_begin
-    {
-        template<class Myself, class Range>
-        struct apply :
-            range_result_iterator<Range>
-        { };
-
-        template<class Result, class Range>
-        Result call(Range& rng) const
-        {
-            using namespace range_detail;
-            return boost_range_begin(rng);
-        }
-    };
-
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_begin>), begin) = {{}};
-
-    struct pstade_baby_const_begin
-    {
-        template<class Myself, class Range>
-        struct apply :
-            range_const_iterator<Range>
-        { };
-
-        template<class Result, class Range>
-        Result call(Range const& rng) const
-        {
-            using namespace range_detail;
-            return boost_range_begin(rng);
-        }
-    };
-
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_const_begin>), const_begin) = {{}};
-
-///////////////////////////////////////////////////////////////////////////////
-
-
-} // namespace boost
-
-#endif // BOOST_NO_FUNCTION_TEMPLATE_ORDERING
-
-
-#endif 
-
-
-
-// end
+// boost_end
 //
 
-
-#ifndef BOOST_RANGE_END_HPP
-#define BOOST_RANGE_END_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-# pragma once
-#endif
-
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/range/config.hpp>
-
-#ifdef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
-#include <boost/range/detail/end.hpp>
-#else
-
-#include <boost/range/detail/implementation_help.hpp>
-#include <boost/range/iterator.hpp>
-#include <boost/range/const_iterator.hpp>
-
-namespace boost
+struct boost_end_t
 {
-
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564)) && \
-    !BOOST_WORKAROUND(__GNUC__, < 3) \
-    /**/
-namespace range_detail
-{
-#endif
-
-        //////////////////////////////////////////////////////////////////////
-        // primary template
-        //////////////////////////////////////////////////////////////////////
-
-        template< typename C >
-        inline BOOST_DEDUCED_TYPENAME range_const_iterator<C>::type
-        boost_range_end( const C& c )
-        {
-            return c.end();
-        }
-
-        template< typename C >
-                inline BOOST_DEDUCED_TYPENAME range_iterator<
-                                        typename remove_const<C>::type >::type
-        boost_range_end( C& c )
-        {
-            return c.end();
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        // pair
-        //////////////////////////////////////////////////////////////////////
-
-        template< typename Iterator >
-        inline Iterator boost_range_end( const std::pair<Iterator,Iterator>& p )
-        {
-            return p.second;
-        }
-
-        template< typename Iterator >
-        inline Iterator boost_range_end( std::pair<Iterator,Iterator>& p )
-        {
-            return p.second;
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        // array
-        //////////////////////////////////////////////////////////////////////
-
-        template< typename T, std::size_t sz >
-        inline const T* boost_range_end( const T (&array)[sz] )
-        {
-            return range_detail::array_end<T,sz>( array );
-        }
-
-        template< typename T, std::size_t sz >
-        inline T* boost_range_end( T (&array)[sz] )
-        {
-            return range_detail::array_end<T,sz>( array );
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        // string
-        //////////////////////////////////////////////////////////////////////
-
-#if 1 || BOOST_WORKAROUND(__MWERKS__, <= 0x3204 ) || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-// CW up to 9.3 and borland have troubles with function ordering
-        inline char* boost_range_end( char* s )
-        {
-            return range_detail::str_end( s );
-        }
-
-        inline wchar_t* boost_range_end( wchar_t* s )
-        {
-            return range_detail::str_end( s );
-        }
-
-        inline const char* boost_range_end( const char* s )
-        {
-            return range_detail::str_end( s );
-        }
-
-        inline const wchar_t* boost_range_end( const wchar_t* s )
-        {
-            return range_detail::str_end( s );
-        }
-#else
-        inline char* boost_range_end( char*& s )
-        {
-            return range_detail::str_end( s );
-        }
-
-        inline wchar_t* boost_range_end( wchar_t*& s )
-        {
-            return range_detail::str_end( s );
-        }
-
-        inline const char* boost_range_end( const char*& s )
-        {
-            return range_detail::str_end( s );
-        }
-
-        inline const wchar_t* boost_range_end( const wchar_t*& s )
-        {
-            return range_detail::str_end( s );
-        }
-#endif
-
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564)) && \
-    !BOOST_WORKAROUND(__GNUC__, < 3) \
-    /**/
-} // namespace 'range_detail'
-#endif
-
-
-///////////////////////////////////////////////////////////////////////////////
-
-    struct pstade_baby_end
+    template< class Range >
+    typename range_iterator<Range>::type
+    operator()(Range& rng) const
     {
-        template<class Myself, class Range>
-        struct apply :
-            range_result_iterator<Range>
-        { };
+        return boost::end(rng);
+    }
 
-        template<class Result, class Range>
-        Result call(Range& rng) const
-        {
-            using namespace range_detail;
-            return boost_range_end(rng);
-        }
-    };
-
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_end>), end) = {{}};
-
-    struct pstade_baby_const_end
+    template< class Range >
+    typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type
+    operator()(Range const& rng) const
     {
-        template<class Myself, class Range>
-        struct apply :
-            range_const_iterator<Range>
-        { };
+        return boost::end(rng);
+    }
 
-        template<class Result, class Range>
-        Result call(Range const& rng) const
-        {
-            using namespace range_detail;
-            return boost_range_end(rng);
-        }
-    };
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
+    template< class T, std::size_t N >
+    T *
+    operator()(T (&arr)[N]) const
+    {
+        return boost::addressof(arr[0]) + N;
+    }
+#endif
+};
 
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_const_end>), const_end) = {{}};
-
-///////////////////////////////////////////////////////////////////////////////
+PSTADE_POD_CONSTANT((boost_end_t), boost_end) = {};
 
 
-} // namespace 'boost'
-
-
-
-#endif // BOOST_NO_FUNCTION_TEMPLATE_ORDERING
+} } // namespace pstade::oven
 
 
 #endif

@@ -88,7 +88,7 @@
 [def _pipable_adaptor_       [link oven.pipable_adaptor Pipable Adaptor]]
 [def _auxiliary_interface_   [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_interface Auxiliary Interface]]
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
-[def _iterator_block_        [link oven.iterator_block Iterator Block]]
+[def _iteration_block_        [link oven.iteration_block Iteration Block]]
 [def _parallel_safe_         [link oven.parallel_safe Parallel Safe]]
 
 

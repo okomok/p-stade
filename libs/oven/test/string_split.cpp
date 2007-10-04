@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/boost_begin_end.hpp>
+#include "./detail/replace_boost_begin_end.hpp"
 #include <boost/test/minimal.hpp>
 
 

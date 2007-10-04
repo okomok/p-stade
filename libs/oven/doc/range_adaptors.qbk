@@ -536,7 +536,7 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`_fwdrng|copied_to(x)`]
+        [`_fwdrng|copied_to(_outit)`]
         [
             `[_begin(_fwdrng), _end(_fwdrng))`
         ]
@@ -544,10 +544,10 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Effects]
-* `std::copy(_begin(_fwdrng), _end(_fwdrng), x)`
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), _outit)`
 
 [h3 Preconditions]
-* `std::copy(_begin(_fwdrng), _end(_fwdrng), x)` is a valid expression.
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), _outit)` is a valid expression.
 
 [h3 Complexity]
 * Depends on the `std::copy`.

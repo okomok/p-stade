@@ -1,5 +1,5 @@
 #include <pstade/if_debug.hpp>
-#include <pstade/comma_protect.hpp>
+#include <pstade/unparenthesize.hpp>
 
 void remove_side_effects()
 {
@@ -17,7 +17,7 @@ void remove_side_effects()
 
     // When you need comma out of ()
     PSTADE_IF_DEBUG (
-        PSTADE_COMMA_PROTECT((basic_ofstream< char, char_traits<char> >))
+        PSTADE_UNPARENTHESIZE((basic_ofstream< char, char_traits<char> >))
         fout("debug.log");
         os.reset(fout);
         os << "'#if !defined(NDEBUG)' is much easier!";

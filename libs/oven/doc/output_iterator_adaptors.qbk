@@ -1,6 +1,6 @@
 [section Output Iterator Adaptors]
 
-Output Iterator Adaptors adapt the behavior of the underlying iterator.
+Output Iterator Adaptors adapt the behavior of the underlying _output_iterator_.
 An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`, you can "chain" multiple adaptors:
 
     int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
@@ -16,7 +16,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [section converter]
 
 [h3 Description]
-`converter` changes an output to specified type.
+`converter` changes an output into specified type.
 
 [h3 Header]
 * `<pstade/oven/converter.hpp>`
@@ -25,7 +25,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * ...
 
 [h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = boost::implicit_cast<To>(v)`.
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *_outit++ = boost::implicit_cast<To>(v)`.
 
 [h3 Valid expressions]
 [table 
@@ -40,15 +40,15 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         ]
     ]
     [
-        [`xp_make_converter<To>()(x)`]
+        [`xp_make_converter<To>()(_outit)`]
         [
             `applier(f_)`
         ]
     ]
     [
-        [`oven::make_converter<To>(x)`]
+        [`oven::make_converter<To>(_outit)`]
         [
-            `xp_make_converter<To>()(x)`
+            `xp_make_converter<To>()(_outit)`
         ]
     ]
     [
@@ -58,15 +58,14 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         ]
     ]
     [
-        [`converter<To>() |= x`]
+        [`converter<To>() |= _outit`]
         [
-            `xp_make_converter<To>()(x)`
+            `xp_make_converter<To>()(_outit)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `x` is an _output_iterator_.
 * The corresponding semantics is a valid expression.
 
 [h3 Example]
@@ -93,7 +92,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * _pipable_adaptor_
 
 [h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *p++ = v; *x++ = v`.
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *_outit0++ = v; *_outit++ = v`.
 
 [h3 Valid expressions]
 [table 
@@ -102,7 +101,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`copier(p) |= x`]
+        [`copier(_outit0) |= _outit`]
         [
             `applier(f_)`
         ]
@@ -110,7 +109,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 ]
 
 [h3 Preconditions]
-* `x` and `p` is an _output_iterator_.
 * The corresponding semantics is a valid expression.
 
 [h3 Example]
@@ -143,7 +141,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * _pipable_adaptor_
 
 [h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> if(_prd(*v)) *x++ = *v`.
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> if(_prd(*v)) *_outit++ = *v`.
 
 [h3 Valid expressions]
 [table 
@@ -152,7 +150,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`filterer(_prd) |= x`]
+        [`filterer(_prd) |= _outit`]
         [
             `applier(f_)`
         ]
@@ -160,7 +158,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 ]
 
 [h3 Preconditions]
-* `x` is an _output_iterator_.
 * `_prd` is _assignable_.
 * The corresponding semantics is a valid expression.
 
@@ -187,7 +184,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * _pipable_adaptor_
 
 [h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = *v`.
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *_outit++ = *v`.
 
 [h3 Valid expressions]
 [table 
@@ -196,7 +193,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`indirecter |= x`]
+        [`indirecter |= _outit`]
         [
             `applier(f_)`
         ]
@@ -204,7 +201,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 ]
 
 [h3 Preconditions]
-* `x` is an _output_iterator_.
 * The corresponding semantics is a valid expression.
 
 [h3 Example]
@@ -231,7 +227,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * _pipable_adaptor_
 
 [h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = *(_begin(_rndrng)+v)`.
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *_outit++ = *(_begin(_rndrng)+v)`.
 
 [h3 Valid expressions]
 [table 
@@ -240,7 +236,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`permuter(_rndrng) |= x`]
+        [`permuter(_rndrng) |= _outit`]
         [
             `applier(f_)`
         ]
@@ -248,7 +244,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 ]
 
 [h3 Preconditions]
-* `x` is an _output_iterator_.
 * The corresponding semantics is a valid expression.
 
 [h3 Example]
@@ -274,7 +269,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * _pipable_adaptor_
 
 [h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *x++ = _fun(v)`.
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> *_outit++ = _fun(v)`.
 
 [h3 Valid expressions]
 [table 
@@ -283,7 +278,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`transformer(_fun) |= x`]
+        [`transformer(_fun) |= _outit`]
         [
             `applier(f_)`
         ]
@@ -291,7 +286,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 ]
 
 [h3 Preconditions]
-* `x` is an _output_iterator_.
 * `_fun` is _assignable_.
 * The corresponding semantics is a valid expression.
 
@@ -320,7 +314,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * _pipable_adaptor_
 
 [h3 Notation]
-* `f_` is an imaginary _function_object_ which behaves as if it were `v -> x = copy(_fun(single(v)), x)`.
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> _outit = copy(_fun(single(v)), _outit)`.
 
 [h3 Valid expressions]
 [table 
@@ -329,7 +323,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`range_transformer(_fun) |= x`]
+        [`range_transformer(_fun) |= _outit`]
         [
             `applier(f_)`
         ]
@@ -337,7 +331,6 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 ]
 
 [h3 Preconditions]
-* `x` is an _output_iterator_.
 * `_fun` is _assignable_.
 * The corresponding semantics is a valid expression.
 
@@ -376,15 +369,15 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`utf8_encoder |= x`]
+        [`utf8_encoder |= _outit`]
         [
-            `T(x)`
+            `T(_outit)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::utf8_output_iterator<typeof(x)>` such that `T(x)` is a valid expression.
+* `T` is `boost::utf8_output_iterator<typeof(_outit)>` such that `T(_outit)` is a valid expression.
 
 [h3 Example]
 
@@ -414,15 +407,15 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`utf16_encoder |= x`]
+        [`utf16_encoder |= _outit`]
         [
-            `T(x)`
+            `T(_outit)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::utf16_output_iterator<typeof(x)>` such that `T(x)` is a valid expression.
+* `T` is `boost::utf16_output_iterator<typeof(_outit)>` such that `T(_outit)` is a valid expression.
 
 [h3 Example]
 
