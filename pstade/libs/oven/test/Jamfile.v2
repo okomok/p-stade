@@ -35,6 +35,8 @@ test-suite "oven" :
     [ run begin_end.cpp ]
     [ run biscuit_tokenized.cpp ]
     [ run block.cpp ]
+    [ run boost_begin_end.cpp ]
+    [ compile-fail boost_begin_end.cpp ]
     [ run broken_into.cpp ]
     [ run checked.cpp ]
     [ run checker.cpp ]

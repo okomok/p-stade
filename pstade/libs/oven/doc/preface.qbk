@@ -126,6 +126,10 @@ This document uses the following notation:
         [A _random_access_ _range_]
     ]
     [
+        [`_outit`]
+        [An _output_iterator_]
+    ]
+    [
         [`_fun`]
         [A _function_object_]
     ]

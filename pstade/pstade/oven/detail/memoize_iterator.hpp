@@ -43,22 +43,23 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
+#include <boost/pointee.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
 template< class Iterator >
-struct memo
+struct memo :
+    private boost::noncopyable
 {
 private:
     typedef typename boost::iterator_value<Iterator>::type value_t;
     typedef std::deque<value_t> table_t;
 
 public:
+    typedef Iterator iterator_type;
     typedef typename table_t::size_type index_type;
 
     explicit memo(Iterator it) :
@@ -135,72 +136,66 @@ private:
 };
 
 
-template< class Iterator, class IsRecursive >
+template< class MemoPtr >
 struct memoize_iterator;
 
 
-// In a recursive range, 'Iterator' must live outside
-// of the range in order to avoid reference-cycles.
-// Todo: 'xpressive::detail::tracking_ptr' can kick in?
-template< class Memo, class IsRecursive >
-struct memo_ptr_of :
-    boost::mpl::if_< IsRecursive,
-        Memo *,
-        boost::shared_ptr<Memo>
-    >
-{ };
-
-
-template< class Iterator, class IsRecursive >
+template< class MemoPtr >
 struct memoize_iterator_super
 {
     typedef typename
-        boost::iterator_value<Iterator>::type
+        boost::pointee<MemoPtr>::type
+    memo_t;
+
+    typedef typename
+        memo_t::iterator_type
+    iter_t;
+
+    typedef typename
+        boost::iterator_value<iter_t>::type
     value_t;
 
     typedef
         boost::iterator_facade<
-            memoize_iterator<Iterator, IsRecursive>,
+            memoize_iterator<MemoPtr>,
             value_t,
             boost::forward_traversal_tag,
             value_t const&,
-            typename boost::iterator_difference<Iterator>::type
+            typename boost::iterator_difference<iter_t>::type
         >
     type;
 };
 
 
-template< class Iterator, class IsRecursive >
+template< class MemoPtr >
 struct memoize_iterator :
-    memoize_iterator_super<Iterator, IsRecursive>::type
+    memoize_iterator_super<MemoPtr>::type
 {
 private:
-    typedef typename memoize_iterator_super<Iterator, IsRecursive>::type super_t;
+    typedef typename memoize_iterator_super<MemoPtr>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef memo<Iterator> memo_t;
-    typedef typename memo_ptr_of<memo_t, IsRecursive>::type pmemo_t;
 
 public:
-    typedef memo_t memo_type;
-
+    typedef typename boost::pointee<MemoPtr>::type memo_type;
+ 
     explicit memoize_iterator()
     { }
 
-    explicit memoize_iterator(pmemo_t const& pmemo) :
+    explicit memoize_iterator(MemoPtr const& pmemo) :
         m_pmemo(pmemo), m_index(0)
     { }
 
 // as adaptor
-    typedef Iterator base_type;
+    typedef typename memo_type::iterator_type base_type;
 
-    Iterator base() const
+    base_type base() const
     {
         return m_pmemo->base();
     }
 
 private:
-    pmemo_t m_pmemo;
-    typename memo_t::index_type m_index;
+    MemoPtr m_pmemo;
+    typename memo_type::index_type m_index;
 
     bool is_in_table() const
     {

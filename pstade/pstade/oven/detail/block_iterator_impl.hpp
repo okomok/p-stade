@@ -62,18 +62,18 @@ struct block_end           : static_c<std::size_t, 1> { };
 struct block_interrupted   : static_c<std::size_t, 2> { };
 
 
-template< class IteratorBlock >
+template< class IterationBlock >
 struct block_iterator_impl :
     private boost::noncopyable
 {
 private:
     typedef block_iterator_impl self_t;
-    typedef typename IteratorBlock::yield_type result_t;
+    typedef typename IterationBlock::yield_type result_t;
     typedef typename pass_by_reference<result_t>::type result_ref_t;
     typedef typename ref_to_ptr<result_ref_t>::type result_ptr_t;
 
 public:
-    explicit block_iterator_impl(IteratorBlock block) :
+    explicit block_iterator_impl(IterationBlock block) :
         m_block(block),
         m_presult(PSTADE_NULLPTR),
         m_status(1), // block_incrementing
@@ -130,7 +130,7 @@ public:
     }
 
 private:
-    IteratorBlock m_block;
+    IterationBlock m_block;
     result_ptr_t m_presult;
     boost::mutex m_mutex;
     boost::condition m_cond;

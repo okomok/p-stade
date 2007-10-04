@@ -23,12 +23,12 @@ namespace pstade { namespace oven {
 namespace block_detail {
 
 
-    template< class IteratorBlock >
+    template< class IterationBlock >
     struct base
     {
         typedef
             detail::block_iterator<
-                typename pass_by_value<IteratorBlock>::type
+                typename pass_by_value<IterationBlock>::type
             >
         iter_t;
 
@@ -36,7 +36,7 @@ namespace block_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(IteratorBlock& b) const
+        result_type operator()(IterationBlock& b) const
         {
             return result_type(iter_t(b), iter_t());
         }

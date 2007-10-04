@@ -16,9 +16,11 @@
 
 
 #include <pstade/unit_test.hpp>
+#include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 #include <pstade/oven/oven.hpp>
+#include <pstade/oven/comprehension.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_io.hpp>
 #include <pstade/egg/new.hpp>

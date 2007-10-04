@@ -23,6 +23,7 @@
 #include <pstade/oven/adapted_to_base.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/egg/is_same.hpp>
+#include "./detail/output_iterator.hpp"
 
 
 namespace oven = pstade::oven;
@@ -32,7 +33,7 @@ using namespace oven;
 std::stringstream g_ss;
 
 
-void test()
+void test_()
 {
     std::string const src("abcdefg");
 
@@ -77,11 +78,19 @@ void test()
         BOOST_CHECK( equals(g_ss.str(), std::string("a,b,c,d,e,f,g,")) );
         BOOST_CHECK( pstade::egg::is_same(ss, g_ss) );
     }
+    {
+        g_ss.str("");
+        test::output_iterator( stream_writer(g_ss), 'a' );
+        test::output_iterator( streambuf_writer(g_ss.rdbuf()), 'a' );
+        test::output_iterator( std_stream_writer(g_ss), 'a' );
+        test::output_iterator( stream_writer(g_ss, ","), 'a' );
+        test::output_iterator( std_stream_writer(g_ss, ","), 'a' );
+    }
 }
 
 
 int test_main(int, char*[])
 {
-    ::test();
+    ::test_();
     return 0;
 }

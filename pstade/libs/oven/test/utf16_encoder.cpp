@@ -20,9 +20,10 @@
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/file_range.hpp> // VC++ does *using namespace std* here; Boost1.34 will work around this bug.
 #include <pstade/oven/utf16_decoded.hpp>
+#include "./detail/output_iterator.hpp"
 
 
-void test()
+void test_()
 {
     namespace oven = pstade::oven;
     using namespace oven;
@@ -39,11 +40,15 @@ void test()
             result
         ) );
     }
+    {
+        boost::uint16_t buf[10];
+        test::output_iterator( utf16_encoder |= &buf[0], boost::uint32_t('a') );
+    }
 }
 
 
 int test_main(int, char*[])
 {
-    ::test();
+    ::test_();
     return 0;
 }

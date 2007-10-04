@@ -209,7 +209,7 @@ Egg provides __FCPP__ infix operator syntax.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* ^_dco^ has left to right associativity.
+* `^_dco^` behaves as if it had left to right associativity.
 
 [heading Example]
     using namespace infix;

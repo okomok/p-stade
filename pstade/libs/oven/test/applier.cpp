@@ -27,6 +27,7 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/regular.hpp>
 #include <pstade/unused.hpp>
+#include "./detail/output_iterator.hpp"
 
 
 std::stringstream g_ss;
@@ -77,5 +78,8 @@ void pstade_minimal_test()
         g_ss.str("");
         oven::copy(src, oven::applier(pstade::unused));
         BOOST_CHECK( boost::empty(g_ss.str()) );
+    }
+    {
+        test::output_iterator(applier(pstade::unused), 123);
     }
 }

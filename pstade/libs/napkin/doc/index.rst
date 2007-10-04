@@ -211,7 +211,7 @@ An easy solution is maybe something like::
 	E:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\remove_side_effects.ipp
 
 ``PSTADE_IF_DEBUG`` disappears under the release compilation.
-``PSTADE_COMMA_PROTECT`` works only if the argument is a type.
+``PSTADE_UNPARENTHESIZE`` works only if the argument is a type.
 
 
 
