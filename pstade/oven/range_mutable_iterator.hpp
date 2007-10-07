@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/remove_cvr.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "./detail/config.hpp" // BOOST_RANGE_MUTABLE_ITERATOR
 
 
@@ -20,8 +20,8 @@ namespace pstade { namespace oven {
 
 template< class Range >
 struct range_mutable_iterator :
-    PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<
-        typename remove_cvr<Range>::type
+    boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<
+        typename boost::remove_cv<Range>::type
     >
 { };
 

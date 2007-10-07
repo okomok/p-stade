@@ -31,7 +31,7 @@ test-suite "oven_example" :
     [ run newton.cpp ]
     [ run one_year.cpp ]
     [ run out_pipe.cpp ]
-    [ run permutation.cpp ]
+    [ run permutations.cpp ]
     [ run power.cpp ]
     [ run primes.cpp ]
     [ run pythagorean_triples.cpp ]

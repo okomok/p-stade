@@ -10,6 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/vodka/drink_loss_of_data.hpp>
+
+
 #include <pstade/oven/indexing.hpp>
 #include <boost/test/minimal.hpp>
 #include "./detail/v1_tests.hpp"

@@ -16,6 +16,8 @@
 #undef PSTADE_OVEN_OVEN_HPP
 #include <pstade/oven/oven.hpp>
 
+#include "./oven_all.hpp"
+
 
 #include <boost/test/minimal.hpp>
 

@@ -22,6 +22,7 @@
 
 
 #include <pstade/oven/equals.hpp>
+#include <pstade/oven/as_literal.hpp>
 #include <boost/assign/std/vector.hpp>
 #include <boost/algorithm/string.hpp>
 
@@ -230,7 +231,7 @@ void test()
     }
 
     {
-        match_results<char const *> cap;
+        match_results< oven::iter_range<char const *> > cap;
 
         BOOST_CHECK((
             !biscuit::match< no_captures<
@@ -245,7 +246,7 @@ void test()
     }   
 
     {
-        match_results<char const *> cap;
+        match_results< oven::iter_range<char const *> > cap;
 
         BOOST_CHECK((
             biscuit::results_match<

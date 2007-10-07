@@ -12,7 +12,7 @@
 
 
 #include <boost/range/const_iterator.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 
 
 namespace pstade { namespace oven {
@@ -21,7 +21,7 @@ namespace pstade { namespace oven {
 template< class Range >
 struct range_constant_iterator :
     boost::range_const_iterator<
-        typename remove_cvr<Range>::type
+        typename boost::remove_cv<Range>::type
     >
 { };
 
