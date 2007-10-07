@@ -48,7 +48,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __MPL_FORWARD_SEQUENCE__ [@http://www.boost.org/libs/mpl/doc/refmanual/forward-sequence.html MPL Forward Sequence]]
 [def __SGI_ADAPTABLE__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable]]
 
-[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost:indirect_iterator]]
+[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]]
 [def __BOOST_FUSION_FUNCTIONAL__ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adapters]]
 
 [def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]

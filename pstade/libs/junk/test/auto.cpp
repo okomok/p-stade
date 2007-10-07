@@ -10,13 +10,13 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/any.cpp>
+//#include <pstade/../libs/wine/test/rebuild_array.cpp>
 
-#include <pstade/../libs/oven/test/boost_begin_end.cpp>
+#include <pstade/../libs/oven/test/boost_range_iterator_nonconst.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
-//#include <pstade/../libs/biscuit/test/parse.cpp>
+//#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>

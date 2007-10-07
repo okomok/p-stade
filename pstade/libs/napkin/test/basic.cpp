@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/equals.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 #include <pstade/napkin.hpp>
 
@@ -69,7 +70,7 @@ void test_basic()
         std::vector<char> vec;
         napkin::ostream os(vec);
         os << "xxx";
-        BOOST_CHECK( oven::equals(vec, "xxx") );
+        BOOST_CHECK( oven::equals(vec, oven::as_literal("xxx")) );
     }
 }
 

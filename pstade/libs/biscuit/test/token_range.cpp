@@ -93,7 +93,7 @@ void test()
     {
         int i = 0;
         BOOST_FOREACH (
-            boost::sub_range<const char *> rng,
+            boost::iterator_range<const char *> rng,
             make_token_range<c_comment>(SRC_TEXT|oven::as_literal))
         {
             if (i == 0)
@@ -110,7 +110,7 @@ void test()
     {
         int i = 0;
         BOOST_FOREACH (
-            boost::sub_range<const char *> rng,
+            boost::iterator_range<const char *> rng,
             SRC_TEXT |
                 oven::as_literal |
                 tokenized<c_comment>()
@@ -165,7 +165,7 @@ void test()
     {
         int i = 0;
         BOOST_FOREACH (
-            boost::sub_range<const char *> rng,
+            boost::iterator_range<const char *> rng,
             biscuit::make_token_range<c_comment_n>(SRC_TEXT|oven::as_literal))
         {
             if (i == 0)
@@ -182,7 +182,7 @@ void test()
     {
         int i = 0;
         BOOST_FOREACH (
-            boost::sub_range<const char *> rng,
+            boost::iterator_range<const char *> rng,
             SRC_TEXT |
                 oven::as_literal |
                 biscuit::tokenized<c_comment_n>()

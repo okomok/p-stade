@@ -10,6 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/vodka/drink_loss_of_data.hpp>
+
+
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
@@ -245,7 +248,7 @@ void test_always()
     BOOST_CHECK( oven::equals(
         std::string("labor")
             | jointed(std::string("will be"))
-            | always("lost"),
+            | always(std::string("lost")),
         std::string("lost")
     ) );
 }

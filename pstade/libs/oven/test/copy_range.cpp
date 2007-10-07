@@ -11,6 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/vodka/drink_loss_of_data.hpp>
+
+
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/copied.hpp>
 #include <pstade/minimal_test.hpp>

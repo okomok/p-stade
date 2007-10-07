@@ -34,7 +34,7 @@ struct wrap2;
 
 #if 1
 // This must be complete in order to be well-formed.
-// This result type is not used, though.
+// This result type is ignored, and "overriden" in the non-broken context.
 template<class X>
 struct wrap2
 {

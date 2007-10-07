@@ -19,6 +19,7 @@
 #include <string>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/algorithm.hpp>
+#include <pstade/oven/as_literal.hpp>
 #include <boost/progress.hpp>
 
 
@@ -84,10 +85,10 @@ void pstade_minimal_test()
         {
             boost::progress_timer t;
             for (int i = 0; i < count; ++i) {
-                oven::unrolled_copy_c<7>(b, &a[0]);
+                oven::unrolled_copy_c<7>(as_literal(b), &a[0]);
             }
         }
-        BOOST_CHECK( equals(a, std::string("abcdefg")) );
+        BOOST_CHECK( equals(as_literal(a), std::string("abcdefg")) );
         BOOST_CHECK( equals(a, b) );
     }
     {
@@ -99,7 +100,7 @@ void pstade_minimal_test()
                 oven::copy(b, &a[0]);
             }
         }
-        BOOST_CHECK( equals(a, std::string("abcdefg")) );
+        BOOST_CHECK( equals(as_literal(a), std::string("abcdefg")) );
         BOOST_CHECK( equals(a, b) );
     }
 }
