@@ -22,13 +22,13 @@ namespace pstade { namespace egg {
     namespace lambda_placeholders {
 
         // These are not pod.
-        typedef boost::remove_const<boost::lambda::placeholder1_type>::type op_lambda_1;
-        typedef boost::remove_const<boost::lambda::placeholder2_type>::type op_lambda_2;
-        typedef boost::remove_const<boost::lambda::placeholder3_type>::type op_lambda_3;
+        typedef boost::remove_const<boost::lambda::placeholder1_type>::type T_lambda_1;
+        typedef boost::remove_const<boost::lambda::placeholder2_type>::type T_lambda_2;
+        typedef boost::remove_const<boost::lambda::placeholder3_type>::type T_lambda_3;
 
-        PSTADE_CONSTANT(lambda_1, (op_lambda_1))
-        PSTADE_CONSTANT(lambda_2, (op_lambda_2))
-        PSTADE_CONSTANT(lambda_3, (op_lambda_3))
+        PSTADE_CONSTANT(lambda_1, (T_lambda_1))
+        PSTADE_CONSTANT(lambda_2, (T_lambda_2))
+        PSTADE_CONSTANT(lambda_3, (T_lambda_3))
 
     }
 

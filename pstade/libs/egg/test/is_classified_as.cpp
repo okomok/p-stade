@@ -20,8 +20,8 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-PSTADE_TEST_IS_RESULT_OF((bool), op_is_classified_as(char, std::ctype_base::mask const&))
-PSTADE_TEST_IS_RESULT_OF((bool), op_is_classified_as(wchar_t, std::ctype_base::mask const&, std::locale const&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_is_classified_as(char, std::ctype_base::mask const&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_is_classified_as(wchar_t, std::ctype_base::mask const&, std::locale const&))
 
 
 void pstade_minimal_test()

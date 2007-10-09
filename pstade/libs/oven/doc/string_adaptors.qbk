@@ -22,13 +22,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`xp_make_broken_into<V>`]
+        [`<X_make_broken_into<V>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_broken_into<V>()(_rng, k)`]
+        [`<X_make_broken_into<V>()(_rng, k)`]
         [
             `[T(k, _begin(_rng), _end(_rng)), T(k, _end(_rng), boost:end(_rng)))`
         ]
@@ -36,7 +36,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`_rng|oven::broken_into<V>(k)`]
         [
-            `xp_make_broken_into<V>()(_rng, k)`
+            `<X_make_broken_into<V>()(_rng, k)`
         ]
     ]
 ]
@@ -247,13 +247,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`op_make_wide_chars<CharT = wchar_t>`]
+        [`X_make_wide_chars<CharT = wchar_t>`]
         [
             A _bindable_ _deferred_callable_object_
         ]
     ]
     [
-        [`op_make_wide_chars<CharT>()(_rng, loc = std::locale())`]
+        [`X_make_wide_chars<CharT>()(_rng, loc = std::locale())`]
         [
             `_rng|transformed(to_w)`
         ]
@@ -261,7 +261,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`rng|wide_chars`]
         [
-            `op_make_wide_chars<>(_rng)`
+            `X_make_wide_chars<>(_rng)`
         ]
     ]
 ]
@@ -375,13 +375,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`xp_make_matches<X1,..,XN>`]
+        [`<X_make_matches<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
+        [`<X_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
         [
             `[T(_begin(_bidrng), _end(_bidrng), y1,..,yM), T())`
         ]
@@ -389,7 +389,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`_bidrng|matches`]
         [
-            `xp_make_matches<>()(_bidrng)`
+            `<X_make_matches<>()(_bidrng)`
         ]
     ]
 ]
@@ -429,13 +429,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`xp_make_tokenized<Y1,..,YN>`]
+        [`<X_make_tokenized<Y1,..,YN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
+        [`<X_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
         [
             `[T(_begin(_bidrng), _end(_bidrng), x1,..,xM), T())`
         ]
@@ -443,7 +443,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`_bidrng|tokenized`]
         [
-            `xp_make_tokenized<>()(_bidrng)`
+            `<X_make_tokenized<>()(_bidrng)`
         ]
     ]
 ]
@@ -483,13 +483,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`xp_make_utf8_decoded<U1,..,UN>`]
+        [`<X_make_utf8_decoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
+        [`<X_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
@@ -497,7 +497,7 @@ Pending...
     [
         [`_fwdrng|utf8_decoded`]
         [
-            `xp_make_utf8_decoded<>()(_fwdrng)`
+            `<X_make_utf8_decoded<>()(_fwdrng)`
         ]
     ]
 ]
@@ -540,13 +540,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`xp_make_utf8_encoded<U1,..,UN>`]
+        [`<X_make_utf8_encoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_utf8_encoded<U1,..,UN>()(_rng)`]
+        [`<X_make_utf8_encoded<U1,..,UN>()(_rng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
         ]
@@ -554,7 +554,7 @@ Pending...
     [
         [`_rng|utf8_encoded`]
         [
-            `xp_make_utf8_encoded<>()(_rng)`
+            `<X_make_utf8_encoded<>()(_rng)`
         ]
     ]
 ]
@@ -593,13 +593,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`xp_make_utf16_decoded<U1,..,UN>`]
+        [`<X_make_utf16_decoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_utf16_decoded<U1,..,UN>()(_fwdrng)`]
+        [`<X_make_utf16_decoded<U1,..,UN>()(_fwdrng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
@@ -607,7 +607,7 @@ Pending...
     [
         [`_fwdrng|utf16_decoded`]
         [
-            `xp_make_utf16_decoded<>()(_fwdrng)`
+            `<X_make_utf16_decoded<>()(_fwdrng)`
         ]
     ]
 ]
@@ -646,13 +646,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`xp_make_utf16_encoded<U1,..,UN>`]
+        [`<X_make_utf16_encoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_utf16_encoded<U1,..,UN>()(_rng)`]
+        [`<X_make_utf16_encoded<U1,..,UN>()(_rng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
         ]
@@ -660,7 +660,7 @@ Pending...
     [
         [`_rng|utf16_encoded`]
         [
-            `xp_make_utf16_encoded<>()(_rng)`
+            `<X_make_utf16_encoded<>()(_rng)`
         ]
     ]
 ]

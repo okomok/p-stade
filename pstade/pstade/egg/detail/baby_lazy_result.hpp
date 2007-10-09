@@ -43,7 +43,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            result_of<op_lambda_bind(Base const&)>::type
+            result_of<T_lambda_bind(Base const&)>::type
         nullary_result_type;
 
         template<class Result>
@@ -75,7 +75,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            op_lambda_bind(Base const&, PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+            T_lambda_bind(Base const&, PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
         >
     { };
 

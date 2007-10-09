@@ -16,7 +16,7 @@
 using namespace pstade::egg;
 
 
-struct op_my_foo
+struct T_my_foo
 {
     typedef int result_type;
 
@@ -36,7 +36,7 @@ struct op_my_foo
     }
 };
 
-op_my_foo const my_foo = {};
+T_my_foo const my_foo = {};
 
 
 void pstade_minimal_test()

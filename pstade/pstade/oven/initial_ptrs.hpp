@@ -131,7 +131,7 @@ namespace initial_ptrs_detail {
 
 
 template< class Value = boost::use_default >
-struct xp_initial_ptrs
+struct X_initial_ptrs
 {
     template< class A >
     struct auto_ptr_of :
@@ -154,8 +154,8 @@ struct xp_initial_ptrs
 };
 
 
-typedef xp_initial_ptrs<> op_initial_ptrs;
-PSTADE_POD_CONSTANT((op_initial_ptrs), initial_ptrs) = {};
+typedef X_initial_ptrs<> T_initial_ptrs;
+PSTADE_POD_CONSTANT((T_initial_ptrs), initial_ptrs) = {};
 
 
 template< class Value, std::size_t N >
@@ -171,7 +171,7 @@ struct result_of_initial_ptrs
 };
 
 
-using pstade::egg::xp_new_auto;
+using pstade::egg::X_new_auto;
 
 
 } } // namespace pstade::oven

@@ -1,6 +1,5 @@
 #include "./prefix.hpp"
-#include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#include <pstade/vodka/drink_loss_of_data.hpp>
 
 
 // PStade.Oven
@@ -11,10 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/vodka/drink_loss_of_data.hpp>
-
-
 #include <pstade/oven/matrix.hpp>
+#include <boost/test/minimal.hpp>
 #include "./detail/v1_tests.hpp"
 
 
@@ -159,7 +156,7 @@ void test_3d()
         std::vector<int> rng = src|copied;
 
         typedef boost::
-            result_of<op_make_matrix(std::vector<int>&, int, int, int)>::type
+            result_of<T_make_matrix(std::vector<int>&, int, int, int)>::type
         rng3d_t;
         rng3d_t rng3d = make_matrix(rng, 3, 5, 7);
 

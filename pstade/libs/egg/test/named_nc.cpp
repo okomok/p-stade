@@ -23,7 +23,7 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-struct op_foo1
+struct T_foo1
 {
     typedef std::stringstream& result_type;
 
@@ -37,8 +37,8 @@ struct op_foo1
     }
 };
 
-typedef result_of_named2<op_foo1>::type op_named_foo1;
-op_named_foo1 const named_foo1 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+typedef result_of_named2<T_foo1>::type T_named_foo1;
+T_named_foo1 const named_foo1 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
 
 PSTADE_POD_CONSTANT((pstade::egg::keyword<0>), _in) = PSTADE_EGG_KEYWORD;
@@ -57,7 +57,7 @@ void pstade_minimal_test()
         std::stringstream sin, sout;
         sin << "hello";
         pstade::result_of<
-            op_named_foo1(
+            T_named_foo1(
                 pstade::result_of<keyword<1>(std::stringstream&)>::type,
                 pstade::result_of<keyword<0>(std::stringstream&)>::type
             )

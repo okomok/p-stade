@@ -79,7 +79,7 @@ template<
     class CharT  = boost::use_default,
     class Traits = boost::use_default
 >
-struct xp_make_matches :
+struct X_make_matches :
     tp_make_matches<CharT, Traits>::type
 { };
 

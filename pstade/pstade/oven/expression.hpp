@@ -35,15 +35,15 @@ namespace pstade { namespace oven {
 
 
 #if !defined(BOOST_TYPEOF_NATIVE)
-    typedef op_make_any_range  op_expression;
+    typedef T_make_any_range  T_expression;
 #else
-    // 'op_identity' would be inconsistent.
-    typedef op_make_iter_range op_expression;
+    // 'T_identity' would be inconsistent.
+    typedef T_make_iter_range T_expression;
 #endif
 
 
 // Fortunately, initializers are the same.
-PSTADE_POD_CONSTANT((op_expression), expression) = {{}};
+PSTADE_POD_CONSTANT((T_expression), expression) = {{}};
 
 
 } } // namespace pstade::oven

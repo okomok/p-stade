@@ -62,8 +62,8 @@ namespace pstade { namespace egg {
     } // namespace to_value_detail_
 
 
-    typedef to_value_detail_::op op_to_value;
-    PSTADE_POD_CONSTANT((op_to_value), to_value) = {{}};
+    typedef to_value_detail_::op T_to_value;
+    PSTADE_POD_CONSTANT((T_to_value), to_value) = {{}};
 
 
 } } // namespace pstade::egg

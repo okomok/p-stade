@@ -24,7 +24,7 @@ using namespace oven;
 std::string g_str("hello");
 
 
-struct op_foo
+struct T_foo
 {
     template<class Iter>
     void operator()(Iter it) const
@@ -49,6 +49,6 @@ void pstade_minimal_test()
 
     for_each(
         g_str|with_data(boost::ref(g_str))|with_data(123)|outdirected,
-        op_foo()
+        T_foo()
     );
 }

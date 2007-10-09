@@ -31,7 +31,7 @@ struct tp_make_converted
         template< class Myself, class Range >
         struct apply :
             result_of<
-                xp_make_transformed<To>(Range&, egg::op_identity const&)
+                X_make_transformed<To>(Range&, egg::T_identity const&)
             >
         { };
 
@@ -39,7 +39,7 @@ struct tp_make_converted
         Result call(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return xp_make_transformed<To>()(rng, egg::identity);
+            return X_make_transformed<To>()(rng, egg::identity);
         }
     };
 
@@ -48,12 +48,12 @@ struct tp_make_converted
 
 
 template< class To >
-struct xp_make_converted :
+struct X_make_converted :
     tp_make_converted<To>::type
 { };
 
 
-PSTADE_EGG_SPECIFIED1(make_converted, xp_make_converted, (class))
+PSTADE_EGG_SPECIFIED1(make_converted, X_make_converted, (class))
 
 
 template< class To >

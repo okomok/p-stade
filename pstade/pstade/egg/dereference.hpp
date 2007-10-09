@@ -90,8 +90,8 @@ namespace pstade { namespace egg {
     } // namespace dereference_detail
 
 
-    typedef PSTADE_EGG_DEFER((dereference_detail::base<boost::mpl::_>)) op_dereference;
-    PSTADE_POD_CONSTANT((op_dereference), dereference) = PSTADE_EGG_DEFERRED;
+    typedef PSTADE_EGG_DEFER((dereference_detail::base<boost::mpl::_>)) T_dereference;
+    PSTADE_POD_CONSTANT((T_dereference), dereference) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::egg

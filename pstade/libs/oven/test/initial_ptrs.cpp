@@ -36,8 +36,8 @@ struct ncint2 : test::ncint
 result_of_initial_ptrs<test::ncint, 9>::type
 make_ptrs()
 {
-    xp_new_auto<test::ncint> a_;
-    xp_new_auto< ::ncint2 > a2_;
+    X_new_auto<test::ncint> a_;
+    X_new_auto< ::ncint2 > a2_;
     return
         initial_ptrs(
             a_(3), a_(1), a2_(3), a_(6), a_(2), a2_(1), a_(7), a2_(0), a_(9)
@@ -48,11 +48,11 @@ make_ptrs()
 result_of_initial_ptrs<test::ncint, 9>::type
 make_ptrs2()
 {
-    xp_new_auto<test::ncint> a_;
-    xp_new_auto< ::ncint2 > a2_;
-    pstade::egg::xp_new_ptr< boost::ptr_container_detail::static_move_ptr<test::ncint> > m_;
+    X_new_auto<test::ncint> a_;
+    X_new_auto< ::ncint2 > a2_;
+    pstade::egg::X_new_ptr< boost::ptr_container_detail::static_move_ptr<test::ncint> > m_;
     return
-        xp_initial_ptrs< test::ncint >()(
+        X_initial_ptrs< test::ncint >()(
             a2_(3), a_(1), a2_(3), a_(6), m_(2), a2_(1), a_(7), a2_(0), a_(9)
         );
 }

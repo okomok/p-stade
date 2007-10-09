@@ -36,7 +36,7 @@
 #include <pstade/contract.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/result_of.hpp>
-#include "../begin_end.hpp" // op_begin
+#include "../begin_end.hpp" // T_begin
 #include "../do_iter_swap.hpp"
 #include "../read.hpp"
 #include "./maybe_contains.hpp"
@@ -52,7 +52,7 @@ struct concat_iterator;
 template< class SegmentIter >
 struct local_iterator :
     result_of<
-        op_begin(typename iterator_read<SegmentIter>::type)
+        T_begin(typename iterator_read<SegmentIter>::type)
     >
 { };
 

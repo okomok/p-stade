@@ -13,7 +13,7 @@
 
 // Note:
 //
-// Iterator type works as a "key"; see 'op_line_number'.
+// Iterator type works as a "key"; see 'T_line_number'.
 // This way seems better than zipping referent and line number.
 
 
@@ -76,7 +76,7 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(with_line_number, (with_line_number_detail::base<_, 
 //
 
 template< class Incrementable >
-struct xp_line_number
+struct X_line_number
 {
     typedef Incrementable result_type;
 
@@ -96,7 +96,7 @@ struct xp_line_number
     }
 };
 
-PSTADE_EGG_SPECIFIED1(line_number, xp_line_number, (class))
+PSTADE_EGG_SPECIFIED1(line_number, X_line_number, (class))
 
 
 } } // namespace pstade::oven

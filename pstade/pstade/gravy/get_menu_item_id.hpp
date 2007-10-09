@@ -25,7 +25,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_get_menu_item_id
+    struct T_get_menu_item_id
     {
         typedef UINT result_type;
 
@@ -46,7 +46,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_get_menu_item_id), get_menu_item_id) = {};
+    PSTADE_POD_CONSTANT((T_get_menu_item_id), get_menu_item_id) = {};
 
 
 } } // namespace pstade::gravy

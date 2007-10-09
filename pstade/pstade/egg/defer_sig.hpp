@@ -48,9 +48,9 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_defer_sig;
+    T_defer_sig;
 
-    PSTADE_POD_CONSTANT((op_defer_sig), defer_sig) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_defer_sig), defer_sig) = PSTADE_EGG_GENERATOR;
 
 
     template<class SigFun>
@@ -67,9 +67,9 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_defer_nullary_sig;
+    T_defer_nullary_sig;
 
-    PSTADE_POD_CONSTANT((op_defer_nullary_sig), defer_nullary_sig) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_defer_nullary_sig), defer_nullary_sig) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

@@ -44,7 +44,6 @@ test-suite "wine" :
     [ link pod_constant1.cpp pod_constant2.cpp : : pod_constant ]
     [ run poly.cpp ]
     [ run preprocessor.cpp ]
-    [ run rebuild_array.cpp ]
     [ run remove_cvr.cpp ]
     [ run require.cpp ]
     [ run reset_assignment.cpp ]

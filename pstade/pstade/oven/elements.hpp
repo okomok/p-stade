@@ -50,8 +50,8 @@ public:
         template< class Myself, class TupleRange >
         struct apply :
             result_of<
-                xp_make_transformed<typename ref_of<TupleRange>::type>(
-                    TupleRange&, egg::xp_tuple_get<N>
+                X_make_transformed<typename ref_of<TupleRange>::type>(
+                    TupleRange&, egg::X_tuple_get<N>
                 )
             >
         { };
@@ -61,8 +61,8 @@ public:
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
 
-            return xp_make_transformed<typename ref_of<TupleRange>::type>()(
-                rng, egg::xp_tuple_get<N>()
+            return X_make_transformed<typename ref_of<TupleRange>::type>()(
+                rng, egg::X_tuple_get<N>()
             );
         }
     };
@@ -72,18 +72,18 @@ public:
 
 
 template< class N, class Reference = boost::use_default >
-struct xp_make_elements :
+struct X_make_elements :
     tp_make_elements<N, Reference>::type
 { };
 
 template< int N, class Reference = boost::use_default >
-struct xp_make_elements_c :
+struct X_make_elements_c :
     tp_make_elements<boost::mpl::int_<N>, Reference>::type
 { };
 
 
-PSTADE_EGG_SPECIFIED1(make_elements, xp_make_elements, (class))
-PSTADE_EGG_SPECIFIED1(make_elements_c, xp_make_elements_c, (int))
+PSTADE_EGG_SPECIFIED1(make_elements, X_make_elements, (class))
+PSTADE_EGG_SPECIFIED1(make_elements_c, X_make_elements_c, (int))
 
 
 template< class N, class Reference = boost::use_default >

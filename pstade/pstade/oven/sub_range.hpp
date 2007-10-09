@@ -96,7 +96,7 @@ public:
     { }
 
 // assignments
-    PSTADE_RESET_ASSIGNMENT(self_t)
+    PSTADE_RESET_ASSIGNMENT(sub_range)
 
 // swappable
     void swap(self_t& other)

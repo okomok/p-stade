@@ -26,8 +26,8 @@
 // Usage:
 //
 // namespace my {
-//     template<class T> struct op_my_cast { .. };
-//     #define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(3), my_cast, op_my_cast, (class))
+//     template<class T> struct T_my_cast { .. };
+//     #define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(3), my_cast, T_my_cast, (class))
 //     #include PSTADE_EGG_SPECIFIED()
 // }
 //

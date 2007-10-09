@@ -27,15 +27,15 @@
             typedef ::pstade::egg::automatic<PSTADE_UNPARENTHESIZE(Lambda)>::type op; \
         } \
         \
-        typedef BOOST_PP_CAT(pstade_automatic_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
-        PSTADE_POD_CONSTANT( (BOOST_PP_CAT(op_, Object)), Object ) = PSTADE_EGG_AUTOMATIC;
+        typedef BOOST_PP_CAT(pstade_automatic_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
+        PSTADE_POD_CONSTANT( (BOOST_PP_CAT(T_, Object)), Object ) = PSTADE_EGG_AUTOMATIC;
     /**/
 
 
 
 
 template<class To>
-struct op_cast0
+struct T_cast0
 {
     typedef To result_type;
 
@@ -45,11 +45,11 @@ struct op_cast0
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast0, (op_cast0<boost::mpl::_1>))
+PSTADE_AUTOMATIC(auto_cast0, (T_cast0<boost::mpl::_1>))
 
 
 template<class To>
-struct op_cast1
+struct T_cast1
 {
     typedef To result_type;
 
@@ -60,11 +60,11 @@ struct op_cast1
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast1, (op_cast1<_>))
+PSTADE_AUTOMATIC(auto_cast1, (T_cast1<_>))
 
 
 template<class To>
-struct op_cast2
+struct T_cast2
 {
     typedef To result_type;
 
@@ -75,7 +75,7 @@ struct op_cast2
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast2, (op_cast2<_>))
+PSTADE_AUTOMATIC(auto_cast2, (T_cast2<_>))
 
 
 void pstade_minimal_test()

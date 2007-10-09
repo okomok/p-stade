@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
             template<class Myself, class ArgTuple>
             struct apply :
                 result_of<
-                    typename result_of<op_fuse(Function const&)>::type(ArgTuple&)
+                    typename result_of<T_fuse(Function const&)>::type(ArgTuple&)
                 >
             { };
 
@@ -95,8 +95,8 @@ namespace pstade { namespace egg {
     } // namespace after_detail
 
 
-    typedef function<after_detail::baby, by_value> op_after;
-    PSTADE_POD_CONSTANT((op_after), after) = {{}};
+    typedef function<after_detail::baby, by_value> T_after;
+    PSTADE_POD_CONSTANT((T_after), after) = {{}};
 
 
 } } // namespace pstade::egg

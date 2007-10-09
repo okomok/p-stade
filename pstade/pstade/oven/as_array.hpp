@@ -61,8 +61,8 @@ namespace as_array_detail {
 } // namespace as_array_detail
 
 
-typedef egg::result_of_auxiliary0<as_array_detail::op>::type op_as_array;
-PSTADE_POD_CONSTANT((op_as_array), as_array) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_auxiliary0<as_array_detail::op>::type T_as_array;
+PSTADE_POD_CONSTANT((T_as_array), as_array) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::oven

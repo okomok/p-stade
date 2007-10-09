@@ -53,8 +53,8 @@ namespace sorted_detail {
         template< class Myself, class Range, class Compare = void >
         struct apply :
             result_of<
-                op_make_indirected(
-                    typename result_of<op_make_outplaced(Range&)>::type&
+                T_make_indirected(
+                    typename result_of<T_make_outplaced(Range&)>::type&
                 )
             >
         { };
@@ -63,7 +63,7 @@ namespace sorted_detail {
         Result call(Range& rng, Compare comp) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            typename result_of<op_make_outplaced(Range&)>::type its = make_outplaced(rng);
+            typename result_of<T_make_outplaced(Range&)>::type its = make_outplaced(rng);
             std::sort(boost::begin(its), boost::end(its), read_then<Compare>(comp));
             return make_indirected(its);
         }

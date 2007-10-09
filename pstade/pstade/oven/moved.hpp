@@ -37,7 +37,7 @@ namespace moved_detail {
 
 
     template< class Value >
-    struct op_move
+    struct T_move
     {
         typedef typename
             boost::mpl::if_< boost::is_movable<Value>,
@@ -58,12 +58,12 @@ namespace moved_detail {
     struct base
     {
         typedef
-            op_move<typename range_value<Range>::type>
+            T_move<typename range_value<Range>::type>
         fun_t;
 
         typedef typename
             result_of<
-                op_make_transformed(Range&, fun_t)
+                T_make_transformed(Range&, fun_t)
             >::type
         result_type;
 

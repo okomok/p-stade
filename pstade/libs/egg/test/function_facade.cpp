@@ -19,8 +19,8 @@
 #include <pstade/unused.hpp>
 
 
-struct op_foo :
-    pstade::egg::function_facade<op_foo, char>
+struct T_foo :
+    pstade::egg::function_facade<T_foo, char>
 {
     template< class Myself, class A0, class A1 = void >
     struct apply
@@ -55,17 +55,17 @@ struct op_foo :
     }
 };
 
-PSTADE_EGG_NULLARY_RESULT_OF_TYPE(op_foo)
+PSTADE_EGG_NULLARY_RESULT_OF_TYPE(T_foo)
 
 
-op_foo const foo = op_foo();
+T_foo const foo = T_foo();
 
 
 
 
 template< class T0, class T1 >
-struct op_bar :
-    pstade::egg::function_facade< op_bar<T0, T1>, char >
+struct T_bar :
+    pstade::egg::function_facade< T_bar<T0, T1>, char >
 {
     template< class Myself, class A0, class A1 = void >
     struct apply
@@ -100,13 +100,13 @@ struct op_bar :
     }
 };
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(op_bar, 2)
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
 
 
 struct dummy { };
 
 template< class T0, class T1 >
-struct op_hoge
+struct T_hoge
     // :dummy // also can work around!
 {
     template< class Signature >
@@ -119,7 +119,7 @@ struct op_hoge
     };
 
     template< class A0, class A1 >
-    typename result<op_hoge(A0, A1)>::type operator()(A0 const& a0, A1 const& a1) const
+    typename result<T_hoge(A0, A1)>::type operator()(A0 const& a0, A1 const& a1) const
     {
         return "2";
     }
@@ -131,7 +131,7 @@ struct op_hoge
     };
 
     template< class A0 >
-    typename result<op_hoge(A0)>::type operator()(A0 const& a0) const
+    typename result<T_hoge(A0)>::type operator()(A0 const& a0) const
     {
         (void)a0;
         return 1;
@@ -143,17 +143,17 @@ struct op_hoge
     }
 
 #if defined(BOOST_MSVC)
-    op_hoge()
+    T_hoge()
     { }
 #endif
 };
 
-//BOOST_MPL_ASSERT_NOT(( boost::is_pod< op_hoge<int,int> > ));
+//BOOST_MPL_ASSERT_NOT(( boost::is_pod< T_hoge<int,int> > ));
 
 namespace boost {
 
     template< class T0, class T1 >
-    struct result_of<op_hoge<T0, T1>()>
+    struct result_of<T_hoge<T0, T1>()>
     {
         typedef char type;
     };
@@ -233,41 +233,41 @@ struct our_identity :
 void pstade_minimal_test()
 {
     {
-        boost::result_of<op_foo(int, int)>::type x = foo(1, 2);
+        boost::result_of<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of<op_foo(int)>::type x = foo(1);
+        boost::result_of<T_foo(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of<op_foo()>::type x = foo();
+        boost::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 
     {
-        boost::result_of<op_bar<int, int>(int, int)>::type x = foo(1, 2);
+        boost::result_of<T_bar<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of<op_bar<int, int>(int)>::type x = foo(1);
+        boost::result_of<T_bar<int, int>(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of<op_bar<int, int>()>::type x = foo();
+        boost::result_of<T_bar<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 
     {
-        boost::result_of<op_hoge<int, int>(int, int)>::type x = foo(1, 2);
+        boost::result_of<T_hoge<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of<op_hoge<int, int>(int)>::type x = foo(1);
+        boost::result_of<T_hoge<int, int>(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of<op_hoge<int, int>()>::type x = foo();
+        boost::result_of<T_hoge<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 

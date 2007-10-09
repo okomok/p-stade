@@ -36,6 +36,15 @@ template< class What >
 struct any_output_iterator;
 
 
+
+template<
+    class Reference,
+    class Value      = boost::use_default,
+    class Difference = boost::use_default
+>
+struct any_index_iterator;
+
+
 } } // namespace pstade::oven
 
 

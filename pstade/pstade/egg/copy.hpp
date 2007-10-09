@@ -98,13 +98,13 @@ namespace pstade { namespace egg {
 
 
     template<class To>
-    struct xp_copy :
+    struct X_copy :
         tp_copy<To>::type
     { };
 
 
     PSTADE_ADL_BARRIER(copy) { // for 'std'
-        PSTADE_EGG_SPECIFIED1(copy, xp_copy, (class))
+        PSTADE_EGG_SPECIFIED1(copy, X_copy, (class))
     }
 
 

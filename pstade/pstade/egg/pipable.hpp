@@ -40,10 +40,10 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_pipable;
+    T_pipable;
 
 
-    PSTADE_POD_CONSTANT((op_pipable), pipable) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_pipable), pipable) = PSTADE_EGG_GENERATOR;
 
 
     // If msvc fails to find operator|, use this as super type.

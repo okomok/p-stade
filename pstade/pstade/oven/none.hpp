@@ -29,7 +29,7 @@
 namespace pstade { namespace oven {
 
 
-struct op_none
+struct T_none
 {
     typedef bool result_type;
 
@@ -48,7 +48,7 @@ struct op_none
 };
 
 
-PSTADE_POD_CONSTANT((op_none), none) = {};
+PSTADE_POD_CONSTANT((T_none), none) = {};
 
 
 } } // namespace pstade::oven

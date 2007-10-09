@@ -27,13 +27,13 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
-PSTADE_TEST_IS_RESULT_OF((std::string::iterator), op_begin(std::string&))
-PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), op_begin(std::string const&))
-PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), op_begin(std::string))
+PSTADE_TEST_IS_RESULT_OF((std::string::iterator), T_begin(std::string&))
+PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), T_begin(std::string const&))
+PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), T_begin(std::string))
 
-PSTADE_TEST_IS_RESULT_OF((std::string::iterator), op_end(std::string&))
-PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), op_end(std::string const&))
-PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), op_end(std::string))
+PSTADE_TEST_IS_RESULT_OF((std::string::iterator), T_end(std::string&))
+PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), T_end(std::string const&))
+PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), T_end(std::string))
 
 
 void pstade_minimal_test()

@@ -72,8 +72,8 @@ void bar(std::pair<int, char> p = constructor(3, 'c'))
 void pstade_minimal_test()
 {
     {
-        result_of<xp_construct<std::string>(char const*)>::type
-            x = xp_construct<std::string>()("hello"|to_value);
+        result_of<X_construct<std::string>(char const*)>::type
+            x = X_construct<std::string>()("hello"|to_value);
         BOOST_CHECK( x == std::string("hello") );
     }
     {

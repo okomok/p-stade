@@ -56,8 +56,8 @@ namespace pstade { namespace egg {
     } // namespace lambda_unlambda
 
 
-    typedef function<lambda_unlambda_detail::baby, by_value> op_lambda_unlambda;
-    PSTADE_POD_CONSTANT((op_lambda_unlambda), lambda_unlambda) = {{}};
+    typedef function<lambda_unlambda_detail::baby, by_value> T_lambda_unlambda;
+    PSTADE_POD_CONSTANT((T_lambda_unlambda), lambda_unlambda) = {{}};
 
 
 } } // namespace pstade::egg

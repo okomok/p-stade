@@ -40,7 +40,7 @@ struct fib_block
     }
 };
 
-struct op_my_plus
+struct T_my_plus
 {
     typedef int result_type;
 
@@ -69,13 +69,13 @@ struct job
 void pstade_unit_test()
 {
     {
-        BOOST_CHECK(parallel(op_my_plus())(1, 2) == 3);
+        BOOST_CHECK(parallel(T_my_plus())(1, 2) == 3);
     }
 #if defined(PSTADE_EGG_HAS_THREADS)
     {
-        typedef pstade::result_of<op_memoize(fib_block)>::type mef_t;
+        typedef pstade::result_of<T_memoize(fib_block)>::type mef_t;
         mef_t mef = memoize(fib_block());
-        typedef pstade::result_of<op_parallel(mef_t)>::type paf_t;
+        typedef pstade::result_of<T_parallel(mef_t)>::type paf_t;
         paf_t paf = parallel(mef);
 
 #if 1

@@ -10,7 +10,7 @@ using namespace pstade;
 void test()
 {
     pstade::result_of<
-        op_auxiliary1(int (*)(char const *, char const *))
+        T_auxiliary1(int (*)(char const *, char const *))
     >::type compare = auxiliary1(&std::strcmp);
 
     BOOST_CHECK( compare("abcd", "abce") < 0 );

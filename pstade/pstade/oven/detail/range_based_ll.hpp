@@ -41,18 +41,18 @@ struct range_based2_sig_fun :
 #define PSTADE_OVEN_RANGE_BASED1_LL(R, _, Name) \
     typedef \
         pstade::oven::detail::range_based1_sig_fun< boost::lambda::ll::Name >::type \
-    BOOST_PP_CAT(op_, Name); \
+    BOOST_PP_CAT(T_, Name); \
     \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Name)), Name) \
         = PSTADE_OVEN_RANGE_BASED1_L PSTADE_OVEN_RANGE_BASED_LL_init PSTADE_OVEN_RANGE_BASED1_R; \
 /**/
 
 #define PSTADE_OVEN_RANGE_BASED2_LL(R, _, Name) \
     typedef \
         pstade::oven::detail::range_based2_sig_fun< boost::lambda::ll::Name >::type \
-    BOOST_PP_CAT(op_, Name); \
+    BOOST_PP_CAT(T_, Name); \
     \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Name)), Name) \
         = PSTADE_OVEN_RANGE_BASED2_L PSTADE_OVEN_RANGE_BASED_LL_init PSTADE_OVEN_RANGE_BASED2_R; \
 /**/
 

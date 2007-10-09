@@ -42,17 +42,17 @@ void pstade_minimal_test()
         BOOST_CHECK( str == "12" );
     }
     {
-        BOOST_CHECK( xp_lexical_cast<std::string>()(12) == "12" );
+        BOOST_CHECK( X_lexical_cast<std::string>()(12) == "12" );
         std::string str = 12|lexicalize;
         BOOST_CHECK( str == "12" );
-        BOOST_CHECK( xp_lexical_cast<int>()(str) == 12 );
+        BOOST_CHECK( X_lexical_cast<int>()(str) == 12 );
     }
     {
         using boost::mpl::identity;
-        BOOST_CHECK( xp_lexical_cast<std::string>()(12) == "12" );
+        BOOST_CHECK( X_lexical_cast<std::string>()(12) == "12" );
         std::string str = 12|lexicalize();
         BOOST_CHECK( str == "12" );
-        BOOST_CHECK( xp_lexical_cast<int>()(str) == 12 );
+        BOOST_CHECK( X_lexical_cast<int>()(str) == 12 );
     }
 
     {

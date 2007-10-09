@@ -92,8 +92,8 @@ namespace pstade { namespace egg { namespace detail {
         }
     };
 
-    typedef function<baby_bind1, by_cref> op_bind1;
-    PSTADE_POD_CONSTANT((op_bind1), bind1) = {{}};
+    typedef function<baby_bind1, by_cref> T_bind1;
+    PSTADE_POD_CONSTANT((T_bind1), bind1) = {{}};
 
 
 } } } // namespace pstade::egg::detail

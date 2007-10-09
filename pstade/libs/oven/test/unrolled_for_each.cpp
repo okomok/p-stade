@@ -27,7 +27,7 @@ using namespace oven;
 
 
 template<class Container>
-struct op_push_back
+struct T_push_back
 {
     template<class V>
     void operator()(V const& v)
@@ -39,9 +39,9 @@ struct op_push_back
 };
 
 template<class Container>
-op_push_back<Container> push_backer(Container& c)
+T_push_back<Container> push_backer(Container& c)
 {
-    op_push_back<Container> r = {c};
+    T_push_back<Container> r = {c};
     return r;
 }
 

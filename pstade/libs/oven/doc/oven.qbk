@@ -1,7 +1,7 @@
 
 [library Oven
     [quickbook 1.1]
-    [version 0.95.0]
+    [version 0.95.1]
     [authors [Sogame, Shunsuke]]
     [copyright 2005-2007 Shunsuke Sogame]
     [category range]
@@ -81,10 +81,8 @@
 
 [def _bindable_object_       [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object Bindable Object]]
 [def _bindable_              [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object Bindable]]
-[def _operatable_object_     [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object Operatable Object]]
-[def _operatable_            [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object Operatable]]
+[def _static_function_object_   [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object Static Function Object]]
 [def _pipable_object_        [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object Pipable Object]]
-[def _pipable_               [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object Pipable]]
 [def _pipable_adaptor_       [link oven.pipable_adaptor Pipable Adaptor]]
 [def _auxiliary_interface_   [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_interface Auxiliary Interface]]
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
@@ -100,11 +98,10 @@
 [include concepts.qbk]
 [include range_algorithms.qbk]
 [include ranges.qbk]
-[include range_makers.qbk]
 [include range_adaptors.qbk]
 [include string_adaptors.qbk]
 [include merge_adaptors.qbk]
-[include output_iterator_makers.qbk]
+[include output_iterators.qbk]
 [include output_iterator_adaptors.qbk]
 [include utilities.qbk]
 [include parallel_algorithms.qbk]

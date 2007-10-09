@@ -13,7 +13,7 @@
 #include <pstade/test.hpp>
 
 
-struct op_my_fun
+struct T_my_fun
 {
     template<class Sig>
     struct result;
@@ -24,14 +24,14 @@ struct op_my_fun
         typedef A0 type;
     };
 };
-PSTADE_TEST_IS_RESULT_OF((int), op_my_fun(int))
-PSTADE_TEST_IS_RESULT_OF((int), op_my_fun(int const)) // because of a signature rule.
-PSTADE_TEST_IS_RESULT_OF((int&), op_my_fun(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_my_fun(int const&))
+PSTADE_TEST_IS_RESULT_OF((int), T_my_fun(int))
+PSTADE_TEST_IS_RESULT_OF((int), T_my_fun(int const)) // because of a signature rule.
+PSTADE_TEST_IS_RESULT_OF((int&), T_my_fun(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_my_fun(int const&))
 
 
 // keep const check
-struct op_my_const_fun
+struct T_my_const_fun
 {
     template<class Sig>
     struct result;
@@ -42,8 +42,8 @@ struct op_my_const_fun
         typedef A0 const type;
     };
 };
-PSTADE_TEST_IS_RESULT_OF((int) const, op_my_const_fun(int))
-PSTADE_TEST_IS_RESULT_OF((int) const, op_my_const_fun(int const))
+PSTADE_TEST_IS_RESULT_OF((int) const, T_my_const_fun(int))
+PSTADE_TEST_IS_RESULT_OF((int) const, T_my_const_fun(int const))
 
 
 PSTADE_TEST_IS_SAME((int) const, (int) const)

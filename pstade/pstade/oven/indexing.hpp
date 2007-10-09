@@ -32,8 +32,8 @@ struct tp_indexing
         template< class Myself, class Incrementable1, class Incrementable2, class UnaryFun >
         struct apply :
             result_of<
-                xp_make_transformed<Reference, Value>(
-                    typename result_of<op_counting(Incrementable1&, Incrementable2&)>::type,
+                X_make_transformed<Reference, Value>(
+                    typename result_of<T_counting(Incrementable1&, Incrementable2&)>::type,
                     UnaryFun&
                 )
             >
@@ -43,7 +43,7 @@ struct tp_indexing
         Result call(Incrementable1 i, Incrementable2 j, UnaryFun fun) const
         {
             return
-                xp_make_transformed<Reference, Value>()(
+                X_make_transformed<Reference, Value>()(
                     counting(i, j),
                     fun
                 );
@@ -58,13 +58,13 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct xp_indexing :
+struct X_indexing :
     tp_indexing<Reference, Value>::type
 { };
 
 
-typedef tp_indexing<>::type op_indexing;
-PSTADE_POD_CONSTANT((op_indexing), indexing) = {{}};
+typedef tp_indexing<>::type T_indexing;
+PSTADE_POD_CONSTANT((T_indexing), indexing) = {{}};
 
 
 } } // namespace pstade::oven

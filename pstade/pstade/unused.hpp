@@ -27,7 +27,7 @@
 namespace pstade {
 
 
-    struct op_unused
+    struct T_unused
     {
         typedef void result_type;
 
@@ -46,7 +46,7 @@ namespace pstade {
     };
 
 
-    PSTADE_POD_CONSTANT((op_unused), unused) = {};
+    PSTADE_POD_CONSTANT((T_unused), unused) = {};
 
 
 } // namespace pstade

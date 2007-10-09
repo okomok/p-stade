@@ -54,20 +54,20 @@ struct tp_results_match
 
 
 template< class Parser >
-struct xp_results_match :
+struct X_results_match :
     tp_results_match<Parser>::type
 { };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_match, xp_results_match, 1)
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_match, X_results_match, 1)
 #include PSTADE_EGG_SPECIFIED()
 
 
 template< class Parser >
-struct xp_match :
-    detail::tp_without_results<xp_results_match, Parser>::type
+struct X_match :
+    detail::tp_without_results<X_results_match, Parser>::type
 { };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), match, xp_match, 1)
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), match, X_match, 1)
 #include PSTADE_EGG_SPECIFIED()
 
 

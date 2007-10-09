@@ -18,7 +18,7 @@
 namespace pstade {
 
 
-    struct op_pause
+    struct T_pause
     {
         typedef int result_type;
 
@@ -32,7 +32,7 @@ namespace pstade {
     };
 
 
-    PSTADE_POD_CONSTANT((op_pause), pause) = {};
+    PSTADE_POD_CONSTANT((T_pause), pause) = {};
 
 
 } // namespace pstade

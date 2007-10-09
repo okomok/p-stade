@@ -27,8 +27,8 @@
 #include <pstade/unparenthesize.hpp>
 
     #define PSTADE_EGG_FUNCTION(O, B) \
-        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(op_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, O)), O) = { { } }; \
+        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(T_, O); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
 
 
@@ -72,9 +72,9 @@ struct baby_foo
 PSTADE_EGG_FUNCTION(foo, (baby_foo))
 
 
-PSTADE_TEST_IS_RESULT_OF((std::string), op_foo(int, double))
-PSTADE_TEST_IS_RESULT_OF((int), op_foo(int))
-PSTADE_TEST_IS_RESULT_OF((char), op_foo())
+PSTADE_TEST_IS_RESULT_OF((std::string), T_foo(int, double))
+PSTADE_TEST_IS_RESULT_OF((int), T_foo(int))
+PSTADE_TEST_IS_RESULT_OF((char), T_foo())
 
 
 template< class T0, class T1 >
@@ -116,11 +116,11 @@ struct baby_bar
 };
 
 template<class T0, class T1>
-struct op_bar :
+struct T_bar :
     pstade::egg::function< baby_bar<T0, T1>, pstade::egg::by_perfect >
 { };
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(op_bar, 2)
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
 
 
 struct baby_identity
@@ -138,14 +138,14 @@ struct baby_identity
     }
 };
 
-typedef pstade::egg::function<baby_identity, pstade::egg::by_perfect> op_identity;
-op_identity const identity = { {} };
+typedef pstade::egg::function<baby_identity, pstade::egg::by_perfect> T_identity;
+T_identity const identity = { {} };
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const))
+PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
 
 
 struct baby_keep_const
@@ -162,23 +162,23 @@ struct baby_keep_const
         return a0;
     }
 };
-typedef pstade::egg::function<baby_keep_const, pstade::egg::by_perfect> op_keep_const;
-op_keep_const const keep_const = { {} };
+typedef pstade::egg::function<baby_keep_const, pstade::egg::by_perfect> T_keep_const;
+T_keep_const const keep_const = { {} };
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int&>::type, int >));
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int const&>::type, int const >));
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int>::type, int const >));
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int const>::type, int const >));
-PSTADE_TEST_IS_RESULT_OF((int), op_keep_const(int&))
-PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int))
-PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int const&))
-PSTADE_TEST_IS_RESULT_OF((int) const, op_keep_const(int const))
+PSTADE_TEST_IS_RESULT_OF((int), T_keep_const(int&))
+PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int))
+PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int const&))
+PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int const))
 
 
 
 void pstade_minimal_test()
 {
     {
-        pstade::result_of<op_foo(int, int)>::type x = foo(1, 2);
+        pstade::result_of<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
 
         int i = 5;
@@ -186,7 +186,7 @@ void pstade_minimal_test()
         BOOST_CHECK( boost::lambda::bind(foo, 3, 2)() == "2" );
     }
     {
-        pstade::result_of<op_foo(int)>::type x = foo(1);
+        pstade::result_of<T_foo(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
 
         int i = 5;
@@ -194,31 +194,31 @@ void pstade_minimal_test()
         BOOST_CHECK( boost::lambda::bind(foo, boost::lambda::_1)(i) == 1 );
     }
     {
-        pstade::result_of<op_foo()>::type x = foo();
+        pstade::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
 
         BOOST_CHECK( boost::lambda::bind(foo)() == '0' );
     }
 
     {
-        pstade::result_of<op_bar<int, int>(int, int)>::type x = foo(1, 2);
+        pstade::result_of<T_bar<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        pstade::result_of<op_bar<int, int>(int)>::type x = foo(1);
+        pstade::result_of<T_bar<int, int>(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        pstade::result_of<op_bar<int, int>()>::type x = foo();
+        pstade::result_of<T_bar<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {
         int i = 10;
-        pstade::result_of<op_identity(int&)>::type x = identity(i);
+        pstade::result_of<T_identity(int&)>::type x = identity(i);
         BOOST_CHECK( &x == &i );
     }
     {
-        pstade::result_of<op_keep_const(int)>::type x = keep_const(3);
+        pstade::result_of<T_keep_const(int)>::type x = keep_const(3);
         (void)x;
     }
 }

@@ -34,8 +34,8 @@ namespace pstade { namespace egg {
     namespace memoize_detail {
 
 
-        struct op_wrap_ :
-            function_facade<op_wrap_, boost::use_default, by_cref>
+        struct T_wrap_ :
+            function_facade<T_wrap_, boost::use_default, by_cref>
         {
             template<class Myself, class Base, class Fixed, class Arg>
             struct apply :
@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
                     return m[arg] = base(fixed)(arg);
             }
 
-            op_wrap_() :
+            T_wrap_() :
                 m_pany(new boost::any())
             { }
 
@@ -76,9 +76,9 @@ namespace pstade { namespace egg {
             template<class Myself, class Base_>
             struct apply :
                 result_of<
-                    op_fix(
+                    T_fix(
                         typename result_of<
-                            typename result_of<op_curry3(op_wrap_)>::type(typename result_of<op_curry2(Base_&)>::type)
+                            typename result_of<T_curry3(T_wrap_)>::type(typename result_of<T_curry2(Base_&)>::type)
                         >::type
                     )
                 >
@@ -88,7 +88,7 @@ namespace pstade { namespace egg {
             Result call(Base_ base) const
             {
                 return fix(
-                    curry3(op_wrap_())(curry2(base))
+                    curry3(T_wrap_())(curry2(base))
                 );
             }
         };
@@ -97,8 +97,8 @@ namespace pstade { namespace egg {
     } // namespace memoize_detail
 
 
-    typedef function<memoize_detail::baby, by_value> op_memoize;
-    PSTADE_POD_CONSTANT((op_memoize), memoize) = {{}};
+    typedef function<memoize_detail::baby, by_value> T_memoize;
+    PSTADE_POD_CONSTANT((T_memoize), memoize) = {{}};
 
 
 } } // namespace pstade::egg

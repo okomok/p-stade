@@ -34,7 +34,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_set_window_text
+    struct T_set_window_text
     {
         typedef void result_type;
 
@@ -59,7 +59,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_set_window_text), set_window_text) = {};
+    PSTADE_POD_CONSTANT((T_set_window_text), set_window_text) = {};
 
 
 } } // namespace pstade::gravy

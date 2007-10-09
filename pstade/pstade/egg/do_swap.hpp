@@ -20,7 +20,7 @@
 namespace pstade { namespace egg {
 
 
-    struct op_do_swap
+    struct T_do_swap
     {
         typedef void result_type;
 
@@ -37,7 +37,7 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_POD_CONSTANT((op_do_swap), do_swap) = {};
+    PSTADE_POD_CONSTANT((T_do_swap), do_swap) = {};
 
 
 } } // namespace pstade::egg

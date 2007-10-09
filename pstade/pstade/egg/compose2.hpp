@@ -36,8 +36,8 @@ namespace pstade { namespace egg {
             struct apply :
                 result_of<
                     F const(
-                        typename result_of<typename result_of<op_fuse(G1 const&)>::type(ArgTuple&)>::type,
-                        typename result_of<typename result_of<op_fuse(G2 const&)>::type(ArgTuple&)>::type
+                        typename result_of<typename result_of<T_fuse(G1 const&)>::type(ArgTuple&)>::type,
+                        typename result_of<typename result_of<T_fuse(G2 const&)>::type(ArgTuple&)>::type
                     )
                 >
             { };
@@ -94,13 +94,13 @@ namespace pstade { namespace egg {
 
 
     template<class NullaryResult = boost::use_default>
-    struct xp_compose2 :
+    struct X_compose2 :
         tp_compose2<NullaryResult>::type
     { };
 
 
-    typedef tp_compose2<>::type op_compose2;
-    PSTADE_POD_CONSTANT((op_compose2), compose2) = {{}};
+    typedef tp_compose2<>::type T_compose2;
+    PSTADE_POD_CONSTANT((T_compose2), compose2) = {{}};
 
 
 } } // namespace pstade::egg

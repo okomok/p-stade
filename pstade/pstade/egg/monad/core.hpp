@@ -102,7 +102,7 @@ namespace pstade { namespace egg {
 
 
     template<class MA>
-    struct xp_monad_return
+    struct X_monad_return
     {
         typedef MA result_type;
 
@@ -116,7 +116,7 @@ namespace pstade { namespace egg {
 
 
     template<class MA>
-    struct xp_monad_fail
+    struct X_monad_fail
     {
         typedef MA result_type;
 
@@ -142,7 +142,7 @@ namespace pstade { namespace egg {
             template<class MA>
             operator MA() const
             {
-                return xp_monad_return<MA>()(*m_pa);
+                return X_monad_return<MA>()(*m_pa);
             }
         };
 
@@ -226,14 +226,14 @@ namespace pstade { namespace egg {
     } // namespace monad_detail
 
 
-    typedef function<monad_detail::baby_bind> op_monad_bind;
-    PSTADE_POD_CONSTANT((op_monad_bind), monad_bind) = {{}};
+    typedef function<monad_detail::baby_bind> T_monad_bind;
+    PSTADE_POD_CONSTANT((T_monad_bind), monad_bind) = {{}};
 
-    typedef function<monad_detail::baby_bind_> op_monad_bind_;
-    PSTADE_POD_CONSTANT((op_monad_bind_), monad_bind_) = {{}};
+    typedef function<monad_detail::baby_bind_> T_monad_bind_;
+    PSTADE_POD_CONSTANT((T_monad_bind_), monad_bind_) = {{}};
 
-    typedef function<monad_detail::baby_return_wrapper> op_monad_return;
-    PSTADE_POD_CONSTANT((op_monad_return), monad_return) = {{}};
+    typedef function<monad_detail::baby_return_wrapper> T_monad_return;
+    PSTADE_POD_CONSTANT((T_monad_return), monad_return) = {{}};
 
 
     struct monad_failure :

@@ -76,9 +76,9 @@ void pstade_minimal_test()
    {
         int a[] = { 5,1,3,45,63,1,1,7,4,2,1 };
         ::rng_t b = ::make_b();
-        test::random_access_constant(xp_make_elements_c<0, int const&>()(b), a);
-        test::random_access_constant(xp_make_elements_c<0, int const&>()(b), a);
-        test::random_access_swappable(xp_make_elements_c<0, int&>()(b), a);
+        test::random_access_constant(X_make_elements_c<0, int const&>()(b), a);
+        test::random_access_constant(X_make_elements_c<0, int const&>()(b), a);
+        test::random_access_swappable(X_make_elements_c<0, int&>()(b), a);
     }
 
 

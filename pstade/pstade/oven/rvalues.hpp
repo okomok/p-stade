@@ -33,14 +33,14 @@ namespace rvalues_detail {
 
         typedef typename
             result_of<
-                xp_make_converted<value_t>(Range&)
+                X_make_converted<value_t>(Range&)
             >::type
         result_type;
 
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return xp_make_converted<value_t>()(rng);
+            return X_make_converted<value_t>()(rng);
         }
     };
 

@@ -36,7 +36,7 @@ bool maybe_contains_aux(Range& rng, Iterator it, std::forward_iterator_tag)
     if (it == boost::end(rng))
         return true;
 
-    typename result_of<op_make_outdirected(Range&)>::type drng = make_outdirected(rng);
+    typename result_of<T_make_outdirected(Range&)>::type drng = make_outdirected(rng);
     return boost::end(drng) != std::find(boost::begin(drng), boost::end(drng), it);
 }
 

@@ -54,13 +54,13 @@ namespace shared_single_detail {
         template< class Myself, class Ptr >
         struct apply :
             result_of<
-                op_make_indirected(
+                T_make_indirected(
                     typename result_of<
-                        op_shared(
+                        T_shared(
                             typename result_of<
                                 new_array1(
                                     typename result_of<
-                                        egg::op_to_shared_ptr(Ptr&)
+                                        egg::T_to_shared_ptr(Ptr&)
                                     >::type
                                 )
                             >::type
@@ -88,8 +88,8 @@ namespace shared_single_detail {
 } // namespace shared_single_detail
 
 
-typedef egg::function<shared_single_detail::baby, egg::by_value> op_shared_single;
-PSTADE_POD_CONSTANT((op_shared_single), shared_single) = {{}};
+typedef egg::function<shared_single_detail::baby, egg::by_value> T_shared_single;
+PSTADE_POD_CONSTANT((T_shared_single), shared_single) = {{}};
 
 
 } } // namespace pstade::oven

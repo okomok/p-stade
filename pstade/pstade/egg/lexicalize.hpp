@@ -22,13 +22,13 @@ namespace pstade { namespace egg {
 
     namespace lexicalize_detail {
 
-        typedef automatic< xp_lexical_cast<boost::mpl::_1> >::type op;
+        typedef automatic< X_lexical_cast<boost::mpl::_1> >::type op;
 
     }
 
 
-    typedef result_of_auxiliary0<lexicalize_detail::op>::type op_lexicalize;
-    PSTADE_POD_CONSTANT((op_lexicalize), lexicalize) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_auxiliary0<lexicalize_detail::op>::type T_lexicalize;
+    PSTADE_POD_CONSTANT((T_lexicalize), lexicalize) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

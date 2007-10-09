@@ -114,7 +114,7 @@ public:
         m_content.reset(new typename holder_of<self_t>::type(other));
     }
 
-    PSTADE_RESET_ASSIGNMENT(self_t)
+    PSTADE_RESET_ASSIGNMENT(any_output_iterator)
 
 // swappable
     void swap(self_t& other)

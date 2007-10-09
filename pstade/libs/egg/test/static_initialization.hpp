@@ -46,20 +46,20 @@ struct baby_my_id
 // An address expression &my_id isn't statically placed in my_idr.
 
 
-typedef pstade::egg::function<baby_my_id> op_my_id;
-PSTADE_POD_CONSTANT((op_my_id), my_id)
+typedef pstade::egg::function<baby_my_id> T_my_id;
+PSTADE_POD_CONSTANT((T_my_id), my_id)
     = {{999}};
 
-op_my_id const &get_my_id1();
-op_my_id const &get_my_id2();
+T_my_id const &get_my_id1();
+T_my_id const &get_my_id2();
 
 
-typedef pstade::egg::result_of_indirect<op_my_id const *>::type op_my_idr;
-PSTADE_POD_CONSTANT((op_my_idr), my_idr)
+typedef pstade::egg::result_of_indirect<T_my_id const *>::type T_my_idr;
+PSTADE_POD_CONSTANT((T_my_idr), my_idr)
     = PSTADE_EGG_INDIRECT_L &my_id PSTADE_EGG_INDIRECT_R;
 
-op_my_idr const &get_my_idr1();
-op_my_idr const &get_my_idr2();
+T_my_idr const &get_my_idr1();
+T_my_idr const &get_my_idr2();
 
 
 
@@ -82,28 +82,28 @@ struct my_baby
 
 typedef
     pstade::egg::function<my_baby>
-op_my_func_;
+T_my_func_;
 
 typedef
     pstade::egg::result_of_uncurry<
-        pstade::egg::result_of_curry4<op_my_func_>::type
+        pstade::egg::result_of_curry4<T_my_func_>::type
     >::type
-op_my_func;
-PSTADE_POD_CONSTANT((op_my_func), my_func) = PSTADE_EGG_UNCURRY_L PSTADE_EGG_CURRY4_L {{999}} PSTADE_EGG_CURRY4_R PSTADE_EGG_UNCURRY_R;
+T_my_func;
+PSTADE_POD_CONSTANT((T_my_func), my_func) = PSTADE_EGG_UNCURRY_L PSTADE_EGG_CURRY4_L {{999}} PSTADE_EGG_CURRY4_R PSTADE_EGG_UNCURRY_R;
 
-op_my_func const &get_my_func1();
-op_my_func const &get_my_func2();
+T_my_func const &get_my_func1();
+T_my_func const &get_my_func2();
 
 
-typedef pstade::egg::result_of_indirect<op_my_idr const *>::type op_my_idrr;
-PSTADE_POD_CONSTANT((op_my_idrr), my_idrr)
+typedef pstade::egg::result_of_indirect<T_my_idr const *>::type T_my_idrr;
+PSTADE_POD_CONSTANT((T_my_idrr), my_idrr)
     = PSTADE_EGG_INDIRECT_L &my_idr PSTADE_EGG_INDIRECT_R;
 
-op_my_idrr const &get_my_idrr1();
-op_my_idrr const &get_my_idrr2();
+T_my_idrr const &get_my_idrr1();
+T_my_idrr const &get_my_idrr2();
 
 
-struct op_my_plus
+struct T_my_plus
 {
     typedef int result_type;
 
@@ -115,14 +115,14 @@ struct op_my_plus
     int touch;
 };
 
-typedef pstade::egg::result_of_pipable<op_my_plus>::type op_pipa;
-PSTADE_POD_CONSTANT((op_pipa), pipa) = { {999} };
-op_pipa const &get_pipa1();
-op_pipa const &get_pipa2();
+typedef pstade::egg::result_of_pipable<T_my_plus>::type T_pipa;
+PSTADE_POD_CONSTANT((T_pipa), pipa) = { {999} };
+T_pipa const &get_pipa1();
+T_pipa const &get_pipa2();
 
-typedef pstade::egg::result_of_auxiliary1<op_my_plus>::type op_auxi;
-PSTADE_POD_CONSTANT((op_auxi), auxi) = { {999} };
-op_auxi const &get_auxi1();
-op_auxi const &get_auxi2();
+typedef pstade::egg::result_of_auxiliary1<T_my_plus>::type T_auxi;
+PSTADE_POD_CONSTANT((T_auxi), auxi) = { {999} };
+T_auxi const &get_auxi1();
+T_auxi const &get_auxi2();
 
 #endif

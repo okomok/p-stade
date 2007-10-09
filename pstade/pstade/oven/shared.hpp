@@ -34,7 +34,7 @@ namespace shared_detail {
         struct apply
         {
             typedef typename
-                result_of<egg::op_to_shared_ptr(Ptr&)>::type
+                result_of<egg::T_to_shared_ptr(Ptr&)>::type
             sprng_t;
 
             typedef
@@ -52,7 +52,7 @@ namespace shared_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
             typedef typename Result::iterator iter_t;
-            typename result_of<egg::op_to_shared_ptr(Ptr&)>::type sprng = egg::to_shared_ptr(prng);
+            typename result_of<egg::T_to_shared_ptr(Ptr&)>::type sprng = egg::to_shared_ptr(prng);
             return Result(
                 iter_t(boost::begin(*sprng), sprng),
                 iter_t(boost::end(*sprng),   sprng)
@@ -64,8 +64,8 @@ namespace shared_detail {
 } // namespace shared_detail
 
 
-typedef egg::function<shared_detail::baby, egg::by_value> op_shared;
-PSTADE_POD_CONSTANT((op_shared), shared) = {{}};
+typedef egg::function<shared_detail::baby, egg::by_value> T_shared;
+PSTADE_POD_CONSTANT((T_shared), shared) = {{}};
 
 
 } } // namespace pstade::oven

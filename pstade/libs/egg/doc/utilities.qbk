@@ -19,8 +19,7 @@ Egg no longer considers function templates to be useful, so that it provides
 * `<pstade/egg/apply.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * ...
@@ -55,14 +54,13 @@ Egg no longer considers function templates to be useful, so that it provides
 [section lambda_bind]
 
 [heading Description]
-`lambda_bind` is an __OPERATABLE_OBJECT__ which represents `boost::lambda::bind`.
+`lambda_bind` is an __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
 
 [heading Header]
 * `<pstade/egg/lambda/bind.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * ...
@@ -99,14 +97,13 @@ Egg no longer considers function templates to be useful, so that it provides
 [section lambda_N]
 
 [heading Description]
-`lambda_N` is an __OPERATABLE_OBJECT__ which represents `boost::lambda::_N`.
+`lambda_N` is an __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
 
 [heading Header]
 * `<pstade/egg/lambda/placeholders.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__ but not a /POD/ type.
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__ but not a /POD/ type.
 
 [heading Notation]
 * ...
@@ -244,24 +241,24 @@ Egg provides __FCPP__ infix operator syntax.
         [[*Semantics]]
     ]
     [
-        [`xp_tuple_get<N>`]
+        [`X_tuple_get<N>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`xp_tuple_get<N>()(t)`]
+        [`X_tuple_get<N>()(t)`]
         [`boost::get<N::value>(t)`]
     ]
     [
-        [`xp_tuple_get_c<n>`]
-        [`xp_tuple_get< boost::mpl::int_<n> >`]
+        [`X_tuple_get_c<n>`]
+        [`X_tuple_get< boost::mpl::int_<n> >`]
     ]
     [
         [`egg::tuple_get<N>(t)`]
-        [`xp_tuple_get<N>()(t)`]
+        [`X_tuple_get<N>()(t)`]
     ]
     [
         [`egg::tuple_get_c<n>(t)`]
-        [`xp_tuple_get_c<n>()(t)`]
+        [`X_tuple_get_c<n>()(t)`]
     ]
 ]
 
@@ -282,14 +279,13 @@ Egg provides __FCPP__ infix operator syntax.
 [section tuple_pack]
 
 [heading Description]
-`tuple_pack` is an __OPERATABLE_OBJECT__ which represents `boost::tie` but /const-qualifier/ sensitive.
+`tuple_pack` is an __STATIC_FUNCTION_OBJECT__ which represents `boost::tie` but /const-qualifier/ sensitive.
 
 [heading Header]
 * `<pstade/egg/tuple/pack.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `_refs(c1,...,cK)` is `c1&,...,cK&`.

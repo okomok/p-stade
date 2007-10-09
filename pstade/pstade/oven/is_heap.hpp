@@ -93,11 +93,11 @@ namespace is_heap_until_detail {
 } // namespace is_heap_until_detail
 
 
-typedef PSTADE_EGG_DEFER((is_heap_until_detail::base<boost::mpl::_>)) op_is_heap_until;
-PSTADE_POD_CONSTANT((op_is_heap_until), is_heap_until) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((is_heap_until_detail::base<boost::mpl::_>)) T_is_heap_until;
+PSTADE_POD_CONSTANT((T_is_heap_until), is_heap_until) = PSTADE_EGG_DEFERRED;
 
 
-struct op_is_heap
+struct T_is_heap
 {
     typedef bool result_type;
 
@@ -117,7 +117,7 @@ struct op_is_heap
 
 
 PSTADE_ADL_BARRIER(is_heap) { // for 'std'
-    PSTADE_POD_CONSTANT((op_is_heap), is_heap) = {};
+    PSTADE_POD_CONSTANT((T_is_heap), is_heap) = {};
 }
 
 

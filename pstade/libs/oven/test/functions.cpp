@@ -37,16 +37,16 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
-PSTADE_TEST_IS_RESULT_OF((bool), op_equals(std::string&, std::string&))
-PSTADE_TEST_IS_RESULT_OF((range_difference<std::string>::type), op_distance(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_equals(std::string&, std::string&))
+PSTADE_TEST_IS_RESULT_OF((range_difference<std::string>::type), T_distance(std::string&))
 
-PSTADE_TEST_IS_RESULT_OF((bool), op_is_sorted(std::string&))
-PSTADE_TEST_IS_RESULT_OF((bool), op_is_heap(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_is_sorted(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_is_heap(std::string&))
 
-PSTADE_TEST_IS_RESULT_OF((bool), op_all(std::string&))
-PSTADE_TEST_IS_RESULT_OF((bool), op_none(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_all(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_none(std::string&))
 
-PSTADE_TEST_IS_RESULT_OF((void), op_do_iter_swap(int *, int*))
+PSTADE_TEST_IS_RESULT_OF((void), T_do_iter_swap(int *, int*))
 
 
 struct is_a

@@ -22,20 +22,20 @@ namespace pstade { namespace egg {
 
     typedef
         result_of_auxiliary0<
-            xp_lexical_cast<std::string>
+            X_lexical_cast<std::string>
         >::type
-    op_to_string;
+    T_to_string;
 
-    PSTADE_POD_CONSTANT((op_to_string), to_string) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((T_to_string), to_string) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
 
 
     typedef
         result_of_auxiliary0<
-            xp_lexical_cast<std::wstring>
+            X_lexical_cast<std::wstring>
         >::type
-    op_to_wstring;
+    T_to_wstring;
 
-    PSTADE_POD_CONSTANT((op_to_wstring), to_wstring) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((T_to_wstring), to_wstring) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

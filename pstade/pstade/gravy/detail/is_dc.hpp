@@ -19,7 +19,7 @@
 namespace pstade { namespace gravy { namespace detail {
 
 
-    struct op_is_dc
+    struct T_is_dc
     {
         typedef bool result_type;
 
@@ -33,7 +33,7 @@ namespace pstade { namespace gravy { namespace detail {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_dc), is_dc) = {};
+    PSTADE_POD_CONSTANT((T_is_dc), is_dc) = {};
 
 
 } } } // namespace pstade::gravy::detail

@@ -56,7 +56,7 @@ struct xxx_chars
         template< class Myself, class Range, class Locale = std::locale const >
         struct apply :
             result_of<
-                op_make_transformed(
+                T_make_transformed(
                     Range&,
                     to_xxx_char<BinaryFun, typename range_value<Range>::type>
                 )

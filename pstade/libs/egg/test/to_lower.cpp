@@ -20,8 +20,8 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-PSTADE_TEST_IS_RESULT_OF((char), op_to_lower(char, std::locale))
-PSTADE_TEST_IS_RESULT_OF((wchar_t), op_to_lower(wchar_t))
+PSTADE_TEST_IS_RESULT_OF((char), T_to_lower(char, std::locale))
+PSTADE_TEST_IS_RESULT_OF((wchar_t), T_to_lower(wchar_t))
 
 
 void pstade_minimal_test()

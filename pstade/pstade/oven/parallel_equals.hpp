@@ -86,13 +86,13 @@ namespace parallel_equals_detail {
     public:
         void operator()()
         {
-            typename result_of<op_make_split_at(IterRange1&, diff_t&)>::type xs_ys1 = make_split_at(m_rng1, m_grain);
+            typename result_of<T_make_split_at(IterRange1&, diff_t&)>::type xs_ys1 = make_split_at(m_rng1, m_grain);
             if (boost::empty(xs_ys1.second)) {
                 m_equal = algo(xs_ys1.first, m_rng2);
                 return;
             }
 
-            typename result_of<op_make_split_at(IterRange2&, diff_t&)>::type xs_ys2 = make_split_at(m_rng2, m_grain);
+            typename result_of<T_make_split_at(IterRange2&, diff_t&)>::type xs_ys2 = make_split_at(m_rng2, m_grain);
             if (boost::empty(xs_ys2.second)) {
                 m_equal = false;
                 return;
@@ -155,7 +155,7 @@ namespace parallel_equals_detail {
             return auxRoot.equal();
         }
 
-        template< class Myself, class Difference, class Range1, class Range2, class Predicate = egg::op_equal_to const >
+        template< class Myself, class Difference, class Range1, class Range2, class Predicate = egg::T_equal_to const >
         struct apply
         {
             typedef bool type;
@@ -186,8 +186,8 @@ namespace parallel_equals_detail {
 } // namespace parallel_equals_detail
 
 
-typedef egg::function<parallel_equals_detail::baby> op_parallel_equals;
-PSTADE_POD_CONSTANT((op_parallel_equals), parallel_equals) = {{}};
+typedef egg::function<parallel_equals_detail::baby> T_parallel_equals;
+PSTADE_POD_CONSTANT((T_parallel_equals), parallel_equals) = {{}};
 
 
 } } // namespace pstade::oven

@@ -51,7 +51,7 @@ namespace pstade { namespace oven {
 
 
 template< class Base >
-struct xp_adapted_to
+struct X_adapted_to
 {
     typedef Base result_type;
 
@@ -87,15 +87,15 @@ struct xp_adapted_to
 };
 
 
-PSTADE_EGG_SPECIFIED1(adapted_to, xp_adapted_to, (class))
+PSTADE_EGG_SPECIFIED1(adapted_to, X_adapted_to, (class))
 
 
 namespace to_base_detail {
-    typedef egg::automatic< xp_adapted_to<boost::mpl::_> >::type op;
+    typedef egg::automatic< X_adapted_to<boost::mpl::_> >::type op;
 }
 
-typedef egg::result_of_auxiliary0<to_base_detail::op>::type op_to_base;
-PSTADE_POD_CONSTANT((op_to_base), to_base) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_auxiliary0<to_base_detail::op>::type T_to_base;
+PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
 
 
 // range version
@@ -117,8 +117,8 @@ struct tp_adapted_range_to
         {
             typedef typename range_iterator<Result>::type iter_t;
             return Result(
-                xp_adapted_to<iter_t>()(boost::begin(ad)),
-                xp_adapted_to<iter_t>()(boost::end(ad))
+                X_adapted_to<iter_t>()(boost::begin(ad)),
+                X_adapted_to<iter_t>()(boost::end(ad))
             );
         }
     };
@@ -128,20 +128,20 @@ struct tp_adapted_range_to
 
 
 template< class Base >
-struct xp_adapted_range_to :
+struct X_adapted_range_to :
     tp_adapted_range_to<Base>::type
 { };
 
 
-PSTADE_EGG_SPECIFIED1(adapted_range_to, xp_adapted_range_to, (class))
+PSTADE_EGG_SPECIFIED1(adapted_range_to, X_adapted_range_to, (class))
 
 
 namespace to_base_range_detail {
-    typedef egg::automatic< xp_adapted_range_to<boost::mpl::_> >::type op;
+    typedef egg::automatic< X_adapted_range_to<boost::mpl::_> >::type op;
 }
 
-typedef egg::result_of_auxiliary0<to_base_range_detail::op>::type op_to_base_range;
-PSTADE_POD_CONSTANT((op_to_base_range), to_base_range) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_auxiliary0<to_base_range_detail::op>::type T_to_base_range;
+PSTADE_POD_CONSTANT((T_to_base_range), to_base_range) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::oven

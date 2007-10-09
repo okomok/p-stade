@@ -22,7 +22,7 @@ namespace pstade { namespace egg {
 
 
     template<class To>
-    struct xp_integral_cast
+    struct X_integral_cast
     {
         typedef To result_type;
 
@@ -37,7 +37,7 @@ namespace pstade { namespace egg {
 
 
     PSTADE_ADL_BARRIER(integral_cast) { // for 'boost'
-        PSTADE_EGG_SPECIFIED1(integral_cast, xp_integral_cast, (class))
+        PSTADE_EGG_SPECIFIED1(integral_cast, X_integral_cast, (class))
     }
 
 

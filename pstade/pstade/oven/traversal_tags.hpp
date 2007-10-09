@@ -31,7 +31,7 @@ PSTADE_CONSTANT(in_random_access, (boost::random_access_traversal_tag))
 // you have to guarantee RandomAccess before applying 'distance'.
 
 #define PSTADE_is_(Trv) \
-    struct BOOST_PP_CAT(op_is_, Trv) \
+    struct BOOST_PP_CAT(T_is_, Trv) \
     { \
         typedef bool result_type; \
         \
@@ -52,7 +52,7 @@ PSTADE_CONSTANT(in_random_access, (boost::random_access_traversal_tag))
         } \
     }; \
     \
-    PSTADE_CONSTANT(BOOST_PP_CAT(is_, Trv), (BOOST_PP_CAT(op_is_, Trv))) \
+    PSTADE_CONSTANT(BOOST_PP_CAT(is_, Trv), (BOOST_PP_CAT(T_is_, Trv))) \
 /**/
 
     PSTADE_is_(single_pass)

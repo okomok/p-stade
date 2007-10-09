@@ -57,12 +57,12 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            fusion::at_c<0>(xp_make_unfuzipped<boost::mpl::vector2<char&, int&> >()(fusion::vector_tie(rng0, rng1)|fuzipped)),
+            fusion::at_c<0>(X_make_unfuzipped<boost::mpl::vector2<char&, int&> >()(fusion::vector_tie(rng0, rng1)|fuzipped)),
             ans0
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            fusion::at_c<1>(xp_make_unfuzipped<boost::mpl::vector2<char&, int&> >()(fusion::vector_tie(rng0, rng1)|fuzipped)),
+            fusion::at_c<1>(X_make_unfuzipped<boost::mpl::vector2<char&, int&> >()(fusion::vector_tie(rng0, rng1)|fuzipped)),
             ans1
         ) );
     }

@@ -119,8 +119,8 @@ namespace pstade { namespace egg { namespace detail {
         }
     };
 
-    typedef function<BOOST_PP_CAT(baby_bind, n), by_cref> BOOST_PP_CAT(op_bind, n);
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_bind, n)), BOOST_PP_CAT(bind, n)) = PSTADE_EGG_DETAIL_BINDX_INIT;
+    typedef function<BOOST_PP_CAT(baby_bind, n), by_cref> BOOST_PP_CAT(T_bind, n);
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind, n)), BOOST_PP_CAT(bind, n)) = PSTADE_EGG_DETAIL_BINDX_INIT;
 
 
 #undef n

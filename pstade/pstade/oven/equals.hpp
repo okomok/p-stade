@@ -75,7 +75,7 @@ namespace equals_detail {
 } // namespace equals_detail
 
 
-struct op_equals
+struct T_equals
 {
     typedef bool result_type;
 
@@ -106,7 +106,7 @@ struct op_equals
 
 
 PSTADE_ADL_BARRIER(equals) { // for 'boost'
-    PSTADE_POD_CONSTANT((op_equals), equals) = {};
+    PSTADE_POD_CONSTANT((T_equals), equals) = {};
 }
 
 

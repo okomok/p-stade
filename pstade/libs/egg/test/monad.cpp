@@ -78,7 +78,7 @@ void pstade_minimal_test()
     using namespace infix;
 
     BOOST_CHECK( !(
-        xp_monad_return< boost::optional<map_t> >()(config)
+        X_monad_return< boost::optional<map_t> >()(config)
             ^monad_bind^ lookup("foo")
             ^monad_bind^ lookup("encoding")
     ) );

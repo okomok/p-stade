@@ -47,7 +47,7 @@ namespace pstade { namespace tomato {
 
 
     template<class To>
-    struct xp_multibyte_to
+    struct X_multibyte_to
     {
         typedef To result_type;
 
@@ -61,12 +61,12 @@ namespace pstade { namespace tomato {
 
     typedef
         egg::result_of_auxiliary0<
-            egg::automatic< xp_multibyte_to<boost::mpl::_> >::type
+            egg::automatic< X_multibyte_to<boost::mpl::_> >::type
         >::type
-    op_to_widechar;
+    T_to_widechar;
 
 
-    PSTADE_POD_CONSTANT((op_to_widechar), to_widechar)
+    PSTADE_POD_CONSTANT((T_to_widechar), to_widechar)
         = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
 
 

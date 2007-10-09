@@ -30,18 +30,18 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((int *), xp_new_ptr<int *>())
-PSTADE_TEST_IS_RESULT_OF((int *), xp_new_ptr<int *>(int))
+PSTADE_TEST_IS_RESULT_OF((int *), X_new_ptr<int *>())
+PSTADE_TEST_IS_RESULT_OF((int *), X_new_ptr<int *>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((udt *), xp_new_ptr<udt *>(int,int))
-PSTADE_TEST_IS_RESULT_OF((udt const*), xp_new_ptr<udt const *>(int,int))
+PSTADE_TEST_IS_RESULT_OF((udt *), X_new_ptr<udt *>(int,int))
+PSTADE_TEST_IS_RESULT_OF((udt const*), X_new_ptr<udt const *>(int,int))
 
 
 void pstade_unit_test()
 {
     {
-        udt *p = xp_new_ptr<udt *>()(1,2);
+        udt *p = X_new_ptr<udt *>()(1,2);
         BOOST_CHECK(p->m_i == 1);
         BOOST_CHECK(p->m_j == 2);
         delete p;

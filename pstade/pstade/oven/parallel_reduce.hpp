@@ -104,8 +104,8 @@ namespace parallel_reduce_detail {
 } // namespace parallel_reduce_detail
 
 
-typedef egg::function<parallel_reduce_detail::baby> op_parallel_reduce;
-PSTADE_POD_CONSTANT((op_parallel_reduce), parallel_reduce) = {{}};
+typedef egg::function<parallel_reduce_detail::baby> T_parallel_reduce;
+PSTADE_POD_CONSTANT((T_parallel_reduce), parallel_reduce) = {{}};
 
 
 } } // namespace pstade::oven

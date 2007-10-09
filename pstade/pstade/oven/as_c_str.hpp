@@ -140,11 +140,11 @@ namespace as_c_str_detail {
 } // namespace as_c_str_detail
 
 
-typedef egg::result_of_auxiliary0<as_c_str_detail::op>::type op_as_c_str;
-PSTADE_POD_CONSTANT((op_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_auxiliary0<as_c_str_detail::op>::type T_as_c_str;
+PSTADE_POD_CONSTANT((T_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
-struct op_contains_zero
+struct T_contains_zero
 {
     typedef bool result_type;
 
@@ -157,7 +157,7 @@ struct op_contains_zero
     }
 };
 
-PSTADE_POD_CONSTANT((op_contains_zero), contains_zero) = {};
+PSTADE_POD_CONSTANT((T_contains_zero), contains_zero) = {};
 
 
 } } // namespace pstade::oven

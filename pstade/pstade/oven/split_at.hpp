@@ -29,7 +29,7 @@ namespace split_at_detail {
     {
         typedef typename
             result_of<
-                op_make_dropped(Range&, Difference&)
+                T_make_dropped(Range&, Difference&)
             >::type
         rng_t;
 

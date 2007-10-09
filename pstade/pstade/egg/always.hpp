@@ -75,9 +75,9 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_always;
+    T_always;
 
-    PSTADE_POD_CONSTANT((op_always), always) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_always), always) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

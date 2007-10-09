@@ -132,9 +132,9 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_auxiliary0;
+    T_auxiliary0;
 
-    PSTADE_POD_CONSTANT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR;
 
     // If msvc fails to find operator|, use this as super type.
     using auxiliary0_detail::lookup_auxiliary_operator;
@@ -179,7 +179,7 @@ namespace pstade { namespace egg {
             template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
                 result_of<
-                    typename result_of<op_pipable(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+                    typename result_of<T_pipable(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
                 >
             { };
 
@@ -220,9 +220,9 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    BOOST_PP_CAT(op_auxiliary, n);
+    BOOST_PP_CAT(T_auxiliary, n);
 
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR;
 
 
 #undef n1

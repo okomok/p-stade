@@ -55,8 +55,8 @@ namespace unfold_detail {
 } // namespace unfold_detail
 
 
-typedef PSTADE_EGG_DEFER((unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_>)) op_unfold;
-PSTADE_POD_CONSTANT((op_unfold), unfold) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_>)) T_unfold;
+PSTADE_POD_CONSTANT((T_unfold), unfold) = PSTADE_EGG_DEFERRED;
 
 
 namespace nonpure_detail {
@@ -98,9 +98,9 @@ typedef
     egg::generator<
         nonpure_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >
     >::type
-op_nonpure;
+T_nonpure;
 
-PSTADE_POD_CONSTANT((op_nonpure), nonpure) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_nonpure), nonpure) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

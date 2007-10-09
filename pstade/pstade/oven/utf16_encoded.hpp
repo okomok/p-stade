@@ -67,7 +67,7 @@ struct tp_make_utf16_encoded
 
 
 template< class U16Type = boost::uint16_t >
-struct xp_make_utf16_encoded :
+struct X_make_utf16_encoded :
     tp_make_utf16_encoded<U16Type>::type
 { };
 

@@ -24,7 +24,7 @@ using pstade::any_cref;
 using pstade::any_movable;
 using pstade::egg::do_swap;
 using pstade::egg::is_same;
-using pstade::egg::xp_from_any_to;
+using pstade::egg::X_from_any_to;
 
 
 void test_from_any()
@@ -44,12 +44,12 @@ void test_from_any()
         BOOST_CHECK( !co );
 
         {
-            boost::optional<int &> o = xp_from_any_to< boost::optional<int &> >()(a);
+            boost::optional<int &> o = X_from_any_to< boost::optional<int &> >()(a);
             BOOST_CHECK( o );
             BOOST_CHECK( is_same(*o, i) );
 
             // convertible type is no longer allowed.
-            boost::optional<int const &> co = xp_from_any_to< boost::optional<int const &> >()(a);
+            boost::optional<int const &> co = X_from_any_to< boost::optional<int const &> >()(a);
             BOOST_CHECK( !co );
         }
 
@@ -102,7 +102,7 @@ void test_from_any()
         BOOST_CHECK( **o == 9 );
 
         {
-            boost::optional<std::auto_ptr<int> &> o = xp_from_any_to< boost::optional<std::auto_ptr<int> &> >()(a);
+            boost::optional<std::auto_ptr<int> &> o = X_from_any_to< boost::optional<std::auto_ptr<int> &> >()(a);
             BOOST_CHECK( o );
             BOOST_CHECK( **o == 9 );
             BOOST_CHECK( **o = 3 );
@@ -126,11 +126,11 @@ void test_from_any()
         BOOST_CHECK( *co == i );
 
         {
-            boost::optional<int &> o = xp_from_any_to< boost::optional<int &> >()(a);
+            boost::optional<int &> o = X_from_any_to< boost::optional<int &> >()(a);
             BOOST_CHECK( o );
             BOOST_CHECK( *o == i );
 
-            boost::optional<int const &> co = xp_from_any_to< boost::optional<int const &> >()(a);
+            boost::optional<int const &> co = X_from_any_to< boost::optional<int const &> >()(a);
             BOOST_CHECK( co );
             BOOST_CHECK( *co == i );
         }
@@ -147,7 +147,7 @@ void test_from_any()
         boost::optional<int &> o = from_any(a);
         BOOST_CHECK( !o );
         {
-            boost::optional<int &> o = xp_from_any_to< boost::optional<int &> >()(a);
+            boost::optional<int &> o = X_from_any_to< boost::optional<int &> >()(a);
             BOOST_CHECK( !o );
         }
 

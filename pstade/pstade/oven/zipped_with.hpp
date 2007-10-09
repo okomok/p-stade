@@ -25,7 +25,7 @@
 #include "./fuzipped.hpp"
 #include "./transformed.hpp"
 #if BOOST_VERSION >= 103500
-    // Lets 'boost::tuple' be FusionSequence for 'op_make_fuzipped'.
+    // Lets 'boost::tuple' be FusionSequence for 'T_make_fuzipped'.
     #include <boost/fusion/sequence/adapted/boost_tuple.hpp>
 #else
     #include "./zipped.hpp"
@@ -42,9 +42,9 @@ template<
 struct tp_make_zipped_with
 {
 #if BOOST_VERSION >= 103500
-    typedef op_make_fuzipped zip_;
+    typedef T_make_fuzipped zip_;
 #else
-    typedef op_make_zipped   zip_;
+    typedef T_make_zipped   zip_;
 #endif
 
     struct baby
@@ -52,10 +52,10 @@ struct tp_make_zipped_with
         template< class Myself, class RangeTuple, class Function >
         struct apply :
             result_of<
-                xp_make_transformed<Reference, Value>(
+                X_make_transformed<Reference, Value>(
                     typename result_of<zip_(RangeTuple&)>::type,
                     typename result_of<
-                        egg::op_fuse(typename result_of<egg::xp_ret<Reference>(Function&)>::type)
+                        egg::T_fuse(typename result_of<egg::X_ret<Reference>(Function&)>::type)
                     >::type
                 )
             >
@@ -65,9 +65,9 @@ struct tp_make_zipped_with
         Result call(RangeTuple& tup, Function& fun) const
         {
             return
-                xp_make_transformed<Reference, Value>()(
+                X_make_transformed<Reference, Value>()(
                     zip_()(tup),
-                    egg::fuse(egg::xp_ret<Reference>()(fun))
+                    egg::fuse(egg::X_ret<Reference>()(fun))
                 );
         }
     };
@@ -80,7 +80,7 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct xp_make_zipped_with :
+struct X_make_zipped_with :
     tp_make_zipped_with<Reference, Value>::type
 { };
 

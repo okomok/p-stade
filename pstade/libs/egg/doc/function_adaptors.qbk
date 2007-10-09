@@ -19,14 +19,13 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 [section auxiliaryN]
 
 [heading Description]
-`auxiliary` family makes an __AUXILIARY_INTERFACE__ from the base __FUNCTION_OBJECT__.
+`auxiliary` family helps you to make an __AUXILIARY_INTERFACE__.
 
 [heading Header]
 * `<pstade/egg/auxiliary.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* ...
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_auxiliary++N<_typeof(d)>::type` initialized using `d` or the initializer.
@@ -39,7 +38,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`result_of_auxiliary++N<_Dco>::type`]
-        [A __BINDABLE__ __AUXILIARY_INTERFACE__ type]
+        [A __BINDABLE__ __DEFERRED_CALLABLE__ type which meets __AUXILIARY_INTERFACE__ expression requirements.]
     ]
     [
         [`PSTADE_EGG_AUXILIARY_L init PSTADE_EGG_AUXILIARY_R`]
@@ -51,7 +50,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`auxiliary++N`]
-        [A __BINDABLE__ __OPERATABLE_OBJECT__]
+        [A __BINDABLE__ __STATIC_FUNCTION_OBJECT__]
     ]
     [
         [`auxiliary++N(d)`]
@@ -90,8 +89,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * `<pstade/egg/compose1.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d1, d2, R0, _Stg)` is an object of `result_of_compose1<_typeof(d1),_typeof(d2), R0, _Stg>::type`  initialized using `d1` and `d1` or these initializer.
@@ -115,16 +113,16 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
         [`d1(d2(_arg_list(a, _Stg)))`]
     ]
     [
-        [`xp_compose1<R0 = _default>`]
+        [`X_compose1<R0 = _default>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`xp_compose1<R0>()(d1, d2)`]
+        [`X_compose1<R0>()(d1, d2)`]
         [`fc(d1, d2, R0, _default)`]
     ]
     [
         [`compose1`]
-        [`xp_compose1<R0>()`]
+        [`X_compose1<R0>()`]
     ]
 ]
 
@@ -157,8 +155,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * `<pstade/egg/curry.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_curry++N<_typeof(d)>::type` initialized using `d` or the initializer.
@@ -183,7 +180,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`curry++N`]
-        [A __BINDABLE__ __OPERATABLE_OBJECT__]
+        [A __BINDABLE__ __STATIC_FUNCTION_OBJECT__]
     ]
     [
         [`curry++N(d)`]
@@ -220,8 +217,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * `<pstade/egg/uncurry.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, _Stg)` is an object of `result_of_uncurry<_typeof(d), _Stg>::type` initialized using `d` or the initializer.
@@ -277,8 +273,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * `<pstade/egg/fuse.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_fuse<_typeof(d)>::type` initialized using `d` or the initializer.
@@ -340,8 +335,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * `<pstade/egg/unfuse.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), Pack, R0, _Stg>::type` initialized using `d` or the initializer.
@@ -366,16 +360,16 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
         [`d( boost::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
     ]
     [
-        [`xp_unfuse<R0 = _default>`]
+        [`X_unfuse<R0 = _default>`]
         [`A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type`]
     ]
     [
-        [`xp_unfuse<R0>()(d)`]
+        [`X_unfuse<R0>()(d)`]
         [`fc(d, R0, _default)`]
     ]
     [
         [`unfuse`]
-        [`xp_unfuse<>()`]
+        [`X_unfuse<>()`]
     ]
 ]
 
@@ -412,8 +406,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * `<pstade/egg/indirect.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(p, _Stg)` is an object of `result_of_indirect<_typeof(p), _Stg>::type` initialized using `p` or the initializer.
@@ -475,8 +468,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `<pstade/egg/lazy.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(b)` is an object of `result_of_lazy<_typeof(b)>::type` initialized using `b` or the initializer.
@@ -535,8 +527,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `<pstade/egg/memoize.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fixed` is an unspecified unary __FUNCTION_OBJECT__ which represents `_dco` itself.
@@ -611,16 +602,16 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`f(arglist)`]
     ]
     [
-        [`xp_mono<Seq, R = _default>`]
+        [`X_mono<Seq, R = _default>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`xp_mono<Seq, R>()(fun)`]
+        [`X_mono<Seq, R>()(fun)`]
         [`fc(fun)`]
     ]
     [
         [`egg::mono<Seq>`]
-        [`xp_mono<Seq>()`]
+        [`X_mono<Seq>()`]
     ]
 ]
 
@@ -656,8 +647,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `<pstade/egg/pipable.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, _Stg)` is an object of `result_of_pipable<_typeof(d), _Stg>::type` initialized using `d` or the initializer.
@@ -740,16 +730,16 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`f(_arg_list(a, _Stg))`]
     ]
     [
-        [`xp_ret<R>`]
+        [`X_ret<R>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`xp_ret<R>()(f)`]
+        [`X_ret<R>()(f)`]
         [`fc(f)(R, _default)`]
     ]
     [
         [`egg::ret<R>`]
-        [`xp_ret<R>()`]
+        [`X_ret<R>()`]
     ]
 ]
 
@@ -782,8 +772,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `<pstade/egg/perfect.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_perfect<_typeof(d)>::type` initialized using `d` or the initializer.

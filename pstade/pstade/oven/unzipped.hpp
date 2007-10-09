@@ -69,7 +69,7 @@ namespace unzipped_detail {
         template< class N >
         struct apply :
             result_of<
-                xp_make_elements<N>(TupleRange&)
+                X_make_elements<N>(TupleRange&)
             >
         { };
 
@@ -77,7 +77,7 @@ namespace unzipped_detail {
         typename apply<N>::type
         operator()(N) const
         {
-            return xp_make_elements<N>()(m_rng);
+            return X_make_elements<N>()(m_rng);
         }
 
         explicit make_at_range(TupleRange& rng) :

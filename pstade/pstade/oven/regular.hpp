@@ -56,7 +56,7 @@ namespace regular_detail {
         reg_t;
 
         typedef typename
-            result_of<egg::op_indirect(reg_t)>::type
+            result_of<egg::T_indirect(reg_t)>::type
         result_type;
 
         result_type operator()(Function& fun) const
@@ -78,7 +78,7 @@ namespace regular_detail {
         pf_t;
 
         typedef typename
-            result_of<egg::op_indirect(pf_t)>::type
+            result_of<egg::T_indirect(pf_t)>::type
         result_type;
 
         result_type operator()(Function& fun) const
@@ -92,7 +92,7 @@ namespace regular_detail {
     struct base_ref
     {
         typedef typename
-            result_of<egg::op_indirect(Function *)>::type
+            result_of<egg::T_indirect(Function *)>::type
         result_type;
 
         result_type operator()(Function& fun) const
@@ -105,14 +105,14 @@ namespace regular_detail {
 } // namespace regular_detail
 
 
-typedef PSTADE_EGG_DEFER((regular_detail::base<boost::mpl::_>)) op_regular;
-PSTADE_POD_CONSTANT((op_regular), regular) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((regular_detail::base<boost::mpl::_>)) T_regular;
+PSTADE_POD_CONSTANT((T_regular), regular) = PSTADE_EGG_DEFERRED;
 
-typedef PSTADE_EGG_DEFER((regular_detail::base_c<boost::mpl::_>)) op_regular_c;
-PSTADE_POD_CONSTANT((op_regular_c), regular_c) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((regular_detail::base_c<boost::mpl::_>)) T_regular_c;
+PSTADE_POD_CONSTANT((T_regular_c), regular_c) = PSTADE_EGG_DEFERRED;
 
-typedef PSTADE_EGG_DEFER((regular_detail::base_ref<boost::mpl::_>)) op_regular_ref;
-PSTADE_POD_CONSTANT((op_regular_ref), regular_ref) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((regular_detail::base_ref<boost::mpl::_>)) T_regular_ref;
+PSTADE_POD_CONSTANT((T_regular_ref), regular_ref) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

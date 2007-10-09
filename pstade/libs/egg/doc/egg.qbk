@@ -42,6 +42,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EQUALITY_COMPARABLE__   [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
 [def __DEFAULT_CONSTRUCTIBLE__ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
 [def __DEFERRED_CALLABLE_OBJECT__ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html Deferred Callable Object]]
+[def __DEFERRED_CALLABLE__ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html Deferred Callable]]
 [def __FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/functors.html Function Object]]
 [def __METAFUNCTION__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html Metafunction]]
 [def __MPL_LAMBDA_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html MPL Lambda Expression]]
@@ -61,7 +62,9 @@ Distributed under the Boost Software License, Version 1.0.
 
 [/ Internal Links ]
 
-[def __OPERATABLE_OBJECT__ [link egg.concepts.operatable_object Operatable Object]]
+[def __CONSTANT_LVALUE__ [link egg.concepts.constant_lvalue Constant Lvalue]]
+[def __LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
+[def __STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
 [def __OPERATABLE__ [link egg.concepts.operatable_object Operatable]]
 [def __AUXILIARY_INTERFACE__ [link egg.concepts.auxiliary_interface Auxiliary Interface]]
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]

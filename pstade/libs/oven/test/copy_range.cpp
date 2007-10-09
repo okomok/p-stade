@@ -46,7 +46,7 @@ void test_()
     using namespace oven;
 
     {
-        std::vector<int> vec = op_make_copied()(oven::counting(3, 9));
+        std::vector<int> vec = T_make_copied()(oven::counting(3, 9));
         vec.push_back(9);
         BOOST_CHECK( oven::equals(vec, oven::counting(3, 10)) );
     }

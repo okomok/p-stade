@@ -85,11 +85,11 @@ namespace sliced_detail {
 
         typedef typename
             result_of<
-                op_make_permuted(
+                T_make_permuted(
                     Range&,
                     typename result_of<
-                        op_make_transformed(
-                            typename result_of<op_counting(int, diff_t)>::type,
+                        T_make_transformed(
+                            typename result_of<T_counting(int, diff_t)>::type,
                             to_index<diff_t>
                         )
                     >::type

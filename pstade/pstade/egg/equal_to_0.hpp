@@ -17,7 +17,7 @@
 namespace pstade { namespace egg {
 
 
-    struct op_equal_to_0
+    struct T_equal_to_0
     {
         typedef bool result_type;
 
@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
     };
 
     
-    PSTADE_POD_CONSTANT((op_equal_to_0), equal_to_0) = {};
+    PSTADE_POD_CONSTANT((T_equal_to_0), equal_to_0) = {};
 
 
 } } // namespace pstade::egg

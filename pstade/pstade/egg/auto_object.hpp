@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
             template<class X>
             operator std::auto_ptr<X>& ()
             {
-                std::auto_ptr<X> ptr(fuse(xp_new_<X>())(m_args));
+                std::auto_ptr<X> ptr(fuse(X_new_<X>())(m_args));
                 m_any = ptr;
                 return m_any.content< std::auto_ptr<X> >();
             }
@@ -85,10 +85,10 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_nullary_result
         >::type
-    op_auto_object;
+    T_auto_object;
 
 
-    PSTADE_POD_CONSTANT((op_auto_object), auto_object)
+    PSTADE_POD_CONSTANT((T_auto_object), auto_object)
         = PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M {} PSTADE_EGG_UNFUSE_R;
 
 

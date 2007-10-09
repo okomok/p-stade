@@ -37,17 +37,17 @@ struct A
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((A&), op_identity(A&))
-PSTADE_TEST_IS_RESULT_OF((A const&), op_identity(A const&))
-PSTADE_TEST_IS_RESULT_OF((A volatile&), op_identity(A volatile&))
-PSTADE_TEST_IS_RESULT_OF((A const volatile&), op_identity(A const volatile&))
-PSTADE_TEST_IS_RESULT_OF((A const&), op_identity(A))
-PSTADE_TEST_IS_RESULT_OF((A const&), op_identity(A const))
-PSTADE_TEST_IS_RESULT_OF((A const&), op_identity(A volatile))
-PSTADE_TEST_IS_RESULT_OF((A const&), op_identity(A const volatile))
+PSTADE_TEST_IS_RESULT_OF((A&), T_identity(A&))
+PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const&))
+PSTADE_TEST_IS_RESULT_OF((A volatile&), T_identity(A volatile&))
+PSTADE_TEST_IS_RESULT_OF((A const volatile&), T_identity(A const volatile&))
+PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A))
+PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const))
+PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A volatile))
+PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const volatile))
 
 
-typedef result_of<op_lambda_bind(op_identity const&, op_lambda_1 const&)>::type func_t;
+typedef result_of<T_lambda_bind(T_identity const&, T_lambda_1 const&)>::type func_t;
 PSTADE_TEST_IS_RESULT_OF((A&), func_t(A&))
 PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const&))
 PSTADE_TEST_IS_RESULT_OF((A volatile&), func_t(A volatile&))

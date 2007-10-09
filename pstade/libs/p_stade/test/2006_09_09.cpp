@@ -49,7 +49,7 @@ void test()
 
     oven::copy(
         file_range<uint8_t>("x.txt")|utf8_decoded|filtered(&is_z)|utf8_encoded,
-        stream_writer(*op_new<std::ofstream>("z.txt"))
+        stream_writer(*T_new<std::ofstream>("z.txt"))
     );
 
 

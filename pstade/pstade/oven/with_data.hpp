@@ -64,7 +64,7 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(with_data, (with_data_detail::base<_, _>))
 //
 
 template< class Data >
-struct xp_iter_data
+struct X_iter_data
 {
     typedef Data result_type;
 
@@ -84,25 +84,25 @@ struct xp_iter_data
     }
 };
 
-PSTADE_EGG_SPECIFIED1(iter_data, xp_iter_data, (class))
+PSTADE_EGG_SPECIFIED1(iter_data, X_iter_data, (class))
 
 
 // data
 //
 
 template< class Data >
-struct xp_data
+struct X_data
 {
     typedef Data result_type;
 
     template< class Adapted >
     Data operator()(Adapted const& ad) const
     {
-        return xp_iter_data<Data>()(ad.begin());
+        return X_iter_data<Data>()(ad.begin());
     }
 };
 
-PSTADE_EGG_SPECIFIED1(data, xp_data, (class))
+PSTADE_EGG_SPECIFIED1(data, X_data, (class))
 
 
 } } // namespace pstade::oven

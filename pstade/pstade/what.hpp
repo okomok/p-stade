@@ -21,7 +21,7 @@
 namespace pstade {
 
 
-    struct op_what
+    struct T_what
     {
         typedef std::string result_type;
 
@@ -47,7 +47,7 @@ namespace pstade {
     };
 
 
-    PSTADE_POD_CONSTANT((op_what), what) = {};
+    PSTADE_POD_CONSTANT((T_what), what) = {};
 
 
 } // namespace pstade

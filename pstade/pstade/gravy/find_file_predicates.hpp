@@ -42,7 +42,7 @@ namespace pstade { namespace gravy {
         /**/
 
         #define PSTADE_GRAVY_pred_t(suffix) \
-            BOOST_PP_CAT(op_, PSTADE_GRAVY_pred(suffix)) \
+            BOOST_PP_CAT(T_, PSTADE_GRAVY_pred(suffix)) \
         /**/
 
 
@@ -61,7 +61,7 @@ namespace pstade { namespace gravy {
     #undef PSTADE_GRAVY_define_pred
 
 
-    struct op_find_file_is_dots
+    struct T_find_file_is_dots
     {
         typedef bool result_type;
 
@@ -81,7 +81,7 @@ namespace pstade { namespace gravy {
         }
     };
 
-    PSTADE_POD_CONSTANT((op_find_file_is_dots), find_file_is_dots) = {};
+    PSTADE_POD_CONSTANT((T_find_file_is_dots), find_file_is_dots) = {};
 
 
 } } // namespace pstade::gravy

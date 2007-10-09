@@ -28,10 +28,10 @@ namespace checker_detail {
 
     struct baby
     {
-        template< class Myself, class Range, class Begin = op_begin const >
+        template< class Myself, class Range, class Begin = T_begin const >
         struct apply :
             result_of<
-                Begin(typename result_of<op_make_checked(Range&)>::type)
+                Begin(typename result_of<T_make_checked(Range&)>::type)
             >
         { };
 
@@ -53,8 +53,8 @@ namespace checker_detail {
 } // namespace checker_detail
 
 
-typedef egg::function<checker_detail::baby> op_checker;
-PSTADE_POD_CONSTANT((op_checker), checker) = {{}};
+typedef egg::function<checker_detail::baby> T_checker;
+PSTADE_POD_CONSTANT((T_checker), checker) = {{}};
 
 
 } } // namespace pstade::oven

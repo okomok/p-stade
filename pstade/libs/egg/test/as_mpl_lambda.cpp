@@ -37,7 +37,7 @@ namespace counting_from_detail {
 
         typedef typename
             boost::result_of<
-                op_counting(Incrementable&, inc_t)
+                T_counting(Incrementable&, inc_t)
             >::type
         result_type;
 
@@ -50,8 +50,8 @@ namespace counting_from_detail {
 
 } // namespace counting_from_detail
 
-typedef PSTADE_EGG_DEFER((counting_from_detail::base<boost::mpl::_>)) op_counting_from;
-op_counting_from counting_from;
+typedef PSTADE_EGG_DEFER((counting_from_detail::base<boost::mpl::_>)) T_counting_from;
+T_counting_from counting_from;
 } } // namespace pstade::oven
 
 
@@ -73,8 +73,8 @@ struct base_op_front :
 
 typedef pstade::egg::result_of_auxiliary0<
     ::base_op_front<PSTADE_EGG_AS_MPL_LAMBDA((pstade::oven::range_value<boost::mpl::_>))>
->::type op_my_value_front;
-op_my_value_front my_value_front;
+>::type T_my_value_front;
+T_my_value_front my_value_front;
 
 
 namespace lambda = boost::lambda;

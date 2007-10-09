@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
                     typename result_of<
                         Base(
                             typename result_of<
-                                typename result_of<op_curry2(function<baby_uncurried>)>::type(Base&)
+                                typename result_of<T_curry2(function<baby_uncurried>)>::type(Base&)
                             >::type
                          )
                     >::type(Arg&)
@@ -65,8 +65,8 @@ namespace pstade { namespace egg {
     } // namespace fix_detail
 
 
-    typedef result_of_curry2<fix_detail::uncurried>::type op_fix;
-    PSTADE_POD_CONSTANT((op_fix), fix) = PSTADE_EGG_CURRY2_L {{}} PSTADE_EGG_CURRY2_R;
+    typedef result_of_curry2<fix_detail::uncurried>::type T_fix;
+    PSTADE_POD_CONSTANT((T_fix), fix) = PSTADE_EGG_CURRY2_L {{}} PSTADE_EGG_CURRY2_R;
 
 
     // fix(base)

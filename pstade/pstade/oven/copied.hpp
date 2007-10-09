@@ -20,10 +20,10 @@
 namespace pstade { namespace oven {
 
 
-typedef egg::automatic< xp_copy_range<boost::mpl::_> >::type op_make_copied;
-PSTADE_POD_CONSTANT((op_make_copied), make_copied) = PSTADE_EGG_AUTOMATIC;
+typedef egg::automatic< X_copy_range<boost::mpl::_> >::type T_make_copied;
+PSTADE_POD_CONSTANT((T_make_copied), make_copied) = PSTADE_EGG_AUTOMATIC;
 
-PSTADE_POD_CONSTANT((egg::result_of_pipable<op_make_copied>::type), copied)
+PSTADE_POD_CONSTANT((egg::result_of_pipable<T_make_copied>::type), copied)
     = PSTADE_EGG_PIPABLE_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_PIPABLE_R;
 
 

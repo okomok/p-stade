@@ -129,10 +129,10 @@ typedef
     egg::generator<
         reverse_iterator< egg::deduce<boost::mpl::_1, egg::as_value> > const
     >::type
-op_make_reverse_iterator;
+T_make_reverse_iterator;
 
 PSTADE_ADL_BARRIER(reverse_iterator) { // for 'boost'
-    PSTADE_POD_CONSTANT((op_make_reverse_iterator), make_reverse_iterator) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_make_reverse_iterator), make_reverse_iterator) = PSTADE_EGG_GENERATOR;
 }
 
 

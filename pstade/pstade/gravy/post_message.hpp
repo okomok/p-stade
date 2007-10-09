@@ -19,7 +19,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_post_message
+    struct T_post_message
     {
         typedef void result_type;
 
@@ -30,7 +30,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_post_message), post_message) = {};
+    PSTADE_POD_CONSTANT((T_post_message), post_message) = {};
 
 
 } } // namespace pstade::gravy

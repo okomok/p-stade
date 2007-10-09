@@ -19,7 +19,7 @@ namespace pstade { namespace gravy {
 
 
     typedef
-        detail::handle_ref<HMENU, detail::op_is_menu>
+        detail::handle_ref<HMENU, detail::T_is_menu>
     menu_ref;
 
 

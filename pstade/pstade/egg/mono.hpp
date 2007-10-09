@@ -100,12 +100,12 @@ namespace pstade { namespace egg {
 
 
     template<class Sequence, class ResultType = boost::use_default>
-    struct xp_mono :
+    struct X_mono :
         tp_mono<Sequence, ResultType>::type
     { };
 
  
-    PSTADE_EGG_SPECIFIED1(mono, xp_mono, (class))
+    PSTADE_EGG_SPECIFIED1(mono, X_mono, (class))
 
 
 } } // namespace pstade::egg

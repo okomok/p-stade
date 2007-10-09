@@ -96,7 +96,7 @@ namespace adjacent_filtered_detail {
 
         typedef typename
             result_of<
-                op_make_successors(Range&, filter<pred_t>)
+                T_make_successors(Range&, filter<pred_t>)
             >::type
         result_type;
 

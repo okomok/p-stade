@@ -44,12 +44,12 @@ int main()
 
     // using a converter (compiles faster maybe)
     result_of<
-        result_of<op_deferred_sig(functor&)>::type(value_type&)
+        result_of<T_deferred_sig(functor&)>::type(value_type&)
     >::type y = deferred_sig(f)(x);
 
     // using the bind
     result_of<
-        result_of<op_lambda_bind(functor&, op_lambda_1)>::type(value_type&)
+        result_of<T_lambda_bind(functor&, T_lambda_1)>::type(value_type&)
     >::type y_ = bind(f, _1)(x);
 
     // Delay call of f until later.

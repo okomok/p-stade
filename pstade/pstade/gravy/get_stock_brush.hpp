@@ -44,7 +44,7 @@ namespace pstade { namespace gravy {
     } // namespace get_stock_brush_detail
 
 
-    struct op_get_stock_brush
+    struct T_get_stock_brush
     {
         typedef brush_ref result_type;
 
@@ -56,7 +56,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_get_stock_brush), get_stock_brush) = {};
+    PSTADE_POD_CONSTANT((T_get_stock_brush), get_stock_brush) = {};
 
 
 } } // namespace pstade::gravy

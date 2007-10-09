@@ -156,7 +156,7 @@ namespace pstade {
             m_content.reset(new any_detail::holder<self_t &>(other));
         }
 
-        PSTADE_RESET_ASSIGNMENT(self_t)
+        PSTADE_RESET_ASSIGNMENT(any_ref)
 
         void reset(self_t const &other)
         {
@@ -213,7 +213,7 @@ namespace pstade {
             self_t().swap(*this);
         }
 
-        PSTADE_RESET_ASSIGNMENT(self_t)
+        PSTADE_RESET_ASSIGNMENT(any_cref)
 
         void reset(self_t const &other)
         {

@@ -41,9 +41,9 @@ namespace pstade { namespace egg {
     } // namespace identity_detail
 
 
-    typedef function<identity_detail::baby, by_perfect> op_identity;
+    typedef function<identity_detail::baby, by_perfect> T_identity;
     PSTADE_ADL_BARRIER(identity) { // for 'std'
-        PSTADE_POD_CONSTANT((op_identity), identity) = {{}};
+        PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
     }
 
 

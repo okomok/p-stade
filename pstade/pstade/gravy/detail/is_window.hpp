@@ -19,7 +19,7 @@
 namespace pstade { namespace gravy { namespace detail {
 
 
-    struct op_is_window
+    struct T_is_window
     {
         typedef bool result_type;
 
@@ -31,7 +31,7 @@ namespace pstade { namespace gravy { namespace detail {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_window), is_window) = {};
+    PSTADE_POD_CONSTANT((T_is_window), is_window) = {};
 
 
 } } } // namespace pstade::gravy::detail

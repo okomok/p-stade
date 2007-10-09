@@ -28,7 +28,7 @@ namespace pstade { namespace egg {
     }
 
 
-    struct op_move_assign
+    struct T_move_assign
     {
         typedef void result_type;
 
@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    PSTADE_POD_CONSTANT((op_move_assign), move_assign) = {};
+    PSTADE_POD_CONSTANT((T_move_assign), move_assign) = {};
 
 
 } } // namespace pstade::egg

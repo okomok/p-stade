@@ -20,7 +20,7 @@ namespace pstade { namespace gravy {
 
 
     namespace booleanize_detail {
-        typedef egg::automatic< xp_boolean_cast<boost::mpl::_> >::type op;
+        typedef egg::automatic< X_boolean_cast<boost::mpl::_> >::type op;
     }
 
 
@@ -28,10 +28,10 @@ namespace pstade { namespace gravy {
         egg::result_of_auxiliary0<
             booleanize_detail::op
         >::type
-    op_booleanize;
+    T_booleanize;
 
 
-    PSTADE_POD_CONSTANT((op_booleanize), booleanize)
+    PSTADE_POD_CONSTANT((T_booleanize), booleanize)
         = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
 
 

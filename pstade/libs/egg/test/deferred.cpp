@@ -35,22 +35,22 @@ struct baby
 };
 
 
-typedef PSTADE_EGG_DEFER((baby<boost::mpl::_>)) op_identity;
-PSTADE_POD_CONSTANT((op_identity), identity) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((baby<boost::mpl::_>)) T_identity;
+PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_DEFERRED;
 
-typedef PSTADE_EGG_DEFER_BY((baby<boost::mpl::_>), boost::use_default) op_identity_;
-PSTADE_POD_CONSTANT((op_identity_), identity_) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER_BY((baby<boost::mpl::_>), boost::use_default) T_identity_;
+PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_DEFERRED;
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const&))
+PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&))
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&, int))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int, int))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const, int))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const&, int))
+PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&, int))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int, int))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const, int))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&, int))
 
 
 struct nc_t : boost::noncopyable

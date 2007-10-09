@@ -43,7 +43,7 @@ namespace converter_detail {
         template< class Myself, class Iterator >
         struct apply :
             result_of<
-                op_make_transformer(Iterator&, func<To>)
+                T_make_transformer(Iterator&, func<To>)
             >
         { };
 
@@ -67,12 +67,12 @@ struct tp_make_converter
 
 
 template< class To >
-struct xp_make_converter :
+struct X_make_converter :
     tp_make_converter<To>::type
 { };
 
 
-PSTADE_EGG_SPECIFIED1(make_converter, xp_make_converter, (class))
+PSTADE_EGG_SPECIFIED1(make_converter, X_make_converter, (class))
 
 
 template< class To >

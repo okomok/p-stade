@@ -30,18 +30,18 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), xp_new_shared<int>())
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), xp_new_shared<int>(int))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), X_new_shared<int>())
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), X_new_shared<int>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<udt>), xp_new_shared<udt>(int,int))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<udt const>), xp_new_shared<udt const>(int,int))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<udt>), X_new_shared<udt>(int,int))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<udt const>), X_new_shared<udt const>(int,int))
 
 
 void pstade_unit_test()
 {
     {
-        boost::shared_ptr<udt> p = xp_new_shared<udt>()(1,2);
+        boost::shared_ptr<udt> p = X_new_shared<udt>()(1,2);
         BOOST_CHECK(p->m_i == 1);
         BOOST_CHECK(p->m_j == 2);
     }

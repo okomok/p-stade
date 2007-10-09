@@ -28,6 +28,7 @@
 #include <pstade/oven/regular.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/output_iterator.hpp"
+#include <pstade/pod_constant.hpp>
 
 
 std::stringstream g_ss;
@@ -43,6 +44,10 @@ void modify(char& ch)
 {
     ch = 'x';
 }
+
+
+void test_pod(int) {};
+PSTADE_POD_CONSTANT((pstade::oven::detail::function_output_iterator<void(*)(int)>), test_pod_outiter) = { &test_pod };
 
 
 void pstade_minimal_test()

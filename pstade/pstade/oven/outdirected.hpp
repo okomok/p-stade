@@ -35,7 +35,7 @@ namespace outdirected_detail {
 
         typedef typename
             result_of<
-                op_counting(iter_t, iter_t)
+                T_counting(iter_t, iter_t)
             >::type
         result_type;
 

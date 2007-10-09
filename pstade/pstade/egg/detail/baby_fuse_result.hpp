@@ -86,14 +86,14 @@ namespace pstade { namespace egg { namespace detail {
     template<class Tuple>
     struct apply_aux< Tuple, boost::mpl::int_<n> > :
         result_of<
-            Base const( PSTADE_PP_ENUM_PARAMS_WITH(n, typename result_of<xp_tuple_get_c<PSTADE_PP_INT_, >(Tuple&)>::type) )
+            Base const( PSTADE_PP_ENUM_PARAMS_WITH(n, typename result_of<X_tuple_get_c<PSTADE_PP_INT_, >(Tuple&)>::type) )
         >
     { };
 
     template<class Result, class Tuple>
     Result call_aux(Tuple& tup, boost::mpl::int_<n>) const
     {
-        return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, xp_tuple_get_c<PSTADE_PP_INT_, >()(tup)) );
+        return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, X_tuple_get_c<PSTADE_PP_INT_, >()(tup)) );
     }
 
 

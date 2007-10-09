@@ -85,8 +85,8 @@ namespace do_iter_swap_detail {
 } // namespace do_iter_swap_detail
 
 
-typedef do_iter_swap_detail::op op_do_iter_swap;
-PSTADE_POD_CONSTANT((op_do_iter_swap), do_iter_swap) = {};
+typedef do_iter_swap_detail::op T_do_iter_swap;
+PSTADE_POD_CONSTANT((T_do_iter_swap), do_iter_swap) = {};
 
 
 } } // namespace pstade::oven

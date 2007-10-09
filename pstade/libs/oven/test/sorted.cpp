@@ -54,7 +54,7 @@ void test()
 
     std::string ans("12345");
     
-    pstade::result_of<op_make_sorted(std::string&)>::type srng = make_sorted(src);
+    pstade::result_of<T_make_sorted(std::string&)>::type srng = make_sorted(src);
     BOOST_FOREACH (char& ch, srng) {
         std::cout << ch;
     }

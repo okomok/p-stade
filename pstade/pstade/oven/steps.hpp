@@ -80,7 +80,7 @@ namespace steps_detail {
 
         typedef typename
             result_of<
-                op_make_successors(Range&, step<diff_t>)
+                T_make_successors(Range&, step<diff_t>)
             >::type
         result_type;
 

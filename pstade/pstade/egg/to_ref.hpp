@@ -80,12 +80,12 @@ namespace pstade { namespace egg {
     } // namespace to_ref_detail
 
 
-    typedef result_of_auxiliary0<to_ref_detail::op>::type  op_to_ref;
-    typedef result_of_auxiliary0<to_ref_detail::cop>::type op_to_cref;
-    typedef result_of_auxiliary0<to_ref_detail::mop>::type op_to_mref;
-    PSTADE_POD_CONSTANT((op_to_ref),  to_ref)  = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
-    PSTADE_POD_CONSTANT((op_to_cref), to_cref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
-    PSTADE_POD_CONSTANT((op_to_mref), to_mref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_auxiliary0<to_ref_detail::op>::type  T_to_ref;
+    typedef result_of_auxiliary0<to_ref_detail::cop>::type T_to_cref;
+    typedef result_of_auxiliary0<to_ref_detail::mop>::type T_to_mref;
+    PSTADE_POD_CONSTANT((T_to_ref),  to_ref)  = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((T_to_cref), to_cref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((T_to_mref), to_mref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

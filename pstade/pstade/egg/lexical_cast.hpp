@@ -20,7 +20,7 @@ namespace pstade { namespace egg {
 
 
     template<class To>
-    struct xp_lexical_cast
+    struct X_lexical_cast
     {
         typedef To result_type;
 
@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
 
 
     PSTADE_ADL_BARRIER(lexical_cast) { // for 'boost'
-        PSTADE_EGG_SPECIFIED1(lexical_cast, xp_lexical_cast, (class))
+        PSTADE_EGG_SPECIFIED1(lexical_cast, X_lexical_cast, (class))
     }
 
 

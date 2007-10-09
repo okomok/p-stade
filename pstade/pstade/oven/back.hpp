@@ -55,11 +55,11 @@ namespace back_detail {
 } // namespace back_detail
 
 
-typedef egg::result_of_auxiliary0<back_detail::op>::type op_back;
-PSTADE_POD_CONSTANT((op_back), back) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_auxiliary0<back_detail::op>::type T_back;
+PSTADE_POD_CONSTANT((T_back), back) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
-typedef egg::result_of_auxiliary0<back_detail::value_op>::type op_value_back;
-PSTADE_POD_CONSTANT((op_value_back), value_back) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_auxiliary0<back_detail::value_op>::type T_value_back;
+PSTADE_POD_CONSTANT((T_value_back), value_back) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::oven

@@ -18,7 +18,7 @@
 #include <pstade/egg/by_value.hpp>
 
 
-struct op_large_arity_id0
+struct T_large_arity_id0
 {
     template<class Signature>
     struct result;
@@ -36,7 +36,7 @@ struct op_large_arity_id0
     }
 };
 
-op_large_arity_id0 const large_arity_id0 = {};
+T_large_arity_id0 const large_arity_id0 = {};
 
 
 namespace {

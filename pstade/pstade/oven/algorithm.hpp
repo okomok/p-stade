@@ -97,8 +97,8 @@ namespace pstade { namespace oven {
         } \
     }; \
     \
-    typedef pstade::egg::function<BOOST_PP_CAT(baby_, Name)> BOOST_PP_CAT(op_, Name); \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Name)), Name) = {{}}; \
+    typedef pstade::egg::function<BOOST_PP_CAT(baby_, Name)> BOOST_PP_CAT(T_, Name); \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Name)), Name) = {{}}; \
 /**/
 
 
@@ -130,8 +130,8 @@ PSTADE_ADL_BARRIER(algorithm) {
         }
     };
 
-    typedef egg::function<baby_rotate> op_rotate;
-    PSTADE_POD_CONSTANT((op_rotate), rotate) = {{}};
+    typedef egg::function<baby_rotate> T_rotate;
+    PSTADE_POD_CONSTANT((T_rotate), rotate) = {{}};
 
     struct baby_rotate_copy
     {
@@ -147,8 +147,8 @@ PSTADE_ADL_BARRIER(algorithm) {
         }
     };
 
-    typedef egg::function<baby_rotate_copy> op_rotate_copy;
-    PSTADE_POD_CONSTANT((op_rotate_copy), rotate_copy) = {{}};
+    typedef egg::function<baby_rotate_copy> T_rotate_copy;
+    PSTADE_POD_CONSTANT((T_rotate_copy), rotate_copy) = {{}};
 
 
 } // ADL barrier

@@ -51,14 +51,14 @@ void pstade_minimal_test()
         BOOST_CHECK( !nl(0, 1) );
     }
     {
-        typedef pstade::result_of<op_not_(::less)>::type nl_t;
+        typedef pstade::result_of<T_not_(::less)>::type nl_t;
         PSTADE_TEST_IS_RESULT_OF((bool), nl_t(int, int))
 
         nl_t nl = not_(::less());
         BOOST_CHECK( !nl(0, 1) );
     }
     {
-        typedef pstade::result_of<op_not_(::foo)>::type nf_t;
+        typedef pstade::result_of<T_not_(::foo)>::type nf_t;
         PSTADE_TEST_IS_RESULT_OF((bool), nf_t())
 
         nf_t nf = not_(::foo());

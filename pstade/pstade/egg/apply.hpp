@@ -47,9 +47,9 @@ namespace pstade { namespace egg {
     } // namespace apply_detail
 
 
-    typedef function<apply_detail::baby, by_perfect> op_apply;
+    typedef function<apply_detail::baby, by_perfect> T_apply;
     PSTADE_ADL_BARRIER(apply) {
-        PSTADE_POD_CONSTANT((op_apply), apply) = {{}};
+        PSTADE_POD_CONSTANT((T_apply), apply) = {{}};
     }
 
 

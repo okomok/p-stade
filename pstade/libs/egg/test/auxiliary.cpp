@@ -25,10 +25,10 @@
     #define PSTADE_AUXILIARY(N, Object, Function) \
         namespace BOOST_PP_CAT(pstade_auxiliary_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::pstade::result_of< ::pstade::egg::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
+            typedef ::pstade::result_of< ::pstade::egg::BOOST_PP_CAT(T_auxiliary, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
         } \
-        typedef BOOST_PP_CAT(pstade_auxiliary_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, Object)), Object) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R; \
+        typedef BOOST_PP_CAT(pstade_auxiliary_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Object)), Object) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R; \
     /**/
 
 
@@ -55,7 +55,7 @@ struct impl_interface1
     }
 };
 
-PSTADE_CONSTANT(interface1, (pstade::result_of<pstade::egg::op_auxiliary1(impl_interface1)>::type))
+PSTADE_CONSTANT(interface1, (pstade::result_of<pstade::egg::T_auxiliary1(impl_interface1)>::type))
 
 
 struct impl_interface4
@@ -68,10 +68,10 @@ struct impl_interface4
     }
 };
 
-PSTADE_CONSTANT(interface4, (pstade::result_of<pstade::egg::op_auxiliary4(impl_interface4)>::type))
+PSTADE_CONSTANT(interface4, (pstade::result_of<pstade::egg::T_auxiliary4(impl_interface4)>::type))
 
 
-PSTADE_TEST_IS_RESULT_OF((std::string), op_interface0(std::string))
+PSTADE_TEST_IS_RESULT_OF((std::string), T_interface0(std::string))
 
 
 void pstade_minimal_test()

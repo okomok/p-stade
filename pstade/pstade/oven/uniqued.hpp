@@ -29,13 +29,13 @@ namespace uniqued_detail {
 
     struct baby
     {
-        template< class Myself, class Range, class BinaryPred = egg::op_equal_to const >
+        template< class Myself, class Range, class BinaryPred = egg::T_equal_to const >
         struct apply :
             result_of<
-                op_make_adjacent_filtered(
+                T_make_adjacent_filtered(
                     Range&,
                     typename result_of<
-                        egg::op_not_(typename pass_by_value<BinaryPred>::type)
+                        egg::T_not_(typename pass_by_value<BinaryPred>::type)
                     >::type
                 )
             >

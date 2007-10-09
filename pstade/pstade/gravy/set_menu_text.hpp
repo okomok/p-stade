@@ -25,7 +25,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_set_menu_text
+    struct T_set_menu_text
     {
         typedef void result_type;
 
@@ -50,7 +50,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_set_menu_text), set_menu_text) = {};
+    PSTADE_POD_CONSTANT((T_set_menu_text), set_menu_text) = {};
 
 
 } } // namespace pstade::gravy

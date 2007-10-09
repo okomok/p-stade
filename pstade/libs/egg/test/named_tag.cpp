@@ -18,8 +18,8 @@ struct x_tag;
 struct y_tag;
 struct z_tag;
 
-struct op_foo1;
-struct op_foo2;
+struct T_foo1;
+struct T_foo2;
 
 
 namespace egg = pstade::egg;
@@ -29,7 +29,7 @@ using namespace egg;
 namespace pstade_egg_extension {
 
     template<>
-    struct named_parameter<op_foo1> :
+    struct named_parameter<T_foo1> :
         named_parameter_default
     {
         template<class X, class Keyword>
@@ -52,7 +52,7 @@ namespace pstade_egg_extension {
     };
 
     template<>
-    struct named_parameter<op_foo2> :
+    struct named_parameter<T_foo2> :
         named_parameter_default
     {
         template<class X, class Keyword>
@@ -76,7 +76,7 @@ namespace pstade_egg_extension {
 }
 
 
-struct op_foo1
+struct T_foo1
 {
     typedef int result_type;
 
@@ -86,9 +86,9 @@ struct op_foo1
     }
 };
 
-result_of_named3<op_foo1>::type const named_foo1 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+result_of_named3<T_foo1>::type const named_foo1 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
-struct op_foo2
+struct T_foo2
 {
     typedef int result_type;
 
@@ -98,7 +98,7 @@ struct op_foo2
     }
 };
 
-result_of_named3<op_foo2>::type const named_foo2 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+result_of_named3<T_foo2>::type const named_foo2 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
 
 pstade::egg::keyword<-1, x_tag> const _x = {};

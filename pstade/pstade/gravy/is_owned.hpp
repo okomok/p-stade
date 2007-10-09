@@ -18,7 +18,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_is_owned
+    struct T_is_owned
     {
         typedef bool result_type;
 
@@ -29,7 +29,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_owned), is_owned) = {};
+    PSTADE_POD_CONSTANT((T_is_owned), is_owned) = {};
 
 
 } } // namespace pstade::gravy

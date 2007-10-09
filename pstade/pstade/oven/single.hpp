@@ -46,8 +46,8 @@ namespace single_detail {
 } // namespace single_detail
 
 
-typedef PSTADE_EGG_DEFER((single_detail::base<boost::mpl::_>)) op_single;
-PSTADE_POD_CONSTANT((op_single), single) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((single_detail::base<boost::mpl::_>)) T_single;
+PSTADE_POD_CONSTANT((T_single), single) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

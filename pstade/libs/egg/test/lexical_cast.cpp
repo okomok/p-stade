@@ -23,8 +23,8 @@ using namespace egg;
 void pstade_minimal_test()
 {
     {
-        BOOST_CHECK( xp_lexical_cast<std::string>()(12) == "12" );
-        BOOST_CHECK( xp_lexical_cast<int>()(std::string("12")) == 12 );
+        BOOST_CHECK( X_lexical_cast<std::string>()(12) == "12" );
+        BOOST_CHECK( X_lexical_cast<int>()(std::string("12")) == 12 );
     }
     {
         BOOST_CHECK( egg::lexical_cast<std::string>(12) == "12" );

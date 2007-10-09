@@ -69,8 +69,8 @@ namespace parallel_for_each_detail {
 } // namespace parallel_for_each_detail
 
 
-typedef egg::function<parallel_for_each_detail::baby> op_parallel_for_each;
-PSTADE_POD_CONSTANT((op_parallel_for_each), parallel_for_each) = {{}};
+typedef egg::function<parallel_for_each_detail::baby> T_parallel_for_each;
+PSTADE_POD_CONSTANT((T_parallel_for_each), parallel_for_each) = {{}};
 
 
 } } // namespace pstade::oven

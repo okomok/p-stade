@@ -18,7 +18,7 @@ struct detail_argument :
 { };
 
 
-struct op_make_permuted
+struct T_make_permuted
 {
     template<class FunCall>
     struct result { };
@@ -68,7 +68,7 @@ struct op_make_permuted
     }
 };
 
-namespace { op_make_permuted const make_permuted = { }; }
+namespace { T_make_permuted const make_permuted = { }; }
 
 
 void test()
@@ -76,7 +76,7 @@ void test()
     std::string es("abcdefghijklmn");
     int is[] = { 3, 8, 5, 1 };
 
-    pstade::result_of< ::op_make_permuted(std::string&, int(&)[4]) >::type
+    pstade::result_of< ::T_make_permuted(std::string&, int(&)[4]) >::type
         result = ::make_permuted(es, is);
     BOOST_CHECK( boost::equals(result, std::string("difb")) );
 }

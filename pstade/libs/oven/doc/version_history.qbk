@@ -180,6 +180,13 @@
 * `boost::optional` becomes a range.
 * Added `converted`.
 
+[h2 Version 0.95.1]
+* Added `any_output_iterator`.
+* Renamed `op_` to `T_`.
+* Renamed `xp_` to `X_`.
+* Added `eater` and `intercepter`.
+* Added `any_index_range`.
+
 
 
 

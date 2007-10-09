@@ -52,7 +52,7 @@ struct unfold_iterator_super
     result_t;
 
     typedef typename
-        result_of<egg::op_dereference(result_t const&)>::type
+        result_of<egg::T_dereference(result_t const&)>::type
     ref_t;
 
     typedef typename

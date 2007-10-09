@@ -114,7 +114,7 @@ void test_make()
 {
     {
         std::string str("abcdefg");
-        pstade::result_of<op_make_any_range(std::string&)>::type
+        pstade::result_of<T_make_any_range(std::string&)>::type
             r = make_any_range(str);
 
         BOOST_CHECK( oven::equals(str, r) );

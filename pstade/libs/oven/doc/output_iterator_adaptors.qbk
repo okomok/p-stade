@@ -34,13 +34,13 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`xp_make_converter<To>`]
+        [`<X_make_converter<To>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_converter<To>()(_outit)`]
+        [`<X_make_converter<To>()(_outit)`]
         [
             `applier(f_)`
         ]
@@ -48,7 +48,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     [
         [`oven::make_converter<To>(_outit)`]
         [
-            `xp_make_converter<To>()(_outit)`
+            `<X_make_converter<To>()(_outit)`
         ]
     ]
     [
@@ -60,7 +60,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     [
         [`converter<To>() |= _outit`]
         [
-            `xp_make_converter<To>()(_outit)`
+            `<X_make_converter<To>()(_outit)`
         ]
     ]
 ]
@@ -209,6 +209,53 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 * [link oven.applier applier]
 * [link oven.indirected indirected]
 * [link oven.outdirected outdirected]
+
+[endsect]
+
+
+
+
+[section intercepter]
+
+[h3 Description]
+`intercepter` intercepts inputs.
+
+[h3 Header]
+* `<pstade/oven/intercepter.hpp>`
+
+[h3 Model of]
+* _pipable_adaptor_
+
+[h3 Notation]
+* 
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`intercepter(_outit2) |= _outit`]
+        [
+            `_outit2`
+        ]
+    ]
+    [
+        [`intercepter |= _outit`]
+        [
+            `eater`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* ...
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.eater eater]
 
 [endsect]
 

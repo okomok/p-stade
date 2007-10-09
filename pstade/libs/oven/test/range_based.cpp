@@ -27,7 +27,7 @@
 #include <pstade/test.hpp>
 
 
-struct op_sort
+struct T_sort
 {
     typedef void result_type;
 
@@ -38,7 +38,7 @@ struct op_sort
     }
 };
 
-struct op_sort2
+struct T_sort2
 {
     typedef void result_type;
 
@@ -59,13 +59,13 @@ void test()
 
     {
         std::string rng("edcbagf");
-        oven::detail::range_based1(::op_sort())(rng);
+        oven::detail::range_based1(::T_sort())(rng);
         BOOST_CHECK( rng == "abcdefg" );
     }
     {
         std::string rng("edcbagf");
         std::string rng_("542613");
-        oven::detail::range_based2(::op_sort2())(rng, rng_);
+        oven::detail::range_based2(::T_sort2())(rng, rng_);
         BOOST_CHECK( rng == "abcdefg" );
         BOOST_CHECK( rng_ == "123456" );
     }

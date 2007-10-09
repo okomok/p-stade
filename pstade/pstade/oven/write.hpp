@@ -17,7 +17,7 @@
 namespace pstade { namespace oven {
 
 
-struct op_write
+struct T_write
 {
     typedef void result_type;
 
@@ -35,7 +35,7 @@ struct op_write
 };
 
 
-PSTADE_POD_CONSTANT((op_write), write) = {};
+PSTADE_POD_CONSTANT((T_write), write) = {};
 
 
 } } // namespace pstade::oven

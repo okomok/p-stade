@@ -303,7 +303,7 @@ public:
         self_t().swap(*this);
     }
 
-    PSTADE_RESET_ASSIGNMENT(self_t)
+    PSTADE_RESET_ASSIGNMENT(any_iterator)
 
     void reset(self_t const &other)
     {

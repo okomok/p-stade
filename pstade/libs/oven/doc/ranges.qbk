@@ -1,5 +1,8 @@
 [section Ranges]
 
+Oven provides many useful predefined ranges.
+
+
 
 
 [section any_range]
@@ -52,6 +55,49 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 [h3 See also]
 * [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
 * [link oven.expression expression]
+
+[endsect]
+
+
+
+
+[section any_index_range]
+
+[h3 Description]
+Iterators of _random_access_ `any_range` require heap allocation to copy,
+whereas `any_index_range` offers lightweight-copyable iterators.
+
+[h3 Header]
+* `<pstade/oven/any_index_range.hpp>`
+
+[h3 Model of]
+* _random_access_ _s_ _range_
+* _assignable_
+* _default_constructible_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`any_index_range<R>`]
+        [
+            `any_range<R, boost::random_access_traversal_tag>`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* The corresponding semantics is a valid expression.
+* `any_index_range` may not be recursive.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.any_range any_range]
+* [link oven.recursion recursion]
 
 [endsect]
 
@@ -242,6 +288,1030 @@ If the file opening failed, the range is empty.
 [h3 See also]
 * [@http://www.boost.org/libs/spirit/doc/file_iterator.html boost::spirit::file_iterator]
 * [link oven.stream_read stream_read]
+
+[endsect]
+
+
+
+
+[section as_array]
+
+[h3 Description]
+Some versions of _boost_range_ regard `char` array as literal, which `as_array` works around.
+
+[h3 Header]
+* `<pstade/oven/as_array.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_array(a)`]
+        [
+            [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array as_array proposal]
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `a` is an array.
+
+[h3 Example]
+    BOOST_CHECK( distance(as_array("abc\0de")) == 7 );   // contains the trailing null.
+    BOOST_CHECK( distance(as_c_str("abc\0de")) == 3 );   // null means the end.
+    BOOST_CHECK( distance(as_literal("abc\0de")) == 6 ); // null doesn't affect.
+
+[h3 See also]
+* _string_algo_proposal_
+* [link oven.as_c_str as_c_str]
+* [link oven.as_literal as_literal]
+
+[endsect]
+
+
+
+
+[section as_c_str]
+
+[h3 Description]
+`as_c_str` makes a _random_access_ _range_ from null-terminated c-style string.
+
+[h3 Header]
+* `<pstade/oven/as_c_str.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_c_str(s)`]
+        [
+            `[s, s + strlen(s))`
+        ]
+    ]
+    [
+        [`as_c_str(_rng)`]
+        [
+            `[_begin(_rng), std::find(_begin(_rng), _end(_rng), 0))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_typeof(s)` is convertible to `char *` or `char const *`.
+* `_typeof(_rng)` is neither convertible to `char *` nor `char const *`.
+
+[h3 See also]
+* _string_algo_proposal_
+* [link oven.as_array as_c_array]
+* [link oven.as_literal as_literal]
+
+[endsect]
+
+
+
+
+[section as_literal]
+
+[h3 Description]
+`as_literal` makes a _random_access_ _range_ from character array.
+
+[h3 Header]
+* `<pstade/oven/as_literal.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_literal(a)`]
+        [
+            `[&a[0], &a[0] + sz-1)`, where `sz` is the size of array `a`.
+        ]
+    ]
+    [
+        [`as_literal(x)`]
+        [
+            `x`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `a` is an array.
+* `x` is not an array.
+
+[important `as_literal` doesn't use `strlen`, while _string_algo_proposal_ does.]
+
+[h3 See also]
+* _string_algo_proposal_
+* [link oven.as_array as_array]
+* [link oven.as_c_str as_c_str]
+
+[endsect]
+
+
+
+
+[section block]
+
+[h3 Description]
+`block` makes a _single_pass_ _range_ from an _iteration_block_.
+
+[h3 Header]
+* `<pstade/oven/block.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Notation]
+* `yield` is an unspecified unary _function_object_ passed to `b`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`block(b)`]
+        [
+            A _single_pass_ _range_ whose values are the objects passed to `yield`.
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `b` is an _iteration_block_.
+* Multithreaded compilation must be invoked.
+
+[h3 Example]
+    struct power
+    {
+        int m_number, m_exponent;
+
+        power(int number, int exponent) :
+            m_number(number), m_exponent(exponent)
+        { }
+
+        typedef int yield_type;
+
+        template<typename Yield>
+        void operator()(Yield yield) const
+        {
+            int counter = 0;
+            int result = 1;
+            while (counter++ < m_exponent) {
+                result = result * m_number;
+                yield(result);
+            }
+        }
+    };
+
+    void test()
+    {
+        power(2, 8)(std::cout << boost::lambda::_1 << ',');
+
+        BOOST_FOREACH (int x, block(power(2, 8)))
+            std::cout << x << ',';
+    }
+
+[h3 See also]
+* [@http://en.csharp-online.net/ECMA-334:_26.1_Iterator_blocks Iterator blocks at C# Online.Net]
+
+[endsect]
+
+
+
+
+[section comprehension]
+
+[h3 Description]
+`comprehension` emulates set-builder notation.
+
+[h3 Header]
+* `<pstade/oven/comprehension.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Notation]
+* `d(I) = distance(_rngI)`
+* `a(1,j)` ia a `j`-th element of `makerng1()`.
+* If `I >= 2`, `a(I,j)` is a `j`-th element of `makerngI(a(I-1, u))`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`comprehension(_fun, _prd, makerng1,..,makerngN)`]
+        [
+            A _forward_ _lvalue_ _constant_ `{_fun(a(1,1),a(2,1),..a(N,1)),_fun(a(1,1),a(2,1),..a(N,2)),..,_fun(a(1,1),a(2,1),..a(N,d(N))),..}` but filtered using `_prd`.
+        ]
+    ]
+    [
+        [`always_return`]
+        [
+            A _static_function_object_
+        ]
+    ]
+    [
+        [`always_return(b)`]
+        [
+            `boost::lambda::constant(b)`
+        ]
+    ]
+    [
+        [`always_return(_rng)`]
+        [
+            `boost::lambda::constant([_begin(_rng), _end(_rng)))`
+        ]
+    ]
+]
+
+[note A result object of `_fun(..)` is copied, whereas range referents which `makerngI` returns must outlive `comprehension(..)`.] 
+
+[h3 Preconditions]
+* `N <= 3`
+* `_fun` is a `N`-ary _deferred_callable_object_ or _boost_lambda_ functor.
+* `_typeof(_fun(..))` is _copy_constructible_.
+* For any `I`, `makerngI` is a `I-1`-ary _deferred_callable_object_ or _boost_lambda_ functor which returns a _range_.
+* `_prd` is `N`-ary.
+* `_typeof(b)` is `bool`.
+
+[h3 Example]
+    namespace bll = boost::lambda;
+
+    typedef
+        boost::tuple<int, int, int>
+    triple_t;
+
+    struct make_triple
+    {
+        typedef triple_t result_type;
+
+        result_type operator()(int x, int y, int z) const
+        {
+            return result_type(x, y, z);
+        }
+    };
+
+    typedef
+        any_range<triple_t, boost::forward_traversal_tag>
+    triples_t;
+
+    triples_t triples(int n)
+    {
+        return
+            comprehension(
+                ::make_triple(),
+                bll::_1 * bll::_1 + bll::_2 * bll::_2 == bll::_3 * bll::_3, // guard
+                bll::bind(counting, 1, n + 1),                              // -> _1
+                bll::bind(counting, bll::_1, n + 1),                        // -> _2
+                bll::bind(counting, bll::_2, n + 1)                         // -> _3
+            );
+    }
+
+    void test()
+    {
+        std::stringstream sout;
+        sout << ::triples(20);
+        BOOST_CHECK(sout.str() == "{(3 4 5),(5 12 13),(6 8 10),(8 15 17),(9 12 15),(12 16 20)}");
+    }
+
+[h3 See also]
+* [@http://en.wikipedia.org/wiki/List_comprehension List comprehension]
+
+[endsect]
+
+
+
+
+[section counting]
+
+[h3 Description]
+`counting` makes a `boost::counting_iterator` range, which is not a _lvalue_ _range_.
+
+[h3 Header]
+* `<pstade/oven/counting.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`<X_counting<X1,..,XN>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`<X_counting<X1,..,XN>()(i, j)`]
+        [
+            `[T(i), T(j))`
+        ]
+    ]
+    [
+        [`counting(i, j)`]
+        [`<X_counting<>()(i, j)`]
+    ]
+    [
+        [`counting(i, max_count)`]
+        [`<X_counting<>()(i, std::numeric_limits<_typeof(i)>::max())`]
+    ]
+]
+
+[h3 Preconditions]
+* `0 <= N && N <= 2`
+* `T` is `boost::counting_iterator<_typeof(j), X1,..,XN>` such that `T(i)` and `T(j)` is a valid expression.
+
+[h3 Example]
+    int ans[] = { 2, 3, 4, 5, 6 };
+    BOOST_CHECK( equal(counting(2, 7), ans) );
+
+    std::vector<int> vec;
+    BOOST_FOREACH (int i, counting(0, 5)) {
+        vec.push_back(i);
+    }
+
+[h3 See also]
+* [@http://www.boost.org/libs/iterator/doc/counting_iterator.html boost::counting_iterator]
+
+[endsect]
+
+
+
+
+[section generation]
+
+[h3 Description]
+`generation` makes a _single_pass_ _range_ from a _stoppable_generator_.
+
+[h3 Header]
+* `<pstade/oven/generation.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`generation(g)`]
+        [
+            The longest _single_pass_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `g` is a nullary _stoppable_generator_.
+* `g` is _assignable_.
+* `_typeof(*g())` is _copy_constructible_ and _assignable_.
+
+[h3 Example]
+    struct rand_generator
+    {
+        typedef boost::optional<long> result_type;
+
+        result_type operator()()
+        {
+            long result = std::rand();
+            if (result % 3 == 0)
+                return result_type(); // stop generating.
+
+            return result;
+        }
+    };
+
+    void test()
+    {
+        rand_generator X;
+        BOOST_FOREACH (long x, generation(X)) {
+            std::cout << x << std::endl;
+        }
+    }
+
+[h3 See also]
+* [@http://www.boost.org/libs/utility/generator_iterator.htm boost::generator_iterator]
+* [link oven.iteration iteration]
+* [link oven.unfold unfold]
+* [link oven.nonstop nonstop]
+* [link oven.regular regular]
+* [link oven.regular_ref regular_ref]
+
+[endsect]
+
+
+
+
+[section hetero]
+
+[h3 Description]
+`hetero` runs through a "tuple".
+
+[h3 Header]
+* `<pstade/oven/hetero.hpp>`
+
+[h3 Model of]
+
+[h3 Notation]
+* `N` is `boost::fusion::result_of::size<_typeof(tup)>::type::value`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`<X_hetero<Ref>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`<X_hetero<Ref>()(tup)`]
+        [
+            A _random_access_ `{(Ref)boost::fusion::at_c<0>(tup),..,(Ref)boost::fusion::at_c<N-1>(tup)}`
+        ]
+    ]
+    [
+        [`oven::hetero<Ref>`]
+        [
+            `<X_hetero<Ref>()`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `tup` is a _fusion_forward_sequence_ or `boost::tuple<..>`.
+* `0 <= N && N < 20`.
+* For all `I` such that `0 <= I && I < N`, `Ref` is convertible to `boost::fusion::result_of::at_c<_typeof(tup), I>::type`
+  without binding a reference to rvalue.
+
+[h3 Example]
+    rectangle r; triangle t; circle c;
+    boost::tuple<rectangle*, triangle*, circle*> tup(&r, &t, &c);
+    BOOST_FOREACH (shape *s, oven::hetero<shape *>(tup)) {
+        s->draw();
+    }
+
+[h3 See also]
+* _boost_fusion_
+
+[endsect]
+
+
+
+
+[section initial_values]
+
+[h3 Description]
+`initial_values` emulates initializer-lists.
+
+[h3 Header]
+* `<pstade/oven/initial_values.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`<X_initial_values<T>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`<X_initial_values<T>()(a1,..,aN)`]
+        [
+            A _random_access_ _readable_ _lvalue_ _constant_ `{a1,..,aN}`
+        ]
+    ]
+    [
+        [`Rng rng = <X_initial_values<T>()(a1,..,aN);`]
+        [
+            `Rng rng = <X_initial_values<T>()(a1,..,aN)|copied;`
+        ]
+    ]
+    [
+        [`Rng2 rng2(<X_initial_values<T>()(a1,..,aN));`]
+        [
+            `Rng2 rng2(<X_initial_values<T>()(a1,..,aN)|copied);`
+        ]
+    ]
+    [
+        [`initial_values`]
+        [
+            `<X_initial_values<t>()`, where `t` is deduced from the first argument.
+        ]
+    ]
+]
+
+[note Every `aK` is copied, meaning that they are not referenced from Oven later.]
+
+[h3 Preconditions]
+* `1 <= N && N <= 20`
+* `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
+* `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
+* `Rng rng = <X_initial_values<T>()(a1,..,aN)|copied;` is a valid expression.
+* `Rng2 rng2(<X_initial_values<T>()(a1,..,aN)|copied);` is a valid expression.
+
+[tip `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
+      Also, it doesn't require the arguments to be _assignable_.]
+
+[h3 Example]
+    int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
+    std::vector<int> vec = initial_values(1,5,3,6,1,3,7,1,4,2,2);
+    BOOST_CHECK( equals(vec, ans) );
+
+[h3 See also]
+* _boost_array_
+* _boost_assign_
+* [link oven.copied copied]
+
+[endsect]
+
+
+
+
+[section iteration]
+
+[h3 Description]
+`iteration` makes an infinite _forward_ _range_ where the first item is calculated by applying the function
+on the first argument, the second item by applying the function on the previous result and so on.
+
+[note Strictly speaking, the range concept doesn't allow an infinite range.
+      So assume here the end iterator is reachable from the begin iterator in the googolplex number of increments.]
+
+[h3 Header]
+* `<pstade/oven/iteration.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Notation]
+* `just` is an imaginary function object such that `y -> boost::optional<_typeof(x)>(y)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`iteration(x, _fun)`]
+        [
+            `unfold(x, just, _fun)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* The corresponding semantics is a valid expression.
+
+[h3 Example]
+    int answer[] = { 1,2,4,8,16 };
+    BOOST_CHECK( equals(answer,
+        iteration(1, regular(boost::lambda::_1 * 2))|taken(5)
+    ) );
+
+[h3 See also]
+* [link oven.unfold unfold]
+* [link oven.generation generation]
+* [link oven.taken taken]
+
+[endsect]
+
+
+
+
+[section recursion]
+
+[h3 Description]
+`recursion`, collaborating with [link oven.any_range any_range], creates a recursive range.
+
+[h3 Header]
+* `<pstade/oven/recursion.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`recursion(_fwdrng)`]
+        [
+            An up-to-_bidirectional_ `[_begin(_fwdrng), _end(_fwdrng))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_fwdrng` is an `any_range`.
+* Every `memoized` in the base range takes its own `memo_table` object.
+
+[h3 Example]
+    typedef any_range<int const&, boost::forward_traversal_tag> range_t;
+    range_t fibs;
+    memo_table tb;
+    int const start[] = { 1, 1 };
+    fibs =
+        start
+            | rvalues // for jointed precondition
+            | jointed(
+                boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))
+                    | zipped_with(regular(boost::lambda::_1 + boost::lambda::_2))
+                )
+            | memoized(tb)
+    ;
+
+    std::cout << (fibs|taken(howMany));
+
+[note In a recursive range, `memoized` must take a named `memo_table` object.
+      A recursive range tends to be inefficient without memoization.]
+
+[h3 See also]
+* [link oven.any_range any_range]
+* [link oven.memoized memoized]
+
+[endsect]
+
+
+
+
+[section shared]
+
+[h3 Description]
+`shared` makes a range from a pointer to a heap allocated range,
+and the iterators manage the allocation.
+
+[h3 Header]
+* `<pstade/oven/shared.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Notation]
+* `shared_range_iterator` is an imaginary iterator which works like
+  `boost::shared_container_iterator` but uses a range instead of a container.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`shared(p)`]
+        [
+            `[T(_begin(*p), sp), T(_end(*p), sp))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `sp` is a `boost::shared_ptr<_typeof(*p)>(p)` such that `sp(p)` is a valid expression.
+* `T` is a `shared_range_iterator<_typeof(*p)>` such that `T(_begin(*p), sp)` is a valid expression.
+
+[h3 Example]
+    BOOST_FOREACH (char ch, std::string("dangling")|identities) {
+        // will crash; 'std::string' object doesn't exist anymore. 
+        std::cout << ch;
+    }
+
+    BOOST_FOREACH (char ch, shared(new std::string("ok"))|identities) {
+        // works fine.
+        std::cout << ch;
+    }
+
+[h3 See also]
+* [@http://www.boost.org/libs/utility/shared_container_iterator.html shared_container_iterator]
+* [link oven.shared_single shared_single]
+
+[endsect]
+
+
+
+
+[section shared_single]
+
+[h3 Description]
+`shared_single`, given a pointer to a heap allocated object, delivers a range presentation of the pointee.
+
+[h3 Header]
+* `<pstade/oven/shared_single.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`shared_single(p)`]
+        [`[&*p, &*p + 1)`]
+    ]
+]
+
+[h3 Preconditions]
+* `boost::shared_ptr<_typeof(*p)>(p)` is a valid expression.
+
+[h3 Example]
+    boost::result_of<T_shared_single(char *)>::type
+    make_rng()
+    {
+        return shared_single(new char('a'));
+    }
+
+[h3 See also]
+* [link oven.single single]
+
+[endsect]
+
+
+
+
+[section single]
+
+[h3 Description]
+`single` makes a _random_access_ _range_ which delivers a range presentation of one object.
+
+[h3 Header]
+* `<pstade/oven/single.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`single(x)`]
+        [`[&x, &x + 1)`]
+    ]
+]
+
+[note As the semantics implies, the iterators are valid as long as `x` is not destructed.
+      If you want the iterators to manage the base object lifetime, use [link oven.shared_single shared_single].]
+
+[h3 Example]
+    BOOST_CHECK( equals(single('a'), std::string("a")) );
+
+[h3 See also]
+* [link oven.shared_single shared_single]
+
+[endsect]
+
+
+
+
+[section stream_lines]
+
+[h3 Description]
+`stream_lines` makes a `std::string` _single_pass_ _range_ from `std::cout` etc.
+
+[h3 Header]
+* `<pstade/oven/stream_lines.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Notation]
+* `DefaultA` is `std::allocator<_typeof(s)::char_type>`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`<X_stream_lines<A = DefaultA>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`<X_stream_lines<A>()(s)`]
+        [
+           `[T(s), T())`
+        ]
+    ]
+    [
+        [`stream_lines`]
+        [
+           `<X_stream_lines<>()`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `hamigaki::istream_line_iterator<_typeof(s)::char_type, _typeof(s)::traits_type, A>` suct that `T(s)` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [@http://hamigaki.sourceforge.jp/doc/html/istream_line_iterator.html hamigaki::istream_line_iterator]
+* [link oven.stream_read stream_read]
+
+[endsect]
+
+
+
+
+[section stream_read]
+
+[h3 Description]
+`stream_read` makes a _single_pass_ _range_ from `std::cout` etc.
+
+[h3 Header]
+* `<pstade/oven/stream_read.hpp>`
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`<X_stream_read<V, D = std::ptrdiff_t>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`<X_stream_read<V, D>()(s)`]
+        [
+           `[T(s), T())`
+        ]
+    ]
+    [
+        [`oven::stream_read<V>()(s)`]
+        [
+           `<X_stream_read<V>()(s)`
+        ]
+    ]
+]
+
+[important Notice that `stream_read<V>(s)` is qualified with `oven::` to avoid unintentional ADL.]
+
+[h3 Preconditions]
+* `T` is `std::istream_iterator<V, _typeof(s)::char_type, _typeof(s)::traits_type, D>` suct that `T(s)` is a valid expression.
+
+[h3 Example]
+    std::string src("hello,stream_read!");
+
+    std::stringstream ss;
+    ss << src;
+
+    std::string result;
+    copy(oven::stream_read<char>(ss), std::back_inserter(result));
+
+    BOOST_CHECK( equals(result, src) );
+
+[h3 See also]
+* [@http://www.sgi.com/tech/stl/istream_iterator.html std::istream_iterator]
+* [link oven.file_range file_range]
+* [link oven.stream_lines stream_lines]
+* [link oven.stream_writer stream_writer]
+
+[endsect]
+
+
+
+
+[section streambuf_read]
+
+[h3 Header]
+* `<pstade/oven/stream_read.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`streambuf_read(s)`]
+        [
+            `[T(s), T())`
+        ]
+    ]
+    [
+        [`streambuf_read(p)`]
+        [
+            `[U(p), U())`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `std::istreambuf_iterator<_typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s)` is a valid expression.
+* `U` is `std::istreambuf_iterator<_typeof(*p)::char_type, _typeof(*p)::traits_type>` such that `U(p)` is a valid expression.
+
+[endsect]
+
+
+
+
+[section unfold]
+
+[h3 Description]
+`unfold` makes a range from a seed.
+
+[h3 Header]
+* `<pstade/oven/unfold.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`unfold(z, f, g)`]
+        [
+            The longest _forward_ `{f(z),f(g(z)),f(g(g(z))),f(g(g(g(z)))),..}` such that `f(..)` is not /uninitialized/.
+        ]
+    ]
+]
+
+[note `z` is copied, meaning that it is not referenced from Oven later.]
+
+[h3 Preconditions]
+* `z`, `f(..)` and `g` is _assignable_, _copy_constructible_ and _default_constructible_.
+* `f` is a unary _stoppable_generator_.
+* `g` is a _function_object_ such that `z1 = g(z1)` is well-formed, where `_typeof(z) z1 = z`.
+* `f` and `g` is a [@http://planetmath.org/encyclopedia/Mapping.html mapping], meaning that `a == b` implies `f(a) == f(b)`.
+
+[h3 Example]
+    boost::optional<int> mod(int i)
+    {
+        if (i == 0)
+            return boost::optional<int>();
+
+        return i % 10;
+    }
+
+    void test()
+    {
+        int const answer[] = { 1,5,4,1,9,2,3,6,1 };
+        BOOST_CHECK( equals(unfold(163291451, &mod, lambda::_1 / 10), answer) );
+    }
+
+[h3 See also]
+* [link oven.generation generation]
+* [link oven.iteration iteration]
 
 [endsect]
 

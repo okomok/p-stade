@@ -52,8 +52,8 @@ namespace pstade { namespace egg {
     } // namespace copy_assign_detail
 
 
-    typedef result_of_auxiliary1<copy_assign_detail::op>::type op_copy_assign;
-    PSTADE_POD_CONSTANT((op_copy_assign), copy_assign) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_auxiliary1<copy_assign_detail::op>::type T_copy_assign;
+    PSTADE_POD_CONSTANT((T_copy_assign), copy_assign) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

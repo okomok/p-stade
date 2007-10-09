@@ -36,17 +36,17 @@ struct my_ptr
     boost::shared_ptr<T> m_ptr;
 };
 
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), op_to_shared_ptr(int *))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), op_to_shared_ptr(std::auto_ptr<int>))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), op_to_shared_ptr(boost::shared_ptr<int>))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(int *))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(std::auto_ptr<int>))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(boost::shared_ptr<int>))
 
 
 struct B { virtual ~B() { } };
 struct D : B { };
 
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), xp_to_shared_ptr<B>(D *))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), xp_to_shared_ptr<B>(std::auto_ptr<D>))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), xp_to_shared_ptr<B>(boost::shared_ptr<D>))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(D *))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(std::auto_ptr<D>))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(boost::shared_ptr<D>))
 
 
 
@@ -57,7 +57,7 @@ void pstade_minimal_test()
         BOOST_CHECK( *(p.m_ptr) == 3 );
     }
     {
-        my_ptr<int> p(xp_new_auto<int>()(3));
+        my_ptr<int> p(X_new_auto<int>()(3));
         BOOST_CHECK( *(p.m_ptr) == 3 );
     }
     {

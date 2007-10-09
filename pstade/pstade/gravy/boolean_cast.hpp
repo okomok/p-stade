@@ -67,7 +67,7 @@ namespace pstade { namespace gravy {
 
 
     template<class To>
-    struct xp_boolean_cast
+    struct X_boolean_cast
     {
         typedef To result_type;
 
@@ -79,7 +79,7 @@ namespace pstade { namespace gravy {
         }
     };
 
-    PSTADE_EGG_SPECIFIED1(boolean_cast, xp_boolean_cast, (class))
+    PSTADE_EGG_SPECIFIED1(boolean_cast, X_boolean_cast, (class))
 
 
 } } // namespace pstade::gravy

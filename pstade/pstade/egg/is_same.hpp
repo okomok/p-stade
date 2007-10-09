@@ -18,7 +18,7 @@
 namespace pstade { namespace egg {
 
 
-    struct op_is_same
+    struct T_is_same
     {
         typedef bool result_type;
 
@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_same), is_same) = {};
+    PSTADE_POD_CONSTANT((T_is_same), is_same) = {};
 
 
 } } // namespace pstade::egg

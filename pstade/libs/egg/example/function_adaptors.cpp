@@ -39,8 +39,8 @@ struct base_my_plus
     }
 };
 
-typedef result_of_auxiliary1<base_my_plus>::type op_my_plus; /*< Notice that `N` is not `2` but `1`. >*/
-op_my_plus const my_plus = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R; /*< Sandwich base object initializer using macro. >*/
+typedef result_of_auxiliary1<base_my_plus>::type T_my_plus; /*< Notice that `N` is not `2` but `1`. >*/
+T_my_plus const my_plus = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R; /*< Sandwich base object initializer using macro. >*/
 
 void test_auxiliary()
 {
@@ -55,8 +55,8 @@ void test_auxiliary()
 
 
 //[code_curry_example
-typedef result_of_curry2<op_my_plus>::type op_curried_plus;
-op_curried_plus const curried_plus
+typedef result_of_curry2<T_my_plus>::type T_curried_plus;
+T_curried_plus const curried_plus
     =
 PSTADE_EGG_CURRY2_L
     PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R
@@ -73,7 +73,7 @@ void test_curry()
 
 //[code_indirect_example
 result_of_uncurry<
-    result_of_indirect<op_curried_plus const *>::type
+    result_of_indirect<T_curried_plus const *>::type
 >::type const another_plus
     =
 PSTADE_EGG_UNCURRY_L
@@ -108,7 +108,7 @@ void test_lazy()
 
 
 //[code_memoize_example
-struct op_fib
+struct T_fib
 {
     typedef int result_type;
 
@@ -124,7 +124,7 @@ struct op_fib
     }
 };
 
-op_fib const fib = {};
+T_fib const fib = {};
 
 void test_memoize()
 {

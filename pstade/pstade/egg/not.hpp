@@ -40,10 +40,10 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_not_;
+    T_not_;
 
 
-    PSTADE_POD_CONSTANT((op_not_), not_) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_not_), not_) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

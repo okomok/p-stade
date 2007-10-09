@@ -41,8 +41,8 @@ namespace pstade { namespace egg {
     } // namespace make_function_of_detail
 
 
-    typedef function<make_function_of_detail::baby, by_value> op_make_function_of;
-    PSTADE_POD_CONSTANT((op_make_function_of), make_function_of) = {{}};
+    typedef function<make_function_of_detail::baby, by_value> T_make_function_of;
+    PSTADE_POD_CONSTANT((T_make_function_of), make_function_of) = {{}};
 
 
 } } // namespace pstade::egg

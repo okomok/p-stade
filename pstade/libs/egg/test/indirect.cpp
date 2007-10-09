@@ -22,7 +22,7 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-struct op_foo
+struct T_foo
 {
     typedef int result_type;
 
@@ -33,16 +33,16 @@ struct op_foo
 };
 
 
-result_of_indirect<op_indirect const *>::type const
+result_of_indirect<T_indirect const *>::type const
     inindirect = PSTADE_EGG_INDIRECT(&indirect);
 
 
 void pstade_minimal_test()
 {
     {
-        ::op_foo foo;
+        ::T_foo foo;
 
-        typedef pstade::result_of<op_indirect(::op_foo *)>::type ip_t;
+        typedef pstade::result_of<T_indirect(::T_foo *)>::type ip_t;
         ip_t ip = PSTADE_EGG_INDIRECT_L &foo PSTADE_EGG_INDIRECT_R;
 
         PSTADE_TEST_IS_RESULT_OF((int), ip_t(int, int))
@@ -53,7 +53,7 @@ void pstade_minimal_test()
         BOOST_CHECK( r == 9 );
     }
     {
-        ::op_foo foo;
+        ::T_foo foo;
         int volatile i = 1;
         int r = inindirect(&foo)(i, 2);
         BOOST_CHECK( r == 3 );

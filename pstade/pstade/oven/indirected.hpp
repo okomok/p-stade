@@ -76,7 +76,7 @@ template<
     class Reference  = boost::use_default,
     class Difference = boost::use_default
 >
-struct xp_make_indirected :
+struct X_make_indirected :
     tp_make_indirected<Value, Traversal, Reference, Difference>::type
 { };
 

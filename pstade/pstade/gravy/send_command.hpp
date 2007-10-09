@@ -19,7 +19,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_send_command
+    struct T_send_command
     {
         typedef BOOL result_type;
 
@@ -30,7 +30,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_send_message), send_message) = {};
+    PSTADE_POD_CONSTANT((T_send_message), send_message) = {};
 
 
 } } // namespace pstade::gravy

@@ -43,10 +43,10 @@ namespace copy_range_detail {
     {
         template< class From >
         static typename result_of<
-            op_make_transformed(From&, egg::xp_copy<ValueTo>)
+            T_make_transformed(From&, egg::X_copy<ValueTo>)
         >::type call(From& from)
         {
-            return make_transformed(from, egg::xp_copy<ValueTo>());
+            return make_transformed(from, egg::X_copy<ValueTo>());
         }
     };
 
@@ -66,7 +66,7 @@ namespace copy_range_detail {
 
 
 template< class To >
-struct xp_copy_range
+struct X_copy_range
 {
     typedef To result_type;
 
@@ -96,7 +96,7 @@ struct xp_copy_range
 
 
 PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
-    PSTADE_EGG_SPECIFIED1(copy_range, xp_copy_range, (class))
+    PSTADE_EGG_SPECIFIED1(copy_range, X_copy_range, (class))
 }
 
 
@@ -111,7 +111,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
         PSTADE_CONCEPT_USAGE(Copyable)
         {
             rng_t& from = unevaluated<rng_t&>();
-            rng_t rng = xp_copy_range<rng_t>()(make_identities(from)); 
+            rng_t rng = X_copy_range<rng_t>()(make_identities(from)); 
         }
     };
 

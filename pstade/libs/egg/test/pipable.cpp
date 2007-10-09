@@ -101,7 +101,7 @@ PSTADE_decl_pipable(my_append, (my_append_t))
 
 using namespace pstade::egg;
 
-result_of_pipable<op_large_arity_id0, by_cref>::type const lar = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
+result_of_pipable<T_large_arity_id0, by_cref>::type const lar = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
 
 
 void pstade_minimal_test()

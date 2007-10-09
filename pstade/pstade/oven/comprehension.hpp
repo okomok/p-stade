@@ -55,14 +55,14 @@ namespace comprehension_detail {
         template< class Myself, class Value1, class Value2 = void >
         struct apply :
             result_of<
-                detail::op_monad_bind(
+                detail::T_monad_bind(
                     typename result_of<MakeRange const(Value1&, Value2&)>::type,
                     typename result_of<
-                        egg::op_lambda_bind(
-                            typename result_of<egg::op_lambda_unlambda(Function const&)>::type,
+                        egg::T_lambda_bind(
+                            typename result_of<egg::T_lambda_unlambda(Function const&)>::type,
                             Value1&,
                             Value2&,
-                            egg::op_lambda_1 const&
+                            egg::T_lambda_1 const&
                         )
                     >::type
                 )
@@ -86,13 +86,13 @@ namespace comprehension_detail {
         template< class Myself, class Value1 >
         struct apply<Myself, Value1> :
             result_of<
-                detail::op_monad_bind(
+                detail::T_monad_bind(
                     typename result_of<MakeRange const(Value1&)>::type,
                     typename result_of<
-                        egg::op_lambda_bind(
-                            typename result_of<egg::op_lambda_unlambda(Function const&)>::type,
+                        egg::T_lambda_bind(
+                            typename result_of<egg::T_lambda_unlambda(Function const&)>::type,
                             Value1&,
-                            egg::op_lambda_1 const&
+                            egg::T_lambda_1 const&
                         )
                     >::type
                 )
@@ -125,9 +125,9 @@ namespace comprehension_detail {
         egg::generator<
             nested< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >
         >::type
-    op_make_nested;
+    T_make_nested;
 
-    PSTADE_POD_CONSTANT((op_make_nested), make_nested) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_make_nested), make_nested) = PSTADE_EGG_GENERATOR;
 
 
     template< class Expr, class Guard >
@@ -137,7 +137,7 @@ namespace comprehension_detail {
         template< class Myself, class Value1, class Value2 = void, class Value3 = void >
         struct apply :
             result_of<
-                detail::op_monad_unit(typename result_of<Expr const(Value1&, Value2&, Value3&)>::type)
+                detail::T_monad_unit(typename result_of<Expr const(Value1&, Value2&, Value3&)>::type)
             >
         { };
 
@@ -149,13 +149,13 @@ namespace comprehension_detail {
             if (m_guard(v1, v2, v3))
                 return detail::monad_unit(m_expr(v1, v2, v3));
             else
-                return detail::xp_monad_zero<val_t>()();
+                return detail::X_monad_zero<val_t>()();
         }
 
         template< class Myself, class Value1, class Value2 >
         struct apply<Myself, Value1, Value2> :
             result_of<
-                detail::op_monad_unit(typename result_of<Expr const(Value1&, Value2&)>::type)
+                detail::T_monad_unit(typename result_of<Expr const(Value1&, Value2&)>::type)
             >
         { };
 
@@ -167,13 +167,13 @@ namespace comprehension_detail {
             if (m_guard(v1, v2))
                 return detail::monad_unit(m_expr(v1, v2));
             else
-                return detail::xp_monad_zero<val_t>()();
+                return detail::X_monad_zero<val_t>()();
         }
 
         template< class Myself, class Value1 >
         struct apply<Myself, Value1> :
             result_of<
-                detail::op_monad_unit(typename result_of<Expr const(Value1&)>::type)
+                detail::T_monad_unit(typename result_of<Expr const(Value1&)>::type)
             >
         { };
 
@@ -185,7 +185,7 @@ namespace comprehension_detail {
             if (m_guard(v1))
                 return detail::monad_unit(m_expr(v1));
             else
-                return detail::xp_monad_zero<val_t>()();
+                return detail::X_monad_zero<val_t>()();
         }
 
         unit_expr(Expr expr, Guard guard) :
@@ -201,9 +201,9 @@ namespace comprehension_detail {
         egg::generator<
             unit_expr< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >
         >::type
-    op_make_unit_expr;
+    T_make_unit_expr;
 
-    PSTADE_POD_CONSTANT((op_make_unit_expr), make_unit_expr) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_make_unit_expr), make_unit_expr) = PSTADE_EGG_GENERATOR;
 
 
     struct baby
@@ -211,15 +211,15 @@ namespace comprehension_detail {
         template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 = void, class MakeRange3 = void >
         struct apply :
             result_of<
-                detail::op_monad_bind(
+                detail::T_monad_bind(
                     typename result_of<MakeRange1()>::type,
                     typename result_of<
-                        op_make_nested(
+                        T_make_nested(
                             MakeRange2&,
                             typename result_of<
-                                op_make_nested(
+                                T_make_nested(
                                     MakeRange3&,
-                                    typename result_of<op_make_unit_expr(Expr&, Guard&)>::type
+                                    typename result_of<T_make_unit_expr(Expr&, Guard&)>::type
                                 )
                             >::type
                         )
@@ -252,12 +252,12 @@ namespace comprehension_detail {
         template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 >
         struct apply<Myself, Expr, Guard, MakeRange1, MakeRange2> :
             result_of<
-                detail::op_monad_bind(
+                detail::T_monad_bind(
                     typename result_of<MakeRange1()>::type,
                     typename result_of<
-                        op_make_nested(
+                        T_make_nested(
                             MakeRange2&,
-                            typename result_of<op_make_unit_expr(Expr&, Guard&)>::type
+                            typename result_of<T_make_unit_expr(Expr&, Guard&)>::type
                         )
                     >::type
                 )
@@ -282,9 +282,9 @@ namespace comprehension_detail {
         template< class Myself, class Expr, class Guard, class MakeRange1 >
         struct apply<Myself, Expr, Guard, MakeRange1> :
             result_of<
-                detail::op_monad_bind(
+                detail::T_monad_bind(
                     typename result_of<MakeRange1()>::type,
-                    typename result_of<op_make_unit_expr(Expr&, Guard&)>::type
+                    typename result_of<T_make_unit_expr(Expr&, Guard&)>::type
                 )
             >
         { };
@@ -303,8 +303,8 @@ namespace comprehension_detail {
 } // namespace comprehension_detail
 
 
-typedef egg::function<comprehension_detail::baby> op_comprehension;
-PSTADE_POD_CONSTANT((op_comprehension), comprehension) = {{}};
+typedef egg::function<comprehension_detail::baby> T_comprehension;
+PSTADE_POD_CONSTANT((T_comprehension), comprehension) = {{}};
 
 
 // always_return
@@ -382,8 +382,8 @@ namespace always_return_detail {
 } // namespace always_return_detail
 
 
-typedef egg::function<always_return_detail::baby> op_always_return;
-PSTADE_POD_CONSTANT((op_always_return), always_return) = {{}};
+typedef egg::function<always_return_detail::baby> T_always_return;
+PSTADE_POD_CONSTANT((T_always_return), always_return) = {{}};
 
 
 } } // namespace pstade::oven

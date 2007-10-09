@@ -21,7 +21,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_check_window
+    struct T_check_window
     {
         typedef void result_type;
 
@@ -35,7 +35,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_check_window), check_window) = {};
+    PSTADE_POD_CONSTANT((T_check_window), check_window) = {};
 
 
 } } // namespace pstade::gravy

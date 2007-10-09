@@ -82,19 +82,19 @@ It passes adjacent pairs to a function to transform repeatedly.
         [[*Semantics]]
     ]
     [
-        [`xp_make_adjacent_transformed<R>`]
+        [`<X_make_adjacent_transformed<R>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_adjacent_transformed<R>()(_rng, _fun)`]
+        [`<X_make_adjacent_transformed<R>()(_rng, _fun)`]
         [
             `{_fun(a1,a2),_fun(a2,a3),..,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
-        [`xp_make_adjacent_transformed<>()(_rng, _cal)`]
+        [`<X_make_adjacent_transformed<>()(_rng, _cal)`]
         [
             `{_cal(a1,a2),_cal(a2,a3),..,_cal(a(N-1),aN)}`
         ]
@@ -102,7 +102,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`_rng|adjacent_transformed(_cal)`]
         [
-            `xp_make_adjacent_transformed<>()(_rng, _cal)`
+            `<X_make_adjacent_transformed<>()(_rng, _cal)`
         ]
     ]
 ]
@@ -472,13 +472,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`xp_make_converted<To>`]
+        [`<X_make_converted<To>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_converted<To>()(_rng)`]
+        [`<X_make_converted<To>()(_rng)`]
         [
             `_rng|transformed(f_)`
         ]
@@ -486,7 +486,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`oven::make_converted<To>(_rng)`]
         [
-            `xp_make_converted<To>()(_rng)`
+            `<X_make_converted<To>()(_rng)`
         ]
     ]
     [
@@ -498,7 +498,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|converted<To>()`]
         [
-            `xp_make_converted<To>()(_rng)`
+            `<X_make_converted<To>()(_rng)`
         ]
     ]
 ]
@@ -783,13 +783,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`xp_make_elements<N, Ref = boost::use_default>`]
+        [`<X_make_elements<N, Ref = boost::use_default>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_elements<N, Ref = boost::use_default>()(_rng)`]
+        [`<X_make_elements<N, Ref = boost::use_default>()(_rng)`]
         [
             `_rng|transformed(to_Nth)`
         ]
@@ -797,7 +797,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`oven::make_elements<N>(_rng)`]
         [
-            `xp_make_elements<N>()(_rng)`
+            `<X_make_elements<N>()(_rng)`
         ]
     ]
     [
@@ -809,7 +809,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|elements<N>()`]
         [
-            `xp_make_elements<N>()(_rng)`
+            `<X_make_elements<N>()(_rng)`
         ]
     ]
 ]
@@ -850,9 +850,9 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`xp_make_elements_c<n, Ref = boost::use_default>`]
+        [`<X_make_elements_c<n, Ref = boost::use_default>`]
         [
-            `xp_make_elements<boost::mpl::int_<n>, Ref>`
+            `<X_make_elements<boost::mpl::int_<n>, Ref>`
         ]
     ]
     [
@@ -991,13 +991,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`xp_make_indirected<X1,..,XN>`]
+        [`<X_make_indirected<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_indirected<X1,..,XN>()(_rng)`]
+        [`<X_make_indirected<X1,..,XN>()(_rng)`]
         [
             `[T(_begin(_rng), T(_end(_rng)))`
         ]
@@ -1005,7 +1005,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|indirected`]
         [
-           `xp_make_indirected<>()(_rng)`
+           `<X_make_indirected<>()(_rng)`
         ]
     ]
 ]
@@ -1939,13 +1939,13 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`xp_make_transformed<R = boost::use_default>`]
+        [`<X_make_transformed<R = boost::use_default>`]
         [
            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_transformed<R = boost::use_default>()(_rng, _fun)`]
+        [`<X_make_transformed<R = boost::use_default>()(_rng, _fun)`]
         [
             `[T(_begin(_rng), _fun), T(_end(_rng), _fun))`
         ]
@@ -1953,7 +1953,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`_rng|transformed(_cal)`]
         [
-            `xp_make_transformed<>()(_rng, _cal)`
+            `<X_make_transformed<>()(_rng, _cal)`
         ]
     ]
 ]

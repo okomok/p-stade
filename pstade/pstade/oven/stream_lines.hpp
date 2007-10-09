@@ -60,7 +60,7 @@ struct tp_stream_lines
 
 
 template< class Allocator = boost::use_default >
-struct xp_stream_lines :
+struct X_stream_lines :
     tp_stream_lines<Allocator>::type
 { };
 

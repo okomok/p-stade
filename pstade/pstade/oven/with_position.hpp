@@ -77,7 +77,7 @@ PSTADE_OVEN_BABY_TO_ADAPTOR(with_position, (with_position_detail::baby))
 //
 
 template< class Position >
-struct xp_position
+struct X_position
 {
     typedef Position result_type;
 
@@ -97,7 +97,7 @@ struct xp_position
     }
 };
 
-PSTADE_EGG_SPECIFIED1(position, xp_position, (class))
+PSTADE_EGG_SPECIFIED1(position, X_position, (class))
 
 
 } } // namespace pstade::oven

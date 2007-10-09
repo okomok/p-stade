@@ -26,7 +26,7 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
-pstade::result_of<op_shared_single(char *)>::type
+pstade::result_of<T_shared_single(char *)>::type
 make_rng()
 {
     return shared_single(new char('a'));
@@ -52,7 +52,7 @@ void pstade_unit_test()
         BOOST_CHECK( equals(::make_rng(), ans) );
     }
     {
-        BOOST_CHECK( equals(shared_single(pstade::egg::xp_new_auto<char>()('a')), ans) );
+        BOOST_CHECK( equals(shared_single(pstade::egg::X_new_auto<char>()('a')), ans) );
     }
 }
 

@@ -103,9 +103,9 @@ typedef
         boost::use_default,
         egg::use_brace_level1
     >::type
-op_range_based1;
+T_range_based1;
 
-PSTADE_POD_CONSTANT((op_range_based1), range_based1) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_range_based1), range_based1) = PSTADE_EGG_GENERATOR;
 
 
 } } } // namespace pstade::oven::detail

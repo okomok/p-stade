@@ -29,7 +29,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_modify_menu
+    struct T_modify_menu
     {
         typedef bool result_type;
 
@@ -63,7 +63,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_modify_menu), modify_menu) = {};
+    PSTADE_POD_CONSTANT((T_modify_menu), modify_menu) = {};
 
 
 } } // namespace pstade::gravy

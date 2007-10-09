@@ -11,9 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/implicit_cast.hpp>
+#include <typeinfo>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/none.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/enable_if.hpp>
@@ -110,7 +112,7 @@ public:
         self_t().swap(*this);
     }
 
-    PSTADE_RESET_ASSIGNMENT(self_t)
+    PSTADE_RESET_ASSIGNMENT(any_range)
 
 // swappable
     void swap(self_t& other)
@@ -157,9 +159,9 @@ typedef
             range_difference<boost::mpl::_1>
         > const
     >::type
-op_make_any_range;
+T_make_any_range;
 
-PSTADE_POD_CONSTANT((op_make_any_range), make_any_range) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_make_any_range), make_any_range) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

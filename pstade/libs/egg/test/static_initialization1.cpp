@@ -14,7 +14,7 @@
 #include "./static_initialization.hpp"
 
 
-op_my_id const &get_my_id1( )
+T_my_id const &get_my_id1( )
 {
    return my_id;
 }
@@ -22,7 +22,7 @@ op_my_id const &get_my_id1( )
 int i = get_my_id2().baby().touch;
 
 
-op_my_idr const &get_my_idr1( )
+T_my_idr const &get_my_idr1( )
 {
    return my_idr;
 }
@@ -30,13 +30,13 @@ op_my_idr const &get_my_idr1( )
 int ir = get_my_idr2().baby().base().baby().touch;
 
 
-op_my_func const &get_my_func1( )
+T_my_func const &get_my_func1( )
 {
    return my_func;
 }
 
 
-op_my_idrr const &get_my_idrr1( )
+T_my_idrr const &get_my_idrr1( )
 {
    return my_idrr;
 }
@@ -56,7 +56,7 @@ int ifun = get_my_func2().
     touch;
 
 
-op_pipa const &get_pipa1( )
+T_pipa const &get_pipa1( )
 {
    return pipa;
 }
@@ -64,7 +64,7 @@ op_pipa const &get_pipa1( )
 int ipi = get_pipa2().baby().base().touch;
 
 
-op_auxi const &get_auxi1( )
+T_auxi const &get_auxi1( )
 {
    return auxi;
 }

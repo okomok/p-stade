@@ -99,7 +99,7 @@ template<
     class CharT  = boost::use_default,
     class Traits = boost::use_default
 >
-struct xp_make_tokenized :
+struct X_make_tokenized :
     tp_make_tokenized<CharT, Traits>::type
 { };
 

@@ -40,8 +40,8 @@ namespace pstade { namespace egg {
 
 
 // 1ary-
-#define PSTADE_in_apply(Z, N, _) typedef typename result_of<detail::xp_get_arg<Base, N>(NamedArgs&, boost::fusion::vector<BOOST_PP_ENUM_PARAMS(N, t_b)>)>::type BOOST_PP_CAT(t_b, N);
-#define PSTADE_in_call(Z, N, _)  typename apply_::BOOST_PP_CAT(t_b, N) BOOST_PP_CAT(b, N) = detail::xp_get_arg<Base, N>()(nargs, boost::fusion::vector<BOOST_PP_ENUM_PARAMS(N, typename apply_::t_b)>(BOOST_PP_ENUM_PARAMS(N, b)));
+#define PSTADE_in_apply(Z, N, _) typedef typename result_of<detail::X_get_arg<Base, N>(NamedArgs&, boost::fusion::vector<BOOST_PP_ENUM_PARAMS(N, t_b)>)>::type BOOST_PP_CAT(t_b, N);
+#define PSTADE_in_call(Z, N, _)  typename apply_::BOOST_PP_CAT(t_b, N) BOOST_PP_CAT(b, N) = detail::X_get_arg<Base, N>()(nargs, boost::fusion::vector<BOOST_PP_ENUM_PARAMS(N, typename apply_::t_b)>(BOOST_PP_ENUM_PARAMS(N, b)));
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/named.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_in_call
@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
     struct PSTADE_PP_CAT3(result_of_, named, n) :
         result_of_unfuse<
             function<PSTADE_PP_CAT3(baby_fused_named, n, _result)<Base>, by_cref>,
-            op_fusion_pack,
+            T_fusion_pack,
             NullaryResult,
             by_cref
         >
@@ -106,8 +106,8 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef function<BOOST_PP_CAT(baby_named, n), by_value> BOOST_PP_CAT(op_named, n);
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_named, n)), BOOST_PP_CAT(named, n)) = PSTADE_EGG_GENERATOR;
+    typedef function<BOOST_PP_CAT(baby_named, n), by_value> BOOST_PP_CAT(T_named, n);
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_named, n)), BOOST_PP_CAT(named, n)) = PSTADE_EGG_GENERATOR;
 
 
 #undef n

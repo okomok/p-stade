@@ -68,12 +68,12 @@ struct tp_make_broken_into
 
 
 template< class Type >
-struct xp_make_broken_into :
+struct X_make_broken_into :
     tp_make_broken_into<Type>::type
 { };
 
 
-PSTADE_EGG_SPECIFIED1(make_broken_into, xp_make_broken_into, (class))
+PSTADE_EGG_SPECIFIED1(make_broken_into, X_make_broken_into, (class))
 
 
 namespace broken_into_detail_ {
@@ -94,17 +94,17 @@ namespace broken_into_detail_ {
 
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename result_of<xp_make_broken_into<Type>(Range&, TokenizerFun&)>::type
+    typename result_of<X_make_broken_into<Type>(Range&, TokenizerFun&)>::type
     operator|(Range& rng, pipe<Type, TokenizerFun> pi)
     {
-        return xp_make_broken_into<Type>()(rng, pi.m_fun);
+        return X_make_broken_into<Type>()(rng, pi.m_fun);
     }
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename result_of<xp_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun&)>::type
+    typename result_of<X_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun&)>::type
     operator|(Range const& rng, pipe<Type, TokenizerFun> pi)
     {
-        return xp_make_broken_into<Type>()(rng, pi.m_fun);
+        return X_make_broken_into<Type>()(rng, pi.m_fun);
     }
 
 

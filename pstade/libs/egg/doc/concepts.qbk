@@ -3,30 +3,22 @@
 
 
 
-[section Operatable Object]
+[section Constant Lvalue]
 
 [heading Description]
-An __OPERATABLE_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which can specify the type of itself by using prefix `op_`.
+A __CONSTANT_LVALUE__ is a /const qualified/ lvalue.
 
 [heading Refinement of]
-* __DEFERRED_CALLABLE_OBJECT__
+* ...
 
 [heading Requirements]
-In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
-for any __OPERATABLE_OBJECT__ `f` the following must be met:
+For any __CONSTANT_LVALUE__ `x` the following must be met:
 
-* `op_++f` is `_typeof(f)`.
-* `op_++f` is a /POD/ type unless otherwise specified.
-* `boost::result_of<op_++f(a1,...,aN)>::type` is the same as `boost::result_of<op_++f const(a1,...,aN)>::type`.
-* `f` is a /const-qualified/ but not /volatile-qualified/ lvalue.
-* `f` is /statically initialized/ if `op_++f` is a /POD/ type.
+* `x` is a lvalue.
+* `boost::remove_reference<_decltype(x)>::type` is `_typeof(x) const`.
 
 [heading Example]
-    int length_impl(std::string const &str) { ... }
-    typedef int (*op_length)(std::string const &);
-
-    // length is an OperatableObject.
-    op_length const length = &length_impl;
+	int const x = 0; // x is a ConstantLvalue.
 
 [heading Models]
 * ...
@@ -39,56 +31,28 @@ for any __OPERATABLE_OBJECT__ `f` the following must be met:
 
 
 
-[section Auxiliary Interface]
+[section Lexically Typed Object]
 
 [heading Description]
-An __AUXILIARY_INTERFACE__ is a __DEFERRED_CALLABLE_OBJECT__ which supports a pipe-like syntax
-used as if it were a /member function/.
+A __LEXICALLY_TYPED_OBJECT__ is an object whose type is referable by using prefix `T_`.
 
 [heading Refinement of]
-* __DEFERRED_CALLABLE_OBJECT__
+* ...
 
 [heading Requirements]
-In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
-for any __AUXILIARY_INTERFACE__ `i` the following must be met:
+For any __LEXICALLY_TYPED_OBJECT__ `x` the following must be met:
 
-* `x|i(x1,..,xN)` is a valid expression if and only if `i(x, x1,..,xN)` is a valid expression.
-* `x|i(x1,..xN)` and `i(x, x1,..,xN)` have the same effects.
-* If `N` is `0`, `x|i()` and `x|i` are valid expressions which has the same effects.
+* `T_++x` is `_typeof(x)`.
+
+[heading Example]
+	int x;
+	typedef int T_x; // Now x is a LexicallyTypedObject.
 
 [heading Models]
 * ...
 
 [heading See also]
-* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf Auxiliary class interfaces]
-* __PIPABLE_OBJECT__
-
-[endsect]
-
-
-
-
-[section Pipable Object]
-
-[heading Description]
-A __PIPABLE_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which supports a pipe-like syntax using `operator|` and `operator|=`.
-
-[heading Refinement of]
-* __DEFERRED_CALLABLE_OBJECT__
-
-[heading Requirements]
-In addition to the requirements defined in __DEFERRED_CALLABLE_OBJECT__,
-for any __PIPABLE_OBJECT__ `p` the following must be met:
-
-* `x|p(x1,..,xN)` is a valid expresion if and only if `p(x1,..,xN)|=x` is a valid expression.
-* `x|p(x1,..,xN)` and `p(x1,..,xN)|=x` have the same effects.
-* If `N` is `0`, `x|p()`, `x|p`, `p|=x` and `p()|=x` are valid expressions which has the same effects.
-
-[heading Models]
-* ...
-
-[heading See also]
-* __AUXILIARY_INTERFACE__
+* __STATIC_FUNCTION_OBJECT__
 
 [endsect]
 
@@ -117,6 +81,93 @@ for any __BINDABLE_OBJECT__ `b` the following must be met:
 
 [endsect]
 
+
+
+
+[section Pipable Object]
+
+[heading Description]
+A __PIPABLE_OBJECT__ is an object which behaves as if it were a "pipe" using `operator|` and `operator|=`.
+
+[heading Refinement of]
+* __COPY_CONSTRUCTIBLE__
+
+[heading Requirements]
+In addition to the requirements defined in __COPY_CONSTRUCTIBLE__,
+for any __PIPABLE_OBJECT__ `p` the following must be met:
+
+* `x|p(x1,..,xN)` is a valid expresion if and only if `p(x1,..,xN)|=x` is a valid expression.
+* `x|p(x1,..,xN)` and `p(x1,..,xN)|=x` have the same effects.
+* If `N` is `0`, `x|p()`, `x|p`, `p|=x` and `p()|=x` are valid expressions which has the same effects.
+
+[heading Models]
+* ...
+
+[heading See also]
+* __AUXILIARY_INTERFACE__
+
+[endsect]
+
+
+
+
+[section Static Function Object]
+
+[heading Description]
+A __STATIC_FUNCTION_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which is /statically initialized/.
+
+[heading Refinement of]
+* __BINDABLE_OBJECT__
+* __CONSTANT_LVALUE__
+* __DEFERRED_CALLABLE_OBJECT__
+* __LEXICALLY_TYPED_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in __BINDABLE_OBJECT__, __CONSTANT_LVALUE__, __DEFERRED_CALLABLE_OBJECT__, and __LEXICALLY_TYPED_OBJECT__,
+for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
+
+* `_typeof(f)` is a /POD/ type unless otherwise specified.
+* `boost::result_of<_typeof(f)(a1,...,aN)>::type` is the same as `boost::result_of<_typeof(f) const(a1,...,aN)>::type`.
+* `f` is /statically initialized/ if `_typeof(f)` is a /POD/ type.
+
+[heading Example]
+...
+
+[heading Models]
+* ...
+
+[heading See also]
+* __BOOST_RESULT_OF__
+
+[endsect]
+
+
+
+
+[section Auxiliary Interface]
+
+[heading Description]
+An __AUXILIARY_INTERFACE__ is a __STATIC_FUNCTION_OBJECT__ which can be used as if it were a /member function/.
+
+[heading Refinement of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in __STATIC_FUNCTION_OBJECT__,
+for any __AUXILIARY_INTERFACE__ `i` the following must be met:
+
+* `x|i(x1,..,xN)` is a valid expression if and only if `i(x, x1,..,xN)` is a valid expression.
+* `x|i(x1,..xN)` and `i(x, x1,..,xN)` have the same effects.
+* If `N` is `0`, `x|i()` and `x|i` are valid expressions which has the same effects.
+
+[heading Models]
+* ...
+
+[heading See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf Auxiliary class interfaces]
+* __PIPABLE_OBJECT__
+
+[endsect]
 
 
 
@@ -165,7 +216,7 @@ meaning that you must add `const` to /const-qualified/ __FUNCTION_OBJECT__ type:
 [code_result_of_tutorial3]
 
 However, if a library guarantees the same behavior between /const-qualified/ type and
-non-/const-qualified/ type (as __OPERATABLE_OBJECT__ does so), you could omit `const`:
+non-/const-qualified/ type (as __STATIC_FUNCTION_OBJECT__ does so), you could omit `const`:
 [code_result_of_tutorial4]
 
 [heading Bugs]

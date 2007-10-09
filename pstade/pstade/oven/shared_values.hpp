@@ -35,7 +35,7 @@ namespace pstade { namespace oven {
 
 
 template< class Value = boost::use_default >
-struct xp_shared_values
+struct X_shared_values
 {
     template< class A >
     struct value_ :
@@ -53,14 +53,14 @@ struct xp_shared_values
 };
 
 
-typedef xp_shared_values<> op_shared_values;
-PSTADE_POD_CONSTANT((op_shared_values), shared_values) = {};
+typedef X_shared_values<> T_shared_values;
+PSTADE_POD_CONSTANT((T_shared_values), shared_values) = {};
 
 
 template< class Value, std::size_t N >
 struct result_of_shared_values :
     result_of<
-        op_shared(boost::array<Value, N> *)
+        T_shared(boost::array<Value, N> *)
     >
 { };
 
@@ -77,7 +77,7 @@ private:
     template< BOOST_PP_ENUM_PARAMS(n, class A) >
     struct BOOST_PP_CAT(result, n) :
         result_of<
-            op_shared(boost::array<typename value_<A0>::type, n> *)
+            T_shared(boost::array<typename value_<A0>::type, n> *)
         >
     { };
 

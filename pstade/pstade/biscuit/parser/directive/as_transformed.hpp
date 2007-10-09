@@ -38,10 +38,10 @@ struct as_transformed
         typedef typename oven::iter_range_of<State>::type iter_rng_t;
         iter_rng_t rng(s.get_cur(), boost::end(s));
 
-        typedef typename result_of<oven::xp_make_transformed<Reference, Value>(iter_rng_t&, UnaryFun)>::type
+        typedef typename result_of<oven::X_make_transformed<Reference, Value>(iter_rng_t&, UnaryFun)>::type
             trns_rng_t;
 
-        trns_rng_t trns_rng = oven::xp_make_transformed<Reference, Value>()(rng, UnaryFun());
+        trns_rng_t trns_rng = oven::X_make_transformed<Reference, Value>()(rng, UnaryFun());
 
         typedef typename state_class<State>::type state_class_t;
         typedef typename state_match_results<State>::type results_t;
