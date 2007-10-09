@@ -92,20 +92,20 @@ struct tp_unrolled_reduce
 
 
 template< class N >
-struct xp_unrolled_reduce :
+struct X_unrolled_reduce :
     tp_unrolled_reduce<N>::type
 { };
 
 template< int N >
-struct xp_unrolled_reduce_c :
-    xp_unrolled_reduce< boost::mpl::int_<N> >
+struct X_unrolled_reduce_c :
+    X_unrolled_reduce< boost::mpl::int_<N> >
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((3), unrolled_reduce, xp_unrolled_reduce, (class))
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((3), unrolled_reduce, X_unrolled_reduce, (class))
 #include PSTADE_EGG_SPECIFIED()
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((3), unrolled_reduce_c, xp_unrolled_reduce_c, (int))
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((3), unrolled_reduce_c, X_unrolled_reduce_c, (int))
 #include PSTADE_EGG_SPECIFIED()
 
 

@@ -24,8 +24,8 @@ int plus(int x, int y)
     return x + y;
 }
 
-typedef result_of_curry2<int (*)(int, int)>::type op_curried_plus;
-op_curried_plus const curried_plus = PSTADE_EGG_CURRY2_L &::plus PSTADE_EGG_CURRY2_R;
+typedef result_of_curry2<int (*)(int, int)>::type T_curried_plus;
+T_curried_plus const curried_plus = PSTADE_EGG_CURRY2_L &::plus PSTADE_EGG_CURRY2_R;
 
 void test()
 {

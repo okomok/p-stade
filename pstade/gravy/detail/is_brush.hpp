@@ -18,7 +18,7 @@
 namespace pstade { namespace gravy { namespace detail {
 
 
-    struct op_is_brush
+    struct T_is_brush
     {
         typedef bool result_type;
 
@@ -31,7 +31,7 @@ namespace pstade { namespace gravy { namespace detail {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_brush), is_brush) = {};
+    PSTADE_POD_CONSTANT((T_is_brush), is_brush) = {};
 
 
 } } } // namespace pstade::gravy::detail

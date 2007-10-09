@@ -19,7 +19,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_is_mdi_client_and_child
+    struct T_is_mdi_client_and_child
     {
         typedef bool result_type;
 
@@ -30,7 +30,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_mdi_client_and_child), is_mdi_client_and_child) = {};
+    PSTADE_POD_CONSTANT((T_is_mdi_client_and_child), is_mdi_client_and_child) = {};
 
 
 } } // namespace pstade::gravy

@@ -20,7 +20,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_is_object_of
+    struct T_is_object_of
     {
         typedef bool result_type;
 
@@ -32,7 +32,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_object_of), is_object_of) = {};
+    PSTADE_POD_CONSTANT((T_is_object_of), is_object_of) = {};
 
 
 } } // namespace pstade::gravy

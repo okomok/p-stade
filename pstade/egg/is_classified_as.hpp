@@ -17,7 +17,7 @@
 namespace pstade { namespace egg {
 
 
-    struct op_is_classified_as
+    struct T_is_classified_as
     {
         typedef bool result_type;
 
@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_classified_as), is_classified_as) = {};
+    PSTADE_POD_CONSTANT((T_is_classified_as), is_classified_as) = {};
 
 
 } } // namespace pstade::egg

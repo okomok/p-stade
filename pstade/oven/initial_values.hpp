@@ -114,7 +114,7 @@ namespace initial_values_detail {
 
 
 template< class Value = boost::use_default >
-struct xp_initial_values
+struct X_initial_values
 {
     template< class A >
     struct value_ :
@@ -132,8 +132,8 @@ struct xp_initial_values
 };
 
 
-typedef xp_initial_values<> op_initial_values;
-PSTADE_POD_CONSTANT((op_initial_values), initial_values) = {};
+typedef X_initial_values<> T_initial_values;
+PSTADE_POD_CONSTANT((T_initial_values), initial_values) = {};
 
 
 template< class Value, std::size_t N >

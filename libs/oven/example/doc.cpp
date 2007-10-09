@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#include <pstade/vodka/drink_loss_of_data.hpp>
 
 
 // PStade.Oven
@@ -10,13 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/vodka/drink_loss_of_data.hpp>
-
-
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
 
+#include <boost/test/minimal.hpp>
 #include "../test/detail/v1_tests.hpp"
 #include <pstade/oven.hpp>
 

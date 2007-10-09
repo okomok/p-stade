@@ -36,20 +36,20 @@ struct baby_my_id
 };
 
 
-typedef pstade::egg::function<baby_my_id> op_my_id;
-PSTADE_POD_CONSTANT((op_my_id), my_id)
+typedef pstade::egg::function<baby_my_id> T_my_id;
+PSTADE_POD_CONSTANT((T_my_id), my_id)
     = {{12}};
 
-op_my_id const &get_my_id1();
-op_my_id const &get_my_id2();
+T_my_id const &get_my_id1();
+T_my_id const &get_my_id2();
 
 
-typedef pstade::egg::result_of_indirect<op_my_id const *>::type op_my_idr;
-PSTADE_POD_CONSTANT((op_my_idr), my_idr)
+typedef pstade::egg::result_of_indirect<T_my_id const *>::type T_my_idr;
+PSTADE_POD_CONSTANT((T_my_idr), my_idr)
     = PSTADE_EGG_INDIRECT_L &my_id PSTADE_EGG_INDIRECT_R;
 
-op_my_idr const &get_my_idr1();
-op_my_idr const &get_my_idr2();
+T_my_idr const &get_my_idr1();
+T_my_idr const &get_my_idr2();
 
 
 #endif

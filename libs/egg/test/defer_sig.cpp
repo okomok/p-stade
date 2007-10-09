@@ -61,14 +61,14 @@ struct null_op
 void pstade_minimal_test()
 {
     {
-        pstade::result_of<op_defer_sig(ll::for_each)>::type adapted  = defer_sig(ll::for_each());
+        pstade::result_of<T_defer_sig(ll::for_each)>::type adapted  = defer_sig(ll::for_each());
 
         std::string s;
         adapted(s.begin()|to_ref, s.end()|to_ref, null_op()|to_ref);
         ::adapted_equal_fun(s.begin()|to_ref, s.begin()|to_ref, s.begin()|to_ref);
     }
     {
-        pstade::result_of<op_defer_nullary_sig(::nullary_sig)>::type adapted = defer_nullary_sig(::nullary_sig());
+        pstade::result_of<T_defer_nullary_sig(::nullary_sig)>::type adapted = defer_nullary_sig(::nullary_sig());
         BOOST_CHECK( adapted() == 0 );
         int i = 0;
         BOOST_CHECK( adapted(i, i) == 2 );

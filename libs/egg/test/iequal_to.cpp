@@ -20,7 +20,7 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-PSTADE_TEST_IS_RESULT_OF((bool), op_iequal_to(char, char))
+PSTADE_TEST_IS_RESULT_OF((bool), T_iequal_to(char, char))
 
 
 void pstade_minimal_test()

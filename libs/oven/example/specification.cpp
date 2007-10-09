@@ -33,7 +33,7 @@ void test()
 
     std::string src("hello, specification");
 
-    pstade::result_of<op_make_filtered(std::string&, bool(*)(char))>::type result
+    pstade::result_of<T_make_filtered(std::string&, bool(*)(char))>::type result
         = make_filtered(src, &is_upper);
     BOOST_CHECK( equals(result, src|filtered(&::is_upper)) );
 }

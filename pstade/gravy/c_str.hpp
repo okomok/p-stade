@@ -67,8 +67,8 @@ namespace pstade { namespace gravy {
     } // namespace c_str_detail
 
 
-    typedef egg::result_of_auxiliary0<c_str_detail::op>::type op_c_str;
-    PSTADE_POD_CONSTANT((op_c_str), c_str) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
+    typedef egg::result_of_auxiliary0<c_str_detail::op>::type T_c_str;
+    PSTADE_POD_CONSTANT((T_c_str), c_str) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::gravy

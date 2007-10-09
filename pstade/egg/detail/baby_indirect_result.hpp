@@ -29,7 +29,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Dereferenceable>
     struct indirecting_fun :
         boost::remove_reference<
-            typename result_of<op_dereference(Dereferenceable const&)>::type
+            typename result_of<T_dereference(Dereferenceable const&)>::type
         >
     { };
 
@@ -41,7 +41,7 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename indirecting_fun<Dereferenceable>::type base_type;
 
-        typename result_of<op_dereference(Dereferenceable const&)>::type
+        typename result_of<T_dereference(Dereferenceable const&)>::type
         base() const
         {
             return *m_der;

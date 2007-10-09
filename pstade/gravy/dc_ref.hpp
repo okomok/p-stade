@@ -19,7 +19,7 @@ namespace pstade { namespace gravy {
 
 
     typedef
-        detail::handle_ref<HDC, detail::op_is_dc>
+        detail::handle_ref<HDC, detail::T_is_dc>
     dc_ref;
 
 

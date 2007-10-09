@@ -154,8 +154,8 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    typedef egg::function<baby_begin> op_begin;
-    PSTADE_POD_CONSTANT((op_begin), PSTADE_OVEN_BOOST_RANGE_BEGIN) = {{}};
+    typedef egg::function<baby_begin> T_begin;
+    PSTADE_POD_CONSTANT((T_begin), PSTADE_OVEN_BOOST_RANGE_BEGIN) = {{}};
 
 
     struct baby_end
@@ -173,8 +173,8 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    typedef egg::function<baby_end> op_end;
-    PSTADE_POD_CONSTANT((op_end), PSTADE_OVEN_BOOST_RANGE_END) = {{}};
+    typedef egg::function<baby_end> T_end;
+    PSTADE_POD_CONSTANT((T_end), PSTADE_OVEN_BOOST_RANGE_END) = {{}};
 
 
     template< class T >
@@ -202,8 +202,8 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    typedef egg::function<baby_size> op_size;
-    PSTADE_POD_CONSTANT((op_size), boost_range_size) = {{}};
+    typedef egg::function<baby_size> T_size;
+    PSTADE_POD_CONSTANT((T_size), boost_range_size) = {{}};
 
 #endif
 

@@ -148,7 +148,7 @@ namespace string_detail {
 
 struct string :
     private string_detail::buffer_init,
-    result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type,
+    result_of<oven::T_as_c_str(string_detail::buffer_t&)>::type,
     private oven::range_constantable<string, TCHAR const *>,
     private boost::noncopyable
 {
@@ -156,7 +156,7 @@ struct string :
 
 private:
     typedef string_detail::buffer_init init_t; 
-    typedef result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type super_t;
+    typedef result_of<oven::T_as_c_str(string_detail::buffer_t&)>::type super_t;
 
 public:
     template< class Profile, class CStringizable >

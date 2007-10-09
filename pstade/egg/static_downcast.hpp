@@ -93,12 +93,12 @@ namespace pstade { namespace egg {
 
 
     template<class Derived>
-    struct xp_static_downcast :
+    struct X_static_downcast :
         tp_static_downcast<Derived>::type
     { };
 
 
-    PSTADE_EGG_SPECIFIED1(static_downcast, xp_static_downcast, (class))
+    PSTADE_EGG_SPECIFIED1(static_downcast, X_static_downcast, (class))
 
 
 } } // namespace pstade::egg

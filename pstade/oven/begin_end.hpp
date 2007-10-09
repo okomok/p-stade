@@ -40,7 +40,7 @@ namespace begin_end_detail {
         }
     };
 
-    typedef egg::function<baby_begin> op_begin;
+    typedef egg::function<baby_begin> T_begin;
 
 
     struct baby_end
@@ -57,7 +57,7 @@ namespace begin_end_detail {
         }
     };
 
-    typedef egg::function<baby_end> op_end;
+    typedef egg::function<baby_end> T_end;
 
 
 } // namespace begin_end_detail
@@ -65,11 +65,11 @@ namespace begin_end_detail {
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
 
-    typedef egg::result_of_auxiliary0<begin_end_detail::op_begin>::type op_begin;
-    PSTADE_POD_CONSTANT((op_begin), begin) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef egg::result_of_auxiliary0<begin_end_detail::T_begin>::type T_begin;
+    PSTADE_POD_CONSTANT((T_begin), begin) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
-    typedef egg::result_of_auxiliary0<begin_end_detail::op_end>::type op_end;
-    PSTADE_POD_CONSTANT((op_end), end) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef egg::result_of_auxiliary0<begin_end_detail::T_end>::type T_end;
+    PSTADE_POD_CONSTANT((T_end), end) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 }
 

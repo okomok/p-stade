@@ -56,7 +56,7 @@ namespace iteration_detail {
 
         typedef typename
             result_of<
-                op_unfold(State&, just<state_t>, UnaryFun&)
+                T_unfold(State&, just<state_t>, UnaryFun&)
             >::type
         result_type;
 
@@ -70,8 +70,8 @@ namespace iteration_detail {
 } // namespace iteration_detail
 
 
-typedef PSTADE_EGG_DEFER((iteration_detail::base<boost::mpl::_, boost::mpl::_>)) op_iteration;
-PSTADE_POD_CONSTANT((op_iteration), iteration) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((iteration_detail::base<boost::mpl::_, boost::mpl::_>)) T_iteration;
+PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

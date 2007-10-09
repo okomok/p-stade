@@ -23,17 +23,17 @@ using namespace egg;
 using pstade::result_of;
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const&))
-PSTADE_TEST_IS_RESULT_OF((int volatile&), op_identity(int volatile&))
-PSTADE_TEST_IS_RESULT_OF((int const volatile&), op_identity(int const volatile&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int volatile))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const volatile))
+PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&))
+PSTADE_TEST_IS_RESULT_OF((int volatile&), T_identity(int volatile&))
+PSTADE_TEST_IS_RESULT_OF((int const volatile&), T_identity(int const volatile&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int volatile))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const volatile))
 
 
-typedef result_of<op_lambda_bind(op_identity const&, op_lambda_1 const&)>::type func_t;
+typedef result_of<T_lambda_bind(T_identity const&, T_lambda_1 const&)>::type func_t;
 PSTADE_TEST_IS_RESULT_OF((int&), func_t(int&))
 PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int const&))
 PSTADE_TEST_IS_RESULT_OF((int volatile&), func_t(int volatile&))

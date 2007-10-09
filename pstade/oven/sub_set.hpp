@@ -50,7 +50,7 @@ namespace sub_set_detail {
     template< class Range >
     struct super_ :
         result_of<
-            op_make_indirected(typename init<Range>::storage_type&)
+            T_make_indirected(typename init<Range>::storage_type&)
         >
     { };
 

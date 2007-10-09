@@ -24,11 +24,11 @@ struct udt
 {};
 
 
-PSTADE_TEST_IS_RESULT_OF((void), op_delete_(int *))
+PSTADE_TEST_IS_RESULT_OF((void), T_delete_(int *))
 
 
-PSTADE_TEST_IS_RESULT_OF((void), op_delete_(udt *))
-PSTADE_TEST_IS_RESULT_OF((void), op_delete_(udt *))
+PSTADE_TEST_IS_RESULT_OF((void), T_delete_(udt *))
+PSTADE_TEST_IS_RESULT_OF((void), T_delete_(udt *))
 
 
 void pstade_unit_test()

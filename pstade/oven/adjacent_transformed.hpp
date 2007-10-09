@@ -104,11 +104,11 @@ namespace adjacent_transformed_detail {
     template< class Range, class BinaryFun, class Reference, class Value >
     struct make_multi_pass :
         result_of<
-            xp_make_zipped_with<Reference, Value>(
+            X_make_zipped_with<Reference, Value>(
                 typename result_of<
-                    egg::op_tuple_pack(
-                        typename result_of<op_make_popped(Range&)>::type,
-                        typename result_of<op_make_dropped(Range&, int)>::type
+                    egg::T_tuple_pack(
+                        typename result_of<T_make_popped(Range&)>::type,
+                        typename result_of<T_make_dropped(Range&, int)>::type
                     )
                 >::type,
                 BinaryFun&
@@ -152,7 +152,7 @@ struct tp_make_adjacent_transformed
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
-            return xp_make_zipped_with<Reference, Value>()(
+            return X_make_zipped_with<Reference, Value>()(
                 egg::tuple_pack(make_popped(rng), make_dropped(rng, 1)), fun
             );
         }
@@ -177,7 +177,7 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct xp_make_adjacent_transformed :
+struct X_make_adjacent_transformed :
     tp_make_adjacent_transformed<Reference, Value>::type
 { };
 

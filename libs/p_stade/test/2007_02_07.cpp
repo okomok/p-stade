@@ -33,28 +33,28 @@ struct foo_base<std::string, Y>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400)) // for Boost v1.33
-    struct op_foo :
+    struct T_foo :
         boost::detail::function2< foo_base<boost::mpl::_, boost::mpl::_> >
     { };
 #else
     typedef
         boost::detail::function2< foo_base<boost::mpl::_, boost::mpl::_> >
-    op_foo;
+    T_foo;
 #endif
 
 
-BOOST_MPL_ASSERT(( boost::is_same<int&, pstade::result_of<op_foo(int&, int)>::type> ));
-BOOST_MPL_ASSERT(( boost::is_same<int const&, pstade::result_of<op_foo(int const&, int)>::type> ));
-BOOST_MPL_ASSERT(( boost::is_same<int const&, pstade::result_of<op_foo(int, int)>::type> )); // rvalue
+BOOST_MPL_ASSERT(( boost::is_same<int&, pstade::result_of<T_foo(int&, int)>::type> ));
+BOOST_MPL_ASSERT(( boost::is_same<int const&, pstade::result_of<T_foo(int const&, int)>::type> ));
+BOOST_MPL_ASSERT(( boost::is_same<int const&, pstade::result_of<T_foo(int, int)>::type> )); // rvalue
 
-BOOST_MPL_ASSERT(( boost::is_same<std::string&, pstade::result_of<op_foo(std::string&, int)>::type> ));
+BOOST_MPL_ASSERT(( boost::is_same<std::string&, pstade::result_of<T_foo(std::string&, int)>::type> ));
 
 
 void test()
 {
     int x = 10;
     int y = 5;
-    BOOST_CHECK( op_foo()(x, y) == 10 );
+    BOOST_CHECK( T_foo()(x, y) == 10 );
 }
 
 

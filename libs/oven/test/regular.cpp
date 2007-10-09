@@ -54,7 +54,7 @@ void pstade_unit_test()
     {
         ::regular_check(regular(lambda::_1 != 'c'));
         ::regular_check(regular(lambda::_1 += 1));
-        ::regular_check(regular_c(pstade::egg::op_less()));
+        ::regular_check(regular_c(pstade::egg::T_less()));
         ::regular_check(regular_ref(pstade::egg::less));
     }
     {

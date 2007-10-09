@@ -19,7 +19,7 @@ namespace pstade { namespace gravy {
 
 
     typedef
-        detail::handle_ptr<HWND, detail::op_is_window>
+        detail::handle_ptr<HWND, detail::T_is_window>
     window_ptr;
 
 

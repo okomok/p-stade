@@ -4,9 +4,9 @@
 <title>Concepts</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="../index.html" title="Chapter 1. Oven 0.95.0">
-<link rel="up" href="../index.html" title="Chapter 1. Oven 0.95.0">
-<link rel="prev" href="../index.html" title="Chapter 1. Oven 0.95.0">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 0.95.1">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 0.95.1">
+<link rel="prev" href="../index.html" title="Chapter 1. Oven 0.95.1">
 <link rel="next" href="range_algorithms.html" title="Range Algorithms">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,23 +30,22 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.pipable_adaptor"></a>Pipable Adaptor</h3></div></div></div>
 <a name="pipable_adaptor.description"></a><h4>
-<a name="id502912"></a>
+<a name="id502859"></a>
         Description
       </h4>
 <p>
         A <a href="concepts.html#oven.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a> is a <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object" target="_top">Pipable
-        Object</a> which has the associated <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
-        <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
-        Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
+        Object</a> which has the associated <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+        Function Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
       </p>
 <a name="pipable_adaptor.refinement_of"></a><h4>
-<a name="id502971"></a>
+<a name="id502911"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object" target="_top">Pipable
           Object</a></li></ul></div>
 <a name="pipable_adaptor.requirements"></a><h4>
-<a name="id502997"></a>
+<a name="id502936"></a>
         Requirements
       </h4>
 <p>
@@ -63,9 +62,8 @@
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> have the same effects.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span></code> is a <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_object" target="_top">Bindable</a>
-          &#8203; <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.operatable_object" target="_top">Operatable
-          Object</a>.
+<code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span></code> is a <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a>.
         </li>
 <li>
           If <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="number">0</span></code>,
@@ -74,7 +72,7 @@
         </li>
 </ul></div>
 <a name="pipable_adaptor.models"></a><h4>
-<a name="id503372"></a>
+<a name="id503304"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -86,7 +84,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stoppable_generator"></a>Stoppable Generator</h3></div></div></div>
 <a name="stoppable_generator.description"></a><h4>
-<a name="id503423"></a>
+<a name="id503355"></a>
         Description
       </h4>
 <p>
@@ -95,13 +93,13 @@
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="stoppable_generator.refinement_of"></a><h4>
-<a name="id503466"></a>
+<a name="id503399"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="stoppable_generator.requirements"></a><h4>
-<a name="id503496"></a>
+<a name="id503428"></a>
         Requirements
       </h4>
 <p>
@@ -121,7 +119,7 @@
         </li>
 </ul></div>
 <a name="stoppable_generator.models"></a><h4>
-<a name="id503599"></a>
+<a name="id503532"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -134,7 +132,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.iteration_block"></a>Iteration Block</h3></div></div></div>
 <a name="iteration_block.description"></a><h4>
-<a name="id503648"></a>
+<a name="id503580"></a>
         Description
       </h4>
 <p>
@@ -143,12 +141,12 @@
         that yields an ordered sequence of values.
       </p>
 <a name="iteration_block.refinement_of"></a><h4>
-<a name="id503682"></a>
+<a name="id503614"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="iteration_block.requirements"></a><h4>
-<a name="id503707"></a>
+<a name="id503639"></a>
         Requirements
       </h4>
 <p>
@@ -167,7 +165,7 @@
         </li>
 </ul></div>
 <a name="iteration_block.models"></a><h4>
-<a name="id503846"></a>
+<a name="id503778"></a>
         Models
       </h4>
 </div>
@@ -175,7 +173,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.constant_range"></a>Constant Range</h3></div></div></div>
 <a name="constant_range.description"></a><h4>
-<a name="id503868"></a>
+<a name="id503800"></a>
         Description
       </h4>
 <p>
@@ -184,7 +182,7 @@
         whose elements are not modifiable.
       </p>
 <a name="constant_range.refinement_of"></a><h4>
-<a name="id503908"></a>
+<a name="id503840"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -192,7 +190,7 @@
           Pass</a> &#8203; <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="constant_range.requirements"></a><h4>
-<a name="id503940"></a>
+<a name="id503874"></a>
         Requirements
       </h4>
 <p>
@@ -212,7 +210,7 @@
         </li>
 </ul></div>
 <a name="constant_range.models"></a><h4>
-<a name="id504124"></a>
+<a name="id504059"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -224,7 +222,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.contiguous_range"></a>Contiguous Range</h3></div></div></div>
 <a name="contiguous_range.description"></a><h4>
-<a name="id504230"></a>
+<a name="id504164"></a>
         Description
       </h4>
 <p>
@@ -234,7 +232,7 @@
         whose elements are stored contiguously.
       </p>
 <a name="contiguous_range.refinement_of"></a><h4>
-<a name="id504278"></a>
+<a name="id504212"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -248,7 +246,7 @@
 </li>
 </ul></div>
 <a name="contiguous_range.requirements"></a><h4>
-<a name="id504331"></a>
+<a name="id504266"></a>
         Requirements
       </h4>
 <p>
@@ -266,7 +264,7 @@
           <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="contiguous_range.models"></a><h4>
-<a name="id504589"></a>
+<a name="id504523"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -278,7 +276,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.parallel_safe"></a>Parallel Safe</h3></div></div></div>
 <a name="parallel_safe.description"></a><h4>
-<a name="id504704"></a>
+<a name="id504638"></a>
         Description
       </h4>
 <p>
@@ -286,11 +284,11 @@
         same level of thread safety as built-in types.
       </p>
 <a name="parallel_safe.refinement_of"></a><h4>
-<a name="id504730"></a>
+<a name="id504664"></a>
         Refinement of
       </h4>
 <a name="parallel_safe.requirements"></a><h4>
-<a name="id504741"></a>
+<a name="id504675"></a>
         Requirements
       </h4>
 <p>
@@ -302,7 +300,7 @@
           are copies).
         </li></ul></div>
 <a name="parallel_safe.models"></a><h4>
-<a name="id504795"></a>
+<a name="id504730"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">

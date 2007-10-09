@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
     struct BOOST_PP_CAT(result_of_curry, n) :
         BOOST_PP_CAT(result_of_curry, n_1)<
             typename detail::result_of_bind1<
-                detail::BOOST_PP_CAT(op_bind, n_1), Base
+                detail::BOOST_PP_CAT(T_bind, n_1), Base
             >::type
         >
     { };
@@ -77,9 +77,9 @@ namespace pstade { namespace egg {
         template<class Myself, class Base>
         struct apply :
             result_of<
-                BOOST_PP_CAT(op_curry, n_1)(
+                BOOST_PP_CAT(T_curry, n_1)(
                     typename result_of<
-                        detail::op_bind1(detail::BOOST_PP_CAT(op_bind, n_1) const&, Base&)
+                        detail::T_bind1(detail::BOOST_PP_CAT(T_bind, n_1) const&, Base&)
                     >::type
                 )
             >
@@ -101,8 +101,8 @@ namespace pstade { namespace egg {
     };
 
 
-    typedef function<BOOST_PP_CAT(baby_curry, n), by_value> BOOST_PP_CAT(op_curry, n);
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
+    typedef function<BOOST_PP_CAT(baby_curry, n), by_value> BOOST_PP_CAT(T_curry, n);
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
 
 
 #undef n_1

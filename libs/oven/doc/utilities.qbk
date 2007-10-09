@@ -14,7 +14,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 * `<pstade/oven/adapted_to_base.hpp>`
 
 [h3 Model of]
-* `to_base` is a _bindable_ _s_ _operatable_ _s_ _auxiliary_interface_.
+* `to_base` is an _auxiliary_interface_.
 
 [h3 Valid expressions]
 [table 
@@ -64,7 +64,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 * `<pstade/oven/expression.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _static_function_object_
 
 [h3 Valid expressions]
 [table 
@@ -243,7 +243,7 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
 * `<pstade/oven/generation.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _static_function_object_
 
 [h3 Valid expressions]
 [table 
@@ -326,7 +326,7 @@ An iterator holding such a functor can't conform to even _input_iterator_.
 * `<pstade/oven/regular.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _static_function_object_
 
 [h3 Valid expressions]
 [table 
@@ -373,7 +373,7 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 * `<pstade/oven/regular.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _static_function_object_
 
 [h3 Valid expressions]
 [table 
@@ -411,7 +411,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `<pstade/oven/shared_regular.hpp>`
 
 [h3 Model of]
-* _bindable_ _s_ _operatable_object_
+* _static_function_object_
 
 [h3 Valid expressions]
 [table 
@@ -475,13 +475,13 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 
     range merge_sort(range rng)
     {
-        typedef boost::result_of<op_distance(range&)>::type diff_t;
+        typedef boost::result_of<T_distance(range&)>::type diff_t;
 
         diff_t const d = distance(rng);
         if (d < 2)
             return rng;
         else {
-            boost::result_of<op_make_split_at(range&, diff_t)>::type
+            boost::result_of<T_make_split_at(range&, diff_t)>::type
                 xs_ys = make_split_at(rng, d/2);
 
             return make_merged(
@@ -679,21 +679,21 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
         [[*Semantics]]
     ]
     [
-        [`xp_make_unfuzipped<RefSeq = boost::use_default>`]
+        [`<X_make_unfuzipped<RefSeq = boost::use_default>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_unfuzipped<RefSeq = boost::use_default>()(_rng)`]
+        [`<X_make_unfuzipped<RefSeq = boost::use_default>()(_rng)`]
         [
-            A _fusion_random_access_sequence_ `(xp_make_elements_c<0, at<RefSeq, 0>::type>()(a1) .. xp_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
+            A _fusion_random_access_sequence_ `(<X_make_elements_c<0, at<RefSeq, 0>::type>()(a1) .. <X_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
         ]
     ]
     [
         [`_rng|unfuzipped`]
         [
-            `xp_make_unfuzipped<>()(_rng)`
+            `<X_make_unfuzipped<>()(_rng)`
         ]
     ]
 ]
@@ -735,34 +735,34 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, suc
         [[*Semantics]]
     ]
     [
-        [`xp_make_zipped_with<R>`]
+        [`<X_make_zipped_with<R>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`xp_make_zipped_with<R>()(u, _fun)`]
+        [`<X_make_zipped_with<R>()(u, _fun)`]
         [
-            `u|fuzipped|xp_make_transformed<R>()(fuse(_fun))`
+            `u|fuzipped|<X_make_transformed<R>()(fuse(_fun))`
         ]
     ]
     [
-        [`xp_make_zipped_with<>()(u, _cal)`]
+        [`<X_make_zipped_with<>()(u, _cal)`]
         [
-            `u|fuzipped|xp_make_transformed<>()(fuse(_cal))`
+            `u|fuzipped|<X_make_transformed<>()(fuse(_cal))`
         ]
     ]
     [
         [`u|zipped_with(_cal)`]
         [
-            `xp_make_zipped_with<>()(u, _cal)`
+            `<X_make_zipped_with<>()(u, _cal)`
         ]
     ]
 ]
 
 [h3 Preconditions]
 * `u` is a `boost::tuple` or _fusion_forward_sequence_.
-* `u|zipped|xp_make_transformed<R>(fuse(_fun))` or `u|fuzipped|xp_make_transformed<R>(fuse(_fun))` is a valid expressin.
+* `u|zipped|<X_make_transformed<R>(fuse(_fun))` or `u|fuzipped|<X_make_transformed<R>(fuse(_fun))` is a valid expressin.
 * `u|zipped|transformed(fuse(_cal))` or `u|fuzipped|transformed(fuse(_cal))` is a valid expressin.
 
 [h3 See also]

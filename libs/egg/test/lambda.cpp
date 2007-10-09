@@ -38,7 +38,7 @@ int big_arity(int, int, int, int, int, int, int, int, int)
 void pstade_minimal_test()
 {
     {
-        pstade::result_of<op_lambda_bind(op_plus, op_lambda_1, int)>::type b =
+        pstade::result_of<T_lambda_bind(T_plus, T_lambda_1, int)>::type b =
             lambda_bind(plus, lambda_1, 10);
 
         BOOST_CHECK( b(20|to_ref) == 30 );
@@ -46,7 +46,7 @@ void pstade_minimal_test()
     }
     {
         typedef
-            pstade::result_of<op_lambda_bind(int (*)(int), int)>::type
+            pstade::result_of<T_lambda_bind(int (*)(int), int)>::type
         b_t;
 
         b_t b = lambda_bind(&sum_of_args_1, 10);
@@ -57,11 +57,11 @@ void pstade_minimal_test()
         BOOST_CHECK(b_ == 10);
     }
     {
-        op_plus f = lambda_unlambda(plus); // no effect
+        T_plus f = lambda_unlambda(plus); // no effect
         BOOST_CHECK( f(1,2) == 3 );
 
         // unlambda it!
-        pstade::result_of<op_lambda_unlambda(op_lambda_1)>::type u = lambda_unlambda(lambda_1);
+        pstade::result_of<T_lambda_unlambda(T_lambda_1)>::type u = lambda_unlambda(lambda_1);
         int i = 10;
         BOOST_CHECK( boost::lambda::bind(u, lambda_1)(i) == 10 );
     }

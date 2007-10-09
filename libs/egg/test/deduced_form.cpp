@@ -49,10 +49,10 @@ struct baby_foo
     }
 };
 
-typedef function<baby_foo> op_foo;
+typedef function<baby_foo> T_foo;
 //]
-typedef function<baby_foo, by_ref> op_rfoo;
-typedef function<baby_foo, by_cref> op_crfoo;
+typedef function<baby_foo, by_ref> T_rfoo;
+typedef function<baby_foo, by_cref> T_crfoo;
 
 struct baby_vfoo
 {
@@ -76,11 +76,11 @@ struct baby_vfoo
         return a1;
     }
 };
-typedef function<baby_vfoo, by_value> op_vfoo;
+typedef function<baby_vfoo, by_value> T_vfoo;
 
 
-struct op_foo_ :
-    function_facade<op_foo_>
+struct T_foo_ :
+    function_facade<T_foo_>
 {
     typedef deduced_form call_strategy;
 
@@ -108,16 +108,16 @@ void pstade_minimal_test()
 {
     int i = 12;
     {
-        BOOST_CHECK( &(op_foo()(i)) == &i );
-        BOOST_CHECK( op_foo()(12) == 12 );
+        BOOST_CHECK( &(T_foo()(i)) == &i );
+        BOOST_CHECK( T_foo()(12) == 12 );
 
-        BOOST_CHECK( &(op_rfoo()(i)) == &i );
+        BOOST_CHECK( &(T_rfoo()(i)) == &i );
 
-        BOOST_CHECK( &(op_crfoo()(i)) == &i );
-        BOOST_CHECK( op_crfoo()(12) == 12 );
+        BOOST_CHECK( &(T_crfoo()(i)) == &i );
+        BOOST_CHECK( T_crfoo()(12) == 12 );
 
-        BOOST_CHECK( op_vfoo()(12) == 12 );
+        BOOST_CHECK( T_vfoo()(12) == 12 );
 
-        BOOST_CHECK( &(op_foo_()(i)) == &i );
+        BOOST_CHECK( &(T_foo_()(i)) == &i );
     }
 }

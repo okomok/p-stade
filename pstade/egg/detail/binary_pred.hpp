@@ -17,7 +17,7 @@
 
 
 #define PSTADE_EGG_BINARY_PRED(F, Op) \
-    struct BOOST_PP_CAT(op_, F) \
+    struct BOOST_PP_CAT(T_, F) \
     { \
         typedef bool result_type; \
         \
@@ -29,7 +29,7 @@
     }; \
     \
     PSTADE_ADL_BARRIER(F) { \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_,F)), F) = {}; \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, F)), F) = {}; \
     } \
 /**/
 

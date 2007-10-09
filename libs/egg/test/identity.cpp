@@ -20,10 +20,10 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-PSTADE_TEST_IS_RESULT_OF((const int&), op_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((const int&), op_identity(int const&))
-PSTADE_TEST_IS_RESULT_OF((const int&), op_identity(int const))
+PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int))
+PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
+PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int const&))
+PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int const))
 
 
 void pstade_minimal_test()

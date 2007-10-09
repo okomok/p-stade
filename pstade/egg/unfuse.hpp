@@ -57,13 +57,13 @@ namespace pstade { namespace egg {
 
 
     template<class NullaryResult = boost::use_default>
-    struct xp_unfuse :
+    struct X_unfuse :
         tp_unfuse<NullaryResult>::type
     { };
 
 
-    typedef tp_unfuse<>::type op_unfuse;
-    PSTADE_POD_CONSTANT((op_unfuse), unfuse) = PSTADE_EGG_GENERATOR;
+    typedef tp_unfuse<>::type T_unfuse;
+    PSTADE_POD_CONSTANT((T_unfuse), unfuse) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

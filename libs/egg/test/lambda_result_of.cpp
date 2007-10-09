@@ -25,11 +25,11 @@ using namespace pstade::egg;
 using pstade::result_of;
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_lambda_1(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_lambda_1(int const&))
+PSTADE_TEST_IS_RESULT_OF((int&), T_lambda_1(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const&))
 #if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
-    PSTADE_TEST_IS_RESULT_OF((int const&), op_lambda_1(int))
-    PSTADE_TEST_IS_RESULT_OF((int const&), op_lambda_1(int const))
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int))
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const))
 #endif
 
 
@@ -38,26 +38,26 @@ void pstade_minimal_test()
 
     {
         int i = 10;
-        result_of<op_lambda_1(int&)>::type r = lambda_1(i);
+        result_of<T_lambda_1(int&)>::type r = lambda_1(i);
         BOOST_CHECK(&r == &i);
         BOOST_CHECK(r == 10);
     }
     {
         int const i = 10;
-        result_of<op_lambda_1(int const&)>::type r = lambda_1(i);
+        result_of<T_lambda_1(int const&)>::type r = lambda_1(i);
         BOOST_CHECK(&r == &i);
         BOOST_CHECK(r == 10);
     }
 
 #if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
     {
-        result_of<op_lambda_1(int)>::type r = lambda_1(10);
+        result_of<T_lambda_1(int)>::type r = lambda_1(10);
         BOOST_CHECK(r == 10);
     }
 #endif
 
     {
-        typedef result_of<op_lambda_bind(op_plus const&, int, op_lambda_1 const&)>::type fun_t;
+        typedef result_of<T_lambda_bind(T_plus const&, int, T_lambda_1 const&)>::type fun_t;
         fun_t fun = lambda_bind(plus, 3, lambda_1);
 
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int&))
@@ -76,7 +76,7 @@ void pstade_minimal_test()
     }
 
     {
-        typedef result_of<op_lambda_bind(op_identity const&, op_lambda_1 const&)>::type fun_t;
+        typedef result_of<T_lambda_bind(T_identity const&, T_lambda_1 const&)>::type fun_t;
         fun_t fun = lambda_bind(identity, lambda_1);
 
         PSTADE_TEST_IS_RESULT_OF((int&), fun_t(int&))

@@ -39,7 +39,7 @@ void pstade_minimal_test()
         BOOST_CHECK( perfect(::nonperfect())(10) == 10 );
     }
     {
-        typedef pstade::result_of<op_perfect(::nonperfect)>::type perf_t;
+        typedef pstade::result_of<T_perfect(::nonperfect)>::type perf_t;
         PSTADE_TEST_IS_RESULT_OF((int), perf_t(int))
 
         perf_t perf = PSTADE_EGG_PERFECT_L {} PSTADE_EGG_PERFECT_R;

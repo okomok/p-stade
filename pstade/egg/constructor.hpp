@@ -21,12 +21,12 @@ namespace pstade { namespace egg {
 
     typedef
         automatic<
-            xp_construct<boost::mpl::_1>
+            X_construct<boost::mpl::_1>
         >::type
-    op_constructor;
+    T_constructor;
 
 
-    PSTADE_POD_CONSTANT((op_constructor), constructor) = PSTADE_EGG_AUTOMATIC;
+    PSTADE_POD_CONSTANT((T_constructor), constructor) = PSTADE_EGG_AUTOMATIC;
 
 
 } } // namespace pstade::egg

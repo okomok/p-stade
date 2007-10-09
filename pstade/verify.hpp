@@ -50,10 +50,10 @@ namespace pstade {
     } // namespace verify_detail
 
 
-    typedef egg::function<verify_detail::baby> op_verify;
-    PSTADE_POD_CONSTANT((op_verify), verify) = {{}};
+    typedef egg::function<verify_detail::baby> T_verify;
+    PSTADE_POD_CONSTANT((T_verify), verify) = {{}};
 
-    PSTADE_POD_CONSTANT((egg::result_of_pipable<op_verify>::type), verified)
+    PSTADE_POD_CONSTANT((egg::result_of_pipable<T_verify>::type), verified)
         = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
 
 

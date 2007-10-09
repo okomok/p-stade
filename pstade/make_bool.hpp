@@ -24,7 +24,7 @@
 namespace pstade {
 
 
-    struct op_make_bool
+    struct T_make_bool
     {
         typedef bool result_type;
 
@@ -40,7 +40,7 @@ namespace pstade {
     };
 
 
-    PSTADE_POD_CONSTANT((op_make_bool), make_bool) = {};
+    PSTADE_POD_CONSTANT((T_make_bool), make_bool) = {};
 
 
 } // namespace pstade

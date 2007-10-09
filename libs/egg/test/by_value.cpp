@@ -27,8 +27,8 @@
 #include <boost/type_traits/is_const.hpp>
 
     #define PSTADE_EGG_FUNCTION_BY_VALUE(O, B) \
-        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_value> BOOST_PP_CAT(op_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, O)), O) = { { } }; \
+        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_value> BOOST_PP_CAT(T_, O); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
 
 
@@ -73,11 +73,11 @@ struct baby_foo
 
 PSTADE_EGG_FUNCTION_BY_VALUE(foo, (baby_foo))
 
-PSTADE_TEST_IS_RESULT_OF((int), op_foo(int, int))
-PSTADE_TEST_IS_RESULT_OF((int), op_foo(int&, int))
-PSTADE_TEST_IS_RESULT_OF((int), op_foo(int const&, int))
-PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), op_foo(std::auto_ptr<int>))
-PSTADE_TEST_IS_RESULT_OF((char), op_foo())
+PSTADE_TEST_IS_RESULT_OF((int), T_foo(int, int))
+PSTADE_TEST_IS_RESULT_OF((int), T_foo(int&, int))
+PSTADE_TEST_IS_RESULT_OF((int), T_foo(int const&, int))
+PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), T_foo(std::auto_ptr<int>))
+PSTADE_TEST_IS_RESULT_OF((char), T_foo())
 
 
 std::auto_ptr<int> make_auto_ptr()
@@ -111,15 +111,15 @@ PSTADE_EGG_FUNCTION_BY_VALUE(big_arity, (baby_big_arity))
 void pstade_minimal_test()
 {
     {
-        pstade::result_of<op_foo(int, int)>::type x = foo(1, 2);
+        pstade::result_of<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == 3 );
     }
     {
-        pstade::result_of<op_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
+        pstade::result_of<T_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
         BOOST_CHECK( *x == 3 );
     }
     {
-        pstade::result_of<op_foo()>::type x = foo();
+        pstade::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {

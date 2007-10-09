@@ -56,7 +56,7 @@ struct unfoldr_block
 
 
 template<typename A, typename B, typename F>
-typename result_of<op_block(unfoldr_block<A, B, F>&)>::type
+typename result_of<T_block(unfoldr_block<A, B, F>&)>::type
 unfoldr(F f, B b)
 {
     unfoldr_block<A, B, F> r = { b, f };

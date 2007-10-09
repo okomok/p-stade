@@ -39,10 +39,10 @@
         } \
     }; \
     \
-    typedef pstade::egg::function<BOOST_PP_CAT(baby_, O), by_cref> BOOST_PP_CAT(op_, O); \
+    typedef pstade::egg::function<BOOST_PP_CAT(baby_, O), by_cref> BOOST_PP_CAT(T_, O); \
     \
     PSTADE_ADL_BARRIER(char_conversion) { \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, O)), O) = {{}}; \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = {{}}; \
     } \
 /**/
 

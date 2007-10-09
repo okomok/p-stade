@@ -24,8 +24,8 @@
 #include <pstade/unparenthesize.hpp>
 
     #define PSTADE_EGG_FUNCTION_BY_CREF(O, B) \
-        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_cref> BOOST_PP_CAT(op_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, O)), O) = { { } }; \
+        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_cref> BOOST_PP_CAT(T_, O); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
 
 
@@ -66,11 +66,11 @@ struct baby_foo
 
 PSTADE_EGG_FUNCTION_BY_CREF(foo, (baby_foo))
 
-PSTADE_TEST_IS_RESULT_OF((int) const, op_foo(int, int))
-PSTADE_TEST_IS_RESULT_OF((int) const, op_foo(int&, int))
-PSTADE_TEST_IS_RESULT_OF((int) const, op_foo(int const&, int))
-PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>) const, op_foo(std::auto_ptr<int>))
-PSTADE_TEST_IS_RESULT_OF((char), op_foo())
+PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int, int))
+PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int&, int))
+PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int const&, int))
+PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>) const, T_foo(std::auto_ptr<int>))
+PSTADE_TEST_IS_RESULT_OF((char), T_foo())
 
 
 struct baby_big_arity
@@ -94,11 +94,11 @@ PSTADE_EGG_FUNCTION_BY_CREF(big_arity, (baby_big_arity))
 void pstade_minimal_test()
 {
     {
-        pstade::result_of<op_foo(int, int)>::type x = foo(1, 2);
+        pstade::result_of<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == 3 );
     }
     {
-        pstade::result_of<op_foo()>::type x = foo();
+        pstade::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {

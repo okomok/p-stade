@@ -25,7 +25,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_get_menu_item_count
+    struct T_get_menu_item_count
     {
         typedef int result_type;
 
@@ -53,7 +53,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_get_menu_item_count), get_menu_item_count) = {};
+    PSTADE_POD_CONSTANT((T_get_menu_item_count), get_menu_item_count) = {};
 
 
 } } // namespace pstade::gravy

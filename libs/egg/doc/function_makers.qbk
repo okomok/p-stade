@@ -240,8 +240,7 @@ This is useful when you need a "self" function in baby `call` template.
 * `<pstade/egg/make_function.hpp>`
 
 [heading Model of]
-* __OPERATABLE_OBJECT__
-* __BINDABLE_OBJECT__
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * ...
@@ -253,16 +252,16 @@ This is useful when you need a "self" function in baby `call` template.
         [[*Semantics]]
     ]
     [
-        [`xp_make_function<_Stg = _default>`]
+        [`X_make_function<_Stg = _default>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`xp_make_function<_Stg>()(b)`]
+        [`X_make_function<_Stg>()(b)`]
         [`function<_typeof(b), _Stg> f = {b}; return f;`]
     ]
     [
         [`make_function`]
-        [`xp_make_function<>()`]
+        [`X_make_function<>()`]
     ]
 ]
 

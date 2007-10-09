@@ -40,11 +40,11 @@ void test()
     }
     {
         std::string str("hello, identity_range");
-        BOOST_CHECK( oven::equals(str, xp_make_identities<int>()(str)) );
+        BOOST_CHECK( oven::equals(str, X_make_identities<int>()(str)) );
     }
     {
         std::string str("hello, identity_range");
-        BOOST_CHECK( oven::equals(str, xp_make_identities<int>()(str, in_single_pass)) );
+        BOOST_CHECK( oven::equals(str, X_make_identities<int>()(str, in_single_pass)) );
     }
 }
 

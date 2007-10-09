@@ -51,13 +51,13 @@ namespace pstade { namespace egg {
 
 
     template<class ResultType = boost::use_default>
-    struct xp_ret :
+    struct X_ret :
         tp_ret<ResultType>::type
     { };
 
 
     PSTADE_ADL_BARRIER(ret) { // for 'boost'
-        PSTADE_EGG_SPECIFIED1(ret, xp_ret, (class))
+        PSTADE_EGG_SPECIFIED1(ret, X_ret, (class))
     }
 
 

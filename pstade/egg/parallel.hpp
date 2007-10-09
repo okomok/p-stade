@@ -95,9 +95,9 @@ namespace pstade { namespace egg {
         generator<
             parallel_detail::result_< deduce<boost::mpl::_1, as_value> >
         >::type
-    op_parallel;
+    T_parallel;
 
-    PSTADE_POD_CONSTANT((op_parallel), parallel) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_parallel), parallel) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::egg

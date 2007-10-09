@@ -30,7 +30,7 @@
 namespace pstade { namespace oven {
 
 
-struct op_all
+struct T_all
 {
     typedef bool result_type;
 
@@ -49,7 +49,7 @@ struct op_all
 };
 
 
-PSTADE_POD_CONSTANT((op_all), all) = {};
+PSTADE_POD_CONSTANT((T_all), all) = {};
 
 
 } } // namespace pstade::oven

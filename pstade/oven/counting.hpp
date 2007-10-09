@@ -147,13 +147,13 @@ template<
     class Traversal  = boost::use_default,
     class Difference = boost::use_default
 >
-struct xp_counting :
+struct X_counting :
     tp_counting<Traversal, Difference>::type
 { };
 
 
-typedef tp_counting<>::type op_counting;
-PSTADE_POD_CONSTANT((op_counting), counting) = {{}};
+typedef tp_counting<>::type T_counting;
+PSTADE_POD_CONSTANT((T_counting), counting) = {{}};
 
 
 PSTADE_POD_CONSTANT((counting_detail::max_count_tag), max_count) = {};

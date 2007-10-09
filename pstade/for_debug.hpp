@@ -29,7 +29,7 @@ namespace pstade {
     };
 
 
-    struct op_for_debug
+    struct T_for_debug
     {
         typedef void result_type;
 
@@ -42,7 +42,7 @@ namespace pstade {
     };
 
 
-    PSTADE_POD_CONSTANT((op_for_debug), for_debug) = {};
+    PSTADE_POD_CONSTANT((T_for_debug), for_debug) = {};
 
 
 } // namespace pstade

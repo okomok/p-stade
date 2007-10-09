@@ -84,7 +84,7 @@ namespace baby_pipable_resultns_ {
     template<class A, class Base, class ArgTuple>
     struct result_of_output :
         result_of<
-            typename result_of<op_fuse(Base const&)>::type(boost::tuples::cons<A&, ArgTuple>)
+            typename result_of<T_fuse(Base const&)>::type(boost::tuples::cons<A&, ArgTuple>)
         >
     { };
 

@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct xp_new_auto :
+    struct X_new_auto :
         tp_new_auto<X>::type
     { };
 
@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::xp_new_auto, (class))
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_new_auto, (class))
 
 
 #endif

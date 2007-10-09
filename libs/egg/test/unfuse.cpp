@@ -69,7 +69,7 @@ struct zero
 };
 
 
-struct op_fused_get0
+struct T_fused_get0
 {
     typedef int const &result_type;
 
@@ -80,13 +80,13 @@ struct op_fused_get0
     }
 };
 
-result_of_unfuse<op_fused_get0, boost::use_default, boost::use_default, by_ref>::type const
+result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_ref>::type const
     id0r = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
 
-result_of_unfuse<op_fused_get0, boost::use_default, boost::use_default, by_cref>::type const
+result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_cref>::type const
     id0c = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
 
-result_of_unfuse<op_fused_get0, boost::use_default, boost::use_default, by_value>::type const
+result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_value>::type const
     id0v = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
 
 
@@ -99,28 +99,28 @@ void pstade_minimal_test()
             unfuse(&::my_plus)(5, 7, 2) == 14
         );
         BOOST_CHECK(
-            xp_unfuse<>()(&::my_plus)(5, 7, 2) == 14
+            X_unfuse<>()(&::my_plus)(5, 7, 2) == 14
         );
     }
     {
         // ::my_two is known to be nullary.
         BOOST_CHECK(
-            xp_unfuse<use_nullary_result>()(&::my_two)() == 2
+            X_unfuse<use_nullary_result>()(&::my_two)() == 2
         );
 
-        ::nullary_result_of_check( xp_unfuse<use_nullary_result>()(&::my_two) );
+        ::nullary_result_of_check( X_unfuse<use_nullary_result>()(&::my_two) );
     }
     {
         // specify nullary result type explicitly.
         BOOST_CHECK(
-            xp_unfuse<int>()(&::my_two)() == 2
+            X_unfuse<int>()(&::my_two)() == 2
         );
         
-        ::nullary_result_of_check( xp_unfuse<int>()(&::my_two) );
+        ::nullary_result_of_check( X_unfuse<int>()(&::my_two) );
     }
     {
         unfuse(&::well_formed);
-        xp_unfuse<int>()(&::well_formed);
+        X_unfuse<int>()(&::well_formed);
     }
     {
         ::nc x, y;

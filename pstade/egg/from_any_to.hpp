@@ -28,7 +28,7 @@ namespace pstade { namespace egg {
     //
 
     template<class X>
-    struct xp_any_to
+    struct X_any_to
     {
         typedef X &result_type;
 
@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    PSTADE_EGG_SPECIFIED1(any_to, xp_any_to, (class))
+    PSTADE_EGG_SPECIFIED1(any_to, X_any_to, (class))
 
 
     // from_any
@@ -84,10 +84,10 @@ namespace pstade { namespace egg {
     } // namespace from_any_detail
 
     template<class X>
-    struct xp_from_any_to;
+    struct X_from_any_to;
 
     template<class T>
-    struct xp_from_any_to< boost::optional<T &> >
+    struct X_from_any_to< boost::optional<T &> >
     {
         typedef boost::optional<T &> result_type;
 
@@ -111,8 +111,8 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef automatic< xp_from_any_to<boost::mpl::_> >::type op_from_any;
-    PSTADE_POD_CONSTANT((op_from_any), from_any) = PSTADE_EGG_AUTOMATIC;
+    typedef automatic< X_from_any_to<boost::mpl::_> >::type T_from_any;
+    PSTADE_POD_CONSTANT((T_from_any), from_any) = PSTADE_EGG_AUTOMATIC;
 
 
 } } // namespace pstade::egg

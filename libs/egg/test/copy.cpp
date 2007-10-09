@@ -23,7 +23,7 @@ using namespace egg;
 
 
 template<class To>
-struct op_cast0
+struct T_cast0
 {
     typedef To result_type;
 
@@ -33,8 +33,8 @@ struct op_cast0
     }
 };
 
-typedef pstade::egg::automatic< op_cast0<boost::mpl::_> >::type op_auto_cast0;
-op_auto_cast0 const auto_cast0 = PSTADE_EGG_AUTOMATIC;
+typedef pstade::egg::automatic< T_cast0<boost::mpl::_> >::type T_auto_cast0;
+T_auto_cast0 const auto_cast0 = PSTADE_EGG_AUTOMATIC;
 
 
 struct xxx
@@ -82,17 +82,17 @@ void pstade_minimal_test()
     ::test_automatic();
 
     {
-        pstade::result_of<xp_copy<my>(int)>::type
+        pstade::result_of<X_copy<my>(int)>::type
             r = egg::copy<my>(10);
         BOOST_CHECK(r.m_i == 10);
     }
     {
-        pstade::result_of<xp_copy<char>(int)>::type
+        pstade::result_of<X_copy<char>(int)>::type
             r = egg::copy<char>(10);
         BOOST_CHECK(r == char(10));
     }
     { // same type (does nothing)
-        pstade::result_of<xp_copy<int>(int)>::type
+        pstade::result_of<X_copy<int>(int)>::type
             r = egg::copy<int>(10);
         BOOST_CHECK(r == 10);
     }

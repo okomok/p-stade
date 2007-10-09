@@ -37,7 +37,7 @@ struct baby
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((function<baby, by_perfect>), op_make_function_of(baby))
+PSTADE_TEST_IS_RESULT_OF((function<baby, by_perfect>), T_make_function_of(baby))
 
 
 void pstade_minimal_test()

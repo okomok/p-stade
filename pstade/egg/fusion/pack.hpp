@@ -29,11 +29,11 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_FUSION_PACK_INIT {{}}
 
-    typedef function<fusion_detail::baby_pack, by_perfect> op_fusion_pack;
-    PSTADE_POD_CONSTANT((op_fusion_pack), fusion_pack) = PSTADE_EGG_FUSION_PACK_INIT;
+    typedef function<fusion_detail::baby_pack, by_perfect> T_fusion_pack;
+    PSTADE_POD_CONSTANT((T_fusion_pack), fusion_pack) = PSTADE_EGG_FUSION_PACK_INIT;
 
-    typedef function<fusion_detail::baby_pack, by_ref> op_fusion_pack_by_ref;
-    PSTADE_POD_CONSTANT((op_fusion_pack_by_ref), fusion_pack_by_ref) = PSTADE_EGG_FUSION_PACK_INIT;
+    typedef function<fusion_detail::baby_pack, by_ref> T_fusion_pack_by_ref;
+    PSTADE_POD_CONSTANT((T_fusion_pack_by_ref), fusion_pack_by_ref) = PSTADE_EGG_FUSION_PACK_INIT;
 
 
 } } // namespace pstade::egg

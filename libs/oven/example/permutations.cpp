@@ -30,7 +30,7 @@
 
 namespace bll = boost::lambda;
 using namespace pstade::oven;
-using pstade::egg::xp_new_;
+using pstade::egg::X_new_;
 
 
 typedef
@@ -49,7 +49,7 @@ ints_rng_t perms(ints_t xs)
     else
         return
             comprehension(
-                bll::bind(make_jointed, bll::bind(shared_single, bll::bind(xp_new_<int const>(), bll::_1)), bll::_2),
+                bll::bind(make_jointed, bll::bind(shared_single, bll::bind(X_new_<int const>(), bll::_1)), bll::_2),
                 always_return(true),                                                         // guard
                 bll::constant(xs),                                                           // -> _1
                 bll::bind(&perms, bll::bind(make_set_minus, xs, bll::bind(single, bll::_1))) // -> _2

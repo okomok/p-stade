@@ -17,7 +17,7 @@
 #include <boost/utility/result_of.hpp>
 using boost::result_of;
 
-struct op_plus
+struct T_plus
 {
     typedef int result_type;
 
@@ -30,7 +30,7 @@ struct op_plus
 void test_lvalue()
 {
     int i = 2;
-    result_of<op_plus(int &, int)>::type r = op_plus()(i, 3);
+    result_of<T_plus(int &, int)>::type r = T_plus()(i, 3);
     BOOST_CHECK( r == 5 );
 }
 //]
@@ -41,19 +41,19 @@ void test_chain()
 {
     int const i = 3;
     result_of<
-        op_plus(result_of<op_plus(int, int)>::type, int const &)
+        T_plus(result_of<T_plus(int, int)>::type, int const &)
     >::type r
-        = op_plus()(op_plus()(1, 2), i);
+        = T_plus()(T_plus()(1, 2), i);
 }
 //]
 
 
 //[code_result_of_tutorial3
-op_plus const plus = {};
+T_plus const plus = {};
 
 void test_const()
 {
-    result_of<op_plus const(int, int)>::type r = plus(2, 3);
+    result_of<T_plus const(int, int)>::type r = plus(2, 3);
     BOOST_CHECK( r == 5 );
 }
 //]
@@ -62,7 +62,7 @@ void test_const()
 //[code_result_of_tutorial4
 void test_operatable()
 {
-    result_of<op_plus(int, int)>::type r = plus(2, 3);
+    result_of<T_plus(int, int)>::type r = plus(2, 3);
     BOOST_CHECK( r == 5 );
 }
 //]

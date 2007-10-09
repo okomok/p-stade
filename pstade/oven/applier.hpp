@@ -12,6 +12,7 @@
 
 
 #include <pstade/egg/generator.hpp>
+#include <pstade/egg/use_brace_level0.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/function_output_iterator.hpp"
 
@@ -23,10 +24,10 @@ typedef
     egg::generator<
         detail::function_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> > const
     >::type
-op_applier;
+T_applier;
 
 
-PSTADE_POD_CONSTANT((op_applier), applier) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_applier), applier) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

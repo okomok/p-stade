@@ -53,13 +53,13 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct xp_make_function :
+    struct X_make_function :
         tp_make_function<Strategy>::type
     { };
 
 
-    typedef tp_make_function<>::type op_make_function;
-    PSTADE_POD_CONSTANT((op_make_function), make_function) = {{}};
+    typedef tp_make_function<>::type T_make_function;
+    PSTADE_POD_CONSTANT((T_make_function), make_function) = {{}};
 
 
 } } // namespace pstade::egg

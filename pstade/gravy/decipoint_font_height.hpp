@@ -47,7 +47,7 @@ namespace pstade { namespace gravy {
 
 
 
-    struct op_decipoint_font_height
+    struct T_decipoint_font_height
     {
         typedef LONG result_type;
 
@@ -59,7 +59,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_decipoint_font_height), decipoint_font_height) = {};
+    PSTADE_POD_CONSTANT((T_decipoint_font_height), decipoint_font_height) = {};
 
 
 } } // namespace pstade::gravy

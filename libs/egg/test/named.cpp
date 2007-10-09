@@ -17,12 +17,12 @@
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 
 
-struct op_foo2;
+struct T_foo2;
 
 namespace pstade_egg_extension {
 
     template<>
-    struct named_parameter<op_foo2> :
+    struct named_parameter<T_foo2> :
         named_parameter_default
     {
         template<class X, int Index>
@@ -47,7 +47,7 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-struct op_foo
+struct T_foo
 {
     typedef int result_type;
 
@@ -57,10 +57,10 @@ struct op_foo
     }
 };
 
-typedef result_of_named3<op_foo>::type op_named_foo;
-op_named_foo const named_foo = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+typedef result_of_named3<T_foo>::type T_named_foo;
+T_named_foo const named_foo = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
-struct op_foo2
+struct T_foo2
 {
     typedef int result_type;
 
@@ -70,7 +70,7 @@ struct op_foo2
     }
 };
 
-result_of_named3<op_foo2>::type const named_foo2 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+result_of_named3<T_foo2>::type const named_foo2 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
 
 pstade::egg::keyword<0> const _x = {};

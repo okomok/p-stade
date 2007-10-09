@@ -24,7 +24,7 @@ void test_hours()
     BOOST_CHECK( 8760 == distance(clock|cycled(0, 2)|cycled(0, 365)) );
 }
 
-struct op_print
+struct T_print
 {
     template<class It>
     void operator()(It it) const
@@ -36,7 +36,7 @@ struct op_print
 void test_weeks()
 {
     int const days[] = { 0,1,2,3,4,5,6 };
-    for_each(days|cycled(5, 8)|identities|identities|outdirected, op_print());
+    for_each(days|cycled(5, 8)|identities|identities|outdirected, T_print());
 }
 
 

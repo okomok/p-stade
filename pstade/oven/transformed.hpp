@@ -99,7 +99,7 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct xp_make_transformed :
+struct X_make_transformed :
     tp_make_transformed<Reference, Value>::type
 { };
 

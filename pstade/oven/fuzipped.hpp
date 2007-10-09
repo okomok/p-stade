@@ -34,11 +34,11 @@ namespace fuzipped_detail {
     {
         // Prefer a view to 'transform', keeping the mutability of elements.
         typedef
-            boost::fusion::transform_view<RangeTuple, op_begin>
+            boost::fusion::transform_view<RangeTuple, T_begin>
         begin_tup_t;
 
         typedef
-            boost::fusion::transform_view<RangeTuple, op_end>
+            boost::fusion::transform_view<RangeTuple, T_end>
         end_tup_t;
 
         typedef

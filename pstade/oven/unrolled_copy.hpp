@@ -96,20 +96,20 @@ struct tp_unrolled_copy
 
 
 template< class N >
-struct xp_unrolled_copy :
+struct X_unrolled_copy :
     tp_unrolled_copy<N>::type
 { };
 
 template< int N >
-struct xp_unrolled_copy_c :
-    xp_unrolled_copy< boost::mpl::int_<N> >
+struct X_unrolled_copy_c :
+    X_unrolled_copy< boost::mpl::int_<N> >
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_copy, xp_unrolled_copy, (class))
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_copy, X_unrolled_copy, (class))
 #include PSTADE_EGG_SPECIFIED()
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_copy_c, xp_unrolled_copy_c, (int))
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_copy_c, X_unrolled_copy_c, (int))
 #include PSTADE_EGG_SPECIFIED()
 
 

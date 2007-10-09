@@ -55,7 +55,7 @@ struct tp_make_identities
 
 
 template< class Difference = boost::use_default, class Tag = boost::use_default >
-struct xp_make_identities :
+struct X_make_identities :
     tp_make_identities<Difference, Tag>::type
 { };
 

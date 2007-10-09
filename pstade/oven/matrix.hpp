@@ -42,7 +42,7 @@ namespace rows_detail {
 
         typedef typename
             result_of<
-                op_make_window(rng_t const&, Difference, Difference)
+                T_make_window(rng_t const&, Difference, Difference)
             >::type
         result_type;
 
@@ -73,8 +73,8 @@ namespace rows_detail {
 
         typedef typename
             result_of<
-                op_make_transformed(
-                    typename result_of<op_counting(int, diff_t&)>::type,
+                T_make_transformed(
+                    typename result_of<T_counting(int, diff_t&)>::type,
                     to_row<Range, diff_t>
                 )
             >::type
@@ -111,7 +111,7 @@ namespace columns_detail {
 
         typedef typename
             result_of<
-                op_make_sliced(rng_t const&, Difference&, Difference const&)
+                T_make_sliced(rng_t const&, Difference&, Difference const&)
             >::type
         result_type;
 
@@ -142,8 +142,8 @@ namespace columns_detail {
 
         typedef typename
             result_of<
-                op_make_transformed(
-                    typename result_of<op_counting(int, diff_t&)>::type,
+                T_make_transformed(
+                    typename result_of<T_counting(int, diff_t&)>::type,
                     to_column<Range, diff_t>
                 )
             >::type
@@ -181,8 +181,8 @@ namespace matrix3d_detail {
 
         typedef typename
             result_of<
-                op_make_rows(
-                    typename result_of<op_make_window(rng_t const&, Difference, Difference)>::type,
+                T_make_rows(
+                    typename result_of<T_make_window(rng_t const&, Difference, Difference)>::type,
                     Difference&, Difference&
                 )
             >::type
@@ -218,8 +218,8 @@ namespace matrix3d_detail {
 
         typedef typename
             result_of<
-                op_make_transformed(
-                    typename result_of<op_counting(int, diff_t&)>::type,
+                T_make_transformed(
+                    typename result_of<T_counting(int, diff_t&)>::type,
                     to_rows<Range, diff_t>
                 )
             >::type
@@ -255,7 +255,7 @@ namespace matrix_detail {
 
         template< class Myself, class Range, class D1, class D2 >
         struct apply<Myself, Range, D1, D2> :
-            result_of<op_make_rows(Range&, D1&, D2&)>
+            result_of<T_make_rows(Range&, D1&, D2&)>
         { };
 
         template< class Result, class Range, class D1, class D2 >
@@ -266,7 +266,7 @@ namespace matrix_detail {
 
         template< class Myself, class Range, class D1, class D2, class D3 >
         struct apply<Myself, Range, D1, D2, D3> :
-            result_of<op_make_matrix3d(Range&, D1&, D2&, D3&)>
+            result_of<T_make_matrix3d(Range&, D1&, D2&, D3&)>
         { };
 
         template< class Result, class Range, class D1, class D2, class D3 >

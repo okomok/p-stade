@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
 
 
     template<class P>
-    struct xp_new_ptr :
+    struct X_new_ptr :
         tp_new_ptr<P>::type
     { };
 
@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::xp_new_ptr, (class))
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_new_ptr, (class))
 
 
 #endif

@@ -13,7 +13,7 @@
 
 #include <iostream>
 
-op_my_id const &get_my_id2( )
+T_my_id const &get_my_id2( )
 {
    return my_id;
 }
@@ -21,7 +21,7 @@ op_my_id const &get_my_id2( )
 int j = get_my_id1().baby().touch;
 
 
-op_my_idr const &get_my_idr2( )
+T_my_idr const &get_my_idr2( )
 {
    return my_idr;
 }
@@ -29,13 +29,13 @@ op_my_idr const &get_my_idr2( )
 int jr = get_my_idr1().baby().base().baby().touch;
 
 
-op_my_func const &get_my_func2( )
+T_my_func const &get_my_func2( )
 {
    return my_func;
 }
 
 
-op_my_idrr const &get_my_idrr2( )
+T_my_idrr const &get_my_idrr2( )
 {
    return my_idrr;
 }
@@ -56,7 +56,7 @@ int jfun = get_my_func1().
     touch;
 
 
-op_pipa const &get_pipa2( )
+T_pipa const &get_pipa2( )
 {
    return pipa;
 }
@@ -64,7 +64,7 @@ op_pipa const &get_pipa2( )
 int jpi = get_pipa1().baby().base().touch;
 
 
-op_auxi const &get_auxi2( )
+T_auxi const &get_auxi2( )
 {
    return auxi;
 }

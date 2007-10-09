@@ -21,7 +21,7 @@ template< class Range >
 void foo(Range const& rng)
 {
     // cumbersome?
-    typename pstade::result_of<op_make_constants(Range const&)>::type crng = make_constants(rng);
+    typename pstade::result_of<T_make_constants(Range const&)>::type crng = make_constants(rng);
 }
 
 

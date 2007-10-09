@@ -40,10 +40,10 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_uncurry;
+    T_uncurry;
 
 
-    PSTADE_POD_CONSTANT((op_uncurry), uncurry) = {{}};
+    PSTADE_POD_CONSTANT((T_uncurry), uncurry) = {{}};
 
 
 } } // namespace pstade::egg

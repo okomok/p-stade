@@ -67,7 +67,7 @@ struct tp_make_utf8_encoded
 
 
 template< class U8Type = boost::uint8_t >
-struct xp_make_utf8_encoded :
+struct X_make_utf8_encoded :
     tp_make_utf8_encoded<U8Type>::type
 { };
 

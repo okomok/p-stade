@@ -94,7 +94,7 @@ namespace stream_writer_detail {
     {
         typedef typename
             result_of<
-                op_applier(proc<OStream>)
+                T_applier(proc<OStream>)
             >::type
         result_type;
 
@@ -106,8 +106,8 @@ namespace stream_writer_detail {
 
 } // namespace stream_writer_detail
 
-typedef PSTADE_EGG_DEFER((stream_writer_detail::base<boost::mpl::_>)) op_stream_writer;
-PSTADE_POD_CONSTANT((op_stream_writer), stream_writer) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((stream_writer_detail::base<boost::mpl::_>)) T_stream_writer;
+PSTADE_POD_CONSTANT((T_stream_writer), stream_writer) = PSTADE_EGG_DEFERRED;
 
 
 // streambuf_writer
@@ -147,8 +147,8 @@ namespace streambuf_writer_detail {
 
 } // namespace streambuf_writer_detail
 
-typedef egg::function<streambuf_writer_detail::baby> op_streambuf_writer;
-PSTADE_POD_CONSTANT((op_streambuf_writer), streambuf_writer) = {{}};
+typedef egg::function<streambuf_writer_detail::baby> T_streambuf_writer;
+PSTADE_POD_CONSTANT((T_streambuf_writer), streambuf_writer) = {{}};
 
 
 // std_stream_writer
@@ -186,7 +186,7 @@ namespace std_stream_writer_detail {
     {
         typedef typename
             result_of<
-                op_applier(proc<OStream>&)
+                T_applier(proc<OStream>&)
             >::type
         result_type;
 
@@ -199,8 +199,8 @@ namespace std_stream_writer_detail {
 
 } // namespace std_stream_writer_detail
 
-typedef PSTADE_EGG_DEFER((std_stream_writer_detail::base<boost::mpl::_>)) op_std_stream_writer;
-PSTADE_POD_CONSTANT((op_std_stream_writer), std_stream_writer) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((std_stream_writer_detail::base<boost::mpl::_>)) T_std_stream_writer;
+PSTADE_POD_CONSTANT((T_std_stream_writer), std_stream_writer) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

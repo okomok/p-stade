@@ -35,7 +35,7 @@ void test()
 
     {
         int i = 12;
-        pstade::result_of<egg::op_lambda_1(int)>::type result = lambda::_1(i);
+        pstade::result_of<egg::T_lambda_1(int)>::type result = lambda::_1(i);
         BOOST_CHECK(result == 12);
     }
     {
@@ -47,7 +47,7 @@ void test()
             ::foo(
                 v.begin(),
                 lambda::bind<
-                    pstade::result_of<egg::op_identity(int)>::type
+                    pstade::result_of<egg::T_identity(int)>::type
                 >(egg::identity, lambda::_1)
             )
        );

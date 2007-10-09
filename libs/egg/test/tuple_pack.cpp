@@ -21,10 +21,10 @@
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<>,
-                 pstade::result_of<pstade::egg::op_tuple_pack()>::type > ));
+                 pstade::result_of<pstade::egg::T_tuple_pack()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<int&, int const&>,
-                 pstade::result_of<pstade::egg::op_tuple_pack(int&, int)>::type > ));
+                 pstade::result_of<pstade::egg::T_tuple_pack(int&, int)>::type > ));
 
 
 void test_()
@@ -52,10 +52,10 @@ void test_()
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<>,
-                 pstade::result_of<pstade::egg::op_tuple_pack_by_ref()>::type > ));
+                 pstade::result_of<pstade::egg::T_tuple_pack_by_ref()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<int&, int const&>,
-                 pstade::result_of<pstade::egg::op_tuple_pack_by_ref(int&, int const&)>::type > ));
+                 pstade::result_of<pstade::egg::T_tuple_pack_by_ref(int&, int const&)>::type > ));
 
 
 void test_ref()

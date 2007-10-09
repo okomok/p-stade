@@ -111,7 +111,7 @@ namespace zipped_detail {
         template< class Range > // 'Range' is what 'tuple_element' returns.
         struct apply :
             result_of<
-                op_begin(typename affect<RangeTuple&, Range>::type)
+                T_begin(typename affect<RangeTuple&, Range>::type)
             >
         { };
     };

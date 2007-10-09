@@ -19,7 +19,7 @@
 namespace pstade { namespace egg {
 
 
-    struct op_logical_not
+    struct T_logical_not
     {
         typedef bool result_type;
 
@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
 
 
     PSTADE_ADL_BARRIER(logical_not) {
-        PSTADE_POD_CONSTANT((op_logical_not), logical_not) = {};
+        PSTADE_POD_CONSTANT((T_logical_not), logical_not) = {};
     }
 
 

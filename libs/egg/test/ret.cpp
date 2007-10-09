@@ -63,7 +63,7 @@ void pstade_minimal_test()
 
     {
         BOOST_CHECK( 3 ==
-            ::foo( egg::xp_ret<int>()(my_fun) )
+            ::foo( egg::X_ret<int>()(my_fun) )
         );
     }
 
@@ -76,8 +76,8 @@ void pstade_minimal_test()
 #endif
     { // make lambda perfect!
         BOOST_CHECK( 3 ==
-            egg::xp_ret<>()(
-                lambda::bind( egg::xp_ret<int>()(my_fun), lambda::_1, lambda::_2 )
+            egg::X_ret<>()(
+                lambda::bind( egg::X_ret<int>()(my_fun), lambda::_1, lambda::_2 )
             )(1, 2)
         );
     }
@@ -85,8 +85,8 @@ void pstade_minimal_test()
     ::my_fun0_t my_fun0;
     {
         pstade::result_of<
-            pstade::result_of<egg::xp_ret<int>(my_fun0_t)>::type()
-        >::type result = egg::xp_ret<int>()(my_fun0)();
+            pstade::result_of<egg::X_ret<int>(my_fun0_t)>::type()
+        >::type result = egg::X_ret<int>()(my_fun0)();
         BOOST_CHECK( result == 10 );
     }
 
@@ -97,7 +97,7 @@ void pstade_minimal_test()
     }
     {
         BOOST_CHECK( 3 ==
-            egg::xp_ret<>()(&my_fun1)(3)
+            egg::X_ret<>()(&my_fun1)(3)
         );
     }
 
@@ -107,7 +107,7 @@ void pstade_minimal_test()
             egg::ret<int>(lambda::_1 + lambda::_2)(1, 2)
         );
         BOOST_CHECK( 3 == 
-            egg::xp_ret<>()(lambda::_1 + lambda::_2)(1, 2)
+            egg::X_ret<>()(lambda::_1 + lambda::_2)(1, 2)
         );
     }
 

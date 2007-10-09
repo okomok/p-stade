@@ -43,7 +43,7 @@ void test()
     {
         using namespace pstade;
         int rng[10]; rng[0] = 10;
-        pstade::result_of<oven::op_begin(int(&)[10])>::type first = oven::begin(rng);
+        pstade::result_of<oven::T_begin(int(&)[10])>::type first = oven::begin(rng);
         BOOST_CHECK(*first == 10);
     }
 }

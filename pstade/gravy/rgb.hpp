@@ -31,7 +31,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_rgb
+    struct T_rgb
     {
         typedef
             boost::optional<COLORREF> const
@@ -63,7 +63,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_rgb), rgb) = {};
+    PSTADE_POD_CONSTANT((T_rgb), rgb) = {};
 
 
 } } // namespace pstade::gravy

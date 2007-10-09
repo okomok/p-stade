@@ -29,11 +29,11 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_TUPLE_PACK_INIT {{}}
 
-    typedef function<tuple_detail::baby_pack, by_perfect> op_tuple_pack;
-    PSTADE_POD_CONSTANT((op_tuple_pack), tuple_pack) = PSTADE_EGG_TUPLE_PACK_INIT;
+    typedef function<tuple_detail::baby_pack, by_perfect> T_tuple_pack;
+    PSTADE_POD_CONSTANT((T_tuple_pack), tuple_pack) = PSTADE_EGG_TUPLE_PACK_INIT;
 
-    typedef function<tuple_detail::baby_pack, by_ref> op_tuple_pack_by_ref;
-    PSTADE_POD_CONSTANT((op_tuple_pack_by_ref), tuple_pack_by_ref) = PSTADE_EGG_TUPLE_PACK_INIT;
+    typedef function<tuple_detail::baby_pack, by_ref> T_tuple_pack_by_ref;
+    PSTADE_POD_CONSTANT((T_tuple_pack_by_ref), tuple_pack_by_ref) = PSTADE_EGG_TUPLE_PACK_INIT;
 
 
 } } // namespace pstade::egg

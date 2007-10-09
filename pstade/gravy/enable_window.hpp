@@ -24,7 +24,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_enable_window
+    struct T_enable_window
     {
         typedef void result_type;
 
@@ -43,7 +43,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_enable_window), enable_window) = {};
+    PSTADE_POD_CONSTANT((T_enable_window), enable_window) = {};
 
 
 } } // namespace pstade::gravy

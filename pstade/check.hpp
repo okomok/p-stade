@@ -110,10 +110,10 @@ namespace pstade {
     } // namespace check_detail
 
 
-    typedef egg::function<check_detail::baby> op_check;
-    PSTADE_POD_CONSTANT((op_check), check) = {{}};
+    typedef egg::function<check_detail::baby> T_check;
+    PSTADE_POD_CONSTANT((T_check), check) = {{}};
 
-    PSTADE_POD_CONSTANT((egg::result_of_pipable<op_check>::type), checked)
+    PSTADE_POD_CONSTANT((egg::result_of_pipable<T_check>::type), checked)
         = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
 
 

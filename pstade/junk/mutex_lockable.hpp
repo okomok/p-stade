@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_DETAIL_MUTEX_LOCKABLE_HPP
-#define PSTADE_OVEN_DETAIL_MUTEX_LOCKABLE_HPP
+#ifndef PSTADE_MUTEX_LOCKABLE_HPP
+#define PSTADE_MUTEX_LOCKABLE_HPP
 #include "./prefix.hpp"
 
 
@@ -11,53 +11,56 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/noncopyable.hpp>
-#include "./config.hpp" // PSTADE_OVEN_HAS_THREADS
+#include <boost/config.hpp> // BOOST_HAS_THREADS
 
-#if defined(PSTADE_OVEN_HAS_THREADS)
+#if defined(BOOST_HAS_THREADS)
     #include <boost/detail/lightweight_mutex.hpp>
 #endif
 
 
-namespace pstade { namespace oven { namespace detail {
+namespace pstade {
 
 
-#if defined(PSTADE_OVEN_HAS_THREADS)
+#if defined(BOOST_HAS_THREADS)
 
-    struct mutex_lockable :
-        private boost::noncopyable
+    struct mutex_lockable
     {
         typedef boost::detail::lightweight_mutex mutex_type;
         typedef boost::detail::lightweight_mutex::scoped_lock scoped_lock_type;
 
-        mutex_type& mutex() const
+        mutex_type &mutex() const
         {
             return m_mutex;
         }
 
     private:
         mutable mutex_type m_mutex;
+
+        mutex_lockable(mutex_lockable const &);
+        mutex_locakble &operator=(mutex_lockable const &);
     };
 
 #else
 
-    // expects EBO.
-    struct mutex_lockable :
-        private boost::noncopyable
+    struct mutex_lockable
     {
-        typedef int mutex_type;
-        struct scoped_lock_type { explicit scoped_lock_type(int) { } };
+        struct mutex_type {};
+        struct scoped_lock_type { explicit scoped_lock_type(mutex_type) {} };
 
         mutex_type mutex() const
         {
-            return 0;
+            return mutex_type();
         }
+
+    private:
+        mutex_lockable(mutex_lockable const &);
+        mutex_locakble &operator=(mutex_lockable const &);
     };
 
-#endif // defined(PSTADE_OVEN_HAS_THREADS)
+#endif // defined(BOOST_HAS_THREADS)
 
 
-} } } // namespace pstade::oven::detail
+} // namespace pstade
 
 
 #endif

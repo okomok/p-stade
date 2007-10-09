@@ -36,7 +36,7 @@ namespace rotated_detail {
 
         typedef typename
             result_of<
-                op_make_jointed(rng_t, rng_t)
+                T_make_jointed(rng_t, rng_t)
             >::type
         result_type;
 

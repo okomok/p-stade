@@ -21,7 +21,7 @@
 using namespace pstade::egg;
 
 
-struct op_my_plus
+struct T_my_plus
 {
     typedef int result_type;
 
@@ -35,7 +35,7 @@ struct op_my_plus
     int m_version;
 };
 
-struct op_my_negate
+struct T_my_negate
 {
     typedef int result_type;
 
@@ -47,8 +47,8 @@ struct op_my_negate
 
 result_of_curry2<
     result_of_compose1<
-        op_my_negate,
-        op_my_plus
+        T_my_negate,
+        T_my_plus
     >::type
 >::type const my_func
     =
@@ -63,7 +63,7 @@ PSTADE_EGG_CURRY2_R
 
 result_of_curry2<
     result_of_uncurry<
-        result_of_curry2<op_my_plus>::type
+        result_of_curry2<T_my_plus>::type
     >::type
 >::type const my_func2
     = 

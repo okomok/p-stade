@@ -85,11 +85,11 @@ namespace is_sorted_until_detail {
 } // namespace is_sorted_until_detail
 
 
-typedef PSTADE_EGG_DEFER((is_sorted_until_detail::base<boost::mpl::_>)) op_is_sorted_until;
-PSTADE_POD_CONSTANT((op_is_sorted_until), is_sorted_until) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((is_sorted_until_detail::base<boost::mpl::_>)) T_is_sorted_until;
+PSTADE_POD_CONSTANT((T_is_sorted_until), is_sorted_until) = PSTADE_EGG_DEFERRED;
 
 
-struct op_is_sorted
+struct T_is_sorted
 {
     typedef bool result_type;
 
@@ -109,7 +109,7 @@ struct op_is_sorted
 
 
 PSTADE_ADL_BARRIER(is_sorted) { // for 'std'
-    PSTADE_POD_CONSTANT((op_is_sorted), is_sorted) = {};
+    PSTADE_POD_CONSTANT((T_is_sorted), is_sorted) = {};
 }
 
 

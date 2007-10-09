@@ -290,7 +290,7 @@ namespace tests_detail {
 
 #if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)
     template< class Range >
-    typename pstade::result_of<op_make_reversed(Range&)>::type
+    typename pstade::result_of<T_make_reversed(Range&)>::type
     make_reversed(Range& rng)
     {
         return rng|reversed;

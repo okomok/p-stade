@@ -11,7 +11,7 @@
 #include <pstade/pod_constant.hpp>
 
 
-struct op_foo
+struct T_foo
 {
     typedef int& result_type;
 
@@ -22,7 +22,7 @@ struct op_foo
     }
 };
 
-PSTADE_POD_CONSTANT((op_foo), foo) = { };
+PSTADE_POD_CONSTANT((T_foo), foo) = { };
 
 int main()
 {

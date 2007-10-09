@@ -40,21 +40,21 @@ algo2(Range const& rng)
 }
 
 template< class Range >
-typename boost::result_of<op_begin(PSTADE_DEDUCED_CONST(Range)&)>::type
+typename boost::result_of<T_begin(PSTADE_DEDUCED_CONST(Range)&)>::type
 algo3(Range const& rng)
 {
     return begin(rng);
 }
 
 template< class X, class Range >
-typename boost::result_of<op_begin(Range&)>::type
+typename boost::result_of<T_begin(Range&)>::type
 algo4(Range& rng)
 {
     return begin(rng);
 }
 
 template< class X, class Range >
-typename boost::result_of<op_begin(PSTADE_DEDUCED_CONST(Range)&)>::type
+typename boost::result_of<T_begin(PSTADE_DEDUCED_CONST(Range)&)>::type
 algo4(Range const& rng)
 {
     return begin(rng);

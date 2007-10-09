@@ -18,8 +18,8 @@
 namespace pstade { namespace oven {
 
 
-typedef op_make_iter_range op_as_range;
-PSTADE_POD_CONSTANT((op_as_range), as_range) = {{}};
+typedef T_make_iter_range T_as_range;
+PSTADE_POD_CONSTANT((T_as_range), as_range) = {{}};
 
 
 } } // namespace pstade::oven

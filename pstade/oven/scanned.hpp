@@ -66,8 +66,8 @@ namespace scanned_detail {
         template< class Myself, class Range, class State, class BinaryFun = void >
         struct apply :
             result_of<
-                op_make_jointed(
-                    typename result_of<op_shared_single(State const *)>::type,
+                T_make_jointed(
+                    typename result_of<T_shared_single(State const *)>::type,
                     typename simple_base<Range, State, BinaryFun>::result_type
                 )
             >
@@ -91,8 +91,8 @@ namespace scanned_detail {
         struct apply<Myself, Range, BinaryFun> :
             result_of<
                 egg::function<baby>(
-                    typename result_of<op_make_dropped(Range&, int)>::type,
-                    typename result_of<op_value_front(Range&)>::type,
+                    typename result_of<T_make_dropped(Range&, int)>::type,
+                    typename result_of<T_value_front(Range&)>::type,
                     BinaryFun&
                 )
             >

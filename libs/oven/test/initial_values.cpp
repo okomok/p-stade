@@ -140,8 +140,8 @@ void test()
     }
 #endif
     {
-        pstade::result_of<op_initial_values(int,int,int)>::type result = { { { 1,2,3 } } };
-        // pstade::result_of<op_initial_values()>::type nullary_result = { };
+        pstade::result_of<T_initial_values(int,int,int)>::type result = { { { 1,2,3 } } };
+        // pstade::result_of<T_initial_values()>::type nullary_result = { };
         pstade::unused(result); //, nullary_result);
     }
     {
@@ -187,7 +187,7 @@ void test()
         typedef std::vector<int>  row;
         typedef std::vector<row>  matrix;
 
-        matrix m = xp_initial_values<row>()(
+        matrix m = X_initial_values<row>()(
             initial_values(1,2,3),
             initial_values(4,5),
             initial_values(7)

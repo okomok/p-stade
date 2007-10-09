@@ -69,7 +69,7 @@ namespace generation_detail {
 
         typedef typename
             result_of<
-                op_unfold(ignored_t, ignore_then_gen_t, egg::op_identity const&)
+                T_unfold(ignored_t, ignore_then_gen_t, egg::T_identity const&)
             >::type
         result_type;
 
@@ -83,8 +83,8 @@ namespace generation_detail {
 } // namespace generation_detail
 
 
-typedef PSTADE_EGG_DEFER((generation_detail::base<boost::mpl::_>)) op_generation;
-PSTADE_POD_CONSTANT((op_generation), generation) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((generation_detail::base<boost::mpl::_>)) T_generation;
+PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_DEFERRED;
 
 
 namespace nonstop_detail {
@@ -123,9 +123,9 @@ typedef
     egg::generator<
         nonstop_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >
     >::type
-op_nonstop;
+T_nonstop;
 
-PSTADE_POD_CONSTANT((op_nonstop), nonstop) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_nonstop), nonstop) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

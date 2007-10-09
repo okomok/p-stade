@@ -22,7 +22,7 @@ struct my
     my(int,int,int,int,int,int,int,int) {}
 };
 
-struct op_your
+struct T_your
 {
     int operator()(int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int,int) const
     {
@@ -30,7 +30,7 @@ struct op_your
     }
 };
 
-result_of_ret<op_your, int, by_cref>::type const your = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
+result_of_ret<T_your, int, by_cref>::type const your = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
 
 
 void pstade_minimal_test()

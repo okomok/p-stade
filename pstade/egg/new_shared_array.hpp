@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct xp_new_shared_array :
+    struct X_new_shared_array :
         tp_new_shared_array<X>::type
     { };
 

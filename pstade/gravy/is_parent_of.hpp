@@ -23,7 +23,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_is_parent_of
+    struct T_is_parent_of
     {
         typedef bool result_type;
 
@@ -34,7 +34,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_is_parent_of), is_parent_of) = {};
+    PSTADE_POD_CONSTANT((T_is_parent_of), is_parent_of) = {};
 
 
 } } // namespace pstade::gravy

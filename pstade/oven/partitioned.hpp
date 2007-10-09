@@ -30,13 +30,13 @@ namespace partitioned_detail {
     {
         typedef typename
             result_of<
-                op_make_filtered(Range&, Predicate&)
+                T_make_filtered(Range&, Predicate&)
             >::type
         rng1_t;
 
         typedef typename
             result_of<
-                op_make_filtered(Range&, typename result_of<egg::op_not_(Predicate&)>::type)
+                T_make_filtered(Range&, typename result_of<egg::T_not_(Predicate&)>::type)
             >::type
         rng2_t;
 

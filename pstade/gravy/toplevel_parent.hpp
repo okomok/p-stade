@@ -19,7 +19,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_toplevel_parent
+    struct T_toplevel_parent
     {
         typedef window_ref result_type;
 
@@ -31,7 +31,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_toplevel_parent), toplevel_parent) = {};
+    PSTADE_POD_CONSTANT((T_toplevel_parent), toplevel_parent) = {};
 
 
 } } // namespace pstade::gravy

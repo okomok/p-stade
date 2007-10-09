@@ -610,8 +610,8 @@ namespace pstade { namespace oven {
         }
     };
 
-    typedef egg::function<baby_make_CAdapt> op_make_CAdapt;
-    PSTADE_POD_CONSTANT((op_make_CAdapt), make_CAdapt) = {{}};
+    typedef egg::function<baby_make_CAdapt> T_make_CAdapt;
+    PSTADE_POD_CONSTANT((T_make_CAdapt), make_CAdapt) = {{}};
 
 
 } } // namespae pstade::oven

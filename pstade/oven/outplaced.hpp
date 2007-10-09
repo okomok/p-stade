@@ -54,14 +54,14 @@ namespace outplaced_detail {
 
         typedef typename
             result_of<
-                op_shared(iter_seq_t *)
+                T_shared(iter_seq_t *)
             >::type
         result_type;
 
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            typename result_of<op_make_outdirected(Range&)>::type its = make_outdirected(rng);
+            typename result_of<T_make_outdirected(Range&)>::type its = make_outdirected(rng);
             return shared( new iter_seq_t(boost::begin(its), boost::end(its)) );
         }
     };

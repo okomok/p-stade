@@ -22,12 +22,12 @@ namespace pstade { namespace egg {
 
     typedef
         automatic<
-            xp_new_shared< boost::pointee<boost::mpl::_1> >
+            X_new_shared< boost::pointee<boost::mpl::_1> >
         >::type
-    op_shared_object;
+    T_shared_object;
 
 
-    PSTADE_POD_CONSTANT((op_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC;
+    PSTADE_POD_CONSTANT((T_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC;
 
 
 } } // namespace pstade::egg

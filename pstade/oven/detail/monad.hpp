@@ -35,11 +35,11 @@ struct baby_monad_bind
     template< class Myself, class Range, class UnaryFun >
     struct apply :
         result_of<
-            op_make_concatenated(
+            T_make_concatenated(
                 typename result_of<
-                    op_make_memoized(
+                    T_make_memoized(
                         typename result_of<
-                            op_make_transformed(Range& rng, typename result_of<op_regular(UnaryFun&)>::type)
+                            T_make_transformed(Range& rng, typename result_of<T_regular(UnaryFun&)>::type)
                         >::type
                     )
                 >::type
@@ -61,8 +61,8 @@ struct baby_monad_bind
     }
 };
 
-typedef egg::function<baby_monad_bind> op_monad_bind;
-PSTADE_POD_CONSTANT((op_monad_bind), monad_bind) = {{}};
+typedef egg::function<baby_monad_bind> T_monad_bind;
+PSTADE_POD_CONSTANT((T_monad_bind), monad_bind) = {{}};
 
 
 // Use 'shared' instead of 'shared_single'
@@ -75,7 +75,7 @@ struct baby_monad_unit
     template< class Myself, class Value >
     struct apply :
         result_of<
-            op_shared(std::vector<typename boost::remove_cv<Value>::type> *)
+            T_shared(std::vector<typename boost::remove_cv<Value>::type> *)
         >
     { };
 
@@ -90,16 +90,16 @@ struct baby_monad_unit
     }
 };
 
-typedef egg::function<baby_monad_unit, egg::by_cref> op_monad_unit;
-PSTADE_POD_CONSTANT((op_monad_unit), monad_unit) = {{}};
+typedef egg::function<baby_monad_unit, egg::by_cref> T_monad_unit;
+PSTADE_POD_CONSTANT((T_monad_unit), monad_unit) = {{}};
 
 
 template< class Value >
-struct xp_monad_zero
+struct X_monad_zero
 {
     typedef typename
         result_of<
-            op_shared(std::vector<typename remove_cvr<Value>::type> *)
+            T_shared(std::vector<typename remove_cvr<Value>::type> *)
         >::type
     result_type;
 

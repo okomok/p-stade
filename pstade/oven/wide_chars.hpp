@@ -58,7 +58,7 @@ struct tp_make_wide_chars
         template< class Myself, class Range, class Locale = void >
         struct apply :
             result_of<
-                op_make_transformed(Range&, wide_chars_detail::to_widen<CharT>)
+                T_make_transformed(Range&, wide_chars_detail::to_widen<CharT>)
             >
         { };
 
@@ -80,7 +80,7 @@ struct tp_make_wide_chars
 
 
 template< class CharT = wchar_t >
-struct xp_make_wide_chars :
+struct X_make_wide_chars :
     tp_make_wide_chars<CharT>::type
 { };
 

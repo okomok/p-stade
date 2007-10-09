@@ -63,7 +63,7 @@ void test()
     }
 
     {
-        BOOST_CHECK( oven::equals(shared(pstade::egg::xp_new_auto<xxx>()("0123")), ans) );
+        BOOST_CHECK( oven::equals(shared(pstade::egg::X_new_auto<xxx>()("0123")), ans) );
     }
 
     {

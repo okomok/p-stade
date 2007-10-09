@@ -24,17 +24,17 @@ struct udt
 {};
 
 
-PSTADE_TEST_IS_RESULT_OF((int *), xp_new_array<int>(int))
+PSTADE_TEST_IS_RESULT_OF((int *), X_new_array<int>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((udt *), xp_new_array<udt>(int))
-PSTADE_TEST_IS_RESULT_OF((udt const*), xp_new_array<udt const>(int))
+PSTADE_TEST_IS_RESULT_OF((udt *), X_new_array<udt>(int))
+PSTADE_TEST_IS_RESULT_OF((udt const*), X_new_array<udt const>(int))
 
 
 void pstade_unit_test()
 {
     {
-        udt *p = xp_new_array<udt>()(10);
+        udt *p = X_new_array<udt>()(10);
         delete [] p;
     }
 }

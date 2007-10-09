@@ -22,13 +22,13 @@ namespace pstade { namespace egg {
 
     namespace integralize_detail {
 
-        typedef automatic< xp_integral_cast<boost::mpl::_1> >::type op;
+        typedef automatic< X_integral_cast<boost::mpl::_1> >::type op;
 
     }
 
 
-    typedef result_of_auxiliary0<integralize_detail::op>::type op_integralize;
-    PSTADE_POD_CONSTANT((op_integralize), integralize) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_auxiliary0<integralize_detail::op>::type T_integralize;
+    PSTADE_POD_CONSTANT((T_integralize), integralize) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

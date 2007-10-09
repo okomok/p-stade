@@ -47,7 +47,7 @@ private:
 
 template< class Iterator >
 struct assert_not_old_result<Iterator, boost::single_pass_traversal_tag> :
-    egg::op_identity
+    egg::T_identity
 {
     explicit assert_not_old_result(Iterator)
     { }
@@ -61,7 +61,7 @@ assert_not_old_result<Iterator> assert_not_old(Iterator old)
 }
 #else
 template< class Iterator> inline
-egg::op_identity const& assert_not_old(Iterator)
+egg::T_identity const& assert_not_old(Iterator)
 {
     return egg::identity;
 }

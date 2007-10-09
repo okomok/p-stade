@@ -26,6 +26,14 @@ template<
 struct any_range;
 
 
+template<
+    class Reference,
+    class Value      = boost::use_default,
+    class Difference = boost::use_default
+>
+struct any_index_range;
+
+
 } } // namespace pstade::oven
 
 

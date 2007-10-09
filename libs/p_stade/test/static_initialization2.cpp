@@ -12,7 +12,7 @@
 #include "./static_initialization.hpp"
 
 
-op_my_id const &get_my_id2( )
+T_my_id const &get_my_id2( )
 {
    return my_id;
 }
@@ -20,7 +20,7 @@ op_my_id const &get_my_id2( )
 int j = get_my_id1().baby().touch;
 
 
-op_my_idr const &get_my_idr2( )
+T_my_idr const &get_my_idr2( )
 {
    return my_idr;
 }

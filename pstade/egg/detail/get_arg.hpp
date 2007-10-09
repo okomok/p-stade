@@ -28,8 +28,8 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Function, int Index>
-    struct xp_get_arg :
-        function_facade< xp_get_arg<Function, Index> >
+    struct X_get_arg :
+        function_facade< X_get_arg<Function, Index> >
     {
         struct has_index
         {

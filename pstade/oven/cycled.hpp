@@ -128,7 +128,7 @@ PSTADE_OVEN_BABY_TO_ADAPTOR(cycled, (cycled_detail::baby))
 //
 
 template< class Incrementable >
-struct xp_cycle_count
+struct X_cycle_count
 {
     typedef Incrementable result_type;
 
@@ -148,7 +148,7 @@ struct xp_cycle_count
     }
 };
 
-PSTADE_EGG_SPECIFIED1(cycle_count, xp_cycle_count, (class))
+PSTADE_EGG_SPECIFIED1(cycle_count, X_cycle_count, (class))
 
 
 } } // namespace pstade::oven

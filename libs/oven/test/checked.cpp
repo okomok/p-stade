@@ -58,7 +58,7 @@ void pstade_minimal_test()
 
         // singular iterator
         try {
-            pstade::result_of<op_make_checked(std::string&)>::type srng;
+            pstade::result_of<T_make_checked(std::string&)>::type srng;
             *boost::begin(srng);
         }
         catch (singular_iterator_operation const& ) {

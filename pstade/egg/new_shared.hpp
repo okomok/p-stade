@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct xp_new_shared :
+    struct X_new_shared :
         tp_new_shared<X>::type
     { };
 
@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::xp_new_shared, (class))
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_new_shared, (class))
 
 
 #endif

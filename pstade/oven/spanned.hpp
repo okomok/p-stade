@@ -31,7 +31,7 @@ namespace spanned_detail {
     {
         typedef typename
             result_of<
-                op_make_dropped_while(Range&, Predicate&)
+                T_make_dropped_while(Range&, Predicate&)
             >::type
         rng_t;
 
@@ -41,7 +41,7 @@ namespace spanned_detail {
 
         typedef typename
             result_of<
-                op_make_zipped(tuple_t)
+                T_make_zipped(tuple_t)
             >::type
         result_type;
 

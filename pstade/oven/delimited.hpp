@@ -39,7 +39,7 @@ namespace delimited_detail {
         template< class Myself, class LocalRange >
         struct apply :
             result_of<
-                op_make_jointed(delim_t const&, LocalRange&)
+                T_make_jointed(delim_t const&, LocalRange&)
             >
         { };
 
@@ -66,8 +66,8 @@ namespace delimited_detail {
     {
         typedef typename
             result_of<
-                op_make_concatenated(
-                    typename result_of<op_make_transformed(SegmentRange&, join<DelimiterRange>)>::type
+                T_make_concatenated(
+                    typename result_of<T_make_transformed(SegmentRange&, join<DelimiterRange>)>::type
                 )
             >::type
         result_type;

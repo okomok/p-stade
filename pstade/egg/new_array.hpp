@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct xp_new_array :
+    struct X_new_array :
         tp_new_array<X>::type
     { };
 

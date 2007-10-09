@@ -55,8 +55,8 @@ namespace pstade { namespace egg {
     } // namespace lambda_bind_detail
 
 
-    typedef function<lambda_bind_detail::baby, by_cref> op_lambda_bind;
-    PSTADE_POD_CONSTANT((op_lambda_bind), lambda_bind) = {{}};
+    typedef function<lambda_bind_detail::baby, by_cref> T_lambda_bind;
+    PSTADE_POD_CONSTANT((T_lambda_bind), lambda_bind) = {{}};
 
 
 } } // namespace pstade::egg

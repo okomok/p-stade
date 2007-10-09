@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/rebuild_array.cpp>
 
-#include <pstade/../libs/oven/test/boost_range_iterator_nonconst.cpp>
+#include <pstade/../libs/oven/test/any_index_range.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>

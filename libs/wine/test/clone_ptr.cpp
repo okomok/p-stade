@@ -83,7 +83,7 @@ void check_regular(T x)
 void pstade_unit_test()
 {
     using namespace pstade;
-    using egg::xp_new_auto;
+    using egg::X_new_auto;
 
     ::xxx x(3);
 
@@ -91,15 +91,15 @@ void pstade_unit_test()
         typedef clone_ptr< ::xxx > val_t;
         std::vector< val_t > xs;
 
-        val_t v1(xp_new_auto< ::xxx>()(3));
-        val_t v2(xp_new_auto< ::yyy>()(5));
+        val_t v1(X_new_auto< ::xxx>()(3));
+        val_t v2(X_new_auto< ::yyy>()(5));
         xs.push_back( v1 );
         xs.push_back( v2 );
-        xs.push_back( val_t(xp_new_auto< ::xxx>()(9)) );
+        xs.push_back( val_t(X_new_auto< ::xxx>()(9)) );
         xs.push_back( val_t(v1) );
-        xs.push_back( val_t(xp_new_auto< ::yyy>()(6)) );
-        xs.push_back( val_t(xp_new_auto< ::xxx>()(7)) );
-        xs.push_back( val_t(xp_new_auto< ::xxx>()(12)) );
+        xs.push_back( val_t(X_new_auto< ::yyy>()(6)) );
+        xs.push_back( val_t(X_new_auto< ::xxx>()(7)) );
+        xs.push_back( val_t(X_new_auto< ::xxx>()(12)) );
         xs.push_back( val_t(v2) );
 
         std::sort(xs.begin(), xs.end());
@@ -110,7 +110,7 @@ void pstade_unit_test()
     }
 
     {
-        clone_ptr< ::xxx > ax(xp_new_auto< ::xxx>()(5));
+        clone_ptr< ::xxx > ax(X_new_auto< ::xxx>()(5));
         *ax;
         ax->m_i;
         ::check_clone_ptr(ax);
@@ -118,7 +118,7 @@ void pstade_unit_test()
     }
 
     {
-        clone_ptr< ::zzz > az(xp_new_auto< ::zzz>()(3));
+        clone_ptr< ::zzz > az(X_new_auto< ::zzz>()(3));
     }
 
     {
@@ -127,7 +127,7 @@ void pstade_unit_test()
         // ss << ac; // rejected
         get_pointer(ac);
         swap(ac, bc);
-        ac = xp_new_auto<char>()('a');
+        ac = X_new_auto<char>()('a');
         ac.release();
     }
 
@@ -144,10 +144,10 @@ void pstade_unit_test()
         }
         {
             // from auto_ptr
-            clone_ptr< ::xxx > pxx(xp_new_auto< ::xxx >()(10));
-            clone_ptr< ::xxx > pxy = xp_new_auto< ::yyy >()(10); // convertible
-            pxx.reset(xp_new_auto< ::xxx >()(10));
-            pxy.reset(xp_new_auto< ::yyy> ()(10));
+            clone_ptr< ::xxx > pxx(X_new_auto< ::xxx >()(10));
+            clone_ptr< ::xxx > pxy = X_new_auto< ::yyy >()(10); // convertible
+            pxx.reset(X_new_auto< ::xxx >()(10));
+            pxy.reset(X_new_auto< ::yyy> ()(10));
         }
         {
             // from convertible

@@ -19,7 +19,7 @@ namespace pstade { namespace gravy {
 
 
     typedef
-        detail::handle_ref<HBRUSH, detail::op_is_brush>
+        detail::handle_ref<HBRUSH, detail::T_is_brush>
     brush_ref;
 
 

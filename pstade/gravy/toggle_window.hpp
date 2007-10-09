@@ -19,7 +19,7 @@
 namespace pstade { namespace gravy {
 
 
-    struct op_toggle_window
+    struct T_toggle_window
     {
         typedef bool result_type;
 
@@ -33,7 +33,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_POD_CONSTANT((op_toggle_window), toggle_window) = {};
+    PSTADE_POD_CONSTANT((T_toggle_window), toggle_window) = {};
 
 
 } } // namespace pstade::gravy

@@ -67,7 +67,7 @@ struct tp_make_utf16_decoded
 
 
 template< class U32Type = boost::uint32_t >
-struct xp_make_utf16_decoded :
+struct X_make_utf16_decoded :
     tp_make_utf16_decoded<U32Type>::type
 { };
 

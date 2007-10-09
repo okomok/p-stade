@@ -42,7 +42,7 @@ namespace unrolled_for_each_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(is_random_access(rng) ? N::value == distance(rng) : true);
 
-            return xp_unrolled_copy<N>()(rng, applier(fun)).function();
+            return X_unrolled_copy<N>()(rng, applier(fun)).function();
         }
     };
 
@@ -58,20 +58,20 @@ struct tp_unrolled_for_each
 
 
 template< class N >
-struct xp_unrolled_for_each :
+struct X_unrolled_for_each :
     tp_unrolled_for_each<N>::type
 { };
 
 template< int N >
-struct xp_unrolled_for_each_c :
-    xp_unrolled_for_each< boost::mpl::int_<N> >
+struct X_unrolled_for_each_c :
+    X_unrolled_for_each< boost::mpl::int_<N> >
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_for_each, xp_unrolled_for_each, (class))
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_for_each, X_unrolled_for_each, (class))
 #include PSTADE_EGG_SPECIFIED()
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_for_each_c, xp_unrolled_for_each_c, (int))
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_for_each_c, X_unrolled_for_each_c, (int))
 #include PSTADE_EGG_SPECIFIED()
 
 

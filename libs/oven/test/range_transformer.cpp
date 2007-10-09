@@ -25,7 +25,7 @@
 #include <iterator>
 
 
-struct op_my_add
+struct T_my_add
 {
     typedef int result_type;
 
@@ -35,10 +35,10 @@ struct op_my_add
     }
 };
 
-op_my_add const my_add = {};
+T_my_add const my_add = {};
 
 
-struct op_is_even
+struct T_is_even
 {
     typedef bool result_type;
 
@@ -48,7 +48,7 @@ struct op_is_even
     }
 };
 
-op_is_even const is_even = {};
+T_is_even const is_even = {};
 
 
 void pstade_minimal_test()

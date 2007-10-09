@@ -125,10 +125,10 @@ namespace pstade {
     } // namespace require_detail
 
 
-    typedef egg::function<require_detail::baby> op_require;
-    PSTADE_POD_CONSTANT((op_require), require) = {{}};
+    typedef egg::function<require_detail::baby> T_require;
+    PSTADE_POD_CONSTANT((T_require), require) = {{}};
 
-    PSTADE_POD_CONSTANT((egg::result_of_pipable<op_require>::type), required)
+    PSTADE_POD_CONSTANT((egg::result_of_pipable<T_require>::type), required)
         = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
 
 

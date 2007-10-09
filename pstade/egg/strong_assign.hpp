@@ -47,8 +47,8 @@ namespace pstade { namespace egg {
     } // namespace strong_assign_detail
 
 
-    typedef result_of_auxiliary1<strong_assign_detail::op>::type op_strong_assign;
-    PSTADE_POD_CONSTANT((op_strong_assign), strong_assign) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_auxiliary1<strong_assign_detail::op>::type T_strong_assign;
+    PSTADE_POD_CONSTANT((T_strong_assign), strong_assign) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 
 } } // namespace pstade::egg

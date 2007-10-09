@@ -20,20 +20,20 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-PSTADE_TEST_IS_RESULT_OF((int const&), op_to_ref(int))
-PSTADE_TEST_IS_RESULT_OF((int&), op_to_ref(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_to_ref(int const&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_to_ref(int const))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_to_ref(int))
+PSTADE_TEST_IS_RESULT_OF((int&), T_to_ref(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_to_ref(int const&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_to_ref(int const))
 
-PSTADE_TEST_IS_RESULT_OF((int const&), op_to_cref(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_to_cref(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_to_cref(int const&))
-PSTADE_TEST_IS_RESULT_OF((int const&), op_to_cref(int const))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int const&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int const))
 
-PSTADE_TEST_IS_RESULT_OF((int&), op_to_mref(int))
-PSTADE_TEST_IS_RESULT_OF((int&), op_to_mref(int&))
-PSTADE_TEST_IS_RESULT_OF((int&), op_to_mref(int const&))
-PSTADE_TEST_IS_RESULT_OF((int&), op_to_mref(int const))
+PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int))
+PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int&))
+PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int const&))
+PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int const))
 
 
 void pstade_minimal_test()

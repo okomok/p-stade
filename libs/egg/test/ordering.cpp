@@ -12,7 +12,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-struct op_foo
+struct T_foo
 {
     template< class Result, class A0 >
     Result call(A0& a0) const
@@ -31,5 +31,5 @@ struct op_foo
 void pstade_minimal_test()
 {
     double const d = 0;
-    op_foo().call<int>(d);
+    T_foo().call<int>(d);
 }

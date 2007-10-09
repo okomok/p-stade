@@ -132,7 +132,7 @@ public:
         m_last  = boost::end(rng);
     }
 
-    PSTADE_RESET_ASSIGNMENT(self_t)
+    PSTADE_RESET_ASSIGNMENT(iter_range)
 
     template< class Iterator_ >
     void reset(Iterator_ first, Iterator_ last)
@@ -262,8 +262,8 @@ namespace make_iter_range_detail {
 } // namespace make_iter_range_detail
 
 
-typedef egg::function<make_iter_range_detail::baby> op_make_iter_range;
-PSTADE_POD_CONSTANT((op_make_iter_range), make_iter_range) = {{}};
+typedef egg::function<make_iter_range_detail::baby> T_make_iter_range;
+PSTADE_POD_CONSTANT((T_make_iter_range), make_iter_range) = {{}};
 
 
 } } // namespace pstade::oven

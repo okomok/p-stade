@@ -128,7 +128,7 @@ struct tp_make_merged
 {
     struct baby
     {
-        template< class Myself, class Range1, class Range2, class Compare = egg::op_less const >
+        template< class Myself, class Range1, class Range2, class Compare = egg::T_less const >
         struct apply
         {
             typedef
@@ -174,7 +174,7 @@ struct tp_make_merged
 
 
 template< class MergeRoutine = merged_detail::merge_routine >
-struct xp_make_merged :
+struct X_make_merged :
     tp_make_merged<MergeRoutine>::type
 { };
 

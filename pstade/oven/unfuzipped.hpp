@@ -53,7 +53,7 @@ namespace unfuzipped_detail {
         template< class N_Ref >
         struct result_aux :
             result_of<
-                xp_make_elements<typename mpl::at_c<N_Ref, 0>::type, typename mpl::at_c<N_Ref, 1>::type>(TupleRange&)
+                X_make_elements<typename mpl::at_c<N_Ref, 0>::type, typename mpl::at_c<N_Ref, 1>::type>(TupleRange&)
             >
         { };
 
@@ -69,7 +69,7 @@ namespace unfuzipped_detail {
         typename result_aux<N_Ref>::type
         operator()(N_Ref) const
         {
-            return xp_make_elements<typename mpl::at_c<N_Ref, 0>::type, typename mpl::at_c<N_Ref, 1>::type>()(m_rng);
+            return X_make_elements<typename mpl::at_c<N_Ref, 0>::type, typename mpl::at_c<N_Ref, 1>::type>()(m_rng);
         }
 
         explicit make_at_range(TupleRange& rng) :
@@ -148,7 +148,7 @@ using unfuzipped_detail::tp_make_unfuzipped;
 
 
 template< class RefTuple = boost::use_default >
-struct xp_make_unfuzipped :
+struct X_make_unfuzipped :
     tp_make_unfuzipped<RefTuple>::type
 { };
 

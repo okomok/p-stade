@@ -47,8 +47,8 @@ struct baby_second_argument
     }
 };
 
-typedef function<baby_second_argument, by_perfect> op_second_argument;
-op_second_argument const second_argument = {{}}; /*< A braced initialization is ok, because `op_second_argument` is /POD/. >*/
+typedef function<baby_second_argument, by_perfect> T_second_argument;
+T_second_argument const second_argument = {{}}; /*< A braced initialization is ok, because `T_second_argument` is /POD/. >*/
 
 void test_function()
 {
@@ -78,8 +78,8 @@ struct baby_value_identity
     }
 };
 
-typedef function<baby_value_identity, by_value> op_value_identity;
-op_value_identity const value_identity = {{}};
+typedef function<baby_value_identity, by_value> T_value_identity;
+T_value_identity const value_identity = {{}};
 
 void test_function_by_value()
 {
@@ -131,7 +131,7 @@ void test_function_facade()
 
 //[code_automatic_example
 template<class To>
-struct xp_lexical_cast
+struct X_lexical_cast
 {
     typedef To result_type;
 
@@ -143,10 +143,10 @@ struct xp_lexical_cast
 };
 
 typedef
-    automatic< xp_lexical_cast<boost::mpl::_> >::type
-op_lexicalize;
+    automatic< X_lexical_cast<boost::mpl::_> >::type
+T_lexicalize;
 
-op_lexicalize const lexicalize = PSTADE_EGG_AUTOMATIC;
+T_lexicalize const lexicalize = PSTADE_EGG_AUTOMATIC;
 
 void test_automatic()
 {
@@ -170,9 +170,9 @@ struct base_my_identity
 
 typedef
     deferred< base_my_identity<boost::mpl::_1> >::type
-op_my_identity;
+T_my_identity;
 
-op_my_identity const my_identity = PSTADE_EGG_DEFERRED;
+T_my_identity const my_identity = PSTADE_EGG_DEFERRED;
 //]
 
 void test_deferred()
@@ -188,9 +188,9 @@ typedef
     generator<
         std::pair< deduce<boost::mpl::_1, as_value>, deduce<boost::mpl::_2, as_value> >
     >::type
-op_make_pair;
+T_make_pair;
 
-op_make_pair const make_pair = PSTADE_EGG_GENERATOR;
+T_make_pair const make_pair = PSTADE_EGG_GENERATOR;
 
 void test_generator()
 {

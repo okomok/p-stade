@@ -84,8 +84,8 @@ namespace parallel_copy_detail {
 } // namespace parallel_copy_detail
 
 
-typedef egg::function<parallel_copy_detail::baby> op_parallel_copy;
-PSTADE_POD_CONSTANT((op_parallel_copy), parallel_copy) = {{}};
+typedef egg::function<parallel_copy_detail::baby> T_parallel_copy;
+PSTADE_POD_CONSTANT((T_parallel_copy), parallel_copy) = {{}};
 
 
 } } // namespace pstade::oven

@@ -117,19 +117,19 @@ namespace pstade { namespace egg {
 
 
     template<class N>
-    struct xp_tuple_get :
+    struct X_tuple_get :
         tp_tuple_get<N>::type
     { };
 
-    PSTADE_EGG_SPECIFIED1(tuple_get, xp_tuple_get, (class))
+    PSTADE_EGG_SPECIFIED1(tuple_get, X_tuple_get, (class))
 
 
     template<int N>
-    struct xp_tuple_get_c :
+    struct X_tuple_get_c :
         tp_tuple_get< boost::mpl::int_<N> >::type
     { };
 
-    PSTADE_EGG_SPECIFIED1(tuple_get_c, xp_tuple_get_c, (int))
+    PSTADE_EGG_SPECIFIED1(tuple_get_c, X_tuple_get_c, (int))
 
 
 } } // namespace pstade::egg

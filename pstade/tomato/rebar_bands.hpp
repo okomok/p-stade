@@ -27,7 +27,7 @@ namespace pstade { namespace tomato {
     namespace rebar_bands_detail {
 
 
-        struct op_get
+        struct T_get
         {
             typedef rebar_band result_type;
 
@@ -36,7 +36,7 @@ namespace pstade { namespace tomato {
                 return rebar_band(*m_prebar, tomato::get_rebar_band_id(*m_prebar, i));
             }
 
-            explicit op_get(gravy::window_ref rebar) :
+            explicit T_get(gravy::window_ref rebar) :
                 m_prebar(rebar)
             { }
 
@@ -48,21 +48,21 @@ namespace pstade { namespace tomato {
     } // namespace rebar_bands_detail
 
 
-    struct op_make_rebar_bands
+    struct T_make_rebar_bands
     {
         typedef
-            result_of<oven::op_indexing(int, UINT, rebar_bands_detail::op_get)>::type
+            result_of<oven::T_indexing(int, UINT, rebar_bands_detail::T_get)>::type
         result_type;
 
         result_type operator()(gravy::window_ref rebar) const
         {
-            return oven::indexing(0, WTL::CReBarCtrl(rebar).GetBandCount(), rebar_bands_detail::op_get(rebar));
+            return oven::indexing(0, WTL::CReBarCtrl(rebar).GetBandCount(), rebar_bands_detail::T_get(rebar));
         }
     };
 
 
-    PSTADE_POD_CONSTANT((op_make_rebar_bands), make_rebar_bands) = {};
-    PSTADE_POD_CONSTANT((egg::result_of_pipable<op_make_rebar_bands>::type), rebar_bands)
+    PSTADE_POD_CONSTANT((T_make_rebar_bands), make_rebar_bands) = {};
+    PSTADE_POD_CONSTANT((egg::result_of_pipable<T_make_rebar_bands>::type), rebar_bands)
         = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
 
 

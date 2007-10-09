@@ -18,7 +18,7 @@
 
 
 template<class X>
-struct op_my_cast
+struct T_my_cast
 {
     typedef X result_type;
 
@@ -28,11 +28,11 @@ struct op_my_cast
     }
 };
 
-PSTADE_EGG_SPECIFIED1(my_cast, op_my_cast, 1)
+PSTADE_EGG_SPECIFIED1(my_cast, T_my_cast, 1)
 
 
 template<class X, int Y>
-struct op_my_cast_
+struct T_my_cast_
 {
     typedef X result_type;
 
@@ -42,7 +42,7 @@ struct op_my_cast_
     }
 };
 
-PSTADE_EGG_SPECIFIED1(my_cast_, op_my_cast_, (class)(int))
+PSTADE_EGG_SPECIFIED1(my_cast_, T_my_cast_, (class)(int))
 
 
 struct x
@@ -66,7 +66,7 @@ struct x
 };
 
 template<class X>
-struct op_my_make
+struct T_my_make
 {
     typedef X result_type;
 
@@ -83,12 +83,12 @@ struct op_my_make
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), my_make, op_my_make, 1)
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), my_make, T_my_make, 1)
 #include PSTADE_EGG_SPECIFIED()
 
 
 template<class X, int N>
-struct op_my_make_0_3
+struct T_my_make_0_3
 {
     typedef X result_type;
 
@@ -110,7 +110,7 @@ struct op_my_make_0_3
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((3)(0)(1), my_make_0_3, op_my_make_0_3, (class)(int))
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((3)(0)(1), my_make_0_3, T_my_make_0_3, (class)(int))
 #include PSTADE_EGG_SPECIFIED()
 
 
@@ -119,7 +119,7 @@ struct mutable_ { };
 
 
 template<class X>
-struct op_array_check
+struct T_array_check
 {
     template<class FunCall>
     struct result;
@@ -151,10 +151,10 @@ struct op_array_check
         return const_();
     }
 
-    op_array_check() { } // for Boost v1.33 result_of
+    T_array_check() { } // for Boost v1.33 result_of
 };
 
-PSTADE_EGG_SPECIFIED1(array_check, op_array_check, 1)
+PSTADE_EGG_SPECIFIED1(array_check, T_array_check, 1)
 
 
 void pstade_minimal_test()

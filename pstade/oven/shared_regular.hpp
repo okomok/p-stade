@@ -34,8 +34,8 @@ namespace shared_regular_detail {
     {
         typedef typename
             result_of<
-                egg::op_indirect(
-                    typename result_of<egg::op_to_shared_ptr(Ptr&)>::type
+                egg::T_indirect(
+                    typename result_of<egg::T_to_shared_ptr(Ptr&)>::type
                 )
             >::type
         result_type;
@@ -50,8 +50,8 @@ namespace shared_regular_detail {
 } // namespace shared_regular_detail
 
 
-typedef PSTADE_EGG_DEFER((shared_regular_detail::base<boost::mpl::_>)) op_shared_regular;
-PSTADE_POD_CONSTANT((op_shared_regular), shared_regular) = PSTADE_EGG_DEFERRED;
+typedef PSTADE_EGG_DEFER((shared_regular_detail::base<boost::mpl::_>)) T_shared_regular;
+PSTADE_POD_CONSTANT((T_shared_regular), shared_regular) = PSTADE_EGG_DEFERRED;
 
 
 } } // namespace pstade::oven

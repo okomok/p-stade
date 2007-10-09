@@ -68,11 +68,11 @@ template<
     class Value,
     class Difference = std::ptrdiff_t
 >
-struct xp_stream_read :
+struct X_stream_read :
     tp_stream_read<Value, Difference>::type
 { };
 
-PSTADE_EGG_SPECIFIED1(stream_read, xp_stream_read, (class))
+PSTADE_EGG_SPECIFIED1(stream_read, X_stream_read, (class))
 
 
 // streambuf_read
@@ -118,8 +118,8 @@ namespace streambuf_read_detail {
 
 } // namespace streambuf_read_detail
 
-typedef egg::function<streambuf_read_detail::baby> op_streambuf_read;
-PSTADE_POD_CONSTANT((op_streambuf_read), streambuf_read) = {{}};
+typedef egg::function<streambuf_read_detail::baby> T_streambuf_read;
+PSTADE_POD_CONSTANT((T_streambuf_read), streambuf_read) = {{}};
 
 
 } } // namespace pstade::oven

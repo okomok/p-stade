@@ -19,9 +19,9 @@
 
 
 #define PSTADE_OVEN_BABY_TO_ADAPTOR(O, F) \
-    typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(F)> BOOST_PP_CAT(op_make_, O); \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_make_, O)), BOOST_PP_CAT(make_, O)) = {{}}; \
-    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(op_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R; \
+    typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(F)> BOOST_PP_CAT(T_make_, O); \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_make_, O)), BOOST_PP_CAT(make_, O)) = {{}}; \
+    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(T_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R; \
 /**/
 
 

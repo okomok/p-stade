@@ -20,7 +20,7 @@
 namespace pstade { namespace hamburger {
 
 
-    struct op_z_order
+    struct T_z_order
     {
         typedef bool result_type;
 
@@ -41,10 +41,10 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_POD_CONSTANT((op_z_order), z_order) = {};
+    PSTADE_POD_CONSTANT((T_z_order), z_order) = {};
 
 
-    struct op_z_order_sort
+    struct T_z_order_sort
     {
         typedef void result_type;
 
@@ -55,7 +55,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_POD_CONSTANT((op_z_order_sort), z_order_sort) = {};
+    PSTADE_POD_CONSTANT((T_z_order_sort), z_order_sort) = {};
 
 
 } } // namespace pstade::hamburger

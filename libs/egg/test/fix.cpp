@@ -35,7 +35,7 @@ struct unfixed_fib
 };
 
 
-struct op_uncurried_fact_
+struct T_uncurried_fact_
 {
     typedef int result_type;
 
@@ -47,11 +47,11 @@ struct op_uncurried_fact_
     }
 };
 
-typedef result_of_curry2<op_uncurried_fact_>::type op_fact_;
-PSTADE_POD_CONSTANT((op_fact_), fact_) = PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R;
+typedef result_of_curry2<T_uncurried_fact_>::type T_fact_;
+PSTADE_POD_CONSTANT((T_fact_), fact_) = PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R;
 
 
-struct op_uncurried_wrap
+struct T_uncurried_wrap
 {
     typedef int result_type;
 
@@ -65,10 +65,10 @@ struct op_uncurried_wrap
     }
 };
 
-typedef result_of_curry3<op_uncurried_wrap>::type op_wrap;
-PSTADE_POD_CONSTANT((op_wrap), wrap) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
+typedef result_of_curry3<T_uncurried_wrap>::type T_wrap;
+PSTADE_POD_CONSTANT((T_wrap), wrap) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
 
-struct op_uncurried_wrap2
+struct T_uncurried_wrap2
 {
     typedef int result_type;
 
@@ -82,8 +82,8 @@ struct op_uncurried_wrap2
     }
 };
 
-typedef result_of_curry4<op_uncurried_wrap2>::type op_wrap2;
-PSTADE_POD_CONSTANT((op_wrap2), wrap2) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
+typedef result_of_curry4<T_uncurried_wrap2>::type T_wrap2;
+PSTADE_POD_CONSTANT((T_wrap2), wrap2) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
 
 
 void pstade_minimal_test()

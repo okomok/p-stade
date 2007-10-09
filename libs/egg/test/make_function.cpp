@@ -38,7 +38,7 @@ struct baby
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((function<baby>), op_make_function(baby))
+PSTADE_TEST_IS_RESULT_OF((function<baby>), T_make_function(baby))
 
 
 void pstade_minimal_test()
@@ -46,5 +46,5 @@ void pstade_minimal_test()
     baby b;
     int i = 10;
     BOOST_CHECK( make_function(b)(1) == 1 );
-    BOOST_CHECK( &(xp_make_function<by_value>()(b)(i)) != &i );
+    BOOST_CHECK( &(X_make_function<by_value>()(b)(i)) != &i );
 }

@@ -55,7 +55,7 @@ namespace parallel_sort_detail {
 
     struct baby
     {
-        template< class Myself, class Difference, class Range, class Compare = egg::op_less const >
+        template< class Myself, class Difference, class Range, class Compare = egg::T_less const >
         struct apply
         {
             typedef void type;
@@ -79,8 +79,8 @@ namespace parallel_sort_detail {
 } // namespace parallel_sort_detail
 
 
-typedef egg::function<parallel_sort_detail::baby> op_parallel_sort;
-PSTADE_POD_CONSTANT((op_parallel_sort), parallel_sort) = {{}};
+typedef egg::function<parallel_sort_detail::baby> T_parallel_sort;
+PSTADE_POD_CONSTANT((T_parallel_sort), parallel_sort) = {{}};
 
 
 } } // namespace pstade::oven

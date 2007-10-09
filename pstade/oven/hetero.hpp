@@ -61,12 +61,12 @@ struct tp_hetero
 
 
 template< class Reference, class Value = boost::use_default >
-struct xp_hetero :
+struct X_hetero :
     tp_hetero<Reference, Value>::type
 { };
 
 
-PSTADE_EGG_SPECIFIED1(hetero, xp_hetero, (class))
+PSTADE_EGG_SPECIFIED1(hetero, X_hetero, (class))
 
 
 } } // namespace pstade::oven

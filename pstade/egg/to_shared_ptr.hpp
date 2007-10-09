@@ -68,13 +68,13 @@ namespace pstade { namespace egg {
 
 
     template<class Element = boost::use_default>
-    struct xp_to_shared_ptr :
+    struct X_to_shared_ptr :
         tp_to_shared_ptr<Element>::type
     { };
 
 
-    typedef tp_to_shared_ptr<>::type op_to_shared_ptr;
-    PSTADE_POD_CONSTANT((op_to_shared_ptr), to_shared_ptr) = {{}};
+    typedef tp_to_shared_ptr<>::type T_to_shared_ptr;
+    PSTADE_POD_CONSTANT((T_to_shared_ptr), to_shared_ptr) = {{}};
 
 
     template<class X, class Ptr>

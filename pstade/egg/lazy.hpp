@@ -41,10 +41,10 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_brace_level1
         >::type
-    op_lazy;
+    T_lazy;
 
 
-    PSTADE_POD_CONSTANT((op_lazy), lazy) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_lazy), lazy) = PSTADE_EGG_GENERATOR;
 
 
 

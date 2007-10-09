@@ -36,7 +36,7 @@ private:
 public:
     void operator()()
     {
-        typename result_of<op_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grainsize);
+        typename result_of<T_make_split_at(IterRange&, diff_t&)>::type xs_ys = make_split_at(m_rng, m_grainsize);
 
         if (boost::empty(xs_ys.second)) {
             m_algo.before_join(xs_ys.first.begin(), xs_ys.first.end());
