@@ -19,12 +19,10 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/static_warning.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
@@ -96,21 +94,21 @@ namespace any_index_iterator_detail {
     struct super_
     {
         typedef typename
-            eval_if_use_default< Value, remove_cvr<Reference> >::type
-        val_t;
+            if_use_default<Difference, std::ptrdiff_t>::type
+        base_t;
 
         typedef typename
-            if_use_default<Difference, std::ptrdiff_t>::type
-        index_t;
+            eval_if_use_default< Value, remove_cvr<Reference> >::type
+        val_t;
 
         typedef
             boost::iterator_adaptor<
                 any_index_iterator<Reference, Value, Difference>,
-                index_t, // Base
+                base_t,
                 val_t,
                 boost::random_access_traversal_tag,
                 Reference,
-                index_t
+                base_t
             >
         type;
     };
@@ -156,19 +154,12 @@ private:
     };
 
 public:
-    typedef typename super_t::base_type index_type;
-
-    index_type index() const
-    {
-        return this->base();
-    }
-
 // structors
     any_index_iterator(boost::none_t = boost::none)
     { }
 
     template< class Iterator >
-    explicit any_index_iterator(index_type index, Iterator it) :
+    any_index_iterator(diff_t index, Iterator it) :
         super_t(detail::check_nonnegative(index)),
         m_content(new typename holder_of<Iterator>::type(it))
     { }
@@ -183,7 +174,7 @@ public:
 
 // assignments
     template< class Iterator >
-    void reset(index_type index, Iterator it)
+    void reset(diff_t index, Iterator it)
     {
         BOOST_ASSERT(0 <= index);
         self_t(index, it).swap(*this);
@@ -221,6 +212,14 @@ public:
     std::type_info const& type() const
     {
         return m_content ? m_content->typeid_() : typeid(void);
+    }
+
+// index access
+    typedef diff_t index_type;
+
+    index_type index() const
+    {
+        return this->base();
     }
 
 // content access
