@@ -16,6 +16,13 @@
 
 
 #define PSTADE_RESET_ASSIGNMENT(Self) \
+    Self & \
+    operator=(boost::none_t) \
+    { \
+        this->reset(); \
+        return *this; \
+    } \
+    \
     template<class pstade_X> \
     typename pstade::disable_if_copy_assign<Self, pstade_X>::type \
     operator=(pstade_X &x) \
@@ -31,28 +38,22 @@
         this->reset(x); \
         return *this; \
     } \
-    \
+/**/
+
+
+#define PSTADE_MOVE_RESET_ASSIGNMENT(Self) \
     Self & \
     operator=(boost::none_t) \
     { \
         this->reset(); \
         return *this; \
     } \
-/**/
-
-
-#define PSTADE_MOVE_RESET_ASSIGNMENT(Self) \
+    \
     template<class pstade_X> \
     typename pstade::disable_if_copy_assign<Self, pstade_X>::type \
     operator=(pstade_X x) \
     { \
         this->reset(x); \
-        return *this; \
-    } \
-    Self & \
-    operator=(boost::none_t) \
-    { \
-        this->reset(); \
         return *this; \
     } \
 /**/

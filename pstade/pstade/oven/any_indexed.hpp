@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_ANY_RANGE_HPP
-#define PSTADE_OVEN_ANY_RANGE_HPP
+#ifndef PSTADE_OVEN_ANY_INDEXED_HPP
+#define PSTADE_OVEN_ANY_INDEXED_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -11,7 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_categories.hpp>
+// Note:
+//
+// This range was originally written by yotto-k.
+// http://d.hatena.ne.jp/yotto-k/20071010
+
+
 #include <boost/none.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -22,79 +27,88 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/reset_assignment.hpp>
+#include <pstade/type_erasure.hpp>
 #include "./any_fwd.hpp"
-#include "./any_iterator.hpp"
+#include "./any_indexed_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./lightweight_copyable.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
-#include "./range_traversal.hpp"
 #include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace any_range_detail {
+namespace any_indexed_detail {
 
 
-    template< class Reference, class Traversal, class Value, class Difference >
+    template< class Reference, class Value, class Difference >
     struct super_
     {
         typedef
             iter_range<
-                any_iterator<Reference, Traversal, Value, Difference>,
-                radish::swappable    < any_range<Reference, Traversal, Value, Difference>,
-                // Only SinglePass is considered as "lightweight".
-                lightweight_copyable < any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> > >
+                any_indexed_iterator<Reference, Value, Difference>,
+                radish::swappable    < any_indexed<Reference, Value, Difference>,
+                lightweight_copyable < any_indexed<Reference, Value, Difference> > >
             >
         type;
     };
 
 
-} // namespace any_range_detail
+    template< class Super, class Iterator > inline
+    Super make(Iterator first, Iterator last)
+    {
+        typedef typename Super::iterator iter_t;
+        return Super(iter_t(0, first), iter_t(last - first, first));
+    }
 
 
-template< class Reference, class Traversal, class Value, class Difference >
-struct any_range :
-    any_range_detail::super_<Reference, Traversal, Value, Difference>::type
+} // namespace any_indexed_detail
+
+
+template< class Reference, class Value, class Difference >
+struct any_indexed :
+    any_indexed_detail::super_<Reference, Value, Difference>::type
 {
 private:
-    typedef any_range self_t;
-    typedef typename any_range_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
+    typedef any_indexed self_t;
+    typedef typename any_indexed_detail::super_<Reference, Value, Difference>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
+    typedef typename iter_t::index_type index_type;
+
 // structors (This order matters in buggy msvc-7.1.)
-    template< class R, class T, class V, class D >
-    any_range(any_range<R, T, V, D> const& other,
-        typename enable_if< is_convertible_to_any_iterator<typename any_range<R, T, V, D>::iterator, iter_t> >::type = 0
+    template< class R, class V, class D >
+    any_indexed(any_indexed<R, V, D> const& other,
+        typename enable_if< is_convertible_to_any_indexed_iterator<typename any_indexed<R, V, D>::iterator, iter_t> >::type = 0
     ) :
-        super_t(boost::begin(other), boost::end(other))
+        super_t(any_indexed_detail::make<super_t>(boost::begin(other), boost::end(other)))
     { }
 
     template< class It, class Ij >
-    any_range(iter_range<It, Ij> const& rng,
-        typename enable_if< is_convertible_to_any_iterator<It, iter_t> >::type = 0
+    any_indexed(iter_range<It, Ij> const& rng,
+        typename enable_if< is_convertible_to_any_indexed_iterator<It, iter_t> >::type = 0
     ) :
-        super_t(boost::begin(rng), boost::end(rng))
+        super_t(any_indexed_detail::make<super_t>(boost::begin(rng), boost::end(rng)))
     { }
 
-    any_range(boost::none_t = boost::none)
-    { }
-
-    template< class Range >
-    explicit any_range(Range& rng, typename disable_if_copy<self_t, Range>::type = 0) :
-        super_t(boost::begin(rng), boost::end(rng))
+    any_indexed(boost::none_t = boost::none)
     { }
 
     template< class Range >
-    explicit any_range(Range const& rng) :
-        super_t(boost::begin(rng), boost::end(rng))
+    explicit any_indexed(Range& rng, typename disable_if_copy<self_t, Range>::type = 0) :
+        super_t(any_indexed_detail::make<super_t>(boost::begin(rng), boost::end(rng)))
     { }
 
-    any_range(T_type_erasure e, self_t const& rng) :
-        super_t(iter_t(e, boost::begin(rng)), iter_t(e, boost::end(rng)))
+    template< class Range >
+    explicit any_indexed(Range const& rng) :
+        super_t(any_indexed_detail::make<super_t>(boost::begin(rng), boost::end(rng)))
+    { }
+
+    any_indexed(T_type_erasure, self_t const& rng) :
+        super_t(any_indexed_detail::make<super_t>(boost::begin(rng), boost::end(rng)))
     { }
 
 // assignments
@@ -120,7 +134,7 @@ public:
         self_t(type_erasure, rng).swap(*this);
     }
 
-    PSTADE_RESET_ASSIGNMENT(any_range)
+    PSTADE_RESET_ASSIGNMENT(any_indexed)
 
 // swappable
     void swap(self_t& other)
@@ -140,17 +154,16 @@ public:
     }
 
 // workaround
-    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_range, super_t)
+    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_indexed, super_t)
 };
 
 
 template< class Range >
-struct any_range_of
+struct any_indexed_of
 {
     typedef
-        any_range<
+        any_indexed<
             typename range_reference<Range>::type,
-            typename range_pure_traversal<Range>::type, // should be "pure"; that's type-erasure!
             typename range_value<Range>::type,
             typename range_difference<Range>::type
         >
@@ -160,16 +173,15 @@ struct any_range_of
 
 typedef
     egg::generator<
-        any_range<
+        any_indexed<
             range_reference<boost::mpl::_1>,
-            range_pure_traversal<boost::mpl::_1>,
             range_value<boost::mpl::_1>,
             range_difference<boost::mpl::_1>
         > const
     >::type
-T_make_any_range;
+T_make_any_indexed;
 
-PSTADE_POD_CONSTANT((T_make_any_range), make_any_range) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_make_any_indexed), make_any_indexed) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

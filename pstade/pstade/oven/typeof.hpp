@@ -14,8 +14,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/typeof/typeof.hpp>
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
-#include "./any_iterator_fwd.hpp"
-#include "./any_range_fwd.hpp"
+#include "./any_fwd.hpp"
 
 
 BOOST_TYPEOF_REGISTER_TEMPLATE(pstade::oven::any_iterator, 4)
