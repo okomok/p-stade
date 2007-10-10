@@ -21,7 +21,8 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/make_bool.hpp>
 #include <pstade/reset_assignment.hpp>
-#include "./any_iterator_fwd.hpp"
+#include <pstade/type_erasure.hpp>
+#include "./any_fwd.hpp"
 
 
 namespace pstade { namespace oven {
@@ -30,20 +31,20 @@ namespace pstade { namespace oven {
 namespace any_output_iterator_detail {
 
 
-    template< class What >
+    template< class Reference >
     struct placeholder :
         private boost::noncopyable
     {
         virtual ~placeholder() { }
         virtual std::type_info const& typeid_() const = 0;
 
-        virtual void write_increment(What w) = 0;
+        virtual void write_increment(Reference x) = 0;
     };
 
 
-    template< class OutIter, class What >
+    template< class OutIter, class Reference >
     struct holder :
-        placeholder<What>
+        placeholder<Reference>
     {
         explicit holder(OutIter held) :
             m_held(held)
@@ -60,9 +61,9 @@ namespace any_output_iterator_detail {
             return typeid(OutIter);
         }
 
-        void write_increment(What w)
+        void write_increment(Reference x)
         {
-            *m_held++ = w;
+            *m_held++ = x;
         }
 
     private:
@@ -73,18 +74,18 @@ namespace any_output_iterator_detail {
 } // namespace any_output_iterator_detail
 
 
-template< class What >
+template< class Reference >
 struct any_output_iterator :
     std::iterator<std::output_iterator_tag, void, void, void, void>
 {
 private:
     typedef any_output_iterator self_t;
-    typedef boost::shared_ptr< any_output_iterator_detail::placeholder<What> > content_t;
+    typedef boost::shared_ptr< any_output_iterator_detail::placeholder<Reference> > content_t;
 
     template< class OutIter >
     struct holder_of
     {
-        typedef any_output_iterator_detail::holder<OutIter, What> type;
+        typedef any_output_iterator_detail::holder<OutIter, Reference> type;
     };
 
 public:
@@ -97,21 +98,25 @@ public:
         m_content(new typename holder_of<OutIter>::type(it))
     { }
 
+    any_output_iterator(T_type_erasure, self_t it) :
+        m_content(new typename holder_of<self_t>::type(it))
+    { }
+
 // assignments
+    void reset(boost::none_t = boost::none)
+    {
+        self_t().swap(*this);
+    }
+
     template< class OutIter >
     void reset(OutIter it)
     {
         self_t(it).swap(*this);
     }
 
-    void reset(boost::none_t = boost::none)
+    void reset(self_t it)
     {
-        self_t().swap(*this);
-    }
-
-    void reset(self_t const& other)
-    {
-        m_content.reset(new typename holder_of<self_t>::type(other));
+        self_t(type_erasure, it).swap(*this);
     }
 
     PSTADE_RESET_ASSIGNMENT(any_output_iterator)
@@ -155,9 +160,9 @@ private:
     {
         content_t const& m_content;
 
-        void operator=(What w)
+        void operator=(Reference x)
         {
-            m_content->write_increment(w);
+            m_content->write_increment(x);
         }
     };
 
@@ -174,8 +179,8 @@ public:
 };
 
 
-template< class What > inline
-void swap(any_output_iterator<What>& x, any_output_iterator<What>& y)
+template< class Reference > inline
+void swap(any_output_iterator<Reference>& x, any_output_iterator<Reference>& y)
 {
     x.swap(y);
 }

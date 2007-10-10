@@ -22,7 +22,7 @@ test-suite "oven" :
     [ run advance_from.cpp ]
     [ run algorithm.cpp ]
     [ run always.cpp ]
-    [ run any_index_range.cpp ]
+    [ run any_indexed.cpp ]
     [ run any_output_iterator.cpp ]
     [ run any_range.cpp ]
     [ run applied.cpp ]

@@ -42,8 +42,9 @@
 #include <pstade/make_bool.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/reset_assignment.hpp>
+#include <pstade/type_erasure.hpp>
 #include <pstade/use_default.hpp>
-#include "./any_iterator_fwd.hpp"
+#include "./any_fwd.hpp"
 #include "./detail/pure_traversal.hpp"
 
 
@@ -284,6 +285,10 @@ public:
         m_content(new typename holder_of<Iterator>::type(it))
     { }
 
+    any_iterator(T_type_erasure, self_t it) :
+        m_content(new typename holder_of<self_t>::type(it))
+    { }
+
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
         typename enable_if< is_convertible_to_any_iterator<any_iterator<R, T, V, D>, self_t> >::type = 0
@@ -292,23 +297,23 @@ public:
     { }
 
 // assignments
+    void reset(boost::none_t = boost::none)
+    {
+        self_t().swap(*this);
+    }
+
     template< class Iterator >
     void reset(Iterator it)
     {
         self_t(it).swap(*this);
     }
 
-    void reset(boost::none_t = boost::none)
+    void reset(self_t it)
     {
-        self_t().swap(*this);
+        self_t(type_erasure, it).swap(*this);
     }
 
     PSTADE_RESET_ASSIGNMENT(any_iterator)
-
-    void reset(self_t const &other)
-    {
-        m_content.reset(new typename holder_of<self_t>::type(other));
-    }
 
 // swappable
     void swap(self_t& other)
