@@ -27,7 +27,7 @@ namespace intercepter_detail {
 
     struct baby
     {
-        template< class Myself, class IteratorFrom, class IteratorTo = T_eater const >
+        template< class Myself, class IteratorFrom, class IteratorTo = void >
         struct apply :
             pass_by_value<IteratorTo>
         {};
@@ -40,10 +40,15 @@ namespace intercepter_detail {
             return to;
         }
 
+        template< class Myself, class IteratorFrom >
+        struct apply<Myself, IteratorFrom> :
+            result_of<T_eater()>
+        {};
+
         template< class Result, class IteratorFrom >
-        Result call(IteratorFrom& from) const
+        Result call(IteratorFrom&) const
         {
-            return egg::make_function(*this)(from, eater());
+            return eater();
         }
     };
 
