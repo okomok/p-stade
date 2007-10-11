@@ -1,8 +1,35 @@
-#include <boost/utility/result_of.hpp>
+#include <pstade/oven/foreach.hpp>
+#include <pstade/used.hpp>
+
+#include <vector>
+
+void f(float x) { pstade::used(x); }
+
+void g(std::vector<float> const & v)
+{
+   PSTADE_OVEN_FOREACH(i, v)
+      f(i);
+}
+
+void g_(std::vector<float> const & v)
+{
+    for (std::vector<float>::const_iterator first = boost::begin(v), last = boost::end(v); first != last; ++first)
+      f(*first);
+}
+
+
 
 int main()
 {
-    typedef int (*pf_t)(int);
-    typedef boost::result_of<pf_t(int)>::type result1_t; // ok
-    typedef boost::result_of<pf_t const(int)>::type result2_t; // doesn't compile.
+    {
+        std::vector<float> v;
+        v.push_back(3.2);
+        g(v);
+    }
+
+    {
+        std::vector<float> v;
+        v.push_back(3.2);
+        g_(v);
+    }
 }

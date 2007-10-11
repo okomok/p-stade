@@ -17,20 +17,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// For some reason, 'boost::zip_iterator' doesn't use
-// *pure* traversal_tag with 'minimum_category'.
-// Thus, you have to use 'const_refs' before 'zipped'
-// if the base range is something like RandomAccess*Input*Range.
-
-
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/result_of.hpp>
 #include "./begin_end.hpp"
 #include "./detail/base_to_adaptor.hpp"
+#include "./detail/zip_iterator_hack.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 

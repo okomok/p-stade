@@ -185,7 +185,7 @@
 * Renamed `op_` to `T_`.
 * Renamed `xp_` to `X_`.
 * Added `eater` and `intercepter`.
-* Added `any_index_range`.
+* Added `any_indexed`.
 
 
 
