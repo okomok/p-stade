@@ -24,6 +24,9 @@
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/egg/tuple/pack.hpp>
+#include <pstade/oven/transformed.hpp>
+#include <pstade/egg/to_value.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 #include <boost/tuple/tuple_comparison.hpp> // DON'T FORGET for Readable test
@@ -131,6 +134,18 @@ void test()
     
         BOOST_CHECK(( oven::equals(boost::get<0>(z), ans0) ));
         BOOST_CHECK(( oven::equals(boost::get<1>(z), ans1) ));
+    }
+    { // zip_iterator_hack test: ForwardInputRange now zippable.
+        std::string rng1("0123456");
+        std::string rng2("abcdefg");
+
+        using pstade::egg::to_value;
+        using pstade::egg::tuple_pack;
+
+        tuple_pack(
+            rng1|identities(boost::forward_traversal_tag())|transformed(to_value),
+            rng2
+        ) | zipped;
     }
 }
 

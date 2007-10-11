@@ -55,22 +55,22 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 [h3 See also]
 * [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
 * [link oven.expression expression]
-* [link oven.any_index_range any_index_range]
+* [link oven.any_indexed any_indexed]
 
 [endsect]
 
 
 
 
-[section any_index_range]
+[section any_indexed]
 
 [h3 Description]
 Iterators of _random_access_ `any_range` require heap allocation to copy,
-whereas `any_index_range` offers lightweight-copyable iterators in return for
+whereas `any_indexed` offers lightweight-copyable iterators in return for
 some extra preconditions.
 
 [h3 Header]
-* `<pstade/oven/any_index_range.hpp>`
+* `<pstade/oven/any_indexed.hpp>`
 
 [h3 Model of]
 * _random_access_ _s_ _range_
@@ -84,7 +84,7 @@ some extra preconditions.
         [[*Semantics]]
     ]
     [
-        [`any_index_range<R>`]
+        [`any_indexed<R>`]
         [
             `any_range<R, boost::random_access_traversal_tag>`
         ]
@@ -93,8 +93,8 @@ some extra preconditions.
 
 [h3 Preconditions]
 * The corresponding semantics is a valid expression.
-* A range which initialize or is assigned to `any_index_range` must be _lvalue_.
-* `any_index_range` may not be recursive.
+* If `R` is a /reference type/, a range which initialize or is assigned to `any_indexed<R>` must be _lvalue_.
+* `any_indexed` may not be recursive.
 
 [h3 Example]
 

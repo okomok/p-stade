@@ -16,6 +16,7 @@
 #include <pstade/oven/taken.hpp>
 #include <pstade/egg/plus.hpp>
 #include <pstade/egg/tuple/pack.hpp> // tuple_pack
+#include <pstade/egg/to_string.hpp>
 #include <pstade/oven/rvalues.hpp>
 #include <pstade/oven/const_refs.hpp>
 
@@ -62,8 +63,9 @@ int main()
                         make_cycled(initial_values(std::string(), "", "", "", "Buzz"))
                     ),
                     pstade::egg::plus
-                )|taken(100)|
-                    const_refs, // workaround for boost::zip_iterator
+                )|taken(100)
+                 // | const_refs, // no longer needs workaround for boost::zip_iterator
+                ,
                 counting(1, 101)
             ),
             &f

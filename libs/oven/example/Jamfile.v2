@@ -24,6 +24,7 @@ test-suite "oven_example" :
     [ run doc.cpp ]
     [ run factorials.cpp ]
     [ run fibonacci.cpp ]
+    [ run fizzbuzz.cpp ]
     [ run foreach_line.cpp ]
     [ run hetero.cpp ]
     [ run list_comprehension.cpp ]
