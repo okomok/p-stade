@@ -52,7 +52,7 @@ namespace any_indexed_iterator_detail {
     };
 
 
-    template< class Iterator, class Reference, class Difference >
+    template< class RandIter, class Reference, class Difference >
     struct holder :
         placeholder<Reference, Difference>
     {
@@ -61,23 +61,23 @@ namespace any_indexed_iterator_detail {
         typedef placeholder<Reference, Difference> placeholder_t;
 
     public:
-        explicit holder(Iterator held) :
+        explicit holder(RandIter held) :
             m_held(held)
         {
             // These are in function-scope for typeid. 
-            BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator>::type, Reference>));
-            BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>));
-            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>::value));
+            BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<RandIter>::type, Reference>));
+            BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_difference<RandIter>::type, Difference>));
+            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<RandIter>::type, Reference>::value));
         }
 
-        Iterator held() const
+        RandIter held() const
         {
             return m_held;
         }
 
         std::type_info const& typeid_() const // override
         {
-            return typeid(Iterator);
+            return typeid(RandIter);
         }
 
         Reference at(Difference n) const // override
@@ -86,7 +86,7 @@ namespace any_indexed_iterator_detail {
         }
 
     private:
-        Iterator m_held;
+        RandIter m_held;
     };
 
 
@@ -117,12 +117,12 @@ namespace any_indexed_iterator_detail {
 } // namespace any_indexed_iterator_detail
 
 
-template< class Iterator, class AnyIndexIterator >
+template< class Iterator, class AnyIndexedIterator >
 struct is_convertible_to_any_indexed_iterator :
     boost::mpl::and_<
         is_convertible<
             typename boost::iterator_reference<Iterator>::type,
-            typename AnyIndexIterator::reference
+            typename AnyIndexedIterator::reference
         >,
         is_convertible<
             typename boost::iterator_traversal<Iterator>::type,
@@ -130,7 +130,7 @@ struct is_convertible_to_any_indexed_iterator :
         >,
         is_convertible<
             typename boost::iterator_difference<Iterator>::type,
-            typename AnyIndexIterator::difference_type
+            typename AnyIndexedIterator::difference_type
         >
     >
 { };
@@ -147,10 +147,10 @@ private:
     typedef typename super_t::difference_type diff_t;
     typedef boost::shared_ptr< any_indexed_iterator_detail::placeholder<ref_t, diff_t> > content_t;
 
-    template< class Iterator >
+    template< class RandIter >
     struct holder_of
     {
-        typedef any_indexed_iterator_detail::holder<Iterator, ref_t, diff_t> type;
+        typedef any_indexed_iterator_detail::holder<RandIter, ref_t, diff_t> type;
     };
 
 public:
@@ -158,10 +158,10 @@ public:
     any_indexed_iterator(boost::none_t = boost::none)
     { }
 
-    template< class Iterator >
-    any_indexed_iterator(diff_t index, Iterator it) :
+    template< class RandIter >
+    any_indexed_iterator(diff_t index, RandIter it) :
         super_t(detail::check_nonnegative(index)),
-        m_content(new typename holder_of<Iterator>::type(it))
+        m_content(new typename holder_of<RandIter>::type(it))
     { }
 
     template< class R, class V, class D >
@@ -178,8 +178,8 @@ public:
         self_t().swap(*this);
     }
 
-    template< class Iterator >
-    void reset(diff_t index, Iterator it)
+    template< class RandIter >
+    void reset(diff_t index, RandIter it)
     {
         BOOST_ASSERT(0 <= index);
         self_t(index, it).swap(*this);
@@ -218,17 +218,17 @@ public:
     }
 
 // content access
-    template< class Iterator >
+    template< class RandIter >
     bool contains() const
     {
-        return make_bool(type() == typeid(Iterator));
+        return make_bool(type() == typeid(RandIter));
     }
 
-    template< class Iterator >
-    Iterator content() const
+    template< class RandIter >
+    RandIter content() const
     {
-        BOOST_ASSERT(contains<Iterator>());
-        return egg::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
+        BOOST_ASSERT(contains<RandIter>());
+        return egg::static_downcast<typename holder_of<RandIter>::type>(*m_content).held();
     }
 
 private:
