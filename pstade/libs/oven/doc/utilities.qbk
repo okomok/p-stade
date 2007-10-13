@@ -56,7 +56,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 [section expression]
 
 [h3 Description]
-[link oven.any_range any_range] incurs an overhead for calling a `virtual` function every iterator operation.
+_oven_any_range_ incurs an overhead for calling a `virtual` function every iterator operation.
 The overhead can be removed with the help of _boost_typeof_ if your compiler supports the native typeof.
 `expression` converts a range into _boost_typeof_ compatible one, then removes the overhead if possible.
 
@@ -91,7 +91,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 
 [h3 See also]
 * _boost_typeof_
-* [link oven.any_range any_range]
+* _oven_any_range_
 
 [endsect]
 
@@ -141,7 +141,7 @@ is conceptually equivalent to
 [h3 See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2243.html Wording for range-based for-loop]
 * _boost_typeof_
-* [link oven.expression expression]
+* _oven_expression_
 
 [endsect]
 
@@ -206,7 +206,7 @@ The header `<pstade/oven/regex.hpp>` lets `boost::sub_match` be a model of _rang
 
 [h3 See also]
 * _boost_regex_
-* [link oven.concatenated concatenated]
+* _oven_concatenated_
 
 [endsect]
 
@@ -226,7 +226,7 @@ The header `<pstade/oven/xpressive.hpp>` lets `boost::xpressive::sub_match` be a
 
 [h3 See also]
 * _boost_xpressive_
-* [link oven.concatenated concatenated]
+* _oven_concatenated_
 
 [endsect]
 
@@ -236,8 +236,8 @@ The header `<pstade/oven/xpressive.hpp>` lets `boost::xpressive::sub_match` be a
 [section nonstop]
 
 [h3 Description]
-The _stoppable_generator_ concept which [link oven.generation generation] requires is slightly different
-from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.generation generation] conforming one.
+The _stoppable_generator_ concept which _oven_generation_ requires is slightly different
+from the _generator_ concept. `nonstop` turns a _generator_ into a _oven_generation_ conforming one.
 
 [h3 Header]
 * `<pstade/oven/generation.hpp>`
@@ -266,7 +266,7 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
     }
 
 [h3 See also]
-* [link oven.generation generation]
+* _oven_generation_
 
 [endsect]
 
@@ -307,8 +307,8 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
 [h3 Example]
 
 [h3 See also]
-* [link oven.filtered filtered]
-* [link oven.split_at split_at]
+* _oven_filtered_
+* _oven_split_at_
 
 [endsect]
 
@@ -353,10 +353,10 @@ An iterator holding such a functor can't conform to even _input_iterator_.
 
 [h3 See also]
 * _boost_lambda_
-* [link oven.filtered filtered]
-* [link oven.regular_ref regular_ref]
-* [link oven.shared_regular shared_regular]
-* [link oven.transformed transformed]
+* _oven_filtered_
+* _oven_regular_ref_
+* _oven_shared_regular_
+* _oven_transformed_
 
 [endsect]
 
@@ -393,8 +393,8 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 
 [h3 See also]
-* [link oven.regular regular]
-* [link oven.shared_regular shared_regular]
+* _oven_regular_
+* _oven_shared_regular_
 
 [endsect]
 
@@ -430,8 +430,8 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * `boost::shared_ptr<_typeof(*pf)>(pf)` is a valid expression.
 
 [h3 See also]
-* [link oven.regular regular]
-* [link oven.regular_ref regular_ref]
+* _oven_regular_
+* _oven_regular_ref_
 
 [endsect]
 
@@ -493,8 +493,8 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 
 
 [h3 See also]
-* [link oven.dropped dropped]
-* [link oven.partitioned partitioned]
+* _oven_dropped_
+* _oven_partitioned_
 
 [endsect]
 
@@ -546,10 +546,10 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
-* [link oven.unzipped unzipped]
-* [link oven.fuzipped fuzipped]
-* [link oven.unfuzipped unfuzipped]
-* [link oven.zipped_with zipped_with]
+* _oven_unzipped_
+* _oven_fuzipped_
+* _oven_unfuzipped_
+* _oven_zipped_with_
 
 [endsect]
 
@@ -601,10 +601,10 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 
 
 [h3 See also]
-* [link oven.zipped zipped]
-* [link oven.fuzipped fuzipped]
-* [link oven.unfuzipped unfuzipped]
-* [link oven.zipped_with zipped_with]
+* _oven_zipped_
+* _oven_fuzipped_
+* _oven_unfuzipped_
+* _oven_zipped_with_
 
 [endsect]
 
@@ -647,10 +647,10 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
-* [link oven.unfuzipped unfuzipped]
-* [link oven.zipped zipped]
-* [link oven.unzipped unzipped]
-* [link oven.zipped_with zipped_with]
+* _oven_unfuzipped_
+* _oven_zipped_
+* _oven_unzipped_
+* _oven_zipped_with_
 
 [endsect]
 
@@ -679,21 +679,21 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
         [[*Semantics]]
     ]
     [
-        [`<X_make_unfuzipped<RefSeq = boost::use_default>`]
+        [`X_make_unfuzipped<RefSeq = boost::use_default>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_unfuzipped<RefSeq = boost::use_default>()(_rng)`]
+        [`X_make_unfuzipped<RefSeq = boost::use_default>()(_rng)`]
         [
-            A _fusion_random_access_sequence_ `(<X_make_elements_c<0, at<RefSeq, 0>::type>()(a1) .. <X_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
+            A _fusion_random_access_sequence_ `(X_make_elements_c<0, at<RefSeq, 0>::type>()(a1) .. X_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
         ]
     ]
     [
         [`_rng|unfuzipped`]
         [
-            `<X_make_unfuzipped<>()(_rng)`
+            `X_make_unfuzipped<>()(_rng)`
         ]
     ]
 ]
@@ -702,12 +702,12 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * The corresponding semantics is a valid expression.
 
 [h3 See also]
-* [link oven.elements elements]
-* [link oven.elements_c elements_c]
-* [link oven.fuzipped fuzipped]
-* [link oven.zipped zipped]
-* [link oven.unzipped unzipped]
-* [link oven.zipped_with zipped_with]
+* _oven_elements_
+* _oven_elements_c_
+* _oven_fuzipped_
+* _oven_zipped_
+* _oven_unzipped_
+* _oven_zipped_with_
 
 [endsect]
 
@@ -735,41 +735,41 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, suc
         [[*Semantics]]
     ]
     [
-        [`<X_make_zipped_with<R>`]
+        [`X_make_zipped_with<R>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_zipped_with<R>()(u, _fun)`]
+        [`X_make_zipped_with<R>()(u, _fun)`]
         [
-            `u|fuzipped|<X_make_transformed<R>()(fuse(_fun))`
+            `u|fuzipped|X_make_transformed<R>()(fuse(_fun))`
         ]
     ]
     [
-        [`<X_make_zipped_with<>()(u, _cal)`]
+        [`X_make_zipped_with<>()(u, _cal)`]
         [
-            `u|fuzipped|<X_make_transformed<>()(fuse(_cal))`
+            `u|fuzipped|X_make_transformed<>()(fuse(_cal))`
         ]
     ]
     [
         [`u|zipped_with(_cal)`]
         [
-            `<X_make_zipped_with<>()(u, _cal)`
+            `X_make_zipped_with<>()(u, _cal)`
         ]
     ]
 ]
 
 [h3 Preconditions]
 * `u` is a `boost::tuple` or _fusion_forward_sequence_.
-* `u|zipped|<X_make_transformed<R>(fuse(_fun))` or `u|fuzipped|<X_make_transformed<R>(fuse(_fun))` is a valid expressin.
+* `u|zipped|X_make_transformed<R>(fuse(_fun))` or `u|fuzipped|X_make_transformed<R>(fuse(_fun))` is a valid expressin.
 * `u|zipped|transformed(fuse(_cal))` or `u|fuzipped|transformed(fuse(_cal))` is a valid expressin.
 
 [h3 See also]
-* [link oven.zipped zipped]
-* [link oven.unzipped unzipped]
-* [link oven.fuzipped fuzipped]
-* [link oven.unfuzipped unfuzipped]
+* _oven_zipped_
+* _oven_unzipped_
+* _oven_fuzipped_
+* _oven_unfuzipped_
 
 [endsect]
 

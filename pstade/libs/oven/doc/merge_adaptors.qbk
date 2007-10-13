@@ -53,10 +53,10 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
     BOOST_CHECK( equals(A1|merged(A2, &::lt_nocase), AA) );
 
 [h3 See also]
-* [link oven.set_cap set_cap]
-* [link oven.set_cup set_cup]
-* [link oven.set_delta set_delta]
-* [link oven.set_minus set_minus]
+* _oven_set_cap_
+* _oven_set_cup_
+* _oven_set_delta_
+* _oven_set_minus_
 
 [endsect]
 
@@ -99,10 +99,10 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 [h3 Example]
 
 [h3 See also]
-* [link oven.merged merged]
-* [link oven.set_cup set_cup]
-* [link oven.set_delta set_delta]
-* [link oven.set_minus set_minus]
+* _oven_merged_
+* _oven_set_cup_
+* _oven_set_delta_
+* _oven_set_minus_
 
 [endsect]
 
@@ -145,10 +145,10 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 [h3 Example]
 
 [h3 See also]
-* [link oven.merged merged]
-* [link oven.set_cap set_cap]
-* [link oven.set_delta set_delta]
-* [link oven.set_minus set_minus]
+* _oven_merged_
+* _oven_set_cap_
+* _oven_set_delta_
+* _oven_set_minus_
 
 [endsect]
 
@@ -191,10 +191,10 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 [h3 Example]
 
 [h3 See also]
-* [link oven.merged merged]
-* [link oven.set_cap set_cap]
-* [link oven.set_cup set_cup]
-* [link oven.set_minus set_minus]
+* _oven_merged_
+* _oven_set_cap_
+* _oven_set_cup_
+* _oven_set_minus_
 
 [endsect]
 
@@ -237,10 +237,10 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
 [h3 Example]
 
 [h3 See also]
-* [link oven.merged merged]
-* [link oven.set_cap set_cap]
-* [link oven.set_cup set_cup]
-* [link oven.set_delta set_delta]
+* _oven_merged_
+* _oven_set_cap_
+* _oven_set_cup_
+* _oven_set_delta_
 
 [endsect]
 

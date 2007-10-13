@@ -52,8 +52,8 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [h3 Example]
 
 [h3 See also]
-* [link oven.filtered filtered]
-* [link oven.uniqued uniqued]
+* _oven_filtered_
+* _oven_uniqued_
 
 [endsect]
 
@@ -82,19 +82,19 @@ It passes adjacent pairs to a function to transform repeatedly.
         [[*Semantics]]
     ]
     [
-        [`<X_make_adjacent_transformed<R>`]
+        [`X_make_adjacent_transformed<R>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_adjacent_transformed<R>()(_rng, _fun)`]
+        [`X_make_adjacent_transformed<R>()(_rng, _fun)`]
         [
             `{_fun(a1,a2),_fun(a2,a3),..,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
-        [`<X_make_adjacent_transformed<>()(_rng, _cal)`]
+        [`X_make_adjacent_transformed<>()(_rng, _cal)`]
         [
             `{_cal(a1,a2),_cal(a2,a3),..,_cal(a(N-1),aN)}`
         ]
@@ -102,7 +102,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`_rng|adjacent_transformed(_cal)`]
         [
-            `<X_make_adjacent_transformed<>()(_rng, _cal)`
+            `X_make_adjacent_transformed<>()(_rng, _cal)`
         ]
     ]
 ]
@@ -118,7 +118,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 
 [h3 See also]
 * [@http://www.sgi.com/tech/stl/adjacent_difference.html std::adjacent_difference]
-* [link oven.transformed transformed]
+* _oven_transformed_
 
 [endsect]
 
@@ -216,8 +216,8 @@ It passes adjacent pairs to a function to transform repeatedly.
     ) );
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.range_transformer range_transformer]
+* _oven_applier_
+* _oven_range_transformer_
 
 [endsect]
 
@@ -306,7 +306,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     ) );
 
 [h3 See also]
-* [link oven.empty_range empty_range]
+* _oven_empty_range_
 
 [endsect]
 
@@ -362,10 +362,10 @@ It passes adjacent pairs to a function to transform repeatedly.
     ) );
 
 [h3 See also]
-* [link oven.broken_into broken_into]
-* [link oven.memoized memoized]
-* [link oven.tokenized tokenized]
-* [link oven.xpressive_tokenized xpressive_tokenized]
+* _oven_broken_into_
+* _oven_memoized_
+* _oven_tokenized_
+* _oven_xpressive_tokenized_
 
 [endsect]
 
@@ -406,7 +406,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
-* [link oven.constants constants]
+* _oven_constants_
 
 [endsect]
 
@@ -444,7 +444,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
-* [link oven.const_refs const_refs]
+* _oven_const_refs_
 
 [endsect]
 
@@ -472,13 +472,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`<X_make_converted<To>`]
+        [`X_make_converted<To>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_converted<To>()(_rng)`]
+        [`X_make_converted<To>()(_rng)`]
         [
             `_rng|transformed(f_)`
         ]
@@ -486,7 +486,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`oven::make_converted<To>(_rng)`]
         [
-            `<X_make_converted<To>()(_rng)`
+            `X_make_converted<To>()(_rng)`
         ]
     ]
     [
@@ -498,7 +498,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|converted<To>()`]
         [
-            `<X_make_converted<To>()(_rng)`
+            `X_make_converted<To>()(_rng)`
         ]
     ]
 ]
@@ -510,8 +510,8 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
-* [link oven.transformed transformed]
-* [link oven.converter converter]
+* _oven_transformed_
+* _oven_converter_
 
 [endsect]
 
@@ -555,7 +555,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
-* [link oven.copier copier]
+* _oven_copier_
 
 [endsect]
 
@@ -604,7 +604,7 @@ then pretends to be a range of _forward_iterator_.
     ) );
 
 [h3 See also]
-* [link oven.single single]
+* _oven_single_
 
 [endsect]
 
@@ -654,9 +654,9 @@ then pretends to be a range of _forward_iterator_.
     ) );
 
 [h3 See also]
-* [link oven.dropped dropped]
-* [link oven.tokenized tokenized]
-* [link oven.stream_writer stream_writer]
+* _oven_dropped_
+* _oven_tokenized_
+* _oven_stream_writer_
 
 [endsect]
 
@@ -702,8 +702,8 @@ then pretends to be a range of _forward_iterator_.
     ) );
 
 [h3 See also]
-* [link oven.dropped_while dropped_while]
-* [link oven.taken taken]
+* _oven_dropped_while_
+* _oven_taken_
 
 [endsect]
 
@@ -753,9 +753,9 @@ then pretends to be a range of _forward_iterator_.
     ) );
 
 [h3 See also]
-* [link oven.dropped dropped]
-* [link oven.filtered filtered]
-* [link oven.taken_while taken_while]
+* _oven_dropped_
+* _oven_filtered_
+* _oven_taken_while_
 
 [endsect]
 
@@ -783,13 +783,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`<X_make_elements<N, Ref = boost::use_default>`]
+        [`X_make_elements<N, Ref = boost::use_default>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_elements<N, Ref = boost::use_default>()(_rng)`]
+        [`X_make_elements<N, Ref = boost::use_default>()(_rng)`]
         [
             `_rng|transformed(to_Nth)`
         ]
@@ -797,7 +797,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`oven::make_elements<N>(_rng)`]
         [
-            `<X_make_elements<N>()(_rng)`
+            `X_make_elements<N>()(_rng)`
         ]
     ]
     [
@@ -809,7 +809,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|elements<N>()`]
         [
-            `<X_make_elements<N>()(_rng)`
+            `X_make_elements<N>()(_rng)`
         ]
     ]
 ]
@@ -825,9 +825,9 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
-* [link oven.elements_c elements_c]
-* [link oven.map_keys map_keys]
-* [link oven.map_values map_values]
+* _oven_elements_c_
+* _oven_map_keys_
+* _oven_map_values_
 
 [endsect]
 
@@ -850,9 +850,9 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`<X_make_elements_c<n, Ref = boost::use_default>`]
+        [`X_make_elements_c<n, Ref = boost::use_default>`]
         [
-            `<X_make_elements<boost::mpl::int_<n>, Ref>`
+            `X_make_elements<boost::mpl::int_<n>, Ref>`
         ]
     ]
     [
@@ -875,7 +875,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
-* [link oven.elements elements]
+* _oven_elements_
 
 [endsect]
 
@@ -918,8 +918,8 @@ then pretends to be a range of _forward_iterator_.
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/filter_iterator.html boost::filter_iterator]
-* [link oven.dropped_while dropped_while]
-* [link oven.filterer filterer]
+* _oven_dropped_while_
+* _oven_filterer_
 
 [endsect]
 
@@ -991,13 +991,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`<X_make_indirected<X1,..,XN>`]
+        [`X_make_indirected<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_indirected<X1,..,XN>()(_rng)`]
+        [`X_make_indirected<X1,..,XN>()(_rng)`]
         [
             `[T(_begin(_rng), T(_end(_rng)))`
         ]
@@ -1005,7 +1005,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|indirected`]
         [
-           `<X_make_indirected<>()(_rng)`
+           `X_make_indirected<>()(_rng)`
         ]
     ]
 ]
@@ -1027,8 +1027,8 @@ then pretends to be a range of _forward_iterator_.
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]
-* [link oven.outdirected outdirected]
-* [link oven.indirecter indirecter]
+* _oven_outdirected_
+* _oven_indirecter_
 
 [endsect]
 
@@ -1073,10 +1073,10 @@ then pretends to be a range of _forward_iterator_.
     BOOST_CHECK( equals(iters|indirected, answer) );
 
 [h3 See also]
-* [link oven.indirected indirected]
-* [link oven.indirecter indirecter]
-* [link oven.outplaced outplaced]
-* [link oven.pointed pointed]
+* _oven_indirected_
+* _oven_indirecter_
+* _oven_outplaced_
+* _oven_pointed_
 
 [endsect]
 
@@ -1123,10 +1123,10 @@ then pretends to be a range of _forward_iterator_.
     BOOST_CHECK( equals(lst, initial_values(1,2,3,4,5,6)) );
 
 [h3 See also]
-* [link oven.indirected indirected]
-* [link oven.outdirected outdirected]
-* [link oven.pointed pointed]
-* [link oven.sorted sorted]
+* _oven_indirected_
+* _oven_outdirected_
+* _oven_pointed_
+* _oven_sorted_
 
 [endsect]
 
@@ -1231,8 +1231,8 @@ then pretends to be a range of _forward_iterator_.
     }
 
 [h3 See also]
-* [link oven.elements elements]
-* [link oven.map_keys map_keys]
+* _oven_elements_
+* _oven_map_keys_
 
 [endsect]
 
@@ -1283,8 +1283,8 @@ then pretends to be a range of _forward_iterator_.
     BOOST_CHECK( m[99] == "values" );
 
 [h3 See also]
-* [link oven.elements elements]
-* [link oven.map_keys map_keys]
+* _oven_elements_
+* _oven_map_keys_
 
 [endsect]
 
@@ -1346,8 +1346,8 @@ then pretends to be a range of _forward_iterator_.
     );
 
 [h3 See also]
-* [link oven.any_range any_range]
-* [link oven.recursion recursion]
+* _oven_any_range_
+* _oven_recursion_
 
 [endsect]
 
@@ -1389,8 +1389,8 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
-* [link oven.sliced sliced]
-* [link oven.window window]
+* _oven_sliced_
+* _oven_window_
 
 [endsect]
 
@@ -1430,8 +1430,8 @@ That is, the view includes every element of the given range but in a potentially
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/permutation_iterator.html boost::permutation_iterator]
-* [link oven.sliced sliced]
-* [link oven.permuter permuter]
+* _oven_sliced_
+* _oven_permuter_
 
 [endsect]
 
@@ -1482,7 +1482,7 @@ Also, you can expect STL to choose optimized implementation by passing raw point
     BOOST_CHECK(( equals(vec|as_c_str, src) ));
 
 [h3 See also]
-* [link oven.outdirected outdirected]
+* _oven_outdirected_
 
 [endsect]
 
@@ -1521,7 +1521,7 @@ Also, you can expect STL to choose optimized implementation by passing raw point
 [h3 Example]
 
 [h3 See also]
-* [link oven.dropped dropped]
+* _oven_dropped_
 
 [endsect]
 
@@ -1600,10 +1600,10 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Example]
 
 [h3 See also]
-* [link oven.transformed transformed]
-* [link oven.value_at value_at]
-* [link oven.value_back value_back]
-* [link oven.value_front value_front]
+* _oven_transformed_
+* _oven_value_at_
+* _oven_value_back_
+* _oven_value_front_
 
 [endsect]
 
@@ -1718,9 +1718,9 @@ A range returned from `reversed` iterates in the opposite direction.
     ) );
 
 [h3 See also]
-* [link oven.offset offset]
-* [link oven.steps steps]
-* [link oven.window window]
+* _oven_offset_
+* _oven_steps_
+* _oven_window_
 
 [endsect]
 
@@ -1776,7 +1776,7 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 See also]
 * [@http://www.ddj.com/dept/cpp/196513737 C++ View Objects]
-* [link oven.outplaced outplaced]
+* _oven_outplaced_
 
 [endsect]
 
@@ -1824,7 +1824,7 @@ A range returned from `reversed` iterates in the opposite direction.
     ) );
 
 [h3 See also]
-* [link oven.sliced sliced]
+* _oven_sliced_
 
 [endsect]
 
@@ -1866,11 +1866,11 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Example]
 
 [h3 See also]
-* [link oven.dropped dropped]
-* [link oven.offset offset]
-* [link oven.sliced sliced]
-* [link oven.taken_while taken_while]
-* [link oven.window window]
+* _oven_dropped_
+* _oven_offset_
+* _oven_sliced_
+* _oven_taken_while_
+* _oven_window_
 
 [endsect]
 
@@ -1913,8 +1913,8 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Example]
 
 [h3 See also]
-* [link oven.dropped_while dropped_while]
-* [link oven.taken taken]
+* _oven_dropped_while_
+* _oven_taken_
 
 [endsect]
 
@@ -1939,13 +1939,13 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`<X_make_transformed<R = boost::use_default>`]
+        [`X_make_transformed<R = boost::use_default>`]
         [
            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_transformed<R = boost::use_default>()(_rng, _fun)`]
+        [`X_make_transformed<R = boost::use_default>()(_rng, _fun)`]
         [
             `[T(_begin(_rng), _fun), T(_end(_rng), _fun))`
         ]
@@ -1953,7 +1953,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`_rng|transformed(_cal)`]
         [
-            `<X_make_transformed<>()(_rng, _cal)`
+            `X_make_transformed<>()(_rng, _cal)`
         ]
     ]
 ]
@@ -1968,7 +1968,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/transform_iterator.html boost::transform_iterator]
-* [link oven.transformer transformer]
+* _oven_transformer_
 
 [endsect]
 
@@ -2018,7 +2018,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Example]
 
 [h3 See also]
-* [link oven.adjacent_filtered adjacent_filtered]
+* _oven_adjacent_filtered_
 
 [endsect]
 
@@ -2060,8 +2060,8 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Example]
 
 [h3 See also]
-* [link oven.sliced sliced]
-* [link oven.offset offset]
+* _oven_sliced_
+* _oven_offset_
 
 [endsect]
 
