@@ -21,8 +21,8 @@ for any _pipable_adaptor_ `p` the following must be met:
 * If `N` is `0`, `x|p` and and `make_++p(x)` are valid expressions which has the same effects.
 
 [h3 Models]
-* [link oven.filtered filtered]
-* [link oven.transformer transformer]
+* _oven_filtered_
+* _oven_transformer_
 
 [endsect]
 
@@ -45,7 +45,7 @@ for any _stoppable_generator_ `g` the following must be met:
 * An /uninitialized/ result is considered as the stop of generating.
 
 [h3 Models]
-* Any _deferred_callable_object_ which [link oven.nonstop nonstop] returns.
+* Any _deferred_callable_object_ which _oven_nonstop_ returns.
 
 [endsect]
 

@@ -134,7 +134,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `_rng` is _readable_ or _lvalue_.
 
 [h3 See also]
-* [link oven.none none]
+* _oven_none_
 
 [endsect]
 
@@ -170,7 +170,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
 
-[note you must use [link oven.value_at value_at] if the second precondition can't be met.]
+[note you must use _oven_value_at_ if the second precondition can't be met.]
 
 [h3 Example]
     std::string str("f12344513215b");
@@ -178,7 +178,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     BOOST_CHECK( (str|at(4)) == '4' );
 
 [h3 See also]
-* [link oven.value_at value_at]
+* _oven_value_at_
 
 [endsect]
 
@@ -214,8 +214,8 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `!boost::empty(_bidrng)`
 
 [h3 See also]
-* [link oven.front front]
-* [link oven.value_back value_back]
+* _oven_front_
+* _oven_value_back_
 
 [endsect]
 
@@ -306,7 +306,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     BOOST_CHECK( equals(vec, rng) );
 
 [h3 See also]
-* [link oven.transformed transformed]
+* _oven_transformed_
 
 [endsect]
 
@@ -411,8 +411,8 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `!boost::empty(_rng)`
 
 [h3 See also]
-* [link oven.back back]
-* [link oven.value_front value_front]
+* _oven_back_
+* _oven_value_front_
 
 [endsect]
 
@@ -447,7 +447,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `_rng` is _readable_ or _lvalue_.
 
 [h3 See also]
-* [link oven.all all]
+* _oven_all_
 
 [endsect]
 
@@ -486,7 +486,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `0 <= n && n < distance(_rndrng)`
 
 [h3 See also]
-* [link oven.at at]
+* _oven_at_
 
 [endsect]
 
@@ -524,8 +524,8 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `!boost::empty(_bidrng)`
 
 [h3 See also]
-* [link oven.back back]
-* [link oven.value_front value_front]
+* _oven_back_
+* _oven_value_front_
 
 [endsect]
 
@@ -563,8 +563,8 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `!boost::empty(_rng)`
 
 [h3 See also]
-* [link oven.front front]
-* [link oven.value_back value_back]
+* _oven_front_
+* _oven_value_back_
 
 [endsect]
 

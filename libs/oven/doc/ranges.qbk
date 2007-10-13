@@ -54,8 +54,8 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 
 [h3 See also]
 * [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
-* [link oven.expression expression]
-* [link oven.any_indexed any_indexed]
+* _oven_expression_
+* _oven_any_indexed_
 
 [endsect]
 
@@ -93,14 +93,14 @@ some extra preconditions.
 
 [h3 Preconditions]
 * The corresponding semantics is a valid expression.
-* If `R` is a /reference type/, a range which initialize or is assigned to `any_indexed<R>` must be _lvalue_.
-* `any_indexed<R>` may not be recursive.
+* If `R` is a /reference type/, a range which initialize or is assigned to `any_indexed<R>` is a _lvalue_ _s_ _range_.
+* `any_indexed<R>` is not be recursive.
 
 [h3 Example]
 
 [h3 See also]
-* [link oven.any_range any_range]
-* [link oven.recursion recursion]
+* _oven_any_range_
+* _oven_recursion_
 
 [endsect]
 
@@ -235,7 +235,7 @@ a range presentation of dynamically allocated arrays.
     BOOST_CHECK( boost::empty(empty_range<int>()) );
 
 [h3 See also]
-* [link oven.cleared cleared]
+* _oven_cleared_
 
 [endsect]
 
@@ -290,7 +290,7 @@ If the file opening failed, the range is empty.
 
 [h3 See also]
 * [@http://www.boost.org/libs/spirit/doc/file_iterator.html boost::spirit::file_iterator]
-* [link oven.stream_read stream_read]
+* _oven_stream_read_
 
 [endsect]
 
@@ -332,8 +332,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 See also]
 * _string_algo_proposal_
-* [link oven.as_c_str as_c_str]
-* [link oven.as_literal as_literal]
+* _oven_as_c_str_
+* _oven_as_literal_
 
 [endsect]
 
@@ -377,8 +377,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 See also]
 * _string_algo_proposal_
-* [link oven.as_array as_c_array]
-* [link oven.as_literal as_literal]
+* _oven_as_array_
+* _oven_as_literal_
 
 [endsect]
 
@@ -424,8 +424,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 See also]
 * _string_algo_proposal_
-* [link oven.as_array as_array]
-* [link oven.as_c_str as_c_str]
+* _oven_as_array_
+* _oven_as_c_str_
 
 [endsect]
 
@@ -627,24 +627,24 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`<X_counting<X1,..,XN>`]
+        [`X_counting<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_counting<X1,..,XN>()(i, j)`]
+        [`X_counting<X1,..,XN>()(i, j)`]
         [
             `[T(i), T(j))`
         ]
     ]
     [
         [`counting(i, j)`]
-        [`<X_counting<>()(i, j)`]
+        [`X_counting<>()(i, j)`]
     ]
     [
         [`counting(i, max_count)`]
-        [`<X_counting<>()(i, std::numeric_limits<_typeof(i)>::max())`]
+        [`X_counting<>()(i, std::numeric_limits<_typeof(i)>::max())`]
     ]
 ]
 
@@ -724,11 +724,11 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 See also]
 * [@http://www.boost.org/libs/utility/generator_iterator.htm boost::generator_iterator]
-* [link oven.iteration iteration]
-* [link oven.unfold unfold]
-* [link oven.nonstop nonstop]
-* [link oven.regular regular]
-* [link oven.regular_ref regular_ref]
+* _oven_iteration_
+* _oven_unfold_
+* _oven_nonstop_
+* _oven_regular_
+* _oven_regular_ref_
 
 [endsect]
 
@@ -755,13 +755,13 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`<X_hetero<Ref>`]
+        [`X_hetero<Ref>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_hetero<Ref>()(tup)`]
+        [`X_hetero<Ref>()(tup)`]
         [
             A _random_access_ `{(Ref)boost::fusion::at_c<0>(tup),..,(Ref)boost::fusion::at_c<N-1>(tup)}`
         ]
@@ -769,7 +769,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`oven::hetero<Ref>`]
         [
-            `<X_hetero<Ref>()`
+            `X_hetero<Ref>()`
         ]
     ]
 ]
@@ -813,33 +813,33 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`<X_initial_values<T>`]
+        [`X_initial_values<T>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_initial_values<T>()(a1,..,aN)`]
+        [`X_initial_values<T>()(a1,..,aN)`]
         [
             A _random_access_ _readable_ _lvalue_ _constant_ `{a1,..,aN}`
         ]
     ]
     [
-        [`Rng rng = <X_initial_values<T>()(a1,..,aN);`]
+        [`Rng rng = X_initial_values<T>()(a1,..,aN);`]
         [
-            `Rng rng = <X_initial_values<T>()(a1,..,aN)|copied;`
+            `Rng rng = X_initial_values<T>()(a1,..,aN)|copied;`
         ]
     ]
     [
-        [`Rng2 rng2(<X_initial_values<T>()(a1,..,aN));`]
+        [`Rng2 rng2(X_initial_values<T>()(a1,..,aN));`]
         [
-            `Rng2 rng2(<X_initial_values<T>()(a1,..,aN)|copied);`
+            `Rng2 rng2(X_initial_values<T>()(a1,..,aN)|copied);`
         ]
     ]
     [
         [`initial_values`]
         [
-            `<X_initial_values<t>()`, where `t` is deduced from the first argument.
+            `X_initial_values<t>()`, where `t` is deduced from the first argument.
         ]
     ]
 ]
@@ -850,8 +850,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `1 <= N && N <= 20`
 * `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
 * `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
-* `Rng rng = <X_initial_values<T>()(a1,..,aN)|copied;` is a valid expression.
-* `Rng2 rng2(<X_initial_values<T>()(a1,..,aN)|copied);` is a valid expression.
+* `Rng rng = X_initial_values<T>()(a1,..,aN)|copied;` is a valid expression.
+* `Rng2 rng2(X_initial_values<T>()(a1,..,aN)|copied);` is a valid expression.
 
 [tip `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
       Also, it doesn't require the arguments to be _assignable_.]
@@ -864,7 +864,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [h3 See also]
 * _boost_array_
 * _boost_assign_
-* [link oven.copied copied]
+* _oven_copied_
 
 [endsect]
 
@@ -913,9 +913,9 @@ on the first argument, the second item by applying the function on the previous 
     ) );
 
 [h3 See also]
-* [link oven.unfold unfold]
-* [link oven.generation generation]
-* [link oven.taken taken]
+* _oven_unfold_
+* _oven_generation_
+* _oven_taken_
 
 [endsect]
 
@@ -925,7 +925,7 @@ on the first argument, the second item by applying the function on the previous 
 [section recursion]
 
 [h3 Description]
-`recursion`, collaborating with [link oven.any_range any_range], creates a recursive range.
+`recursion`, collaborating with _oven_any_range_, creates a recursive range.
 
 [h3 Header]
 * `<pstade/oven/recursion.hpp>`
@@ -972,8 +972,8 @@ on the first argument, the second item by applying the function on the previous 
       A recursive range tends to be inefficient without memoization.]
 
 [h3 See also]
-* [link oven.any_range any_range]
-* [link oven.memoized memoized]
+* _oven_any_range_
+* _oven_memoized_
 
 [endsect]
 
@@ -1027,7 +1027,7 @@ and the iterators manage the allocation.
 
 [h3 See also]
 * [@http://www.boost.org/libs/utility/shared_container_iterator.html shared_container_iterator]
-* [link oven.shared_single shared_single]
+* _oven_shared_single_
 
 [endsect]
 
@@ -1068,7 +1068,7 @@ and the iterators manage the allocation.
     }
 
 [h3 See also]
-* [link oven.single single]
+* _oven_single_
 
 [endsect]
 
@@ -1099,13 +1099,13 @@ and the iterators manage the allocation.
 ]
 
 [note As the semantics implies, the iterators are valid as long as `x` is not destructed.
-      If you want the iterators to manage the base object lifetime, use [link oven.shared_single shared_single].]
+      If you want the iterators to manage the base object lifetime, use _oven_shared_single_.]
 
 [h3 Example]
     BOOST_CHECK( equals(single('a'), std::string("a")) );
 
 [h3 See also]
-* [link oven.shared_single shared_single]
+* _oven_shared_single_
 
 [endsect]
 
@@ -1133,13 +1133,13 @@ and the iterators manage the allocation.
         [[*Semantics]]
     ]
     [
-        [`<X_stream_lines<A = DefaultA>`]
+        [`X_stream_lines<A = DefaultA>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_stream_lines<A>()(s)`]
+        [`X_stream_lines<A>()(s)`]
         [
            `[T(s), T())`
         ]
@@ -1147,7 +1147,7 @@ and the iterators manage the allocation.
     [
         [`stream_lines`]
         [
-           `<X_stream_lines<>()`
+           `X_stream_lines<>()`
         ]
     ]
 ]
@@ -1159,7 +1159,7 @@ and the iterators manage the allocation.
 
 [h3 See also]
 * [@http://hamigaki.sourceforge.jp/doc/html/istream_line_iterator.html hamigaki::istream_line_iterator]
-* [link oven.stream_read stream_read]
+* _oven_stream_read_
 
 [endsect]
 
@@ -1181,13 +1181,13 @@ and the iterators manage the allocation.
         [[*Semantics]]
     ]
     [
-        [`<X_stream_read<V, D = std::ptrdiff_t>`]
+        [`X_stream_read<V, D = std::ptrdiff_t>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_stream_read<V, D>()(s)`]
+        [`X_stream_read<V, D>()(s)`]
         [
            `[T(s), T())`
         ]
@@ -1195,7 +1195,7 @@ and the iterators manage the allocation.
     [
         [`oven::stream_read<V>()(s)`]
         [
-           `<X_stream_read<V>()(s)`
+           `X_stream_read<V>()(s)`
         ]
     ]
 ]
@@ -1218,9 +1218,9 @@ and the iterators manage the allocation.
 
 [h3 See also]
 * [@http://www.sgi.com/tech/stl/istream_iterator.html std::istream_iterator]
-* [link oven.file_range file_range]
-* [link oven.stream_lines stream_lines]
-* [link oven.stream_writer stream_writer]
+* _oven_file_range_
+* _oven_stream_lines_
+* _oven_stream_writer_
 
 [endsect]
 
@@ -1313,8 +1313,8 @@ and the iterators manage the allocation.
     }
 
 [h3 See also]
-* [link oven.generation generation]
-* [link oven.iteration iteration]
+* _oven_generation_
+* _oven_iteration_
 
 [endsect]
 

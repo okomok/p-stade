@@ -34,13 +34,13 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
         [[*Semantics]]
     ]
     [
-        [`<X_make_converter<To>`]
+        [`X_make_converter<To>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_converter<To>()(_outit)`]
+        [`X_make_converter<To>()(_outit)`]
         [
             `applier(f_)`
         ]
@@ -48,7 +48,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     [
         [`oven::make_converter<To>(_outit)`]
         [
-            `<X_make_converter<To>()(_outit)`
+            `X_make_converter<To>()(_outit)`
         ]
     ]
     [
@@ -60,7 +60,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     [
         [`converter<To>() |= _outit`]
         [
-            `<X_make_converter<To>()(_outit)`
+            `X_make_converter<To>()(_outit)`
         ]
     ]
 ]
@@ -71,9 +71,9 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 Example]
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.converted converted]
-* [link oven.transformer transformer]
+* _oven_applier_
+* _oven_converted_
+* _oven_transformer_
 
 [endsect]
 
@@ -121,8 +121,8 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
   
 [h3 See also]
 * [@http://www.ddj.com/cpp/184401483 Common Knowledge: Output Iterator Adapters]
-* [link oven.applier applier]
-* [link oven.copied_to copied_to]
+* _oven_applier_
+* _oven_copied_to_
 
 [endsect]
 
@@ -164,8 +164,8 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 Example]
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.filtered filtered]
+* _oven_applier_
+* _oven_filtered_
 
 [endsect]
 
@@ -206,9 +206,9 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 Example]
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.indirected indirected]
-* [link oven.outdirected outdirected]
+* _oven_applier_
+* _oven_indirected_
+* _oven_outdirected_
 
 [endsect]
 
@@ -255,7 +255,7 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 Example]
 
 [h3 See also]
-* [link oven.eater eater]
+* _oven_eater_
 
 [endsect]
 
@@ -296,8 +296,8 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 Example]
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.permuted permuted]
+* _oven_applier_
+* _oven_permuted_
 
 [endsect]
 
@@ -339,10 +339,10 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
 [h3 Example]
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.transformed transformed]
-* [link oven.range_transformer range_transformer]
-* [link oven.converter converter]
+* _oven_applier_
+* _oven_transformed_
+* _oven_range_transformer_
+* _oven_converter_
 
 [endsect]
 
@@ -388,10 +388,10 @@ An Output Iterator Adaptor is a _pipable_object_, so that, by using `operator|=`
     copy(frng|utf8_decoded, range_transformer(make_utf8_encoded) |= std::back_inserter(result));
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.applied applied]
-* [link oven.single single]
-* [link oven.transformer transformer]
+* _oven_applier_
+* _oven_applied_
+* _oven_single_
+* _oven_transformer_
 
 [endsect]
 
@@ -429,7 +429,7 @@ Pending...
 [h3 Example]
 
 [h3 See also]
-* [link oven.utf8_decoded utf8_decoded]
+* _oven_utf8_decoded_
 
 [endsect]
 
@@ -467,7 +467,7 @@ Pending...
 [h3 Example]
 
 [h3 See also]
-* [link oven.utf16_decoded utf16_decoded]
+* _oven_utf16_decoded_
 
 [endsect]
 

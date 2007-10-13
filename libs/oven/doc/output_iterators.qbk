@@ -84,7 +84,7 @@ Oven provides some useful Output Iterators.
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/function_output_iterator.html boost::function_output_iterator]
-* [link oven.applied applied]
+* _oven_applied_
 
 [endsect]
 
@@ -128,7 +128,7 @@ Oven provides some useful Output Iterators.
 [h3 Example]
 
 [h3 See also]
-* [link oven.checked checked]
+* _oven_checked_
 
 [endsect]
 
@@ -169,8 +169,8 @@ Oven provides some useful Output Iterators.
 [h3 Example]
 
 [h3 See also]
-* [link oven.applier applier]
-* [link oven.intercepter intercepter]
+* _oven_applier_
+* _oven_intercepter_
 
 [endsect]
 
@@ -236,9 +236,9 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 [h3 See also]
 * [@http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html hamigaki::ostream_iteraotor]
 * [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
-* [link oven.delimited delimited]
-* [link oven.stream_read stream_read]
-* [link oven.converter converter]
+* _oven_delimited_
+* _oven_stream_read_
+* _oven_converter_
 
 [endsect]
 
@@ -329,8 +329,8 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 
 [h3 See also]
 * [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
-* [link oven.stream_writer stream_writer]
-* [link oven.converter converter]
+* _oven_stream_writer_
+* _oven_converter_
 
 [endsect]
 

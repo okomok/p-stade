@@ -22,13 +22,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`<X_make_broken_into<V>`]
+        [`X_make_broken_into<V>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_broken_into<V>()(_rng, k)`]
+        [`X_make_broken_into<V>()(_rng, k)`]
         [
             `[T(k, _begin(_rng), _end(_rng)), T(k, _end(_rng), boost:end(_rng)))`
         ]
@@ -36,7 +36,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`_rng|oven::broken_into<V>(k)`]
         [
-            `<X_make_broken_into<V>()(_rng, k)`
+            `X_make_broken_into<V>()(_rng, k)`
         ]
     ]
 ]
@@ -61,10 +61,10 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [h3 See also]
 * [@http://www.boost.org/libs/tokenizer/index.html boost::tokenizer]
-* [link oven.concatenated concatenated]
-* [link oven.memoized memoized]
-* [link oven.tokenized tokenized]
-* [link oven.xpressive_tokenized xpressive_tokenized]
+* _oven_concatenated_
+* _oven_memoized_
+* _oven_tokenized_
+* _oven_xpressive_tokenized_
 
 [endsect]
 
@@ -117,8 +117,8 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [h3 See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-lower to_lower proposal]
-* [link oven.transformed transformed]
-* [link oven.upper_chars upper_chars]
+* _oven_transformed_
+* _oven_upper_chars_
 
 [endsect]
 
@@ -171,8 +171,8 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [h3 See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-upper to_upper proposal]
-* [link oven.lower_chars lower_chars]
-* [link oven.transformed transformed]
+* _oven_lower_chars_
+* _oven_transformed_
 
 [endsect]
 
@@ -218,8 +218,8 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 [h3 Example]
 
 [h3 See also]
-* [link oven.transformed transformed]
-* [link oven.wide_chars wide_chars]
+* _oven_transformed_
+* _oven_wide_chars_
 
 [endsect]
 
@@ -272,8 +272,8 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 [h3 Example]
 
 [h3 See also]
-* [link oven.narrow_chars narrow_chars]
-* [link oven.transformed transformed]
+* _oven_narrow_chars_
+* _oven_transformed_
 
 [endsect]
 
@@ -375,13 +375,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`<X_make_matches<X1,..,XN>`]
+        [`X_make_matches<X1,..,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
+        [`X_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
         [
             `[T(_begin(_bidrng), _end(_bidrng), y1,..,yM), T())`
         ]
@@ -389,7 +389,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`_bidrng|matches`]
         [
-            `<X_make_matches<>()(_bidrng)`
+            `X_make_matches<>()(_bidrng)`
         ]
     ]
 ]
@@ -404,7 +404,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [h3 See also]
 * [@http://www.boost.org/libs/regex/doc/regex_iterator.html boost::regex_iterator]
-* [link oven.tokenized tokenized]
+* _oven_tokenized_
 
 [endsect]
 
@@ -429,13 +429,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`<X_make_tokenized<Y1,..,YN>`]
+        [`X_make_tokenized<Y1,..,YN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
+        [`X_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
         [
             `[T(_begin(_bidrng), _end(_bidrng), x1,..,xM), T())`
         ]
@@ -443,7 +443,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`_bidrng|tokenized`]
         [
-            `<X_make_tokenized<>()(_bidrng)`
+            `X_make_tokenized<>()(_bidrng)`
         ]
     ]
 ]
@@ -458,7 +458,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [h3 See also]
 * [@http://www.boost.org/libs/regex/doc/regex_token_iterator.html boost::regex_token_iterator]
-* [link oven.broken_into broken_into]
+* _oven_broken_into_
 
 [endsect]
 
@@ -483,13 +483,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`<X_make_utf8_decoded<U1,..,UN>`]
+        [`X_make_utf8_decoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
+        [`X_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
@@ -497,7 +497,7 @@ Pending...
     [
         [`_fwdrng|utf8_decoded`]
         [
-            `<X_make_utf8_decoded<>()(_fwdrng)`
+            `X_make_utf8_decoded<>()(_fwdrng)`
         ]
     ]
 ]
@@ -513,9 +513,9 @@ Pending...
     BOOST_CHECK( equals(frng, result) );
 
 [h3 See also]
-* [link oven.file_range file_range]
-* [link oven.utf8_encoded utf8_encoded]
-* [link oven.utf8_encoder utf8_encoder]
+* _oven_file_range_
+* _oven_utf8_encoded_
+* _oven_utf8_encoder_
 
 [endsect]
 
@@ -540,13 +540,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`<X_make_utf8_encoded<U1,..,UN>`]
+        [`X_make_utf8_encoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_utf8_encoded<U1,..,UN>()(_rng)`]
+        [`X_make_utf8_encoded<U1,..,UN>()(_rng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
         ]
@@ -554,7 +554,7 @@ Pending...
     [
         [`_rng|utf8_encoded`]
         [
-            `<X_make_utf8_encoded<>()(_rng)`
+            `X_make_utf8_encoded<>()(_rng)`
         ]
     ]
 ]
@@ -566,9 +566,9 @@ Pending...
 [h3 Example]
 
 [h3 See also]
-* [link oven.file_range file_range]
-* [link oven.utf8_decoded utf8_decoded]
-* [link oven.utf8_encoder utf8_encoder]
+* _oven_file_range_
+* _oven_utf8_decoded_
+* _oven_utf8_encoder_
 
 [endsect]
 
@@ -593,13 +593,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`<X_make_utf16_decoded<U1,..,UN>`]
+        [`X_make_utf16_decoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_utf16_decoded<U1,..,UN>()(_fwdrng)`]
+        [`X_make_utf16_decoded<U1,..,UN>()(_fwdrng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
@@ -607,7 +607,7 @@ Pending...
     [
         [`_fwdrng|utf16_decoded`]
         [
-            `<X_make_utf16_decoded<>()(_fwdrng)`
+            `X_make_utf16_decoded<>()(_fwdrng)`
         ]
     ]
 ]
@@ -619,9 +619,9 @@ Pending...
 [h3 Example]
 
 [h3 See also]
-* [link oven.file_range file_range]
-* [link oven.utf16_encoded utf16_encoded]
-* [link oven.utf16_encoder utf16_encoder]
+* _oven_file_range_
+* _oven_utf16_encoded_
+* _oven_utf16_encoder_
 
 [endsect]
 
@@ -646,13 +646,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`<X_make_utf16_encoded<U1,..,UN>`]
+        [`X_make_utf16_encoded<U1,..,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`<X_make_utf16_encoded<U1,..,UN>()(_rng)`]
+        [`X_make_utf16_encoded<U1,..,UN>()(_rng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
         ]
@@ -660,7 +660,7 @@ Pending...
     [
         [`_rng|utf16_encoded`]
         [
-            `<X_make_utf16_encoded<>()(_rng)`
+            `X_make_utf16_encoded<>()(_rng)`
         ]
     ]
 ]
@@ -672,9 +672,9 @@ Pending...
 [h3 Example]
 
 [h3 See also]
-* [link oven.file_range file_range]
-* [link oven.utf16_decoded utf16_decoded]
-* [link oven.utf16_encoder utf16_encoder]
+* _oven_file_range_
+* _oven_utf16_decoded_
+* _oven_utf16_encoder_
 
 [endsect]
 
@@ -716,8 +716,8 @@ Pending...
 
 [h3 See also]
 * [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_iterator/hpp.html boost::xpressive::regex_iterator]
-* [link oven.matches matches]
-* [link oven.xpressive_tokenized xpressive_tokenized]
+* _oven_matches_
+* _oven_xpressive_tokenized_
 
 [endsect]
 
@@ -759,10 +759,10 @@ Pending...
 
 [h3 See also]
 * [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_token_iterator/hpp.html boost::xpressive::regex_token_iterator]
-* [link oven.concatenated concatenated]
-* [link oven.memoized memoized]
-* [link oven.tokenized tokenized]
-* [link oven.xpressive_matches xpressive_matches]
+* _oven_concatenated_
+* _oven_memoized_
+* _oven_tokenized_
+* _oven_xpressive_matches_
 
 [endsect]
 

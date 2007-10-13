@@ -34,7 +34,7 @@ namespace pstade { namespace oven {
 // boost_begin
 //
 
-struct boost_begin_t
+struct T_boost_begin
 {
     template< class Range >
     typename range_iterator<Range>::type
@@ -60,13 +60,13 @@ struct boost_begin_t
 #endif
 };
 
-PSTADE_POD_CONSTANT((boost_begin_t), boost_begin) = {};
+PSTADE_POD_CONSTANT((T_boost_begin), boost_begin) = {};
 
 
 // boost_end
 //
 
-struct boost_end_t
+struct T_boost_end
 {
     template< class Range >
     typename range_iterator<Range>::type
@@ -92,7 +92,7 @@ struct boost_end_t
 #endif
 };
 
-PSTADE_POD_CONSTANT((boost_end_t), boost_end) = {};
+PSTADE_POD_CONSTANT((T_boost_end), boost_end) = {};
 
 
 } } // namespace pstade::oven
