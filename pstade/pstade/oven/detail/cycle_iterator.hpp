@@ -160,13 +160,12 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(invariant());
 
-        if (this->base() != m_first) {
-            --this->base_reference();
-        }
-        else {
-            this->base_reference() = boost::prior(m_last);
+        if (this->base() == m_first) {
+            this->base_reference() = m_last;
             --m_count;
         }
+
+        --this->base_reference();
     }
 
     void advance(diff_t n)
