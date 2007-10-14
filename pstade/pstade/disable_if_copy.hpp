@@ -25,19 +25,19 @@
 namespace pstade {
 
 
-    template< class T, class A >
+    template< class Self, class From >
     struct disable_if_copy :
         disable_if<
-            boost::is_same<T, A>
+            boost::is_same<Self, From>
         >
     { };
 
 
-    template< class T, class A >
+    template< class Self, class From >
     struct disable_if_copy_assign :
         disable_if<
-            boost::is_same<T, A>,
-            T&
+            boost::is_same<Self, From>,
+            Self&
         >
     { };
 
