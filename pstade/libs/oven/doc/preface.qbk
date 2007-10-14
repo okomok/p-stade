@@ -162,11 +162,11 @@ This document uses the following notation:
         [A _range_ which behaves as if `i = boost::begin([i, j))` and `j = boost::end([i, j))`.]
     ]
     [
-        [`{a0,a1,a2,..,aN}`]
+        [`{a0,a1,a2,...,aN}`]
         [A _range_]
     ]
     [
-        [`(a0 a1 a2 .. aN)`]
+        [`(a0 a1 a2 ... aN)`]
         [A `boost::tuple`]
     ]
 ]

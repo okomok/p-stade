@@ -55,11 +55,11 @@ Distributed under the Boost Software License, Version 1.0.
 
 [/ Internal Links ]
 
-[def __CONSTANT_LVALUE__ [link egg.concepts.constant_lvalue Constant Lvalue]]
+[def __CONSTANT_OBJECT__ [link egg.concepts.constant_object Constant Object]]
 [def __LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
 [def __STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
 [def __OPERATABLE__ [link egg.concepts.operatable_object Operatable]]
-[def __AUXILIARY_INTERFACE__ [link egg.concepts.auxiliary_interface Auxiliary Interface]]
+[def __AUXILIARY_CLASS_INTERFACE__ [link egg.concepts.auxiliary_class_interface Auxiliary Class Interface]]
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]
 [def __BINDABLE__ [link egg.concepts.bindable_object Bindable]]
 [def __PIPABLE_OBJECT__ [link egg.concepts.pipable_object Pipable Object]]

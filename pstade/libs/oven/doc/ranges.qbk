@@ -267,7 +267,7 @@ If the file opening failed, the range is empty.
         [[*Semantics]]
     ]
     [
-        [`file_range<X1,..,XN>(s)`]
+        [`file_range<X1,...,XN>(s)`]
         [
             `[T(s), T())`
         ]
@@ -282,7 +282,7 @@ If the file opening failed, the range is empty.
 * `!r.is_open() ? boost::empty(r) : true`
 
 [h3 Preconditions]
-* `T` is `boost::spirit::file_iterator<X1,..,XN>` such that `T(s)` is a valid expression.
+* `T` is `boost::spirit::file_iterator<X1,...,XN>` such that `T(s)` is a valid expression.
 
 [h3 Example]
     std::vector<char> vec;
@@ -306,7 +306,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_array.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -349,7 +349,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_c_str.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -394,7 +394,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_literal.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -526,9 +526,9 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`comprehension(_fun, _prd, makerng1,..,makerngN)`]
+        [`comprehension(_fun, _prd, makerng1,...,makerngN)`]
         [
-            A _forward_ _lvalue_ _constant_ `{_fun(a(1,1),a(2,1),..a(N,1)),_fun(a(1,1),a(2,1),..a(N,2)),..,_fun(a(1,1),a(2,1),..a(N,d(N))),..}` but filtered using `_prd`.
+            A _forward_ _lvalue_ _constant_ `{_fun(a(1,1),a(2,1),...a(N,1)),_fun(a(1,1),a(2,1),...a(N,2)),...,_fun(a(1,1),a(2,1),...a(N,d(N))),...}` but filtered using `_prd`.
         ]
     ]
     [
@@ -551,12 +551,12 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[note A result object of `_fun(..)` is copied, whereas range referents which `makerngI` returns must outlive `comprehension(..)`.] 
+[note A result object of `_fun(...)` is copied, whereas range referents which `makerngI` returns must outlive `comprehension(...)`.] 
 
 [h3 Preconditions]
 * `N <= 3`
 * `_fun` is a `N`-ary _deferred_callable_object_ or _boost_lambda_ functor.
-* `_typeof(_fun(..))` is _copy_constructible_.
+* `_typeof(_fun(...))` is _copy_constructible_.
 * For any `I`, `makerngI` is a `I-1`-ary _deferred_callable_object_ or _boost_lambda_ functor which returns a _range_.
 * `_prd` is `N`-ary.
 * `_typeof(b)` is `bool`.
@@ -627,13 +627,13 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`X_counting<X1,..,XN>`]
+        [`X_counting<X1,...,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_counting<X1,..,XN>()(i, j)`]
+        [`X_counting<X1,...,XN>()(i, j)`]
         [
             `[T(i), T(j))`
         ]
@@ -650,7 +650,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 Preconditions]
 * `0 <= N && N <= 2`
-* `T` is `boost::counting_iterator<_typeof(j), X1,..,XN>` such that `T(i)` and `T(j)` is a valid expression.
+* `T` is `boost::counting_iterator<_typeof(j), X1,...,XN>` such that `T(i)` and `T(j)` is a valid expression.
 
 [h3 Example]
     int ans[] = { 2, 3, 4, 5, 6 };
@@ -689,7 +689,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`generation(g)`]
         [
-            The longest _single_pass_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
+            The longest _single_pass_ `{*g(),*g(),*g(),...,*g()}` such that `g()` is not /uninitialized/.
         ]
     ]
 ]
@@ -763,7 +763,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`X_hetero<Ref>()(tup)`]
         [
-            A _random_access_ `{(Ref)boost::fusion::at_c<0>(tup),..,(Ref)boost::fusion::at_c<N-1>(tup)}`
+            A _random_access_ `{(Ref)boost::fusion::at_c<0>(tup),...,(Ref)boost::fusion::at_c<N-1>(tup)}`
         ]
     ]
     [
@@ -775,7 +775,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 ]
 
 [h3 Preconditions]
-* `tup` is a _fusion_forward_sequence_ or `boost::tuple<..>`.
+* `tup` is a _fusion_forward_sequence_ or `boost::tuple<...>`.
 * `0 <= N && N < 20`.
 * For all `I` such that `0 <= I && I < N`, `Ref` is convertible to `boost::fusion::result_of::at_c<_typeof(tup), I>::type`
   without binding a reference to rvalue.
@@ -819,21 +819,21 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         ]
     ]
     [
-        [`X_initial_values<T>()(a1,..,aN)`]
+        [`X_initial_values<T>()(a1,...,aN)`]
         [
-            A _random_access_ _readable_ _lvalue_ _constant_ `{a1,..,aN}`
+            A _random_access_ _readable_ _lvalue_ _constant_ `{a1,...,aN}`
         ]
     ]
     [
-        [`Rng rng = X_initial_values<T>()(a1,..,aN);`]
+        [`Rng rng = X_initial_values<T>()(a1,...,aN);`]
         [
-            `Rng rng = X_initial_values<T>()(a1,..,aN)|copied;`
+            `Rng rng = X_initial_values<T>()(a1,...,aN)|copied;`
         ]
     ]
     [
-        [`Rng2 rng2(X_initial_values<T>()(a1,..,aN));`]
+        [`Rng2 rng2(X_initial_values<T>()(a1,...,aN));`]
         [
-            `Rng2 rng2(X_initial_values<T>()(a1,..,aN)|copied);`
+            `Rng2 rng2(X_initial_values<T>()(a1,...,aN)|copied);`
         ]
     ]
     [
@@ -850,8 +850,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `1 <= N && N <= 20`
 * `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
 * `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
-* `Rng rng = X_initial_values<T>()(a1,..,aN)|copied;` is a valid expression.
-* `Rng2 rng2(X_initial_values<T>()(a1,..,aN)|copied);` is a valid expression.
+* `Rng rng = X_initial_values<T>()(a1,...,aN)|copied;` is a valid expression.
+* `Rng2 rng2(X_initial_values<T>()(a1,...,aN)|copied);` is a valid expression.
 
 [tip `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
       Also, it doesn't require the arguments to be _assignable_.]
@@ -1284,7 +1284,7 @@ and the iterators manage the allocation.
     [
         [`unfold(z, f, g)`]
         [
-            The longest _forward_ `{f(z),f(g(z)),f(g(g(z))),f(g(g(g(z)))),..}` such that `f(..)` is not /uninitialized/.
+            The longest _forward_ `{f(z),f(g(z)),f(g(g(z))),f(g(g(g(z)))),...}` such that `f(...)` is not /uninitialized/.
         ]
     ]
 ]
@@ -1292,7 +1292,7 @@ and the iterators manage the allocation.
 [note `z` is copied, meaning that it is not referenced from Oven later.]
 
 [h3 Preconditions]
-* `z`, `f(..)` and `g` is _assignable_, _copy_constructible_ and _default_constructible_.
+* `z`, `f(...)` and `g` is _assignable_, _copy_constructible_ and _default_constructible_.
 * `f` is a unary _stoppable_generator_.
 * `g` is a _function_object_ such that `z1 = g(z1)` is well-formed, where `_typeof(z) z1 = z`.
 * `f` and `g` is a [@http://planetmath.org/encyclopedia/Mapping.html mapping], meaning that `a == b` implies `f(a) == f(b)`.
