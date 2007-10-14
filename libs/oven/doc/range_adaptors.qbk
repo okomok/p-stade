@@ -22,9 +22,9 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 * _pipable_adaptor_
 
 [h3 Notation]
-* `{a1,..,aN}` is `_rng`.
-* `{b1,..,bM}` is a [@http://en.wikipedia.org/wiki/Subsequence subsequence] of `{a1,..,aN}`.
-* `_prd(b1, b2)`, `_prd(b2, b3)`, .., `_prd(b(M-1), bM)` are `true`.
+* `{a1,...,aN}` is `_rng`.
+* `{b1,...,bM}` is a [@http://en.wikipedia.org/wiki/Subsequence subsequence] of `{a1,...,aN}`.
+* `_prd(b1, b2)`, `_prd(b2, b3)`, ..., `_prd(b(M-1), bM)` are `true`.
 * The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
 
 [h3 Valid expressions]
@@ -36,7 +36,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
     [
         [`_rng|adjacent_filtered(_prd)`]
         [
-            A _forward_ _constant_ `{b1,..,bM}`
+            A _forward_ _constant_ `{b1,...,bM}`
         ]
     ]
 ]
@@ -73,7 +73,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * _pipable_adaptor_
 
 [h3 Notation]
-* `{a1,..,aN}` is `_rng`.
+* `{a1,...,aN}` is `_rng`.
 
 [h3 Valid expressions]
 [table 
@@ -90,13 +90,13 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`X_make_adjacent_transformed<R>()(_rng, _fun)`]
         [
-            `{_fun(a1,a2),_fun(a2,a3),..,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
+            `{_fun(a1,a2),_fun(a2,a3),...,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
         [`X_make_adjacent_transformed<>()(_rng, _cal)`]
         [
-            `{_cal(a1,a2),_cal(a2,a3),..,_cal(a(N-1),aN)}`
+            `{_cal(a1,a2),_cal(a2,a3),...,_cal(a(N-1),aN)}`
         ]
     ]
     [
@@ -328,7 +328,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `SegmentIterator` is `_iter_of<_typeof(_rng)>::type`.
 * `LocalRange` is `_value_of<_typeof(_rng)>::type`.
 * `LocalIterator` is `_iter_of<LocalRange>::type`.
-* `{aI1,aI2,..aIMI}` is `*boost::next(_begin(_rng), I)`.
+* `{aI1,aI2,...,aIMI}` is `*boost::next(_begin(_rng), I)`.
 
 [h3 Valid expressions]
 [table 
@@ -339,7 +339,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`_rng|concatenated`]
         [
-            An up-to-_bidirectional_ `{a11,a12,..,a1M1,a21,a22,..,a2M2,..,aN1,aN2,..,aMN}`
+            An up-to-_bidirectional_ `{a11,a12,...,a1M1,a21,a22,...,a2M2,...,aN1,aN2,...,aMN}`
         ]
     ]
 ]
@@ -574,7 +574,7 @@ then pretends to be a range of _forward_iterator_.
 * _pipable_adaptor_
 
 [h3 Notation]
-* `{a1,..,aN}` is `_rng`.
+* `{a1,...,aN}` is `_rng`.
 
 [h3 Valid expressions]
 [table 
@@ -585,7 +585,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|cycled(c)`]
         [
-            A non-_swappable_ `{a1,..,aN,a1,..aN,..,a1,..,aN}`, where `a1,..,aN` appears `c` times.
+            A non-_swappable_ `{a1,...,aN,a1,...,aN,...,a1,...,aN}`, where `a1,...,aN` appears `c` times.
         ]
     ]
 ]
@@ -991,13 +991,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`X_make_indirected<X1,..,XN>`]
+        [`X_make_indirected<X1,...,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_make_indirected<X1,..,XN>()(_rng)`]
+        [`X_make_indirected<X1,...,XN>()(_rng)`]
         [
             `[T(_begin(_rng), T(_end(_rng)))`
         ]
@@ -1011,7 +1011,7 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
-* `T` is `boost::indirect_iterator<_iter_of<_typeof(_rng)>::type, X1,..,XN>` such that `T(_begin(_rng))` is a valid expression.
+* `T` is `boost::indirect_iterator<_iter_of<_typeof(_rng)>::type, X1,...,XN>` such that `T(_begin(_rng))` is a valid expression.
 
 [h3 Example]
     int src[]    = { 1,2,0,4,5 };
@@ -1107,7 +1107,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_fwdrng|outplaced`]
         [
-            A _random_access_ _writable_ _lvalue_ `{i1,..,iN}`
+            A _random_access_ _writable_ _lvalue_ `{i1,...,iN}`
         ]
     ]
 ]
@@ -1145,8 +1145,8 @@ then pretends to be a range of _forward_iterator_.
 * _pipable_adaptor_
 
 [h3 Notation]
-* `{a1,..,aN}` is `_rng1`.
-* `{b1,..,bM}` is `_rng2`.
+* `{a1,...,aN}` is `_rng1`.
+* `{b1,...,bM}` is `_rng2`.
 * `cK = a1` for all `K` such that `1 <= K && K <= N`.
 * `cK = boost::implicit_cast<boost::range_reference<_typeof(_rng1)>::type>(b(K-N))` for all `K` such that `N+1 <= K && K <= N+M`.
 
@@ -1159,14 +1159,14 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng1|jointed(_rng2)`]
         [
-            `{c1,..,c(N+M)}`
+            `{c1,...,c(N+M)}`
         ]
     ]
 ]
 
 [h3 Invariants]
-* The traversal category of `{c1,..,c(N+M)}` is minimum of `_rng1` and `_rng2`.
-* `{c1,..,c(N+M)}` is _swappable_ if and only if both `_rng1` and `_rng2` is _readable_ and _writable_.
+* The traversal category of `{c1,...,c(N+M)}` is minimum of `_rng1` and `_rng2`.
+* `{c1,...,c(N+M)}` is _swappable_ if and only if both `_rng1` and `_rng2` is _readable_ and _writable_.
 
 [h3 Preconditions]
 * `_rng1` is _readable_ or _lvalue_.
@@ -1622,8 +1622,8 @@ A range returned from `reversed` iterates in the opposite direction.
 * _pipable_adaptor_
 
 [h3 Notation]
-* `{a1,a2,..,aN}` is `_rng`.
-* `{b1,b2,..,bM}` is `_rng1`.
+* `{a1,a2,...,aN}` is `_rng`.
+* `{b1,b2,...,bM}` is `_rng1`.
 * `S1` is `_value_of<_typeof(_rng1)>::type`.
 
 [h3 Valid expressions]
@@ -1635,13 +1635,13 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|scanned(s, _fun)`]
         [
-            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
+            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),...,aN)}`
         ]
     ]
     [
         [`_rng1|scanned(_fun1)`]
         [
-            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
+            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),...,bM)}`
         ]
     ]
 ]
@@ -1701,7 +1701,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rndrng|sliced(s, t)`]
         [
-            `{*(f+s+t*0),*(f+s+t*1),*(f+s+t*2),..,*(f+s+t*(n-1))}`
+            `{*(f+s+t*0),*(f+s+t*1),*(f+s+t*2),...,*(f+s+t*(n-1))}`
         ]
     ]
 ]
@@ -1807,7 +1807,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|steps(w)`]
         [
-            An up-to-_forward_ `{*i1,*i1,*i2,*i3,..,*iM}`
+            An up-to-_forward_ `{*i1,*i1,*i2,*i3,...,*iM}`
         ]
     ]
 ]

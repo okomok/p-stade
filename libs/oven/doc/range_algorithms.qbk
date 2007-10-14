@@ -23,16 +23,16 @@ Oven provides range-based algorithms taking a range instead of two iterators.
         [[*Semantics]]
     ]
     [
-        [`f1(_rng, x1,..,xN)`]
-        [`std::f1(_begin(_rng), _end(_rng), x1,..,xN)`]
+        [`f1(_rng, x1,...,xN)`]
+        [`std::f1(_begin(_rng), _end(_rng), x1,...,xN)`]
     ]
     [
-        [`f2(_rng1, _rng2, x1,..,xN)`]
-        [`std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,..,xN)`]
+        [`f2(_rng1, _rng2, x1,...,xN)`]
+        [`std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,...,xN)`]
     ]
     [
-        [`f3(_rng, _fun, x1,..,xN)`]
-        [`std::f3(_begin(_rng), _fun(_rng), _end(_rng), x1,..,xN)`]
+        [`f3(_rng, _fun, x1,...,xN)`]
+        [`std::f3(_begin(_rng), _fun(_rng), _end(_rng), x1,...,xN)`]
     ]
 ]
 
@@ -41,9 +41,9 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     * `fill_n`, `generate_n`, `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
 * `f3` is one of the following names...
     * `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
-* `std::f1(_begin(_rng), _end(_rng), x1,..,xN)` is a valid exression.
-* `std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,..,xN)` is a valid expression.
-* `std::f3(_begin(_rng), m, _end(_rng), x1,..,xN)` is a valid expression.
+* `std::f1(_begin(_rng), _end(_rng), x1,...,xN)` is a valid exression.
+* `std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,...,xN)` is a valid expression.
+* `std::f3(_begin(_rng), m, _end(_rng), x1,...,xN)` is a valid expression.
 * `_fun(_rng)` is a valid expression.
 * `_typeof(_fun(_rng))` is `_iter_of<_typeof(_rng)>::type`.
 
@@ -85,14 +85,14 @@ Oven provides range-based algorithms taking a range instead of two iterators.
         [[*Semantics]]
     ]
     [
-        [`f(_rng, x1,..,xN)`]
-        [`std::f(_begin(_rng), _end(_rng), x1,..,xN)`]
+        [`f(_rng, x1,...,xN)`]
+        [`std::f(_begin(_rng), _end(_rng), x1,...,xN)`]
     ]
 ]
 
 [h3 Preconditions]
 * `f` is one of the function names defined in `<numeric>`.
-* `std::f(_begin(_rng), _end(_rng), x1,..,xN)` is a valid expression.
+* `std::f(_begin(_rng), _end(_rng), x1,...,xN)` is a valid expression.
 
 [endsect]
 
@@ -150,7 +150,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/at.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -194,7 +194,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/back.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -225,13 +225,13 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 [section begin/end]
 
 [h3 Description]
-`begin` and `end` is the _auxiliary_interface_ version of `boost::begin` and `boost::end` respectively.
+`begin` and `end` is _auxiliary_class_interface_ which represents `boost::begin` and `boost::end` respectively.
 
 [h3 Header]
 * `<pstade/oven/begin_end.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -322,7 +322,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/distance.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -391,7 +391,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/front.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Valid expressions]
 [table 
@@ -463,7 +463,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/at.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Notation]
 `V` is `_value_of<_typeof(_rndrng)>::type`.
@@ -502,7 +502,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/back.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Notation]
 * `V` is `_value_of<_typeof(_bidrng)>::type`.
@@ -541,7 +541,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/front.hpp>`
 
 [h3 Model of]
-* _auxiliary_interface_
+* _auxiliary_class_interface_
 
 [h3 Notation]
 * `V` is `_value_of<_typeof(_rng)>::type`.

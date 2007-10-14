@@ -375,15 +375,15 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`X_make_matches<X1,..,XN>`]
+        [`X_make_matches<X1,...,XN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
+        [`X_make_matches<X1,...,XN>()(_bidrng, y1,...,yM)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), y1,..,yM), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), y1,...,yM), T())`
         ]
     ]
     [
@@ -395,7 +395,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 ]
 
 [h3 Preconditions]
-* `T` is `boost::regex_iterator<_iter_of<_typeof(_bidrng)>::type, X1,..,XN>` such that `T(_begin(_bidrng), _end(_bidrng), y0,..,yM)` is a valid expression.
+* `T` is `boost::regex_iterator<_iter_of<_typeof(_bidrng)>::type, X1,...,XN>` such that `T(_begin(_bidrng), _end(_bidrng), y0,...,yM)` is a valid expression.
 
 [h3 Invariants]
 * The iterator type of `matches` range is not _parallel_safe_.
@@ -429,15 +429,15 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         [[*Semantics]]
     ]
     [
-        [`X_make_tokenized<Y1,..,YN>`]
+        [`X_make_tokenized<Y1,...,YN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
+        [`X_make_tokenized<Y1,...,YN>()(_bidrng, x1,...,xM)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), x1,..,xM), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x1,...,xM), T())`
         ]
     ]
     [
@@ -449,7 +449,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 ]
 
 [h3 Preconditions]
-* `T` is `boost::regex_token_iterator<_iter_of<_typeof(_bidrng)>::type, Y1,..,YN>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xM)` is a valid expression.
+* `T` is `boost::regex_token_iterator<_iter_of<_typeof(_bidrng)>::type, Y1,...,YN>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xM)` is a valid expression.
 
 [h3 Invariants]
 * The iterator type of `tokenized` range is not _parallel_safe_.
@@ -483,13 +483,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`X_make_utf8_decoded<U1,..,UN>`]
+        [`X_make_utf8_decoded<U1,...,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
+        [`X_make_utf8_decoded<U1,...,UN>()(_fwdrng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
@@ -504,7 +504,7 @@ Pending...
 
 [h3 Preconditions]
 * `_fwdrng` is _readable_.
-* `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,..,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
+* `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,...,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
 
 [h3 Example]
     file_range<boost::uint8_t> frng("utf8.txt");
@@ -540,13 +540,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`X_make_utf8_encoded<U1,..,UN>`]
+        [`X_make_utf8_encoded<U1,...,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_make_utf8_encoded<U1,..,UN>()(_rng)`]
+        [`X_make_utf8_encoded<U1,...,UN>()(_rng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
         ]
@@ -561,7 +561,7 @@ Pending...
 
 [h3 Preconditions]
 * `_rng` is _readable_.
-* `T` is `boost::u32_to_u8_iterator<_iter_of<_typeof(_rng)>::type, U1,..,UN>` such that `T(_begin(_rng))` is a valid expression.
+* `T` is `boost::u32_to_u8_iterator<_iter_of<_typeof(_rng)>::type, U1,...,UN>` such that `T(_begin(_rng))` is a valid expression.
 
 [h3 Example]
 
@@ -593,13 +593,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`X_make_utf16_decoded<U1,..,UN>`]
+        [`X_make_utf16_decoded<U1,...,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_make_utf16_decoded<U1,..,UN>()(_fwdrng)`]
+        [`X_make_utf16_decoded<U1,...,UN>()(_fwdrng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
@@ -614,7 +614,7 @@ Pending...
 
 [h3 Preconditions]
 * `_fwdrng` is _readable_.
-* `T` is `boost::u16_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,..,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
+* `T` is `boost::u16_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,...,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
 
 [h3 Example]
 
@@ -646,13 +646,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`X_make_utf16_encoded<U1,..,UN>`]
+        [`X_make_utf16_encoded<U1,...,UN>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`X_make_utf16_encoded<U1,..,UN>()(_rng)`]
+        [`X_make_utf16_encoded<U1,...,UN>()(_rng)`]
         [
             An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
         ]
@@ -667,7 +667,7 @@ Pending...
 
 [h3 Preconditions]
 * `_rng` is _readable_.
-* `T` is `boost::u32_to_u16_iterator<_iter_of<_typeof(_rng)>::type, U1,..,UN>` such that `T(_begin(_rng))` is a valid expression.
+* `T` is `boost::u32_to_u16_iterator<_iter_of<_typeof(_rng)>::type, U1,...,UN>` such that `T(_begin(_rng))` is a valid expression.
 
 [h3 Example]
 
@@ -699,15 +699,15 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`_bidrng|xpressive_matches(x1,..,xN)`]
+        [`_bidrng|xpressive_matches(x1,...,xN)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), x1,..,xN), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x1,...,xN), T())`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xN)` is a valid expression.
+* `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xN)` is a valid expression.
 
 [h3 Invariants]
 * The iterator type of `xpressive_matches` range is not _parallel_safe_.
@@ -742,15 +742,15 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`_bidrng|xpressive_tokenized(x1,..,xN)`]
+        [`_bidrng|xpressive_tokenized(x1,...,xN)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), x1,..,xN), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x1,...,xN), T())`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xN)` is a valid expression.
+* `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xN)` is a valid expression.
 
 [h3 Invariants]
 * The iterator type of `xpressive_tokenized` range is not _parallel_safe_.

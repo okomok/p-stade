@@ -15,8 +15,8 @@ A _pipable_adaptor_ is a _pipable_object_ which has the associated _static_funct
 In addition to the requirements defined in _pipable_object_,
 for any _pipable_adaptor_ `p` the following must be met:
 
-* `x|p(x1,..,xN)` is a valid expression if and only if `make_++p(x, x1,..xN)` is a valid expression.
-* `x|p(x1,..,xN)` and `make_++p(x, x1,..xN)` have the same effects.
+* `x|p(x1,...,xN)` is a valid expression if and only if `make_++p(x, x1,...,xN)` is a valid expression.
+* `x|p(x1,...,xN)` and `make_++p(x, x1,...,xN)` have the same effects.
 * `make_++p` is a _static_function_object_.
 * If `N` is `0`, `x|p` and and `make_++p(x)` are valid expressions which has the same effects.
 
@@ -41,7 +41,7 @@ A _stoppable_generator_ is a _deferred_callable_object_ which can specify the st
 In addition to the requirements defined in _deferred_callable_object_,
 for any _stoppable_generator_ `g` the following must be met:
 
-* `_typeof(g(..))` is a `boost::optional`.
+* `_typeof(g(...))` is a `boost::optional`.
 * An /uninitialized/ result is considered as the stop of generating.
 
 [h3 Models]

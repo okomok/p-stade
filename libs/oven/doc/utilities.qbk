@@ -14,7 +14,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 * `<pstade/oven/adapted_to_base.hpp>`
 
 [h3 Model of]
-* `to_base` is an _auxiliary_interface_.
+* `to_base` is an _auxiliary_class_interface_.
 
 [h3 Valid expressions]
 [table 
@@ -24,7 +24,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
     ]
     [
         [`oven::adapted_to<B>(a)`]
-        [Returns the shortest `a.base().base()...base()` such that `_typeof(a.base().base()...base())` is convertible to `B`.]
+        [Returns the shortest `a.base().base() ... .base()` such that `_typeof(a.base().base() ... .base())` is convertible to `B`.]
     ]
     [
         [`B b = to_base(a);`]
@@ -35,7 +35,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 [h3 Preconditions]
 * `B` is _copy_constructible_.
 * `_typeof(a)` correctly works with `boost::is_convertible`.
-* There is a (possibly empty) sequence `{ base(), .., base() }` such that `_typeof(a.base().base()...base())` is `B`.
+* There is a (possibly empty) sequence `{ base(), ..., base() }` such that `_typeof(a.base().base() ... .base())` is `B`.
 
 [h3 Example]
     std::string src("cjaigvwzenqhe");
@@ -513,7 +513,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * _pipable_adaptor_
 
 [h3 Notation]
-* `(_rng1 _rng2 .. _rngN)` is `u`.
+* `(_rng1 _rng2 ... _rngN)` is `u`.
 
 [h3 Valid expressions]
 [table 
@@ -524,13 +524,13 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
     [
         [`u|zipped`]
         [
-            `[T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN))), T(boost::make_tuple(_end(_rng1),..,_end(_rngN))))`
+            `[T(boost::make_tuple(_begin(_rng1),...,_begin(_rngN))), T(boost::make_tuple(_end(_rng1),...,_end(_rngN))))`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
+* `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),...,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),...,_begin(_rngN)))` is a valid expression.
 
 [h3 Example]
     std::cout <<
@@ -568,7 +568,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * _pipable_adaptor_
 
 [h3 Notation]
-* `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
+* `{(a11 a12 ... a1N),(a21 a22 ... a2N),...,(aM1 aM2 ... aMN)}` is `_rng`.
 
 [h3 Valid expressions]
 [table 
@@ -579,7 +579,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
     [
         [`_rng|unzipped`]
         [
-            `({a11,a21,..,aM1} {a12,a22,..,aM2} .. {a1N,a2N,..,aMN})`
+            `({a11,a21,...,aM1} {a12,a22,...,aM2} ... {a1N,a2N,...,aMN})`
         ]
     ]
 ]
@@ -623,7 +623,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * _pipable_adaptor_
 
 [h3 Notation]
-* `(_rng1 _rng2 .. _rngN)` is `u`.
+* `(_rng1 _rng2 ... _rngN)` is `u`.
 * `fuzip_iterator` is an imaginary iterator which works like `boost::zip_iterator` but whose `value_type` is a _fusion_random_access_sequence_.
 
 [h3 Valid expressions]
@@ -635,13 +635,13 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
     [
         [`u|fuzipped`]
         [
-            `[T(boost::fusion::make_vector(_begin(_rng1),..,_begin(_rngN))), T(boost::fusion::make_vector(_end(_rng1),..,_end(_rngN))))`
+            `[T(boost::fusion::make_vector(_begin(_rng1),...,_begin(_rngN))), T(boost::fusion::make_vector(_end(_rng1),...,_end(_rngN))))`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `fuzip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::fusion::make_vector(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
+* `T` is `fuzip_iterator<_typeof(boost::make_tuple(_begin(_rng1),...,_begin(_rngN)))>` such that `T(boost::fusion::make_vector(_begin(_rng1),...,_begin(_rngN)))` is a valid expression.
 
 [h3 Example]
 
@@ -669,7 +669,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
 * _pipable_adaptor_
 
 [h3 Notation]
-* `{a1,..,aN}` is `_rng`.
+* `{a1,...,aN}` is `_rng`.
 * `at<RefSeq, I>::type` is `boost::mpl::at_c<RefSeq, I>::type`.
 
 [h3 Valid expressions]
@@ -687,7 +687,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
     [
         [`X_make_unfuzipped<RefSeq = boost::use_default>()(_rng)`]
         [
-            A _fusion_random_access_sequence_ `(X_make_elements_c<0, at<RefSeq, 0>::type>()(a1) .. X_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
+            A _fusion_random_access_sequence_ `(X_make_elements_c<0, at<RefSeq, 0>::type>()(a1) ... X_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
         ]
     ]
     [

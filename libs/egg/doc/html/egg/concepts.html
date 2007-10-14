@@ -19,69 +19,65 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="egg.concepts"></a><a href="concepts.html" title="Concepts">Concepts</a></h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="concepts.html#egg.concepts.constant_lvalue">Constant Lvalue</a></span></dt>
+<dt><span class="section"><a href="concepts.html#egg.concepts.constant_object">Constant Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.lexically_typed_object">Lexically Typed
       Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.bindable_object">Bindable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.static_function_object">Static Function
       Object</a></span></dt>
-<dt><span class="section"><a href="concepts.html#egg.concepts.auxiliary_interface">Auxiliary Interface</a></span></dt>
+<dt><span class="section"><a href="concepts.html#egg.concepts.auxiliary_class_interface">Auxiliary Class
+      Interface</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.baby_function">Baby Function</a></span></dt>
 <dt><span class="section"><a href="concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.constant_lvalue"></a><a href="concepts.html#egg.concepts.constant_lvalue" title="Constant Lvalue">Constant Lvalue</a></h3></div></div></div>
-<a name="egg.concepts.constant_lvalue.description"></a><h5>
+<a name="egg.concepts.constant_object"></a><a href="concepts.html#egg.concepts.constant_object" title="Constant Object">Constant Object</a></h3></div></div></div>
+<a name="egg.concepts.constant_object.description"></a><h5>
 <a name="id431389"></a>
-        <a href="concepts.html#egg.concepts.constant_lvalue.description">Description</a>
+        <a href="concepts.html#egg.concepts.constant_object.description">Description</a>
       </h5>
 <p>
-        A <a href="concepts.html#egg.concepts.constant_lvalue" title="Constant Lvalue">Constant Lvalue</a> is
-        a <span class="emphasis"><em>const qualified</em></span> lvalue.
+        A <a href="concepts.html#egg.concepts.constant_object" title="Constant Object">Constant Object</a> is
+        an object which is <span class="emphasis"><em>const qualified</em></span>.
       </p>
-<a name="egg.concepts.constant_lvalue.refinement_of"></a><h5>
-<a name="id431430"></a>
-        <a href="concepts.html#egg.concepts.constant_lvalue.refinement_of">Refinement of</a>
+<a name="egg.concepts.constant_object.refinement_of"></a><h5>
+<a name="id431429"></a>
+        <a href="concepts.html#egg.concepts.constant_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
-<a name="egg.concepts.constant_lvalue.requirements"></a><h5>
-<a name="id431462"></a>
-        <a href="concepts.html#egg.concepts.constant_lvalue.requirements">Requirements</a>
+<a name="egg.concepts.constant_object.requirements"></a><h5>
+<a name="id431461"></a>
+        <a href="concepts.html#egg.concepts.constant_object.requirements">Requirements</a>
       </h5>
 <p>
-        For any <a href="concepts.html#egg.concepts.constant_lvalue" title="Constant Lvalue">Constant Lvalue</a>
+        For any <a href="concepts.html#egg.concepts.constant_object" title="Constant Object">Constant Object</a>
         <code class="computeroutput"><span class="identifier">x</span></code> the following must be met:
       </p>
-<div class="itemizedlist"><ul type="disc">
-<li>
-<code class="computeroutput"><span class="identifier">x</span></code> is a lvalue.
-        </li>
-<li>
+<div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">_decltype</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span>
           <span class="keyword">const</span></code>.
-        </li>
-</ul></div>
-<a name="egg.concepts.constant_lvalue.example"></a><h5>
-<a name="id501993"></a>
-        <a href="concepts.html#egg.concepts.constant_lvalue.example">Example</a>
+        </li></ul></div>
+<a name="egg.concepts.constant_object.example"></a><h5>
+<a name="id501979"></a>
+        <a href="concepts.html#egg.concepts.constant_object.example">Example</a>
       </h5>
 <pre class="programlisting">
-<span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">x</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span> <span class="comment">// x is a ConstantLvalue.
+<span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">x</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span> <span class="comment">// x is a ConstantObject.
 </span></pre>
-<a name="egg.concepts.constant_lvalue.models"></a><h5>
-<a name="id502063"></a>
-        <a href="concepts.html#egg.concepts.constant_lvalue.models">Models</a>
+<a name="egg.concepts.constant_object.models"></a><h5>
+<a name="id502049"></a>
+        <a href="concepts.html#egg.concepts.constant_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
-<a name="egg.concepts.constant_lvalue.see_also"></a><h5>
-<a name="id502095"></a>
-        <a href="concepts.html#egg.concepts.constant_lvalue.see_also">See also</a>
+<a name="egg.concepts.constant_object.see_also"></a><h5>
+<a name="id502080"></a>
+        <a href="concepts.html#egg.concepts.constant_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
@@ -92,15 +88,15 @@
 <a name="egg.concepts.lexically_typed_object"></a><a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed
       Object</a></h3></div></div></div>
 <a name="egg.concepts.lexically_typed_object.description"></a><h5>
-<a name="id502148"></a>
+<a name="id502132"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.description">Description</a>
       </h5>
 <p>
         A <a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed Object</a>
-        is an object whose type is referable by using prefix <code class="computeroutput"><span class="identifier">T_</span></code>.
+        is a named lvalue whose type is referable by using prefix <code class="computeroutput"><span class="identifier">T_</span></code>.
       </p>
 <a name="egg.concepts.lexically_typed_object.refinement_of"></a><h5>
-<a name="id502196"></a>
+<a name="id502181"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.refinement_of">Refinement
         of</a>
       </h5>
@@ -108,7 +104,7 @@
           ...
         </li></ul></div>
 <a name="egg.concepts.lexically_typed_object.requirements"></a><h5>
-<a name="id502230"></a>
+<a name="id502215"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -116,11 +112,16 @@
         Object</a> <code class="computeroutput"><span class="identifier">x</span></code> the following
         must be met:
       </p>
-<div class="itemizedlist"><ul type="disc"><li>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">x</span></code> is a lvalue.
+        </li>
+<li>
 <code class="computeroutput"><span class="identifier">T_</span><span class="special">++</span><span class="identifier">x</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>.
-        </li></ul></div>
+        </li>
+</ul></div>
 <a name="egg.concepts.lexically_typed_object.example"></a><h5>
-<a name="id502331"></a>
+<a name="id502330"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.example">Example</a>
       </h5>
 <pre class="programlisting">
@@ -128,14 +129,14 @@
 <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">T_x</span><span class="special">;</span> <span class="comment">// Now x is a LexicallyTypedObject.
 </span></pre>
 <a name="egg.concepts.lexically_typed_object.models"></a><h5>
-<a name="id502406"></a>
+<a name="id502405"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.lexically_typed_object.see_also"></a><h5>
-<a name="id502439"></a>
+<a name="id502437"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
@@ -144,7 +145,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.bindable_object"></a><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></h3></div></div></div>
 <a name="egg.concepts.bindable_object.description"></a><h5>
-<a name="id502497"></a>
+<a name="id502496"></a>
         <a href="concepts.html#egg.concepts.bindable_object.description">Description</a>
       </h5>
 <p>
@@ -153,12 +154,12 @@
         which can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
       </p>
 <a name="egg.concepts.bindable_object.refinement_of"></a><h5>
-<a name="id502570"></a>
+<a name="id502569"></a>
         <a href="concepts.html#egg.concepts.bindable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="egg.concepts.bindable_object.requirements"></a><h5>
-<a name="id502609"></a>
+<a name="id502608"></a>
         <a href="concepts.html#egg.concepts.bindable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -173,14 +174,14 @@
           a valid expression.
         </li></ul></div>
 <a name="egg.concepts.bindable_object.models"></a><h5>
-<a name="id502796"></a>
+<a name="id502795"></a>
         <a href="concepts.html#egg.concepts.bindable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.bindable_object.see_also"></a><h5>
-<a name="id502828"></a>
+<a name="id502827"></a>
         <a href="concepts.html#egg.concepts.bindable_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
@@ -189,7 +190,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.pipable_object"></a><a href="concepts.html#egg.concepts.pipable_object" title="Pipable Object">Pipable Object</a></h3></div></div></div>
 <a name="egg.concepts.pipable_object.description"></a><h5>
-<a name="id502882"></a>
+<a name="id502881"></a>
         <a href="concepts.html#egg.concepts.pipable_object.description">Description</a>
       </h5>
 <p>
@@ -198,12 +199,12 @@
         and <code class="computeroutput"><span class="keyword">operator</span><span class="special">|=</span></code>.
       </p>
 <a name="egg.concepts.pipable_object.refinement_of"></a><h5>
-<a name="id502952"></a>
+<a name="id502951"></a>
         <a href="concepts.html#egg.concepts.pipable_object.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a></li></ul></div>
 <a name="egg.concepts.pipable_object.requirements"></a><h5>
-<a name="id502992"></a>
+<a name="id502990"></a>
         <a href="concepts.html#egg.concepts.pipable_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -214,39 +215,40 @@
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expresion if and only if <code class="computeroutput"><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)|=</span><span class="identifier">x</span></code>
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expresion if and only if <code class="computeroutput"><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)|=</span><span class="identifier">x</span></code>
           is a valid expression.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)|=</span><span class="identifier">x</span></code> have the same effects.
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)|=</span><span class="identifier">x</span></code> have the same effects.
         </li>
 <li>
           If <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="number">0</span></code>,
-          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">()</span></code>,
-          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span></code>, <code class="computeroutput"><span class="identifier">p</span><span class="special">|=</span><span class="identifier">x</span></code> and
-          <code class="computeroutput"><span class="identifier">p</span><span class="special">()|=</span><span class="identifier">x</span></code> are valid expressions which has the
+          then <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">()</span></code>,
+          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span></code>, <code class="computeroutput"><span class="identifier">p</span><span class="special">|=</span><span class="identifier">x</span></code>,
+          and <code class="computeroutput"><span class="identifier">p</span><span class="special">()|=</span><span class="identifier">x</span></code> are valid expressions which have the
           same effects.
         </li>
 </ul></div>
 <a name="egg.concepts.pipable_object.models"></a><h5>
-<a name="id503334"></a>
+<a name="id503333"></a>
         <a href="concepts.html#egg.concepts.pipable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.pipable_object.see_also"></a><h5>
-<a name="id503365"></a>
+<a name="id503364"></a>
         <a href="concepts.html#egg.concepts.pipable_object.see_also">See also</a>
       </h5>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.auxiliary_class_interface" title="Auxiliary Class Interface">Auxiliary Class
+          Interface</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.static_function_object"></a><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function
       Object</a></h3></div></div></div>
 <a name="egg.concepts.static_function_object.description"></a><h5>
-<a name="id503426"></a>
+<a name="id503425"></a>
         <a href="concepts.html#egg.concepts.static_function_object.description">Description</a>
       </h5>
 <p>
@@ -255,24 +257,24 @@
         Callable Object</a> which is <span class="emphasis"><em>statically initialized</em></span>.
       </p>
 <a name="egg.concepts.static_function_object.refinement_of"></a><h5>
-<a name="id503477"></a>
+<a name="id503476"></a>
         <a href="concepts.html#egg.concepts.static_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable Object</a></li>
-<li><a href="concepts.html#egg.concepts.constant_lvalue" title="Constant Lvalue">Constant Lvalue</a></li>
+<li><a href="concepts.html#egg.concepts.constant_object" title="Constant Object">Constant Object</a></li>
 <li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li>
 <li><a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed Object</a></li>
 </ul></div>
 <a name="egg.concepts.static_function_object.requirements"></a><h5>
-<a name="id503553"></a>
+<a name="id503552"></a>
         <a href="concepts.html#egg.concepts.static_function_object.requirements">Requirements</a>
       </h5>
 <p>
         In addition to the requirements defined in <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable
-        Object</a>, <a href="concepts.html#egg.concepts.constant_lvalue" title="Constant Lvalue">Constant Lvalue</a>,
+        Object</a>, <a href="concepts.html#egg.concepts.constant_object" title="Constant Object">Constant Object</a>,
         <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
         Callable Object</a>, and <a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically
         Typed Object</a>, for any <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
@@ -295,80 +297,82 @@
         </li>
 </ul></div>
 <a name="egg.concepts.static_function_object.example"></a><h5>
-<a name="id503873"></a>
+<a name="id503872"></a>
         <a href="concepts.html#egg.concepts.static_function_object.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.concepts.static_function_object.models"></a><h5>
-<a name="id503902"></a>
+<a name="id503900"></a>
         <a href="concepts.html#egg.concepts.static_function_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.static_function_object.see_also"></a><h5>
-<a name="id503934"></a>
+<a name="id503932"></a>
         <a href="concepts.html#egg.concepts.static_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.auxiliary_interface"></a><a href="concepts.html#egg.concepts.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></h3></div></div></div>
-<a name="egg.concepts.auxiliary_interface.description"></a><h5>
-<a name="id503993"></a>
-        <a href="concepts.html#egg.concepts.auxiliary_interface.description">Description</a>
+<a name="egg.concepts.auxiliary_class_interface"></a><a href="concepts.html#egg.concepts.auxiliary_class_interface" title="Auxiliary Class Interface">Auxiliary Class
+      Interface</a></h3></div></div></div>
+<a name="egg.concepts.auxiliary_class_interface.description"></a><h5>
+<a name="id503991"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_class_interface.description">Description</a>
       </h5>
 <p>
-        An <a href="concepts.html#egg.concepts.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a>
-        is a <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function
-        Object</a> which can be used as if it were a <span class="emphasis"><em>member function</em></span>.
+        An <a href="concepts.html#egg.concepts.auxiliary_class_interface" title="Auxiliary Class Interface">Auxiliary Class
+        Interface</a> is a <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
+        Function Object</a> which can be used as if it were a <span class="emphasis"><em>member
+        function</em></span>.
       </p>
-<a name="egg.concepts.auxiliary_interface.refinement_of"></a><h5>
-<a name="id504043"></a>
-        <a href="concepts.html#egg.concepts.auxiliary_interface.refinement_of">Refinement
+<a name="egg.concepts.auxiliary_class_interface.refinement_of"></a><h5>
+<a name="id504042"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_class_interface.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
-<a name="egg.concepts.auxiliary_interface.requirements"></a><h5>
+<a name="egg.concepts.auxiliary_class_interface.requirements"></a><h5>
 <a name="id504085"></a>
-        <a href="concepts.html#egg.concepts.auxiliary_interface.requirements">Requirements</a>
+        <a href="concepts.html#egg.concepts.auxiliary_class_interface.requirements">Requirements</a>
       </h5>
 <p>
         In addition to the requirements defined in <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
-        Function Object</a>, for any <a href="concepts.html#egg.concepts.auxiliary_interface" title="Auxiliary Interface">Auxiliary
-        Interface</a> <code class="computeroutput"><span class="identifier">i</span></code> the following
-        must be met:
+        Function Object</a>, for any <a href="concepts.html#egg.concepts.auxiliary_class_interface" title="Auxiliary Class Interface">Auxiliary
+        Class Interface</a> <code class="computeroutput"><span class="identifier">i</span></code>
+        the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
-          <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
+          <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span>
-          <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> have
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span>
+          <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> have
           the same effects.
         </li>
 <li>
           If <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="number">0</span></code>,
-          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">()</span></code> and
-          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span></code> are valid expressions which has the
+          then <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">()</span></code> and
+          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span></code> are valid expressions which have the
           same effects.
         </li>
 </ul></div>
-<a name="egg.concepts.auxiliary_interface.models"></a><h5>
-<a name="id504403"></a>
-        <a href="concepts.html#egg.concepts.auxiliary_interface.models">Models</a>
+<a name="egg.concepts.auxiliary_class_interface.models"></a><h5>
+<a name="id504405"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_class_interface.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
-<a name="egg.concepts.auxiliary_interface.see_also"></a><h5>
-<a name="id504436"></a>
-        <a href="concepts.html#egg.concepts.auxiliary_interface.see_also">See also</a>
+<a name="egg.concepts.auxiliary_class_interface.see_also"></a><h5>
+<a name="id504437"></a>
+        <a href="concepts.html#egg.concepts.auxiliary_class_interface.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -380,7 +384,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.baby_function"></a><a href="concepts.html#egg.concepts.baby_function" title="Baby Function">Baby Function</a></h3></div></div></div>
 <a name="egg.concepts.baby_function.description"></a><h5>
-<a name="id504500"></a>
+<a name="id504503"></a>
         <a href="concepts.html#egg.concepts.baby_function.description">Description</a>
       </h5>
 <p>
@@ -388,14 +392,14 @@
         a type which <a href="function_makers.html" title="Function Makers">Function Makers</a> require.
       </p>
 <a name="egg.concepts.baby_function.refinement_of"></a><h5>
-<a name="id504547"></a>
+<a name="id504550"></a>
         <a href="concepts.html#egg.concepts.baby_function.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.baby_function.requirements"></a><h5>
-<a name="id504578"></a>
+<a name="id504582"></a>
         <a href="concepts.html#egg.concepts.baby_function.requirements">Requirements</a>
       </h5>
 <p>
@@ -414,14 +418,14 @@
         </li>
 </ul></div>
 <a name="egg.concepts.baby_function.models"></a><h5>
-<a name="id504681"></a>
+<a name="id504686"></a>
         <a href="concepts.html#egg.concepts.baby_function.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.baby_function.see_also"></a><h5>
-<a name="id504713"></a>
+<a name="id504717"></a>
         <a href="concepts.html#egg.concepts.baby_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -449,7 +453,7 @@
 </td></tr>
 </table></div>
 <a name="egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id504799"></a>
+<a name="id504803"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.how_to_call">How to call</a>
       </h5>
 <p>
@@ -575,7 +579,7 @@
 <p>
       </p>
 <a name="egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id505978"></a>
+<a name="id505982"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -592,7 +596,7 @@
         The first bug is fixed with Boost1.35.
       </p>
 <a name="egg.concepts.result_of_tutorial.see_also"></a><h5>
-<a name="id506090"></a>
+<a name="id506094"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="workarounds.html#egg.workarounds.pstade__result_of" title="pstade::result_of">pstade::result_of</a></li></ul></div>

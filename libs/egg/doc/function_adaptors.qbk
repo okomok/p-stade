@@ -19,7 +19,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 [section auxiliaryN]
 
 [heading Description]
-`auxiliary` family helps you to make an __AUXILIARY_INTERFACE__.
+`auxiliary` family helps you to make an __AUXILIARY_CLASS_INTERFACE__.
 
 [heading Header]
 * `<pstade/egg/auxiliary.hpp>`
@@ -38,7 +38,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`result_of_auxiliary++N<_Dco>::type`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE__ type which meets __AUXILIARY_INTERFACE__ expression requirements.]
+        [A __BINDABLE__ __DEFERRED_CALLABLE__ type which meets __AUXILIARY_CLASS_INTERFACE__ expression requirements.]
     ]
     [
         [`PSTADE_EGG_AUXILIARY_L init PSTADE_EGG_AUXILIARY_R`]
@@ -687,7 +687,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Example]
 [code_pipable_example]
 
-[note A pipable __FUNCTION_OBJECT__ can be overloaded with different arity, whereas __AUXILIARY_INTERFACE__ cannot.]
+[note A pipable __FUNCTION_OBJECT__ can be overloaded with different arity, whereas __AUXILIARY_CLASS_INTERFACE__ cannot.]
 
 [heading See also]
 * __EGG_AUXILIARY__
