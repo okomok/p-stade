@@ -1,28 +1,8 @@
 
-#include <boost/mpl/has_xxx.hpp>
-
-namespace boost { namespace mpl { namespace aux {
-template< typename T > struct msvc71_sfinae_helper;
-}}}
-
-namespace my1 {
-    BOOST_MPL_HAS_XXX_TRAIT_DEF(ppp)
-}
-
-#include <boost/mpl/apply.hpp> // does something bad for msvc.
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
-namespace my2 {
-    BOOST_MPL_HAS_XXX_TRAIT_DEF(ppp)
-}
-
-struct foo
-{
-    typedef int ppp;
-};
-
-BOOST_STATIC_ASSERT( my1::has_ppp< foo >::value ); // pass
-BOOST_STATIC_ASSERT( my2::has_ppp< foo >::value ); // failed
-
+BOOST_STATIC_ASSERT((boost::is_same<boost::ptr_vector<int const>::iterator::value_type, int const>::value));
 
 int main() {}
