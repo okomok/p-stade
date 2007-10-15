@@ -1,35 +1,28 @@
-#include <pstade/oven/foreach.hpp>
-#include <pstade/used.hpp>
 
-#include <vector>
+#include <boost/mpl/has_xxx.hpp>
 
-void f(float x) { pstade::used(x); }
+namespace boost { namespace mpl { namespace aux {
+template< typename T > struct msvc71_sfinae_helper;
+}}}
 
-void g(std::vector<float> const & v)
-{
-   PSTADE_OVEN_FOREACH(i, v)
-      f(i);
+namespace my1 {
+    BOOST_MPL_HAS_XXX_TRAIT_DEF(ppp)
 }
 
-void g_(std::vector<float> const & v)
-{
-    for (std::vector<float>::const_iterator first = boost::begin(v), last = boost::end(v); first != last; ++first)
-      f(*first);
+#include <boost/mpl/apply.hpp> // does something bad for msvc.
+#include <boost/static_assert.hpp>
+
+namespace my2 {
+    BOOST_MPL_HAS_XXX_TRAIT_DEF(ppp)
 }
 
-
-
-int main()
+struct foo
 {
-    {
-        std::vector<float> v;
-        v.push_back(3.2);
-        g(v);
-    }
+    typedef int ppp;
+};
 
-    {
-        std::vector<float> v;
-        v.push_back(3.2);
-        g_(v);
-    }
-}
+BOOST_STATIC_ASSERT( my1::has_ppp< foo >::value ); // pass
+BOOST_STATIC_ASSERT( my2::has_ppp< foo >::value ); // failed
+
+
+int main() {}

@@ -21,6 +21,7 @@
 
 [heading Version 0.90.2]
 * Concepts rearranged.
+* Renamed `before_mpl_has_xxx` to `detect_result_type`.
 
 
 

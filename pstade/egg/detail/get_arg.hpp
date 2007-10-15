@@ -31,7 +31,7 @@ namespace pstade { namespace egg { namespace detail {
     struct X_get_arg :
         function_facade< X_get_arg<Function, Index> >
     {
-        struct has_index
+        struct is_this_index
         {
             template<class NamedArg>
             struct apply :
@@ -84,7 +84,7 @@ namespace pstade { namespace egg { namespace detail {
         struct apply
         {
             typedef typename
-                boost::fusion::result_of::find_if<NamedArgs, has_index>::type
+                boost::fusion::result_of::find_if<NamedArgs, is_this_index>::type
             iter_t;
 
             typedef typename
@@ -105,7 +105,7 @@ namespace pstade { namespace egg { namespace detail {
         {
             typedef apply<void, NamedArgs, PrecedingArgs> apply_;
 
-            typename apply_::iter_t it = boost::fusion::find_if<has_index>(nargs);
+            typename apply_::iter_t it = boost::fusion::find_if<is_this_index>(nargs);
             return typename apply_::get_t()(it, pargs);
         }
     };

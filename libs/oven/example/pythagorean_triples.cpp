@@ -1,3 +1,4 @@
+#include <pstade/detect_result_type.hpp>
 #include <pstade/vodka/drink.hpp>
 
 
@@ -10,9 +11,6 @@
 
 
 // pythagorean triples
-
-
-#include <pstade/before_mpl_has_xxx.hpp>
 
 
 #include <pstade/unit_test.hpp>

@@ -1,3 +1,4 @@
+#include <pstade/detect_result_type.hpp>
 #include <pstade/vodka/drink.hpp>
 
 
@@ -8,8 +9,6 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <pstade/before_mpl_has_xxx.hpp>
-#include <pstade/minimal_test.hpp>
 
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/curry.hpp>
@@ -23,6 +22,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <functional>
+#include <pstade/minimal_test.hpp>
 
 
 using namespace pstade::egg;

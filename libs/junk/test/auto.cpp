@@ -10,18 +10,18 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/any.cpp>
+//#include <pstade/../libs/wine/test/result_of.cpp>
 
-//#include <pstade/../libs/oven/test/zipped.cpp>
+//#include <pstade/../libs/oven/test/newton.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
-#include <pstade/../libs/oven/example/fizzbuzz.cpp>
+#include <pstade/../libs/oven/example/newton.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-//#include <pstade/../libs/egg/test/from_any_to.cpp>
+//#include <pstade/../libs/egg/test/newton.cpp>
 //#include <pstade/../libs/egg/example/infix_apply.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>
