@@ -83,7 +83,7 @@ A ``StringOutputable`` is any ``out`` that either of the following expression is
 
 	E:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\basic_concepts_string_outputable.ipp
 
-, where ``psz`` is a `String`_ and ``ov`` is a ``pstade::overload`` object.
+, where ``psz`` is a `String`_.
 It is unsurprising that many types conform to this simple concept; even ``afxDump``.
 
 
@@ -98,7 +98,7 @@ A ``WideStringOutputable`` is any ``out`` that either of the following expressio
 
 	E:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\basic_concepts_string_outputable.ipp
 
-, where ``psz`` is a `WideString`_ and ``ov`` is a ``pstade::overload`` object.
+, where ``psz`` is a `WideString`_.
 
 
 Output Streamable

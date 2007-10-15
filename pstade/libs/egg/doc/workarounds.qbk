@@ -52,7 +52,7 @@ use this header.
     ]
     [
         [`#include <pstade/detect_result_type.hpp>`]
-        [Adds a msvc workaround for `BOOST_MPL_HAS_XXX_TRAIT_DEF`.]
+        [A msvc workaround for `BOOST_MPL_HAS_XXX_TRAIT_DEF`]
     ]
 ]
 

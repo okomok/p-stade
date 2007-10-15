@@ -41,7 +41,7 @@ A __LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using 
 [heading Requirements]
 For any __LEXICALLY_TYPED_OBJECT__ `x` the following must be met:
 
-* `x` is a lvalue.
+* `x` is a named lvalue.
 * `T_++x` is `_typeof(x)`.
 
 [heading Example]
