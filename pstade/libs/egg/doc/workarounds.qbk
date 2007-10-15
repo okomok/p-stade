@@ -35,17 +35,14 @@ Egg provides some workaround utilities.
 
 
 
-[section before_mpl_has_xxx.hpp]
+[section detect_result_type.hpp]
 
 [heading Description]
 `BOOST_MPL_HAS_XXX_TRAIT_DEF`, which __BOOST_RESULT_OF__ and __BOOST_LAMBDA__ depend on,
-randomly fails to work under the msvc complilers.
-You might see a weird error message such that
-"nested `sig` template is undefined" or "nested `result` template is undefined".
-So that, `BOOST_MPL_HAS_XXX_TRAIT_DEF` must be overridden with a workaround.
-
-[note The minimum condition is still not found, hence this workaround can't guarantee to always work around.
-      Boost1.34 tried to fix this problem, but seems to fail. ]
+sometimes fails to work under the msvc compilers.
+When you see a weird error message such that
+"nested `sig` template is undefined" or "nested `result` template is undefined",
+use this header.
 
 [heading Valid expressions]
 [table 
@@ -54,13 +51,13 @@ So that, `BOOST_MPL_HAS_XXX_TRAIT_DEF` must be overridden with a workaround.
         [[*Semantics]]
     ]
     [
-        [`#include <pstade/before_mpl_has_xxx.hpp>`]
-        [Override `BOOST_MPL_HAS_XXX_TRAIT_DEF` with some msvc workaround.]
+        [`#include <pstade/detect_result_type.hpp>`]
+        [Adds a msvc workaround for `BOOST_MPL_HAS_XXX_TRAIT_DEF`.]
     ]
 ]
 
 [heading Preconditions]
-* The valid expression is placed before any __BOOST_RESULT_OF__ or __BOOST_LAMBDA__ headers.
+* `<pstade/detect_result_type.hpp>` must be included before any Boost headers.
 
 [endsect]
 

@@ -37,7 +37,7 @@ namespace pstade { namespace pod_constant_detail {
 #if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
     #include <boost/static_assert.hpp>
     #include <boost/type_traits/is_pod.hpp>
-    #define PSTADE_POD_CONSTANT_has_is_pod
+    #define PSTADE_POD_CONSTANT_is_pod_available
 #endif
 
 
@@ -55,7 +55,7 @@ namespace pstade { namespace pod_constant_detail {
     /**/
 
 
-#if defined(PSTADE_POD_CONSTANT_has_is_pod)
+#if defined(PSTADE_POD_CONSTANT_is_pod_available)
 
     // 'BOOST_MPL_ASSERT' would cause error C2370 under msvc.
     #define PSTADE_POD_CONSTANT_pod_check(F, O) \

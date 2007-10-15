@@ -20,21 +20,8 @@
 //
 // Also note that BOOST_MPL_HAS_XXX_TRAIT_DEF, which is used by boost::result_of, sometimes doesn't work.
 // (Interestingly, if compiled on IDE, it seems to always work.)
-// If you are lost, use <pstade/before_mpl_has_xxx.hpp> to replace BOOST_MPL_HAS_XXX_TRAIT_DEF.
+// If you are lost, include <pstade/detect_result_type.hpp> before any boost header.
 
-
-// <boost/preprocessor.hpp> is too big.
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_shifted_params.hpp>
-#if !defined(BOOST_PREPROCESSOR_HPP)
-    #define BOOST_PREPROCESSOR_HPP
-    #include <boost/utility/result_of.hpp>
-    #undef  BOOST_PREPROCESSOR_HPP
-#else
-    #include <boost/utility/result_of.hpp>
-#endif
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
@@ -47,10 +34,10 @@
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/version.hpp>
+#include "./detail/boost_result_of.hpp"
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400)) && (BOOST_VERSION < 103500)
-    #include <boost/type_traits/is_class.hpp>
     #include <pstade/has_xxx.hpp>
     #define PSTADE_RESULT_OF_MSVC_WORKAROUND
 #endif
@@ -81,26 +68,18 @@ namespace pstade {
         PSTADE_HAS_TYPE(anything)
 
         template<class F>
-        struct force_instantiate
+        struct msvc_identity
         {
             // For some reason, template pod functors need this.
             static bool const b = has_anything<F>::value;
             typedef F type;
         };
 
-        template<class F>
-        struct msvc_identity :
-            boost::mpl::eval_if< boost::is_class<F>,
-                force_instantiate<F>,
-                boost::mpl::identity<F>
-            >
-        { };
-
-#endif // defined(PSTADE_RESULT_OF_MSVC_WORKAROUND)
+#endif
 
 
         template<class F>
-        struct fix :
+        struct patch :
             boost::mpl::eval_if<
                 boost::mpl::or_< is_pointer<F>, boost::is_member_function_pointer<F> >,
                 boost::remove_cv<F>,
@@ -120,7 +99,7 @@ namespace pstade {
     template<class Fun>
     struct result_of<Fun(void)> :
         boost::result_of<
-            typename result_of_detail::fix<Fun>::type()
+            typename result_of_detail::patch<Fun>::type()
         >
     { };
 
@@ -141,7 +120,7 @@ namespace pstade {
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result_of<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         boost::result_of<
-            typename result_of_detail::fix<Fun>::type(BOOST_PP_ENUM_PARAMS(n, A))
+            typename result_of_detail::patch<Fun>::type(BOOST_PP_ENUM_PARAMS(n, A))
         >
     { };
 

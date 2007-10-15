@@ -57,8 +57,15 @@ namespace nested_type
     BOOST_MPL_ASSERT_NOT(( has_xxx<int> ));
     BOOST_MPL_ASSERT_NOT(( has_xxx<int&> ));
     BOOST_MPL_ASSERT_NOT(( has_xxx<int*> ));
-    BOOST_MPL_ASSERT_NOT(( has_xxx<int[]> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int[5]> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int(&)[5]> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int(*)[5]> ));
     BOOST_MPL_ASSERT_NOT(( has_xxx<int (*)()> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int ()> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int (&)()> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int (*)(int)> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int (int)> ));
+    BOOST_MPL_ASSERT_NOT(( has_xxx<int (&)(int)> ));
 
     BOOST_MPL_ASSERT_NOT(( has_xxx<a2> ));
     BOOST_MPL_ASSERT_NOT(( has_xxx<a3> ));

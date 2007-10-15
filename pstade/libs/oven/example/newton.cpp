@@ -1,4 +1,4 @@
-#include <pstade/before_mpl_has_xxx.hpp>
+#include <pstade/detect_result_type.hpp>
 #include <pstade/unit_test.hpp>
 
 
