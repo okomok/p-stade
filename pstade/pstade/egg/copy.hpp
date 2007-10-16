@@ -59,12 +59,7 @@ namespace pstade { namespace egg {
             To call(From& from) const
             {
                 BOOST_MPL_ASSERT_NOT((boost::is_reference<To>));
-
-                typedef typename boost::mpl::and_<
-                    is_numeric<To>,
-                    is_numeric<From>
-                >::type is_numeric_castable;
-                return aux(from, is_numeric_castable());
+                return aux(from, boost::mpl::and_< is_numeric<To>, is_numeric<From> >());
             }
 
             template<class From>

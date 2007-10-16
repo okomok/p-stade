@@ -10,7 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
+#include <pstade/disable_if_copy.hpp>
+#include <pstade/egg/static_downcast.hpp>
+#include <pstade/make_bool.hpp>
+#include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/swappable.hpp>
+#include <pstade/reset_assignment.hpp>
+#include <pstade/type_erasure.hpp>
 #include "./config.hpp"
 #include "./detail/basic_holder.hpp"
 #include "./detail/basic_placeholder.hpp"
@@ -21,35 +29,97 @@ namespace pstade { namespace napkin {
 
 
 template< class CharT >
-struct basic_ostream
+struct basic_ostream :
+    radish::bool_testable< basic_ostream<CharT>,
+    radish::swappable    < basic_ostream<CharT> > >
 {
+private:
+    typedef basic_ostream self_t;
+
+public:
     typedef CharT char_type;
 
-    explicit basic_ostream()
+// structors
+    basic_ostream(boost::none_t = boost::none)
     {
-        reset(nout);
+        reset(nout); // TODO: I will remove this.
     }
 
     template< class StringOutputable >
-    explicit basic_ostream(StringOutputable& out) :
-        m_pout(new detail::basic_holder<CharT, StringOutputable>(out))
+    explicit basic_ostream(StringOutputable& out, typename disable_if_copy<self_t, StringOutputable>::type = 0) :
+        m_content(new detail::basic_holder<CharT, StringOutputable>(out))
     { }
 
+    basic_ostream(T_type_erasure, self_t& out) :
+        m_content(new detail::basic_holder<CharT, self_t>(out))
+    { }
+
+// assignments
+    void reset(boost::none_t = boost::none)
+    {
+        self_t().swap(*this);
+    }
+
+    template< class StringOutputable >
+    void reset(StringOutputable& out, typename disable_if_copy<self_t, StringOutputable>::type = 0)
+    {
+        self_t(out).swap(*this);
+    }
+
+    void reset(self_t& out)
+    {
+        self_t(type_erasure, out).swap(*this);
+    }
+
+    PSTADE_RESET_ASSIGNMENT(basic_ostream)
+
+// output
     template< class OutputStreamable >
     basic_ostream& operator<<(const OutputStreamable& x)
     {
-        m_pout->output(x);
+        m_content->output(x);
         return *this;
     }
 
-    template< class StringOutputable >
-    void reset(StringOutputable& out)
+// bool_testable
+    operator radish::safe_bool() const
     {
-        m_pout.reset(new detail::basic_holder<CharT, StringOutputable>(out));
+        return radish::make_safe_bool(m_content);
+    }
+
+// swappable
+    void swap(self_t& other)
+    {
+        m_content.swap(other.m_content);
+    }
+
+// boost::any compatibles
+    bool empty() const
+    {
+        return false;
+    }
+
+    std::type_info const& type() const
+    {
+        return m_content->typeid_();
+    }
+
+// content access
+    template< class StringOutputable >
+    bool contains() const
+    {
+        return make_bool(type() == typeid(StringOutputable));
+    }
+
+    template< class StringOutputable >
+    StringOutputable& content() const
+    {
+        BOOST_ASSERT(contains<StringOutputable>());
+        return egg::static_downcast< detail::basic_holder<CharT, StringOutputable> >(*m_content).held();
     }
 
 private:
-    boost::shared_ptr< detail::basic_placeholder<CharT> > m_pout;
+    boost::shared_ptr< detail::basic_placeholder<CharT> > m_content;
 };
 
 

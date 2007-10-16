@@ -20,6 +20,7 @@
 
 
 #include <string> // basic_string
+#include <typeinfo>
 #include <pstade/egg/copy.hpp>
 #include <pstade/egg/lexicalize.hpp>
 
@@ -33,6 +34,11 @@ struct basic_placeholder
     virtual ~basic_placeholder()
     { } // In fact, shared_ptr emulates 'virtual'.
 
+    std::type_info const& typeid_() const
+    {
+        return override_typeid();
+    }
+
     template< class OutputStreamable >
     void output(const OutputStreamable& x)
     {
@@ -42,6 +48,7 @@ struct basic_placeholder
     }
 
 protected:
+    virtual std::type_info const& override_typeid() const = 0;
     virtual void override_output(const CharT *psz) = 0;
 };
 
