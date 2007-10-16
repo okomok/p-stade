@@ -64,7 +64,7 @@ namespace do_iter_swap_detail {
     template< class Iterator1, class Iterator2 > inline
     void iter_swap(Iterator1 it1, Iterator2 it2, int)
     {
-        here::aux(it1, it2, typename have_swappable_reference<Iterator1, Iterator2>::type());
+        here::aux(it1, it2, have_swappable_reference<Iterator1, Iterator2>());
     }
 
     struct op

@@ -143,8 +143,13 @@ namespace pstade {
         { }
 
     // assignments
+        void reset(boost::none_t = boost::none)
+        {
+            self_t().swap(*this);
+        }
+
         template<class X>
-        void reset(X &x)
+        void reset(X &x, typename disable_if_copy<self_t, X>::type = 0)
         {
             self_t(x).swap(*this);
         }
@@ -153,11 +158,6 @@ namespace pstade {
         void reset(X const &x)
         {
             self_t(x).swap(*this);
-        }
-
-        void reset(boost::none_t = boost::none)
-        {
-            self_t().swap(*this);
         }
 
         void reset(self_t &x)
@@ -290,7 +290,7 @@ namespace pstade {
             self_t(type_erasure, x).swap(*this);
         }
 
-        PSTADE_MOVE_RESET_ASSIGNMENT(self_t)
+        PSTADE_MOVE_RESET_ASSIGNMENT(any_movable)
 
     // content access
         template<class X>

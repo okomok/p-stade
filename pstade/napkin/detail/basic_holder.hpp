@@ -43,7 +43,17 @@ struct basic_holder :
         m_held(out)
     { }
 
+    StringOutputable& held()
+    {
+        return m_held;
+    }
+
 protected:
+    std::type_info const& override_typeid() const
+    {
+        return typeid(StringOutputable);
+    }
+
     void override_output(const CharT *psz)
     {
         pstade_napkin_output(m_held, psz);

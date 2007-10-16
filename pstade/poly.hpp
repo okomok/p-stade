@@ -113,7 +113,7 @@ namespace pstade {
         {
             static void call(storage<O> &stg)
             {
-                aux(stg, typename is_locally_storable<O, Q>::type());
+                aux(stg, is_locally_storable<O, Q>());
             }
 
         private:
@@ -142,7 +142,7 @@ namespace pstade {
         {
             static void call(storage<O> const &stg, storage<O> &to)
             {
-                aux(stg, to, typename is_locally_storable<O, Q>::type());
+                aux(stg, to, is_locally_storable<O, Q>());
             }
 
         private:
@@ -172,7 +172,7 @@ namespace pstade {
         {
             static O *call(storage<O> const &stg)
             {
-                return aux(stg, typename is_locally_storable<O, Q>::type());
+                return aux(stg, is_locally_storable<O, Q>());
             }
 
         private:
