@@ -34,7 +34,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.output_iterators.any_output_iterator"></a><a href="output_iterators.html#oven.output_iterators.any_output_iterator" title="any_output_iterator">any_output_iterator</a></h3></div></div></div>
 <a name="oven.output_iterators.any_output_iterator.description"></a><h4>
-<a name="id593759"></a>
+<a name="id593776"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.description">Description</a>
       </h4>
 <p>
@@ -44,31 +44,30 @@
         Iterator</a> can be assigned.
       </p>
 <a name="oven.output_iterators.any_output_iterator.header"></a><h4>
-<a name="id593814"></a>
+<a name="id593832"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">any_output_iterator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.output_iterators.any_output_iterator.model_of"></a><h4>
-<a name="id593898"></a>
+<a name="id593916"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.model_of">Model
         of</a>
       </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output Iterator</a></li>
+<li><a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a></li>
+</ul></div>
 <a name="oven.output_iterators.any_output_iterator.notation"></a><h4>
-<a name="id593924"></a>
+<a name="id593967"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.notation">Notation</a>
       </h4>
-<div class="itemizedlist"><ul type="disc">
-<li>
+<div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">ao</span></code> is an <code class="computeroutput"><span class="identifier">any_output_iterator</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;</span></code>
           object.
-        </li>
-<li>
-<code class="computeroutput"><span class="identifier">_outit</span></code> is not an <code class="computeroutput"><span class="identifier">any_output_iterator</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;</span></code>
-          object.
-        </li>
-</ul></div>
+        </li></ul></div>
 <a name="oven.output_iterators.any_output_iterator.valid_expressions"></a><h4>
-<a name="id594034"></a>
+<a name="id594037"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.valid_expressions">Valid
         expressions</a>
       </h4>
@@ -90,19 +89,6 @@
               </th>
 </tr></thead>
 <tbody>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">any_output_iterator</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;</span></code>
-              </p>
-              </td>
-<td>
-              <p>
-                An <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output
-                Iterator</a>
-              </p>
-              </td>
-</tr>
 <tr>
 <td>
               <p>
@@ -131,27 +117,38 @@
 </tbody>
 </table></div>
 <a name="oven.output_iterators.any_output_iterator.preconditions"></a><h4>
-<a name="id594303"></a>
+<a name="id594256"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">V</span></code> specifies a type which
-          is outputted to <code class="computeroutput"><span class="identifier">ao</span></code>.
+<code class="computeroutput"><span class="identifier">V</span></code> specifies a (possibly
+          reference) type which is outputted to <code class="computeroutput"><span class="identifier">ao</span></code>.
         </li></ul></div>
 <a name="oven.output_iterators.any_output_iterator.example"></a><h4>
-<a name="id594357"></a>
+<a name="id594311"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.example">Example</a>
       </h4>
+<pre class="programlisting">
+<span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">in</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span> <span class="number">1</span><span class="special">,</span><span class="number">2</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">6</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">8</span><span class="special">,</span><span class="number">9</span><span class="special">,</span><span class="number">10</span> <span class="special">};</span>
+<span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">answer</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">2</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">6</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">8</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">10</span><span class="special">*</span><span class="number">3</span><span class="special">};</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">out</span><span class="special">;</span>
+<span class="identifier">any_output_iterator</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">o1</span><span class="special">,</span> <span class="identifier">o2</span><span class="special">;</span>
+<span class="identifier">o1</span> <span class="special">=</span> <span class="identifier">filterer</span><span class="special">(</span><span class="identifier">regular</span><span class="special">(</span><span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">%</span> <span class="number">2</span> <span class="special">==</span> <span class="number">0</span><span class="special">))</span> <span class="special">|=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">out</span><span class="special">);</span>
+<span class="identifier">o2</span> <span class="special">=</span> <span class="identifier">transformer</span><span class="special">(</span><span class="identifier">regular</span><span class="special">(</span><span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">*</span> <span class="number">3</span><span class="special">))</span> <span class="special">|=</span> <span class="identifier">o1</span><span class="special">;</span>
+<span class="identifier">copy</span><span class="special">(</span><span class="identifier">in</span><span class="special">,</span>  <span class="identifier">o2</span><span class="special">);</span>
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">out</span><span class="special">,</span> <span class="identifier">answer</span><span class="special">)</span> <span class="special">);</span>
+</pre>
 <a name="oven.output_iterators.any_output_iterator.see_also"></a><h4>
-<a name="id594384"></a>
+<a name="id594971"></a>
         <a href="output_iterators.html#oven.output_iterators.any_output_iterator.see_also">See also</a>
       </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="ranges.html#oven.ranges.any_range" title="any_range">any_range</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.output_iterators.applier"></a><a href="output_iterators.html#oven.output_iterators.applier" title="applier">applier</a></h3></div></div></div>
 <a name="oven.output_iterators.applier.description"></a><h4>
-<a name="id594429"></a>
+<a name="id595032"></a>
         <a href="output_iterators.html#oven.output_iterators.applier.description">Description</a>
       </h4>
 <p>
@@ -159,18 +156,18 @@
         which passes each item assigned as an argument to the unary function.
       </p>
 <a name="oven.output_iterators.applier.header"></a><h4>
-<a name="id594475"></a>
+<a name="id595077"></a>
         <a href="output_iterators.html#oven.output_iterators.applier.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">applier</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.output_iterators.applier.model_of"></a><h4>
-<a name="id594557"></a>
+<a name="id595159"></a>
         <a href="output_iterators.html#oven.output_iterators.applier.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.output_iterators.applier.valid_expressions"></a><h4>
-<a name="id594598"></a>
+<a name="id595200"></a>
         <a href="output_iterators.html#oven.output_iterators.applier.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -204,7 +201,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.output_iterators.applier.preconditions"></a><h4>
-<a name="id594738"></a>
+<a name="id595340"></a>
         <a href="output_iterators.html#oven.output_iterators.applier.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -216,11 +213,11 @@
         </li>
 </ul></div>
 <a name="oven.output_iterators.applier.example"></a><h4>
-<a name="id594873"></a>
+<a name="id595475"></a>
         <a href="output_iterators.html#oven.output_iterators.applier.example">Example</a>
       </h4>
 <a name="oven.output_iterators.applier.see_also"></a><h4>
-<a name="id594897"></a>
+<a name="id595499"></a>
         <a href="output_iterators.html#oven.output_iterators.applier.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -232,7 +229,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.output_iterators.checker"></a><a href="output_iterators.html#oven.output_iterators.checker" title="checker">checker</a></h3></div></div></div>
 <a name="oven.output_iterators.checker.description"></a><h4>
-<a name="id594971"></a>
+<a name="id595573"></a>
         <a href="output_iterators.html#oven.output_iterators.checker.description">Description</a>
       </h4>
 <p>
@@ -240,18 +237,18 @@
         <code class="computeroutput"><span class="identifier">checked</span><span class="special">|</span><span class="identifier">begin</span></code>.
       </p>
 <a name="oven.output_iterators.checker.header"></a><h4>
-<a name="id595030"></a>
+<a name="id595631"></a>
         <a href="output_iterators.html#oven.output_iterators.checker.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">checker</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.output_iterators.checker.model_of"></a><h4>
-<a name="id595111"></a>
+<a name="id595713"></a>
         <a href="output_iterators.html#oven.output_iterators.checker.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.output_iterators.checker.valid_expressions"></a><h4>
-<a name="id595152"></a>
+<a name="id595754"></a>
         <a href="output_iterators.html#oven.output_iterators.checker.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -300,18 +297,18 @@
 </tbody>
 </table></div>
 <a name="oven.output_iterators.checker.preconditions"></a><h4>
-<a name="id595390"></a>
+<a name="id595992"></a>
         <a href="output_iterators.html#oven.output_iterators.checker.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="oven.output_iterators.checker.example"></a><h4>
-<a name="id595424"></a>
+<a name="id596026"></a>
         <a href="output_iterators.html#oven.output_iterators.checker.example">Example</a>
       </h4>
 <a name="oven.output_iterators.checker.see_also"></a><h4>
-<a name="id595449"></a>
+<a name="id596051"></a>
         <a href="output_iterators.html#oven.output_iterators.checker.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.range_adaptors.checked" title="checked">checked</a></li></ul></div>
@@ -320,7 +317,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.output_iterators.eater"></a><a href="output_iterators.html#oven.output_iterators.eater" title="eater">eater</a></h3></div></div></div>
 <a name="oven.output_iterators.eater.description"></a><h4>
-<a name="id595510"></a>
+<a name="id596112"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.description">Description</a>
       </h4>
 <p>
@@ -328,18 +325,18 @@
         Iterator</a> ignores inputs.
       </p>
 <a name="oven.output_iterators.eater.header"></a><h4>
-<a name="id595556"></a>
+<a name="id596158"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">eater</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.output_iterators.eater.model_of"></a><h4>
-<a name="id595638"></a>
+<a name="id596240"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.output_iterators.eater.notation"></a><h4>
-<a name="id595679"></a>
+<a name="id596281"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -348,7 +345,7 @@
           <span class="special">-&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span><span class="identifier">v</span></code>.
         </li></ul></div>
 <a name="oven.output_iterators.eater.valid_expressions"></a><h4>
-<a name="id595766"></a>
+<a name="id596368"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -382,18 +379,18 @@
 </tr></tbody>
 </table></div>
 <a name="oven.output_iterators.eater.preconditions"></a><h4>
-<a name="id595897"></a>
+<a name="id596499"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="oven.output_iterators.eater.example"></a><h4>
-<a name="id595930"></a>
+<a name="id596533"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.example">Example</a>
       </h4>
 <a name="oven.output_iterators.eater.see_also"></a><h4>
-<a name="id595955"></a>
+<a name="id596557"></a>
         <a href="output_iterators.html#oven.output_iterators.eater.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -405,7 +402,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.output_iterators.stream_writer"></a><a href="output_iterators.html#oven.output_iterators.stream_writer" title="stream_writer">stream_writer</a></h3></div></div></div>
 <a name="oven.output_iterators.stream_writer.description"></a><h4>
-<a name="id596030"></a>
+<a name="id596632"></a>
         <a href="output_iterators.html#oven.output_iterators.stream_writer.description">Description</a>
       </h4>
 <p>
@@ -418,18 +415,18 @@
         though.
       </p>
 <a name="oven.output_iterators.stream_writer.header"></a><h4>
-<a name="id596120"></a>
+<a name="id596723"></a>
         <a href="output_iterators.html#oven.output_iterators.stream_writer.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.output_iterators.stream_writer.model_of"></a><h4>
-<a name="id596202"></a>
+<a name="id596805"></a>
         <a href="output_iterators.html#oven.output_iterators.stream_writer.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.output_iterators.stream_writer.valid_expressions"></a><h4>
-<a name="id596242"></a>
+<a name="id596845"></a>
         <a href="output_iterators.html#oven.output_iterators.stream_writer.valid_expressions">Valid
         expressions</a>
       </h4>
@@ -494,7 +491,7 @@
 </td></tr>
 </table></div>
 <a name="oven.output_iterators.stream_writer.preconditions"></a><h4>
-<a name="id596505"></a>
+<a name="id597107"></a>
         <a href="output_iterators.html#oven.output_iterators.stream_writer.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -510,7 +507,7 @@
         </li>
 </ul></div>
 <a name="oven.output_iterators.stream_writer.example"></a><h4>
-<a name="id596740"></a>
+<a name="id597342"></a>
         <a href="output_iterators.html#oven.output_iterators.stream_writer.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -531,7 +528,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.output_iterators.stream_writer.see_also"></a><h4>
-<a name="id597113"></a>
+<a name="id597715"></a>
         <a href="output_iterators.html#oven.output_iterators.stream_writer.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -546,7 +543,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.output_iterators.streambuf_writer"></a><a href="output_iterators.html#oven.output_iterators.streambuf_writer" title="streambuf_writer">streambuf_writer</a></h3></div></div></div>
 <a name="oven.output_iterators.streambuf_writer.description"></a><h4>
-<a name="id597224"></a>
+<a name="id597826"></a>
         <a href="output_iterators.html#oven.output_iterators.streambuf_writer.description">Description</a>
       </h4>
 <p>
@@ -554,18 +551,18 @@
         generator of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostreambuf_iterator</span></code>.
       </p>
 <a name="oven.output_iterators.streambuf_writer.header"></a><h4>
-<a name="id597285"></a>
+<a name="id597887"></a>
         <a href="output_iterators.html#oven.output_iterators.streambuf_writer.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.output_iterators.streambuf_writer.model_of"></a><h4>
-<a name="id597368"></a>
+<a name="id597970"></a>
         <a href="output_iterators.html#oven.output_iterators.streambuf_writer.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.output_iterators.streambuf_writer.valid_expressions"></a><h4>
-<a name="id597409"></a>
+<a name="id598011"></a>
         <a href="output_iterators.html#oven.output_iterators.streambuf_writer.valid_expressions">Valid
         expressions</a>
       </h4>
@@ -614,7 +611,7 @@
 </tbody>
 </table></div>
 <a name="oven.output_iterators.streambuf_writer.preconditions"></a><h4>
-<a name="id597615"></a>
+<a name="id598218"></a>
         <a href="output_iterators.html#oven.output_iterators.streambuf_writer.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -632,11 +629,11 @@
         </li>
 </ul></div>
 <a name="oven.output_iterators.streambuf_writer.example"></a><h4>
-<a name="id597897"></a>
+<a name="id598499"></a>
         <a href="output_iterators.html#oven.output_iterators.streambuf_writer.example">Example</a>
       </h4>
 <a name="oven.output_iterators.streambuf_writer.see_also"></a><h4>
-<a name="id597922"></a>
+<a name="id598525"></a>
         <a href="output_iterators.html#oven.output_iterators.streambuf_writer.see_also">See also</a>
       </h4>
 </div>
@@ -644,7 +641,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.output_iterators.std_stream_writer"></a><a href="output_iterators.html#oven.output_iterators.std_stream_writer" title="std_stream_writer">std_stream_writer</a></h3></div></div></div>
 <a name="oven.output_iterators.std_stream_writer.description"></a><h4>
-<a name="id597970"></a>
+<a name="id598572"></a>
         <a href="output_iterators.html#oven.output_iterators.std_stream_writer.description">Description</a>
       </h4>
 <p>
@@ -653,18 +650,18 @@
         which behaves as if it were <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream_iterator</span></code>.
       </p>
 <a name="oven.output_iterators.std_stream_writer.header"></a><h4>
-<a name="id598038"></a>
+<a name="id598641"></a>
         <a href="output_iterators.html#oven.output_iterators.std_stream_writer.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.output_iterators.std_stream_writer.model_of"></a><h4>
-<a name="id598121"></a>
+<a name="id598723"></a>
         <a href="output_iterators.html#oven.output_iterators.std_stream_writer.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.output_iterators.std_stream_writer.valid_expressions"></a><h4>
-<a name="id598163"></a>
+<a name="id598765"></a>
         <a href="output_iterators.html#oven.output_iterators.std_stream_writer.valid_expressions">Valid
         expressions</a>
       </h4>
@@ -714,7 +711,7 @@
 </tbody>
 </table></div>
 <a name="oven.output_iterators.std_stream_writer.preconditions"></a><h4>
-<a name="id598404"></a>
+<a name="id599007"></a>
         <a href="output_iterators.html#oven.output_iterators.std_stream_writer.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -739,11 +736,11 @@
 </td></tr>
 </table></div>
 <a name="oven.output_iterators.std_stream_writer.example"></a><h4>
-<a name="id598483"></a>
+<a name="id599085"></a>
         <a href="output_iterators.html#oven.output_iterators.std_stream_writer.example">Example</a>
       </h4>
 <a name="oven.output_iterators.std_stream_writer.see_also"></a><h4>
-<a name="id598509"></a>
+<a name="id599111"></a>
         <a href="output_iterators.html#oven.output_iterators.std_stream_writer.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">

@@ -20,6 +20,7 @@
 #include <iterator> // back_inserter
 #include <boost/lambda/lambda.hpp>
 #include <pstade/oven/regular.hpp>
+#include <pstade/oven/any_output_iterator.hpp>
 
 
 namespace bll = boost::lambda;
@@ -28,9 +29,21 @@ using namespace pstade::oven;
 
 void pstade_minimal_test()
 {
-    int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
-    int const answer[] = {2*3,4*3,6*3,8*3,10*3};
-    std::vector<int> out;
-    copy(in, filterer(regular(bll::_1 % 2 == 0)) |= transformer(regular(bll::_1 * 3)) |= std::back_inserter(out));
-    BOOST_CHECK( equals(out, answer) );
+    {
+        int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
+        int const answer[] = {2*3,4*3,6*3,8*3,10*3};
+        std::vector<int> out;
+        copy(in, filterer(regular(bll::_1 % 2 == 0)) |= transformer(regular(bll::_1 * 3)) |= std::back_inserter(out));
+        BOOST_CHECK( equals(out, answer) );
+    }
+    {
+        int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
+        int const answer[] = {2*3,4*3,6*3,8*3,10*3};
+        std::vector<int> out;
+        any_output_iterator<int> o1, o2;
+        o1 = filterer(regular(bll::_1 % 2 == 0)) |= std::back_inserter(out);
+        o2 = transformer(regular(bll::_1 * 3)) |= o1;
+        copy(in,  o2);
+        BOOST_CHECK( equals(out, answer) );
+    }
 }

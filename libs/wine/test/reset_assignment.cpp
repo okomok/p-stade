@@ -98,7 +98,7 @@ void pstade_minimal_test()
     {
         my m(3);
         my m_(4);
-        m = m_;
+        m = m_; // copy-assignment
         BOOST_CHECK(m.m_x == 4);
     }
     {
@@ -109,5 +109,11 @@ void pstade_minimal_test()
 
         m = boost::none;
         BOOST_CHECK(!m.m_x);
+    }
+    {
+        your m(make_auto(3));
+        your m_(make_auto(5));
+        m = m_; // copy-assignment
+        BOOST_CHECK(*m.m_x == 5);
     }
 }

@@ -184,13 +184,14 @@
           Erasure for C++ Iterators</a></li>
 <li><a href="utilities.html#oven.utilities.expression" title="expression">expression</a></li>
 <li><a href="ranges.html#oven.ranges.any_indexed" title="any_indexed">any_indexed</a></li>
+<li><a href="output_iterators.html#oven.output_iterators.any_output_iterator" title="any_output_iterator">any_output_iterator</a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.any_indexed"></a><a href="ranges.html#oven.ranges.any_indexed" title="any_indexed">any_indexed</a></h3></div></div></div>
 <a name="oven.ranges.any_indexed.description"></a><h4>
-<a name="id516949"></a>
+<a name="id516964"></a>
         <a href="ranges.html#oven.ranges.any_indexed.description">Description</a>
       </h4>
 <p>
@@ -200,12 +201,12 @@
         offers lightweight-copyable iterators in return for some extra preconditions.
       </p>
 <a name="oven.ranges.any_indexed.header"></a><h4>
-<a name="id517008"></a>
+<a name="id517023"></a>
         <a href="ranges.html#oven.ranges.any_indexed.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">any_indexed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.any_indexed.model_of"></a><h4>
-<a name="id517089"></a>
+<a name="id517104"></a>
         <a href="ranges.html#oven.ranges.any_indexed.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -218,7 +219,7 @@
           Constructible</a></li>
 </ul></div>
 <a name="oven.ranges.any_indexed.valid_expressions"></a><h4>
-<a name="id517158"></a>
+<a name="id517173"></a>
         <a href="ranges.html#oven.ranges.any_indexed.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -252,7 +253,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.any_indexed.preconditions"></a><h4>
-<a name="id517319"></a>
+<a name="id517334"></a>
         <a href="ranges.html#oven.ranges.any_indexed.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -270,11 +271,11 @@
         </li>
 </ul></div>
 <a name="oven.ranges.any_indexed.example"></a><h4>
-<a name="id517442"></a>
+<a name="id517457"></a>
         <a href="ranges.html#oven.ranges.any_indexed.example">Example</a>
       </h4>
 <a name="oven.ranges.any_indexed.see_also"></a><h4>
-<a name="id517465"></a>
+<a name="id517480"></a>
         <a href="ranges.html#oven.ranges.any_indexed.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -286,7 +287,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.array_range"></a><a href="ranges.html#oven.ranges.array_range" title="array_range">array_range</a></h3></div></div></div>
 <a name="oven.ranges.array_range.description"></a><h4>
-<a name="id517537"></a>
+<a name="id517552"></a>
         <a href="ranges.html#oven.ranges.array_range.description">Description</a>
       </h4>
 <p>
@@ -296,12 +297,12 @@
         which delivers a range presentation of dynamically allocated arrays.
       </p>
 <a name="oven.ranges.array_range.header"></a><h4>
-<a name="id517593"></a>
+<a name="id517608"></a>
         <a href="ranges.html#oven.ranges.array_range.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">array_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.array_range.model_of"></a><h4>
-<a name="id517674"></a>
+<a name="id517689"></a>
         <a href="ranges.html#oven.ranges.array_range.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -314,7 +315,7 @@
 </li>
 </ul></div>
 <a name="oven.ranges.array_range.valid_expressions"></a><h4>
-<a name="id517742"></a>
+<a name="id517757"></a>
         <a href="ranges.html#oven.ranges.array_range.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -350,7 +351,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.array_range.preconditions"></a><h4>
-<a name="id517952"></a>
+<a name="id517966"></a>
         <a href="ranges.html#oven.ranges.array_range.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -358,7 +359,7 @@
           is a valid expression.
         </li></ul></div>
 <a name="oven.ranges.array_range.example"></a><h4>
-<a name="id518013"></a>
+<a name="id518028"></a>
         <a href="ranges.html#oven.ranges.array_range.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -371,7 +372,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">sarr</span><span class="special">,</span> <span class="identifier">darr</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="oven.ranges.array_range.see_also"></a><h4>
-<a name="id518311"></a>
+<a name="id518325"></a>
         <a href="ranges.html#oven.ranges.array_range.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/doc/html/array.html" target="_top">Boost.Array</a></li></ul></div>
@@ -380,7 +381,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.directory_range"></a><a href="ranges.html#oven.ranges.directory_range" title="directory_range">directory_range</a></h3></div></div></div>
 <a name="oven.ranges.directory_range.description"></a><h4>
-<a name="id518368"></a>
+<a name="id518382"></a>
         <a href="ranges.html#oven.ranges.directory_range.description">Description</a>
       </h4>
 <p>
@@ -389,12 +390,12 @@
         which accesses the contents of a directory.
       </p>
 <a name="oven.ranges.directory_range.header"></a><h4>
-<a name="id518423"></a>
+<a name="id518438"></a>
         <a href="ranges.html#oven.ranges.directory_range.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">directory_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.directory_range.model_of"></a><h4>
-<a name="id518505"></a>
+<a name="id518519"></a>
         <a href="ranges.html#oven.ranges.directory_range.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -402,7 +403,7 @@
           Pass</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="oven.ranges.directory_range.valid_expressions"></a><h4>
-<a name="id518553"></a>
+<a name="id518567"></a>
         <a href="ranges.html#oven.ranges.directory_range.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -462,7 +463,7 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.directory_range.preconditions"></a><h4>
-<a name="id518912"></a>
+<a name="id518927"></a>
         <a href="ranges.html#oven.ranges.directory_range.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -470,7 +471,7 @@
           is a valid expression.
         </li></ul></div>
 <a name="oven.ranges.directory_range.example"></a><h4>
-<a name="id519023"></a>
+<a name="id519038"></a>
         <a href="ranges.html#oven.ranges.directory_range.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -482,7 +483,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.directory_range.see_also"></a><h4>
-<a name="id519239"></a>
+<a name="id519254"></a>
         <a href="ranges.html#oven.ranges.directory_range.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1841.html#Class-template-basic_directory_iterator" target="_top">basic_directory_iterator</a></li></ul></div>
@@ -491,7 +492,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.empty_range"></a><a href="ranges.html#oven.ranges.empty_range" title="empty_range">empty_range</a></h3></div></div></div>
 <a name="oven.ranges.empty_range.description"></a><h4>
-<a name="id519299"></a>
+<a name="id519314"></a>
         <a href="ranges.html#oven.ranges.empty_range.description">Description</a>
       </h4>
 <p>
@@ -500,12 +501,12 @@
         which is always empty.
       </p>
 <a name="oven.ranges.empty_range.header"></a><h4>
-<a name="id519354"></a>
+<a name="id519369"></a>
         <a href="ranges.html#oven.ranges.empty_range.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">empty_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.empty_range.model_of"></a><h4>
-<a name="id519436"></a>
+<a name="id519451"></a>
         <a href="ranges.html#oven.ranges.empty_range.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -518,7 +519,7 @@
 </li>
 </ul></div>
 <a name="oven.ranges.empty_range.valid_expressions"></a><h4>
-<a name="id519503"></a>
+<a name="id519517"></a>
         <a href="ranges.html#oven.ranges.empty_range.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -553,14 +554,14 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.empty_range.example"></a><h4>
-<a name="id519673"></a>
+<a name="id519688"></a>
         <a href="ranges.html#oven.ranges.empty_range.example">Example</a>
       </h4>
 <pre class="programlisting">
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">empty_range</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;())</span> <span class="special">);</span>
 </pre>
 <a name="oven.ranges.empty_range.see_also"></a><h4>
-<a name="id519762"></a>
+<a name="id519777"></a>
         <a href="ranges.html#oven.ranges.empty_range.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.range_adaptors.cleared" title="cleared">cleared</a></li></ul></div>
@@ -569,7 +570,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.file_range"></a><a href="ranges.html#oven.ranges.file_range" title="file_range">file_range</a></h3></div></div></div>
 <a name="oven.ranges.file_range.description"></a><h4>
-<a name="id519823"></a>
+<a name="id519838"></a>
         <a href="ranges.html#oven.ranges.file_range.description">Description</a>
       </h4>
 <p>
@@ -595,12 +596,12 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.file_range.header"></a><h4>
-<a name="id519909"></a>
+<a name="id519924"></a>
         <a href="ranges.html#oven.ranges.file_range.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">file_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.file_range.model_of"></a><h4>
-<a name="id519989"></a>
+<a name="id520004"></a>
         <a href="ranges.html#oven.ranges.file_range.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -613,14 +614,14 @@
 </li>
 </ul></div>
 <a name="oven.ranges.file_range.notation"></a><h4>
-<a name="id520053"></a>
+<a name="id520068"></a>
         <a href="ranges.html#oven.ranges.file_range.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">r</span></code> is a <code class="computeroutput"><span class="identifier">file_range</span></code>.
         </li></ul></div>
 <a name="oven.ranges.file_range.valid_expressions"></a><h4>
-<a name="id520106"></a>
+<a name="id520121"></a>
         <a href="ranges.html#oven.ranges.file_range.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -669,13 +670,13 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.file_range.invariants"></a><h4>
-<a name="id520333"></a>
+<a name="id520348"></a>
         <a href="ranges.html#oven.ranges.file_range.invariants">Invariants</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">!</span><span class="identifier">r</span><span class="special">.</span><span class="identifier">is_open</span><span class="special">()</span> <span class="special">?</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span>
           <span class="special">:</span> <span class="keyword">true</span></code></li></ul></div>
 <a name="oven.ranges.file_range.preconditions"></a><h4>
-<a name="id520443"></a>
+<a name="id520458"></a>
         <a href="ranges.html#oven.ranges.file_range.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -683,7 +684,7 @@
           is a valid expression.
         </li></ul></div>
 <a name="oven.ranges.file_range.example"></a><h4>
-<a name="id520565"></a>
+<a name="id520580"></a>
         <a href="ranges.html#oven.ranges.file_range.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -691,7 +692,7 @@
 <span class="identifier">copy</span><span class="special">(</span><span class="identifier">file_range</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;(</span><span class="string">"data.txt"</span><span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">vec</span><span class="special">));</span>
 </pre>
 <a name="oven.ranges.file_range.see_also"></a><h4>
-<a name="id520710"></a>
+<a name="id520724"></a>
         <a href="ranges.html#oven.ranges.file_range.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -703,7 +704,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.as_array"></a><a href="ranges.html#oven.ranges.as_array" title="as_array">as_array</a></h3></div></div></div>
 <a name="oven.ranges.as_array.description"></a><h4>
-<a name="id520780"></a>
+<a name="id520794"></a>
         <a href="ranges.html#oven.ranges.as_array.description">Description</a>
       </h4>
 <p>
@@ -712,18 +713,18 @@
         which <code class="computeroutput"><span class="identifier">as_array</span></code> works around.
       </p>
 <a name="oven.ranges.as_array.header"></a><h4>
-<a name="id520837"></a>
+<a name="id520851"></a>
         <a href="ranges.html#oven.ranges.as_array.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">as_array</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.as_array.model_of"></a><h4>
-<a name="id520917"></a>
+<a name="id520932"></a>
         <a href="ranges.html#oven.ranges.as_array.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_class_interface" target="_top">Auxiliary
           Class Interface</a></li></ul></div>
 <a name="oven.ranges.as_array.valid_expressions"></a><h4>
-<a name="id520958"></a>
+<a name="id520972"></a>
         <a href="ranges.html#oven.ranges.as_array.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -758,14 +759,14 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.as_array.preconditions"></a><h4>
-<a name="id521080"></a>
+<a name="id521094"></a>
         <a href="ranges.html#oven.ranges.as_array.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">a</span></code> is an array.
         </li></ul></div>
 <a name="oven.ranges.as_array.example"></a><h4>
-<a name="id521122"></a>
+<a name="id521136"></a>
         <a href="ranges.html#oven.ranges.as_array.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -774,7 +775,7 @@
 </span><span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">distance</span><span class="special">(</span><span class="identifier">as_literal</span><span class="special">(</span><span class="string">"abc\0de"</span><span class="special">))</span> <span class="special">==</span> <span class="number">6</span> <span class="special">);</span> <span class="comment">// null doesn't affect.
 </span></pre>
 <a name="oven.ranges.as_array.see_also"></a><h4>
-<a name="id521350"></a>
+<a name="id521365"></a>
         <a href="ranges.html#oven.ranges.as_array.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -788,7 +789,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.as_c_str"></a><a href="ranges.html#oven.ranges.as_c_str" title="as_c_str">as_c_str</a></h3></div></div></div>
 <a name="oven.ranges.as_c_str.description"></a><h4>
-<a name="id521435"></a>
+<a name="id521450"></a>
         <a href="ranges.html#oven.ranges.as_c_str.description">Description</a>
       </h4>
 <p>
@@ -797,18 +798,18 @@
         from null-terminated c-style string.
       </p>
 <a name="oven.ranges.as_c_str.header"></a><h4>
-<a name="id521490"></a>
+<a name="id521504"></a>
         <a href="ranges.html#oven.ranges.as_c_str.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">as_c_str</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.as_c_str.model_of"></a><h4>
-<a name="id521570"></a>
+<a name="id521585"></a>
         <a href="ranges.html#oven.ranges.as_c_str.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_class_interface" target="_top">Auxiliary
           Class Interface</a></li></ul></div>
 <a name="oven.ranges.as_c_str.valid_expressions"></a><h4>
-<a name="id521609"></a>
+<a name="id521624"></a>
         <a href="ranges.html#oven.ranges.as_c_str.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -856,7 +857,7 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.as_c_str.preconditions"></a><h4>
-<a name="id521920"></a>
+<a name="id521934"></a>
         <a href="ranges.html#oven.ranges.as_c_str.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -873,7 +874,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.as_c_str.see_also"></a><h4>
-<a name="id522082"></a>
+<a name="id522097"></a>
         <a href="ranges.html#oven.ranges.as_c_str.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -887,7 +888,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.as_literal"></a><a href="ranges.html#oven.ranges.as_literal" title="as_literal">as_literal</a></h3></div></div></div>
 <a name="oven.ranges.as_literal.description"></a><h4>
-<a name="id522163"></a>
+<a name="id522178"></a>
         <a href="ranges.html#oven.ranges.as_literal.description">Description</a>
       </h4>
 <p>
@@ -896,18 +897,18 @@
         from character array.
       </p>
 <a name="oven.ranges.as_literal.header"></a><h4>
-<a name="id522216"></a>
+<a name="id522231"></a>
         <a href="ranges.html#oven.ranges.as_literal.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">as_literal</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.as_literal.model_of"></a><h4>
-<a name="id522297"></a>
+<a name="id522312"></a>
         <a href="ranges.html#oven.ranges.as_literal.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_class_interface" target="_top">Auxiliary
           Class Interface</a></li></ul></div>
 <a name="oven.ranges.as_literal.valid_expressions"></a><h4>
-<a name="id522338"></a>
+<a name="id522353"></a>
         <a href="ranges.html#oven.ranges.as_literal.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -956,7 +957,7 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.as_literal.preconditions"></a><h4>
-<a name="id522606"></a>
+<a name="id522621"></a>
         <a href="ranges.html#oven.ranges.as_literal.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -985,7 +986,7 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.as_literal.see_also"></a><h4>
-<a name="id522702"></a>
+<a name="id522716"></a>
         <a href="ranges.html#oven.ranges.as_literal.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -999,7 +1000,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.block"></a><a href="ranges.html#oven.ranges.block" title="block">block</a></h3></div></div></div>
 <a name="oven.ranges.block.description"></a><h4>
-<a name="id522781"></a>
+<a name="id522796"></a>
         <a href="ranges.html#oven.ranges.block.description">Description</a>
       </h4>
 <p>
@@ -1008,18 +1009,18 @@
         from an <a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration Block</a>.
       </p>
 <a name="oven.ranges.block.header"></a><h4>
-<a name="id522843"></a>
+<a name="id522858"></a>
         <a href="ranges.html#oven.ranges.block.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">block</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.block.model_of"></a><h4>
-<a name="id522923"></a>
+<a name="id522937"></a>
         <a href="ranges.html#oven.ranges.block.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.block.notation"></a><h4>
-<a name="id522961"></a>
+<a name="id522975"></a>
         <a href="ranges.html#oven.ranges.block.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1028,7 +1029,7 @@
           passed to <code class="computeroutput"><span class="identifier">b</span></code>.
         </li></ul></div>
 <a name="oven.ranges.block.valid_expressions"></a><h4>
-<a name="id523021"></a>
+<a name="id523036"></a>
         <a href="ranges.html#oven.ranges.block.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -1064,7 +1065,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.block.preconditions"></a><h4>
-<a name="id523162"></a>
+<a name="id523177"></a>
         <a href="ranges.html#oven.ranges.block.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1077,7 +1078,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.block.example"></a><h4>
-<a name="id523217"></a>
+<a name="id523231"></a>
         <a href="ranges.html#oven.ranges.block.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -1112,7 +1113,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.block.see_also"></a><h4>
-<a name="id523919"></a>
+<a name="id523933"></a>
         <a href="ranges.html#oven.ranges.block.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://en.csharp-online.net/ECMA-334:_26.1_Iterator_blocks" target="_top">Iterator
@@ -1122,7 +1123,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.comprehension"></a><a href="ranges.html#oven.ranges.comprehension" title="comprehension">comprehension</a></h3></div></div></div>
 <a name="oven.ranges.comprehension.description"></a><h4>
-<a name="id523977"></a>
+<a name="id523992"></a>
         <a href="ranges.html#oven.ranges.comprehension.description">Description</a>
       </h4>
 <p>
@@ -1130,18 +1131,18 @@
         notation.
       </p>
 <a name="oven.ranges.comprehension.header"></a><h4>
-<a name="id524016"></a>
+<a name="id524030"></a>
         <a href="ranges.html#oven.ranges.comprehension.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">comprehension</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.comprehension.model_of"></a><h4>
-<a name="id524098"></a>
+<a name="id524112"></a>
         <a href="ranges.html#oven.ranges.comprehension.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.comprehension.notation"></a><h4>
-<a name="id524139"></a>
+<a name="id524153"></a>
         <a href="ranges.html#oven.ranges.comprehension.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1159,7 +1160,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.comprehension.valid_expressions"></a><h4>
-<a name="id524412"></a>
+<a name="id524426"></a>
         <a href="ranges.html#oven.ranges.comprehension.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -1254,7 +1255,7 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.comprehension.preconditions"></a><h4>
-<a name="id525202"></a>
+<a name="id525216"></a>
         <a href="ranges.html#oven.ranges.comprehension.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1283,7 +1284,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.comprehension.example"></a><h4>
-<a name="id525462"></a>
+<a name="id525477"></a>
         <a href="ranges.html#oven.ranges.comprehension.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -1327,7 +1328,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.comprehension.see_also"></a><h4>
-<a name="id526450"></a>
+<a name="id526464"></a>
         <a href="ranges.html#oven.ranges.comprehension.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://en.wikipedia.org/wiki/List_comprehension" target="_top">List comprehension</a></li></ul></div>
@@ -1336,7 +1337,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.counting"></a><a href="ranges.html#oven.ranges.counting" title="counting">counting</a></h3></div></div></div>
 <a name="oven.ranges.counting.description"></a><h4>
-<a name="id526508"></a>
+<a name="id526523"></a>
         <a href="ranges.html#oven.ranges.counting.description">Description</a>
       </h4>
 <p>
@@ -1345,18 +1346,18 @@
         <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
       </p>
 <a name="oven.ranges.counting.header"></a><h4>
-<a name="id526584"></a>
+<a name="id526598"></a>
         <a href="ranges.html#oven.ranges.counting.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">counting</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.counting.model_of"></a><h4>
-<a name="id526665"></a>
+<a name="id526679"></a>
         <a href="ranges.html#oven.ranges.counting.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.counting.valid_expressions"></a><h4>
-<a name="id526705"></a>
+<a name="id526719"></a>
         <a href="ranges.html#oven.ranges.counting.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -1430,7 +1431,7 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.counting.preconditions"></a><h4>
-<a name="id527188"></a>
+<a name="id527202"></a>
         <a href="ranges.html#oven.ranges.counting.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1447,7 +1448,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.counting.example"></a><h4>
-<a name="id527396"></a>
+<a name="id527410"></a>
         <a href="ranges.html#oven.ranges.counting.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -1460,7 +1461,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.counting.see_also"></a><h4>
-<a name="id527726"></a>
+<a name="id527740"></a>
         <a href="ranges.html#oven.ranges.counting.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/iterator/doc/counting_iterator.html" target="_top">boost::counting_iterator</a></li></ul></div>
@@ -1469,7 +1470,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.generation"></a><a href="ranges.html#oven.ranges.generation" title="generation">generation</a></h3></div></div></div>
 <a name="oven.ranges.generation.description"></a><h4>
-<a name="id527784"></a>
+<a name="id527798"></a>
         <a href="ranges.html#oven.ranges.generation.description">Description</a>
       </h4>
 <p>
@@ -1478,18 +1479,18 @@
         from a <a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a>.
       </p>
 <a name="oven.ranges.generation.header"></a><h4>
-<a name="id527847"></a>
+<a name="id527862"></a>
         <a href="ranges.html#oven.ranges.generation.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">generation</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.generation.model_of"></a><h4>
-<a name="id527928"></a>
+<a name="id527942"></a>
         <a href="ranges.html#oven.ranges.generation.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.generation.valid_expressions"></a><h4>
-<a name="id527968"></a>
+<a name="id527983"></a>
         <a href="ranges.html#oven.ranges.generation.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -1524,7 +1525,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.generation.preconditions"></a><h4>
-<a name="id528161"></a>
+<a name="id528175"></a>
         <a href="ranges.html#oven.ranges.generation.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1542,7 +1543,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.generation.example"></a><h4>
-<a name="id528276"></a>
+<a name="id528291"></a>
         <a href="ranges.html#oven.ranges.generation.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -1569,7 +1570,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.generation.see_also"></a><h4>
-<a name="id528702"></a>
+<a name="id528716"></a>
         <a href="ranges.html#oven.ranges.generation.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1585,30 +1586,30 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.hetero"></a><a href="ranges.html#oven.ranges.hetero" title="hetero">hetero</a></h3></div></div></div>
 <a name="oven.ranges.hetero.description"></a><h4>
-<a name="id528824"></a>
+<a name="id528838"></a>
         <a href="ranges.html#oven.ranges.hetero.description">Description</a>
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">hetero</span></code> runs through a "tuple".
       </p>
 <a name="oven.ranges.hetero.header"></a><h4>
-<a name="id528862"></a>
+<a name="id528876"></a>
         <a href="ranges.html#oven.ranges.hetero.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">hetero</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.hetero.model_of"></a><h4>
-<a name="id528942"></a>
+<a name="id528957"></a>
         <a href="ranges.html#oven.ranges.hetero.model_of">Model of</a>
       </h4>
 <a name="oven.ranges.hetero.notation"></a><h4>
-<a name="id528965"></a>
+<a name="id528980"></a>
         <a href="ranges.html#oven.ranges.hetero.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">size</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">tup</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">value</span></code>.
         </li></ul></div>
 <a name="oven.ranges.hetero.valid_expressions"></a><h4>
-<a name="id529087"></a>
+<a name="id529102"></a>
         <a href="ranges.html#oven.ranges.hetero.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -1671,7 +1672,7 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.hetero.preconditions"></a><h4>
-<a name="id529496"></a>
+<a name="id529511"></a>
         <a href="ranges.html#oven.ranges.hetero.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1694,7 +1695,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.hetero.example"></a><h4>
-<a name="id529776"></a>
+<a name="id529790"></a>
         <a href="ranges.html#oven.ranges.hetero.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -1705,7 +1706,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.hetero.see_also"></a><h4>
-<a name="id530075"></a>
+<a name="id530090"></a>
         <a href="ranges.html#oven.ranges.hetero.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/index.html" target="_top">Boost.Fusion</a></li></ul></div>
@@ -1714,25 +1715,25 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.initial_values"></a><a href="ranges.html#oven.ranges.initial_values" title="initial_values">initial_values</a></h3></div></div></div>
 <a name="oven.ranges.initial_values.description"></a><h4>
-<a name="id530134"></a>
+<a name="id530148"></a>
         <a href="ranges.html#oven.ranges.initial_values.description">Description</a>
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">initial_values</span></code> emulates initializer-lists.
       </p>
 <a name="oven.ranges.initial_values.header"></a><h4>
-<a name="id530173"></a>
+<a name="id530187"></a>
         <a href="ranges.html#oven.ranges.initial_values.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">initial_values</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.initial_values.model_of"></a><h4>
-<a name="id530255"></a>
+<a name="id530269"></a>
         <a href="ranges.html#oven.ranges.initial_values.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.initial_values.valid_expressions"></a><h4>
-<a name="id530295"></a>
+<a name="id530310"></a>
         <a href="ranges.html#oven.ranges.initial_values.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -1840,7 +1841,7 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.initial_values.preconditions"></a><h4>
-<a name="id530944"></a>
+<a name="id530958"></a>
         <a href="ranges.html#oven.ranges.initial_values.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1888,7 +1889,7 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.initial_values.example"></a><h4>
-<a name="id531432"></a>
+<a name="id531446"></a>
         <a href="ranges.html#oven.ranges.initial_values.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -1897,7 +1898,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">vec</span><span class="special">,</span> <span class="identifier">ans</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="oven.ranges.initial_values.see_also"></a><h4>
-<a name="id531815"></a>
+<a name="id531829"></a>
         <a href="ranges.html#oven.ranges.initial_values.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1910,7 +1911,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.iteration"></a><a href="ranges.html#oven.ranges.iteration" title="iteration">iteration</a></h3></div></div></div>
 <a name="oven.ranges.iteration.description"></a><h4>
-<a name="id531894"></a>
+<a name="id531908"></a>
         <a href="ranges.html#oven.ranges.iteration.description">Description</a>
       </h4>
 <p>
@@ -1939,18 +1940,18 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.iteration.header"></a><h4>
-<a name="id531966"></a>
+<a name="id531980"></a>
         <a href="ranges.html#oven.ranges.iteration.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">iteration</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.iteration.model_of"></a><h4>
-<a name="id532046"></a>
+<a name="id532061"></a>
         <a href="ranges.html#oven.ranges.iteration.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.iteration.notation"></a><h4>
-<a name="id532085"></a>
+<a name="id532099"></a>
         <a href="ranges.html#oven.ranges.iteration.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1959,7 +1960,7 @@
           <span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">x</span><span class="special">)&gt;(</span><span class="identifier">y</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="oven.ranges.iteration.valid_expressions"></a><h4>
-<a name="id532196"></a>
+<a name="id532210"></a>
         <a href="ranges.html#oven.ranges.iteration.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -1994,14 +1995,14 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.iteration.preconditions"></a><h4>
-<a name="id532369"></a>
+<a name="id532383"></a>
         <a href="ranges.html#oven.ranges.iteration.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="oven.ranges.iteration.example"></a><h4>
-<a name="id532402"></a>
+<a name="id532416"></a>
         <a href="ranges.html#oven.ranges.iteration.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -2011,7 +2012,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="oven.ranges.iteration.see_also"></a><h4>
-<a name="id532650"></a>
+<a name="id532664"></a>
         <a href="ranges.html#oven.ranges.iteration.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2024,7 +2025,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.recursion"></a><a href="ranges.html#oven.ranges.recursion" title="recursion">recursion</a></h3></div></div></div>
 <a name="oven.ranges.recursion.description"></a><h4>
-<a name="id532732"></a>
+<a name="id532746"></a>
         <a href="ranges.html#oven.ranges.recursion.description">Description</a>
       </h4>
 <p>
@@ -2033,18 +2034,18 @@
         range.
       </p>
 <a name="oven.ranges.recursion.header"></a><h4>
-<a name="id532779"></a>
+<a name="id532794"></a>
         <a href="ranges.html#oven.ranges.recursion.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">recursion</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.recursion.model_of"></a><h4>
-<a name="id532859"></a>
+<a name="id532874"></a>
         <a href="ranges.html#oven.ranges.recursion.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.recursion.valid_expressions"></a><h4>
-<a name="id532898"></a>
+<a name="id532913"></a>
         <a href="ranges.html#oven.ranges.recursion.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2079,7 +2080,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.recursion.preconditions"></a><h4>
-<a name="id533072"></a>
+<a name="id533087"></a>
         <a href="ranges.html#oven.ranges.recursion.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2093,7 +2094,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.recursion.example"></a><h4>
-<a name="id533151"></a>
+<a name="id533166"></a>
         <a href="ranges.html#oven.ranges.recursion.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -2131,7 +2132,7 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.recursion.see_also"></a><h4>
-<a name="id533699"></a>
+<a name="id533713"></a>
         <a href="ranges.html#oven.ranges.recursion.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2143,7 +2144,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.shared"></a><a href="ranges.html#oven.ranges.shared" title="shared">shared</a></h3></div></div></div>
 <a name="oven.ranges.shared.description"></a><h4>
-<a name="id533771"></a>
+<a name="id533786"></a>
         <a href="ranges.html#oven.ranges.shared.description">Description</a>
       </h4>
 <p>
@@ -2151,18 +2152,18 @@
         a pointer to a heap allocated range, and the iterators manage the allocation.
       </p>
 <a name="oven.ranges.shared.header"></a><h4>
-<a name="id533809"></a>
+<a name="id533823"></a>
         <a href="ranges.html#oven.ranges.shared.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">shared</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.shared.model_of"></a><h4>
-<a name="id533890"></a>
+<a name="id533904"></a>
         <a href="ranges.html#oven.ranges.shared.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.shared.notation"></a><h4>
-<a name="id533930"></a>
+<a name="id533944"></a>
         <a href="ranges.html#oven.ranges.shared.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2171,7 +2172,7 @@
           but uses a range instead of a container.
         </li></ul></div>
 <a name="oven.ranges.shared.valid_expressions"></a><h4>
-<a name="id533994"></a>
+<a name="id534008"></a>
         <a href="ranges.html#oven.ranges.shared.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2205,7 +2206,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.shared.preconditions"></a><h4>
-<a name="id534199"></a>
+<a name="id534213"></a>
         <a href="ranges.html#oven.ranges.shared.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2221,7 +2222,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.shared.example"></a><h4>
-<a name="id534417"></a>
+<a name="id534431"></a>
         <a href="ranges.html#oven.ranges.shared.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -2236,7 +2237,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.shared.see_also"></a><h4>
-<a name="id534706"></a>
+<a name="id534721"></a>
         <a href="ranges.html#oven.ranges.shared.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2248,7 +2249,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.shared_single"></a><a href="ranges.html#oven.ranges.shared_single" title="shared_single">shared_single</a></h3></div></div></div>
 <a name="oven.ranges.shared_single.description"></a><h4>
-<a name="id534778"></a>
+<a name="id534792"></a>
         <a href="ranges.html#oven.ranges.shared_single.description">Description</a>
       </h4>
 <p>
@@ -2256,18 +2257,18 @@
         to a heap allocated object, delivers a range presentation of the pointee.
       </p>
 <a name="oven.ranges.shared_single.header"></a><h4>
-<a name="id534818"></a>
+<a name="id534832"></a>
         <a href="ranges.html#oven.ranges.shared_single.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">shared_single</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.shared_single.model_of"></a><h4>
-<a name="id534899"></a>
+<a name="id534914"></a>
         <a href="ranges.html#oven.ranges.shared_single.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.shared_single.valid_expressions"></a><h4>
-<a name="id534940"></a>
+<a name="id534954"></a>
         <a href="ranges.html#oven.ranges.shared_single.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2301,7 +2302,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.shared_single.preconditions"></a><h4>
-<a name="id535103"></a>
+<a name="id535117"></a>
         <a href="ranges.html#oven.ranges.shared_single.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2309,7 +2310,7 @@
           a valid expression.
         </li></ul></div>
 <a name="oven.ranges.shared_single.example"></a><h4>
-<a name="id535190"></a>
+<a name="id535204"></a>
         <a href="ranges.html#oven.ranges.shared_single.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -2320,7 +2321,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.shared_single.see_also"></a><h4>
-<a name="id535335"></a>
+<a name="id535350"></a>
         <a href="ranges.html#oven.ranges.shared_single.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="ranges.html#oven.ranges.single" title="single">single</a></li></ul></div>
@@ -2329,7 +2330,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.single"></a><a href="ranges.html#oven.ranges.single" title="single">single</a></h3></div></div></div>
 <a name="oven.ranges.single.description"></a><h4>
-<a name="id535394"></a>
+<a name="id535409"></a>
         <a href="ranges.html#oven.ranges.single.description">Description</a>
       </h4>
 <p>
@@ -2338,18 +2339,18 @@
         which delivers a range presentation of one object.
       </p>
 <a name="oven.ranges.single.header"></a><h4>
-<a name="id535449"></a>
+<a name="id535464"></a>
         <a href="ranges.html#oven.ranges.single.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">single</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.single.model_of"></a><h4>
-<a name="id535530"></a>
+<a name="id535545"></a>
         <a href="ranges.html#oven.ranges.single.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.single.valid_expressions"></a><h4>
-<a name="id535570"></a>
+<a name="id535584"></a>
         <a href="ranges.html#oven.ranges.single.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2399,14 +2400,14 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.single.example"></a><h4>
-<a name="id535764"></a>
+<a name="id535778"></a>
         <a href="ranges.html#oven.ranges.single.example">Example</a>
       </h4>
 <pre class="programlisting">
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">single</span><span class="special">(</span><span class="char">'a'</span><span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"a"</span><span class="special">))</span> <span class="special">);</span>
 </pre>
 <a name="oven.ranges.single.see_also"></a><h4>
-<a name="id535872"></a>
+<a name="id535887"></a>
         <a href="ranges.html#oven.ranges.single.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="ranges.html#oven.ranges.shared_single" title="shared_single">shared_single</a></li></ul></div>
@@ -2415,7 +2416,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.stream_lines"></a><a href="ranges.html#oven.ranges.stream_lines" title="stream_lines">stream_lines</a></h3></div></div></div>
 <a name="oven.ranges.stream_lines.description"></a><h4>
-<a name="id535931"></a>
+<a name="id535946"></a>
         <a href="ranges.html#oven.ranges.stream_lines.description">Description</a>
       </h4>
 <p>
@@ -2425,25 +2426,25 @@
         from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code> etc.
       </p>
 <a name="oven.ranges.stream_lines.header"></a><h4>
-<a name="id536025"></a>
+<a name="id536039"></a>
         <a href="ranges.html#oven.ranges.stream_lines.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_lines</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.stream_lines.model_of"></a><h4>
-<a name="id536106"></a>
+<a name="id536121"></a>
         <a href="ranges.html#oven.ranges.stream_lines.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.stream_lines.notation"></a><h4>
-<a name="id536147"></a>
+<a name="id536161"></a>
         <a href="ranges.html#oven.ranges.stream_lines.notation">Notation</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">DefaultA</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">&gt;</span></code>.
         </li></ul></div>
 <a name="oven.ranges.stream_lines.valid_expressions"></a><h4>
-<a name="id536246"></a>
+<a name="id536260"></a>
         <a href="ranges.html#oven.ranges.stream_lines.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2505,7 +2506,7 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.stream_lines.preconditions"></a><h4>
-<a name="id536525"></a>
+<a name="id536539"></a>
         <a href="ranges.html#oven.ranges.stream_lines.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2516,11 +2517,11 @@
           a valid expression.
         </li></ul></div>
 <a name="oven.ranges.stream_lines.example"></a><h4>
-<a name="id536690"></a>
+<a name="id536704"></a>
         <a href="ranges.html#oven.ranges.stream_lines.example">Example</a>
       </h4>
 <a name="oven.ranges.stream_lines.see_also"></a><h4>
-<a name="id536714"></a>
+<a name="id536729"></a>
         <a href="ranges.html#oven.ranges.stream_lines.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2532,7 +2533,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.stream_read"></a><a href="ranges.html#oven.ranges.stream_read" title="stream_read">stream_read</a></h3></div></div></div>
 <a name="oven.ranges.stream_read.description"></a><h4>
-<a name="id536783"></a>
+<a name="id536797"></a>
         <a href="ranges.html#oven.ranges.stream_read.description">Description</a>
       </h4>
 <p>
@@ -2541,12 +2542,12 @@
         from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code> etc.
       </p>
 <a name="oven.ranges.stream_read.header"></a><h4>
-<a name="id536858"></a>
+<a name="id536872"></a>
         <a href="ranges.html#oven.ranges.stream_read.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_read</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.stream_read.valid_expressions"></a><h4>
-<a name="id536940"></a>
+<a name="id536955"></a>
         <a href="ranges.html#oven.ranges.stream_read.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2623,7 +2624,7 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.stream_read.preconditions"></a><h4>
-<a name="id537367"></a>
+<a name="id537381"></a>
         <a href="ranges.html#oven.ranges.stream_read.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2634,7 +2635,7 @@
           a valid expression.
         </li></ul></div>
 <a name="oven.ranges.stream_read.example"></a><h4>
-<a name="id537543"></a>
+<a name="id537557"></a>
         <a href="ranges.html#oven.ranges.stream_read.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -2649,7 +2650,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">result</span><span class="special">,</span> <span class="identifier">src</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="oven.ranges.stream_read.see_also"></a><h4>
-<a name="id537819"></a>
+<a name="id537834"></a>
         <a href="ranges.html#oven.ranges.stream_read.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2663,18 +2664,18 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.streambuf_read"></a><a href="ranges.html#oven.ranges.streambuf_read" title="streambuf_read">streambuf_read</a></h3></div></div></div>
 <a name="oven.ranges.streambuf_read.header"></a><h4>
-<a name="id537916"></a>
+<a name="id537931"></a>
         <a href="ranges.html#oven.ranges.streambuf_read.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_read</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.streambuf_read.model_of"></a><h4>
-<a name="id537997"></a>
+<a name="id538012"></a>
         <a href="ranges.html#oven.ranges.streambuf_read.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.streambuf_read.valid_expressions"></a><h4>
-<a name="id538037"></a>
+<a name="id538051"></a>
         <a href="ranges.html#oven.ranges.streambuf_read.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2722,7 +2723,7 @@
 </tbody>
 </table></div>
 <a name="oven.ranges.streambuf_read.preconditions"></a><h4>
-<a name="id538273"></a>
+<a name="id538288"></a>
         <a href="ranges.html#oven.ranges.streambuf_read.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2744,7 +2745,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.unfold"></a><a href="ranges.html#oven.ranges.unfold" title="unfold">unfold</a></h3></div></div></div>
 <a name="oven.ranges.unfold.description"></a><h4>
-<a name="id538570"></a>
+<a name="id538584"></a>
         <a href="ranges.html#oven.ranges.unfold.description">Description</a>
       </h4>
 <p>
@@ -2752,18 +2753,18 @@
         a seed.
       </p>
 <a name="oven.ranges.unfold.header"></a><h4>
-<a name="id538608"></a>
+<a name="id538622"></a>
         <a href="ranges.html#oven.ranges.unfold.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">unfold</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="oven.ranges.unfold.model_of"></a><h4>
-<a name="id538688"></a>
+<a name="id538702"></a>
         <a href="ranges.html#oven.ranges.unfold.model_of">Model of</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
 <a name="oven.ranges.unfold.valid_expressions"></a><h4>
-<a name="id538728"></a>
+<a name="id538743"></a>
         <a href="ranges.html#oven.ranges.unfold.valid_expressions">Valid expressions</a>
       </h4>
 <div class="informaltable"><table class="table">
@@ -2815,7 +2816,7 @@
 </td></tr>
 </table></div>
 <a name="oven.ranges.unfold.preconditions"></a><h4>
-<a name="id539062"></a>
+<a name="id539076"></a>
         <a href="ranges.html#oven.ranges.unfold.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -2846,7 +2847,7 @@
         </li>
 </ul></div>
 <a name="oven.ranges.unfold.example"></a><h4>
-<a name="id539381"></a>
+<a name="id539396"></a>
         <a href="ranges.html#oven.ranges.unfold.example">Example</a>
       </h4>
 <pre class="programlisting">
@@ -2865,7 +2866,7 @@
 <span class="special">}</span>
 </pre>
 <a name="oven.ranges.unfold.see_also"></a><h4>
-<a name="id539844"></a>
+<a name="id539859"></a>
         <a href="ranges.html#oven.ranges.unfold.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc">

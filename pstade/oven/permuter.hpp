@@ -13,9 +13,8 @@
 
 #include <boost/range/begin.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/result_of.hpp>
-#include "./applier.hpp"
 #include "./concepts.hpp"
+#include "./detail/adaptor_output_iterator.hpp"
 #include "./detail/base_to_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./read.hpp"
@@ -27,25 +26,17 @@ namespace pstade { namespace oven {
 namespace permuter_detail {
 
 
-    template< class Iterator, class ElementIter >
+    template< class ElementIter >
     struct proc
     {
-        Iterator m_it;
         ElementIter m_elemIter;
-
-        typedef Iterator base_type;
-
-        Iterator base() const
-        {
-            return m_it;
-        }
 
         typedef void result_type;
 
-        template< class Index >
-        void operator()(Index& i)
+        template< class Iterator, class Index >
+        void operator()(Iterator& it, Index& i)
         {
-            *m_it++ = read(m_elemIter + i);
+            *it++ = read(m_elemIter + i);
         }
     };
 
@@ -54,23 +45,22 @@ namespace permuter_detail {
     struct base
     {
         typedef
-            proc<
-                typename pass_by_value<Iterator>::type,
-                typename range_iterator<ElementRange>::type
-            >
+            proc<typename range_iterator<ElementRange>::type>
         proc_t;
 
-        typedef typename
-            result_of<T_applier(proc_t&)>::type
+        typedef
+            detail::adaptor_output_iterator<
+                typename pass_by_value<Iterator>::type,
+                proc_t
+            >
         result_type;
 
         result_type operator()(Iterator& it, ElementRange& elems) const
         {
             PSTADE_CONCEPT_ASSERT((Output<Iterator>));
             PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
-
-            proc_t p = {it, boost::begin(elems)};
-            return applier(p);
+            proc_t p = {boost::begin(elems)};
+            return result_type(it, p);
         }
     };
 

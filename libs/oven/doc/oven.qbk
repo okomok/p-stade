@@ -103,6 +103,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def _oven_adjacent_filtered_ [link oven.range_adaptors.adjacent_filtered adjacent_filtered]]
 [def _oven_all_ [link oven.range_algorithms.all all]]
+[def _oven_any_output_iterator_ [link oven.output_iterators.any_output_iterator any_output_iterator]]
 [def _oven_any_indexed_ [link oven.ranges.any_indexed any_indexed]]
 [def _oven_any_range_ [link oven.ranges.any_range any_range]]
 [def _oven_applied_ [link oven.range_adaptors.applied applied]]

@@ -127,7 +127,7 @@ void iter_swap(reverse_iterator<B1> it1, reverse_iterator<B2> it2, int = 0)
 
 typedef
     egg::generator<
-        reverse_iterator< egg::deduce<boost::mpl::_1, egg::as_value> > const
+        reverse_iterator< egg::deduce<boost::mpl::_1, egg::as_value> >
     >::type
 T_make_reverse_iterator;
 

@@ -13,7 +13,6 @@
 
 #include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
-#include "./applier.hpp"
 #include "./concepts.hpp"
 #include "./detail/baby_to_adaptor.hpp"
 #include "./eater.hpp"

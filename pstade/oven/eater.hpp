@@ -12,9 +12,8 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include <pstade/result_of.hpp>
 #include <pstade/unused.hpp>
-#include "./applier.hpp"
+#include "./detail/function_output_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -23,12 +22,12 @@ namespace pstade { namespace oven {
 struct T_eater
 {
     typedef
-        result_of<T_applier(T_unused const&)>::type
+        detail::function_output_iterator<T_unused>
     result_type;
 
     result_type operator()() const
     {
-        return applier(unused);
+        return result_type(unused);
     }
 };
 

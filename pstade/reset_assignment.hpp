@@ -50,7 +50,7 @@
     } \
     \
     template<class pstade_X> \
-    typename pstade::disable_if_copy_assign<Self, pstade_X>::type \
+    Self & \
     operator=(pstade_X x) \
     { \
         this->reset(x); \
