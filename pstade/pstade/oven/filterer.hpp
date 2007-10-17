@@ -12,9 +12,8 @@
 
 
 #include <pstade/pass_by.hpp>
-#include <pstade/result_of.hpp>
-#include "./applier.hpp"
 #include "./concepts.hpp"
+#include "./detail/adaptor_output_iterator.hpp"
 #include "./detail/base_to_adaptor.hpp"
 
 
@@ -24,26 +23,18 @@ namespace pstade { namespace oven {
 namespace filterer_detail {
 
 
-    template< class Iterator, class Predicate >
+    template< class Predicate >
     struct proc
     {
-        Iterator m_it;
         Predicate m_pred;
-
-        typedef Iterator base_type;
-
-        Iterator base() const
-        {
-            return m_it;
-        }
 
         typedef void result_type;
 
-        template< class Value >
-        void operator()(Value& v)
+        template< class Iterator, class Value >
+        void operator()(Iterator& it, Value& v)
         {
             if (m_pred(v))
-                *m_it++ = v;
+                *it++ = v;
         }
     };
 
@@ -52,21 +43,21 @@ namespace filterer_detail {
     struct base
     {
         typedef
-            proc<
-                typename pass_by_value<Iterator>::type,
-                typename pass_by_value<Predicate>::type
-            >
+            proc<typename pass_by_value<Predicate>::type>
         proc_t;
 
-        typedef typename
-            result_of<T_applier(proc_t&)>::type
+        typedef
+            detail::adaptor_output_iterator<
+                typename pass_by_value<Iterator>::type,
+                proc_t
+            >
         result_type;
 
         result_type operator()(Iterator& it, Predicate& pred) const
         {
             PSTADE_CONCEPT_ASSERT((Output<Iterator>));
-            proc_t p = {it, pred};
-            return applier(p);
+            proc_t p = {pred};
+            return result_type(it, p);
         }
     };
 

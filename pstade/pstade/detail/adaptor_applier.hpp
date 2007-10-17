@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_APPLIER_HPP
-#define PSTADE_OVEN_APPLIER_HPP
+#ifndef PSTADE_OVEN_ADAPTOR_APPLIER_HPP
+#define PSTADE_OVEN_ADAPTOR_APPLIER_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -13,7 +13,7 @@
 
 #include <pstade/egg/generator.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./detail/function_output_iterator.hpp"
+#include "./detail/adaptor_output_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -21,12 +21,15 @@ namespace pstade { namespace oven {
 
 typedef
     egg::generator<
-        detail::function_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> >
+        detail::adaptor_output_iterator<
+            egg::deduce<boost::mpl::_1, egg::as_value>,
+            egg::deduce<boost::mpl::_2, egg::as_value>
+        >
     >::type
-T_applier;
+T_adaptor_applier;
 
 
-PSTADE_POD_CONSTANT((T_applier), applier) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_adaptor_applier), adaptor_applier) = PSTADE_EGG_GENERATOR;
 
 
 } } // namespace pstade::oven

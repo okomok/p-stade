@@ -37,8 +37,7 @@
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/result_of.hpp>
-#include "./applier.hpp"
+#include "./detail/function_output_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -92,15 +91,13 @@ namespace stream_writer_detail {
     template< class OStream >
     struct base
     {
-        typedef typename
-            result_of<
-                T_applier(proc<OStream>)
-            >::type
+        typedef
+            detail::function_output_iterator< proc<OStream> >
         result_type;
 
         result_type operator()(OStream& s, typename OStream::char_type const *delimiter = 0) const
         {
-            return applier(proc<OStream>(s, delimiter));
+            return result_type(proc<OStream>(s, delimiter));
         }
     };
 
@@ -184,16 +181,14 @@ namespace std_stream_writer_detail {
     template< class OStream >
     struct base
     {
-        typedef typename
-            result_of<
-                T_applier(proc<OStream>&)
-            >::type
+        typedef
+            detail::function_output_iterator< proc<OStream> >
         result_type;
 
         result_type operator()(OStream& s, typename OStream::char_type const *delimiter = 0) const
         {
             proc<OStream> p = {boost::addressof(s), delimiter};
-            return applier(p);
+            return result_type(p);
         }
     };
 

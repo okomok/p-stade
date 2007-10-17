@@ -12,7 +12,6 @@
 
 
 #include <memory> // auto_ptr
-#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
@@ -27,8 +26,7 @@
 namespace pstade { namespace oven {
 
 
-struct memo_table :
-    private boost::noncopyable
+struct memo_table
 {
     template< class V, class W >
     void detail_reset(V v, W w)

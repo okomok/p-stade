@@ -12,9 +12,8 @@
 
 
 #include <pstade/pass_by.hpp>
-#include <pstade/result_of.hpp>
-#include "./applier.hpp"
 #include "./concepts.hpp"
+#include "./detail/adaptor_output_iterator.hpp"
 #include "./detail/base_to_adaptor.hpp"
 
 
@@ -24,24 +23,14 @@ namespace pstade { namespace oven {
 namespace indirecter_detail {
 
 
-    template< class Iterator >
     struct proc
     {
-        Iterator m_it;
-
-        typedef Iterator base_type;
-
-        Iterator base() const
-        {
-            return m_it;
-        }
-
         typedef void result_type;
 
-        template< class Value >
-        void operator()(Value& v)
+        template< class Iterator, class Value >
+        void operator()(Iterator& it, Value& v)
         {
-            *m_it++ = *v;
+            *it++ = *v;
         }
     };
 
@@ -50,20 +39,16 @@ namespace indirecter_detail {
     struct base
     {
         typedef
-            proc<
-                typename pass_by_value<Iterator>::type
+            detail::adaptor_output_iterator<
+                typename pass_by_value<Iterator>::type,
+                proc
             >
-        proc_t;
-
-        typedef typename
-            result_of<T_applier(proc_t&)>::type
         result_type;
 
         result_type operator()(Iterator& it) const
         {
             PSTADE_CONCEPT_ASSERT((Output<Iterator>));
-            proc_t p = {it};
-            return applier(p);
+            return result_type(it, proc());
         }
     };
 

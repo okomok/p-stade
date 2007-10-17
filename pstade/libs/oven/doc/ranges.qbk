@@ -56,6 +56,7 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 * [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
 * _oven_expression_
 * _oven_any_indexed_
+* _oven_any_output_iterator_
 
 [endsect]
 
