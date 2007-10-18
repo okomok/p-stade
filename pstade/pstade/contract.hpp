@@ -37,7 +37,7 @@
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/for_debug.hpp>
+#include <pstade/debug.hpp>
 #include <pstade/nonconstructible.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/unused.hpp>
@@ -61,7 +61,7 @@ public:
 template< class InvariantAssertable >
 bool invariant(InvariantAssertable const& ia)
 {
-    pstade::for_debug();
+    debugging();
 
     try {
         contract_access::detail_invariant(ia);

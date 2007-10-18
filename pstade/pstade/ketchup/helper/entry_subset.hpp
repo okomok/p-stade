@@ -17,8 +17,8 @@
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/void.hpp>
+#include <pstade/debug.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
-#include <pstade/is_ndebug.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -61,7 +61,7 @@ struct helper_entry_subset
 
             typedef typename
             boost::mpl::eval_if<
-                boost::mpl::or_< pstade::is_ndebug<>, boost::mpl::not_<On> >,
+                boost::mpl::or_< is_ndebug, boost::mpl::not_<On> >,
                 boost::mpl::identity< empty_entry<> >,
                 boost::mpl::identity< Entry >
             >::type entry_t;

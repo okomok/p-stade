@@ -12,7 +12,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-#include <pstade/if_debug.hpp>
 #include <pstade/oven/range_iterator.hpp>
 #include <pstade/unused.hpp>
 #include "../config/nullary_parser.hpp"
@@ -37,11 +36,11 @@ struct not_ // one character parser
         state_cur_guard<State> gd(s);
 
         if (Parser::parse(s, us)) {
-            PSTADE_IF_DEBUG (
+#if !defined(NDEBUG)
                 typedef typename oven::range_iterator<State>::type iter_t;
                 iter_t one_step_forward; { one_step_forward = gd.marker(); ++one_step_forward; }
                 BOOST_ASSERT(s.get_cur() == one_step_forward && "not_ is defined only if one character parser.");
-            )
+#endif
 
             return false;
         }

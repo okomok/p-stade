@@ -14,8 +14,8 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
+#include <pstade/debug.hpp>
 #include <pstade/oven/range_iterator.hpp>
-#include <pstade/is_ndebug.hpp>
 #include "./begin.hpp"
 #include "./end.hpp"
 #include "./eps.hpp"
@@ -81,7 +81,7 @@ namespace star_detail {
     struct super_
     {
         typedef typename boost::mpl::if_<
-            boost::mpl::or_< is_ndebug<>, HasSideEffects >,
+            boost::mpl::or_< is_ndebug, HasSideEffects >,
             release<Parser>,
             debug<Parser>
         >::type type;

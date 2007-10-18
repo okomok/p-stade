@@ -21,7 +21,6 @@
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/if_debug.hpp>
 
 
 void pstade_minimal_test()
@@ -75,7 +74,9 @@ void pstade_minimal_test()
     {
         pstade::unused(
             std::string()
-PSTADE_IF_DEBUG(| checked)
+#if !defined(NDEBUG)
+                | checked
+#endif
                 | pstade::egg::to_ref,
             12
         );

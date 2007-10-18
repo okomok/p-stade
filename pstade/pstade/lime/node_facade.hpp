@@ -18,7 +18,6 @@
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/range/end.hpp>
 #include <boost/throw_exception.hpp>
-#include <pstade/if_debug.hpp>
 #include <pstade/oven/adapted_to_base.hpp>
 #include <pstade/oven/algorithm.hpp> // find
 #include <pstade/oven/equals.hpp>
@@ -65,7 +64,9 @@ namespace pstade { namespace lime {
             }
 
             node_facade_detail::throw_error(childName);
-            PSTADE_IF_DEBUG( throw 0; ) // suppress warning
+#if !defined(NDEBUG)
+            throw 0; // suppress warning
+#endif
         }
 
     } // namesapce node_facade_detail

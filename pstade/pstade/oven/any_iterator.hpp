@@ -58,8 +58,6 @@ namespace any_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
-        // In fact, 'shared_ptr' needs no virtual destructor,
-        // but there is no way to suppress GCC warning.
         virtual ~placeholder() { }
 
         // BTW, msvc-7.1/8.0 RTTI seems randomly broken.
@@ -279,7 +277,8 @@ public:
 
     // This constructor can't be implicit.
     // Use 'is_convertible_to_any_iterator' instead.
-    // "UglyIssue.txt" of References[1] tells in detail.
+    // An iterator type must implement is_convertible correctly,
+    // but "is_iterator" is impossible to implement in C++98.
     template< class Iterator >
     explicit any_iterator(Iterator it) :
         m_content(new typename holder_of<Iterator>::type(it))

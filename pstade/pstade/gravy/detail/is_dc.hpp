@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/for_debug.hpp>
+#include <pstade/debug.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../booleanize.hpp"
 #include "../sdk/windows.hpp"
@@ -25,7 +25,7 @@ namespace pstade { namespace gravy { namespace detail {
 
         bool operator()(HDC hDC) const
         {
-            for_debug();
+            debugging();
 
             POINT pt = { 0 };
             return ::DPtoLP(hDC, &pt, 1)|booleanize();

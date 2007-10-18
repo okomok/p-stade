@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/for_debug.hpp>
+#include <pstade/debug.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../sdk/windows.hpp"
 
@@ -24,7 +24,7 @@ namespace pstade { namespace gravy { namespace detail {
 
         bool operator()(HBRUSH h) const
         {
-            for_debug();
+            debugging();
 
             return h != NULL; // how?
         }
