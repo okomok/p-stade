@@ -37,7 +37,7 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-    PSTADE_IF_DEBUG (
+#if !defined(NDEBUG)
 
         PSTADE_INSTANCE((napkin::ostream), mos, (napkin::nout))
 
@@ -56,7 +56,7 @@ namespace pstade { namespace hamburger { namespace detail {
             mos << ", in_elem: " << pt_.x << ',' << pt_.y << '\n';
         }
 
-    )
+#endif
 
 
     inline
@@ -81,7 +81,6 @@ namespace pstade { namespace hamburger { namespace detail {
                     continue;
             }
             else {
-                // PSTADE_IF_DEBUG( show_info(child, pt); )
                 if (!hamburger::contains_in_screen(child, pt))
                     continue;
             }

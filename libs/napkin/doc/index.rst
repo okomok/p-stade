@@ -7,7 +7,7 @@ The Napkin Trace Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.4
+:Version: 0.90.5
 
 
 
@@ -130,8 +130,7 @@ The valid expressions are::
 
 	E:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_1.ipp
 
-Its default `String Outputable`_ is `nout`_.
-Note that ``ostream`` is of course a model of `String Outputable`_,
+Notice that ``ostream`` is of course a model of `String Outputable`_,
 because a `String`_ is `Output Streamable`_ by definition.
 
 
@@ -210,9 +209,6 @@ An easy solution is maybe something like::
 
 	E:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\remove_side_effects.ipp
 
-``PSTADE_IF_DEBUG`` disappears under the release compilation.
-``PSTADE_UNPARENTHESIZE`` works only if the argument is a type.
-
 
 
 Points of Interest
@@ -268,5 +264,11 @@ Version 0.90.3
 Version 0.90.4
 ^^^^^^^^^^^^^^
 - Ported to Boost v1.34.
+
+Version 0.90.5
+^^^^^^^^^^^^^^
+- `ostream`_ no longer holds `nout`_ as default stream.
+- `Remove Side-effects`_ way changed.
+
 
 

@@ -11,6 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Edd pointed out that forward declaration is useful.
+// http://www.mr-edd.co.uk/?page_id=43
+
+
 #include "./detail/use_default_fwd.hpp"
 
 

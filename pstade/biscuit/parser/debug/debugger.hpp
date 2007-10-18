@@ -21,9 +21,9 @@
 #include <boost/mpl/or.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/debug.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/ios_init.hpp>
-#include <pstade/is_ndebug.hpp>
 #include <pstade/napkin/config.hpp> // NO_WIDESTRING
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/napkin/ostream_char.hpp>
@@ -158,7 +158,7 @@ namespace debugger_detail {
         };
 
         typedef typename boost::mpl::eval_if<
-            boost::mpl::or_< is_ndebug<>, boost::mpl::not_<On> >,
+            boost::mpl::or_< is_ndebug, boost::mpl::not_<On> >,
             on_release,
             on_debug
         >::type type;

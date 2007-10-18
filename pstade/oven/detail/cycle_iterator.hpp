@@ -18,7 +18,7 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/next_prior.hpp> // prior
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/for_debug.hpp>
+#include <pstade/debug.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -44,7 +44,7 @@ std::pair<Difference, Difference> positive_rem_div(Difference a, Difference b)
 template< class Iterator >
 bool cycle_iter_find(Iterator first, Iterator last, Iterator val)
 {
-    for_debug();
+    debugging();
 
     for (; first != last; ++first) {
         if (first == val)

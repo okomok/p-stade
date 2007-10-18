@@ -148,18 +148,19 @@ namespace pstade_oven_extension {
     template< class T, std::size_t N, class From >
     boost::array<T, N> pstade_oven_(copy_range< boost::array<T, N> >, From& from)
     {
-        using namespace pstade::oven;
+        // For some reason, gcc-3.4 requires fully-qualified names.
+        // using namespace pstade::oven;
 
-        BOOST_ASSERT(is_random_access(from) ?
-            pstade::egg::copy<std::size_t>(distance(from)) <= N : true);
+        BOOST_ASSERT(pstade::oven::is_random_access(from) ?
+            pstade::egg::copy<std::size_t>(pstade::oven::distance(from)) <= N : true);
 
-        typename range_iterator<From>::type
+        typename pstade::oven::range_iterator<From>::type
             it(boost::begin(from)), last(boost::end(from));
         boost::array<T, N> arr;
         std::size_t i = 0;
 
         for (; it != last; ++it, ++i)
-            arr[i] = read(it);
+            arr[i] = pstade::oven::read(it);
         for (; i != N; ++i)
             arr[i] = T();
 

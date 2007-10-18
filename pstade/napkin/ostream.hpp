@@ -41,9 +41,7 @@ public:
 
 // structors
     basic_ostream(boost::none_t = boost::none)
-    {
-        reset(nout); // TODO: I will remove this.
-    }
+    { }
 
     template< class StringOutputable >
     explicit basic_ostream(StringOutputable& out, typename disable_if_copy<self_t, StringOutputable>::type = 0) :
@@ -96,12 +94,12 @@ public:
 // boost::any compatibles
     bool empty() const
     {
-        return false;
+        return !m_content;
     }
 
     std::type_info const& type() const
     {
-        return m_content->typeid_();
+        return m_content ? m_content->typeid_() : typeid(void);
     }
 
 // content access

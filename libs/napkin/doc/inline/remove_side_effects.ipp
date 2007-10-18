@@ -1,25 +1,18 @@
-#include <pstade/if_debug.hpp>
-#include <pstade/unparenthesize.hpp>
+#include <pstade/debug.hpp> // for the macros
 
 void remove_side_effects()
 {
     using namespace std;
     using namespace pstade;
 
-    PSTADE_IF_DEBUG (
-        napkin::ostream os;
-    )
+    napkin::ostream os;
 
-    PSTADE_IF_DEBUG (
-        os.reset(cout);
-        os << "Removed under release compilation\n";
-    )
+    PSTADE_DEBUG_EXPR(os).reset(cout);
+    PSTADE_DEBUG_EXPR(os) << "Removed under release compilation\n";
 
-    // When you need comma out of ()
-    PSTADE_IF_DEBUG (
-        PSTADE_UNPARENTHESIZE((basic_ofstream< char, char_traits<char> >))
-        fout("debug.log");
+    PSTADE_DEBUG_BLOCK {
+        basic_ofstream< char, char_traits<char> > fout("debug.log");
         os.reset(fout);
-        os << "'#if !defined(NDEBUG)' is much easier!";
-    )
+        os << "'#if !defined(NDEBUG)' is easier!?";
+    }
 }

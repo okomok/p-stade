@@ -11,7 +11,6 @@
 
 
 #include <pstade/egg/lexicalize.hpp>
-#include <pstade/if_debug.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./log.hpp"
@@ -32,10 +31,12 @@ namespace pstade { namespace hamburger {
                 int zIndex2 = node2%Name_zIndex|egg::lexicalize();
                 return zIndex1 < zIndex2;
             }
-            catch (boost::bad_lexical_cast const& PSTADE_IF_DEBUG(err)) {
-                PSTADE_IF_DEBUG (
-                    log << err.what();
-                )
+            catch (boost::bad_lexical_cast const& err) {
+#if !defined(NDEBUG)
+                log << err.what();
+#else
+                unused(err);    
+#endif
                 return false;
             }
         }

@@ -28,10 +28,6 @@ void pstade_minimal_test()
         sout_ << "xxx";
         BOOST_CHECK( sout.str() == "xxx" );
 
-        os1 = boost::none;
-        os1 << "xxx"; // no effect
-        BOOST_CHECK( sout.str() == "xxx" );
-
         os1 = sout;
         os1 << "xxx";
         BOOST_CHECK( sout.str() == "xxxxxx" );
@@ -53,5 +49,24 @@ void pstade_minimal_test()
             os1_ << "xxx";
             BOOST_CHECK( sout.str() == "xxxxxxxxxxxx" );
         }
+    }
+    {
+        std::stringstream sout;
+
+        ostream os1;
+        BOOST_CHECK( os1.empty() );
+        BOOST_CHECK( !os1 );
+
+        os1 = sout;
+        BOOST_CHECK( !os1.empty() );
+        BOOST_CHECK( os1 );
+
+        os1.reset();
+        BOOST_CHECK( os1.empty() );
+        BOOST_CHECK( !os1 );
+
+        os1.reset(sout);
+        BOOST_CHECK( !os1.empty() );
+        BOOST_CHECK( os1 );
     }
 }
