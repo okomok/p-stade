@@ -57,6 +57,7 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 * _oven_expression_
 * _oven_any_indexed_
 * _oven_any_output_iterator_
+* _oven_recursion_
 
 [endsect]
 

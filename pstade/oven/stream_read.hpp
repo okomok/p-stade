@@ -13,13 +13,17 @@
 
 #include <cstddef>  // ptrdiff_t
 #include <iosfwd>   // basic_istream, basic_streambuf
-#include <iterator> // istream_iterator
+#include <iterator> // istream_iterator, istreambuf_iterator
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./detail/istreambuf_iterator.hpp"
 #include "./iter_range.hpp"
+
+#if 1 // The condition is unknown yet.
+    #define PSTADE_OVEN_BROKEN_ISTREAMBUF_ITERATOR
+    #include "./detail/istreambuf_iterator.hpp"
+#endif
 
 
 namespace pstade { namespace oven {
@@ -88,9 +92,13 @@ namespace streambuf_read_detail {
             typedef typename
                 boost::remove_pointer<IStream>::type
             stream_t;
-          
+
             typedef
+#if defined(PSTADE_OVEN_BROKEN_ISTREAMBUF_ITERATOR)
                 detail::istreambuf_iterator<
+#else
+                std::istreambuf_iterator<
+#endif
                     typename stream_t::char_type,
                     typename stream_t::traits_type
                 >
