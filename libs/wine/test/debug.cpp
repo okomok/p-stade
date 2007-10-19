@@ -75,4 +75,38 @@ void pstade_minimal_test()
         BOOST_CHECK(thrown);
 #endif
     }
+
+    {
+#if !defined(NDEBUG)
+        BOOST_CHECK(PSTADE_DEBUG);
+        BOOST_CHECK(!PSTADE_NDEBUG);
+#else
+        BOOST_CHECK(!PSTADE_DEBUG);
+        BOOST_CHECK(PSTADE_NDEBUG);
+#endif
+    }
+
+#if PSTADE_DEBUG
+    #if defined(NDEBUG)
+        #error impossible
+    #endif
+#endif
+
+#if !PSTADE_DEBUG
+    #if !defined(NDEBUG)
+        #error impossible
+    #endif
+#endif
+
+#if PSTADE_NDEBUG
+    #if !defined(NDEBUG)
+        #error impossible
+    #endif
+#endif
+
+#if !PSTADE_NDEBUG
+    #if defined(NDEBUG)
+        #error impossible
+    #endif
+#endif
 }
