@@ -27,7 +27,7 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/is_returnable.hpp>
+// #include <pstade/is_returnable.hpp>
 #include <pstade/make_bool.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
@@ -67,7 +67,7 @@ namespace any_indexed_iterator_detail {
             // These are in function-scope for typeid. 
             BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<RandIter>::type, Reference>));
             BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_difference<RandIter>::type, Difference>));
-            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<RandIter>::type, Reference>::value));
+            // BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<RandIter>::type, Reference>::value));
         }
 
         RandIter held() const

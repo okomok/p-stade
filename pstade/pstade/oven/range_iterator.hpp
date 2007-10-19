@@ -11,9 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator.hpp>
-#include <boost/range/result_iterator.hpp>
-#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_VERSION_1
+#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_RESULT_ITERATOR
 
 
 namespace pstade { namespace oven {
@@ -21,11 +19,7 @@ namespace pstade { namespace oven {
 
 template< class Range >
 struct range_iterator :
-#if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    boost::range_iterator<Range>
-#else
-    boost::range_result_iterator<Range>
-#endif
+    boost::PSTADE_OVEN_BOOST_RANGE_RESULT_ITERATOR<Range>
 { };
 
 

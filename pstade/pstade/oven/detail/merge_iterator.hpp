@@ -18,7 +18,7 @@
 #include <boost/static_warning.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/is_returnable.hpp>
+// #include <pstade/is_returnable.hpp>
 #include "../is_sorted.hpp"
 #include "../read.hpp"
 #include "./constant_reference.hpp"
@@ -94,7 +94,7 @@ public:
     {
         // "./jointed.hpp" tells why this is at function scope.
         BOOST_MPL_ASSERT((is_convertible<typename iterator_read<Iterator2>::type, ref_t>));
-        BOOST_STATIC_WARNING((is_returnable<typename iterator_read<Iterator2>::type, ref_t>::value));
+        // BOOST_STATIC_WARNING((is_returnable<typename iterator_read<Iterator2>::type, ref_t>::value));
 
 #if defined(PSTADE_OVEN_TESTING)
         BOOST_ASSERT(is_sorted(make_iter_range(it1, last1), comp));

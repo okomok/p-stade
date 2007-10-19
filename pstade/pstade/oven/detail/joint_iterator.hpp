@@ -17,7 +17,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/static_warning.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/is_returnable.hpp>
+// #include <pstade/is_returnable.hpp>
 #include "../do_iter_swap.hpp"
 #include "../reverse_iterator.hpp"
 #include "./minimum_pure.hpp"
@@ -97,7 +97,22 @@ public:
     ) :
         super_t(itL), m_lastL(lastL),
         m_firstR(firstR), m_itR(itR)
-    { }
+    {
+#if 0
+        // An iterator behaves also as "metafunction"
+        // which is called in overload-resolution.
+        // So, this must be placed at function scope.
+        BOOST_MPL_ASSERT((is_convertible<
+            typename boost::iterator_reference<IteratorR>::type,
+            typename boost::iterator_reference<IteratorL>::type
+        >));
+
+        BOOST_STATIC_WARNING((is_returnable<
+            typename boost::iterator_reference<IteratorR>::type,
+            typename boost::iterator_reference<IteratorL>::type
+        >::value));
+#endif
+    }
 
 template< class, class > friend struct joint_iterator;
     template< class IL, class IR >
@@ -142,19 +157,6 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(invariant());
-
-        // An iterator behaves also as "metafunction"
-        // which is called in overload-resolution.
-        // So, this must be placed at function scope.
-        BOOST_MPL_ASSERT((is_convertible<
-            typename boost::iterator_reference<IteratorR>::type,
-            typename boost::iterator_reference<IteratorL>::type
-        >));
-
-        BOOST_STATIC_WARNING((is_returnable<
-            typename boost::iterator_reference<IteratorR>::type,
-            typename boost::iterator_reference<IteratorL>::type
-        >::value));
 
         // Keep writability without 'read'.
         if (is_in_left())

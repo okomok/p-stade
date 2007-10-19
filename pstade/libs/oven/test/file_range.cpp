@@ -39,7 +39,20 @@ void pstade_minimal_test()
         test::lightweight_copyable(frng);
     }
     {
+        file_range<> frng("empty.file");
+        BOOST_CHECK(!frng);
+        BOOST_CHECK(!frng.is_open()); // Range is nothing but a range?
+        test::emptiness(frng);
+    }
+    {
+        file_range<> frng("data.file");
+        BOOST_CHECK(frng);
+        BOOST_CHECK(frng.is_open());
+    }
+    {
         std::vector<char> vec;
-        oven::copy(file_range<char>("data.txt"), std::back_inserter(vec));
+        file_range<char> frng("data.file");
+        oven::copy(frng, std::back_inserter(vec));
+        BOOST_CHECK(!vec.empty());
     }
 }

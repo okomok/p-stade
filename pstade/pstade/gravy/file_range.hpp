@@ -35,7 +35,7 @@ namespace pstade { namespace gravy {
         template<class Value>
         struct iview
         {
-            explicit iview(tstring path) :
+            explicit iview(tstring const& path) :
                 m_diff(0) 
             {
                 scoped_ihandle hFile(::CreateFile(
@@ -76,7 +76,7 @@ namespace pstade { namespace gravy {
         template<class Value>
         struct oview
         {
-            explicit oview(tstring const& path, std::ptrdiff_t diff) :
+            oview(tstring const& path, std::ptrdiff_t diff) :
                 m_diff(0)
             {
                 scoped_ihandle hFile(::CreateFile(
