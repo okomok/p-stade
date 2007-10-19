@@ -63,7 +63,7 @@ namespace pstade {
     namespace check_detail {
 
 
-        PSTADE_INSTANCE((napkin::ostream), os, value)
+        PSTADE_INSTANCE((napkin::ostream), os, (napkin::nout))
 
 
         inline

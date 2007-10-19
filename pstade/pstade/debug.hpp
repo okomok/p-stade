@@ -16,6 +16,9 @@
 
 #if !defined(NDEBUG) || defined(PSTADE_DEBUG_DEBUG)
 
+    #define PSTADE_DEBUG 1
+    #define PSTADE_NDEBUG 0
+
     #define PSTADE_DEBUG_EXPR(X) \
         (X) \
     /**/
@@ -29,6 +32,9 @@
     inline void debugging() { }
 
 #else
+
+    #define PSTADE_DEBUG 0
+    #define PSTADE_NDEBUG 1
 
     namespace pstade { namespace debug_detail {
         // Suppress "conditional expression is constant" warning.
