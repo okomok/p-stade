@@ -38,7 +38,7 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/is_returnable.hpp>
+// #include <pstade/is_returnable.hpp>
 #include <pstade/make_bool.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/reset_assignment.hpp>
@@ -133,7 +133,7 @@ namespace any_iterator_detail {
             BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator>::type, Reference>));
             BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
             BOOST_MPL_ASSERT((is_convertible_difference<typename boost::iterator_difference<Iterator>::type, Difference, Traversal>));
-            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>::value));
+            // BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>::value));
         }
 
         Iterator held() const

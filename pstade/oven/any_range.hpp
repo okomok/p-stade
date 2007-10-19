@@ -42,8 +42,7 @@ namespace any_range_detail {
     struct super_
     {
         typedef
-            iter_range<
-                any_iterator<Reference, Traversal, Value, Difference>,
+            iter_range<any_iterator<Reference, Traversal, Value, Difference>,
                 radish::swappable    < any_range<Reference, Traversal, Value, Difference>,
                 // Only SinglePass is considered as "lightweight".
                 lightweight_copyable < any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> > >

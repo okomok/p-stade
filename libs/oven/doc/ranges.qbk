@@ -260,7 +260,7 @@ If the file opening failed, the range is empty.
 * _constant_ _s_ _range_
 
 [h3 Notation]
-* `r` is a `file_range`.
+* `r` is a `file_range<X1,...,XN>`.
 
 [h3 Valid expressions]
 [table 
@@ -271,7 +271,7 @@ If the file opening failed, the range is empty.
     [
         [`file_range<X1,...,XN>(s)`]
         [
-            `[T(s), T())`
+           `[T(s), T())`
         ]
     ]
     [
@@ -286,9 +286,12 @@ If the file opening failed, the range is empty.
 [h3 Preconditions]
 * `T` is `boost::spirit::file_iterator<X1,...,XN>` such that `T(s)` is a valid expression.
 
+[note In the current implementation, an empty file is not opened. So `is_open()` can't tell whether a file exists or not.]
+
 [h3 Example]
     std::vector<char> vec;
-    copy(file_range<char>("data.txt"), std::back_inserter(vec));
+    file_range<char> frng("data.txt");
+    copy(frng, std::back_inserter(vec));
 
 [h3 See also]
 * [@http://www.boost.org/libs/spirit/doc/file_iterator.html boost::spirit::file_iterator]

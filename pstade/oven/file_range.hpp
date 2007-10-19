@@ -45,7 +45,7 @@ namespace file_range_detail {
 
 
     template< class Super, class CharT >
-    Super make(std::string path)
+    Super make(std::string const& path)
     {
         boost::spirit::file_iterator<CharT> it(path);
         if (!it)
@@ -68,7 +68,7 @@ private:
     typedef typename file_range_detail::super_<CharT>::type super_t;
 
 public:
-    explicit file_range(std::string path) :
+    explicit file_range(std::string const& path) :
         super_t(file_range_detail::make<super_t, CharT>(path))
     { }
 

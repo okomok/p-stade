@@ -20,4 +20,5 @@ using namespace gravy;
 void pstade_minimal_test()
 {
     HBRUSH h = get_stock_brush(WHITE_BRUSH);
+    (void)h;
 }
