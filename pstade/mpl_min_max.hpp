@@ -25,7 +25,7 @@
 
 #include <boost/mpl/less.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/long.hpp>
+#include <boost/mpl/integral_c.hpp>
 
 
 namespace pstade {
@@ -42,14 +42,14 @@ namespace pstade {
     {};
 
 
-    template<long N1, long N2>
+    template<class T, T N1, T N2>
     struct mpl_min_c :
-        boost::mpl::long_<(N1 < N2) ? N1 : N2>
+        boost::mpl::integral_c<T, (N1 < N2) ? N1 : N2>
     {};
 
-    template<long N1, long N2>
+    template<class T, T N1, T N2>
     struct mpl_max_c :
-        boost::mpl::long_<(N1 < N2) ? N2 : N1>
+        boost::mpl::integral_c<T, (N1 < N2) ? N2 : N1>
     {};
 
 

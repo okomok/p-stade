@@ -96,7 +96,7 @@ some extra preconditions.
 [h3 Preconditions]
 * The corresponding semantics is a valid expression.
 * If `R` is a /reference type/, a range which initialize or is assigned to `any_indexed<R>` is a _lvalue_ _s_ _range_.
-* `any_indexed<R>` is not be recursive.
+* `any_indexed<R>` is not recursive.
 
 [h3 Example]
 

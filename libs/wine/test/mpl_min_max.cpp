@@ -28,9 +28,9 @@ void pstade_minimal_test()
     BOOST_STATIC_ASSERT((mpl_max< int_<5>, int_<10> >::type::value == 10));
     BOOST_STATIC_ASSERT((mpl_max< int_<10>, int_<5> >::type::value == 10));
 
-    BOOST_STATIC_ASSERT((mpl_min_c< 5, 10 >::value == 5));
-    BOOST_STATIC_ASSERT((mpl_min_c< 10, 5 >::value == 5));
+    BOOST_STATIC_ASSERT((mpl_min_c<int, 5, 10 >::value == 5));
+    BOOST_STATIC_ASSERT((mpl_min_c<int, 10, 5 >::value == 5));
 
-    BOOST_STATIC_ASSERT((mpl_max_c< 5, 10 >::value == 10));
-    BOOST_STATIC_ASSERT((mpl_max_c< 10, 5 >::value == 10));
+    BOOST_STATIC_ASSERT((mpl_max_c<int, 5, 10 >::value == 10));
+    BOOST_STATIC_ASSERT((mpl_max_c<int, 10, 5 >::value == 10));
 }

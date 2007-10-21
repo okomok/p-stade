@@ -40,13 +40,14 @@
 //   poly can be lightweight copyable.
 
 
+#include <cstddef> // size_t
 #include <typeinfo>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
 #include <boost/ptr_container/clone_allocator.hpp>
-#include <boost/type_traits/alignment_of.hpp>
+#include <boost/type_traits/aligned_storage.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/compare_pointees.hpp>
 #include <pstade/egg/static_downcast.hpp>
@@ -72,7 +73,7 @@ namespace pstade {
     // You can specialize this.
     template<class O>
     struct poly_storage_size :
-        mpl_max_c<sizeof(double)*2, sizeof(O)*2> // do you know better size?
+        mpl_max_c<std::size_t, 128, sizeof(O)*2> // do you know better size?
     { };
 
 
@@ -95,27 +96,34 @@ namespace pstade {
         }
 
 
+        template<class Size>
+        struct aligned
+        {
+            // For pod-ness, prefer aligned_storage_imp to aligned_storage.
+            typedef boost::detail::aligned_storage::
+                aligned_storage_imp<Size::value, std::size_t(-1)>
+            type;
+        };
+
+
+        template<class O, class Size>
+        struct storage_size :
+            if_use_default< Size, poly_storage_size<O> >::type
+        { };
+
         template<class O, class Size>
         union storage
         {
             O *ptr;
-            mutable char data_[if_use_default< Size, poly_storage_size<O> >::type::value];
+            mutable typename aligned< storage_size<O, Size> >::type buf_;
 
-            void *data() const { return &data_[0]; }
+            void *address() const { return &buf_; }
         };
 
 
         template<class O, class Size, class Q>
-        struct stores_locally_aux :
-            boost::mpl::bool_<
-                (sizeof(Q) <= sizeof(storage<O, Size>)) &&
-                (boost::alignment_of< storage<O, Size> >::value % boost::alignment_of<Q>::value == 0)
-            >
-        { };
-
-        template<class O, class Size, class Q>
         struct stores_locally :
-            stores_locally_aux<O, Size, typename boost::remove_cv<Q>::type>
+            boost::mpl::bool_<sizeof(Q) <= storage_size<O, Size>::value>
         { };
 
 
@@ -137,7 +145,7 @@ namespace pstade {
             // local
             static void aux(storage<O, Size> &stg, boost::mpl::true_)
             {
-                reinterpret_cast<Q *>(stg.data())->~Q();
+                reinterpret_cast<Q *>(stg.address())->~Q();
             }
 
             // heap
@@ -166,8 +174,8 @@ namespace pstade {
             // local
             static void aux(storage<O, Size> const &stg, storage<O, Size> &to, boost::mpl::true_)
             {
-                Q const *q = reinterpret_cast<Q const *>(stg.data());
-                new (to.data()) Q(*q);
+                Q const *q = reinterpret_cast<Q const *>(stg.address());
+                new (to.address()) Q(*q);
             }
 
             // heap
@@ -196,7 +204,7 @@ namespace pstade {
             // local
             static O *aux(storage<O, Size> const &stg, boost::mpl::true_)
             {
-                return reinterpret_cast<Q *>(stg.data());
+                return reinterpret_cast<Q *>(stg.address());
             }
 
             // heap
@@ -251,7 +259,7 @@ namespace pstade {
         template<class O, class Size, class Q> inline
         void construct(storage<O, Size> &stg, Q const &q, typename enable_if< stores_locally<O, Size, Q> >::type = 0)
         {
-            new (stg.data()) Q(q);
+            new (stg.address()) Q(q);
         }
 
         template<class O, class Size, class Q> inline
@@ -392,7 +400,7 @@ namespace pstade {
         { }
 
         template<class Q>
-        poly(Q const &q, typename enable_if< is_convertible<Q const &, O const &> >::type = 0) :
+        poly(Q const &q, typename enable_if< is_convertible<Q *, O *> >::type = 0) :
             super_t(q)
         { }
 

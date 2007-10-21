@@ -1,3 +1,4 @@
+#include <pstade/vodka/drink.hpp>
 #include <pstade/unit_test.hpp>
 
 
@@ -48,12 +49,12 @@ range quick_sort(range rng)
 
 void pstade_unit_test()
 {
-    std::vector<int> v = initial_values(3,2,5,4,1);
+    std::vector<int> v = initial_values(3,2,5,4,6,1);
 
     std::cout << quick_sort(range(v)) << std::endl;
 
     BOOST_CHECK( equals(
         quick_sort(range(v)),
-        initial_values(1,2,3,4,5)
+        initial_values(1,2,3,4,5,6)
     ) );
 }
