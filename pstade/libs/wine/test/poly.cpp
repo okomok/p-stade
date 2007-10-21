@@ -85,6 +85,11 @@ void pstade_unit_test()
     my_stringH sH("heap");
 
     {
+        poly<int> p1;
+        poly<int> p2;
+        p1 = p2;
+    }
+    {
         poly<int> p(3);
         BOOST_CHECK( p );
         BOOST_CHECK( p.type() == typeid(int) );
