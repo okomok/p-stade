@@ -31,12 +31,12 @@
 #include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/clone_ptr.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/make_bool.hpp>
+#include <pstade/poly.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_erasure.hpp>
@@ -211,7 +211,7 @@ namespace any_iterator_detail {
         // Hence there is no reference-cycles by 'shared_ptr'.
         typedef typename
             boost::mpl::if_< is_convertible<Traversal, boost::forward_traversal_tag>,
-                value_based< clone_ptr<placeholder_t> >, // will be poly<placeholder_t> someday?
+                poly<placeholder_t>,
                 value_based< boost::shared_ptr<placeholder_t> >
             >::type
         type;
