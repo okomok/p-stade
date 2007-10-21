@@ -36,6 +36,7 @@
 #include <typeinfo>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/size_t.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
 #include <boost/ptr_container/clone_allocator.hpp>
@@ -57,6 +58,13 @@ namespace pstade {
 
     template<class O>
     struct poly;
+
+
+    // specializable traits
+    template<class O>
+    struct poly_storage_size :
+        boost::mpl::size_t< sizeof(O) * 2 > // do you know better size?
+    { };
 
 
     namespace poly_detail {
@@ -82,7 +90,7 @@ namespace pstade {
         union storage
         {
             O *ptr;
-            mutable char data_[sizeof(O)*2]; // do you know better size?
+            mutable char data_[poly_storage_size<O>::value];
 
             void *data() const { return &data_[0]; }
         };
@@ -278,8 +286,8 @@ namespace pstade {
             impl(impl const &other)
             {
                 if (!other.empty()) {
-                    m_vtbl = other.m_vtbl;
                     other.m_vtbl.copy(other.m_stg, m_stg);
+                    m_vtbl = other.m_vtbl;
                 }
             }
 
@@ -294,15 +302,11 @@ namespace pstade {
                 if (&other == this)
                     return *this;
 
-                destruct_(); // nothrow
-                m_vtbl = other.m_vtbl; // nothrow
+                reset(); // nothrow
 
-                try {
-                    other.m_vtbl.copy(other.m_stg, m_stg);
-                }
-                catch (...) {
-                    m_vtbl.reset();
-                    throw;
+                if (!other.empty()) {
+                    other.m_vtbl.copy(other.m_stg, m_stg); // maythrow
+                    m_vtbl = other.m_vtbl; // nothrow
                 }
 
                 return *this;
@@ -311,16 +315,10 @@ namespace pstade {
             template<class Q>
             void reset(Q const &q) // basic
             {
-                destruct_(); // nothrow
-                m_vtbl.reset(q); // nothrow
+                reset(); // nothrow
 
-                try {
-                    here::construct(m_stg, q);
-                }
-                catch (...) {
-                    m_vtbl.reset();
-                    throw;
-                }
+                here::construct(m_stg, q); // maythrow
+                m_vtbl.reset(q); // nothrow
             }
 
             void reset(boost::none_t = boost::none) // nothrow
@@ -393,7 +391,7 @@ namespace pstade {
         { }
 
     // assignments
-        PSTADE_MOVE_RESET_ASSIGNMENT(self_t)
+        PSTADE_RESET_ASSIGNMENT(poly)
 
     // bool_testable
         operator radish::safe_bool() const
