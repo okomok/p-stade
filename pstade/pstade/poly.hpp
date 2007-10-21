@@ -36,7 +36,6 @@
 #include <typeinfo>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
-#include <boost/mpl/size_t.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
 #include <boost/ptr_container/clone_allocator.hpp>
@@ -48,6 +47,7 @@
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/make_bool.hpp>
+#include <pstade/mpl_min_max.hpp> // mpl_max_c
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/value_pointable.hpp>
@@ -61,10 +61,10 @@ namespace pstade {
     struct poly;
 
 
-    // specializable traits
+    // You can specialize this.
     template<class O>
     struct poly_storage_size :
-        boost::mpl::size_t< sizeof(O) * 2 > // do you know better size?
+        mpl_max_c<sizeof(double)*2, sizeof(O)*2> // do you know better size?
     { };
 
 

@@ -36,6 +36,7 @@
 #include "./is_returnable.hpp"
 #include "./locale_saver.hpp"
 #include "./make_bool.hpp"
+#include "./mpl_min_max.hpp"
 #include "./nonconstructible.hpp"
 #include "./nullptr.hpp"
 #include "./pass_by.hpp"
