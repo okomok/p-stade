@@ -15,7 +15,6 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/static_warning.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/is_convertible.hpp>
 #include "../is_sorted.hpp"

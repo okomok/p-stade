@@ -50,6 +50,7 @@
 #include <pstade/make_bool.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/value_pointable.hpp>
 #include <pstade/reset_assignment.hpp>
 
 
@@ -279,8 +280,8 @@ namespace pstade {
             template<class Q>
             explicit impl(Q const &q)
             {
-                m_vtbl.reset(q);
                 here::construct(m_stg, q);
+                m_vtbl.reset(q);
             }
 
             impl(impl const &other)
@@ -312,6 +313,12 @@ namespace pstade {
                 return *this;
             }
 
+            void reset(boost::none_t = boost::none) // nothrow
+            {
+                destruct_(); // nothrow
+                m_vtbl.reset(); // nothrow
+            }
+
             template<class Q>
             void reset(Q const &q) // basic
             {
@@ -319,12 +326,6 @@ namespace pstade {
 
                 here::construct(m_stg, q); // maythrow
                 m_vtbl.reset(q); // nothrow
-            }
-
-            void reset(boost::none_t = boost::none) // nothrow
-            {
-                destruct_(); // nothrow
-                m_vtbl.reset(); // nothrow
             }
 
         // boost::any compatibles
@@ -363,7 +364,8 @@ namespace pstade {
             typedef
                 impl<O,
                     radish::bool_testable  < poly<O>,
-                    boost::totally_ordered1< poly<O> > >
+                    radish::value_pointable< poly<O>, O,
+                    boost::totally_ordered1< poly<O> > > >
                 >
             type;
         };
@@ -382,7 +384,7 @@ namespace pstade {
 
     public:
     // structors
-        poly()
+        poly(boost::none_t = boost::none)
         { }
 
         template<class Q>
@@ -399,7 +401,7 @@ namespace pstade {
             return radish::make_safe_bool(!this->empty());
         }
 
-    // pointer-like (const affects.)
+    // value_pointable (const affects.)
         O *operator->()
         {
             return this->get_();
@@ -408,16 +410,6 @@ namespace pstade {
         O const *operator->() const
         {
             return this->get_();
-        }
-
-        O &operator *()
-        {
-            return *this->get_();
-        }
-
-        O const &operator *() const
-        {
-            return *this->get_();
         }
 
     // content access

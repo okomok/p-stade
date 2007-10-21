@@ -15,6 +15,7 @@
 #include "./pointable.hpp"
 #include "./safe_bool.hpp"
 #include "./swappable.hpp"
+#include "./value_pointable.hpp"
 
 
 #endif
