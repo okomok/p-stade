@@ -73,10 +73,7 @@ struct my_stringH : my_string_base
 
     std::string m_str;
     double index;
-    double d2;
-    double d3;
-    double d4;
-    double d5;
+    double dummy[30];
 };
 
 
