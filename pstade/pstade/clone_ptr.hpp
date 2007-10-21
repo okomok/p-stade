@@ -74,6 +74,11 @@ public:
         clone_ptr_detail::delete_(m_ptr);
     }
 
+    template<class C>
+    explicit clone_ptr(C *p) :
+        m_ptr(p)
+    { }
+
     clone_ptr(self_t const& other) :
         m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
     { }
@@ -92,18 +97,7 @@ public:
         m_ptr(ap.release())
     { }
 
-    template<class C>
-    explicit clone_ptr(C *p) :
-        m_ptr(p)
-    { }
-
 // assignments
-    self_t& operator=(self_t const& other)
-    {
-        self_t(other).swap(*this);
-        return *this;
-    }
-
     void reset(boost::none_t = boost::none)
     {
         self_t().swap(*this);
@@ -113,6 +107,12 @@ public:
     void reset(Ptr p)
     {
         self_t(p).swap(*this);
+    }
+
+    self_t& operator=(self_t const& other)
+    {
+        self_t(other).swap(*this);
+        return *this;
     }
 
     PSTADE_MOVE_RESET_ASSIGNMENT(clone_ptr)
