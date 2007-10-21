@@ -215,6 +215,7 @@ namespace pstade {
         };
 
 
+        // must be pod for static-initialization.
         template<class O>
         struct vtable
         {
@@ -222,34 +223,21 @@ namespace pstade {
             typename virtual_copy<O>::type    copy;
             typename virtual_get<O>::type     get;
             typename virtual_typeid<O>::type  typeid_;
-
-            vtable()
-            {
-                reset();
-            }
-
-            template<class Q>
-            void reset(Q const &)
-            {
-                destroy = &override_destroy<O, Q>::call;
-                copy    = &override_copy<O, Q>::call;
-                get     = &override_get<O, Q>::call;
-                typeid_ = &override_typeid<O, Q>::call;
-            }
-
-            void reset()
-            {
-                destroy = PSTADE_NULLPTR;
-                copy    = PSTADE_NULLPTR;
-                get     = PSTADE_NULLPTR;
-                typeid_ = PSTADE_NULLPTR;
-            }
-
-            bool is_empty() const
-            {
-                return !destroy;
-            }
         };
+
+
+        template<class O, class Q> inline
+        vtable<O> *vtable_pointer()
+        {
+            static vtable<O> vtbl = { 
+                &override_destroy<O, Q>::call,
+                &override_copy<O, Q>::call,
+                &override_get<O, Q>::call,
+                &override_typeid<O, Q>::call
+            };
+
+            return &vtbl;
+        }
 
 
         template<class O, class Q> inline
@@ -274,21 +262,23 @@ namespace pstade {
 
         public:
         // structors
-            impl()
+            impl() :
+              m_pvtbl(PSTADE_NULLPTR)
             { }
 
             template<class Q>
             explicit impl(Q const &q)
             {
                 here::construct(m_stg, q);
-                m_vtbl.reset(q);
+                m_pvtbl = vtable_pointer<O, Q>();
             }
 
-            impl(impl const &other)
+            impl(impl const &other) :
+                m_pvtbl(PSTADE_NULLPTR)
             {
                 if (!other.empty()) {
-                    other.m_vtbl.copy(other.m_stg, m_stg);
-                    m_vtbl = other.m_vtbl;
+                    other.m_pvtbl->copy(other.m_stg, m_stg);
+                    m_pvtbl = other.m_pvtbl;
                 }
             }
 
@@ -298,25 +288,10 @@ namespace pstade {
             }
 
         // assignments
-            impl &operator=(impl const &other) // basic
-            {
-                if (&other == this)
-                    return *this;
-
-                reset(); // nothrow
-
-                if (!other.empty()) {
-                    other.m_vtbl.copy(other.m_stg, m_stg); // maythrow
-                    m_vtbl = other.m_vtbl; // nothrow
-                }
-
-                return *this;
-            }
-
             void reset(boost::none_t = boost::none) // nothrow
             {
                 destruct_(); // nothrow
-                m_vtbl.reset(); // nothrow
+                m_pvtbl = PSTADE_NULLPTR; // nothrow
             }
 
             template<class Q>
@@ -325,35 +300,50 @@ namespace pstade {
                 reset(); // nothrow
 
                 here::construct(m_stg, q); // maythrow
-                m_vtbl.reset(q); // nothrow
+                m_pvtbl = vtable_pointer<O, Q>(); // nothrow
+            }
+
+            impl &operator=(impl const &other) // basic
+            {
+                if (&other == this)
+                    return *this;
+
+                reset(); // nothrow
+
+                if (!other.empty()) {
+                    other.m_pvtbl->copy(other.m_stg, m_stg); // maythrow
+                    m_pvtbl = other.m_pvtbl; // nothrow
+                }
+
+                return *this;
             }
 
         // boost::any compatibles
             bool empty() const
             {
-                return m_vtbl.is_empty();
+                return !m_pvtbl;
             }
 
             std::type_info const &type() const
             {
-                return !empty() ? m_vtbl.typeid_() : typeid(void);
+                return !empty() ? m_pvtbl->typeid_() : typeid(void);
             }
 
         protected:
             O *get_() const
             {
                 BOOST_ASSERT(!empty());
-                return m_vtbl.get(m_stg);
+                return m_pvtbl->get(m_stg);
             }
 
         private:
-            vtable<O> m_vtbl;
+            vtable<O> *m_pvtbl;
             storage<O> m_stg;
 
             void destruct_() // nothrow
             {
                 if (!empty())
-                    m_vtbl.destroy(m_stg);
+                    m_pvtbl->destroy(m_stg);
             }
         };
 
