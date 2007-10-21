@@ -91,7 +91,7 @@ void pstade_unit_test()
         p1 = p2;
     }
     {
-        BOOST_MPL_ASSERT((pstade::poly_detail::is_locally_storable<int, int>));
+        BOOST_MPL_ASSERT((poly<int>::is_locally_stored<int>));
         poly<int> p(3);
         BOOST_CHECK( p );
         BOOST_CHECK( p.type() == typeid(int) );
@@ -102,7 +102,7 @@ void pstade_unit_test()
         //std::cout << p.type();
     }
     {
-        BOOST_MPL_ASSERT((pstade::poly_detail::is_locally_storable<my_string_base, my_stringL>));
+        BOOST_MPL_ASSERT((poly<my_string_base>::is_locally_stored<my_stringL>));
         poly<my_string_base> p(sL);
         BOOST_CHECK( p );
         BOOST_CHECK( p.contains<my_stringL>() );
@@ -119,7 +119,7 @@ void pstade_unit_test()
         BOOST_CHECK( p->get_string() == "local" );
     }
     {
-        BOOST_MPL_ASSERT_NOT((pstade::poly_detail::is_locally_storable<my_string_base, my_stringH>));
+        BOOST_MPL_ASSERT_NOT((poly<my_string_base>::is_locally_stored<my_stringH>));
         poly<my_string_base> p(sH);
         BOOST_CHECK( p );
         BOOST_CHECK( p.contains<my_stringH>() );
