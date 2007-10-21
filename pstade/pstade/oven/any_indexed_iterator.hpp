@@ -22,7 +22,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/static_warning.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>

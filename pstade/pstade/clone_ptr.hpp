@@ -65,7 +65,7 @@ private:
 
 public:
 // structors
-    clone_ptr() :
+    clone_ptr(boost::none_t = boost::none) :
         m_ptr(PSTADE_NULLPTR)
     { }
 
@@ -104,18 +104,18 @@ public:
         return *this;
     }
 
+    void reset(boost::none_t = boost::none)
+    {
+        self_t().swap(*this);
+    }
+
     template<class Ptr>
     void reset(Ptr p)
     {
         self_t(p).swap(*this);
     }
 
-    void reset(boost::none_t = boost::none)
-    {
-        self_t().swap(*this);
-    }
-
-    PSTADE_MOVE_RESET_ASSIGNMENT(self_t)
+    PSTADE_MOVE_RESET_ASSIGNMENT(clone_ptr)
 
 // bool_testable
     operator radish::safe_bool() const

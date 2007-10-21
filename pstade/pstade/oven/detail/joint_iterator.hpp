@@ -15,7 +15,6 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/static_warning.hpp>
 #include <pstade/is_convertible.hpp>
 #include "../do_iter_swap.hpp"
 #include "../reverse_iterator.hpp"

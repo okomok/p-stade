@@ -28,10 +28,8 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/static_warning.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/egg/do_swap.hpp>
@@ -43,6 +41,7 @@
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_erasure.hpp>
 #include <pstade/use_default.hpp>
+#include <pstade/value_based.hpp>
 #include "./any_fwd.hpp"
 #include "./detail/pure_traversal.hpp"
 
@@ -54,8 +53,7 @@ namespace any_iterator_detail {
 
 
     template< class Reference, class Traversal, class Difference, class T = Traversal >
-    struct placeholder :
-        private boost::noncopyable
+    struct placeholder
     {
         virtual ~placeholder() { }
 
@@ -213,8 +211,8 @@ namespace any_iterator_detail {
         // Hence there is no reference-cycles by 'shared_ptr'.
         typedef typename
             boost::mpl::if_< is_convertible<Traversal, boost::forward_traversal_tag>,
-                clone_ptr<placeholder_t>,
-                boost::shared_ptr<placeholder_t>
+                value_based< clone_ptr<placeholder_t> >, // will be poly<placeholder_t> someday?
+                value_based< boost::shared_ptr<placeholder_t> >
             >::type
         type;
     };
@@ -279,18 +277,18 @@ public:
     // but "is_iterator" is impossible to implement in C++98.
     template< class Iterator >
     explicit any_iterator(Iterator it) :
-        m_content(new typename holder_of<Iterator>::type(it))
+        m_content(typename holder_of<Iterator>::type(it))
     { }
 
     any_iterator(T_type_erasure, self_t it) :
-        m_content(new typename holder_of<self_t>::type(it))
+        m_content(typename holder_of<self_t>::type(it))
     { }
 
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
         typename enable_if< is_convertible_to_any_iterator<any_iterator<R, T, V, D>, self_t> >::type = 0
     ) :
-        m_content(new typename holder_of< any_iterator<R, T, V, D> >::type(other))
+        m_content(typename holder_of< any_iterator<R, T, V, D> >::type(other))
     { }
 
 // assignments

@@ -59,6 +59,7 @@ test-suite "wine" :
     [ run unparenthesize.cpp ]
     [ run unused.cpp ]
     [ run use_default.cpp ]
+    [ run value_based.cpp ]
     [ run verify.cpp ]
     [ run what.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
