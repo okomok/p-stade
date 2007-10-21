@@ -227,9 +227,9 @@ namespace pstade {
 
 
         template<class O, class Q> inline
-        vtable<O> *vtable_pointer()
+        vtable<O> const *vtable_pointer()
         {
-            static vtable<O> vtbl = { 
+            static vtable<O> const vtbl = { 
                 &override_destroy<O, Q>::call,
                 &override_copy<O, Q>::call,
                 &override_get<O, Q>::call,
@@ -337,7 +337,7 @@ namespace pstade {
             }
 
         private:
-            vtable<O> *m_pvtbl;
+            vtable<O> const *m_pvtbl;
             storage<O> m_stg;
 
             void destruct_() // nothrow
