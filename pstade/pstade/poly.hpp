@@ -278,7 +278,7 @@ namespace pstade {
                 m_pvtbl = vtable_pointer<O, Size, Q>();
             }
 
-            impl(impl const &other) :
+            impl(self_t const &other) :
                 m_pvtbl(PSTADE_NULLPTR)
             {
                 if (!other.empty()) {
@@ -308,7 +308,7 @@ namespace pstade {
                 m_pvtbl = vtable_pointer<O, Size, Q>(); // nothrow
             }
 
-            impl &operator=(impl const &other) // basic
+            self_t &operator=(self_t const &other) // basic
             {
                 if (&other == this)
                     return *this;
