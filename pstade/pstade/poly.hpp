@@ -48,7 +48,6 @@
 #include <boost/operators.hpp> // totally_ordered1
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/type_traits/aligned_storage.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/compare_pointees.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
@@ -221,7 +220,7 @@ namespace pstade {
         };
 
 
-        // must be pod for static-initialization.
+        // This must be pod for static-initialization.
         template<class O, class Size>
         struct vtable
         {

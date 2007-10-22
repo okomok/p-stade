@@ -207,7 +207,7 @@ void pstade_unit_test()
 
         my_stringH sH2("heap");
         poly<my_string_base> p2(sH2);
-        BOOST_CHECK( p == p2 ); // deep comarison
+        BOOST_CHECK( p == p2 ); // deep comparison
 
         poly<my_string_base> p3(sL);
         BOOST_CHECK( p != p3 );
@@ -219,5 +219,12 @@ void pstade_unit_test()
         poly<my_string_base> p4, p5;
         BOOST_CHECK( p4 == p5 );
         BOOST_CHECK( p4 != p3 );
+    }
+    {
+        poly<int> p1(10);
+        poly<int> p2(20);
+        BOOST_CHECK( p1 < p2 ); // deep comparison
+        BOOST_CHECK( p1 <= p2 );//
+        BOOST_CHECK( p1 != p2 );//
     }
 }
