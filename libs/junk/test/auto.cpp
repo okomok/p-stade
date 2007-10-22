@@ -10,9 +10,9 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/debug.cpp>
+#include <pstade/../libs/wine/test/poly.cpp>
 
-#include <pstade/../libs/oven/test/initial_values.cpp>
+//#include <pstade/../libs/oven/test/any_range.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/out_pipe.cpp>
