@@ -67,7 +67,7 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 [section any_indexed]
 
 [h3 Description]
-Iterators of _random_access_ `any_range` require heap allocation to copy,
+Iterators of _random_access_ `any_range` may require heap allocation to copy,
 whereas `any_indexed` offers lightweight-copyable iterators in return for
 some extra preconditions.
 
