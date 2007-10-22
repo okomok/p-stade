@@ -96,7 +96,7 @@ namespace any_iterator_detail {
     };
 
 
-    // customizes Clonable for 'clone_ptr'.
+    // Clonable customization
     template< class Reference, class Traversal, class Difference > inline
     placeholder<Reference, Traversal, Difference> *
     new_clone(placeholder<Reference, Traversal, Difference> const& ph)

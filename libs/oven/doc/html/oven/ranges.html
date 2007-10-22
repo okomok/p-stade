@@ -198,7 +198,7 @@
 <p>
         Iterators of <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
         Access</a> <code class="computeroutput"><span class="identifier">any_range</span></code>
-        require heap allocation to copy, whereas <code class="computeroutput"><span class="identifier">any_indexed</span></code>
+        may require heap allocation to copy, whereas <code class="computeroutput"><span class="identifier">any_indexed</span></code>
         offers lightweight-copyable iterators in return for some extra preconditions.
       </p>
 <a name="oven.ranges.any_indexed.header"></a><h4>
@@ -268,7 +268,7 @@
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">any_indexed</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;</span></code>
-          is not be recursive.
+          is not recursive.
         </li>
 </ul></div>
 <a name="oven.ranges.any_indexed.example"></a><h4>
@@ -288,7 +288,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.ranges.array_range"></a><a href="ranges.html#oven.ranges.array_range" title="array_range">array_range</a></h3></div></div></div>
 <a name="oven.ranges.array_range.description"></a><h4>
-<a name="id517564"></a>
+<a name="id517563"></a>
         <a href="ranges.html#oven.ranges.array_range.description">Description</a>
       </h4>
 <p>
@@ -298,7 +298,7 @@
         which delivers a range presentation of dynamically allocated arrays.
       </p>
 <a name="oven.ranges.array_range.header"></a><h4>
-<a name="id517620"></a>
+<a name="id517619"></a>
         <a href="ranges.html#oven.ranges.array_range.header">Header</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">array_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
@@ -352,7 +352,7 @@
 </tr></tbody>
 </table></div>
 <a name="oven.ranges.array_range.preconditions"></a><h4>
-<a name="id517979"></a>
+<a name="id517978"></a>
         <a href="ranges.html#oven.ranges.array_range.preconditions">Preconditions</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -373,7 +373,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">sarr</span><span class="special">,</span> <span class="identifier">darr</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="oven.ranges.array_range.see_also"></a><h4>
-<a name="id518338"></a>
+<a name="id518337"></a>
         <a href="ranges.html#oven.ranges.array_range.see_also">See also</a>
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/doc/html/array.html" target="_top">Boost.Array</a></li></ul></div>

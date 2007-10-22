@@ -186,6 +186,7 @@
 * Renamed `xp_` to `X_`.
 * Added `eater` and `intercepter`.
 * Added `any_indexed`.
+* `any_range` optimized.
 
 
 
