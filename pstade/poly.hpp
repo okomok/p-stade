@@ -96,16 +96,6 @@ namespace pstade {
         }
 
 
-        template<class Size>
-        struct aligned
-        {
-            // For pod-ness, prefer aligned_storage_imp to aligned_storage.
-            typedef boost::detail::aligned_storage::
-                aligned_storage_imp<Size::value, std::size_t(-1)>
-            type;
-        };
-
-
         template<class O, class Size>
         struct storage_size :
             if_use_default< Size, poly_storage_size<O> >::type
@@ -115,7 +105,7 @@ namespace pstade {
         union storage
         {
             O *ptr;
-            mutable typename aligned< storage_size<O, Size> >::type buf_;
+            mutable typename boost::aligned_storage<storage_size<O, Size>::value>::type buf_;
 
             void *address() const { return &buf_; }
         };
