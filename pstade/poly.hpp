@@ -60,19 +60,15 @@
 #include <pstade/radish/value_pointable.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/use_default.hpp>
+#include "./poly_fwd.hpp"
 
 
 namespace pstade {
 
 
-    template<class O, class Size = boost::use_default>
-    struct poly;
-
-
-    // You can specialize this.
     template<class O>
     struct poly_storage_size :
-        mpl_max_c<std::size_t, 128, sizeof(O)*2> // do you know better size?
+        mpl_max_c<std::size_t, PSTADE_POLY_MIN_STORAGE_SIZE, sizeof(O)*2>
     { };
 
 

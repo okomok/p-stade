@@ -21,13 +21,7 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
-
-
-namespace boost {
-
-    struct use_default;
-
-}
+#include "./use_default_fwd.hpp"
 
 
 namespace pstade {

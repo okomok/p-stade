@@ -15,6 +15,8 @@
 
 #include <boost/mpl/assert.hpp>
 #include <string>
+#include <boost/mpl/size_t.hpp>
+#include <pstade/egg/do_swap.hpp>
 
 
 using namespace pstade;
@@ -88,6 +90,18 @@ void pstade_unit_test()
         p1 = p2;
     }
     {
+        poly<my_string_base> p1(sL);
+        poly<my_string_base> p2(sH);
+        BOOST_CHECK( p1->get_string() == "local" );
+        BOOST_CHECK( p2->get_string() == "heap" );
+        pstade::egg::do_swap(p1, p2); // for now, not lightweight.
+        BOOST_CHECK( p1->get_string() == "heap" );
+        BOOST_CHECK( p2->get_string() == "local" );
+        pstade::egg::do_swap(p1, p2); // for now, not lightweight.
+        BOOST_CHECK( p1->get_string() == "local" );
+        BOOST_CHECK( p2->get_string() == "heap" );
+    }
+    {
         BOOST_MPL_ASSERT((poly<int>::is_locally_stored<int>));
         poly<int> p(3);
         BOOST_CHECK( p );
@@ -114,6 +128,15 @@ void pstade_unit_test()
         BOOST_CHECK( p.content<my_stringL const>().get_string() == "local" );
         BOOST_CHECK( p.type() == typeid(my_stringL) );
         BOOST_CHECK( p->get_string() == "local" );
+    }
+    {
+        BOOST_MPL_ASSERT((poly<my_string_base, boost::mpl::size_t<256*2> >::is_locally_stored<my_stringH>));
+        poly<my_string_base, boost::mpl::size_t<256*2> > p(sH);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p.contains<my_stringH>() );
+        BOOST_CHECK( p.content<my_stringH>().index == 123 );
+        BOOST_CHECK( p.type() == typeid(my_stringH) );
+        BOOST_CHECK( p->get_string() == "heap" );
     }
     {
         BOOST_MPL_ASSERT_NOT((poly<my_string_base>::is_locally_stored<my_stringH>));
