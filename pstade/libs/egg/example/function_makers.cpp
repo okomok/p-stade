@@ -35,7 +35,7 @@ struct baby_second_argument
     template<class Myself, class A1, class A2>
     struct apply
     {
-        /*<< Don't forget add reference. >>*/
+        /*<< `A2` is possibly cv-qualifed but not a reference type. >>*/
         typedef A2 &type;
     };
 

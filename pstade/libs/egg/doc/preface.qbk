@@ -43,7 +43,7 @@ Egg is known to work on the following platforms:
 [section Rationale]
 
 * Egg works around __FORWARDING_PROBLEM__.
-* Egg framework provides the way of /static initialization/ if possible.
+* Egg framework provides a way of /static initialization/ if possible.
 
 [endsect]
 

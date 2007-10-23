@@ -20,6 +20,7 @@ test-suite "oven_example" :
     [ run as_xxx.cpp ]
     [ run auto_factorials.cpp ]
     [ run change_array.cpp ]
+    [ run concat_concat.cpp ]
     [ run digits.cpp ]
     [ run doc.cpp ]
     [ run factorials.cpp ]

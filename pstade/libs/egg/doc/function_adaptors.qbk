@@ -499,7 +499,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `0 <= N && N <= 9`.
-* `Bin` is __BINDABLE_OBJECT__ type.
+* `Bin` is a __BINDABLE_OBJECT__ type.
 * There is a `b_` such that `Bin b_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
