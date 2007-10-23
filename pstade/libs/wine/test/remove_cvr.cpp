@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -10,9 +9,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/remove_cvr.hpp>
+#include <boost/test/minimal.hpp>
+
+
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/remove_cvr.hpp>
 
 
 BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int>::type > ));

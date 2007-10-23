@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -13,7 +12,4 @@
 #include <pstade/wine.hpp>
 
 
-int test_main(int, char*[])
-{
-    return 0;
-}
+int main() { return 0; }

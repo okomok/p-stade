@@ -13,7 +13,7 @@
 
 // Note:
 //
-// Edd pointed out that forward declaration is useful.
+// Edd Dawson pointed out that forward declaration is useful.
 // http://www.mr-edd.co.uk/?page_id=43
 
 

@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -11,6 +10,7 @@
 
 
 #include <pstade/deduced_const.hpp>
+#include <boost/test/minimal.hpp>
 
 
 #include <boost/utility/result_of.hpp>

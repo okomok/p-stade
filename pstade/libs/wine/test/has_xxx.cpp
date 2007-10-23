@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -17,6 +16,7 @@
 
 
 #include <pstade/has_xxx.hpp>
+#include <boost/test/minimal.hpp>
 
 
 #include <boost/mpl/assert.hpp>

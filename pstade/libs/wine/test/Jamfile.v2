@@ -14,6 +14,7 @@ test-suite "wine" :
     [ run adl_barrier.cpp ]
     [ run affect.cpp ]
     [ run any.cpp ]
+    [ run any_fwd.cpp ]
     [ run arraya.cpp ]
     [ run check.cpp ]
     [ run clone_ptr.cpp ]
