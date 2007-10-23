@@ -45,6 +45,8 @@ test-suite "wine" :
     [ run pause.cpp ]
     [ link pod_constant1.cpp pod_constant2.cpp : : pod_constant ]
     [ run poly.cpp ]
+    [ run poly.cpp : : : <define>PSTADE_POLY_MIN_STORAGE_SIZE=1024 : poly_local ]
+    [ run poly.cpp : : : <define>PSTADE_POLY_MIN_STORAGE_SIZE=2 : poly_heap ]
     [ run poly_fwd.cpp ]
     [ run preprocessor.cpp ]
     [ run remove_cvr.cpp ]
