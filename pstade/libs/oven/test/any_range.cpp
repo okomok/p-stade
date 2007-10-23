@@ -1,6 +1,4 @@
 #include "./prefix.hpp"
-#include <pstade/vodka/drink.hpp>
-#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -11,7 +9,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/any_fwd.hpp> // missing header check
 #include <pstade/oven/any_range.hpp>
 
 
@@ -46,14 +43,22 @@ void test_iterator()
         BOOST_CHECK( !it1.contains<std::string::const_iterator>() );
         std::string::iterator b = it1.content<std::string::iterator>();
         BOOST_CHECK( b == boost::begin(src) );
-        any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // copy-initialization.
+        any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // copy-initialization, but type-erased
         BOOST_CHECK( it2 == it1 );
         it2 = it1;
         BOOST_CHECK( it2 == it1 );
     }
     {
+        any_iterator<char&, boost::random_access_traversal_tag, char> it1(boost::begin(src));
+        any_iterator<char&, boost::random_access_traversal_tag, char> it2 = it1; // copy-initialization, just a copy.
+        BOOST_CHECK( it2 == it1 );
+        BOOST_CHECK( (it2 - it1) == 0 );
+        it2 = it1;
+        BOOST_CHECK( it2 == it1 );
+    }
+    {
         any_iterator<char&, boost::random_access_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
-        any_iterator<char const&, boost::random_access_traversal_tag, char, int> it2 = it1; // copy-initialization.
+        any_iterator<char const&, boost::random_access_traversal_tag, char, int> it2 = it1; // copy-initialization, but type-erased
         BOOST_CHECK( it2 == it1 );
         BOOST_CHECK( (it2 - it1) == 0 );
         it2 = it1;

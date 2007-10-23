@@ -9,7 +9,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/any_fwd.hpp> // missing header check
 #include <pstade/oven/any_indexed.hpp>
 
 
