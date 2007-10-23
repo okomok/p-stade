@@ -123,6 +123,8 @@ test-suite "oven" :
     [ run range_transformer.cpp ]
     [ run read.cpp ]
     [ run recursion.cpp ]
+    [ run recursion.cpp : : : <define>PSTADE_POLY_MIN_STORAGE_SIZE=1024 : recursion_local ]
+    [ run recursion.cpp : : : <define>PSTADE_POLY_MIN_STORAGE_SIZE=2 : recursion_heap ]
     [ run regex.cpp ]
     [ run regular.cpp ]
     [ run reversed.cpp ]

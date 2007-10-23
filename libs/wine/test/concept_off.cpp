@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -14,6 +13,7 @@
 
 
 #include <pstade/concept.hpp>
+#include <boost/test/minimal.hpp>
 #include <boost/concept_check.hpp> // ConvertibleConcept
 
 #if 0

@@ -1,6 +1,4 @@
 #include "./prefix.hpp"
-#include <pstade/vodka/drink.hpp>
-#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven

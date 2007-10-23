@@ -9,19 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/unused.hpp>
-#include <boost/test/minimal.hpp>
+#include <pstade/any_fwd.hpp>
 
 
-void test()
-{
-    pstade::unused();
-    pstade::unused(0,1,2,3,4,5,6,7,8);
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
-}
+int main() { return 0; }

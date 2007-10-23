@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -11,6 +10,7 @@
 
 
 #include <pstade/singleton.hpp>
+#include <boost/test/minimal.hpp>
 
 
 

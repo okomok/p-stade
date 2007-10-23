@@ -1,10 +1,10 @@
 
-#if defined(_CONSOLE)
-#error _CONSOLE defined
-#endif
 
-#if defined(BOOST_BJAM_VERSION)
-#error defined
-#endif
+#include <pstade/unit_test.hpp>
 
-int main() {}
+void pstade_unit_test()
+{
+    int *p = new int();
+    (void)p;
+}
+

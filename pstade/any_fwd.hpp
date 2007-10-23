@@ -1,4 +1,6 @@
-#include <pstade/vodka/drink.hpp>
+#ifndef PSTADE_ANY_FWD_HPP
+#define PSTADE_ANY_FWD_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
@@ -9,10 +11,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./pod_constant.hpp"
-#include <pstade/minimal_test.hpp>
+namespace pstade {
 
 
-void pstade_minimal_test()
-{
-}
+    struct any_ref;
+
+    struct any_cref;
+
+    struct any_movable;
+
+
+} // namespace pstade
+
+
+#endif

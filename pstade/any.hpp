@@ -27,6 +27,7 @@
 #include <pstade/radish/swappable.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_erasure.hpp>
+#include "./any_fwd.hpp"
 
 
 namespace pstade {

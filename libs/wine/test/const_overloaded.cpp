@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -11,6 +10,7 @@
 
 
 #include <pstade/const_overloaded.hpp>
+#include <boost/test/minimal.hpp>
 
 
 template<class E, class A>
