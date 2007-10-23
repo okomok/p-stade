@@ -10,6 +10,15 @@
 
 
 #include <pstade/poly.hpp>
+
+
+#if PSTADE_POLY_MIN_STORAGE_SIZE != 2 && \
+    PSTADE_POLY_MIN_STORAGE_SIZE != 128 && \
+    PSTADE_POLY_MIN_STORAGE_SIZE != 1024
+#error unexpected testing value of PSTADE_POLY_MIN_STORAGE_SIZE
+#endif
+
+
 #include <pstade/unit_test.hpp>
 
 
@@ -139,7 +148,11 @@ void pstade_unit_test()
         BOOST_CHECK( p->get_string() == "heap" );
     }
     {
+#if PSTADE_POLY_MIN_STORAGE_SIZE != 1024
         BOOST_MPL_ASSERT_NOT((poly<my_string_base>::is_locally_stored<my_stringH>));
+#else
+        BOOST_MPL_ASSERT((poly<my_string_base>::is_locally_stored<my_stringH>));
+#endif
         poly<my_string_base> p(sH);
         BOOST_CHECK( p );
         BOOST_CHECK( p.contains<my_stringH>() );
