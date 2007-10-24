@@ -44,7 +44,13 @@ void forward_constant_iterator(Iterator first, Iterator last, IteratorA firstA, 
     {
         typedef typename boost::iterator_value<Iterator>::type val_t;
         std::vector<val_t> const vals(firstA, lastA);
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
+        // When sizeof(Iterator) >= 4096, stack would be broken without this named object.
+        Iterator next_ = boost::next(first);
+        boost::forward_readable_iterator_test(first, next_, vals[0], vals[1]);
+#else
         boost::forward_readable_iterator_test(first, boost::next(first), vals[0], vals[1]);
+#endif
     }
     {
         typename boost::iterator_difference<IteratorA>::type w = std::distance(firstA, lastA) / 3;

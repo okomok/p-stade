@@ -25,6 +25,11 @@
 #include <pstade/oven/memoized.hpp>
 
 
+#include <iostream>
+#include <pstade/oven/with_data.hpp>
+typedef boost::array<char, 5000> big_data;
+
+
 namespace oven = pstade::oven;
 using namespace oven;
 
@@ -46,6 +51,15 @@ range make_ones()
 
 void pstade_unit_test()
 {
+    { // reverse
+        any_range<int const&, boost::bidirectional_traversal_tag> ones;
+
+        int const one = 1;
+        ones = recursion(ones)|jointed(single(one));
+
+        int a[] = { 1,1,1,1,1,1,1,1 };
+        test::forward_constant(ones|reversed|taken(8), a);
+    }
     {
         ::range ones;
 
@@ -75,15 +89,6 @@ void pstade_unit_test()
 
         int const a[] = { 1,2,3,4,5,6,1,2 };
         test::forward_constant(x|taken(8), a);
-    }
-    { // reverse
-        any_range<int const&, boost::bidirectional_traversal_tag> ones;
-
-        int const one = 1;
-        ones = recursion(ones)|jointed(single(one));
-
-        int a[] = { 1,1,1,1,1,1,1,1 };
-        test::forward_constant(ones|reversed|taken(8), a);
     }
     {
         int a[] = { 1,1,1,1,1,1,1,1 };

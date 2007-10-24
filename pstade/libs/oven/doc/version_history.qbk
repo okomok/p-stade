@@ -182,8 +182,8 @@
 
 [h2 Version 0.95.1]
 * Added `any_output_iterator`.
-* Renamed `op_` to `T_`.
-* Renamed `xp_` to `X_`.
+* Renamed `op_xxx` to `T_xxx`.
+* Renamed `xp_xxx` to `X_xxx`.
 * Added `eater` and `intercepter`.
 * Added `any_indexed`.
 * `any_range` implemented a small buffer optimization.
