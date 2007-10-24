@@ -45,6 +45,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 * `_rng` is _readable_ or _lvalue_.
 * `_prd(*_begin(_rng), *_begin(_rng))` is well-formed.
 * `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
 
 [h3 Complexity]
 * At most `distance(_rng)` applications of the corresponding `_prd`.
@@ -112,6 +113,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `!boost::empty(_rng)`
 * `_fun(*_begin(_rng), *_begin(_rng))` is well-formed.
 * `_fun` is _assignable_ and _default_constructible_.
+* `_fun` shall not modify referents.
 * `_cal` meets the preconditions of `_fun`.
 
 [h3 Example]
@@ -740,6 +742,7 @@ then pretends to be a range of _forward_iterator_.
 
 [h3 Preconditions]
 * `_rng` is _readable_ or _lvalue_.
+* `_prd` shall not modify referents.
 
 [h3 Complexity]
 * At most `distance(_rng)` applications of the corresponding `_prd`.
@@ -818,7 +821,7 @@ then pretends to be a range of _forward_iterator_.
 * `_rng` is _readable_ or _lvalue_.
 * `Tup` is _fusion_forward_sequence_.
 * `N` is a [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant].
-* `Ref` specifies `boost::range_reference` of the result range. If `Ref` is `boost::use_default`, `Ref` is determined by the following:
+* `Ref` specifies `boost::range_reference` type of an adapted range. If `Ref` is `boost::use_default`, `Ref` is determined by the following:
     * If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, it is a /reference type/.
     * Otherwise `boost::fusion::result_of::value_of` is used to specify it.
 
@@ -910,6 +913,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Preconditions]
 * `T` is `boost::filter_iterator<_typeof(_prd), _typeof(_begin(_rng))>` such that `T(_prd, _begin(_rng), _end(_rng))` is a valid expression.
 * `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
 
 [h3 Complexity]
 * At most `distance(_rng)` applications of the corresponding `_prd`.
@@ -1765,6 +1769,7 @@ A range returned from `reversed` iterates in the opposite direction.
 ]
 
 [h3 Preconditions]
+* `_prd` shall not modify referents.
 
 [h3 Complexity]
 * `O(N) + O(NlogN)`, where `N` is `distance(_fwdrng)`.
@@ -1909,6 +1914,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Preconditions]
 * `_rng` is _readable_ or _lvalue_.
 * `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
 
 [h3 Example]
 
@@ -1959,10 +1965,11 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 ]
 
 [h3 Preconditions]
-* `R` specifies `boost::range_reference` of the result range.
+* `R` specifies `boost::range_reference` type of an adapted range.
 * `T` is `boost::transform_iterator<_typeof(_fun), _typeof(_begin(_rng)), R>` such that `T(_begin(_rng), _fun)` is a valid expression.
 * If `R` is `boost::use_default`, `_fun` must be a _deferred_callable_object_. Then `R` is regarded as `boost::result_of<_typeof(_fun)(boost::range_reference<_typeof(_rng)>::type)>::type`.
 * `_fun` is _assignable_ and _default_constructible_.
+* `_fun` and `_cal` shall not modify referents.
 
 [h3 Example]
 

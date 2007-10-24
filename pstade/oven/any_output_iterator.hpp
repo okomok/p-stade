@@ -19,8 +19,8 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
-#include <pstade/make_bool.hpp>
 #include <pstade/reset_assignment.hpp>
+#include <pstade/type_equal_to.hpp>
 #include <pstade/type_erasure.hpp>
 #include "./any_fwd.hpp"
 
@@ -142,7 +142,7 @@ public:
     template< class OutIter >
     bool contains() const
     {
-        return make_bool(type() == typeid(OutIter));
+        return type_equal_to(type(), typeid(OutIter));
     }
 
     template< class OutIter >

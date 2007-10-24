@@ -9,6 +9,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// #define PSTADE_POLY_MIN_STORAGE_SIZE 2
+
+
 #include <pstade/poly.hpp>
 
 
@@ -22,6 +25,8 @@
 #include <pstade/unit_test.hpp>
 
 
+#include <iostream>
+#include <boost/static_assert.hpp>
 #include <boost/mpl/assert.hpp>
 #include <string>
 #include <boost/mpl/size_t.hpp>
@@ -262,5 +267,33 @@ void pstade_unit_test()
         BOOST_CHECK( p1 < p2 ); // deep comparison
         BOOST_CHECK( p1 <= p2 );//
         BOOST_CHECK( p1 != p2 );//
+    }
+    {
+    // poly-poly
+        typedef poly<my_string_base> poly_string_base;
+#if 0
+        std::cout << poly_storage_size<my_string_base>::value << std::endl; // sizeof(my_string_base) * 2
+        std::cout << poly_storage_size<poly_string_base>::value << std::endl; // sizeof(poly_strng_base) * 2
+        std::cout << sizeof(my_string_base) << std::endl; // 4
+        std::cout << sizeof(poly_string_base) << std::endl;  // 24
+        std::cout << sizeof(poly<poly_string_base>) << std::endl; // 56
+#endif
+
+#if PSTADE_POLY_MIN_STORAGE_SIZE != 1024
+        BOOST_MPL_ASSERT((poly<poly_string_base>::is_locally_stored<poly_string_base>));
+#else
+        // Both inner poly and outer poly reach to limit.
+        BOOST_MPL_ASSERT_NOT((poly<poly_string_base>::is_locally_stored<poly_string_base>));
+#endif
+        poly_string_base p1(sL);
+        poly<poly_string_base> p2(p1);
+        BOOST_CHECK( (*p2)->get_string() == "local" );
+    }
+    {
+#if PSTADE_POLY_MIN_STORAGE_SIZE == 128 // default case
+        BOOST_STATIC_ASSERT((poly_storage_size<char>::value == PSTADE_POLY_MIN_STORAGE_SIZE));
+        BOOST_STATIC_ASSERT((poly_storage_size<char[5000]>::value == PSTADE_POLY_MAX_STORAGE_SIZE));
+        BOOST_STATIC_ASSERT((poly_storage_size<char[200]>::value == 400));
+#endif
     }
 }

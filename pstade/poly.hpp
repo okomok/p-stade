@@ -53,12 +53,12 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/make_bool.hpp>
-#include <pstade/mpl_min_max.hpp> // mpl_max_c
+#include <pstade/mpl_min_max.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/value_pointable.hpp>
 #include <pstade/reset_assignment.hpp>
+#include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
 #include "./poly_fwd.hpp"
 
@@ -68,7 +68,10 @@ namespace pstade {
 
     template<class O>
     struct poly_storage_size :
-        mpl_max_c<std::size_t, PSTADE_POLY_MIN_STORAGE_SIZE, sizeof(O)*2>
+        mpl_min_c<std::size_t,
+            PSTADE_POLY_MAX_STORAGE_SIZE,
+            mpl_max_c<std::size_t, PSTADE_POLY_MIN_STORAGE_SIZE, sizeof(O)*2>::value
+        >
     { };
 
 
@@ -413,7 +416,7 @@ namespace pstade {
         template<class Q>
         bool contains() const
         {
-            return make_bool(this->type() == typeid(Q));
+            return type_equal_to(this->type(), typeid(Q));
         }
 
         template<class Q>

@@ -21,11 +21,11 @@
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
-#include <pstade/make_bool.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/reset_assignment.hpp>
+#include <pstade/type_equal_to.hpp>
 #include <pstade/type_erasure.hpp>
 #include "./any_fwd.hpp"
 
@@ -177,7 +177,7 @@ namespace pstade {
         template<class X>
         bool contains() const
         {
-            return make_bool(type() == typeid(boost::type<X>));
+            return type_equal_to(type(), typeid(boost::type<X>));
         }
 
         template<class X>
@@ -238,7 +238,7 @@ namespace pstade {
         template<class X>
         bool contains() const
         {
-            return make_bool(type() == typeid(boost::type<X>));
+            return type_equal_to(type(), typeid(boost::type<X>));
         }
 
         template<class X>
@@ -297,7 +297,7 @@ namespace pstade {
         template<class X>
         bool contains() const
         {
-            return make_bool(type() == typeid(boost::type<X>));
+            return type_equal_to(type(), typeid(boost::type<X>));
         }
 
         template<class X>

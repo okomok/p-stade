@@ -35,10 +35,10 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/make_bool.hpp>
 #include <pstade/poly.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/reset_assignment.hpp>
+#include <pstade/type_equal_to.hpp>
 #include <pstade/type_erasure.hpp>
 #include <pstade/use_default.hpp>
 #include <pstade/value_based.hpp>
@@ -331,7 +331,7 @@ public:
     template< class Iterator >
     bool contains() const
     {
-        return make_bool(type() == typeid(Iterator));
+        return type_equal_to(type(), typeid(Iterator));
     }
 
     template< class Iterator >

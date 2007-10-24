@@ -26,8 +26,8 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/make_bool.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_fwd.hpp"
 #include "./detail/check_nonnegative.hpp"
@@ -218,7 +218,7 @@ public:
     template< class RandIter >
     bool contains() const
     {
-        return make_bool(type() == typeid(RandIter));
+        return type_equal_to(type(), typeid(RandIter));
     }
 
     template< class RandIter >

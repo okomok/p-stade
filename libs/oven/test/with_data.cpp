@@ -16,6 +16,7 @@
 
 #include <string>
 #include <pstade/oven/identities.hpp>
+#include <boost/array.hpp>
 
 
 namespace oven = pstade::oven;
@@ -53,6 +54,13 @@ void pstade_minimal_test()
         ::check_data_ref(b|with_data(dt)|identities|with_data(boost::ref(cdt))|identities, cdt);
 
         test::random_access_swappable(b|with_data(dt), a);
+    }
+    {
+        std::string a("abcdefghijklmn");
+        std::string b("abcdefghijklmn");
+        boost::array<char, 5000> big_data;
+
+        test::forward_constant(b|with_data(big_data), a);
     }
     {
         test::emptiness(

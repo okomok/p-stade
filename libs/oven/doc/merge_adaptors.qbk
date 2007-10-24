@@ -45,6 +45,7 @@ A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
   without binding /reference/ to /rvalue/.
 * `_rng1` and `_rng2` are sorted.
 * `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
 
 [h3 Example]
     std::string A1("abbbfH");
