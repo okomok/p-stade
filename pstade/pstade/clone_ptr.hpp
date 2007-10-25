@@ -20,7 +20,6 @@
 #include <boost/assert.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
-#include <boost/ptr_container/clone_allocator.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
@@ -29,28 +28,10 @@
 #include <pstade/radish/pointable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/reset_assignment.hpp>
+#include "./detail/clonable.hpp"
 
 
 namespace pstade {
-
-
-namespace clone_ptr_detail {
-
-
-    template<class X> inline
-    X *new_(X const& x)
-    {
-        return boost::heap_clone_allocator::allocate_clone(x);
-    }
-
-    template<class X> inline
-    void delete_(X *ptr)
-    {
-        return boost::heap_clone_allocator::deallocate_clone(ptr);
-    }
-
-
-} // namespace clone_ptr_detail
 
 
 template<class Clonable>
@@ -71,7 +52,7 @@ public:
 
     ~clone_ptr()
     {
-        clone_ptr_detail::delete_(m_ptr);
+        detail::clonable_delete(m_ptr);
     }
 
     template<class C>
@@ -80,14 +61,14 @@ public:
     { }
 
     clone_ptr(self_t const& other) :
-        m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
+        m_ptr(other ? detail::clonable_new(*other) : PSTADE_NULLPTR)
     { }
 
     template<class C>
     clone_ptr(clone_ptr<C> const& other,
         typename enable_if< is_convertible<C *, Clonable *> >::type = 0
     ) :
-        m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
+        m_ptr(other ? detail::clonable_new(*other) : PSTADE_NULLPTR)
     { }
 
     template<class C>
