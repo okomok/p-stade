@@ -46,7 +46,6 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
-#include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/type_traits/aligned_storage.hpp>
 #include <boost/utility/compare_pointees.hpp>
 #include <pstade/egg/static_downcast.hpp>
@@ -60,6 +59,7 @@
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
+#include "./detail/clonable.hpp"
 #include "./poly_fwd.hpp"
 
 
@@ -79,19 +79,6 @@ namespace pstade {
 
 
         namespace here = poly_detail;
-
-
-        template<class O> inline
-        O *new_(O const &o)
-        {
-            return boost::heap_clone_allocator::allocate_clone(o);
-        }
-
-        template<class O> inline
-        void delete_(O *ptr)
-        {
-            return boost::heap_clone_allocator::deallocate_clone(ptr);
-        }
 
 
         template<class O, class Size>
@@ -139,7 +126,7 @@ namespace pstade {
             // heap
             static void aux(storage<O, Size> &stg, boost::mpl::false_)
             {
-                here::delete_(stg.ptr);
+                detail::clonable_delete(stg.ptr);
             }
         };
 
@@ -169,7 +156,7 @@ namespace pstade {
             // heap
             static void aux(storage<O, Size> const &stg, storage<O, Size> &to, boost::mpl::false_)
             {
-                to.ptr = here::new_(*stg.ptr);
+                to.ptr = detail::clonable_new(*stg.ptr);
             }
         };
 
@@ -253,7 +240,7 @@ namespace pstade {
         template<class O, class Size, class Q> inline
         void construct(storage<O, Size> &stg, Q const &q, typename disable_if<stores_locally<O, Size, Q> >::type = 0)
         {
-            stg.ptr = here::new_(q);
+            stg.ptr = detail::clonable_new(q);
         }
 
 
