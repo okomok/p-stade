@@ -28,8 +28,8 @@
 // Preconditions:
 //
 // Q is CopyConstructible.
-// Q& is Convertible to O&.
-// Q is Clonable.
+// Q * is Convertible to O *.
+// Q can be optionally Clonable.
 //   (http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept)
 
 
@@ -44,11 +44,11 @@
 #include <typeinfo>
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/size_t.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
 #include <boost/type_traits/aligned_storage.hpp>
 #include <boost/utility/compare_pointees.hpp>
-#include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
@@ -58,8 +58,8 @@
 #include <pstade/radish/value_pointable.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
-#include <pstade/use_default.hpp>
 #include "./detail/clonable.hpp"
+#include "./detail/pointer_cast.hpp"
 #include "./poly_fwd.hpp"
 
 
@@ -74,6 +74,11 @@ namespace pstade {
         >
     { };
 
+    template<>
+    struct poly_storage_size<void> :
+        boost::mpl::size_t<PSTADE_POLY_MIN_STORAGE_SIZE>
+    { };
+
 
     namespace poly_detail {
 
@@ -81,122 +86,121 @@ namespace pstade {
         namespace here = poly_detail;
 
 
-        template<class O, class Size>
-        struct storage_size :
-            if_use_default< Size, poly_storage_size<O> >::type
-        { };
-
-        template<class O, class Size>
+        template<class O>
         union storage
         {
             O *ptr;
-            mutable typename boost::aligned_storage<storage_size<O, Size>::value>::type buf_;
+            mutable typename boost::aligned_storage<poly_storage_size<O>::value>::type buf_;
 
             void *address() const { return &buf_; }
         };
 
 
-        template<class O, class Size, class Q>
+        template<class O, class Q>
         struct stores_locally :
-            boost::mpl::bool_<sizeof(Q) <= storage_size<O, Size>::value>
+            boost::mpl::bool_<sizeof(Q) <= poly_storage_size<O>::value>
         { };
 
 
-        template<class O, class Size>
+        template<class O>
         struct virtual_destroy
         {
-            typedef void (*type)(storage<O, Size> &stg);
+            typedef void (*type)(storage<O> &stg);
         };
 
-        template<class O, class Size, class Q>
+        template<class O, class Q>
         struct override_destroy
         {
-            static void call(storage<O, Size> &stg)
+            static void call(storage<O> &stg)
             {
-                aux(stg, stores_locally<O, Size, Q>());
+                aux(stg, stores_locally<O, Q>());
             }
 
         private:
             // local
-            static void aux(storage<O, Size> &stg, boost::mpl::true_)
+            static void aux(storage<O> &stg, boost::mpl::true_)
             {
                 reinterpret_cast<Q *>(stg.address())->~Q();
             }
 
             // heap
-            static void aux(storage<O, Size> &stg, boost::mpl::false_)
+            static void aux(storage<O> &stg, boost::mpl::false_)
             {
-                detail::clonable_delete(stg.ptr);
+                BOOST_ASSERT(stg.ptr);
+                detail::clonable_delete(detail::pointer_cast<Q>(stg.ptr));
             }
         };
 
 
-        template<class O, class Size>
+        template<class O>
         struct virtual_copy
         {
-            typedef void (*type)(storage<O, Size> const &stg, storage<O, Size> &to);
+            typedef void (*type)(storage<O> const &stg, storage<O> &to);
         };
 
-        template<class O, class Size, class Q>
+        template<class O, class Q>
         struct override_copy
         {
-            static void call(storage<O, Size> const &stg, storage<O, Size> &to)
+            static void call(storage<O> const &stg, storage<O> &to)
             {
-                aux(stg, to, stores_locally<O, Size, Q>());
+                aux(stg, to, stores_locally<O, Q>());
             }
 
         private:
             // local
-            static void aux(storage<O, Size> const &stg, storage<O, Size> &to, boost::mpl::true_)
+            static void aux(storage<O> const &stg, storage<O> &to, boost::mpl::true_)
             {
                 Q const *q = reinterpret_cast<Q const *>(stg.address());
                 new (to.address()) Q(*q);
             }
 
             // heap
-            static void aux(storage<O, Size> const &stg, storage<O, Size> &to, boost::mpl::false_)
+            static void aux(storage<O> const &stg, storage<O> &to, boost::mpl::false_)
             {
-                to.ptr = detail::clonable_new(*stg.ptr);
+                BOOST_ASSERT(stg.ptr);
+                Q const *q = detail::pointer_cast<Q const>(stg.ptr);
+                to.ptr = detail::clonable_new(*q);
             }
         };
 
 
-        template<class O, class Size>
+        template<class O>
         struct virtual_get
         {
-            typedef O *(*type)(storage<O, Size> const &stg);
+            typedef O *(*type)(storage<O> const &stg);
         };
 
-        template<class O, class Size, class Q>
+        template<class O, class Q>
         struct override_get
         {
-            static O *call(storage<O, Size> const &stg)
+            static O *call(storage<O> const &stg)
             {
-                return aux(stg, stores_locally<O, Size, Q>());
+                return aux(stg, stores_locally<O, Q>());
             }
 
         private:
             // local
-            static O *aux(storage<O, Size> const &stg, boost::mpl::true_)
+            static O *aux(storage<O> const &stg, boost::mpl::true_)
             {
                 return reinterpret_cast<Q *>(stg.address());
             }
 
             // heap
-            static O *aux(storage<O, Size> const &stg, boost::mpl::false_)
+            static O *aux(storage<O> const &stg, boost::mpl::false_)
             {
+                BOOST_ASSERT(stg.ptr);
                 return stg.ptr;
             }
         };
 
 
-        template<class O, class Size>
+        template<class O>
         struct virtual_typeid
         {
             typedef std::type_info const &(*type)();
         };
 
-        template<class O, class Size, class Q>
+        template<class O, class Q>
         struct override_typeid
         {
             static std::type_info const &call()
@@ -207,44 +211,44 @@ namespace pstade {
 
 
         // This must be pod for static-initialization.
-        template<class O, class Size>
+        template<class O>
         struct vtable
         {
-            typename virtual_destroy<O, Size>::type destroy;
-            typename virtual_copy<O, Size>::type    copy;
-            typename virtual_get<O, Size>::type     get;
-            typename virtual_typeid<O, Size>::type  typeid_;
+            typename virtual_destroy<O>::type destroy;
+            typename virtual_copy<O>::type copy;
+            typename virtual_get<O>::type get;
+            typename virtual_typeid<O>::type typeid_;
         };
 
 
-        template<class O, class Size, class Q> inline
-        vtable<O, Size> const *vtable_pointer()
+        template<class O, class Q> inline
+        vtable<O> const *vtable_pointer()
         {
-            static vtable<O, Size> const vtbl = { 
-                &override_destroy<O, Size, Q>::call,
-                &override_copy<O, Size, Q>::call,
-                &override_get<O, Size, Q>::call,
-                &override_typeid<O, Size, Q>::call
+            static vtable<O> const vtbl = {
+                &override_destroy<O, Q>::call,
+                &override_copy<O, Q>::call,
+                &override_get<O, Q>::call,
+                &override_typeid<O, Q>::call
             };
 
             return &vtbl;
         }
 
 
-        template<class O, class Size, class Q> inline
-        void construct(storage<O, Size> &stg, Q const &q, typename enable_if< stores_locally<O, Size, Q> >::type = 0)
+        template<class O, class Q> inline
+        void construct(storage<O> &stg, Q const &q, typename enable_if< stores_locally<O, Q> >::type = 0)
         {
             new (stg.address()) Q(q);
         }
 
-        template<class O, class Size, class Q> inline
-        void construct(storage<O, Size> &stg, Q const &q, typename disable_if<stores_locally<O, Size, Q> >::type = 0)
+        template<class O, class Q> inline
+        void construct(storage<O> &stg, Q const &q, typename disable_if<stores_locally<O, Q> >::type = 0)
         {
             stg.ptr = detail::clonable_new(q);
         }
 
 
-        template<class O, class Size, class Injector>
+        template<class O, class Injector>
         struct impl :
             Injector
         {
@@ -261,7 +265,7 @@ namespace pstade {
             explicit impl(Q const &q)
             {
                 here::construct(m_stg, q);
-                m_pvtbl = vtable_pointer<O, Size, Q>();
+                m_pvtbl = vtable_pointer<O, Q>();
             }
 
             impl(self_t const &other) :
@@ -291,7 +295,7 @@ namespace pstade {
                 reset(); // nothrow
 
                 here::construct(m_stg, q); // maythrow
-                m_pvtbl = vtable_pointer<O, Size, Q>(); // nothrow
+                m_pvtbl = vtable_pointer<O, Q>(); // nothrow
             }
 
             self_t &operator=(self_t const &other) // basic
@@ -323,7 +327,7 @@ namespace pstade {
         // misc
             template<class Q>
             struct is_locally_stored :
-                stores_locally<O, Size, Q>
+                stores_locally<O, Q>
             { };
 
         protected:
@@ -334,8 +338,8 @@ namespace pstade {
             }
 
         private:
-            vtable<O, Size> const *m_pvtbl;
-            storage<O, Size> m_stg;
+            storage<O> m_stg;
+            vtable<O> const *m_pvtbl;
 
             void destruct_() // nothrow
             {
@@ -345,14 +349,14 @@ namespace pstade {
         };
 
 
-        template<class O, class Size>
+        template<class O>
         struct super_
         {
             typedef
-                impl<O, Size,
-                    radish::bool_testable  < poly<O, Size>,
-                    radish::value_pointable< poly<O, Size>, O,
-                    boost::totally_ordered1< poly<O, Size> > > >
+                impl<O,
+                    radish::bool_testable  < poly<O>,
+                    radish::value_pointable< poly<O>, O,
+                    boost::totally_ordered1< poly<O> > > >
                 >
             type;
         };
@@ -361,13 +365,13 @@ namespace pstade {
     } // namespace poly_detail
 
 
-    template<class O, class Size>
+    template<class O>
     struct poly :
-        poly_detail::super_<O, Size>::type
+        poly_detail::super_<O>::type
     {
     private:
         typedef poly self_t;
-        typedef typename poly_detail::super_<O, Size>::type super_t;
+        typedef typename poly_detail::super_<O>::type super_t;
 
     public:
     // structors
@@ -410,14 +414,14 @@ namespace pstade {
         Q &content()
         {
             BOOST_ASSERT(contains<Q>());
-            return egg::static_downcast<Q>(*this->get_());
+            return *detail::pointer_cast<Q>(this->get_());
         }
 
         template<class Q>
         Q const &content() const
         {
             BOOST_ASSERT(contains<Q>());
-            return egg::static_downcast<Q>(*this->get_());
+            return *detail::pointer_cast<Q const>(this->get_());
         }
 
     // totally_ordered

@@ -23,6 +23,8 @@
 #include <boost/optional.hpp>
 #include <pstade/oven/indirected.hpp>
 #include <pstade/egg/new_auto.hpp>
+#include <string>
+#include <boost/noncopyable.hpp>
 
 
 struct xxx
@@ -39,7 +41,8 @@ struct yyy : xxx
 {
     explicit yyy(int i) :
         xxx(i)
-    { }
+    { 
+    }
 };
 
 
@@ -79,6 +82,46 @@ void check_regular(T x)
     ::check_clone_ptr(x);
     T y;
 }
+
+
+struct my_base0 : boost::noncopyable
+{
+    virtual ~my_base0() {} // needed.
+    virtual my_base0 *clone() const = 0;
+};
+
+my_base0 *new_clone(my_base0 const& b)
+{
+    return b.clone();
+}
+
+struct my_base : my_base0
+{
+    my_base0 *clone() const
+    {
+        return new my_base();
+    }
+};
+
+struct my_derived : my_base
+{
+    my_base0 *clone() const
+    {
+        return new my_derived();
+    }
+
+    my_derived()
+    {
+        m_leakcheck = new int(3);
+    }
+    ~my_derived()
+    {
+        delete m_leakcheck;
+    }
+
+    int *m_leakcheck;
+};
+
 
 
 void pstade_unit_test()
@@ -175,5 +218,13 @@ void pstade_unit_test()
 
         pxx = boost::none;
         BOOST_CHECK(!pxx);
+    }
+    {
+        clone_ptr< ::my_base > pb(new my_derived());
+        (void)pb;
+    }
+    {
+        clone_ptr< ::my_base > pb(new my_derived());
+        clone_ptr< ::my_base0> pb_(pb);
     }
 }

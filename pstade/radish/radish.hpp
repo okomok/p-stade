@@ -13,6 +13,7 @@
 #include "./bool_testable.hpp"
 #include "./null_injector.hpp"
 #include "./pointable.hpp"
+#include "./pointable_reference.hpp"
 #include "./safe_bool.hpp"
 #include "./swappable.hpp"
 #include "./value_pointable.hpp"

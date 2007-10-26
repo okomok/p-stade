@@ -1039,6 +1039,43 @@ and the iterators manage the allocation.
 
 
 
+[section single]
+
+[h3 Description]
+`single` makes a _random_access_ _range_ which delivers a range presentation of one object.
+
+[h3 Header]
+* `<pstade/oven/single.hpp>`
+
+[h3 Model of]
+* _static_function_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`single(x)`]
+        [`[&x, &x + 1)`]
+    ]
+]
+
+[note As the semantics implies, the iterators are valid as long as `x` is not destructed.
+      If you want the iterators to manage the base object lifetime, use _oven_shared_single_.]
+
+[h3 Example]
+    BOOST_CHECK( equals(single('a'), std::string("a")) );
+
+[h3 See also]
+* _oven_shared_single_
+
+[endsect]
+
+
+
+
 [section shared_single]
 
 [h3 Description]
@@ -1074,43 +1111,6 @@ and the iterators manage the allocation.
 
 [h3 See also]
 * _oven_single_
-
-[endsect]
-
-
-
-
-[section single]
-
-[h3 Description]
-`single` makes a _random_access_ _range_ which delivers a range presentation of one object.
-
-[h3 Header]
-* `<pstade/oven/single.hpp>`
-
-[h3 Model of]
-* _static_function_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`single(x)`]
-        [`[&x, &x + 1)`]
-    ]
-]
-
-[note As the semantics implies, the iterators are valid as long as `x` is not destructed.
-      If you want the iterators to manage the base object lifetime, use _oven_shared_single_.]
-
-[h3 Example]
-    BOOST_CHECK( equals(single('a'), std::string("a")) );
-
-[h3 See also]
-* _oven_shared_single_
 
 [endsect]
 

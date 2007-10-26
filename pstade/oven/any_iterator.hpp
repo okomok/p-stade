@@ -55,7 +55,7 @@ namespace any_iterator_detail {
     template< class Reference, class Traversal, class Difference, class T = Traversal >
     struct placeholder
     {
-        virtual ~placeholder() { }
+        virtual ~placeholder() { } // gcc would warn without this.
 
         // BTW, msvc-7.1/8.0 RTTI seems randomly broken.
         virtual std::type_info const& typeid_() const = 0;
@@ -75,10 +75,7 @@ namespace any_iterator_detail {
     template< class Reference, class Difference, class T >
     struct placeholder<Reference, boost::forward_traversal_tag, Difference, T> :
         placeholder<Reference, boost::single_pass_traversal_tag, Difference, T>
-    {
-        typedef placeholder<Reference, T, Difference> most_derived_t;
-        virtual most_derived_t *clone() const = 0;
-    };
+    { };
 
     template< class Reference, class Difference, class T >
     struct placeholder<Reference, boost::bidirectional_traversal_tag, Difference, T> :
@@ -94,15 +91,6 @@ namespace any_iterator_detail {
         virtual void advance(Difference n) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
     };
-
-
-    // Clonable customization
-    template< class Reference, class Traversal, class Difference > inline
-    placeholder<Reference, Traversal, Difference> *
-    new_clone(placeholder<Reference, Traversal, Difference> const& ph)
-    {
-        return ph.clone();
-    }
 
 
     template< class From, class To, class Traversal >
@@ -145,14 +133,9 @@ namespace any_iterator_detail {
     private:
         Iterator m_held;
 
+    public:
     // These may be 'virtual', depending on the base 'placeholder'.
 
-        placeholder_t *clone() const
-        {
-            return new self_t(m_held);
-        }
-
-    public:
         Reference dereference() const
         {
             return *m_held;
@@ -208,7 +191,7 @@ namespace any_iterator_detail {
         placeholder_t;
 
         // A recursive range must be Forward.
-        // Hence there is no reference-cycles by 'shared_ptr'.
+        // So, there is no reference-cycles by 'shared_ptr'.
         typedef typename
             boost::mpl::if_< is_convertible<Traversal, boost::forward_traversal_tag>,
                 poly<placeholder_t>,

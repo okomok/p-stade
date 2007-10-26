@@ -1,0 +1,362 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Utilities</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Wine 0.90.0">
+<link rel="up" href="../index.html" title="Chapter 1. Wine 0.90.0">
+<link rel="prev" href="concepts.html" title="Concepts">
+<link rel="next" href="version_history.html" title="Version History">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="version_history.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="wine.utilities"></a><a href="utilities.html" title="Utilities">Utilities</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="utilities.html#wine.utilities.clone_ptr">clone_ptr</a></span></dt>
+<dt><span class="section"><a href="utilities.html#wine.utilities.poly">poly</a></span></dt>
+<dt><span class="section"><a href="utilities.html#wine.utilities.value_based">value_based</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="wine.utilities.clone_ptr"></a><a href="utilities.html#wine.utilities.clone_ptr" title="clone_ptr">clone_ptr</a></h3></div></div></div>
+<a name="wine.utilities.clone_ptr.description"></a><h5>
+<a name="id502383"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.description">Description</a>
+      </h5>
+<a name="wine.utilities.clone_ptr.header"></a><h5>
+<a name="id502404"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">clone_ptr</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="wine.utilities.clone_ptr.model_of"></a><h5>
+<a name="id502472"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a></li>
+<li><a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a></li>
+<li><a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a></li>
+<li><a href="http://www.boost.org/libs/utility/OptionalPointee.html" target="_top">Optional
+          Pointee</a></li>
+<li><a href="concepts.html#wine.concepts.resettable_object" title="Resettable Object">Resettable</a></li>
+</ul></div>
+<a name="wine.utilities.clone_ptr.notation"></a><h5>
+<a name="id502553"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="wine.utilities.clone_ptr.valid_expressions"></a><h5>
+<a name="id502586"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">C</span> <span class="identifier">c</span><span class="special">(</span><span class="identifier">p</span><span class="special">);</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">c</span></code> owns <code class="computeroutput"><span class="identifier">p</span></code>.
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="wine.utilities.clone_ptr.preconditions"></a><h5>
+<a name="id502725"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <a href="http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept" target="_top">Clonable</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">p</span></code> is a (possibly null)
+          pointer.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code> is
+          convertible to <code class="computeroutput"><span class="identifier">T</span> <span class="special">*</span></code>.
+        </li>
+</ul></div>
+<a name="wine.utilities.clone_ptr.invariants"></a><h5>
+<a name="id502834"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          A copy of <code class="computeroutput"><span class="identifier">clone_ptr</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+          makes a new object by using <a href="http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept" target="_top">Clonable</a>
+          concept.
+        </li>
+<li>
+          A copy-assignment of <code class="computeroutput"><span class="identifier">clone_ptr</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code> offers strong exception guarantee.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">swap</span></code> of <code class="computeroutput"><span class="identifier">clone_ptr</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code> doesn't throw.
+        </li>
+</ul></div>
+<a name="wine.utilities.clone_ptr.example"></a><h5>
+<a name="id502969"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.example">Example</a>
+      </h5>
+<a name="wine.utilities.clone_ptr.see_also"></a><h5>
+<a name="id502992"></a>
+        <a href="utilities.html#wine.utilities.clone_ptr.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="wine.utilities.poly"></a><a href="utilities.html#wine.utilities.poly" title="poly">poly</a></h3></div></div></div>
+<a name="wine.utilities.poly.description"></a><h5>
+<a name="id503040"></a>
+        <a href="utilities.html#wine.utilities.poly.description">Description</a>
+      </h5>
+<a name="wine.utilities.poly.header"></a><h5>
+<a name="id503059"></a>
+        <a href="utilities.html#wine.utilities.poly.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">poly</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="wine.utilities.poly.model_of"></a><h5>
+<a name="id503125"></a>
+        <a href="utilities.html#wine.utilities.poly.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a></li>
+<li><a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a></li>
+<li><a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a></li>
+<li><a href="http://www.boost.org/libs/utility/OptionalPointee.html" target="_top">Optional
+          Pointee</a></li>
+<li><a href="concepts.html#wine.concepts.resettable_object" title="Resettable Object">Resettable</a></li>
+</ul></div>
+<a name="wine.utilities.poly.valid_expressions"></a><h5>
+<a name="id503203"></a>
+        <a href="utilities.html#wine.utilities.poly.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">poly</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">value_based</span><span class="special">&lt;</span>
+                <span class="identifier">clone_ptr</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span>
+                <span class="special">&gt;</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="wine.utilities.poly.preconditions"></a><h5>
+<a name="id503360"></a>
+        <a href="utilities.html#wine.utilities.poly.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<a name="wine.utilities.poly.invariants"></a><h5>
+<a name="id503390"></a>
+        <a href="utilities.html#wine.utilities.poly.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          A copy-assignment of <code class="computeroutput"><span class="identifier">poly</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code> doesn't offer strong exception guarantee.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">swap</span></code> of <code class="computeroutput"><span class="identifier">poly</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code> doesn't offer strong exception guarantee.
+        </li>
+</ul></div>
+<a name="wine.utilities.poly.example"></a><h5>
+<a name="id503482"></a>
+        <a href="utilities.html#wine.utilities.poly.example">Example</a>
+      </h5>
+<a name="wine.utilities.poly.see_also"></a><h5>
+<a name="id503501"></a>
+        <a href="utilities.html#wine.utilities.poly.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="wine.utilities.value_based"></a><a href="utilities.html#wine.utilities.value_based" title="value_based">value_based</a></h3></div></div></div>
+<a name="wine.utilities.value_based.description"></a><h5>
+<a name="id503546"></a>
+        <a href="utilities.html#wine.utilities.value_based.description">Description</a>
+      </h5>
+<a name="wine.utilities.value_based.header"></a><h5>
+<a name="id503570"></a>
+        <a href="utilities.html#wine.utilities.value_based.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">value_based</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="wine.utilities.value_based.model_of"></a><h5>
+<a name="id503641"></a>
+        <a href="utilities.html#wine.utilities.value_based.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a></li>
+<li><a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a></li>
+<li><a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a></li>
+<li><a href="http://www.boost.org/libs/utility/OptionalPointee.html" target="_top">Optional
+          Pointee</a></li>
+<li><a href="concepts.html#wine.concepts.resettable_object" title="Resettable Object">Resettable</a></li>
+</ul></div>
+<a name="wine.utilities.value_based.notation"></a><h5>
+<a name="id503722"></a>
+        <a href="utilities.html#wine.utilities.value_based.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">V</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">pointee</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">v</span></code> is an object whose type
+          is <code class="computeroutput"><span class="identifier">V</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">m_p</span></code> is an "exposition-only"
+          object whose type is <code class="computeroutput"><span class="identifier">P</span></code>,
+          which is held in <code class="computeroutput"><span class="identifier">value_based</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&gt;</span></code>.
+        </li>
+</ul></div>
+<a name="wine.utilities.value_based.valid_expressions"></a><h5>
+<a name="id503879"></a>
+        <a href="utilities.html#wine.utilities.value_based.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">value_based</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&gt;</span>
+                <span class="identifier">x</span><span class="special">(</span><span class="identifier">v</span><span class="special">);</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">m_p</span><span class="special">(</span><span class="keyword">new</span> <span class="identifier">V</span><span class="special">(</span><span class="identifier">v</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="wine.utilities.value_based.preconditions"></a><h5>
+<a name="id504055"></a>
+        <a href="utilities.html#wine.utilities.value_based.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">P</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">shared_ptr</span><span class="special">&lt;...&gt;</span></code> or <code class="computeroutput"><span class="identifier">clone_ptr</span><span class="special">&lt;...&gt;</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">V</span></code> is <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy
+          Constructible</a>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="wine.utilities.value_based.invariants"></a><h5>
+<a name="id504163"></a>
+        <a href="utilities.html#wine.utilities.value_based.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          A copy of <code class="computeroutput"><span class="identifier">value_based</span><span class="special">&lt;</span><span class="identifier">P</span><span class="special">&gt;</span></code>
+          makes a copy of <code class="computeroutput"><span class="identifier">m_p</span></code>.
+        </li>
+<li>
+          The exception guarantee depends on <code class="computeroutput"><span class="identifier">P</span></code>.
+        </li>
+</ul></div>
+<a name="wine.utilities.value_based.example"></a><h5>
+<a name="id504245"></a>
+        <a href="utilities.html#wine.utilities.value_based.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="wine.utilities.value_based.see_also"></a><h5>
+<a name="id504273"></a>
+        <a href="utilities.html#wine.utilities.value_based.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="version_history.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
