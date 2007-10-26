@@ -10,19 +10,20 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-#include <pstade/../libs/wine/test/poly.cpp>
+//#include <pstade/../libs/p_stade/test/p_stade.cpp>
+//#include <pstade/../libs/wine/test/poly.cpp>
 
-//#include <pstade/../libs/oven/test/any_range.cpp>
+#include <pstade/../libs/oven/test/any_range.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
-//#include <pstade/../libs/oven/example/out_pipe.cpp>
+//#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
 //#include <pstade/../libs/napkin/test/doc.cpp>
-//#include <pstade/../libs/egg/test/copy.cpp>
+//#include <pstade/../libs/egg/test/static_downcast.cpp>
 //#include <pstade/../libs/egg/example/infix_apply.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

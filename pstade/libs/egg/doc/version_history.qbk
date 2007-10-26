@@ -20,7 +20,7 @@
 
 
 [heading Version 0.90.2]
-* Concepts rearranged; `op_` was renamed to `T_`.
+* Concepts rearranged; `op_xxx` was renamed to `T_xxx`.
 * Renamed `before_mpl_has_xxx.hpp` to `detect_result_type.hpp`.
 
 

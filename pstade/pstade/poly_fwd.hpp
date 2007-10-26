@@ -17,7 +17,7 @@
 namespace pstade {
 
 
-    template<class O, class Size = boost::use_default>
+    template<class O>
     struct poly;
 
 

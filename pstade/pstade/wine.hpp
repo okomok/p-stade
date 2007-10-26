@@ -13,6 +13,7 @@
 #include "./adl_barrier.hpp"
 #include "./affect.hpp"
 #include "./any.hpp"
+#include "./any_funptr.hpp"
 #include "./arraya.hpp"
 #include "./base_from.hpp"
 #include "./check.hpp"

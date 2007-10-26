@@ -20,6 +20,9 @@ namespace pstade {
 
     struct any_movable;
 
+    template<class Signature>
+    struct any_funptr;
+
 
 } // namespace pstade
 

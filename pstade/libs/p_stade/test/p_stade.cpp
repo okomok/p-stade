@@ -1,48 +1,12 @@
 
 
-#include <pstade/unit_test.hpp>
-#include <boost/optional.hpp>
-#include <string>
+#include <boost/optional_poly.hpp>
 
+struct my_base {};
+struct my_derived : my_base {};
 
-struct D
+int main()
 {
-    virtual void bar() = 0;
-    char data[5000];
-};
-
-struct E : D
-{
-    virtual void bar() {}
-    std::string str;
-};
-
-
-typedef boost::optional<E> oE;
-typedef boost::optional<oE> ooE;
-
-
-ooE make_ooE_rvalue()
-{
-    E e;
-    e.str = "hello";
-    oE x(e);
-    ooE y(x);
-    return y;
-}
-
-ooE make_ooE_rvalue2()
-{
-    return make_ooE_rvalue();
-}
-
-void foo(int, ooE v)
-{
-    BOOST_CHECK( (**v).str == "hello" );
-}
-
-
-void pstade_unit_test()
-{
-    ::foo(3, make_ooE_rvalue2());
+    boost::optional_poly<my_derived> from;
+    boost::optional_poly<my_base> to(from);
 }

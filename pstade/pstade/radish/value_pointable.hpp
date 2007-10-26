@@ -18,6 +18,7 @@
 #include <boost/assert.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./null_injector.hpp"
+#include "./pointable_reference.hpp"
 
 
 namespace pstade { namespace radish {
@@ -39,14 +40,16 @@ struct value_pointable :
     // for avoiding multiple-inheritance ambiguity.
 
     friend
-    Element& operator *(Derived& x)
+    typename pointable_reference<Element>::type
+    operator *(Derived& x)
     {
         BOOST_ASSERT(x.operator->());
         return *(x.operator->());
     }
 
     friend
-    Element const& operator *(Derived const& x)
+    typename pointable_reference<Element const>::type
+    operator *(Derived const& x)
     {
         BOOST_ASSERT(x.operator->());
         return *(x.operator->());

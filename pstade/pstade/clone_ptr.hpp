@@ -68,7 +68,7 @@ public:
     clone_ptr(clone_ptr<C> const& other,
         typename enable_if< is_convertible<C *, Clonable *> >::type = 0
     ) :
-        m_ptr(other ? detail::clonable_new(*other) : PSTADE_NULLPTR)
+        m_ptr(other ? detail::clonable_new<Clonable>(*other) : PSTADE_NULLPTR)
     { }
 
     template<class C>

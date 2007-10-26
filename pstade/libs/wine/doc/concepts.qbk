@@ -1,0 +1,69 @@
+[section Concepts]
+
+
+
+
+[section Constant Object]
+
+[heading Description]
+A __CONSTANT_OBJECT__ is an object which is /const qualified/.
+
+[heading Refinement of]
+* ...
+
+[heading Notation]
+* `x` is a __CONSTANT_OBJECT__.
+
+[heading Requirements]
+* `boost::remove_reference<_decltype(x)>::type` is `_typeof(x) const`.
+
+[heading Example]
+    int const x = 0; // x is a ConstantObject.
+
+[heading Models]
+* ...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section Resettable Object]
+
+[heading Description]
+A __RESETTABLE_OBJECT__ is an object which is modifiable after its construction.
+
+[heading Refinement of]
+* ...
+
+[heading Notation]
+* `r` is a __RESETTABLE_OBJECT__.
+* `R` is `_typeof(r)`.
+* `s` is an object whose type is `R`.
+* `aI` is an object whose type is not `R`.
+* `bI` is an object whose type is `_typeof(aI)`.
+
+[heading Requirements]
+* `R r(a0);` is a valid expression if and only if `s = b0;` is a valid expression.
+* `R r(a1,...,aN);` is a valid expression if and only if `s.reset(b1,...bN);` is a valid expression.
+* `R r;` is a valid expression if and only if `s.reset()` is a valid expression.
+* `R r;` is a valid expression if and only if `s = boost::none;` is a valid expression.
+* After the equivalent expressions above, `r` and `s` shall have the same states if `aI` and `bI` have the same states for all `I`.
+
+[heading Example]
+
+[heading Models]
+* ...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[endsect]

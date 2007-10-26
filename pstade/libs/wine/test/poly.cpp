@@ -38,17 +38,20 @@ using namespace pstade;
 
 struct my_string_base
 {
+#if 0
     virtual ~my_string_base() {}
-    virtual std::string get_string() const = 0;
     virtual my_string_base *clone() const = 0;
+#endif
+    virtual std::string get_string() const = 0;
 };
 
-
+#if 0 // no longer needed
 // Clonable implementation
 my_string_base *new_clone(my_string_base const &s)
 {
     return s.clone();
 }
+#endif
 
 bool operator==(my_string_base const &x, my_string_base const &y)
 {
@@ -72,10 +75,16 @@ struct my_stringL : my_string_base
     }
 };
 
+
 // heap
+bool g_destructor_called;
 struct my_stringH : my_string_base
 {
-    my_stringH(std::string s) : m_str(s) { index = 123; }
+    my_stringH(std::string s) : m_str(s)
+    {
+        index = 123;
+        g_destructor_called = false;
+    }
 
     std::string get_string() const // override
     {
@@ -85,6 +94,11 @@ struct my_stringH : my_string_base
     my_string_base *clone() const // override
     {
         return new my_stringH(m_str);
+    }
+    
+    ~my_stringH()
+    {
+        g_destructor_called = true;
     }
 
     std::string m_str;
@@ -102,6 +116,23 @@ void pstade_unit_test()
         poly<int> p1;
         poly<int> p2;
         p1 = p2;
+    }
+    {// works as any.
+        poly<void> p(sH);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p.contains<my_stringH>() );
+        BOOST_CHECK( p.content<my_stringH>().index == 123 );
+        BOOST_CHECK( p.type() == typeid(my_stringH) );
+    }
+    {// deleter check
+        {
+            poly<my_string_base> p(sH);
+        }
+        BOOST_CHECK(g_destructor_called);
+        {
+            poly<void> p(sH);
+        }
+        BOOST_CHECK(g_destructor_called);
     }
     {
         poly<my_string_base> p1(sL);
@@ -142,15 +173,6 @@ void pstade_unit_test()
         BOOST_CHECK( p.content<my_stringL const>().get_string() == "local" );
         BOOST_CHECK( p.type() == typeid(my_stringL) );
         BOOST_CHECK( p->get_string() == "local" );
-    }
-    {
-        BOOST_MPL_ASSERT((poly<my_string_base, boost::mpl::size_t<256*2> >::is_locally_stored<my_stringH>));
-        poly<my_string_base, boost::mpl::size_t<256*2> > p(sH);
-        BOOST_CHECK( p );
-        BOOST_CHECK( p.contains<my_stringH>() );
-        BOOST_CHECK( p.content<my_stringH>().index == 123 );
-        BOOST_CHECK( p.type() == typeid(my_stringH) );
-        BOOST_CHECK( p->get_string() == "heap" );
     }
     {
 #if PSTADE_POLY_MIN_STORAGE_SIZE != 1024

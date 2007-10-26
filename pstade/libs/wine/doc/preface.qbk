@@ -1,5 +1,38 @@
-[section Preface ]
+[section Preface]
 
-Todo
+
+
+
+[section Notation]
+
+This document uses the following notation.
+
+[table
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_decltype`]
+        [An imaginary operator which is the same as `decltype` of C++0x.]
+    ]
+    [
+        [`_typeof(a)`]
+        [`boost::remove_cv<boost::remove_reference<_decltype(a)>::type>::type`]
+    ]
+    [
+        [`++`]
+        [An imaginary operator to concatenate tokens.]
+    ]
+]
+
+Also, assume that every expression is placed after:
+
+    using namespace pstade;
+
+[endsect]
+
+
+
 
 [endsect]
