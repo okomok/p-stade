@@ -5,13 +5,13 @@
 
 [section Concept-like extension]
 
-[h3 Description]
+[heading Description]
 Oven emulates a Concept-like extension way for _boost_range_.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/extension.hpp>`
 
-[h3 Notation]
+[heading Notation]
 * `X` is a type extending _boost_range_.
 * `x` is an object of (possibly const-qualified) `X`.
 * `ER` is `::pstade_oven_extension::Range<X>`.
@@ -19,10 +19,10 @@ Oven emulates a Concept-like extension way for _boost_range_.
 * `N` is the number of template arguments of `X`, only valid if all template arguments are typenames.
 * `S` is a sequence of template arguments of `X`.
 
-[h3 Effects]
+[heading Effects]
 * `X` becomes a model of _range_.
 
-[h3 Preconditions]
+[heading Preconditions]
 * `ER::associate<X>::mutable_iterator` is the mutable iterator type of `X`.
 * `ER::associate<X>::constant_iterator` is the constant iterator type of `X`.
 * `ER::begin<_iter_of<typeof(x)>::type>(x)` is a valid expression which returns the begin iterator.
@@ -30,7 +30,7 @@ Oven emulates a Concept-like extension way for _boost_range_.
 * If `X` is a type, `PSTADE_OVEN_EXTENSION_OF_TYPE(X)` is placed in the global namespace.
 * If `X` is a template, `PSTADE_OVEN_EXTENSION_OF_TEMPLATE(XS, N)` or `PSTADE_OVEN_EXTENSION_OF_TEMPLATE(XS, S)` is placed in the global namespace.
 
-[h3 Example]
+[heading Example]
     namespace Foo {
 
         template< class T >
@@ -74,7 +74,7 @@ Oven emulates a Concept-like extension way for _boost_range_.
     PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (class))
     // PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.
 
-[h3 See also]
+[heading See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2196.html Wording for range-based for-loop]
 * [@http://www.generic-programming.org/software/ConceptGCC/ ConceptGCC]
 * _boost_preprocessor_
@@ -86,10 +86,10 @@ Oven emulates a Concept-like extension way for _boost_range_.
 
 [section ATL extension]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/atl.hpp>`
 
-[h3 See]
+[heading See]
 * [@../../ms/doc/mfc_atl.html MFC/ATL Extension]
 
 [endsect]
@@ -99,10 +99,10 @@ Oven emulates a Concept-like extension way for _boost_range_.
 
 [section MFC extension]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/mfc.hpp>`
 
-[h3 See]
+[heading See]
 * [@../../ms/doc/mfc_atl.html MFC/ATL Extension]
 
 [endsect]
@@ -112,7 +112,7 @@ Oven emulates a Concept-like extension way for _boost_range_.
 
 [section WTL extension]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/wtl.hpp>`
 
 [endsect]

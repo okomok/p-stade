@@ -7,19 +7,21 @@ Oven provides many useful predefined ranges.
 
 [section any_range]
 
-[h3 Description]
+[heading Description]
 Though Oven supports _boost_result_of_, it is often cumbersome to get the type of the adapted range.
 `any_range` behaves as the type erasure of ranges.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/any_range.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _range_ whose traversal category varies according to the template argument `C`.
 * _assignable_
+* _copy_constructible_
 * _default_constructible_
+* _resettable_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -35,25 +37,22 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
         [`any_range<R, C> any = _rng0;`]
         [`any_range<R, C> any(_rng0);`]
     ]
-    [
-        [`any_range<R, C> any; any = _rng;`]
-        [`any_range<R, C> any(_rng);`]
-    ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `boost::range_reference<_typeof(_rng)>::type` is convertible to `R` without binding /reference/ to /rvalue/.
 * `C` is convertible to `boost::single_pass_traversal_tag`.
 * `boost::range_traversal<_typeof(_rng)>::type` is convertible to `C`.
 * `_rng0` is a range returned from Oven _function_object_ and meets the preconditions of `_rng`.
 
-[h3 Example]
+[heading Example]
     any_range<int, boost::single_pass_traversal_tag> factorials =
         counting(1, 500) |
             scanned(1, regular(lambda::_1 * lambda::_2));
 
-[h3 See also]
+[heading See also]
 * [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
+* _oven_as_range_
 * _oven_expression_
 * _oven_any_indexed_
 * _oven_any_output_iterator_
@@ -66,20 +65,22 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 
 [section any_indexed]
 
-[h3 Description]
+[heading Description]
 Iterators of _random_access_ `any_range` may require heap allocation to copy,
 whereas `any_indexed` offers lightweight-copyable iterators in return for
 some extra preconditions.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/any_indexed.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _random_access_ _s_ _range_
 * _assignable_
+* _copy_constructible_
 * _default_constructible_
+* _resettable_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -93,15 +94,16 @@ some extra preconditions.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * The corresponding semantics is a valid expression.
 * If `R` is a /reference type/, a range which initialize or is assigned to `any_indexed<R>` is a _lvalue_ _s_ _range_.
 * `any_indexed<R>` is not recursive.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_any_range_
+* _oven_as_range_
 * _oven_recursion_
 
 [endsect]
@@ -111,18 +113,18 @@ some extra preconditions.
 
 [section array_range]
 
-[h3 Description]
+[heading Description]
 `array_range` is a noncopyable _random_access_ _range_ which delivers
 a range presentation of dynamically allocated arrays.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/array_range.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _random_access_ _s_ _range_
 * _contiguous_ _s_ _range_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -134,10 +136,10 @@ a range presentation of dynamically allocated arrays.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `new T[sz]` is a valid expression.
 
-[h3 Example]
+[heading Example]
     std::string str("hello, array_range!");
     boost::array<char, 19> sarr;
     copy(str, sarr|begin);
@@ -146,7 +148,7 @@ a range presentation of dynamically allocated arrays.
 
     BOOST_CHECK( equals(sarr, darr) );
 
-[h3 See also]
+[heading See also]
 * _boost_array_
 
 [endsect]
@@ -156,16 +158,16 @@ a range presentation of dynamically allocated arrays.
 
 [section directory_range]
 
-[h3 Description]
+[heading Description]
 `directory_range` is a _single_pass_ _range_ which accesses the contents of a directory.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/directory_range.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _single_pass_ _s_ _range_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -191,10 +193,10 @@ a range presentation of dynamically allocated arrays.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `boost::filesystem::basic_directory_iterator<P>` such that `T(p)` is a valid expression.
 
-[h3 Example]
+[heading Example]
     BOOST_FOREACH (
         boost::filesystem::path const& pt,
         directory_range(boost::filesystem::current_path()))
@@ -202,7 +204,7 @@ a range presentation of dynamically allocated arrays.
         std::cout << pt.leaf() << std::endl;
     }
 
-[h3 See also]
+[heading See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1841.html#Class-template-basic_directory_iterator basic_directory_iterator]
 
 [endsect]
@@ -211,17 +213,17 @@ a range presentation of dynamically allocated arrays.
 
 [section empty_range]
 
-[h3 Description]
+[heading Description]
 `empty_range` is a _random_access_ _range_ which is always empty.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/empty_range.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _random_access_ _s_ _range_
 * _contiguous_ _s_ _range_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -233,10 +235,10 @@ a range presentation of dynamically allocated arrays.
     ]
 ]
 
-[h3 Example]
+[heading Example]
     BOOST_CHECK( boost::empty(empty_range<int>()) );
 
-[h3 See also]
+[heading See also]
 * _oven_cleared_
 
 [endsect]
@@ -246,23 +248,23 @@ a range presentation of dynamically allocated arrays.
 
 [section file_range]
 
-[h3 Description]
+[heading Description]
 `file_range` is a _random_access_ _constant_ _range_ for files.
 If the file opening failed, the range is empty.
 
 [note `file_range` is "binary"; any automatic conversion isn't performed.]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/file_range.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _random_access_ _s_ _range_
 * _constant_ _s_ _range_
 
-[h3 Notation]
+[heading Notation]
 * `r` is a `file_range<X1,...,XN>`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -280,20 +282,20 @@ If the file opening failed, the range is empty.
     ]
 ]
 
-[h3 Invariants]
+[heading Invariants]
 * `!r.is_open() ? boost::empty(r) : true`
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `boost::spirit::file_iterator<X1,...,XN>` such that `T(s)` is a valid expression.
 
 [note In the current implementation, an empty file is not opened. So `is_open()` can't tell whether a file exists or not.]
 
-[h3 Example]
+[heading Example]
     std::vector<char> vec;
     file_range<char> frng("data.txt");
     copy(frng, std::back_inserter(vec));
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/spirit/doc/file_iterator.html boost::spirit::file_iterator]
 * _oven_stream_read_
 
@@ -304,16 +306,16 @@ If the file opening failed, the range is empty.
 
 [section as_array]
 
-[h3 Description]
+[heading Description]
 Some versions of _boost_range_ regard `char` array as literal, which `as_array` works around.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/as_array.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -327,15 +329,15 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `a` is an array.
 
-[h3 Example]
+[heading Example]
     BOOST_CHECK( distance(as_array("abc\0de")) == 7 );   // contains the trailing null.
     BOOST_CHECK( distance(as_c_str("abc\0de")) == 3 );   // null means the end.
     BOOST_CHECK( distance(as_literal("abc\0de")) == 6 ); // null doesn't affect.
 
-[h3 See also]
+[heading See also]
 * _string_algo_proposal_
 * _oven_as_c_str_
 * _oven_as_literal_
@@ -347,16 +349,16 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section as_c_str]
 
-[h3 Description]
+[heading Description]
 `as_c_str` makes a _random_access_ _range_ from null-terminated c-style string.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/as_c_str.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -376,11 +378,11 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_typeof(s)` is convertible to `char *` or `char const *`.
 * `_typeof(_rng)` is neither convertible to `char *` nor `char const *`.
 
-[h3 See also]
+[heading See also]
 * _string_algo_proposal_
 * _oven_as_array_
 * _oven_as_literal_
@@ -392,16 +394,16 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section as_literal]
 
-[h3 Description]
+[heading Description]
 `as_literal` makes a _random_access_ _range_ from character array.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/as_literal.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -421,13 +423,13 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `a` is an array.
 * `x` is not an array.
 
 [important `as_literal` doesn't use `strlen`, while _string_algo_proposal_ does.]
 
-[h3 See also]
+[heading See also]
 * _string_algo_proposal_
 * _oven_as_array_
 * _oven_as_c_str_
@@ -437,21 +439,58 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 
 
-[section block]
+[section as_range]
 
-[h3 Description]
-`block` makes a _single_pass_ _range_ from an _iteration_block_.
+[heading Description]
+Types defined in Oven is so hardhead that you can't /copy-initialize/ `any_range` by third-party ranges.
+So, you sometimes have to call `as_range`, which turns a range into Oven compatible one.
 
-[h3 Header]
-* `<pstade/oven/block.hpp>`
+[heading Header]
+* `<pstade/oven/as_range.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_range(_rng)`]
+        [
+            `[_begin(_rng), _end(_rng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+
+[heading See also]
+* _oven_any_range_
+* _oven_any_indexed_
+
+[endsect]
+
+
+
+
+[section block]
+
+[heading Description]
+`block` makes a _single_pass_ _range_ from an _iteration_block_.
+
+[heading Header]
+* `<pstade/oven/block.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Notation]
 * `yield` is an unspecified unary _function_object_ passed to `b`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -465,11 +504,11 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `b` is an _iteration_block_.
 * Multithreaded compilation must be invoked.
 
-[h3 Example]
+[heading Example]
     struct power
     {
         int m_number, m_exponent;
@@ -500,7 +539,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
             std::cout << x << ',';
     }
 
-[h3 See also]
+[heading See also]
 * [@http://en.csharp-online.net/ECMA-334:_26.1_Iterator_blocks Iterator blocks at C# Online.Net]
 
 [endsect]
@@ -510,21 +549,21 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section comprehension]
 
-[h3 Description]
+[heading Description]
 `comprehension` emulates set-builder notation.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/comprehension.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Notation]
 * `d(I) = distance(_rngI)`
 * `a(1,j)` ia a `j`-th element of `makerng1()`.
 * If `I >= 2`, `a(I,j)` is a `j`-th element of `makerngI(a(I-1, u))`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -558,7 +597,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [note A result object of `_fun(...)` is copied, whereas range referents which `makerngI` returns must outlive `comprehension(...)`.] 
 
-[h3 Preconditions]
+[heading Preconditions]
 * `N <= 3`
 * `_fun` is a `N`-ary _deferred_callable_object_ or _boost_lambda_ functor.
 * `_typeof(_fun(...))` is _copy_constructible_.
@@ -566,7 +605,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `_prd` is `N`-ary.
 * `_typeof(b)` is `bool`.
 
-[h3 Example]
+[heading Example]
     namespace bll = boost::lambda;
 
     typedef
@@ -606,7 +645,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         BOOST_CHECK(sout.str() == "{(3 4 5),(5 12 13),(6 8 10),(8 15 17),(9 12 15),(12 16 20)}");
     }
 
-[h3 See also]
+[heading See also]
 * [@http://en.wikipedia.org/wiki/List_comprehension List comprehension]
 
 [endsect]
@@ -616,16 +655,16 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section counting]
 
-[h3 Description]
+[heading Description]
 `counting` makes a `boost::counting_iterator` range, which is not a _lvalue_ _range_.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/counting.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -653,11 +692,11 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `0 <= N && N <= 2`
 * `T` is `boost::counting_iterator<_typeof(j), X1,...,XN>` such that `T(i)` and `T(j)` is a valid expression.
 
-[h3 Example]
+[heading Example]
     int ans[] = { 2, 3, 4, 5, 6 };
     BOOST_CHECK( equal(counting(2, 7), ans) );
 
@@ -666,7 +705,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         vec.push_back(i);
     }
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/iterator/doc/counting_iterator.html boost::counting_iterator]
 
 [endsect]
@@ -676,16 +715,16 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section generation]
 
-[h3 Description]
+[heading Description]
 `generation` makes a _single_pass_ _range_ from a _stoppable_generator_.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/generation.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -699,12 +738,12 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `g` is a nullary _stoppable_generator_.
 * `g` is _assignable_.
 * `_typeof(*g())` is _copy_constructible_ and _assignable_.
 
-[h3 Example]
+[heading Example]
     struct rand_generator
     {
         typedef boost::optional<long> result_type;
@@ -727,7 +766,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         }
     }
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/utility/generator_iterator.htm boost::generator_iterator]
 * _oven_iteration_
 * _oven_unfold_
@@ -742,18 +781,18 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section hetero]
 
-[h3 Description]
+[heading Description]
 `hetero` runs through a "tuple".
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/hetero.hpp>`
 
-[h3 Model of]
+[heading Model of]
 
-[h3 Notation]
+[heading Notation]
 * `N` is `boost::fusion::result_of::size<_typeof(tup)>::type::value`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -779,20 +818,20 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `tup` is a _fusion_forward_sequence_ or `boost::tuple<...>`.
 * `0 <= N && N < 20`.
 * For all `I` such that `0 <= I && I < N`, `Ref` is convertible to `boost::fusion::result_of::at_c<_typeof(tup), I>::type`
   without binding a reference to rvalue.
 
-[h3 Example]
+[heading Example]
     rectangle r; triangle t; circle c;
     boost::tuple<rectangle*, triangle*, circle*> tup(&r, &t, &c);
     BOOST_FOREACH (shape *s, oven::hetero<shape *>(tup)) {
         s->draw();
     }
 
-[h3 See also]
+[heading See also]
 * _boost_fusion_
 
 [endsect]
@@ -802,16 +841,16 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section initial_values]
 
-[h3 Description]
+[heading Description]
 `initial_values` emulates initializer-lists.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/initial_values.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -851,7 +890,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [note Every `aK` is copied, meaning that they are not referenced from Oven later.]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `1 <= N && N <= 20`
 * `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
 * `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
@@ -861,12 +900,12 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [tip `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
       Also, it doesn't require the arguments to be _assignable_.]
 
-[h3 Example]
+[heading Example]
     int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
     std::vector<int> vec = initial_values(1,5,3,6,1,3,7,1,4,2,2);
     BOOST_CHECK( equals(vec, ans) );
 
-[h3 See also]
+[heading See also]
 * _boost_array_
 * _boost_assign_
 * _oven_copied_
@@ -878,23 +917,23 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [section iteration]
 
-[h3 Description]
+[heading Description]
 `iteration` makes an infinite _forward_ _range_ where the first item is calculated by applying the function
 on the first argument, the second item by applying the function on the previous result and so on.
 
 [note Strictly speaking, the range concept doesn't allow an infinite range.
       So assume here the end iterator is reachable from the begin iterator in the googolplex number of increments.]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/iteration.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Notation]
 * `just` is an imaginary function object such that `y -> boost::optional<_typeof(x)>(y)`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -908,16 +947,16 @@ on the first argument, the second item by applying the function on the previous 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * The corresponding semantics is a valid expression.
 
-[h3 Example]
+[heading Example]
     int answer[] = { 1,2,4,8,16 };
     BOOST_CHECK( equals(answer,
         iteration(1, regular(boost::lambda::_1 * 2))|taken(5)
     ) );
 
-[h3 See also]
+[heading See also]
 * _oven_unfold_
 * _oven_generation_
 * _oven_taken_
@@ -929,16 +968,16 @@ on the first argument, the second item by applying the function on the previous 
 
 [section recursion]
 
-[h3 Description]
+[heading Description]
 `recursion`, collaborating with _oven_any_range_, creates a recursive range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/recursion.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -952,11 +991,11 @@ on the first argument, the second item by applying the function on the previous 
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_fwdrng` is an `any_range`.
 * Every `memoized` in the base range takes its own `memo_table` object.
 
-[h3 Example]
+[heading Example]
     typedef any_range<int const&, boost::forward_traversal_tag> range_t;
     range_t fibs;
     memo_table tb;
@@ -976,7 +1015,7 @@ on the first argument, the second item by applying the function on the previous 
 [note In a recursive range, `memoized` must take a named `memo_table` object.
       A recursive range tends to be inefficient without memoization.]
 
-[h3 See also]
+[heading See also]
 * _oven_any_range_
 * _oven_memoized_
 
@@ -987,21 +1026,21 @@ on the first argument, the second item by applying the function on the previous 
 
 [section shared]
 
-[h3 Description]
+[heading Description]
 `shared` makes a range from a pointer to a heap allocated range,
 and the iterators manage the allocation.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/shared.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Notation]
 * `shared_range_iterator` is an imaginary iterator which works like
   `boost::shared_container_iterator` but uses a range instead of a container.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -1015,11 +1054,11 @@ and the iterators manage the allocation.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `sp` is a `boost::shared_ptr<_typeof(*p)>(p)` such that `sp(p)` is a valid expression.
 * `T` is a `shared_range_iterator<_typeof(*p)>` such that `T(_begin(*p), sp)` is a valid expression.
 
-[h3 Example]
+[heading Example]
     BOOST_FOREACH (char ch, std::string("dangling")|identities) {
         // will crash; 'std::string' object doesn't exist anymore. 
         std::cout << ch;
@@ -1030,7 +1069,7 @@ and the iterators manage the allocation.
         std::cout << ch;
     }
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/utility/shared_container_iterator.html shared_container_iterator]
 * _oven_shared_single_
 
@@ -1041,16 +1080,16 @@ and the iterators manage the allocation.
 
 [section single]
 
-[h3 Description]
+[heading Description]
 `single` makes a _random_access_ _range_ which delivers a range presentation of one object.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/single.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -1065,10 +1104,10 @@ and the iterators manage the allocation.
 [note As the semantics implies, the iterators are valid as long as `x` is not destructed.
       If you want the iterators to manage the base object lifetime, use _oven_shared_single_.]
 
-[h3 Example]
+[heading Example]
     BOOST_CHECK( equals(single('a'), std::string("a")) );
 
-[h3 See also]
+[heading See also]
 * _oven_shared_single_
 
 [endsect]
@@ -1078,16 +1117,16 @@ and the iterators manage the allocation.
 
 [section shared_single]
 
-[h3 Description]
+[heading Description]
 `shared_single`, given a pointer to a heap allocated object, delivers a range presentation of the pointee.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/shared_single.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -1099,17 +1138,17 @@ and the iterators manage the allocation.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `boost::shared_ptr<_typeof(*p)>(p)` is a valid expression.
 
-[h3 Example]
+[heading Example]
     boost::result_of<T_shared_single(char *)>::type
     make_rng()
     {
         return shared_single(new char('a'));
     }
 
-[h3 See also]
+[heading See also]
 * _oven_single_
 
 [endsect]
@@ -1119,19 +1158,19 @@ and the iterators manage the allocation.
 
 [section stream_lines]
 
-[h3 Description]
+[heading Description]
 `stream_lines` makes a `std::string` _single_pass_ _range_ from `std::cout` etc.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/stream_lines.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Notation]
 * `DefaultA` is `std::allocator<_typeof(s)::char_type>`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -1157,12 +1196,12 @@ and the iterators manage the allocation.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `hamigaki::istream_line_iterator<_typeof(s)::char_type, _typeof(s)::traits_type, A>` suct that `T(s)` is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://hamigaki.sourceforge.jp/doc/html/istream_line_iterator.html hamigaki::istream_line_iterator]
 * _oven_stream_read_
 
@@ -1173,13 +1212,13 @@ and the iterators manage the allocation.
 
 [section stream_read]
 
-[h3 Description]
+[heading Description]
 `stream_read` makes a _single_pass_ _range_ from `std::cout` etc.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/stream_read.hpp>`
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -1207,10 +1246,10 @@ and the iterators manage the allocation.
 
 [important Notice that `stream_read<V>(s)` is qualified with `oven::` to avoid unintentional ADL.]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `std::istream_iterator<V, _typeof(s)::char_type, _typeof(s)::traits_type, D>` suct that `T(s)` is a valid expression.
 
-[h3 Example]
+[heading Example]
     std::string src("hello,stream_read!");
 
     std::stringstream ss;
@@ -1221,7 +1260,7 @@ and the iterators manage the allocation.
 
     BOOST_CHECK( equals(result, src) );
 
-[h3 See also]
+[heading See also]
 * [@http://www.sgi.com/tech/stl/istream_iterator.html std::istream_iterator]
 * _oven_file_range_
 * _oven_stream_lines_
@@ -1234,13 +1273,13 @@ and the iterators manage the allocation.
 
 [section streambuf_read]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/stream_read.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -1260,7 +1299,7 @@ and the iterators manage the allocation.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `std::istreambuf_iterator<_typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s)` is a valid expression.
 * `U` is `std::istreambuf_iterator<_typeof(*p)::char_type, _typeof(*p)::traits_type>` such that `U(p)` is a valid expression.
 
@@ -1271,16 +1310,16 @@ and the iterators manage the allocation.
 
 [section unfold]
 
-[h3 Description]
+[heading Description]
 `unfold` makes a range from a seed.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/unfold.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -1296,13 +1335,13 @@ and the iterators manage the allocation.
 
 [note `z` is copied, meaning that it is not referenced from Oven later.]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `z`, `f(...)` and `g` is _assignable_, _copy_constructible_ and _default_constructible_.
 * `f` is a unary _stoppable_generator_.
 * `g` is a _function_object_ such that `z1 = g(z1)` is well-formed, where `_typeof(z) z1 = z`.
 * `f` and `g` is a [@http://planetmath.org/encyclopedia/Mapping.html mapping], meaning that `a == b` implies `f(a) == f(b)`.
 
-[h3 Example]
+[heading Example]
     boost::optional<int> mod(int i)
     {
         if (i == 0)
@@ -1317,7 +1356,7 @@ and the iterators manage the allocation.
         BOOST_CHECK( equals(unfold(163291451, &mod, lambda::_1 / 10), answer) );
     }
 
-[h3 See also]
+[heading See also]
 * _oven_generation_
 * _oven_iteration_
 

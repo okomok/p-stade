@@ -7,15 +7,15 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section broken_into]
 
-[h3 Description]
+[heading Description]
 * `broken_into` is a range adaptor version of `boost::tokenizer`.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/broken_into.hpp>`
 
-[h3 Model of]
+[heading Model of]
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -41,11 +41,11 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `k` is a TokenizerFunction.
 * `T` is `boost::token_iterator<_typeof(k), _iter_of<_typeof(_rng)>::type, V>` such that `T(k, _begin(_rng), _end(_rng))` is a valid expression.
 
-[h3 Example]
+[heading Example]
     int const offsets[] = { 2,2,4 };
     std::string src("12252001");
     std::vector<std::string> ans; {
@@ -59,7 +59,7 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
         src|oven::broken_into<std::string>(boost::offset_separator(offsets, offsets+3))
     ) );
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/tokenizer/index.html boost::tokenizer]
 * _oven_concatenated_
 * _oven_memoized_
@@ -73,20 +73,20 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section lower_chars]
 
-[h3 Description]
+[heading Description]
 `lower_chars` performs case-conversion on all characters in the base range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/lower_chars.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Notation]
+[heading Notation]
 * `loc` is a `std::locale` object.
 * `to_l` is an imaginary function object to call `std::tolower` using `loc`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -106,16 +106,16 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `std::tolower(*boost::begin(_rng), loc)` is well-formed.
 
-[h3 Example]
+[heading Example]
     BOOST_CHECK( equals(
         std::string("AbCdEFG")|lower_chars,
         std::string("abcdefg")
     ) );
 
-[h3 See also]
+[heading See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-lower to_lower proposal]
 * _oven_transformed_
 * _oven_upper_chars_
@@ -127,20 +127,20 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section upper_chars]
 
-[h3 Description]
+[heading Description]
 `upper_chars` performs case-conversion on all characters in the base range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/upper_chars.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Notation]
+[heading Notation]
 * `loc` is a `std::locale` object.
 * `to_u` is an imaginary function object to call `std::toupper` using `loc`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -160,16 +160,16 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `std::toupper(*boost::begin(_rng), loc)` is well-formed.
 
-[h3 Example]
+[heading Example]
     BOOST_CHECK( equals(
         std::string("AbCdEFG")|upper_chars,
         std::string("ABCDEFG")
     ) );
 
-[h3 See also]
+[heading See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-upper to_upper proposal]
 * _oven_lower_chars_
 * _oven_transformed_
@@ -180,19 +180,19 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section narrow_chars]
 
-[h3 Description]
+[heading Description]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/narrow_chars.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Notation]
+[heading Notation]
 * `loc` is a `std::locale` object.
 * `to_n` is an imaginary function object to call `narrow` using `loc`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -212,12 +212,12 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `std::use_facet< std::ctype<_value_of<_typeof(_rng)>::type> >(loc).narrow(*boost::begin(_rng))` is well-formed.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_transformed_
 * _oven_wide_chars_
 
@@ -228,19 +228,19 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section wide_chars]
 
-[h3 Description]
+[heading Description]
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/wide_chars.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Notation]
+[heading Notation]
 * `loc` is a `std::locale` object.
 * `to_w` is an imaginary function object to call `widen` using `loc`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -266,12 +266,12 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `std::use_facet< std::ctype<CharT> >(loc).widen(*boost::begin(_rng))` is well-formed.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_narrow_chars_
 * _oven_transformed_
 
@@ -282,16 +282,16 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section string_found]
 
-[h3 Description]
+[heading Description]
 `string_found` returns a `boost::find_iterator` range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/string_found.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -305,13 +305,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `f` is a Finder.
 * `T` is `boost::find_iterator<_iter_of<_typeof(_rng)>::type>` such that `T(_rng, f)` is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/doc/html/find_iterator.html boost::find_iterator]
 
 [endsect]
@@ -320,16 +320,16 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section string_split]
 
-[h3 Description]
+[heading Description]
 `string_split` returns a `boost::split_iterator` range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/string_split.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -343,13 +343,13 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `f` is a Finder.
 * `T` is `boost::split_iterator<_iter_of<_typeof(_rng)>::type>` such that `T(_rng, f)` is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/doc/html/split_iterator.html boost::split_iterator]
 
 [endsect]
@@ -359,16 +359,16 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section matches]
 
-[h3 Description]
+[heading Description]
 `matches` returns a `boost::regex_iterator` range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/matches.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -394,15 +394,15 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `boost::regex_iterator<_iter_of<_typeof(_bidrng)>::type, X1,...,XN>` such that `T(_begin(_bidrng), _end(_bidrng), y0,...,yM)` is a valid expression.
 
-[h3 Invariants]
+[heading Invariants]
 * The iterator type of `matches` range is not _parallel_safe_.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/regex/doc/regex_iterator.html boost::regex_iterator]
 * _oven_tokenized_
 
@@ -413,16 +413,16 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section tokenized]
 
-[h3 Description]
+[heading Description]
 `tokenized` returns a `boost::regex_token_iterator` range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/tokenized.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -448,15 +448,15 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `boost::regex_token_iterator<_iter_of<_typeof(_bidrng)>::type, Y1,...,YN>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xM)` is a valid expression.
 
-[h3 Invariants]
+[heading Invariants]
 * The iterator type of `tokenized` range is not _parallel_safe_.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/regex/doc/regex_token_iterator.html boost::regex_token_iterator]
 * _oven_broken_into_
 
@@ -467,16 +467,16 @@ A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
 
 [section utf8_decoded]
 
-[h3 Description]
+[heading Description]
 Pending...
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/utf8_decoded.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -502,17 +502,17 @@ Pending...
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_fwdrng` is _readable_.
 * `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,...,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
 
-[h3 Example]
+[heading Example]
     file_range<boost::uint8_t> frng("utf8.txt");
     std::vector<boost::uint8_t> result;
     copy(frng|utf8_decoded, utf8_encoder|=back_inserter|=result);
     BOOST_CHECK( equals(frng, result) );
 
-[h3 See also]
+[heading See also]
 * _oven_file_range_
 * _oven_utf8_encoded_
 * _oven_utf8_encoder_
@@ -524,16 +524,16 @@ Pending...
 
 [section utf8_encoded]
 
-[h3 Description]
+[heading Description]
 Pending...
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/utf8_encoded.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -559,13 +559,13 @@ Pending...
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng` is _readable_.
 * `T` is `boost::u32_to_u8_iterator<_iter_of<_typeof(_rng)>::type, U1,...,UN>` such that `T(_begin(_rng))` is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_file_range_
 * _oven_utf8_decoded_
 * _oven_utf8_encoder_
@@ -577,16 +577,16 @@ Pending...
 
 [section utf16_decoded]
 
-[h3 Description]
+[heading Description]
 Pending...
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/utf16_decoded.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -612,13 +612,13 @@ Pending...
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_fwdrng` is _readable_.
 * `T` is `boost::u16_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,...,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_file_range_
 * _oven_utf16_encoded_
 * _oven_utf16_encoder_
@@ -630,16 +630,16 @@ Pending...
 
 [section utf16_encoded]
 
-[h3 Description]
+[heading Description]
 Pending...
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/utf16_encoded.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -665,13 +665,13 @@ Pending...
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng` is _readable_.
 * `T` is `boost::u32_to_u16_iterator<_iter_of<_typeof(_rng)>::type, U1,...,UN>` such that `T(_begin(_rng))` is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_file_range_
 * _oven_utf16_decoded_
 * _oven_utf16_encoder_
@@ -683,16 +683,16 @@ Pending...
 
 [section xpressive_matches]
 
-[h3 Description]
+[heading Description]
 `xpressive_matches` returns a `boost::xpressive::regex_iterator` range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/xpressive_matches.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -706,15 +706,15 @@ Pending...
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xN)` is a valid expression.
 
-[h3 Invariants]
+[heading Invariants]
 * The iterator type of `xpressive_matches` range is not _parallel_safe_.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_iterator/hpp.html boost::xpressive::regex_iterator]
 * _oven_matches_
 * _oven_xpressive_tokenized_
@@ -726,16 +726,16 @@ Pending...
 
 [section xpressive_tokenized]
 
-[h3 Description]
+[heading Description]
 `xpressive_tokenized` returns a `boost::xpressive::regex_token_iterator` range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/xpressive_tokenized.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -749,15 +749,15 @@ Pending...
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xN)` is a valid expression.
 
-[h3 Invariants]
+[heading Invariants]
 * The iterator type of `xpressive_tokenized` range is not _parallel_safe_.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_token_iterator/hpp.html boost::xpressive::regex_token_iterator]
 * _oven_concatenated_
 * _oven_memoized_

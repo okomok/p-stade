@@ -39,37 +39,37 @@
 <dt><span class="section"><a href="utilities.html#oven.utilities.zipped_with">zipped_with</a></span></dt>
 </dl></div>
 <p>
-      Some helper _function_object_s are given to fill the gap between Oven and other
+      Some helper function objects are given to fill the gap between Oven and other
       libraries.
     </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.adapted_to_base"></a><a href="utilities.html#oven.utilities.adapted_to_base" title="adapted_to/to_base"> adapted_to/to_base</a></h3></div></div></div>
-<a name="oven.utilities.adapted_to_base.description"></a><h4>
-<a name="id607827"></a>
+<a name="oven.utilities.adapted_to_base.description"></a><h5>
+<a name="id608906"></a>
         <a href="utilities.html#oven.utilities.adapted_to_base.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">adapted_to</span></code> pulls the base
         iterator from the adapted one.
       </p>
-<a name="oven.utilities.adapted_to_base.header"></a><h4>
-<a name="id607862"></a>
+<a name="oven.utilities.adapted_to_base.header"></a><h5>
+<a name="id608940"></a>
         <a href="utilities.html#oven.utilities.adapted_to_base.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">adapted_to_base</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.adapted_to_base.model_of"></a><h4>
-<a name="id607935"></a>
+<a name="oven.utilities.adapted_to_base.model_of"></a><h5>
+<a name="id609013"></a>
         <a href="utilities.html#oven.utilities.adapted_to_base.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">to_base</span></code> is an <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_class_interface" target="_top">Auxiliary
           Class Interface</a>.
         </li></ul></div>
-<a name="oven.utilities.adapted_to_base.valid_expressions"></a><h4>
-<a name="id607981"></a>
+<a name="oven.utilities.adapted_to_base.valid_expressions"></a><h5>
+<a name="id609059"></a>
         <a href="utilities.html#oven.utilities.adapted_to_base.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -116,10 +116,10 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.utilities.adapted_to_base.preconditions"></a><h4>
-<a name="id608347"></a>
+<a name="oven.utilities.adapted_to_base.preconditions"></a><h5>
+<a name="id609425"></a>
         <a href="utilities.html#oven.utilities.adapted_to_base.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">B</span></code> is <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy
@@ -136,10 +136,10 @@
           that <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span> <span class="special">...</span> <span class="special">.</span><span class="identifier">base</span><span class="special">())</span></code> is <code class="computeroutput"><span class="identifier">B</span></code>.
         </li>
 </ul></div>
-<a name="oven.utilities.adapted_to_base.example"></a><h4>
-<a name="id608551"></a>
+<a name="oven.utilities.adapted_to_base.example"></a><h5>
+<a name="id609629"></a>
         <a href="utilities.html#oven.utilities.adapted_to_base.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"cjaigvwzenqhe"</span><span class="special">);</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">it</span> <span class="special">=</span>
@@ -155,10 +155,10 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.expression"></a><a href="utilities.html#oven.utilities.expression" title="expression">expression</a></h3></div></div></div>
-<a name="oven.utilities.expression.description"></a><h4>
-<a name="id608860"></a>
+<a name="oven.utilities.expression.description"></a><h5>
+<a name="id609938"></a>
         <a href="utilities.html#oven.utilities.expression.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <a href="ranges.html#oven.ranges.any_range" title="any_range">any_range</a> incurs an overhead
         for calling a <code class="computeroutput"><span class="keyword">virtual</span></code> function
@@ -167,21 +167,21 @@
         converts a range into <a href="http://boost.org/libs/typeof/doc/index.html" target="_top">Boost.Typeof</a>
         compatible one, then removes the overhead if possible.
       </p>
-<a name="oven.utilities.expression.header"></a><h4>
-<a name="id608927"></a>
+<a name="oven.utilities.expression.header"></a><h5>
+<a name="id610004"></a>
         <a href="utilities.html#oven.utilities.expression.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">expression</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.expression.model_of"></a><h4>
-<a name="id609001"></a>
+<a name="oven.utilities.expression.model_of"></a><h5>
+<a name="id610078"></a>
         <a href="utilities.html#oven.utilities.expression.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
-<a name="oven.utilities.expression.valid_expressions"></a><h4>
-<a name="id609038"></a>
+<a name="oven.utilities.expression.valid_expressions"></a><h5>
+<a name="id610115"></a>
         <a href="utilities.html#oven.utilities.expression.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -213,10 +213,10 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.expression.preconditions"></a><h4>
-<a name="id609200"></a>
+<a name="oven.utilities.expression.preconditions"></a><h5>
+<a name="id610277"></a>
         <a href="utilities.html#oven.utilities.expression.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code>
@@ -243,18 +243,18 @@
         </p>
 </td></tr>
 </table></div>
-<a name="oven.utilities.expression.example"></a><h4>
-<a name="id609381"></a>
+<a name="oven.utilities.expression.example"></a><h5>
+<a name="id610458"></a>
         <a href="utilities.html#oven.utilities.expression.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">BOOST_AUTO</span><span class="special">(</span><span class="identifier">factorials</span><span class="special">,</span>
     <span class="identifier">expression</span><span class="special">(</span><span class="identifier">counting</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="identifier">max_count</span><span class="special">)|</span><span class="identifier">scanned</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="identifier">regular</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">*</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_2</span><span class="special">)))</span> <span class="special">);</span>
 </pre>
-<a name="oven.utilities.expression.see_also"></a><h4>
-<a name="id609556"></a>
+<a name="oven.utilities.expression.see_also"></a><h5>
+<a name="id610634"></a>
         <a href="utilities.html#oven.utilities.expression.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://boost.org/libs/typeof/doc/index.html" target="_top">Boost.Typeof</a></li>
 <li><a href="ranges.html#oven.ranges.any_range" title="any_range">any_range</a></li>
@@ -263,24 +263,24 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.foreach"></a><a href="utilities.html#oven.utilities.foreach" title="FOREACH">FOREACH</a></h3></div></div></div>
-<a name="oven.utilities.foreach.description"></a><h4>
-<a name="id609613"></a>
+<a name="oven.utilities.foreach.description"></a><h5>
+<a name="id610690"></a>
         <a href="utilities.html#oven.utilities.foreach.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">PSTADE_OVEN_FOREACH</span></code> is similar
         to <code class="computeroutput"><span class="identifier">BOOST_FOREACH</span></code>, but there
         is no need to write the referent type of iterating.
       </p>
-<a name="oven.utilities.foreach.header"></a><h4>
-<a name="id609657"></a>
+<a name="oven.utilities.foreach.header"></a><h5>
+<a name="id610735"></a>
         <a href="utilities.html#oven.utilities.foreach.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">foreach</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.foreach.notation"></a><h4>
-<a name="id609730"></a>
+<a name="oven.utilities.foreach.notation"></a><h5>
+<a name="id610807"></a>
         <a href="utilities.html#oven.utilities.foreach.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="keyword">auto</span></code> is an imaginary operator
           such that <code class="computeroutput"><span class="keyword">auto</span> <span class="identifier">x</span>
@@ -288,11 +288,11 @@
           <span class="identifier">x</span> <span class="special">=</span>
           <span class="identifier">y</span><span class="special">;</span></code>
 </li></ul></div>
-<a name="oven.utilities.foreach.valid_expression_and_semantics"></a><h4>
-<a name="id609845"></a>
+<a name="oven.utilities.foreach.valid_expression_and_semantics"></a><h5>
+<a name="id610922"></a>
         <a href="utilities.html#oven.utilities.foreach.valid_expression_and_semantics">Valid
         expression and Semantics</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">PSTADE_OVEN_FOREACH</span><span class="special">(</span><span class="identifier">var</span><span class="special">,</span> <span class="identifier">_rng</span><span class="special">)</span>
     <span class="identifier">statement</span>
@@ -328,10 +328,10 @@
         </p>
 </td></tr>
 </table></div>
-<a name="oven.utilities.foreach.preconditions"></a><h4>
-<a name="id610245"></a>
+<a name="oven.utilities.foreach.preconditions"></a><h5>
+<a name="id611322"></a>
         <a href="utilities.html#oven.utilities.foreach.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
           The preconditions of <code class="computeroutput"><span class="identifier">expression</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code>.
@@ -345,20 +345,20 @@
           must be used instead.
         </li>
 </ul></div>
-<a name="oven.utilities.foreach.example"></a><h4>
-<a name="id610324"></a>
+<a name="oven.utilities.foreach.example"></a><h5>
+<a name="id611402"></a>
         <a href="utilities.html#oven.utilities.foreach.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">hello</span><span class="special">(</span><span class="string">"Hello, world!"</span><span class="special">);</span>
 <span class="identifier">PSTADE_OVEN_FOREACH</span> <span class="special">(</span><span class="identifier">ch</span><span class="special">,</span> <span class="identifier">hello</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
-<a name="oven.utilities.foreach.see_also"></a><h4>
-<a name="id610457"></a>
+<a name="oven.utilities.foreach.see_also"></a><h5>
+<a name="id611534"></a>
         <a href="utilities.html#oven.utilities.foreach.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2243.html" target="_top">Wording
           for range-based for-loop</a></li>
@@ -369,33 +369,33 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.io_hpp"></a><a href="utilities.html#oven.utilities.io_hpp" title="io.hpp">io.hpp</a></h3></div></div></div>
-<a name="oven.utilities.io_hpp.description"></a><h4>
-<a name="id610527"></a>
+<a name="oven.utilities.io_hpp.description"></a><h5>
+<a name="id611604"></a>
         <a href="utilities.html#oven.utilities.io_hpp.description">Description</a>
-      </h4>
+      </h5>
 <p>
         The header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> lets Oven ranges be <a href="http://www.boost.org/libs/conversion/lexical_cast.htm" target="_top">Input
         Streamable</a> and <a href="http://www.boost.org/libs/conversion/lexical_cast.htm" target="_top">Output
         Streamable</a>.
       </p>
-<a name="oven.utilities.io_hpp.header"></a><h4>
-<a name="id610611"></a>
+<a name="oven.utilities.io_hpp.header"></a><h5>
+<a name="id611688"></a>
         <a href="utilities.html#oven.utilities.io_hpp.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.io_hpp.effects"></a><h4>
-<a name="id610683"></a>
+<a name="oven.utilities.io_hpp.effects"></a><h5>
+<a name="id611760"></a>
         <a href="utilities.html#oven.utilities.io_hpp.effects">Effects</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           All the ranges which Oven defines and returns become <a href="http://www.boost.org/libs/conversion/lexical_cast.htm" target="_top">Input
           Streamable</a> and <a href="http://www.boost.org/libs/conversion/lexical_cast.htm" target="_top">Output
           Streamable</a>.
         </li></ul></div>
-<a name="oven.utilities.io_hpp.example"></a><h4>
-<a name="id610727"></a>
+<a name="oven.utilities.io_hpp.example"></a><h5>
+<a name="id611804"></a>
         <a href="utilities.html#oven.utilities.io_hpp.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"abc"</span><span class="special">);</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span> <span class="identifier">ss</span><span class="special">;</span>
@@ -406,69 +406,69 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.optional_hpp"></a><a href="utilities.html#oven.utilities.optional_hpp" title="optional.hpp">optional.hpp</a></h3></div></div></div>
-<a name="oven.utilities.optional_hpp.description"></a><h4>
-<a name="id610911"></a>
+<a name="oven.utilities.optional_hpp.description"></a><h5>
+<a name="id611988"></a>
         <a href="utilities.html#oven.utilities.optional_hpp.description">Description</a>
-      </h4>
+      </h5>
 <p>
         The header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">optional</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
         lets <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span></code> be a model of <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
         meaning that it can be used as "one element range".
       </p>
-<a name="oven.utilities.optional_hpp.header"></a><h4>
-<a name="id611007"></a>
+<a name="oven.utilities.optional_hpp.header"></a><h5>
+<a name="id612084"></a>
         <a href="utilities.html#oven.utilities.optional_hpp.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">optional</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.optional_hpp.effects"></a><h4>
-<a name="id611083"></a>
+<a name="oven.utilities.optional_hpp.effects"></a><h5>
+<a name="id612157"></a>
         <a href="utilities.html#oven.utilities.optional_hpp.effects">Effects</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span></code> becomes a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
           Access</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
         </li></ul></div>
-<a name="oven.utilities.optional_hpp.invariants"></a><h4>
-<a name="id611148"></a>
+<a name="oven.utilities.optional_hpp.invariants"></a><h5>
+<a name="id612220"></a>
         <a href="utilities.html#oven.utilities.optional_hpp.invariants">Invariants</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           An uninitialized <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span></code>
           is an empty range.
         </li></ul></div>
-<a name="oven.utilities.optional_hpp.see_also"></a><h4>
-<a name="id611199"></a>
+<a name="oven.utilities.optional_hpp.see_also"></a><h5>
+<a name="id612271"></a>
         <a href="utilities.html#oven.utilities.optional_hpp.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.regex_hpp"></a><a href="utilities.html#oven.utilities.regex_hpp" title="regex.hpp">regex.hpp</a></h3></div></div></div>
-<a name="oven.utilities.regex_hpp.description"></a><h4>
-<a name="id611255"></a>
+<a name="oven.utilities.regex_hpp.description"></a><h5>
+<a name="id612327"></a>
         <a href="utilities.html#oven.utilities.regex_hpp.description">Description</a>
-      </h4>
+      </h5>
 <p>
         The header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
         lets <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">sub_match</span></code> be a model of <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
       </p>
-<a name="oven.utilities.regex_hpp.header"></a><h4>
-<a name="id611359"></a>
+<a name="oven.utilities.regex_hpp.header"></a><h5>
+<a name="id612431"></a>
         <a href="utilities.html#oven.utilities.regex_hpp.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.regex_hpp.effects"></a><h4>
-<a name="id611438"></a>
+<a name="oven.utilities.regex_hpp.effects"></a><h5>
+<a name="id612510"></a>
         <a href="utilities.html#oven.utilities.regex_hpp.effects">Effects</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">sub_match</span></code> becomes a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
         </li></ul></div>
-<a name="oven.utilities.regex_hpp.see_also"></a><h4>
-<a name="id611496"></a>
+<a name="oven.utilities.regex_hpp.see_also"></a><h5>
+<a name="id612568"></a>
         <a href="utilities.html#oven.utilities.regex_hpp.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://boost.org/libs/regex/doc/index.html" target="_top">Boost.Regex</a></li>
 <li><a href="range_adaptors.html#oven.range_adaptors.concatenated" title="concatenated">concatenated</a></li>
@@ -477,30 +477,30 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.xpressive_hpp"></a><a href="utilities.html#oven.utilities.xpressive_hpp" title="xpressive.hpp">xpressive.hpp</a></h3></div></div></div>
-<a name="oven.utilities.xpressive_hpp.description"></a><h4>
-<a name="id611564"></a>
+<a name="oven.utilities.xpressive_hpp.description"></a><h5>
+<a name="id612636"></a>
         <a href="utilities.html#oven.utilities.xpressive_hpp.description">Description</a>
-      </h4>
+      </h5>
 <p>
         The header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">xpressive</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
         lets <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">sub_match</span></code> be a model of <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
       </p>
-<a name="oven.utilities.xpressive_hpp.header"></a><h4>
-<a name="id611678"></a>
+<a name="oven.utilities.xpressive_hpp.header"></a><h5>
+<a name="id612750"></a>
         <a href="utilities.html#oven.utilities.xpressive_hpp.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">xpressive</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.xpressive_hpp.effects"></a><h4>
-<a name="id611760"></a>
+<a name="oven.utilities.xpressive_hpp.effects"></a><h5>
+<a name="id612832"></a>
         <a href="utilities.html#oven.utilities.xpressive_hpp.effects">Effects</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">sub_match</span></code> becomes a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
         </li></ul></div>
-<a name="oven.utilities.xpressive_hpp.see_also"></a><h4>
-<a name="id611829"></a>
+<a name="oven.utilities.xpressive_hpp.see_also"></a><h5>
+<a name="id612901"></a>
         <a href="utilities.html#oven.utilities.xpressive_hpp.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.boost.org/doc/html/xpressive.html" target="_top">Boost.Xpressive</a></li>
 <li><a href="range_adaptors.html#oven.range_adaptors.concatenated" title="concatenated">concatenated</a></li>
@@ -509,10 +509,10 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.nonstop"></a><a href="utilities.html#oven.utilities.nonstop" title="nonstop">nonstop</a></h3></div></div></div>
-<a name="oven.utilities.nonstop.description"></a><h4>
-<a name="id611898"></a>
+<a name="oven.utilities.nonstop.description"></a><h5>
+<a name="id612970"></a>
         <a href="utilities.html#oven.utilities.nonstop.description">Description</a>
-      </h4>
+      </h5>
 <p>
         The <a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a>
         concept which <a href="ranges.html#oven.ranges.generation" title="generation">generation</a> requires
@@ -522,21 +522,21 @@
         into a <a href="ranges.html#oven.ranges.generation" title="generation">generation</a> conforming
         one.
       </p>
-<a name="oven.utilities.nonstop.header"></a><h4>
-<a name="id611979"></a>
+<a name="oven.utilities.nonstop.header"></a><h5>
+<a name="id613051"></a>
         <a href="utilities.html#oven.utilities.nonstop.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">generation</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.nonstop.model_of"></a><h4>
-<a name="id612059"></a>
+<a name="oven.utilities.nonstop.model_of"></a><h5>
+<a name="id613131"></a>
         <a href="utilities.html#oven.utilities.nonstop.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
-<a name="oven.utilities.nonstop.valid_expressions"></a><h4>
-<a name="id612099"></a>
+<a name="oven.utilities.nonstop.valid_expressions"></a><h5>
+<a name="id613171"></a>
         <a href="utilities.html#oven.utilities.nonstop.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -568,63 +568,63 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.nonstop.preconditions"></a><h4>
-<a name="id612232"></a>
+<a name="oven.utilities.nonstop.preconditions"></a><h5>
+<a name="id613304"></a>
         <a href="utilities.html#oven.utilities.nonstop.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">g</span></code> is a both <a href="http://www.sgi.com/tech/stl/Generator.html" target="_top">Generator</a>
           and <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a>.
         </li></ul></div>
-<a name="oven.utilities.nonstop.example"></a><h4>
-<a name="id612289"></a>
+<a name="oven.utilities.nonstop.example"></a><h5>
+<a name="id613361"></a>
         <a href="utilities.html#oven.utilities.nonstop.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">BOOST_FOREACH</span> <span class="special">(</span><span class="keyword">long</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">generation</span><span class="special">(</span><span class="identifier">nonstop</span><span class="special">(&amp;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">rand</span><span class="special">))|</span><span class="identifier">taken</span><span class="special">(</span><span class="number">30</span><span class="special">))</span> <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">","</span> <span class="special">&lt;&lt;</span> <span class="identifier">x</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
-<a name="oven.utilities.nonstop.see_also"></a><h4>
-<a name="id612465"></a>
+<a name="oven.utilities.nonstop.see_also"></a><h5>
+<a name="id613537"></a>
         <a href="utilities.html#oven.utilities.nonstop.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="ranges.html#oven.ranges.generation" title="generation">generation</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.partitioned"></a><a href="utilities.html#oven.utilities.partitioned" title="partitioned">partitioned</a></h3></div></div></div>
-<a name="oven.utilities.partitioned.description"></a><h4>
-<a name="id612526"></a>
+<a name="oven.utilities.partitioned.description"></a><h5>
+<a name="id613598"></a>
         <a href="utilities.html#oven.utilities.partitioned.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">partitioned</span></code> serves as a lazy
         <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">partition</span></code>.
       </p>
-<a name="oven.utilities.partitioned.header"></a><h4>
-<a name="id612584"></a>
+<a name="oven.utilities.partitioned.header"></a><h5>
+<a name="id613657"></a>
         <a href="utilities.html#oven.utilities.partitioned.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">partitioned</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.partitioned.model_of"></a><h4>
-<a name="id612666"></a>
+<a name="oven.utilities.partitioned.model_of"></a><h5>
+<a name="id613739"></a>
         <a href="utilities.html#oven.utilities.partitioned.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.utilities.partitioned.notation"></a><h4>
-<a name="id612707"></a>
+<a name="oven.utilities.partitioned.notation"></a><h5>
+<a name="id613780"></a>
         <a href="utilities.html#oven.utilities.partitioned.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">not_</span></code> is an imaginary function
           to negate a predicate.
         </li></ul></div>
-<a name="oven.utilities.partitioned.valid_expressions"></a><h4>
-<a name="id612752"></a>
+<a name="oven.utilities.partitioned.valid_expressions"></a><h5>
+<a name="id613824"></a>
         <a href="utilities.html#oven.utilities.partitioned.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -656,22 +656,22 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.partitioned.preconditions"></a><h4>
-<a name="id612974"></a>
+<a name="oven.utilities.partitioned.preconditions"></a><h5>
+<a name="id614046"></a>
         <a href="utilities.html#oven.utilities.partitioned.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">_fwdrng</span><span class="special">|</span><span class="identifier">filtered</span><span class="special">(</span><span class="identifier">_prd</span><span class="special">)</span></code>
           is a valid expression.
         </li></ul></div>
-<a name="oven.utilities.partitioned.example"></a><h4>
-<a name="id613041"></a>
+<a name="oven.utilities.partitioned.example"></a><h5>
+<a name="id614113"></a>
         <a href="utilities.html#oven.utilities.partitioned.example">Example</a>
-      </h4>
-<a name="oven.utilities.partitioned.see_also"></a><h4>
-<a name="id613064"></a>
+      </h5>
+<a name="oven.utilities.partitioned.see_also"></a><h5>
+<a name="id614137"></a>
         <a href="utilities.html#oven.utilities.partitioned.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="range_adaptors.html#oven.range_adaptors.filtered" title="filtered">filtered</a></li>
 <li><a href="utilities.html#oven.utilities.split_at" title="split_at">split_at</a></li>
@@ -680,10 +680,10 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.regular"></a><a href="utilities.html#oven.utilities.regular" title="regular">regular</a></h3></div></div></div>
-<a name="oven.utilities.regular.description"></a><h4>
-<a name="id613134"></a>
+<a name="oven.utilities.regular.description"></a><h5>
+<a name="id614207"></a>
         <a href="utilities.html#oven.utilities.regular.description">Description</a>
-      </h4>
+      </h5>
 <p>
         A <a href="http://boost.org/libs/lambda/doc/index.html" target="_top">Boost.Lambda</a>
         functor is neither <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
@@ -692,21 +692,21 @@
         Iterator</a>. <code class="computeroutput"><span class="identifier">regular</span></code>
         converts it into comfortable one for iterators.
       </p>
-<a name="oven.utilities.regular.header"></a><h4>
-<a name="id613204"></a>
+<a name="oven.utilities.regular.header"></a><h5>
+<a name="id614277"></a>
         <a href="utilities.html#oven.utilities.regular.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">regular</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.regular.model_of"></a><h4>
-<a name="id613285"></a>
+<a name="oven.utilities.regular.model_of"></a><h5>
+<a name="id614357"></a>
         <a href="utilities.html#oven.utilities.regular.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
-<a name="oven.utilities.regular.valid_expressions"></a><h4>
-<a name="id613325"></a>
+<a name="oven.utilities.regular.valid_expressions"></a><h5>
+<a name="id614398"></a>
         <a href="utilities.html#oven.utilities.regular.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -741,19 +741,19 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.regular.preconditions"></a><h4>
-<a name="id613483"></a>
+<a name="oven.utilities.regular.preconditions"></a><h5>
+<a name="id614556"></a>
         <a href="utilities.html#oven.utilities.regular.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">f</span></code> is a <a href="http://boost.org/libs/lambda/doc/index.html" target="_top">Boost.Lambda</a>
           functor or <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a>.
         </li></ul></div>
-<a name="oven.utilities.regular.example"></a><h4>
-<a name="id613540"></a>
+<a name="oven.utilities.regular.example"></a><h5>
+<a name="id614613"></a>
         <a href="utilities.html#oven.utilities.regular.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"abcdefg"</span><span class="special">)</span>
@@ -762,10 +762,10 @@
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"abdeg"</span><span class="special">)</span>
 <span class="special">)</span> <span class="special">);</span>
 </pre>
-<a name="oven.utilities.regular.see_also"></a><h4>
-<a name="id613804"></a>
+<a name="oven.utilities.regular.see_also"></a><h5>
+<a name="id614876"></a>
         <a href="utilities.html#oven.utilities.regular.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://boost.org/libs/lambda/doc/index.html" target="_top">Boost.Lambda</a></li>
 <li><a href="range_adaptors.html#oven.range_adaptors.filtered" title="filtered">filtered</a></li>
@@ -777,10 +777,10 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.regular_ref"></a><a href="utilities.html#oven.utilities.regular_ref" title="regular_ref">regular_ref</a></h3></div></div></div>
-<a name="oven.utilities.regular_ref.description"></a><h4>
-<a name="id613909"></a>
+<a name="oven.utilities.regular_ref.description"></a><h5>
+<a name="id614982"></a>
         <a href="utilities.html#oven.utilities.regular_ref.description">Description</a>
-      </h4>
+      </h5>
 <p>
         A <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
         Callable Object</a> like a random number generator may not be copyable,
@@ -788,21 +788,21 @@
         holding a reference to noncopyable <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
         Callable Object</a>, behaves as copyable one.
       </p>
-<a name="oven.utilities.regular_ref.header"></a><h4>
-<a name="id613968"></a>
+<a name="oven.utilities.regular_ref.header"></a><h5>
+<a name="id615040"></a>
         <a href="utilities.html#oven.utilities.regular_ref.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">regular</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.regular_ref.model_of"></a><h4>
-<a name="id614049"></a>
+<a name="oven.utilities.regular_ref.model_of"></a><h5>
+<a name="id615121"></a>
         <a href="utilities.html#oven.utilities.regular_ref.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
-<a name="oven.utilities.regular_ref.valid_expressions"></a><h4>
-<a name="id614089"></a>
+<a name="oven.utilities.regular_ref.valid_expressions"></a><h5>
+<a name="id615162"></a>
         <a href="utilities.html#oven.utilities.regular_ref.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -835,10 +835,10 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.regular_ref.preconditions"></a><h4>
-<a name="id614232"></a>
+<a name="oven.utilities.regular_ref.preconditions"></a><h5>
+<a name="id615305"></a>
         <a href="utilities.html#oven.utilities.regular_ref.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">f</span></code> is a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
@@ -850,10 +850,10 @@
           called.
         </li>
 </ul></div>
-<a name="oven.utilities.regular_ref.see_also"></a><h4>
-<a name="id614323"></a>
+<a name="oven.utilities.regular_ref.see_also"></a><h5>
+<a name="id615395"></a>
         <a href="utilities.html#oven.utilities.regular_ref.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="utilities.html#oven.utilities.regular" title="regular">regular</a></li>
 <li><a href="utilities.html#oven.utilities.shared_regular" title="shared_regular">shared_regular</a></li>
@@ -862,10 +862,10 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.shared_regular"></a><a href="utilities.html#oven.utilities.shared_regular" title="shared_regular">shared_regular</a></h3></div></div></div>
-<a name="oven.utilities.shared_regular.description"></a><h4>
-<a name="id614394"></a>
+<a name="oven.utilities.shared_regular.description"></a><h5>
+<a name="id615467"></a>
         <a href="utilities.html#oven.utilities.shared_regular.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">shared_regular</span></code> is similar
         to <code class="computeroutput"><span class="identifier">regular_ref</span></code>. It takes
@@ -873,21 +873,21 @@
         Object</a>, whereas <code class="computeroutput"><span class="identifier">regular_ref</span></code>
         takes an object.
       </p>
-<a name="oven.utilities.shared_regular.header"></a><h4>
-<a name="id614462"></a>
+<a name="oven.utilities.shared_regular.header"></a><h5>
+<a name="id615534"></a>
         <a href="utilities.html#oven.utilities.shared_regular.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">shared_regular</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.shared_regular.model_of"></a><h4>
-<a name="id614543"></a>
+<a name="oven.utilities.shared_regular.model_of"></a><h5>
+<a name="id615615"></a>
         <a href="utilities.html#oven.utilities.shared_regular.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
           Function Object</a></li></ul></div>
-<a name="oven.utilities.shared_regular.valid_expressions"></a><h4>
-<a name="id614583"></a>
+<a name="oven.utilities.shared_regular.valid_expressions"></a><h5>
+<a name="id615655"></a>
         <a href="utilities.html#oven.utilities.shared_regular.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -920,10 +920,10 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.shared_regular.preconditions"></a><h4>
-<a name="id614730"></a>
+<a name="oven.utilities.shared_regular.preconditions"></a><h5>
+<a name="id615803"></a>
         <a href="utilities.html#oven.utilities.shared_regular.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(*</span><span class="identifier">pf</span><span class="special">)</span></code> is
@@ -935,10 +935,10 @@
           a valid expression.
         </li>
 </ul></div>
-<a name="oven.utilities.shared_regular.see_also"></a><h4>
-<a name="id614856"></a>
+<a name="oven.utilities.shared_regular.see_also"></a><h5>
+<a name="id615928"></a>
         <a href="utilities.html#oven.utilities.shared_regular.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="utilities.html#oven.utilities.regular" title="regular">regular</a></li>
 <li><a href="utilities.html#oven.utilities.regular_ref" title="regular_ref">regular_ref</a></li>
@@ -947,31 +947,31 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.split_at"></a><a href="utilities.html#oven.utilities.split_at" title="split_at">split_at</a></h3></div></div></div>
-<a name="oven.utilities.split_at.description"></a><h4>
-<a name="id614926"></a>
+<a name="oven.utilities.split_at.description"></a><h5>
+<a name="id615998"></a>
         <a href="utilities.html#oven.utilities.split_at.description">Description</a>
-      </h4>
-<a name="oven.utilities.split_at.header"></a><h4>
-<a name="id614949"></a>
+      </h5>
+<a name="oven.utilities.split_at.header"></a><h5>
+<a name="id616021"></a>
         <a href="utilities.html#oven.utilities.split_at.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">split_at</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.split_at.model_of"></a><h4>
-<a name="id615030"></a>
+<a name="oven.utilities.split_at.model_of"></a><h5>
+<a name="id616102"></a>
         <a href="utilities.html#oven.utilities.split_at.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.utilities.split_at.notation"></a><h4>
-<a name="id615069"></a>
+<a name="oven.utilities.split_at.notation"></a><h5>
+<a name="id616142"></a>
         <a href="utilities.html#oven.utilities.split_at.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">rng2</span></code> is <code class="computeroutput"><span class="identifier">_fwdrng</span><span class="special">|</span><span class="identifier">dropped</span><span class="special">(</span><span class="identifier">n</span><span class="special">)</span></code>.
         </li></ul></div>
-<a name="oven.utilities.split_at.valid_expressions"></a><h4>
-<a name="id615148"></a>
+<a name="oven.utilities.split_at.valid_expressions"></a><h5>
+<a name="id616220"></a>
         <a href="utilities.html#oven.utilities.split_at.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1004,18 +1004,18 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.split_at.preconditions"></a><h4>
-<a name="id615348"></a>
+<a name="oven.utilities.split_at.preconditions"></a><h5>
+<a name="id616420"></a>
         <a href="utilities.html#oven.utilities.split_at.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">_fwdrng</span><span class="special">|</span><span class="identifier">dropped</span><span class="special">(</span><span class="identifier">n</span><span class="special">)</span></code> is
           a valid expression.
         </li></ul></div>
-<a name="oven.utilities.split_at.example"></a><h4>
-<a name="id615414"></a>
+<a name="oven.utilities.split_at.example"></a><h5>
+<a name="id616487"></a>
         <a href="utilities.html#oven.utilities.split_at.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="keyword">typedef</span>
     <span class="identifier">any_range</span><span class="special">&lt;</span><span class="keyword">int</span> <span class="keyword">const</span><span class="special">&amp;,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">forward_traversal_tag</span><span class="special">&gt;</span>
@@ -1039,10 +1039,10 @@
     <span class="special">}</span>
 <span class="special">}</span>
 </pre>
-<a name="oven.utilities.split_at.see_also"></a><h4>
-<a name="id615935"></a>
+<a name="oven.utilities.split_at.see_also"></a><h5>
+<a name="id617008"></a>
         <a href="utilities.html#oven.utilities.split_at.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="range_adaptors.html#oven.range_adaptors.dropped" title="dropped">dropped</a></li>
 <li><a href="utilities.html#oven.utilities.partitioned" title="partitioned">partitioned</a></li>
@@ -1051,38 +1051,38 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.zipped"></a><a href="utilities.html#oven.utilities.zipped" title="zipped">zipped</a></h3></div></div></div>
-<a name="oven.utilities.zipped.description"></a><h4>
-<a name="id616005"></a>
+<a name="oven.utilities.zipped.description"></a><h5>
+<a name="id617078"></a>
         <a href="utilities.html#oven.utilities.zipped.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">zipped</span></code> takes a tuple of ranges
         and returns a range of corresponding tuples.
       </p>
-<a name="oven.utilities.zipped.header"></a><h4>
-<a name="id616044"></a>
+<a name="oven.utilities.zipped.header"></a><h5>
+<a name="id617117"></a>
         <a href="utilities.html#oven.utilities.zipped.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">zipped</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.zipped.model_of"></a><h4>
-<a name="id616125"></a>
+<a name="oven.utilities.zipped.model_of"></a><h5>
+<a name="id617198"></a>
         <a href="utilities.html#oven.utilities.zipped.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.utilities.zipped.notation"></a><h4>
-<a name="id616165"></a>
+<a name="oven.utilities.zipped.notation"></a><h5>
+<a name="id617238"></a>
         <a href="utilities.html#oven.utilities.zipped.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="special">(</span><span class="identifier">_rng1</span>
           <span class="identifier">_rng2</span> <span class="special">...</span>
           <span class="identifier">_rngN</span><span class="special">)</span></code>
           is <code class="computeroutput"><span class="identifier">u</span></code>.
         </li></ul></div>
-<a name="oven.utilities.zipped.valid_expressions"></a><h4>
-<a name="id616245"></a>
+<a name="oven.utilities.zipped.valid_expressions"></a><h5>
+<a name="id617318"></a>
         <a href="utilities.html#oven.utilities.zipped.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1113,17 +1113,17 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.zipped.preconditions"></a><h4>
-<a name="id616506"></a>
+<a name="oven.utilities.zipped.preconditions"></a><h5>
+<a name="id617579"></a>
         <a href="utilities.html#oven.utilities.zipped.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">zip_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_tuple</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">),...,</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rngN</span><span class="special">)))&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_tuple</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">),...,</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rngN</span><span class="special">)))</span></code> is a valid expression.
         </li></ul></div>
-<a name="oven.utilities.zipped.example"></a><h4>
-<a name="id616719"></a>
+<a name="oven.utilities.zipped.example"></a><h5>
+<a name="id617792"></a>
         <a href="utilities.html#oven.utilities.zipped.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>
     <span class="special">(</span>
@@ -1136,10 +1136,10 @@
 
 <span class="comment">// output&gt; {(1 2),(2 3),(3 4)}
 </span></pre>
-<a name="oven.utilities.zipped.see_also"></a><h4>
-<a name="id616949"></a>
+<a name="oven.utilities.zipped.see_also"></a><h5>
+<a name="id618022"></a>
         <a href="utilities.html#oven.utilities.zipped.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.boost.org/libs/iterator/doc/zip_iterator.html" target="_top">boost::zip_iterator</a></li>
 <li><a href="utilities.html#oven.utilities.unzipped" title="unzipped">unzipped</a></li>
@@ -1151,27 +1151,27 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.unzipped"></a><a href="utilities.html#oven.utilities.unzipped" title="unzipped">unzipped</a></h3></div></div></div>
-<a name="oven.utilities.unzipped.description"></a><h4>
-<a name="id617060"></a>
+<a name="oven.utilities.unzipped.description"></a><h5>
+<a name="id618134"></a>
         <a href="utilities.html#oven.utilities.unzipped.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">unzipped</span></code> reverses <code class="computeroutput"><span class="identifier">zipped</span></code>.
       </p>
-<a name="oven.utilities.unzipped.header"></a><h4>
-<a name="id617109"></a>
+<a name="oven.utilities.unzipped.header"></a><h5>
+<a name="id618182"></a>
         <a href="utilities.html#oven.utilities.unzipped.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">unzipped</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.unzipped.model_of"></a><h4>
-<a name="id617189"></a>
+<a name="oven.utilities.unzipped.model_of"></a><h5>
+<a name="id618262"></a>
         <a href="utilities.html#oven.utilities.unzipped.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.utilities.unzipped.notation"></a><h4>
-<a name="id617228"></a>
+<a name="oven.utilities.unzipped.notation"></a><h5>
+<a name="id618302"></a>
         <a href="utilities.html#oven.utilities.unzipped.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="special">{(</span><span class="identifier">a11</span>
           <span class="identifier">a12</span> <span class="special">...</span>
@@ -1181,10 +1181,10 @@
           <span class="identifier">aMN</span><span class="special">)}</span></code>
           is <code class="computeroutput"><span class="identifier">_rng</span></code>.
         </li></ul></div>
-<a name="oven.utilities.unzipped.valid_expressions"></a><h4>
-<a name="id617368"></a>
+<a name="oven.utilities.unzipped.valid_expressions"></a><h5>
+<a name="id618441"></a>
         <a href="utilities.html#oven.utilities.unzipped.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1216,17 +1216,17 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.unzipped.preconditions"></a><h4>
-<a name="id617593"></a>
+<a name="oven.utilities.unzipped.preconditions"></a><h5>
+<a name="id618666"></a>
         <a href="utilities.html#oven.utilities.unzipped.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">_value_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code>.
         </li></ul></div>
-<a name="oven.utilities.unzipped.example"></a><h4>
-<a name="id617685"></a>
+<a name="oven.utilities.unzipped.example"></a><h5>
+<a name="id618758"></a>
         <a href="utilities.html#oven.utilities.unzipped.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>
     <span class="special">(</span>
@@ -1239,10 +1239,10 @@
 
 <span class="comment">// output&gt; ({1,2,3} {2,3,4})
 </span></pre>
-<a name="oven.utilities.unzipped.see_also"></a><h4>
-<a name="id617930"></a>
+<a name="oven.utilities.unzipped.see_also"></a><h5>
+<a name="id619004"></a>
         <a href="utilities.html#oven.utilities.unzipped.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="utilities.html#oven.utilities.zipped" title="zipped">zipped</a></li>
 <li><a href="utilities.html#oven.utilities.fuzipped" title="fuzipped">fuzipped</a></li>
@@ -1253,29 +1253,29 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.fuzipped"></a><a href="utilities.html#oven.utilities.fuzipped" title="fuzipped">fuzipped</a></h3></div></div></div>
-<a name="oven.utilities.fuzipped.description"></a><h4>
-<a name="id618024"></a>
+<a name="oven.utilities.fuzipped.description"></a><h5>
+<a name="id619097"></a>
         <a href="utilities.html#oven.utilities.fuzipped.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">fuzipped</span></code> takes a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts.html" target="_top">Fusion
         Sequence</a> of ranges and returns a range of corresponding <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts.html" target="_top">Fusion
         Sequence</a>.
       </p>
-<a name="oven.utilities.fuzipped.header"></a><h4>
-<a name="id618080"></a>
+<a name="oven.utilities.fuzipped.header"></a><h5>
+<a name="id619153"></a>
         <a href="utilities.html#oven.utilities.fuzipped.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">fuzipped</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.fuzipped.model_of"></a><h4>
-<a name="id618161"></a>
+<a name="oven.utilities.fuzipped.model_of"></a><h5>
+<a name="id619234"></a>
         <a href="utilities.html#oven.utilities.fuzipped.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.utilities.fuzipped.notation"></a><h4>
-<a name="id618202"></a>
+<a name="oven.utilities.fuzipped.notation"></a><h5>
+<a name="id619275"></a>
         <a href="utilities.html#oven.utilities.fuzipped.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="special">(</span><span class="identifier">_rng1</span>
@@ -1291,10 +1291,10 @@
           Random Access Sequence</a>.
         </li>
 </ul></div>
-<a name="oven.utilities.fuzipped.valid_expressions"></a><h4>
-<a name="id618338"></a>
+<a name="oven.utilities.fuzipped.valid_expressions"></a><h5>
+<a name="id619412"></a>
         <a href="utilities.html#oven.utilities.fuzipped.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1325,21 +1325,21 @@
               </td>
 </tr></tbody>
 </table></div>
-<a name="oven.utilities.fuzipped.preconditions"></a><h4>
-<a name="id618620"></a>
+<a name="oven.utilities.fuzipped.preconditions"></a><h5>
+<a name="id619693"></a>
         <a href="utilities.html#oven.utilities.fuzipped.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">fuzip_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_tuple</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">),...,</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rngN</span><span class="special">)))&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">make_vector</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">),...,</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rngN</span><span class="special">)))</span></code> is a valid expression.
         </li></ul></div>
-<a name="oven.utilities.fuzipped.example"></a><h4>
-<a name="id618832"></a>
+<a name="oven.utilities.fuzipped.example"></a><h5>
+<a name="id619905"></a>
         <a href="utilities.html#oven.utilities.fuzipped.example">Example</a>
-      </h4>
-<a name="oven.utilities.fuzipped.see_also"></a><h4>
-<a name="id618857"></a>
+      </h5>
+<a name="oven.utilities.fuzipped.see_also"></a><h5>
+<a name="id619930"></a>
         <a href="utilities.html#oven.utilities.fuzipped.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.boost.org/libs/iterator/doc/zip_iterator.html" target="_top">boost::zip_iterator</a></li>
 <li><a href="utilities.html#oven.utilities.unfuzipped" title="unfuzipped">unfuzipped</a></li>
@@ -1351,27 +1351,27 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.unfuzipped"></a><a href="utilities.html#oven.utilities.unfuzipped" title="unfuzipped">unfuzipped</a></h3></div></div></div>
-<a name="oven.utilities.unfuzipped.description"></a><h4>
-<a name="id618962"></a>
+<a name="oven.utilities.unfuzipped.description"></a><h5>
+<a name="id620035"></a>
         <a href="utilities.html#oven.utilities.unfuzipped.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">unfuzipped</span></code> reverses <code class="computeroutput"><span class="identifier">fuzipped</span></code>.
       </p>
-<a name="oven.utilities.unfuzipped.header"></a><h4>
-<a name="id619011"></a>
+<a name="oven.utilities.unfuzipped.header"></a><h5>
+<a name="id620084"></a>
         <a href="utilities.html#oven.utilities.unfuzipped.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">unfuzipped</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.unfuzipped.model_of"></a><h4>
-<a name="id619092"></a>
+<a name="oven.utilities.unfuzipped.model_of"></a><h5>
+<a name="id620166"></a>
         <a href="utilities.html#oven.utilities.unfuzipped.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.utilities.unfuzipped.notation"></a><h4>
-<a name="id619133"></a>
+<a name="oven.utilities.unfuzipped.notation"></a><h5>
+<a name="id620206"></a>
         <a href="utilities.html#oven.utilities.unfuzipped.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="special">{</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">}</span></code> is <code class="computeroutput"><span class="identifier">_rng</span></code>.
@@ -1380,10 +1380,10 @@
 <code class="computeroutput"><span class="identifier">at</span><span class="special">&lt;</span><span class="identifier">RefSeq</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">at_c</span><span class="special">&lt;</span><span class="identifier">RefSeq</span><span class="special">,</span> <span class="identifier">I</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li>
 </ul></div>
-<a name="oven.utilities.unfuzipped.valid_expressions"></a><h4>
-<a name="id619313"></a>
+<a name="oven.utilities.unfuzipped.valid_expressions"></a><h5>
+<a name="id620386"></a>
         <a href="utilities.html#oven.utilities.unfuzipped.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1446,17 +1446,17 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.utilities.unfuzipped.preconditions"></a><h4>
-<a name="id619796"></a>
+<a name="oven.utilities.unfuzipped.preconditions"></a><h5>
+<a name="id620869"></a>
         <a href="utilities.html#oven.utilities.unfuzipped.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
-<a name="oven.utilities.unfuzipped.see_also"></a><h4>
-<a name="id619829"></a>
+<a name="oven.utilities.unfuzipped.see_also"></a><h5>
+<a name="id620902"></a>
         <a href="utilities.html#oven.utilities.unfuzipped.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="range_adaptors.html#oven.range_adaptors.elements" title="elements">elements</a></li>
 <li><a href="range_adaptors.html#oven.range_adaptors.elements_c" title="elements_c">elements_c</a></li>
@@ -1469,10 +1469,10 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.utilities.zipped_with"></a><a href="utilities.html#oven.utilities.zipped_with" title="zipped_with">zipped_with</a></h3></div></div></div>
-<a name="oven.utilities.zipped_with.description"></a><h4>
-<a name="id619946"></a>
+<a name="oven.utilities.zipped_with.description"></a><h5>
+<a name="id621020"></a>
         <a href="utilities.html#oven.utilities.zipped_with.description">Description</a>
-      </h4>
+      </h5>
 <p>
         Though <code class="computeroutput"><span class="identifier">zipped</span></code> accepts a function
         taking a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code> as the parameter, such a function
@@ -1480,29 +1480,29 @@
         accepts a "normal" function, then turns it into comfortable one
         for <code class="computeroutput"><span class="identifier">zipped</span></code> before passing.
       </p>
-<a name="oven.utilities.zipped_with.header"></a><h4>
-<a name="id620029"></a>
+<a name="oven.utilities.zipped_with.header"></a><h5>
+<a name="id621102"></a>
         <a href="utilities.html#oven.utilities.zipped_with.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">zipped_with</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.utilities.zipped_with.model_of"></a><h4>
-<a name="id620109"></a>
+<a name="oven.utilities.zipped_with.model_of"></a><h5>
+<a name="id621183"></a>
         <a href="utilities.html#oven.utilities.zipped_with.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.utilities.zipped_with.notation"></a><h4>
-<a name="id620149"></a>
+<a name="oven.utilities.zipped_with.notation"></a><h5>
+<a name="id621223"></a>
         <a href="utilities.html#oven.utilities.zipped_with.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">fuse</span></code> is an imaginary function
           to turn the argument into the one taking a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code>
           as the parameter.
         </li></ul></div>
-<a name="oven.utilities.zipped_with.valid_expressions"></a><h4>
-<a name="id620214"></a>
+<a name="oven.utilities.zipped_with.valid_expressions"></a><h5>
+<a name="id621287"></a>
         <a href="utilities.html#oven.utilities.zipped_with.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1573,10 +1573,10 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.utilities.zipped_with.preconditions"></a><h4>
-<a name="id620671"></a>
+<a name="oven.utilities.zipped_with.preconditions"></a><h5>
+<a name="id621745"></a>
         <a href="utilities.html#oven.utilities.zipped_with.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">u</span></code> is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code>
@@ -1594,10 +1594,10 @@
           is a valid expressin.
         </li>
 </ul></div>
-<a name="oven.utilities.zipped_with.see_also"></a><h4>
-<a name="id620992"></a>
+<a name="oven.utilities.zipped_with.see_also"></a><h5>
+<a name="id622066"></a>
         <a href="utilities.html#oven.utilities.zipped_with.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="utilities.html#oven.utilities.zipped" title="zipped">zipped</a></li>
 <li><a href="utilities.html#oven.utilities.unzipped" title="unzipped">unzipped</a></li>

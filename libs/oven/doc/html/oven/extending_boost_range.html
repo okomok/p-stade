@@ -29,22 +29,22 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.extending_boost_range.concept_like_extension"></a><a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension" title="Concept-like extension">Concept-like
       extension</a></h3></div></div></div>
-<a name="oven.extending_boost_range.concept_like_extension.description"></a><h4>
-<a name="id624459"></a>
+<a name="oven.extending_boost_range.concept_like_extension.description"></a><h5>
+<a name="id625533"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension.description">Description</a>
-      </h4>
+      </h5>
 <p>
         Oven emulates a Concept-like extension way for <a href="http://www.boost.org/libs/range/index.html" target="_top">Boost.Range</a>.
       </p>
-<a name="oven.extending_boost_range.concept_like_extension.header"></a><h4>
-<a name="id624498"></a>
+<a name="oven.extending_boost_range.concept_like_extension.header"></a><h5>
+<a name="id625572"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">extension</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.extending_boost_range.concept_like_extension.notation"></a><h4>
-<a name="id624582"></a>
+<a name="oven.extending_boost_range.concept_like_extension.notation"></a><h5>
+<a name="id625655"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">X</span></code> is a type extending
@@ -71,17 +71,17 @@
           arguments of <code class="computeroutput"><span class="identifier">X</span></code>.
         </li>
 </ul></div>
-<a name="oven.extending_boost_range.concept_like_extension.effects"></a><h4>
-<a name="id624794"></a>
+<a name="oven.extending_boost_range.concept_like_extension.effects"></a><h5>
+<a name="id625867"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension.effects">Effects</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">X</span></code> becomes a model of <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
         </li></ul></div>
-<a name="oven.extending_boost_range.concept_like_extension.preconditions"></a><h4>
-<a name="id624846"></a>
+<a name="oven.extending_boost_range.concept_like_extension.preconditions"></a><h5>
+<a name="id625919"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">ER</span><span class="special">::</span><span class="identifier">associate</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;::</span><span class="identifier">mutable_iterator</span></code> is the mutable iterator
@@ -110,10 +110,10 @@
           is placed in the global namespace.
         </li>
 </ul></div>
-<a name="oven.extending_boost_range.concept_like_extension.example"></a><h4>
-<a name="id625274"></a>
+<a name="oven.extending_boost_range.concept_like_extension.example"></a><h5>
+<a name="id626348"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="keyword">namespace</span> <span class="identifier">Foo</span> <span class="special">{</span>
 
@@ -158,11 +158,11 @@
 <span class="identifier">PSTADE_OVEN_EXTENSION_OF_TEMPLATE</span><span class="special">((</span><span class="identifier">Foo</span><span class="special">)(</span><span class="identifier">Pair</span><span class="special">),</span> <span class="special">(</span><span class="keyword">class</span><span class="special">))</span>
 <span class="comment">// PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.
 </span></pre>
-<a name="oven.extending_boost_range.concept_like_extension.see_also"></a><h4>
-<a name="id625978"></a>
+<a name="oven.extending_boost_range.concept_like_extension.see_also"></a><h5>
+<a name="id627052"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.concept_like_extension.see_also">See
         also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2196.html" target="_top">Wording
           for range-based for-loop</a></li>
@@ -173,38 +173,38 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.extending_boost_range.atl_extension"></a><a href="extending_boost_range.html#oven.extending_boost_range.atl_extension" title="ATL extension">ATL extension</a></h3></div></div></div>
-<a name="oven.extending_boost_range.atl_extension.header"></a><h4>
-<a name="id626063"></a>
+<a name="oven.extending_boost_range.atl_extension.header"></a><h5>
+<a name="id627137"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.atl_extension.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">atl</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.extending_boost_range.atl_extension.see"></a><h4>
-<a name="id626145"></a>
+<a name="oven.extending_boost_range.atl_extension.see"></a><h5>
+<a name="id627218"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.atl_extension.see">See</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="../../../ms/doc/mfc_atl.html" target="_top">MFC/ATL Extension</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.extending_boost_range.mfc_extension"></a><a href="extending_boost_range.html#oven.extending_boost_range.mfc_extension" title="MFC extension">MFC extension</a></h3></div></div></div>
-<a name="oven.extending_boost_range.mfc_extension.header"></a><h4>
-<a name="id626206"></a>
+<a name="oven.extending_boost_range.mfc_extension.header"></a><h5>
+<a name="id627278"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.mfc_extension.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">mfc</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.extending_boost_range.mfc_extension.see"></a><h4>
-<a name="id626289"></a>
+<a name="oven.extending_boost_range.mfc_extension.see"></a><h5>
+<a name="id627361"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.mfc_extension.see">See</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="../../../ms/doc/mfc_atl.html" target="_top">MFC/ATL Extension</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.extending_boost_range.wtl_extension"></a><a href="extending_boost_range.html#oven.extending_boost_range.wtl_extension" title="WTL extension">WTL extension</a></h3></div></div></div>
-<a name="oven.extending_boost_range.wtl_extension.header"></a><h4>
-<a name="id626350"></a>
+<a name="oven.extending_boost_range.wtl_extension.header"></a><h5>
+<a name="id627422"></a>
         <a href="extending_boost_range.html#oven.extending_boost_range.wtl_extension.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">wtl</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 </div>
 </div>

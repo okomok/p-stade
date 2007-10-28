@@ -10,10 +10,10 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/p_stade/test/p_stade.cpp>
+#include <pstade/../libs/p_stade/test/p_stade.cpp>
 //#include <pstade/../libs/wine/test/poly.cpp>
 
-#include <pstade/../libs/oven/test/any_range.cpp>
+//#include <pstade/../libs/oven/test/jointed.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
