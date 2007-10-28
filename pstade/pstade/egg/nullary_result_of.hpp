@@ -39,15 +39,15 @@
     #define PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_aux(X, Seq) \
         namespace boost { \
             \
-            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T)> \
-            struct result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>(void) > \
+            template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
+            struct result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>(void) > \
             { \
-                typedef typename X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>::nullary_result_type type; \
+                typedef typename X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>::nullary_result_type type; \
             }; \
             \
-            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T)> \
-            struct result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)> const(void) > : \
-                   result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>() > \
+            template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
+            struct result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)> const(void) > : \
+                   result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>() > \
             { }; \
             \
          } \

@@ -33,6 +33,7 @@
 #include <pstade/egg/lexical_cast.hpp> // thanks to cryolite
 #include <pstade/oven/atl.hpp>
 #include <pstade/oven/mfc.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/oven/copied.hpp>
 #include <pstade/oven/zipped_with.hpp>

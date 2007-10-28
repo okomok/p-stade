@@ -34,10 +34,10 @@ void cfoo_( PSTADE_PP_ENUM_PARAMS_WITH(5, A, const&) )
 }
 
 
-template< PSTADE_PP_TO_TEMPLATE_PARAMS((class)(int), P) >
+template< PSTADE_PP_SEQ_ENUM_PARAMS((class)(int), P) >
 struct params
 {
-    typedef params< PSTADE_PP_TO_TEMPLATE_ARGS((class)(int), P) > self_t;
+    typedef params< PSTADE_PP_SEQ_ENUM_ARGS((class)(int), P) > self_t;
     BOOST_MPL_ASSERT((boost::is_same<self_t, params>));
 };
 
