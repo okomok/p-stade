@@ -20,6 +20,7 @@
 <a name="oven.concepts"></a><a href="concepts.html" title="Concepts">Concepts</a></h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="concepts.html#oven.concepts.pipable_adaptor">Pipable Adaptor</a></span></dt>
+<dt><span class="section"><a href="concepts.html#oven.concepts.resettable_object">Resettable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.concepts.stoppable_generator">Stoppable Generator</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.concepts.iteration_block">Iteration Block</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.concepts.constant_range">Constant Range</a></span></dt>
@@ -29,26 +30,26 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.pipable_adaptor"></a><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></h3></div></div></div>
-<a name="oven.concepts.pipable_adaptor.description"></a><h4>
+<a name="oven.concepts.pipable_adaptor.description"></a><h5>
 <a name="id502923"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.description">Description</a>
-      </h4>
+      </h5>
 <p>
         A <a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a> is
         a <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object" target="_top">Pipable
         Object</a> which has the associated <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
         Function Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
       </p>
-<a name="oven.concepts.pipable_adaptor.refinement_of"></a><h4>
+<a name="oven.concepts.pipable_adaptor.refinement_of"></a><h5>
 <a name="id502986"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.refinement_of">Refinement of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object" target="_top">Pipable
           Object</a></li></ul></div>
-<a name="oven.concepts.pipable_adaptor.requirements"></a><h4>
+<a name="oven.concepts.pipable_adaptor.requirements"></a><h5>
 <a name="id503025"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.requirements">Requirements</a>
-      </h4>
+      </h5>
 <p>
         In addition to the requirements defined in <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object" target="_top">Pipable
         Object</a>, for any <a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable
@@ -73,10 +74,10 @@
           valid expressions which has the same effects.
         </li>
 </ul></div>
-<a name="oven.concepts.pipable_adaptor.models"></a><h4>
+<a name="oven.concepts.pipable_adaptor.models"></a><h5>
 <a name="id503403"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.models">Models</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="range_adaptors.html#oven.range_adaptors.filtered" title="filtered">filtered</a></li>
 <li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.transformer" title="transformer">transformer</a></li>
@@ -84,27 +85,117 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oven.concepts.resettable_object"></a><a href="concepts.html#oven.concepts.resettable_object" title="Resettable Object">Resettable Object</a></h3></div></div></div>
+<a name="oven.concepts.resettable_object.description"></a><h5>
+<a name="id503473"></a>
+        <a href="concepts.html#oven.concepts.resettable_object.description">Description</a>
+      </h5>
+<p>
+        A <a href="concepts.html#oven.concepts.resettable_object" title="Resettable Object">Resettable Object</a>
+        is an object which is modifiable after its construction.
+      </p>
+<a name="oven.concepts.resettable_object.refinement_of"></a><h5>
+<a name="id503510"></a>
+        <a href="concepts.html#oven.concepts.resettable_object.refinement_of">Refinement
+        of</a>
+      </h5>
+<a name="oven.concepts.resettable_object.notation"></a><h5>
+<a name="id503535"></a>
+        <a href="concepts.html#oven.concepts.resettable_object.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">r</span></code> is a <a href="concepts.html#oven.concepts.resettable_object" title="Resettable Object">Resettable
+          Object</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">R</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">s</span></code> is an object whose type
+          is <code class="computeroutput"><span class="identifier">R</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">aI</span></code> is an object whose type
+          is not <code class="computeroutput"><span class="identifier">R</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">bI</span></code> is an object whose type
+          is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">aI</span><span class="special">)</span></code>.
+        </li>
+</ul></div>
+<a name="oven.concepts.resettable_object.requirements"></a><h5>
+<a name="id503710"></a>
+        <a href="concepts.html#oven.concepts.resettable_object.requirements">Requirements</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">(</span><span class="identifier">a0</span><span class="special">);</span></code>
+          is a valid expression if and only if <code class="computeroutput"><span class="identifier">s</span>
+          <span class="special">=</span> <span class="identifier">b0</span><span class="special">;</span></code> is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">);</span></code>
+          is a valid expression if and only if <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">reset</span><span class="special">(</span><span class="identifier">b1</span><span class="special">,...</span><span class="identifier">bN</span><span class="special">);</span></code>
+          is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">;</span></code> is a valid expression if and only if
+          <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">reset</span><span class="special">()</span></code>
+          is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">;</span></code> is a valid expression if and only if
+          <code class="computeroutput"><span class="identifier">s</span> <span class="special">=</span>
+          <span class="identifier">boost</span><span class="special">::</span><span class="identifier">none</span><span class="special">;</span></code>
+          is a valid expression.
+        </li>
+<li>
+          After the equivalent expressions above, <code class="computeroutput"><span class="identifier">r</span></code>
+          and <code class="computeroutput"><span class="identifier">s</span></code> shall have the same
+          states if <code class="computeroutput"><span class="identifier">aI</span></code> and <code class="computeroutput"><span class="identifier">bI</span></code> have the same states for all <code class="computeroutput"><span class="identifier">I</span></code>.
+        </li>
+</ul></div>
+<a name="oven.concepts.resettable_object.example"></a><h5>
+<a name="id504059"></a>
+        <a href="concepts.html#oven.concepts.resettable_object.example">Example</a>
+      </h5>
+<a name="oven.concepts.resettable_object.models"></a><h5>
+<a name="id504083"></a>
+        <a href="concepts.html#oven.concepts.resettable_object.models">Models</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="ranges.html#oven.ranges.any_range" title="any_range">any_range</a></li>
+<li><a href="ranges.html#oven.ranges.any_indexed" title="any_indexed">any_indexed</a></li>
+</ul></div>
+<a name="oven.concepts.resettable_object.see_also"></a><h5>
+<a name="id504138"></a>
+        <a href="concepts.html#oven.concepts.resettable_object.see_also">See also</a>
+      </h5>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.stoppable_generator"></a><a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a></h3></div></div></div>
-<a name="oven.concepts.stoppable_generator.description"></a><h4>
-<a name="id503478"></a>
+<a name="oven.concepts.stoppable_generator.description"></a><h5>
+<a name="id504182"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.description">Description</a>
-      </h4>
+      </h5>
 <p>
         A <a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a>
         is a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
-<a name="oven.concepts.stoppable_generator.refinement_of"></a><h4>
-<a name="id503532"></a>
+<a name="oven.concepts.stoppable_generator.refinement_of"></a><h5>
+<a name="id504236"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.refinement_of">Refinement
         of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
-<a name="oven.concepts.stoppable_generator.requirements"></a><h4>
-<a name="id503573"></a>
+<a name="oven.concepts.stoppable_generator.requirements"></a><h5>
+<a name="id504277"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.requirements">Requirements</a>
-      </h4>
+      </h5>
 <p>
         In addition to the requirements defined in <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
         Callable Object</a>, for any <a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable
@@ -121,10 +212,10 @@
           of generating.
         </li>
 </ul></div>
-<a name="oven.concepts.stoppable_generator.models"></a><h4>
-<a name="id503694"></a>
+<a name="oven.concepts.stoppable_generator.models"></a><h5>
+<a name="id504398"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.models">Models</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           Any <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a> which <a href="utilities.html#oven.utilities.nonstop" title="nonstop">nonstop</a>
@@ -134,24 +225,24 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.iteration_block"></a><a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration Block</a></h3></div></div></div>
-<a name="oven.concepts.iteration_block.description"></a><h4>
-<a name="id503758"></a>
+<a name="oven.concepts.iteration_block.description"></a><h5>
+<a name="id504463"></a>
         <a href="concepts.html#oven.concepts.iteration_block.description">Description</a>
-      </h4>
+      </h5>
 <p>
         An <a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration Block</a> is
         a unary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
         that yields an ordered sequence of values.
       </p>
-<a name="oven.concepts.iteration_block.refinement_of"></a><h4>
-<a name="id503803"></a>
+<a name="oven.concepts.iteration_block.refinement_of"></a><h5>
+<a name="id504507"></a>
         <a href="concepts.html#oven.concepts.iteration_block.refinement_of">Refinement of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
-<a name="oven.concepts.iteration_block.requirements"></a><h4>
-<a name="id503842"></a>
+<a name="oven.concepts.iteration_block.requirements"></a><h5>
+<a name="id504546"></a>
         <a href="concepts.html#oven.concepts.iteration_block.requirements">Requirements</a>
-      </h4>
+      </h5>
 <p>
         In addition to the requirements defined in <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
         Object</a>, for any <a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration
@@ -168,35 +259,35 @@
           to <code class="computeroutput"><span class="identifier">y</span></code>.
         </li>
 </ul></div>
-<a name="oven.concepts.iteration_block.models"></a><h4>
-<a name="id503990"></a>
+<a name="oven.concepts.iteration_block.models"></a><h5>
+<a name="id504694"></a>
         <a href="concepts.html#oven.concepts.iteration_block.models">Models</a>
-      </h4>
+      </h5>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.constant_range"></a><a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant Range</a></h3></div></div></div>
-<a name="oven.concepts.constant_range.description"></a><h4>
-<a name="id504030"></a>
+<a name="oven.concepts.constant_range.description"></a><h5>
+<a name="id504735"></a>
         <a href="concepts.html#oven.concepts.constant_range.description">Description</a>
-      </h4>
+      </h5>
 <p>
         A <a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         is a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         whose elements are not modifiable.
       </p>
-<a name="oven.concepts.constant_range.refinement_of"></a><h4>
-<a name="id504081"></a>
+<a name="oven.concepts.constant_range.refinement_of"></a><h5>
+<a name="id504786"></a>
         <a href="concepts.html#oven.concepts.constant_range.refinement_of">Refinement of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
           Pass</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
-<a name="oven.concepts.constant_range.requirements"></a><h4>
-<a name="id504128"></a>
+<a name="oven.concepts.constant_range.requirements"></a><h5>
+<a name="id504833"></a>
         <a href="concepts.html#oven.concepts.constant_range.requirements">Requirements</a>
-      </h4>
+      </h5>
 <p>
         In addition to the requirements defined in <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
         Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
@@ -212,10 +303,10 @@
           nor <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#swappable-iterators-lib-swappable-iterators" target="_top">Swappable</a>.
         </li>
 </ul></div>
-<a name="oven.concepts.constant_range.models"></a><h4>
-<a name="id504321"></a>
+<a name="oven.concepts.constant_range.models"></a><h5>
+<a name="id505025"></a>
         <a href="concepts.html#oven.concepts.constant_range.models">Models</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="keyword">const</span></code></li>
 <li><code class="computeroutput"><span class="keyword">int</span> <span class="keyword">const</span><span class="special">[</span><span class="number">10</span><span class="special">]</span></code></li>
@@ -224,20 +315,20 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.contiguous_range"></a><a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous Range</a></h3></div></div></div>
-<a name="oven.concepts.contiguous_range.description"></a><h4>
-<a name="id504444"></a>
+<a name="oven.concepts.contiguous_range.description"></a><h5>
+<a name="id505148"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.description">Description</a>
-      </h4>
+      </h5>
 <p>
         A <a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a> is a
         <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
         Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         whose elements are stored contiguously.
       </p>
-<a name="oven.concepts.contiguous_range.refinement_of"></a><h4>
-<a name="id504503"></a>
+<a name="oven.concepts.contiguous_range.refinement_of"></a><h5>
+<a name="id505208"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.refinement_of">Refinement of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
@@ -247,10 +338,10 @@
 <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li>
 </ul></div>
-<a name="oven.concepts.contiguous_range.requirements"></a><h4>
-<a name="id504569"></a>
+<a name="oven.concepts.contiguous_range.requirements"></a><h5>
+<a name="id505274"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.requirements">Requirements</a>
-      </h4>
+      </h5>
 <p>
         In addition to the requirements defined in <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
         Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
@@ -266,10 +357,10 @@
           <span class="identifier">_end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">-</span>
           <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
-<a name="oven.concepts.contiguous_range.models"></a><h4>
-<a name="id504836"></a>
+<a name="oven.concepts.contiguous_range.models"></a><h5>
+<a name="id505541"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.models">Models</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>
 <li><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="number">50</span><span class="special">&gt;</span></code></li>
@@ -278,22 +369,22 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.parallel_safe"></a><a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a></h3></div></div></div>
-<a name="oven.concepts.parallel_safe.description"></a><h4>
-<a name="id504967"></a>
+<a name="oven.concepts.parallel_safe.description"></a><h5>
+<a name="id505672"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.description">Description</a>
-      </h4>
+      </h5>
 <p>
         A <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a> type offers
         the same level of thread safety as built-in types.
       </p>
-<a name="oven.concepts.parallel_safe.refinement_of"></a><h4>
-<a name="id505005"></a>
+<a name="oven.concepts.parallel_safe.refinement_of"></a><h5>
+<a name="id505710"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.refinement_of">Refinement of</a>
-      </h4>
-<a name="oven.concepts.parallel_safe.requirements"></a><h4>
-<a name="id505029"></a>
+      </h5>
+<a name="oven.concepts.parallel_safe.requirements"></a><h5>
+<a name="id505734"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.requirements">Requirements</a>
-      </h4>
+      </h5>
 <p>
         For any <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>
         type <code class="computeroutput"><span class="identifier">t</span></code> the following must
@@ -304,10 +395,10 @@
           can be accessed simultaneosly by multiple threads (even when these instances
           are copies).
         </li></ul></div>
-<a name="oven.concepts.parallel_safe.models"></a><h4>
-<a name="id505093"></a>
+<a name="oven.concepts.parallel_safe.models"></a><h5>
+<a name="id505798"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.models">Models</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><code class="computeroutput"><span class="keyword">int</span></code></li>
 <li><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">shared_ptr</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>

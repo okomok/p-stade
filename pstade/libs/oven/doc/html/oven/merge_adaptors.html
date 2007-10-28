@@ -32,35 +32,35 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.merge_adaptors.merged"></a><a href="merge_adaptors.html#oven.merge_adaptors.merged" title="merged">merged</a></h3></div></div></div>
-<a name="oven.merge_adaptors.merged.description"></a><h4>
-<a name="id590322"></a>
+<a name="oven.merge_adaptors.merged.description"></a><h5>
+<a name="id591403"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.description">Description</a>
-      </h4>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">merged</span></code> combines two sorted
         ranges into a single sorted range.
       </p>
-<a name="oven.merge_adaptors.merged.header"></a><h4>
-<a name="id590361"></a>
+<a name="oven.merge_adaptors.merged.header"></a><h5>
+<a name="id591443"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">merged</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.merge_adaptors.merged.model_of"></a><h4>
-<a name="id590443"></a>
+<a name="oven.merge_adaptors.merged.model_of"></a><h5>
+<a name="id591524"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.merge_adaptors.merged.notation"></a><h4>
-<a name="id590484"></a>
+<a name="oven.merge_adaptors.merged.notation"></a><h5>
+<a name="id591565"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.notation">Notation</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">less</span></code> is <code class="computeroutput"><span class="identifier">regular</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_2</span><span class="special">)</span></code>.
         </li></ul></div>
-<a name="oven.merge_adaptors.merged.valid_expressions"></a><h4>
-<a name="id590604"></a>
+<a name="oven.merge_adaptors.merged.valid_expressions"></a><h5>
+<a name="id591686"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -109,10 +109,10 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.merge_adaptors.merged.preconditions"></a><h4>
-<a name="id590911"></a>
+<a name="oven.merge_adaptors.merged.preconditions"></a><h5>
+<a name="id591992"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <code class="computeroutput"><span class="identifier">_rng1</span></code> and <code class="computeroutput"><span class="identifier">_rng2</span></code> are <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>
@@ -134,20 +134,20 @@
 <code class="computeroutput"><span class="identifier">_prd</span></code> shall not modify referents.
         </li>
 </ul></div>
-<a name="oven.merge_adaptors.merged.example"></a><h4>
-<a name="id591162"></a>
+<a name="oven.merge_adaptors.merged.example"></a><h5>
+<a name="id592243"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.example">Example</a>
-      </h4>
+      </h5>
 <pre class="programlisting">
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">A1</span><span class="special">(</span><span class="string">"abbbfH"</span><span class="special">);</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">A2</span><span class="special">(</span><span class="string">"ABbCDFFhh"</span><span class="special">);</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">AA</span><span class="special">(</span><span class="string">"aAbbbBbCDfFFHhh"</span><span class="special">);</span>
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">A1</span><span class="special">|</span><span class="identifier">merged</span><span class="special">(</span><span class="identifier">A2</span><span class="special">,</span> <span class="special">&amp;::</span><span class="identifier">lt_nocase</span><span class="special">),</span> <span class="identifier">AA</span><span class="special">)</span> <span class="special">);</span>
 </pre>
-<a name="oven.merge_adaptors.merged.see_also"></a><h4>
-<a name="id591390"></a>
+<a name="oven.merge_adaptors.merged.see_also"></a><h5>
+<a name="id592471"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.merged.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="merge_adaptors.html#oven.merge_adaptors.set_cap" title="set_cap">set_cap</a></li>
 <li><a href="merge_adaptors.html#oven.merge_adaptors.set_cup" title="set_cup">set_cup</a></li>
@@ -158,24 +158,24 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.merge_adaptors.set_cap"></a><a href="merge_adaptors.html#oven.merge_adaptors.set_cap" title="set_cap">set_cap</a></h3></div></div></div>
-<a name="oven.merge_adaptors.set_cap.description"></a><h4>
-<a name="id591493"></a>
+<a name="oven.merge_adaptors.set_cap.description"></a><h5>
+<a name="id592574"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cap.description">Description</a>
-      </h4>
-<a name="oven.merge_adaptors.set_cap.header"></a><h4>
-<a name="id591517"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_cap.header"></a><h5>
+<a name="id592598"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cap.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_cap</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.merge_adaptors.set_cap.model_of"></a><h4>
-<a name="id591599"></a>
+<a name="oven.merge_adaptors.set_cap.model_of"></a><h5>
+<a name="id592680"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cap.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.merge_adaptors.set_cap.valid_expressions"></a><h4>
-<a name="id591641"></a>
+<a name="oven.merge_adaptors.set_cap.valid_expressions"></a><h5>
+<a name="id592722"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cap.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -224,21 +224,21 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.merge_adaptors.set_cap.preconditions"></a><h4>
-<a name="id591949"></a>
+<a name="oven.merge_adaptors.set_cap.preconditions"></a><h5>
+<a name="id593030"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cap.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
-<a name="oven.merge_adaptors.set_cap.example"></a><h4>
-<a name="id591992"></a>
+<a name="oven.merge_adaptors.set_cap.example"></a><h5>
+<a name="id593073"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cap.example">Example</a>
-      </h4>
-<a name="oven.merge_adaptors.set_cap.see_also"></a><h4>
-<a name="id592016"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_cap.see_also"></a><h5>
+<a name="id593097"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cap.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="merge_adaptors.html#oven.merge_adaptors.merged" title="merged">merged</a></li>
 <li><a href="merge_adaptors.html#oven.merge_adaptors.set_cup" title="set_cup">set_cup</a></li>
@@ -249,24 +249,24 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.merge_adaptors.set_cup"></a><a href="merge_adaptors.html#oven.merge_adaptors.set_cup" title="set_cup">set_cup</a></h3></div></div></div>
-<a name="oven.merge_adaptors.set_cup.description"></a><h4>
-<a name="id592111"></a>
+<a name="oven.merge_adaptors.set_cup.description"></a><h5>
+<a name="id593192"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cup.description">Description</a>
-      </h4>
-<a name="oven.merge_adaptors.set_cup.header"></a><h4>
-<a name="id592135"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_cup.header"></a><h5>
+<a name="id593217"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cup.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_cup</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.merge_adaptors.set_cup.model_of"></a><h4>
-<a name="id592217"></a>
+<a name="oven.merge_adaptors.set_cup.model_of"></a><h5>
+<a name="id593298"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cup.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.merge_adaptors.set_cup.valid_expressions"></a><h4>
-<a name="id592259"></a>
+<a name="oven.merge_adaptors.set_cup.valid_expressions"></a><h5>
+<a name="id593340"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cup.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -315,21 +315,21 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.merge_adaptors.set_cup.preconditions"></a><h4>
-<a name="id592567"></a>
+<a name="oven.merge_adaptors.set_cup.preconditions"></a><h5>
+<a name="id593648"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cup.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
-<a name="oven.merge_adaptors.set_cup.example"></a><h4>
-<a name="id592609"></a>
+<a name="oven.merge_adaptors.set_cup.example"></a><h5>
+<a name="id593691"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cup.example">Example</a>
-      </h4>
-<a name="oven.merge_adaptors.set_cup.see_also"></a><h4>
-<a name="id592634"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_cup.see_also"></a><h5>
+<a name="id593715"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_cup.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="merge_adaptors.html#oven.merge_adaptors.merged" title="merged">merged</a></li>
 <li><a href="merge_adaptors.html#oven.merge_adaptors.set_cap" title="set_cap">set_cap</a></li>
@@ -340,24 +340,24 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.merge_adaptors.set_delta"></a><a href="merge_adaptors.html#oven.merge_adaptors.set_delta" title="set_delta">set_delta</a></h3></div></div></div>
-<a name="oven.merge_adaptors.set_delta.description"></a><h4>
-<a name="id592730"></a>
+<a name="oven.merge_adaptors.set_delta.description"></a><h5>
+<a name="id593811"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_delta.description">Description</a>
-      </h4>
-<a name="oven.merge_adaptors.set_delta.header"></a><h4>
-<a name="id592754"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_delta.header"></a><h5>
+<a name="id593836"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_delta.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_delta</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.merge_adaptors.set_delta.model_of"></a><h4>
-<a name="id592836"></a>
+<a name="oven.merge_adaptors.set_delta.model_of"></a><h5>
+<a name="id593917"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_delta.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.merge_adaptors.set_delta.valid_expressions"></a><h4>
-<a name="id592878"></a>
+<a name="oven.merge_adaptors.set_delta.valid_expressions"></a><h5>
+<a name="id593959"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_delta.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -406,21 +406,21 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.merge_adaptors.set_delta.preconditions"></a><h4>
-<a name="id593186"></a>
+<a name="oven.merge_adaptors.set_delta.preconditions"></a><h5>
+<a name="id594267"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_delta.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
-<a name="oven.merge_adaptors.set_delta.example"></a><h4>
-<a name="id593228"></a>
+<a name="oven.merge_adaptors.set_delta.example"></a><h5>
+<a name="id594310"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_delta.example">Example</a>
-      </h4>
-<a name="oven.merge_adaptors.set_delta.see_also"></a><h4>
-<a name="id593253"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_delta.see_also"></a><h5>
+<a name="id594334"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_delta.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="merge_adaptors.html#oven.merge_adaptors.merged" title="merged">merged</a></li>
 <li><a href="merge_adaptors.html#oven.merge_adaptors.set_cap" title="set_cap">set_cap</a></li>
@@ -431,24 +431,24 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.merge_adaptors.set_minus"></a><a href="merge_adaptors.html#oven.merge_adaptors.set_minus" title="set_minus">set_minus</a></h3></div></div></div>
-<a name="oven.merge_adaptors.set_minus.description"></a><h4>
-<a name="id593349"></a>
+<a name="oven.merge_adaptors.set_minus.description"></a><h5>
+<a name="id594431"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_minus.description">Description</a>
-      </h4>
-<a name="oven.merge_adaptors.set_minus.header"></a><h4>
-<a name="id593374"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_minus.header"></a><h5>
+<a name="id594455"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_minus.header">Header</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_minus</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="oven.merge_adaptors.set_minus.model_of"></a><h4>
-<a name="id593456"></a>
+<a name="oven.merge_adaptors.set_minus.model_of"></a><h5>
+<a name="id594537"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_minus.model_of">Model of</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
-<a name="oven.merge_adaptors.set_minus.valid_expressions"></a><h4>
-<a name="id593497"></a>
+<a name="oven.merge_adaptors.set_minus.valid_expressions"></a><h5>
+<a name="id594579"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_minus.valid_expressions">Valid expressions</a>
-      </h4>
+      </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -497,21 +497,21 @@
 </tr>
 </tbody>
 </table></div>
-<a name="oven.merge_adaptors.set_minus.preconditions"></a><h4>
-<a name="id593806"></a>
+<a name="oven.merge_adaptors.set_minus.preconditions"></a><h5>
+<a name="id594887"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_minus.preconditions">Preconditions</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
         </li></ul></div>
-<a name="oven.merge_adaptors.set_minus.example"></a><h4>
-<a name="id593848"></a>
+<a name="oven.merge_adaptors.set_minus.example"></a><h5>
+<a name="id594930"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_minus.example">Example</a>
-      </h4>
-<a name="oven.merge_adaptors.set_minus.see_also"></a><h4>
-<a name="id593873"></a>
+      </h5>
+<a name="oven.merge_adaptors.set_minus.see_also"></a><h5>
+<a name="id594954"></a>
         <a href="merge_adaptors.html#oven.merge_adaptors.set_minus.see_also">See also</a>
-      </h4>
+      </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="merge_adaptors.html#oven.merge_adaptors.merged" title="merged">merged</a></li>
 <li><a href="merge_adaptors.html#oven.merge_adaptors.set_cap" title="set_cap">set_cap</a></li>

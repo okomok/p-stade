@@ -7,20 +7,20 @@ Oven provides some useful Output Iterators.
 
 [section any_output_iterator]
 
-[h3 Description]
+[heading Description]
 `any_output_iterator` is an _output_iterator_ to which any _output_iterator_ can be assigned.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/any_output_iterator.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _output_iterator_
 * _default_constructible_
 
-[h3 Notation]
+[heading Notation]
 * `ao` is an `any_output_iterator<V>` object.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -36,10 +36,10 @@ Oven provides some useful Output Iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `V` specifies a (possibly reference) type which is outputted to `ao`.
 
-[h3 Example]
+[heading Example]
     int const in[] = { 1,2,3,4,5,6,7,8,9,10 };
     int const answer[] = {2*3,4*3,6*3,8*3,10*3};
     std::vector<int> out;
@@ -49,7 +49,7 @@ Oven provides some useful Output Iterators.
     copy(in,  o2);
     BOOST_CHECK( equals(out, answer) );
 
-[h3 See also]
+[heading See also]
 * _oven_any_range_
 
 [endsect]
@@ -59,16 +59,16 @@ Oven provides some useful Output Iterators.
 
 [section applier]
 
-[h3 Description]
+[heading Description]
 `applier` returns an _output_iterator_ which passes each item assigned as an argument to the unary function.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/applier.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -82,13 +82,13 @@ Oven provides some useful Output Iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `boost::function_output_iterator<typeof(_fun)>` such that `T(_fun)` is a valid expression.
 * `_fun` is _assignable_.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://www.boost.org/libs/iterator/doc/function_output_iterator.html boost::function_output_iterator]
 * _oven_applied_
 
@@ -99,16 +99,16 @@ Oven provides some useful Output Iterators.
 
 [section checker]
 
-[h3 Description]
+[heading Description]
 `checker` is a shortcut of `checked|begin`.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/checker.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -128,12 +128,12 @@ Oven provides some useful Output Iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * The corresponding semantics is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_checked_
 
 [endsect]
@@ -143,19 +143,19 @@ Oven provides some useful Output Iterators.
 
 [section eater]
 
-[h3 Description]
+[heading Description]
 `eater` returns an _output_iterator_ ignores inputs.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/eater.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Notation]
 * `f_` is an imaginary _function_object_ which behaves as if it were `v -> (void)v`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -169,12 +169,12 @@ Oven provides some useful Output Iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * The corresponding semantics is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * _oven_applier_
 * _oven_intercepter_
 
@@ -185,18 +185,18 @@ Oven provides some useful Output Iterators.
 
 [section stream_writer]
 
-[h3 Description]
+[heading Description]
 `stream_writer` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
 It needs no explicit template parameter to specify the `value_type` to output,
 but one extra precondition below must be met. It can be easily guaranteed by using `converter`, though.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/stream_writer.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -218,11 +218,11 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 
 [note `stream_writer` doesn't write an extra delimiter after the last element.]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `hamigaki::ostream_iterator<unspecified, _typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s, d)` is a valid expressin.
 * An object which is passed to `_typeof(stream_writer(s))::operator=` is _output_streamable_.
 
-[h3 Example]
+[heading Example]
     std::vector<std::string> sample
         = initial_values("hello", "oven", "stream_writer");
 
@@ -239,7 +239,7 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
         ) );
     }
 
-[h3 See also]
+[heading See also]
 * [@http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html hamigaki::ostream_iteraotor]
 * [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
 * _oven_delimited_
@@ -253,16 +253,16 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 
 [section streambuf_writer]
 
-[h3 Description]
+[heading Description]
 `streambuf_writer` is the object generator of `std::ostreambuf_iterator`.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/stream_writer.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -282,13 +282,13 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `T` is `std::ostreambuf_iterator<typeof(s)::char_type, typeof(s)::traits_type>` such that `T(s)` is a valid expression.
 * `U` is `std::ostreambuf_iterator<typeof(*p)::char_type, typeof(*p)::traits_type>` such that `U(p)` is a valid expression.
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 
 [endsect]
 
@@ -297,16 +297,16 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
 
 [section std_stream_writer]
 
-[h3 Description]
+[heading Description]
 `std_stream_writer` returns an _output_iterator_ which behaves as if it were `std::ostream_iterator`.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/stream_writer.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -326,14 +326,14 @@ but one extra precondition below must be met. It can be easily guaranteed by usi
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * The corresponding semantics is a valid expression.
 
 [note `std_stream_writer` doesn't take a template parameter for output `value_type`. Use `converter` when you want to specify it.]
 
-[h3 Example]
+[heading Example]
 
-[h3 See also]
+[heading See also]
 * [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
 * _oven_stream_writer_
 * _oven_converter_

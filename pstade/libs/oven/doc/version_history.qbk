@@ -187,6 +187,8 @@
 * Added `eater` and `intercepter`.
 * Added `any_indexed`.
 * `any_range` implemented a small buffer optimization.
+* Added `as_range`.
+* Introduced `Resettable` concept.
 
 
 

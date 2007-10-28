@@ -24,11 +24,13 @@
 #include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/Iterator/iterator_concepts.hpp> // boost_concepts
-#include <boost/Iterator/iterator_traits.hpp>
+#include <boost/iterator/iterator_concepts.hpp> // boost_concepts
+#include <boost/iterator/iterator_traits.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/type_traits/is_const.hpp>
 #include <pstade/concept.hpp>
 #include "./bidirectional.hpp"
 #include "./comb_sort.hpp"
@@ -77,6 +79,7 @@ void random_access_swappable_iterator(Iterator first, Iterator last, IteratorA f
     // PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<Iterator>)); // See "../do_iter_swap".
 
     typedef typename boost::iterator_value<IteratorA>::type val_t;
+    BOOST_MPL_ASSERT_NOT((boost::is_const<val_t>));
     boost::ptr_list<val_t> lstA(firstA, lastA);
     lstA.sort();
 

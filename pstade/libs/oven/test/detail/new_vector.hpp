@@ -13,9 +13,11 @@
 #include <pstade/oven/detail/prefix.hpp>
 #include <algorithm> // for_each
 #include <memory> // auto_ptr
+#include <boost/mpl/assert.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/type_traits/is_const.hpp>
 #include "./push_back_new.hpp"
 
 
@@ -26,6 +28,7 @@ template< class Clonable >
 std::auto_ptr< boost::ptr_vector<Clonable> >
 new_vector0()
 {
+    BOOST_MPL_ASSERT_NOT((boost::is_const<Clonable>));
     boost::ptr_vector<Clonable> pc;
     return pc.clone();
 }
@@ -35,6 +38,7 @@ template< class Clonable, class Range >
 std::auto_ptr< boost::ptr_vector<Clonable> >
 new_vector(Range const& rng)
 {
+    BOOST_MPL_ASSERT_NOT((boost::is_const<Clonable>));
     boost::ptr_vector<Clonable> pc;
     std::for_each(boost::begin(rng), boost::end(rng), test::push_back_new<Clonable>(pc));
     return pc.clone();

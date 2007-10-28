@@ -7,16 +7,16 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section STL Algorithms]
 
-[h3 Description]
+[heading Description]
 `algorithm.hpp` is provided as range-based `<algorithm>`.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/algorithm.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -36,7 +36,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `f1` and `f2` is one of the function names defined in `<algorithm>` except for...
     * `fill_n`, `generate_n`, `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
 * `f3` is one of the following names...
@@ -49,7 +49,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [note `fill_n` and `generate_n` are not considered as range algorithm, so they are excluded.]
 
-[h3 Example]
+[heading Example]
     std::string str;
 
     // iterator-based
@@ -69,16 +69,16 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section STL Numerics]
 
-[h3 Description]
+[heading Description]
 `numeric.hpp` is provided as range-based `<numeric>`.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/numeric.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -90,7 +90,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `f` is one of the function names defined in `<numeric>`.
 * `std::f(_begin(_rng), _end(_rng), x1,...,xN)` is a valid expression.
 
@@ -106,19 +106,19 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section all]
 
-[h3 Description]
+[heading Description]
 `all` returns true if the predicate is true for all the referents in the range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/all.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Notation]
 * `not_` is an imaginary function to nagate a predicate.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -130,10 +130,10 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng` is _readable_ or _lvalue_.
 
-[h3 See also]
+[heading See also]
 * _oven_none_
 
 [endsect]
@@ -143,17 +143,17 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section none]
 
-[h3 Description]
+[heading Description]
 `none` returns true if the predicate is true for none of the referents in the range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/none.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -165,10 +165,10 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng` is _readable_ or _lvalue_.
 
-[h3 See also]
+[heading See also]
 * _oven_all_
 
 [endsect]
@@ -178,16 +178,16 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section at]
 
-[h3 Description]
+[heading Description]
 `at` returns the N-th referent from the beginning of the range. 
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/at.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -199,7 +199,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rndrng` is _readable_ or _lvalue_.
 * If `boost::range_reference<_typeof(_rndrng)>::type` is a /reference type/, `_rndrng` is a _lvalue_ _s_ _range_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
@@ -207,12 +207,12 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [note you must use _oven_value_at_ if the second precondition can't be met.]
 
-[h3 Example]
+[heading Example]
     std::string str("f12344513215b");
     BOOST_CHECK( at(str, 0) == 'f' );
     BOOST_CHECK( (str|at(4)) == '4' );
 
-[h3 See also]
+[heading See also]
 * _oven_value_at_
 
 [endsect]
@@ -222,16 +222,16 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section back]
 
-[h3 Description]
+[heading Description]
 `back` returns the last referent in the range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/back.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -243,12 +243,12 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_bidrng` is _readable_ or _lvalue_.
 * If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _s_ _range_.
 * `!boost::empty(_bidrng)`
 
-[h3 See also]
+[heading See also]
 * _oven_front_
 * _oven_value_back_
 
@@ -259,16 +259,16 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section front]
 
-[h3 Description]
+[heading Description]
 `front` returns the first referent in the range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/front.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -280,12 +280,12 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng` is _readable_ or _lvalue_.
 * If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_ _s_ _range_.
 * `!boost::empty(_rng)`
 
-[h3 See also]
+[heading See also]
 * _oven_back_
 * _oven_value_front_
 
@@ -296,16 +296,16 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section begin/end]
 
-[h3 Description]
+[heading Description]
 `begin` and `end` is _auxiliary_class_interface_ which represents `boost::begin` and `boost::end` respectively.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/begin_end.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -321,7 +321,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Example]
+[heading Example]
     std::string src("abcDefg");   
     copy(src|reversed|upper_chars, src|reversed|begin);
     BOOST_CHECK( equals(src, std::string("ABCDEFG")) );
@@ -333,20 +333,20 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [section copied]
 
-[h3 Description]
+[heading Description]
 `copied` automagically calls the range-constructor of the target range without specifying the type.
 
-[h3 Model of]
+[heading Model of]
 * _pipable_adaptor_
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/copied.hpp>`
 
-[h3 Notation]
+[heading Notation]
 * `V1` is `_value_of<_typeof(_rng1)>::type`.
 * `to_v1` is `regular(boost::lambda::ll_static_cast<V1>(boost::lambda::_1))`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -362,7 +362,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng1` is a _sequence_.
 * If `x` is an object of unspecified type, `boost::implicit_cast<Rng1>(x)` is not a valid expression.
 * `_value_of<_typeof(_rng)>::type` is convertible to `V1`.
@@ -372,12 +372,12 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 [note The first valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
 The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not always a valid expression.]
 
-[h3 Example]
+[heading Example]
     std::string rng("abcdefg");
     std::vector<char> vec = rng|copied;
     BOOST_CHECK( equals(vec, rng) );
 
-[h3 See also]
+[heading See also]
 * _oven_transformed_
 
 [endsect]
@@ -387,16 +387,16 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [section distance]
 
-[h3 Description]
+[heading Description]
 `distance` is a range-based `std::distance` but traversal-aware.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/distance.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -408,7 +408,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `std::distance(_begin(_rng), _end(_rng))` is a valid expression.
 
 [endsect]
@@ -418,19 +418,19 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [section equals]
 
-[h3 Description]
+[heading Description]
 `equals` is a range-based `std::equal` but sensitive to the distances.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/equals.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _static_function_object_
 
-[h3 Notation]
+[heading Notation]
 * `eq` is `(boost::lambda::_1 == boost::lambda::_2)`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -446,7 +446,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng1` and `_rng2` are _readable_ or _lvalue_.
 
 [endsect]
@@ -456,19 +456,19 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [section value_at]
 
-[h3 Description]
+[heading Description]
 `value_at` returns a copy of N-th referent from the beginning of the range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/at.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Notation]
+[heading Notation]
 `V` is `_value_of<_typeof(_rndrng)>::type`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -480,12 +480,12 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rndrng` is _readable_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
 
-[h3 See also]
+[heading See also]
 * _oven_at_
 
 [endsect]
@@ -495,19 +495,19 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [section value_back]
 
-[h3 Description]
+[heading Description]
 `value_back` returns a copy of the last referent in the range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/back.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Notation]
+[heading Notation]
 * `V` is `_value_of<_typeof(_bidrng)>::type`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -519,11 +519,11 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_bidrng` is _readable_.
 * `!boost::empty(_bidrng)`
 
-[h3 See also]
+[heading See also]
 * _oven_back_
 * _oven_value_front_
 
@@ -534,19 +534,19 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [section value_front]
 
-[h3 Description]
+[heading Description]
 `value_front` returns a copy of the first referent in the range.
 
-[h3 Header]
+[heading Header]
 * `<pstade/oven/front.hpp>`
 
-[h3 Model of]
+[heading Model of]
 * _auxiliary_class_interface_
 
-[h3 Notation]
+[heading Notation]
 * `V` is `_value_of<_typeof(_rng)>::type`.
 
-[h3 Valid expressions]
+[heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
@@ -558,11 +558,11 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     ]
 ]
 
-[h3 Preconditions]
+[heading Preconditions]
 * `_rng` is _readable_.
 * `!boost::empty(_rng)`
 
-[h3 See also]
+[heading See also]
 * _oven_front_
 * _oven_value_back_
 
