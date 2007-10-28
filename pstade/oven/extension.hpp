@@ -290,29 +290,29 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 
     #define PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_meta(Fullname, ParamSeq, Fun) \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
-        struct Fun< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > > : \
-            ::pstade::oven::extension_detail::Fun< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > > \
+        template< PSTADE_PP_SEQ_ENUM_PARAMS(ParamSeq, T) > \
+        struct Fun< Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) > > : \
+            ::pstade::oven::extension_detail::Fun< Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) > > \
         { }; \
         \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
-        struct Fun< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > const > : \
-               Fun< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > > \
+        template< PSTADE_PP_SEQ_ENUM_PARAMS(ParamSeq, T) > \
+        struct Fun< Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) > const > : \
+               Fun< Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) > > \
         { }; \
     /**/
 
 
     #define PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(Fullname, ParamSeq, Fun, Result) \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > inline \
-        typename ::pstade::oven::extension_detail::Result< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > >::type \
-        Fun(Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >& x) \
+        template< PSTADE_PP_SEQ_ENUM_PARAMS(ParamSeq, T) > inline \
+        typename ::pstade::oven::extension_detail::Result< Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) > >::type \
+        Fun(Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) >& x) \
         { \
             return ::pstade::oven::extension_detail::Fun(x); \
         } \
         \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > inline \
-        typename ::pstade::oven::extension_detail::Result< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > const >::type \
-        Fun(Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > const& x) \
+        template< PSTADE_PP_SEQ_ENUM_PARAMS(ParamSeq, T) > inline \
+        typename ::pstade::oven::extension_detail::Result< Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) > const >::type \
+        Fun(Fullname< PSTADE_PP_SEQ_ENUM_ARGS(ParamSeq, T) > const& x) \
         { \
             return ::pstade::oven::extension_detail::Fun(x); \
         } \

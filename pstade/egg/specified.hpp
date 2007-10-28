@@ -69,11 +69,11 @@
     /**/
 
         #define PSTADE_EGG_SPECIFIED0_aux(Name, Op, Seq) \
-            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X)> inline \
-            typename pstade::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()>::type \
+            template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, X)> inline \
+            typename pstade::result_of<Op<PSTADE_PP_SEQ_ENUM_ARGS(Seq, X)>()>::type \
             Name() \
             { \
-                return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(); \
+                return Op<PSTADE_PP_SEQ_ENUM_ARGS(Seq, X)>()(); \
             }
         /**/
 
@@ -83,18 +83,18 @@
     /**/
 
         #define PSTADE_EGG_SPECIFIED1_aux(Name, Op, Seq) \
-            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            PSTADE_EGG_RESULT_OF_IN_NS_SCOPE((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (A0&)) \
+            template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, X), class A0> inline \
+            PSTADE_EGG_RESULT_OF_IN_NS_SCOPE((Op<PSTADE_PP_SEQ_ENUM_ARGS(Seq, X)>), (A0&)) \
             Name(A0& a0 PSTADE_CONST_OVERLOADED(A0)) \
             { \
-                return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
+                return Op<PSTADE_PP_SEQ_ENUM_ARGS(Seq, X)>()(a0); \
             } \
             \
-            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            PSTADE_EGG_RESULT_OF_IN_NS_SCOPE((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (PSTADE_EGG_CONST_REF(A0))) \
+            template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, X), class A0> inline \
+            PSTADE_EGG_RESULT_OF_IN_NS_SCOPE((Op<PSTADE_PP_SEQ_ENUM_ARGS(Seq, X)>), (PSTADE_EGG_CONST_REF(A0))) \
             Name(A0 const& a0) \
             { \
-                return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
+                return Op<PSTADE_PP_SEQ_ENUM_ARGS(Seq, X)>()(a0); \
             } \
         /**/
 
@@ -119,11 +119,11 @@
         ) \
     /**/
     #define PSTADE_function_aux(ArgTypes, Params, N) \
-        template<PSTADE_PP_TO_TEMPLATE_PARAMS(PSTADE_params, X), BOOST_PP_ENUM_PARAMS(N, class A)> inline \
-        PSTADE_EGG_RESULT_OF_IN_NS_SCOPE( (PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_params, X)>), ArgTypes ) \
+        template<PSTADE_PP_SEQ_ENUM_PARAMS(PSTADE_params, X), BOOST_PP_ENUM_PARAMS(N, class A)> inline \
+        PSTADE_EGG_RESULT_OF_IN_NS_SCOPE( (PSTADE_op<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_params, X)>), ArgTypes ) \
         PSTADE_name( Params PSTADE_CONST_OVERLOADED_SEQ(PSTADE_PP_SEQ_PARAMS(N, A)) ) \
         { \
-            return PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_params, X)>()(BOOST_PP_ENUM_PARAMS(N, a)); \
+            return PSTADE_op<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_params, X)>()(BOOST_PP_ENUM_PARAMS(N, a)); \
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) ( BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) )
