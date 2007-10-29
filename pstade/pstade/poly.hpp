@@ -43,7 +43,6 @@
 #include <cstddef> // size_t
 #include <typeinfo>
 #include <boost/assert.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
@@ -103,109 +102,68 @@ namespace pstade {
 
 
         template<class O>
-        struct virtual_destroy
+        struct virtual_
         {
-            typedef void (*type)(storage<O> &stg);
+            typedef void (*destory_type)(storage<O> &stg);
+            typedef void (*copy_type)(storage<O> const &stg, storage<O> &to);
+            typedef O *(*get_type)(storage<O> const &stg);
+            typedef std::type_info const &(*typeid_type)();
         };
 
-        template<class O, class Q>
-        struct override_destroy
-        {
-            static void call(storage<O> &stg)
-            {
-                aux(stg, stores_locally<O, Q>());
-            }
 
-        private:
-            // local
-            static void aux(storage<O> &stg, boost::mpl::true_)
+        template<class O, class Q>
+        struct override_typeid
+        {
+            static std::type_info const &typeid_()
+            {
+                return typeid(Q);
+            }
+        };
+
+        // local
+        template<class O, class Q, bool = stores_locally<O, Q>::value>
+        struct override_ :
+            override_typeid<O, Q>
+        {
+            static void destroy(storage<O> &stg)
             {
                 reinterpret_cast<Q *>(stg.address())->~Q();
             }
 
-            // heap
-            static void aux(storage<O> &stg, boost::mpl::false_)
-            {
-                BOOST_ASSERT(stg.ptr);
-                detail::clonable_delete(detail::pointer_cast<Q>(stg.ptr));
-            }
-        };
-
-
-        template<class O>
-        struct virtual_copy
-        {
-            typedef void (*type)(storage<O> const &stg, storage<O> &to);
-        };
-
-        template<class O, class Q>
-        struct override_copy
-        {
-            static void call(storage<O> const &stg, storage<O> &to)
-            {
-                aux(stg, to, stores_locally<O, Q>());
-            }
-
-        private:
-            // local
-            static void aux(storage<O> const &stg, storage<O> &to, boost::mpl::true_)
+            static void copy(storage<O> const &stg, storage<O> &to)
             {
                 Q const *q = reinterpret_cast<Q const *>(stg.address());
                 new (to.address()) Q(*q);
             }
 
-            // heap
-            static void aux(storage<O> const &stg, storage<O> &to, boost::mpl::false_)
+            static O *get(storage<O> const &stg)
+            {
+                return reinterpret_cast<Q *>(stg.address());
+            }
+        };
+
+        // heap
+        template<class O, class Q>
+        struct override_<O, Q, false> :
+            override_typeid<O, Q>
+        {
+            static void destroy(storage<O> &stg)
+            {
+                BOOST_ASSERT(stg.ptr);
+                detail::clonable_delete(detail::pointer_cast<Q>(stg.ptr));
+            }
+
+            static void copy(storage<O> const &stg, storage<O> &to)
             {
                 BOOST_ASSERT(stg.ptr);
                 Q const *q = detail::pointer_cast<Q const>(stg.ptr);
                 to.ptr = detail::clonable_new(*q);
             }
-        };
 
-
-        template<class O>
-        struct virtual_get
-        {
-            typedef O *(*type)(storage<O> const &stg);
-        };
-
-        template<class O, class Q>
-        struct override_get
-        {
-            static O *call(storage<O> const &stg)
-            {
-                return aux(stg, stores_locally<O, Q>());
-            }
-
-        private:
-            // local
-            static O *aux(storage<O> const &stg, boost::mpl::true_)
-            {
-                return reinterpret_cast<Q *>(stg.address());
-            }
-
-            // heap
-            static O *aux(storage<O> const &stg, boost::mpl::false_)
+            static O *get(storage<O> const &stg)
             {
                 BOOST_ASSERT(stg.ptr);
                 return stg.ptr;
-            }
-        };
-
-
-        template<class O>
-        struct virtual_typeid
-        {
-            typedef std::type_info const &(*type)();
-        };
-
-        template<class O, class Q>
-        struct override_typeid
-        {
-            static std::type_info const &call()
-            {
-                return typeid(Q);
             }
         };
 
@@ -214,10 +172,10 @@ namespace pstade {
         template<class O>
         struct vtable
         {
-            typename virtual_destroy<O>::type destroy;
-            typename virtual_copy<O>::type copy;
-            typename virtual_get<O>::type get;
-            typename virtual_typeid<O>::type typeid_;
+            typename virtual_<O>::destory_type destroy;
+            typename virtual_<O>::copy_type copy;
+            typename virtual_<O>::get_type get;
+            typename virtual_<O>::typeid_type typeid_;
         };
 
 
@@ -225,10 +183,10 @@ namespace pstade {
         vtable<O> const *vtable_pointer()
         {
             static vtable<O> const vtbl = {
-                &override_destroy<O, Q>::call,
-                &override_copy<O, Q>::call,
-                &override_get<O, Q>::call,
-                &override_typeid<O, Q>::call
+                &override_<O, Q>::destroy,
+                &override_<O, Q>::copy,
+                &override_<O, Q>::get,
+                &override_<O, Q>::typeid_
             };
 
             return &vtbl;
@@ -425,12 +383,12 @@ namespace pstade {
         }
 
     // totally_ordered
-        bool operator< (self_t const& other) const
+        bool operator< (self_t const &other) const
         {
             return boost::less_pointees(*this, other);
         }
 
-        bool operator==(self_t const& other) const
+        bool operator==(self_t const &other) const
         {
             return boost::equal_pointees(*this, other);
         }

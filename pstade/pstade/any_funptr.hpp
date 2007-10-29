@@ -13,12 +13,17 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/none.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/type_traits/is_function.hpp>
+#include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/do_swap.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -33,6 +38,22 @@
 
 namespace pstade {
 
+
+    namespace any_funptr_detail {
+
+
+        template<class X>
+        struct is_function_pointer :
+            boost::mpl::false_
+        { };
+
+        template<class X>
+        struct is_function_pointer<X *> :
+            boost::is_function<X>
+        { };
+
+
+    } // namespace any_funptr_detail
 
     // 0ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_ANY_FUNPTR_MAX_ARITY, <pstade/any_funptr.hpp>))
@@ -66,7 +87,7 @@ namespace pstade {
         { }
 
         template<class Fp>
-        any_funptr(Fp fp) :
+        any_funptr(Fp fp, typename enable_if< any_funptr_detail::is_function_pointer<Fp> >::type = 0) :
             m_fp(reinterpret_cast<void_funptr_t>(fp))
         { }
 
