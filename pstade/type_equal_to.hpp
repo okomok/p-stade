@@ -47,8 +47,7 @@ namespace pstade {
         result_type operator()(std::type_info const &i, std::type_info const &j) const
         {
 #if defined(PSTADE_TYPE_EQUAL_TO_WORKAROUND)
-            using namespace std;
-            return !strcmp(i.name(), j.name());
+            return !std::strcmp(i.name(), j.name());
 #else
             return make_bool(i == j);
 #endif

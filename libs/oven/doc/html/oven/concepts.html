@@ -31,7 +31,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.pipable_adaptor"></a><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></h3></div></div></div>
 <a name="oven.concepts.pipable_adaptor.description"></a><h5>
-<a name="id502923"></a>
+<a name="id502931"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.description">Description</a>
       </h5>
 <p>
@@ -41,13 +41,13 @@
         Function Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
       </p>
 <a name="oven.concepts.pipable_adaptor.refinement_of"></a><h5>
-<a name="id502986"></a>
+<a name="id502993"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object" target="_top">Pipable
           Object</a></li></ul></div>
 <a name="oven.concepts.pipable_adaptor.requirements"></a><h5>
-<a name="id503025"></a>
+<a name="id503032"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.requirements">Requirements</a>
       </h5>
 <p>
@@ -75,7 +75,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.pipable_adaptor.models"></a><h5>
-<a name="id503403"></a>
+<a name="id503410"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -87,7 +87,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.resettable_object"></a><a href="concepts.html#oven.concepts.resettable_object" title="Resettable Object">Resettable Object</a></h3></div></div></div>
 <a name="oven.concepts.resettable_object.description"></a><h5>
-<a name="id503473"></a>
+<a name="id503480"></a>
         <a href="concepts.html#oven.concepts.resettable_object.description">Description</a>
       </h5>
 <p>
@@ -95,12 +95,12 @@
         is an object which is modifiable after its construction.
       </p>
 <a name="oven.concepts.resettable_object.refinement_of"></a><h5>
-<a name="id503510"></a>
+<a name="id503517"></a>
         <a href="concepts.html#oven.concepts.resettable_object.refinement_of">Refinement
         of</a>
       </h5>
 <a name="oven.concepts.resettable_object.notation"></a><h5>
-<a name="id503535"></a>
+<a name="id503542"></a>
         <a href="concepts.html#oven.concepts.resettable_object.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -117,7 +117,7 @@
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">aI</span></code> is an object whose type
-          is not <code class="computeroutput"><span class="identifier">R</span></code>.
+          is NOT <code class="computeroutput"><span class="identifier">R</span></code>.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">bI</span></code> is an object whose type
@@ -125,7 +125,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.resettable_object.requirements"></a><h5>
-<a name="id503710"></a>
+<a name="id503717"></a>
         <a href="concepts.html#oven.concepts.resettable_object.requirements">Requirements</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -156,12 +156,29 @@
           states if <code class="computeroutput"><span class="identifier">aI</span></code> and <code class="computeroutput"><span class="identifier">bI</span></code> have the same states for all <code class="computeroutput"><span class="identifier">I</span></code>.
         </li>
 </ul></div>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            Notice that neither <code class="computeroutput"><span class="identifier">r</span> <span class="special">=</span> <span class="identifier">s</span></code>
+            nor <code class="computeroutput"><span class="identifier">r</span><span class="special">.</span><span class="identifier">reset</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+            is not listed.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
 <a name="oven.concepts.resettable_object.example"></a><h5>
-<a name="id504059"></a>
+<a name="id504136"></a>
         <a href="concepts.html#oven.concepts.resettable_object.example">Example</a>
       </h5>
 <a name="oven.concepts.resettable_object.models"></a><h5>
-<a name="id504083"></a>
+<a name="id504159"></a>
         <a href="concepts.html#oven.concepts.resettable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -169,7 +186,7 @@
 <li><a href="ranges.html#oven.ranges.any_indexed" title="any_indexed">any_indexed</a></li>
 </ul></div>
 <a name="oven.concepts.resettable_object.see_also"></a><h5>
-<a name="id504138"></a>
+<a name="id504214"></a>
         <a href="concepts.html#oven.concepts.resettable_object.see_also">See also</a>
       </h5>
 </div>
@@ -177,7 +194,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.stoppable_generator"></a><a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a></h3></div></div></div>
 <a name="oven.concepts.stoppable_generator.description"></a><h5>
-<a name="id504182"></a>
+<a name="id504259"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.description">Description</a>
       </h5>
 <p>
@@ -186,14 +203,14 @@
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="oven.concepts.stoppable_generator.refinement_of"></a><h5>
-<a name="id504236"></a>
+<a name="id504313"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="oven.concepts.stoppable_generator.requirements"></a><h5>
-<a name="id504277"></a>
+<a name="id504354"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.requirements">Requirements</a>
       </h5>
 <p>
@@ -213,7 +230,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.stoppable_generator.models"></a><h5>
-<a name="id504398"></a>
+<a name="id504475"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -226,7 +243,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.iteration_block"></a><a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration Block</a></h3></div></div></div>
 <a name="oven.concepts.iteration_block.description"></a><h5>
-<a name="id504463"></a>
+<a name="id504539"></a>
         <a href="concepts.html#oven.concepts.iteration_block.description">Description</a>
       </h5>
 <p>
@@ -235,12 +252,12 @@
         that yields an ordered sequence of values.
       </p>
 <a name="oven.concepts.iteration_block.refinement_of"></a><h5>
-<a name="id504507"></a>
+<a name="id504584"></a>
         <a href="concepts.html#oven.concepts.iteration_block.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="oven.concepts.iteration_block.requirements"></a><h5>
-<a name="id504546"></a>
+<a name="id504622"></a>
         <a href="concepts.html#oven.concepts.iteration_block.requirements">Requirements</a>
       </h5>
 <p>
@@ -260,7 +277,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.iteration_block.models"></a><h5>
-<a name="id504694"></a>
+<a name="id504771"></a>
         <a href="concepts.html#oven.concepts.iteration_block.models">Models</a>
       </h5>
 </div>
@@ -268,7 +285,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.constant_range"></a><a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant Range</a></h3></div></div></div>
 <a name="oven.concepts.constant_range.description"></a><h5>
-<a name="id504735"></a>
+<a name="id504811"></a>
         <a href="concepts.html#oven.concepts.constant_range.description">Description</a>
       </h5>
 <p>
@@ -277,7 +294,7 @@
         whose elements are not modifiable.
       </p>
 <a name="oven.concepts.constant_range.refinement_of"></a><h5>
-<a name="id504786"></a>
+<a name="id504862"></a>
         <a href="concepts.html#oven.concepts.constant_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -285,7 +302,7 @@
           Pass</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="oven.concepts.constant_range.requirements"></a><h5>
-<a name="id504833"></a>
+<a name="id504909"></a>
         <a href="concepts.html#oven.concepts.constant_range.requirements">Requirements</a>
       </h5>
 <p>
@@ -304,7 +321,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.constant_range.models"></a><h5>
-<a name="id505025"></a>
+<a name="id505102"></a>
         <a href="concepts.html#oven.concepts.constant_range.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -316,7 +333,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.contiguous_range"></a><a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous Range</a></h3></div></div></div>
 <a name="oven.concepts.contiguous_range.description"></a><h5>
-<a name="id505148"></a>
+<a name="id505224"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.description">Description</a>
       </h5>
 <p>
@@ -326,7 +343,7 @@
         whose elements are stored contiguously.
       </p>
 <a name="oven.concepts.contiguous_range.refinement_of"></a><h5>
-<a name="id505208"></a>
+<a name="id505284"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -339,7 +356,7 @@
 </li>
 </ul></div>
 <a name="oven.concepts.contiguous_range.requirements"></a><h5>
-<a name="id505274"></a>
+<a name="id505351"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.requirements">Requirements</a>
       </h5>
 <p>
@@ -358,7 +375,7 @@
           <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="oven.concepts.contiguous_range.models"></a><h5>
-<a name="id505541"></a>
+<a name="id505618"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -370,7 +387,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.parallel_safe"></a><a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a></h3></div></div></div>
 <a name="oven.concepts.parallel_safe.description"></a><h5>
-<a name="id505672"></a>
+<a name="id505749"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.description">Description</a>
       </h5>
 <p>
@@ -378,11 +395,11 @@
         the same level of thread safety as built-in types.
       </p>
 <a name="oven.concepts.parallel_safe.refinement_of"></a><h5>
-<a name="id505710"></a>
+<a name="id505786"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.refinement_of">Refinement of</a>
       </h5>
 <a name="oven.concepts.parallel_safe.requirements"></a><h5>
-<a name="id505734"></a>
+<a name="id505811"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.requirements">Requirements</a>
       </h5>
 <p>
@@ -396,7 +413,7 @@
           are copies).
         </li></ul></div>
 <a name="oven.concepts.parallel_safe.models"></a><h5>
-<a name="id505798"></a>
+<a name="id505874"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">

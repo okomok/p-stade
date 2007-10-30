@@ -24,6 +24,7 @@
 #include <pstade/oven/counting.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/algorithm.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <pstade/egg/to_upper.hpp>
@@ -31,7 +32,7 @@
 
 template< class Range >
 boost::iterator_range< boost::reverse_iterator<
-    typename boost::range_result_iterator<Range>::type
+    typename pstade::oven::range_iterator<Range>::type
 > > const
 make_boost_reverse(Range& rng)
 {

@@ -40,7 +40,7 @@ A _resettable_object_ is an object which is modifiable after its construction.
 * `r` is a _resettable_object_.
 * `R` is `_typeof(r)`.
 * `s` is an object whose type is `R`.
-* `aI` is an object whose type is not `R`.
+* `aI` is an object whose type is NOT `R`.
 * `bI` is an object whose type is `_typeof(aI)`.
 
 [heading Requirements]
@@ -49,6 +49,8 @@ A _resettable_object_ is an object which is modifiable after its construction.
 * `R r;` is a valid expression if and only if `s.reset()` is a valid expression.
 * `R r;` is a valid expression if and only if `s = boost::none;` is a valid expression.
 * After the equivalent expressions above, `r` and `s` shall have the same states if `aI` and `bI` have the same states for all `I`.
+
+[important Notice that neither `r = s` nor `r.reset(s)` is not listed. ]
 
 [heading Example]
 
@@ -59,6 +61,7 @@ A _resettable_object_ is an object which is modifiable after its construction.
 [heading See also]
 
 [endsect]
+
 
 
 
