@@ -104,78 +104,6 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 
 
-[section all]
-
-[heading Description]
-`all` returns true if the predicate is true for all the referents in the range.
-
-[heading Header]
-* `<pstade/oven/all.hpp>`
-
-[heading Model of]
-* _static_function_object_
-
-[heading Notation]
-* `not_` is an imaginary function to nagate a predicate.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`all(_rng, _prd)`]
-        [`std::find_if(_begin(_rng), _end(_rng), not_(pred)) == _end(_rng)`]
-    ]
-]
-
-[heading Preconditions]
-* `_rng` is _readable_ or _lvalue_.
-
-[heading See also]
-* _oven_none_
-
-[endsect]
-
-
-
-
-[section none]
-
-[heading Description]
-`none` returns true if the predicate is true for none of the referents in the range.
-
-[heading Header]
-* `<pstade/oven/none.hpp>`
-
-[heading Model of]
-* _static_function_object_
-
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`none(_rng, _prd)`]
-        [`std::find_if(_begin(_rng), _end(_rng), pred) == _end(_rng)`]
-    ]
-]
-
-[heading Preconditions]
-* `_rng` is _readable_ or _lvalue_.
-
-[heading See also]
-* _oven_all_
-
-[endsect]
-
-
-
-
 [section at]
 
 [heading Description]
@@ -448,6 +376,78 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [heading Preconditions]
 * `_rng1` and `_rng2` are _readable_ or _lvalue_.
+
+[endsect]
+
+
+
+
+[section exists]
+
+[heading Description]
+`exists` returns true if a predicate is true for a referent in the range.
+
+[heading Header]
+* `<pstade/oven/exists.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`exists(_rng, _prd)`]
+        [`std::find_if(_begin(_rng), _end(_rng), pred) != _end(_rng)`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+
+[heading See also]
+* _oven_forall_
+
+[endsect]
+
+
+
+
+[section forall]
+
+[heading Description]
+`forall` returns true if a predicate is true for all the referents in the range.
+
+[heading Header]
+* `<pstade/oven/forall.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Notation]
+* `not_` is an imaginary function to nagate a predicate.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`forall(_rng, _prd)`]
+        [`std::find_if(_begin(_rng), _end(_rng), not_(pred)) == _end(_rng)`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+
+[heading See also]
+* _oven_exists_
 
 [endsect]
 

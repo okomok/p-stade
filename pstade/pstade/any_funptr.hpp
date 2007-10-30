@@ -21,7 +21,6 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/is_function.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/nullptr.hpp>

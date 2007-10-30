@@ -189,6 +189,8 @@
 * `any_range` implemented a small buffer optimization.
 * Added `as_range`.
 * Introduced `Resettable` concept.
+* Renamed `all` to `forall`.
+* Removed `none`, and added `exists`.
 
 
 

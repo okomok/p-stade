@@ -16,8 +16,8 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/is_heap.hpp>
 #include <pstade/oven/is_sorted.hpp>
-#include <pstade/oven/all.hpp>
-#include <pstade/oven/none.hpp>
+#include <pstade/oven/forall.hpp>
+#include <pstade/oven/exists.hpp>
 #include <pstade/oven/do_iter_swap.hpp>
 #include <pstade/oven/write.hpp>
 #include <pstade/minimal_test.hpp>
@@ -43,8 +43,8 @@ PSTADE_TEST_IS_RESULT_OF((range_difference<std::string>::type), T_distance(std::
 PSTADE_TEST_IS_RESULT_OF((bool), T_is_sorted(std::string&))
 PSTADE_TEST_IS_RESULT_OF((bool), T_is_heap(std::string&))
 
-PSTADE_TEST_IS_RESULT_OF((bool), T_all(std::string&))
-PSTADE_TEST_IS_RESULT_OF((bool), T_none(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_forall(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), T_exists(std::string&))
 
 PSTADE_TEST_IS_RESULT_OF((void), T_do_iter_swap(int *, int*))
 
@@ -89,8 +89,8 @@ void pstade_minimal_test()
         BOOST_CHECK( is_heap(rng) );
     }
     {
-        BOOST_CHECK( all(std::string("aaaaaaaaaa"), is_a()) );
-        BOOST_CHECK( none(std::string("bbbbbbbbb"), is_a()) );
+        BOOST_CHECK( forall(std::string("aaaaaaaaaa"), is_a()) );
+        BOOST_CHECK( !exists(std::string("bbbbbbbbb"), is_a()) );
     }
     {
         int rng[] = { 0, 1 };
