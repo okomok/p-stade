@@ -11,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/version.hpp>
 #include <boost/config.hpp> // BOOST_HAS_THREADS
+#include <boost/version.hpp>
 
 
 #if BOOST_VERSION < 103500
