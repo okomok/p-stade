@@ -17,7 +17,7 @@
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <boost/fusion/sequence/comparison.hpp>
+#include <boost/fusion/include/comparison.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/result_of.hpp>
 

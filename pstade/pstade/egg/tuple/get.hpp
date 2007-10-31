@@ -22,12 +22,12 @@
 #include "./element.hpp"
 
 #if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
-    #include <boost/fusion/iterator/advance.hpp>
-    #include <boost/fusion/iterator/deref.hpp>
-    #include <boost/fusion/sequence/adapted/boost_tuple.hpp> // lets 'boost::tuple' be FusionSequence
-    #include <boost/fusion/sequence/adapted/std_pair.hpp> // lets 'std::pair' be FusionSequence
-    #include <boost/fusion/sequence/intrinsic/begin.hpp>
-    #include <boost/fusion/sequence/intrinsic/mpl.hpp> // lets FusionSequence be MPLSequence
+    #include <boost/fusion/include/advance.hpp>
+    #include <boost/fusion/include/begin.hpp>
+    #include <boost/fusion/include/boost_tuple.hpp> // lets 'boost::tuple' be FusionSequence
+    #include <boost/fusion/include/deref.hpp>
+    #include <boost/fusion/include/mpl.hpp> // lets FusionSequence be MPLSequence
+    #include <boost/fusion/include/std_pair.hpp> // lets 'std::pair' be FusionSequence
 #endif
 
 

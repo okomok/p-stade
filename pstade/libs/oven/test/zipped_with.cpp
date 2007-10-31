@@ -24,7 +24,7 @@
 #include <pstade/egg/tuple/pack.hpp> // tuple_pack
 
 #if BOOST_VERSION >= 103500
-#include <boost/fusion/sequence/generation/vector_tie.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
 #endif
 
 

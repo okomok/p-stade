@@ -15,7 +15,7 @@
 //
 // [1] Pavol Droba, none, Proposal for new string algorithms in TR2, 2006.
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
-// [2] exists, Boost.Wiki, 2001.
+// [2] none, Boost.Wiki, 2001.
 //     http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?STLAlgorithmExtensions/NoneAlgorithm
 
 

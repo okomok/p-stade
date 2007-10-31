@@ -11,9 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/fusion/algorithm/query/find_if.hpp>
-#include <boost/fusion/iterator/deref.hpp>
-#include <boost/fusion/sequence/intrinsic/end.hpp>
+#include <boost/fusion/include/deref.hpp>
+#include <boost/fusion/include/end.hpp>
+#include <boost/fusion/include/find_if.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/type_traits/is_same.hpp>

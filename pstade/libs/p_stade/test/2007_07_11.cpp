@@ -1,6 +1,6 @@
 
 
-#include <boost/fusion/functional/adapter/unfused_lvalue_args.hpp>
+#include <boost/fusion/include/unfused_lvalue_args.hpp>
 
 
 struct foo

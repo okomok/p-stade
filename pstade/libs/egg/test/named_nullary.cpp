@@ -14,8 +14,8 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <boost/fusion/sequence/intrinsic/at.hpp>
-#include <boost/fusion/sequence/intrinsic/size.hpp>
+#include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/size.hpp>
 
 
 struct T_foo1;

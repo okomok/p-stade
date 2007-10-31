@@ -19,7 +19,7 @@
 
 // What:
 //
-// See <boost/python/type_id.hpp>
+// See <boost/python/type_id.hpp>.
 
 
 #include <typeinfo>

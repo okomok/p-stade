@@ -23,7 +23,7 @@
 #include "./config.hpp"
 
 #if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
-    #include <boost/fusion/sequence/intrinsic/mpl.hpp> // lets FusionSequence be MPLSequence
+    #include <boost/fusion/include/mpl.hpp> // lets FusionSequence be MPLSequence
 #endif
 
 
