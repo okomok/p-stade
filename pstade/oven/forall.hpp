@@ -15,7 +15,7 @@
 //
 // [1] Pavol Droba, all, Proposal for new string algorithms in TR2, 2006.
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
-// [2] forall, Boost.Wiki, 2004.
+// [2] all, Boost.Wiki, 2004.
 //     http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?STLAlgorithmExtensions/AllAlgorithm
 
 

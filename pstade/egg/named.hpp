@@ -12,7 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/fusion/sequence/container/vector.hpp>
+#include <boost/fusion/include/vector.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>

@@ -1,9 +1,9 @@
 
-#include <boost/fusion/algorithm/query/find.hpp>
+#include <boost/fusion/include/find.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/fusion/sequence/container/vector.hpp>
-#include <boost/fusion/sequence/adapted/boost_tuple.hpp>
-#include <boost/fusion/algorithm/query/count.hpp>
+#include <boost/fusion/include/vector.hpp>
+#include <boost/fusion/include/boost_tuple.hpp>
+#include <boost/fusion/include/count.hpp>
 
 
 int main()

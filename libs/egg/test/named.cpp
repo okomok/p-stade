@@ -14,7 +14,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/fusion/include/at.hpp>
 
 
 struct T_foo2;

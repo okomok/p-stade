@@ -15,10 +15,9 @@
 #if BOOST_VERSION >= 103500
 
 
-#include <boost/fusion/algorithm/transformation/transform.hpp>
-#include <boost/fusion/sequence/adapted/mpl.hpp>
-#include <boost/fusion/sequence/conversion/as_vector.hpp>
-#include <boost/fusion/sequence/intrinsic/mpl.hpp>
+#include <boost/fusion/include/as_vector.hpp>
+#include <boost/fusion/include/mpl.hpp>
+#include <boost/fusion/include/transform.hpp>
 #include <boost/mpl/always.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/placeholders.hpp>

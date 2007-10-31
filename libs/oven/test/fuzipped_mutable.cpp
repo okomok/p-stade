@@ -28,10 +28,10 @@
 #include <pstade/oven/copied.hpp>
 
 
-#include <boost/fusion/sequence/adapted/boost_tuple.hpp>
-#include <boost/fusion/sequence/comparison.hpp> // DON'T FORGET for Readable test
-#include <boost/fusion/sequence/intrinsic/at.hpp>
-#include <boost/fusion/sequence/generation/vector_tie.hpp>
+#include <boost/fusion/include/boost_tuple.hpp>
+#include <boost/fusion/include/comparison.hpp> // DON'T FORGET for Readable test
+#include <boost/fusion/include/at.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
 
 
 template<class Iterator>

@@ -26,7 +26,7 @@
 #include "./transformed.hpp"
 #if BOOST_VERSION >= 103500
     // Lets 'boost::tuple' be FusionSequence for 'T_make_fuzipped'.
-    #include <boost/fusion/sequence/adapted/boost_tuple.hpp>
+    #include <boost/fusion/include/boost_tuple.hpp>
 #else
     #include "./zipped.hpp"
 #endif

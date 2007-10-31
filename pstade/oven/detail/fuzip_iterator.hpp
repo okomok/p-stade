@@ -17,13 +17,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/fusion/algorithm/iteration/for_each.hpp>
-#include <boost/fusion/algorithm/transformation/transform.hpp>
-#include <boost/fusion/iterator/deref.hpp>
-#include <boost/fusion/sequence/comparison.hpp>
-#include <boost/fusion/sequence/conversion/as_vector.hpp>
-#include <boost/fusion/sequence/intrinsic/begin.hpp>
-#include <boost/fusion/sequence/intrinsic/mpl.hpp> // lets FusionSequence be MPLSequence
+#include <boost/fusion/include/as_vector.hpp>
+#include <boost/fusion/include/begin.hpp>
+#include <boost/fusion/include/comparison.hpp>
+#include <boost/fusion/include/deref.hpp>
+#include <boost/fusion/include/for_each.hpp>
+#include <boost/fusion/include/mpl.hpp> // lets FusionSequence be MPLSequence
+#include <boost/fusion/include/transform.hpp>
 #include <boost/mpl/placeholders.hpp> // missing from 'minimum_category.hpp'
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_categories.hpp>

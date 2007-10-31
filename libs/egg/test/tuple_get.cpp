@@ -23,8 +23,8 @@
 #include <pstade/result_of.hpp>
 
 #if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
-#include <boost/fusion/sequence/container/vector.hpp>
-#include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/fusion/include/vector.hpp>
+#include <boost/fusion/include/at.hpp>
 #endif
 
 

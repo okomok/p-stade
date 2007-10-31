@@ -23,7 +23,7 @@
 // References:
 //
 // [1] <boost/tuple/tuple_io.hpp>
-// [2] <boost/fusion/sequence/io.hpp>
+// [2] <boost/fusion/include/io.hpp>
 
 
 #include <locale> // isspace

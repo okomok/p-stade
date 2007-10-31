@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/fusion/sequence/container/vector.hpp>
+#include <boost/fusion/include/vector.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
 #include "../by_ref.hpp"

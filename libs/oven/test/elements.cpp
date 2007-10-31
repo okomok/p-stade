@@ -21,8 +21,8 @@
 
 
 #include <vector>
-#include <boost/fusion/tuple/tuple.hpp>
-#include <boost/fusion/tuple/make_tuple.hpp>
+#include <boost/fusion/include/tuple.hpp>
+#include <boost/fusion/include/make_tuple.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
