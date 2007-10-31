@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_AS_RANGE_HPP
-#define PSTADE_OVEN_AS_RANGE_HPP
+#ifndef PSTADE_OVEN_MAKE_RANGE_HPP
+#define PSTADE_OVEN_MAKE_RANGE_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -18,8 +18,8 @@
 namespace pstade { namespace oven {
 
 
-typedef T_make_iter_range T_as_range;
-PSTADE_POD_CONSTANT((T_as_range), as_range) = {{}};
+typedef T_make_iter_range T_make_range;
+PSTADE_POD_CONSTANT((T_make_range), make_range) = {{}};
 
 
 } } // namespace pstade::oven

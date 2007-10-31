@@ -16,9 +16,7 @@ Oven provides some useful Output Iterators.
 [heading Model of]
 * _output_iterator_
 * _default_constructible_
-
-[heading Notation]
-* `ao` is an `any_output_iterator<V>` object.
+* _resettable_
 
 [heading Valid expressions]
 [table 
@@ -27,12 +25,8 @@ Oven provides some useful Output Iterators.
         [[*Semantics]]
     ]
     [
-        [`any_output_iterator<V> ao(_outit)`]
-        [`ao` holds `_outit`.]
-    ]
-    [
-        [`ao = _outit`]
-        [`ao` holds `_outit`.]
+        [`any_output_iterator<V>(_outit)`]
+        [An _output_iterator_ whose iterator operations are forwarded to `_outit`.]
     ]
 ]
 

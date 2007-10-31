@@ -13,10 +13,10 @@
 
 #include <pstade/constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./as_range.hpp" // inclusion guaranteed
 #include "./cycled.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
+#include "./make_range.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace oven {
