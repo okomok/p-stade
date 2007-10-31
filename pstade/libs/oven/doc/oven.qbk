@@ -1,7 +1,7 @@
 
 [library Oven
     [quickbook 1.3]
-    [version 0.95.1]
+    [version 0.95.2]
     [authors [Sogame, Shunsuke]]
     [copyright 2005-2007 Shunsuke Sogame]
     [category range]
@@ -112,7 +112,6 @@ Distributed under the Boost Software License, Version 1.0.
 [def _oven_as_array_ [link oven.ranges.as_array as_array]]
 [def _oven_as_array_ [link oven.ranges.as_array as_array]]
 [def _oven_as_c_str_ [link oven.ranges.as_c_str as_c_str]]
-[def _oven_as_range_ [link oven.ranges.as_range as_range]]
 [def _oven_as_literal_ [link oven.ranges.as_literal as_literal]]
 [def _oven_at_ [link oven.range_algorithms.at at]]
 [def _oven_back_ [link oven.range_algorithms.back back]]
@@ -150,6 +149,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def _oven_intercepter_ [link oven.output_iterator_adaptors.intercepter intercepter]]
 [def _oven_iteration_ [link oven.ranges.iteration iteration]]
 [def _oven_lower_chars_ [link oven.string_adaptors.lower_chars lower_chars]]
+[def _oven_make_range_ [link oven.ranges.make_range make_range]]
 [def _oven_map_keys_ [link oven.range_adaptors.map_keys map_keys]]
 [def _oven_map_values_ [link oven.range_adaptors.map_values map_values]]
 [def _oven_matches_ [link oven.string_adaptors.matches matches]]

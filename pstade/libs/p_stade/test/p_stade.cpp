@@ -1,12 +1,10 @@
+#include <boost/concept_check.hpp>
+#include <boost/range/concepts.hpp>
+#include <boost/range.hpp>
 
-
-#include <boost/optional_poly.hpp>
-
-struct my_base {};
-struct my_derived : my_base {};
+using namespace boost;
 
 int main()
 {
-    boost::optional_poly<my_derived> from;
-    boost::optional_poly<my_base> to(from);
+    function_requires<ForwardRangeConcept<iterator_range<int*> > >();
 }

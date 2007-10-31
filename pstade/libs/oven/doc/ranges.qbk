@@ -52,7 +52,7 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 
 [heading See also]
 * [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
-* _oven_as_range_
+* _oven_make_range_
 * _oven_expression_
 * _oven_any_indexed_
 * _oven_any_output_iterator_
@@ -103,7 +103,7 @@ some extra preconditions.
 
 [heading See also]
 * _oven_any_range_
-* _oven_as_range_
+* _oven_make_range_
 * _oven_recursion_
 
 [endsect]
@@ -433,43 +433,6 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * _string_algo_proposal_
 * _oven_as_array_
 * _oven_as_c_str_
-
-[endsect]
-
-
-
-
-[section as_range]
-
-[heading Description]
-Types defined in Oven is so hardhead that you can't /copy-initialize/ `any_range` by third-party ranges.
-So, you sometimes have to call `as_range`, which turns a range into Oven compatible one.
-
-[heading Header]
-* `<pstade/oven/as_range.hpp>`
-
-[heading Model of]
-* _static_function_object_
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`as_range(_rng)`]
-        [
-            `[_begin(_rng), _end(_rng))`
-        ]
-    ]
-]
-
-[heading Preconditions]
-
-[heading See also]
-* _oven_any_range_
-* _oven_any_indexed_
 
 [endsect]
 
@@ -960,6 +923,50 @@ on the first argument, the second item by applying the function on the previous 
 * _oven_unfold_
 * _oven_generation_
 * _oven_taken_
+
+[endsect]
+
+
+
+
+[section make_range]
+
+[heading Description]
+Types defined in Oven is so hardhead that you can't /copy-initialize/ `any_range` by third-party ranges.
+So, you sometimes have to call `make_range`, which turns a range into Oven compatible one.
+
+[heading Header]
+* `<pstade/oven/make_range.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`make_range(_rng)`]
+        [
+            `[_begin(_rng), _end(_rng))`
+        ]
+    ]
+    [
+        [`make_range(i, j)`]
+        [
+            `[i, j)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading See also]
+* _oven_any_range_
+* _oven_any_indexed_
 
 [endsect]
 

@@ -4,9 +4,9 @@
 <title>Concepts</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="../index.html" title="Chapter 1. Oven 0.95.1">
-<link rel="up" href="../index.html" title="Chapter 1. Oven 0.95.1">
-<link rel="prev" href="../index.html" title="Chapter 1. Oven 0.95.1">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 0.95.2">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 0.95.2">
+<link rel="prev" href="../index.html" title="Chapter 1. Oven 0.95.2">
 <link rel="next" href="range_algorithms.html" title="Range Algorithms">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -141,7 +141,12 @@
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">;</span></code> is a valid expression if and only if
-          <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">reset</span><span class="special">()</span></code>
+          <code class="computeroutput"><span class="identifier">R</span> <span class="identifier">s</span>
+          <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">none</span><span class="special">;</span></code> is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">;</span></code> is a valid expression if and only if
+          <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">reset</span><span class="special">();</span></code>
           is a valid expression.
         </li>
 <li>
@@ -174,19 +179,20 @@
 </td></tr>
 </table></div>
 <a name="oven.concepts.resettable_object.example"></a><h5>
-<a name="id504136"></a>
+<a name="id504205"></a>
         <a href="concepts.html#oven.concepts.resettable_object.example">Example</a>
       </h5>
 <a name="oven.concepts.resettable_object.models"></a><h5>
-<a name="id504159"></a>
+<a name="id504229"></a>
         <a href="concepts.html#oven.concepts.resettable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="ranges.html#oven.ranges.any_range" title="any_range">any_range</a></li>
 <li><a href="ranges.html#oven.ranges.any_indexed" title="any_indexed">any_indexed</a></li>
+<li><a href="output_iterators.html#oven.output_iterators.any_output_iterator" title="any_output_iterator">any_output_iterator</a></li>
 </ul></div>
 <a name="oven.concepts.resettable_object.see_also"></a><h5>
-<a name="id504214"></a>
+<a name="id504298"></a>
         <a href="concepts.html#oven.concepts.resettable_object.see_also">See also</a>
       </h5>
 </div>
@@ -194,7 +200,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.stoppable_generator"></a><a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a></h3></div></div></div>
 <a name="oven.concepts.stoppable_generator.description"></a><h5>
-<a name="id504259"></a>
+<a name="id504343"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.description">Description</a>
       </h5>
 <p>
@@ -203,14 +209,14 @@
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="oven.concepts.stoppable_generator.refinement_of"></a><h5>
-<a name="id504313"></a>
+<a name="id504397"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="oven.concepts.stoppable_generator.requirements"></a><h5>
-<a name="id504354"></a>
+<a name="id504438"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.requirements">Requirements</a>
       </h5>
 <p>
@@ -230,7 +236,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.stoppable_generator.models"></a><h5>
-<a name="id504475"></a>
+<a name="id504559"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -243,7 +249,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.iteration_block"></a><a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration Block</a></h3></div></div></div>
 <a name="oven.concepts.iteration_block.description"></a><h5>
-<a name="id504539"></a>
+<a name="id504623"></a>
         <a href="concepts.html#oven.concepts.iteration_block.description">Description</a>
       </h5>
 <p>
@@ -252,12 +258,12 @@
         that yields an ordered sequence of values.
       </p>
 <a name="oven.concepts.iteration_block.refinement_of"></a><h5>
-<a name="id504584"></a>
+<a name="id504668"></a>
         <a href="concepts.html#oven.concepts.iteration_block.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="oven.concepts.iteration_block.requirements"></a><h5>
-<a name="id504622"></a>
+<a name="id504707"></a>
         <a href="concepts.html#oven.concepts.iteration_block.requirements">Requirements</a>
       </h5>
 <p>
@@ -277,7 +283,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.iteration_block.models"></a><h5>
-<a name="id504771"></a>
+<a name="id504855"></a>
         <a href="concepts.html#oven.concepts.iteration_block.models">Models</a>
       </h5>
 </div>
@@ -285,7 +291,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.constant_range"></a><a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant Range</a></h3></div></div></div>
 <a name="oven.concepts.constant_range.description"></a><h5>
-<a name="id504811"></a>
+<a name="id504895"></a>
         <a href="concepts.html#oven.concepts.constant_range.description">Description</a>
       </h5>
 <p>
@@ -294,7 +300,7 @@
         whose elements are not modifiable.
       </p>
 <a name="oven.concepts.constant_range.refinement_of"></a><h5>
-<a name="id504862"></a>
+<a name="id504946"></a>
         <a href="concepts.html#oven.concepts.constant_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -302,7 +308,7 @@
           Pass</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="oven.concepts.constant_range.requirements"></a><h5>
-<a name="id504909"></a>
+<a name="id504993"></a>
         <a href="concepts.html#oven.concepts.constant_range.requirements">Requirements</a>
       </h5>
 <p>
@@ -321,7 +327,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.constant_range.models"></a><h5>
-<a name="id505102"></a>
+<a name="id505186"></a>
         <a href="concepts.html#oven.concepts.constant_range.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -333,7 +339,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.contiguous_range"></a><a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous Range</a></h3></div></div></div>
 <a name="oven.concepts.contiguous_range.description"></a><h5>
-<a name="id505224"></a>
+<a name="id505308"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.description">Description</a>
       </h5>
 <p>
@@ -343,7 +349,7 @@
         whose elements are stored contiguously.
       </p>
 <a name="oven.concepts.contiguous_range.refinement_of"></a><h5>
-<a name="id505284"></a>
+<a name="id505368"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -356,7 +362,7 @@
 </li>
 </ul></div>
 <a name="oven.concepts.contiguous_range.requirements"></a><h5>
-<a name="id505351"></a>
+<a name="id505434"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.requirements">Requirements</a>
       </h5>
 <p>
@@ -375,7 +381,7 @@
           <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="oven.concepts.contiguous_range.models"></a><h5>
-<a name="id505618"></a>
+<a name="id505701"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -387,7 +393,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.parallel_safe"></a><a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a></h3></div></div></div>
 <a name="oven.concepts.parallel_safe.description"></a><h5>
-<a name="id505749"></a>
+<a name="id505832"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.description">Description</a>
       </h5>
 <p>
@@ -395,11 +401,11 @@
         the same level of thread safety as built-in types.
       </p>
 <a name="oven.concepts.parallel_safe.refinement_of"></a><h5>
-<a name="id505786"></a>
+<a name="id505870"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.refinement_of">Refinement of</a>
       </h5>
 <a name="oven.concepts.parallel_safe.requirements"></a><h5>
-<a name="id505811"></a>
+<a name="id505894"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.requirements">Requirements</a>
       </h5>
 <p>
@@ -413,7 +419,7 @@
           are copies).
         </li></ul></div>
 <a name="oven.concepts.parallel_safe.models"></a><h5>
-<a name="id505874"></a>
+<a name="id505958"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
