@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_RESULT_OF_DEREF_HPP
-#define PSTADE_EGG_RESULT_OF_DEREF_HPP
+#ifndef PSTADE_EGG_EXTENSION_HPP
+#define PSTADE_EGG_EXTENSION_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -13,22 +13,6 @@
 
 #include <boost/indirect_reference.hpp>
 #include <boost/optional/optional_fwd.hpp>
-#include "./result_of_deref_fwd.hpp"
-
-
-namespace pstade { namespace egg {
-
-
-    template<class X>
-    struct result_of_deref
-    {
-        typedef typename
-            pstade_egg_extension::Dereferenceable<X>::reference
-        type;
-    };
-
-
-} } // namespace pstade::egg
 
 
 namespace pstade_egg_extension {

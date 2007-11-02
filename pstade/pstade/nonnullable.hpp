@@ -15,8 +15,8 @@
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
 #include <pstade/disable_if_copy.hpp>
+#include <pstade/egg/deref.hpp>
 #include <pstade/egg/do_swap.hpp>
-#include <pstade/egg/result_of_deref.hpp>
 #include <pstade/radish/arrow_result.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -124,6 +124,36 @@ namespace pstade {
 
 
 } // namespace pstade
+
+
+// Dereferenceable extension
+//
+
+#include <pstade/egg/extension.hpp>
+#include <pstade/egg/deref.hpp>
+
+
+namespace pstade_egg_extension {
+
+
+    template< class X >
+    struct Dereferenceable< pstade::nonnullable<X> >
+    {
+        typedef typename pstade::
+            egg::result_of_deref<X>::type
+        reference;
+    };
+
+    template< class X >
+    struct Dereferenceable< pstade::nonnullable<X> const >
+    {
+        typedef typename pstade::
+            egg::result_of_deref<X const>::type
+        reference;
+    };
+
+
+} // namespace pstade_egg_extension
 
 
 #endif

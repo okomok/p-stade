@@ -29,7 +29,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
-#include <pstade/egg/result_of_deref.hpp>
+#include <pstade/egg/deref.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>

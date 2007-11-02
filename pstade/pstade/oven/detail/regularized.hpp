@@ -123,9 +123,11 @@ private:
 // Dereferenceable extension
 //
 
-#include <pstade/egg/result_of_deref_fwd.hpp>
+#include <pstade/egg/extension.hpp>
+
 
 namespace pstade_egg_extension {
+
 
     template< class X >
     struct Dereferenceable< pstade::oven::detail::regularized<X> >
@@ -138,6 +140,7 @@ namespace pstade_egg_extension {
     {
         typedef X const& reference;
     };
+
 
 } // namespace pstade_egg_extension
 

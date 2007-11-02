@@ -13,25 +13,34 @@
 
 #include <pstade/pod_constant.hpp>
 #include "./deferred.hpp"
-#include "./result_of_deref.hpp"
+#include "./extension.hpp"
 
 
 namespace pstade { namespace egg {
 
 
+    template<class X>
+    struct result_of_deref
+    {
+        typedef typename
+            pstade_egg_extension::Dereferenceable<X>::reference
+        type;
+    };
+
+
     namespace deref_detail {
 
 
-        template<class Dereferenceable>
+        template<class X>
         struct base
         {
             typedef typename
-                result_of_deref<Dereferenceable>::type
+                result_of_deref<X>::type
             result_type;
 
-            result_type operator()(Dereferenceable& drf) const
+            result_type operator()(X& x) const
             {
-                return *drf;
+                return *x;
             }
         };
 
