@@ -20,7 +20,7 @@
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "../result_of_deref.hpp"
+#include "../deref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {

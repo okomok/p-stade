@@ -17,6 +17,7 @@
 #include <boost/optional/optional.hpp>
 #include <string>
 #include <pstade/poly.hpp>
+#include <pstade/egg/deref.hpp>
 
 
 using pstade::nonnullable;
@@ -86,5 +87,9 @@ void pstade_minimal_test()
         my_derived d;
         nonnullable< pstade::poly<void> > a(d);
         BOOST_CHECK( a.content().contains<my_derived>() );
+    }
+    {
+        nonnullable< boost::shared_ptr<int> > a(new int(3));
+        BOOST_CHECK( pstade::egg::deref(a) == 3 );
     }
 }
