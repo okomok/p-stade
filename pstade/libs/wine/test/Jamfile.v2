@@ -41,6 +41,7 @@ test-suite "wine" :
     [ run make_bool.cpp ]
     [ run metapredicate.cpp ]
     [ run mpl_min_max.cpp ]
+    [ run nonnullable.cpp ]
     [ run nullptr.cpp ]
     [ run pause.cpp ]
     [ link pod_constant1.cpp pod_constant2.cpp : : pod_constant ]

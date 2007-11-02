@@ -401,4 +401,38 @@ namespace pstade {
 } // namespace pstade
 
 
+// Dereferenceable extension
+//
+
+#include <pstade/egg/result_of_deref_fwd.hpp>
+
+namespace pstade_egg_extension {
+
+    template<class O>
+    struct Dereferenceable< pstade::poly<O> >
+    {
+        typedef O &reference;
+    };
+
+    template<class O>
+    struct Dereferenceable< pstade::poly<O> const >
+    {
+        typedef O const &reference;
+    };
+
+    template< >
+    struct Dereferenceable< pstade::poly<void> >
+    {
+        typedef void reference;
+    };
+
+    template< >
+    struct Dereferenceable< pstade::poly<void> const >
+    {
+        typedef void reference;
+    };
+
+} // namespace pstade_egg_extension
+
+
 #endif

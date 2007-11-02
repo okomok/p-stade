@@ -36,7 +36,7 @@ test-suite "egg" :
     [ run deferred.cpp ]
     [ run delete.cpp ]
     [ run delete_array.cpp ]
-    [ run dereference.cpp ]
+    [ run deref.cpp ]
     [ run do_swap.cpp ]
     [ run fix.cpp ]
     [ run flip.cpp ]

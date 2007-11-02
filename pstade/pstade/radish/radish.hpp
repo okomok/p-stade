@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./arrow_result.hpp"
 #include "./bool_testable.hpp"
 #include "./null_injector.hpp"
 #include "./pointable.hpp"
