@@ -31,7 +31,7 @@ Oven provides some useful Output Iterators.
 ]
 
 [heading Preconditions]
-* `V` specifies a (possibly reference) type which is outputted to `ao`.
+* `V` specifies a (possibly reference) type which is outputted to `_outit`.
 
 [heading Example]
     int const in[] = { 1,2,3,4,5,6,7,8,9,10 };

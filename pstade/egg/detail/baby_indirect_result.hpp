@@ -20,7 +20,7 @@
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "../dereference.hpp"
+#include "../result_of_deref.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -29,7 +29,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Dereferenceable>
     struct indirecting_fun :
         boost::remove_reference<
-            typename result_of<T_dereference(Dereferenceable const&)>::type
+            typename result_of_deref<Dereferenceable const>::type
         >
     { };
 
@@ -37,14 +37,14 @@ namespace pstade { namespace egg { namespace detail {
     template<class Dereferenceable>
     struct baby_indirect_result
     {
-        Dereferenceable m_der;
+        Dereferenceable m_drf;
 
         typedef typename indirecting_fun<Dereferenceable>::type base_type;
 
-        typename result_of<T_dereference(Dereferenceable const&)>::type
+        typename result_of_deref<Dereferenceable const>::type
         base() const
         {
-            return *m_der;
+            return *m_drf;
         }
 
     // 0ary
@@ -55,7 +55,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result>
         Result call() const
         {
-            return (*m_der)();
+            return (*m_drf)();
         }
 
     // 1ary-
@@ -83,7 +83,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return (*m_der)(BOOST_PP_ENUM_PARAMS(n, a));
+        return (*m_drf)(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

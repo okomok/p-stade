@@ -18,7 +18,6 @@ namespace pstade {
     struct poly;
 
 
-    // You can specialize this.
     template<class O>
     struct poly_storage_size;
 
