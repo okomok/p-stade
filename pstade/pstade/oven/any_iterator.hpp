@@ -55,8 +55,9 @@ namespace any_iterator_detail {
     template< class Reference, class Traversal, class Difference, class T = Traversal >
     struct placeholder
     {
+#if defined(__GNUC__)
         virtual ~placeholder() { } // gcc would warn without this.
-
+#endif
         // BTW, msvc-7.1/8.0 RTTI seems randomly broken.
         virtual std::type_info const& typeid_() const = 0;
 

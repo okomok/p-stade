@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
 #include <pstade/disable_if_copy.hpp>
@@ -57,11 +56,6 @@ namespace pstade {
         }
 
         PSTADE_RESET_ASSIGNMENT(nonnullable)
-
-        void reset(boost::none_t)
-        {
-            BOOST_ASSERT(!"nonnullable can't be nullable.");
-        }
 
     // bool_testable
         operator radish::safe_bool() const
@@ -120,6 +114,9 @@ namespace pstade {
 
     private:
         Dereferenceable m_drf;
+
+        nonnullable(boost::none_t);
+        void reset(boost::none_t);
     };
 
 

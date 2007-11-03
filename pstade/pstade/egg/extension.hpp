@@ -52,15 +52,15 @@ namespace pstade_egg_extension {
     };
 
     template<class T>
-    struct Dereferenceable< boost::optional<T&> >
-    {
-        typedef T& reference;
-    };
-
-    template<class T>
     struct Dereferenceable< boost::optional<T> const >
     {
         typedef T const& reference;
+    };
+
+    template<class T>
+    struct Dereferenceable< boost::optional<T&> >
+    {
+        typedef T& reference;
     };
 
     template<class T>

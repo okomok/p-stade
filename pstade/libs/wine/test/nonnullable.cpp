@@ -10,7 +10,7 @@
 
 
 #include <pstade/nonnullable.hpp>
-#include <pstade/minimal_test.hpp>
+#include <pstade/unit_test.hpp>
 
 
 #include <boost/shared_ptr.hpp>
@@ -18,6 +18,7 @@
 #include <string>
 #include <pstade/poly.hpp>
 #include <pstade/egg/deref.hpp>
+#include <pstade/value_based.hpp>
 
 
 using pstade::nonnullable;
@@ -34,7 +35,7 @@ struct my_derived : my_base
 };
 
 
-void pstade_minimal_test()
+void pstade_unit_test()
 {
     {
         nonnullable<int *> a(new int(3));
@@ -52,7 +53,7 @@ void pstade_minimal_test()
     {// const doesn't affect in shared_ptr.
         nonnullable< boost::shared_ptr<int> > const a(new int(3));
         BOOST_CHECK(*a == 3);
-        BOOST_CHECK(*a = 4);
+        *a = 4;
         BOOST_CHECK(*a == 4);
     }
     {
@@ -91,5 +92,13 @@ void pstade_minimal_test()
     {
         nonnullable< boost::shared_ptr<int> > a(new int(3));
         BOOST_CHECK( pstade::egg::deref(a) == 3 );
+    }
+    {
+        nonnullable< pstade::value_based< boost::shared_ptr<int> > > a(10);
+        BOOST_CHECK( *a == 10 );
+        BOOST_CHECK( pstade::egg::deref(a) == 10 );
+        *a = 12;
+        BOOST_CHECK( *a == 12 );
+        BOOST_CHECK( pstade::egg::deref(a) == 12 );
     }
 }

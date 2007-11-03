@@ -148,7 +148,7 @@ namespace pstade_oven_extension {
     template< class T, std::size_t N, class From >
     boost::array<T, N> pstade_oven_(copy_range< boost::array<T, N> >, From& from)
     {
-        // For some reason, gcc-3.4 requires fully-qualified names.
+        // For some reason, gcc requires fully-qualified names.
         // using namespace pstade::oven;
 
         BOOST_ASSERT(pstade::oven::is_random_access(from) ?
