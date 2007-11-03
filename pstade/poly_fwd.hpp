@@ -29,7 +29,7 @@ namespace pstade {
 #if !defined(PSTADE_POLY_MAX_STORAGE_SIZE)
     #define PSTADE_POLY_MAX_STORAGE_SIZE 512
 #endif
-    
+
 
 } // namespace pstade
 

@@ -106,4 +106,34 @@ namespace pstade {
 } // namespace pstade
 
 
+// Dereferenceable extension
+//
+
+#include <boost/pointee.hpp>
+#include <pstade/egg/extension.hpp>
+
+
+namespace pstade_egg_extension {
+
+
+    template< class Ptr >
+    struct Dereferenceable< pstade::value_based<Ptr> >
+    {
+        typedef typename
+            boost::pointee<Ptr>::type &
+        reference;
+    };
+
+    template< class Ptr >
+    struct Dereferenceable< pstade::value_based<Ptr> const >
+    {
+        typedef typename
+            boost::pointee<Ptr>::type const &
+        reference;
+    };
+
+
+} // namespace pstade_egg_extension
+
+
 #endif
