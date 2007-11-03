@@ -5,6 +5,7 @@
 import testing ;
 
 test-suite apple :
+    [ run basic.cpp ]
     [ run is_boost_range.cpp ]
     [ run is_sequence.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]

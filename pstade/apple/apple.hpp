@@ -50,5 +50,7 @@
 
 #include "./is_boost_tuple.hpp"
 
+#include "./boost/smart_ptr_fwd.hpp"
+
 
 #endif
