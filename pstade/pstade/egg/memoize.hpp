@@ -49,9 +49,8 @@ namespace pstade { namespace egg {
             {
                 typedef std::map<Arg, Result> map_t;
 
-                if (m_pany->empty()) {
+                if (m_pany->empty())
                     *m_pany = map_t();
-                }
 
                 map_t& m = boost::any_cast<map_t&>(*m_pany);
 

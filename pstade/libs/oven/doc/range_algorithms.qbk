@@ -466,7 +466,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * _auxiliary_class_interface_
 
 [heading Notation]
-`V` is `_value_of<_typeof(_rndrng)>::type`.
+* `V` is `_value_of<_typeof(_rndrng)>::type`.
 
 [heading Valid expressions]
 [table 
