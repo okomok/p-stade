@@ -18,6 +18,7 @@
 #include <deque>
 #include <utility>
 #include <boost/smart_ptr.hpp>
+#include <boost/utility/result_of.hpp>
 
 
 int main() { return 0; }

@@ -19,6 +19,7 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
+#include <pstade/nonvirtual.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
 #include <pstade/type_erasure.hpp>
@@ -35,10 +36,11 @@ namespace any_output_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
-        virtual ~placeholder() { }
         virtual std::type_info const& typeid_() const = 0;
-
         virtual void write_increment(Reference x) = 0;
+
+    protected:
+        PSTADE_NONVIRTUAL ~placeholder() { }
     };
 
 

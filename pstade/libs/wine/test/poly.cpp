@@ -43,6 +43,9 @@ struct my_string_base
     virtual my_string_base *clone() const = 0;
 #endif
     virtual std::string get_string() const = 0;
+
+protected:
+    ~my_string_base() { }
 };
 
 #if 0 // no longer needed
