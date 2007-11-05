@@ -114,8 +114,12 @@ void pstade_unit_test()
 
     {
         poly<int> p1;
+        BOOST_CHECK( !p1 );
         poly<int> p2;
+        BOOST_CHECK( !p2 );
         p1 = p2;
+        BOOST_CHECK( !p1 );
+        BOOST_CHECK( !p2 );
     }
     {// works as any.
         poly<void> p(sH);

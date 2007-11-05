@@ -73,7 +73,7 @@ namespace pstade {
         >
     { };
 
-    template<>
+    template< >
     struct poly_storage_size<void> :
         boost::mpl::size_t<PSTADE_POLY_MIN_STORAGE_SIZE>
     { };
