@@ -21,9 +21,9 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <pstade/apple/boost/result_of_fwd.hpp>
 #include <pstade/preprocessor.hpp>
 #include "../detail/meta_arg.hpp"
-#include "../detail/result_of_fwd.hpp"
 #include "./config.hpp"
 #include "./functor_fwd.hpp"
 

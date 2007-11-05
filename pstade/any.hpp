@@ -21,6 +21,7 @@
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
+#include <pstade/nonvirtual.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -38,8 +39,10 @@ namespace pstade {
 
         struct placeholder
         {
-            virtual ~placeholder() { }
             virtual std::type_info const &typeid_() const = 0;
+
+        protected:
+            PSTADE_NONVIRTUAL ~placeholder() { }
         };
 
 
@@ -75,7 +78,8 @@ namespace pstade {
             explicit super_()
             { }
 
-            explicit super_(placeholder *p) :
+            template<class Holder>
+            explicit super_(Holder *p) :
                 m_content(p)
             { }
 

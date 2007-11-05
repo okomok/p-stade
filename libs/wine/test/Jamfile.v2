@@ -66,7 +66,6 @@ test-suite "wine" :
     [ run unparenthesize.cpp ]
     [ run unused.cpp ]
     [ run use_default.cpp ]
-    [ run use_default_fwd.cpp ]
     [ run value_based.cpp ]
     [ run verify.cpp ]
     [ run what.cpp ]

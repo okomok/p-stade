@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/apple/boost/result_of_fwd.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./detail/result_of_fwd.hpp"
 
 
 #define PSTADE_EGG_NULLARY_RESULT_OF_TYPE(X) \

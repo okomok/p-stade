@@ -35,6 +35,7 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
+#include <pstade/nonvirtual.hpp>
 #include <pstade/poly.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/reset_assignment.hpp>
@@ -55,14 +56,13 @@ namespace any_iterator_detail {
     template< class Reference, class Traversal, class Difference, class T = Traversal >
     struct placeholder
     {
-#if defined(__GNUC__)
-        virtual ~placeholder() { } // gcc would warn without this.
-#endif
         // BTW, msvc-7.1/8.0 RTTI seems randomly broken.
         virtual std::type_info const& typeid_() const = 0;
-
         virtual Reference dereference() const = 0;
         virtual void increment() = 0;
+
+    protected:
+        PSTADE_NONVIRTUAL ~placeholder() { }
     };
 
     template< class Reference, class Difference, class T >
