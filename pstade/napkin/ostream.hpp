@@ -12,13 +12,13 @@
 
 #include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
+#include <pstade/as_type_erasure.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
-#include <pstade/type_erasure.hpp>
 #include "./config.hpp"
 #include "./detail/basic_holder.hpp"
 #include "./detail/basic_placeholder.hpp"
@@ -48,7 +48,7 @@ public:
         m_content(new detail::basic_holder<CharT, StringOutputable>(out))
     { }
 
-    basic_ostream(T_type_erasure, self_t& out) :
+    basic_ostream(T_as_type_erasure, self_t& out) :
         m_content(new detail::basic_holder<CharT, self_t>(out))
     { }
 
@@ -66,7 +66,7 @@ public:
 
     void reset(self_t& out)
     {
-        self_t(type_erasure, out).swap(*this);
+        self_t(as_type_erasure, out).swap(*this);
     }
 
     PSTADE_RESET_ASSIGNMENT(basic_ostream)

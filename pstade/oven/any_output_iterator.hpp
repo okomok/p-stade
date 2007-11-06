@@ -17,12 +17,12 @@
 #include <boost/noncopyable.hpp>
 #include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
+#include <pstade/as_type_erasure.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/nonvirtual.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
-#include <pstade/type_erasure.hpp>
 #include "./any_fwd.hpp"
 
 
@@ -100,7 +100,7 @@ public:
         m_content(new typename holder_of<OutIter>::type(it))
     { }
 
-    any_output_iterator(T_type_erasure, self_t it) :
+    any_output_iterator(T_as_type_erasure, self_t it) :
         m_content(new typename holder_of<self_t>::type(it))
     { }
 
@@ -118,7 +118,7 @@ public:
 
     void reset(self_t it)
     {
-        self_t(type_erasure, it).swap(*this);
+        self_t(as_type_erasure, it).swap(*this);
     }
 
     PSTADE_RESET_ASSIGNMENT(any_output_iterator)

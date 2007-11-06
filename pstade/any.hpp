@@ -18,6 +18,7 @@
 #include <boost/type.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/as_type_erasure.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
@@ -27,7 +28,6 @@
 #include <pstade/radish/swappable.hpp>
 #include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
-#include <pstade/type_erasure.hpp>
 #include "./any_fwd.hpp"
 
 
@@ -139,11 +139,11 @@ namespace pstade {
             super_t(new any_detail::holder<X const &>(x))
         { }
 
-        any_ref(T_type_erasure, self_t &x) :
+        any_ref(T_as_type_erasure, self_t &x) :
             super_t(new any_detail::holder<self_t &>(x))
         { }
 
-        any_ref(T_type_erasure, self_t const &x) :
+        any_ref(T_as_type_erasure, self_t const &x) :
             super_t(new any_detail::holder<self_t const &>(x))
         { }
 
@@ -167,12 +167,12 @@ namespace pstade {
 
         void reset(self_t &x)
         {
-            self_t(type_erasure, x).swap(*this);
+            self_t(as_type_erasure, x).swap(*this);
         }
 
         void reset(self_t const &x)
         {
-            self_t(type_erasure, x).swap(*this);
+            self_t(as_type_erasure, x).swap(*this);
         }
 
         PSTADE_RESET_ASSIGNMENT(any_ref)
@@ -215,7 +215,7 @@ namespace pstade {
             super_t(new any_detail::holder<X const &>(x))
         { }
 
-        any_cref(T_type_erasure, self_t const &x) :
+        any_cref(T_as_type_erasure, self_t const &x) :
             super_t(new any_detail::holder<self_t const &>(x))
         { }
 
@@ -233,7 +233,7 @@ namespace pstade {
 
         void reset(self_t const &x)
         {
-            self_t(type_erasure, x).swap(*this);
+            self_t(as_type_erasure, x).swap(*this);
         }
 
         PSTADE_RESET_ASSIGNMENT(any_cref)
@@ -274,7 +274,7 @@ namespace pstade {
             super_t(new any_detail::holder<X>(x))
         { }
 
-        any_movable(T_type_erasure, self_t x) :
+        any_movable(T_as_type_erasure, self_t x) :
             super_t(new any_detail::holder<self_t>(x))
         { }
 
@@ -292,7 +292,7 @@ namespace pstade {
 
         void reset(self_t x)
         {
-            self_t(type_erasure, x).swap(*this);
+            self_t(as_type_erasure, x).swap(*this);
         }
 
         PSTADE_MOVE_RESET_ASSIGNMENT(any_movable)
