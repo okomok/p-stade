@@ -26,6 +26,7 @@
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
+#include <pstade/nonvirtual.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
@@ -43,10 +44,11 @@ namespace any_indexed_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
-        virtual ~placeholder() { }
         virtual std::type_info const& typeid_() const = 0;
-
         virtual Reference at(Difference n) const = 0;
+
+    protected:
+        PSTADE_NONVIRTUAL ~placeholder() { }
     };
 
 
