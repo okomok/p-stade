@@ -42,7 +42,7 @@ void pstade_minimal_test()
         }
         {
             ostream os2;
-            os2.reset(os1); // type erasure!
+            os2.reset(pstade::as_type_erasure, os1); // type erasure!
             BOOST_CHECK( !os2.empty() );
             BOOST_CHECK( os2.contains<ostream>() );
             ostream& os1_ = os2.content<ostream>();

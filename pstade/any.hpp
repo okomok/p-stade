@@ -165,12 +165,12 @@ namespace pstade {
             self_t(x).swap(*this);
         }
 
-        void reset(self_t &x)
+        void reset(T_as_type_erasure, self_t &x)
         {
             self_t(as_type_erasure, x).swap(*this);
         }
 
-        void reset(self_t const &x)
+        void reset(T_as_type_erasure, self_t const &x)
         {
             self_t(as_type_erasure, x).swap(*this);
         }
@@ -192,6 +192,10 @@ namespace pstade {
             BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
         }
+
+    private:
+        void reset(self_t &);
+        void reset(self_t const &);
     };
 
 
@@ -231,7 +235,7 @@ namespace pstade {
             self_t(x).swap(*this);
         }
 
-        void reset(self_t const &x)
+        void reset(T_as_type_erasure, self_t const &x)
         {
             self_t(as_type_erasure, x).swap(*this);
         }
@@ -251,6 +255,9 @@ namespace pstade {
             BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
         }
+
+    private:
+        void reset(self_t const &);
     };
 
 
@@ -290,7 +297,7 @@ namespace pstade {
             self_t(x).swap(*this);
         }
 
-        void reset(self_t x)
+        void reset(T_as_type_erasure, self_t x)
         {
             self_t(as_type_erasure, x).swap(*this);
         }
@@ -310,6 +317,9 @@ namespace pstade {
             BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X> >(*m_content).held();
         }
+
+    private:
+        void reset(self_t);
     };
 
 

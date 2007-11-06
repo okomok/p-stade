@@ -158,7 +158,7 @@ void test_ref()
         int i = 3;
         any_ref a(i);
         any_ref b;
-        b.reset(a);
+        b.reset(pstade::as_type_erasure, a);
         BOOST_CHECK( is_same(b.content<any_ref>().content<int>(), i) );
         a = boost::none;
         BOOST_CHECK( !a );
@@ -172,7 +172,7 @@ void test_ref()
         int const i = 3;
         any_ref a(i);
         any_ref b;
-        b.reset(a);
+        b.reset(pstade::as_type_erasure, a);
         BOOST_CHECK( is_same(b.content< any_ref >().content<int const>(), i) );
         a = boost::none;
         BOOST_CHECK( !a );
@@ -341,7 +341,7 @@ void test_cref()
         int i = 3;
         any_cref a(i);
         any_cref b;
-        b.reset(a);
+        b.reset(pstade::as_type_erasure, a);
         BOOST_CHECK( is_same(b.content<any_cref const>(), a) );
         BOOST_CHECK( is_same(b.content<any_cref const>().content<int const>(), i) );
         a = boost::none;
@@ -468,7 +468,7 @@ void test_movable()
         any_movable a(i);
         BOOST_CHECK( a.contains< std::auto_ptr<int> >() );
         any_movable b;
-        b.reset(a);
+        b.reset(pstade::as_type_erasure, a);
         BOOST_CHECK( *b.content<any_movable>().content< std::auto_ptr<int> >() == *a.content< std::auto_ptr<int> >() );
         a = boost::none;
         BOOST_CHECK( !a );

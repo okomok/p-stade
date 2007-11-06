@@ -129,7 +129,7 @@ public:
         self_t(rng).swap(*this);
     }
 
-    void reset(self_t const& rng)
+    void reset(T_as_type_erasure, self_t const& rng)
     {
         self_t(as_type_erasure, rng).swap(*this);
     }
@@ -155,6 +155,10 @@ public:
 
 // workaround
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_indexed, super_t)
+
+private:
+    void reset(self_t&);
+    void reset(self_t const&);
 };
 
 

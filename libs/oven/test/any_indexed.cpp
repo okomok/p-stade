@@ -182,7 +182,7 @@ void test_any_to_any()
     any_indexed<char&> a1(src);
     BOOST_CHECK( equals(src, a1) );
     any_indexed<char&> a2;
-    a2.reset(a1); // any to any
+    a2.reset(pstade::as_type_erasure, a1); // any to any
     BOOST_CHECK(a2.iter_type() == typeid(any_indexed<char&>::iterator));
     BOOST_CHECK( equals(src, a2) );
 }
