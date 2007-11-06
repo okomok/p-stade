@@ -200,7 +200,7 @@ void test_any_to_any()
     any_range<char&, boost::random_access_traversal_tag> a1(src);
     BOOST_CHECK( equals(src, a1) );
     any_range<char&, boost::random_access_traversal_tag> a2;
-    a2.reset(a1); // any to any
+    a2.reset(pstade::as_type_erasure, a1); // any to any
     BOOST_CHECK(a2.iter_type() == typeid(any_range<char&, boost::random_access_traversal_tag>::iterator));
     BOOST_CHECK( equals(src, a2) );
 }

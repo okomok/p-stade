@@ -64,7 +64,7 @@ public:
         self_t(out).swap(*this);
     }
 
-    void reset(self_t& out)
+    void reset(T_as_type_erasure, self_t& out)
     {
         self_t(as_type_erasure, out).swap(*this);
     }
@@ -118,6 +118,8 @@ public:
 
 private:
     boost::shared_ptr< detail::basic_placeholder<CharT> > m_content;
+
+    void reset(self_t&);
 };
 
 

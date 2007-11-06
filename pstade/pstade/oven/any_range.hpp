@@ -92,8 +92,8 @@ public:
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
-    any_range(T_as_type_erasure e, self_t const& rng) :
-        super_t(iter_t(e, boost::begin(rng)), iter_t(e, boost::end(rng)))
+    any_range(T_as_type_erasure, self_t const& rng) :
+        super_t(iter_t(as_type_erasure, boost::begin(rng)), iter_t(as_type_erasure, boost::end(rng)))
     { }
 
 // assignments
@@ -114,7 +114,7 @@ public:
         self_t(rng).swap(*this);
     }
 
-    void reset(self_t const& rng)
+    void reset(T_as_type_erasure, self_t const& rng)
     {
         self_t(as_type_erasure, rng).swap(*this);
     }
@@ -140,6 +140,10 @@ public:
 
 // workaround
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_range, super_t)
+
+private:
+    void reset(self_t&);
+    void reset(self_t const&);
 };
 
 

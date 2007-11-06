@@ -116,7 +116,7 @@ public:
         self_t(it).swap(*this);
     }
 
-    void reset(self_t it)
+    void reset(T_as_type_erasure, self_t it)
     {
         self_t(as_type_erasure, it).swap(*this);
     }
@@ -178,6 +178,9 @@ public:
 
     self_t& operator++() { return *this; }
     self_t& operator++(int) { return *this; }
+
+private:
+    void reset(self_t);
 };
 
 

@@ -99,7 +99,7 @@ void pstade_minimal_test()
         oj = oi; // just copy-assignment
         BOOST_CHECK(oj.empty());
 
-        oj.reset(oi); // not copy-assignment! - (1)
+        oj.reset(pstade::as_type_erasure, oi); // not copy-assignment! - (1)
         BOOST_CHECK( !oj.empty() );
         BOOST_CHECK(oj.type() == typeid(any_output_iterator<char const&>));
         BOOST_CHECK(!oi.contains<int *>());
@@ -111,7 +111,7 @@ void pstade_minimal_test()
         BOOST_CHECK(oi.contains<int *>());
 
         // notice the base of oj in (1) is a copy, hence you need to reset it here.
-        oj.reset(oi);
+        oj.reset(pstade::as_type_erasure, oi);
 
         std::string src("abcdefg");
         std::copy(src.begin(), src.end(), oj); // through oj.

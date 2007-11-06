@@ -287,7 +287,7 @@ public:
         self_t(it).swap(*this);
     }
 
-    void reset(self_t it)
+    void reset(T_as_type_erasure, self_t it)
     {
         self_t(as_type_erasure, it).swap(*this);
     }
@@ -359,6 +359,9 @@ friend class boost::iterator_core_access;
     {
         return m_content->difference_to(*other.m_content);
     }
+
+private:
+    void reset(self_t);
 };
 
 
