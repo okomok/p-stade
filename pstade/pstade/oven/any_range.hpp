@@ -92,7 +92,7 @@ public:
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
-    any_range(T_type_erasure e, self_t const& rng) :
+    any_range(T_as_type_erasure e, self_t const& rng) :
         super_t(iter_t(e, boost::begin(rng)), iter_t(e, boost::end(rng)))
     { }
 
@@ -116,7 +116,7 @@ public:
 
     void reset(self_t const& rng)
     {
-        self_t(type_erasure, rng).swap(*this);
+        self_t(as_type_erasure, rng).swap(*this);
     }
 
     PSTADE_RESET_ASSIGNMENT(any_range)

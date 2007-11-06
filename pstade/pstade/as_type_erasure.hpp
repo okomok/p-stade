@@ -1,5 +1,5 @@
-#ifndef PSTADE_TYPE_ERASURE_HPP
-#define PSTADE_TYPE_ERASURE_HPP
+#ifndef PSTADE_AS_TYPE_ERASURE_HPP
+#define PSTADE_AS_TYPE_ERASURE_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -17,8 +17,8 @@
 namespace pstade {
 
 
-    struct T_type_erasure {};
-    PSTADE_POD_CONSTANT((T_type_erasure), type_erasure) = {};
+    struct T_as_type_erasure {};
+    PSTADE_POD_CONSTANT((T_as_type_erasure), as_type_erasure) = {};
 
 
 } // namespace pstade

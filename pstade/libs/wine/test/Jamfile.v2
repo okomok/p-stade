@@ -16,6 +16,7 @@ test-suite "wine" :
     [ run any.cpp ]
     [ run any_fwd.cpp ]
     [ run arraya.cpp ]
+    [ run as_type_erasure.cpp ]
     [ run check.cpp ]
     [ run clone_ptr.cpp ]
     [ run concept_off.cpp ]

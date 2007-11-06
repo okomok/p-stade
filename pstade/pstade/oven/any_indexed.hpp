@@ -20,6 +20,7 @@
 #include <boost/none.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/as_type_erasure.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/enable_if.hpp>
@@ -27,7 +28,6 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/reset_assignment.hpp>
-#include <pstade/type_erasure.hpp>
 #include "./any_fwd.hpp"
 #include "./any_indexed_iterator.hpp"
 #include "./iter_range.hpp"
@@ -107,7 +107,7 @@ public:
         super_t(any_indexed_detail::make<super_t>(boost::begin(rng), boost::end(rng)))
     { }
 
-    any_indexed(T_type_erasure, self_t const& rng) :
+    any_indexed(T_as_type_erasure, self_t const& rng) :
         super_t(any_indexed_detail::make<super_t>(boost::begin(rng), boost::end(rng)))
     { }
 
@@ -131,7 +131,7 @@ public:
 
     void reset(self_t const& rng)
     {
-        self_t(type_erasure, rng).swap(*this);
+        self_t(as_type_erasure, rng).swap(*this);
     }
 
     PSTADE_RESET_ASSIGNMENT(any_indexed)
