@@ -48,7 +48,6 @@
 #include "./preprocessor.hpp"
 #include "./remove_cvr.hpp"
 #include "./require.hpp"
-#include "./reset_assignment.hpp"
 #include "./result_of.hpp"
 // #include "./result_of_lambda.hpp"
 #include "./singleton.hpp"

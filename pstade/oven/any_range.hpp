@@ -20,8 +20,9 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/radish/reset_assignment.hpp>
+#include <pstade/radish/swap_reset.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/reset_assignment.hpp>
 #include "./any_fwd.hpp"
 #include "./any_iterator.hpp"
 #include "./iter_range.hpp"
@@ -43,9 +44,9 @@ namespace any_range_detail {
     {
         typedef
             iter_range<any_iterator<Reference, Traversal, Value, Difference>,
-                radish::swappable    < any_range<Reference, Traversal, Value, Difference>,
+                radish::swappable   < any_range<Reference, Traversal, Value, Difference>,
                 // Only SinglePass is considered as "lightweight".
-                lightweight_copyable < any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> > >
+                lightweight_copyable< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> > >
             >
         type;
     };
@@ -97,29 +98,9 @@ public:
     { }
 
 // assignments
-    void reset(boost::none_t = boost::none)
-    {
-        self_t().swap(*this);
-    }
-
-    template< class Range >
-    void reset(Range& rng, typename disable_if_copy<self_t, Range>::type = 0)
-    {
-        self_t(rng).swap(*this);
-    }
-
-    template< class Range >
-    void reset(Range const& rng)
-    {
-        self_t(rng).swap(*this);
-    }
-
-    void reset(T_as_type_erasure, self_t const& rng)
-    {
-        self_t(as_type_erasure, rng).swap(*this);
-    }
-
-    PSTADE_RESET_ASSIGNMENT(any_range)
+    typedef any_range pstade_radish_this_type;
+    #include PSTADE_RADISH_SWAP_RESET()
+    #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
 // swappable
     void swap(self_t& other)
@@ -140,10 +121,6 @@ public:
 
 // workaround
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_range, super_t)
-
-private:
-    void reset(self_t&);
-    void reset(self_t const&);
 };
 
 

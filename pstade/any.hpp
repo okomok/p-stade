@@ -25,8 +25,9 @@
 #include <pstade/nonvirtual.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/reset_assignment.hpp>
+#include <pstade/radish/swap_reset.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
 #include "./any_fwd.hpp"
 
@@ -148,34 +149,9 @@ namespace pstade {
         { }
 
     // assignments
-        void reset(boost::none_t = boost::none)
-        {
-            self_t().swap(*this);
-        }
-
-        template<class X>
-        void reset(X &x, typename disable_if_copy<self_t, X>::type = 0)
-        {
-            self_t(x).swap(*this);
-        }
-
-        template<class X>
-        void reset(X const &x)
-        {
-            self_t(x).swap(*this);
-        }
-
-        void reset(T_as_type_erasure, self_t &x)
-        {
-            self_t(as_type_erasure, x).swap(*this);
-        }
-
-        void reset(T_as_type_erasure, self_t const &x)
-        {
-            self_t(as_type_erasure, x).swap(*this);
-        }
-
-        PSTADE_RESET_ASSIGNMENT(any_ref)
+        typedef any_ref pstade_radish_this_type;
+        #include PSTADE_RADISH_SWAP_RESET()
+        #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
     // content access
         template<class X>
@@ -192,10 +168,6 @@ namespace pstade {
             BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
         }
-
-    private:
-        void reset(self_t &);
-        void reset(self_t const &);
     };
 
 
@@ -224,23 +196,9 @@ namespace pstade {
         { }
 
     // assignments
-        void reset(boost::none_t = boost::none)
-        {
-            self_t().swap(*this);
-        }
-
-        template<class X>
-        void reset(X const &x)
-        {
-            self_t(x).swap(*this);
-        }
-
-        void reset(T_as_type_erasure, self_t const &x)
-        {
-            self_t(as_type_erasure, x).swap(*this);
-        }
-
-        PSTADE_RESET_ASSIGNMENT(any_cref)
+        typedef any_cref pstade_radish_this_type;
+        #include PSTADE_RADISH_SWAP_RESET()
+        #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
     // content access
         template<class X>
@@ -255,9 +213,6 @@ namespace pstade {
             BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X &> >(*m_content).held();
         }
-
-    private:
-        void reset(self_t const &);
     };
 
 
@@ -286,23 +241,9 @@ namespace pstade {
         { }
 
     // assignments
-        void reset(boost::none_t = boost::none)
-        {
-            self_t().swap(*this);
-        }
-
-        template<class X>
-        void reset(X x)
-        {
-            self_t(x).swap(*this);
-        }
-
-        void reset(T_as_type_erasure, self_t x)
-        {
-            self_t(as_type_erasure, x).swap(*this);
-        }
-
-        PSTADE_MOVE_RESET_ASSIGNMENT(any_movable)
+        typedef any_movable pstade_radish_this_type;
+        #include PSTADE_RADISH_SWAP_RESET()
+        #include PSTADE_RADISH_MOVE_RESET_ASSIGNMENT()
 
     // content access
         template<class X>
@@ -317,9 +258,6 @@ namespace pstade {
             BOOST_ASSERT(contains<X>());
             return egg::static_downcast< any_detail::holder<X> >(*m_content).held();
         }
-
-    private:
-        void reset(self_t);
     };
 
 

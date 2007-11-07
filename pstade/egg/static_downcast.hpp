@@ -14,14 +14,7 @@
 // What:
 //
 // Same as 'boost::smart_cast' without crosscast.
-
-
-// Note:
-//
-// RTTI(/GR option) is required in debug mode.
-//
-// 'Derived& d = automatic_static_downcast(b);' seems impossible.
-// According to 8.5.3/5, the initializer must be lvalue to "bind directly".
+// Notice RTTI(/GR option) is required in debug mode.
 
 
 #include <boost/cast.hpp> // polymorphic_downcast

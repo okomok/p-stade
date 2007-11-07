@@ -40,18 +40,17 @@ A _resettable_object_ is an object which is modifiable after its construction.
 * `r` is a _resettable_object_.
 * `R` is `_typeof(r)`.
 * `s` is an object whose type is `R`.
-* `aI` is an object whose type is NOT `R`.
+* `aI` is an object.
 * `bI` is an object whose type is `_typeof(aI)`.
 
 [heading Requirements]
 * `R r(a0);` is a valid expression if and only if `s = b0;` is a valid expression.
 * `R r(a1,...,aN);` is a valid expression if and only if `s.reset(b1,...bN);` is a valid expression.
+* After the two equivalent expressions above are evaluated, `s` and `r` shall have the same states if all the arguments have the same states.
 * `R r;` is a valid expression if and only if `R s = boost::none;` is a valid expression.
 * `R r;` is a valid expression if and only if `s.reset();` is a valid expression.
 * `R r;` is a valid expression if and only if `s = boost::none;` is a valid expression.
-* After the equivalent expressions above, `r` and `s` shall have the same states if `aI` and `bI` have the same states for all `I`.
-
-[important Notice that neither `r = s` nor `r.reset(s)` is not listed. ]
+* After the three equivalent expressions above are evaluated, `s` and `r` shall have the same states.
 
 [heading Example]
 

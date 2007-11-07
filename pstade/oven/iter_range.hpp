@@ -35,8 +35,8 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/reset_assignment.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/reset_assignment.hpp>
 #include "./concepts.hpp"
 #include "./detail/config.hpp"
 #include "./detail/iter_distance.hpp"
@@ -132,7 +132,8 @@ public:
         m_last  = boost::end(rng);
     }
 
-    PSTADE_RESET_ASSIGNMENT(iter_range)
+    typedef iter_range pstade_radish_this_type;
+    #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
     template< class Iterator_ >
     void reset(Iterator_ first, Iterator_ last)

@@ -26,8 +26,9 @@
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/pointable.hpp>
+#include <pstade/radish/reset_assignment.hpp>
+#include <pstade/radish/swap_reset.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/reset_assignment.hpp>
 #include "./detail/clonable.hpp"
 
 
@@ -79,24 +80,15 @@ public:
     { }
 
 // assignments
-    void reset(boost::none_t = boost::none)
-    {
-        self_t().swap(*this);
-    }
-
-    template<class Ptr>
-    void reset(Ptr p)
-    {
-        self_t(p).swap(*this);
-    }
-
     self_t& operator=(self_t const& other)
     {
         self_t(other).swap(*this);
         return *this;
     }
 
-    PSTADE_MOVE_RESET_ASSIGNMENT(clone_ptr)
+    typedef clone_ptr pstade_radish_this_type;
+    #include PSTADE_RADISH_MOVE_SWAP_RESET()
+    #include PSTADE_RADISH_MOVE_RESET_ASSIGNMENT()
 
 // bool_testable
     operator radish::safe_bool() const

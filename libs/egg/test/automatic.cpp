@@ -98,5 +98,14 @@ void pstade_minimal_test()
         int i = auto_cast2(3, 6);
         BOOST_CHECK( i == 9 );
     }
+
+    {
+        int const& i = auto_cast1(12);
+        BOOST_CHECK( i == 12 );
+    }
+    {
+        int const& i = auto_cast2(3, 6);
+        BOOST_CHECK( i == 9 );
+    }
 }
 

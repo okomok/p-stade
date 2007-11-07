@@ -15,7 +15,9 @@
 #include "./null_injector.hpp"
 #include "./pointable.hpp"
 #include "./pointable_reference.hpp"
+#include "./reset_assignment.hpp"
 #include "./safe_bool.hpp"
+#include "./swap_reset.hpp"
 #include "./swappable.hpp"
 #include "./value_pointable.hpp"
 

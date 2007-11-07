@@ -16,8 +16,9 @@
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/reset_assignment.hpp>
+#include <pstade/radish/swap_reset.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
 #include "./config.hpp"
 #include "./detail/basic_holder.hpp"
@@ -53,23 +54,9 @@ public:
     { }
 
 // assignments
-    void reset(boost::none_t = boost::none)
-    {
-        self_t().swap(*this);
-    }
-
-    template< class StringOutputable >
-    void reset(StringOutputable& out, typename disable_if_copy<self_t, StringOutputable>::type = 0)
-    {
-        self_t(out).swap(*this);
-    }
-
-    void reset(T_as_type_erasure, self_t& out)
-    {
-        self_t(as_type_erasure, out).swap(*this);
-    }
-
-    PSTADE_RESET_ASSIGNMENT(basic_ostream)
+    typedef basic_ostream pstade_radish_this_type;
+    #include PSTADE_RADISH_SWAP_RESET()
+    #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
 // output
     template< class OutputStreamable >
@@ -97,7 +84,7 @@ public:
         return !m_content;
     }
 
-    std::type_info const& type() const
+    const std::type_info& type() const
     {
         return m_content ? m_content->typeid_() : typeid(void);
     }
@@ -118,8 +105,6 @@ public:
 
 private:
     boost::shared_ptr< detail::basic_placeholder<CharT> > m_content;
-
-    void reset(self_t&);
 };
 
 

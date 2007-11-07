@@ -21,7 +21,8 @@
 #include <pstade/egg/do_swap.hpp>
 #include <pstade/egg/static_downcast.hpp>
 #include <pstade/nonvirtual.hpp>
-#include <pstade/reset_assignment.hpp>
+#include <pstade/radish/reset_assignment.hpp>
+#include <pstade/radish/swap_reset.hpp>
 #include <pstade/type_equal_to.hpp>
 #include "./any_fwd.hpp"
 
@@ -105,23 +106,9 @@ public:
     { }
 
 // assignments
-    void reset(boost::none_t = boost::none)
-    {
-        self_t().swap(*this);
-    }
-
-    template< class OutIter >
-    void reset(OutIter it)
-    {
-        self_t(it).swap(*this);
-    }
-
-    void reset(T_as_type_erasure, self_t it)
-    {
-        self_t(as_type_erasure, it).swap(*this);
-    }
-
-    PSTADE_RESET_ASSIGNMENT(any_output_iterator)
+    typedef any_output_iterator pstade_radish_this_type;
+    #include PSTADE_RADISH_SWAP_RESET()
+    #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
 // swappable
     void swap(self_t& other)
@@ -178,9 +165,6 @@ public:
 
     self_t& operator++() { return *this; }
     self_t& operator++(int) { return *this; }
-
-private:
-    void reset(self_t);
 };
 
 

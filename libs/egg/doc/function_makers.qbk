@@ -129,6 +129,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 
 [heading Notation]
 * `u` is an object of `automatic<Lam, _Stg>::type`.
+* `f` is an object of `boost::mpl::apply<Lam, _typeof(to)>::type`.
 
 [heading Valid expressions]
 [table 
@@ -146,14 +147,14 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
     ]
     [
         [`To to = u(a1,...,aN);`]
-        [`To to = boost::mpl::apply<Lam, To>::type(_arg_list(a, _Stg));`]
+        [`To to = boost::implicit_cast<_typeof(to)>( f(_arg_list(a, _Stg)) );`]
     ]
 ]
 
 [heading Preconditions]
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__.
-* `boost::mpl::apply<Lam, To>::type` is a __DEFERRED_CALLABLE_OBJECT__ type.
+* `f` is a __DEFERRED_CALLABLE_OBJECT__.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
 

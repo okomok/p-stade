@@ -21,7 +21,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/reset_assignment.hpp>
+#include <pstade/radish/reset_assignment.hpp>
 #include "./iter_range.hpp"
 #include "./lightweight_copyable.hpp"
 #include "./range_constant_iterator.hpp"
@@ -96,7 +96,8 @@ public:
     { }
 
 // assignments
-    PSTADE_RESET_ASSIGNMENT(sub_range)
+    typedef sub_range pstade_radish_this_type;
+    #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
 // swappable
     void swap(self_t& other)

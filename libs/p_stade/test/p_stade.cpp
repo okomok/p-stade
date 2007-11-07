@@ -1,104 +1,64 @@
 
+#include <pstade/minimal_test.hpp>
+#include <pstade/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+
+int const g_i = 999;
+struct dummy {};
+
+struct klass
+{
 #if 0
-
-template<class Base>
-struct lambda_functor;
-
-template<class Action, class Args>
-struct lambda_functor_base;
-
-template<class Func>
-struct lambda_adaptor;
-
-template<int I, class Action>
-struct action;
-
-
-
-template<int I>
-struct placeholder;
-
-template< >
-struct placeholder<0x02>
-{
-    template<class A0, class A1, class A2>
-    struct sig
+    template<class From>
+    klass(From const &i, typename pstade::enable_if< boost::is_same<From, int> >::type = 0)
     {
-        typedef A1 &type;
-    };
-
-    template<class Result, class A0, class A1, class A2> 
-    Result call(A0 &a0, A1 &a1, A2 &a2, Env &env) const
-    {
-        return a1;
+        BOOST_CHECK(&i == &g_i);
     }
-};
-
-
-template<class Base>
-struct lambda_functor : Base
-{
-    template<class This, class A0, class A1, class A2>
-    struct sig
+    klass(int const &i, dummy = dummy())
     {
-        typedef typename Base::template sig<A0, A1, A2>::type type;
-    };
-
-    template<class A0, class A1, class A2>
-    typename Base::template sig<A0 &, A1 &, A2 &>::type
-    operator()(A0 & a0, A1 &a1, A2 &a2) const
-    { 
-        return Base::template call<
-            typename Base::template sig<A0 &, A1 &, A2 &>::type
-        >(a0, a1, a2, cnull_type()); 
+        BOOST_CHECK(&i == &g_i);
     }
-};
-
-
-
-template<class Target, class Arg>
-lambda_functor<
-    lambda_functor_base<
-        action< 2, function_action<2> >
-        boost::tuple<Target const, Arg const>
-    >
-> const
-bind(Target const &fun, Arg const &arg)
-{
-    return
-        lambda_functor<
-            lambda_functor_base<
-                action< 2, function_action<2> >
-                boost::tuple<Target const, Arg const>
-            >
-        >(
-            boost::tuple<Target const, Arg const>(fun, arg)
-        )
-    ;
-}
-
 #endif
 
+    klass(int const &i) //__attribute__((noinline))
+    {
+        BOOST_CHECK(&i == &g_i);
+    }
 
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/core.hpp>
+#if 0
+    klass(int & i)
+    {
+        BOOST_CHECK(false);
+    }
+
+    virtual ~klass() {}
+
+    klass() {}
+#endif
+};
+
+int const & from_const(int const &i) { return i; }
 
 
-namespace bll = boost::lambda;
-
-
-int f(int i) { return i+1; }
-int g(int i) {
-    return i-1;
-}
-
-int g(int i, int j) { return i + j; }
-
-int main()
+void test_fun(klass k)
 {
-    int _20 = 20;
-    bll::bind(&g, 10, bll::_1)(_20);
-//    int _10 = 10;
-//    bll::bind(&f, bll::bind(&g, bll::_1))(_10);
 }
 
+klass test_ret()
+{
+    return g_i;
+}
+
+void test()
+{
+    klass k = from_const(g_i);
+}
+
+
+void pstade_minimal_test()
+{
+ //   ::test();
+//    ::test_fun(g_i);
+    ::test_ret();
+}
