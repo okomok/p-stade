@@ -38,8 +38,9 @@
 #include <pstade/is_convertible.hpp>
 #include <pstade/nonvirtual.hpp>
 #include <pstade/poly.hpp>
+#include <pstade/radish/reset_assignment.hpp>
+#include <pstade/radish/swap_reset.hpp>
 #include <pstade/remove_cvr.hpp>
-#include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
 #include <pstade/value_based.hpp>
@@ -276,23 +277,9 @@ public:
     { }
 
 // assignments
-    void reset(boost::none_t = boost::none)
-    {
-        self_t().swap(*this);
-    }
-
-    template< class Iterator >
-    void reset(Iterator it)
-    {
-        self_t(it).swap(*this);
-    }
-
-    void reset(T_as_type_erasure, self_t it)
-    {
-        self_t(as_type_erasure, it).swap(*this);
-    }
-
-    PSTADE_RESET_ASSIGNMENT(any_iterator)
+    typedef any_iterator pstade_radish_this_type;
+    #include PSTADE_RADISH_SWAP_RESET()
+    #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
 // swappable
     void swap(self_t& other)
@@ -359,9 +346,6 @@ friend class boost::iterator_core_access;
     {
         return m_content->difference_to(*other.m_content);
     }
-
-private:
-    void reset(self_t);
 };
 
 

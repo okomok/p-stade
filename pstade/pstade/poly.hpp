@@ -54,8 +54,8 @@
 #include <pstade/mpl_min_max.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/reset_assignment.hpp>
 #include <pstade/radish/value_pointable.hpp>
-#include <pstade/reset_assignment.hpp>
 #include <pstade/type_equal_to.hpp>
 #include "./detail/clonable.hpp"
 #include "./detail/pointer_cast.hpp"
@@ -256,6 +256,11 @@ namespace pstade {
                 m_pvtbl = vtable_pointer<O, Q>(); // nothrow
             }
 
+            void reset(self_t const &other)
+            {
+                operator=(other);
+            }
+
             self_t &operator=(self_t const &other) // basic
             {
                 if (&other == this)
@@ -342,7 +347,8 @@ namespace pstade {
         { }
 
     // assignments
-        PSTADE_RESET_ASSIGNMENT(poly)
+        typedef poly pstade_radish_this_type;
+        #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
     // bool_testable
         operator radish::safe_bool() const

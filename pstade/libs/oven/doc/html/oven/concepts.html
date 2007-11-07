@@ -116,8 +116,7 @@
           is <code class="computeroutput"><span class="identifier">R</span></code>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">aI</span></code> is an object whose type
-          is NOT <code class="computeroutput"><span class="identifier">R</span></code>.
+<code class="computeroutput"><span class="identifier">aI</span></code> is an object.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">bI</span></code> is an object whose type
@@ -125,7 +124,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.resettable_object.requirements"></a><h5>
-<a name="id503717"></a>
+<a name="id503706"></a>
         <a href="concepts.html#oven.concepts.resettable_object.requirements">Requirements</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -138,6 +137,10 @@
 <code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">);</span></code>
           is a valid expression if and only if <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">reset</span><span class="special">(</span><span class="identifier">b1</span><span class="special">,...</span><span class="identifier">bN</span><span class="special">);</span></code>
           is a valid expression.
+        </li>
+<li>
+          After the two equivalent expressions above are evaluated, <code class="computeroutput"><span class="identifier">s</span></code> and <code class="computeroutput"><span class="identifier">r</span></code>
+          shall have the same states if all the arguments have the same states.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">R</span> <span class="identifier">r</span><span class="special">;</span></code> is a valid expression if and only if
@@ -156,34 +159,16 @@
           is a valid expression.
         </li>
 <li>
-          After the equivalent expressions above, <code class="computeroutput"><span class="identifier">r</span></code>
-          and <code class="computeroutput"><span class="identifier">s</span></code> shall have the same
-          states if <code class="computeroutput"><span class="identifier">aI</span></code> and <code class="computeroutput"><span class="identifier">bI</span></code> have the same states for all <code class="computeroutput"><span class="identifier">I</span></code>.
+          After the three equivalent expressions above are evaluated, <code class="computeroutput"><span class="identifier">s</span></code> and <code class="computeroutput"><span class="identifier">r</span></code>
+          shall have the same states.
         </li>
 </ul></div>
-<div class="important"><table border="0" summary="Important">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../images/important.png"></td>
-<th align="left">Important</th>
-</tr>
-<tr><td align="left" valign="top">
-<p>
-          </p>
-<p>
-            Notice that neither <code class="computeroutput"><span class="identifier">r</span> <span class="special">=</span> <span class="identifier">s</span></code>
-            nor <code class="computeroutput"><span class="identifier">r</span><span class="special">.</span><span class="identifier">reset</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
-            is not listed.
-          </p>
-<p>
-        </p>
-</td></tr>
-</table></div>
 <a name="oven.concepts.resettable_object.example"></a><h5>
-<a name="id504205"></a>
+<a name="id504122"></a>
         <a href="concepts.html#oven.concepts.resettable_object.example">Example</a>
       </h5>
 <a name="oven.concepts.resettable_object.models"></a><h5>
-<a name="id504229"></a>
+<a name="id504146"></a>
         <a href="concepts.html#oven.concepts.resettable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -192,7 +177,7 @@
 <li><a href="output_iterators.html#oven.output_iterators.any_output_iterator" title="any_output_iterator">any_output_iterator</a></li>
 </ul></div>
 <a name="oven.concepts.resettable_object.see_also"></a><h5>
-<a name="id504298"></a>
+<a name="id504215"></a>
         <a href="concepts.html#oven.concepts.resettable_object.see_also">See also</a>
       </h5>
 </div>
@@ -200,7 +185,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.stoppable_generator"></a><a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a></h3></div></div></div>
 <a name="oven.concepts.stoppable_generator.description"></a><h5>
-<a name="id504343"></a>
+<a name="id504260"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.description">Description</a>
       </h5>
 <p>
@@ -209,14 +194,14 @@
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="oven.concepts.stoppable_generator.refinement_of"></a><h5>
-<a name="id504397"></a>
+<a name="id504314"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="oven.concepts.stoppable_generator.requirements"></a><h5>
-<a name="id504438"></a>
+<a name="id504355"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.requirements">Requirements</a>
       </h5>
 <p>
@@ -236,7 +221,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.stoppable_generator.models"></a><h5>
-<a name="id504559"></a>
+<a name="id504476"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -249,7 +234,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.iteration_block"></a><a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration Block</a></h3></div></div></div>
 <a name="oven.concepts.iteration_block.description"></a><h5>
-<a name="id504623"></a>
+<a name="id504541"></a>
         <a href="concepts.html#oven.concepts.iteration_block.description">Description</a>
       </h5>
 <p>
@@ -258,12 +243,12 @@
         that yields an ordered sequence of values.
       </p>
 <a name="oven.concepts.iteration_block.refinement_of"></a><h5>
-<a name="id504668"></a>
+<a name="id504585"></a>
         <a href="concepts.html#oven.concepts.iteration_block.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="oven.concepts.iteration_block.requirements"></a><h5>
-<a name="id504707"></a>
+<a name="id504624"></a>
         <a href="concepts.html#oven.concepts.iteration_block.requirements">Requirements</a>
       </h5>
 <p>
@@ -283,7 +268,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.iteration_block.models"></a><h5>
-<a name="id504855"></a>
+<a name="id504772"></a>
         <a href="concepts.html#oven.concepts.iteration_block.models">Models</a>
       </h5>
 </div>
@@ -291,7 +276,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.constant_range"></a><a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant Range</a></h3></div></div></div>
 <a name="oven.concepts.constant_range.description"></a><h5>
-<a name="id504895"></a>
+<a name="id504812"></a>
         <a href="concepts.html#oven.concepts.constant_range.description">Description</a>
       </h5>
 <p>
@@ -300,7 +285,7 @@
         whose elements are not modifiable.
       </p>
 <a name="oven.concepts.constant_range.refinement_of"></a><h5>
-<a name="id504946"></a>
+<a name="id504863"></a>
         <a href="concepts.html#oven.concepts.constant_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -308,7 +293,7 @@
           Pass</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="oven.concepts.constant_range.requirements"></a><h5>
-<a name="id504993"></a>
+<a name="id504910"></a>
         <a href="concepts.html#oven.concepts.constant_range.requirements">Requirements</a>
       </h5>
 <p>
@@ -327,7 +312,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.constant_range.models"></a><h5>
-<a name="id505186"></a>
+<a name="id505103"></a>
         <a href="concepts.html#oven.concepts.constant_range.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -339,7 +324,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.contiguous_range"></a><a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous Range</a></h3></div></div></div>
 <a name="oven.concepts.contiguous_range.description"></a><h5>
-<a name="id505308"></a>
+<a name="id505225"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.description">Description</a>
       </h5>
 <p>
@@ -349,7 +334,7 @@
         whose elements are stored contiguously.
       </p>
 <a name="oven.concepts.contiguous_range.refinement_of"></a><h5>
-<a name="id505368"></a>
+<a name="id505286"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -362,7 +347,7 @@
 </li>
 </ul></div>
 <a name="oven.concepts.contiguous_range.requirements"></a><h5>
-<a name="id505434"></a>
+<a name="id505352"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.requirements">Requirements</a>
       </h5>
 <p>
@@ -381,7 +366,7 @@
           <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="oven.concepts.contiguous_range.models"></a><h5>
-<a name="id505701"></a>
+<a name="id505619"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -393,7 +378,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.parallel_safe"></a><a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a></h3></div></div></div>
 <a name="oven.concepts.parallel_safe.description"></a><h5>
-<a name="id505832"></a>
+<a name="id505750"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.description">Description</a>
       </h5>
 <p>
@@ -401,11 +386,11 @@
         the same level of thread safety as built-in types.
       </p>
 <a name="oven.concepts.parallel_safe.refinement_of"></a><h5>
-<a name="id505870"></a>
+<a name="id505787"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.refinement_of">Refinement of</a>
       </h5>
 <a name="oven.concepts.parallel_safe.requirements"></a><h5>
-<a name="id505894"></a>
+<a name="id505812"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.requirements">Requirements</a>
       </h5>
 <p>
@@ -419,7 +404,7 @@
           are copies).
         </li></ul></div>
 <a name="oven.concepts.parallel_safe.models"></a><h5>
-<a name="id505958"></a>
+<a name="id505876"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">

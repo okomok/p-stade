@@ -12,19 +12,18 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./to_ref.hpp" // to_mref
+#include "./do_swap.hpp"
 
 
 namespace pstade { namespace egg {
 
 
     // ADL customization point.
-    // In fact, optimizer will do your work, though.
     // Note this is in the same namespace as below for a msvc bug.
     template<class From, class To> inline
     void pstade_egg_move_assign(From& from, To& to)
     {
-        to = from;
+        do_swap(to, from);
     }
 
 
@@ -36,7 +35,7 @@ namespace pstade { namespace egg {
         template<class From, class To> inline
         void operator()(From const& from, To& to) const
         {
-            pstade_egg_move_assign(to_mref(from), to);
+            pstade_egg_move_assign(const_cast<From&>(from), to);
         }
     };
 

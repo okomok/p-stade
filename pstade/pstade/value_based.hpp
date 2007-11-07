@@ -19,9 +19,10 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/reset_assignment.hpp>
+#include <pstade/radish/swap_reset.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/radish/value_pointable.hpp>
-#include <pstade/reset_assignment.hpp>
 
 
 namespace pstade {
@@ -49,18 +50,9 @@ namespace pstade {
         { }
 
     // assignments
-        void reset(boost::none_t = boost::none)
-        {
-            self_t().swap(*this);
-        }
-
-        template<class Q>
-        void reset(Q const &q)
-        {
-            self_t(q).swap(*this);
-        }
-
-        PSTADE_RESET_ASSIGNMENT(value_based)
+        typedef value_based pstade_radish_this_type;
+        #include PSTADE_RADISH_SWAP_RESET()
+        #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
     // bool_testable
         operator radish::safe_bool() const

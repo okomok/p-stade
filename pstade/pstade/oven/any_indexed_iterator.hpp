@@ -27,6 +27,8 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/nonvirtual.hpp>
+#include <pstade/radish/swap_reset.hpp>
+#include <pstade/radish/reset_assignment.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
@@ -172,23 +174,9 @@ public:
     { }
 
 // assignments
-    void reset(boost::none_t = boost::none)
-    {
-        self_t().swap(*this);
-    }
-
-    template< class RandIter >
-    void reset(diff_t index, RandIter it)
-    {
-        BOOST_ASSERT(0 <= index);
-        self_t(index, it).swap(*this);
-    }
-
-    self_t& operator=(boost::none_t)
-    {
-        reset();
-        return *this;
-    }
+    typedef any_indexed_iterator pstade_radish_this_type;
+    #include PSTADE_RADISH_SWAP_RESET()
+    #include PSTADE_RADISH_RESET_ASSIGNMENT()
 
 // swappable
     void swap(self_t& other)
