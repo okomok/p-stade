@@ -30,12 +30,19 @@ struct my_derived : my_base
 };
 
 
+template<class X>
+X const & pass_through(X const & x)
+{
+    return x;
+}
+
+
 void pstade_minimal_test()
 {
     my_derived d;
     my_base &b = d;
     {
-        my_derived &d_ = static_down(b);
+        my_derived &d_ = pass_through(static_down(b));
         BOOST_CHECK(&d_ == &d);
     }
 }
