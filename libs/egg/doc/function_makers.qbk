@@ -155,6 +155,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__.
 * `f` is a __DEFERRED_CALLABLE_OBJECT__.
+* There is a type `X_` such that `boost::is_convertible<X_, _typeof(to)>::value == false`.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
 

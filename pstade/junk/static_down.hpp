@@ -20,7 +20,7 @@
 namespace pstade { namespace egg {
 
 
-#if 1
+#if 0
     typedef
         result_of_auxiliary0<
             automatic_ref< X_static_downcast<boost::mpl::_> >::type
