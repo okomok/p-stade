@@ -10,19 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/type_traits/add_pointer.hpp>
-#include <boost/type_traits/remove_reference.hpp>
-
-
 namespace pstade { namespace oven { namespace detail {
 
 
 template< class T >
-struct ref_to_ptr :
-    boost::add_pointer<
-        typename boost::remove_reference<T>::type
-    >
-{ };
+struct ref_to_ptr;
+
+template< class T >
+struct ref_to_ptr< T& >
+{
+    typedef T *type;
+};
 
 
 } } } // namespace pstade::oven::detail

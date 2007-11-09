@@ -24,6 +24,9 @@
 #include <pstade/oven/regular.hpp>
 #include <pstade/oven/as_c_str.hpp>
 
+#include <pstade/oven/range_iterator.hpp>
+#include <pstade/oven/range_difference.hpp>
+
 
 //  (C) Copyright Eric Niebler 2004.
 //  Use, modification and distribution are subject to the
@@ -103,9 +106,9 @@ struct null_op2
 template<typename Rng>
 void test_random_algorithms(Rng & rng, std::random_access_iterator_tag)
 {
-    typedef BOOST_DEDUCED_TYPENAME boost::range_result_iterator<Rng>::type iterator;
+    typedef BOOST_DEDUCED_TYPENAME pstade::oven::range_iterator<Rng>::type iterator;
     typedef BOOST_DEDUCED_TYPENAME boost::range_value<Rng>::type value_type;
-    typedef BOOST_DEDUCED_TYPENAME boost::range_size<Rng>::type size_type;
+    typedef BOOST_DEDUCED_TYPENAME pstade::oven::range_difference<Rng>::type size_type;
     typedef BOOST_DEDUCED_TYPENAME boost::iterator_category<iterator>::type iterator_category;
 
     // just make sure these compile (for now)
@@ -151,9 +154,9 @@ void test_random_algorithms(Rng & rng, std::input_iterator_tag)
 template<typename Rng>
 void test_algorithms(Rng & rng)
 {
-    typedef BOOST_DEDUCED_TYPENAME boost::range_result_iterator<Rng>::type iterator;
+    typedef BOOST_DEDUCED_TYPENAME pstade::oven::range_iterator<Rng>::type iterator;
     typedef BOOST_DEDUCED_TYPENAME boost::range_value<Rng>::type value_type;
-    typedef BOOST_DEDUCED_TYPENAME boost::range_size<Rng>::type size_type;
+    typedef BOOST_DEDUCED_TYPENAME pstade::oven::range_difference<Rng>::type size_type;
     typedef BOOST_DEDUCED_TYPENAME boost::iterator_category<iterator>::type iterator_category;
 
     // just make sure these compile (for now)

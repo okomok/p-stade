@@ -12,7 +12,13 @@
 
 
 #include <boost/type_traits/remove_cv.hpp>
-#include "./detail/config.hpp" // BOOST_RANGE_MUTABLE_ITERATOR
+#include "./detail/config.hpp"
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    #include <boost/range/iterator.hpp>
+#else
+    #include <boost/range/mutable_iterator.hpp>
+#endif
 
 
 namespace pstade { namespace oven {
@@ -20,7 +26,11 @@ namespace pstade { namespace oven {
 
 template< class Range >
 struct range_mutable_iterator :
-    boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    boost::range_iterator<
+#else
+    boost::range_mutable_iterator<
+#endif
         typename boost::remove_cv<Range>::type
     >
 { };

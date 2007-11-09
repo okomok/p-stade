@@ -28,17 +28,18 @@
 
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/range/begin.hpp>
-#include <boost/range/const_iterator.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator.hpp>
-#include <boost/range/size.hpp>
-#include <boost/range/size_type.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/unevaluated.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/config.hpp"
 #include "./range_iterator.hpp"
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    #include <boost/range/size.hpp>
+    #include <boost/range/size_type.hpp>
+#endif
 
 
 namespace pstade { namespace oven {
@@ -91,8 +92,8 @@ template< class Range >
 struct SinglePass
 {
     typedef typename boost::remove_cv<Range>::type rng_t;
-    typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
-    typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
+    typedef typename range_iterator<rng_t>::type mutable_iterator;
+    typedef typename range_iterator<rng_t const>::type constant_iterator;
 
     PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<mutable_iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<constant_iterator>));
@@ -115,8 +116,8 @@ struct Forward :
     SinglePass<Range>
 {
     typedef typename boost::remove_cv<Range>::type rng_t;
-    typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
-    typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
+    typedef typename range_iterator<rng_t>::type mutable_iterator;
+    typedef typename range_iterator<rng_t const>::type constant_iterator;
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
     typedef typename boost::range_size<rng_t>::type size_type;
 #endif
@@ -140,8 +141,8 @@ struct Bidirectional :
     Forward<Range>
 {
     typedef typename boost::remove_cv<Range>::type rng_t;
-    typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
-    typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
+    typedef typename range_iterator<rng_t>::type mutable_iterator;
+    typedef typename range_iterator<rng_t const>::type constant_iterator;
 
     PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<mutable_iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<constant_iterator>));
@@ -153,23 +154,11 @@ struct RandomAccess :
     Bidirectional<Range>
 {
     typedef typename boost::remove_cv<Range>::type rng_t;
-    typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
-    typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
-#if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    typedef typename boost::range_size<rng_t>::type size_type;
-#endif
+    typedef typename range_iterator<rng_t>::type mutable_iterator;
+    typedef typename range_iterator<rng_t const>::type constant_iterator;
 
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<mutable_iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<constant_iterator>));
-
-#if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    PSTADE_CONCEPT_USAGE(RandomAccess)
-    {
-        rng_t& rng = unevaluated<rng_t&>();
-        size_type sz = boost::size(rng);
-        unused(sz);
-    }
-#endif
 };
 
 

@@ -33,7 +33,7 @@ namespace pstade { namespace lime {
 
 
     template< class Node > inline
-    typename oven::range_pointer<Node>::type
+    typename oven::range_lvalue_pointer<Node>::type
     pstade_lime_new_node(Node& parent, ustring const& childName)
     {
          return pstade_lime_(pstade_lime_extension::new_node(), parent, childName);
@@ -41,7 +41,7 @@ namespace pstade { namespace lime {
 
 
     template< class Node > inline
-    typename oven::range_pointer<Node>::type
+    typename oven::range_lvalue_pointer<Node>::type
     new_node(Node& parent, ustring const& childName)
     {
         return pstade_lime_new_node(parent, childName);

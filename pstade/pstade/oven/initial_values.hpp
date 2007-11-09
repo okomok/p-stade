@@ -79,8 +79,8 @@ namespace initial_values_detail {
 
     // range implementation
         typedef Value const *iterator;
-        typedef iterator     const_iterator;
-        typedef std::size_t  size_type;
+        typedef iterator const_iterator;
+        typedef std::size_t size_type;
 
         iterator begin() const
         {

@@ -15,15 +15,13 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/add_pointer.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/nullptr.hpp>
 #include "./concepts.hpp"
 #include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
-#include "./range_reference.hpp"
+#include "./range_pointer.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,22 +30,11 @@ namespace pstade { namespace oven {
 namespace pointed_detail {
 
 
-    // 'range_pointer' seems useless.
-    template< class Reference >
-    struct to_pointer :
-        boost::add_pointer<
-            typename boost::remove_reference<Reference>::type
-        >
-    { };
-
-
     template< class ContiguousRange >
     struct base
     {
         typedef typename
-            to_pointer<
-                typename range_reference<ContiguousRange>::type
-            >::type
+            range_lvalue_pointer<ContiguousRange>::type
         ptr_t;
 
         typedef

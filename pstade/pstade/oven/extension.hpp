@@ -18,11 +18,8 @@
 
 #include <cstddef> // size_t
 #include <boost/mpl/eval_if.hpp>
-#include <boost/range/const_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator.hpp>
-#include <boost/range/size_type.hpp>
 #include <boost/type.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -30,6 +27,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
+#include "./detail/boost_extension_fwd.hpp"
 #include "./detail/config.hpp"
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
@@ -113,7 +111,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 
     template< class T >
-    struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
+    struct PSTADE_OVEN_MUTABLE_ITERATOR_NAME
     {
         typedef typename boost::remove_cv<T>::type plain_t;
         typedef typename pstade_oven_extension::Range<plain_t>::
@@ -134,9 +132,16 @@ namespace pstade { namespace oven { namespace extension_detail {
     struct range_result_iterator :
         boost::mpl::eval_if< boost::is_const<T>,
             range_const_iterator<T>,
-            PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<T>
+            PSTADE_OVEN_MUTABLE_ITERATOR_NAME<T>
         >
     { };
+
+
+    template< class T >
+    struct range_size
+    {
+        typedef std::size_t type;
+    };
 
 
     struct baby_begin
@@ -154,8 +159,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    typedef egg::function<baby_begin> T_begin;
-    PSTADE_POD_CONSTANT((T_begin), PSTADE_OVEN_BOOST_RANGE_BEGIN) = {{}};
+    PSTADE_POD_CONSTANT((egg::function<baby_begin>), PSTADE_OVEN_RANGE_BEGIN_NAME) = {{}};
 
 
     struct baby_end
@@ -173,19 +177,10 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    typedef egg::function<baby_end> T_end;
-    PSTADE_POD_CONSTANT((T_end), PSTADE_OVEN_BOOST_RANGE_END) = {{}};
-
-
-    template< class T >
-    struct range_size
-    {
-        typedef std::size_t type;
-    };
+    PSTADE_POD_CONSTANT((egg::function<baby_end>), PSTADE_OVEN_RANGE_END_NAME) = {{}};
 
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-
     struct baby_size
     {
         template< class Myself, class T >
@@ -197,14 +192,12 @@ namespace pstade { namespace oven { namespace extension_detail {
         Result call(T const& x) const
         {
             return egg::copy<Result>(
-                detail::iter_distance(PSTADE_OVEN_BOOST_RANGE_BEGIN(x), PSTADE_OVEN_BOOST_RANGE_END(x))
+                detail::iter_distance(PSTADE_OVEN_RANGE_BEGIN_NAME(x), PSTADE_OVEN_RANGE_END_NAME(x))
             );
         }
     };
 
-    typedef egg::function<baby_size> T_size;
-    PSTADE_POD_CONSTANT((T_size), boost_range_size) = {{}};
-
+    PSTADE_POD_CONSTANT((egg::function<baby_size>), boost_range_size) = {{}};
 #endif
 
 
@@ -216,14 +209,14 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 #define PSTADE_OVEN_EXTENSION_OF_TYPE(NameSeq) \
     namespace boost { \
-        PSTADE_OVEN_EXTENSION_OF_TYPE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR) \
+        PSTADE_OVEN_EXTENSION_OF_TYPE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_MUTABLE_ITERATOR_NAME) \
         PSTADE_OVEN_EXTENSION_OF_TYPE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), range_const_iterator) \
         PSTADE_OVEN_EXTENSION_OF_TYPE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), range_size) \
     } \
     \
     PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
-        PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_RANGE_BEGIN_NAME, range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_RANGE_END_NAME,   range_result_iterator) \
         PSTADE_OVEN_EXTENSION_OF_TYPE_forward_size(NameSeq) \
     PSTADE_PP_NAMESPACE_CLOSE(NameSeq) \
 /**/
@@ -276,14 +269,14 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 #define PSTADE_OVEN_EXTENSION_OF_TEMPLATE_aux(NameSeq, ParamSeq) \
     namespace boost { \
-        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR) \
+        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_MUTABLE_ITERATOR_NAME) \
         PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, range_const_iterator) \
         PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_meta(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, range_size) \
     } \
     \
     PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
-        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_RANGE_BEGIN_NAME, range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_RANGE_END_NAME,   range_result_iterator) \
         PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_size(NameSeq, ParamSeq) \
     PSTADE_PP_NAMESPACE_CLOSE(NameSeq) \
 /**/
