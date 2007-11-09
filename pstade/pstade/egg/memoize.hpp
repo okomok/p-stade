@@ -34,8 +34,8 @@ namespace pstade { namespace egg {
     namespace memoize_detail {
 
 
-        struct T_wrap_ :
-            function_facade<T_wrap_, boost::use_default, by_cref>
+        struct wrap_ :
+            function_facade<wrap_, boost::use_default, by_cref>
         {
             template<class Myself, class Base, class Fixed, class Arg>
             struct apply :
@@ -61,7 +61,7 @@ namespace pstade { namespace egg {
                     return m[arg] = base(fixed)(arg);
             }
 
-            T_wrap_() :
+            wrap_() :
                 m_pany(new boost::any())
             { }
 
@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
                 result_of<
                     T_fix(
                         typename result_of<
-                            typename result_of<T_curry3(T_wrap_)>::type(typename result_of<T_curry2(Base_&)>::type)
+                            typename result_of<T_curry3(wrap_)>::type(typename result_of<T_curry2(Base_&)>::type)
                         >::type
                     )
                 >
@@ -87,7 +87,7 @@ namespace pstade { namespace egg {
             Result call(Base_ base) const
             {
                 return fix(
-                    curry3(T_wrap_())(curry2(base))
+                    curry3(wrap_())(curry2(base))
                 );
             }
         };

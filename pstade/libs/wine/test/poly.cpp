@@ -124,12 +124,19 @@ void pstade_unit_test()
         BOOST_CHECK( !p1 );
         BOOST_CHECK( !p2 );
     }
-    {// works as any.
+    {// works as any (heap)
         poly<void> p(sH);
         BOOST_CHECK( p );
         BOOST_CHECK( p.contains<my_stringH>() );
         BOOST_CHECK( p.content<my_stringH>().index == 123 );
         BOOST_CHECK( p.type() == typeid(my_stringH) );
+    }
+    {// works as any (local)
+        poly<void> p(123);
+        BOOST_CHECK( p );
+        BOOST_CHECK( p.contains<int>() );
+        BOOST_CHECK( p.content<int>() == 123 );
+        BOOST_CHECK( p.type() == typeid(int) );
     }
     {// deleter check
         {
@@ -270,6 +277,15 @@ void pstade_unit_test()
         p3 = p3;
         BOOST_CHECK( !p3 );
         BOOST_CHECK( p3.type() == typeid(void) );
+        
+        // copy using reset
+        poly<my_string_base> p4;
+        p4.reset(p);
+        BOOST_CHECK( p4 );
+        BOOST_CHECK( p4.type() == typeid(my_stringH) );
+        BOOST_CHECK( p4->get_string() == "heap" );
+        p4.reset();
+        BOOST_CHECK( !p4 );
     }
     {
         poly<my_string_base> p(sH);
