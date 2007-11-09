@@ -12,16 +12,28 @@
 
 
 #include <boost/iterator/iterator_traits.hpp>
+#include "./detail/ref_to_ptr.hpp"
 #include "./range_iterator.hpp"
+#include "./range_reference.hpp"
 
 
 namespace pstade { namespace oven {
 
 
+// may return a proxy type.
 template< class Range >
 struct range_pointer :
     boost::iterator_pointer<
         typename range_iterator<Range>::type
+    >
+{ };
+
+
+// returns a pointer type to (possibly const) value_type.
+template< class Range >
+struct range_lvalue_pointer :
+    detail::ref_to_ptr<
+        typename range_reference<Range>::type
     >
 { };
 

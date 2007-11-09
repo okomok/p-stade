@@ -11,8 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range.hpp> // include first; test no order-dependency.
-#include <pstade/oven/extension.hpp>
+#if defined(PSTADE_OVEN_TEST_EXTENSION_NO_ORDER_DEPENDENCY)
+    #include <boost/range.hpp>
+    #include <pstade/oven/extension.hpp>
+#else
+    #include <pstade/oven/extension.hpp>
+    #include <boost/range.hpp>
+#endif
+
 #include <pstade/minimal_test.hpp>
 #include "./detail/test.hpp"
 

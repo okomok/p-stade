@@ -73,6 +73,7 @@ test-suite "oven" :
     [ run expression.cpp ]
     [ run expression.cpp : : : <define>BOOST_TYPEOF_EMULATION : expression_emulation ]
     [ run extension.cpp ]
+    [ run extension.cpp : : : <define>PSTADE_OVEN_TEST_EXTENSION_NO_ORDER_DEPENDENCY : extension_no_order_dep ]
     [ run file_range.cpp ]
     [ run filtered.cpp ]
     [ run filterer.cpp ]

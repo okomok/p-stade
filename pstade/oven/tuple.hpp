@@ -54,6 +54,7 @@ PSTADE_OVEN_EXTENSION_OF_TEMPLATE((boost)(tuples)(tuple), 2)
 #include <cstddef> // size_t
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/tuple/tuple.hpp>
+#include "./detail/boost_extension_fwd.hpp"
 #include "./detail/config.hpp"
 #include "./detail/iter_distance.hpp"
 
@@ -69,13 +70,13 @@ namespace boost {
 
 
     template< class Iter >
-    struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR< PSTADE_t >
+    struct PSTADE_OVEN_MUTABLE_ITERATOR_NAME< PSTADE_t >
     {
         typedef Iter type;
     };
 
     template< class Iter >
-    struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR< PSTADE_t const >
+    struct PSTADE_OVEN_MUTABLE_ITERATOR_NAME< PSTADE_t const >
     {
         typedef Iter type;
     };
@@ -108,25 +109,25 @@ namespace boost {
     namespace tuples {
 
         template< class Iter >
-        Iter PSTADE_OVEN_BOOST_RANGE_BEGIN(PSTADE_t& x)
+        Iter PSTADE_OVEN_RANGE_BEGIN_NAME(PSTADE_t& x)
         {
             return boost::tuples::get<0>(x);
         }
 
         template< class Iter >
-        Iter PSTADE_OVEN_BOOST_RANGE_BEGIN(PSTADE_t const& x)
+        Iter PSTADE_OVEN_RANGE_BEGIN_NAME(PSTADE_t const& x)
         {
             return boost::tuples::get<0>(x);
         }
 
         template< class Iter >
-        Iter PSTADE_OVEN_BOOST_RANGE_END(PSTADE_t& x)
+        Iter PSTADE_OVEN_RANGE_END_NAME(PSTADE_t& x)
         {
             return boost::tuples::get<1>(x);
         }
 
         template< class Iter >
-        Iter PSTADE_OVEN_BOOST_RANGE_END(PSTADE_t const& x)
+        Iter PSTADE_OVEN_RANGE_END_NAME(PSTADE_t const& x)
         {
             return boost::tuples::get<1>(x);
         }

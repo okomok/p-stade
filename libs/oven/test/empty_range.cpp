@@ -19,7 +19,7 @@
 template<class Range>
 void check_const(Range const& rng)
 {
-    PSTADE_OVEN_BOOST_RANGE_BEGIN(rng);
+    PSTADE_OVEN_RANGE_BEGIN_NAME(rng);
 }
 
 

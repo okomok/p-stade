@@ -19,7 +19,7 @@
 
 
 #include <pstade/radish/null_injector.hpp>
-#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN/END
+#include "./detail/boost_extension_fwd.hpp"
 
 
 namespace pstade { namespace oven {
@@ -43,13 +43,13 @@ struct range_constantable :
     // Eat const-qualified range
     // before member functions are looked up.
     friend
-    ConstantIter PSTADE_OVEN_BOOST_RANGE_BEGIN(T const& x)
+    ConstantIter PSTADE_OVEN_RANGE_BEGIN_NAME(T const& x)
     {
         return x.begin();
     }
 
     friend
-    ConstantIter PSTADE_OVEN_BOOST_RANGE_END(T const& x)
+    ConstantIter PSTADE_OVEN_RANGE_END_NAME(T const& x)
     {
         return x.end();
     }
