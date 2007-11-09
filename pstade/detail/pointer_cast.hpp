@@ -33,9 +33,7 @@ namespace pstade { namespace detail {
 #endif
     )
     {
-        return boost::addressof(
-            egg::static_downcast<To>(*p)
-        );
+        return boost::addressof( egg::static_downcast<To>(*p) );
     }
 
     template<class To> inline

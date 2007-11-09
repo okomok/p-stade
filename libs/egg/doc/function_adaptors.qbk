@@ -180,7 +180,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`curry++N`]
-        [A __BINDABLE__ __STATIC_FUNCTION_OBJECT__]
+        [A __STATIC_FUNCTION_OBJECT__]
     ]
     [
         [`curry++N(d)`]

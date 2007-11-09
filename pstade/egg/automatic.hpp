@@ -12,21 +12,23 @@
 
 
 // Note:
-//
-// This couldn't support the reference type as 'To',
-// because the behavior of conversion-operator template
-// varies from compiler to compiler...
-//
 // 
 // 'x|foo' seems impossible without yet another 'function<>'.
 // Use 'x|foo()' instead.
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include "./by_cref.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"
+
+#if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
+    #include <boost/type_traits/is_same.hpp>
+    #include <pstade/enable_if.hpp>
+#endif
 
 
 namespace pstade { namespace egg {
@@ -52,14 +54,35 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda>
+        template<class Lambda, class ArgTuple>
+        struct automator_ref
+        {
+            ArgTuple m_args;
+
+            template<class To>
+            operator To&() const
+#if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
+                // Thanks to Sergey Shandar.
+                throw(typename disable_if< boost::is_same<To, automator_ref const> >::type*)
+#endif
+            {
+                typedef typename
+                    boost::mpl::apply1<Lambda, To>::type
+                fun_t;
+
+                return fuse(fun_t())(m_args);
+            }
+        };
+
+
+        template<class Lambda, template<class, class> class Automator>
         struct baby_fused
         {
             template<class Myself, class ArgTuple>
             struct apply
             {
                 typedef
-                    automator<Lambda, ArgTuple> const
+                    Automator<Lambda, ArgTuple> const
                 type;
             };
 
@@ -74,23 +97,35 @@ namespace pstade { namespace egg {
         };
 
 
+        template<class Lambda, template<class, class> class Automator, class Strategy>
+        struct aux :
+            result_of_unfuse<
+                function<baby_fused<Lambda, Automator>, by_cref>,
+                boost::use_default,
+                use_nullary_result,
+                Strategy
+            >
+        { };
+
+
     } // namespace automatic_detail
 
 
     template<class Lambda, class Strategy = boost::use_default>
     struct automatic :
-        result_of_unfuse<
-            function<automatic_detail::baby_fused<Lambda>, by_cref>,
-            boost::use_default,
-            use_nullary_result,
-            Strategy
-        >
+        automatic_detail::aux<Lambda, automatic_detail::automator, Strategy>
     { };
 
+    template<class Lambda, class Strategy = boost::use_default>
+    struct automatic_ref :
+        automatic_detail::aux<Lambda, automatic_detail::automator_ref, Strategy>
+    { };
 
     #define PSTADE_EGG_AUTOMATIC \
         PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     /**/
+
+    #define PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AUTOMATIC
 
 
 } } // namespace pstade::egg

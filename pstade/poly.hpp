@@ -256,7 +256,7 @@ namespace pstade {
                 m_pvtbl = vtable_pointer<O, Q>(); // nothrow
             }
 
-            void reset(self_t const &other)
+            void reset(poly<O> const &other) // basic
             {
                 operator=(other);
             }
