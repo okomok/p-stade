@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct tp_new_
+    struct pod_of_new_
     {
         struct baby
         {
@@ -54,7 +54,7 @@ namespace pstade { namespace egg {
 
     template<class X>
     struct X_new_ :
-        tp_new_<X>::type
+        pod_of_new_<X>::type
     { };
 
 

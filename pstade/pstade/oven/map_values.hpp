@@ -19,7 +19,7 @@
 namespace pstade { namespace oven {
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(map_values, (tp_make_elements< boost::mpl::int_<1> >::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(map_values, (pod_of_make_elements< boost::mpl::int_<1> >::baby))
 
 
 } } // namespace pstade::oven

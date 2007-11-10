@@ -124,7 +124,7 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct tp_make_adjacent_transformed
+struct pod_of_make_adjacent_transformed
 {
     struct baby
     {
@@ -178,11 +178,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_adjacent_transformed :
-    tp_make_adjacent_transformed<Reference, Value>::type
+    pod_of_make_adjacent_transformed<Reference, Value>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (tp_make_adjacent_transformed<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (pod_of_make_adjacent_transformed<>::baby))
 
 
 } } // namespace pstade::oven

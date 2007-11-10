@@ -25,7 +25,7 @@ namespace pstade { namespace oven {
 
 
 template< class Difference = boost::use_default, class Tag = boost::use_default >
-struct tp_make_identities
+struct pod_of_make_identities
 {
     struct baby
     {
@@ -56,11 +56,11 @@ struct tp_make_identities
 
 template< class Difference = boost::use_default, class Tag = boost::use_default >
 struct X_make_identities :
-    tp_make_identities<Difference, Tag>::type
+    pod_of_make_identities<Difference, Tag>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(identities, (tp_make_identities<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(identities, (pod_of_make_identities<>::baby))
 
 
 } } // namespace pstade::oven

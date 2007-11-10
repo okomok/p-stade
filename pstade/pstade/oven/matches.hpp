@@ -29,7 +29,7 @@ template<
     class CharT  = boost::use_default,
     class Traits = boost::use_default
 >
-struct tp_make_matches
+struct pod_of_make_matches
 {
     struct baby
     {
@@ -80,11 +80,11 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_matches :
-    tp_make_matches<CharT, Traits>::type
+    pod_of_make_matches<CharT, Traits>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(matches, (tp_make_matches<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(matches, (pod_of_make_matches<>::baby))
 
 
 } } // namespace pstade::oven

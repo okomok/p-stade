@@ -35,7 +35,7 @@ namespace pstade { namespace oven {
 
 
 template< class U8Type = boost::uint8_t >
-struct tp_make_utf8_encoded
+struct pod_of_make_utf8_encoded
 {
     struct baby
     {
@@ -68,11 +68,11 @@ struct tp_make_utf8_encoded
 
 template< class U8Type = boost::uint8_t >
 struct X_make_utf8_encoded :
-    tp_make_utf8_encoded<U8Type>::type
+    pod_of_make_utf8_encoded<U8Type>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(utf8_encoded, (tp_make_utf8_encoded<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(utf8_encoded, (pod_of_make_utf8_encoded<>::baby))
 
 
 } } // namespace pstade::oven

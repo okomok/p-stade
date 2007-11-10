@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
 
 
     template<class Derived>
-    struct tp_static_downcast
+    struct pod_of_static_downcast
     {
         typedef
             function<static_downcast_detail::baby<Derived>, by_perfect>
@@ -87,7 +87,7 @@ namespace pstade { namespace egg {
 
     template<class Derived>
     struct X_static_downcast :
-        tp_static_downcast<Derived>::type
+        pod_of_static_downcast<Derived>::type
     { };
 
 

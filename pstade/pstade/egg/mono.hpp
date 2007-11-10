@@ -78,7 +78,7 @@ namespace pstade { namespace egg {
 
     // 'generator' with 'result_' didn't work under gcc3.4/4.1 after all.
     template<class Sequence, class ResultType = boost::use_default>
-    struct tp_mono
+    struct pod_of_mono
     {
         struct baby
         {
@@ -101,7 +101,7 @@ namespace pstade { namespace egg {
 
     template<class Sequence, class ResultType = boost::use_default>
     struct X_mono :
-        tp_mono<Sequence, ResultType>::type
+        pod_of_mono<Sequence, ResultType>::type
     { };
 
  

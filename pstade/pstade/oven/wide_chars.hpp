@@ -51,7 +51,7 @@ namespace wide_chars_detail {
 
 
 template< class CharT = wchar_t >
-struct tp_make_wide_chars 
+struct pod_of_make_wide_chars 
 {
     struct baby
     {
@@ -81,11 +81,11 @@ struct tp_make_wide_chars
 
 template< class CharT = wchar_t >
 struct X_make_wide_chars :
-    tp_make_wide_chars<CharT>::type
+    pod_of_make_wide_chars<CharT>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (tp_make_wide_chars<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (pod_of_make_wide_chars<>::baby))
 
 
 } } // namespace pstade::oven

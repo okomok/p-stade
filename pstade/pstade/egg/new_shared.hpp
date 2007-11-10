@@ -20,14 +20,14 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct tp_new_shared :
-        tp_new_ptr< boost::shared_ptr<X> >
+    struct pod_of_new_shared :
+        pod_of_new_ptr< boost::shared_ptr<X> >
     { };
 
 
     template<class X>
     struct X_new_shared :
-        tp_new_shared<X>::type
+        pod_of_new_shared<X>::type
     { };
 
 

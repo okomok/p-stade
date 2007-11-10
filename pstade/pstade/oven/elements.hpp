@@ -31,7 +31,7 @@ namespace pstade { namespace oven {
 
 
 template< class N, class Reference = boost::use_default >
-struct tp_make_elements
+struct pod_of_make_elements
 {
 private:
     template< class TupleRange >
@@ -73,12 +73,12 @@ public:
 
 template< class N, class Reference = boost::use_default >
 struct X_make_elements :
-    tp_make_elements<N, Reference>::type
+    pod_of_make_elements<N, Reference>::type
 { };
 
 template< int N, class Reference = boost::use_default >
 struct X_make_elements_c :
-    tp_make_elements<boost::mpl::int_<N>, Reference>::type
+    pod_of_make_elements<boost::mpl::int_<N>, Reference>::type
 { };
 
 
@@ -88,7 +88,7 @@ PSTADE_EGG_SPECIFIED1(make_elements_c, X_make_elements_c, (int))
 
 template< class N, class Reference = boost::use_default >
 struct elements :
-    egg::result_of_pipable<typename tp_make_elements<N, Reference>::type>::type,
+    egg::result_of_pipable<typename pod_of_make_elements<N, Reference>::type>::type,
     egg::lookup_pipable_operator
 { };
 

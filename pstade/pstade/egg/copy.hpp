@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
 
 
     template<class To>
-    struct tp_copy
+    struct pod_of_copy
     {
         typedef
             function<copy_detail::baby<To>, by_cref>
@@ -94,7 +94,7 @@ namespace pstade { namespace egg {
 
     template<class To>
     struct X_copy :
-        tp_copy<To>::type
+        pod_of_copy<To>::type
     { };
 
 

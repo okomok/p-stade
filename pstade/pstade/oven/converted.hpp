@@ -24,7 +24,7 @@ namespace pstade { namespace oven {
 
 
 template< class To >
-struct tp_make_converted
+struct pod_of_make_converted
 {
     struct baby
     {
@@ -49,7 +49,7 @@ struct tp_make_converted
 
 template< class To >
 struct X_make_converted :
-    tp_make_converted<To>::type
+    pod_of_make_converted<To>::type
 { };
 
 
@@ -58,7 +58,7 @@ PSTADE_EGG_SPECIFIED1(make_converted, X_make_converted, (class))
 
 template< class To >
 struct converted :
-    egg::result_of_pipable<typename tp_make_converted<To>::type>::type,
+    egg::result_of_pipable<typename pod_of_make_converted<To>::type>::type,
     egg::lookup_pipable_operator
 { };
 

@@ -91,7 +91,7 @@ namespace unfuzipped_detail {
 
 
     template< class RefTuple = boost::use_default >
-    struct tp_make_unfuzipped
+    struct pod_of_make_unfuzipped
     {
         struct baby
         {
@@ -143,16 +143,16 @@ namespace unfuzipped_detail {
 } // namespace unfuzipped_detail
 
 
-using unfuzipped_detail::tp_make_unfuzipped;
+using unfuzipped_detail::pod_of_make_unfuzipped;
 
 
 template< class RefTuple = boost::use_default >
 struct X_make_unfuzipped :
-    tp_make_unfuzipped<RefTuple>::type
+    pod_of_make_unfuzipped<RefTuple>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(unfuzipped, (tp_make_unfuzipped<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(unfuzipped, (pod_of_make_unfuzipped<>::baby))
 
 
 } } // namespace pstade::oven

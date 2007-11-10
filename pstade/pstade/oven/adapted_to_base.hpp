@@ -102,7 +102,7 @@ PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AU
 //
 
 template< class Base >
-struct tp_adapted_range_to
+struct pod_of_adapted_range_to
 {
     struct baby
     {
@@ -129,7 +129,7 @@ struct tp_adapted_range_to
 
 template< class Base >
 struct X_adapted_range_to :
-    tp_adapted_range_to<Base>::type
+    pod_of_adapted_range_to<Base>::type
 { };
 
 

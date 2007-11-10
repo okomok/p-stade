@@ -25,7 +25,7 @@ namespace pstade { namespace oven {
 
 
 template< class Reference, class Value = boost::use_default >
-struct tp_hetero
+struct pod_of_hetero
 {
     struct baby
     {
@@ -62,7 +62,7 @@ struct tp_hetero
 
 template< class Reference, class Value = boost::use_default >
 struct X_hetero :
-    tp_hetero<Reference, Value>::type
+    pod_of_hetero<Reference, Value>::type
 { };
 
 

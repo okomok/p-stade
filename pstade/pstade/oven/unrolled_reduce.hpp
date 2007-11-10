@@ -85,7 +85,7 @@ namespace unrolled_reduce_detail {
 
 
 template< class N >
-struct tp_unrolled_reduce
+struct pod_of_unrolled_reduce
 {
     typedef egg::function< unrolled_reduce_detail::baby<N> > type;
 };
@@ -93,7 +93,7 @@ struct tp_unrolled_reduce
 
 template< class N >
 struct X_unrolled_reduce :
-    tp_unrolled_reduce<N>::type
+    pod_of_unrolled_reduce<N>::type
 { };
 
 template< int N >
