@@ -28,7 +28,7 @@ namespace pstade { namespace biscuit {
 
 
 template< class Parser >
-struct tp_results_search
+struct pod_of_results_search
 {
     struct baby
     {
@@ -70,7 +70,7 @@ struct tp_results_search
 
 template< class Parser >
 struct X_results_search :
-    tp_results_search<Parser>::type
+    pod_of_results_search<Parser>::type
 { };
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_search, X_results_search, 1)
@@ -79,7 +79,7 @@ struct X_results_search :
 
 template< class Parser >
 struct X_search :
-    detail::tp_without_results<X_results_search, Parser>::type
+    detail::pod_of_without_results<X_results_search, Parser>::type
 { };
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), search, X_search, 1)

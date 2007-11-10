@@ -124,7 +124,7 @@ namespace merged_detail {
 
 
 template< class MergeRoutine = merged_detail::merge_routine >
-struct tp_make_merged
+struct pod_of_make_merged
 {
     struct baby
     {
@@ -175,11 +175,11 @@ struct tp_make_merged
 
 template< class MergeRoutine = merged_detail::merge_routine >
 struct X_make_merged :
-    tp_make_merged<MergeRoutine>::type
+    pod_of_make_merged<MergeRoutine>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (tp_make_merged<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (pod_of_make_merged<>::baby))
 
 
 } } // namespace pstade::oven

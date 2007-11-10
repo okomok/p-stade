@@ -20,7 +20,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct tp_new_shared_array
+    struct pod_of_new_shared_array
     {
         struct type
         {
@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
 
     template<class X>
     struct X_new_shared_array :
-        tp_new_shared_array<X>::type
+        pod_of_new_shared_array<X>::type
     { };
 
 

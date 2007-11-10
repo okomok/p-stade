@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
 
 
     template<class ResultType = boost::use_default>
-    struct tp_ret :
+    struct pod_of_ret :
         generator<
             typename result_of_ret<deduce<boost::mpl::_1, as_value>, ResultType>::type,
             boost::use_default,
@@ -52,7 +52,7 @@ namespace pstade { namespace egg {
 
     template<class ResultType = boost::use_default>
     struct X_ret :
-        tp_ret<ResultType>::type
+        pod_of_ret<ResultType>::type
     { };
 
 

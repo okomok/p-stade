@@ -35,7 +35,7 @@ namespace pstade { namespace oven {
 
 
 template< class U32Type = boost::uint32_t >
-struct tp_make_utf16_decoded
+struct pod_of_make_utf16_decoded
 {
     struct baby
     {
@@ -68,11 +68,11 @@ struct tp_make_utf16_decoded
 
 template< class U32Type = boost::uint32_t >
 struct X_make_utf16_decoded :
-    tp_make_utf16_decoded<U32Type>::type
+    pod_of_make_utf16_decoded<U32Type>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(utf16_decoded, (tp_make_utf16_decoded<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(utf16_decoded, (pod_of_make_utf16_decoded<>::baby))
 
 
 } } // namespace pstade::oven

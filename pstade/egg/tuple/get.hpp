@@ -108,7 +108,7 @@ namespace pstade { namespace egg {
 
 
     template<class N>
-    struct tp_tuple_get
+    struct pod_of_tuple_get
     {
         typedef
             function<tuple_get_detail::baby<N>, by_perfect>
@@ -118,7 +118,7 @@ namespace pstade { namespace egg {
 
     template<class N>
     struct X_tuple_get :
-        tp_tuple_get<N>::type
+        pod_of_tuple_get<N>::type
     { };
 
     PSTADE_EGG_SPECIFIED1(tuple_get, X_tuple_get, (class))
@@ -126,7 +126,7 @@ namespace pstade { namespace egg {
 
     template<int N>
     struct X_tuple_get_c :
-        tp_tuple_get< boost::mpl::int_<N> >::type
+        pod_of_tuple_get< boost::mpl::int_<N> >::type
     { };
 
     PSTADE_EGG_SPECIFIED1(tuple_get_c, X_tuple_get_c, (int))

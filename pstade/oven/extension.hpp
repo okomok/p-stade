@@ -181,6 +181,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+
     struct baby_size
     {
         template< class Myself, class T >
@@ -198,6 +199,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     };
 
     PSTADE_POD_CONSTANT((egg::function<baby_size>), boost_range_size) = {{}};
+
 #endif
 
 

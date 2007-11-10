@@ -89,7 +89,7 @@ namespace unrolled_copy_detail {
 
 
 template< class N >
-struct tp_unrolled_copy
+struct pod_of_unrolled_copy
 {
     typedef egg::function< unrolled_copy_detail::baby<N> > type;
 };
@@ -97,7 +97,7 @@ struct tp_unrolled_copy
 
 template< class N >
 struct X_unrolled_copy :
-    tp_unrolled_copy<N>::type
+    pod_of_unrolled_copy<N>::type
 { };
 
 template< int N >

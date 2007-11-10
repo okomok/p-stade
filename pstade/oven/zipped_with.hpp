@@ -39,7 +39,7 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct tp_make_zipped_with
+struct pod_of_make_zipped_with
 {
 #if BOOST_VERSION >= 103500
     typedef T_make_fuzipped zip_;
@@ -81,11 +81,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_zipped_with :
-    tp_make_zipped_with<Reference, Value>::type
+    pod_of_make_zipped_with<Reference, Value>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(zipped_with, (tp_make_zipped_with<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(zipped_with, (pod_of_make_zipped_with<>::baby))
 
 
 } } // namespace pstade::oven

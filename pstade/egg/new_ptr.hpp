@@ -22,10 +22,10 @@ namespace pstade { namespace egg {
 
 
     template<class P>
-    struct tp_new_ptr :
+    struct pod_of_new_ptr :
         result_of_compose1<
-            typename tp_construct<P>::type,
-            typename tp_new_<typename boost::pointee<P>::type>::type,
+            typename pod_of_construct<P>::type,
+            typename pod_of_new_<typename boost::pointee<P>::type>::type,
             P
         >
     { };
@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
 
     template<class P>
     struct X_new_ptr :
-        tp_new_ptr<P>::type
+        pod_of_new_ptr<P>::type
     { };
 
 

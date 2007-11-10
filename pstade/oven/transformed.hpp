@@ -31,7 +31,7 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct tp_make_transformed
+struct pod_of_make_transformed
 {
     struct baby
     {
@@ -100,11 +100,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_transformed :
-    tp_make_transformed<Reference, Value>::type
+    pod_of_make_transformed<Reference, Value>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(transformed, (tp_make_transformed<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(transformed, (pod_of_make_transformed<>::baby))
 
 
 } } // namespace pstade::oven

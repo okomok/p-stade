@@ -135,7 +135,7 @@ template<
     class Traversal  = boost::use_default,
     class Difference = boost::use_default
 >
-struct tp_counting
+struct pod_of_counting
 {
     typedef
         egg::function<counting_detail::baby<Traversal, Difference>, egg::by_value>
@@ -148,11 +148,11 @@ template<
     class Difference = boost::use_default
 >
 struct X_counting :
-    tp_counting<Traversal, Difference>::type
+    pod_of_counting<Traversal, Difference>::type
 { };
 
 
-typedef tp_counting<>::type T_counting;
+typedef pod_of_counting<>::type T_counting;
 PSTADE_POD_CONSTANT((T_counting), counting) = {{}};
 
 

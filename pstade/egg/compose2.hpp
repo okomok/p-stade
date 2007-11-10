@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
 
 
     template<class NullaryResult = boost::use_default>
-    struct tp_compose2
+    struct pod_of_compose2
     {
         struct baby
         {
@@ -95,11 +95,11 @@ namespace pstade { namespace egg {
 
     template<class NullaryResult = boost::use_default>
     struct X_compose2 :
-        tp_compose2<NullaryResult>::type
+        pod_of_compose2<NullaryResult>::type
     { };
 
 
-    typedef tp_compose2<>::type T_compose2;
+    typedef pod_of_compose2<>::type T_compose2;
     PSTADE_POD_CONSTANT((T_compose2), compose2) = {{}};
 
 

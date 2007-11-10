@@ -21,7 +21,7 @@ namespace pstade { namespace biscuit { namespace detail {
 
 
 template< template< class > class Op, class Parser >
-struct tp_without_results
+struct pod_of_without_results
 {
     struct baby
     {

@@ -36,7 +36,7 @@ template<
     class Value,
     class Difference = std::ptrdiff_t
 >
-struct tp_stream_read 
+struct pod_of_stream_read 
 {
     struct baby
     {
@@ -73,7 +73,7 @@ template<
     class Difference = std::ptrdiff_t
 >
 struct X_stream_read :
-    tp_stream_read<Value, Difference>::type
+    pod_of_stream_read<Value, Difference>::type
 { };
 
 PSTADE_EGG_SPECIFIED1(stream_read, X_stream_read, (class))

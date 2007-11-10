@@ -30,7 +30,7 @@ template<
     class CharT  = boost::use_default,
     class Traits = boost::use_default
 >
-struct tp_make_tokenized 
+struct pod_of_make_tokenized 
 {
     struct baby
     {
@@ -100,11 +100,11 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_tokenized :
-    tp_make_tokenized<CharT, Traits>::type
+    pod_of_make_tokenized<CharT, Traits>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (tp_make_tokenized<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (pod_of_make_tokenized<>::baby))
 
 
 } } // namespace pstade::oven

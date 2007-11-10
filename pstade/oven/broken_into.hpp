@@ -28,7 +28,7 @@ namespace pstade { namespace oven {
 
 
 template< class Type >
-struct tp_make_broken_into
+struct pod_of_make_broken_into
 {
     struct baby
     {
@@ -69,7 +69,7 @@ struct tp_make_broken_into
 
 template< class Type >
 struct X_make_broken_into :
-    tp_make_broken_into<Type>::type
+    pod_of_make_broken_into<Type>::type
 { };
 
 

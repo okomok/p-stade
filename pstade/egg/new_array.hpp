@@ -18,7 +18,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct tp_new_array
+    struct pod_of_new_array
     {
         struct type
         {
@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 
     template<class X>
     struct X_new_array :
-        tp_new_array<X>::type
+        pod_of_new_array<X>::type
     { };
 
 

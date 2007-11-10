@@ -55,7 +55,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct tp_construct
+    struct pod_of_construct
     {
         typedef
             function<construct_detail::baby<X>, by_perfect>
@@ -65,7 +65,7 @@ namespace pstade { namespace egg {
 
     template<class X>
     struct X_construct :
-        tp_construct<X>::type
+        pod_of_construct<X>::type
     { };
 
 

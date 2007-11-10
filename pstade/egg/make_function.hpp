@@ -44,7 +44,7 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct tp_make_function
+    struct pod_of_make_function
     {
         typedef
             function<make_function_detail::baby<Strategy>, by_value>
@@ -54,11 +54,11 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_make_function :
-        tp_make_function<Strategy>::type
+        pod_of_make_function<Strategy>::type
     { };
 
 
-    typedef tp_make_function<>::type T_make_function;
+    typedef pod_of_make_function<>::type T_make_function;
     PSTADE_POD_CONSTANT((T_make_function), make_function) = {{}};
 
 

@@ -25,7 +25,7 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct tp_indexing
+struct pod_of_indexing
 {
     struct baby
     {
@@ -59,11 +59,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_indexing :
-    tp_indexing<Reference, Value>::type
+    pod_of_indexing<Reference, Value>::type
 { };
 
 
-typedef tp_indexing<>::type T_indexing;
+typedef pod_of_indexing<>::type T_indexing;
 PSTADE_POD_CONSTANT((T_indexing), indexing) = {{}};
 
 

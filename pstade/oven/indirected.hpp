@@ -36,7 +36,7 @@ template<
     class Reference  = boost::use_default,
     class Difference = boost::use_default
 >
-struct tp_make_indirected 
+struct pod_of_make_indirected 
 {
     struct baby
     {
@@ -77,11 +77,11 @@ template<
     class Difference = boost::use_default
 >
 struct X_make_indirected :
-    tp_make_indirected<Value, Traversal, Reference, Difference>::type
+    pod_of_make_indirected<Value, Traversal, Reference, Difference>::type
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(indirected, (tp_make_indirected<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(indirected, (pod_of_make_indirected<>::baby))
 
 
 } } // namespace pstade::oven

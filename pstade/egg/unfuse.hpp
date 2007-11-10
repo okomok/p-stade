@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
 
 
     template<class NullaryResult = boost::use_default>
-    struct tp_unfuse :
+    struct pod_of_unfuse :
         generator<
             typename result_of_unfuse<
                 deduce<boost::mpl::_1, as_value>,
@@ -58,11 +58,11 @@ namespace pstade { namespace egg {
 
     template<class NullaryResult = boost::use_default>
     struct X_unfuse :
-        tp_unfuse<NullaryResult>::type
+        pod_of_unfuse<NullaryResult>::type
     { };
 
 
-    typedef tp_unfuse<>::type T_unfuse;
+    typedef pod_of_unfuse<>::type T_unfuse;
     PSTADE_POD_CONSTANT((T_unfuse), unfuse) = PSTADE_EGG_GENERATOR;
 
 
