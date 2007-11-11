@@ -50,9 +50,7 @@
 
 #include "./is_boost_tuple.hpp"
 
-#include "./boost/result_of_fwd.hpp"
-#include "./boost/smart_ptr_fwd.hpp"
-#include "./boost/use_default_fwd.hpp"
+#include "./boost.hpp"
 
 
 #endif
