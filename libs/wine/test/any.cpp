@@ -15,7 +15,6 @@
 #include <pstade/egg/is_same.hpp>
 
 
-#include <pstade/egg/from_any_to.hpp>
 #include <pstade/egg/do_swap.hpp>
 
 
@@ -38,11 +37,11 @@ void test_ref()
         a.content< int >() = 6;
         BOOST_CHECK(i == 6);
         BOOST_CHECK( a.content< int >() == 6 );
-        pstade::egg::any_to< int >(a) = 3;
-        BOOST_CHECK( pstade::egg::any_to< int >(a) == 3 );
+        // pstade::egg::any_to< int >(a) = 3;
+        // BOOST_CHECK( pstade::egg::any_to< int >(a) == 3 );
         a.type();
 
-        a = boost::none;;
+        a = boost::none;
         BOOST_CHECK( !a );
         a = i;
         BOOST_CHECK( a );
@@ -71,7 +70,7 @@ void test_ref()
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( &(a.content<int const>()) == &i );
         BOOST_CHECK( a.content< int const >() == 3 );
-        BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
+        // BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
         a.type();
 
         BOOST_CHECK(!a.contains<int>());
@@ -86,8 +85,8 @@ void test_ref()
         BOOST_CHECK( a.type() == typeid(boost::type<int>) );
         a.content< int >() = 6;
         BOOST_CHECK( a.content< int >() == 6 );
-        pstade::egg::any_to< int >(a) = 3;
-        BOOST_CHECK( pstade::egg::any_to< int >(a) == 3 );
+        // pstade::egg::any_to< int >(a) = 3;
+        // BOOST_CHECK( pstade::egg::any_to< int >(a) == 3 );
         a.type();
     }
     {
@@ -95,8 +94,8 @@ void test_ref()
         any_ref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
-        BOOST_CHECK( a.content< int const >() == 3 );
-        BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
+        // BOOST_CHECK( a.content< int const >() == 3 );
+        // BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
         a.type();
     }
 
@@ -221,7 +220,7 @@ void test_cref()
         BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
         BOOST_CHECK( a.type() == typeid(boost::type<int const>) );
         BOOST_CHECK( &(a.content<int const>()) == &i );
-        BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
+        // BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
         a.type();
 
         a = boost::none;
@@ -252,7 +251,7 @@ void test_cref()
 
         // const is optional
         BOOST_CHECK( &(a.content<int const>()) == &i );
-        BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
+        // BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
         a.type();
     }
     {
@@ -261,7 +260,7 @@ void test_cref()
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( &(a.content<int const>()) == &i );
         BOOST_CHECK( a.content< int const >() == 3 );
-        BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
+        // BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
         a.type();
     }
 
@@ -271,7 +270,7 @@ void test_cref()
         any_cref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.content< int const >() == 3 );
-        BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
+        // BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
         a.type();
     }
     {
@@ -279,7 +278,7 @@ void test_cref()
         any_cref const a(i);
         BOOST_CHECK( !a.empty() );
         BOOST_CHECK( a.content< int const >() == 3 );
-        BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
+        // BOOST_CHECK( pstade::egg::any_to< int const >(a) == 3 );
         a.type();
     }
 
@@ -391,7 +390,7 @@ void test_movable()
         BOOST_CHECK( a.type() == typeid(boost::type< std::auto_ptr<int> >) );
         BOOST_CHECK( a.type() == typeid(boost::type< std::auto_ptr<int> >) );
         BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
-        BOOST_CHECK( *pstade::egg::any_to< std::auto_ptr<int> >(a) == 3 );
+        // BOOST_CHECK( *pstade::egg::any_to< std::auto_ptr<int> >(a) == 3 );
         a.type();
 
         std::auto_ptr<int> p(new int(3));
@@ -400,7 +399,7 @@ void test_movable()
         a = p;
         BOOST_CHECK( a );
         BOOST_CHECK( *(a.content< std::auto_ptr<int> >()) == 3 );
-        BOOST_CHECK( *pstade::egg::any_to< std::auto_ptr<int> >(a) == 3 );
+        // BOOST_CHECK( *pstade::egg::any_to< std::auto_ptr<int> >(a) == 3 );
 
         BOOST_CHECK(a.contains< std::auto_ptr<int> >());
 

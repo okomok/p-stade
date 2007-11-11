@@ -41,7 +41,7 @@ test-suite "egg" :
     [ run do_swap.cpp ]
     [ run fix.cpp ]
     [ run flip.cpp ]
-    [ run from_any_to.cpp ]
+    [ run from.cpp ]
     [ run function.cpp ]
     [ run function_facade.cpp ]
     [ run function_facade_by.cpp ]

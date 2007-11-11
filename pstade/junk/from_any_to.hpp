@@ -15,6 +15,7 @@
 
 
 #include <boost/any.hpp>
+#include <boost/none.hpp>
 #include <boost/optional/optional.hpp> // inclusion guaranteed
 #include <boost/type_traits/is_const.hpp>
 #include <pstade/egg/automatic.hpp>
@@ -33,6 +34,12 @@ namespace pstade { namespace egg {
         typedef X &result_type;
 
         template<class Any>
+        X &operator()(Any &a) const
+        {
+            return a.template content<X>();
+        }
+
+        template<class Any>
         X &operator()(Any const &a) const
         {
             return a.template content<X>();
@@ -43,9 +50,9 @@ namespace pstade { namespace egg {
             return boost::any_cast<X &>(a);
         }
 
-        X const &operator()(boost::any const &a) const
+        X &operator()(boost::any const &a) const
         {
-            return boost::any_cast<X const &>(a);
+            return boost::any_cast<X &>(a);
         }
     };
 
@@ -57,6 +64,7 @@ namespace pstade { namespace egg {
 
     namespace from_any_detail {
 
+
         template<class Result, class To, bool IsConstAny, bool IsConstTo = boost::is_const<To>::value>
         struct boost_any
         {
@@ -67,7 +75,7 @@ namespace pstade { namespace egg {
                 if (p)
                     return *p;
                 else
-                    return Result();
+                    return boost::none;
             }
         };
 
@@ -77,11 +85,13 @@ namespace pstade { namespace egg {
             template<class Any>
             static Result call(Any const &)
             {
-                return Result();
+                return boost::none;
             }
         };
 
+
     } // namespace from_any_detail
+
 
     template<class X>
     struct X_from_any_to;
@@ -92,12 +102,21 @@ namespace pstade { namespace egg {
         typedef boost::optional<T &> result_type;
 
         template<class Any>
+        result_type operator()(Any &a) const
+        {
+            if (a.template contains<T>())
+                return a.template content<T>();
+            else
+                return boost::none;
+        }
+
+        template<class Any>
         result_type operator()(Any const &a) const
         {
             if (a.template contains<T>())
                 return a.template content<T>();
             else
-                return result_type();
+                return boost::none;
         }
 
         result_type operator()(boost::any &a) const
