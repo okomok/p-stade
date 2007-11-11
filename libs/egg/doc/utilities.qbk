@@ -2,7 +2,7 @@
 
 It is difficult or even impossible to get a __FUNCTION_OBJECT__ from a function template.
 Egg no longer considers function templates to be useful, so that it provides
-"objectified" functions which replaces some famous function templates.
+"objectified" functions which replace some famous function templates.
 
 [import ../example/nested_lambda.cpp]
 [import ../example/infix_apply.cpp]
@@ -54,7 +54,7 @@ Egg no longer considers function templates to be useful, so that it provides
 [section lambda_bind]
 
 [heading Description]
-`lambda_bind` is an __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
+`lambda_bind` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
 
 [heading Header]
 * `<pstade/egg/lambda/bind.hpp>`
@@ -97,7 +97,7 @@ Egg no longer considers function templates to be useful, so that it provides
 [section lambda_N]
 
 [heading Description]
-`lambda_N` is an __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
+`lambda_N` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
 
 [heading Header]
 * `<pstade/egg/lambda/placeholders.hpp>`
@@ -279,7 +279,7 @@ Egg provides __FCPP__ infix operator syntax.
 [section tuple_pack]
 
 [heading Description]
-`tuple_pack` is an __STATIC_FUNCTION_OBJECT__ which represents `boost::tie` but /const-qualifier/ sensitive.
+`tuple_pack` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::tie` but /const-qualifier/ sensitive.
 
 [heading Header]
 * `<pstade/egg/tuple/pack.hpp>`

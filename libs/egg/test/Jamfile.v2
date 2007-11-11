@@ -17,6 +17,7 @@ test-suite "egg" :
     [ run as_mpl_lambda.cpp ]
     [ run auto_object.cpp ]
     [ run automatic.cpp ]
+    [ run automatic_ref.cpp ]
     [ run auxiliary.cpp ]
     [ run before.cpp ]
     [ run big_arity.cpp ]
