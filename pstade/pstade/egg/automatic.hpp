@@ -13,8 +13,8 @@
 
 // Note:
 // 
-// 'x|foo' seems impossible without yet another 'function<>'.
-// Use 'x|foo()' instead.
+// 'To x = a;' seems impossible without yet another 'function<>'.
+// Use 'To x = a();' instead.
 
 
 #include <boost/config.hpp>
@@ -26,6 +26,7 @@
 #include "./unfuse.hpp"
 
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
+    #include <exception>
     #include <boost/type_traits/is_same.hpp>
     #include <pstade/enable_if.hpp>
 #endif
@@ -63,7 +64,7 @@ namespace pstade { namespace egg {
             operator To&() const
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
                 // Thanks to Sergey Shandar.
-                throw(typename disable_if< boost::is_same<To, automator_ref const> >::type*)
+                throw(typename disable_if<boost::is_same<To, automator_ref const>, std::exception>::type)
 #endif
             {
                 typedef typename
