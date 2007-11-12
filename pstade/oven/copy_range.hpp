@@ -68,6 +68,7 @@ namespace copy_range_detail {
 template< class To >
 struct X_copy_range
 {
+    typedef X_copy_range pod_type;
     typedef To result_type;
 
     template< class From >

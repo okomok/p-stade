@@ -53,6 +53,7 @@ namespace pstade { namespace oven {
 template< class Base >
 struct X_adapted_to
 {
+    typedef X_adapted_to pod_type;
     typedef Base result_type;
 
     template< class Adapted >
@@ -101,9 +102,10 @@ PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AU
 // range version
 //
 
-template< class Base >
-struct pod_of_adapted_range_to
-{
+namespace adapted_range_to_detail {
+
+
+    template< class Base >
     struct baby
     {
         template< class Myself, class Adapted >
@@ -123,14 +125,23 @@ struct pod_of_adapted_range_to
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Base >
+    struct pod_
+    {
+        typedef egg::function< baby<Base> > type;
+    };
+
+
+} // namespace adapted_range_to_detail
 
 
 template< class Base >
 struct X_adapted_range_to :
-    pod_of_adapted_range_to<Base>::type
-{ };
+    adapted_range_to_detail::pod_<Base>::type
+{
+    typedef typename adapted_range_to_detail::pod_<Base>::type pod_type;
+};
 
 
 PSTADE_EGG_SPECIFIED1(adapted_range_to, X_adapted_range_to, (class))

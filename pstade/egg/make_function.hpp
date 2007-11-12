@@ -40,25 +40,27 @@ namespace pstade { namespace egg {
         };
 
 
+        template<class Strategy>
+        struct pod_
+        {
+            typedef
+                function<baby<Strategy>, by_value>
+            type;
+        };
+
+
     } // namespace make_function_detail
 
 
     template<class Strategy = by_perfect>
-    struct pod_of_make_function
+    struct X_make_function :
+        make_function_detail::pod_<Strategy>::type
     {
-        typedef
-            function<make_function_detail::baby<Strategy>, by_value>
-        type;
+        typedef typename make_function_detail::pod_<Strategy>::type pod_type;
     };
 
 
-    template<class Strategy = by_perfect>
-    struct X_make_function :
-        pod_of_make_function<Strategy>::type
-    { };
-
-
-    typedef pod_of_make_function<>::type T_make_function;
+    typedef X_make_function<>::pod_type T_make_function;
     PSTADE_POD_CONSTANT((T_make_function), make_function) = {{}};
 
 

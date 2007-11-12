@@ -55,25 +55,27 @@ namespace pstade { namespace egg {
         };
 
 
+        template<class Element>
+        struct pod_
+        {
+            typedef
+                function<baby<Element>, by_value>
+            type;
+        };
+
+
     } // namespace to_shared_ptr_detail
 
 
     template<class Element = boost::use_default>
-    struct pod_of_to_shared_ptr
+    struct X_to_shared_ptr :
+        to_shared_ptr_detail::pod_<Element>::type
     {
-        typedef
-            function<to_shared_ptr_detail::baby<Element>, by_value>
-        type;
+        typedef typename to_shared_ptr_detail::pod_<Element>::type pod_type;
     };
 
 
-    template<class Element = boost::use_default>
-    struct X_to_shared_ptr :
-        pod_of_to_shared_ptr<Element>::type
-    { };
-
-
-    typedef pod_of_to_shared_ptr<>::type T_to_shared_ptr;
+    typedef X_to_shared_ptr<>::pod_type T_to_shared_ptr;
     PSTADE_POD_CONSTANT((T_to_shared_ptr), to_shared_ptr) = {{}};
 
 

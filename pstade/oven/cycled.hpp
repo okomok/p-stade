@@ -130,6 +130,7 @@ PSTADE_OVEN_BABY_TO_ADAPTOR(cycled, (cycled_detail::baby))
 template< class Incrementable >
 struct X_cycle_count
 {
+    typedef X_cycle_count pod_type;
     typedef Incrementable result_type;
 
     template< class Adapted >

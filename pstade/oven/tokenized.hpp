@@ -26,12 +26,10 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class CharT  = boost::use_default,
-    class Traits = boost::use_default
->
-struct pod_of_make_tokenized 
-{
+namespace tokenized_detail {
+
+
+    template< class CharT, class Traits >
     struct baby
     {
         typedef egg::deduced_form call_strategy;
@@ -91,8 +89,15 @@ struct pod_of_make_tokenized
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class CharT, class Traits >
+    struct pod_ 
+    {
+        typedef egg::function< baby<CharT, Traits> > type;
+    };
+
+
+} // namespace tokenized_detail
 
 
 template<
@@ -100,11 +105,13 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_tokenized :
-    pod_of_make_tokenized<CharT, Traits>::type
-{ };
+    tokenized_detail::pod_<CharT, Traits>::type
+{
+    typedef typename tokenized_detail::pod_<CharT, Traits>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (pod_of_make_tokenized<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (X_make_tokenized<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

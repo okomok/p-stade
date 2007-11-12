@@ -104,6 +104,7 @@ namespace pstade { namespace egg {
     template<class MA>
     struct X_monad_return
     {
+        typedef X_monad_return pod_type;
         typedef MA result_type;
 
         template<class A>
@@ -118,6 +119,7 @@ namespace pstade { namespace egg {
     template<class MA>
     struct X_monad_fail
     {
+        typedef X_monad_fail pod_type;
         typedef MA result_type;
 
         result_type operator()(std::string const& s) const

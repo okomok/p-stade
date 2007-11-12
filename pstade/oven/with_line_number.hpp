@@ -78,6 +78,7 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(with_line_number, (with_line_number_detail::base<_, 
 template< class Incrementable >
 struct X_line_number
 {
+    typedef X_line_number pod_type;
     typedef Incrementable result_type;
 
     template< class Adapted >

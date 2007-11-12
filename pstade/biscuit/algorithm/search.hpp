@@ -27,9 +27,10 @@
 namespace pstade { namespace biscuit {
 
 
-template< class Parser >
-struct pod_of_results_search
-{
+namespace search_detail {
+
+
+    template< class Parser >
     struct baby
     {
         template< class Myself, class ParsingRange, class MatchResults, class UserState = void >
@@ -64,14 +65,23 @@ struct pod_of_results_search
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Parser >
+    struct pod_
+    {
+        typedef egg::function< baby<Parser> > type;
+    };
+
+
+} // namespace search_detail
 
 
 template< class Parser >
 struct X_results_search :
-    pod_of_results_search<Parser>::type
-{ };
+    search_detail::pod_<Parser>::type
+{
+    typedef typename search_detail::pod_<Parser>::type pod_type;
+};
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_search, X_results_search, 1)
 #include PSTADE_EGG_SPECIFIED()
@@ -79,7 +89,7 @@ struct X_results_search :
 
 template< class Parser >
 struct X_search :
-    detail::pod_of_without_results<X_results_search, Parser>::type
+    detail::X_without_results<X_results_search, Parser>
 { };
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), search, X_search, 1)

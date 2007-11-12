@@ -22,7 +22,7 @@ namespace pstade { namespace egg {
 
     typedef
         result_of_auxiliary0<
-            X_lexical_cast<std::string>
+            X_lexical_cast<std::string>::pod_type
         >::type
     T_to_string;
 
@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
 
     typedef
         result_of_auxiliary0<
-            X_lexical_cast<std::wstring>
+            X_lexical_cast<std::wstring>::pod_type
         >::type
     T_to_wstring;
 

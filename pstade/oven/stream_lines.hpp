@@ -22,9 +22,10 @@
 namespace pstade { namespace oven {
 
 
-template< class Allocator = boost::use_default >
-struct pod_of_stream_lines
-{
+namespace stream_lines_detail {
+
+
+    template< class Allocator >
     struct baby
     {
         template< class Myself, class IStream >
@@ -55,17 +56,26 @@ struct pod_of_stream_lines
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Allocator >
+    struct pod_
+    {
+        typedef egg::function< baby<Allocator> > type;
+    };
+
+
+} // namespace stream_lines_detail
 
 
 template< class Allocator = boost::use_default >
 struct X_stream_lines :
-    pod_of_stream_lines<Allocator>::type
-{ };
+    stream_lines_detail::pod_<Allocator>::type
+{
+    typedef typename stream_lines_detail::pod_<Allocator>::type pod_type;
+};
 
 
-typedef pod_of_stream_lines<>::type T_stream_lines;
+typedef X_stream_lines<>::pod_type T_stream_lines;
 PSTADE_POD_CONSTANT((T_stream_lines), stream_lines) = {{}};
 
 

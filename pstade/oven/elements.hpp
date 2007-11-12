@@ -30,23 +30,24 @@
 namespace pstade { namespace oven {
 
 
-template< class N, class Reference = boost::use_default >
-struct pod_of_make_elements
-{
-private:
-    template< class TupleRange >
-    struct ref_of :
-        eval_if_use_default<Reference,
-            affect<
-                typename iterator_read<typename range_iterator<TupleRange>::type>::type,
-                typename egg::tuple_element<N, typename range_value<TupleRange>::type>::type
-            >
-        >
-    { };
+namespace elements_detail {
 
-public:
+
+    template< class N, class Reference >
     struct baby
     {
+    private:
+        template< class TupleRange >
+        struct ref_of :
+            eval_if_use_default<Reference,
+                affect<
+                    typename iterator_read<typename range_iterator<TupleRange>::type>::type,
+                    typename egg::tuple_element<N, typename range_value<TupleRange>::type>::type
+                >
+            >
+        { };
+
+    public:
         template< class Myself, class TupleRange >
         struct apply :
             result_of<
@@ -67,18 +68,27 @@ public:
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class N, class Reference >
+    struct pod_
+    {
+        typedef egg::function< baby<N, Reference> > type;
+    };
+
+
+} // namespace elements_detail
 
 
 template< class N, class Reference = boost::use_default >
 struct X_make_elements :
-    pod_of_make_elements<N, Reference>::type
-{ };
+    elements_detail::pod_<N, Reference>::type
+{
+    typedef typename elements_detail::pod_<N, Reference>::type pod_type;
+};
 
 template< int N, class Reference = boost::use_default >
 struct X_make_elements_c :
-    pod_of_make_elements<boost::mpl::int_<N>, Reference>::type
+    X_make_elements<boost::mpl::int_<N>, Reference>
 { };
 
 
@@ -88,7 +98,7 @@ PSTADE_EGG_SPECIFIED1(make_elements_c, X_make_elements_c, (int))
 
 template< class N, class Reference = boost::use_default >
 struct elements :
-    egg::result_of_pipable<typename pod_of_make_elements<N, Reference>::type>::type,
+    egg::result_of_pipable< X_make_elements<N, Reference> >::type,
     egg::lookup_pipable_operator
 { };
 

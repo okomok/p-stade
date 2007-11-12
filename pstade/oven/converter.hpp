@@ -56,20 +56,22 @@ namespace converter_detail {
     };
 
 
+    template< class To >
+    struct pod_
+    {
+        typedef egg::function<baby<To>, egg::by_value> type;
+    };
+
+
 } // namespace converter_detail
 
 
 template< class To >
-struct pod_of_make_converter
-{
-    typedef egg::function<converter_detail::baby<To>, egg::by_value> type;
-};
-
-
-template< class To >
 struct X_make_converter :
-    pod_of_make_converter<To>::type
-{ };
+    converter_detail::pod_<To>::type
+{
+    typedef typename converter_detail::pod_<To>::type pod_type;
+};
 
 
 PSTADE_EGG_SPECIFIED1(make_converter, X_make_converter, (class))
@@ -77,7 +79,7 @@ PSTADE_EGG_SPECIFIED1(make_converter, X_make_converter, (class))
 
 template< class To >
 struct converter :
-    egg::result_of_pipable<typename pod_of_make_converter<To>::type>::type,
+    egg::result_of_pipable< X_make_converter<To> >::type,
     egg::lookup_pipable_operator
 { };
 

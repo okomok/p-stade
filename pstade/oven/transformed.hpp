@@ -27,12 +27,10 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Reference = boost::use_default,
-    class Value     = boost::use_default
->
-struct pod_of_make_transformed
-{
+namespace transformed_detail {
+
+
+    template< class Reference, class Value >
     struct baby
     {
         template< class Myself, class Range, class UnaryFun >
@@ -91,8 +89,15 @@ struct pod_of_make_transformed
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Reference, class Value >
+    struct pod_
+    {
+        typedef egg::function< baby<Reference, Value> > type;
+    };
+
+
+} // namespace transformed_detail
 
 
 template<
@@ -100,11 +105,13 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_transformed :
-    pod_of_make_transformed<Reference, Value>::type
-{ };
+    transformed_detail::pod_<Reference, Value>::type
+{
+    typedef typename transformed_detail::pod_<Reference, Value>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(transformed, (pod_of_make_transformed<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(transformed, (X_make_transformed<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

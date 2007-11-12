@@ -30,14 +30,10 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Value      = boost::use_default,
-    class Traversal  = boost::use_default,
-    class Reference  = boost::use_default,
-    class Difference = boost::use_default
->
-struct pod_of_make_indirected 
-{
+namespace indirected_detail {
+
+
+    template< class Value, class Traversal, class Reference, class Difference >
     struct baby
     {
         template< class Myself, class Range >
@@ -66,8 +62,15 @@ struct pod_of_make_indirected
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Value, class Traversal, class Reference, class Difference >
+    struct pod_ 
+    {
+        typedef egg::function< baby<Value, Traversal, Reference, Difference> > type;
+    };
+
+
+} // namespace indirected_detail
 
 
 template<
@@ -77,11 +80,13 @@ template<
     class Difference = boost::use_default
 >
 struct X_make_indirected :
-    pod_of_make_indirected<Value, Traversal, Reference, Difference>::type
-{ };
+    indirected_detail::pod_<Value, Traversal, Reference, Difference>::type
+{
+    typedef typename indirected_detail::pod_<Value, Traversal, Reference, Difference>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(indirected, (pod_of_make_indirected<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(indirected, (X_make_indirected<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

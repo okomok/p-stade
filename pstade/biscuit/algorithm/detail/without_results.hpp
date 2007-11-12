@@ -21,7 +21,7 @@ namespace pstade { namespace biscuit { namespace detail {
 
 
 template< template< class > class Op, class Parser >
-struct pod_of_without_results
+struct without_results_pod_
 {
     struct baby
     {
@@ -55,6 +55,14 @@ struct pod_of_without_results
     };
 
     typedef egg::function<baby> type;
+};
+
+
+template< template< class > class Op, class Parser >
+struct X_without_results :
+    without_results_pod_<Op, Parser>::type
+{
+    typedef typename without_results_pod_<Op, Parser>::type pod_type;
 };
 
 

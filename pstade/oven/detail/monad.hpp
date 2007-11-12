@@ -97,6 +97,8 @@ PSTADE_POD_CONSTANT((T_monad_unit), monad_unit) = {{}};
 template< class Value >
 struct X_monad_zero
 {
+    typedef X_monad_zero pod_type;
+
     typedef typename
         result_of<
             T_shared(std::vector<typename remove_cvr<Value>::type> *)

@@ -27,9 +27,10 @@
 namespace pstade { namespace oven {
 
 
-template< class Type >
-struct pod_of_make_broken_into
-{
+namespace broken_into_detail {
+
+
+    template< class Type >
     struct baby
     {
         template< class Myself, class Range, class TokenizerFun >
@@ -63,14 +64,23 @@ struct pod_of_make_broken_into
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Type >
+    struct pod_
+    {
+        typedef egg::function< baby<Type> > type;
+    };
+
+
+} // namespace broken_into_detail
 
 
 template< class Type >
 struct X_make_broken_into :
-    pod_of_make_broken_into<Type>::type
-{ };
+    broken_into_detail::pod_<Type>::type
+{
+    typedef typename broken_into_detail::pod_<Type>::type pod_type;
+};
 
 
 PSTADE_EGG_SPECIFIED1(make_broken_into, X_make_broken_into, (class))

@@ -51,22 +51,24 @@ namespace pstade { namespace egg {
         };
 
 
+        template<class X>
+        struct pod_
+        {
+            typedef
+                function<baby<X>, by_perfect>
+            type;
+        };
+
+
     } // namespace construct_detail
 
 
     template<class X>
-    struct pod_of_construct
-    {
-        typedef
-            function<construct_detail::baby<X>, by_perfect>
-        type;
-    };
-
-
-    template<class X>
     struct X_construct :
-        pod_of_construct<X>::type
-    { };
+        construct_detail::pod_<X>::type
+    {
+        typedef typename construct_detail::pod_<X>::type pod_type;
+    };
 
 
 } } // namespace pstade::egg
