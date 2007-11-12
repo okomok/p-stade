@@ -70,25 +70,16 @@ namespace wide_chars_detail {
     };
 
 
-    template< class CharT >
-    struct pod_ 
-    {
-        typedef egg::function< baby<CharT> > type;
-    };
-
-
 } // namespace wide_chars_detail
 
 
 template< class CharT = wchar_t >
 struct X_make_wide_chars :
-    wide_chars_detail::pod_<CharT>::type
-{
-    typedef typename wide_chars_detail::pod_<CharT>::type pod_type;
-};
+    egg::function< wide_chars_detail::baby<CharT> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (X_make_wide_chars<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (X_make_wide_chars<>::baby_type))
 
 
 } } // namespace pstade::oven

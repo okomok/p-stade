@@ -96,23 +96,13 @@ namespace pstade { namespace egg {
         };
 
 
-        // 'generator' with 'result_' didn't work under gcc3.4/4.1 after all.
-        template<class Sequence, class ResultType>
-        struct pod_
-        {
-            typedef function<baby<Sequence, ResultType>, by_value> type;
-        };
-
-
     } // namespace mono_detail
 
 
     template<class Sequence, class ResultType = boost::use_default>
     struct X_mono :
-        mono_detail::pod_<Sequence, ResultType>::type
-    {
-        typedef typename mono_detail::pod_<Sequence, ResultType>::type pod_type;
-    };
+        function<mono_detail::baby<Sequence, ResultType>, by_value>
+    { };
 
 
     PSTADE_EGG_SPECIFIED1(mono, X_mono, (class))

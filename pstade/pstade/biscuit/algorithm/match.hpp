@@ -51,22 +51,13 @@ namespace match_detail {
     };
 
 
-    template< class Parser >
-    struct pod_
-    {
-        typedef egg::function< baby<Parser> > type;
-    };
-
-
 } // namespace match_detail
 
 
 template< class Parser >
 struct X_results_match :
-    match_detail::pod_<Parser>::type
-{
-    typedef typename match_detail::pod_<Parser>::type pod_type;
-};
+    egg::function< match_detail::baby<Parser> >
+{ };
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_match, X_results_match, 1)
 #include PSTADE_EGG_SPECIFIED()

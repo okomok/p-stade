@@ -73,7 +73,7 @@ namespace set_cap_detail {
 } // namespace set_cap_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(set_cap, (X_make_merged<set_cap_detail::merge_routine>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(set_cap, (X_make_merged<set_cap_detail::merge_routine>::baby_type))
 
 
 } } // namespace pstade::oven

@@ -28,7 +28,7 @@
 
     namespace pstade { namespace oven {
 
-        PSTADE_POD_CONSTANT((egg::result_of_pipable<X_make_identities<std::ptrdiff_t>::pod_type>::type), before_stable_partition)
+        PSTADE_POD_CONSTANT((egg::result_of_pipable<X_make_identities<std::ptrdiff_t>::function_type>::type), before_stable_partition)
             = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
 
     } }

@@ -64,25 +64,16 @@ namespace utf16_decoded_detail {
     };
 
 
-    template< class U32Type >
-    struct pod_
-    {
-        typedef egg::function< baby<U32Type> > type;
-    };
-
-
 } // namespace utf16_decoded_detail
 
 
 template< class U32Type = boost::uint32_t >
 struct X_make_utf16_decoded :
-    utf16_decoded_detail::pod_<U32Type>::type
-{
-    typedef typename utf16_decoded_detail::pod_<U32Type>::type pod_type;
-};
+    egg::function< utf16_decoded_detail::baby<U32Type> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(utf16_decoded, (X_make_utf16_decoded<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(utf16_decoded, (X_make_utf16_decoded<>::baby_type))
 
 
 } } // namespace pstade::oven

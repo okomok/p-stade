@@ -63,13 +63,6 @@ namespace indirected_detail {
     };
 
 
-    template< class Value, class Traversal, class Reference, class Difference >
-    struct pod_ 
-    {
-        typedef egg::function< baby<Value, Traversal, Reference, Difference> > type;
-    };
-
-
 } // namespace indirected_detail
 
 
@@ -80,13 +73,11 @@ template<
     class Difference = boost::use_default
 >
 struct X_make_indirected :
-    indirected_detail::pod_<Value, Traversal, Reference, Difference>::type
-{
-    typedef typename indirected_detail::pod_<Value, Traversal, Reference, Difference>::type pod_type;
-};
+    egg::function< indirected_detail::baby<Value, Traversal, Reference, Difference> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(indirected, (X_make_indirected<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(indirected, (X_make_indirected<>::baby_type))
 
 
 } } // namespace pstade::oven

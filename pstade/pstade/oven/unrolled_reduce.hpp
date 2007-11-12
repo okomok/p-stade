@@ -81,22 +81,13 @@ namespace unrolled_reduce_detail {
     };
 
 
-    template< class N >
-    struct pod_
-    {
-        typedef egg::function< baby<N> > type;
-    };
-
-
 } // namespace unrolled_reduce_detail
 
 
 template< class N >
 struct X_unrolled_reduce :
-    unrolled_reduce_detail::pod_<N>::type
-{
-    typedef typename unrolled_reduce_detail::pod_<N>::type pod_type;
-};
+    egg::function< unrolled_reduce_detail::baby<N> >
+{ };
 
 template< int N >
 struct X_unrolled_reduce_c :

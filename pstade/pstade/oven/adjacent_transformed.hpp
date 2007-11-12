@@ -161,13 +161,6 @@ namespace adjacent_transformed_detail {
     };
 
 
-    template< class Reference, class Value >
-    struct pod_
-    {
-        typedef egg::function< baby<Reference, Value> > type;
-    };
-
-
 } // namespace adjacent_transformed_detail
 
 
@@ -176,13 +169,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_adjacent_transformed :
-    adjacent_transformed_detail::pod_<Reference, Value>::type
-{
-    typedef typename adjacent_transformed_detail::pod_<Reference, Value>::type pod_type;
-};
+    egg::function< adjacent_transformed_detail::baby<Reference, Value> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (X_make_adjacent_transformed<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (X_make_adjacent_transformed<>::baby_type))
 
 
 } } // namespace pstade::oven

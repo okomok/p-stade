@@ -57,7 +57,7 @@ namespace set_cup_detail {
 } // namespace set_cup_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(set_cup, (X_make_merged<set_cup_detail::merge_routine>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(set_cup, (X_make_merged<set_cup_detail::merge_routine>::baby_type))
 
 
 } } // namespace pstade::oven

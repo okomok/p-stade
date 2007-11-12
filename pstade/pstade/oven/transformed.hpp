@@ -90,13 +90,6 @@ namespace transformed_detail {
     };
 
 
-    template< class Reference, class Value >
-    struct pod_
-    {
-        typedef egg::function< baby<Reference, Value> > type;
-    };
-
-
 } // namespace transformed_detail
 
 
@@ -105,13 +98,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_transformed :
-    transformed_detail::pod_<Reference, Value>::type
-{
-    typedef typename transformed_detail::pod_<Reference, Value>::type pod_type;
-};
+    egg::function< transformed_detail::baby<Reference, Value> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(transformed, (X_make_transformed<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(transformed, (X_make_transformed<>::baby_type))
 
 
 } } // namespace pstade::oven

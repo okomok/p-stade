@@ -21,7 +21,7 @@ namespace pstade { namespace egg {
     template<class X>
     struct X_new_shared_array
     {
-        typedef X_new_shared_array pod_type;
+        typedef X_new_shared_array function_type;
         typedef boost::shared_array<X> result_type;
 
         result_type operator()(std::size_t n) const

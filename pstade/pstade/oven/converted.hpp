@@ -45,22 +45,13 @@ namespace converted_detail {
     };
 
 
-    template< class To >
-    struct pod_
-    {
-        typedef egg::function< baby<To> > type;
-    };
-
-
 } // namespace converted_detail
 
 
 template< class To >
 struct X_make_converted :
-    converted_detail::pod_<To>::type
-{
-    typedef typename converted_detail::pod_<To>::type pod_type;
-};
+    egg::function< converted_detail::baby<To> >
+{ };
 
 
 PSTADE_EGG_SPECIFIED1(make_converted, X_make_converted, (class))

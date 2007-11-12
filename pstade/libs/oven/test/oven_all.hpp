@@ -137,7 +137,6 @@
 #include "pstade/oven/shared_single.hpp"
 #include "pstade/oven/shared_values.hpp"
 #include "pstade/oven/single.hpp"
-#include "pstade/oven/size.hpp"
 #include "pstade/oven/sliced.hpp"
 #include "pstade/oven/sorted.hpp"
 #include "pstade/oven/spanned.hpp"

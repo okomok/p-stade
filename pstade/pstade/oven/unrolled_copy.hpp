@@ -85,22 +85,13 @@ namespace unrolled_copy_detail {
     };
 
 
-    template< class N >
-    struct pod_
-    {
-        typedef egg::function< baby<N> > type;
-    };
-
-
 } // namespace unrolled_copy_detail
 
 
 template< class N >
 struct X_unrolled_copy :
-    unrolled_copy_detail::pod_<N>::type
-{
-    typedef typename unrolled_copy_detail::pod_<N>::type pod_type;
-};
+    egg::function< unrolled_copy_detail::baby<N> >
+{ };
 
 template< int N >
 struct X_unrolled_copy_c :

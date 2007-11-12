@@ -64,25 +64,16 @@ namespace utf8_encoded_detail {
     };
 
 
-    template< class U8Type >
-    struct pod_
-    {
-        typedef egg::function< baby<U8Type> > type;
-    };
-
-
 } // namespace utf8_encoded_detail
 
 
 template< class U8Type = boost::uint8_t >
 struct X_make_utf8_encoded :
-    utf8_encoded_detail::pod_<U8Type>::type
-{
-    typedef typename utf8_encoded_detail::pod_<U8Type>::type pod_type;
-};
+    egg::function< utf8_encoded_detail::baby<U8Type> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(utf8_encoded, (X_make_utf8_encoded<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(utf8_encoded, (X_make_utf8_encoded<>::baby_type))
 
 
 } } // namespace pstade::oven

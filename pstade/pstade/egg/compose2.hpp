@@ -91,25 +91,16 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class NullaryResult>
-        struct pod_
-        {
-            typedef function<baby<NullaryResult>, by_value> type;
-        };
-
-
     } // namespace compose2_detail
 
 
     template<class NullaryResult = boost::use_default>
     struct X_compose2 :
-        compose2_detail::pod_<NullaryResult>::type
-    {
-        typedef typename compose2_detail::pod_<NullaryResult>::type pod_type;
-    };
+        function<compose2_detail::baby<NullaryResult>, by_value>
+    { };
 
 
-    typedef X_compose2<>::pod_type T_compose2;
+    typedef X_compose2<>::function_type T_compose2;
     PSTADE_POD_CONSTANT((T_compose2), compose2) = {{}};
 
 

@@ -164,25 +164,16 @@ namespace merged_detail {
     };
 
 
-    template< class MergeRoutine >
-    struct pod_
-    {
-        typedef egg::function< baby<MergeRoutine> >  type;
-    };
-
-
 } // namespace merged_detail
 
 
 template< class MergeRoutine = merged_detail::merge_routine >
 struct X_make_merged :
-    merged_detail::pod_<MergeRoutine>::type
-{
-    typedef typename merged_detail::pod_<MergeRoutine>::type pod_type;
-};
+    egg::function< merged_detail::baby<MergeRoutine> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (X_make_merged<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (X_make_merged<>::baby_type))
 
 
 } } // namespace pstade::oven

@@ -134,25 +134,16 @@ namespace unfuzipped_detail {
     };
 
 
-    template< class RefTuple >
-    struct pod_
-    {
-        typedef egg::function< baby<RefTuple> > type;
-    };
-
-
 } // namespace unfuzipped_detail
 
 
 template< class RefTuple = boost::use_default >
 struct X_make_unfuzipped :
-    unfuzipped_detail::pod_<RefTuple>::type
-{
-    typedef typename unfuzipped_detail::pod_<RefTuple>::type pod_type;
-};
+    egg::function< unfuzipped_detail::baby<RefTuple> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(unfuzipped, (X_make_unfuzipped<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(unfuzipped, (X_make_unfuzipped<>::baby_type))
 
 
 } } // namespace pstade::oven

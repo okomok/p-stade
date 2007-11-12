@@ -49,13 +49,6 @@ namespace indexing_detail {
     };
 
 
-    template< class Reference, class Value >
-    struct pod_
-    {
-        typedef egg::function<baby<Reference, Value>, egg::by_value> type;
-    };
-
-
 } // namespace indexing_detail
 
 
@@ -64,13 +57,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_indexing :
-    indexing_detail::pod_<Reference, Value>::type
-{
-    typedef typename indexing_detail::pod_<Reference, Value>::type pod_type;
-};
+    egg::function<indexing_detail::baby<Reference, Value>, egg::by_value>
+{ };
 
 
-typedef X_indexing<>::pod_type T_indexing;
+typedef X_indexing<>::function_type T_indexing;
 PSTADE_POD_CONSTANT((T_indexing), indexing) = {{}};
 
 

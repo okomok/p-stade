@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
     template<class To>
     struct X_integral_cast
     {
-        typedef X_integral_cast pod_type;
+        typedef X_integral_cast function_type;
         typedef To result_type;
 
         template<class From>

@@ -128,13 +128,6 @@ namespace counting_detail {
     };
 
 
-    template< class Traversal, class Difference >
-    struct pod_
-    {
-        typedef egg::function<baby<Traversal, Difference>, egg::by_value> type;
-    };
-
-
 } // namespace counting_detail
 
 
@@ -143,13 +136,11 @@ template<
     class Difference = boost::use_default
 >
 struct X_counting :
-    counting_detail::pod_<Traversal, Difference>::type
-{
-    typedef typename counting_detail::pod_<Traversal, Difference>::type pod_type;
-};
+    egg::function<counting_detail::baby<Traversal, Difference>, egg::by_value>
+{ };
 
 
-typedef X_counting<>::pod_type T_counting;
+typedef X_counting<>::function_type T_counting;
 PSTADE_POD_CONSTANT((T_counting), counting) = {{}};
 
 
