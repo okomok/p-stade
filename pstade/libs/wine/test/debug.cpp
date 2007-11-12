@@ -53,6 +53,9 @@ void pstade_minimal_test()
     }
 
     {
+        using pstade::is_debug;
+        using pstade::is_ndebug;
+
 #if !defined(NDEBUG)
         BOOST_CHECK(is_debug::value);
         BOOST_CHECK(!is_ndebug::value);
@@ -63,6 +66,8 @@ void pstade_minimal_test()
     }
 
     {
+        using pstade::debugging;
+
 #if !defined(NDEBUG)
         debugging();
 #else
