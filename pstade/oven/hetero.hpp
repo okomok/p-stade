@@ -58,22 +58,13 @@ namespace hetero_detail {
     };
 
 
-    template< class Reference, class Value >
-    struct pod_
-    {
-        typedef egg::function< baby<Reference, Value> > type;
-    };
-
-
 } // namespace hetero_detail
 
 
 template< class Reference, class Value = boost::use_default >
 struct X_hetero :
-    hetero_detail::pod_<Reference, Value>::type
-{
-    typedef typename hetero_detail::pod_<Reference, Value>::type pod_type;
-};
+    egg::function< hetero_detail::baby<Reference, Value> >
+{ };
 
 
 PSTADE_EGG_SPECIFIED1(hetero, X_hetero, (class))

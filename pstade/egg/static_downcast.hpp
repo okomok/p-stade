@@ -73,22 +73,13 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Derived>
-        struct pod_
-        {
-            typedef function<baby<Derived>, by_perfect> type;
-        };
-
-
     } // namespace static_downcast_detail
 
 
     template<class Derived>
     struct X_static_downcast :
-        static_downcast_detail::pod_<Derived>::type
-    {
-        typedef typename static_downcast_detail::pod_<Derived>::type pod_type;
-    };
+        function<static_downcast_detail::baby<Derived>, by_perfect>
+    { };
 
 
     PSTADE_EGG_SPECIFIED1(static_downcast, X_static_downcast, (class))

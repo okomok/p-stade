@@ -65,22 +65,13 @@ namespace broken_into_detail {
     };
 
 
-    template< class Type >
-    struct pod_
-    {
-        typedef egg::function< baby<Type> > type;
-    };
-
-
 } // namespace broken_into_detail
 
 
 template< class Type >
 struct X_make_broken_into :
-    broken_into_detail::pod_<Type>::type
-{
-    typedef typename broken_into_detail::pod_<Type>::type pod_type;
-};
+    egg::function< broken_into_detail::baby<Type> >
+{ };
 
 
 PSTADE_EGG_SPECIFIED1(make_broken_into, X_make_broken_into, (class))

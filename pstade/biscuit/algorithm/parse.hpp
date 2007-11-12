@@ -55,23 +55,13 @@ namespace parse_detail {
     };
 
 
-    template< class Parser >
-    struct pod_
-    {
-        typedef egg::function< baby<Parser> > type;
-    };
-
-
 } // namespace parse_detail
-
 
 
 template< class Parser >
 struct X_results_parse :
-    parse_detail::pod_<Parser>::type
-{
-    typedef typename parse_detail::pod_<Parser>::type pod_type;
-};
+    egg::function< parse_detail::baby<Parser> >
+{ };
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_parse, X_results_parse, 1)
 #include PSTADE_EGG_SPECIFIED()

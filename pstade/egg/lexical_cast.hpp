@@ -22,7 +22,7 @@ namespace pstade { namespace egg {
     template<class To>
     struct X_lexical_cast
     {
-        typedef X_lexical_cast pod_type;
+        typedef X_lexical_cast function_type;
         typedef To result_type;
 
         template<class From>

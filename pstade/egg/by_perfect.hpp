@@ -35,6 +35,7 @@ namespace pstade { namespace egg {
     template<class Baby>
     struct function<Baby, by_perfect>
     {
+        typedef function function_type;
         typedef Baby baby_type;
 
         Baby m_baby;

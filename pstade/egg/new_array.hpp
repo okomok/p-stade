@@ -20,7 +20,7 @@ namespace pstade { namespace egg {
     template<class X>
     struct X_new_array
     {
-        typedef X_new_array pod_type;
+        typedef X_new_array function_type;
         typedef X *result_type;
 
         X *operator()(std::size_t n) const

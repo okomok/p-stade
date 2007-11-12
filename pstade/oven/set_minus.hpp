@@ -72,7 +72,7 @@ namespace set_minus_detail {
 } // namespace set_minus_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(set_minus, (X_make_merged<set_minus_detail::merge_routine>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(set_minus, (X_make_merged<set_minus_detail::merge_routine>::baby_type))
 
 
 } } // namespace pstade::oven

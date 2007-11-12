@@ -90,13 +90,6 @@ namespace tokenized_detail {
     };
 
 
-    template< class CharT, class Traits >
-    struct pod_ 
-    {
-        typedef egg::function< baby<CharT, Traits> > type;
-    };
-
-
 } // namespace tokenized_detail
 
 
@@ -105,13 +98,11 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_tokenized :
-    tokenized_detail::pod_<CharT, Traits>::type
-{
-    typedef typename tokenized_detail::pod_<CharT, Traits>::type pod_type;
-};
+    egg::function< tokenized_detail::baby<CharT, Traits> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (X_make_tokenized<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (X_make_tokenized<>::baby_type))
 
 
 } } // namespace pstade::oven

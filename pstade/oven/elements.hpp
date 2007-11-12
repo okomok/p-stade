@@ -69,22 +69,13 @@ namespace elements_detail {
     };
 
 
-    template< class N, class Reference >
-    struct pod_
-    {
-        typedef egg::function< baby<N, Reference> > type;
-    };
-
-
 } // namespace elements_detail
 
 
 template< class N, class Reference = boost::use_default >
 struct X_make_elements :
-    elements_detail::pod_<N, Reference>::type
-{
-    typedef typename elements_detail::pod_<N, Reference>::type pod_type;
-};
+    egg::function< elements_detail::baby<N, Reference> >
+{ };
 
 template< int N, class Reference = boost::use_default >
 struct X_make_elements_c :

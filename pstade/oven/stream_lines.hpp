@@ -57,25 +57,16 @@ namespace stream_lines_detail {
     };
 
 
-    template< class Allocator >
-    struct pod_
-    {
-        typedef egg::function< baby<Allocator> > type;
-    };
-
-
 } // namespace stream_lines_detail
 
 
 template< class Allocator = boost::use_default >
 struct X_stream_lines :
-    stream_lines_detail::pod_<Allocator>::type
-{
-    typedef typename stream_lines_detail::pod_<Allocator>::type pod_type;
-};
+    egg::function< stream_lines_detail::baby<Allocator> >
+{ };
 
 
-typedef X_stream_lines<>::pod_type T_stream_lines;
+typedef X_stream_lines<>::function_type T_stream_lines;
 PSTADE_POD_CONSTANT((T_stream_lines), stream_lines) = {{}};
 
 

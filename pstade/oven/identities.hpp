@@ -52,25 +52,16 @@ namespace identities_detail {
     };
 
 
-    template< class Difference, class Tag >
-    struct pod_
-    {
-        typedef egg::function< baby<Difference, Tag> > type;
-    };
-
-
 } // namespace identities_detail
 
 
 template< class Difference = boost::use_default, class Tag = boost::use_default >
 struct X_make_identities :
-    identities_detail::pod_<Difference, Tag>::type
-{
-    typedef typename identities_detail::pod_<Difference, Tag>::type pod_type;
-};
+    egg::function< identities_detail::baby<Difference, Tag> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(identities, (X_make_identities<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(identities, (X_make_identities<>::baby_type))
 
 
 } } // namespace pstade::oven

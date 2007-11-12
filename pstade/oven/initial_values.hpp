@@ -116,7 +116,7 @@ namespace initial_values_detail {
 template< class Value = boost::use_default >
 struct X_initial_values
 {
-    typedef X_initial_values pod_type;
+    typedef X_initial_values function_type;
 
     template< class A >
     struct value_ :
@@ -134,7 +134,7 @@ struct X_initial_values
 };
 
 
-typedef X_initial_values<>::pod_type T_initial_values;
+typedef X_initial_values<>::function_type T_initial_values;
 PSTADE_POD_CONSTANT((T_initial_values), initial_values) = {};
 
 

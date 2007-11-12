@@ -64,13 +64,6 @@ namespace stream_read_detail {
     };
 
 
-    template< class Value, class Difference >
-    struct pod_ 
-    {
-        typedef egg::function< baby<Value, Difference> > type;
-    };
-
-
 } // namespace stream_read_detail
 
 
@@ -79,10 +72,8 @@ template<
     class Difference = std::ptrdiff_t
 >
 struct X_stream_read :
-    stream_read_detail::pod_<Value, Difference>::type
-{
-    typedef typename stream_read_detail::pod_<Value, Difference>::type pod_type;
-};
+    egg::function< stream_read_detail::baby<Value, Difference> >
+{ };
 
 PSTADE_EGG_SPECIFIED1(stream_read, X_stream_read, (class))
 

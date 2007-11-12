@@ -47,22 +47,13 @@ namespace unrolled_for_each_detail {
     };
 
 
-    template< class N >
-    struct pod_
-    {
-        typedef egg::function< baby<N> > type;
-    };
-
-
 } // namespace unrolled_for_each_detail
 
 
 template< class N >
 struct X_unrolled_for_each :
-    unrolled_for_each_detail::pod_<N>::type
-{
-    typedef typename unrolled_for_each_detail::pod_<N>::type pod_type;
-};
+    egg::function< unrolled_for_each_detail::baby<N> >
+{ };
 
 template< int N >
 struct X_unrolled_for_each_c :

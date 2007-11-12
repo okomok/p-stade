@@ -70,13 +70,6 @@ namespace zipped_with_detail {
     };
 
 
-    template< class Reference, class Value >
-    struct pod_
-    {
-        typedef egg::function< baby<Reference, Value> > type;
-    };
-
-
 } // namespace zipped_with_detail
 
 
@@ -85,13 +78,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_zipped_with :
-    zipped_with_detail::pod_<Reference, Value>::type
-{
-    typedef typename zipped_with_detail::pod_<Reference, Value>::type pod_type;
-};
+    egg::function< zipped_with_detail::baby<Reference, Value> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(zipped_with, (X_make_zipped_with<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(zipped_with, (X_make_zipped_with<>::baby_type))
 
 
 } } // namespace pstade::oven

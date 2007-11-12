@@ -79,7 +79,7 @@ PSTADE_OVEN_BABY_TO_ADAPTOR(with_position, (with_position_detail::baby))
 template< class Position >
 struct X_position
 {
-    typedef X_position pod_type;
+    typedef X_position function_type;
     typedef Position result_type;
 
     template< class Adapted >

@@ -70,13 +70,6 @@ namespace matches_detail {
     };
 
 
-    template< class CharT, class Traits >
-    struct pod_
-    {
-        typedef egg::function< baby<CharT, Traits> > type;
-    };
-
-
 } // namespace matches_detail
 
 
@@ -85,13 +78,11 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_matches :
-    matches_detail::pod_<CharT, Traits>::type
-{
-    typedef typename matches_detail::pod_<CharT, Traits>::type pod_type;
-};
+    egg::function< matches_detail::baby<CharT, Traits> >
+{ };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(matches, (X_make_matches<>::pod_type::baby_type))
+PSTADE_OVEN_BABY_TO_ADAPTOR(matches, (X_make_matches<>::baby_type))
 
 
 } } // namespace pstade::oven
