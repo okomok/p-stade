@@ -107,9 +107,7 @@ namespace pstade { namespace egg {
         template<class N>
         struct pod_
         {
-            typedef
-                function<baby<N>, by_perfect>
-            type;
+            typedef function<baby<N>, by_perfect> type;
         };
 
 

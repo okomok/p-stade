@@ -54,9 +54,7 @@ namespace pstade { namespace egg {
         template<class X>
         struct pod_
         {
-            typedef
-                function<baby<X>, by_perfect>
-            type;
+            typedef function<baby<X>, by_perfect> type;
         };
 
 

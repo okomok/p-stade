@@ -43,9 +43,7 @@ namespace pstade { namespace egg {
         template<class Strategy>
         struct pod_
         {
-            typedef
-                function<baby<Strategy>, by_value>
-            type;
+            typedef function<baby<Strategy>, by_value> type;
         };
 
 

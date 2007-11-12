@@ -131,9 +131,7 @@ namespace counting_detail {
     template< class Traversal, class Difference >
     struct pod_
     {
-        typedef
-            egg::function<baby<Traversal, Difference>, egg::by_value>
-        type;
+        typedef egg::function<baby<Traversal, Difference>, egg::by_value> type;
     };
 
 
