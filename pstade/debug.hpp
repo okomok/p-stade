@@ -26,10 +26,12 @@
     #define PSTADE_DEBUG_BLOCK \
     /**/
 
-    typedef boost::mpl::true_ is_debug;
-    typedef boost::mpl::false_ is_ndebug;
+    namespace pstade {
+        typedef boost::mpl::true_ is_debug;
+        typedef boost::mpl::false_ is_ndebug;
 
-    inline void debugging() { }
+        inline void debugging() { }
+    }
 
 #else
 
@@ -49,10 +51,12 @@
         if (pstade::debug_detail::always<false>()) \
     /**/
 
-    typedef boost::mpl::false_ is_debug;
-    typedef boost::mpl::true_ is_ndebug;
+    namespace pstade {
+        typedef boost::mpl::false_ is_debug;
+        typedef boost::mpl::true_ is_ndebug;
 
-    inline void debugging() { throw "debugging"; }
+        inline void debugging() { throw "debugging"; }
+    }
 
 #endif
 

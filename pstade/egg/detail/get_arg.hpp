@@ -18,6 +18,7 @@
 #include <boost/mpl/int.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/unused.hpp>
 #include "../function_facade.hpp"
 #include "./default_value.hpp"
 #include "./named_arg.hpp"
@@ -55,6 +56,7 @@ namespace pstade { namespace egg { namespace detail {
             template<class PrecedingArgs>
             result_type operator()(Iter it, PrecedingArgs& pargs) const
             {
+                unused(pargs);
                 return boost::fusion::deref(it).m_arg;
             }
         };
