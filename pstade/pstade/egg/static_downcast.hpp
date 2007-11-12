@@ -76,9 +76,7 @@ namespace pstade { namespace egg {
         template<class Derived>
         struct pod_
         {
-            typedef
-                function<baby<Derived>, by_perfect>
-            type;
+            typedef function<baby<Derived>, by_perfect> type;
         };
 
 

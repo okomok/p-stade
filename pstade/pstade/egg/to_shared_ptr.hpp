@@ -58,9 +58,7 @@ namespace pstade { namespace egg {
         template<class Element>
         struct pod_
         {
-            typedef
-                function<baby<Element>, by_value>
-            type;
+            typedef function<baby<Element>, by_value> type;
         };
 
 
