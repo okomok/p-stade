@@ -18,24 +18,16 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct pod_of_new_array
+    struct X_new_array
     {
-        struct type
+        typedef X_new_array pod_type;
+        typedef X *result_type;
+
+        X *operator()(std::size_t n) const
         {
-            typedef X *result_type;
-
-            X *operator()(std::size_t n) const
-            {
-                return new X[n];
-            }
-        };
+            return new X[n];
+        }
     };
-
-
-    template<class X>
-    struct X_new_array :
-        pod_of_new_array<X>::type
-    { };
 
 
 } } // namespace pstade::egg

@@ -92,7 +92,7 @@ namespace set_delta_detail {
 } // namespace set_delta_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(set_delta, (pod_of_make_merged<set_delta_detail::merge_routine>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(set_delta, (X_make_merged<set_delta_detail::merge_routine>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

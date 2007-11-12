@@ -25,12 +25,10 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class CharT  = boost::use_default,
-    class Traits = boost::use_default
->
-struct pod_of_make_matches
-{
+namespace matches_detail {
+
+
+    template< class CharT, class Traits >
     struct baby
     {
         template< class Myself, class Range, class Regex, class Flag = void >
@@ -71,8 +69,15 @@ struct pod_of_make_matches
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class CharT, class Traits >
+    struct pod_
+    {
+        typedef egg::function< baby<CharT, Traits> > type;
+    };
+
+
+} // namespace matches_detail
 
 
 template<
@@ -80,11 +85,13 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_matches :
-    pod_of_make_matches<CharT, Traits>::type
-{ };
+    matches_detail::pod_<CharT, Traits>::type
+{
+    typedef typename matches_detail::pod_<CharT, Traits>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(matches, (pod_of_make_matches<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(matches, (X_make_matches<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

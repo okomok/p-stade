@@ -23,9 +23,10 @@
 namespace pstade { namespace egg {
 
 
-    template<class X>
-    struct pod_of_new_
-    {
+    namespace new_detail {
+
+
+        template<class X>
         struct baby
         {
         // 0ary
@@ -48,14 +49,23 @@ namespace pstade { namespace egg {
             #include BOOST_PP_ITERATE()
         };
 
-        typedef function<baby, by_perfect> type;
-    };
+
+        template<class X>
+        struct pod_
+        {
+            typedef function<baby<X>, by_perfect> type;
+        };
+
+
+    } // namespace new_detail
 
 
     template<class X>
     struct X_new_ :
-        pod_of_new_<X>::type
-    { };
+        new_detail::pod_<X>::type
+    {
+        typedef typename new_detail::pod_<X>::type pod_type;
+    };
 
 
 } } // namespace pstade::egg

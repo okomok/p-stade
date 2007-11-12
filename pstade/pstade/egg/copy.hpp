@@ -80,22 +80,24 @@ namespace pstade { namespace egg {
         };
 
 
-    } // namespace copy_detail 
+        template<class To>
+        struct pod_
+        {
+            typedef
+                function<baby<To>, by_cref>
+            type;
+        };
 
 
-    template<class To>
-    struct pod_of_copy
-    {
-        typedef
-            function<copy_detail::baby<To>, by_cref>
-        type;
-    };
+    } // namespace copy_detail
 
 
     template<class To>
     struct X_copy :
-        pod_of_copy<To>::type
-    { };
+        copy_detail::pod_<To>::type
+    {
+        typedef typename copy_detail::pod_<To>::type pod_type;
+    };
 
 
     PSTADE_ADL_BARRIER(copy) { // for 'std'

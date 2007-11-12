@@ -133,6 +133,8 @@ namespace initial_ptrs_detail {
 template< class Value = boost::use_default >
 struct X_initial_ptrs
 {
+    typedef X_initial_ptrs pod_type;
+
     template< class A >
     struct auto_ptr_of :
         eval_if_use_default< Value,
@@ -154,7 +156,7 @@ struct X_initial_ptrs
 };
 
 
-typedef X_initial_ptrs<> T_initial_ptrs;
+typedef X_initial_ptrs<>::pod_type T_initial_ptrs;
 PSTADE_POD_CONSTANT((T_initial_ptrs), initial_ptrs) = {};
 
 

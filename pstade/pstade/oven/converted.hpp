@@ -23,9 +23,10 @@
 namespace pstade { namespace oven {
 
 
-template< class To >
-struct pod_of_make_converted
-{
+namespace converted_detail {
+
+
+    template<class To>
     struct baby
     {
         template< class Myself, class Range >
@@ -43,14 +44,23 @@ struct pod_of_make_converted
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class To >
+    struct pod_
+    {
+        typedef egg::function< baby<To> > type;
+    };
+
+
+} // namespace converted_detail
 
 
 template< class To >
 struct X_make_converted :
-    pod_of_make_converted<To>::type
-{ };
+    converted_detail::pod_<To>::type
+{
+    typedef typename converted_detail::pod_<To>::type pod_type;
+};
 
 
 PSTADE_EGG_SPECIFIED1(make_converted, X_make_converted, (class))
@@ -58,7 +68,7 @@ PSTADE_EGG_SPECIFIED1(make_converted, X_make_converted, (class))
 
 template< class To >
 struct converted :
-    egg::result_of_pipable<typename pod_of_make_converted<To>::type>::type,
+    egg::result_of_pipable< X_make_converted<To> >::type,
     egg::lookup_pipable_operator
 { };
 

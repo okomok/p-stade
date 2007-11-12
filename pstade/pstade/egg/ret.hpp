@@ -40,20 +40,28 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_RET_R } }
 
 
-    template<class ResultType = boost::use_default>
-    struct pod_of_ret :
-        generator<
-            typename result_of_ret<deduce<boost::mpl::_1, as_value>, ResultType>::type,
-            boost::use_default,
-            use_brace_level1
-        >
-    { };
+    namespace ret_detail {
+
+
+        template<class ResultType>
+        struct pod_ :
+            generator<
+                typename result_of_ret<deduce<boost::mpl::_1, as_value>, ResultType>::type,
+                boost::use_default,
+                use_brace_level1
+            >
+        { };
+
+
+    } // namespace ret_detail
 
 
     template<class ResultType = boost::use_default>
     struct X_ret :
-        pod_of_ret<ResultType>::type
-    { };
+        ret_detail::pod_<ResultType>::type
+    {
+        typedef typename ret_detail::pod_<ResultType>::type pod_type;
+    };
 
 
     PSTADE_ADL_BARRIER(ret) { // for 'boost'

@@ -35,20 +35,17 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Reference = boost::use_default,
-    class Value     = boost::use_default
->
-struct pod_of_make_zipped_with
-{
-#if BOOST_VERSION >= 103500
-    typedef T_make_fuzipped zip_;
-#else
-    typedef T_make_zipped   zip_;
-#endif
+namespace zipped_with_detail {
 
+
+    template< class Reference, class Value >
     struct baby
     {
+#if BOOST_VERSION >= 103500
+        typedef T_make_fuzipped zip_;
+#else
+        typedef T_make_zipped   zip_;
+#endif
         template< class Myself, class RangeTuple, class Function >
         struct apply :
             result_of<
@@ -72,8 +69,15 @@ struct pod_of_make_zipped_with
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Reference, class Value >
+    struct pod_
+    {
+        typedef egg::function< baby<Reference, Value> > type;
+    };
+
+
+} // namespace zipped_with_detail
 
 
 template<
@@ -81,11 +85,13 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_zipped_with :
-    pod_of_make_zipped_with<Reference, Value>::type
-{ };
+    zipped_with_detail::pod_<Reference, Value>::type
+{
+    typedef typename zipped_with_detail::pod_<Reference, Value>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(zipped_with, (pod_of_make_zipped_with<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(zipped_with, (X_make_zipped_with<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

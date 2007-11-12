@@ -119,13 +119,7 @@ namespace merged_detail {
     };
 
 
-} // namespace merged_detail
-
-
-
-template< class MergeRoutine = merged_detail::merge_routine >
-struct pod_of_make_merged
-{
+    template< class MergeRoutine >
     struct baby
     {
         template< class Myself, class Range1, class Range2, class Compare = egg::T_less const >
@@ -169,17 +163,26 @@ struct pod_of_make_merged
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class MergeRoutine >
+    struct pod_
+    {
+        typedef egg::function< baby<MergeRoutine> >  type;
+    };
+
+
+} // namespace merged_detail
 
 
 template< class MergeRoutine = merged_detail::merge_routine >
 struct X_make_merged :
-    pod_of_make_merged<MergeRoutine>::type
-{ };
+    merged_detail::pod_<MergeRoutine>::type
+{
+    typedef typename merged_detail::pod_<MergeRoutine>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (pod_of_make_merged<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (X_make_merged<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

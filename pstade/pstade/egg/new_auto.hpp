@@ -20,14 +20,8 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct pod_of_new_auto :
-        pod_of_new_ptr< std::auto_ptr<X> >
-    { };
-
-
-    template<class X>
     struct X_new_auto :
-        pod_of_new_auto<X>::type
+        X_new_ptr< std::auto_ptr<X> >
     { };
 
 

@@ -24,9 +24,10 @@
 namespace pstade { namespace oven {
 
 
-template< class Reference, class Value = boost::use_default >
-struct pod_of_hetero
-{
+namespace hetero_detail {
+
+
+    template< class Reference, class Value >
     struct baby
     {
         template< class Myself, class Tuple >
@@ -56,14 +57,23 @@ struct pod_of_hetero
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Reference, class Value >
+    struct pod_
+    {
+        typedef egg::function< baby<Reference, Value> > type;
+    };
+
+
+} // namespace hetero_detail
 
 
 template< class Reference, class Value = boost::use_default >
 struct X_hetero :
-    pod_of_hetero<Reference, Value>::type
-{ };
+    hetero_detail::pod_<Reference, Value>::type
+{
+    typedef typename hetero_detail::pod_<Reference, Value>::type pod_type;
+};
 
 
 PSTADE_EGG_SPECIFIED1(hetero, X_hetero, (class))

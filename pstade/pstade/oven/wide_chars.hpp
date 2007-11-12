@@ -46,13 +46,7 @@ namespace wide_chars_detail {
     };
 
 
-} // namespace wide_chars_detail
-
-
-
-template< class CharT = wchar_t >
-struct pod_of_make_wide_chars 
-{
+    template< class CharT >
     struct baby
     {
         template< class Myself, class Range, class Locale = void >
@@ -75,17 +69,26 @@ struct pod_of_make_wide_chars
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class CharT >
+    struct pod_ 
+    {
+        typedef egg::function< baby<CharT> > type;
+    };
+
+
+} // namespace wide_chars_detail
 
 
 template< class CharT = wchar_t >
 struct X_make_wide_chars :
-    pod_of_make_wide_chars<CharT>::type
-{ };
+    wide_chars_detail::pod_<CharT>::type
+{
+    typedef typename wide_chars_detail::pod_<CharT>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (pod_of_make_wide_chars<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (X_make_wide_chars<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

@@ -32,12 +32,10 @@ namespace pstade { namespace oven {
 // stream_read
 //
 
-template<
-    class Value,
-    class Difference = std::ptrdiff_t
->
-struct pod_of_stream_read 
-{
+namespace stream_read_detail {
+
+
+    template< class Value, class Difference >
     struct baby
     {
         template< class Myself, class IStream >
@@ -65,16 +63,26 @@ struct pod_of_stream_read
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class Value, class Difference >
+    struct pod_ 
+    {
+        typedef egg::function< baby<Value, Difference> > type;
+    };
+
+
+} // namespace stream_read_detail
+
 
 template<
     class Value,
     class Difference = std::ptrdiff_t
 >
 struct X_stream_read :
-    pod_of_stream_read<Value, Difference>::type
-{ };
+    stream_read_detail::pod_<Value, Difference>::type
+{
+    typedef typename stream_read_detail::pod_<Value, Difference>::type pod_type;
+};
 
 PSTADE_EGG_SPECIFIED1(stream_read, X_stream_read, (class))
 
@@ -83,6 +91,7 @@ PSTADE_EGG_SPECIFIED1(stream_read, X_stream_read, (class))
 //
 
 namespace streambuf_read_detail {
+
 
     struct baby
     {
@@ -124,7 +133,9 @@ namespace streambuf_read_detail {
         }
     };
 
+
 } // namespace streambuf_read_detail
+
 
 typedef egg::function<streambuf_read_detail::baby> T_streambuf_read;
 PSTADE_POD_CONSTANT((T_streambuf_read), streambuf_read) = {{}};

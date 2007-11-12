@@ -21,20 +21,28 @@
 namespace pstade { namespace egg {
 
 
-    template<class P>
-    struct pod_of_new_ptr :
-        result_of_compose1<
-            typename pod_of_construct<P>::type,
-            typename pod_of_new_<typename boost::pointee<P>::type>::type,
-            P
-        >
-    { };
+    namespace new_ptr_detail {
+
+
+        template<class P>
+        struct pod_ :
+            result_of_compose1<
+                typename X_construct<P>::pod_type,
+                typename X_new_<typename boost::pointee<P>::type>::pod_type,
+                P
+            >
+        { };
+
+
+    } // namespace new_ptr_detail
 
 
     template<class P>
     struct X_new_ptr :
-        pod_of_new_ptr<P>::type
-    { };
+        new_ptr_detail::pod_<P>::type
+    {
+        typedef typename new_ptr_detail::pod_<P>::type pod_type;
+    };
 
 
 } } // namespace pstade::egg

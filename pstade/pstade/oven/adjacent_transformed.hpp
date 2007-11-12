@@ -117,23 +117,15 @@ namespace adjacent_transformed_detail {
     { };
 
 
-} // namespace adjacent_transformed_detail
-
-
-template<
-    class Reference = boost::use_default,
-    class Value     = boost::use_default
->
-struct pod_of_make_adjacent_transformed
-{
+    template< class Reference, class Value >
     struct baby
     {
         template< class Myself, class Range, class BinaryFun >
         struct apply :
             boost::mpl::eval_if<
                 is_convertible<typename range_traversal<Range>::type, boost::forward_traversal_tag>,
-                adjacent_transformed_detail::make_multi_pass< Range, BinaryFun, Reference, Value>,
-                adjacent_transformed_detail::make_single_pass<Range, BinaryFun, Reference, Value>
+                make_multi_pass< Range, BinaryFun, Reference, Value>,
+                make_single_pass<Range, BinaryFun, Reference, Value>
             >
         { };
 
@@ -143,7 +135,7 @@ struct pod_of_make_adjacent_transformed
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(!boost::empty(rng));
 
-            // Gcc needs a type envelope; see <pstade/egg/use_deduced_form.hpp>.
+            // gcc needs a type envelope; see <pstade/egg/use_deduced_form.hpp>.
             return call_aux(rng, fun, typename range_traversal<Range>::type(), boost::type<Result>());
         }
 
@@ -168,9 +160,15 @@ struct pod_of_make_adjacent_transformed
         }
     };
 
-    typedef egg::function<baby> type;
-};
 
+    template< class Reference, class Value >
+    struct pod_
+    {
+        typedef egg::function< baby<Reference, Value> > type;
+    };
+
+
+} // namespace adjacent_transformed_detail
 
 
 template<
@@ -178,11 +176,13 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_adjacent_transformed :
-    pod_of_make_adjacent_transformed<Reference, Value>::type
-{ };
+    adjacent_transformed_detail::pod_<Reference, Value>::type
+{
+    typedef typename adjacent_transformed_detail::pod_<Reference, Value>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (pod_of_make_adjacent_transformed<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (X_make_adjacent_transformed<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

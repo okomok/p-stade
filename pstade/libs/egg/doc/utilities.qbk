@@ -31,8 +31,8 @@ Egg no longer considers function templates to be useful, so that it provides
         [[*Semantics]]
     ]
     [
-        [`apply(f, a1,...,aN)`]
-        [`f(_arg_list(a, by_perfect))`]
+        [`apply(_dco, a1,...,aN)`]
+        [`_dco(_arg_list(a, by_perfect))`]
     ]
 ]
 

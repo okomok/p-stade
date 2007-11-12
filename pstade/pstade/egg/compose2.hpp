@@ -71,9 +71,10 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_COMPOSE2_R  } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
 
 
-    template<class NullaryResult = boost::use_default>
-    struct pod_of_compose2
-    {
+    namespace compose2_detail {
+
+
+        template<class NullaryResult>
         struct baby
         {
             template<class Myself, class F, class G1, class G2>
@@ -89,17 +90,26 @@ namespace pstade { namespace egg {
             }
         };
 
-        typedef function<baby, by_value> type;
-    };
+
+        template<class NullaryResult>
+        struct pod_
+        {
+            typedef function<baby<NullaryResult>, by_value> type;
+        };
+
+
+    } // namespace compose2_detail
 
 
     template<class NullaryResult = boost::use_default>
     struct X_compose2 :
-        pod_of_compose2<NullaryResult>::type
-    { };
+        compose2_detail::pod_<NullaryResult>::type
+    {
+        typedef typename compose2_detail::pod_<NullaryResult>::type pod_type;
+    };
 
 
-    typedef pod_of_compose2<>::type T_compose2;
+    typedef X_compose2<>::pod_type T_compose2;
     PSTADE_POD_CONSTANT((T_compose2), compose2) = {{}};
 
 

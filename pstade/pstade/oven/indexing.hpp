@@ -21,12 +21,10 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Reference = boost::use_default,
-    class Value     = boost::use_default
->
-struct pod_of_indexing
-{
+namespace indexing_detail {
+
+
+    template< class Reference, class Value >
     struct baby
     {
         template< class Myself, class Incrementable1, class Incrementable2, class UnaryFun >
@@ -50,8 +48,15 @@ struct pod_of_indexing
         }
     };
 
-    typedef egg::function<baby, egg::by_value> type;
-};
+
+    template< class Reference, class Value >
+    struct pod_
+    {
+        typedef egg::function<baby<Reference, Value>, egg::by_value> type;
+    };
+
+
+} // namespace indexing_detail
 
 
 template<
@@ -59,11 +64,13 @@ template<
     class Value     = boost::use_default
 >
 struct X_indexing :
-    pod_of_indexing<Reference, Value>::type
-{ };
+    indexing_detail::pod_<Reference, Value>::type
+{
+    typedef typename indexing_detail::pod_<Reference, Value>::type pod_type;
+};
 
 
-typedef pod_of_indexing<>::type T_indexing;
+typedef X_indexing<>::pod_type T_indexing;
 PSTADE_POD_CONSTANT((T_indexing), indexing) = {{}};
 
 

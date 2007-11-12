@@ -34,9 +34,10 @@
 namespace pstade { namespace oven {
 
 
-template< class U16Type = boost::uint16_t >
-struct pod_of_make_utf16_encoded
-{
+namespace utf16_encoded_detail {
+
+
+    template< class U16Type >
     struct baby
     {
         template< class Myself, class Range >
@@ -62,17 +63,26 @@ struct pod_of_make_utf16_encoded
         }
     };
 
-    typedef egg::function<baby> type;
-};
+
+    template< class U16Type >
+    struct pod_
+    {
+        typedef egg::function< baby<U16Type> > type;
+    };
+
+
+} // utf16_encoded_detail
 
 
 template< class U16Type = boost::uint16_t >
 struct X_make_utf16_encoded :
-    pod_of_make_utf16_encoded<U16Type>::type
-{ };
+    utf16_encoded_detail::pod_<U16Type>::type
+{
+    typedef typename utf16_encoded_detail::pod_<U16Type>::type pod_type;
+};
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(utf16_encoded, (pod_of_make_utf16_encoded<>::baby))
+PSTADE_OVEN_BABY_TO_ADAPTOR(utf16_encoded, (X_make_utf16_encoded<>::pod_type::baby_type))
 
 
 } } // namespace pstade::oven

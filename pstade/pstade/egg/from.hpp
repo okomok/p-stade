@@ -31,6 +31,7 @@ namespace pstade { namespace egg {
     template<class T>
     struct X_from_any_to< boost::optional<T&> >
     {
+        typedef X_from_any_to pod_type;
         typedef boost::optional<T&> result_type;
 
         template<class Any>
@@ -56,6 +57,7 @@ namespace pstade { namespace egg {
     template<class T>
     struct X_from_boost_any_to< boost::optional<T&> >
     {
+        typedef X_from_boost_any_to pod_type;
         typedef boost::optional<T&> result_type;
 
         result_type operator()(boost::any& a) const
@@ -88,6 +90,7 @@ namespace pstade { namespace egg {
     template<class T>
     struct X_from_poly_to< boost::optional<T&> >
     {
+        typedef X_from_poly_to pod_type;
         typedef boost::optional<T&> result_type;
 
         template<class O>

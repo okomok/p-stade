@@ -13,31 +13,22 @@
 
 #include <cstddef> // size_t
 #include <boost/shared_array.hpp>
-#include "./new_ptr.hpp"
 
 
 namespace pstade { namespace egg {
 
 
     template<class X>
-    struct pod_of_new_shared_array
+    struct X_new_shared_array
     {
-        struct type
+        typedef X_new_shared_array pod_type;
+        typedef boost::shared_array<X> result_type;
+
+        result_type operator()(std::size_t n) const
         {
-            typedef boost::shared_array<X> result_type;
-
-            result_type operator()(std::size_t n) const
-            {
-                return result_type(new X[n]);
-            }
-        };
+            return result_type(new X[n]);
+        }
     };
-
-
-    template<class X>
-    struct X_new_shared_array :
-        pod_of_new_shared_array<X>::type
-    { };
 
 
 } } // namespace pstade::egg
