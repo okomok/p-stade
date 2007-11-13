@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/size.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/is_heap.hpp>
@@ -102,10 +101,5 @@ void pstade_minimal_test()
         int rng[] = { 0, 1 };
         write(boost::begin(rng), 50);
         BOOST_CHECK( rng[0] == 50 );
-    }
-    {
-        BOOST_CHECK( size(std::string("bbbbbbbbb")) == 9 );
-        BOOST_CHECK( (std::string("bbbbbbbbb")|size) == 9 );
-        BOOST_CHECK( (std::string("bbbbbbbbb")|size()) == 9 );
     }
 }
