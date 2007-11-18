@@ -579,11 +579,11 @@ range is comparable with <tt class="docutils literal"><span class="pre">char</sp
 <h2><a class="toc-backref" href="#id53" id="match" name="match">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">match</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">biscuit::match</span></tt> returns <tt class="docutils literal"><span class="pre">true</span></tt> if a <a class="reference" href="#parser">Parser</a> runs through the range; otherwise <tt class="docutils literal"><span class="pre">false</span></tt>:</p>
 <pre class="cpp_source">
-BOOST_CHECK( biscuit::match&lt;xml_comment&gt;(<span class="cpp_string_literal">&quot;&lt;!-- hello, xml comment --&gt;&quot;</span>|oven::null_terminated) );
-BOOST_CHECK( !biscuit::match&lt;xml_comment&gt;(<span class="cpp_string_literal">&quot;&lt;!-- not well-formed comment -- --&gt;&quot;</span>|oven::null_terminated) );</pre>
+BOOST_CHECK( biscuit::match&lt;xml_comment&gt;(<span class="cpp_string_literal">&quot;&lt;!-- hello, xml comment --&gt;&quot;</span>|oven::as_c_str) );
+BOOST_CHECK( !biscuit::match&lt;xml_comment&gt;(<span class="cpp_string_literal">&quot;&lt;!-- not well-formed comment -- --&gt;&quot;</span>|oven::as_c_str) );</pre>
 
 <p>Notice that a null-terminated string is no longer a model of Range with Boost 1.35.
-<tt class="docutils literal"><span class="pre">oven::null_terminate_range</span></tt> is provided for the workaround.</p>
+<tt class="docutils literal"><span class="pre">oven::as_c_str</span></tt> is provided for the workaround.</p>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id54" id="search" name="search">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">search</span></tt></a></h2>
@@ -622,7 +622,7 @@ BOOST_CHECK((
         biscuit::make_filter_range&lt; not_&lt; chset&lt;<span class="cpp_string_literal">'&amp;'</span>,<span class="cpp_string_literal">'.'</span>,<span class="cpp_string_literal">'%'</span>&gt; &gt; &gt;(
             biscuit::make_filter_range&lt; not_&lt;space&gt; &gt;(
                 biscuit::make_filter_range&lt; not_&lt;digit&gt; &gt;(
-                    oven::make_null_terminate_range(<span class="cpp_string_literal">&quot;x &amp; 4 y . 125 %  z&quot;</span>)
+                    oven::as_c_str(<span class="cpp_string_literal">&quot;x &amp; 4 y . 125 %  z&quot;</span>)
                 )
             )
         )
@@ -636,7 +636,7 @@ That's why Biscuit doesn't provide anything like <a class="reference" href="http
 BOOST_CHECK((
     biscuit::match&lt; repeat&lt; char_&lt;<span class="cpp_string_literal">'D'</span>&gt;, <span class="cpp_number_literal">3 </span>&gt; &gt;(
         <span class="cpp_string_literal">&quot;abcdabcdabcd&quot;</span> |
-            oven::null_terminated |
+            oven::as_c_str |
             biscuit::filtered&lt; not_&lt; char_&lt;<span class="cpp_string_literal">'a'</span>&gt; &gt; &gt;() |
             biscuit::filtered&lt; not_&lt; char_&lt;<span class="cpp_string_literal">'b'</span>&gt; &gt; &gt;() |
             biscuit::filtered&lt; not_&lt; char_&lt;<span class="cpp_string_literal">'c'</span>&gt; &gt; &gt;() |
@@ -658,7 +658,7 @@ BOOST_FOREACH (boost::sub_range&lt;std::string&gt; rng, comments) {
 BOOST_FOREACH (
     boost::iterator_range&lt;<span class="cpp_keyword">const </span><span class="cpp_keyword">char </span>*&gt; rng,
     <span class="cpp_string_literal">&quot;  /* c comment no.1 */int i; /* c comment no.2 */i = 1; /* c comment no.3 */ ++i;  &quot;</span> |
-        oven::null_terminated |
+        oven::as_c_str |
         biscuit::tokenized&lt;c_comment&gt;()
 ) {
     std::cout &lt;&lt; boost::copy_range&lt;std::string&gt;(rng) &lt;&lt; std::endl;
@@ -774,7 +774,7 @@ whose function call expression must be, whether reference or not, a <a class="re
 <span class="cpp_keyword">void </span>test_seq_range()
 {
     std::string pattern(<span class="cpp_string_literal">&quot;ab&quot;</span>);
-    BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, seq_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xabcy&quot;</span>|oven::null_terminated, pattern) ));
+    BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, seq_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xabcy&quot;</span>|oven::as_c_str, pattern) ));
 }</pre>
 
 </div>
@@ -783,9 +783,9 @@ whose function call expression must be, whether reference or not, a <a class="re
 <p><tt class="docutils literal"><span class="pre">set_range</span></tt> is provided in a similar way:</p>
 <pre class="cpp_source">
 std::string pattern(<span class="cpp_string_literal">&quot;ab&quot;</span>);
-BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, set_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xay&quot;</span>|oven::null_terminated, pattern) ));
-BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, set_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xby&quot;</span>|oven::null_terminated, pattern) ));
-BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, set_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xcy&quot;</span>|oven::null_terminated, pattern) ));
+BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, set_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xay&quot;</span>|oven::as_c_str, pattern) ));
+BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, set_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xby&quot;</span>|oven::as_c_str, pattern) ));
+BOOST_CHECK(( biscuit::match&lt; seq&lt; chseq&lt;<span class="cpp_string_literal">'x'</span>&gt;, set_range&lt;pattern_loader&gt;, chseq&lt;<span class="cpp_string_literal">'y'</span>&gt; &gt; &gt;(<span class="cpp_string_literal">&quot;xcy&quot;</span>|oven::as_c_str, pattern) ));
 </pre>
 
 </div>
@@ -963,7 +963,7 @@ In my opinion, such overloads couldn't increase readability as expected.</p>
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-04-02 18:35 UTC.
+Generated on: 2007-11-18 18:49 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

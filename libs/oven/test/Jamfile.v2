@@ -98,6 +98,7 @@ test-suite "oven" :
     [ run jointed.cpp ]
     [ run lightweight_copyable.cpp ]
     [ run lines.cpp ]
+    [ run make_range.cpp ]
     [ run map_keys.cpp ]
     [ run map_values.cpp ]
     [ run matches.cpp ]

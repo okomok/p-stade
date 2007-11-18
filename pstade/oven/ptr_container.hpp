@@ -11,8 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/type_traits/remove_cv.hpp>
+
+#include <boost/version.hpp>
 #include "./do_iter_swap.hpp"
+
+#if BOOST_VERSION < 103500
+    #include <boost/type_traits/remove_cv.hpp>
+#endif
 
 
 namespace boost {
@@ -29,6 +34,7 @@ namespace boost {
     }
 
 
+#if BOOST_VERSION < 103500
     template< class Iterator >
     struct iterator_value;
 
@@ -37,6 +43,7 @@ namespace boost {
     struct iterator_value< void_ptr_iterator<VoidIter, T> > :
         remove_cv<T>
     { };
+#endif
 
 
 } // namespace boost

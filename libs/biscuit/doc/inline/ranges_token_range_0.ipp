@@ -7,7 +7,7 @@ BOOST_FOREACH (boost::sub_range<std::string> rng, comments) {
 BOOST_FOREACH (
     boost::iterator_range<const char *> rng,
     "  /* c comment no.1 */int i; /* c comment no.2 */i = 1; /* c comment no.3 */ ++i;  " |
-        oven::null_terminated |
+        oven::as_c_str |
         biscuit::tokenized<c_comment>()
 ) {
     std::cout << boost::copy_range<std::string>(rng) << std::endl;
