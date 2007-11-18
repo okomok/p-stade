@@ -332,7 +332,7 @@ range is comparable with ``char``.
 	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
 
 Notice that a null-terminated string is no longer a model of Range with Boost 1.35.
-``oven::null_terminate_range`` is provided for the workaround.
+``oven::as_c_str`` is provided for the workaround.
 
 
 ``search``

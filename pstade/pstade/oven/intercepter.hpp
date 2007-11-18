@@ -29,7 +29,7 @@ namespace intercepter_detail {
         template< class Myself, class IteratorFrom, class IteratorTo = void >
         struct apply :
             pass_by_value<IteratorTo>
-        {};
+        { };
 
         template< class Result, class IteratorFrom, class IteratorTo >
         Result call(IteratorFrom&, IteratorTo& to) const
@@ -42,7 +42,7 @@ namespace intercepter_detail {
         template< class Myself, class IteratorFrom >
         struct apply<Myself, IteratorFrom> :
             result_of<T_eater()>
-        {};
+        { };
 
         template< class Result, class IteratorFrom >
         Result call(IteratorFrom&) const
