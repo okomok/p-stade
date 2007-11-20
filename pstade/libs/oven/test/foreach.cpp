@@ -196,11 +196,30 @@ void test_nested()
 #endif
 
 
+void test_break()
+{
+    {
+        std::string str("01234");
+        int i = 0;
+        PSTADE_OVEN_FOREACH (v, str) {
+            (void)v;
+
+            if (i == 3)
+                break;
+
+            ++i;
+        }
+        BOOST_CHECK(i == 3);
+    }
+}
+
+
 void pstade_minimal_test()
 {
     ::test_();
     ::test_tpl<std::string>();
     ::test_nested();
+    ::test_break();
 
 #if defined(PSTADE_OVEN_IN_BOOST)
     ::test_boost();

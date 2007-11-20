@@ -42,28 +42,34 @@
 /**/
 
 
+    // See BOOST_FOREACH.
     #define PSTADE_OVEN_FOREACH_aux(Var, Rng, Typeof, Typename) \
-        PSTADE_OVEN_FOREACH_local_open() \
-        PSTADE_OVEN_FOREACH_local( Typeof(pstade::oven::expression(Rng)) pstade_oven_rng = pstade::oven::expression(Rng); ) \
-        PSTADE_OVEN_FOREACH_local_close() \
-        for (Typeof(pstade_oven_rng.begin()) pstade_oven_begin = pstade_oven_rng.begin(), pstade_oven_end = pstade_oven_rng.end(); \
-            pstade_oven_begin != pstade_oven_end; ++pstade_oven_begin) \
-            PSTADE_OVEN_FOREACH_local_open() \
-            PSTADE_OVEN_FOREACH_local( Typename() boost::iterator_reference< Typeof(pstade_oven_rng.begin()) >::type Var = *pstade_oven_begin; ) \
-            PSTADE_OVEN_FOREACH_local_close() \
-    /**/
+        if (pstade::oven::foreach_detail::wrap_< Typeof(pstade::oven::expression(Rng)) > pstade_oven_rng = pstade::oven::expression(Rng)) { } else \
+        if (pstade::oven::foreach_detail::wrap_< Typeof(pstade_oven_rng.item.begin())  > pstade_oven_cur = pstade_oven_rng.item.begin() ) { } else \
+        if (pstade::oven::foreach_detail::wrap_< Typeof(pstade_oven_rng.item.begin())  > pstade_oven_end = pstade_oven_rng.item.end()   ) { } else \
+        for (bool pstade_oven_continue = true; pstade_oven_continue && (pstade_oven_cur.item != pstade_oven_end.item); ++pstade_oven_cur.item) \
+            if (pstade::oven::foreach_detail::set_false(pstade_oven_continue)) { } else \
+            for (Typename() boost::iterator_reference< Typeof(pstade_oven_rng.item.begin()) >::type Var = *pstade_oven_cur.item; !pstade_oven_continue; pstade_oven_continue = true) \
+     /**/
 
-    #define PSTADE_OVEN_FOREACH_local_open() \
-        for (bool pstade_oven_continue = true; pstade_oven_continue; ) \
-    /**/
 
-    #define PSTADE_OVEN_FOREACH_local(Decl) \
-        for (Decl pstade_oven_continue; ) \
-    /**/
+namespace pstade { namespace oven { namespace foreach_detail {
 
-    #define PSTADE_OVEN_FOREACH_local_close() \
-        for (; pstade_oven_continue; pstade_oven_continue = false) \
-    /**/
+
+    template< class X >
+    struct wrap_
+    {
+        wrap_(X x) : item(x) { }
+        X item;
+        operator bool() const { return false; }
+    };
+
+
+    inline
+    bool set_false(bool& b) { return b = false; }
+
+
+} } } // namespace pstade::oven::foreach_detail
 
 
 #if defined(PSTADE_OVEN_IN_BOOST)
