@@ -40,7 +40,7 @@ namespace begin_end_detail {
         }
     };
 
-    typedef egg::function<baby_begin> T_begin;
+    typedef egg::function<baby_begin> base_begin;
 
 
     struct baby_end
@@ -57,18 +57,18 @@ namespace begin_end_detail {
         }
     };
 
-    typedef egg::function<baby_end> T_end;
+    typedef egg::function<baby_end> base_end;
 
 
 } // namespace begin_end_detail
 
 
-PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
+PSTADE_ADL_BARRIER(begin_end) { // for 'boost'
 
-    typedef egg::result_of_auxiliary0<begin_end_detail::T_begin>::type T_begin;
+    typedef egg::result_of_auxiliary0<begin_end_detail::base_begin>::type T_begin;
     PSTADE_POD_CONSTANT((T_begin), begin) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
-    typedef egg::result_of_auxiliary0<begin_end_detail::T_end>::type T_end;
+    typedef egg::result_of_auxiliary0<begin_end_detail::base_end>::type T_end;
     PSTADE_POD_CONSTANT((T_end), end) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
 
 }

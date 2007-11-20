@@ -148,6 +148,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def _oven_indirecter_ [link oven.output_iterator_adaptors.indirecter indirecter]]
 [def _oven_intercepter_ [link oven.output_iterator_adaptors.intercepter intercepter]]
 [def _oven_iteration_ [link oven.ranges.iteration iteration]]
+[def _oven_jointed_ [link oven.range_adaptors.jointed jointed]]
 [def _oven_lower_chars_ [link oven.string_adaptors.lower_chars lower_chars]]
 [def _oven_make_range_ [link oven.ranges.make_range make_range]]
 [def _oven_map_keys_ [link oven.range_adaptors.map_keys map_keys]]

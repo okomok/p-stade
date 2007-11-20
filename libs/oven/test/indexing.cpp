@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// For some reason, difference_type for size_t is __int64.
 #include <pstade/vodka/drink_loss_of_data.hpp>
 
 

@@ -13,6 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./detail/base_to_adaptor.hpp"
 #include "./detail/check_iterator.hpp"
@@ -22,6 +25,9 @@
 
 namespace pstade { namespace oven {
 
+
+// checked
+//
 
 namespace checked_detail {
 
@@ -59,19 +65,57 @@ namespace checked_detail {
 PSTADE_OVEN_BASE_TO_ADAPTOR(checked, (checked_detail::base<_>))
 
 
+// checked_begin
+//
+
+namespace checked_begin_detail {
+
+
+    struct baby
+    {
+        template< class Myself, class Range >
+        struct apply
+        {
+            typedef
+                detail::check_iterator<
+                    typename range_iterator<Range>::type
+                >
+            type;
+        };
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            return make_checked(rng).begin();
+        }
+    };
+
+    typedef egg::function<baby> base;
+
+
+} // namespace checked_begin_detail
+
+
+typedef egg::result_of_auxiliary0<checked_begin_detail::base>::type T_checked_begin;
+PSTADE_POD_CONSTANT((T_checked_begin), checked_begin) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+
+
+} } // namespace pstade::oven
+
+
 #if !defined(NDEBUG)
     #define PSTADE_OVEN_CHECKED(Rng) pstade::oven::make_checked(Rng)
+    #define PSTADE_OVEN_CHECKED_BEGIN(Rng) pstade::oven::checked_begin(Rng)
 #else
     #define PSTADE_OVEN_CHECKED(Rng) Rng
+    #define PSTADE_OVEN_CHECKED_BEGIN(Rng) boost::begin(Rng)
 #endif
 
 
 #if defined(PSTADE_OVEN_IN_BOOST)
     #define BOOST_OVEN_CHECKED PSTADE_OVEN_CHECKED
+    #define BOOST_OVEN_CHECKED_BEGIN PSTADE_OVEN_CHECKED_BEGIN
 #endif
-
-
-} } // namespace pstade::oven
 
 
 #endif
