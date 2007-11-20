@@ -249,12 +249,25 @@ It passes adjacent pairs to a function to transform repeatedly.
             `[_begin(_fwdrng), _end(_fwdrng))`
         ]
     ]
+    [
+        [`checked_begin`]
+        [
+            An _auxiliary_class_interface_
+        ]
+    ]
+    [
+        [`checked_begin(_fwdrng)`]
+        [
+            `_begin(_fwdrng|checked)`
+        ]
+    ]
 ]
 
 [heading Effects]
 * Throws `std::out_of_range` if iterators go out of `_fwdrng`.
 
 [heading Preconditions]
+* The corresponding semantics is a valid expression.
 
 [heading Example]
     std::string in("012345");
@@ -1564,6 +1577,47 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [heading See also]
 * [@http://www.boost.org/libs/iterator/doc/reverse_iterator.html boost::reverse_iterator]
+
+[endsect]
+
+
+
+
+[section rotated]
+
+[heading Description]
+`rotated` provides a rotated view of a given range.
+
+[heading Header]
+* `<pstade/oven/rotated.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `mid` is `_fun(_fwdrng)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|rotated(_fun)`]
+        [
+            `[mid, _end(_fwdrng))|jointed([mid, _fun(_fwdrng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_jointed_
 
 [endsect]
 

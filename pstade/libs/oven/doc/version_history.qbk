@@ -193,7 +193,10 @@
 * Removed `none`, and added `exists`.
 
 [h2 Version 0.95.2]
-* Renamed `make_range` to `make_range`.
+* Renamed `as_range` to `make_range`.
+* Renamed `checker` to `checked_begin`.
+* Added `rotated`.
+* Fixed a bug of `FOREACH` with `break`.
 
 
 

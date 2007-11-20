@@ -32,7 +32,6 @@
 #include "pstade/oven/block.hpp"
 #include "pstade/oven/broken_into.hpp"
 #include "pstade/oven/checked.hpp"
-#include "pstade/oven/checker.hpp"
 #include "pstade/oven/cleared.hpp"
 #include "pstade/oven/comprehension.hpp"
 #include "pstade/oven/concatenated.hpp"
