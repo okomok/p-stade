@@ -12,6 +12,7 @@
 
 
 #include <boost/optional/optional.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/identity.hpp>
@@ -121,7 +122,10 @@ namespace nonstop_detail {
 
 typedef
     egg::generator<
-        nonstop_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >
+        nonstop_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >,
+        boost::use_default,
+        boost::use_default,
+        egg::by_value
     >::type
 T_nonstop;
 

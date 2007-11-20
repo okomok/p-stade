@@ -25,6 +25,7 @@
 #include <boost/next_prior.hpp> // prior
 #include <boost/optional/optional.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./do_iter_swap.hpp"
@@ -127,7 +128,10 @@ void iter_swap(reverse_iterator<B1> it1, reverse_iterator<B2> it2, int = 0)
 
 typedef
     egg::generator<
-        reverse_iterator< egg::deduce<boost::mpl::_1, egg::as_value> >
+        reverse_iterator< egg::deduce<boost::mpl::_1, egg::as_value> >,
+        boost::use_default,
+        boost::use_default,
+        egg::by_value
     >::type
 T_make_reverse_iterator;
 

@@ -25,6 +25,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/lambda/bind.hpp>
@@ -123,7 +124,10 @@ namespace comprehension_detail {
 
     typedef
         egg::generator<
-            nested< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >
+            nested< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >,
+            boost::use_default,
+            boost::use_default,
+            egg::by_value
         >::type
     T_make_nested;
 
@@ -199,7 +203,10 @@ namespace comprehension_detail {
 
     typedef
         egg::generator<
-            unit_expr< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >
+            unit_expr< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >,
+            boost::use_default,
+            boost::use_default,
+            egg::by_value
         >::type
     T_make_unit_expr;
 

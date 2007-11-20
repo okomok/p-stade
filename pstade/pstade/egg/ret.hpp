@@ -13,6 +13,7 @@
 
 #include <pstade/adl_barrier.hpp>
 #include "./by_perfect.hpp"
+#include "./by_value.hpp"
 #include "./detail/baby_ret_result.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
@@ -45,7 +46,8 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_ret<deduce<boost::mpl::_1, as_value>, ResultType>::type,
             boost::use_default,
-            use_brace_level1
+            use_brace_level1,
+            by_value
         >::type
     { };
 

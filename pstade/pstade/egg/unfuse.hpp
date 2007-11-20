@@ -13,6 +13,7 @@
 
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
+#include "./by_value.hpp"
 #include "./detail/baby_unfuse_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
@@ -50,7 +51,8 @@ namespace pstade { namespace egg {
                 NullaryResult
             >::type,
             boost::use_default,
-            use_brace_level1
+            use_brace_level1,
+            by_value
         >::type
     { };
 

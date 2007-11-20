@@ -13,6 +13,7 @@
 
 #include <pstade/result_of_lambda.hpp> // inclusion guaranteed.
 #include "./by_cref.hpp"
+#include "./by_value.hpp"
 #include "./detail/baby_lazy_result.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
@@ -39,7 +40,8 @@ namespace pstade { namespace egg {
         generator<
             result_of_lazy< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1
+            use_brace_level1,
+            by_value
         >::type
     T_lazy;
 

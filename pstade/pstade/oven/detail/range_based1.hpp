@@ -24,6 +24,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
@@ -101,7 +102,8 @@ typedef
     egg::generator<
         result_of_range_based1< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
         boost::use_default,
-        egg::use_brace_level1
+        egg::use_brace_level1,
+        egg::by_value
     >::type
 T_range_based1;
 

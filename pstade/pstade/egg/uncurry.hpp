@@ -14,6 +14,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./detail/baby_uncurry_result.hpp"
 #include "./by_perfect.hpp"
+#include "./by_value.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
 
@@ -38,7 +39,8 @@ namespace pstade { namespace egg {
         generator<
             result_of_uncurry< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1
+            use_brace_level1,
+            by_value
         >::type
     T_uncurry;
 

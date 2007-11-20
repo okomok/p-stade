@@ -20,6 +20,7 @@
 
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
+#include "./by_value.hpp"
 #include "./detail/baby_indirect_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace_level1.hpp"
@@ -46,7 +47,8 @@ namespace pstade { namespace egg {
         generator<
             result_of_indirect< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1
+            use_brace_level1,
+            by_value
         >::type
     T_indirect;
 

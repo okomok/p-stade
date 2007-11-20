@@ -25,6 +25,7 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
+#include "./by_value.hpp"
 #include "./function_facade.hpp"
 #include "./generator.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY, PSTADE_EGG_HAS_THREADS
@@ -93,7 +94,10 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            parallel_detail::result_< deduce<boost::mpl::_1, as_value> >
+            parallel_detail::result_< deduce<boost::mpl::_1, as_value> >,
+            boost::use_default,
+            boost::use_default,
+            by_value
         >::type
     T_parallel;
 
