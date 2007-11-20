@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/generator.hpp>
@@ -96,7 +97,10 @@ namespace nonpure_detail {
 
 typedef
     egg::generator<
-        nonpure_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >
+        nonpure_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >,
+        boost::use_default,
+        boost::use_default,
+        egg::by_value
     >::type
 T_nonpure;
 

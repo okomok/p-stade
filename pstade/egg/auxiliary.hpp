@@ -30,6 +30,7 @@
 #include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
 #include "./by_perfect.hpp"
+#include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
 #include "./pipable.hpp"
@@ -130,7 +131,8 @@ namespace pstade { namespace egg {
         generator<
             result_of_auxiliary0< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1
+            use_brace_level1,
+            by_value
         >::type
     T_auxiliary0;
 
@@ -218,7 +220,8 @@ namespace pstade { namespace egg {
         generator<
             PSTADE_PP_CAT3(result_of_, auxiliary, n)< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1
+            use_brace_level1,
+            by_value
         >::type
     BOOST_PP_CAT(T_auxiliary, n);
 

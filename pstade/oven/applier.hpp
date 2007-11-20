@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/function_output_iterator.hpp"
@@ -21,7 +22,10 @@ namespace pstade { namespace oven {
 
 typedef
     egg::generator<
-        detail::function_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> >
+        detail::function_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> >,
+        boost::use_default,
+        boost::use_default,
+        egg::by_value
     >::type
 T_applier;
 
