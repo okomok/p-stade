@@ -27,6 +27,8 @@
 //     }
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/typeof/typeof.hpp>
@@ -44,6 +46,22 @@
 
 
     // See BOOST_FOREACH.
+    // 
+
+#if defined(BOOST_TYPEOF_EMULATION) && BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1 if-else parsing is broken.
+
+    #define PSTADE_OVEN_FOREACH_aux(Var, Rng, Typeof, Typename) \
+        for (bool pstade_oven_continue = true; pstade_oven_continue; ) \
+        for (Typeof(pstade::oven::expression(Rng)) pstade_oven_rng = pstade::oven::expression(Rng); pstade_oven_continue; ) \
+        for (Typeof(pstade_oven_rng.begin())       pstade_oven_cur = pstade_oven_rng.begin();       pstade_oven_continue; ) \
+        for (Typeof(pstade_oven_rng.begin())       pstade_oven_end = pstade_oven_rng.end();         pstade_oven_continue; ) \
+        for (; pstade::oven::foreach_detail::assign(pstade_oven_cur != pstade_oven_end, pstade_oven_continue); ++pstade_oven_cur) \
+            if (pstade::oven::foreach_detail::set_false(pstade_oven_continue)) { } else \
+            for (Typename() boost::iterator_reference< Typeof(pstade_oven_rng.begin()) >::type Var = *pstade_oven_cur; !pstade_oven_continue; pstade_oven_continue = true) \
+    /**/
+
+#else
+
     #define PSTADE_OVEN_FOREACH_aux(Var, Rng, Typeof, Typename) \
         if (pstade::oven::foreach_detail::wrap_< Typeof(pstade::oven::expression(Rng)) > pstade_oven_rng = pstade::oven::expression(Rng)) { } else \
         if (pstade::oven::foreach_detail::wrap_< Typeof(pstade_oven_rng.item.begin())  > pstade_oven_cur = pstade_oven_rng.item.begin() ) { } else \
@@ -52,6 +70,8 @@
             if (pstade::oven::foreach_detail::set_false(pstade_oven_continue)) { } else \
             for (Typename() boost::iterator_reference< Typeof(pstade_oven_rng.item.begin()) >::type Var = *pstade_oven_cur.item; !pstade_oven_continue; pstade_oven_continue = true) \
     /**/
+
+#endif
 
 
 namespace pstade { namespace oven { namespace foreach_detail {
@@ -68,6 +88,15 @@ namespace pstade { namespace oven { namespace foreach_detail {
 
     inline
     bool set_false(bool& b) { return b = false; }
+
+
+#if defined(BOOST_TYPEOF_EMULATION) && BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+    inline
+    bool assign(bool from, bool& to) // suppress warning C4706
+    {
+        return to = from;
+    }
+#endif
 
 
 } } } // namespace pstade::oven::foreach_detail
