@@ -28,6 +28,7 @@
 
 
 #include <boost/iterator/iterator_traits.hpp>
+#include <boost/preprocessor/facilities/empty.hpp>
 #include <boost/typeof/typeof.hpp>
 #include "./expression.hpp"
 #include "./typeof.hpp"
@@ -50,7 +51,7 @@
         for (bool pstade_oven_continue = true; pstade_oven_continue && (pstade_oven_cur.item != pstade_oven_end.item); ++pstade_oven_cur.item) \
             if (pstade::oven::foreach_detail::set_false(pstade_oven_continue)) { } else \
             for (Typename() boost::iterator_reference< Typeof(pstade_oven_rng.item.begin()) >::type Var = *pstade_oven_cur.item; !pstade_oven_continue; pstade_oven_continue = true) \
-     /**/
+    /**/
 
 
 namespace pstade { namespace oven { namespace foreach_detail {
