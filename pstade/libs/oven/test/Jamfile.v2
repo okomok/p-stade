@@ -38,7 +38,6 @@ test-suite "oven" :
     [ run back.cpp ]
     [ run before_stable_partition.cpp ]
     [ run begin_end.cpp ]
-    [ run biscuit_tokenized.cpp ]
     [ run block.cpp ]
 #    [ run boost_range_iterator.cpp ]
 #    [ run boost_range_iterator_const.cpp ]
