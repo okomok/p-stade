@@ -12,9 +12,10 @@ A _pipable_adaptor_ is a _pipable_object_ which has the associated _static_funct
 * _pipable_object_
 
 [heading Requirements]
-In addition to the requirements defined in _pipable_object_,
+In addition to the requirements defined in the refinements,
 for any _pipable_adaptor_ `p` the following must be met:
 
+* `_typeof(p)` is a /POD/ type, and `p` is /statically initialized/.
 * `x|p(x1,...,xN)` is a valid expression if and only if `make_++p(x, x1,...,xN)` is a valid expression.
 * `x|p(x1,...,xN)` and `make_++p(x, x1,...,xN)` have the same effects.
 * `make_++p` is a _static_function_object_.
@@ -75,7 +76,7 @@ A _stoppable_generator_ is a _deferred_callable_object_ which can specify the st
 * _deferred_callable_object_
 
 [heading Requirements]
-In addition to the requirements defined in _deferred_callable_object_,
+In addition to the requirements defined in the refinements,
 for any _stoppable_generator_ `g` the following must be met:
 
 * `_typeof(g(...))` is a `boost::optional`.
@@ -120,7 +121,7 @@ A _constant_ _range_ is a _range_ whose elements are not modifiable.
 * _single_pass_ _s_ _range_
 
 [heading Requirements]
-In addition to the requirements defined in _single_pass_ _range_,
+In addition to the requirements defined in the refinements,
 for any _constant_ _range_ `r` the following must be met:
 
 * `boost::implicit_cast<_value_of<_typeof(r)>::type&>(*_begin(_r))` is ill-formed.
@@ -145,7 +146,7 @@ A _contiguous_ _range_ is a _random_access_ _range_ whose elements are stored co
 * _lvalue_ _s_ _range_
 
 [heading Requirements]
-In addition to the requirements defined in _random_access_ _range_,
+In addition to the requirements defined in the refinements,
 for any _contiguous_ _range_ `r` the following must be met:
 
 * `&*(_begin(r) + n) == &*(_begin(r)) + n` for all `n` such that `0 <= n &&  n < _end(r) - _begin(r)`.

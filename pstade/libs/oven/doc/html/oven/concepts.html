@@ -51,12 +51,14 @@
         <a href="concepts.html#oven.concepts.pipable_adaptor.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_object" target="_top">Pipable
-        Object</a>, for any <a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable
-        Adaptor</a> <code class="computeroutput"><span class="identifier">p</span></code> the following
-        must be met:
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a> <code class="computeroutput"><span class="identifier">p</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code> is
+          a <span class="emphasis"><em>POD</em></span> type, and <code class="computeroutput"><span class="identifier">p</span></code>
+          is <span class="emphasis"><em>statically initialized</em></span>.
+        </li>
 <li>
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
           <code class="computeroutput"><span class="identifier">make_</span><span class="special">++</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
@@ -75,7 +77,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.pipable_adaptor.models"></a><h5>
-<a name="id503403"></a>
+<a name="id503443"></a>
         <a href="concepts.html#oven.concepts.pipable_adaptor.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -87,7 +89,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.resettable_object"></a><a href="concepts.html#oven.concepts.resettable_object" title="Resettable Object">Resettable Object</a></h3></div></div></div>
 <a name="oven.concepts.resettable_object.description"></a><h5>
-<a name="id503473"></a>
+<a name="id503512"></a>
         <a href="concepts.html#oven.concepts.resettable_object.description">Description</a>
       </h5>
 <p>
@@ -95,12 +97,12 @@
         is an object which is modifiable after its construction.
       </p>
 <a name="oven.concepts.resettable_object.refinement_of"></a><h5>
-<a name="id503510"></a>
+<a name="id503550"></a>
         <a href="concepts.html#oven.concepts.resettable_object.refinement_of">Refinement
         of</a>
       </h5>
 <a name="oven.concepts.resettable_object.notation"></a><h5>
-<a name="id503535"></a>
+<a name="id503574"></a>
         <a href="concepts.html#oven.concepts.resettable_object.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -124,7 +126,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.resettable_object.requirements"></a><h5>
-<a name="id503699"></a>
+<a name="id503738"></a>
         <a href="concepts.html#oven.concepts.resettable_object.requirements">Requirements</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -164,11 +166,11 @@
         </li>
 </ul></div>
 <a name="oven.concepts.resettable_object.example"></a><h5>
-<a name="id504115"></a>
+<a name="id504154"></a>
         <a href="concepts.html#oven.concepts.resettable_object.example">Example</a>
       </h5>
 <a name="oven.concepts.resettable_object.models"></a><h5>
-<a name="id504138"></a>
+<a name="id504178"></a>
         <a href="concepts.html#oven.concepts.resettable_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -177,7 +179,7 @@
 <li><a href="output_iterators.html#oven.output_iterators.any_output_iterator" title="any_output_iterator">any_output_iterator</a></li>
 </ul></div>
 <a name="oven.concepts.resettable_object.see_also"></a><h5>
-<a name="id504208"></a>
+<a name="id504247"></a>
         <a href="concepts.html#oven.concepts.resettable_object.see_also">See also</a>
       </h5>
 </div>
@@ -185,7 +187,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.stoppable_generator"></a><a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a></h3></div></div></div>
 <a name="oven.concepts.stoppable_generator.description"></a><h5>
-<a name="id504253"></a>
+<a name="id504292"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.description">Description</a>
       </h5>
 <p>
@@ -194,21 +196,18 @@
         Callable Object</a> which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="oven.concepts.stoppable_generator.refinement_of"></a><h5>
-<a name="id504307"></a>
+<a name="id504346"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
           Callable Object</a></li></ul></div>
 <a name="oven.concepts.stoppable_generator.requirements"></a><h5>
-<a name="id504348"></a>
+<a name="id504387"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-        Callable Object</a>, for any <a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable
-        Generator</a> <code class="computeroutput"><span class="identifier">g</span></code> the following
-        must be met:
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#oven.concepts.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a> <code class="computeroutput"><span class="identifier">g</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -221,7 +220,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.stoppable_generator.models"></a><h5>
-<a name="id504469"></a>
+<a name="id504499"></a>
         <a href="concepts.html#oven.concepts.stoppable_generator.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -234,7 +233,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.iteration_block"></a><a href="concepts.html#oven.concepts.iteration_block" title="Iteration Block">Iteration Block</a></h3></div></div></div>
 <a name="oven.concepts.iteration_block.description"></a><h5>
-<a name="id504533"></a>
+<a name="id504565"></a>
         <a href="concepts.html#oven.concepts.iteration_block.description">Description</a>
       </h5>
 <p>
@@ -243,12 +242,12 @@
         that yields an ordered sequence of values.
       </p>
 <a name="oven.concepts.iteration_block.refinement_of"></a><h5>
-<a name="id504578"></a>
+<a name="id504609"></a>
         <a href="concepts.html#oven.concepts.iteration_block.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="oven.concepts.iteration_block.requirements"></a><h5>
-<a name="id504616"></a>
+<a name="id504648"></a>
         <a href="concepts.html#oven.concepts.iteration_block.requirements">Requirements</a>
       </h5>
 <p>
@@ -268,7 +267,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.iteration_block.models"></a><h5>
-<a name="id504765"></a>
+<a name="id504796"></a>
         <a href="concepts.html#oven.concepts.iteration_block.models">Models</a>
       </h5>
 </div>
@@ -276,7 +275,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.constant_range"></a><a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant Range</a></h3></div></div></div>
 <a name="oven.concepts.constant_range.description"></a><h5>
-<a name="id504805"></a>
+<a name="id504836"></a>
         <a href="concepts.html#oven.concepts.constant_range.description">Description</a>
       </h5>
 <p>
@@ -285,7 +284,7 @@
         whose elements are not modifiable.
       </p>
 <a name="oven.concepts.constant_range.refinement_of"></a><h5>
-<a name="id504856"></a>
+<a name="id504887"></a>
         <a href="concepts.html#oven.concepts.constant_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -293,13 +292,12 @@
           Pass</a><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="oven.concepts.constant_range.requirements"></a><h5>
-<a name="id504903"></a>
+<a name="id504934"></a>
         <a href="concepts.html#oven.concepts.constant_range.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
-        Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
-        for any <a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -312,7 +310,7 @@
         </li>
 </ul></div>
 <a name="oven.concepts.constant_range.models"></a><h5>
-<a name="id505096"></a>
+<a name="id505112"></a>
         <a href="concepts.html#oven.concepts.constant_range.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -324,7 +322,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.contiguous_range"></a><a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous Range</a></h3></div></div></div>
 <a name="oven.concepts.contiguous_range.description"></a><h5>
-<a name="id505218"></a>
+<a name="id505234"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.description">Description</a>
       </h5>
 <p>
@@ -334,7 +332,7 @@
         whose elements are stored contiguously.
       </p>
 <a name="oven.concepts.contiguous_range.refinement_of"></a><h5>
-<a name="id505278"></a>
+<a name="id505294"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -347,14 +345,11 @@
 </li>
 </ul></div>
 <a name="oven.concepts.contiguous_range.requirements"></a><h5>
-<a name="id505345"></a>
+<a name="id505361"></a>
         <a href="concepts.html#oven.concepts.contiguous_range.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
-        Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
-        for any <a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous</a>
-        <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#oven.concepts.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
         <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -378,7 +373,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.concepts.parallel_safe"></a><a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a></h3></div></div></div>
 <a name="oven.concepts.parallel_safe.description"></a><h5>
-<a name="id505742"></a>
+<a name="id505743"></a>
         <a href="concepts.html#oven.concepts.parallel_safe.description">Description</a>
       </h5>
 <p>

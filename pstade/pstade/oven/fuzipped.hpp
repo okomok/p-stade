@@ -32,7 +32,6 @@ namespace fuzipped_detail {
     template< class RangeTuple >
     struct base
     {
-        // Prefer a view to 'transform', keeping the mutability of elements.
         typedef
             boost::fusion::transform_view<RangeTuple, T_begin>
         begin_tup_t;
@@ -43,7 +42,7 @@ namespace fuzipped_detail {
 
         typedef
             detail::fuzip_iterator<
-                // Copy the iterators by 'as_vector', following 'boost::zip_iterator'.
+                // Remove reference(to range) in transform_view.
                 typename boost::fusion::result_of::as_vector<begin_tup_t>::type
             >
         iter_t;

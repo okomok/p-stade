@@ -37,7 +37,10 @@
 template<class Iterator>
 void check_mutable(Iterator it)
 {
-    BOOST_MPL_ASSERT((boost::is_same<typename boost::iterator_reference<Iterator>::type, int>));
+    BOOST_MPL_ASSERT((boost::is_same<
+        typename boost::iterator_reference<Iterator>::type,
+        boost::fusion::vector<char &, int &>
+    >));
 }
 
 

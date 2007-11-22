@@ -67,6 +67,20 @@ Range const& make_const_string_once_tpl()
 
 void test_()
 {
+#if 0
+    {
+        std::string str("a");
+        for (bool pstade_oven_continue = true; pstade_oven_continue ;)
+        for (pstade::oven::foreach_detail::wrap_< BOOST_TYPEOF(pstade::oven::expression(str)) > pstade_oven_rng = pstade::oven::expression(str); pstade_oven_continue; )
+        for (pstade::oven::foreach_detail::wrap_< BOOST_TYPEOF(pstade_oven_rng.item.begin())  > pstade_oven_cur = pstade_oven_rng.item.begin(); pstade_oven_continue; )
+        for (pstade::oven::foreach_detail::wrap_< BOOST_TYPEOF(pstade_oven_rng.item.begin())  > pstade_oven_end = pstade_oven_rng.item.end(); pstade_oven_continue;    )
+        for (; pstade_oven_continue = (pstade_oven_cur.item != pstade_oven_end.item); ++pstade_oven_cur.item)
+            if (pstade::oven::foreach_detail::set_false(pstade_oven_continue)) { } else
+            for (boost::iterator_reference< BOOST_TYPEOF(pstade_oven_rng.item.begin()) >::type v = *pstade_oven_cur.item; !pstade_oven_continue; )
+
+            (void)v, BOOST_CHECK(false);
+    }
+#endif
     {
         std::string str;
         PSTADE_OVEN_FOREACH (v, str)
