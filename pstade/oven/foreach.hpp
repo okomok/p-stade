@@ -87,12 +87,12 @@ namespace pstade { namespace oven { namespace foreach_detail {
 
 
     inline
-    bool set_false(bool& b) { return b = false; }
+    bool set_false(bool& b) { b = false; return false; }
 
 
 #if defined(BOOST_TYPEOF_EMULATION) && BOOST_WORKAROUND(BOOST_MSVC, == 1310)
     inline
-    bool assign(bool from, bool& to) { return to = from; } // suppress warning C4706
+    bool assign(bool from, bool& to) { to = from; return to; } // suppress warning C4706
 #endif
 
 
