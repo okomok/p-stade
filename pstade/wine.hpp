@@ -35,6 +35,7 @@
 // #include "./ios_init.hpp"
 #include "./is_convertible.hpp"
 #include "./is_returnable.hpp"
+// #include "./lightweight_test.hpp"
 #include "./locale_saver.hpp"
 #include "./make_bool.hpp"
 #include "./mpl_min_max.hpp"

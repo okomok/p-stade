@@ -68,7 +68,7 @@ A __BINDABLE_OBJECT__ is a __FUNCTION_OBJECT__ which can be passed to `boost::la
 * __FUNCTION_OBJECT__
 
 [heading Requirements]
-In addition to the requirements defined in __FUNCTION_OBJECT__,
+In addition to the requirements defined in the refinements,
 for any __BINDABLE_OBJECT__ `b` the following must be met:
 
 * There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,...,boost::lambda::_++N)` is a valid expression.
@@ -93,7 +93,7 @@ A __PIPABLE_OBJECT__ is an object which behaves as if it were a "pipe" using `op
 * __COPY_CONSTRUCTIBLE__
 
 [heading Requirements]
-In addition to the requirements defined in __COPY_CONSTRUCTIBLE__,
+In addition to the requirements defined in the refinements,
 for any __PIPABLE_OBJECT__ `p` the following must be met:
 
 * `x|p(x1,...,xN)` is a valid expresion if and only if `p(x1,...,xN)|=x` is a valid expression.
@@ -114,7 +114,8 @@ for any __PIPABLE_OBJECT__ `p` the following must be met:
 [section Static Function Object]
 
 [heading Description]
-A __STATIC_FUNCTION_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which is /statically initialized/.
+A __STATIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
+Egg is a library which helps you define __STATIC_FUNCTION_OBJECT__.
 
 [heading Refinement of]
 * __BINDABLE_OBJECT__
@@ -123,15 +124,16 @@ A __STATIC_FUNCTION_OBJECT__ is a __DEFERRED_CALLABLE_OBJECT__ which is /statica
 * __LEXICALLY_TYPED_OBJECT__
 
 [heading Requirements]
-In addition to the requirements defined in __BINDABLE_OBJECT__, __CONSTANT_OBJECT__, __DEFERRED_CALLABLE_OBJECT__, and __LEXICALLY_TYPED_OBJECT__,
+In addition to the requirements defined in the refinements,
 for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
-* `_typeof(f)` is a /POD/ type unless otherwise specified.
+* `_typeof(f)` is a /POD/ type, and `f` is /statically initialized/.
 * `boost::result_of<_typeof(f)(a1,...,aN)>::type` is the same as `boost::result_of<_typeof(f) const(a1,...,aN)>::type`.
-* `f` is /statically initialized/ if `_typeof(f)` is a /POD/ type.
 
 [heading Example]
-...
+    typedef int (*T_foo)(double d);
+    int foo_impl(double d) { ... }
+    T_foo const foo = &foo_impl; // foo is a StaticFunctionObject.
 
 [heading Models]
 * ...
@@ -153,7 +155,7 @@ An __AUXILIARY_CLASS_INTERFACE__ is a __STATIC_FUNCTION_OBJECT__ which can be us
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Requirements]
-In addition to the requirements defined in __STATIC_FUNCTION_OBJECT__,
+In addition to the requirements defined in the refinements,
 for any __AUXILIARY_CLASS_INTERFACE__ `i` the following must be met:
 
 * `x|i(x1,...,xN)` is a valid expression if and only if `i(x, x1,...,xN)` is a valid expression.

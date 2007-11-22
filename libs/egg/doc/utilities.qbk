@@ -103,7 +103,7 @@ Egg no longer considers function templates to be useful, so that it provides
 * `<pstade/egg/lambda/placeholders.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__ but not a /POD/ type.
+* __STATIC_FUNCTION_OBJECT__ but not /statically initialized/.
 
 [heading Notation]
 * ...
