@@ -10,6 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/version.hpp>
+
+
 #include "pstade/oven/adapted_to_base.hpp"
 #include "pstade/oven/adjacent_filtered.hpp"
 #include "pstade/oven/adjacent_transformed.hpp"
@@ -63,7 +66,6 @@
 #include "pstade/oven/forall.hpp"
 #include "pstade/oven/foreach.hpp"
 #include "pstade/oven/front.hpp"
-#include "pstade/oven/fuzipped.hpp"
 #include "pstade/oven/generation.hpp"
 #include "pstade/oven/hetero.hpp"
 #include "pstade/oven/identities.hpp"
@@ -161,9 +163,10 @@
 #include "pstade/oven/tuple.hpp"
 #include "pstade/oven/typeof.hpp"
 #include "pstade/oven/unfold.hpp"
-#include "pstade/oven/unfuzipped.hpp"
 #include "pstade/oven/uniqued.hpp"
 #include "pstade/oven/unrolled_copy.hpp"
+#include "pstade/oven/unrolled_foreach.hpp"
+#include "pstade/oven/unrolled_reduce.hpp"
 #include "pstade/oven/unzipped.hpp"
 #include "pstade/oven/upper_chars.hpp"
 #include "pstade/oven/utf8_decoded.hpp"
@@ -183,6 +186,11 @@
 #include "pstade/oven/xpressive_tokenized.hpp"
 #include "pstade/oven/zipped.hpp"
 #include "pstade/oven/zipped_with.hpp"
+
+#if BOOST_VERSION >= 103500
+    #include "pstade/oven/fuzipped.hpp"
+    #include "pstade/oven/unfuzipped.hpp"
+#endif
 
 
 #endif

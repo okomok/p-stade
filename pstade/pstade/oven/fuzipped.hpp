@@ -11,14 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/version.hpp>
-#if BOOST_VERSION >= 103500
-
-
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/fusion/include/transform_view.hpp>
-#include "./begin_end.hpp"
 #include "./detail/base_to_adaptor.hpp"
+#include "./detail/confused_begin_end.hpp"
 #include "./detail/fuzip_iterator.hpp"
 #include "./iter_range.hpp"
 
@@ -33,11 +29,11 @@ namespace fuzipped_detail {
     struct base
     {
         typedef
-            boost::fusion::transform_view<RangeTuple, T_begin>
+            boost::fusion::transform_view<RangeTuple, detail::T_confused_begin>
         begin_tup_t;
 
         typedef
-            boost::fusion::transform_view<RangeTuple, T_end>
+            boost::fusion::transform_view<RangeTuple, detail::T_confused_end>
         end_tup_t;
 
         typedef
@@ -53,8 +49,8 @@ namespace fuzipped_detail {
 
         result_type operator()(RangeTuple& tup) const
         {
-            begin_tup_t begin_tup(tup, begin);
-            end_tup_t end_tup(tup, end);
+            begin_tup_t begin_tup(tup, detail::confused_begin);
+            end_tup_t end_tup(tup, detail::confused_end);
             return result_type(
                 iter_t( boost::fusion::as_vector(begin_tup) ),
                 iter_t( boost::fusion::as_vector(end_tup) )
@@ -70,9 +66,6 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(fuzipped, (fuzipped_detail::base<_>))
 
 
 } } // namespace pstade::oven
-
-
-#endif // BOOST_VERSION >= 103500
 
 
 #endif

@@ -10,6 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/version.hpp>
+
+
 #include "./adapted_to_base.hpp"
 #include "./adjacent_filtered.hpp"
 #include "./adjacent_transformed.hpp"
@@ -66,7 +69,6 @@
 #include "./forall.hpp"
 #include "./foreach.hpp"
 #include "./front.hpp"
-#include "./fuzipped.hpp"
 #include "./generation.hpp"
 #include "./hetero.hpp"
 #include "./identities.hpp"
@@ -165,9 +167,10 @@
 #include "./tuple.hpp"
 #include "./typeof.hpp"
 #include "./unfold.hpp"
-#include "./unfuzipped.hpp"
 #include "./uniqued.hpp"
 // #include "./unrolled_copy.hpp"
+// #include "./unrolled_foreach.hpp"
+// #include "./unrolled_reduce.hpp"
 #include "./unzipped.hpp"
 #include "./upper_chars.hpp"
 // #include "./utf8_decoded.hpp"
@@ -187,6 +190,11 @@
 #include "./xpressive_tokenized.hpp"
 #include "./zipped.hpp"
 #include "./zipped_with.hpp"
+
+#if BOOST_VERSION >= 103500
+    #include "./fuzipped.hpp"
+    #include "./unfuzipped.hpp"
+#endif
 
 
 #endif

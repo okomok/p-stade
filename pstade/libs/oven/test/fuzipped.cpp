@@ -11,10 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/version.hpp>
-#if BOOST_VERSION >= 103500
-
-
 #include <pstade/oven/fuzipped.hpp>
 #include <pstade/minimal_test.hpp>
 #include "./detail/test.hpp"
@@ -128,12 +124,3 @@ void pstade_minimal_test()
         BOOST_CHECK(( oven::equals(boost::fusion::at_c<1>(z), ans1) ));
     }
 }
-
-
-#else
-
-#include <pstade/minimal_test.hpp>
-
-void pstade_minimal_test() { }
-
-#endif

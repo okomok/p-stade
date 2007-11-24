@@ -10,10 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/version.hpp>
-#if BOOST_VERSION >= 103500
-
-
 #include <pstade/oven/unfuzipped.hpp>
 #include <pstade/oven/fuzipped.hpp>
 #include <boost/test/minimal.hpp>
@@ -113,12 +109,6 @@ void test()
         ));
     }
 }
-
-
-#else
-#include <boost/test/minimal.hpp>
-void test() { }
-#endif
 
 
 int test_main(int, char*[])
