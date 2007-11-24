@@ -22,11 +22,11 @@
 #include <pstade/egg/ret.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/baby_to_adaptor.hpp"
-#include "./fuzipped.hpp"
 #include "./transformed.hpp"
 #if BOOST_VERSION >= 103500
     // Lets 'boost::tuple' be FusionSequence for 'T_make_fuzipped'.
     #include <boost/fusion/include/boost_tuple.hpp>
+    #include "./fuzipped.hpp"
 #else
     #include "./zipped.hpp"
 #endif
