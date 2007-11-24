@@ -11,10 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/version.hpp>
-#if BOOST_VERSION >= 103500
-
-
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/transform.hpp>
@@ -147,9 +143,6 @@ PSTADE_OVEN_BABY_TO_ADAPTOR(unfuzipped, (X_make_unfuzipped<>::baby_type))
 
 
 } } // namespace pstade::oven
-
-
-#endif // BOOST_VERSION >= 103500
 
 
 #endif
