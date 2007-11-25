@@ -14,7 +14,7 @@
 
 // What:
 //
-// Makes large arity well-formed.
+// Makes nullary and large arity well-formed.
 
 
 #include <boost/mpl/always.hpp>
@@ -25,6 +25,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/preprocessor.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./nullary_meta.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -32,16 +33,23 @@ namespace pstade { namespace egg { namespace detail {
 
 // 0ary
     template<class F>
-    struct mpl_apply0 :
+    struct mpl_apply0
+    {
+        // returns void by default, following result_of way.
+        typedef void type;
+    };
+
+    template<class F>
+    struct mpl_apply0< nullary_meta<F> > :
         boost::mpl::apply0<F>
     { };
 
-    // For some reasion, alwas<> is not nullary.
     template<class U>
     struct mpl_apply0< boost::mpl::always<U> >
     {
         typedef U type;
     };
+
 
 // 1ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/mpl_apply.hpp>))
@@ -60,6 +68,11 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class F, BOOST_PP_ENUM_PARAMS(n, class T)>
     struct BOOST_PP_CAT(mpl_apply, n) :
+        boost::mpl::BOOST_PP_CAT(apply, n)<F, BOOST_PP_ENUM_PARAMS(n, T)>
+    { };
+
+    template<class F, BOOST_PP_ENUM_PARAMS(n, class T)>
+    struct BOOST_PP_CAT(mpl_apply, n)< nullary_meta<F>, BOOST_PP_ENUM_PARAMS(n, T)> :
         boost::mpl::BOOST_PP_CAT(apply, n)<F, BOOST_PP_ENUM_PARAMS(n, T)>
     { };
 
