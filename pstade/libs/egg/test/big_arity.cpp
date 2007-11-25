@@ -30,7 +30,7 @@ struct T_your
     }
 };
 
-result_of_ret<T_your, int, by_cref>::type const your = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
+result_of_ret<T_your, boost::mpl::always<int>, by_cref>::type const your = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
 
 
 void pstade_minimal_test()

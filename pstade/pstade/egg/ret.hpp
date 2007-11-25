@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/always.hpp> // inclusion guaranteed
 #include <pstade/adl_barrier.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"

@@ -165,7 +165,7 @@
 #include "pstade/oven/unfold.hpp"
 #include "pstade/oven/uniqued.hpp"
 #include "pstade/oven/unrolled_copy.hpp"
-#include "pstade/oven/unrolled_foreach.hpp"
+#include "pstade/oven/unrolled_for_each.hpp"
 #include "pstade/oven/unrolled_reduce.hpp"
 #include "pstade/oven/unzipped.hpp"
 #include "pstade/oven/upper_chars.hpp"
