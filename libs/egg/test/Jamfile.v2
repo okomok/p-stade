@@ -86,7 +86,7 @@ test-suite "egg" :
     [ run perfect.cpp ]
     [ run pipable.cpp ]
     [ run ret.cpp ]
-    [ run retby.cpp ]
+    [ run return.cpp ]
     [ run shared_object.cpp ]
     [ run sig_template.cpp ]
     [ run specified.cpp ]

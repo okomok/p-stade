@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DETAIL_BABY_RET_RESULT_HPP
-#define PSTADE_EGG_DETAIL_BABY_RET_RESULT_HPP
+#ifndef PSTADE_EGG_DETAIL_BABY_RETURN_RESULT_HPP
+#define PSTADE_EGG_DETAIL_BABY_RETURN_RESULT_HPP
 #include "./prefix.hpp"
 
 
@@ -12,18 +12,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// This can't be implemented by fusing;
-// fuse/unfuse requires a functor to support result_of.
-
-
+#include <boost/mpl/apply.hpp>
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 
@@ -31,11 +26,10 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base, class ResultType, class Tag>
-    struct baby_ret_result
+    template<class Base, class Lambda>
+    struct baby_return_result
     {
         typedef Base base_type;
-        typedef Tag tag_type;
 
         Base m_base;
 
@@ -46,7 +40,10 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            eval_if_use_default< ResultType, result_of<Base const()> >::type
+            boost::mpl::apply1<
+                Lambda,
+                typename result_of<Base const()>::type
+            >::type
         nullary_result_type;
 
         template<class Result>
@@ -59,7 +56,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
         struct apply { };
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/baby_ret_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/baby_return_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -74,9 +71,9 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        eval_if_use_default<
-            ResultType,
-            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
+        boost::mpl::apply1<
+            Lambda,
+            typename result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type
         >
     { };
 
