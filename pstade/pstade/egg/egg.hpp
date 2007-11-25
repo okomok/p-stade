@@ -94,6 +94,7 @@
 #include "./pipable.hpp"
 #include "./plus.hpp"
 #include "./ret.hpp"
+#include "./retby.hpp"
 #include "./shared_object.hpp"
 #include "./sig_template.hpp"
 #include "./specified.hpp"

@@ -46,16 +46,13 @@ namespace zipped_with_detail {
 #else
         typedef T_make_zipped   zip_;
 #endif
-
-        typedef egg::X_ret< boost::mpl::always<Reference> > ret_Reference;
-
         template< class Myself, class RangeTuple, class Function >
         struct apply :
             result_of<
                 X_make_transformed<Reference, Value>(
                     typename result_of<zip_(RangeTuple&)>::type,
                     typename result_of<
-                        egg::T_fuse(typename result_of<ret_Reference(Function&)>::type)
+                        egg::T_fuse(typename result_of<egg::X_ret<Reference>(Function&)>::type)
                     >::type
                 )
             >
@@ -67,7 +64,7 @@ namespace zipped_with_detail {
             return
                 X_make_transformed<Reference, Value>()(
                     zip_()(tup),
-                    egg::fuse(ret_Reference()(fun))
+                    egg::fuse(egg::X_ret<Reference>()(fun))
                 );
         }
     };

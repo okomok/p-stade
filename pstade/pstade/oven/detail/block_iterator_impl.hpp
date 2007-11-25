@@ -140,7 +140,7 @@ private:
     void work()
     {
         try {
-            m_block( egg::ret< boost::mpl::always<void> >(boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)) );
+            m_block( egg::ret<void>(boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)) );
         }
         catch (yield_break_exception const&) {
         }

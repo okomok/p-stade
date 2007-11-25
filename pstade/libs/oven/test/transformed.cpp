@@ -97,7 +97,7 @@ void test()
         str |
             transformed(pstade::egg::to_value) |
             // transformed(pstade::identity); // dangling!
-            transformed(pstade::egg::ret< boost::mpl::always<char> >(pstade::egg::identity));
+            transformed(pstade::egg::ret< char >(pstade::egg::identity));
     }
 }
 

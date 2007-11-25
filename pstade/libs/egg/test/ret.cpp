@@ -56,7 +56,7 @@ int my_fun1(int x)
 }
 
 PSTADE_POD_CONSTANT(
-    (pstade::egg::result_of_ret<my_fun_t, boost::mpl::always<int> >::type) const,
+    (pstade::egg::result_of_ret<my_fun_t, int >::type) const,
     fun_return_int
 ) = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
 
@@ -70,7 +70,12 @@ void pstade_minimal_test()
 
     {
         BOOST_CHECK( 3 ==
-            ::foo( egg::X_ret< boost::mpl::always<int> >()(my_fun) )
+            ::foo( egg::X_ret< int >()(my_fun) )
+        );
+    }
+    {
+        BOOST_CHECK( 3 ==
+            egg::X_ret< boost::use_default >()(&my_fun1)(3)
         );
     }
 
@@ -84,7 +89,7 @@ void pstade_minimal_test()
     { // make lambda perfect!
         BOOST_CHECK( 3 ==
             egg::X_ret<>()(
-                lambda::bind( egg::X_ret< boost::mpl::always<int> >()(my_fun), lambda::_1, lambda::_2 )
+                lambda::bind( egg::X_ret< int >()(my_fun), lambda::_1, lambda::_2 )
             )(1, 2)
         );
     }
@@ -92,14 +97,14 @@ void pstade_minimal_test()
     ::my_fun0_t my_fun0;
     {
         pstade::result_of<
-            pstade::result_of<egg::X_ret< boost::mpl::always<int> >(my_fun0_t)>::type()
-        >::type result = egg::X_ret< boost::mpl::always<int> >()(my_fun0)();
+            pstade::result_of<egg::X_ret< int >(my_fun0_t)>::type()
+        >::type result = egg::X_ret< int >()(my_fun0)();
         BOOST_CHECK( result == 10 );
     }
 
     {
         BOOST_CHECK( 3 ==
-            egg::ret< boost::mpl::always<int> >(&my_fun1)(3)
+            egg::ret< int >(&my_fun1)(3)
         );
     }
     {
@@ -111,7 +116,7 @@ void pstade_minimal_test()
     {
         // (lambda::_1 + lambda::_2)(1, 2); // error
         BOOST_CHECK( 3 == 
-            egg::ret< boost::mpl::always<int> >(lambda::_1 + lambda::_2)(1, 2)
+            egg::ret< int >(lambda::_1 + lambda::_2)(1, 2)
         );
         BOOST_CHECK( 3 == 
             egg::X_ret<>()(lambda::_1 + lambda::_2)(1, 2)
@@ -119,7 +124,7 @@ void pstade_minimal_test()
     }
 
     {
-        egg::result_of_ret< my_fun_t, boost::mpl::always<int> >::type perf = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
+        egg::result_of_ret< my_fun_t, int >::type perf = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
         BOOST_CHECK( perf(1,3) == 4);
     }
 }
