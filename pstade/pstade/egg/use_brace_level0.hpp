@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
             X x = {};
             return x;
         }
-        
+
     // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/use_brace_level0.hpp>))
         #include BOOST_PP_ITERATE()

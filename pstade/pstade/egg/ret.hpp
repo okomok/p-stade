@@ -11,7 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/always.hpp> // inclusion guaranteed
+#include <boost/mpl/lambda.hpp> // inclusion guaranteed
+#include <boost/mpl/protect.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
@@ -45,7 +46,10 @@ namespace pstade { namespace egg {
     template<class ResultType = boost::use_default>
     struct X_ret :
         generator<
-            typename result_of_ret<deduce<boost::mpl::_1, as_value>, ResultType>::type,
+            typename result_of_ret<
+                deduce<boost::mpl::_1, as_value>,
+                typename boost::mpl::lambda<ResultType>::type
+            >::type,
             boost::use_default,
             use_brace_level1,
             by_value

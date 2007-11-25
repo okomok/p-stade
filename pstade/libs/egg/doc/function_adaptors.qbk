@@ -713,6 +713,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `ReturnT(a, R)` is:
     * If `R` is `_default`, it is a type which is specified using `boost::result_of`.
     * Else if `R` is `boost::mpl::always<R_>`, it is `R_`.
+    * Else if `R` is `nullary_meta<R_>`, it is `boost::mpl::apply<R_, _meta_arg_list(a, _Stg)>::type`.
     * Else, it is `boost::mpl::apply<R, _meta_arg_list(a, _Stg)>::type`.
 
 [heading Valid expressions]
@@ -751,7 +752,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `Fun` is a __FUNCTION_OBJECT__ type.
 * `Fun` is a __DEFERRED_CALLABLE_OBJECT__ type if `R` is `_default`.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
-* If `R` is not `_default`, `R` is a `boost::mpl::always<...>` or nullary __MPL_LAMBDA_EXPRESSION__.
+* If `fc(f, R, _Stg)` is nullary, `R` must be `nullary_meta<R_>`, `boost::mpl::always<R_>`, or `_default`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
