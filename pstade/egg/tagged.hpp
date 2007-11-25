@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./ret.hpp"
+#include "./retby.hpp"
 
 
 namespace pstade { namespace egg {
@@ -19,12 +19,12 @@ namespace pstade { namespace egg {
 
     template<class Base, class Tag, class Strategy = boost::use_default>
     struct result_of_tagged :
-        result_of_ret<Base, boost::use_default, Strategy, Tag>
+        result_of_retby<Base, boost::use_default, Strategy, Tag>
     { };
 
 
-    #define PSTADE_EGG_TAGGED_L PSTADE_EGG_RET_L
-    #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RET_R
+    #define PSTADE_EGG_TAGGED_L PSTADE_EGG_RETBY_L
+    #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RETBY_R
 
 
     // Do you need a function 'egg::tagged<...>(f)'?
