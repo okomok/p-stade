@@ -18,6 +18,7 @@
 // fuse/unfuse requires a functor to support result_of.
 
 
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -26,6 +27,7 @@
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./mpl_apply.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -46,7 +48,10 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            eval_if_use_default< ResultType, result_of<Base const()> >::type
+            eval_if_use_default<ResultType,
+                result_of<Base const()>,
+                mpl_apply0<ResultType>
+            >::type
         nullary_result_type;
 
         template<class Result>
@@ -74,9 +79,9 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        eval_if_use_default<
-            ResultType,
-            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
+        eval_if_use_default<ResultType,
+            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>,
+            BOOST_PP_CAT(mpl_apply, n)<ResultType, BOOST_PP_ENUM_PARAMS(n, A)>
         >
     { };
 

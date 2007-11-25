@@ -11,6 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Works around a defect of fusion::transform_view + fusion::value_of.
+
+
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/pod_constant.hpp>

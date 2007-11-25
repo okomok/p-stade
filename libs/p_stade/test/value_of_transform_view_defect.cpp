@@ -218,7 +218,7 @@ struct transform_view;
 //    * Assume `I` is an iterator of `Seq`.
 //    * Assume `J` is a `transform_view<Seq, Fun, ValueOf>` iterator whose underlying iterator is `I`.
 //    * Assume `V` is a metafunction which represents the default behavior.
-//    * Assume `W` is `mpl::apply1<ValueOf, fusion::result_of::deref<I>::type>`.
+//    * Assume `W` is `mpl::apply1<ValueOf, fusion::result_of::deref<I>::type, fusion::result_of::value_of<I>::type>`.
 
 // Valid Expression:
 //     * `result_of::value_of<J>::type`
@@ -230,8 +230,8 @@ struct transform_view;
 //    * Value Expression's semantics is a valid expression.
 
 // Notice:
-//    * `W` uses `deref` instead of `value_of`, because `value_of<J>::type` may depend on rvalue/lvalue-ness.
-//    * `mpl::eval_if` shall be used instead of `mpl::if_`, because `V::type` may be ill-formed.
+//    * `W` uses both `deref` and `value_of`. That's fusion.
+//    * `mpl::eval_if` must be used instead of `mpl::if_`, because `V::type` may be ill-formed.
 
 
 
@@ -241,9 +241,9 @@ struct transform_view;
 // ValueOf of mybegin will be something like this:
 struct mybegin_value_of
 {
-    template <typename Container>
+    template <typename Ref, typename Value>
     struct apply :
-        boost::result_of<T_mybegin(Container)>
+        boost::result_of<T_mybegin(Ref)>
     {};
 };
 
