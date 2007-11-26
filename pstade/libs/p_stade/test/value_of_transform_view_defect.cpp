@@ -24,7 +24,8 @@ namespace fusion = boost::fusion;
 
 // 1. Background
 //
-// Making a fusion_zip_iterator which is a Fusion version of boost::zip_iterator.
+
+// Let's a fusion_zip_iterator which is a Fusion version of boost::zip_iterator.
 // This iterator is internally used by make_fusion_zip_range.
 // For example,
 //
@@ -51,7 +52,7 @@ struct fusion_zip_iterator
     // ...
 };
 
-// Let's make a fusion_zip_iterator object holding begin iterators.
+// Now, you have to make a fusion_zip_iterator object holding begin iterators.
 // For simplicity, Boost.Range isn't used in this example.
 
 // result_of-conforming FunctionObject to get begin iterator.
@@ -126,19 +127,15 @@ void test_mutability_of_stl_iters()
 #endif
 }
 
-
-
-// 2. Problem
-//
-
-// The problem is that fusion::as_vector calls boost::result_of(through fusion::value_of)
+// This problem is that fusion::as_vector calls boost::result_of(through fusion::value_of)
 // in non-conforming manner.
 // In this case, `result_of<T_mybegin(std::string)>` is called, which means its arument is rvalue.
 // my_begin can't get a mutable STL iterator from rvalue Container.
 
 
 
-// 3. A current workaround
+
+// 2. A current workaround
 //
 
 // A "cheated" mybegin is needed for as_vector.
@@ -196,10 +193,50 @@ void test_mutability_of_stl_iters_cheat()
 
 
 
+// 3. Defect Summary
+//
+
+// A FunctionObject with transform_view can't determine its `value_of` behavior.
+
+struct identity
+{
+    template<class FunCall>
+    struct result;
+
+    template<class Fun>
+    struct result<Fun(int&)>
+    {
+        typedef int& type;
+    };
+
+    int& operator()(int& i) const
+    {
+        return i;
+    }
+};
+
+void test_defect_summary()
+{
+    typedef fusion::vector<int, int> from_t;
+    from_t from(10, 20);
+    fusion::transform_view<from_t, ::identity> v(from, ::identity());
+
+    // transform_view's deref is implemented using result_of in the standard manner.
+    *fusion::begin(v) = 999;
+    BOOST_TEST(boost::fusion::at_c<0>(from) == 999);
+
+    // transform_view's value_of is implemented using result_of in a Fusion-defined manner.
+#if 0
+    boost::fusion::as_vector(v); // `identity::result` is unexpectedly passed a rvalue.
+#endif
+}
+
+
+
 // 4. Proposed Resolution.
 //
 
-// The prbolem is that the default behavior of transform_view's value_of
+// The prbolem is that the current behavior of transform_view's value_of
 // is unsatisfactory for some FunctionObjects.
 // So, transform_view should take an optional MetafunctionClass for value_of implementation.
 
@@ -217,7 +254,7 @@ struct transform_view;
 // Notation:
 //    * Assume `I` is an iterator of `Seq`.
 //    * Assume `J` is a `transform_view<Seq, Fun, ValueOf>` iterator whose underlying iterator is `I`.
-//    * Assume `V` is a metafunction which represents the default behavior.
+//    * Assume `V` is a metafunction which represents the current(Boost1.35) implementation behavior.
 //    * Assume `W` is `mpl::apply1<ValueOf, fusion::result_of::deref<I>::type, fusion::result_of::value_of<I>::type>`.
 
 // Valid Expression:
@@ -247,6 +284,16 @@ struct mybegin_value_of
     {};
 };
 
+// ValueOf of identity will be something like this:
+struct identity_value_of
+{
+    template <typename Ref, typename Value>
+    struct apply
+    {
+        typedef int& type;
+    };
+};
+
 
 
 //
@@ -257,5 +304,6 @@ int main()
 {
     test_mutability_of_stl_iters();
     test_mutability_of_stl_iters_cheat();
+    test_defect_summary();
     return boost::report_errors();
 }

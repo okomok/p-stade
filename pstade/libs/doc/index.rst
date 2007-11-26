@@ -32,7 +32,7 @@ P-Stade File Releases
 
 `Biscuit`_
 ----------
-The Port of YARD_ to Boost_
+A PEG Parser generator framework based on YARD_
 
 
 `Egg`_
