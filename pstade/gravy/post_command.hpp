@@ -25,7 +25,7 @@ namespace pstade { namespace gravy {
 
         void operator()(window_ref wnd, WORD wID) const
         {
-            return post_message(wnd, WM_COMMAND, MAKEWPARAM(wID, 0));
+            post_message(wnd, WM_COMMAND, MAKEWPARAM(wID, 0));
         }
     };
 

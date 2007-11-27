@@ -192,7 +192,7 @@
 * Renamed `all` to `forall`.
 * Removed `none`, and added `exists`.
 
-[h2 Version 0.95.2]
+[h2 Version 1.00.0]
 * Renamed `as_range` to `make_range`.
 * Renamed `checker` to `checked_begin`.
 * Added `rotated`.
