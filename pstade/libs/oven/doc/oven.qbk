@@ -1,7 +1,7 @@
 
 [library Oven
     [quickbook 1.3]
-    [version 0.95.2]
+    [version 1.00.0]
     [authors [Sogame, Shunsuke]]
     [copyright 2005-2007 Shunsuke Sogame]
     [category range]

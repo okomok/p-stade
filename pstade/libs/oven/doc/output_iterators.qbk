@@ -94,7 +94,7 @@ Oven provides some useful Output Iterators.
 [section eater]
 
 [heading Description]
-`eater` returns an _output_iterator_ ignores inputs.
+`eater` returns an _output_iterator_ which ignores inputs.
 
 [heading Header]
 * `<pstade/oven/eater.hpp>`

@@ -12,7 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_MSVC, template
+#include <boost/config.hpp> // BOOST_MSVC
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -93,7 +93,7 @@ namespace pstade { namespace egg {
 
     template<class Derived, class NullaryResult, class Strategy>
     struct function_facade :
-        function_facade_detail::super_<Derived, NullaryResult, Strategy>::type        
+        function_facade_detail::super_<Derived, NullaryResult, Strategy>::type
     {
     private:
         typedef typename function_facade_detail::super_<Derived, NullaryResult, Strategy>::type super_t;

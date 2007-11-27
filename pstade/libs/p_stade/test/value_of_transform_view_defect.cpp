@@ -1,4 +1,4 @@
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -6,7 +6,7 @@
 
 
 // A Defect Report:
-//     value_of invocation around transform_view doesn't always work.
+//     value_of applied to transform_view doesn't always work.
 //
 
 
@@ -22,7 +22,7 @@ namespace fusion = boost::fusion;
 
 
 
-// 1. Background
+// 1-1. Background
 //
 
 // Let's a fusion_zip_iterator which is a Fusion version of boost::zip_iterator.
@@ -127,15 +127,14 @@ void test_mutability_of_stl_iters()
 #endif
 }
 
-// This problem is that fusion::as_vector calls boost::result_of(through fusion::value_of)
+// This is because fusion::as_vector calls boost::result_of(through fusion::value_of)
 // in non-conforming manner.
 // In this case, `result_of<T_mybegin(std::string)>` is called, which means its arument is rvalue.
 // my_begin can't get a mutable STL iterator from rvalue Container.
 
 
 
-
-// 2. A current workaround
+// 1-2. A current workaround
 //
 
 // A "cheated" mybegin is needed for as_vector.
@@ -159,7 +158,7 @@ struct T_mybegin_cheat
     template <typename This, typename Container>
     struct result<This(Container)> // rvalue
     {
-        typedef typename Container::iterator type; // cheating!
+        typedef typename Container::iterator type; // *cheating!*
     };
 
     template <typename Container>
@@ -187,16 +186,22 @@ void test_mutability_of_stl_iters_cheat()
 }
 
 // This workaround is clearly a bad resolution.
-// You have to write a cheated FunctionObject which is not result_of-conforming.
+// You have to write a cheating FunctionObject which is not result_of-conforming.
+// (According to lawyers, such a cheating FunctionObject is not well-formed under TR1.)
 // Also, transform_view and as_vector is tightly-bonded.
 // (Notice transform_view with mybegin_cheat is broken.)
 
 
 
-// 3. Defect Summary
+// 2-1. Defect Summary
 //
 
 // A FunctionObject with transform_view can't determine its `value_of` behavior.
+
+
+
+// 2-2. A Simple Example
+//
 
 struct identity
 {
@@ -233,12 +238,12 @@ void test_defect_summary()
 
 
 
-// 4. Proposed Resolution.
+// 3-1. Proposed Resolution.
 //
 
-// The prbolem is that the current behavior of transform_view's value_of
+// The probolem is that the current behavior of transform_view's value_of
 // is unsatisfactory for some FunctionObjects.
-// So, transform_view should take an optional MetafunctionClass for value_of implementation.
+// So, transform_view should take an optional MetafunctionClass `ValueOf` for value_of implementation.
 
 
 struct use_default; // may be any name.
@@ -248,31 +253,31 @@ struct transform_view;
 
 
 
-// 5. value_of implementation of transform_view
+// 3-2. Proposed value_of implementation of transform_view
 //
 
 // Notation:
 //    * Assume `I` is an iterator of `Seq`.
-//    * Assume `J` is a `transform_view<Seq, Fun, ValueOf>` iterator whose underlying iterator is `I`.
+//    * Assume `J` is a `fusion::transform_view<Seq, Fun, ValueOf>` iterator whose underlying iterator is `I`.
 //    * Assume `V` is a metafunction which represents the current(Boost1.35) implementation behavior.
-//    * Assume `W` is `mpl::apply1<ValueOf, fusion::result_of::deref<I>::type, fusion::result_of::value_of<I>::type>`.
+//    * Assume `W` is `boost::mpl::apply2<ValueOf, fusion::result_of::deref<I>::type, fusion::result_of::value_of<I>::type>`.
 
 // Valid Expression:
-//     * `result_of::value_of<J>::type`
+//     * `fusion::result_of::value_of<J>::type`
 
 // Valid Expression's semantics:
-//     * `mpl::eval_if< boost::is_same<ValueOf, use_default>, V, W>::type`
+//     * `boost::mpl::eval_if< boost::is_same<ValueOf, use_default>, V, W>::type`
 
 // Precondition:
 //    * Value Expression's semantics is a valid expression.
 
 // Notice:
 //    * `W` uses both `deref` and `value_of`. That's fusion.
-//    * `mpl::eval_if` must be used instead of `mpl::if_`, because `V::type` may be ill-formed.
+//    * `boost::mpl::eval_if` must be used instead of `boost::mpl::if_`, because `V::type` may be ill-formed.
 
 
 
-// 6. Example of ValueOf template argument
+// 3-3. Example of ValueOf template argument
 //
 
 // ValueOf of mybegin will be something like this:
