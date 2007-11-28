@@ -137,7 +137,7 @@ void test_mutability_of_stl_iters()
 // 1-2. A current workaround
 //
 
-// A "cheated" mybegin is needed for as_vector.
+// A "cheating" mybegin is needed for as_vector.
 struct T_mybegin_cheat
 {
     template <typename Signature>
@@ -266,7 +266,7 @@ struct transform_view;
 //     * `fusion::result_of::value_of<J>::type`
 
 // Valid Expression's semantics:
-//     * `boost::mpl::eval_if< boost::is_same<ValueOf, use_default>, V, W>::type`
+//     * `boost::mpl::eval_if<boost::is_same<ValueOf, use_default>, V, W>::type`
 
 // Precondition:
 //    * Value Expression's semantics is a valid expression.
@@ -295,7 +295,7 @@ struct identity_value_of
     template <typename Ref, typename Value>
     struct apply
     {
-        typedef int& type;
+        typedef Value type;
     };
 };
 

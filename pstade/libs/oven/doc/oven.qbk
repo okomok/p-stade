@@ -36,6 +36,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def _boost_lambda_          [@http://boost.org/libs/lambda/doc/index.html Boost.Lambda]]
 [def _boost_optional_        [@http://boost.org/libs/optional/doc/optional.html Boost.Optional]]
 [def _boost_preprocessor_    [@http://www.boost.org/libs/preprocessor/doc/index.html Boost.Preprocessor]]
+[def _boost_string_algo_     [@http://www.boost.org/doc/html/string_algo.html Boost.StringAlgorithm]]
 [def _boost_range_           [@http://www.boost.org/libs/range/index.html Boost.Range]]
 [def _boost_regex_           [@http://boost.org/libs/regex/doc/index.html Boost.Regex]]
 [def _boost_result_of_       [@http://www.boost.org/libs/utility/utility.htm#result_of Boost.ResultOf]]
