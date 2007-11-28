@@ -8,7 +8,7 @@
 
 [section Introduction]
 
-Oven is a highly preliminary implementation of _proposal_:
+Oven is an advanced implementation of _proposal_:
 
     namespace lambda = boost::lambda;
     using namespace pstade::oven;
@@ -30,6 +30,7 @@ Oven is a highly preliminary implementation of _proposal_:
         std::cout << (primes|taken(200));
     }
 
+Oven is a header-only template library.
 All the types, functions and objects are defined in `namespace pstade::oven`.
 
 [endsect]
@@ -43,7 +44,7 @@ All the types, functions and objects are defined in `namespace pstade::oven`.
     * _oven_directory_range_ requires _boost_filesystem_ to be built.
     * _oven_matches_ and _oven_tokenized_ requires _boost_regex_ to be built.
     * _oven_block_ requires _boost_thread_ to be built.
-* _pstade_release_ Version 1.03.5 or later (build not required)
+* _pstade_release_ Version 1.04.2 or later (build not required)
 
 [endsect]
 
@@ -78,6 +79,7 @@ Oven is known to work on the following platforms:
 [section Related Work]
 
 * [@http://boost-consulting.com/vault/index.php?&directory=Algorithms Boost.RangeEx]
+* _boost_string_algo_
 * [@http://boost.cvs.sourceforge.net/boost-sandbox/boost-sandbox/boost/view/ Boost.View]
 * [@http://sourceforge.jp/projects/cradle/ Cradle - A C++ Sandbox]
 * [@http://www.ddj.com/dept/cpp/196513737 C++ View Objects]
@@ -94,6 +96,8 @@ Oven is known to work on the following platforms:
 
 
 [section Acknowledgements]
+
+Special thanks to Thorsten Ottosen, the author of _boost_range_ and _proposal_.
 
 Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
 These people are instrumental in the design and development of Oven.

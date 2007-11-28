@@ -513,7 +513,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [section comprehension]
 
 [heading Description]
-`comprehension` emulates set-builder notation.
+Pending... `comprehension` emulates set-builder notation.
 
 [heading Header]
 * `<pstade/oven/comprehension.hpp>`
@@ -976,7 +976,7 @@ So, you sometimes have to call `make_range`, which turns a range into Oven compa
 [section recursion]
 
 [heading Description]
-`recursion`, collaborating with _oven_any_range_, creates a recursive range.
+Pending... `recursion`, collaborating with _oven_any_range_, creates a recursive range.
 
 [heading Header]
 * `<pstade/oven/recursion.hpp>`

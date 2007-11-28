@@ -1,6 +1,6 @@
 [section String Adaptors]
 
-A String Adaptor is a [link oven.range_adaptors Range Adaptor] for strings.
+String Adaptor is [link oven.range_adaptors Range Adaptor] for strings.
 
 
 
