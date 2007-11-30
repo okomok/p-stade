@@ -11,8 +11,6 @@
 
 
 #include <pstade/oven/detail/prefix.hpp>
-#include <boost/foreach.hpp>
-#include <boost/mpl/bool.hpp>
 
 
 namespace pstade { namespace oven { namespace test {
@@ -24,7 +22,7 @@ struct push_back_new_result
     typedef void result_type;
 
     template< class Value >
-    void operator()(Value const& v)
+    void operator()(Value const& v) const
     {
         m_pc->push_back(new X(v));
     }
