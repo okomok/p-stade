@@ -933,7 +933,7 @@ on the first argument, the second item by applying the function on the previous 
 
 [heading Description]
 Types defined in Oven is so hardhead that you can't /copy-initialize/ `any_range` by third-party ranges.
-So, you sometimes have to call `make_range`, which turns a range into Oven compatible one.
+So, you sometimes have to call `make_range`, which turns a range into Oven compatible iterator-range.
 
 [heading Header]
 * `<pstade/oven/make_range.hpp>`

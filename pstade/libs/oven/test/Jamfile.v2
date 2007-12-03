@@ -115,6 +115,7 @@ test-suite "oven" :
     [ run optional.cpp ]
     [ run outdirected.cpp ]
     [ run outplaced.cpp ]
+    [ run pack.cpp ]
     [ run parallel_copy.cpp ]
     [ run parallel_equals.cpp ]
     [ run parallel_for_each.cpp ]
