@@ -53,7 +53,7 @@ struct baby_range_based1_result
 
     template< class Myself, class Range0, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_ARITY, class A, = void) >
     struct apply
-    { }; // complete for SFINAE.
+    { }; // complete for msvc warning.
 
     // rng0 + 0ary
     template< class Myself, class Range0 >

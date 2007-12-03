@@ -12,12 +12,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven.hpp>
+#include "./oven_all.hpp"
 #undef PSTADE_OVEN_OVEN_HPP
 #include <pstade/oven/oven.hpp>
-
-#include "./oven_all.hpp"
-
 
 #include <boost/test/minimal.hpp>
 

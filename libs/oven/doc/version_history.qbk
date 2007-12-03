@@ -198,6 +198,9 @@
 * Added `rotated`.
 * Fixed a bug of `FOREACH` with `break`.
 
+[h2 Version 1.00.1]
+* Added `pack`.
+
 
 
 
