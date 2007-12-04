@@ -126,6 +126,7 @@ test-suite "oven" :
     [ run permuter.cpp ]
     [ run pointed.cpp ]
     [ run popped.cpp ]
+    [ run pstade_oven.cpp ]
     [ run range_based.cpp ]
     [ run range_constantable.cpp ]
     [ run range_transformer.cpp ]

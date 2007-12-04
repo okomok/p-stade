@@ -43,7 +43,7 @@ with `boost::lambda::bind` and `boost::result_of`.
     ]
     [
         [`f(a1,...,aN)`]
-        [`f.baby().call<_meta_arg_list(a, _Stg)>(_arg_list(a, _Stg))`]
+        [`f.baby().call<B::apply<B, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
     ]
     [
         [`f()`]
@@ -52,6 +52,7 @@ with `boost::lambda::bind` and `boost::result_of`.
 ]
 
 [heading Preconditions]
+* `B` is a __BABY_FUNCTION__ type.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -94,7 +95,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
     ]
     [
         [`_baby(a1,...,aN)`]
-        [`_baby.call<_meta_arg_list(a, _Stg)>(_arg_list(a, _Stg))`]
+        [`_baby.call<_typeof(_baby)::apply<_typeof(_baby), _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
     ]
     [
         [`_baby()`]

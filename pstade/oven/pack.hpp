@@ -34,7 +34,7 @@ namespace pack_detail {
 
     struct baby
     {
-        template< class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A) >
+        template< class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
         struct apply
         { }; // complete for msvc warning.
 
