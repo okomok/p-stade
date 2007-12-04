@@ -23,7 +23,7 @@
 #include "./tab_expanded.hpp"
 #include "./tab_unexpanded.hpp"
 #include "./unrolled_copy.hpp"
-#include "./unrolled_foreach.hpp"
+#include "./unrolled_for_each.hpp"
 #include "./unrolled_reduce.hpp"
 #include "./utf8_decoded.hpp"
 #include "./utf8_encoded.hpp"

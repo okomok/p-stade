@@ -53,12 +53,12 @@ namespace zipped_detail {
 
       template<typename Tuple, typename Fun>
       typename tuple_meta_transform<
-          typename boost::remove_cv<Tuple>::type // FIXED
+          typename boost::remove_cv<Tuple>::type // MODIFIED
         , Fun
       >::type
 
       BOOST_TUPLE_ALGO(tuple_transform)(
-        /*const*/ Tuple& t, // FIXED
+        /*const*/ Tuple& t, // MODIFIED
         Fun f
         BOOST_TUPLE_ALGO_RECURSE
       )
@@ -74,7 +74,7 @@ namespace zipped_detail {
              >::type
            , transformed_tail_type
         >( 
-            f(boost::tuples::get<0>(t)), here::tuple_transform(t.get_tail(), f) // FIXED
+            f(boost::tuples::get<0>(t)), here::tuple_transform(t.get_tail(), f) // MODIFIED
         );
       }
 
@@ -86,11 +86,11 @@ namespace zipped_detail {
       >::type
       
       tuple_transform(
-        /*const*/ Tuple& t, // FIXED
+        /*const*/ Tuple& t, // MODIFIED
         Fun f
       )
       {
-          return here::tuple_transform_impl(t, f, 1); // FIXED
+          return here::tuple_transform_impl(t, f, 1); // MODIFIED
       }
 #endif
 
