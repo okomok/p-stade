@@ -103,7 +103,7 @@ namespace pstade { namespace egg {
             super_t(use_brace_level1()(boost::type<super_t>(), this))
         { }
 
-    // You can't copy 'm_pfacade' which refers to the other facade.
+    // You can't copy 'm_pfacade', which refers to the other facade.
         function_facade(function_facade const&) :
             super_t(use_brace_level1()(boost::type<super_t>(), this))
         { }

@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_USE_BRACE_LEVEL1_HPP
 #define PSTADE_EGG_USE_BRACE_LEVEL1_HPP
 #include "./detail/prefix.hpp"
@@ -12,11 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/limits/arity.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type.hpp>
+#include "./detail/use_brace.hpp"
 
 
 namespace pstade { namespace egg {
@@ -24,35 +19,13 @@ namespace pstade { namespace egg {
 
     struct use_brace_level1
     {
-   // 0ary
-        template<class X>
-        X operator()(boost::type<X>) const
-        {
-            X x = {{}};
-            return x;
-        }
-
-    // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/use_brace_level1.hpp>))
-        #include BOOST_PP_ITERATE()
+        #define  PSTADE_EGG_DETAIL_USE_BRACE_L {{
+        #define  PSTADE_EGG_DETAIL_USE_BRACE_R }}
+        #include PSTADE_EGG_DETAIL_USE_BRACE()
     };
 
 
 } } // namespace pstade::egg
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-    template<class X, BOOST_PP_ENUM_PARAMS(n, class A)>
-    X operator()(boost::type<X>, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-    {
-        X x = { { BOOST_PP_ENUM_PARAMS(n, a) } };
-        return x;
-    }
-    
-
-#undef n
 #endif
