@@ -214,7 +214,7 @@ struct iter_range_of
     iter_t;
 
     typedef
-        iter_range<iter_t, Injector>
+        iter_range<iter_t, Injector> // non-const
     type;
 };
 

@@ -12,7 +12,6 @@
 
 
 #include <boost/config.hpp> // BOOST_HAS_THREADS
-#include <boost/version.hpp>
 
 
 #if !defined(PSTADE_EGG_MAX_ARITY)

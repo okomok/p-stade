@@ -9,10 +9,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef PSTADE_EGG_DETAIL_PACK_TEMPLATE
+#if !defined(PSTADE_EGG_DETAIL_PACK_TEMPLATE)
     #error Please define PSTADE_EGG_DETAIL_PACK_TEMPLATE(N).
 #endif
-#ifndef PSTADE_EGG_DETAIL_PACK_MAX_ARITY
+#if !defined(PSTADE_EGG_DETAIL_PACK_MAX_ARITY)
     #error Please define PSTADE_EGG_DETAIL_PACK_MAX_ARITY.
 #endif
 
@@ -37,8 +37,8 @@
     };
 
 
-#undef  PSTADE_EGG_DETAIL_PACK_TEMPLATE
 #undef  PSTADE_EGG_DETAIL_PACK_MAX_ARITY
+#undef  PSTADE_EGG_DETAIL_PACK_TEMPLATE
 
 
 #else

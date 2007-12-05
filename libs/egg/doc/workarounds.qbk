@@ -90,7 +90,7 @@ Then, the __BABY_FUNCTION__ interface is slightly changed.
 [heading Example]
 [code_deduced_form_example]
 
-[note you can also use __BOOST_ENABLE_IF__ instead. ]
+[note You can also use __BOOST_ENABLE_IF__ instead. ]
 
 [heading See also]
 * __EGG_FUNCTION__
