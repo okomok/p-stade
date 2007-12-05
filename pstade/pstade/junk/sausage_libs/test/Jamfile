@@ -1,0 +1,21 @@
+
+subproject libs/sausage/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule sausage-test ( name : includes * )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
+
+    ] ;
+}
+
+test-suite sausage :
+    [ sausage-test basic ]
+    ;
