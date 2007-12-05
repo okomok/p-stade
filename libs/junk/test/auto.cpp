@@ -17,7 +17,7 @@
 
 //#include <pstade/../libs/radish/test/swap_reset.cpp>
 
-#include <pstade/../libs/oven/test/zipped_with.cpp>
+//#include <pstade/../libs/oven/test/pack.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
@@ -27,7 +27,7 @@
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
 //#include <pstade/../libs/napkin/test/doc.cpp>
-//#include <pstade/../libs/egg/test/ret_mpl_lambda.cpp>
+#include <pstade/../libs/egg/test/use_xxx.cpp>
 //#include <pstade/../libs/egg/example/infix_apply.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>
