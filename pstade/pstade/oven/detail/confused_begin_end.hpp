@@ -14,6 +14,7 @@
 // What:
 //
 // Works around a defect of fusion::transform_view + fusion::value_of.
+// See http://svn.boost.org/trac/boost/ticket/1396
 
 
 #include <boost/range/begin.hpp>

@@ -11,18 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/use_brace.hpp"
+#include "./detail/use_brace_leveln.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    struct use_brace_level1
-    {
-        #define  PSTADE_EGG_DETAIL_USE_BRACE_L {{
-        #define  PSTADE_EGG_DETAIL_USE_BRACE_R }}
-        #include PSTADE_EGG_DETAIL_USE_BRACE()
-    };
+    #define  PSTADE_EGG_USE_BRACE_LEVEL 1
+    #include PSTADE_EGG_USE_BRACE_LEVELN()
 
 
 } } // namespace pstade::egg

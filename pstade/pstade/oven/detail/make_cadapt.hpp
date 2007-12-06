@@ -20,22 +20,29 @@
 namespace pstade { namespace oven {
 
 
-struct baby_make_CAdapt
-{
-    template< class Myself, class T >
-    struct apply
+namespace make_CAdapt_detail {
+
+
+    struct baby
     {
-        typedef ATL::CAdapt<typename pass_by_value<T>::type> type;
+        template< class Myself, class T >
+        struct apply
+        {
+            typedef ATL::CAdapt<typename pass_by_value<T>::type> type;
+        };
+
+        template< class Result, class T >
+        Result call(T& src) const
+        {
+            return Result(src);
+        }
     };
 
-    template< class Result, class T >
-    Result call(T& src) const
-    {
-        return Result(src);
-    }
-};
 
-typedef egg::function<baby_make_CAdapt> T_make_CAdapt;
+} // namespace make_CAdapt_detail
+
+
+typedef egg::function<make_CAdapt_detail::baby> T_make_CAdapt;
 PSTADE_POD_CONSTANT((T_make_CAdapt), make_CAdapt) = {{}};
 
 
