@@ -17,11 +17,10 @@
 // VC7.1 occasionally fails regardless of SFINAE without this.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 namespace pstade {

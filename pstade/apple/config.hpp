@@ -20,8 +20,7 @@
 // [1] <boost/functional/detail/container_fwd.hpp>
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 #if (defined(__GLIBCXX__) && defined(_GLIBCXX_DEBUG)) \

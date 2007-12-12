@@ -30,13 +30,12 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/function.hpp>

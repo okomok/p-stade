@@ -31,13 +31,12 @@
 // We sooner or later need 'ARRAY_OVERLOADED', too.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/enable_if.hpp> // disable_if
 #include <pstade/preprocessor.hpp>
 

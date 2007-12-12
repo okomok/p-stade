@@ -11,9 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/egg/static_downcast.hpp>
 
 #if BOOST_WORKAROUND(__GNUC__, == 3)

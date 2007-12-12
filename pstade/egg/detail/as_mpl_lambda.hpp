@@ -23,11 +23,10 @@
 //   3. Call 'mpl::lambda' in non-deduced context like the following macro. 
 //
 // If a PlaceholderExpression doesn't have a dependent nested 'type',
-// that is to say, it is not a Metafunction with placeholder, 'mpl::apply' seems *not* to fail.
+// in other words, if it is not a Metafunction with placeholder, 'mpl::apply' seems *not* to fail.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/unparenthesize.hpp>
 
 

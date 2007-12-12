@@ -20,8 +20,8 @@
 
 
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/unparenthesize.hpp>
 
 

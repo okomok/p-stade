@@ -18,11 +18,10 @@
 // So prefer 'boost::add_const', or
 // you can use this macro to say the bug loudly!
 //
-// See also "./detail/msvc71_result_of.hpp".
+// See also <pstade/egg/detail/msvc71_result_of.hpp>.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
