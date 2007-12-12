@@ -18,9 +18,8 @@
 // See "./msvc71_result_of.hpp" in detail.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/unparenthesize.hpp>
 

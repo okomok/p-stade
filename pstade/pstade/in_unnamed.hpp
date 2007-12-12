@@ -16,8 +16,7 @@
 // See <boost/bind/placeholders.hpp>.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))

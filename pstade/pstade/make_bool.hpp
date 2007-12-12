@@ -16,9 +16,8 @@
 // Suppress a msvc warning.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 namespace pstade {

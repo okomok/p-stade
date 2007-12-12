@@ -21,9 +21,8 @@
 // IIRC, VC7.1 also sometimes runs afoul of the same bug.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/implicit_cast.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))

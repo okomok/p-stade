@@ -23,8 +23,6 @@
 // If you are lost, include <pstade/detect_result_type.hpp> before any boost header.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/or.hpp>
@@ -34,6 +32,7 @@
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/version.hpp>
+#include <pstade/boost_workaround.hpp>
 #include "./detail/boost_result_of.hpp"
 
 

@@ -41,8 +41,6 @@
     #define PSTADE_EGG_SPECIFIED_HEADER_PART
 
 
-    #include <boost/config.hpp>
-    #include <boost/detail/workaround.hpp>
     #include <boost/preprocessor/cat.hpp>
     #include <boost/preprocessor/control/if.hpp>
     #include <boost/preprocessor/iteration/iterate.hpp>

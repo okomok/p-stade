@@ -17,10 +17,9 @@
 // Use 'To x = a();' instead.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
+#include <pstade/boost_workaround.hpp>
 #include "./by_cref.hpp"
 #include "./fuse.hpp"
 #include "./unfuse.hpp"

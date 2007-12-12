@@ -22,7 +22,7 @@ void pstade_lightweight_test();
 
 int main()
 {
-    pstade_lightweight_test();
+    ::pstade_lightweight_test();
     return boost::report_errors();
 }
 

@@ -11,9 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/version.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 // Note the new concept library is broken on gcc-3.4

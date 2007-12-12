@@ -11,8 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"

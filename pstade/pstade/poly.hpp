@@ -216,7 +216,7 @@ namespace pstade {
         public:
         // structors
             impl() :
-              m_pvtbl(PSTADE_NULLPTR)
+                m_pvtbl(PSTADE_NULLPTR)
             { }
 
             template<class Q>

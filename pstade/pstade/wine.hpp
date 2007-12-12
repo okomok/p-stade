@@ -16,6 +16,7 @@
 #include "./arraya.hpp"
 #include "./as_type_erasure.hpp"
 #include "./base_from.hpp"
+#include "./boost_workaround.hpp"
 #include "./check.hpp"
 #include "./clone_ptr.hpp"
 #include "./concept.hpp"

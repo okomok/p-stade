@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <pstade/boost_workaround.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
     #pragma warning(push)

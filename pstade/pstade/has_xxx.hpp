@@ -27,12 +27,11 @@
 // Note that this random failure is still *NOT* fixed with Boost1.34-.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/type_traits/detail/yes_no_type.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/nullptr.hpp>
 
 
