@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// These are not header-only.
+
 #include "./block.hpp"
 #include "./directory_range.hpp"
 #include "./matches.hpp"

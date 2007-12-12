@@ -509,7 +509,7 @@ Pending...
 [heading Example]
     file_range<boost::uint8_t> frng("utf8.txt");
     std::vector<boost::uint8_t> result;
-    copy(frng|utf8_decoded, utf8_encoder|=back_inserter|=result);
+    copy(frng|utf8_decoded, utf8_encoder|=back_inserter(result));
     BOOST_CHECK( equals(frng, result) );
 
 [heading See also]
