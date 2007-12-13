@@ -113,7 +113,7 @@ namespace nonstop_detail {
         { }
 
     private:
-        Generator m_gen;        
+        Generator m_gen;
     };
 
 

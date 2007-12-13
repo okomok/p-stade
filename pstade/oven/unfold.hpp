@@ -88,7 +88,7 @@ namespace nonpure_detail {
         { }
 
     private:
-        UnaryFun m_fun;        
+        UnaryFun m_fun;
     };
 
 
