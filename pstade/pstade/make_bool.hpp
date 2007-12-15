@@ -16,8 +16,8 @@
 // Suppress a msvc warning.
 
 
+#include <boost/config.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/boost_workaround.hpp>
 
 
 namespace pstade {
@@ -30,7 +30,7 @@ namespace pstade {
         template<class X>
         bool operator()(X const& x) const
         {
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+#if defined(BOOST_MSVC)
             return x && true;
 #else
             return x;
