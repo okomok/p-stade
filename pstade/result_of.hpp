@@ -36,7 +36,7 @@
 #include "./detail/boost_result_of.hpp"
 
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400)) && (BOOST_VERSION < 103500)
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1400) && (BOOST_VERSION < 103500)
     #include <pstade/has_xxx.hpp>
     #define PSTADE_RESULT_OF_MSVC_WORKAROUND
 #endif
@@ -54,7 +54,8 @@ namespace pstade {
 
         template<class T>
         struct is_pointer :
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+            // In result_of instantiation, remove_cv is needed for some reason.
             boost::is_pointer<typename boost::remove_cv<T>::type>
 #else
             boost::is_pointer<T>

@@ -20,7 +20,7 @@
 #include <pstade/boost_workaround.hpp>
 
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1400)
     // Place HAS_XXX_TRAIT_DEFs as close as possible.
     #include <boost/lambda/core.hpp>
     #include <boost/utility/result_of.hpp>

@@ -10,7 +10,7 @@
 
 
 #include <pstade/oven/pack.hpp>
-#include <pstade/lightweight_test.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <pstade/oven/algorithm.hpp>
@@ -24,7 +24,7 @@
 #include <pstade/egg/to_value.hpp>
 
 
-void pstade_lightweight_test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
