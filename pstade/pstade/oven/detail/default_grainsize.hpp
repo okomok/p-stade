@@ -17,7 +17,7 @@
 #include "../distance.hpp"
 #include "../range_difference.hpp"
 #include "../range_traversal.hpp"
-#include "./check_positive.hpp"
+#include "./verify_positive.hpp"
 
 
 namespace pstade { namespace oven {
@@ -54,9 +54,9 @@ namespace detail {
         typedef typename range_difference<Range>::type diff_t;
 
         if (d == 0)
-            return detail::check_positive( detail::default_grainsize_aux<diff_t>(rng, typename range_traversal<Range>::type()) );
+            return detail::verify_positive( detail::default_grainsize_aux<diff_t>(rng, typename range_traversal<Range>::type()) );
         else
-            return detail::check_positive(d);
+            return detail::verify_positive(d);
     }
 
 
