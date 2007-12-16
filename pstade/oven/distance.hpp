@@ -18,8 +18,8 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
-#include "./detail/check_nonnegative.hpp"
 #include "./detail/iter_distance.hpp"
+#include "./detail/verify_nonnegative.hpp"
 #include "./range_difference.hpp"
 
 
@@ -40,7 +40,7 @@ namespace distance_detail {
         Result call(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return detail::check_nonnegative(
+            return detail::verify_nonnegative(
                 detail::iter_distance(boost::begin(rng), boost::end(rng))
             );
         }

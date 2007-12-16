@@ -33,7 +33,7 @@
 #include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_fwd.hpp"
-#include "./detail/check_nonnegative.hpp"
+#include "./detail/verify_nonnegative.hpp"
 
 
 namespace pstade { namespace oven {
@@ -161,7 +161,7 @@ public:
 
     template< class RandIter >
     any_indexed_iterator(diff_t index, RandIter it) :
-        super_t(detail::check_nonnegative(index)),
+        super_t(detail::verify_nonnegative(index)),
         m_content(new typename holder_of<RandIter>::type(it))
     { }
 
