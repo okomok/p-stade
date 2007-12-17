@@ -324,7 +324,7 @@ namespace pstade {
             type;
         };
 
-            
+
     } // namespace poly_detail
 
 
