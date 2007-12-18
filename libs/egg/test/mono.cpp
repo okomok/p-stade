@@ -60,9 +60,9 @@ struct my_foo
     }
 };
 
-typedef result_of_mono<my_foo, mpl::vector<std::string>, int>::type T_mono_foo1;
+typedef result_of_mono<my_foo, int(std::string)>::type T_mono_foo1;
 T_mono_foo1 const mono_foo1 = PSTADE_EGG_MONO_L {} PSTADE_EGG_MONO_R;
-typedef result_of_mono<my_foo, mpl::vector<>, char>::type T_mono_foo0;
+typedef result_of_mono<my_foo, char()>::type T_mono_foo0;
 T_mono_foo0 const mono_foo0 = PSTADE_EGG_MONO_L {} PSTADE_EGG_MONO_R;
 
 PSTADE_TEST_IS_RESULT_OF((int), T_mono_foo1(std::string const&))
@@ -74,30 +74,30 @@ void pstade_minimal_test()
 {
     {
         int i = 10;
-        pstade::result_of<X_mono< mpl::vector<int &> >(T_identity const&)>::type a = 
-            egg::mono< mpl::vector<int &> >(identity);
+        pstade::result_of<X_mono<boost::use_default(int &)>(T_identity const&)>::type a = 
+            egg::mono<boost::use_default(int &)>(identity);
         BOOST_CHECK( a(i) == 10 );
-        BOOST_CHECK( &(egg::mono< mpl::vector<int &> >(identity)(i)) == &i );
-        ::test_identity( egg::mono< mpl::vector<int &> >(identity) );
+        BOOST_CHECK( &(egg::mono<boost::use_default(int&)>(identity)(i)) == &i );
+        ::test_identity( egg::mono<boost::use_default(int&)>(identity) );
     }
     {
         int i = 10;
-        pstade::result_of<X_mono< mpl::vector<int &, int const &> >(T_plus const&)>::type a = 
-            egg::mono< mpl::vector<int &, int const &> >(plus);
+        pstade::result_of<X_mono<boost::use_default(int&, int const&)>(T_plus const&)>::type a = 
+            egg::mono<boost::use_default(int&, int const&)>(plus);
         BOOST_CHECK( a(i, 4) == 14 );
-        BOOST_CHECK(( egg::mono< mpl::vector<int &, int const &> >(plus)(i, 4) == 14 ));
-        ::test_plus( egg::mono< mpl::vector<int &, int const &> >(plus) );
+        BOOST_CHECK(( egg::mono<boost::use_default(int&, int const&)>(plus)(i, 4) == 14 ));
+        ::test_plus( egg::mono<boost::use_default(int&, int const&)>(plus) );
     }
     {
         int i = 10;
         BOOST_CHECK(( 10 ==
-            egg::mono< mpl::vector<T_identity const &> >(X_mono< boost::mpl::vector<int &> >())(identity)(i)
+            egg::mono<boost::use_default(T_identity const &)>(X_mono<boost::use_default(int&)>())(identity)(i)
         ));
     }
     {
         my_foo f;
-        BOOST_CHECK(( 0 == X_mono< mpl::vector<std::string const&>, int >()(f)("will be converted to string") ));
-        BOOST_CHECK(( '0' == X_mono< mpl::vector<>, char >()(f)() ));
+        BOOST_CHECK(( 0 == X_mono<int(std::string const&)>()(f)("will be converted to string") ));
+        BOOST_CHECK(( '0' == X_mono<char()>()(f)() ));
         BOOST_CHECK(( 0 == mono_foo1("will be converted to string") ));
         BOOST_CHECK(( '0' == mono_foo0() ));
     }

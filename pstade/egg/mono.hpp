@@ -12,15 +12,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
@@ -43,31 +39,23 @@ namespace pstade { namespace egg {
         { };
 
 
-        template<class Base, class Sequence, class ResultType, int Arity = boost::mpl::size<Sequence>::value>
+        template<class Base, class Signature>
         struct result_;
 
 
         // 0ary-
-    #define PSTADE_param(Z, N, _) PSTADE_PP_CAT3(parameter, N, _type)
-    #define PSTADE_typedef_param(Z, N, _) typedef typename boost::mpl::at_c<Sequence, N>::type PSTADE_param(Z, N, _);
-    #define PSTADE_meta_arg(Z, N, _) typename boost::add_reference<PSTADE_param(Z, N, _)>::type
-    #define PSTADE_param_arg(Z, N, _) PSTADE_param(Z, N, _) BOOST_PP_CAT(a, N)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/mono.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_param_arg
-    #undef  PSTADE_meta_arg
-    #undef  PSTADE_typedef_param
-    #undef  PSTADE_param
 
 
     } // namespace mono_detail
 
 
-    template<class Base, class Sequence, class ResultType = boost::use_default>
+    template<class Base, class Signature>
     struct result_of_mono
     {
         typedef
-            mono_detail::result_<Base, Sequence, ResultType>
+            mono_detail::result_<Base, Signature>
         type;
     };
 
@@ -79,12 +67,12 @@ namespace pstade { namespace egg {
     namespace mono_detail {
 
 
-        template<class Sequence, class ResultType>
+        template<class Signature>
         struct baby
         {
             template<class Myself, class Base>
             struct apply :
-                result_of_mono<Base, Sequence, ResultType>
+                result_of_mono<Base, Signature>
             { };
 
             template<class Result, class Base>
@@ -99,9 +87,9 @@ namespace pstade { namespace egg {
     } // namespace mono_detail
 
 
-    template<class Sequence, class ResultType = boost::use_default>
+    template<class Signature>
     struct X_mono :
-        function<mono_detail::baby<Sequence, ResultType>, by_value>
+        function<mono_detail::baby<Signature>, by_value>
     { };
 
 
@@ -116,8 +104,8 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Base, class Sequence, class ResultType>
-    struct result_<Base, Sequence, ResultType, n>
+    template<class Base, class ResultType BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<Base, ResultType(BOOST_PP_ENUM_PARAMS(n, A))>
     {
         Base m_base;
 
@@ -128,22 +116,20 @@ namespace pstade { namespace egg {
             return m_base;
         }
 
-        BOOST_PP_REPEAT(n, PSTADE_typedef_param, ~)
-
 #if n == 1
-        typedef typename argument_type<parameter0_type>::type argument_type;
+        typedef typename argument_type<A0>::type argument_type;
 #elif n == 2
-        typedef typename argument_type<parameter0_type>::type first_argument_type;
-        typedef typename argument_type<parameter1_type>::type second_argument_type;
+        typedef typename argument_type<A0>::type first_argument_type;
+        typedef typename argument_type<A1>::type second_argument_type;
 #endif
 
         typedef typename
             eval_if_use_default<ResultType,
-                result_of<Base const(BOOST_PP_ENUM(n, PSTADE_meta_arg, ~))>
+                result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::add_reference<A, >::type))>
             >::type
         result_type;
 
-        result_type operator()(BOOST_PP_ENUM(n, PSTADE_param_arg, ~)) const
+        result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
         {
             return m_base(BOOST_PP_ENUM_PARAMS(n, a));
         }
