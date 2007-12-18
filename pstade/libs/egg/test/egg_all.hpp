@@ -1,4 +1,5 @@
-#include <pstade/vodka/drink.hpp>
+#ifndef PSTADE_LIBS_EGG_TEST_EGG_ALL_HPP
+#define PSTADE_LIBS_EGG_TEST_EGG_ALL_HPP
 
 
 // PStade.Egg
@@ -9,4 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./egg_all.hpp"
+#include <pstade/egg/egg.hpp>
+#include <pstade/egg/egg_pending.hpp>
+
+
+#endif
