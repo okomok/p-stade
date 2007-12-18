@@ -132,7 +132,7 @@ namespace pstade {
 
             static void copy(storage<O> const &stg, storage<O> &to)
             {
-                Q const *q = reinterpret_cast<Q const *>(stg.address());
+                Q const *q = reinterpret_cast<Q *>(stg.address());
                 new (to.address()) Q(*q);
             }
 
@@ -156,7 +156,7 @@ namespace pstade {
             static void copy(storage<O> const &stg, storage<O> &to)
             {
                 BOOST_ASSERT(stg.ptr);
-                Q const *q = detail::pointer_cast<Q const>(stg.ptr);
+                Q const *q = detail::pointer_cast<Q>(stg.ptr);
                 to.ptr = detail::clonable_new(*q);
             }
 
@@ -385,7 +385,7 @@ namespace pstade {
         Q const &content() const
         {
             BOOST_ASSERT(contains<Q>());
-            return *detail::pointer_cast<Q const>(this->get_());
+            return *detail::pointer_cast<Q>(this->get_());
         }
 
     // totally_ordered

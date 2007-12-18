@@ -579,9 +579,11 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * ...
 
 [heading Notation]
-* `fc(f)` is an object of `result_of_mono<_typeof(f), Seq, R>::type` initialized using `f` or the initializer.
-* `N` is `boost::mpl::size<Seq>::value`.
-* `arglist` is `b1,...,bN` such that `boost::mpl::at_c<Seq, 0>::type b1 = a1; ... boost::mpl::at_c<Seq, N-1> bN = aN;`.
+* `fc(f)` is an object of `result_of_mono<_typeof(f), Sig>::type` initialized using `f` or the initializer.
+* `N` is an arity of `Sig`.
+* `R` is a return type of `Sig`.
+* `ParamOf(Sig, I)` is an imaginary operator which returns an `I`th parameter type of `Sig`.
+* `arglist` is `b1,...,bN` such that `ParamOf(Sig, 0) b1 = a1; ... ParamOf(Sig, N-1) bN = aN;`.
 
 [heading Valid expressions]
 [table 
@@ -590,41 +592,41 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_mono<Fun, Seq, R = _default>::type`]
+        [`result_of_mono<Fun, Sig>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_MONO_L init PSTADE_EGG_MONO_R`]
-        [A braced initializer of `result_of_mono<Fun, Seq, R>::type`]
+        [A braced initializer of `result_of_mono<Fun, Sig>::type`]
     ]
     [
         [`fc(f)(a1,...,aN)`]
         [`f(arglist)`]
     ]
     [
-        [`X_mono<Seq, R = _default>`]
+        [`X_mono<Sig>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`X_mono<Seq, R>()(fun)`]
-        [`fc(fun)`]
+        [`X_mono<Sig>()(f)`]
+        [`fc(f)`]
     ]
     [
-        [`egg::mono<Seq>`]
-        [`X_mono<Seq>()`]
+        [`egg::mono<Sig>(f)`]
+        [`X_mono<Sig>()(f)`]
     ]
 ]
 
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
-* `Seq` is an __MPL_FORWARD_SEQUENCE__.
+* `Sig` is a /function/ type.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
 * If `R` is `_default`, `Fun` is a __DEFERRED_CALLABLE_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_mono<Fun, Seq, R>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
-* `result_of_mono<Fun, Seq, R>::type` is __SGI_ADAPTABLE__ if and only if `N` is `1` or `2`.
+* `result_of_mono<Fun, Sig>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
+* `result_of_mono<Fun, Sig>::type` is __SGI_ADAPTABLE__ if and only if `N` is `1` or `2`.
 
 [heading Example]
 [code_mono_example]
