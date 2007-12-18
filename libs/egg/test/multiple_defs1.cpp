@@ -9,15 +9,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/egg.hpp>
-#undef PSTADE_EGG_EGG_HPP
-#include <pstade/egg/egg.hpp>
+#include "./egg_all.hpp"
 
 
 #include <pstade/minimal_test.hpp>
 
 
 #include <pstade/egg/alias.hpp>
+
+
+using namespace pstade::egg;
 
 
 void pstade_minimal_test()

@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_POINTER_HPP
-#define PSTADE_EGG_POINTER_HPP
+#ifndef PSTADE_EGG_FUNPTR_HPP
+#define PSTADE_EGG_FUNPTR_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -32,7 +32,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace pointer_detail {
+    namespace funptr_detail {
 
 
         template<class Base, class Signature, class UniqueID>
@@ -40,23 +40,23 @@ namespace pstade { namespace egg {
 
 
         // 0ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/pointer.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/funptr.hpp>))
         #include BOOST_PP_ITERATE()
 
 
-    } // namespace pointer_detail
+    } // namespace funptr_detail
 
 
     template<class Base, class Signature, class UniqueID>
-    struct result_of_pointer
+    struct result_of_funptr
     {
         typedef typename
-            pointer_detail::aux_<Base, Signature, UniqueID>::pointer_type
+            funptr_detail::aux_<Base, Signature, UniqueID>::funptr_type
         type;
     };
 
 
-    namespace pointer_detail {
+    namespace funptr_detail {
 
 
         template<class Signature, class UniqueID>
@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
         {
             template<class Myself, class Base>
             struct apply :
-                result_of_pointer<Base, Signature, UniqueID>
+                result_of_funptr<Base, Signature, UniqueID>
             { };
 
             template<class Result, class Base>
@@ -77,16 +77,16 @@ namespace pstade { namespace egg {
         };
 
 
-    } // namespace pointer_detail
+    } // namespace funptr_detail
 
 
     template<class Signature, class UniqueID>
-    struct X_pointer :
-        function<pointer_detail::baby<Signature, UniqueID>, by_value>
+    struct X_funptr :
+        function<funptr_detail::baby<Signature, UniqueID>, by_value>
     { };
 
 
-    PSTADE_EGG_SPECIFIED1(pointer, X_pointer, (class)(class))
+    PSTADE_EGG_SPECIFIED1(funptr, X_funptr, (class)(class))
 
 
 } } // namespace pstade::egg
@@ -106,7 +106,7 @@ namespace pstade { namespace egg {
             >::type
         result_type;
 
-        typedef result_type (*pointer_type)(BOOST_PP_ENUM_PARAMS(n, A));
+        typedef result_type (*funptr_type)(BOOST_PP_ENUM_PARAMS(n, A));
 
         static boost::optional<Base>& base_instance()
         {

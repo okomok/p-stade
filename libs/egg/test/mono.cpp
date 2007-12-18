@@ -13,7 +13,6 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <boost/mpl/vector.hpp>
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
