@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Base on Eric Niebler's example.
+// Based on Eric Niebler's example.
 
 
 #include <pstade/egg/indirect.hpp>
