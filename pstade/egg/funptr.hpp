@@ -51,7 +51,7 @@ namespace pstade { namespace egg {
     struct result_of_funptr
     {
         typedef typename
-            funptr_detail::aux_<Base, Signature, UniqueID>::funptr_type
+            funptr_detail::aux_<Base, Signature, UniqueID>::pointer_type
         type;
     };
 
@@ -106,7 +106,7 @@ namespace pstade { namespace egg {
             >::type
         result_type;
 
-        typedef result_type (*funptr_type)(BOOST_PP_ENUM_PARAMS(n, A));
+        typedef result_type (*pointer_type)(BOOST_PP_ENUM_PARAMS(n, A));
 
         static boost::optional<Base>& base_instance()
         {
