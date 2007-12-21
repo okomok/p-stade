@@ -24,7 +24,7 @@
 //
 // Replaces 'BOOST_MPL_HAS_XXX_TRAIT_DEF' for the workaround of
 // http://lists.boost.org/Archives/boost/2005/10/95809.php
-// Note that this random failure is still *NOT* fixed with Boost1.34-.
+// http://svn.boost.org/trac/boost/ticket/1317
 
 
 #include <boost/mpl/bool.hpp>

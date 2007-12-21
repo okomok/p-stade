@@ -39,6 +39,7 @@ test-suite "wine" :
     [ run instance.cpp ]
     [ compile-fail instance_const_fail.cpp ]
     [ link instance_m1.cpp instance_m2.cpp : : instance_m ]
+    [ run is_convertible.cpp ]
     [ run is_returnable.cpp ]
     [ run lightweight_test.cpp ]
     [ run-fail lightweight_test_fail.cpp ]
