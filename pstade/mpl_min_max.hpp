@@ -23,9 +23,9 @@
 // Works around macros which have the same names.
 
 
-#include <boost/mpl/less.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <boost/mpl/less.hpp>
 
 
 namespace pstade {
@@ -33,24 +33,24 @@ namespace pstade {
 
     template<class N1, class N2>
     struct mpl_min :
-        boost::mpl::if_<boost::mpl::less<N1,N2>, N1, N2>
-    {};
+        boost::mpl::if_<boost::mpl::less<N1, N2>, N1, N2>
+    { };
 
     template<class N1, class N2>
     struct mpl_max :
-        boost::mpl::if_<boost::mpl::less<N1,N2>, N2, N1>
-    {};
+        boost::mpl::if_<boost::mpl::less<N1, N2>, N2, N1>
+    { };
 
 
     template<class T, T N1, T N2>
     struct mpl_min_c :
         boost::mpl::integral_c<T, (N1 < N2) ? N1 : N2>
-    {};
+    { };
 
     template<class T, T N1, T N2>
     struct mpl_max_c :
         boost::mpl::integral_c<T, (N1 < N2) ? N2 : N1>
-    {};
+    { };
 
 
 } // namespace pstade
