@@ -14,12 +14,11 @@
 // What:
 //
 // See the implementation of 'boost::enable_if_convertible'.
-// VC7.1 occasionally fails regardless of SFINAE without this.
+// msvc-7.1 occasionally fails regardless of SFINAE without this.
 
 
-#include <boost/mpl/or.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/boost_workaround.hpp>
 
 
@@ -28,15 +27,16 @@ namespace pstade {
 
     template<class From, class To>
     struct is_convertible :
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
-        boost::mpl::or_<
-            boost::is_same<From, To>,
-            boost::is_convertible<From, To>
-        >
-#else
         boost::is_convertible<From, To>
-#endif
     { };
+
+
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+    template<class To>
+    struct is_convertible<To, To> :
+        boost::mpl::true_
+    { };
+#endif
 
 
 } // namespace pstade
