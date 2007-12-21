@@ -1,5 +1,6 @@
 #ifndef PSTADE_BOOST_WORKAROUND_HPP
 #define PSTADE_BOOST_WORKAROUND_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
