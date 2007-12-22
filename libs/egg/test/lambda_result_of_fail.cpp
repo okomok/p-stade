@@ -10,7 +10,6 @@
 
 
 #include <pstade/egg/lambda/result_of.hpp>
-#include <pstade/egg/lambda/result_of.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -28,7 +27,7 @@ using pstade::result_of;
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_lambda_1(int&))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const&))
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int))
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const))
 #endif
@@ -50,7 +49,7 @@ void pstade_minimal_test()
         BOOST_CHECK(r == 10);
     }
 
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
     {
         result_of<T_lambda_1(int)>::type r = lambda_1(10);
         BOOST_CHECK(r == 10);
@@ -64,14 +63,14 @@ void pstade_minimal_test()
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int&))
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int const&))
 
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int))
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int const))
 #endif
 
         int i = 9;
         BOOST_CHECK( fun(i) == 3+9 );
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
         BOOST_CHECK( fun(9) == 3+9 );
 #endif
     }
@@ -83,14 +82,14 @@ void pstade_minimal_test()
         PSTADE_TEST_IS_RESULT_OF((int&), fun_t(int&))
         PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int const&))
 
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
         PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int))
         PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int const))
 #endif
 
         int i = 9;
         BOOST_CHECK( fun(i) == 9 );
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
         BOOST_CHECK( fun(9) == 9 );
 #endif
     }

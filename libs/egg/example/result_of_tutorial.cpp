@@ -60,7 +60,7 @@ void test_const()
 
 
 //[code_result_of_tutorial4
-void test_operatable()
+void test_nonconst()
 {
     result_of<T_plus(int, int)>::type r = plus(2, 3);
     BOOST_CHECK( r == 5 );
@@ -73,5 +73,5 @@ void pstade_minimal_test()
     test_lvalue();
     test_const();
     test_chain();
-    test_operatable();
+    test_nonconst();
 }
