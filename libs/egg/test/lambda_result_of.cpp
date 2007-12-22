@@ -34,6 +34,26 @@ PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const&))
 #endif
 
 
+// const doesn't affect.
+PSTADE_TEST_IS_RESULT_OF((int&), T_lambda_1 const(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1 const(int const&))
+#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1 const(int))
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1 const(int const))
+#endif
+
+
+struct my_two
+{
+    typedef int result_type;
+
+    result_type operator()() const
+    {
+        return 2;
+    }
+};
+
+
 void pstade_minimal_test()
 {
 
@@ -95,4 +115,16 @@ void pstade_minimal_test()
 #endif
     }
 
+    { // nullary
+        typedef result_of<T_lambda_bind(my_two)>::type T_f;
+        T_f f = lambda_bind(my_two());
+        result_of<T_f()>::type i = f();
+        BOOST_CHECK(i == 2);
+    }
+    { // nullary
+        typedef result_of<T_lambda_bind const(my_two)>::type T_f;
+        T_f f = lambda_bind(my_two());
+        result_of<T_f()>::type i = f();
+        BOOST_CHECK(i == 2);
+    }
 }
