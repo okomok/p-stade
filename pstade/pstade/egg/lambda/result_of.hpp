@@ -1,16 +1,14 @@
-#ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_LAMBDA_RESULT_OF_HPP
-#define PSTADE_EGG_LAMBDA_RESULT_OF_HPP
-#include "../detail/prefix.hpp"
 
 
-// PStade.Egg
-//
+// Copyright 2004, 2005, 2006 Cryolite.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
 
 // Copyright Yusuke Kajimoto 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -18,22 +16,71 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#ifndef BOOST_PP_IS_ITERATING
+#ifndef BOOST_LAMBDA_RESULT_OF_HPP
+#define BOOST_LAMBDA_RESULT_OF_HPP
+
+
+#include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/apple/boost/result_of_fwd.hpp>
-#include <pstade/preprocessor.hpp>
-#include "../detail/meta_arg.hpp"
-#include "./config.hpp"
-#include "./functor_fwd.hpp"
+#include <boost/version.hpp>
+
+
+#if !defined(BOOST_LAMBDA_RESULT_OF_MAX_ARITY)
+#define BOOST_LAMBDA_RESULT_OF_MAX_ARITY 3
+#endif
 
 
 namespace boost {
 
 
+    template<class F>
+    struct result_of;
+
+
+    namespace lambda {
+
+        template<class T>
+        class lambda_functor;
+
+    }
+
+
+    namespace lambda_result_of_detail {
+
+        // rvalue
+#if BOOST_VERSION >= 103500
+        template<class A>
+        struct to_ref
+        {
+            typedef A const &type;
+        };
+#else
+        template<class A>
+        struct error_no_rvalue_support;
+
+        template<class A>
+        struct to_ref :
+            error_no_rvalue_support<A>
+        { };
+#endif
+
+        // lvalue
+        template<class A>
+        struct to_ref<A &>
+        {
+            typedef A &type;
+        };
+
+    }
+
+
 // 0ary
     template<class T>
-    struct result_of<lambda::lambda_functor<T>(void)> : // CWPro8 requires 'void'.
+    struct result_of<lambda::lambda_functor<T>(void)> :
         lambda::lambda_functor<T>::template sig<
             tuples::tuple<
                 lambda::lambda_functor<T>
@@ -48,7 +95,7 @@ namespace boost {
 
 
 // 1ary-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_LAMBDA_FUNCTOR_MAX_ARITY, <pstade/egg/lambda/result_of.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_LAMBDA_RESULT_OF_MAX_ARITY, <pstade/egg/lambda/result_of.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -65,11 +112,7 @@ namespace boost {
         lambda::lambda_functor<T>::template sig<
             tuples::tuple<
                 lambda::lambda_functor<T>,
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
-                PSTADE_PP_ENUM_PARAMS_WITH(n, typename pstade::egg::detail::meta_arg<A, >::type &)
-#else
-                BOOST_PP_ENUM_PARAMS(n, A)
-#endif
+                BOOST_PP_ENUM_BINARY_PARAMS(n, typename lambda_result_of_detail::to_ref<A, >::type BOOST_PP_INTERCEPT)
             >
         >
     { };
