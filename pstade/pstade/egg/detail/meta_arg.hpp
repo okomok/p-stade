@@ -11,33 +11,37 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
-
-
 namespace pstade { namespace egg { namespace detail {
 
 
-    // Add const-qualifier if rvalue is specified.
-    //     int        -> int const
-    //     int&       -> int
-    //     int const& -> int const
+    // rvalue
     template<class A>
-    struct meta_arg :
-        boost::remove_reference<
-            // msvc warns against 'A const' if 'A' is reference.
-            typename boost::add_const<A>::type
-        >
-    { };
+    struct meta_arg
+    {
+        typedef A const type;
+    };
+
+    // lvalue
+    template<class A>
+    struct meta_arg<A&>
+    {
+        typedef A type;
+    };
 
 
-    // Always const-qualified
+    // rvalue
     template<class A>
-    struct meta_carg :
-        boost::add_const<
-            typename boost::remove_reference<A>::type
-        >
-    { };
+    struct meta_carg
+    {
+        typedef A const type;
+    };
+
+    // lvalue
+    template<class A>
+    struct meta_carg<A&>
+    {
+        typedef A const type;
+    };
 
 
 } } } // namespace pstade::egg::detail
