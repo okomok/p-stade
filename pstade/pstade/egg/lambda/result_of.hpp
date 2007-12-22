@@ -80,17 +80,14 @@ namespace boost {
 
 // 0ary
     template<class T>
-    struct result_of<lambda::lambda_functor<T>(void)> :
-        lambda::lambda_functor<T>::template sig<
-            tuples::tuple<
-                lambda::lambda_functor<T>
-            >
-        >
-    { };
+    struct result_of<lambda::lambda_functor<T>(void)>
+    {
+        typedef typename lambda::lambda_functor<T>::nullary_return_type type;
+    };
 
     template<class T>
     struct result_of<lambda::lambda_functor<T> const(void)> :
-        result_of<lambda::lambda_functor<T>()>
+        result_of<lambda::lambda_functor<T>(void)>
     { };
 
 
@@ -109,9 +106,8 @@ namespace boost {
 
     template<class T, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))> :
-        lambda::lambda_functor<T>::template sig<
+        T::template sig<
             tuples::tuple<
-                lambda::lambda_functor<T>,
                 BOOST_PP_ENUM_BINARY_PARAMS(n, typename lambda_result_of_detail::to_ref<A, >::type BOOST_PP_INTERCEPT)
             >
         >
