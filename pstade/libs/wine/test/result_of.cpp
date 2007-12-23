@@ -7,6 +7,11 @@
 
 // For more information, see http://www.boost.org/libs/utility
 #include <pstade/result_of.hpp>
+#if defined(BOOST_PREPROCESSOR_HPP)
+#error boost/preprocessor.hpp included!
+#endif
+
+
 #include <utility>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
