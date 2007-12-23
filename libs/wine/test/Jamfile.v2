@@ -19,6 +19,8 @@ test-suite "wine" :
     [ run as_type_erasure.cpp ]
     [ run check.cpp ]
     [ run clone_ptr.cpp ]
+    [ run concept.cpp ]
+    [ compile-fail concept_fail.cpp ]
     [ run concept_off.cpp ]
     [ run concept_on.cpp ]
     [ run const_overloaded.cpp ]
