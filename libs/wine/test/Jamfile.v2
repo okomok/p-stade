@@ -8,6 +8,7 @@ project
     : requirements
       <library>/boost/test//boost_test_exec_monitor/<link>static
       <library>/boost/test//boost_unit_test_framework/<link>static
+      <toolset>intel:<debug-symbols>off
     ;
 
 test-suite "wine" :
@@ -15,6 +16,7 @@ test-suite "wine" :
     [ run affect.cpp ]
     [ run any.cpp ]
     [ run any_fwd.cpp ]
+    [ run argument_deduction.cpp ]
     [ run arraya.cpp ]
     [ run as_type_erasure.cpp ]
     [ run check.cpp ]

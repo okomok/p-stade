@@ -12,6 +12,7 @@ project
       <library>/boost/test//boost_unit_test_framework/<link>static
       <library>/boost/thread//boost_thread/<link>static
       <toolset>gcc:<cxxflags>-ftemplate-depth-1024
+      <toolset>intel:<debug-symbols>off
       <threading>multi
     ;
 

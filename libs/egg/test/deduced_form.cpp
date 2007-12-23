@@ -18,6 +18,7 @@
 #include <pstade/egg/by_ref.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
+#include <boost/utility/addressof.hpp>
 
 
 using namespace pstade::egg;
@@ -108,16 +109,16 @@ void pstade_minimal_test()
 {
     int i = 12;
     {
-        BOOST_CHECK( &(T_foo()(i)) == &i );
+        BOOST_CHECK( boost::addressof(T_foo()(i)) == &i );
         BOOST_CHECK( T_foo()(12) == 12 );
 
-        BOOST_CHECK( &(T_rfoo()(i)) == &i );
+        BOOST_CHECK( boost::addressof(T_rfoo()(i)) == &i );
 
-        BOOST_CHECK( &(T_crfoo()(i)) == &i );
+        BOOST_CHECK( boost::addressof(T_crfoo()(i)) == &i );
         BOOST_CHECK( T_crfoo()(12) == 12 );
 
         BOOST_CHECK( T_vfoo()(12) == 12 );
 
-        BOOST_CHECK( &(T_foo_()(i)) == &i );
+        BOOST_CHECK( boost::addressof(T_foo_()(i)) == &i );
     }
 }

@@ -21,6 +21,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/boost_workaround.hpp>
 #include "./null_injector.hpp"
 #include "./safe_bool.hpp"
 
@@ -55,7 +56,11 @@ public:
     friend
     bool operator !(Derived const& x)
     {
+#if BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
+        return !static_cast<safe_bool>(x);
+#else
         return !(x.operator safe_bool());
+#endif
     }
 };
 

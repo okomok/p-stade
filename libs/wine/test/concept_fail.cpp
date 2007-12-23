@@ -15,10 +15,7 @@
 #include <pstade/lightweight_test.hpp>
 
 
-#include <boost/noncopyable.hpp>
-
-
-struct my_obj : boost::noncopyable
+struct my_obj
 {};
 
 
@@ -27,7 +24,7 @@ struct MyConcept
 {
     PSTADE_CONCEPT_USAGE(MyConcept)
     {
-        Obj obj2 = obj;
+        obj.hello();
     }
 
     Obj obj;
@@ -36,6 +33,9 @@ struct MyConcept
 
 void pstade_lightweight_test()
 {
+#if defined(PSTADE_CONCEPT_CHECKING)
     PSTADE_CONCEPT_ASSERT((MyConcept<my_obj>));
+#else
+    must_be_an_error;
+#endif
 }
-
