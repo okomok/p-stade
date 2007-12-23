@@ -26,18 +26,42 @@ using namespace pstade::egg;
 using pstade::result_of;
 
 
+// 1ary
 PSTADE_TEST_IS_RESULT_OF((int&), T_lambda_1(int&))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const&))
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+PSTADE_TEST_IS_RESULT_OF((int volatile&), T_lambda_1(int volatile&))
+PSTADE_TEST_IS_RESULT_OF((int const volatile&), T_lambda_1(int const volatile&))
+
+// Boost1.34 too can take rvalue if const-qualified one.
+// Notice that function signature don't know cv-qualifier of parameters.
+#if 1
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int))
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const))
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int volatile))
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const volatile))
+#endif
+
+// 2ary
+PSTADE_TEST_IS_RESULT_OF((int&), T_lambda_1(int&, double&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const&, double&))
+#if 1
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int, double&))
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const, double&))
+#endif
+
+// 3ary
+PSTADE_TEST_IS_RESULT_OF((int&), T_lambda_1(int&, double&, double&))
+PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const&, double&, double&))
+#if 1
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int, double&, double&))
+    PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const, double&, double&))
 #endif
 
 
 // const doesn't affect.
 PSTADE_TEST_IS_RESULT_OF((int&), T_lambda_1 const(int&))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1 const(int const&))
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1 const(int))
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1 const(int const))
 #endif
@@ -84,7 +108,7 @@ void pstade_minimal_test()
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int&))
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int const&))
 
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int))
         PSTADE_TEST_IS_RESULT_OF((int), fun_t(int const))
 #endif
@@ -103,7 +127,7 @@ void pstade_minimal_test()
         PSTADE_TEST_IS_RESULT_OF((int&), fun_t(int&))
         PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int const&))
 
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if 1
         PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int))
         PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int const))
 #endif
