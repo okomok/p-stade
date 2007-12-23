@@ -16,7 +16,7 @@
 
 
 // Note the new concept library is broken on gcc-3.4
-// , which wrongly requires DefaultConstructible without PSTADE_CONCEPT_USAGE.
+// , which wrongly requires DefaultConstructible without BOOST_CONCEPT_USAGE.
 #if !defined(NDEBUG) \
     && defined(PSTADE_CONCEPT_CHECK) \
     && !BOOST_WORKAROUND(__GNUC__, <= 3) \
