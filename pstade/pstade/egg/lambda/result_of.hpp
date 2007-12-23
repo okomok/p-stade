@@ -26,7 +26,6 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/version.hpp>
 
 
 #if !defined(BOOST_LAMBDA_RESULT_OF_MAX_ARITY)
@@ -52,21 +51,11 @@ namespace boost {
     namespace lambda_result_of_detail {
 
         // rvalue
-#if BOOST_VERSION >= 103500
         template<class A>
         struct to_ref
         {
             typedef A const &type;
         };
-#else
-        template<class A>
-        struct error_no_rvalue_support;
-
-        template<class A>
-        struct to_ref :
-            error_no_rvalue_support<A>
-        { };
-#endif
 
         // lvalue
         template<class A>
