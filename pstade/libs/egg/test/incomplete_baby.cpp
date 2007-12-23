@@ -20,6 +20,9 @@
 #include <pstade/egg/deduced_form.hpp> // check it.
 
 
+#include <boost/utility/addressof.hpp>
+
+
 namespace egg = pstade::egg;
 using namespace egg;
 
@@ -64,8 +67,8 @@ void pstade_minimal_test()
 {
     {
         int i = 10;
-        BOOST_CHECK( &(my_func()(i, 2,3,4)) == &i );
-        BOOST_CHECK( &(my_func2()(i, 2,3,4)) == &i );
+        BOOST_CHECK( boost::addressof(my_func()(i, 2,3,4)) == &i );
+        BOOST_CHECK( boost::addressof(my_func2()(i, 2,3,4)) == &i );
         BOOST_CHECK( my_func3()(12, 2,3,4) == 12 );
     }
 }

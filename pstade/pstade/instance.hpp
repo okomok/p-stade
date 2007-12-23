@@ -52,33 +52,39 @@
 // , because the const default-constructed object can be the same.
 
 
-#include <boost/mpl/aux_/preprocessor/is_seq.hpp>
-#include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/debug/assert.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
-#include <boost/utility/value_init.hpp> // value_initialized
+#include <boost/utility/value_init.hpp>
 #include <pstade/in_unnamed.hpp>
+#include <pstade/preprocessor.hpp> // PSTADE_PP_SEQ_IS_SEQ
 #include <pstade/unparenthesize.hpp>
+#include "./detail/mpl_token_equal.hpp"
 
 
 #define PSTADE_INSTANCE(Type, Object, ValueOrArgSeq) \
     BOOST_PP_ASSERT(PSTADE_INSTANCE_is_valid(ValueOrArgSeq)) \
-    BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
+    BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(ValueOrArgSeq), \
         PSTADE_INSTANCE_args, \
         PSTADE_INSTANCE_no_args \
     )(PSTADE_UNPARENTHESIZE(Type), Object, ValueOrArgSeq) \
 /**/
 
 
+#if !defined(PSTADE_NO_MPL_TOKEN_EQUAL)
     #define PSTADE_INSTANCE_is_valid(ValueOrArgSeq) \
-        BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
+        BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(ValueOrArgSeq), \
             1 BOOST_PP_TUPLE_EAT(2), \
             BOOST_MPL_PP_TOKEN_EQUAL \
         )(ValueOrArgSeq, value) \
     /**/
+#else
+    #define PSTADE_INSTANCE_is_valid(ValueOrArgSeq) \
+        1
+    /**/
+#endif
 
 
     #if !defined(BOOST_MPL_PP_TOKEN_EQUAL_value)

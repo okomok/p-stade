@@ -11,6 +11,7 @@ project
       <library>/boost/test//boost_unit_test_framework/<link>static
       <library>/boost/thread//boost_thread/<link>static
       <toolset>gcc:<cxxflags>-ftemplate-depth-1024
+      <toolset>intel:<debug-symbols>off
       <find-static-library>comctl32
       <find-static-library>comdlg32
       <find-static-library>gdi32

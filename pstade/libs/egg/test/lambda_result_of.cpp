@@ -37,8 +37,11 @@ PSTADE_TEST_IS_RESULT_OF((int const volatile&), T_lambda_1(int const volatile&))
 #if 1
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int))
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const))
+#if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
+    // intel propagate cv-qualifiers. It seems a bug.
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int volatile))
     PSTADE_TEST_IS_RESULT_OF((int const&), T_lambda_1(int const volatile))
+#endif
 #endif
 
 // 2ary

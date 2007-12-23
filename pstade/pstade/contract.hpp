@@ -28,8 +28,6 @@
 
 #include <boost/any.hpp>
 #include <boost/assert.hpp>
-#include <boost/mpl/aux_/preprocessor/is_seq.hpp>
-#include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/control/iif.hpp>
@@ -41,6 +39,8 @@
 #include <pstade/nonconstructible.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/preprocessor.hpp> // PSTADE_PP_SEQ_IS_SEQ
+#include "./detail/mpl_token_equal.hpp"
 
 
 namespace pstade {
@@ -230,7 +230,7 @@ namespace contract_detail {
 #endif
 
 
-#if !defined(NDEBUG)
+#if !defined(NDEBUG) && !defined(PSTADE_NO_MPL_TOKEN_EQUAL)
 
     // precondition
     //
@@ -354,7 +354,7 @@ namespace contract_detail {
     /**/
 
         #define PSTADE_CONTRACT_expand_if_seq(As) \
-            BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(As), \
+            BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(As), \
                 BOOST_PP_SEQ_FOR_EACH, \
                 BOOST_PP_TUPLE_EAT(3) \
             )(PSTADE_CONTRACT_expander, ~, As) \

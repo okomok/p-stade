@@ -25,7 +25,9 @@ struct T_my_fun
     };
 };
 PSTADE_TEST_IS_RESULT_OF((int), T_my_fun(int))
+#if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
 PSTADE_TEST_IS_RESULT_OF((int), T_my_fun(int const)) // because of a signature rule.
+#endif
 PSTADE_TEST_IS_RESULT_OF((int&), T_my_fun(int&))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_my_fun(int const&))
 

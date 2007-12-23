@@ -29,9 +29,11 @@ PSTADE_TEST_IS_RESULT_OF((int volatile&), T_identity(int volatile&))
 PSTADE_TEST_IS_RESULT_OF((int const volatile&), T_identity(int const volatile&))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
+#if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
+// intel propagate cv-qualifiers. It seems a bug.
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int volatile))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const volatile))
-
+#endif
 
 typedef result_of<T_lambda_bind(T_identity const&, T_lambda_1 const&)>::type func_t;
 PSTADE_TEST_IS_RESULT_OF((int&), func_t(int&))

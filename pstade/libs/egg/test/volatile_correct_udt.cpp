@@ -43,8 +43,11 @@ PSTADE_TEST_IS_RESULT_OF((A volatile&), T_identity(A volatile&))
 PSTADE_TEST_IS_RESULT_OF((A const volatile&), T_identity(A const volatile&))
 PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A))
 PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const))
+
+#if 0 // rvalue udt seems illegal according to Comeau.
 PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A volatile))
 PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const volatile))
+#endif
 
 
 typedef result_of<T_lambda_bind(T_identity const&, T_lambda_1 const&)>::type func_t;
