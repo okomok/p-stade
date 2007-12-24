@@ -47,6 +47,7 @@
 #include "./pause.hpp"
 #include "./pod_constant.hpp"
 #include "./poly.hpp"
+#include "./pp_token_equal.hpp"
 #include "./preprocessor.hpp"
 #include "./remove_cvr.hpp"
 #include "./require.hpp"

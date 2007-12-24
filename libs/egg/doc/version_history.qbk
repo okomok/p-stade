@@ -28,6 +28,8 @@
 
 [heading Version 0.90.3]
 * `mono` revised.
+* Ported to Intel C++ Compiler.
+* Fixed a bug of `lambda/result_of.hpp`.
 
 
 

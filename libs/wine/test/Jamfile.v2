@@ -58,6 +58,7 @@ test-suite "wine" :
     [ run poly.cpp : : : <define>PSTADE_POLY_MIN_STORAGE_SIZE=1024 : poly_local ]
     [ run poly.cpp : : : <define>PSTADE_POLY_MIN_STORAGE_SIZE=2 : poly_heap ]
     [ run poly_fwd.cpp ]
+    [ run pp_token_equal.cpp ]
     [ run preprocessor.cpp ]
     [ run remove_cvr.cpp ]
     [ run require.cpp ]
