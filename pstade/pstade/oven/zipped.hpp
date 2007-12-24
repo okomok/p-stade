@@ -48,7 +48,7 @@ namespace zipped_detail {
 
       template<typename Fun>
       tuples::null_type BOOST_TUPLE_ALGO(tuple_transform)
-          (tuples::null_type const&, Fun BOOST_TUPLE_ALGO_TERMINATOR)
+          (tuples::null_type /*const&*/, Fun BOOST_TUPLE_ALGO_TERMINATOR) // MODIFIED for intel-win
       { return tuples::null_type(); }
 
       template<typename Tuple, typename Fun>
