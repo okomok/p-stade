@@ -85,6 +85,11 @@ using msvc
     : "C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/bin/cl.exe" 
     ;
 
+using intel-win
+    : 10.1
+    : "C:/Program Files/Intel/Compiler/C++/10.1.011/IA32/Bin/icl.exe" 
+    ;
+
 using python
     : 2.5
     : "C:/Python25"
