@@ -17,7 +17,6 @@
 #include "../test/detail/v1_tests.hpp"
 
 
-#include <cmath>
 #include <iostream>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
@@ -33,13 +32,19 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
+float my_abs(float x)
+{
+    return x >= 0 ? x : -x;
+}
+
+
 struct satisfactory
 {
     typedef bool result_type;
 
     bool operator()(float x, float y) const
     {
-        return std::abs(y*y - x) < 0.01;
+        return my_abs(y*y - x) < 0.01;
     }
 };
 
