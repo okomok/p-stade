@@ -404,10 +404,12 @@ void test_string_found()
     std::string src("abc-*-ABC-*-aBc");
     namespace algo = boost::algorithm;
 
+    std::string finding("abc"); // must outlive string_find_iterator.
+
     int i = 0;
     BOOST_FOREACH (
         boost::sub_range<std::string> rng,
-        src|string_found(algo::first_finder(std::string("abc"), algo::is_iequal())) )
+        src|string_found(algo::first_finder(finding, algo::is_iequal())) )
     {
         if (i == 0)
             BOOST_CHECK( oven::equals(rng, std::string("abc")) );
