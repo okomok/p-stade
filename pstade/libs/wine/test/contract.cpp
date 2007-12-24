@@ -14,7 +14,6 @@
 
 
 #include <map>
-#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <boost/mpl/assert.hpp>
@@ -43,13 +42,19 @@ void bar(T i)
 
 
 inline
+float my_sqrt(float)
+{
+    return 80; // :-)
+}
+
+inline
 float square_root(float x)
 {
     PSTADE_POSTCONDITION(float) (
         ((result * result) == x)
     )
 
-    PSTADE_RETURN(std::sqrt(x));
+    PSTADE_RETURN(my_sqrt(x));
 }
 
 template< class T >

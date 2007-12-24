@@ -38,9 +38,9 @@
 #include <pstade/debug.hpp>
 #include <pstade/nonconstructible.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/unused.hpp>
+#include <pstade/pp_token_equal.hpp>
 #include <pstade/preprocessor.hpp> // PSTADE_PP_SEQ_IS_SEQ
-#include "./detail/mpl_token_equal.hpp"
+#include <pstade/unused.hpp>
 
 
 namespace pstade {
@@ -223,14 +223,14 @@ namespace contract_detail {
 //
 
 
-#if !defined(BOOST_MPL_PP_TOKEN_EQUAL_void)
-    #define BOOST_MPL_PP_TOKEN_EQUAL_void(A) \
+#if !defined(PSTADE_PP_TOKEN_EQUAL_void)
+    #define PSTADE_PP_TOKEN_EQUAL_void(A) \
         A \
     /**/
 #endif
 
 
-#if !defined(NDEBUG) && !defined(PSTADE_NO_MPL_TOKEN_EQUAL)
+#if !defined(NDEBUG)
 
     // precondition
     //
@@ -241,14 +241,14 @@ namespace contract_detail {
     // postcondition
     //
     #define PSTADE_POSTCONDITION(ResultT) \
-        BOOST_PP_IIF( BOOST_MPL_PP_TOKEN_EQUAL(ResultT, void), \
+        BOOST_PP_IIF( PSTADE_PP_TOKEN_EQUAL(ResultT, void), \
             PSTADE_POSTCONDITION_void, \
             PSTADE_POSTCONDITION_non_void \
         )(ResultT) \
     /**/
 
     #define PSTADE_RETURN(Result) \
-        BOOST_PP_IIF( BOOST_MPL_PP_TOKEN_EQUAL(Result, void), \
+        BOOST_PP_IIF( PSTADE_PP_TOKEN_EQUAL(Result, void), \
             PSTADE_POSTCONDITION_evaluation_begin_void, \
             PSTADE_POSTCONDITION_evaluation_begin_non_void \
         )(Result) \
@@ -370,7 +370,7 @@ namespace contract_detail {
     #define PSTADE_POSTCONDITION(T) BOOST_PP_TUPLE_EAT(1)
 
     #define PSTADE_RETURN(Result) \
-        BOOST_PP_IIF( BOOST_MPL_PP_TOKEN_EQUAL(Result, void), \
+        BOOST_PP_IIF( PSTADE_PP_TOKEN_EQUAL(Result, void), \
             return, \
             return (Result) \
         ) \

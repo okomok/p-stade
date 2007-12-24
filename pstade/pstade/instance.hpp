@@ -59,9 +59,9 @@
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/utility/value_init.hpp>
 #include <pstade/in_unnamed.hpp>
+#include <pstade/pp_token_equal.hpp>
 #include <pstade/preprocessor.hpp> // PSTADE_PP_SEQ_IS_SEQ
 #include <pstade/unparenthesize.hpp>
-#include "./detail/mpl_token_equal.hpp"
 
 
 #define PSTADE_INSTANCE(Type, Object, ValueOrArgSeq) \
@@ -73,22 +73,16 @@
 /**/
 
 
-#if !defined(PSTADE_NO_MPL_TOKEN_EQUAL)
     #define PSTADE_INSTANCE_is_valid(ValueOrArgSeq) \
         BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(ValueOrArgSeq), \
             1 BOOST_PP_TUPLE_EAT(2), \
-            BOOST_MPL_PP_TOKEN_EQUAL \
+            PSTADE_PP_TOKEN_EQUAL \
         )(ValueOrArgSeq, value) \
     /**/
-#else
-    #define PSTADE_INSTANCE_is_valid(ValueOrArgSeq) \
-        1
-    /**/
-#endif
 
 
-    #if !defined(BOOST_MPL_PP_TOKEN_EQUAL_value)
-        #define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
+    #if !defined(PSTADE_PP_TOKEN_EQUAL_value)
+        #define PSTADE_PP_TOKEN_EQUAL_value(A) \
             A \
         /**/
     #endif
