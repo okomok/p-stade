@@ -13,6 +13,8 @@ project
       <library>/boost/thread//boost_thread/<link>static
       <toolset>gcc:<cxxflags>-ftemplate-depth-1024
       <toolset>intel:<debug-symbols>off
+      <toolset>intel:<define>_SECURE_SCL=0
+      <toolset>intel:<cxxflags>-Qwd279
       <threading>multi
     ;
 
