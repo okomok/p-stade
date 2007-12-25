@@ -39,6 +39,7 @@ struct my_klass
         // ASSERT and SCOPE can work together.
         PSTADE_INVARIANT_ASSERT();
         PSTADE_INVARIANT_SCOPE();
+        PSTADE_INVARIANT_ASSERT();
     }
 
     ~my_klass()
