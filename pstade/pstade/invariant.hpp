@@ -42,10 +42,10 @@ namespace pstade {
 
     struct T_invariant
     {
-        typedef bool result_type;
+        typedef bool result_type; // for assert macro.
 
         template<class InvariantAssertable>
-        bool operator()(InvariantAssertable const &ia) const
+        result_type operator()(InvariantAssertable const &ia) const
         {
             debugging();
 
@@ -56,7 +56,7 @@ namespace pstade {
                 BOOST_ASSERT(!"class invariant is broken.");
             }
 
-            return true; // for assert macro.
+            return true;
         }
     };
 
@@ -130,7 +130,7 @@ namespace pstade {
     /**/
 
         #define PSTADE_INVARIANT_expand(As) BOOST_PP_SEQ_FOR_EACH(PSTADE_INVARIANT_expand_op, ~, As)
-        #define PSTADE_INVARIANT_expand_op(R, _, A) BOOST_ASSERT("class invariant is broken." && (A));
+        #define PSTADE_INVARIANT_expand_op(R, _, A) BOOST_ASSERT("broken class invariant:" && (A));
 
     #define PSTADE_INVARIANT_ASSERT() \
         pstade::invariant(*this); \
