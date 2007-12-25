@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
-#include <pstade/contract.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/invariant.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include "../sdk/windows.hpp" // NULL
@@ -43,64 +44,52 @@ namespace pstade { namespace gravy { namespace detail {
         /*implicit*/ handle_ptr(Handle handle = NULL) :
             m_handle(handle)
         {
-            PSTADE_CONSTRUCTOR_PRECONDITION (~
-            )
+            PSTADE_INVARIANT_ASSERT();
         }
 
         template<class X> // for 'WTL::CHandleXXX' etc
         handle_ptr(X const& x, typename enable_if< is_convertible<X, Handle> >::type = 0) :
             m_handle(x)
         {
-            PSTADE_CONSTRUCTOR_PRECONDITION (~
-            )
+            PSTADE_INVARIANT_ASSERT();
         }
 
         Handle get() const
         {
-            PSTADE_PUBLIC_PRECONDITION (~
-            )
-
+            PSTADE_INVARIANT_SCOPE();
             return m_handle;
         }
 
         Handle operator *() const
-        {
-            PSTADE_PUBLIC_PRECONDITION (
-                (::IsWindow(m_handle))
-            )
-
+        {            
+            PSTADE_INVARIANT_SCOPE();
+            BOOST_ASSERT(::IsWindow(m_handle));
             return m_handle;
         }
 
         operator radish::safe_bool() const
         {
-            PSTADE_PUBLIC_PRECONDITION (~
-            )
-
+            PSTADE_INVARIANT_SCOPE();
             return radish::make_safe_bool(m_handle != NULL);
         }
 
     // totally_ordered
         bool operator< (self_t const& other) const
         {
-            PSTADE_PUBLIC_PRECONDITION (~
-            )
-
+            PSTADE_INVARIANT_SCOPE();
             return m_handle < other.m_handle;
         }
 
         bool operator==(self_t const& other) const
         {
-            PSTADE_PUBLIC_PRECONDITION (~
-            )
-
+            PSTADE_INVARIANT_SCOPE();
             return m_handle == other.m_handle;
         }
 
     private:
         Handle m_handle;
 
-        PSTADE_CLASS_INVARIANT
+        PSTADE_INVARIANT
         (
             (m_handle != NULL ? Assertion()(m_handle) : true)
         )

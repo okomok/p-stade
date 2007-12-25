@@ -45,6 +45,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/pointee.hpp>
+#include <pstade/invariant.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -64,16 +65,19 @@ public:
 
     explicit memo(Iterator it) :
         m_base(it), m_baseIndex(0)
-    { }
+    {
+        PSTADE_INVARIANT_ASSERT();
+    }
 
     bool is_in_table(index_type i) const
     {
+        PSTADE_INVARIANT_SCOPE();
         return is_in_table_aux(i);
     }
 
     value_t const& deref(index_type i) // strong
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
         if (!is_in_table_aux(i)) {
@@ -86,7 +90,7 @@ public:
 
     index_type next(index_type i) // strong
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
         bool pushed = false;
@@ -113,7 +117,7 @@ public:
 
     Iterator base() const
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
         return m_base;
     }
 
@@ -122,14 +126,13 @@ private:
     index_type m_baseIndex;
     table_t m_table;
 
-    bool invariant() const
-    {
-        return m_baseIndex == m_table.size() || m_baseIndex + 1 == m_table.size();
-    }
+    PSTADE_INVARIANT
+    (
+        (m_baseIndex == m_table.size() || m_baseIndex + 1 == m_table.size())
+    )
 
     bool is_in_table_aux(index_type i) const
     {
-        BOOST_ASSERT(invariant());
         BOOST_ASSERT(0 <= i && i <= m_baseIndex);
         return i != m_table.size();
     }

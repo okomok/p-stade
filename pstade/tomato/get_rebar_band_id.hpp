@@ -11,7 +11,6 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/contract.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/size_initialize.hpp>
@@ -28,10 +27,8 @@ namespace pstade { namespace tomato {
     {
         WTL::CReBarCtrl rebars(rebar);
 
-        PSTADE_PRECONDITION (
-            (0 <= index)
-            (egg::copy<UINT>(index) < rebars.GetBandCount())
-        )
+        BOOST_ASSERT(0 <= index);
+        BOOST_ASSERT(egg::copy<UINT>(index) < rebars.GetBandCount());
 
         REBARBANDINFO info; {
             info|gravy::size_initialize();
