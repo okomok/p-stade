@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/invariant.hpp>
 #include <pstade/is_convertible.hpp>
 
 
@@ -24,35 +24,35 @@ namespace pstade { namespace gravy { namespace detail {
         /*implicit*/ handle_ref(Handle handle) :
             m_handle(handle)
         {
-            BOOST_ASSERT(invariant());
+            PSTADE_INVARIANT_ASSERT();
         }
 
         template<class X> // for 'WTL::CHandleXXX' etc
         handle_ref(X const& x, typename enable_if< is_convertible<X, Handle> >::type = 0) :
             m_handle(x)
         {
-            BOOST_ASSERT(invariant());
+            PSTADE_INVARIANT_ASSERT();
         }
 
         operator Handle() const
         {
-            BOOST_ASSERT(invariant());
+            PSTADE_INVARIANT_SCOPE();
             return m_handle;
         }
 
         Handle handle() const
         {
-            BOOST_ASSERT(invariant());
+            PSTADE_INVARIANT_SCOPE();
             return m_handle;
         }
 
     private:
         Handle m_handle;
 
-        bool invariant() const
-        {
-            return Assertion()(m_handle);
-        }
+        PSTADE_INVARIANT
+        (
+            (Assertion()(m_handle))
+        )
 
         handle_ref& operator=(handle_ref const&);
     };

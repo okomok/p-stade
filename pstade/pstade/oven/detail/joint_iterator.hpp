@@ -15,6 +15,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
+#include <pstade/invariant.hpp>
 #include <pstade/is_convertible.hpp>
 #include "../do_iter_swap.hpp"
 #include "../reverse_iterator.hpp"
@@ -95,7 +96,9 @@ public:
     ) :
         super_t(itL), m_lastL(lastL),
         m_firstR(firstR), m_itR(itR)
-    { }
+    {
+        PSTADE_INVARIANT_ASSERT();
+    }
 
 template< class, class > friend struct joint_iterator;
     template< class IL, class IR >
@@ -105,30 +108,35 @@ template< class, class > friend struct joint_iterator;
     ) :
         super_t(other.base()), m_lastL(other.m_lastL), 
         m_firstR(other.m_firstR), m_itR(other.m_itR)
-    { }
+    {
+        PSTADE_INVARIANT_ASSERT();
+    }
 
     IteratorR right_base() const
     {
+        PSTADE_INVARIANT_SCOPE();
         return m_itR;
     }
 
     bool is_in_left() const
     {
-        return this->base() != m_lastL;
+        PSTADE_INVARIANT_SCOPE();
+        return is_in_left_aux();
     }
 
 private:
     IteratorL m_lastL; IteratorR m_firstR; // the joint point
     IteratorR m_itR;
 
-    bool invariant() const
+    bool is_in_left_aux() const
     {
-#if defined(PSTADE_OVEN_TESTING)
-        return is_in_left() ? (m_itR == m_firstR) : true;
-#else
-        return true;
-#endif
+        return this->base() != m_lastL;
     }
+
+    PSTADE_INVARIANT
+    (
+        (is_in_left_aux() ? (m_itR == m_firstR) : true)
+    )
 
     template< class Other >
     bool is_compatible(Other const& other) const
@@ -139,7 +147,7 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
 
         // Keep writability without 'read'.
         if (is_in_left())
@@ -151,8 +159,7 @@ friend class boost::iterator_core_access;
     template< class IL, class IR >
     bool equal(joint_iterator<IL, IR> const& other) const
     {
-        BOOST_ASSERT(invariant());
-        BOOST_ASSERT(other.invariant());
+        PSTADE_INVARIANT_SCOPE();
         BOOST_ASSERT(is_compatible(other));
 
         return this->base() == other.base() && m_itR == other.m_itR;
@@ -160,14 +167,14 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
 
         detail::joint_increment(this->base_reference(), m_itR, m_lastL);
     }
 
     void decrement()
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
 
         reverse_iterator<IteratorR> itL(m_itR), lastL(m_firstR);
         reverse_iterator<IteratorL> itR(this->base());
@@ -178,7 +185,7 @@ friend class boost::iterator_core_access;
 
     void advance(diff_t n)
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
 
         if (n >= 0) {
             detail::joint_advance(this->base_reference(), m_itR, n, m_lastL);
@@ -195,7 +202,7 @@ friend class boost::iterator_core_access;
     template< class IL, class IR >
     diff_t distance_to(joint_iterator<IL, IR> const& other) const
     {
-        BOOST_ASSERT(invariant());
+        PSTADE_INVARIANT_SCOPE();
         BOOST_ASSERT(is_compatible(other));
 
         if (is_in_left() && other.is_in_left())

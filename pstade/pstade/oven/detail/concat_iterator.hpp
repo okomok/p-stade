@@ -24,6 +24,7 @@
 //     http://opensource.adobe.com/classadobe_1_1segmented__iterator.html
 
 
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -33,7 +34,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/contract.hpp>
+#include <pstade/invariant.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/result_of.hpp>
 #include "../begin_end.hpp" // T_begin
@@ -125,10 +126,9 @@ public:
     concat_iterator(SegmentIter it, SegmentIter last) :
         super_t(it), m_last(last)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (~
-        )
-
         reset_local_forward();
+
+        PSTADE_INVARIANT_ASSERT();
     }
 
 template< class > friend struct concat_iterator;
@@ -142,8 +142,7 @@ template< class > friend struct concat_iterator;
         super_t(other.base()), m_last(other.m_last),
         m_local(other.m_local)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (~
-        )
+        PSTADE_INVARIANT_ASSERT();
     }
 
     SegmentIter segment() const
@@ -167,9 +166,7 @@ private:
 
     typename iterator_read<SegmentIter>::type local_range() const
     {
-        PSTADE_PRECONDITION (
-            (!segment_is_end())
-        )
+        BOOST_ASSERT(!segment_is_end());
 
         return read(this->base());
     }
@@ -198,22 +195,20 @@ private:
     }
 
 #if defined(PSTADE_OVEN_TESTING)
-    PSTADE_CLASS_INVARIANT (
+    PSTADE_INVARIANT
+    (
         // 'm_local' is undefined if 'segment_is_end'.
         (!segment_is_end() ?
             detail::maybe_contains(local_range(), m_local) : true)
     )
 #else
-    PSTADE_CLASS_INVARIANT (~
-    )
+    PSTADE_INVARIANT((true))
 #endif
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        PSTADE_PRECONDITION (
-            (!segment_is_end())
-        )
+        BOOST_ASSERT(!segment_is_end());
 
         return *m_local;
     }
@@ -221,9 +216,7 @@ friend class boost::iterator_core_access;
     template< class S >
     bool equal(concat_iterator<S> const& other) const
     {
-        PSTADE_PRECONDITION (
-            (is_compatible(other))
-        )
+        BOOST_ASSERT(is_compatible(other));
 
         return this->base() == other.base() // basic premise
             && (segment_is_end() || m_local == other.m_local);
@@ -231,13 +224,9 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        PSTADE_PUBLIC_PRECONDITION (
-            (!segment_is_end())
-        )
-
-        PSTADE_INVARIANT (
-            (m_local != boost::end(local_range()))
-        )
+        PSTADE_INVARIANT_SCOPE();
+        BOOST_ASSERT(!segment_is_end());
+        BOOST_ASSERT(m_local != boost::end(local_range()));
 
         ++m_local;
 
@@ -249,8 +238,7 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
-        PSTADE_PUBLIC_PRECONDITION (~
-        )
+        PSTADE_INVARIANT_SCOPE();
 
         if (segment_is_end() || m_local == boost::begin(local_range())) {
             --this->base_reference();

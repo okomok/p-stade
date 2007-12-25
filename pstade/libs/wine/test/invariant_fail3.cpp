@@ -21,12 +21,13 @@ struct my_klass
         // initialize.
         //
 
-
         PSTADE_INVARIANT_ASSERT();
     }
 
     void foo()
     {
+        m_int1 = 999;
+
         PSTADE_INVARIANT_SCOPE();
 
         //

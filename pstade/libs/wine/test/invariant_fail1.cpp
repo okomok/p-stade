@@ -20,6 +20,7 @@ struct my_klass
         //
         // initialize.
         //
+        m_int1 = 999;
 
 
         PSTADE_INVARIANT_ASSERT();
