@@ -14,6 +14,7 @@ project
       <toolset>gcc:<cxxflags>-ftemplate-depth-1024
       <toolset>intel:<debug-symbols>off
       <toolset>intel:<define>_SECURE_SCL=0
+      <toolset>intel:<cxxflags>-wd279
       <threading>multi
     ;
 
