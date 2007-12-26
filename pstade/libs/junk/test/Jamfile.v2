@@ -18,6 +18,9 @@ project
       <find-static-library>gdi32
       <find-static-library>user32
       <threading>multi
+      <toolset>gcc:<cxxflags>-ftime-report
+      <toolset>msvc:<cxxflags>/Bt
+      <test-info>always_show_run_output
     ;
 
 

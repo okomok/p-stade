@@ -23,7 +23,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/sig_template.hpp>
-#include <pstade/egg/use_brace_level1.hpp>
+#include <pstade/egg/use_brace/level1.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>

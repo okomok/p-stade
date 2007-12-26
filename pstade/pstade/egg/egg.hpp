@@ -111,8 +111,9 @@
 #include "./tuple.hpp"
 #include "./uncurry.hpp"
 #include "./unfuse.hpp"
-#include "./use_brace_level0.hpp"
-#include "./use_brace_level1.hpp"
+#include "./use_brace/level0.hpp"
+#include "./use_brace/level1.hpp"
+#include "./use_brace/level2.hpp"
 #include "./use_constructor.hpp"
 
 

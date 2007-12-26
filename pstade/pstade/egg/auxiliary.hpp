@@ -34,7 +34,7 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
 #include "./pipable.hpp"
-#include "./use_brace_level1.hpp"
+#include "./use_brace/level1.hpp"
 
 
 namespace pstade { namespace egg {

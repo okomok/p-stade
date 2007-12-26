@@ -72,8 +72,8 @@ But you need some helper if a generating type has no constructor.
 
 [heading Header]
 * `<pstade/egg/use_constructor.hpp>` defines `use_constructor`.
-* `<pstade/egg/use_brace_level0.hpp>` defines `use_brace_level0`.
-* `<pstade/egg/use_brace_level1.hpp>` defines `use_brace_level1`.
+* `<pstade/egg/use_brace/level0.hpp>` defines `use_brace_level0`.
+* `<pstade/egg/use_brace/level1.hpp>` defines `use_brace_level1`.
 
 [heading Notation]
 * Notation defined in __EGG_GENERATOR__.

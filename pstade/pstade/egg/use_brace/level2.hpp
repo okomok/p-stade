@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_BY_PERFECT_BY_PERFECT7_HPP
-#define PSTADE_EGG_BY_PERFECT_BY_PERFECT7_HPP
+#ifndef PSTADE_EGG_USE_BRACE_LEVEL2_HPP
+#define PSTADE_EGG_USE_BRACE_LEVEL2_HPP
 #include "../detail/prefix.hpp"
 
 
@@ -11,14 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/numbered.hpp"
+#include "./detail/leveln.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    #define  PSTADE_EGG_BY_PERFECT_NUMBER 7
-    #include PSTADE_EGG_BY_PERFECT_NUMBERED()
+    #define  PSTADE_EGG_USE_BRACE_LEVEL 2
+    #include PSTADE_EGG_USE_BRACE_LEVELN()
 
 
 } } // namespace pstade::egg

@@ -20,7 +20,7 @@ namespace pstade { namespace egg {
     #define  PSTADE_EGG_BY_PERFECT_NUMBER 10
     #include PSTADE_EGG_BY_PERFECT_NUMBERED()
 
-    
+
 } } // namespace pstade::egg
 
 

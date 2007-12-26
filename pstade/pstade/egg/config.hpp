@@ -29,4 +29,12 @@
 #endif
 
 
+#if PSTADE_EGG_MAX_ARITY < 5
+    #error PSTADE_EGG_MAX_ARITY is too small.
+#endif
+#if PSTADE_EGG_MAX_LINEAR_ARITY < 10
+    #error PSTADE_EGG_MAX_LINEAR_ARITY is too small.
+#endif
+
+
 #endif

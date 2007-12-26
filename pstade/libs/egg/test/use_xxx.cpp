@@ -9,8 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/use_brace_level0.hpp>
-#include <pstade/egg/use_brace_level1.hpp>
+#include <pstade/egg/use_brace/level0.hpp>
+#include <pstade/egg/use_brace/level1.hpp>
 #include <pstade/egg/use_constructor.hpp>
 #include <pstade/minimal_test.hpp>
 
