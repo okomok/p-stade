@@ -20,7 +20,7 @@
 #include "./by_cref.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
-#include "./use_brace_level1.hpp"
+#include "./use_brace/level1.hpp"
 
 
 namespace pstade { namespace egg {
