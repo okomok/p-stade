@@ -22,7 +22,7 @@
 #include "../config.hpp"
 
    
-#define PSTADE_EGG_DETAIL_BABY_PACK() <pstade/egg/detail/baby_pack_iteration.hpp>
+#define PSTADE_EGG_DETAIL_BABY_PACK() <pstade/egg/detail/baby_pack_include.hpp>
 
 
 #endif

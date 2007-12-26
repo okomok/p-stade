@@ -26,7 +26,7 @@
 #define PSTADE_EGG_REPEAT_BRACE_R_op(Z, N, _) }
 
 
-#define PSTADE_EGG_USE_BRACE_LEVELN() <pstade/egg/detail/use_brace_leveln_iteration.hpp>
+#define PSTADE_EGG_USE_BRACE_LEVELN() <pstade/egg/detail/use_brace_leveln_include.hpp>
 
 
 #endif

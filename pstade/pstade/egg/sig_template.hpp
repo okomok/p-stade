@@ -19,7 +19,7 @@
 #include "./lambda/config.hpp"
 
 
-#define PSTADE_EGG_SIG_TEMPLATE() <pstade/egg/detail/sig_template_iteration.hpp>
+#define PSTADE_EGG_SIG_TEMPLATE() <pstade/egg/detail/sig_template_include.hpp>
 
 
 #endif
