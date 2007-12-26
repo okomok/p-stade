@@ -14,6 +14,13 @@
 
 
 #include <pstade/vodka/drink.hpp>
+
+
+#if defined(BOOST_CONFIG_HPP)
+#error never drink in bjam.
+#endif
+
+
 #include <pstade/vodka/vomit.hpp>
 
 

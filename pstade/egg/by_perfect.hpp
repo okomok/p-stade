@@ -12,18 +12,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/bool.hpp>
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
-#include <boost/preprocessor/seq/for_each_product.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/deduced_const.hpp>
-#include <pstade/preprocessor.hpp>
+#include "./by_perfect/template.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./detail/call_baby.hpp"
-#include "./detail/meta_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
 #include "./sig_template.hpp"
@@ -61,38 +52,8 @@ namespace pstade { namespace egg {
         template<class FunCall>
         struct result;
 
-    #define PSTADE_call_operator(R, BitSeq) \
-        PSTADE_call_operator_aux( \
-            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq), \
-            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param,    ~, BitSeq) \
-        ) \
-    /**/
-    #define PSTADE_call_operator_aux(ArgTypes, Params) \
-        template<BOOST_PP_ENUM_PARAMS(n, class A)> \
-        typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
-        operator()(Params) const \
-        { \
-            return detail::call_baby< \
-                Baby, typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
-            >::call(m_baby, BOOST_PP_ENUM_PARAMS(n, a)); \
-        } \
-    /**/
-    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
-    #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
-    #define PSTADE_c0
-    #define PSTADE_c1 const
-    #define PSTADE_ac0(A) A
-    #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/by_perfect.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_ac1
-    #undef  PSTADE_ac0
-    #undef  PSTADE_c1
-    #undef  PSTADE_c0
-    #undef  PSTADE_param
-    #undef  PSTADE_arg_type
-    #undef  PSTADE_call_operator_aux
-    #undef  PSTADE_call_operator
 
         #include PSTADE_EGG_SIG_TEMPLATE()
     };
@@ -106,25 +67,8 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-private:
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct BOOST_PP_CAT(result, n) :
-        Baby::template apply<
-            Baby,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::meta_arg<A, >::type)
-        >
-    { };
-
-public:
-    template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
-        BOOST_PP_CAT(result, n)<
-            BOOST_PP_ENUM_PARAMS(n, A)
-        >
-    { };
-
-
-    BOOST_PP_SEQ_FOR_EACH_PRODUCT(PSTADE_call_operator, PSTADE_PP_SEQ_REPEAT((0)(1), n))
+    #define  PSTADE_EGG_BY_PERFECT_TEMPLATE_ARITY n
+    #include PSTADE_EGG_BY_PERFECT_TEMPLATE()
 
 
 #undef n

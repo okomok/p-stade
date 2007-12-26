@@ -25,6 +25,8 @@ test-suite "egg" :
     [ run big_arity.cpp ]
     [ run by_cref.cpp ]
     [ run by_perfect.cpp ]
+    [ run by_perfect.cpp : : : <define>PSTADE_EGG_TEST_NUMBER=1 : by_perfect1 ]
+    [ run by_perfect.cpp : : : <define>PSTADE_EGG_TEST_NUMBER=5 : by_perfect5 ]
     [ run by_ref.cpp ]
     [ run by_value.cpp ]
     [ run compose1.cpp ]
