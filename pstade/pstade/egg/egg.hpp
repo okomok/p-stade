@@ -22,7 +22,7 @@
 #include "./by_perfect.hpp"
 #include "./by_ref.hpp"
 #include "./by_value.hpp"
-#include "./compose1.hpp"
+#include "./compose.hpp"
 #include "./compose2.hpp"
 #include "./config.hpp"
 #include "./construct.hpp"
@@ -111,9 +111,8 @@
 #include "./tuple.hpp"
 #include "./uncurry.hpp"
 #include "./unfuse.hpp"
-#include "./use_brace/level0.hpp"
-#include "./use_brace/level1.hpp"
-#include "./use_brace/level2.hpp"
+#include "./use_brace1.hpp"
+#include "./use_brace2.hpp"
 #include "./use_constructor.hpp"
 
 

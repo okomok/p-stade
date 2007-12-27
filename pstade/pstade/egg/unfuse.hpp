@@ -16,7 +16,7 @@
 #include "./by_value.hpp"
 #include "./detail/baby_unfuse_result.hpp"
 #include "./generator.hpp"
-#include "./use_brace/level1.hpp"
+#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
@@ -51,7 +51,7 @@ namespace pstade { namespace egg {
                 NullaryResult
             >::type,
             boost::use_default,
-            use_brace_level1,
+            use_brace2,
             by_value
         >::type
     { };

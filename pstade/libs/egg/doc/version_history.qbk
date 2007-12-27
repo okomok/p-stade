@@ -30,8 +30,8 @@
 * `mono` revised.
 * Ported to Intel C++ Compiler.
 * Fixed a bug of `lambda/result_of.hpp`.
-* `use_brace_levelN` header changed.
-* Added `PERFECT_STRATEGY`.
+* `use_brace_levelN` renamed to `use_braceN+1`.
+* `compose1` renamed to `compose`.
 
 
 

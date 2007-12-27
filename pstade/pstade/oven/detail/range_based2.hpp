@@ -23,7 +23,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/sig_template.hpp>
-#include <pstade/egg/use_brace/level1.hpp>
+#include <pstade/egg/use_brace2.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
@@ -100,7 +100,7 @@ typedef
     egg::generator<
         result_of_range_based2< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
         boost::use_default,
-        egg::use_brace_level1,
+        egg::use_brace2,
         egg::by_value
     >::type
 T_range_based2;

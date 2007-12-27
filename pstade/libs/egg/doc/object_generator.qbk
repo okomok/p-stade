@@ -68,12 +68,12 @@ A simple object generator can be made automatically using the following family.
 
 [heading Description]
 `generator` generates a type using constructor by default.
-But you need some helper if a generating type has no constructor.
+But you need some helpers if a generating type has no constructor.
 
 [heading Header]
 * `<pstade/egg/use_constructor.hpp>` defines `use_constructor`.
-* `<pstade/egg/use_brace/level0.hpp>` defines `use_brace_level0`.
-* `<pstade/egg/use_brace/level1.hpp>` defines `use_brace_level1`.
+* `<pstade/egg/use_brace1.hpp>` defines `use_brace1`.
+* `<pstade/egg/use_brace2.hpp>` defines `use_brace2`.
 
 [heading Notation]
 * Notation defined in __EGG_GENERATOR__.
@@ -89,11 +89,11 @@ But you need some helper if a generating type has no constructor.
         [`return X(arglist);`]
     ]
     [
-        [`use_brace_level0`]
+        [`use_brace1`]
         [`X x = {arglist}; return x;`]
     ]
     [
-        [`use_brace_level1`]
+        [`use_brace2`]
         [`X x = {{arglist}}; return x;`]
     ]
 ]

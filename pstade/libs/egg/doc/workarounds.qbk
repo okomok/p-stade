@@ -15,6 +15,8 @@ Egg provides some workaround utilities.
 
 [note If you already use Boost1.35 and don't pass a /const-qualified function pointer/, you don't need this workaround.]
 
+[note This bug can probably be worked around by applying a patch to __BOOST_RESULT_OF__. ]
+
 [heading Header]
 * `<pstade/result_of.hpp>`
 
@@ -43,6 +45,8 @@ sometimes fails to work under the msvc compilers.
 When you see a weird error message such that
 "nested `sig` template is undefined" or "nested `result` template is undefined",
 use this header.
+
+[note This bug can probably be worked around by applying a patch to __BOOST_LAMBDA__ and __BOOST_RESULT_OF__. ]
 
 [heading Valid expressions]
 [table 
@@ -134,6 +138,46 @@ So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
 * __EGG_DEFERRED__
 
 [endsect]
+
+
+
+
+[/
+
+[section PSTADE_POD_CONSTANT]
+
+[heading Description]
+When you define a __FUNCTION_OBJECT__ in namespace scope,
+GCC might show unused variable warnings without this macro.
+
+[heading Header]
+* `<pstade/pod_constant.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`PSTADE_POD_CONSTANT((F), obj) = init;`]
+        [`F const obj = init;`]
+    ]
+]
+
+[heading Preconditions]
+* `F` is a /POD/ type.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+    PSTADE_POD_CONSTANT((T_foo), foo) = &foo_impl;
+
+[heading See also]
+* ...
+
+[endsect]
+
+]
 
 
 

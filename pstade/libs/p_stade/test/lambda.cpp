@@ -7,7 +7,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/compose1.hpp>
+#include <pstade/egg/compose.hpp>
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/curry.hpp>
 #include <pstade/egg/lambda/bind.hpp>
@@ -197,7 +197,7 @@ void pstade_minimal_test()
     );
 
     BOOST_CHECK(-5 ==
-        egg::compose1(egg::curry2(h1)(r1),
+        egg::compose(egg::curry2(h1)(r1),
             egg::curry2(g)
         ) (x)
     );
@@ -207,9 +207,9 @@ void pstade_minimal_test()
     int r2 = 7;
 
     BOOST_CHECK(r1*(r2*(x+y+z)) ==
-        egg::compose1(egg::curry2(h1)(r1),
+        egg::compose(egg::curry2(h1)(r1),
             egg::curry2(
-                egg::compose1(egg::curry2(h2)(r2),
+                egg::compose(egg::curry2(h2)(r2),
                     egg::uncurry(egg::curry3(u))
                 )
             )

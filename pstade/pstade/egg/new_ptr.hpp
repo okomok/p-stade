@@ -12,7 +12,7 @@
 
 
 #include <boost/pointee.hpp>
-#include "./compose1.hpp"
+#include "./compose.hpp"
 #include "./construct.hpp"
 #include "./new.hpp"
 #include "./nullary_result_of.hpp"
@@ -23,7 +23,7 @@ namespace pstade { namespace egg {
 
     template<class P>
     struct X_new_ptr :
-        result_of_compose1<
+        result_of_compose<
             typename X_construct<P>::function_type,
             typename X_new_<typename boost::pointee<P>::type>::function_type,
             P

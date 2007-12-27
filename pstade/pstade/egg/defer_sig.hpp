@@ -26,7 +26,7 @@
 #include "./by_value.hpp"
 #include "./detail/baby_defer_sig_result.hpp"
 #include "./generator.hpp"
-#include "./use_brace/level1.hpp"
+#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
@@ -47,7 +47,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_defer_sig< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1,
+            use_brace2,
             by_value
         >::type
     T_defer_sig;
@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_defer_nullary_sig< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1,
+            use_brace2,
             by_value
         >::type
     T_defer_nullary_sig;

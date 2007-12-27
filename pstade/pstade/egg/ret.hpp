@@ -17,7 +17,7 @@
 #include "./detail/baby_ret_result.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
-#include "./use_brace/level1.hpp"
+#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_ret<deduce<boost::mpl::_1, as_value>, ResultType>::type,
             boost::use_default,
-            use_brace_level1,
+            use_brace2,
             by_value
         >::type
     { };

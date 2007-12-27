@@ -233,17 +233,57 @@ Here an imaginary operator is defined for the documentation.
 
 
 
-[section Increasing Perfect Arity]
+[/
+
+[section PERFECT_STRATEGY]
 
 [heading Description]
 When you require a perfect forwarding strategy to support more arity than `PSTADE_EGG_MAX_ARITY`,
-you can define your own forwarding strategy using the following macro:
+you can define your own forwarding strategy using `PSTADE_EGG_PERFECT_STRATEGY` macro.
+
+[heading Header]
+* `<pstade/egg/perfect_strategy.hpp>`
+
+[heading Notation]
+* `K` is any element of `AritySeq`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_arg_list(a, Tag)`]
+        [`_arg(a1),...,_arg(aK)`]
+    ]
+    [
+        [`_meta_arg_list(a, Tag)`]
+        [`_ref(a1),...,_ref(aK)`]
+    ]
+    [
+        [`function<B, Tag>`]
+        [See __EGG_FUNCTION__.]
+    ]
+]
+
+[heading Preconditions]
+* `Tag` is a type.
+* `AritySeq` is a __BOOST_PREPROCESSOR__ sequence of numbers.
+* `PSTADE_EGG_PERFECT_STRATEGY(Tag, AritySeq)` is placed in the global namespace.
+
+[heading Example]
 [code_my_perfect]
 
 Now your strategy tag can be passed to `function<>` or __EGG_FUNCTION_ADAPTORS__:
 [code_my_perfect_pipable]
 
+[heading See also]
+* __FORWARDING_PROBLEM__
+
 [endsect]
+
+]
 
 
 

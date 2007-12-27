@@ -16,7 +16,7 @@
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./generator.hpp"
-#include "./use_brace/level1.hpp"
+#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_uncurry< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1,
+            use_brace2,
             by_value
         >::type
     T_uncurry;

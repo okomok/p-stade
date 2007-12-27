@@ -80,19 +80,19 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 
 
 
-[section compose1]
+[section compose]
 
 [heading Description]
-`compose1` is a Function Adaptor for function composition.
+`compose` is a Function Adaptor for function composition.
 
 [heading Header]
-* `<pstade/egg/compose1.hpp>`
+* `<pstade/egg/compose.hpp>`
 
 [heading Model of]
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d1, d2, R0, _Stg)` is an object of `result_of_compose1<_typeof(d1),_typeof(d2), R0, _Stg>::type`  initialized using `d1` and `d1` or these initializer.
+* `fc(d1, d2, R0, _Stg)` is an object of `result_of_compose<_typeof(d1),_typeof(d2), R0, _Stg>::type`  initialized using `d1` and `d1` or these initializer.
 
 [heading Valid expressions]
 [table 
@@ -101,28 +101,28 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
         [[*Semantics]]
     ]
     [
-        [`result_of_compose1<_Dco1, _Dco2, R0 = _default, _Stg = _default>::type`]
+        [`result_of_compose<_Dco1, _Dco2, R0 = _default, _Stg = _default>::type`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_COMPOSE1_L init1 PSTADE_EGG_COMPOSE1_M init2 PSTADE_EGG_COMPOSE1_R`]
-        [A braced initializer of `result_of_compose1<_Dco1, _Dco2, R0, _Stg>::type`]
+        [`PSTADE_EGG_COMPOSE_L init1 PSTADE_EGG_COMPOSE_M init2 PSTADE_EGG_COMPOSE_R`]
+        [A braced initializer of `result_of_compose<_Dco1, _Dco2, R0, _Stg>::type`]
     ]
     [
         [`fc(d1, d2, R0, Stg)(a1,...,aN)`]
         [`d1(d2(_arg_list(a, _Stg)))`]
     ]
     [
-        [`X_compose1<R0 = _default>`]
+        [`X_compose<R0 = _default>`]
         [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`X_compose1<R0>()(d1, d2)`]
+        [`X_compose<R0>()(d1, d2)`]
         [`fc(d1, d2, R0, _default)`]
     ]
     [
-        [`compose1`]
-        [`X_compose1<R0>()`]
+        [`compose`]
+        [`X_compose<R0>()`]
     ]
 ]
 
@@ -133,7 +133,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * `_deduce_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
-* `result_of_compose1<_Dco1, _Dco2, R0, _Stg>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
+* `result_of_compose<_Dco1, _Dco2, R0, _Stg>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
 
 [heading Example]
 ...
