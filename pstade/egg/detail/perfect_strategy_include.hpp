@@ -102,6 +102,7 @@ namespace pstade { namespace egg {
 
 #else
 
+private:
     // This indirection is needed for msvc ETI bug.
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
@@ -111,6 +112,7 @@ namespace pstade { namespace egg {
         >
     { };
 
+public:
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(result, n)<
