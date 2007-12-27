@@ -34,7 +34,7 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
 #include "./pipable.hpp"
-#include "./use_brace/level1.hpp"
+#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
@@ -131,7 +131,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_auxiliary0< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1,
+            use_brace2,
             by_value
         >::type
     T_auxiliary0;
@@ -220,7 +220,7 @@ namespace pstade { namespace egg {
         generator<
             PSTADE_PP_CAT3(result_of_, auxiliary, n)< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
-            use_brace_level1,
+            use_brace2,
             by_value
         >::type
     BOOST_PP_CAT(T_auxiliary, n);

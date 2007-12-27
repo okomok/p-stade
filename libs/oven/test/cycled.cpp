@@ -29,7 +29,7 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/egg/compose1.hpp>
+#include <pstade/egg/compose.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <pstade/result_of_lambda.hpp> // composing lambdafunctor
 
@@ -84,7 +84,7 @@ void pstade_minimal_test()
         int b[] = { 1,2,3,4 };
 
         test::adaptor_random_access_constant_int(
-            pstade::egg::compose1(
+            pstade::egg::compose(
                 lambda::bind(make_cycled, lambda::_1, 4), lambda::bind(make_cycled, lambda::_1, 2)
             ),
             a, b

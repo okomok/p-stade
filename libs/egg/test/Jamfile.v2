@@ -27,7 +27,7 @@ test-suite "egg" :
     [ run by_perfect.cpp ]
     [ run by_ref.cpp ]
     [ run by_value.cpp ]
-    [ run compose1.cpp ]
+    [ run compose.cpp ]
     [ run compose2.cpp ]
     [ run construct.cpp ]
     [ run constructor.cpp ]

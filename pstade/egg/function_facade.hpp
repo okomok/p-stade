@@ -22,7 +22,7 @@
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/call_baby.hpp"
-#include "./use_brace/level1.hpp"
+#include "./use_brace2.hpp"
 
 
 #if defined(BOOST_MSVC)
@@ -100,12 +100,12 @@ namespace pstade { namespace egg {
 
     public:
         function_facade() :
-            super_t(use_brace_level1()(boost::type<super_t>(), this))
+            super_t(use_brace2()(boost::type<super_t>(), this))
         { }
 
     // You can't copy 'm_pfacade', which refers to the other facade.
         function_facade(function_facade const&) :
-            super_t(use_brace_level1()(boost::type<super_t>(), this))
+            super_t(use_brace2()(boost::type<super_t>(), this))
         { }
 
         function_facade& operator=(function_facade const&)

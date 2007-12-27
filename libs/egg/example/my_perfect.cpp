@@ -12,7 +12,6 @@
 #include <pstade/minimal_test.hpp>
 
 //[code_my_perfect
-/*<< Include special headers. >>*/
 #include <pstade/egg/perfect_strategy.hpp>
 
 /*<< Declare your strategy tag. >>*/

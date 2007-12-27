@@ -14,7 +14,7 @@
 
 #include <pstade/egg/curry.hpp>
 #include <pstade/egg/uncurry.hpp>
-#include <pstade/egg/compose1.hpp>
+#include <pstade/egg/compose.hpp>
 #include <iostream>
 
 
@@ -46,18 +46,18 @@ struct T_my_negate
 };
 
 result_of_curry2<
-    result_of_compose1<
+    result_of_compose<
         T_my_negate,
         T_my_plus
     >::type
 >::type const my_func
     =
 PSTADE_EGG_CURRY2_L
-    PSTADE_EGG_COMPOSE1_L
+    PSTADE_EGG_COMPOSE_L
         {}
-    PSTADE_EGG_COMPOSE1_M
+    PSTADE_EGG_COMPOSE_M
         {"my_plus call", 198}
-    PSTADE_EGG_COMPOSE1_R
+    PSTADE_EGG_COMPOSE_R
 PSTADE_EGG_CURRY2_R
     ;
 

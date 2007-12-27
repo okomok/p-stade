@@ -25,8 +25,6 @@
 <dt><span class="section"><a href="forwarding_strategies.html#egg.forwarding_strategies.by_value">by_value</a></span></dt>
 <dt><span class="section"><a href="forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types">Deducing
       nullary return types</a></span></dt>
-<dt><span class="section"><a href="forwarding_strategies.html#egg.forwarding_strategies.increasing_perfect_arity">Increasing
-      Perfect Arity</a></span></dt>
 </dl></div>
 <p>
       A Forwarding Strategy is a type which has two associated imaginary operators
@@ -592,107 +590,6 @@
         also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a></li></ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.forwarding_strategies.increasing_perfect_arity"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.increasing_perfect_arity" title="Increasing Perfect Arity">Increasing
-      Perfect Arity</a></h3></div></div></div>
-<a name="egg.forwarding_strategies.increasing_perfect_arity.description"></a><h5>
-<a name="id510385"></a>
-        <a href="forwarding_strategies.html#egg.forwarding_strategies.increasing_perfect_arity.description">Description</a>
-      </h5>
-<p>
-        When you require a perfect forwarding strategy to support more arity than
-        <code class="computeroutput"><span class="identifier">PSTADE_EGG_MAX_ARITY</span></code>, you
-        can define your own forwarding strategy using the following macro:
-        </p>
-<p>
-          
-</p>
-<pre class="programlisting">
-<span class="line_callout_bug"><a name="egg0co" href="forwarding_strategies.html#egg0"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">perfect_strategy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-
-<span class="line_callout_bug"><a name="egg1co" href="forwarding_strategies.html#egg1"><img src="../images/callouts/2.png" alt="2" border="0"></a></span><span class="keyword">struct</span> <span class="identifier">my_perfect</span><span class="special">;</span>
-
-<span class="line_callout_bug"><a name="egg2co" href="forwarding_strategies.html#egg2"><img src="../images/callouts/3.png" alt="3" border="0"></a></span><span class="preprocessor">#define</span>  <span class="identifier">PSTADE_EGG_PERFECT_STRATEGY_PARAMS</span> <span class="special">(::</span><span class="identifier">my_perfect</span><span class="special">,</span> <span class="special">(</span><span class="number">2</span><span class="special">)(</span><span class="number">7</span><span class="special">))</span>
-<span class="preprocessor">#include</span> <span class="identifier">PSTADE_EGG_PERFECT_STRATEGY</span><span class="special">()</span>
-</pre>
-<p>
-        </p>
-<p>
-        </p>
-<p>
-          </p>
-<div class="calloutlist"><table border="0" summary="Callout list">
-<tr>
-<td width="5%" valign="top" align="left">
-<a name="egg0"></a><a href="#egg0co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Include special headers. </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left">
-<a name="egg1"></a><a href="#egg1co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
-<td valign="top" align="left"><p> Declare your strategy tag. </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left">
-<a name="egg2"></a><a href="#egg2co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
-<td valign="top" align="left"><p> <code class="computeroutput"><span class="special">(</span><span class="number">2</span><span class="special">)(</span><span class="number">7</span><span class="special">)</span></code> means call operators can take is 2 or
-          7 arguments by perfect forwarding. </p></td>
-</tr>
-</table></div>
-<p>
-        </p>
-<p>
-      </p>
-<p>
-        Now your strategy tag can be passed to <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;&gt;</span></code> or <a href="function_adaptors.html" title="Function Adaptors">Function
-        Adaptors</a>:
-        </p>
-<p>
-          
-</p>
-<pre class="programlisting">
-<span class="keyword">struct</span> <span class="identifier">base_plus2_7</span>
-<span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
-
-    <span class="keyword">int</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">i1</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i2</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i3</span><span class="special">)</span> <span class="keyword">const</span>
-    <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">i1</span> <span class="special">+</span> <span class="identifier">i2</span> <span class="special">+</span> <span class="identifier">i3</span><span class="special">;</span>
-    <span class="special">}</span>
-
-    <span class="keyword">int</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">i1</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i2</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i3</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i4</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i5</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i6</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i7</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i8</span><span class="special">)</span> <span class="keyword">const</span>
-    <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">i1</span> <span class="special">+</span> <span class="identifier">i2</span> <span class="special">+</span> <span class="identifier">i3</span> <span class="special">+</span> <span class="identifier">i4</span> <span class="special">+</span> <span class="identifier">i5</span> <span class="special">+</span> <span class="identifier">i6</span> <span class="special">+</span> <span class="identifier">i7</span> <span class="special">+</span> <span class="identifier">i8</span><span class="special">;</span>
-    <span class="special">}</span>
-<span class="special">};</span>
-
-<span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="identifier">base_plus2_7</span><span class="special">,</span> <span class="special">::</span><span class="identifier">my_perfect</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span>
-    <span class="identifier">my_plus</span> <span class="special">=</span> <span class="identifier">PSTADE_EGG_PIPABLE_L</span> <span class="special">{}</span> <span class="identifier">PSTADE_EGG_PIPABLE_R</span><span class="special">;</span>
-
-<span class="keyword">void</span> <span class="identifier">test</span><span class="special">()</span>
-<span class="special">{</span>
-    <span class="line_callout_bug"><a name="egg3co" href="forwarding_strategies.html#egg3"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="special">(</span><span class="number">1</span><span class="special">|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">2</span><span class="special">,</span> <span class="number">3</span><span class="special">))</span> <span class="special">==</span> <span class="number">1</span><span class="special">+(</span><span class="number">2</span><span class="special">+</span><span class="number">3</span><span class="special">)</span> <span class="special">);</span>
-    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="special">(</span><span class="number">1</span><span class="special">|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">2</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">6</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">8</span><span class="special">))</span> <span class="special">==</span> <span class="number">1</span><span class="special">+(</span><span class="number">2</span><span class="special">+</span><span class="number">3</span><span class="special">+</span><span class="number">4</span><span class="special">+</span><span class="number">5</span><span class="special">+</span><span class="number">6</span><span class="special">+</span><span class="number">7</span><span class="special">+</span><span class="number">8</span><span class="special">)</span> <span class="special">);</span>
-<span class="special">}</span>
-</pre>
-<p>
-        </p>
-<p>
-        </p>
-<p>
-          </p>
-<div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left">
-<a name="egg3"></a><a href="#egg3co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Notice strategy is applied to pipable object: <code class="computeroutput"><span class="identifier">my_plus</span></code>.
-          </p></td>
-</tr></table></div>
-<p>
-        </p>
-<p>
-      </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
