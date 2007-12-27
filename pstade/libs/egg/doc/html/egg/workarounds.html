@@ -31,7 +31,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.pstade__result_of"></a><a href="workarounds.html#egg.workarounds.pstade__result_of" title="pstade::result_of">pstade::result_of</a></h3></div></div></div>
 <a name="egg.workarounds.pstade__result_of.description"></a><h5>
-<a name="id547015"></a>
+<a name="id548298"></a>
         <a href="workarounds.html#egg.workarounds.pstade__result_of.description">Description</a>
       </h5>
 <p>
@@ -65,12 +65,12 @@
 </td></tr>
 </table></div>
 <a name="egg.workarounds.pstade__result_of.header"></a><h5>
-<a name="id547145"></a>
+<a name="id548428"></a>
         <a href="workarounds.html#egg.workarounds.pstade__result_of.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.pstade__result_of.valid_expressions"></a><h5>
-<a name="id547218"></a>
+<a name="id548502"></a>
         <a href="workarounds.html#egg.workarounds.pstade__result_of.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -109,7 +109,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.detect_result_type_hpp"></a><a href="workarounds.html#egg.workarounds.detect_result_type_hpp" title="detect_result_type.hpp">detect_result_type.hpp</a></h3></div></div></div>
 <a name="egg.workarounds.detect_result_type_hpp.description"></a><h5>
-<a name="id547372"></a>
+<a name="id548656"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.description">Description</a>
       </h5>
 <p>
@@ -122,7 +122,7 @@
         template is undefined", use this header.
       </p>
 <a name="egg.workarounds.detect_result_type_hpp.valid_expressions"></a><h5>
-<a name="id547451"></a>
+<a name="id548734"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -157,7 +157,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.workarounds.detect_result_type_hpp.preconditions"></a><h5>
-<a name="id547602"></a>
+<a name="id548886"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -168,7 +168,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.deduced_form"></a><a href="workarounds.html#egg.workarounds.deduced_form" title="deduced_form">deduced_form</a></h3></div></div></div>
 <a name="egg.workarounds.deduced_form.description"></a><h5>
-<a name="id547695"></a>
+<a name="id548978"></a>
         <a href="workarounds.html#egg.workarounds.deduced_form.description">Description</a>
       </h5>
 <p>
@@ -182,12 +182,12 @@
         interface is slightly changed.
       </p>
 <a name="egg.workarounds.deduced_form.header"></a><h5>
-<a name="id547775"></a>
+<a name="id549058"></a>
         <a href="workarounds.html#egg.workarounds.deduced_form.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">deduced_form</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.deduced_form.valid_expressions"></a><h5>
-<a name="id547857"></a>
+<a name="id549141"></a>
         <a href="workarounds.html#egg.workarounds.deduced_form.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -221,7 +221,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.workarounds.deduced_form.example"></a><h5>
-<a name="id547957"></a>
+<a name="id549241"></a>
         <a href="workarounds.html#egg.workarounds.deduced_form.example">Example</a>
       </h5>
 <p>
@@ -232,7 +232,7 @@
 <pre class="programlisting">
 <span class="keyword">struct</span> <span class="identifier">baby_foo</span>
 <span class="special">{</span>
-    <span class="line_callout_bug"><a name="egg11co" href="workarounds.html#egg11"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="keyword">typedef</span> <span class="identifier">deduced_form</span> <span class="identifier">call_strategy</span><span class="special">;</span>
+    <span class="line_callout_bug"><a name="egg15co" href="workarounds.html#egg15"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="keyword">typedef</span> <span class="identifier">deduced_form</span> <span class="identifier">call_strategy</span><span class="special">;</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Myself</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">apply</span>
@@ -240,7 +240,7 @@
         <span class="keyword">typedef</span> <span class="identifier">A1</span> <span class="special">&amp;</span><span class="identifier">type</span><span class="special">;</span>
     <span class="special">};</span>
 
-    <span class="line_callout_bug"><a name="egg12co" href="workarounds.html#egg12"><img src="../images/callouts/2.png" alt="2" border="0"></a></span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Result</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">&gt;</span>
+    <span class="line_callout_bug"><a name="egg16co" href="workarounds.html#egg16"><img src="../images/callouts/2.png" alt="2" border="0"></a></span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Result</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">&gt;</span>
     <span class="identifier">Result</span> <span class="identifier">call</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">type</span><span class="special">&lt;</span><span class="identifier">Result</span><span class="special">&gt;,</span> <span class="identifier">A1</span> <span class="special">&amp;</span><span class="identifier">a1</span><span class="special">)</span> <span class="keyword">const</span>
     <span class="special">{</span>
         <span class="keyword">return</span> <span class="identifier">a1</span><span class="special">;</span>
@@ -264,12 +264,12 @@
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg11"></a><a href="#egg11co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="egg15"></a><a href="#egg15co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> This enables the workaround. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg12"></a><a href="#egg12co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<a name="egg16"></a><a href="#egg16co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">Result</span></code>
           is given with the first argument using <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">type</span></code>.
           </p></td>
@@ -296,7 +296,7 @@
 </td></tr>
 </table></div>
 <a name="egg.workarounds.deduced_form.see_also"></a><h5>
-<a name="id548602"></a>
+<a name="id549885"></a>
         <a href="workarounds.html#egg.workarounds.deduced_form.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -308,7 +308,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.defer"></a><a href="workarounds.html#egg.workarounds.defer" title="DEFER">DEFER</a></h3></div></div></div>
 <a name="egg.workarounds.defer.description"></a><h5>
-<a name="id548672"></a>
+<a name="id549956"></a>
         <a href="workarounds.html#egg.workarounds.defer.description">Description</a>
       </h5>
 <p>
@@ -318,12 +318,12 @@
         needs a workaround.
       </p>
 <a name="egg.workarounds.defer.header"></a><h5>
-<a name="id548808"></a>
+<a name="id550091"></a>
         <a href="workarounds.html#egg.workarounds.defer.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">deferred</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.defer.valid_expressions"></a><h5>
-<a name="id548890"></a>
+<a name="id550173"></a>
         <a href="workarounds.html#egg.workarounds.defer.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -372,7 +372,7 @@
 </tbody>
 </table></div>
 <a name="egg.workarounds.defer.preconditions"></a><h5>
-<a name="id549131"></a>
+<a name="id550414"></a>
         <a href="workarounds.html#egg.workarounds.defer.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -380,7 +380,7 @@
           scope.
         </li></ul></div>
 <a name="egg.workarounds.defer.see_also"></a><h5>
-<a name="id549184"></a>
+<a name="id550467"></a>
         <a href="workarounds.html#egg.workarounds.defer.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="function_makers.html#egg.function_makers.deferred" title="deferred">deferred</a></li></ul></div>

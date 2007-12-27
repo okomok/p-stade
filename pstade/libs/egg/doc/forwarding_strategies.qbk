@@ -1,12 +1,12 @@
 [section Forwarding Strategies]
 
+
 A Forwarding Strategy is a type which has two associated imaginary operators
 `_arg_list` and `_meta_arg_list` which takes a token sequence and a strategy.
 If the first argument of `arg_list` or `_meta_arg_list` is not a sequence,
 assume it is "one element" sequence.
 If you omit a strategy parameter for __EGG_FUNCTION_MAKERS__ or __EGG_FUNCTION_ADAPTORS__,
 `by_perfect` is implicitly set.
-
 
 This section uses the following notation.
 
@@ -32,6 +32,9 @@ This section uses the following notation.
         [`const_cast<V &>(static_cast<V const &>(a))`, where `V` is `boost::remove_cv<boost::decay<_typeof(a)>::type>::type`.]
     ]
 ]
+
+
+[import ../example/my_perfect.cpp]
 
 
 
@@ -224,6 +227,21 @@ Here an imaginary operator is defined for the documentation.
 
 [heading See also]
 * __BOOST_RESULT_OF__
+
+[endsect]
+
+
+
+
+[section Increasing Perfect Arity]
+
+[heading Description]
+When you require a perfect forwarding strategy to support more arity than `PSTADE_EGG_MAX_ARITY`,
+you can define your own forwarding strategy using the following macro:
+[code_my_perfect]
+
+Now your strategy tag can be passed to `function<>` or __EGG_FUNCTION_ADAPTORS__:
+[code_my_perfect_pipable]
 
 [endsect]
 
