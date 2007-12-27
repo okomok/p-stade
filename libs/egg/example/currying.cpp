@@ -9,10 +9,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/minimal_test.hpp>
 #include <pstade/egg/curry.hpp>
 #include <pstade/egg/uncurry.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 using namespace pstade::egg;

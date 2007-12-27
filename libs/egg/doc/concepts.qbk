@@ -90,7 +90,7 @@ for any __BINDABLE_OBJECT__ `b` the following must be met:
 A __PIPABLE_OBJECT__ is an object which behaves as if it were a "pipe" using `operator|` and `operator|=`.
 
 [heading Refinement of]
-* __COPY_CONSTRUCTIBLE__
+* __FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
