@@ -118,6 +118,7 @@ for any __PIPABLE_OBJECT__ `p` the following must be met:
 * ...
 
 [heading See also]
+* __EGG_PIPABLE__
 * __AMBI_OBJECT__
 
 [endsect]

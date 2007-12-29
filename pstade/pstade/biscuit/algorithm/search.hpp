@@ -74,7 +74,7 @@ struct X_results_search :
     egg::function< search_detail::baby<Parser> >
 { };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_search, X_results_search, 1)
+#define  PSTADE_EGG_SPECIFIED_PARAMS (results_search, X_results_search, (class), (2)(3))
 #include PSTADE_EGG_SPECIFIED()
 
 
@@ -83,7 +83,7 @@ struct X_search :
     detail::X_without_results<X_results_search, Parser>
 { };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), search, X_search, 1)
+#define  PSTADE_EGG_SPECIFIED_PARAMS (search, X_search, (class), (1)(2))
 #include PSTADE_EGG_SPECIFIED()
 
 

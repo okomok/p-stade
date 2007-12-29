@@ -61,10 +61,10 @@ struct X_unrolled_for_each_c :
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_for_each, X_unrolled_for_each, (class))
+#define  PSTADE_EGG_SPECIFIED_PARAMS (unrolled_for_each, X_unrolled_for_each, (class), (2))
 #include PSTADE_EGG_SPECIFIED()
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_for_each_c, X_unrolled_for_each_c, (int))
+#define  PSTADE_EGG_SPECIFIED_PARAMS (unrolled_for_each_c, X_unrolled_for_each_c, (int), (2))
 #include PSTADE_EGG_SPECIFIED()
 
 

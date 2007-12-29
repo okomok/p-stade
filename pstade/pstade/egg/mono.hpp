@@ -23,7 +23,7 @@
 #include <pstade/use_default.hpp>
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./specified.hpp"
+#include "./specified1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -93,7 +93,8 @@ namespace pstade { namespace egg {
     { };
 
 
-    PSTADE_EGG_SPECIFIED1(mono, X_mono, (class))
+    #define  PSTADE_EGG_SPECIFIED1_PARAMS (mono, X_mono, (class))
+    #include PSTADE_EGG_SPECIFIED1()
 
 
 } } // namespace pstade::egg

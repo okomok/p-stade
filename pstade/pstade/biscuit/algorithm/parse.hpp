@@ -63,7 +63,7 @@ struct X_results_parse :
     egg::function< parse_detail::baby<Parser> >
 { };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_parse, X_results_parse, 1)
+#define  PSTADE_EGG_SPECIFIED_PARAMS (results_parse, X_results_parse, (class), (2)(3))
 #include PSTADE_EGG_SPECIFIED()
 
 
@@ -72,7 +72,7 @@ struct X_parse :
     detail::X_without_results<X_results_parse, Parser>
 { };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), parse, X_parse, 1)
+#define  PSTADE_EGG_SPECIFIED_PARAMS (parse, X_parse, (class), (1)(2))
 #include PSTADE_EGG_SPECIFIED()
 
 

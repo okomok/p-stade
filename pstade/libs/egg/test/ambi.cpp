@@ -32,20 +32,20 @@
     /**/
 
 
-struct impl_interface0
+struct impl_interface1
 {
     typedef std::string result_type;
 
     std::string operator()(std::string const& s) const
     {
-        return s + "0";
+        return s + "1";
     }
 };
 
-PSTADE_AMBI(0, interface0, (impl_interface0))
+PSTADE_AMBI(1, interface1, (impl_interface1))
 
 
-struct impl_interface1
+struct impl_interface2
 {
     typedef std::string result_type;
 
@@ -55,10 +55,10 @@ struct impl_interface1
     }
 };
 
-PSTADE_CONSTANT(interface1, (pstade::result_of<pstade::egg::T_ambi1(impl_interface1)>::type))
+PSTADE_CONSTANT(interface2, (pstade::result_of<pstade::egg::T_ambi2(impl_interface2)>::type))
 
 
-struct impl_interface4
+struct impl_interface5
 {
     typedef std::string result_type;
 
@@ -68,37 +68,37 @@ struct impl_interface4
     }
 };
 
-PSTADE_CONSTANT(interface4, (pstade::result_of<pstade::egg::T_ambi4(impl_interface4)>::type))
+PSTADE_CONSTANT(interface5, (pstade::result_of<pstade::egg::T_ambi5(impl_interface5)>::type))
 
 
-PSTADE_TEST_IS_RESULT_OF((std::string), T_interface0(std::string))
+PSTADE_TEST_IS_RESULT_OF((std::string), T_interface1(std::string))
 
 
 void pstade_minimal_test()
 {
     std::string s("interface");
     {
-        std::string ans("interface0");
-        BOOST_CHECK( interface0(s)    == ans );
-        BOOST_CHECK( (s|interface0)   == ans );
-        BOOST_CHECK( (s|interface0()) == ans );
+        std::string ans("interface1");
+        BOOST_CHECK( interface1(s)    == ans );
+        BOOST_CHECK( (s|interface1)   == ans );
+        BOOST_CHECK( (s|interface1()) == ans );
 
 
-        BOOST_CHECK( (interface0 |= s)    == ans );
-        BOOST_CHECK( (interface0() |= s) == ans );
+        BOOST_CHECK( (interface1 |= s)    == ans );
+        BOOST_CHECK( (interface1() |= s) == ans );
     }
     {
-        std::string ans("interface1");
-        BOOST_CHECK( interface1(s, '1')  == ans );
-        BOOST_CHECK( (s|interface1('1')) == ans );
+        std::string ans("interface2");
+        BOOST_CHECK( interface2(s, '2')  == ans );
+        BOOST_CHECK( (s|interface2('2')) == ans );
 
-        BOOST_CHECK( (interface1('1') |= s) == ans );
+        BOOST_CHECK( (interface2('2') |= s) == ans );
     }
     {
         std::string ans("interface1234");
-        BOOST_CHECK( interface4(s, '1', '2', '3', '4')  == ans );
-        BOOST_CHECK( (s|interface4('1', '2', '3', '4')) == ans );
+        BOOST_CHECK( interface5(s, '1', '2', '3', '4')  == ans );
+        BOOST_CHECK( (s|interface5('1', '2', '3', '4')) == ans );
 
-        BOOST_CHECK( (interface4('1', '2', '3', '4') |= s) == ans );
+        BOOST_CHECK( (interface5('1', '2', '3', '4') |= s) == ans );
     }
 }

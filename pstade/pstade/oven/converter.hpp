@@ -13,7 +13,7 @@
 
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/egg/specified.hpp>
+#include <pstade/egg/specified1.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./transformer.hpp"
@@ -65,7 +65,8 @@ struct X_make_converter :
 { };
 
 
-PSTADE_EGG_SPECIFIED1(make_converter, X_make_converter, (class))
+#define  PSTADE_EGG_SPECIFIED1_PARAMS (make_converter, X_make_converter, (class))
+#include PSTADE_EGG_SPECIFIED1()
 
 
 template< class To >

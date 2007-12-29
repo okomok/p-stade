@@ -15,7 +15,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/egg/specified.hpp>
+#include <pstade/egg/specified1.hpp>
 #include <pstade/egg/tuple/element.hpp>
 #include <pstade/egg/tuple/get.hpp>
 #include <pstade/result_of.hpp>
@@ -83,8 +83,11 @@ struct X_make_elements_c :
 { };
 
 
-PSTADE_EGG_SPECIFIED1(make_elements, X_make_elements, (class))
-PSTADE_EGG_SPECIFIED1(make_elements_c, X_make_elements_c, (int))
+#define  PSTADE_EGG_SPECIFIED1_PARAMS (make_elements, X_make_elements, (class))
+#include PSTADE_EGG_SPECIFIED1()
+
+#define  PSTADE_EGG_SPECIFIED1_PARAMS (make_elements_c, X_make_elements_c, (int))
+#include PSTADE_EGG_SPECIFIED1()
 
 
 template< class N, class Reference = boost::use_default >

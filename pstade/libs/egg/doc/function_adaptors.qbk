@@ -50,7 +50,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_AMBI_L I PSTADE_EGG_AMBI_R`]
     ]
     [
-        [`fc(d)(a(1),...,a(N+1))`]
+        [`fc(d)(a1,...,aN))`]
         [`_const(d)(_arg_list(a, by_perfect))`]
     ]
     [
@@ -64,7 +64,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ]
 
 [heading Preconditions]
-* `N+1` is the arity of `_Dco` such that `0 <= N && N <= PSTADE_EGG_MAX_ARITY`.
+* `1 <= N && N <= PSTADE_EGG_MAX_ARITY`.
 * There is a `d_` such that `_Dco d_ = init;` is a valid expression.
 * The corresponding expression is a valid expression.
 
@@ -323,7 +323,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fuse(d)`]
-        [fc(d)`]
+        [`fc(d)`]
     ]
 ]
 
@@ -789,6 +789,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading See also]
 * __EGG_AMBI__
+* [@http://en.wikipedia.org/wiki/Extension_method Extension method]
 
 [endsect]
 
