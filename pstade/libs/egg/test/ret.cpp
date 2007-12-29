@@ -124,7 +124,7 @@ void pstade_minimal_test()
     }
 
     {
-        egg::result_of_ret< my_fun_t, int >::type perf = PSTADE_EGG_RET_L {} PSTADE_EGG_RET_R;
+        egg::result_of_ret< my_fun_t, int >::type perf = PSTADE_EGG_RET({});
         BOOST_CHECK( perf(1,3) == 4);
     }
 }

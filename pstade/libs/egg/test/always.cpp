@@ -21,6 +21,7 @@ using namespace egg;
 
 
 result_of_always<int>::type const always_3 = PSTADE_EGG_ALWAYS_L 3 PSTADE_EGG_ALWAYS_R;
+result_of_always<int>::type const always_4 = PSTADE_EGG_ALWAYS(4);
 
 void pstade_minimal_test()
 {
@@ -33,5 +34,8 @@ void pstade_minimal_test()
         BOOST_CHECK( always_3(i) == 3 );
         BOOST_CHECK( always(3)(4, 5) == 3 );
         BOOST_CHECK( always_3(6,7,8,9,1) == 3 );
+    }
+    {
+        BOOST_CHECK( always_4(10) == 4 );
     }
 }

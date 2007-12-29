@@ -40,7 +40,7 @@ struct base_my_plus
 };
 
 typedef result_of_ambi1<base_my_plus>::type T_my_plus; /*< Notice that `N` is not `2` but `1`. >*/
-T_my_plus const my_plus = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R; /*< Sandwich base object initializer using macro. >*/
+T_my_plus const my_plus = PSTADE_EGG_AMBI({});
 
 void test_ambi()
 {
@@ -58,9 +58,7 @@ void test_ambi()
 typedef result_of_curry2<T_my_plus>::type T_curried_plus;
 T_curried_plus const curried_plus
     =
-PSTADE_EGG_CURRY2_L
-    PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R
-PSTADE_EGG_CURRY2_R
+PSTADE_EGG_CURRY2_L PSTADE_EGG_AMBI({}) PSTADE_EGG_CURRY2_R /*< A macro invocation must be sandwiched usng `_L` and `_R`. >*/
     ;
 
 void test_curry()
@@ -90,8 +88,7 @@ void test_indirect()
 
 
 //[code_lazy_example
-result_of_lazy<base_my_plus>::type const
-    my_Plus = PSTADE_EGG_LAZY_L {} PSTADE_EGG_LAZY_R;
+result_of_lazy<base_my_plus>::type const my_Plus = PSTADE_EGG_LAZY({});
 
 void test_lazy()
 {
@@ -155,8 +152,7 @@ struct base_multiplies
     }
 };
 
-result_of_pipable<base_multiplies>::type const
-    multiplies = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
+result_of_pipable<base_multiplies>::type const multiplies = PSTADE_EGG_PIPABLE({});
 
 void test_pipable()
 {

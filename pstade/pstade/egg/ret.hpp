@@ -39,6 +39,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_RET_L { {
     #define PSTADE_EGG_RET_R } }
+    #define PSTADE_EGG_RET(F) PSTADE_EGG_RET_L F PSTADE_EGG_RET_R
 
 
     template<class ResultType = boost::use_default>

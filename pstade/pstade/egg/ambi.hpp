@@ -126,6 +126,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_AMBI_L { {
     #define PSTADE_EGG_AMBI_R } }
+    #define PSTADE_EGG_AMBI(F) PSTADE_EGG_AMBI_L F PSTADE_EGG_AMBI_R
 
     typedef
         generator<

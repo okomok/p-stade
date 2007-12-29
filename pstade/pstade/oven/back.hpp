@@ -56,10 +56,10 @@ namespace back_detail {
 
 
 typedef egg::result_of_ambi0<back_detail::op>::type T_back;
-PSTADE_POD_CONSTANT((T_back), back) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_back), back) = PSTADE_EGG_AMBI({{}});
 
 typedef egg::result_of_ambi0<back_detail::value_op>::type T_value_back;
-PSTADE_POD_CONSTANT((T_value_back), value_back) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_value_back), value_back) = PSTADE_EGG_AMBI({{}});
 
 
 } } // namespace pstade::oven

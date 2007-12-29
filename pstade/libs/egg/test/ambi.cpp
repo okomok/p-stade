@@ -28,7 +28,7 @@
             typedef ::pstade::result_of< ::pstade::egg::BOOST_PP_CAT(T_ambi, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_ambi_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Object)), Object) = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R; \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Object)), Object) = PSTADE_EGG_AMBI({}); \
     /**/
 
 

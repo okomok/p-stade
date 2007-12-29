@@ -37,7 +37,7 @@ namespace pstade { namespace egg {
     // PSTADE_EGG_UNFUSE_L { { B } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_NAMED_L PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_NAMED_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
-
+    #define PSTADE_EGG_NAMED(B) PSTADE_EGG_NAMED_L B PSTADE_EGG_NAMED_R
 
 // 1ary-
 #define PSTADE_in_apply(Z, N, _) typedef typename result_of<detail::get_arg<Base, N>(NamedArgs&, boost::fusion::vector<BOOST_PP_ENUM_PARAMS(N, t_b)>)>::type BOOST_PP_CAT(t_b, N);
@@ -101,7 +101,7 @@ namespace pstade { namespace egg {
         template<class Result, class Base>
         Result call(Base base) const
         {
-            Result r = PSTADE_EGG_NAMED_L base PSTADE_EGG_NAMED_R;
+            Result r = PSTADE_EGG_NAMED(base);
             return r;
         }
     };

@@ -37,7 +37,7 @@ typedef result_of_tagged<my_foo, tag1>::type T_my_foo1;
 typedef result_of_tagged<my_foo, tag2>::type T_my_foo2;
 
 T_my_foo1 const my_foo1 = PSTADE_EGG_TAGGED_L {} PSTADE_EGG_TAGGED_R;
-T_my_foo2 const my_foo2 = PSTADE_EGG_TAGGED_L {} PSTADE_EGG_TAGGED_R;
+T_my_foo2 const my_foo2 = PSTADE_EGG_TAGGED({});
 
 
 BOOST_MPL_ASSERT((boost::is_same<tag_of<T_my_foo1>::type, tag1>));

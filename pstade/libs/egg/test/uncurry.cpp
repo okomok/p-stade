@@ -38,7 +38,7 @@ struct my_plus2
 };
 
 typedef pstade::egg::result_of_curry2<my_plus2>::type T_curried_plus2;
-PSTADE_POD_CONSTANT((T_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R;
+PSTADE_POD_CONSTANT((T_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2({});
 
 typedef pstade::egg::result_of_uncurry<T_curried_plus2>::type T_still_plus2;
 PSTADE_POD_CONSTANT((T_still_plus2), still_plus2) = PSTADE_EGG_UNCURRY_L PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R PSTADE_EGG_UNCURRY_R;

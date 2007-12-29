@@ -42,6 +42,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_DEFER_SIG_L { {
     #define PSTADE_EGG_DEFER_SIG_R } }
+    #define PSTADE_EGG_DEFER_SIG(F) PSTADE_EGG_DEFER_SIG_L F PSTADE_EGG_DEFER_SIG_R
 
     typedef
         generator<

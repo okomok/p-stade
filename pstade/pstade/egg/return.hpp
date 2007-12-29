@@ -35,6 +35,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_RETURN_L { {
     #define PSTADE_EGG_RETURN_R } }
+    #define PSTADE_EGG_RETURN(F) PSTADE_EGG_RETURN_L F PSTADE_EGG_RETURN_R
 
 
     template<class Lambda>

@@ -72,6 +72,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_COMPOSE_L PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_COMPOSE_M ,
     #define PSTADE_EGG_COMPOSE_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_COMPOSE(F, G) PSTADE_EGG_COMPOSE_L F PSTADE_EGG_COMPOSE_M G PSTADE_EGG_COMPOSE_R
 
 
     namespace compose_detail {
@@ -88,7 +89,7 @@ namespace pstade { namespace egg {
             template<class Result, class F, class G>
             Result call(F f, G g) const
             {
-                Result r = PSTADE_EGG_COMPOSE_L f PSTADE_EGG_COMPOSE_M g PSTADE_EGG_COMPOSE_R;
+                Result r = PSTADE_EGG_COMPOSE(f, g);
                 return r;
             }
         };

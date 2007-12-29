@@ -58,7 +58,7 @@ struct range_based2_sig_fun :
 
 
     #define PSTADE_OVEN_RANGE_BASED_LL_init \
-        PSTADE_EGG_DEFER_SIG_L {} PSTADE_EGG_DEFER_SIG_R \
+        PSTADE_EGG_DEFER_SIG({}) \
     /**/
 
 

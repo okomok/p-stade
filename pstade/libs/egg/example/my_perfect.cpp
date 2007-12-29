@@ -41,8 +41,7 @@ struct base_plus2_7
     }
 };
 
-result_of_pipable<base_plus2_7, ::my_perfect>::type const
-    my_plus = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
+result_of_pipable<base_plus2_7, ::my_perfect>::type const my_plus = PSTADE_EGG_PIPABLE({});
 
 void test()
 {

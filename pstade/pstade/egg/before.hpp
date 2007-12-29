@@ -70,6 +70,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_BEFORE_L PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_BEFORE_M ,
     #define PSTADE_EGG_BEFORE_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_BEFORE(T, F) PSTADE_EGG_BEFORE_L T PSTADE_EGG_BEFORE_M F PSTADE_EGG_BEFORE_R
 
 
     namespace before_detail {
@@ -85,7 +86,7 @@ namespace pstade { namespace egg {
             template<class Result, class Thunk, class Function>
             Result call(Thunk t, Function f) const
             {
-                Result r = PSTADE_EGG_BEFORE_L t PSTADE_EGG_BEFORE_M f PSTADE_EGG_BEFORE_R;
+                Result r = PSTADE_EGG_BEFORE(t, f);
                 return r;
             }
         };

@@ -27,7 +27,7 @@ using namespace egg;
 
 
 typedef result_of_defer_sig<ll::equal>::type adapted_equal;
-adapted_equal const adapted_equal_fun = PSTADE_EGG_DEFER_SIG_L {} PSTADE_EGG_DEFER_SIG_R;
+adapted_equal const adapted_equal_fun = PSTADE_EGG_DEFER_SIG({});
 PSTADE_TEST_IS_RESULT_OF((bool), adapted_equal(int*, int*, int*))
 
 

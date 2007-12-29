@@ -36,7 +36,7 @@ struct T_my_apply
 
 T_my_apply const my_apply = {};
 
-result_of_lazy<T_my_apply>::type const my_Apply = PSTADE_EGG_LAZY_L {} PSTADE_EGG_LAZY_R;
+result_of_lazy<T_my_apply>::type const my_Apply = PSTADE_EGG_LAZY({});
 
 
 void pstade_minimal_test()

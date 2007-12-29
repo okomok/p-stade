@@ -33,6 +33,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_UNCURRY_L { {
     #define PSTADE_EGG_UNCURRY_R } }
+    #define PSTADE_EGG_UNCURRY(F) PSTADE_EGG_UNCURRY_L F PSTADE_EGG_UNCURRY_R
 
 
     typedef

@@ -53,7 +53,7 @@ struct big_arity
 };
 
 
-PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = PSTADE_EGG_LAZY_L {} PSTADE_EGG_LAZY_R;
+PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = PSTADE_EGG_LAZY({});
 
 
 void pstade_minimal_test()

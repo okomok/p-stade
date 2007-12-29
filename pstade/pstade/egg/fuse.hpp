@@ -33,6 +33,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_FUSE_L { {
     #define PSTADE_EGG_FUSE_R } }
+    #define PSTADE_EGG_FUSE(F) PSTADE_EGG_FUSE_L F PSTADE_EGG_FUSE_R
 
 
     typedef

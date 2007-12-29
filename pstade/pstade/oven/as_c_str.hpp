@@ -141,7 +141,7 @@ namespace as_c_str_detail {
 
 
 typedef egg::result_of_ambi0<as_c_str_detail::op>::type T_as_c_str;
-PSTADE_POD_CONSTANT((T_as_c_str), as_c_str) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_as_c_str), as_c_str) = PSTADE_EGG_AMBI({{}});
 
 
 struct T_contains_zero

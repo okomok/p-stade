@@ -66,7 +66,7 @@ namespace pstade { namespace egg {
 
 
     typedef result_of_curry2<fix_detail::uncurried>::type T_fix;
-    PSTADE_POD_CONSTANT((T_fix), fix) = PSTADE_EGG_CURRY2_L {{}} PSTADE_EGG_CURRY2_R;
+    PSTADE_POD_CONSTANT((T_fix), fix) = PSTADE_EGG_CURRY2({{}});
 
 
     // fix(base)
@@ -85,6 +85,7 @@ namespace pstade { namespace egg {
     // PSTADE_EGG_DETAIL_BIND1_L {{}} PSTADE_EGG_DETAIL_BIND1_M Base PSTADE_EGG_DETAIL_BIND1_R
     #define PSTADE_EGG_FIX_L PSTADE_EGG_DETAIL_BIND1_L {{}} PSTADE_EGG_DETAIL_BIND1_M
     #define PSTADE_EGG_FIX_R PSTADE_EGG_DETAIL_BIND1_R
+    #define PSTADE_EGG_FIX(F) PSTADE_EGG_FIX_L F PSTADE_EGG_FIX_R
 
 
 } } // namespace pstade::egg

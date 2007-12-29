@@ -54,7 +54,7 @@ namespace pstade {
     PSTADE_POD_CONSTANT((T_verify), verify) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<T_verify>::type), verified)
-        = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
+        = PSTADE_EGG_PIPABLE({{}});
 
 
 } // namespace pstade

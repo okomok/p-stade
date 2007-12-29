@@ -65,7 +65,7 @@ keyword<1> const _y = PSTADE_EGG_KEYWORD;
 keyword<2> const _msg = PSTADE_EGG_KEYWORD;
 keyword<3> const _width = PSTADE_EGG_KEYWORD;
 
-result_of_named4<draw_text_impl>::type const draw_text = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
+result_of_named4<draw_text_impl>::type const draw_text = PSTADE_EGG_NAMED({});
 
 
 void pstade_minimal_test()

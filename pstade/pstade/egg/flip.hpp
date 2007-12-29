@@ -74,6 +74,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_FLIP_L { {
     #define PSTADE_EGG_FLIP_R } }
+    #define PSTADE_EGG_FLIP(F) PSTADE_EGG_FLIP_L F PSTADE_EGG_FLIP_R
 
 
     typedef

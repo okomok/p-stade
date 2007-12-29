@@ -72,6 +72,7 @@ namespace pstade { namespace egg { namespace detail {
     #define PSTADE_EGG_DETAIL_BIND1_L { {
     #define PSTADE_EGG_DETAIL_BIND1_M ,
     #define PSTADE_EGG_DETAIL_BIND1_R } }
+    #define PSTADE_EGG_DETAIL_BIND1(F, A) PSTADE_EGG_DETAIL_BIND1_L F PSTADE_EGG_DETAIL_BIND1_M A PSTADE_EGG_DETAIL_BIND1_R
 
 
     struct baby_bind1
@@ -87,7 +88,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result, class Base, class Arg>
         Result call(Base& base, Arg& arg) const
         {
-            Result r = PSTADE_EGG_DETAIL_BIND1_L base PSTADE_EGG_DETAIL_BIND1_M arg PSTADE_EGG_DETAIL_BIND1_R;
+            Result r = PSTADE_EGG_DETAIL_BIND1(base, arg);
             return r;
         }
     };
