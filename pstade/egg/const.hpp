@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/pod_constand.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 #define PSTADE_EGG_CONST PSTADE_POD_CONSTANT

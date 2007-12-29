@@ -21,7 +21,7 @@ namespace pstade { namespace egg {
 
 
     typedef
-        result_of_ambi0<
+        result_of_ambi1<
             X_lexical_cast<std::string>::function_type
         >::type
     T_to_string;
@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
 
 
     typedef
-        result_of_ambi0<
+        result_of_ambi1<
             X_lexical_cast<std::wstring>::function_type
         >::type
     T_to_wstring;

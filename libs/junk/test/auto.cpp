@@ -9,16 +9,15 @@
 
 //#define BOOST_TYPEOF_EMULATION
 
-
 //#include <pstade/../libs/p_stade/test/p_stade.cpp>
-//#include <pstade/../libs/p_stade/test/as_mpl_lambda.cpp>
+//#include <pstade/../libs/p_stade/test/lambda_result_of.cpp>
 
-//#include <pstade/../libs/wine/test/poly.cpp>
+//#include <pstade/../libs/wine/test/pod_constant1.cpp>
 
 //#include <pstade/../libs/radish/test/swap_reset.cpp>
 
-//#include <pstade/../libs/oven/test/functions.cpp>
-//#include <pstade/../libs/oven/example/primes.cpp>
+//#include <pstade/../libs/oven/test/filtered.cpp>
+#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
     //#include <pstade/../libs/biscuit/test/multiple_defs1.cpp>
@@ -27,7 +26,11 @@
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
 //#include <pstade/../libs/napkin/test/doc.cpp>
-//#include <pstade/../libs/egg/test/auto_funptr.cpp>
-#include <pstade/../libs/egg/example/mono_lambda.cpp>
+//#define PSTADE_EGG_TEST_NUMBER 2
+//#define PSTADE_EGG_TEST_NUMBERED 1
+//#define PSTADE_EGG_TEST_LINEAR 0
+//#define PSTADE_EGG_MAX_ARITY 10
+//#include <pstade/../libs/egg/test/ambi.cpp>
+//#include <pstade/../libs/egg/example/mono_lambda.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

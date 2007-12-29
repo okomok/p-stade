@@ -63,7 +63,7 @@ namespace pstade { namespace tomato {
     } // namespace to_string_detail
 
 
-    PSTADE_POD_CONSTANT((egg::result_of_ambi0<to_tstring_detail::op>::type), to_tstring)
+    PSTADE_POD_CONSTANT((egg::result_of_ambi1<to_tstring_detail::op>::type), to_tstring)
         = PSTADE_EGG_AMBI({{}});
 
 

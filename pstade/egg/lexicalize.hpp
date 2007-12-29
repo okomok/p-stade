@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
     }
 
 
-    typedef result_of_ambi0<lexicalize_detail::op>::type T_lexicalize;
+    typedef result_of_ambi1<lexicalize_detail::op>::type T_lexicalize;
     PSTADE_POD_CONSTANT((T_lexicalize), lexicalize) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
 
 
