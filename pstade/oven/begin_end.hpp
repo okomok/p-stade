@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./range_iterator.hpp"
@@ -65,11 +65,11 @@ namespace begin_end_detail {
 
 PSTADE_ADL_BARRIER(begin_end) { // for 'boost'
 
-    typedef egg::result_of_auxiliary0<begin_end_detail::base_begin>::type T_begin;
-    PSTADE_POD_CONSTANT((T_begin), begin) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef egg::result_of_ambi0<begin_end_detail::base_begin>::type T_begin;
+    PSTADE_POD_CONSTANT((T_begin), begin) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
-    typedef egg::result_of_auxiliary0<begin_end_detail::base_end>::type T_end;
-    PSTADE_POD_CONSTANT((T_end), end) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef egg::result_of_ambi0<begin_end_detail::base_end>::type T_end;
+    PSTADE_POD_CONSTANT((T_end), end) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 }
 

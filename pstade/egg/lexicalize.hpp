@@ -12,8 +12,8 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./ambi.hpp"
 #include "./automatic.hpp"
-#include "./auxiliary.hpp"
 #include "./lexical_cast.hpp"
 
 
@@ -27,8 +27,8 @@ namespace pstade { namespace egg {
     }
 
 
-    typedef result_of_auxiliary0<lexicalize_detail::op>::type T_lexicalize;
-    PSTADE_POD_CONSTANT((T_lexicalize), lexicalize) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_ambi0<lexicalize_detail::op>::type T_lexicalize;
+    PSTADE_POD_CONSTANT((T_lexicalize), lexicalize) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

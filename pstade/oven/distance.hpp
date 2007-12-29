@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
@@ -53,10 +53,10 @@ namespace distance_detail {
 } // namespace distance_detail
 
 
-typedef egg::result_of_auxiliary0<distance_detail::op>::type T_distance;
+typedef egg::result_of_ambi0<distance_detail::op>::type T_distance;
 
 PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
-    PSTADE_POD_CONSTANT((T_distance), distance) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((T_distance), distance) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 }
 
 

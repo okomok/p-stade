@@ -31,39 +31,17 @@
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/indirect.hpp>
+#include <pstade/egg/regular.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/result_of_lambda.hpp> // inclusion guaranteed
-#include "./detail/regularized.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 namespace regular_detail {
-
-
-    template< class Function >
-    struct base
-    {
-        typedef typename
-            pass_by_value<Function>::type
-        fun_t;
-
-        typedef
-            detail::regularized<fun_t>
-        reg_t;
-
-        typedef typename
-            result_of<egg::T_indirect(reg_t)>::type
-        result_type;
-
-        result_type operator()(Function& fun) const
-        {
-            return egg::indirect(reg_t(fun));
-        }
-    };
 
 
     template< class Function >
@@ -105,8 +83,8 @@ namespace regular_detail {
 } // namespace regular_detail
 
 
-typedef PSTADE_EGG_DEFER((regular_detail::base<boost::mpl::_>)) T_regular;
-PSTADE_POD_CONSTANT((T_regular), regular) = PSTADE_EGG_DEFERRED;
+using egg::T_regular;
+using egg::regular;
 
 typedef PSTADE_EGG_DEFER((regular_detail::base_c<boost::mpl::_>)) T_regular_c;
 PSTADE_POD_CONSTANT((T_regular_c), regular_c) = PSTADE_EGG_DEFERRED;

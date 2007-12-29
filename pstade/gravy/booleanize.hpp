@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/automatic.hpp>
-#include <pstade/egg/auxiliary.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./boolean_cast.hpp"
 
@@ -27,14 +27,14 @@ namespace pstade { namespace gravy {
 
 
     typedef
-        egg::result_of_auxiliary0<
+        egg::result_of_ambi0<
             booleanize_detail::base
         >::type
     T_booleanize;
 
 
     PSTADE_POD_CONSTANT((T_booleanize), booleanize)
-        = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::gravy

@@ -13,7 +13,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
@@ -96,8 +96,8 @@ namespace checked_begin_detail {
 } // namespace checked_begin_detail
 
 
-typedef egg::result_of_auxiliary0<checked_begin_detail::base>::type T_checked_begin;
-PSTADE_POD_CONSTANT((T_checked_begin), checked_begin) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_ambi0<checked_begin_detail::base>::type T_checked_begin;
+PSTADE_POD_CONSTANT((T_checked_begin), checked_begin) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::oven

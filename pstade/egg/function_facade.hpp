@@ -130,7 +130,7 @@ namespace pstade { namespace egg {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        Derived::template apply<Derived, BOOST_PP_ENUM_PARAMS(n, A)>
+        Derived::template apply<Derived const, BOOST_PP_ENUM_PARAMS(n, A)>
     { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>

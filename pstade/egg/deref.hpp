@@ -12,7 +12,7 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./deferred.hpp"
+#include "./by_perfect.hpp"
 #include "./extension.hpp"
 
 
@@ -31,14 +31,15 @@ namespace pstade { namespace egg {
     namespace deref_detail {
 
 
-        template<class X>
-        struct base
+        struct baby
         {
-            typedef typename
-                result_of_deref<X>::type
-            result_type;
+            template<class Myself, class X>
+            struct apply :
+                result_of_deref<X>
+            { };
 
-            result_type operator()(X& x) const
+            template<class Result, class X>
+            Result call(X& x) const
             {
                 return *x;
             }
@@ -48,8 +49,8 @@ namespace pstade { namespace egg {
     } // namespace deref_detail
 
 
-    typedef PSTADE_EGG_DEFER((deref_detail::base<boost::mpl::_>)) T_deref;
-    PSTADE_POD_CONSTANT((T_deref), deref) = PSTADE_EGG_DEFERRED;
+    typedef function<deref_detail::baby, by_perfect> T_deref;
+    PSTADE_POD_CONSTANT((T_deref), deref) = {{}};
 
 
 } } // namespace pstade::egg

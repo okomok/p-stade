@@ -32,6 +32,7 @@
 * Fixed a bug of `lambda/result_of.hpp`.
 * `use_brace_levelN` renamed to `use_braceN+1`.
 * `compose1` renamed to `compose`.
+* Added `regular`.
 
 
 

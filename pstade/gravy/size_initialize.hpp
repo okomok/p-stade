@@ -26,7 +26,7 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/menuiteminfo_size_v400.hpp"
@@ -69,8 +69,8 @@ namespace pstade { namespace gravy {
     } // namespace size_initialize_detail
 
 
-    typedef egg::result_of_auxiliary0<size_initialize_detail::op>::type T_size_initialize;
-    PSTADE_POD_CONSTANT((T_size_initialize), size_initialize) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef egg::result_of_ambi0<size_initialize_detail::op>::type T_size_initialize;
+    PSTADE_POD_CONSTANT((T_size_initialize), size_initialize) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::gravy

@@ -23,6 +23,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __BOOST__ [@http://www.boost.org Boost C++ Libraries]]
 [def __BOOST_ENABLE_IF__ [@http://www.boost.org/libs/utility/enable_if.html Boost.EnableIf]]
+[def __BOOST_ITERATOR__ [@http://boost.org/libs/iterator/doc/index.html Boost.Iterator]]
 [def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]
 [def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html Boost.Phoenix]]
 [def __BOOST_PREPROCESSOR__ [@http://www.boost.org/libs/preprocessor/doc/index.html Boost.Preprocessor]]
@@ -51,6 +52,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
 
+[def __INPUT_ITERATOR__ [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
 
 
 
@@ -60,7 +62,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
 [def __STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
 [def __OPERATABLE__ [link egg.concepts.operatable_object Operatable]]
-[def __AUXILIARY_CLASS_INTERFACE__ [link egg.concepts.auxiliary_class_interface Auxiliary Class Interface]]
+[def __AMBI_OBJECT__ [link egg.concepts.ambi_object Ambi Object]]
 [def __BINDABLE_OBJECT__ [link egg.concepts.bindable_object Bindable Object]]
 [def __BINDABLE__ [link egg.concepts.bindable_object Bindable]]
 [def __PIPABLE_OBJECT__ [link egg.concepts.pipable_object Pipable Object]]
@@ -78,7 +80,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_DEFERRED__ [link egg.function_makers.deferred deferred]]
 [def __EGG_MAKE_FUNCTION__ [link egg.function_makers.make_function make_function]]
 
-[def __EGG_AUXILIARY__ [link egg.function_adaptors.auxiliaryn auxiliaryN]]
+[def __EGG_AMBI__ [link egg.function_adaptors.ambin ambiN]]
 [def __EGG_CURRY__ [link egg.function_adaptors.curryn curryN]]
 [def __EGG_UNCURRY__ [link egg.function_adaptors.uncurry uncurry]]
 [def __EGG_FUSE__ [link egg.function_adaptors.fuse fuse]]

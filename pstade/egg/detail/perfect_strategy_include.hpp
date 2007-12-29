@@ -107,7 +107,7 @@ private:
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
         Baby::template apply<
-            Baby,
+            Baby const,
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::meta_arg<A, >::type)
         >
     { };

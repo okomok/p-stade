@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/curry.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pod_constant.hpp>
 
@@ -120,8 +120,8 @@ PSTADE_POD_CONSTANT((T_pipa), pipa) = PSTADE_EGG_PIPABLE_L {999} PSTADE_EGG_PIPA
 T_pipa const &get_pipa1();
 T_pipa const &get_pipa2();
 
-typedef pstade::egg::result_of_auxiliary1<T_my_plus>::type T_auxi;
-PSTADE_POD_CONSTANT((T_auxi), auxi) = PSTADE_EGG_AUXILIARY_L {999} PSTADE_EGG_AUXILIARY_R;
+typedef pstade::egg::result_of_ambi1<T_my_plus>::type T_auxi;
+PSTADE_POD_CONSTANT((T_auxi), auxi) = PSTADE_EGG_AMBI_L {999} PSTADE_EGG_AMBI_R;
 T_auxi const &get_auxi1();
 T_auxi const &get_auxi2();
 

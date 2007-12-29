@@ -14,7 +14,7 @@ Some helper function objects are given to fill the gap between Oven and other li
 * `<pstade/oven/adapted_to_base.hpp>`
 
 [heading Model of]
-* `to_base` is an _auxiliary_class_interface_.
+* `to_base` is an _ambi_object_.
 
 [heading Valid expressions]
 [table 

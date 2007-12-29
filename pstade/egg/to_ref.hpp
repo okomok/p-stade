@@ -13,7 +13,7 @@
 
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./auxiliary.hpp"
+#include "./ambi.hpp"
 #include "./by_cref.hpp"
 #include "./by_perfect.hpp"
 
@@ -80,12 +80,12 @@ namespace pstade { namespace egg {
     } // namespace to_ref_detail
 
 
-    typedef result_of_auxiliary0<to_ref_detail::op>::type  T_to_ref;
-    typedef result_of_auxiliary0<to_ref_detail::cop>::type T_to_cref;
-    typedef result_of_auxiliary0<to_ref_detail::mop>::type T_to_mref;
-    PSTADE_POD_CONSTANT((T_to_ref),  to_ref)  = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
-    PSTADE_POD_CONSTANT((T_to_cref), to_cref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
-    PSTADE_POD_CONSTANT((T_to_mref), to_mref) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_ambi0<to_ref_detail::op>::type  T_to_ref;
+    typedef result_of_ambi0<to_ref_detail::cop>::type T_to_cref;
+    typedef result_of_ambi0<to_ref_detail::mop>::type T_to_mref;
+    PSTADE_POD_CONSTANT((T_to_ref),  to_ref)  = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_to_cref), to_cref) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_to_mref), to_mref) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

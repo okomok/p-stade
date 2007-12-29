@@ -19,7 +19,7 @@
 
 #include <cstddef> // size_t
 #include <boost/type_traits/is_array.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/to_value.hpp>
 #include <pstade/enable_if.hpp>
@@ -61,8 +61,8 @@ namespace as_literal_detail {
 } // namespace as_literal_detail
 
 
-typedef egg::result_of_auxiliary0<as_literal_detail::op>::type T_as_literal;
-PSTADE_POD_CONSTANT((T_as_literal), as_literal) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_ambi0<as_literal_detail::op>::type T_as_literal;
+PSTADE_POD_CONSTANT((T_as_literal), as_literal) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::oven

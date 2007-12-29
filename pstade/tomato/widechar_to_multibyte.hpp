@@ -11,8 +11,8 @@
 
 
 #include <string>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/automatic.hpp>
-#include <pstade/egg/auxiliary.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/copied.hpp>
 #include <pstade/pod_constant.hpp>
@@ -60,14 +60,14 @@ namespace pstade { namespace tomato {
 
 
     typedef
-        egg::result_of_auxiliary0<
+        egg::result_of_ambi0<
             egg::automatic< X_widechar_to<boost::mpl::_> >::type
         >::type
     T_to_multibyte;
 
 
     PSTADE_POD_CONSTANT((T_to_multibyte), to_multibyte)
-        = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::tomato

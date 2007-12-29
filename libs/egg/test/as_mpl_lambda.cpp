@@ -14,7 +14,7 @@
 
 
 #include <pstade/test.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <boost/range/begin.hpp>
@@ -71,7 +71,7 @@ struct base_op_front :
     }
 };
 
-typedef pstade::egg::result_of_auxiliary0<
+typedef pstade::egg::result_of_ambi0<
     ::base_op_front<PSTADE_EGG_AS_MPL_LAMBDA((pstade::oven::range_value<boost::mpl::_>))>
 >::type T_my_value_front;
 T_my_value_front my_value_front;

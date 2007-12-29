@@ -17,7 +17,7 @@
 <a name="egg"></a>Chapter 1. Egg 0.90.3</h2></div>
 <div><p class="copyright">Copyright © 2007 Shunsuke Sogame</p></div>
 <div><div class="legalnotice">
-<a name="id501948"></a><p>
+<a name="id433630"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -44,8 +44,7 @@
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.static_function_object">Static Function
       Object</a></span></dt>
-<dt><span class="section"><a href="egg/concepts.html#egg.concepts.auxiliary_class_interface">Auxiliary Class
-      Interface</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.ambi_object">Ambi Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.baby_function">Baby Function</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
 </dl></dd>
@@ -68,7 +67,7 @@
 </dl></dd>
 <dt><span class="section"><a href="egg/function_adaptors.html">Function Adaptors</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.auxiliaryn">auxiliaryN</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.ambin">ambiN</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.compose">compose</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.curryn">curryN</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.uncurry">uncurry</a></span></dt>
@@ -79,6 +78,7 @@
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.memoize">memoize</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.mono">mono</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.pipable">pipable</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.regular">regular</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.ret">ret</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.perfect">perfect</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.tagged">tagged</a></span></dt>
@@ -110,6 +110,7 @@
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.detect_result_type_hpp">detect_result_type.hpp</a></span></dt>
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.deduced_form">deduced_form</a></span></dt>
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.defer">DEFER</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.const">CONST</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/version_history.html">Version History</a></span></dt>
 </dl>
@@ -195,10 +196,20 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.preface.acknowledgements"></a><a href="index.html#egg.preface.acknowledgements" title="Acknowledgements">Acknowledgements</a></h3></div></div></div>
-<div class="itemizedlist"><ul type="disc"><li>
-<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
-          Forwarding Problem</a> workaround is based on David Abrahams' <a href="http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826" target="_top">callable</a>.
-        </li></ul></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Special thanks to David Abrahams. <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
+          Forwarding Problem</a> workaround is based on his <a href="http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826" target="_top">callable</a>.
+        </li>
+<li>
+          Special thanks to Eric Niebler, who pointed out importance of <span class="emphasis"><em>static
+          initialization</em></span>.
+        </li>
+<li>
+          Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
+          These people are instrumental in the design and development of Egg.
+        </li>
+</ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -246,6 +257,18 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">_decltype</span><span class="special">(</span><span class="identifier">a</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_const</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span> <span class="keyword">const</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
               </p>
               </td>
 </tr>
@@ -351,7 +374,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: December 27, 2007 at 21:07:35 GMT</p></small></td>
+<td align="left"><small><p>Last revised: December 28, 2007 at 23:51:58 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

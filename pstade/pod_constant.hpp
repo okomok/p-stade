@@ -22,6 +22,7 @@
 #include <boost/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/boost_workaround.hpp>
+#include <pstade/unevaluated.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
@@ -34,7 +35,8 @@ namespace pstade { namespace pod_constant_detail {
 
 
 // Do you know the exact condition?
-#if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
+#if 0 // defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
+    // msvc too can't tell the right answer around cv-qualifiers.
     #include <boost/static_assert.hpp>
     #include <boost/type_traits/is_pod.hpp>
     #define PSTADE_POD_CONSTANT_is_pod_available
@@ -67,7 +69,7 @@ namespace pstade { namespace pod_constant_detail {
     #define PSTADE_POD_CONSTANT_pod_check(F, O) \
         inline void BOOST_PP_CAT(pstade_pod_constant_check_of_, O)() \
         { \
-            pstade::pod_constant_detail::must_be_pod(F()); \
+            pstade::pod_constant_detail::must_be_pod(pstade::unevaluated<F&>()); \
         } \
     /**/
 

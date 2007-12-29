@@ -52,8 +52,10 @@ Egg is known to work on the following platforms:
 
 
 [section Acknowledgements]
-
-* __FORWARDING_PROBLEM__ workaround is based on David Abrahams' __DAVID_CALLABLE__.
+* Special thanks to David Abrahams. __FORWARDING_PROBLEM__ workaround is based on his __DAVID_CALLABLE__.
+* Special thanks to Eric Niebler, who pointed out importance of /static initialization/.
+* Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
+  These people are instrumental in the design and development of Egg.
 
 [endsect]
 
@@ -76,6 +78,10 @@ This document uses the following notation.
     [
         [`_typeof(a)`]
         [`boost::remove_cv<boost::remove_reference<_decltype(a)>::type>::type`]
+    ]
+    [
+        [`_const(a)`]
+        [`static_cast<_typeof(a) const>(a)`]
     ]
     [
         [`_dco`]
