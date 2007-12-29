@@ -71,6 +71,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_AFTER_L PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_AFTER_M ,
     #define PSTADE_EGG_AFTER_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_AFTER(F, T) PSTADE_EGG_AFTER_L F PSTADE_EGG_AFTER_M T PSTADE_EGG_AFTER_R
 
 
     namespace after_detail {
@@ -86,7 +87,7 @@ namespace pstade { namespace egg {
             template<class Result, class Function, class Thunk>
             Result call(Function f, Thunk t) const
             {
-                Result r = PSTADE_EGG_AFTER_L f PSTADE_EGG_AFTER_M t PSTADE_EGG_AFTER_R;
+                Result r = PSTADE_EGG_AFTER(f, t);
                 return r;
             }
         };

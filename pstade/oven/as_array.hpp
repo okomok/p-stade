@@ -62,7 +62,7 @@ namespace as_array_detail {
 
 
 typedef egg::result_of_ambi0<as_array_detail::op>::type T_as_array;
-PSTADE_POD_CONSTANT((T_as_array), as_array) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_as_array), as_array) = PSTADE_EGG_AMBI({{}});
 
 
 } } // namespace pstade::oven

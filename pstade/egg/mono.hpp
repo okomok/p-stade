@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_MONO_L {
     #define PSTADE_EGG_MONO_R }
-
+    #define PSTADE_EGG_MONO(F) PSTADE_EGG_MONO_L F PSTADE_EGG_MONO_R
 
     namespace mono_detail {
 
@@ -78,7 +78,7 @@ namespace pstade { namespace egg {
             template<class Result, class Base>
             Result call(Base base) const
             {
-                Result r = PSTADE_EGG_MONO_L base PSTADE_EGG_MONO_R;
+                Result r = PSTADE_EGG_MONO(base);
                 return r;
             }
         };

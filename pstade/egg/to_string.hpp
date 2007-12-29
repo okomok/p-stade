@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
         >::type
     T_to_string;
 
-    PSTADE_POD_CONSTANT((T_to_string), to_string) = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_to_string), to_string) = PSTADE_EGG_AMBI({});
 
 
     typedef
@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
         >::type
     T_to_wstring;
 
-    PSTADE_POD_CONSTANT((T_to_wstring), to_wstring) = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_to_wstring), to_wstring) = PSTADE_EGG_AMBI({});
 
 
 } } // namespace pstade::egg

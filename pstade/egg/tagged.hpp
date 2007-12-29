@@ -25,6 +25,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_TAGGED_L PSTADE_EGG_RET_L
     #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RET_R
+    #define PSTADE_EGG_TAGGED(F) PSTADE_EGG_TAGGED_L F PSTADE_EGG_TAGGED_R
 
 
     // Do you need a function 'egg::tagged<...>(f)'?

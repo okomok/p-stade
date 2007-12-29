@@ -114,7 +114,7 @@ namespace pstade {
     PSTADE_POD_CONSTANT((T_check), check) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<T_check>::type), checked)
-        = PSTADE_EGG_PIPABLE_L {{}} PSTADE_EGG_PIPABLE_R;
+        = PSTADE_EGG_PIPABLE({{}});
 
 
     template< class StringOutputable > inline

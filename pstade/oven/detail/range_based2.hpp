@@ -94,6 +94,7 @@ struct result_of_range_based2
 
 #define PSTADE_OVEN_RANGE_BASED2_L { {
 #define PSTADE_OVEN_RANGE_BASED2_R } }
+#define PSTADE_OVEN_RANGE_BASED2(F) PSTADE_OVEN_RANGE_BASED2_L F PSTADE_OVEN_RANGE_BASED2_R
 
 
 typedef

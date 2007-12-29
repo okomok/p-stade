@@ -25,7 +25,7 @@ int plus(int x, int y)
 }
 
 typedef result_of_curry2<int (*)(int, int)>::type T_curried_plus;
-T_curried_plus const curried_plus = PSTADE_EGG_CURRY2_L &::plus PSTADE_EGG_CURRY2_R;
+T_curried_plus const curried_plus = PSTADE_EGG_CURRY2(&::plus);
 
 void test()
 {

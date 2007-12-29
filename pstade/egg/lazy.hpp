@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_LAZY_L { {
     #define PSTADE_EGG_LAZY_R } }
-
+    #define PSTADE_EGG_LAZY(F) PSTADE_EGG_LAZY_L F PSTADE_EGG_LAZY_R
 
     typedef
         generator<

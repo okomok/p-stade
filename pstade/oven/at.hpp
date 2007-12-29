@@ -62,10 +62,10 @@ namespace at_detail {
 
 
 typedef egg::result_of_ambi1<at_detail::op>::type T_at;
-PSTADE_POD_CONSTANT((T_at), at) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_at), at) = PSTADE_EGG_AMBI({{}});
 
 typedef egg::result_of_ambi1<at_detail::value_op>::type T_value_at;
-PSTADE_POD_CONSTANT((T_value_at), value_at) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_value_at), value_at) = PSTADE_EGG_AMBI({{}});
 
 
 } } // namespace pstade::oven

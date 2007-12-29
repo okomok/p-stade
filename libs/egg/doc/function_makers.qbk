@@ -57,6 +57,8 @@ with `boost::lambda::bind` and `boost::result_of`.
 
 [heading Invariants]
 * `function<B, _Stg>` is a /POD/ type if and only if `B` is a /POD/ type.
+* `function<B, _Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `B` is __DEFAULT_CONSTRUCTIBLE__.
+* `function<B, _Stg>` is __ASSIGNABLE__ if and only if `B` is __ASSIGNABLE__.
 
 [heading Example]
 [code_function_example]
@@ -165,6 +167,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 
 [heading Invariants]
 * `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_AUTOMATIC`.
+* `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
 [code_automatic_example]
@@ -216,6 +219,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 
 [heading Invariants]
 * `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
+* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [caution For some compiler bug, `deferred` randomly fails to make a __DEFERRED_CALLABLE_OBJECT__ under msvc-8.0.
          Use `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` if you need portability. ]

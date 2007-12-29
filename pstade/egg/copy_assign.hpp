@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
 
 
     typedef result_of_ambi1<copy_assign_detail::op>::type T_copy_assign;
-    PSTADE_POD_CONSTANT((T_copy_assign), copy_assign) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_copy_assign), copy_assign) = PSTADE_EGG_AMBI({{}});
 
 
 } } // namespace pstade::egg

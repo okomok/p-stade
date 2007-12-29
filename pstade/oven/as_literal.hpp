@@ -62,7 +62,7 @@ namespace as_literal_detail {
 
 
 typedef egg::result_of_ambi0<as_literal_detail::op>::type T_as_literal;
-PSTADE_POD_CONSTANT((T_as_literal), as_literal) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_as_literal), as_literal) = PSTADE_EGG_AMBI({{}});
 
 
 } } // namespace pstade::oven

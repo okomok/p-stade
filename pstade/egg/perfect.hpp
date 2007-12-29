@@ -26,6 +26,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_PERFECT_L PSTADE_EGG_RET_L
     #define PSTADE_EGG_PERFECT_R PSTADE_EGG_RET_R
+    #define PSTADE_EGG_PERFECT(F) PSTADE_EGG_PERFECT_L F PSTADE_EGG_PERFECT_R
 
 
     typedef X_ret<>::function_type T_perfect;

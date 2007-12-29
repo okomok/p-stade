@@ -68,6 +68,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_ALWAYS_L { {
     #define PSTADE_EGG_ALWAYS_R } }
+    #define PSTADE_EGG_ALWAYS(F) PSTADE_EGG_ALWAYS_L F PSTADE_EGG_ALWAYS_R
 
     typedef
         generator<

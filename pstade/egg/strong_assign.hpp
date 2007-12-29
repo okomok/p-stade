@@ -48,7 +48,7 @@ namespace pstade { namespace egg {
 
 
     typedef result_of_ambi1<strong_assign_detail::op>::type T_strong_assign;
-    PSTADE_POD_CONSTANT((T_strong_assign), strong_assign) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_strong_assign), strong_assign) = PSTADE_EGG_AMBI({{}});
 
 
 } } // namespace pstade::egg

@@ -3,33 +3,6 @@
 
 
 
-[section Constant Object]
-
-[heading Description]
-A __CONSTANT_OBJECT__ is an object which is /const qualified/.
-
-[heading Refinement of]
-* ...
-
-[heading Requirements]
-For any __CONSTANT_OBJECT__ `x` the following must be met:
-
-* `boost::remove_reference<_decltype(x)>::type` is `_typeof(x) const`.
-
-[heading Example]
-    int const x = 0; // x is a ConstantObject.
-
-[heading Models]
-* ...
-
-[heading See also]
-* ...
-
-[endsect]
-
-
-
-
 [section Lexically Typed Object]
 
 [heading Description]
@@ -42,11 +15,14 @@ A __LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using 
 For any __LEXICALLY_TYPED_OBJECT__ `x` the following must be met:
 
 * `x` is a named lvalue.
-* `T_++x` is `_typeof(x)`.
+* If token `x` doesn't begin with a single underscore, `T_++x` is `_typeof(x)`; `TT++x` otherwise.
 
 [heading Example]
     int x;
-    typedef int T_x; // Now x is a LexicallyTypedObject.
+    typedef int T_x;
+
+    int _1;
+    typedef int TT_1;
 
 [heading Models]
 * ...
@@ -73,11 +49,49 @@ for any __BINDABLE_OBJECT__ `b` the following must be met:
 
 * There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,...,boost::lambda::_++N)` is a valid expression.
 
+[note Thanks to the sophisticated customization way of __BOOST_LAMBDA__, __BINDABLE_OBJECT__ can be implemented without depending on that library. ]
+
 [heading Models]
 * ...
 
 [heading See also]
 * __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
+[section Static Function Object]
+
+[heading Description]
+A __STATIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
+Egg is a library which helps you define __STATIC_FUNCTION_OBJECT__.
+
+[heading Refinement of]
+* __BINDABLE_OBJECT__
+* __DEFERRED_CALLABLE_OBJECT__
+* __LEXICALLY_TYPED_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
+
+* `_typeof(f)` is a /POD/ type, and `f` is /statically initialized/.
+* `boost::remove_reference<_decltype(f)>::type` is `_typeof(f) const`.
+* If `boost::result_of<_typeof(f) const(a1,...,aN)>::type` is a valid expression,
+  `boost::result_of<_typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
+
+[heading Example]
+    typedef int (*T_foo)(double d);
+    int foo_impl(double d) { ... }
+    T_foo const foo = &foo_impl; // foo is a StaticFunctionObject.
+
+[heading Models]
+* ...
+
+[heading See also]
+* __BOOST_RESULT_OF__
 
 [endsect]
 
@@ -105,42 +119,6 @@ for any __PIPABLE_OBJECT__ `p` the following must be met:
 
 [heading See also]
 * __AMBI_OBJECT__
-
-[endsect]
-
-
-
-
-[section Static Function Object]
-
-[heading Description]
-A __STATIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
-Egg is a library which helps you define __STATIC_FUNCTION_OBJECT__.
-
-[heading Refinement of]
-* __BINDABLE_OBJECT__
-* __CONSTANT_OBJECT__
-* __DEFERRED_CALLABLE_OBJECT__
-* __LEXICALLY_TYPED_OBJECT__
-
-[heading Requirements]
-In addition to the requirements defined in the refinements,
-for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
-
-* `_typeof(f)` is a /POD/ type, and `f` is /statically initialized/.
-* If `boost::result_of<_typeof(f) const(a1,...,aN)>::type` is a valid expression,
-  `boost::result_of<_typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
-
-[heading Example]
-    typedef int (*T_foo)(double d);
-    int foo_impl(double d) { ... }
-    T_foo const foo = &foo_impl; // foo is a StaticFunctionObject.
-
-[heading Models]
-* ...
-
-[heading See also]
-* __BOOST_RESULT_OF__
 
 [endsect]
 
