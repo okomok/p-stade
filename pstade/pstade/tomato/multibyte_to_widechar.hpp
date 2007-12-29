@@ -60,7 +60,7 @@ namespace pstade { namespace tomato {
 
 
     typedef
-        egg::result_of_ambi0<
+        egg::result_of_ambi1<
             egg::automatic< X_multibyte_to<boost::mpl::_> >::type
         >::type
     T_to_widechar;

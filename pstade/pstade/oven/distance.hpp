@@ -53,7 +53,7 @@ namespace distance_detail {
 } // namespace distance_detail
 
 
-typedef egg::result_of_ambi0<distance_detail::op>::type T_distance;
+typedef egg::result_of_ambi1<distance_detail::op>::type T_distance;
 
 PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
     PSTADE_POD_CONSTANT((T_distance), distance) = PSTADE_EGG_AMBI({{}});

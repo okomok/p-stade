@@ -96,7 +96,7 @@ namespace checked_begin_detail {
 } // namespace checked_begin_detail
 
 
-typedef egg::result_of_ambi0<checked_begin_detail::base>::type T_checked_begin;
+typedef egg::result_of_ambi1<checked_begin_detail::base>::type T_checked_begin;
 PSTADE_POD_CONSTANT((T_checked_begin), checked_begin) = PSTADE_EGG_AMBI({{}});
 
 

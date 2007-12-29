@@ -65,10 +65,10 @@ namespace begin_end_detail {
 
 PSTADE_ADL_BARRIER(begin_end) { // for 'boost'
 
-    typedef egg::result_of_ambi0<begin_end_detail::base_begin>::type T_begin;
+    typedef egg::result_of_ambi1<begin_end_detail::base_begin>::type T_begin;
     PSTADE_POD_CONSTANT((T_begin), begin) = PSTADE_EGG_AMBI({{}});
 
-    typedef egg::result_of_ambi0<begin_end_detail::base_end>::type T_end;
+    typedef egg::result_of_ambi1<begin_end_detail::base_end>::type T_end;
     PSTADE_POD_CONSTANT((T_end), end) = PSTADE_EGG_AMBI({{}});
 
 }

@@ -53,10 +53,10 @@ namespace front_detail {
 } // namespace front_detail
 
 
-typedef egg::result_of_ambi0<front_detail::op>::type T_front;
+typedef egg::result_of_ambi1<front_detail::op>::type T_front;
 PSTADE_POD_CONSTANT((T_front), front) = PSTADE_EGG_AMBI({{}});
 
-typedef egg::result_of_ambi0<front_detail::value_op>::type T_value_front;
+typedef egg::result_of_ambi1<front_detail::value_op>::type T_value_front;
 PSTADE_POD_CONSTANT((T_value_front), value_front) = PSTADE_EGG_AMBI({{}});
 
 
