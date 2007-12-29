@@ -50,6 +50,7 @@ A simple object generator can be made automatically using the following family.
 
 [heading Invariants]
 * `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR`.
+* `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]
 
@@ -67,8 +68,8 @@ A simple object generator can be made automatically using the following family.
 [section How to generate]
 
 [heading Description]
-`generator` generates a type using constructor by default.
-But you need some helpers if a generating type has no constructor.
+`generator` generates an object using constructor by default.
+You need these helpers if a generating type has no constructor.
 
 [heading Header]
 * `<pstade/egg/use_constructor.hpp>` defines `use_constructor`.

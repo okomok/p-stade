@@ -16,7 +16,7 @@
 #include <boost/token_iterator.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/specified.hpp>
+#include <pstade/egg/specified1.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
@@ -74,7 +74,8 @@ struct X_make_broken_into :
 { };
 
 
-PSTADE_EGG_SPECIFIED1(make_broken_into, X_make_broken_into, (class))
+#define  PSTADE_EGG_SPECIFIED1_PARAMS (make_broken_into, X_make_broken_into, (class))
+#include PSTADE_EGG_SPECIFIED1()
 
 
 namespace broken_into_detail_ {

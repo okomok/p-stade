@@ -11,12 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/result_of_lambda.hpp> // inclusion guaranteed.
 #include "./by_cref.hpp"
 #include "./by_value.hpp"
 #include "./detail/baby_lazy_result.hpp"
 #include "./generator.hpp"
-#include "./specified.hpp"
+#include "./lambda/result_of.hpp" // inclusion guaranteed
 #include "./use_brace2.hpp"
 
 

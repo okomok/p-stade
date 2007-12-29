@@ -16,7 +16,7 @@
 #include "./by_value.hpp"
 #include "./detail/baby_ret_result.hpp"
 #include "./generator.hpp"
-#include "./specified.hpp"
+#include "./specified1.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -54,7 +54,8 @@ namespace pstade { namespace egg {
 
 
     PSTADE_ADL_BARRIER(ret) { // for 'boost'
-        PSTADE_EGG_SPECIFIED1(ret, X_ret, (class))
+    #define  PSTADE_EGG_SPECIFIED1_PARAMS (ret, X_ret, (class))
+    #include PSTADE_EGG_SPECIFIED1()
     }
 
 

@@ -95,10 +95,10 @@ struct X_unrolled_reduce_c :
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((3), unrolled_reduce, X_unrolled_reduce, (class))
+#define  PSTADE_EGG_SPECIFIED_PARAMS (unrolled_reduce, X_unrolled_reduce, (class), (3))
 #include PSTADE_EGG_SPECIFIED()
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((3), unrolled_reduce_c, X_unrolled_reduce_c, (int))
+#define  PSTADE_EGG_SPECIFIED_PARAMS (unrolled_reduce_c, X_unrolled_reduce_c, (int), (3))
 #include PSTADE_EGG_SPECIFIED()
 
 

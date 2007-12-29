@@ -100,6 +100,7 @@
 #include "./shared_object.hpp"
 #include "./sig_template.hpp"
 #include "./specified.hpp"
+#include "./specified1.hpp"
 #include "./static_down.hpp"
 #include "./static_downcast.hpp"
 #include "./strong_assign.hpp"

@@ -27,7 +27,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/enable_if.hpp>
 #include "./by_perfect.hpp"
-#include "./specified.hpp"
+#include "./specified1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -82,7 +82,8 @@ namespace pstade { namespace egg {
     { };
 
 
-    PSTADE_EGG_SPECIFIED1(static_downcast, X_static_downcast, (class))
+    #define  PSTADE_EGG_SPECIFIED1_PARAMS (static_downcast, X_static_downcast, (class))
+    #include PSTADE_EGG_SPECIFIED1()
 
 
 } } // namespace pstade::egg

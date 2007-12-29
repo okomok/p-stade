@@ -15,7 +15,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/copy.hpp>
-#include <pstade/egg/specified.hpp>
+#include <pstade/egg/specified1.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/unevaluated.hpp>
@@ -97,7 +97,8 @@ struct X_copy_range
 
 
 PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
-    PSTADE_EGG_SPECIFIED1(copy_range, X_copy_range, (class))
+    #define  PSTADE_EGG_SPECIFIED1_PARAMS (copy_range, X_copy_range, (class))
+    #include PSTADE_EGG_SPECIFIED1()
 }
 
 

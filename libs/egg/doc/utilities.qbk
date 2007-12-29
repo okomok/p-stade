@@ -214,6 +214,7 @@ Egg provides __FCPP__ infix operator syntax.
 
 [heading See also]
 * __FCPP__
+* __EGG_PIPABLE__
 
 [endsect]
 

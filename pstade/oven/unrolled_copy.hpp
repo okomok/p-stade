@@ -99,10 +99,10 @@ struct X_unrolled_copy_c :
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_copy, X_unrolled_copy, (class))
+#define  PSTADE_EGG_SPECIFIED_PARAMS (unrolled_copy, X_unrolled_copy, (class), (2))
 #include PSTADE_EGG_SPECIFIED()
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS ((2), unrolled_copy_c, X_unrolled_copy_c, (int))
+#define  PSTADE_EGG_SPECIFIED_PARAMS (unrolled_copy_c, X_unrolled_copy_c, (int), (2))
 #include PSTADE_EGG_SPECIFIED()
 
 

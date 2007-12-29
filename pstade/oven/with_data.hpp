@@ -13,7 +13,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/specified.hpp>
+#include <pstade/egg/specified1.hpp>
 #include <pstade/enable_if.hpp>
 #include "./concepts.hpp"
 #include "./detail/base_to_adaptor.hpp"
@@ -85,7 +85,8 @@ struct X_iter_data
     }
 };
 
-PSTADE_EGG_SPECIFIED1(iter_data, X_iter_data, (class))
+#define  PSTADE_EGG_SPECIFIED1_PARAMS (iter_data, X_iter_data, (class))
+#include PSTADE_EGG_SPECIFIED1()
 
 
 // data
@@ -104,7 +105,8 @@ struct X_data
     }
 };
 
-PSTADE_EGG_SPECIFIED1(data, X_data, (class))
+#define  PSTADE_EGG_SPECIFIED1_PARAMS (data, X_data, (class))
+#include PSTADE_EGG_SPECIFIED1()
 
 
 } } // namespace pstade::oven

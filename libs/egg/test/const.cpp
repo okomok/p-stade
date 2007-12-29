@@ -9,9 +9,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/constant.hpp>
+#include <pstade/egg/const.hpp>
 
 
-PSTADE_EGG_CONSTANT((int), x) = 10;
+PSTADE_EGG_CONST((int), x) = 10;
 
 int main() {}
