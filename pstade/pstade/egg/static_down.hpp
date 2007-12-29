@@ -12,22 +12,22 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./static_downcast.hpp"
+#include "./ambi.hpp"
 #include "./automatic.hpp"
-#include "./auxiliary.hpp"
+#include "./static_downcast.hpp"
 
 
 namespace pstade { namespace egg {
 
 
     typedef
-        result_of_auxiliary0<
+        result_of_ambi0<
             automatic_ref< X_static_downcast<boost::mpl::_> >::type
         >::type
     T_static_down;
 
     PSTADE_POD_CONSTANT((T_static_down), static_down)
-        = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AUXILIARY_R;
+        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

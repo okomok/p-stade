@@ -19,7 +19,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
@@ -61,11 +61,11 @@ namespace at_detail {
 } // namespace at_detail
 
 
-typedef egg::result_of_auxiliary1<at_detail::op>::type T_at;
-PSTADE_POD_CONSTANT((T_at), at) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_ambi1<at_detail::op>::type T_at;
+PSTADE_POD_CONSTANT((T_at), at) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
-typedef egg::result_of_auxiliary1<at_detail::value_op>::type T_value_at;
-PSTADE_POD_CONSTANT((T_value_at), value_at) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_ambi1<at_detail::value_op>::type T_value_at;
+PSTADE_POD_CONSTANT((T_value_at), value_at) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::oven

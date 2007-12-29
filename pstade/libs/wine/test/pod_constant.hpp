@@ -11,6 +11,7 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 struct A { };
@@ -32,6 +33,16 @@ struct ff
 };
 
 PSTADE_POD_CONSTANT((ff<B>), g_ffb) = {{}};
+
+
+// Hmm, msvc is_pod says this is not a pod.
+struct B_with_const
+{
+    A const a;
+    int const i;
+};
+
+PSTADE_POD_CONSTANT((B_with_const), g_b1c) = { { }, 3 };
 
 
 #endif

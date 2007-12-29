@@ -313,7 +313,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_array.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 
@@ -356,7 +356,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_c_str.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 
@@ -401,7 +401,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `<pstade/oven/as_literal.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 

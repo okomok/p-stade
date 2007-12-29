@@ -97,11 +97,9 @@ Oven is known to work on the following platforms:
 
 
 [section Acknowledgements]
-
-Special thanks to Thorsten Ottosen, the author of _boost_range_ and _proposal_.
-
-Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
-These people are instrumental in the design and development of Oven.
+* Special thanks to Thorsten Ottosen, the author of _boost_range_ and _proposal_.
+* Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
+  These people are instrumental in the design and development of Oven.
 
 [endsect]
 

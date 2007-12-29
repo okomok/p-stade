@@ -15,7 +15,7 @@ Egg provides some workaround utilities.
 
 [note If you already use Boost1.35 and don't pass a /const-qualified function pointer/, you don't need this workaround.]
 
-[note This bug can probably be worked around by applying a patch to __BOOST_RESULT_OF__. ]
+[note The former bug can probably be worked around by applying a patch to __BOOST_RESULT_OF__. ]
 
 [heading Header]
 * `<pstade/result_of.hpp>`
@@ -142,16 +142,18 @@ So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
 
 
 
-[/
-
-[section PSTADE_POD_CONSTANT]
+[section CONST]
 
 [heading Description]
 When you define a __FUNCTION_OBJECT__ in namespace scope,
 GCC might show unused variable warnings without this macro.
 
+[note Strictly speaking, a /const-qualified/ object in namespace scope incurs ODR(One Definition Rule) violation.
+      Though a conforming workaround is found, even GCC can't do the right thing around /address constant expression/.
+      Anyway, it is unlikely for this violation to cause significant problem. ]
+
 [heading Header]
-* `<pstade/pod_constant.hpp>`
+* `<pstade/egg/const.hpp>`
 
 [heading Valid expressions]
 [table 
@@ -160,24 +162,23 @@ GCC might show unused variable warnings without this macro.
         [[*Semantics]]
     ]
     [
-        [`PSTADE_POD_CONSTANT((F), obj) = init;`]
+        [`PSTADE_EGG_CONST((F), obj) = init;`]
         [`F const obj = init;`]
     ]
 ]
 
 [heading Preconditions]
-* `F` is a /POD/ type.
+* `F` is a /POD/ type which is not /cv-qualified/.
+* This macro is placed in namespace scope.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
-    PSTADE_POD_CONSTANT((T_foo), foo) = &foo_impl;
+    PSTADE_EGG_CONST((T_foo), foo) = &foo_impl;
 
 [heading See also]
 * ...
 
 [endsect]
-
-]
 
 
 

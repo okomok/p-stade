@@ -14,7 +14,7 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -53,11 +53,11 @@ namespace front_detail {
 } // namespace front_detail
 
 
-typedef egg::result_of_auxiliary0<front_detail::op>::type T_front;
-PSTADE_POD_CONSTANT((T_front), front) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_ambi0<front_detail::op>::type T_front;
+PSTADE_POD_CONSTANT((T_front), front) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
-typedef egg::result_of_auxiliary0<front_detail::value_op>::type T_value_front;
-PSTADE_POD_CONSTANT((T_value_front), value_front) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_ambi0<front_detail::value_op>::type T_value_front;
+PSTADE_POD_CONSTANT((T_value_front), value_front) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::oven

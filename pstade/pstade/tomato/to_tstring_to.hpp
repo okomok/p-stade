@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/by_cref.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/tstring.hpp>
@@ -63,8 +63,8 @@ namespace pstade { namespace tomato {
     } // namespace to_string_detail
 
 
-    PSTADE_POD_CONSTANT((egg::result_of_auxiliary0<to_tstring_detail::op>::type), to_tstring)
-        = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((egg::result_of_ambi0<to_tstring_detail::op>::type), to_tstring)
+        = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::tomato

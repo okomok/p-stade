@@ -11,7 +11,7 @@
 
 
 #include <pstade/apple/basic_string_fwd.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./sdk/tchar.hpp"
 
@@ -67,8 +67,8 @@ namespace pstade { namespace gravy {
     } // namespace c_str_detail
 
 
-    typedef egg::result_of_auxiliary0<c_str_detail::op>::type T_c_str;
-    PSTADE_POD_CONSTANT((T_c_str), c_str) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
+    typedef egg::result_of_ambi0<c_str_detail::op>::type T_c_str;
+    PSTADE_POD_CONSTANT((T_c_str), c_str) = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::gravy

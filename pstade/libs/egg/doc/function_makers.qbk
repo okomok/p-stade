@@ -43,7 +43,7 @@ with `boost::lambda::bind` and `boost::result_of`.
     ]
     [
         [`f(a1,...,aN)`]
-        [`f.baby().call<B::apply<B, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+        [`f.baby().call<B::apply<B const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
     ]
     [
         [`f()`]
@@ -52,7 +52,7 @@ with `boost::lambda::bind` and `boost::result_of`.
 ]
 
 [heading Preconditions]
-* `B` is a __BABY_FUNCTION__ type.
+* `B` is a __BABY_FUNCTION__ type which is neither /reference/ nor /cv-qualified/.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -95,7 +95,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
     ]
     [
         [`_baby(a1,...,aN)`]
-        [`_baby.call<_typeof(_baby)::apply<_typeof(_baby), _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+        [`_baby.call<_typeof(_baby)::apply<_typeof(_baby) const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
     ]
     [
         [`_baby()`]
@@ -154,7 +154,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 
 [heading Preconditions]
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
-* `Lam` is an __MPL_LAMBDA_EXPRESSION__.
+* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
 * `f` is a __DEFERRED_CALLABLE_OBJECT__.
 * There is a type `X_` such that `boost::is_convertible<X_, _typeof(to)>::value == false`.
 * The corresponding semantics is a valid expression.
@@ -209,7 +209,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 ]
 
 [heading Preconditions]
-* `Lam` is an __MPL_LAMBDA_EXPRESSION__.
+* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
 * `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
 * The corresponding semantics is a valid expression.

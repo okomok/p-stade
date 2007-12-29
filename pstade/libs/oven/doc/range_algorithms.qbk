@@ -113,7 +113,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/at.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 
@@ -157,7 +157,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/back.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 
@@ -194,7 +194,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/front.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 
@@ -225,13 +225,13 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 [section begin/end]
 
 [heading Description]
-`begin` and `end` is _auxiliary_class_interface_ which represents `boost::begin` and `boost::end` respectively.
+`begin` and `end` is _ambi_object_ which represents `boost::begin` and `boost::end` respectively.
 
 [heading Header]
 * `<pstade/oven/begin_end.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 
@@ -322,7 +322,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/distance.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Valid expressions]
 [table 
@@ -463,7 +463,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/at.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Notation]
 * `V` is `_value_of<_typeof(_rndrng)>::type`.
@@ -502,7 +502,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/back.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Notation]
 * `V` is `_value_of<_typeof(_bidrng)>::type`.
@@ -541,7 +541,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/front.hpp>`
 
 [heading Model of]
-* _auxiliary_class_interface_
+* _ambi_object_
 
 [heading Notation]
 * `V` is `_value_of<_typeof(_rng)>::type`.

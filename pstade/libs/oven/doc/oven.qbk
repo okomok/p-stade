@@ -94,7 +94,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def _pipable_adaptor_       [link oven.concepts.pipable_adaptor Pipable Adaptor]]
 [def _resettable_object_     [link oven.concepts.resettable_object Resettable Object]]
 [def _resettable_            [link oven.concepts.resettable_object Resettable]]
-[def _auxiliary_class_interface_   [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.auxiliary_class_interface Auxiliary Class Interface]]
+[def _ambi_object_           [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.ambi_object Ambi Object]]
 [def _stoppable_generator_   [link oven.concepts.stoppable_generator Stoppable Generator]]
 [def _iteration_block_       [link oven.concepts.iteration_block Iteration Block]]
 [def _parallel_safe_         [link oven.concepts.parallel_safe Parallel Safe]]

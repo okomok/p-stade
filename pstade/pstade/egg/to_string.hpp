@@ -13,7 +13,7 @@
 
 #include <string>
 #include <pstade/pod_constant.hpp>
-#include "./auxiliary.hpp"
+#include "./ambi.hpp"
 #include "./lexical_cast.hpp"
 
 
@@ -21,21 +21,21 @@ namespace pstade { namespace egg {
 
 
     typedef
-        result_of_auxiliary0<
+        result_of_ambi0<
             X_lexical_cast<std::string>::function_type
         >::type
     T_to_string;
 
-    PSTADE_POD_CONSTANT((T_to_string), to_string) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((T_to_string), to_string) = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R;
 
 
     typedef
-        result_of_auxiliary0<
+        result_of_ambi0<
             X_lexical_cast<std::wstring>::function_type
         >::type
     T_to_wstring;
 
-    PSTADE_POD_CONSTANT((T_to_wstring), to_wstring) = PSTADE_EGG_AUXILIARY_L {} PSTADE_EGG_AUXILIARY_R;
+    PSTADE_POD_CONSTANT((T_to_wstring), to_wstring) = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

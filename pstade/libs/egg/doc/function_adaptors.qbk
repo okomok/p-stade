@@ -16,19 +16,19 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 
 
 
-[section auxiliaryN]
+[section ambiN]
 
 [heading Description]
-`auxiliary` family helps you to make an __AUXILIARY_CLASS_INTERFACE__.
+`ambi` family helps you to make an __AMBI_OBJECT__.
 
 [heading Header]
-* `<pstade/egg/auxiliary.hpp>`
+* `<pstade/egg/ambi.hpp>`
 
 [heading Model of]
 * ...
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_auxiliary++N<_typeof(d)>::type` initialized using `d` or the initializer.
+* `fc(d)` is an object of `result_of_ambi++N<_typeof(d)>::type` initialized using `d` or the initializer.
 
 [heading Valid expressions]
 [table 
@@ -37,23 +37,23 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
         [[*Semantics]]
     ]
     [
-        [`result_of_auxiliary++N<_Dco>::type`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE__ type which meets __AUXILIARY_CLASS_INTERFACE__ expression requirements.]
+        [`result_of_ambi++N<_Dco>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE__ type which meets __AMBI_OBJECT__ expression requirements.]
     ]
     [
-        [`PSTADE_EGG_AUXILIARY_L init PSTADE_EGG_AUXILIARY_R`]
-        [A braced initializer of `result_of_auxiliary++N<_Dco>::type`]
+        [`PSTADE_EGG_AMBI_L init PSTADE_EGG_AMBI_R`]
+        [A braced initializer of `result_of_ambi++N<_Dco>::type`]
     ]
     [
         [`fc(d)(a(1),...,a(N+1))`]
-        [`d(_arg_list(a, by_perfect))`]
+        [`_const(d)(_arg_list(a, by_perfect))`]
     ]
     [
-        [`auxiliary++N`]
+        [`ambi++N`]
         [A __BINDABLE__ __STATIC_FUNCTION_OBJECT__]
     ]
     [
-        [`auxiliary++N(d)`]
+        [`ambi++N(d)`]
         [`fc(d)`]
     ]
 ]
@@ -64,13 +64,13 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_auxiliary++N<_Dco>::type` is a /POD/ type if and only if `_Dco` is a /POD/ type.
+* `result_of_ambi++N<_Dco>::type` is a /POD/ type if and only if `_Dco` is a /POD/ type.
 
 [note Arguments passed to `fc` are not copied.
       Those are bound to references, then forwarded to the base __FUNCTION_OBJECT__.]
 
 [heading Example]
-[code_auxiliary_example]
+[code_ambi_example]
 
 [heading See also]
 * __EGG_PIPABLE__
@@ -110,7 +110,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`fc(d1, d2, R0, Stg)(a1,...,aN)`]
-        [`d1(d2(_arg_list(a, _Stg)))`]
+        [`_const(d1)(_const(d2)(_arg_list(a, _Stg)))`]
     ]
     [
         [`X_compose<R0 = _default>`]
@@ -176,7 +176,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`fc(d)(a1)...(aN)`]
-        [`d(_arg_list(_arg_list(a, by_cref), by_value))`]
+        [`_const(d)(_arg_list(_arg_list(a, by_cref), by_value))`]
     ]
     [
         [`curry++N`]
@@ -239,7 +239,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`fc(d, _Stg)(a1,...,aN)`]
-        [`d(parens(_arg_list(a, _Stg)))`]
+        [`_const(d)(parens(_arg_list(a, _Stg)))`]
     ]
     [
         [`uncurry(d)`]
@@ -295,15 +295,15 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`fc(d)(t)`]
-        [`d(boost::get<0>(t_),...,boost::get<N-1>(t_))`]
+        [`_const(d)(boost::get<0>(t_),...,boost::get<N-1>(t_))`]
     ]
     [
         [`fc(d)(t0)`]
-        [`d()`]
+        [`_const(d)()`]
     ]
     [
         [`fuse(d)`]
-        [`fc(d)`]
+        [fc(d)`]
     ]
 ]
 
@@ -357,7 +357,7 @@ if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to
     ]
     [
         [`fc(d, R0, _Stg)(a1,...,aN)`]
-        [`d( boost::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
+        [`_const(d)( boost::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
     ]
     [
         [`X_unfuse<R0 = _default>`]
@@ -544,7 +544,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_dco)(a1)`]
-        [`_dco(fixed, _arg_list(_arg_list(a, by_cref), by_value))`]
+        [`_const(_dco)(fixed, _arg_list(_arg_list(a, by_cref), by_value))`]
     ]
 ]
 
@@ -601,7 +601,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [`f(arglist)`]
+        [`_const(f)(arglist)`]
     ]
     [
         [`X_mono<Sig>`]
@@ -670,7 +670,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`a|fc(d, _Stg)(b1,...,bN)`]
-        [`d(_arg_list(a, by_perfect), _arg_list(b, _Stg))`]
+        [`_const(d)(_arg_list(a, by_perfect), _arg_list(b, _Stg))`]
     ]
     [
         [`pipable(d)`]
@@ -689,10 +689,57 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Example]
 [code_pipable_example]
 
-[note A pipable __FUNCTION_OBJECT__ can be overloaded with different arity, whereas __AUXILIARY_CLASS_INTERFACE__ cannot.]
+[note A pipable __FUNCTION_OBJECT__ can be overloaded with different arity, whereas __AMBI_OBJECT__ cannot.]
 
 [heading See also]
-* __EGG_AUXILIARY__
+* __EGG_AMBI__
+
+[endsect]
+
+
+
+
+[section regular]
+
+[heading Description]
+A __BOOST_LAMBDA__ functor is neither __DEFAULT_CONSTRUCTIBLE__ nor __ASSIGNABLE__.
+An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
+`regular` converts it into comfortable one for iterators.
+
+[heading Header]
+* `<pstade/egg/regular.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`regular(f)`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.]
+    ]
+    [
+        [`regular(f)(a1,...,aN)`]
+        [`_const(f)(_arg_list(a, by_perfect))`]
+    ]
+]
+
+[heading Preconditions]
+* `f` is a __BOOST_LAMBDA__ functor or __DEFERRED_CALLABLE_OBJECT__.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_ITERATOR__
 
 [endsect]
 
@@ -729,7 +776,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f, R, _Stg)(a1,...,aN)`]
-        [`f(_arg_list(a, _Stg))`]
+        [`_const(f)(_arg_list(a, _Stg))`]
     ]
     [
         [`X_ret<R>`]
@@ -802,7 +849,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f, R, _Stg)(a1,...,aN)`]
-        [`f(_arg_list(a, _Stg))` whose return type is `ReturnT(a, R)`.]
+        [`_const(f)(_arg_list(a, _Stg))` whose return type is `ReturnT(a, R)`.]
     ]
     [
         [`X_retby<R>`]
@@ -871,7 +918,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(d)(a1,...,aN)`]
-        [`d(_arg_list(a, by_perfect))`]
+        [`_const(d)(_arg_list(a, by_perfect))`]
     ]
     [
         [`perfect(d)`]
@@ -927,7 +974,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(d, Tag, _Stg)(a1,...,aN)`]
-        [`d(_arg_list(a, _Stg))`]
+        [`_const(d)(_arg_list(a, _Stg))`]
     ]
     [
         [`tag_of<_typeof(fc(d, Tag, _Stg))>::type`]

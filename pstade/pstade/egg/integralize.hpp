@@ -12,8 +12,8 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./ambi.hpp"
 #include "./automatic.hpp"
-#include "./auxiliary.hpp"
 #include "./integral_cast.hpp"
 
 
@@ -27,8 +27,8 @@ namespace pstade { namespace egg {
     }
 
 
-    typedef result_of_auxiliary0<integralize_detail::op>::type T_integralize;
-    PSTADE_POD_CONSTANT((T_integralize), integralize) = PSTADE_EGG_AUXILIARY_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AUXILIARY_R;
+    typedef result_of_ambi0<integralize_detail::op>::type T_integralize;
+    PSTADE_POD_CONSTANT((T_integralize), integralize) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

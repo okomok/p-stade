@@ -26,7 +26,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
@@ -140,8 +140,8 @@ namespace as_c_str_detail {
 } // namespace as_c_str_detail
 
 
-typedef egg::result_of_auxiliary0<as_c_str_detail::op>::type T_as_c_str;
-PSTADE_POD_CONSTANT((T_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY_L {{}} PSTADE_EGG_AUXILIARY_R;
+typedef egg::result_of_ambi0<as_c_str_detail::op>::type T_as_c_str;
+PSTADE_POD_CONSTANT((T_as_c_str), as_c_str) = PSTADE_EGG_AMBI_L {{}} PSTADE_EGG_AMBI_R;
 
 
 struct T_contains_zero
