@@ -40,6 +40,13 @@ T_my_foo1 const my_foo1 = PSTADE_EGG_TAGGED_L {} PSTADE_EGG_TAGGED_R;
 T_my_foo2 const my_foo2 = PSTADE_EGG_TAGGED({});
 
 
+BOOST_MPL_ASSERT_NOT((has_the_tag<my_foo, tag1>));
+
+BOOST_MPL_ASSERT((has_the_tag<T_my_foo1, tag1>));
+BOOST_MPL_ASSERT((has_the_tag<T_my_foo2, tag2>));
+BOOST_MPL_ASSERT_NOT((has_the_tag<T_my_foo1, tag2>));
+BOOST_MPL_ASSERT_NOT((has_the_tag<T_my_foo2, tag1>));
+
 BOOST_MPL_ASSERT((boost::is_same<tag_of<T_my_foo1>::type, tag1>));
 BOOST_MPL_ASSERT((boost::is_same<tag_of<T_my_foo2>::type, tag2>));
 

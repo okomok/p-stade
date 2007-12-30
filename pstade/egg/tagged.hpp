@@ -11,6 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include "./ret.hpp"
 
 
@@ -31,11 +33,40 @@ namespace pstade { namespace egg {
     // Do you need a function 'egg::tagged<...>(f)'?
 
 
-    template<class Function>
+    struct not_tagged;
+
+    template<class F>
     struct tag_of
     {
-        typedef typename Function::baby_type::tag_type type;
+        typedef not_tagged type;
     };
+
+    template<class F>
+    struct tag_of<F const> :
+        tag_of<F>
+    { };
+
+    template<class F>
+    struct tag_of<F volatile> :
+        tag_of<F>
+    { };
+
+    template<class F>
+    struct tag_of<F const volatile> :
+        tag_of<F>
+    { };
+
+    template<class Base, class ResultType, class Strategy, class Tag>
+    struct tag_of< function<detail::baby_ret_result<Base, ResultType, Tag>, Strategy> >
+    {
+        typedef Tag type;
+    };
+
+
+    template<class F, class Tag>
+    struct has_the_tag :
+        boost::is_same<typename tag_of<F>::type, Tag>
+    { };
 
 
 } } // namespace pstade::egg

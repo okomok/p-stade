@@ -12,6 +12,7 @@
 
 
 #include <boost/mpl/bool.hpp>
+#include <pstade/enable_if.hpp>
 #include "./lambda/functor_fwd.hpp"
 
 
@@ -26,9 +27,15 @@ namespace boost { namespace _bi {
 namespace pstade { namespace egg {
 
 
+    template<class X, class EnableIf>
+    struct is_bind_expression_base :
+        boost::mpl::false_
+    { };
+
+
     template<class X>
     struct is_bind_expression :
-        boost::mpl::false_
+        is_bind_expression_base<X, enabler>
     { };
 
     template<class X>
@@ -57,6 +64,9 @@ namespace pstade { namespace egg {
     struct is_bind_expression< boost::_bi::bind_t<R, F, L> > :
         boost::mpl::true_
     { };
+
+
+    struct bind_expression_tag;
 
 
 } } // namespace pstade::egg
