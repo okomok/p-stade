@@ -992,7 +992,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [section tagged]
 
 [heading Description]
-`tagged` makes a new __FUNCTION_OBJECT__ type from the same __FUNCTION_OBJECT__ type.
+Pending... `tagged` makes a new __FUNCTION_OBJECT__ type.
 
 [heading Header]
 * `<pstade/egg/tagged.hpp>`

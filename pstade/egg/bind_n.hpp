@@ -178,9 +178,12 @@
     #if m == 0
 
         struct nullary_result :
-            result_of<Base const(
-                BOOST_PP_ENUM(n, PSTADE_meta_eval, ~)
-            )>
+            result_of<
+                typename result_of<typename result_of<detail::T_apply_if_bind_expr(Base&)>::type()>::type // `Base const` in Boost.Bind.
+                (
+                    BOOST_PP_ENUM(n, PSTADE_meta_eval, ~)
+                )
+            >
         { };
 
         typedef typename
@@ -192,10 +195,13 @@
     #else
 
         template<class Myself, BOOST_PP_ENUM_PARAMS(m, class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)>  :
-            result_of<Base const(
-                BOOST_PP_ENUM(n, PSTADE_meta_eval, ~)
-            )>
+        struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)> :
+            result_of<
+                typename result_of<typename result_of<detail::T_apply_if_bind_expr(Base&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
+                (
+                    BOOST_PP_ENUM(n, PSTADE_meta_eval, ~)
+                )
+            >
         { };
 
     #endif
@@ -203,9 +209,11 @@
         template<class Result BOOST_PP_ENUM_TRAILING_PARAMS(m, class A)>
         Result call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
         {
-            return m_base(
-                BOOST_PP_ENUM(n, PSTADE_eval, ~)
-            );
+            return
+                detail::apply_if_bind_expr(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
+                (
+                    BOOST_PP_ENUM(n, PSTADE_eval, ~)
+                );
         }
 
 
