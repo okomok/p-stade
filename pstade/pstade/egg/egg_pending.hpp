@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./bind.hpp"
+#include "./bind_n.hpp"
+#include "./placeholders.hpp"
+#include "./protect.hpp"
+#include "./unlambda.hpp"
+
 #include "./auto_funptr.hpp"
 #include "./funptr.hpp"
 
