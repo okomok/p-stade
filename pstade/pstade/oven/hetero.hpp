@@ -12,7 +12,7 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/specified1.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/egg/tuple/size.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
@@ -67,8 +67,8 @@ struct X_hetero :
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (hetero, X_hetero, (class))
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (hetero, X_hetero, (class), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::oven

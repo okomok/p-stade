@@ -39,7 +39,7 @@
 #include <pstade/egg/ambi.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/specified1.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
@@ -87,8 +87,8 @@ struct X_adapted_to
 };
 
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (adapted_to, X_adapted_to, (class))
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (adapted_to, X_adapted_to, (class), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 namespace to_base_detail {
@@ -135,8 +135,8 @@ struct X_adapted_range_to :
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (adapted_range_to, X_adapted_range_to, (class))
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (adapted_range_to, X_adapted_range_to, (class), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 namespace to_base_range_detail {

@@ -14,7 +14,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/identity.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/egg/specified1.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./transformed.hpp"
@@ -54,8 +54,8 @@ struct X_make_converted :
 { };
 
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (make_converted, X_make_converted, (class))
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (make_converted, X_make_converted, (class), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 template< class To >

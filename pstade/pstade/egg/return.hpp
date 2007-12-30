@@ -17,7 +17,7 @@
 #include "./by_value.hpp"
 #include "./detail/baby_return_result.hpp"
 #include "./generator.hpp"
-#include "./specified1.hpp"
+#include "./specified.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -52,8 +52,8 @@ namespace pstade { namespace egg {
     { };
 
 
-    #define  PSTADE_EGG_SPECIFIED1_PARAMS (return_, X_return_, (class))
-    #include PSTADE_EGG_SPECIFIED1()
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (return_, X_return_, (class), (1))
+    #include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::egg

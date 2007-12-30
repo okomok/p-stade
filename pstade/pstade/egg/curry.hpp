@@ -20,8 +20,8 @@
 #include "./by_cref.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./detail/bind1.hpp"
-#include "./detail/bindx.hpp"
+#include "./detail/bind_left1.hpp"
+#include "./detail/bind_leftx.hpp"
 #include "./detail/curry_result_initializers.hpp"
 
 
@@ -52,8 +52,8 @@ namespace pstade { namespace egg {
     template<class Base>
     struct BOOST_PP_CAT(result_of_curry, n) :
         BOOST_PP_CAT(result_of_curry, n_1)<
-            typename detail::result_of_bind1<
-                detail::BOOST_PP_CAT(T_bind, n_1), Base
+            typename detail::result_of_bind_left1<
+                detail::BOOST_PP_CAT(T_bind_left, n_1), Base
             >::type
         >
     { };
@@ -79,7 +79,7 @@ namespace pstade { namespace egg {
             result_of<
                 BOOST_PP_CAT(T_curry, n_1)(
                     typename result_of<
-                        detail::T_bind1(detail::BOOST_PP_CAT(T_bind, n_1) const&, Base&)
+                        detail::T_bind_left1(detail::BOOST_PP_CAT(T_bind_left, n_1) const&, Base&)
                     >::type
                 )
             >
@@ -89,12 +89,12 @@ namespace pstade { namespace egg {
         Result call(Base base) const
         {
             // Assume fun4 is 4ary.
-            // curry3(bind1(bind3, fun4))(a1)(a2)(a3)(a4)
-            // => bind1(bind3, fun4)(a1, a2, a3)(a4)
-            // => bind3(fun4, a1, a2, a3)(a4)
+            // curry3(bind_left1(bind_left3, fun4))(a1)(a2)(a3)(a4)
+            // => bind_left1(bind_left3, fun4)(a1, a2, a3)(a4)
+            // => bind_left3(fun4, a1, a2, a3)(a4)
             // => fun4(a1, a2, a3, a4)
             return BOOST_PP_CAT(curry, n_1)(
-                detail::bind1(detail::BOOST_PP_CAT(bind, n_1), base)
+                detail::bind_left1(detail::BOOST_PP_CAT(bind_left, n_1), base)
             );
         }
 #endif

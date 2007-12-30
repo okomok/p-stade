@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/specified1.hpp>
+#include <pstade/egg/specified.hpp>
 #include "./sdk/windows.hpp"
 #include "./sdk/wtypes.hpp" // VARIANT_BOOL
 
@@ -80,8 +80,8 @@ namespace pstade { namespace gravy {
         }
     };
 
-    #define  PSTADE_EGG_SPECIFIED1_PARAMS (boolean_cast, X_boolean_cast, (class))
-    #include PSTADE_EGG_SPECIFIED1()
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (boolean_cast, X_boolean_cast, (class), (1))
+    #include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::gravy

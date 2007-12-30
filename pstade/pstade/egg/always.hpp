@@ -18,7 +18,7 @@
 #include <pstade/preprocessor.hpp>
 #include "./apply_params.hpp"
 #include "./by_cref.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
 
@@ -44,13 +44,13 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct apply
             {
                 typedef X type;
             };
 
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/always.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/always.hpp>))
             #include BOOST_PP_ITERATE()
         };
 

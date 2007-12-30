@@ -17,7 +17,7 @@
 //#include <pstade/../libs/radish/test/swap_reset.cpp>
 
 //#include <pstade/../libs/oven/test/filtered.cpp>
-#include <pstade/../libs/oven/example/primes.cpp>
+//#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
     //#include <pstade/../libs/biscuit/test/multiple_defs1.cpp>
@@ -30,7 +30,7 @@
 //#define PSTADE_EGG_TEST_NUMBERED 1
 //#define PSTADE_EGG_TEST_LINEAR 0
 //#define PSTADE_EGG_MAX_ARITY 10
-//#include <pstade/../libs/egg/test/ambi.cpp>
+#include <pstade/../libs/egg/test/bind.cpp>
 //#include <pstade/../libs/egg/example/mono_lambda.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

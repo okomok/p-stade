@@ -71,20 +71,20 @@ namespace pstade { namespace egg {
 
     // fix(base)
     // => curry2(uncurried_fix)(base)
-    // => bind1(bind1, uncurried_fix)(base)
-    // => bind1(uncurried_fix, base)
+    // => bind_left1(bind_left1, uncurried_fix)(base)
+    // => bind_left1(uncurried_fix, base)
 
     template<class Base>
     struct result_of_fix :
-        detail::result_of_bind1<
+        detail::result_of_bind_left1<
             fix_detail::uncurried,
             Base
         >
     { };
 
-    // PSTADE_EGG_DETAIL_BIND1_L {{}} PSTADE_EGG_DETAIL_BIND1_M Base PSTADE_EGG_DETAIL_BIND1_R
-    #define PSTADE_EGG_FIX_L PSTADE_EGG_DETAIL_BIND1_L {{}} PSTADE_EGG_DETAIL_BIND1_M
-    #define PSTADE_EGG_FIX_R PSTADE_EGG_DETAIL_BIND1_R
+    // PSTADE_EGG_DETAIL_BIND_LEFT1_L {{}} PSTADE_EGG_DETAIL_BIND_LEFT1_M Base PSTADE_EGG_DETAIL_BIND_LEFT1_R
+    #define PSTADE_EGG_FIX_L PSTADE_EGG_DETAIL_BIND_LEFT1_L {{}} PSTADE_EGG_DETAIL_BIND_LEFT1_M
+    #define PSTADE_EGG_FIX_R PSTADE_EGG_DETAIL_BIND_LEFT1_R
     #define PSTADE_EGG_FIX(F) PSTADE_EGG_FIX_L F PSTADE_EGG_FIX_R
 
 
