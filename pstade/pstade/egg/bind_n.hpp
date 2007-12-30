@@ -17,8 +17,6 @@
 
 
     #include <boost/mpl/bool.hpp>
-    #include <boost/mpl/eval_if.hpp>
-    #include <boost/mpl/identity.hpp>
     #include <boost/preprocessor/arithmetic/dec.hpp>
     #include <boost/preprocessor/cat.hpp>
     #include <boost/preprocessor/facilities/intercept.hpp>
@@ -32,7 +30,6 @@
     #include <boost/preprocessor/repetition/repeat.hpp>
     #include <boost/preprocessor/selection/max.hpp>
     #include <boost/preprocessor/slot/slot.hpp>
-    #include <boost/type_traits/is_same.hpp>
     #include <pstade/apple/boost/use_default_fwd.hpp>
     #include <pstade/pass_by.hpp>
     #include <pstade/pod_constant.hpp>
@@ -42,8 +39,8 @@
     #include "./by_cref.hpp"
     #include "./by_perfect.hpp"
     #include "./config.hpp"
-    #include "./detail/bound_arg.hpp"
     #include "./detail/apply_if_bind_expr.hpp"
+    #include "./detail/bound_arg.hpp"
     #include "./detail/use_nullary_result.hpp"
     #include "./is_bind_expression.hpp"
 
@@ -54,10 +51,10 @@
         #define PSTADE_EGG_BIND_L { {
         #define PSTADE_EGG_BIND_R } }
 
-        // 1ary-
+        // 0ary-
     #define PSTADE_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/bind_n.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <pstade/egg/bind_n.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_max_arity
     #undef  PSTADE_arg
@@ -77,34 +74,7 @@
     #define n BOOST_PP_SLOT(1)
 
 
-    #if n == 0
-
-        template<class Base>
-        struct baby_bind0_result
-        {
-            Base m_base;
-
-            typedef Base base_type;
-
-            Base base() const
-            {
-                return m_base;
-            }
-
-            typedef typename
-                result_of<Base const()>::type
-            nullary_result_type;
-
-            template<class Result>
-            Result call() const
-            {
-                return m_base();
-            }
-        };
-
-    #else
-
-        template<class Base, class NullaryResult, BOOST_PP_ENUM_PARAMS(n, class Arg)>
+        template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
         struct PSTADE_PP_CAT3(baby_bind, n, _result)
         {
             Base m_base;
@@ -117,10 +87,7 @@
                 return m_base;
             }
 
-            // 0ary - nary
-        #define PSTADE_max_arity2 \
-            BOOST_PP_MAX(n, PSTADE_EGG_MAX_ARITY) \
-        /**/
+            // 0ary - PSTADE_EGG_MAX_ARITYary
         #define PSTADE_meta_eval(Z, N, _) \
             typename result_of< \
                 typename result_of< \
@@ -132,18 +99,15 @@
             detail::apply_if_bind_expr(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
         /**/
 
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_max_arity2, A)>
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
             struct apply { };
 
-            #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, PSTADE_max_arity2, <pstade/egg/bind_n.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, PSTADE_EGG_MAX_ARITY, <pstade/egg/bind_n.hpp>))
             #include BOOST_PP_ITERATE()
 
         #undef  PSTADE_eval
         #undef  PSTADE_meta_eval
-        #undef  PSTADE_max_arity2
         };
-
-    #endif // n == 0
 
 
         template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
@@ -185,7 +149,7 @@
                 >
             { };
 
-            template<class Result, class Base, BOOST_PP_ENUM_PARAMS(n, class Arg)>
+            template<class Result, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
             Result call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
             {
                 Result r = PSTADE_EGG_BIND_L base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg) PSTADE_EGG_BIND_R;
@@ -220,9 +184,8 @@
         { };
 
         typedef typename
-            boost::mpl::eval_if< boost::is_same<NullaryResult, use_nullary_result>,
-                nullary_result,
-                boost::mpl::identity<NullaryResult>
+            eval_if_use_nullary_result<NullaryResult,
+                nullary_result
             >::type
         nullary_result_type;
 
