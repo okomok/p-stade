@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/specified1.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -28,8 +28,8 @@ struct T_my_cast
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (my_cast, T_my_cast, 1)
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (my_cast, T_my_cast, 1, (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 template<class X, int Y>
@@ -43,8 +43,8 @@ struct T_my_cast_
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (my_cast_, T_my_cast_, (class)(int))
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (my_cast_, T_my_cast_, (class)(int), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 struct x
@@ -108,8 +108,8 @@ struct T_array_check
     T_array_check() { } // for Boost v1.33 result_of
 };
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (array_check, T_array_check, 1)
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (array_check, T_array_check, 1, (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 void pstade_minimal_test()

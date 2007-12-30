@@ -19,7 +19,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/specified1.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
@@ -97,8 +97,8 @@ struct X_line_number
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (line_number, X_line_number, (class))
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (line_number, X_line_number, (class), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::oven

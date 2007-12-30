@@ -16,7 +16,7 @@
 #include <iterator> // istream_iterator, istreambuf_iterator
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/specified1.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./iter_range.hpp"
 
@@ -75,8 +75,8 @@ struct X_stream_read :
     egg::function< stream_read_detail::baby<Value, Difference> >
 { };
 
-#define  PSTADE_EGG_SPECIFIED1_PARAMS (stream_read, X_stream_read, (class))
-#include PSTADE_EGG_SPECIFIED1()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (stream_read, X_stream_read, (class), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 // streambuf_read

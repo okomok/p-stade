@@ -17,7 +17,7 @@
 #include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
 #include "../by_perfect.hpp"
-#include "../specified1.hpp"
+#include "../specified.hpp"
 #include "./config.hpp"
 #include "./element.hpp"
 
@@ -112,8 +112,8 @@ namespace pstade { namespace egg {
         function<tuple_get_detail::baby<N>, by_perfect>
     { };
 
-    #define  PSTADE_EGG_SPECIFIED1_PARAMS (tuple_get, X_tuple_get, (class))
-    #include PSTADE_EGG_SPECIFIED1()
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (tuple_get, X_tuple_get, (class), (1))
+    #include PSTADE_EGG_SPECIFIED()
 
 
     template<int N>
@@ -121,8 +121,8 @@ namespace pstade { namespace egg {
         X_tuple_get< boost::mpl::int_<N> >
     { };
 
-    #define  PSTADE_EGG_SPECIFIED1_PARAMS (tuple_get_c, X_tuple_get_c, (int))
-    #include PSTADE_EGG_SPECIFIED1()
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (tuple_get_c, X_tuple_get_c, (int), (1))
+    #include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::egg

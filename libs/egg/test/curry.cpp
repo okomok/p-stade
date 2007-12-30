@@ -144,7 +144,7 @@ void pstade_minimal_test()
 
     {
         BOOST_CHECK(
-            detail::bind1(::my_plus2(), 5)(7) == "57"
+            detail::bind_left1(::my_plus2(), 5)(7) == "57"
         );
     }
     {
@@ -159,7 +159,7 @@ void pstade_minimal_test()
     }
     {
         BOOST_CHECK(
-            detail::bind2(::my_plus3(), 5, 7)(2) == "572"
+            detail::bind_left2(::my_plus3(), 5, 7)(2) == "572"
         );
     }
     {
