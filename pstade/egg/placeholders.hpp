@@ -71,7 +71,8 @@
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_placeholder, n)), BOOST_PP_CAT(placeholder, n)) = PSTADE_EGG_PLACEHOLDER;
 
         namespace placeholders {
-            PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_placeholder, n)), BOOST_PP_CAT(_, n)) = PSTADE_EGG_PLACEHOLDER;
+            typedef BOOST_PP_CAT(T_placeholder, n) BOOST_PP_CAT(TT_, n);
+            PSTADE_POD_CONSTANT((BOOST_PP_CAT(TT_, n)), BOOST_PP_CAT(_, n)) = PSTADE_EGG_PLACEHOLDER;
         }
 
         template< >

@@ -18,12 +18,9 @@
 // but this is the basis together with 'fuse'.
 
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
@@ -65,9 +62,8 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            boost::mpl::eval_if< boost::is_same<NullaryResult, use_nullary_result>,
-                nullary_result_of<Base, pack_type>,
-                boost::mpl::identity<NullaryResult>
+            eval_if_use_nullary_result<NullaryResult,
+                nullary_result_of<Base, pack_type>
             >::type
         nullary_result_type;
 

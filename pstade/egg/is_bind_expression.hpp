@@ -12,6 +12,15 @@
 
 
 #include <boost/mpl/bool.hpp>
+#include "./lambda/functor_fwd.hpp"
+
+
+namespace boost { namespace _bi {
+
+    template<class R, class F, class L>
+    class bind_t;
+
+} }
 
 
 namespace pstade { namespace egg {
@@ -35,6 +44,18 @@ namespace pstade { namespace egg {
     template<class X>
     struct is_bind_expression<X const volatile> :
         is_bind_expression<X>
+    { };
+
+
+    template<class T>
+    struct is_bind_expression< boost::lambda::lambda_functor<T> > :
+        boost::mpl::true_
+    { };
+
+
+    template<class R, class F, class L>
+    struct is_bind_expression< boost::_bi::bind_t<R, F, L> > :
+        boost::mpl::true_
     { };
 
 
