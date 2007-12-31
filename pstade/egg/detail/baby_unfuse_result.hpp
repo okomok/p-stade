@@ -25,6 +25,7 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
+#include "../by_ref.hpp"
 #include "../tuple/config.hpp"
 #include "../tuple/pack.hpp"
 #include "./use_nullary_result.hpp"
@@ -50,7 +51,12 @@ namespace pstade { namespace egg { namespace detail {
     struct baby_unfuse_result
     {
         typedef Base base_type;
-        typedef typename if_use_default<Pack, T_tuple_pack_by_ref>::type pack_type;
+
+        typedef typename
+            if_use_default<Pack,
+                typename X_tuple_pack<by_ref>::function_type
+            >::type
+        pack_type;
 
         Base m_base;
         pack_type m_pack;

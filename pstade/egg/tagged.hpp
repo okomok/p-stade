@@ -33,12 +33,12 @@ namespace pstade { namespace egg {
     // Do you need a function 'egg::tagged<...>(f)'?
 
 
-    struct not_tagged;
+    struct no_tag_tag;
 
     template<class F>
     struct tag_of
     {
-        typedef not_tagged type;
+        typedef no_tag_tag type;
     };
 
     template<class F>
@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
 
 
     template<class F, class Tag>
-    struct has_the_tag :
+    struct is_tagged_with :
         boost::is_same<typename tag_of<F>::type, Tag>
     { };
 

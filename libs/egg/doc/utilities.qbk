@@ -298,12 +298,16 @@ Egg provides __FCPP__ infix operator syntax.
         [[*Semantics]]
     ]
     [
-        [`tuple_pack(a1,...,aN)`]
-        [`boost::tuple<_refs(_meta_arg_list(a, by_perfect))>(_arg_list(a, by_perfect))`]
+        [`X_tuple_pack<_Stg = _default>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
     ]
     [
-        [`tuple_pack_by_ref(a1,...,aN)`]
-        [`boost::tuple<_refs(_meta_arg_list(a, by_ref))>(_arg_list(a, by_ref))`]
+        [`X_tuple_pack<_Stg>()(a1,...,aN)`]
+        [`boost::tuple<_refs(_meta_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`tuple_pack`]
+        [`X_tuple_pack<>()`]
     ]
 ]
 

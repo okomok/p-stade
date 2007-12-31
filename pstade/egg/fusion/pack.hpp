@@ -14,8 +14,8 @@
 #include <boost/fusion/include/vector.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
-#include "../by_ref.hpp"
 #include "../detail/baby_pack.hpp"
+#include "../nullary_result_of.hpp"
 
 
 namespace pstade { namespace egg {
@@ -27,16 +27,24 @@ namespace pstade { namespace egg {
         #include PSTADE_EGG_DETAIL_BABY_PACK()
     }
 
+
     #define PSTADE_EGG_FUSION_PACK_INIT {{}}
 
-    typedef function<fusion_detail::baby_pack, by_perfect> T_fusion_pack;
-    PSTADE_POD_CONSTANT((T_fusion_pack), fusion_pack) = PSTADE_EGG_FUSION_PACK_INIT;
 
-    typedef function<fusion_detail::baby_pack, by_ref> T_fusion_pack_by_ref;
-    PSTADE_POD_CONSTANT((T_fusion_pack_by_ref), fusion_pack_by_ref) = PSTADE_EGG_FUSION_PACK_INIT;
+    template<class Strategy = by_perfect>
+    struct X_fusion_pack :
+        function<fusion_detail::baby_pack, Strategy>
+    { };
+
+
+    typedef X_fusion_pack<>::function_type T_fusion_pack;
+    PSTADE_POD_CONSTANT((T_fusion_pack), fusion_pack) = PSTADE_EGG_FUSION_PACK_INIT;
 
 
 } } // namespace pstade::egg
+
+
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_fusion_pack, (class))
 
 
 #endif

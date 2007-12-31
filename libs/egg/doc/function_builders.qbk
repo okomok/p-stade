@@ -125,6 +125,71 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 
 
 
+[section deferred]
+
+[heading Description]
+`deferred` is akin to `boost::detail::functionN` family.
+It is useful because `operator()` can use nested typedefs.
+
+[heading Header]
+* `<pstade/egg/deferred.hpp>`
+
+[heading Notation]
+* `f` is an object of `deferred<Lam, _Stg>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`deferred<Lam, _Stg = _default>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_DEFERRED`]
+        [A braced initializer of `deferred<Lam, _Stg>::type`]
+    ]
+    [
+        [`f(a1,...,aN)`]
+        [`boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
+    ]
+]
+
+[heading Preconditions]
+* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
+* `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
+* `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
+* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[caution For some compiler bug, `deferred` randomly fails to make a __DEFERRED_CALLABLE_OBJECT__ under msvc-8.0.
+         Use `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` if you need portability. ]
+
+
+[heading Example]
+[code_deferred_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_DEFER__
+
+[endsect]
+
+
+
+
+[section generator]
+See [link egg.object_generator Object Generator] section.
+[endsect]
+
+
+
+
 [section automatic]
 
 [heading Description]
@@ -177,63 +242,6 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
-
-[endsect]
-
-
-
-
-[section deferred]
-
-[heading Description]
-`deferred` is akin to `boost::detail::functionN` family.
-
-[heading Header]
-* `<pstade/egg/deferred.hpp>`
-
-[heading Notation]
-* `f` is an object of `deferred<Lam, _Stg>::type`.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`deferred<Lam, _Stg = _default>::type`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
-    ]
-    [
-        [`PSTADE_EGG_DEFERRED`]
-        [A braced initializer of `deferred<Lam, _Stg>::type`]
-    ]
-    [
-        [`f(a1,...,aN)`]
-        [`boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
-    ]
-]
-
-[heading Preconditions]
-* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
-* `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
-* The corresponding semantics is a valid expression.
-
-[heading Invariants]
-* `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
-* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
-
-[caution For some compiler bug, `deferred` randomly fails to make a __DEFERRED_CALLABLE_OBJECT__ under msvc-8.0.
-         Use `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` if you need portability. ]
-
-
-[heading Example]
-[code_deferred_example]
-
-[heading See also]
-* __EGG_FORWARDING_STRATEGIES__
-* __EGG_DEFER__
 
 [endsect]
 

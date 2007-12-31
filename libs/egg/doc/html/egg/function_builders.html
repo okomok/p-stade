@@ -21,8 +21,9 @@
 <div class="toc"><dl>
 <dt><span class="section"><a href="function_builders.html#egg.function_builders.function">function</a></span></dt>
 <dt><span class="section"><a href="function_builders.html#egg.function_builders.function_facade">function_facade</a></span></dt>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.automatic">automatic</a></span></dt>
 <dt><span class="section"><a href="function_builders.html#egg.function_builders.deferred">deferred</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#egg.function_builders.generator">generator</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#egg.function_builders.automatic">automatic</a></span></dt>
 <dt><span class="section"><a href="function_builders.html#egg.function_builders.make_function">make_function</a></span></dt>
 </dl></div>
 <p>
@@ -34,7 +35,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.function"></a><a href="function_builders.html#egg.function_builders.function" title="function">function</a></h3></div></div></div>
 <a name="egg.function_builders.function.description"></a><h5>
-<a name="id510384"></a>
+<a name="id510727"></a>
         <a href="function_builders.html#egg.function_builders.function.description">Description</a>
       </h5>
 <p>
@@ -44,12 +45,12 @@
         type.
       </p>
 <a name="egg.function_builders.function.header"></a><h5>
-<a name="id510437"></a>
+<a name="id510781"></a>
         <a href="function_builders.html#egg.function_builders.function.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.function.synopsys"></a><h5>
-<a name="id510518"></a>
+<a name="id510862"></a>
         <a href="function_builders.html#egg.function_builders.function.synopsys">Synopsys</a>
       </h5>
 <pre class="programlisting">
@@ -67,14 +68,14 @@
 </span><span class="special">};</span>
 </pre>
 <a name="egg.function_builders.function.notation"></a><h5>
-<a name="id510768"></a>
+<a name="id511112"></a>
         <a href="function_builders.html#egg.function_builders.function.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>.
         </li></ul></div>
 <a name="egg.function_builders.function.valid_expressions"></a><h5>
-<a name="id510848"></a>
+<a name="id511191"></a>
         <a href="function_builders.html#egg.function_builders.function.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -135,7 +136,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_builders.function.preconditions"></a><h5>
-<a name="id511278"></a>
+<a name="id511623"></a>
         <a href="function_builders.html#egg.function_builders.function.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -149,7 +150,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.function.invariants"></a><h5>
-<a name="id511340"></a>
+<a name="id511686"></a>
         <a href="function_builders.html#egg.function_builders.function.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -170,7 +171,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.function.example"></a><h5>
-<a name="id511554"></a>
+<a name="id511902"></a>
         <a href="function_builders.html#egg.function_builders.function.example">Example</a>
       </h5>
 <p>
@@ -236,7 +237,7 @@
 <p>
       </p>
 <a name="egg.function_builders.function.see_also"></a><h5>
-<a name="id512303"></a>
+<a name="id512650"></a>
         <a href="function_builders.html#egg.function_builders.function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -250,7 +251,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.function_facade"></a><a href="function_builders.html#egg.function_builders.function_facade" title="function_facade">function_facade</a></h3></div></div></div>
 <a name="egg.function_builders.function_facade.description"></a><h5>
-<a name="id512405"></a>
+<a name="id512753"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.description">Description</a>
       </h5>
 <p>
@@ -259,19 +260,19 @@
         unlike <a href="function_builders.html#egg.function_builders.function" title="function">function</a>.
       </p>
 <a name="egg.function_builders.function_facade.header"></a><h5>
-<a name="id512460"></a>
+<a name="id512807"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function_facade</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.function_facade.notation"></a><h5>
-<a name="id512542"></a>
+<a name="id512888"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.function_builders.function_facade.valid_expressions"></a><h5>
-<a name="id512574"></a>
+<a name="id512920"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -335,7 +336,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_builders.function_facade.preconditions"></a><h5>
-<a name="id512971"></a>
+<a name="id513317"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -348,7 +349,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.function_facade.example"></a><h5>
-<a name="id513102"></a>
+<a name="id513449"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.example">Example</a>
       </h5>
 <p>
@@ -409,7 +410,7 @@
 <p>
       </p>
 <a name="egg.function_builders.function_facade.see_also"></a><h5>
-<a name="id513822"></a>
+<a name="id514168"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -420,9 +421,210 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_builders.deferred"></a><a href="function_builders.html#egg.function_builders.deferred" title="deferred">deferred</a></h3></div></div></div>
+<a name="egg.function_builders.deferred.description"></a><h5>
+<a name="id514253"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">deferred</span></code> is akin to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">functionN</span></code> family. It is useful because
+        <code class="computeroutput"><span class="keyword">operator</span><span class="special">()</span></code>
+        can use nested typedefs.
+      </p>
+<a name="egg.function_builders.deferred.header"></a><h5>
+<a name="id514338"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">deferred</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_builders.deferred.notation"></a><h5>
+<a name="id514419"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+        </li></ul></div>
+<a name="egg.function_builders.deferred.valid_expressions"></a><h5>
+<a name="id514504"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
+                <span class="identifier">_Stg</span> <span class="special">=</span>
+                <span class="identifier">_default</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+                Callable Object</a> <span class="emphasis"><em>POD</em></span> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFERRED</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A braced initializer of <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
+                <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">()(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_builders.deferred.preconditions"></a><h5>
+<a name="id514911"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">Lam</span></code> is an <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
+          Lambda Expression</a> which is neither <span class="emphasis"><em>reference</em></span>
+          nor <span class="emphasis"><em>cv-qualified</em></span>.
+        </li>
+<li>
+<code class="computeroutput"><span class="number">1</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="identifier">BOOST_MPL_LIMIT_METAFUNCTION_ARITY</span></code>,
+          which has a default value <code class="computeroutput"><span class="number">5</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">result_type</span></code>
+          is a valid expression.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_builders.deferred.invariants"></a><h5>
+<a name="id515133"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">f</span></code> with <span class="emphasis"><em>static
+          storage duration</em></span> is <span class="emphasis"><em>statically initialized</em></span>
+          if initialized using <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFERRED</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">f</span></code> is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a> and <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
+        </li>
+</ul></div>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            For some compiler bug, <code class="computeroutput"><span class="identifier">deferred</span></code>
+            randomly fails to make a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+            Callable Object</a> under msvc-8.0. Use <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER</span></code>
+            and <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER_BY</span></code>
+            if you need portability.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.function_builders.deferred.example"></a><h5>
+<a name="id515276"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">X</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">base_my_identity</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="identifier">X</span> <span class="special">&amp;</span><span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">X</span> <span class="special">&amp;</span><span class="identifier">x</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">x</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="keyword">typedef</span>
+    <span class="identifier">deferred</span><span class="special">&lt;</span> <span class="identifier">base_my_identity</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_1</span><span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="identifier">T_my_identity</span><span class="special">;</span>
+
+<span class="identifier">T_my_identity</span> <span class="keyword">const</span> <span class="identifier">my_identity</span> <span class="special">=</span> <span class="identifier">PSTADE_EGG_DEFERRED</span><span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.function_builders.deferred.see_also"></a><h5>
+<a name="id515594"></a>
+        <a href="function_builders.html#egg.function_builders.deferred.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li>
+<li><a href="workarounds.html#egg.workarounds.defer" title="DEFER">PSTADE_EGG_DEFER</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_builders.generator"></a><a href="function_builders.html#egg.function_builders.generator" title="generator">generator</a></h3></div></div></div>
+<p>
+        See <a href="object_generator.html" title="Object Generator">Object Generator</a> section.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.automatic"></a><a href="function_builders.html#egg.function_builders.automatic" title="automatic">automatic</a></h3></div></div></div>
 <a name="egg.function_builders.automatic.description"></a><h5>
-<a name="id513905"></a>
+<a name="id515703"></a>
         <a href="function_builders.html#egg.function_builders.automatic.description">Description</a>
       </h5>
 <p>
@@ -430,12 +632,12 @@
         which adds automatic conversion support to a cast form function.
       </p>
 <a name="egg.function_builders.automatic.header"></a><h5>
-<a name="id513952"></a>
+<a name="id515749"></a>
         <a href="function_builders.html#egg.function_builders.automatic.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">automatic</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.automatic.notation"></a><h5>
-<a name="id514034"></a>
+<a name="id515831"></a>
         <a href="function_builders.html#egg.function_builders.automatic.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -447,7 +649,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.automatic.valid_expressions"></a><h5>
-<a name="id514206"></a>
+<a name="id516002"></a>
         <a href="function_builders.html#egg.function_builders.automatic.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -512,7 +714,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_builders.automatic.preconditions"></a><h5>
-<a name="id514623"></a>
+<a name="id516419"></a>
         <a href="function_builders.html#egg.function_builders.automatic.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -562,7 +764,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_builders.automatic.invariants"></a><h5>
-<a name="id514895"></a>
+<a name="id516691"></a>
         <a href="function_builders.html#egg.function_builders.automatic.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -577,7 +779,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.automatic.example"></a><h5>
-<a name="id514986"></a>
+<a name="id516782"></a>
         <a href="function_builders.html#egg.function_builders.automatic.example">Example</a>
       </h5>
 <p>
@@ -622,208 +824,16 @@
 <p>
       </p>
 <a name="egg.function_builders.automatic.see_also"></a><h5>
-<a name="id515468"></a>
+<a name="id517264"></a>
         <a href="function_builders.html#egg.function_builders.automatic.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.deferred"></a><a href="function_builders.html#egg.function_builders.deferred" title="deferred">deferred</a></h3></div></div></div>
-<a name="egg.function_builders.deferred.description"></a><h5>
-<a name="id515528"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.description">Description</a>
-      </h5>
-<p>
-        <code class="computeroutput"><span class="identifier">deferred</span></code> is akin to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">functionN</span></code> family.
-      </p>
-<a name="egg.function_builders.deferred.header"></a><h5>
-<a name="id515596"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.header">Header</a>
-      </h5>
-<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">deferred</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.deferred.notation"></a><h5>
-<a name="id515677"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.notation">Notation</a>
-      </h5>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
-        </li></ul></div>
-<a name="egg.function_builders.deferred.valid_expressions"></a><h5>
-<a name="id515762"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.valid_expressions">Valid expressions</a>
-      </h5>
-<div class="informaltable"><table class="table">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-              <p>
-                <span class="bold"><strong>Valid expression</strong></span>
-              </p>
-              </th>
-<th>
-              <p>
-                <span class="bold"><strong>Semantics</strong></span>
-              </p>
-              </th>
-</tr></thead>
-<tbody>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
-                <span class="identifier">_Stg</span> <span class="special">=</span>
-                <span class="identifier">_default</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
-              </p>
-              </td>
-<td>
-              <p>
-                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-                Callable Object</a> <span class="emphasis"><em>POD</em></span> type
-              </p>
-              </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFERRED</span></code>
-              </p>
-              </td>
-<td>
-              <p>
-                A braced initializer of <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
-              </p>
-              </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
-              </p>
-              </td>
-<td>
-              <p>
-                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
-                <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">()(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
-              </p>
-              </td>
-</tr>
-</tbody>
-</table></div>
-<a name="egg.function_builders.deferred.preconditions"></a><h5>
-<a name="id516168"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.preconditions">Preconditions</a>
-      </h5>
-<div class="itemizedlist"><ul type="disc">
-<li>
-<code class="computeroutput"><span class="identifier">Lam</span></code> is an <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
-          Lambda Expression</a> which is neither <span class="emphasis"><em>reference</em></span>
-          nor <span class="emphasis"><em>cv-qualified</em></span>.
-        </li>
-<li>
-<code class="computeroutput"><span class="number">1</span> <span class="special">&lt;=</span>
-          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
-          <span class="identifier">N</span> <span class="special">&lt;=</span>
-          <span class="identifier">BOOST_MPL_LIMIT_METAFUNCTION_ARITY</span></code>,
-          which has a default value <code class="computeroutput"><span class="number">5</span></code>.
-        </li>
-<li>
-<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">result_type</span></code>
-          is a valid expression.
-        </li>
-<li>
-          The corresponding semantics is a valid expression.
-        </li>
-</ul></div>
-<a name="egg.function_builders.deferred.invariants"></a><h5>
-<a name="id516391"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.invariants">Invariants</a>
-      </h5>
-<div class="itemizedlist"><ul type="disc">
-<li>
-<code class="computeroutput"><span class="identifier">f</span></code> with <span class="emphasis"><em>static
-          storage duration</em></span> is <span class="emphasis"><em>statically initialized</em></span>
-          if initialized using <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFERRED</span></code>.
-        </li>
-<li>
-<code class="computeroutput"><span class="identifier">f</span></code> is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
-          Constructible</a> and <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
-        </li>
-</ul></div>
-<div class="caution"><table border="0" summary="Caution">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../images/caution.png"></td>
-<th align="left">Caution</th>
-</tr>
-<tr><td align="left" valign="top">
-<p>
-          </p>
-<p>
-            For some compiler bug, <code class="computeroutput"><span class="identifier">deferred</span></code>
-            randomly fails to make a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-            Callable Object</a> under msvc-8.0. Use <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER</span></code>
-            and <code class="computeroutput"><span class="identifier">PSTADE_EGG_DEFER_BY</span></code>
-            if you need portability.
-          </p>
-<p>
-        </p>
-</td></tr>
-</table></div>
-<a name="egg.function_builders.deferred.example"></a><h5>
-<a name="id516534"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.example">Example</a>
-      </h5>
-<p>
-        </p>
-<p>
-          
-</p>
-<pre class="programlisting">
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">X</span><span class="special">&gt;</span>
-<span class="keyword">struct</span> <span class="identifier">base_my_identity</span>
-<span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="identifier">X</span> <span class="special">&amp;</span><span class="identifier">result_type</span><span class="special">;</span>
-
-    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">X</span> <span class="special">&amp;</span><span class="identifier">x</span><span class="special">)</span> <span class="keyword">const</span>
-    <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">x</span><span class="special">;</span>
-    <span class="special">}</span>
-<span class="special">};</span>
-
-<span class="keyword">typedef</span>
-    <span class="identifier">deferred</span><span class="special">&lt;</span> <span class="identifier">base_my_identity</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_1</span><span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span>
-<span class="identifier">T_my_identity</span><span class="special">;</span>
-
-<span class="identifier">T_my_identity</span> <span class="keyword">const</span> <span class="identifier">my_identity</span> <span class="special">=</span> <span class="identifier">PSTADE_EGG_DEFERRED</span><span class="special">;</span>
-</pre>
-<p>
-        </p>
-<p>
-        </p>
-<p>
-          </p>
-<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
-<p>
-        </p>
-<p>
-      </p>
-<a name="egg.function_builders.deferred.see_also"></a><h5>
-<a name="id516852"></a>
-        <a href="function_builders.html#egg.function_builders.deferred.see_also">See also</a>
-      </h5>
-<div class="itemizedlist"><ul type="disc">
-<li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li>
-<li><a href="workarounds.html#egg.workarounds.defer" title="DEFER">PSTADE_EGG_DEFER</a></li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.make_function"></a><a href="function_builders.html#egg.function_builders.make_function" title="make_function">make_function</a></h3></div></div></div>
 <a name="egg.function_builders.make_function.description"></a><h5>
-<a name="id516926"></a>
+<a name="id517324"></a>
         <a href="function_builders.html#egg.function_builders.make_function.description">Description</a>
       </h5>
 <p>
@@ -832,24 +842,24 @@
         This is useful when you need a "self" function in baby <code class="computeroutput"><span class="identifier">call</span></code> template.
       </p>
 <a name="egg.function_builders.make_function.header"></a><h5>
-<a name="id516992"></a>
+<a name="id517389"></a>
         <a href="function_builders.html#egg.function_builders.make_function.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">make_function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.make_function.model_of"></a><h5>
-<a name="id517074"></a>
+<a name="id517471"></a>
         <a href="function_builders.html#egg.function_builders.make_function.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.function_builders.make_function.notation"></a><h5>
-<a name="id517115"></a>
+<a name="id517513"></a>
         <a href="function_builders.html#egg.function_builders.make_function.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.function_builders.make_function.valid_expressions"></a><h5>
-<a name="id517148"></a>
+<a name="id517545"></a>
         <a href="function_builders.html#egg.function_builders.make_function.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -915,21 +925,21 @@
 </tbody>
 </table></div>
 <a name="egg.function_builders.make_function.preconditions"></a><h5>
-<a name="id517481"></a>
+<a name="id517878"></a>
         <a href="function_builders.html#egg.function_builders.make_function.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="egg.function_builders.make_function.example"></a><h5>
-<a name="id517516"></a>
+<a name="id517913"></a>
         <a href="function_builders.html#egg.function_builders.make_function.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.function_builders.make_function.see_also"></a><h5>
-<a name="id517545"></a>
+<a name="id517942"></a>
         <a href="function_builders.html#egg.function_builders.make_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
