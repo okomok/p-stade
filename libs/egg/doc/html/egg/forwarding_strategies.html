@@ -7,13 +7,13 @@
 <link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.3">
 <link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.3">
 <link rel="prev" href="concepts.html" title="Concepts">
-<link rel="next" href="function_makers.html" title="Function Makers">
+<link rel="next" href="function_builders.html" title="Function Builders">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_makers.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_builders.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -32,8 +32,8 @@
       and a strategy. If the first argument of <code class="computeroutput"><span class="identifier">arg_list</span></code>
       or <code class="computeroutput"><span class="identifier">_meta_arg_list</span></code> is not a
       sequence, assume it is "one element" sequence. If you omit a strategy
-      parameter for <a href="function_makers.html" title="Function Makers">Function Makers</a> or
-      <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a>, <code class="computeroutput"><span class="identifier">by_perfect</span></code> is implicitly set.
+      parameter for <a href="function_builders.html" title="Function Builders">Function Builders</a>
+      or <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a>, <code class="computeroutput"><span class="identifier">by_perfect</span></code> is implicitly set.
     </p>
 <p>
       This section uses the following notation.
@@ -114,7 +114,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.forwarding_strategies.by_perfect"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect" title="by_perfect">by_perfect</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.by_perfect.description"></a><h5>
-<a name="id506884"></a>
+<a name="id506883"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.description">Description</a>
       </h5>
 <p>
@@ -126,7 +126,7 @@
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">by_perfect</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.forwarding_strategies.by_perfect.valid_expressions"></a><h5>
-<a name="id506995"></a>
+<a name="id506994"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -180,7 +180,7 @@
               </td>
 <td>
               <p>
-                See <a href="function_makers.html#egg.function_makers.function" title="function">function</a>.
+                See <a href="function_builders.html#egg.function_builders.function" title="function">function</a>.
               </p>
               </td>
 </tr>
@@ -203,7 +203,7 @@
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.by_perfect.example"></a><h5>
-<a name="id507424"></a>
+<a name="id507423"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.example">Example</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -214,7 +214,7 @@
           and <code class="computeroutput"><span class="identifier">ci</span></code> is a const lvalue.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_perfect.see_also"></a><h5>
-<a name="id507593"></a>
+<a name="id507592"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -224,7 +224,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.forwarding_strategies.by_ref"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref" title="by_ref">by_ref</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.by_ref.description"></a><h5>
-<a name="id507653"></a>
+<a name="id507652"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.description">Description</a>
       </h5>
 <p>
@@ -291,7 +291,7 @@
               </td>
 <td>
               <p>
-                See <a href="function_makers.html#egg.function_makers.function" title="function">function</a>.
+                See <a href="function_builders.html#egg.function_builders.function" title="function">function</a>.
               </p>
               </td>
 </tr>
@@ -324,7 +324,7 @@
           and <code class="computeroutput"><span class="identifier">ci</span></code> is a const lvalue.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_ref.see_also"></a><h5>
-<a name="id508364"></a>
+<a name="id508363"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -334,7 +334,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.forwarding_strategies.by_cref"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref" title="by_cref">by_cref</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.by_cref.description"></a><h5>
-<a name="id508425"></a>
+<a name="id508424"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref.description">Description</a>
       </h5>
 <p>
@@ -401,7 +401,7 @@
               </td>
 <td>
               <p>
-                See <a href="function_makers.html#egg.function_makers.function" title="function">function</a>.
+                See <a href="function_builders.html#egg.function_builders.function" title="function">function</a>.
               </p>
               </td>
 </tr>
@@ -448,7 +448,7 @@
         like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">auto_ptr</span><span class="special">&lt;&gt;</span></code>.
       </p>
 <a name="egg.forwarding_strategies.by_value.header"></a><h5>
-<a name="id509278"></a>
+<a name="id509277"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">by_value</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
@@ -507,14 +507,14 @@
               </td>
 <td>
               <p>
-                See <a href="function_makers.html#egg.function_makers.function" title="function">function</a>.
+                See <a href="function_builders.html#egg.function_builders.function" title="function">function</a>.
               </p>
               </td>
 </tr>
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.by_value.preconditions"></a><h5>
-<a name="id509688"></a>
+<a name="id509687"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -524,7 +524,7 @@
           <span class="identifier">PSTADE_EGG_MAX_LINEAR_ARITY</span></code>.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_value.example"></a><h5>
-<a name="id509769"></a>
+<a name="id509768"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.example">Example</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -550,9 +550,9 @@
       </h5>
 <p>
         C++ instantiates the declarations of non-dependent member function templates,
-        so that some <a href="function_makers.html" title="Function Makers">Function Makers</a> and
-        <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a> require a
-        special workaround. Here an imaginary operator is defined for the documentation.
+        so that some <a href="function_builders.html" title="Function Builders">Function Builders</a>
+        and <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a> require
+        a special workaround. Here an imaginary operator is defined for the documentation.
       </p>
 <a name="egg.forwarding_strategies.deducing_nullary_return_types.valid_expressions_and_semantics"></a><h5>
 <a name="id510044"></a>
@@ -598,7 +598,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_makers.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="concepts.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="function_builders.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

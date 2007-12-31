@@ -156,7 +156,7 @@ for any __AMBI_OBJECT__ `i` the following must be met:
 [section Baby Function]
 
 [heading Description]
-A __BABY_FUNCTION__ type is a type which __EGG_FUNCTION_MAKERS__ require.
+A __BABY_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 
 [heading Refinement of]
 * ...
@@ -171,7 +171,7 @@ For any __BABY_FUNCTION__ type `B` the following must be met:
 * ...
 
 [heading See also]
-* __EGG_FUNCTION_MAKERS__
+* __EGG_FUNCTION_BUILDERS__
 * __EGG_FORWARDING_STRATEGIES__
 
 [endsect]

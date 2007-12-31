@@ -28,11 +28,15 @@
 namespace pstade { namespace egg {
 
 
+    namespace protect_detail {
+        struct tag;
+    }
+
     template<class Expr>
     struct result_of_protect :
         result_of_tagged<
             typename result_of_always<Expr>::type,
-            bind_expression_tag
+            protect_detail::tag
         >
     { };
 
@@ -42,7 +46,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct is_bind_expression_base<X, typename enable_if< has_the_tag<X, bind_expression_tag> >::type> :
+    struct is_bind_expression_base<X, typename enable_if< has_the_tag<X, protect_detail::tag> >::type> :
         boost::mpl::true_
     { };
 

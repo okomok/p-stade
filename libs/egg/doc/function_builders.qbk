@@ -1,0 +1,293 @@
+[section Function Builders]
+
+
+Function builders build a "baby" function into a __FUNCTION_OBJECT__ which can be used
+with `boost::lambda::bind` and `boost::result_of`.
+
+[import ../example/function_builders.cpp]
+
+
+
+
+[section function]
+
+[heading Description]
+`function` is the "kernel" class template which makes a __BINDABLE__ __FUNCTION_OBJECT__ type.
+
+[heading Header]
+* `<pstade/egg/function.hpp>`
+
+[heading Synopsys]
+    template<class Baby, class Stg = _default>
+    struct function
+    {
+        typedef Baby baby_type;
+        typedef function function_type;
+
+        Baby b; // exposition only
+        Baby baby() const { return b; }
+
+        // unspecified
+        // ...
+    };
+
+[heading Notation]
+* `f` is an object of `function<B, _Stg>`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`function<B, _Stg>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /aggregate/ type]
+    ]
+    [
+        [`f(a1,...,aN)`]
+        [`f.baby().call<B::apply<B const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`f()`]
+        [`f.baby().call<B::nullary_result_type>()`]
+    ]
+]
+
+[heading Preconditions]
+* `B` is a __BABY_FUNCTION__ type which is neither /reference/ nor /cv-qualified/.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `function<B, _Stg>` is a /POD/ type if and only if `B` is a /POD/ type.
+* `function<B, _Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `B` is __DEFAULT_CONSTRUCTIBLE__.
+* `function<B, _Stg>` is __ASSIGNABLE__ if and only if `B` is __ASSIGNABLE__.
+
+[heading Example]
+[code_function_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_FUNCTION_FACADE__
+* __EGG_DEDUCED_FORM__
+* __EGG_MAKE_FUNCTION__
+
+[endsect]
+
+
+
+
+[section function_facade]
+
+[heading Description]
+Though a type made from `function_facade` can't be a /POD/ type, it can have non-default constructors unlike __EGG_FUNCTION__.
+
+[heading Header]
+* `<pstade/egg/function_facade.hpp>`
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_baby`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__]
+    ]
+    [
+        [`_baby(a1,...,aN)`]
+        [`_baby.call<_typeof(_baby)::apply<_typeof(_baby) const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`_baby()`]
+        [`_baby.call<R0>()`]
+    ]
+]
+
+[heading Preconditions]
+* `_baby` is an object whose type is derived from `function_facade<_typeof(_baby), R0 = _default, _Stg = _default>`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+[code_function_facade_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_FUNCTION__
+* __EGG_DEDUCED_FORM__
+
+[endsect]
+
+
+
+
+[section automatic]
+
+[heading Description]
+`automatic` makes a __FUNCTION_OBJECT__ type which adds automatic conversion support to a cast form function.
+
+[heading Header]
+* `<pstade/egg/automatic.hpp>`
+
+[heading Notation]
+* `u` is an object of `automatic<Lam, _Stg>::type`.
+* `f` is an object of `boost::mpl::apply<Lam, _typeof(to)>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`automatic<Lam, _Stg = _default>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_AUTOMATIC`]
+        [A braced initializer of `automatic<Lam, _Stg>::type`]
+    ]
+    [
+        [`To to = u(a1,...,aN);`]
+        [`To to = boost::implicit_cast<_typeof(to)>( f(_arg_list(a, _Stg)) );`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= _TUPLE_MAX_SIZE`.
+* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
+* `f` is a __DEFERRED_CALLABLE_OBJECT__.
+* There is a type `X_` such that `boost::is_convertible<X_, _typeof(to)>::value == false`.
+* The corresponding semantics is a valid expression.
+* `u` is not placed in a default argument list.
+
+[note These valid expressions imply that the automatic deduction is available everywhere /copy-initialization/ is invoked.
+      For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
+
+[heading Invariants]
+* `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_AUTOMATIC`.
+* `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[heading Example]
+[code_automatic_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+
+[endsect]
+
+
+
+
+[section deferred]
+
+[heading Description]
+`deferred` is akin to `boost::detail::functionN` family.
+
+[heading Header]
+* `<pstade/egg/deferred.hpp>`
+
+[heading Notation]
+* `f` is an object of `deferred<Lam, _Stg>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`deferred<Lam, _Stg = _default>::type`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_DEFERRED`]
+        [A braced initializer of `deferred<Lam, _Stg>::type`]
+    ]
+    [
+        [`f(a1,...,aN)`]
+        [`boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
+    ]
+]
+
+[heading Preconditions]
+* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
+* `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
+* `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
+* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[caution For some compiler bug, `deferred` randomly fails to make a __DEFERRED_CALLABLE_OBJECT__ under msvc-8.0.
+         Use `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` if you need portability. ]
+
+
+[heading Example]
+[code_deferred_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_DEFER__
+
+[endsect]
+
+
+
+
+[section make_function]
+
+[heading Description]
+`make_function` is the object generator of `function<>`.
+This is useful when you need a "self" function in baby `call` template.
+
+[heading Header]
+* `<pstade/egg/make_function.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_function<_Stg = _default>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`X_make_function<_Stg>()(b)`]
+        [`function<_typeof(b), _Stg> f = {b}; return f;`]
+    ]
+    [
+        [`make_function`]
+        [`X_make_function<>()`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_FUNCTION__
+
+[endsect]
+
+
+
+
+[endsect]

@@ -5,7 +5,7 @@ A Forwarding Strategy is a type which has two associated imaginary operators
 `_arg_list` and `_meta_arg_list` which takes a token sequence and a strategy.
 If the first argument of `arg_list` or `_meta_arg_list` is not a sequence,
 assume it is "one element" sequence.
-If you omit a strategy parameter for __EGG_FUNCTION_MAKERS__ or __EGG_FUNCTION_ADAPTORS__,
+If you omit a strategy parameter for __EGG_FUNCTION_BUILDERS__ or __EGG_FUNCTION_ADAPTORS__,
 `by_perfect` is implicitly set.
 
 This section uses the following notation.
@@ -214,7 +214,7 @@ Egg performs the "perfect forwarding" by default.
 
 [heading Description]
 C++ instantiates the declarations of non-dependent member function templates, so that
-some __EGG_FUNCTION_MAKERS__ and __EGG_FUNCTION_ADAPTORS__ require a special workaround.
+some __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__ require a special workaround.
 Here an imaginary operator is defined for the documentation.
 
 [heading Valid expressions and semantics]

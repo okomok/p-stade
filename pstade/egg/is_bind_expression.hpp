@@ -66,9 +66,6 @@ namespace pstade { namespace egg {
     { };
 
 
-    struct bind_expression_tag;
-
-
 } } // namespace pstade::egg
 
 
