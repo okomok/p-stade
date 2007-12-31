@@ -15,6 +15,7 @@
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
 #include "../detail/baby_pack.hpp"
+#include "../function_fwd.hpp" // by_value
 #include "../nullary_result_of.hpp"
 #include "./config.hpp"
 
@@ -36,6 +37,9 @@ namespace pstade { namespace egg {
     struct X_tuple_pack :
         function<tuple_detail::baby_pack, Strategy>
     { };
+
+    template< >
+    struct X_tuple_pack<by_value>;
 
 
     typedef X_tuple_pack<>::function_type T_tuple_pack;

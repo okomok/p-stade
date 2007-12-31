@@ -13,6 +13,9 @@
 #include <pstade/minimal_test.hpp>
 
 
+#include <pstade/egg/by_cref.hpp>
+
+
 using namespace pstade::egg;
 
 
@@ -39,6 +42,9 @@ struct T_my_foo
 T_my_foo const my_foo = {};
 
 
+void foo(int,int,int,int,int,int,int,int,int) {}
+
+
 void pstade_minimal_test()
 {
     {
@@ -46,6 +52,10 @@ void pstade_minimal_test()
         BOOST_CHECK( apply(my_foo) == 12 );
         BOOST_CHECK( apply(my_foo, i) == i );
         BOOST_CHECK( apply(my_foo, i, 2) == 3 );
+    }
+    {
+        // large arity check.
+        X_apply<by_cref>()(&foo, 1,2,3,4,5,6,7,8,9);
     }
 }
 

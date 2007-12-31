@@ -140,6 +140,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding expression is a valid expression.
 * `_deduce_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
 
+[note The last precondition means that `fc(d1, d2, R0, _Stg)` is NOT nullary-callable if `R0` is `_default`. ]
+
 [heading Invariants]
 * `result_of_compose<_Dco1, _Dco2, R0, _Stg>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
 
