@@ -22,7 +22,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./apply_params.hpp"
+#include "./baby_apply.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 
@@ -36,8 +36,8 @@ namespace pstade { namespace egg {
         struct baby
         {
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct apply { }; // msvc warns if incomplete.
+            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            struct PSTADE_EGG_BABY_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/apply.hpp>))
             #include BOOST_PP_ITERATE()

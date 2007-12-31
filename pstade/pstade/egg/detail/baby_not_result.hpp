@@ -20,7 +20,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include "../apply_params.hpp"
+#include "../baby_apply.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 
 
@@ -49,7 +49,7 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+        template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
         struct apply
         {
             typedef bool type;

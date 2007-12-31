@@ -35,7 +35,7 @@
     #include <pstade/pod_constant.hpp>
     #include <pstade/preprocessor.hpp>
     #include <pstade/result_of.hpp>
-    #include "./apply_params.hpp"
+    #include "./baby_apply.hpp"
     #include "./by_cref.hpp"
     #include "./by_perfect.hpp"
     #include "./config.hpp"
@@ -99,8 +99,8 @@
             detail::apply_if_bind_expr(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
         /**/
 
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct apply { };
+            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct PSTADE_EGG_BABY_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, PSTADE_EGG_MAX_ARITY, <pstade/egg/bind_n.hpp>))
             #include BOOST_PP_ITERATE()

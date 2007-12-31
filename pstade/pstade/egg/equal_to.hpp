@@ -16,7 +16,8 @@
 
 namespace pstade { namespace egg {
 
-    PSTADE_EGG_BINARY_PRED(equal_to, ==)
+    #define  PSTADE_EGG_BINARY_PRED_PARAMS (equal_to, ==)
+    #include PSTADE_EGG_BINARY_PRED()
 
 } }
 

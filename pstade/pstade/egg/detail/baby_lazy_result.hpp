@@ -19,7 +19,7 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
-#include "../apply_params.hpp"
+#include "../baby_apply.hpp"
 #include "../by_cref.hpp"
 #include "../lambda/bind.hpp"
 #include "../lambda/config.hpp"
@@ -52,8 +52,8 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, A)>
-        struct apply { };
+        template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, A)>
+        struct PSTADE_EGG_BABY_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/baby_lazy_result.hpp>))
         #include BOOST_PP_ITERATE()

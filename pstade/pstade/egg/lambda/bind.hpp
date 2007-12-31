@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pod_constant.hpp>
-#include "../apply_params.hpp"
+#include "../baby_apply.hpp"
 #include "../by_cref.hpp"
 #include "./config.hpp"
 
@@ -31,8 +31,8 @@ namespace pstade { namespace egg {
         struct baby
         {
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_LAMBDA_BIND_MAX_ARITY, A)>
-            struct apply { };
+            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_LAMBDA_BIND_MAX_ARITY, A)>
+            struct PSTADE_EGG_BABY_APPLY_DECL;
 
         #define PSTADE_bind_tuple_mapper(N) \
             typename boost::lambda::detail::bind_tuple_mapper< \

@@ -16,7 +16,8 @@
 
 namespace pstade { namespace egg {
 
-    PSTADE_EGG_BINARY_LOGICAL(logical_or, ||)
+    #define  PSTADE_EGG_BINARY_LOGICAL_PARAMS (logical_or, ||)
+    #include PSTADE_EGG_BINARY_LOGICAL()
 
 } }
 
