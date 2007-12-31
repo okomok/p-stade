@@ -31,13 +31,21 @@ Egg no longer considers function templates to be useful, so that it provides
         [[*Semantics]]
     ]
     [
-        [`apply(_dco, a1,...,aN)`]
-        [`_dco(_arg_list(a, by_perfect))`]
+        [`X_apply<_Stg = _default>`]
+        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+    ]
+    [
+        [`X_apply<_Stg>()(_dco, a1,...,aN)`]
+        [`_dco(_arg_list(a, _Stg))` ]
+    ]
+    [
+        [`apply`]
+        [`X_apply<>()`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= PSTADE_MAX_ARITY-1`.
+* `_arg_list(b, _Stg)` is a valid expression, where `b` is `_dco, a1,...,aN`.
 * The corresponding semantics is a valid expression.
 
 
@@ -289,7 +297,7 @@ Egg provides __FCPP__ infix operator syntax.
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `_refs(c1,...,cK)` is `c1&,...,cK&`.
+* `refs(c1,...,cK)` is `c1&,...,cK&`.
 
 [heading Valid expressions]
 [table 
@@ -303,7 +311,7 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`X_tuple_pack<_Stg>()(a1,...,aN)`]
-        [`boost::tuple<_refs(_meta_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+        [`boost::tuple<refs(_meta_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
     ]
     [
         [`tuple_pack`]
@@ -312,6 +320,7 @@ Egg provides __FCPP__ infix operator syntax.
 ]
 
 [heading Preconditions]
+* `_Stg` is not `by_value`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]

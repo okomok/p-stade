@@ -225,8 +225,6 @@ Here an imaginary operator is defined for the documentation.
         * Otherwise, it is not a valid expression.
     * Otherwise, `R0`.
 
-[note In other words, an Egg component which uses `_deduce_r0` regards itself, by default, as NOT nullary-callable. ]
-
 [heading See also]
 * __BOOST_RESULT_OF__
 

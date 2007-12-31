@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/use_default.hpp>
+#include <pstade/apple/boost/use_default_fwd.hpp>
 #include "./nullary_result_of.hpp"
 
 

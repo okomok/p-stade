@@ -24,7 +24,7 @@
 #include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
 #include "./by_perfect.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 
 
 namespace pstade { namespace egg {
@@ -36,10 +36,10 @@ namespace pstade { namespace egg {
         struct baby
         {
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct apply { }; // msvc warns if incomplete.
 
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/apply.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/apply.hpp>))
             #include BOOST_PP_ITERATE()
         };
 
@@ -47,7 +47,12 @@ namespace pstade { namespace egg {
     } // namespace apply_detail
 
 
-    typedef function<apply_detail::baby, by_perfect> T_apply;
+    template<class Strategy = by_perfect>
+    struct X_apply :
+        function<apply_detail::baby, Strategy>
+    { };
+
+    typedef X_apply<>::function_type T_apply;
     PSTADE_ADL_BARRIER(apply) {
         PSTADE_POD_CONSTANT((T_apply), apply) = {{}};
     }
