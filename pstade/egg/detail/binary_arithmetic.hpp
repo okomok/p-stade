@@ -22,6 +22,7 @@
 
 #include <boost/mpl/if.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/type_traits/detail/yes_no_type.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -29,6 +30,9 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../by_cref.hpp"
+
+
+#define PSTADE_EGG_BINARY_ARITHMETIC() <pstade/egg/detail/binary_arithmetic_include.hpp>
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -46,48 +50,6 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class X, class Y>
     error_failed_to_deduce_arithmetic_operation_result_type<X, Y> are_you_x(...);
-
-
-#define PSTADE_EGG_BINARY_ARITHMETIC(F, Op) \
-    template<class X, class Y> \
-    struct BOOST_PP_CAT(result_of_, F) \
-    { \
-    private: \
-        static X x; \
-        static Y y; \
-        \
-        static bool const is_x = \
-            sizeof( detail::are_you_x<X, Y>(x Op y) ) == sizeof(boost::type_traits::yes_type); \
-        \
-    public: \
-        typedef typename \
-            boost::mpl::if_c< is_x, \
-                X, Y \
-            >::type \
-        type; \
-    }; \
-    \
-    struct BOOST_PP_CAT(baby_, F) \
-    { \
-        template<class Myself, class X, class Y> \
-        struct apply : \
-            BOOST_PP_CAT(result_of_, F)< \
-                typename boost::remove_cv<X>::type, typename boost::remove_cv<Y>::type \
-            > \
-        { }; \
-        \
-        template<class Result, class X, class Y> \
-        Result call(X& x, Y& y) const \
-        { \
-            return x Op y; \
-        } \
-    }; \
-    \
-    typedef pstade::egg::function<BOOST_PP_CAT(baby_, F), by_cref> BOOST_PP_CAT(T_, F); \
-    PSTADE_ADL_BARRIER(F) { \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, F)), F) = {{}}; \
-    } \
-/**/
 
 
 } } } // namespace pstade::egg::detail

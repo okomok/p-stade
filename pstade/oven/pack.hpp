@@ -18,7 +18,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/egg/apply_params.hpp>
+#include <pstade/egg/baby_apply.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
@@ -34,9 +34,8 @@ namespace pack_detail {
 
     struct baby
     {
-        template< class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
-        struct apply
-        { }; // complete for msvc warning.
+        template< class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
+        struct PSTADE_EGG_BABY_APPLY_DECL;
 
         // 1ary-
     #define PSTADE_iter_rng(Z, N, _) make_iter_range(BOOST_PP_CAT(rng, N))

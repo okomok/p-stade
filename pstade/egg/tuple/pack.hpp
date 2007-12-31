@@ -7,7 +7,7 @@
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy tuple_at
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
@@ -24,9 +24,9 @@ namespace pstade { namespace egg {
 
 
     namespace tuple_detail {
-        #define PSTADE_EGG_DETAIL_PACK_TEMPLATE(N) boost::tuples::tuple
-        #define PSTADE_EGG_DETAIL_PACK_MAX_ARITY PSTADE_EGG_TUPLE_MAX_SIZE
-        #include PSTADE_EGG_DETAIL_BABY_PACK()
+        #define  PSTADE_EGG_BABY_PACK_TEMPLATE(N) boost::tuples::tuple
+        #define  PSTADE_EGG_BABY_PACK_MAX_ARITY PSTADE_EGG_TUPLE_MAX_SIZE
+        #include PSTADE_EGG_BABY_PACK()
     }
 
 

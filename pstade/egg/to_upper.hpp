@@ -16,7 +16,8 @@
 
 namespace pstade { namespace egg {
 
-    PSTADE_EGG_CHAR_CONVERSION(to_upper, std::toupper)
+    #define  PSTADE_EGG_CHAR_CONVERSION_PARAMS (to_upper, std::toupper)
+    #include PSTADE_EGG_CHAR_CONVERSION()
 
 } } // namespace pstade::egg
 

@@ -27,7 +27,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./apply_params.hpp"
+#include "./baby_apply.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
@@ -102,8 +102,8 @@ namespace pstade { namespace egg {
                 return m_base(a0);
             }
 #else
-            template<class Myself, PSTADE_EGG_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct apply { };
+            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct PSTADE_EGG_BABY_APPLY_DECL;
 
         // as pipe
             template<class Myself BOOST_PP_ENUM_TRAILING_PARAMS(n_1, class A)>

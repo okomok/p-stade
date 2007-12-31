@@ -16,7 +16,8 @@
 
 namespace pstade { namespace egg {
 
-    PSTADE_EGG_BINARY_ARITHMETIC(divides, /)
+    #define  PSTADE_EGG_BINARY_ARITHMETIC_PARAMS (divides, /)
+    #include PSTADE_EGG_BINARY_ARITHMETIC()
 
 } }
 
