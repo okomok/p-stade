@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct is_bind_expression_base<X, typename enable_if< has_the_tag<X, protect_detail::tag> >::type> :
+    struct is_bind_expression_base<X, typename enable_if< is_tagged_with<X, protect_detail::tag> >::type> :
         boost::mpl::true_
     { };
 
@@ -71,7 +71,7 @@ namespace pstade { namespace egg {
     } // namespace protect_detail
 
     typedef function<protect_detail::baby, by_value> T_protect;
-    PSTADE_POD_CONSTANT((T_protect), protect) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_protect), protect) = {{}};
 
 
 } } // namespace pstade::egg

@@ -26,23 +26,23 @@
 <div class="toc">
 <p><b>Table of Contents</b></p>
 <dl>
-<dt><span class="section"><a href="index.html#egg.preface">Preface</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview">Overview</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="index.html#egg.preface.introduction">Introduction</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.requirements">Requirements</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.portability">Portability</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.rationale">Rationale</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.acknowledgements">Acknowledgements</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.notation">Notation</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.acknowledgements">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.notation">Notation</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/concepts.html">Concepts</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.lexically_typed_object">Lexically Typed
       Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.bindable_object">Bindable Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.static_function_object">Static Function
       Object</a></span></dt>
-<dt><span class="section"><a href="egg/concepts.html#egg.concepts.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.ambi_object">Ambi Object</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.baby_function">Baby Function</a></span></dt>
 <dt><span class="section"><a href="egg/concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
@@ -60,8 +60,9 @@
 <dd><dl>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.function">function</a></span></dt>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.function_facade">function_facade</a></span></dt>
-<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.automatic">automatic</a></span></dt>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.deferred">deferred</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.generator">generator</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.automatic">automatic</a></span></dt>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.make_function">make_function</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/function_adaptors.html">Function Adaptors</a></span></dt>
@@ -116,33 +117,62 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="egg.preface"></a><a href="index.html#egg.preface" title="Preface">Preface</a></h2></div></div></div>
+<a name="egg.overview"></a><a href="index.html#egg.overview" title="Overview">Overview</a></h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="index.html#egg.preface.introduction">Introduction</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.requirements">Requirements</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.portability">Portability</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.rationale">Rationale</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.acknowledgements">Acknowledgements</a></span></dt>
-<dt><span class="section"><a href="index.html#egg.preface.notation">Notation</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.acknowledgements">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.notation">Notation</a></span></dt>
 </dl></div>
 <p>
-      &#8220;<span class="quote">No clever arrangement of bad eggs ever made a good omelet.</span>&#8221; --
-      C.S. Lewis
+      &#8220;<span class="quote">An Egg to day is better than a Hen to-morrow.</span>&#8221; -- Benjamin Franklin
     </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.preface.introduction"></a><a href="index.html#egg.preface.introduction" title="Introduction">Introduction</a></h3></div></div></div>
+<a name="egg.overview.introduction"></a><a href="index.html#egg.overview.introduction" title="Introduction">Introduction</a></h3></div></div></div>
 <p>
         Unlike other modern languages, it is very difficult to make a function in
         C++ especially if you want to support <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
         and <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>.
-        Egg is a small header-only framework of making functions, and offers higher-order
+        Egg is a small header-only framework of building functions, and offers higher-order
         functions.
+      </p>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">pipable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">egg</span><span class="special">;</span>
+
+<span class="comment">// This adaptation incurs no runtime overhead.
+</span><span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">(*)(</span><span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span>
+    <span class="identifier">to_upper</span> <span class="special">=</span> <span class="identifier">PSTADE_EGG_PIPABLE</span><span class="special">(&amp;</span><span class="identifier">toupper</span><span class="special">);</span>
+
+<span class="keyword">void</span> <span class="identifier">test</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">maybeI</span> <span class="special">=</span> <span class="char">'i'</span><span class="special">|</span><span class="identifier">to_upper</span><span class="special">|</span><span class="identifier">pipable</span><span class="special">(&amp;</span><span class="identifier">tolower</span><span class="special">)|</span><span class="identifier">to_upper</span><span class="special">();</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybeI</span> <span class="special">==</span> <span class="char">'I'</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
       </p>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.preface.requirements"></a><a href="index.html#egg.preface.requirements" title="Requirements">Requirements</a></h3></div></div></div>
+<a name="egg.overview.requirements"></a><a href="index.html#egg.overview.requirements" title="Requirements">Requirements</a></h3></div></div></div>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <a href="http://www.boost.org" target="_top">Boost C++ Libraries</a> Version 1.34.0
@@ -156,7 +186,7 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.preface.portability"></a><a href="index.html#egg.preface.portability" title="Portability">Portability</a></h3></div></div></div>
+<a name="egg.overview.portability"></a><a href="index.html#egg.overview.portability" title="Portability">Portability</a></h3></div></div></div>
 <p>
         Egg is known to work on the following platforms:
       </p>
@@ -180,7 +210,7 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.preface.rationale"></a><a href="index.html#egg.preface.rationale" title="Rationale">Rationale</a></h3></div></div></div>
+<a name="egg.overview.rationale"></a><a href="index.html#egg.overview.rationale" title="Rationale">Rationale</a></h3></div></div></div>
 <div class="itemizedlist"><ul type="disc">
 <li>
           Egg works around <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -194,7 +224,7 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.preface.acknowledgements"></a><a href="index.html#egg.preface.acknowledgements" title="Acknowledgements">Acknowledgements</a></h3></div></div></div>
+<a name="egg.overview.acknowledgements"></a><a href="index.html#egg.overview.acknowledgements" title="Acknowledgements">Acknowledgements</a></h3></div></div></div>
 <div class="itemizedlist"><ul type="disc">
 <li>
           Special thanks to David Abrahams. <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -212,7 +242,7 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.preface.notation"></a><a href="index.html#egg.preface.notation" title="Notation">Notation</a></h3></div></div></div>
+<a name="egg.overview.notation"></a><a href="index.html#egg.overview.notation" title="Notation">Notation</a></h3></div></div></div>
 <p>
         This document uses the following notation.
       </p>
@@ -373,7 +403,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: December 31, 2007 at 04:12:17 GMT</p></small></td>
+<td align="left"><small><p>Last revised: December 31, 2007 at 14:02:06 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

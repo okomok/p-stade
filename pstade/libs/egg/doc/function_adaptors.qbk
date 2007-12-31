@@ -992,7 +992,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [section tagged]
 
 [heading Description]
-Pending... `tagged` makes a new __FUNCTION_OBJECT__ type.
+`tagged` makes a new __FUNCTION_OBJECT__ type.
 
 [heading Header]
 * `<pstade/egg/tagged.hpp>`
@@ -1026,8 +1026,12 @@ Pending... `tagged` makes a new __FUNCTION_OBJECT__ type.
         [`_const(d)(_arg_list(a, _Stg))`]
     ]
     [
-        [`tag_of<_typeof(fc(d, Tag, _Stg))>::type`]
-        [`Tag`]
+        [`tag_of<F>::type`]
+        [`Tag` if `F` is `_typeof(fc(d, Tag, _Stg))`, unspecified type otherwise.]
+    ]
+    [
+        [`is_tagged_with<F, Tag>`]
+        [`boost::is_same<tag_of<F>::type, Tag>`]
     ]
 ]
 

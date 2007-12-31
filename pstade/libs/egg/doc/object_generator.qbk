@@ -8,7 +8,7 @@ A simple object generator can be made automatically using the following family.
 [section generator]
 
 [heading Description]
-`generator` makes an "object generator".
+`generator` is one of the __EGG_FUNCTION_BUILDERS__ which makes an "object generator".
 
 [heading Header]
 * `<pstade/egg/generator.hpp>`

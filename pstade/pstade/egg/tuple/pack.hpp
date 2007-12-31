@@ -13,13 +13,14 @@
 
 #include <boost/tuple/tuple.hpp>
 #include <pstade/pod_constant.hpp>
-#include "../detail/baby_pack.hpp"
 #include "../by_perfect.hpp"
-#include "../by_ref.hpp"
+#include "../detail/baby_pack.hpp"
+#include "../nullary_result_of.hpp"
 #include "./config.hpp"
 
 
 namespace pstade { namespace egg {
+
 
     namespace tuple_detail {
         #define PSTADE_EGG_DETAIL_PACK_TEMPLATE(N) boost::tuples::tuple
@@ -27,16 +28,24 @@ namespace pstade { namespace egg {
         #include PSTADE_EGG_DETAIL_BABY_PACK()
     }
 
+
     #define PSTADE_EGG_TUPLE_PACK_INIT {{}}
 
-    typedef function<tuple_detail::baby_pack, by_perfect> T_tuple_pack;
-    PSTADE_POD_CONSTANT((T_tuple_pack), tuple_pack) = PSTADE_EGG_TUPLE_PACK_INIT;
 
-    typedef function<tuple_detail::baby_pack, by_ref> T_tuple_pack_by_ref;
-    PSTADE_POD_CONSTANT((T_tuple_pack_by_ref), tuple_pack_by_ref) = PSTADE_EGG_TUPLE_PACK_INIT;
+    template<class Strategy = by_perfect>
+    struct X_tuple_pack :
+        function<tuple_detail::baby_pack, Strategy>
+    { };
+
+
+    typedef X_tuple_pack<>::function_type T_tuple_pack;
+    PSTADE_POD_CONSTANT((T_tuple_pack), tuple_pack) = PSTADE_EGG_TUPLE_PACK_INIT;
 
 
 } } // namespace pstade::egg
+
+
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_tuple_pack, (class))
 
 
 #endif

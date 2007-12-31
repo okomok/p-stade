@@ -10,6 +10,7 @@
 
 
 #include <pstade/egg/fusion/pack.hpp>
+#include <pstade/egg/by_ref.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -54,10 +55,10 @@ void test_()
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<>,
-                 pstade::result_of<pstade::egg::T_fusion_pack_by_ref()>::type > ));
+                 pstade::result_of<pstade::egg::X_fusion_pack<pstade::egg::by_ref>()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<int&, int const&>,
-                 pstade::result_of<pstade::egg::T_fusion_pack_by_ref(int&, int const&)>::type > ));
+                 pstade::result_of<pstade::egg::X_fusion_pack<pstade::egg::by_ref>(int&, int const&)>::type > ));
 
 
 void test_ref()
@@ -67,16 +68,16 @@ void test_ref()
     int const i0 = 0, i1 = 1, i2 = 2, i3 = 3, i4 = 4;
     int i5 = 5, i6 = 6, i7 = 7, i8 = 8, i9 = 9;
 
-    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9) == fusion_pack_by_ref(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9) );
-    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3,i4,i5) == fusion_pack_by_ref(i0,i1,i2,i3,i4,i5) );
-    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3,i4)    == fusion_pack_by_ref(i0,i1,i2,i3,i4)   );
-    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3)       == fusion_pack_by_ref(i0,i1,i2,i3)     );
-    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2)          == fusion_pack_by_ref(i0,i1,i2)       );
-    BOOST_CHECK( boost::fusion::make_vector(i0,i1)             == fusion_pack_by_ref(i0,i1)         );
-    BOOST_CHECK( boost::fusion::make_vector()                  == fusion_pack_by_ref()          );
+    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9) == X_fusion_pack<by_ref>()(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9) );
+    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3,i4,i5) == X_fusion_pack<by_ref>()(i0,i1,i2,i3,i4,i5) );
+    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3,i4)    == X_fusion_pack<by_ref>()(i0,i1,i2,i3,i4)   );
+    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2,i3)       == X_fusion_pack<by_ref>()(i0,i1,i2,i3)     );
+    BOOST_CHECK( boost::fusion::make_vector(i0,i1,i2)          == X_fusion_pack<by_ref>()(i0,i1,i2)       );
+    BOOST_CHECK( boost::fusion::make_vector(i0,i1)             == X_fusion_pack<by_ref>()(i0,i1)         );
+    BOOST_CHECK( boost::fusion::make_vector()                  == X_fusion_pack<by_ref>()()          );
 
-    BOOST_CHECK( &(boost::fusion::at_c<0>(fusion_pack_by_ref(i0,i1,i2,i3,i4,i5))) == &i0 );
-    BOOST_CHECK( &(boost::fusion::at_c<9>(fusion_pack_by_ref(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9))) == &i9 );
+    BOOST_CHECK( &(boost::fusion::at_c<0>(X_fusion_pack<by_ref>()(i0,i1,i2,i3,i4,i5))) == &i0 );
+    BOOST_CHECK( &(boost::fusion::at_c<9>(X_fusion_pack<by_ref>()(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9))) == &i9 );
 }
 
 

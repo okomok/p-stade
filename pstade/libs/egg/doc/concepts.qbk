@@ -62,6 +62,34 @@ for any __BINDABLE_OBJECT__ `b` the following must be met:
 
 
 
+[section Pipable Object]
+
+[heading Description]
+A __PIPABLE_OBJECT__ is an object which behaves as if it were a "pipe" using `operator|` and `operator|=`.
+
+[heading Refinement of]
+* __FUNCTION_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any __PIPABLE_OBJECT__ `p` the following must be met:
+
+* `x|p(x1,...,xN)` is a valid expresion if and only if `p(x1,...,xN)|=x` is a valid expression.
+* `x|p(x1,...,xN)` and `p(x1,...,xN)|=x` have the same effects.
+* If `N` is `0`, then `x|p()`, `x|p`, `p|=x`, and `p()|=x` are valid expressions which have the same effects.
+
+[heading Models]
+* ...
+
+[heading See also]
+* __EGG_PIPABLE__
+* __AMBI_OBJECT__
+
+[endsect]
+
+
+
+
 [section Static Function Object]
 
 [heading Description]
@@ -92,34 +120,6 @@ for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
 [heading See also]
 * __BOOST_RESULT_OF__
-
-[endsect]
-
-
-
-
-[section Pipable Object]
-
-[heading Description]
-A __PIPABLE_OBJECT__ is an object which behaves as if it were a "pipe" using `operator|` and `operator|=`.
-
-[heading Refinement of]
-* __FUNCTION_OBJECT__
-
-[heading Requirements]
-In addition to the requirements defined in the refinements,
-for any __PIPABLE_OBJECT__ `p` the following must be met:
-
-* `x|p(x1,...,xN)` is a valid expresion if and only if `p(x1,...,xN)|=x` is a valid expression.
-* `x|p(x1,...,xN)` and `p(x1,...,xN)|=x` have the same effects.
-* If `N` is `0`, then `x|p()`, `x|p`, `p|=x`, and `p()|=x` are valid expressions which have the same effects.
-
-[heading Models]
-* ...
-
-[heading See also]
-* __EGG_PIPABLE__
-* __AMBI_OBJECT__
 
 [endsect]
 

@@ -58,7 +58,7 @@ void test_ambi()
 typedef result_of_curry2<T_my_plus>::type T_curried_plus;
 T_curried_plus const curried_plus
     =
-PSTADE_EGG_CURRY2_L PSTADE_EGG_AMBI({}) PSTADE_EGG_CURRY2_R /*< A macro invocation must be sandwiched usng `_L` and `_R`. >*/
+PSTADE_EGG_CURRY2_L PSTADE_EGG_AMBI({}) PSTADE_EGG_CURRY2_R /*< A macro invocation must be sandwiched using `_L` and `_R`. >*/
     ;
 
 void test_curry()
