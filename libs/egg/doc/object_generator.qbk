@@ -140,7 +140,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`as_value`]
-        [`boost::remove_const< boost::decay<boost::mpl::_> >`]
+        [`boost::remove_cv< boost::decay<boost::mpl::_> >`]
     ]
     [
         [`as_qualified`]
