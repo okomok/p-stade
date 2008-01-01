@@ -12,7 +12,7 @@ with `boost::lambda::bind` and `boost::result_of`.
 [section function]
 
 [heading Description]
-`function` is the "kernel" class template which makes a __BINDABLE__ __FUNCTION_OBJECT__ type.
+`function` is the "kernel" class template which builds a __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type.
 
 [heading Header]
 * `<pstade/egg/function.hpp>`
@@ -42,7 +42,7 @@ with `boost::lambda::bind` and `boost::result_of`.
     ]
     [
         [`function<B, _Stg>`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /aggregate/ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /aggregate/ type]
     ]
     [
         [`f(a1,...,aN)`]
@@ -80,7 +80,7 @@ with `boost::lambda::bind` and `boost::result_of`.
 [section function_facade]
 
 [heading Description]
-Though a type made from `function_facade` can't be a /POD/ type, it can have non-default constructors unlike __EGG_FUNCTION__.
+Though a type built from `function_facade` can't be a /POD/ type, it can have non-default constructors unlike __EGG_FUNCTION__.
 
 [heading Header]
 * `<pstade/egg/function_facade.hpp>`
@@ -96,7 +96,7 @@ Though a type made from `function_facade` can't be a /POD/ type, it can have non
     ]
     [
         [`_baby`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__]
     ]
     [
         [`_baby(a1,...,aN)`]
@@ -145,7 +145,7 @@ It is useful because `operator()` can use nested typedefs.
     ]
     [
         [`deferred<Lam, _Stg = _default>::type`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_DEFERRED`]
@@ -167,7 +167,7 @@ It is useful because `operator()` can use nested typedefs.
 * `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
-[caution For some compiler bug, `deferred` randomly fails to make a __DEFERRED_CALLABLE_OBJECT__ under msvc-8.0.
+[caution For some compiler bug, `deferred` randomly fails to work as a __POLYMORPHIC_FUNCTION_OBJECT__ under msvc-8.0.
          Use `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` if you need portability. ]
 
 
@@ -193,7 +193,7 @@ See [link egg.object_generator Object Generator] section.
 [section automatic]
 
 [heading Description]
-`automatic` makes a __FUNCTION_OBJECT__ type which adds automatic conversion support to a cast form function.
+`automatic` builds a __FUNCTION_OBJECT__ type which adds automatic conversion support to a cast form function.
 
 [heading Header]
 * `<pstade/egg/automatic.hpp>`
@@ -210,7 +210,7 @@ See [link egg.object_generator Object Generator] section.
     ]
     [
         [`automatic<Lam, _Stg = _default>::type`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_AUTOMATIC`]
@@ -225,7 +225,7 @@ See [link egg.object_generator Object Generator] section.
 [heading Preconditions]
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
-* `f` is a __DEFERRED_CALLABLE_OBJECT__.
+* `f` is a __POLYMORPHIC_FUNCTION_OBJECT__.
 * There is a type `X_` such that `boost::is_convertible<X_, _typeof(to)>::value == false`.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
@@ -271,7 +271,7 @@ This is useful when you need a "self" function in baby `call` template.
     ]
     [
         [`X_make_function<_Stg = _default>`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_make_function<_Stg>()(b)`]

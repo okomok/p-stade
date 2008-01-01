@@ -24,7 +24,7 @@ String Adaptor is [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`X_make_broken_into<V>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [
@@ -249,7 +249,7 @@ String Adaptor is [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`X_make_wide_chars<CharT = wchar_t>`]
         [
-            A _bindable_ _deferred_callable_object_
+            A _bindable_ _polymorphic_function_object_
         ]
     ]
     [
@@ -377,7 +377,7 @@ String Adaptor is [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`X_make_matches<X1,...,XN>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [
@@ -431,7 +431,7 @@ String Adaptor is [link oven.range_adaptors Range Adaptor] for strings.
     [
         [`X_make_tokenized<Y1,...,YN>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [
@@ -485,7 +485,7 @@ Pending...
     [
         [`X_make_utf8_decoded<U1,...,UN>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [
@@ -542,7 +542,7 @@ Pending...
     [
         [`X_make_utf8_encoded<U1,...,UN>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [
@@ -595,7 +595,7 @@ Pending...
     [
         [`X_make_utf16_decoded<U1,...,UN>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [
@@ -648,7 +648,7 @@ Pending...
     [
         [`X_make_utf16_encoded<U1,...,UN>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [

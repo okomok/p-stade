@@ -14,7 +14,7 @@ Some helper function objects are given to fill the gap between Oven and other li
 * `<pstade/oven/adapted_to_base.hpp>`
 
 [heading Model of]
-* `to_base` is an _ambi_object_.
+* `to_base` is an _ambi_ _static_function_object_.
 
 [heading Valid expressions]
 [table 
@@ -258,7 +258,7 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a _oven_generat
 ]
 
 [heading Preconditions]
-* `g` is a both _generator_ and _deferred_callable_object_.
+* `g` is a both _generator_ and _polymorphic_function_object_.
 
 [heading Example]
     BOOST_FOREACH (long x, generation(nonstop(&std::rand))|taken(30)) {
@@ -380,12 +380,12 @@ An iterator holding such a functor can't conform to even _input_iterator_.
     ]
     [
         [`regular(f)`]
-        [Converts `f` into a _bindable_ _deferred_callable_object_ which is _default_constructible_ and _assignable_.]
+        [Converts `f` into a _bindable_ _polymorphic_function_object_ which is _default_constructible_ and _assignable_.]
     ]
 ]
 
 [heading Preconditions]
-* `f` is a _boost_lambda_ functor or _deferred_callable_object_.
+* `f` is a _boost_lambda_ functor or _polymorphic_function_object_.
 
 [heading Example]
     BOOST_CHECK( equals(
@@ -410,8 +410,8 @@ An iterator holding such a functor can't conform to even _input_iterator_.
 [section regular_ref]
 
 [heading Description]
-A _deferred_callable_object_ like a random number generator may not be copyable, while many algorithms require to be.
-`regular_ref`, holding a reference to noncopyable _deferred_callable_object_, behaves as copyable one.
+A _polymorphic_function_object_ like a random number generator may not be copyable, while many algorithms require to be.
+`regular_ref`, holding a reference to noncopyable _polymorphic_function_object_, behaves as copyable one.
 
 [heading Header]
 * `<pstade/oven/regular.hpp>`
@@ -427,12 +427,12 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
     ]
     [
         [`regular_ref(f)`]
-        [A copyable _bindable_ _deferred_callable_object_. All the calls are forwarded to `f`.]
+        [A copyable _bindable_ _polymorphic_function_object_. All the calls are forwarded to `f`.]
     ]
 ]
 
 [heading Preconditions]
-* `f` is a _deferred_callable_object_ but may be noncopyable.
+* `f` is a _polymorphic_function_object_ but may be noncopyable.
 * `f` is not destructed as long as `regular_ref(f)` is called.
 
 
@@ -465,12 +465,12 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
     ]
     [
         [`shared_regular(pf)`]
-        [A copyable _bindable_ _deferred_callable_object_. All the calls are forwarded to `*pf`.]
+        [A copyable _bindable_ _polymorphic_function_object_. All the calls are forwarded to `*pf`.]
     ]
 ]
 
 [heading Preconditions]
-* `_typeof(*pf)` is a _deferred_callable_object_ but may be noncopyable.
+* `_typeof(*pf)` is a _polymorphic_function_object_ but may be noncopyable.
 * `boost::shared_ptr<_typeof(*pf)>(pf)` is a valid expression.
 
 [heading See also]
@@ -727,7 +727,7 @@ It takes a pointer to heap allocated _function_object_, whereas `regular_ref` ta
     [
         [`X_make_unfuzipped<RefSeq = boost::use_default>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [
@@ -783,7 +783,7 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, suc
     [
         [`X_make_zipped_with<R>`]
         [
-            A _bindable_ _deferred_callable_object_ type
+            A _bindable_ _polymorphic_function_object_ type
         ]
     ]
     [

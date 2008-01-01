@@ -149,7 +149,7 @@ This document uses the following notation:
     ]
     [
         [`_cal`]
-        [A _deferred_callable_object_]
+        [A _polymorphic_function_object_]
     ]
     [
         [`_prd`]

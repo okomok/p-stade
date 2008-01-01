@@ -88,12 +88,12 @@ This document uses the following notation.
         [`static_cast<_typeof(a) const>(a)`]
     ]
     [
-        [`_dco`]
-        [A __DEFERRED_CALLABLE_OBJECT__]
+        [`_pfo`]
+        [A __POLYMORPHIC_FUNCTION_OBJECT__]
     ]
     [
-        [`_Dco`]
-        [A __DEFERRED_CALLABLE_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
+        [`_Pfo`]
+        [A __POLYMORPHIC_FUNCTION_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
     ]
     [
         [`_baby`]

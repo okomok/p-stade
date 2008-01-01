@@ -20,7 +20,7 @@
 <a name="egg.object_generator"></a><a href="object_generator.html" title="Object Generator">Object Generator</a></h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="object_generator.html#egg.object_generator.generator">generator</a></span></dt>
-<dt><span class="section"><a href="object_generator.html#egg.object_generator.how_to_generate">How to generate</a></span></dt>
+<dt><span class="section"><a href="object_generator.html#egg.object_generator.generating_forms">Generating Forms</a></span></dt>
 <dt><span class="section"><a href="object_generator.html#egg.object_generator.deducers">Deducers</a></span></dt>
 </dl></div>
 <p>
@@ -30,7 +30,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.object_generator.generator"></a><a href="object_generator.html#egg.object_generator.generator" title="generator">generator</a></h3></div></div></div>
 <a name="egg.object_generator.generator.description"></a><h5>
-<a name="id540837"></a>
+<a name="id540873"></a>
         <a href="object_generator.html#egg.object_generator.generator.description">Description</a>
       </h5>
 <p>
@@ -39,12 +39,12 @@
         an "object generator".
       </p>
 <a name="egg.object_generator.generator.header"></a><h5>
-<a name="id540884"></a>
+<a name="id540921"></a>
         <a href="object_generator.html#egg.object_generator.generator.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.object_generator.generator.notation"></a><h5>
-<a name="id540966"></a>
+<a name="id541002"></a>
         <a href="object_generator.html#egg.object_generator.generator.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -60,7 +60,7 @@
         </li>
 </ul></div>
 <a name="egg.object_generator.generator.valid_expressions"></a><h5>
-<a name="id541221"></a>
+<a name="id541257"></a>
         <a href="object_generator.html#egg.object_generator.generator.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -95,8 +95,9 @@
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-                Callable Object</a> <span class="emphasis"><em>POD</em></span> type
+                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
+                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a> <span class="emphasis"><em>POD</em></span> type
               </p>
               </td>
 </tr>
@@ -140,7 +141,7 @@
 </tbody>
 </table></div>
 <a name="egg.object_generator.generator.preconditions"></a><h5>
-<a name="id541640"></a>
+<a name="id541676"></a>
         <a href="object_generator.html#egg.object_generator.generator.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -158,15 +159,15 @@
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">How</span></code> is <code class="computeroutput"><span class="identifier">_default</span></code>
-          or one of the type in <a href="object_generator.html#egg.object_generator.how_to_generate" title="How to generate">How
-          to generate</a>.
+          or one of the type in <a href="object_generator.html#egg.object_generator.generating_forms" title="Generating Forms">Generating
+          Forms</a>.
         </li>
 <li>
           The corresponding semantics is a valid expression.
         </li>
 </ul></div>
 <a name="egg.object_generator.generator.invariants"></a><h5>
-<a name="id541799"></a>
+<a name="id541835"></a>
         <a href="object_generator.html#egg.object_generator.generator.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -198,7 +199,7 @@
 </td></tr>
 </table></div>
 <a name="egg.object_generator.generator.example"></a><h5>
-<a name="id541941"></a>
+<a name="id541977"></a>
         <a href="object_generator.html#egg.object_generator.generator.example">Example</a>
       </h5>
 <p>
@@ -233,7 +234,7 @@
 <p>
       </p>
 <a name="egg.object_generator.generator.see_also"></a><h5>
-<a name="id542361"></a>
+<a name="id542397"></a>
         <a href="object_generator.html#egg.object_generator.generator.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -242,19 +243,19 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.object_generator.how_to_generate"></a><a href="object_generator.html#egg.object_generator.how_to_generate" title="How to generate">How to generate</a></h3></div></div></div>
-<a name="egg.object_generator.how_to_generate.description"></a><h5>
-<a name="id542414"></a>
-        <a href="object_generator.html#egg.object_generator.how_to_generate.description">Description</a>
+<a name="egg.object_generator.generating_forms"></a><a href="object_generator.html#egg.object_generator.generating_forms" title="Generating Forms">Generating Forms</a></h3></div></div></div>
+<a name="egg.object_generator.generating_forms.description"></a><h5>
+<a name="id542451"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">generator</span></code> generates an object
         using constructor by default. You need these helpers if a generating type
         has no constructor.
       </p>
-<a name="egg.object_generator.how_to_generate.header"></a><h5>
-<a name="id542457"></a>
-        <a href="object_generator.html#egg.object_generator.how_to_generate.header">Header</a>
+<a name="egg.object_generator.generating_forms.header"></a><h5>
+<a name="id542494"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -267,16 +268,16 @@
 <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">use_brace2</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> defines <code class="computeroutput"><span class="identifier">use_brace2</span></code>.
         </li>
 </ul></div>
-<a name="egg.object_generator.how_to_generate.notation"></a><h5>
-<a name="id542678"></a>
-        <a href="object_generator.html#egg.object_generator.how_to_generate.notation">Notation</a>
+<a name="egg.object_generator.generating_forms.notation"></a><h5>
+<a name="id542715"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           Notation defined in <a href="object_generator.html#egg.object_generator.generator" title="generator">generator</a>.
         </li></ul></div>
-<a name="egg.object_generator.how_to_generate.valid_expressions"></a><h5>
-<a name="id542721"></a>
-        <a href="object_generator.html#egg.object_generator.how_to_generate.valid_expressions">Valid
+<a name="egg.object_generator.generating_forms.valid_expressions"></a><h5>
+<a name="id542757"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.valid_expressions">Valid
         expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -339,9 +340,9 @@
 </tr>
 </tbody>
 </table></div>
-<a name="egg.object_generator.how_to_generate.see_also"></a><h5>
-<a name="id543018"></a>
-        <a href="object_generator.html#egg.object_generator.how_to_generate.see_also">See also</a>
+<a name="egg.object_generator.generating_forms.see_also"></a><h5>
+<a name="id543054"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
@@ -351,21 +352,22 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.object_generator.deducers"></a><a href="object_generator.html#egg.object_generator.deducers" title="Deducers">Deducers</a></h3></div></div></div>
 <a name="egg.object_generator.deducers.description"></a><h5>
-<a name="id543071"></a>
+<a name="id543108"></a>
         <a href="object_generator.html#egg.object_generator.deducers.description">Description</a>
       </h5>
 <p>
-        Egg provides some basic and useful types for better error messages. You can
-        place any elaborate <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
+        Egg provides some basic and useful <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html" target="_top">Metafunction
+        Class</a> types for better error messages. You can place any elaborate
+        <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
         Lambda Expression</a> in generating type, though.
       </p>
 <a name="egg.object_generator.deducers.header"></a><h5>
-<a name="id543106"></a>
+<a name="id543153"></a>
         <a href="object_generator.html#egg.object_generator.deducers.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.object_generator.deducers.valid_expressions"></a><h5>
-<a name="id543189"></a>
+<a name="id543235"></a>
         <a href="object_generator.html#egg.object_generator.deducers.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -467,7 +469,7 @@
 </tbody>
 </table></div>
 <a name="egg.object_generator.deducers.see_also"></a><h5>
-<a name="id543932"></a>
+<a name="id543979"></a>
         <a href="object_generator.html#egg.object_generator.deducers.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>

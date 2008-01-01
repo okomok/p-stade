@@ -26,7 +26,7 @@ A simple object generator can be made automatically using the following family.
     ]
     [
         [`generator<Lam, R0 = _default, How = _default, _Stg = _default>::type`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ /POD/ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_GENERATOR`]
@@ -45,7 +45,7 @@ A simple object generator can be made automatically using the following family.
 [heading Preconditions]
 * `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `How` is `_default` or one of the type in __EGG_HOW_TO_GENERATE__.
+* `How` is `_default` or one of the type in __EGG_GENERATING_FORMS__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -65,7 +65,7 @@ A simple object generator can be made automatically using the following family.
 
 
 
-[section How to generate]
+[section Generating Forms]
 
 [heading Description]
 `generator` generates an object using constructor by default.
@@ -110,7 +110,7 @@ You need these helpers if a generating type has no constructor.
 [section Deducers]
 
 [heading Description]
-Egg provides some basic and useful types for better error messages.
+Egg provides some basic and useful __METAFUNCTION_CLASS__ types for better error messages.
 You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though.
 
 [heading Header]

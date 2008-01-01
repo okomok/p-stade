@@ -6,10 +6,10 @@
 [section Pipable Adaptor]
 
 [heading Description]
-A _pipable_adaptor_ is a _pipable_object_ which has the associated _static_function_object_ using prefix `make_`.
+A _pipable_adaptor_ is a _pipable_fuction_object_ which has the associated _static_function_object_ using prefix `make_`.
 
 [heading Refinement of]
-* _pipable_object_
+* _pipable_fuction_object_
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
@@ -70,10 +70,10 @@ A _resettable_object_ is an object which is modifiable after its construction.
 [section Stoppable Generator]
 
 [heading Description]
-A _stoppable_generator_ is a _deferred_callable_object_ which can specify the stop of generating using _boost_optional_.
+A _stoppable_generator_ is a _polymorphic_function_object_ which can specify the stop of generating using _boost_optional_.
 
 [heading Refinement of]
-* _deferred_callable_object_
+* _polymorphic_function_object_
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
@@ -83,7 +83,7 @@ for any _stoppable_generator_ `g` the following must be met:
 * An /uninitialized/ result is considered as the stop of generating.
 
 [heading Models]
-* Any _deferred_callable_object_ which _oven_nonstop_ returns.
+* Any _polymorphic_function_object_ which _oven_nonstop_ returns.
 
 [endsect]
 

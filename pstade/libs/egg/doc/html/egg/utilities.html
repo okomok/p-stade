@@ -37,7 +37,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.utilities.apply"></a><a href="utilities.html#egg.utilities.apply" title="apply">apply</a></h3></div></div></div>
 <a name="egg.utilities.apply.description"></a><h5>
-<a name="id544017"></a>
+<a name="id544063"></a>
         <a href="utilities.html#egg.utilities.apply.description">Description</a>
       </h5>
 <p>
@@ -45,24 +45,24 @@
         trailing arguments.
       </p>
 <a name="egg.utilities.apply.header"></a><h5>
-<a name="id544056"></a>
+<a name="id544102"></a>
         <a href="utilities.html#egg.utilities.apply.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">apply</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.utilities.apply.model_of"></a><h5>
-<a name="id544136"></a>
+<a name="id544183"></a>
         <a href="utilities.html#egg.utilities.apply.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.utilities.apply.notation"></a><h5>
-<a name="id544176"></a>
+<a name="id544223"></a>
         <a href="utilities.html#egg.utilities.apply.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.apply.valid_expressions"></a><h5>
-<a name="id544208"></a>
+<a name="id544255"></a>
         <a href="utilities.html#egg.utilities.apply.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -92,21 +92,22 @@
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-                Callable Object</a> type
+                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
+                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a> type
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">X_apply</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">_dco</span><span class="special">,</span>
+                <code class="computeroutput"><span class="identifier">X_apply</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">_pfo</span><span class="special">,</span>
                 <span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
+                <code class="computeroutput"><span class="identifier">_pfo</span><span class="special">(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
               </p>
               </td>
 </tr>
@@ -125,19 +126,19 @@
 </tbody>
 </table></div>
 <a name="egg.utilities.apply.preconditions"></a><h5>
-<a name="id544515"></a>
+<a name="id544562"></a>
         <a href="utilities.html#egg.utilities.apply.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">b</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)</span></code> is a valid expression, where <code class="computeroutput"><span class="identifier">b</span></code> is <code class="computeroutput"><span class="identifier">_dco</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span></code>.
+<code class="computeroutput"><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">b</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)</span></code> is a valid expression, where <code class="computeroutput"><span class="identifier">b</span></code> is <code class="computeroutput"><span class="identifier">_pfo</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span></code>.
         </li>
 <li>
           The corresponding semantics is a valid expression.
         </li>
 </ul></div>
 <a name="egg.utilities.apply.example"></a><h5>
-<a name="id544629"></a>
+<a name="id544676"></a>
         <a href="utilities.html#egg.utilities.apply.example">Example</a>
       </h5>
 <p>
@@ -160,7 +161,7 @@
 <p>
       </p>
 <a name="egg.utilities.apply.see_also"></a><h5>
-<a name="id544778"></a>
+<a name="id544825"></a>
         <a href="utilities.html#egg.utilities.apply.see_also">See also</a>
       </h5>
 </div>
@@ -168,7 +169,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.utilities.lambda_bind"></a><a href="utilities.html#egg.utilities.lambda_bind" title="lambda_bind">lambda_bind</a></h3></div></div></div>
 <a name="egg.utilities.lambda_bind.description"></a><h5>
-<a name="id544823"></a>
+<a name="id544870"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.description">Description</a>
       </h5>
 <p>
@@ -176,24 +177,24 @@
         Function Object</a> which represents <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
       </p>
 <a name="egg.utilities.lambda_bind.header"></a><h5>
-<a name="id544901"></a>
+<a name="id544948"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">lambda</span><span class="special">/</span><span class="identifier">bind</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.utilities.lambda_bind.model_of"></a><h5>
-<a name="id544993"></a>
+<a name="id545039"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.utilities.lambda_bind.notation"></a><h5>
-<a name="id545033"></a>
+<a name="id545079"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.lambda_bind.valid_expressions"></a><h5>
-<a name="id545066"></a>
+<a name="id545113"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -227,7 +228,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.utilities.lambda_bind.preconditions"></a><h5>
-<a name="id545267"></a>
+<a name="id545313"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -242,7 +243,7 @@
         </li>
 </ul></div>
 <a name="egg.utilities.lambda_bind.example"></a><h5>
-<a name="id545351"></a>
+<a name="id545397"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.example">Example</a>
       </h5>
 <p>
@@ -272,7 +273,7 @@
 <p>
       </p>
 <a name="egg.utilities.lambda_bind.see_also"></a><h5>
-<a name="id545590"></a>
+<a name="id545636"></a>
         <a href="utilities.html#egg.utilities.lambda_bind.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -284,7 +285,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.utilities.lambda_n"></a><a href="utilities.html#egg.utilities.lambda_n" title="lambda_N">lambda_N</a></h3></div></div></div>
 <a name="egg.utilities.lambda_n.description"></a><h5>
-<a name="id545661"></a>
+<a name="id545707"></a>
         <a href="utilities.html#egg.utilities.lambda_n.description">Description</a>
       </h5>
 <p>
@@ -292,12 +293,12 @@
         Function Object</a> which represents <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_N</span></code>.
       </p>
 <a name="egg.utilities.lambda_n.header"></a><h5>
-<a name="id545739"></a>
+<a name="id545785"></a>
         <a href="utilities.html#egg.utilities.lambda_n.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">lambda</span><span class="special">/</span><span class="identifier">placeholders</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.utilities.lambda_n.model_of"></a><h5>
-<a name="id545829"></a>
+<a name="id545876"></a>
         <a href="utilities.html#egg.utilities.lambda_n.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -305,14 +306,14 @@
           but not <span class="emphasis"><em>statically initialized</em></span>.
         </li></ul></div>
 <a name="egg.utilities.lambda_n.notation"></a><h5>
-<a name="id545874"></a>
+<a name="id545920"></a>
         <a href="utilities.html#egg.utilities.lambda_n.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.lambda_n.valid_expressions"></a><h5>
-<a name="id545907"></a>
+<a name="id545953"></a>
         <a href="utilities.html#egg.utilities.lambda_n.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -346,7 +347,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.utilities.lambda_n.preconditions"></a><h5>
-<a name="id546056"></a>
+<a name="id546102"></a>
         <a href="utilities.html#egg.utilities.lambda_n.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -361,14 +362,14 @@
         </li>
 </ul></div>
 <a name="egg.utilities.lambda_n.example"></a><h5>
-<a name="id546138"></a>
+<a name="id546186"></a>
         <a href="utilities.html#egg.utilities.lambda_n.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.utilities.lambda_n.see_also"></a><h5>
-<a name="id546166"></a>
+<a name="id546214"></a>
         <a href="utilities.html#egg.utilities.lambda_n.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
@@ -377,35 +378,35 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.utilities.lambda_result_of_hpp"></a><a href="utilities.html#egg.utilities.lambda_result_of_hpp" title="lambda/result_of.hpp">lambda/result_of.hpp</a></h3></div></div></div>
 <a name="egg.utilities.lambda_result_of_hpp.description"></a><h5>
-<a name="id546228"></a>
+<a name="id546274"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.description">Description</a>
       </h5>
 <p>
         This header lets a <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>
-        functor be a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-        Callable Object</a>.
+        functor be a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a>.
       </p>
 <a name="egg.utilities.lambda_result_of_hpp.header"></a><h5>
-<a name="id546272"></a>
+<a name="id546318"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">lambda</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.utilities.lambda_result_of_hpp.model_of"></a><h5>
-<a name="id546364"></a>
+<a name="id546410"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.lambda_result_of_hpp.notation"></a><h5>
-<a name="id546396"></a>
+<a name="id546443"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.lambda_result_of_hpp.valid_expressions"></a><h5>
-<a name="id546430"></a>
+<a name="id546476"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -435,28 +436,28 @@
 <td>
               <p>
                 A <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>
-                functor becomes a <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-                Callable Object</a>.
+                functor becomes a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a>.
               </p>
               </td>
 </tr></tbody>
 </table></div>
 <a name="egg.utilities.lambda_result_of_hpp.preconditions"></a><h5>
-<a name="id546605"></a>
+<a name="id546652"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.lambda_result_of_hpp.example"></a><h5>
-<a name="id546639"></a>
+<a name="id546686"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.utilities.lambda_result_of_hpp.see_also"></a><h5>
-<a name="id546668"></a>
+<a name="id546715"></a>
         <a href="utilities.html#egg.utilities.lambda_result_of_hpp.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
@@ -465,7 +466,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.utilities.infix"></a><a href="utilities.html#egg.utilities.infix" title="infix">infix</a></h3></div></div></div>
 <a name="egg.utilities.infix.description"></a><h5>
-<a name="id546727"></a>
+<a name="id546773"></a>
         <a href="utilities.html#egg.utilities.infix.description">Description</a>
       </h5>
 <p>
@@ -473,26 +474,26 @@
         infix operator syntax.
       </p>
 <a name="egg.utilities.infix.header"></a><h5>
-<a name="id546763"></a>
+<a name="id546809"></a>
         <a href="utilities.html#egg.utilities.infix.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">infix</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.utilities.infix.model_of"></a><h5>
-<a name="id546843"></a>
+<a name="id546890"></a>
         <a href="utilities.html#egg.utilities.infix.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.infix.notation"></a><h5>
-<a name="id546875"></a>
+<a name="id546921"></a>
         <a href="utilities.html#egg.utilities.infix.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.infix.valid_expressions"></a><h5>
-<a name="id546907"></a>
+<a name="id546954"></a>
         <a href="utilities.html#egg.utilities.infix.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -515,20 +516,20 @@
 <tbody><tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">a1</span> <span class="special">^</span><span class="identifier">_dco</span><span class="special">^</span>
+                <code class="computeroutput"><span class="identifier">a1</span> <span class="special">^</span><span class="identifier">_pfo</span><span class="special">^</span>
                 <span class="identifier">a2</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_dco</span><span class="special">(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,</span> <span class="identifier">by_perfect</span><span class="special">),</span>
+                <code class="computeroutput"><span class="identifier">_pfo</span><span class="special">(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,</span> <span class="identifier">by_perfect</span><span class="special">),</span>
                 <span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a2</span><span class="special">,</span> <span class="identifier">by_perfect</span><span class="special">))</span></code>
               </p>
               </td>
 </tr></tbody>
 </table></div>
 <a name="egg.utilities.infix.preconditions"></a><h5>
-<a name="id547107"></a>
+<a name="id547154"></a>
         <a href="utilities.html#egg.utilities.infix.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -542,14 +543,14 @@
         </li>
 </ul></div>
 <a name="egg.utilities.infix.invariants"></a><h5>
-<a name="id547172"></a>
+<a name="id547218"></a>
         <a href="utilities.html#egg.utilities.infix.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="special">^</span><span class="identifier">_dco</span><span class="special">^</span></code> behaves as if it had left to right associativity.
+<code class="computeroutput"><span class="special">^</span><span class="identifier">_pfo</span><span class="special">^</span></code> behaves as if it had left to right associativity.
         </li></ul></div>
 <a name="egg.utilities.infix.example"></a><h5>
-<a name="id547224"></a>
+<a name="id547270"></a>
         <a href="utilities.html#egg.utilities.infix.example">Example</a>
       </h5>
 <pre class="programlisting">
@@ -557,7 +558,7 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="special">(</span><span class="number">10</span> <span class="special">^</span><span class="identifier">plus</span><span class="special">^</span> <span class="number">12</span> <span class="special">^</span><span class="identifier">plus</span><span class="special">^</span> <span class="number">3</span><span class="special">)</span> <span class="special">==</span> <span class="number">25</span> <span class="special">);</span>
 </pre>
 <a name="egg.utilities.infix.see_also"></a><h5>
-<a name="id547366"></a>
+<a name="id547412"></a>
         <a href="utilities.html#egg.utilities.infix.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -569,33 +570,33 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.utilities.tuple_get"></a><a href="utilities.html#egg.utilities.tuple_get" title="tuple_get">tuple_get</a></h3></div></div></div>
 <a name="egg.utilities.tuple_get.description"></a><h5>
-<a name="id547435"></a>
+<a name="id547481"></a>
         <a href="utilities.html#egg.utilities.tuple_get.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">tuple_get</span></code> is akin to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">get</span></code>.
       </p>
 <a name="egg.utilities.tuple_get.header"></a><h5>
-<a name="id547494"></a>
+<a name="id547540"></a>
         <a href="utilities.html#egg.utilities.tuple_get.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">tuple</span><span class="special">/</span><span class="identifier">get</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.utilities.tuple_get.model_of"></a><h5>
-<a name="id547585"></a>
+<a name="id547631"></a>
         <a href="utilities.html#egg.utilities.tuple_get.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.tuple_get.notation"></a><h5>
-<a name="id547617"></a>
+<a name="id547664"></a>
         <a href="utilities.html#egg.utilities.tuple_get.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.utilities.tuple_get.valid_expressions"></a><h5>
-<a name="id547650"></a>
+<a name="id547697"></a>
         <a href="utilities.html#egg.utilities.tuple_get.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -624,8 +625,9 @@
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-                Callable Object</a> type
+                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
+                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a> type
               </p>
               </td>
 </tr>
@@ -682,21 +684,21 @@
 </tbody>
 </table></div>
 <a name="egg.utilities.tuple_get.preconditions"></a><h5>
-<a name="id548186"></a>
+<a name="id548234"></a>
         <a href="utilities.html#egg.utilities.tuple_get.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="egg.utilities.tuple_get.example"></a><h5>
-<a name="id548219"></a>
+<a name="id548267"></a>
         <a href="utilities.html#egg.utilities.tuple_get.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.utilities.tuple_get.see_also"></a><h5>
-<a name="id548247"></a>
+<a name="id548295"></a>
         <a href="utilities.html#egg.utilities.tuple_get.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/tuple/index.html" target="_top">Boost.Tuple</a></li></ul></div>
@@ -705,7 +707,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.utilities.tuple_pack"></a><a href="utilities.html#egg.utilities.tuple_pack" title="tuple_pack">tuple_pack</a></h3></div></div></div>
 <a name="egg.utilities.tuple_pack.description"></a><h5>
-<a name="id548307"></a>
+<a name="id548355"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.description">Description</a>
       </h5>
 <p>
@@ -714,17 +716,17 @@
         <span class="emphasis"><em>const-qualifier</em></span> sensitive.
       </p>
 <a name="egg.utilities.tuple_pack.header"></a><h5>
-<a name="id548379"></a>
+<a name="id548427"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">tuple</span><span class="special">/</span><span class="identifier">pack</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.utilities.tuple_pack.model_of"></a><h5>
-<a name="id548469"></a>
+<a name="id548517"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.utilities.tuple_pack.notation"></a><h5>
-<a name="id548509"></a>
+<a name="id548557"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -732,7 +734,7 @@
           <code class="computeroutput"><span class="identifier">c1</span><span class="special">&amp;,...,</span><span class="identifier">cK</span><span class="special">&amp;</span></code>.
         </li></ul></div>
 <a name="egg.utilities.tuple_pack.valid_expressions"></a><h5>
-<a name="id548603"></a>
+<a name="id548651"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -762,8 +764,9 @@
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-                Callable Object</a> type
+                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
+                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a> type
               </p>
               </td>
 </tr>
@@ -794,7 +797,7 @@
 </tbody>
 </table></div>
 <a name="egg.utilities.tuple_pack.preconditions"></a><h5>
-<a name="id548950"></a>
+<a name="id548999"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -806,14 +809,14 @@
         </li>
 </ul></div>
 <a name="egg.utilities.tuple_pack.example"></a><h5>
-<a name="id549008"></a>
+<a name="id549056"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.utilities.tuple_pack.see_also"></a><h5>
-<a name="id549036"></a>
+<a name="id549084"></a>
         <a href="utilities.html#egg.utilities.tuple_pack.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/tuple/index.html" target="_top">Boost.Tuple</a></li></ul></div>
