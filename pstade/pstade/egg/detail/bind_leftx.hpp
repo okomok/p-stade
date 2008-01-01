@@ -41,7 +41,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    #define PSTADE_EGG_DETAIL_BIND_LEFTX_INIT {{}}
+    #define PSTADE_EGG_BIND_LEFTX_INIT {{}}
 
 
     // 2ary-
@@ -78,7 +78,7 @@ namespace pstade { namespace egg { namespace detail {
         struct apply :
             result_of<
                 Base const(
-                    PSTADE_PP_ENUM_PARAMS_WITH(n, Arg, const&),
+                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename unbound_arg<Arg, >::type),
                     ArgZ&
                 )
             >
@@ -120,7 +120,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
     typedef function<BOOST_PP_CAT(baby_bind_left, n), by_cref> BOOST_PP_CAT(T_bind_left, n);
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind_left, n)), BOOST_PP_CAT(bind_left, n)) = PSTADE_EGG_DETAIL_BIND_LEFTX_INIT;
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind_left, n)), BOOST_PP_CAT(bind_left, n)) = PSTADE_EGG_BIND_LEFTX_INIT;
 
 
 #undef n

@@ -51,7 +51,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 1ary-
         template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-        struct PSTADE_EGG_BABY_APPLY_DECL;
+        struct PSTADE_EGG_BABY_APPLY;
 
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/bind_left1.hpp>))
@@ -69,10 +69,10 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-    #define PSTADE_EGG_DETAIL_BIND_LEFT1_L { {
-    #define PSTADE_EGG_DETAIL_BIND_LEFT1_M ,
-    #define PSTADE_EGG_DETAIL_BIND_LEFT1_R } }
-    #define PSTADE_EGG_DETAIL_BIND_LEFT1(F, A) PSTADE_EGG_DETAIL_BIND_LEFT1_L F PSTADE_EGG_DETAIL_BIND_LEFT1_M A PSTADE_EGG_DETAIL_BIND_LEFT1_R
+    #define PSTADE_EGG_BIND_LEFT1_L { {
+    #define PSTADE_EGG_BIND_LEFT1_M ,
+    #define PSTADE_EGG_BIND_LEFT1_R } }
+    #define PSTADE_EGG_BIND_LEFT1(F, A) PSTADE_EGG_BIND_LEFT1_L F PSTADE_EGG_BIND_LEFT1_M A PSTADE_EGG_BIND_LEFT1_R
 
 
     struct baby_bind_left1
@@ -88,7 +88,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result, class Base, class Arg>
         Result call(Base& base, Arg& arg) const
         {
-            Result r = PSTADE_EGG_DETAIL_BIND_LEFT1(base, arg);
+            Result r = PSTADE_EGG_BIND_LEFT1(base, arg);
             return r;
         }
     };
@@ -109,7 +109,7 @@ namespace pstade { namespace egg { namespace detail {
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             Base const(
-                Arg const&,
+                typename unbound_arg<Arg>::type,
                 PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
             )
         >

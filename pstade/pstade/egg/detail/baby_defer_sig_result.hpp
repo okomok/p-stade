@@ -64,7 +64,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 1ary-
         template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, A)>
-        struct PSTADE_EGG_BABY_APPLY_DECL;
+        struct PSTADE_EGG_BABY_APPLY;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/baby_defer_sig_result.hpp>))
         #include BOOST_PP_ITERATE()

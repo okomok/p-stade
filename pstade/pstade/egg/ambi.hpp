@@ -103,7 +103,7 @@ namespace pstade { namespace egg {
             }
 #else
             template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct PSTADE_EGG_BABY_APPLY_DECL;
+            struct PSTADE_EGG_BABY_APPLY;
 
         // as pipe
             template<class Myself BOOST_PP_ENUM_TRAILING_PARAMS(n_1, class A)>

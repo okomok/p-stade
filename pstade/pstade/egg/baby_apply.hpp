@@ -19,10 +19,10 @@
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
     // complete to suppress a msvc warning.
-    #define PSTADE_EGG_BABY_APPLY_DECL apply { }
+    #define PSTADE_EGG_BABY_APPLY apply { }
 #else
     // keep incomplete to disable SFINAE, which is C++0x result_of behavior.
-    #define PSTADE_EGG_BABY_APPLY_DECL apply
+    #define PSTADE_EGG_BABY_APPLY apply
 #endif
 
 

@@ -50,7 +50,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_AMBI_L I PSTADE_EGG_AMBI_R`]
     ]
     [
-        [`fc(d)(a1,...,aN))`]
+        [`fc(d)(a1,...,aN)`]
         [`_const(d)(_arg_list(a, by_perfect))`]
     ]
     [
@@ -70,8 +70,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Invariants]
 * `result_of_ambi++N<_Dco>::type` is a /POD/ type if and only if `_Dco` is a /POD/ type.
-
-[note Arguments passed to `fc(d)` are not copied. Those are bound to references, then forwarded to base __FUNCTION_OBJECT__.]
 
 [heading Example]
 [code_ambi_example]
@@ -169,6 +167,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_curry++N<_typeof(d)>::type` initialized using `d` or the initializer.
+* `b` is `a1,...,a(N-1)`.
 
 [heading Valid expressions]
 [table 
@@ -190,7 +189,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d)(a1)...(aN)`]
-        [`_const(d)(_arg_list(_arg_list(a, by_cref), by_value))`]
+        [`_const(d)(_arg_list(b, by_cref),_arg_list(aN, by_perfect))`]
     ]
     [
         [`curry++N`]
@@ -203,12 +202,14 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ]
 
 [heading Preconditions]
-* `N` is the arity of `_Dco` such that `2 <= N && N <= 5`.
+* `N` is the arity of `_Dco` such that `2 <= N && N <= PSTADE_EGG_MAX_ARITY`.
 * There is a `d_` such that `_Dco d_ = init;` is a valid expression.
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
 * `result_of_curry++N<_Dco>::type` is a /POD/ type if and only if `_Dco` is a /POD/ type.
+
+[note An element of `b` is copied unless it is an array. ]
 
 [heading Example]
 [code_curry_example]

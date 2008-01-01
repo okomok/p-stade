@@ -66,7 +66,7 @@ namespace baby_pipable_resultns_ {
     // 1ary-
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
         template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_max_arity, A)>
-        struct PSTADE_EGG_BABY_APPLY_DECL;
+        struct PSTADE_EGG_BABY_APPLY;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/baby_pipable_result.hpp>))
         #include BOOST_PP_ITERATE()
