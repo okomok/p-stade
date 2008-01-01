@@ -26,31 +26,28 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    // Not const-qualified to be Regular.
-    template<class A>
-    struct bound_arg :
-        pass_by_value<A>
-    { };
-
-    template<class T, std::size_t sz>
-    struct bound_arg< T[sz] >
+    struct baby_bind_arg
     {
-        typedef T (&type)[sz];
+        template<class Myself, class Arg>
+        struct apply :
+            pass_by_value<Arg>
+        { };
+
+        template<class Myself, class T, std::size_t sz>
+        struct apply< Myself, T[sz] >
+        {
+            typedef T (&type)[sz];
+        };
+
+        template<class Result class Arg>
+        Result call(Arg& arg) const
+        {
+            return arg;
+        }
     };
 
-
-    // const lvalue, because operator() is const.
-    template<class A>
-    struct unbound_arg
-    {
-        typedef A const& type;
-    };
-
-    template<class T, std::size_t sz>
-    struct unbound_arg< T(&)[sz] >
-    {
-        typedef T (&type)[sz];
-    };
+    typedef function<baby_bind_arg, by_cref> T_bind_arg;
+    PSTADE_POD_CONSTANT((T_bind_arg), bind_arg) = {{}};
 
 
 } } } // namespace pstade::egg::detail

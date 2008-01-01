@@ -54,7 +54,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 1ary-
         template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-        struct PSTADE_EGG_BABY_APPLY_DECL;
+        struct PSTADE_EGG_BABY_APPLY;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/baby_return_result.hpp>))
         #include BOOST_PP_ITERATE()

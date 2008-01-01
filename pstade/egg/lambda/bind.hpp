@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
         {
         // 1ary-
             template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_LAMBDA_BIND_MAX_ARITY, A)>
-            struct PSTADE_EGG_BABY_APPLY_DECL;
+            struct PSTADE_EGG_BABY_APPLY;
 
         #define PSTADE_bind_tuple_mapper(N) \
             typename boost::lambda::detail::bind_tuple_mapper< \

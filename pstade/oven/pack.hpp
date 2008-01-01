@@ -35,7 +35,7 @@ namespace pack_detail {
     struct baby
     {
         template< class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
-        struct PSTADE_EGG_BABY_APPLY_DECL;
+        struct PSTADE_EGG_BABY_APPLY;
 
         // 1ary-
     #define PSTADE_iter_rng(Z, N, _) make_iter_range(BOOST_PP_CAT(rng, N))

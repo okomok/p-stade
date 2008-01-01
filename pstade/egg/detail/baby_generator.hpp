@@ -103,7 +103,7 @@ namespace pstade { namespace egg { namespace detail {
 
      // 1ary-
         template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
-        struct PSTADE_EGG_BABY_APPLY_DECL;
+        struct PSTADE_EGG_BABY_APPLY;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/baby_generator.hpp>))
         #include BOOST_PP_ITERATE()

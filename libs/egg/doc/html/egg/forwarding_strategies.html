@@ -31,9 +31,10 @@
       <code class="computeroutput"><span class="identifier">_arg_list</span></code> and <code class="computeroutput"><span class="identifier">_meta_arg_list</span></code> which takes a token sequence
       and a strategy. If the first argument of <code class="computeroutput"><span class="identifier">arg_list</span></code>
       or <code class="computeroutput"><span class="identifier">_meta_arg_list</span></code> is not a
-      sequence, assume it is "one element" sequence. If you omit a strategy
-      parameter for <a href="function_builders.html" title="Function Builders">Function Builders</a>
-      or <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a>, <code class="computeroutput"><span class="identifier">by_perfect</span></code> is implicitly set.
+      sequence, assume it is "one element" sequence. Egg components use
+      <code class="computeroutput"><span class="identifier">by_perfect</span></code> when you omit or
+      specify <code class="computeroutput"><span class="identifier">_default</span></code> for strategy
+      parameter.
     </p>
 <p>
       This section uses the following notation.
@@ -103,30 +104,53 @@
 <td>
             <p>
               <code class="computeroutput"><span class="keyword">const_cast</span><span class="special">&lt;</span><span class="identifier">V</span> <span class="special">&amp;&gt;(</span><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="identifier">V</span> <span class="keyword">const</span>
-              <span class="special">&amp;&gt;(</span><span class="identifier">a</span><span class="special">))</span></code>, where <code class="computeroutput"><span class="identifier">V</span></code>
-              is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+              <span class="special">&amp;&gt;(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">implicit_cast</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)))</span></code>
             </p>
             </td>
 </tr>
 </tbody>
 </table></div>
+<p>
+      , where <code class="computeroutput"><span class="identifier">V</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+        </p>
+<p>
+          <code class="computeroutput"><span class="identifier">_val</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code> copies
+          <code class="computeroutput"><span class="identifier">a</span></code> and turns it into mutable
+          lvalue in order to work around <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
+          Forwarding Problem</a>. You shouldn't take reference in <a href="concepts.html#egg.concepts.baby_function" title="Baby Function">Baby
+          Function</a> <code class="computeroutput"><span class="identifier">call</span></code> with
+          <code class="computeroutput"><span class="identifier">by_value</span></code> strategy, unless
+          writing generic one.
+        </p>
+<p>
+      </p>
+</td></tr>
+</table></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.forwarding_strategies.by_perfect"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect" title="by_perfect">by_perfect</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.by_perfect.description"></a><h5>
-<a name="id507200"></a>
+<a name="id507312"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.description">Description</a>
       </h5>
 <p>
         Egg performs the "perfect forwarding" by default.
       </p>
 <a name="egg.forwarding_strategies.by_perfect.header"></a><h5>
-<a name="id507231"></a>
+<a name="id507343"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">by_perfect</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.forwarding_strategies.by_perfect.valid_expressions"></a><h5>
-<a name="id507312"></a>
+<a name="id507424"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -187,7 +211,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.by_perfect.preconditions"></a><h5>
-<a name="id507643"></a>
+<a name="id507755"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -203,7 +227,7 @@
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.by_perfect.example"></a><h5>
-<a name="id507742"></a>
+<a name="id507854"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.example">Example</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -214,7 +238,7 @@
           and <code class="computeroutput"><span class="identifier">ci</span></code> is a const lvalue.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_perfect.see_also"></a><h5>
-<a name="id507911"></a>
+<a name="id508022"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_perfect.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -224,7 +248,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.forwarding_strategies.by_ref"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref" title="by_ref">by_ref</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.by_ref.description"></a><h5>
-<a name="id507972"></a>
+<a name="id508083"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.description">Description</a>
       </h5>
 <p>
@@ -232,12 +256,12 @@
         but can't take a non-const rvalue.
       </p>
 <a name="egg.forwarding_strategies.by_ref.header"></a><h5>
-<a name="id508010"></a>
+<a name="id508122"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">by_ref</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.forwarding_strategies.by_ref.valid_expressions"></a><h5>
-<a name="id508092"></a>
+<a name="id508203"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -298,7 +322,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.by_ref.preconditions"></a><h5>
-<a name="id508422"></a>
+<a name="id508533"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -313,7 +337,7 @@
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.by_ref.example"></a><h5>
-<a name="id508514"></a>
+<a name="id508625"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.example">Example</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -324,7 +348,7 @@
           and <code class="computeroutput"><span class="identifier">ci</span></code> is a const lvalue.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_ref.see_also"></a><h5>
-<a name="id508683"></a>
+<a name="id508795"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_ref.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -334,7 +358,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.forwarding_strategies.by_cref"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref" title="by_cref">by_cref</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.by_cref.description"></a><h5>
-<a name="id508744"></a>
+<a name="id508856"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref.description">Description</a>
       </h5>
 <p>
@@ -342,12 +366,12 @@
         by <span class="emphasis"><em>const reference</em></span>.
       </p>
 <a name="egg.forwarding_strategies.by_cref.header"></a><h5>
-<a name="id508786"></a>
+<a name="id508898"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">by_cref</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.forwarding_strategies.by_cref.valid_expressions"></a><h5>
-<a name="id508867"></a>
+<a name="id508979"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -408,7 +432,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.by_cref.preconditions"></a><h5>
-<a name="id509214"></a>
+<a name="id509326"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -418,7 +442,7 @@
           <span class="identifier">PSTADE_EGG_MAX_LINEAR_ARITY</span></code>.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_cref.example"></a><h5>
-<a name="id509294"></a>
+<a name="id509406"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref.example">Example</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -429,7 +453,7 @@
           is a const lvalue.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_cref.see_also"></a><h5>
-<a name="id509471"></a>
+<a name="id509582"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_cref.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -439,7 +463,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.forwarding_strategies.by_value"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.by_value" title="by_value">by_value</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.by_value.description"></a><h5>
-<a name="id509531"></a>
+<a name="id509643"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.description">Description</a>
       </h5>
 <p>
@@ -448,12 +472,12 @@
         like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">auto_ptr</span><span class="special">&lt;&gt;</span></code>.
       </p>
 <a name="egg.forwarding_strategies.by_value.header"></a><h5>
-<a name="id509597"></a>
+<a name="id509709"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">by_value</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.forwarding_strategies.by_value.valid_expressions"></a><h5>
-<a name="id509678"></a>
+<a name="id509789"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -514,7 +538,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.by_value.preconditions"></a><h5>
-<a name="id510007"></a>
+<a name="id510119"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -524,7 +548,7 @@
           <span class="identifier">PSTADE_EGG_MAX_LINEAR_ARITY</span></code>.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_value.example"></a><h5>
-<a name="id510088"></a>
+<a name="id510200"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.example">Example</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -534,7 +558,7 @@
           and <code class="computeroutput"><span class="identifier">ci</span></code> is a const lvalue.
         </li></ul></div>
 <a name="egg.forwarding_strategies.by_value.see_also"></a><h5>
-<a name="id510245"></a>
+<a name="id510356"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.by_value.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
@@ -545,7 +569,7 @@
 <a name="egg.forwarding_strategies.deducing_nullary_return_types"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types" title="Deducing nullary return types">Deducing
       nullary return types</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.deducing_nullary_return_types.description"></a><h5>
-<a name="id510309"></a>
+<a name="id510420"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types.description">Description</a>
       </h5>
 <p>
@@ -555,7 +579,7 @@
         a special workaround. Here an imaginary operator is defined for the documentation.
       </p>
 <a name="egg.forwarding_strategies.deducing_nullary_return_types.valid_expressions_and_semantics"></a><h5>
-<a name="id510364"></a>
+<a name="id510477"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types.valid_expressions_and_semantics">Valid
         expressions and semantics</a>
       </h5>
@@ -585,7 +609,7 @@
 </ul></div>
 </li></ul></div>
 <a name="egg.forwarding_strategies.deducing_nullary_return_types.see_also"></a><h5>
-<a name="id510567"></a>
+<a name="id510680"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types.see_also">See
         also</a>
       </h5>

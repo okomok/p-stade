@@ -81,7 +81,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 1ary-
         template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, A)>
-        struct PSTADE_EGG_BABY_APPLY_DECL;
+        struct PSTADE_EGG_BABY_APPLY;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_SIZE, <pstade/egg/detail/baby_unfuse_result.hpp>))
         #include BOOST_PP_ITERATE()
