@@ -12,7 +12,17 @@
 #include <pstade/unevaluated.hpp>
 #include <pstade/minimal_test.hpp>
 
+struct A {};
+
+using pstade::unevaluated;
 
 void pstade_minimal_test()
 {
+    bool b = false;
+    if (b)
+        unevaluated<int>();
+    if (b)
+        unevaluated<A>();
+    if (b)
+        unevaluated<A&>();
 }

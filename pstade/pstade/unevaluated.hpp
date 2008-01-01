@@ -21,29 +21,22 @@
 // Used with Boost.Concept and Boost.Typeof.
 
 
-#include <exception>
 #include <boost/assert.hpp>
-#include <boost/throw_exception.hpp>
+#include <pstade/boost_workaround.hpp>
 
 
 namespace pstade {
 
 
-    struct unevaluated_error :
-        std::exception
-    {
-        char const *what() const throw() // override
-        {
-            return "pstade::unevaluated_error";
-        }
-    };
-
-
     template<class X> inline
     X unevaluated()
     { 
-        BOOST_ASSERT("unevaluated was evaluated." && false);
-        boost::throw_exception(unevaluated_error());
+        BOOST_ASSERT(!"unevaluated");
+        throw "unevaluated";
+#if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
+        // suppress warning: no return statement in function returning non-void
+        return unevaluated<X>();
+#endif
     }
 
 
