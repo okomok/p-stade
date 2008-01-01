@@ -201,7 +201,7 @@
 [h2 Version 1.00.1]
 * Added `pack`.
 * Ported to Intel C++ Compiler.
-* `AuxiliaryClassInterface` concept renamed to `AmbiObject`.
+* `AuxiliaryClassInterface` renamed to `AmbiFunctionObject`.
 
 
 

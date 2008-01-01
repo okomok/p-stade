@@ -32,11 +32,11 @@ Egg no longer considers function templates to be useful, so that it provides
     ]
     [
         [`X_apply<_Stg = _default>`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_apply<_Stg>()(_dco, a1,...,aN)`]
-        [`_dco(_arg_list(a, _Stg))` ]
+        [`X_apply<_Stg>()(_pfo, a1,...,aN)`]
+        [`_pfo(_arg_list(a, _Stg))` ]
     ]
     [
         [`apply`]
@@ -45,7 +45,7 @@ Egg no longer considers function templates to be useful, so that it provides
 ]
 
 [heading Preconditions]
-* `_arg_list(b, _Stg)` is a valid expression, where `b` is `_dco, a1,...,aN`.
+* `_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
 * The corresponding semantics is a valid expression.
 
 
@@ -146,7 +146,7 @@ Egg no longer considers function templates to be useful, so that it provides
 [section lambda/result_of.hpp]
 
 [heading Description]
-This header lets a __BOOST_LAMBDA__ functor be a __DEFERRED_CALLABLE_OBJECT__.
+This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__.
 
 [heading Header]
 * `<pstade/egg/lambda/result_of.hpp>`
@@ -165,7 +165,7 @@ This header lets a __BOOST_LAMBDA__ functor be a __DEFERRED_CALLABLE_OBJECT__.
     ]
     [
         [`#include <pstade/egg/lambda/result_of.hpp>`]
-        [A __BOOST_LAMBDA__ functor becomes a __DEFERRED_CALLABLE_OBJECT__.]
+        [A __BOOST_LAMBDA__ functor becomes a __POLYMORPHIC_FUNCTION_OBJECT__.]
     ]
 ]
 
@@ -204,8 +204,8 @@ Egg provides __FCPP__ infix operator syntax.
         [[*Semantics]]
     ]
     [
-        [`a1 ^_dco^ a2`]
-        [`_dco(_arg_list(a1, by_perfect), _arg_list(a2, by_perfect))`]
+        [`a1 ^_pfo^ a2`]
+        [`_pfo(_arg_list(a1, by_perfect), _arg_list(a2, by_perfect))`]
     ]
 ]
 
@@ -214,7 +214,7 @@ Egg provides __FCPP__ infix operator syntax.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `^_dco^` behaves as if it had left to right associativity.
+* `^_pfo^` behaves as if it had left to right associativity.
 
 [heading Example]
     using namespace infix;
@@ -251,7 +251,7 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`X_tuple_get<N>`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_tuple_get<N>()(t)`]
@@ -307,7 +307,7 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`X_tuple_pack<_Stg = _default>`]
-        [A __BINDABLE__ __DEFERRED_CALLABLE_OBJECT__ type]
+        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_tuple_pack<_Stg>()(a1,...,aN)`]

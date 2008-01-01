@@ -36,6 +36,7 @@
 * `auxiliary` renamed to `ambi` with shifted index.
 * Macros support two forms.
 * `as_reference` renamed to `as_ref`.
+* Concept names were corrected.
 
 
 

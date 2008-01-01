@@ -16,7 +16,7 @@
 //
 // Boost.ResultOf doesn't support:
 //     result_of<F&(int,...)>::type
-// This seems a defect.
+// A target function sometimes may be a reference.
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
