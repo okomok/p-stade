@@ -17,8 +17,8 @@
 namespace pstade { namespace egg {
 
 
-    struct default_value_type { };
-    PSTADE_POD_CONSTANT((default_value_type), default_value) = {};
+    struct T_default_value { };
+    PSTADE_POD_CONSTANT((T_default_value), default_value) = {};
 
 
 } } // namespace pstade::egg

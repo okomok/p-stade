@@ -62,7 +62,7 @@ namespace pstade { namespace egg { namespace detail {
         };
 
         template<class Iter>
-        struct get_aux<default_value_type const, Iter> :
+        struct get_aux<T_default_value const, Iter> :
             get_<true, Iter>
         { };
 
