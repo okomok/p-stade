@@ -66,7 +66,7 @@ PSTADE_TEST_IS_RESULT_OF((my_type<int>), T_make_my_type_v(int&))
 PSTADE_TEST_IS_RESULT_OF((char), T_make_my_type_v())
 
 
-typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_reference> > >::type T_make_my_type_r;
+typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_ref> > >::type T_make_my_type_r;
 T_make_my_type_r const make_my_type_r = PSTADE_EGG_GENERATOR;
 PSTADE_TEST_IS_RESULT_OF((my_type<int const&>), T_make_my_type_r(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int&>), T_make_my_type_r(int&))

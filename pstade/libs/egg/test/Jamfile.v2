@@ -60,6 +60,7 @@ test-suite "egg" :
 #    [ run fusion_pack.cpp ]
     [ run generator.cpp ]
     [ run generator_incomplete.cpp ]
+    [ run generator_wrapped_ref.cpp ]
     [ run identity.cpp ]
     [ run iequal_to.cpp ]
     [ run incomplete_baby.cpp ]

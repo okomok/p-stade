@@ -13,10 +13,9 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
-#include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <pstade/apple/boost/reference_wrapper_fwd.hpp>
 #include <pstade/pass_by.hpp>
 #include "./by_perfect.hpp"
 #include "./detail/baby_generator.hpp"
@@ -57,6 +56,24 @@ namespace pstade { namespace egg {
     { };
 
 
+    struct as_ref
+    {
+        template<class A>
+        struct apply
+        {
+            typedef A& type;
+        };
+    };
+
+    struct as_cref
+    {
+        template<class A>
+        struct apply
+        {
+            typedef A const& type;
+        };
+    };
+
     struct as_value
     {
         template<class A>
@@ -65,20 +82,33 @@ namespace pstade { namespace egg {
         { };
     };
 
-    struct as_reference
-    {
-        template<class A>
-        struct apply :
-            boost::add_reference<A>
-        { };
-    };
-
     struct as_qualified
     {
         template<class A>
+        struct apply
+        {
+            typedef A type;
+        };
+    };
+
+    struct as_wrapped_ref
+    {
+        template<class A>
         struct apply :
-            boost::mpl::identity<A>
+            pass_by_value<A>
         { };
+
+        template<class T>
+        struct apply< boost::reference_wrapper<T> >
+        {
+            typedef T& type;
+        };
+
+        template<class T>
+        struct apply< boost::reference_wrapper<T> const >
+        {
+            typedef T& type;
+        };
     };
 
 

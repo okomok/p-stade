@@ -18,6 +18,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/baby_apply.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
@@ -46,8 +47,7 @@ struct baby_range_based2_result
     }
 
     template< class Myself, class Range0, class Range1, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_ARITY, class A, = void) >
-    struct apply
-    { }; // complete for msvc warning.
+    struct PSTADE_EGG_BABY_APPLY;
 
     // rng0 + rng1 + 0ary
     template< class Myself, class Range0, class Range1 >
