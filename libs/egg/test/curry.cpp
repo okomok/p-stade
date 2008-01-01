@@ -197,6 +197,7 @@ void pstade_minimal_test()
         nc2_t nc2;
         nc3_t nc3;
         curry3(::foo3())(boost::ref(nc1))(boost::ref(nc2))(boost::ref(nc3));
+        curry3(::foo3())(1)(2)(nc3);
     }
     {
         int i = 2;

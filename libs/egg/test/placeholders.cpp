@@ -13,7 +13,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/detail/apply_if_bind_expr.hpp>
+#include <pstade/egg/detail/substitute.hpp>
 #include <boost/utility/addressof.hpp>
 
 
@@ -53,6 +53,6 @@ void pstade_minimal_test()
     }
 
     {
-        BOOST_CHECK(detail::apply_if_bind_expr(placeholder2)(i1, i2, i3, i4, i5) == 2);
+        BOOST_CHECK(detail::substitute(placeholder2)(i1, i2, i3, i4, i5) == 2);
     }
 }

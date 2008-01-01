@@ -10,4 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#if 0
+
+    namespace pstade {
+        namespace egg { }
+    }
+
+    namespace boost {
+        namespace egg = pstade::egg;
+    }
+
+#endif
+
+
+#ifdef _MSC_VER
+    #pragma inline_recursion(on)
+    #pragma inline_depth(255)
+#endif
+
+
 #endif

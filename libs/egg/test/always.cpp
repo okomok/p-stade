@@ -14,6 +14,7 @@
 
 
 #include <boost/ref.hpp>
+#include <boost/noncopyable.hpp>
 
 
 namespace egg = pstade::egg;
@@ -22,6 +23,13 @@ using namespace egg;
 
 result_of_always<int>::type const always_3 = PSTADE_EGG_ALWAYS_L 3 PSTADE_EGG_ALWAYS_R;
 result_of_always<int>::type const always_4 = PSTADE_EGG_ALWAYS(4);
+
+
+struct my_klass : boost::noncopyable
+{
+    void hello() {}
+};
+
 
 void pstade_minimal_test()
 {
@@ -37,5 +45,9 @@ void pstade_minimal_test()
     }
     {
         BOOST_CHECK( always_4(10) == 4 );
+    }
+    {
+        my_klass k;
+        always(boost::ref(k))(1,2,3,4).hello(); // can directly call.
     }
 }

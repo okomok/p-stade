@@ -34,15 +34,15 @@
     #include <pstade/pass_by.hpp>
     #include <pstade/pod_constant.hpp>
     #include <pstade/preprocessor.hpp>
-    #include <pstade/result_of.hpp>
     #include "./baby_apply.hpp"
     #include "./by_cref.hpp"
     #include "./by_perfect.hpp"
     #include "./config.hpp"
-    #include "./detail/apply_if_bind_expr.hpp"
     #include "./detail/bound_arg.hpp"
+    #include "./detail/substitute.hpp"
     #include "./detail/use_nullary_result.hpp"
     #include "./is_bind_expression.hpp"
+    #include "./result_of_ref.hpp"
 
 
     namespace pstade { namespace egg {
@@ -88,15 +88,15 @@
             }
 
             // 0ary - PSTADE_EGG_MAX_ARITYary
-        #define PSTADE_meta_eval(Z, N, _) \
-            typename result_of< \
-                typename result_of< \
-                    detail::T_apply_if_bind_expr(BOOST_PP_CAT(Arg, N) const&) \
+        #define PSTADE_meta_substitute(Z, N, _) \
+            typename result_of_ref< \
+                typename result_of_ref< \
+                    detail::T_substitute(typename detail::unbound_arg<BOOST_PP_CAT(Arg, N)>::type) \
                 >::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &)) \
             >::type \
         /**/
-        #define PSTADE_eval(Z, N, _) \
-            detail::apply_if_bind_expr(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
+        #define PSTADE_substitute(Z, N, _) \
+            detail::substitute(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
         /**/
 
             template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
@@ -105,8 +105,8 @@
             #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, PSTADE_EGG_MAX_ARITY, <pstade/egg/bind_n.hpp>))
             #include BOOST_PP_ITERATE()
 
-        #undef  PSTADE_eval
-        #undef  PSTADE_meta_eval
+        #undef  PSTADE_substitute
+        #undef  PSTADE_meta_substitute
         };
 
 
@@ -178,10 +178,10 @@
     #if m == 0
 
         struct nullary_result :
-            result_of<
-                typename result_of<typename result_of<detail::T_apply_if_bind_expr(Base&)>::type()>::type // `Base const` in Boost.Bind.
+            result_of_ref<
+                typename result_of_ref<typename result_of_ref<detail::T_substitute(Base&)>::type()>::type // `Base const` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, PSTADE_meta_eval, ~)
+                    BOOST_PP_ENUM(n, PSTADE_meta_substitute, ~)
                 )
             >
         { };
@@ -196,10 +196,10 @@
 
         template<class Myself, BOOST_PP_ENUM_PARAMS(m, class A)>
         struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)> :
-            result_of<
-                typename result_of<typename result_of<detail::T_apply_if_bind_expr(Base&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
+            result_of_ref<
+                typename result_of_ref<typename result_of_ref<detail::T_substitute(Base&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, PSTADE_meta_eval, ~)
+                    BOOST_PP_ENUM(n, PSTADE_meta_substitute, ~)
                 )
             >
         { };
@@ -210,9 +210,9 @@
         Result call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
         {
             return
-                detail::apply_if_bind_expr(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
+                detail::substitute(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, PSTADE_eval, ~)
+                    BOOST_PP_ENUM(n, PSTADE_substitute, ~)
                 );
         }
 

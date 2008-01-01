@@ -131,12 +131,16 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [` boost::mpl::apply<As, A>` if the corresponding argument is passed; `boost::mpl::identity<Def>` otherwise.]
     ]
     [
-        [`as_value`]
-        [`boost::remove_const< boost::decay<boost::mpl::_> >`]
+        [`as_ref`]
+        [`boost::add_reference<boost::mpl::_>`]
     ]
     [
-        [`as_reference`]
-        [`boost::add_reference<boost::mpl::_>`]
+        [`as_cref`]
+        [`boost::add_reference< boost::add_const<boost::mpl::_> >`]
+    ]
+    [
+        [`as_value`]
+        [`boost::remove_const< boost::decay<boost::mpl::_> >`]
     ]
     [
         [`as_qualified`]
