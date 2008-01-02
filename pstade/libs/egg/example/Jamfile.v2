@@ -12,6 +12,7 @@ project
     ;
 
 test-suite "egg_example" :
+    [ run concepts.cpp ]
     [ run currying.cpp ]
     [ run function_adaptors.cpp ]
     [ run function_builders.cpp ]

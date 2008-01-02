@@ -43,18 +43,18 @@ namespace pstade { namespace egg { namespace detail {
     // Work around "ETI" of 'boost::mpl::apply'.
 
     template<class Lambda>
-    struct to_substitute :
+    struct lambda_to_dummy :
         boost::mpl::eval_if< is_placeholder_expression<Lambda>,
             template_arguments_of<Lambda>,
             boost::mpl::identity<Lambda>
         >
     { };
 
-    template<class Substitute, class Lambda>
-    struct substitute_to :
+    template<class Sacrifice, class Lambda>
+    struct dummy_to_lambda :
         boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            template_arguments_copy<Substitute, Lambda>,
-            boost::mpl::identity<Substitute>
+            template_arguments_copy<Sacrifice, Lambda>,
+            boost::mpl::identity<Sacrifice>
         >
     { };
 
@@ -71,18 +71,18 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename
             boost::mpl::BOOST_PP_CAT(apply, BOOST_MPL_LIMIT_METAFUNCTION_ARITY)<
-                typename to_substitute<lambda_t>::type,
+                typename lambda_to_dummy<lambda_t>::type,
                 BOOST_PP_ENUM_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)
             >::type
-        alt_object_t;
+        dummy_t;
 
         typedef typename
-            affect<Lambda, typename substitute_to<alt_object_t, lambda_t>::type>::type
+            affect<Lambda, typename dummy_to_lambda<dummy_t, lambda_t>::type>::type
         type;
     };
 
 
-    // Even if using 'to_substitute', 'NullaryResult' must be explicitly specified.
+    // Even if using 'lambda_to_dummy', 'NullaryResult' must be explicitly specified.
     // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
 
     template<class Lambda, class NullaryResult, class Make>

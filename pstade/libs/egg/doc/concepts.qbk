@@ -1,5 +1,7 @@
 [section Concepts]
 
+[import ../example/concepts.cpp]
+
 
 
 
@@ -18,11 +20,7 @@ For any __LEXICALLY_TYPED_OBJECT__ `x` the following must be met:
 * If token `x` doesn't begin with a single underscore, `T_++x` is `_typeof(x)`; `TT++x` otherwise.
 
 [heading Example]
-    int x;
-    typedef int T_x;
-
-    int _1;
-    typedef int TT_1;
+[code_concepts_lexically_typed_object]
 
 [heading Models]
 * ...
@@ -49,7 +47,8 @@ for any __BINDABLE_FUNCTION_OBJECT__ `b` the following must be met:
 
 * There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,...,boost::lambda::_++N)` is a valid expression.
 
-[note Thanks to the sophisticated customization way of __BOOST_LAMBDA__, __BINDABLE_FUNCTION_OBJECT__ can be implemented without depending on that library. ]
+[heading Example]
+[code_concepts_bindable_function_object]
 
 [heading Models]
 * ...
@@ -78,6 +77,9 @@ for any __PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 * `x|p(x1,...,xN)` and `p(x1,...,xN)|=x` have the same effects.
 * If `N` is `0`, then `x|p()`, `x|p`, `p|=x`, and `p()|=x` are valid expressions which have the same effects.
 
+[heading Example]
+[code_concepts_pipable_function_object]
+
 [heading Models]
 * ...
 
@@ -93,18 +95,20 @@ for any __PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 [section Ambi Function Object]
 
 [heading Description]
-An __AMBI_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which supports both free function syntax and `operator|`.
+An __AMBI_FUNCTION_OBJECT__ is a __PIPABLE_FUNCTION_OBJECT__ which can be used also as free function.
 
 [heading Refinement of]
-* __FUNCTION_OBJECT__
+* __PIPABLE_FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
 for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 
 * `x|i(x1,...,xN)` is a valid expression if and only if `i(x, x1,...,xN)` is a valid expression.
-* `x|i(x1,...xN)` and `i(x, x1,...,xN)` have the same effects.
-* If `N` is `0`, then `x|i()` and `x|i` are valid expressions which have the same effects.
+* `x|i(x1,...,xN)` and `i(x, x1,...,xN)` have the same effects.
+
+[heading Example]
+[code_concepts_ambi_function_object]
 
 [heading Models]
 * ...
@@ -122,12 +126,12 @@ for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 
 [heading Description]
 A __STATIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
-Egg is a library which helps you define __STATIC_FUNCTION_OBJECT__.
+Egg is the library which helps you define __STATIC_FUNCTION_OBJECT__.
 
 [heading Refinement of]
+* __LEXICALLY_TYPED_OBJECT__
 * __BINDABLE_FUNCTION_OBJECT__
 * __POLYMORPHIC_FUNCTION_OBJECT__
-* __LEXICALLY_TYPED_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
@@ -139,9 +143,7 @@ for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
   `boost::result_of<_typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
 
 [heading Example]
-    typedef int (*T_foo)(double d);
-    int foo_impl(double d) { ... }
-    T_foo const foo = &foo_impl; // foo is a StaticFunctionObject.
+[code_concepts_static_function_object]
 
 [heading Models]
 * ...
@@ -167,6 +169,9 @@ For any __BABY_FUNCTION__ type `B` the following must be met:
 
 * `B` has a nested class template named `apply`, where `apply<...>::type` means return type of function calls.
 * `B` has a const /member function/ named `call` whose return type is explicitly specified by the first template parameter.
+
+[heading Example]
+[code_concepts_baby_function]
 
 [heading Models]
 * ...
