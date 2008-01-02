@@ -92,7 +92,7 @@ This document uses the following notation.
         [A __POLYMORPHIC_FUNCTION_OBJECT__]
     ]
     [
-        [`_Pfo`]
+        [`_PFo`]
         [A __POLYMORPHIC_FUNCTION_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
     ]
     [

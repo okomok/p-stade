@@ -31,6 +31,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BOOST_TUPLE__ [@http://www.boost.org/libs/tuple/index.html Boost.Tuple]]
 [def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
 [def __FCPP__ [@http://www.cc.gatech.edu/~yannis/fc++/ FC++]]
+[def __EXTENSION_METHOD__ [@http://en.wikipedia.org/wiki/Extension_method Extension method]]
 
 [def __ASSIGNABLE__            [@http://boost.org/doc/html/Assignable.html Assignable]]
 [def __COPY_CONSTRUCTIBLE__    [@http://boost.org/doc/html/CopyConstructible.html Copy Constructible]]

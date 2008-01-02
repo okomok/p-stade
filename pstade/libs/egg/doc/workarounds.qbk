@@ -129,7 +129,8 @@ So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
 ]
 
 [heading Preconditions]
-* `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` is placed in namespace scope.
+* This macro is placed in non-deduced context, meaning that you can't add `typename` to this macro.
+* The corresponding semantics is a valid expression.
 
 [heading See also]
 * __EGG_DEFERRED__

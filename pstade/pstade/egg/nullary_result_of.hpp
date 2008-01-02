@@ -10,48 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/apple/boost/result_of_fwd.hpp>
 #include <pstade/preprocessor.hpp>
 
 
-#define PSTADE_EGG_NULLARY_RESULT_OF_TYPE(X) \
-    namespace boost { \
-        \
-        template< > \
-        struct result_of< X(void) > \
-        { \
-            typedef X::nullary_result_type type; \
-        }; \
-        \
-        template< > \
-        struct result_of< X const(void) > : \
-               result_of< X() > \
-        { }; \
-        \
-    } \
-/**/
-
-
-#define PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(X, SeqOrNum) \
-    PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_aux(X, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(SeqOrNum)) \
-/**/
-
-    #define PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_aux(X, Seq) \
-        namespace boost { \
-            \
-            template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
-            struct result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>(void) > \
-            { \
-                typedef typename X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>::nullary_result_type type; \
-            }; \
-            \
-            template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
-            struct result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)> const(void) > : \
-                   result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>() > \
-            { }; \
-            \
-         } \
-    /**/
+#define PSTADE_EGG_NULLARY_RESULT_OF_TYPE()     <pstade/egg/detail/nullary_result_of_type_include.hpp>
+#define PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE() <pstade/egg/detail/nullary_result_of_template_include.hpp>
 
 
 #endif

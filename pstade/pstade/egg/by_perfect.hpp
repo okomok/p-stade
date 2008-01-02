@@ -14,6 +14,7 @@
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <pstade/preprocessor.hpp> // PSTADE_PP_SEQ_RANGE
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./function_fwd.hpp" // by_perfect
 #include "./perfect_strategy.hpp"
 
 

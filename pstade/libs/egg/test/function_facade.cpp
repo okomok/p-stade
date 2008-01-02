@@ -55,7 +55,8 @@ struct T_foo :
     }
 };
 
-PSTADE_EGG_NULLARY_RESULT_OF_TYPE(T_foo)
+#define  PSTADE_EGG_NULLARY_RESULT_OF_TYPE_PARAMS (T_foo)
+#include PSTADE_EGG_NULLARY_RESULT_OF_TYPE()
 
 
 T_foo const foo = T_foo();
@@ -100,7 +101,8 @@ struct T_bar :
     }
 };
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
+#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (T_bar, 2) 
+#include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
 
 
 struct dummy { };

@@ -28,7 +28,8 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_new_shared, (class))
+#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::X_new_shared, (class))
+#include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
 
 
 #endif
