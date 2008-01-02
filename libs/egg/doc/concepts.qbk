@@ -33,34 +33,6 @@ For any __LEXICALLY_TYPED_OBJECT__ `x` the following must be met:
 
 
 
-[section Bindable Function Object]
-
-[heading Description]
-A __BINDABLE_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which can be passed to `boost::lambda::bind`.
-
-[heading Refinement of]
-* __FUNCTION_OBJECT__
-
-[heading Requirements]
-In addition to the requirements defined in the refinements,
-for any __BINDABLE_FUNCTION_OBJECT__ `b` the following must be met:
-
-* There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,...,boost::lambda::_++N)` is a valid expression.
-
-[heading Example]
-[code_concepts_bindable_function_object]
-
-[heading Models]
-* ...
-
-[heading See also]
-* __BOOST_LAMBDA__
-
-[endsect]
-
-
-
-
 [section Pipable Function Object]
 
 [heading Description]
@@ -125,16 +97,44 @@ for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 
 
 
+[section Major Function Object]
+
+[heading Description]
+A __MAJOR_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
+Egg is the library which helps you build __MAJOR_FUNCTION_OBJECT__.
+
+[heading Refinement of]
+* __POLYMORPHIC_FUNCTION_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any __MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
+
+* `f` can be used as the first argument of `boost::lambda::bind`.
+
+[heading Example]
+...
+
+[heading Models]
+* ...
+
+[heading See also]
+* __BOOST_LAMBDA__
+* __BOOST_RESULT_OF__
+
+[endsect]
+
+
+
+
 [section Static Function Object]
 
 [heading Description]
-A __STATIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
-Egg is the library which helps you build __STATIC_FUNCTION_OBJECT__.
+A __STATIC_FUNCTION_OBJECT__ is a __MAJOR_FUNCTION_OBJECT__ which is intended to replace normal functions.
 
 [heading Refinement of]
 * __LEXICALLY_TYPED_OBJECT__
-* __BINDABLE_FUNCTION_OBJECT__
-* __POLYMORPHIC_FUNCTION_OBJECT__
+* __MAJOR_FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
@@ -159,22 +159,22 @@ for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
 
 
-[section Baby Function]
+[section Little Function]
 
 [heading Description]
-A __BABY_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
+A __LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 
 [heading Refinement of]
 * ...
 
 [heading Requirements]
-For any __BABY_FUNCTION__ type `B` the following must be met:
+For any __LITTLE_FUNCTION__ type `B` the following must be met:
 
 * `B` has a nested class template named `apply`, where `apply<...>::type` means return type of function calls.
 * `B` has a const /member function/ named `call` whose return type is explicitly specified by the first template parameter.
 
 [heading Example]
-[code_concepts_baby_function]
+[code_concepts_little_function]
 
 [heading Models]
 * ...

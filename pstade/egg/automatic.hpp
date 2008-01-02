@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
 
 
         template<class Lambda, template<class, class> class Automator>
-        struct baby_fused
+        struct little_fused
         {
             template<class Myself, class ArgTuple>
             struct apply
@@ -101,7 +101,7 @@ namespace pstade { namespace egg {
         template<class Lambda, template<class, class> class Automator, class Strategy>
         struct aux :
             result_of_unfuse<
-                function<baby_fused<Lambda, Automator>, by_cref>,
+                function<little_fused<Lambda, Automator>, by_cref>,
                 boost::use_default,
                 use_nullary_result,
                 Strategy

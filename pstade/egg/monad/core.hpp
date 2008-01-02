@@ -149,7 +149,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct baby_bind
+        struct little_bind
         {
             typedef deduced_form call_strategy;
 
@@ -189,7 +189,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct baby_bind_
+        struct little_bind_
         {
             template<class Myself, class MA, class MB>
             struct apply
@@ -206,7 +206,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct baby_return_wrapper
+        struct little_return_wrapper
         {
             template<class Myself, class A>
             struct apply
@@ -228,13 +228,13 @@ namespace pstade { namespace egg {
     } // namespace monad_detail
 
 
-    typedef function<monad_detail::baby_bind> T_monad_bind;
+    typedef function<monad_detail::little_bind> T_monad_bind;
     PSTADE_POD_CONSTANT((T_monad_bind), monad_bind) = {{}};
 
-    typedef function<monad_detail::baby_bind_> T_monad_bind_;
+    typedef function<monad_detail::little_bind_> T_monad_bind_;
     PSTADE_POD_CONSTANT((T_monad_bind_), monad_bind_) = {{}};
 
-    typedef function<monad_detail::baby_return_wrapper> T_monad_return;
+    typedef function<monad_detail::little_return_wrapper> T_monad_return;
     PSTADE_POD_CONSTANT((T_monad_return), monad_return) = {{}};
 
 

@@ -87,8 +87,8 @@ Distributed under the Boost Software License, Version 1.0.
 [def _fusion_forward_sequence_ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/forward_sequence.html Fusion Forward Sequence]]
 [def _fusion_random_access_sequence_ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Fusion Random Access Sequence]]
 
-[def _bindable_function_object_ [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_function_object Bindable Function Object]]
-[def _bindable_              [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.bindable_function_object Bindable]]
+[def _major_function_object_ [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object Major Function Object]]
+[def _major_                 [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object Major]]
 [def _static_function_object_ [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object Static Function Object]]
 [def _pipable_fuction_object_ [@http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.pipable_function_object Pipable Function Object]]
 [def _pipable_adaptor_       [link oven.concepts.pipable_adaptor Pipable Adaptor]]

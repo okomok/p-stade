@@ -10,10 +10,10 @@ void ignore_unused(X const&){}
 
 namespace my {
 
-    template<class Baby>
+    template<class Little>
     struct function
     {
-        Baby baby;
+        Little little;
     };
 
 

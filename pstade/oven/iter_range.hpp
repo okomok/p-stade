@@ -222,7 +222,7 @@ struct iter_range_of
 namespace make_iter_range_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Iterator, class Iterator_ = void >
         struct apply
@@ -263,7 +263,7 @@ namespace make_iter_range_detail {
 } // namespace make_iter_range_detail
 
 
-typedef egg::function<make_iter_range_detail::baby> T_make_iter_range;
+typedef egg::function<make_iter_range_detail::little> T_make_iter_range;
 PSTADE_POD_CONSTANT((T_make_iter_range), make_iter_range) = {{}};
 
 

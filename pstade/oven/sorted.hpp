@@ -18,7 +18,7 @@
 #include <pstade/egg/make_function.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./indirected.hpp"
 #include "./outplaced.hpp"
 #include "./read.hpp"
@@ -48,7 +48,7 @@ namespace sorted_detail {
     };
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Compare = void >
         struct apply :
@@ -79,7 +79,7 @@ namespace sorted_detail {
 } // namespace sorted_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(sorted, (sorted_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(sorted, (sorted_detail::little))
 
 
 } } // namespace pstade::oven

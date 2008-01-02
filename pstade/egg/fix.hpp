@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
         // fun fix base a = base (fix base) x;
         // fun uncurried_fix (base, x) = base(curry(uncurried_fix)(base))(x);
 
-        struct baby_uncurried
+        struct little_uncurried
         {
             template<class Myself, class Base, class Arg>
             struct apply :
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
                     typename result_of<
                         Base(
                             typename result_of<
-                                typename result_of<T_curry2(function<baby_uncurried>)>::type(Base&)
+                                typename result_of<T_curry2(function<little_uncurried>)>::type(Base&)
                             >::type
                          )
                     >::type(Arg&)
@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby_uncurried> uncurried;
+        typedef function<little_uncurried> uncurried;
 
 
     } // namespace fix_detail

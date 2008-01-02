@@ -22,15 +22,15 @@ namespace pstade { namespace egg {
     namespace make_function_of_detail {
 
 
-        struct baby
+        struct little
         {
-            template<class Myself, class Baby>
+            template<class Myself, class Little>
             struct apply :
-                function_of<Baby>
+                function_of<Little>
             { };
 
-            template<class Result, class Baby>
-            Result call(Baby b) const
+            template<class Result, class Little>
+            Result call(Little b) const
             {
                 Result r = { b };
                 return r;
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
     } // namespace make_function_of_detail
 
 
-    typedef function<make_function_of_detail::baby, by_value> T_make_function_of;
+    typedef function<make_function_of_detail::little, by_value> T_make_function_of;
     PSTADE_POD_CONSTANT((T_make_function_of), make_function_of) = {{}};
 
 

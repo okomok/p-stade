@@ -22,7 +22,7 @@
 
     // 1ary-
 #define PSTADE_element(Z, N, _) typename boost::tuples::element<N, Args>::type &
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_LAMBDA_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/sig_template_include.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/sig_template_include.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_element
 

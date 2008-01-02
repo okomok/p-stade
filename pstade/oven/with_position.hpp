@@ -17,8 +17,8 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/has_position.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -32,7 +32,7 @@ namespace pstade { namespace oven {
 namespace with_position_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class PositionT = boost::spirit::file_position const, class Int = void >
         struct apply
@@ -71,7 +71,7 @@ namespace with_position_detail {
 } // namespace with_position_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(with_position, (with_position_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(with_position, (with_position_detail::little))
 
 
 // position

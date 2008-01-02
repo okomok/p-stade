@@ -25,7 +25,7 @@ using namespace pstade::egg;
 
 
 //[code_deduced_form_example
-struct baby_foo
+struct little_foo
 {
     /*<< This enables the workaround. >>*/
     typedef deduced_form call_strategy;
@@ -50,12 +50,12 @@ struct baby_foo
     }
 };
 
-typedef function<baby_foo> T_foo;
+typedef function<little_foo> T_foo;
 //]
-typedef function<baby_foo, by_ref> T_rfoo;
-typedef function<baby_foo, by_cref> T_crfoo;
+typedef function<little_foo, by_ref> T_rfoo;
+typedef function<little_foo, by_cref> T_crfoo;
 
-struct baby_vfoo
+struct little_vfoo
 {
     typedef deduced_form call_strategy;
 
@@ -77,7 +77,7 @@ struct baby_vfoo
         return a1;
     }
 };
-typedef function<baby_vfoo, by_value> T_vfoo;
+typedef function<little_vfoo, by_value> T_vfoo;
 
 
 struct T_foo_ :

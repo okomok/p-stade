@@ -12,11 +12,11 @@
 //#include <pstade/../libs/p_stade/test/p_stade.cpp>
 //#include <pstade/../libs/p_stade/test/lambda_result_of.cpp>
 
-//#include <pstade/../libs/wine/test/pod_constant1.cpp>
+//#include <pstade/../libs/wine/test/unevaluated.cpp>
 
 //#include <pstade/../libs/radish/test/swap_reset.cpp>
 
-//#include <pstade/../libs/oven/test/filtered.cpp>
+//#include <pstade/../libs/oven/test/jointed.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/oven/test/transformed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
@@ -30,7 +30,7 @@
 //#define PSTADE_EGG_TEST_NUMBERED 1
 //#define PSTADE_EGG_TEST_LINEAR 0
 //#define PSTADE_EGG_MAX_ARITY 10
-#include <pstade/../libs/egg/test/bind.cpp>
-//#include <pstade/../libs/egg/example/mono_lambda.cpp>
+#include <pstade/../libs/egg/test/multiple_defs1.cpp>
+//#include <pstade/../libs/egg/example/tuple_pack.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

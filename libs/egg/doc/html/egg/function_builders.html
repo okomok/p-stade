@@ -27,55 +27,56 @@
 <dt><span class="section"><a href="function_builders.html#egg.function_builders.make_function">make_function</a></span></dt>
 </dl></div>
 <p>
-      Function builders build a "baby" function into a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-      Object</a> which can be used with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code> and
+      Function builders build a <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little
+      Function</a> into <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+      Function Object</a> type, which can be used with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code> and
       <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>.
     </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.function"></a><a href="function_builders.html#egg.function_builders.function" title="function">function</a></h3></div></div></div>
 <a name="egg.function_builders.function.description"></a><h5>
-<a name="id512608"></a>
+<a name="id512155"></a>
         <a href="function_builders.html#egg.function_builders.function.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">function</span></code> is the "kernel"
-        class template which builds a <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
-        <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        class template which builds a <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little
+        Function</a> into <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
         Function Object</a> type.
       </p>
 <a name="egg.function_builders.function.header"></a><h5>
-<a name="id512664"></a>
+<a name="id512209"></a>
         <a href="function_builders.html#egg.function_builders.function.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.function.synopsys"></a><h5>
-<a name="id512746"></a>
+<a name="id512291"></a>
         <a href="function_builders.html#egg.function_builders.function.synopsys">Synopsys</a>
       </h5>
 <pre class="programlisting">
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Baby</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Stg</span> <span class="special">=</span> <span class="identifier">_default</span><span class="special">&gt;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Little</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Stg</span> <span class="special">=</span> <span class="identifier">_default</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">function</span>
 <span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="identifier">Baby</span> <span class="identifier">baby_type</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">Little</span> <span class="identifier">little_type</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">function</span> <span class="identifier">function_type</span><span class="special">;</span>
 
-    <span class="identifier">Baby</span> <span class="identifier">b</span><span class="special">;</span> <span class="comment">// exposition only
-</span>    <span class="identifier">Baby</span> <span class="identifier">baby</span><span class="special">()</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="identifier">b</span><span class="special">;</span> <span class="special">}</span>
+    <span class="identifier">Little</span> <span class="identifier">lit</span><span class="special">;</span> <span class="comment">// exposition only
+</span>    <span class="identifier">Little</span> <span class="identifier">little</span><span class="special">()</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="identifier">lit</span><span class="special">;</span> <span class="special">}</span>
 
     <span class="comment">// unspecified
 </span>    <span class="comment">// ...
 </span><span class="special">};</span>
 </pre>
 <a name="egg.function_builders.function.notation"></a><h5>
-<a name="id512995"></a>
+<a name="id512540"></a>
         <a href="function_builders.html#egg.function_builders.function.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>.
+<code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>.
         </li></ul></div>
 <a name="egg.function_builders.function.valid_expressions"></a><h5>
-<a name="id513075"></a>
+<a name="id512621"></a>
         <a href="function_builders.html#egg.function_builders.function.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -99,14 +100,14 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>
+                <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">,</span>
+                <span class="identifier">_Stg</span><span class="special">&gt;</span></code>
               </p>
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
-                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-                Function Object</a> <span class="emphasis"><em>aggregate</em></span> type
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> <span class="emphasis"><em>aggregate</em></span> type
               </p>
               </td>
 </tr>
@@ -118,7 +119,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">baby</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">B</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
+                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">little</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">_Lit</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
               </p>
               </td>
 </tr>
@@ -130,49 +131,51 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">baby</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">::</span><span class="identifier">nullary_result_type</span><span class="special">&gt;()</span></code>
+                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">little</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">::</span><span class="identifier">nullary_result_type</span><span class="special">&gt;()</span></code>
               </p>
               </td>
 </tr>
 </tbody>
 </table></div>
 <a name="egg.function_builders.function.preconditions"></a><h5>
-<a name="id513508"></a>
+<a name="id513045"></a>
         <a href="function_builders.html#egg.function_builders.function.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">B</span></code> is a <a href="concepts.html#egg.concepts.baby_function" title="Baby Function">Baby
-          Function</a> type which is neither <span class="emphasis"><em>reference</em></span> nor
-          <span class="emphasis"><em>cv-qualified</em></span>.
+<code class="computeroutput"><span class="identifier">_Lit</span></code> is neither <span class="emphasis"><em>reference</em></span>
+          nor <span class="emphasis"><em>cv-qualified</em></span>.
         </li>
 <li>
           The corresponding semantics is a valid expression.
         </li>
 </ul></div>
 <a name="egg.function_builders.function.invariants"></a><h5>
-<a name="id513570"></a>
+<a name="id513100"></a>
         <a href="function_builders.html#egg.function_builders.function.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code> is a <span class="emphasis"><em>POD</em></span> type
-          if and only if <code class="computeroutput"><span class="identifier">B</span></code> is a
-          <span class="emphasis"><em>POD</em></span> type.
+<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>
+          is a <span class="emphasis"><em>POD</em></span> type if and only if <code class="computeroutput"><span class="identifier">_Lit</span></code>
+          is a <span class="emphasis"><em>POD</em></span> type.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code> is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
-          Constructible</a> if and only if <code class="computeroutput"><span class="identifier">B</span></code>
+<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>
+          is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a> if and only if <code class="computeroutput"><span class="identifier">_Lit</span></code>
           is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
           Constructible</a>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">B</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>
-          if and only if <code class="computeroutput"><span class="identifier">B</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
+<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;</span></code>
+          is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>
+          if and only if <code class="computeroutput"><span class="identifier">_Lit</span></code> is
+          <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
         </li>
 </ul></div>
 <a name="egg.function_builders.function.example"></a><h5>
-<a name="id513784"></a>
+<a name="id513318"></a>
         <a href="function_builders.html#egg.function_builders.function.example">Example</a>
       </h5>
 <p>
@@ -181,7 +184,7 @@
           
 </p>
 <pre class="programlisting">
-<span class="keyword">struct</span> <span class="identifier">baby_second_argument</span>
+<span class="keyword">struct</span> <span class="identifier">little_second_argument</span>
 <span class="special">{</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Myself</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A2</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">apply</span>
@@ -196,7 +199,7 @@
     <span class="special">}</span>
 <span class="special">};</span>
 
-<span class="keyword">typedef</span> <span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">baby_second_argument</span><span class="special">,</span> <span class="identifier">by_perfect</span><span class="special">&gt;</span> <span class="identifier">T_second_argument</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">little_second_argument</span><span class="special">,</span> <span class="identifier">by_perfect</span><span class="special">&gt;</span> <span class="identifier">T_second_argument</span><span class="special">;</span>
 <span class="identifier">T_second_argument</span> <span class="keyword">const</span> <span class="identifier">second_argument</span> <span class="special">=</span> <span class="special">{{}};</span> <span class="callout_bug"><a name="egg5co" href="function_builders.html#egg5"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
 
 <span class="keyword">void</span> <span class="identifier">test_function</span><span class="special">()</span>
@@ -238,7 +241,7 @@
 <p>
       </p>
 <a name="egg.function_builders.function.see_also"></a><h5>
-<a name="id514534"></a>
+<a name="id514068"></a>
         <a href="function_builders.html#egg.function_builders.function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -252,28 +255,29 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.function_facade"></a><a href="function_builders.html#egg.function_builders.function_facade" title="function_facade">function_facade</a></h3></div></div></div>
 <a name="egg.function_builders.function_facade.description"></a><h5>
-<a name="id514632"></a>
+<a name="id514166"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.description">Description</a>
       </h5>
 <p>
-        Though a type built from <code class="computeroutput"><span class="identifier">function_facade</span></code>
-        can't be a <span class="emphasis"><em>POD</em></span> type, it can have non-default constructors
-        unlike <a href="function_builders.html#egg.function_builders.function" title="function">function</a>.
+        <code class="computeroutput"><span class="identifier">function_facade</span></code> creates a
+        new <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>
+        type using "CRTP". Though a type built from <code class="computeroutput"><span class="identifier">function_facade</span></code>
+        can't be a <span class="emphasis"><em>POD</em></span> type, it can have non-default constructors.
       </p>
 <a name="egg.function_builders.function_facade.header"></a><h5>
-<a name="id514685"></a>
+<a name="id514231"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function_facade</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.function_facade.notation"></a><h5>
-<a name="id514766"></a>
+<a name="id514312"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.function_builders.function_facade.valid_expressions"></a><h5>
-<a name="id514798"></a>
+<a name="id514345"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -298,26 +302,25 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_baby</span></code>
+                <code class="computeroutput"><span class="identifier">_lit</span></code>
               </p>
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
-                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-                Function Object</a>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a>
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_baby</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="identifier">_lit</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_baby</span><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_baby</span><span class="special">)::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_baby</span><span class="special">)</span>
+                <code class="computeroutput"><span class="identifier">_lit</span><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_lit</span><span class="special">)::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_lit</span><span class="special">)</span>
                 <span class="keyword">const</span><span class="special">,</span>
                 <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
               </p>
@@ -326,32 +329,32 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_baby</span><span class="special">()</span></code>
+                <code class="computeroutput"><span class="identifier">_lit</span><span class="special">()</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_baby</span><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">R0</span><span class="special">&gt;()</span></code>
+                <code class="computeroutput"><span class="identifier">_lit</span><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">R0</span><span class="special">&gt;()</span></code>
               </p>
               </td>
 </tr>
 </tbody>
 </table></div>
 <a name="egg.function_builders.function_facade.preconditions"></a><h5>
-<a name="id515196"></a>
+<a name="id514733"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">_baby</span></code> is an object whose
-          type is derived from <code class="computeroutput"><span class="identifier">function_facade</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_baby</span><span class="special">),</span> <span class="identifier">R0</span> <span class="special">=</span> <span class="identifier">_default</span><span class="special">,</span> <span class="identifier">_Stg</span> <span class="special">=</span> <span class="identifier">_default</span><span class="special">&gt;</span></code>.
+<code class="computeroutput"><span class="identifier">_lit</span></code> is an object whose
+          type is derived from <code class="computeroutput"><span class="identifier">function_facade</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_lit</span><span class="special">),</span> <span class="identifier">R0</span> <span class="special">=</span> <span class="identifier">_default</span><span class="special">,</span> <span class="identifier">_Stg</span> <span class="special">=</span> <span class="identifier">_default</span><span class="special">&gt;</span></code>.
         </li>
 <li>
           The corresponding semantics is a valid expression.
         </li>
 </ul></div>
 <a name="egg.function_builders.function_facade.example"></a><h5>
-<a name="id515327"></a>
+<a name="id514864"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.example">Example</a>
       </h5>
 <p>
@@ -412,7 +415,7 @@
 <p>
       </p>
 <a name="egg.function_builders.function_facade.see_also"></a><h5>
-<a name="id516046"></a>
+<a name="id515584"></a>
         <a href="function_builders.html#egg.function_builders.function_facade.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -425,7 +428,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.deferred"></a><a href="function_builders.html#egg.function_builders.deferred" title="deferred">deferred</a></h3></div></div></div>
 <a name="egg.function_builders.deferred.description"></a><h5>
-<a name="id516123"></a>
+<a name="id515660"></a>
         <a href="function_builders.html#egg.function_builders.deferred.description">Description</a>
       </h5>
 <p>
@@ -434,19 +437,19 @@
         can use nested typedefs.
       </p>
 <a name="egg.function_builders.deferred.header"></a><h5>
-<a name="id516207"></a>
+<a name="id515745"></a>
         <a href="function_builders.html#egg.function_builders.deferred.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">deferred</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.deferred.notation"></a><h5>
-<a name="id516288"></a>
+<a name="id515826"></a>
         <a href="function_builders.html#egg.function_builders.deferred.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">deferred</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
 <a name="egg.function_builders.deferred.valid_expressions"></a><h5>
-<a name="id516374"></a>
+<a name="id515912"></a>
         <a href="function_builders.html#egg.function_builders.deferred.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -477,9 +480,8 @@
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
-                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-                Function Object</a> <span class="emphasis"><em>POD</em></span> type
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> <span class="emphasis"><em>POD</em></span> type
               </p>
               </td>
 </tr>
@@ -511,7 +513,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_builders.deferred.preconditions"></a><h5>
-<a name="id516781"></a>
+<a name="id516310"></a>
         <a href="function_builders.html#egg.function_builders.deferred.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -536,7 +538,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.deferred.invariants"></a><h5>
-<a name="id517003"></a>
+<a name="id516533"></a>
         <a href="function_builders.html#egg.function_builders.deferred.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -570,7 +572,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_builders.deferred.example"></a><h5>
-<a name="id517146"></a>
+<a name="id516676"></a>
         <a href="function_builders.html#egg.function_builders.deferred.example">Example</a>
       </h5>
 <p>
@@ -608,7 +610,7 @@
 <p>
       </p>
 <a name="egg.function_builders.deferred.see_also"></a><h5>
-<a name="id517464"></a>
+<a name="id516994"></a>
         <a href="function_builders.html#egg.function_builders.deferred.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -627,20 +629,20 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.automatic"></a><a href="function_builders.html#egg.function_builders.automatic" title="automatic">automatic</a></h3></div></div></div>
 <a name="egg.function_builders.automatic.description"></a><h5>
-<a name="id517564"></a>
+<a name="id517095"></a>
         <a href="function_builders.html#egg.function_builders.automatic.description">Description</a>
       </h5>
 <p>
-        <code class="computeroutput"><span class="identifier">automatic</span></code> builds a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a> type
-        which adds automatic conversion support to a cast form function.
+        <code class="computeroutput"><span class="identifier">automatic</span></code> adds automatic
+        conversion support to a cast form function.
       </p>
 <a name="egg.function_builders.automatic.header"></a><h5>
-<a name="id517610"></a>
+<a name="id517134"></a>
         <a href="function_builders.html#egg.function_builders.automatic.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">automatic</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.automatic.notation"></a><h5>
-<a name="id517692"></a>
+<a name="id517216"></a>
         <a href="function_builders.html#egg.function_builders.automatic.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -652,7 +654,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.automatic.valid_expressions"></a><h5>
-<a name="id517862"></a>
+<a name="id517386"></a>
         <a href="function_builders.html#egg.function_builders.automatic.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -683,9 +685,8 @@
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
-                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-                Function Object</a> <span class="emphasis"><em>POD</em></span> type
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> <span class="emphasis"><em>POD</em></span> type
               </p>
               </td>
 </tr>
@@ -718,7 +719,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_builders.automatic.preconditions"></a><h5>
-<a name="id518280"></a>
+<a name="id517795"></a>
         <a href="function_builders.html#egg.function_builders.automatic.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -768,7 +769,7 @@
 </td></tr>
 </table></div>
 <a name="egg.function_builders.automatic.invariants"></a><h5>
-<a name="id518552"></a>
+<a name="id518068"></a>
         <a href="function_builders.html#egg.function_builders.automatic.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -783,7 +784,7 @@
         </li>
 </ul></div>
 <a name="egg.function_builders.automatic.example"></a><h5>
-<a name="id518643"></a>
+<a name="id518158"></a>
         <a href="function_builders.html#egg.function_builders.automatic.example">Example</a>
       </h5>
 <p>
@@ -828,7 +829,7 @@
 <p>
       </p>
 <a name="egg.function_builders.automatic.see_also"></a><h5>
-<a name="id519126"></a>
+<a name="id518641"></a>
         <a href="function_builders.html#egg.function_builders.automatic.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strageties</a></li></ul></div>
@@ -837,33 +838,35 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_builders.make_function"></a><a href="function_builders.html#egg.function_builders.make_function" title="make_function">make_function</a></h3></div></div></div>
 <a name="egg.function_builders.make_function.description"></a><h5>
-<a name="id519185"></a>
+<a name="id518700"></a>
         <a href="function_builders.html#egg.function_builders.make_function.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">make_function</span></code> is the object
         generator of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;&gt;</span></code>.
-        This is useful when you need a "self" function in baby <code class="computeroutput"><span class="identifier">call</span></code> template.
+        This is useful when you need a "self" <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+        Function Object</a> in <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little
+        Function</a><code class="computeroutput"><span class="identifier">call</span></code>.
       </p>
 <a name="egg.function_builders.make_function.header"></a><h5>
-<a name="id519251"></a>
+<a name="id518783"></a>
         <a href="function_builders.html#egg.function_builders.make_function.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">make_function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_builders.make_function.model_of"></a><h5>
-<a name="id519333"></a>
+<a name="id518865"></a>
         <a href="function_builders.html#egg.function_builders.make_function.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.function_builders.make_function.notation"></a><h5>
-<a name="id519374"></a>
+<a name="id518905"></a>
         <a href="function_builders.html#egg.function_builders.make_function.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.function_builders.make_function.valid_expressions"></a><h5>
-<a name="id519407"></a>
+<a name="id518938"></a>
         <a href="function_builders.html#egg.function_builders.make_function.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -894,23 +897,23 @@
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.bindable_function_object" title="Bindable Function Object">Bindable</a>
-                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-                Function Object</a> type
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> type
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">X_make_function</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">b</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="identifier">X_make_function</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">_lit</span><span class="special">)</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">b</span><span class="special">),</span> <span class="identifier">_Stg</span><span class="special">&gt;</span>
+                <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_lit</span><span class="special">),</span>
+                <span class="identifier">_Stg</span><span class="special">&gt;</span>
                 <span class="identifier">f</span> <span class="special">=</span>
-                <span class="special">{</span><span class="identifier">b</span><span class="special">};</span> <span class="keyword">return</span>
+                <span class="special">{</span><span class="identifier">_lit</span><span class="special">};</span> <span class="keyword">return</span>
                 <span class="identifier">f</span><span class="special">;</span></code>
               </p>
               </td>
@@ -930,21 +933,21 @@
 </tbody>
 </table></div>
 <a name="egg.function_builders.make_function.preconditions"></a><h5>
-<a name="id519740"></a>
+<a name="id519263"></a>
         <a href="function_builders.html#egg.function_builders.make_function.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           The corresponding semantics is a valid expression.
         </li></ul></div>
 <a name="egg.function_builders.make_function.example"></a><h5>
-<a name="id519775"></a>
+<a name="id519298"></a>
         <a href="function_builders.html#egg.function_builders.make_function.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.function_builders.make_function.see_also"></a><h5>
-<a name="id519804"></a>
+<a name="id519327"></a>
         <a href="function_builders.html#egg.function_builders.make_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">

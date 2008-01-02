@@ -18,7 +18,7 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/egg/identity.hpp>
-#include <pstade/egg/lambda/placeholders.hpp>
+#include <pstade/egg/bll/placeholders.hpp>
 #include <pstade/result_of.hpp>
 
 
@@ -35,7 +35,7 @@ void test()
 
     {
         int i = 12;
-        pstade::result_of<egg::T_lambda_1(int)>::type result = lambda::_1(i);
+        pstade::result_of<egg::T_bll_1(int)>::type result = lambda::_1(i);
         BOOST_CHECK(result == 12);
     }
     {

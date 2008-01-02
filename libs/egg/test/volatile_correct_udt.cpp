@@ -13,7 +13,7 @@
 
 
 #include <pstade/egg/identity.hpp>
-#include <pstade/egg/lambda.hpp>
+#include <pstade/egg/bll.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/test.hpp>
 
@@ -50,12 +50,12 @@ PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const volatile))
 #endif
 
 
-typedef result_of<T_lambda_bind(T_identity const&, T_lambda_1 const&)>::type func_t;
+typedef result_of<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
 PSTADE_TEST_IS_RESULT_OF((A&), func_t(A&))
 PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const&))
 PSTADE_TEST_IS_RESULT_OF((A volatile&), func_t(A volatile&))
 PSTADE_TEST_IS_RESULT_OF((A const volatile&), func_t(A const volatile&))
-#if defined(PSTADE_EGG_LAMBDA_PERFECT_FUNCTORS)
+#if defined(PSTADE_EGG_BLL_PERFECT_FUNCTORS)
     PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A))
     PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const))
     PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A volatile))
@@ -87,7 +87,7 @@ void pstade_minimal_test()
     }
 
 
-    func_t func = lambda_bind(identity, lambda_1);
+    func_t func = bll_bind(identity, bll_1);
     {
         A i = 12;
         A& i_ = func(i);

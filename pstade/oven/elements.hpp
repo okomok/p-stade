@@ -34,7 +34,7 @@ namespace elements_detail {
 
 
     template< class N, class Reference >
-    struct baby
+    struct little
     {
     private:
         template< class TupleRange >
@@ -74,7 +74,7 @@ namespace elements_detail {
 
 template< class N, class Reference = boost::use_default >
 struct X_make_elements :
-    egg::function< elements_detail::baby<N, Reference> >
+    egg::function< elements_detail::little<N, Reference> >
 { };
 
 template< int N, class Reference = boost::use_default >

@@ -26,10 +26,10 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "../baby_apply.hpp"
 #include "../by_cref.hpp"
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../little_apply.hpp"
 #include "./bound_arg.hpp"
 
 
@@ -37,7 +37,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Base, class Arg>
-    struct baby_bind_left1_result
+    struct little_bind_left1_result
     {
         Base m_base;
         Arg m_arg;
@@ -50,8 +50,8 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-        struct PSTADE_EGG_BABY_APPLY;
+        template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+        struct PSTADE_EGG_LITTLE_APPLY;
 
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/bind_left1.hpp>))
@@ -64,7 +64,7 @@ namespace pstade { namespace egg { namespace detail {
     struct result_of_bind_left1
     {
         typedef
-            function<baby_bind_left1_result<Base, Arg>, by_perfect>
+            function<little_bind_left1_result<Base, Arg>, by_perfect>
         type;
     };
 
@@ -75,7 +75,7 @@ namespace pstade { namespace egg { namespace detail {
     #define PSTADE_EGG_BIND_LEFT1(F, A) PSTADE_EGG_BIND_LEFT1_L F PSTADE_EGG_BIND_LEFT1_M A PSTADE_EGG_BIND_LEFT1_R
 
 
-    struct baby_bind_left1
+    struct little_bind_left1
     {
         template<class Myself, class Base, class Arg>
         struct apply :
@@ -93,7 +93,7 @@ namespace pstade { namespace egg { namespace detail {
         }
     };
 
-    typedef function<baby_bind_left1, by_cref> T_bind_left1;
+    typedef function<little_bind_left1, by_cref> T_bind_left1;
     PSTADE_POD_CONSTANT((T_bind_left1), bind_left1) = {{}};
 
 

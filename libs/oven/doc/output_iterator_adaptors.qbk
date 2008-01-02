@@ -36,7 +36,7 @@ An Output Iterator Adaptor is a _pipable_fuction_object_, so that, by using `ope
     [
         [`X_make_converter<To>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [

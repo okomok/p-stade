@@ -22,7 +22,7 @@ namespace pstade { namespace egg {
     namespace identity_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class X>
             struct apply
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
     } // namespace identity_detail
 
 
-    typedef function<identity_detail::baby, by_perfect> T_identity;
+    typedef function<identity_detail::little, by_perfect> T_identity;
     PSTADE_ADL_BARRIER(identity) { // for 'std'
         PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
     }

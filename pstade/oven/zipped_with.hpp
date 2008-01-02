@@ -21,7 +21,7 @@
 #include <pstade/egg/fuse.hpp>
 #include <pstade/egg/ret.hpp>
 #include <pstade/result_of.hpp>
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./transformed.hpp"
 #if BOOST_VERSION >= 103500
     // Lets 'boost::tuple' be FusionSequence for 'T_make_fuzipped'.
@@ -39,7 +39,7 @@ namespace zipped_with_detail {
 
 
     template< class Reference, class Value >
-    struct baby
+    struct little
     {
 #if BOOST_VERSION >= 103500
         typedef T_make_fuzipped zip_;
@@ -78,11 +78,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_zipped_with :
-    egg::function< zipped_with_detail::baby<Reference, Value> >
+    egg::function< zipped_with_detail::little<Reference, Value> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(zipped_with, (X_make_zipped_with<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(zipped_with, (X_make_zipped_with<>::little_type))
 
 
 } } // namespace pstade::oven

@@ -95,7 +95,7 @@ namespace pstade {
         }
 
 
-        struct baby
+        struct little
         {
             template< class Myself, class T, class StringT = void >
             struct apply :
@@ -125,7 +125,7 @@ namespace pstade {
     } // namespace require_detail
 
 
-    typedef egg::function<require_detail::baby> T_require;
+    typedef egg::function<require_detail::little> T_require;
     PSTADE_POD_CONSTANT((T_require), require) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<T_require>::type), required)

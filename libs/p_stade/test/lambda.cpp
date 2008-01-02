@@ -10,7 +10,7 @@
 #include <pstade/egg/compose.hpp>
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/curry.hpp>
-#include <pstade/egg/lambda/bind.hpp>
+#include <pstade/egg/bll/bind.hpp>
 
 
 namespace bll = boost::lambda;
@@ -138,7 +138,7 @@ void pstade_minimal_test()
 
     // \x -> (\y -> g(x,y))
     BOOST_CHECK(-1 ==
-        bll::bind(egg::lambda_bind, g, bll::_1, bll::protect(bll::_1))(x)(y)
+        bll::bind(egg::bll_bind, g, bll::_1, bll::protect(bll::_1))(x)(y)
     );
 
     // \x -> f(\y -> g(x,y))
@@ -146,7 +146,7 @@ void pstade_minimal_test()
         bll::bind(
             f,
             bll::bind(
-                bll::unlambda(bll::bind(egg::lambda_bind, g, bll::_1, bll::protect(bll::_1))),
+                bll::unlambda(bll::bind(egg::bll_bind, g, bll::_1, bll::protect(bll::_1))),
                 bll::_1
             )
         )(x)
@@ -160,7 +160,7 @@ void pstade_minimal_test()
             h1,
             bll::bind(q, bll::_1),
             bll::bind(
-                bll::unlambda(bll::bind(egg::lambda_bind, g, bll::_1, bll::protect(bll::_1))),
+                bll::unlambda(bll::bind(egg::bll_bind, g, bll::_1, bll::protect(bll::_1))),
                 bll::_1
             )
         )(x)

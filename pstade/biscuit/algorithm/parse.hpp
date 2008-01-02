@@ -27,7 +27,7 @@ namespace parse_detail {
 
 
     template< class Parser >
-    struct baby
+    struct little
     {
         template< class Myself, class ParsingRange, class MatchResults, class UserState = void >
         struct apply
@@ -60,7 +60,7 @@ namespace parse_detail {
 
 template< class Parser >
 struct X_results_parse :
-    egg::function< parse_detail::baby<Parser> >
+    egg::function< parse_detail::little<Parser> >
 { };
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS (results_parse, X_results_parse, (class), (2)(3))

@@ -18,7 +18,7 @@
 #include <pstade/use_default.hpp>
 #include "./iter_range.hpp"
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -30,7 +30,7 @@ namespace tokenized_detail {
 
 
     template< class CharT, class Traits >
-    struct baby
+    struct little
     {
         typedef egg::deduced_form call_strategy;
 
@@ -98,11 +98,11 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_tokenized :
-    egg::function< tokenized_detail::baby<CharT, Traits> >
+    egg::function< tokenized_detail::little<CharT, Traits> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(tokenized, (X_make_tokenized<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(tokenized, (X_make_tokenized<>::little_type))
 
 
 } } // namespace pstade::oven

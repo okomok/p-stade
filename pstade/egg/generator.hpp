@@ -18,7 +18,7 @@
 #include <pstade/apple/boost/reference_wrapper_fwd.hpp>
 #include <pstade/pass_by.hpp>
 #include "./by_perfect.hpp"
-#include "./detail/baby_generator.hpp"
+#include "./detail/little_generator.hpp"
 
 
 namespace pstade { namespace egg {
@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
     struct generator
     {
         typedef
-            function<detail::baby_generator<Lambda, NullaryResult, Make>, Strategy>
+            function<detail::little_generator<Lambda, NullaryResult, Make>, Strategy>
         type;
     };
 

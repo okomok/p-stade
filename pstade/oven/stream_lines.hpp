@@ -26,7 +26,7 @@ namespace stream_lines_detail {
 
 
     template< class Allocator >
-    struct baby
+    struct little
     {
         template< class Myself, class IStream >
         struct apply
@@ -62,7 +62,7 @@ namespace stream_lines_detail {
 
 template< class Allocator = boost::use_default >
 struct X_stream_lines :
-    egg::function< stream_lines_detail::baby<Allocator> >
+    egg::function< stream_lines_detail::little<Allocator> >
 { };
 
 

@@ -39,8 +39,8 @@
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./detail/adjacent_transform_iterator.hpp"
-#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/begin_end_tag.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./dropped.hpp"
 #include "./popped.hpp"
 #include "./range_iterator.hpp"
@@ -118,7 +118,7 @@ namespace adjacent_transformed_detail {
 
 
     template< class Reference, class Value >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class BinaryFun >
         struct apply :
@@ -169,11 +169,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_adjacent_transformed :
-    egg::function< adjacent_transformed_detail::baby<Reference, Value> >
+    egg::function< adjacent_transformed_detail::little<Reference, Value> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (X_make_adjacent_transformed<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(adjacent_transformed, (X_make_adjacent_transformed<>::little_type))
 
 
 } } // namespace pstade::oven

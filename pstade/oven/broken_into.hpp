@@ -31,7 +31,7 @@ namespace broken_into_detail {
 
 
     template< class Type >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class TokenizerFun >
         struct apply
@@ -70,7 +70,7 @@ namespace broken_into_detail {
 
 template< class Type >
 struct X_make_broken_into :
-    egg::function< broken_into_detail::baby<Type> >
+    egg::function< broken_into_detail::little<Type> >
 { };
 
 

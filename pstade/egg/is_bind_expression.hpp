@@ -13,7 +13,7 @@
 
 #include <boost/mpl/bool.hpp>
 #include <pstade/enable_if.hpp>
-#include "./lambda/functor_fwd.hpp"
+#include "./bll/functor_fwd.hpp"
 
 
 namespace boost { namespace _bi {

@@ -14,7 +14,7 @@
 #include <pstade/adl_barrier.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./detail/baby_ret_result.hpp"
+#include "./detail/little_ret_result.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
 #include "./use_brace2.hpp"
@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
     struct result_of_ret
     {
         typedef
-            function<detail::baby_ret_result<Base, ResultType, Tag>, Strategy>
+            function<detail::little_ret_result<Base, ResultType, Tag>, Strategy>
         type;
     };
 

@@ -10,7 +10,7 @@
 
 
 #include <pstade/egg/mono.hpp>
-#include <pstade/egg/lambda/result_of.hpp>
+#include <pstade/egg/bll/result_of.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 #include <pstade/minimal_test.hpp>

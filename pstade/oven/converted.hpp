@@ -27,7 +27,7 @@ namespace converted_detail {
 
 
     template<class To>
-    struct baby
+    struct little
     {
         template< class Myself, class Range >
         struct apply :
@@ -50,7 +50,7 @@ namespace converted_detail {
 
 template< class To >
 struct X_make_converted :
-    egg::function< converted_detail::baby<To> >
+    egg::function< converted_detail::little<To> >
 { };
 
 

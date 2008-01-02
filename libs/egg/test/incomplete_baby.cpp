@@ -27,10 +27,10 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-struct my_baby; // not borns yet.
+struct my_little; // not borns yet.
 
 typedef
-    function<my_baby>
+    function<my_little>
 my_func;
 
 typedef
@@ -47,7 +47,7 @@ my_func3;
 
 
 // borns now.
-struct my_baby
+struct my_little
 {
     template<class Myself, class A1, class A2, class A3, class A4>
     struct apply

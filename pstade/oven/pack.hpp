@@ -18,9 +18,9 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/egg/baby_apply.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/little_apply.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./iter_range.hpp"
@@ -32,10 +32,10 @@ namespace pstade { namespace oven {
 namespace pack_detail {
 
 
-    struct baby
+    struct little
     {
-        template< class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
-        struct PSTADE_EGG_BABY_APPLY;
+        template< class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
+        struct PSTADE_EGG_LITTLE_APPLY;
 
         // 1ary-
     #define PSTADE_iter_rng(Z, N, _) make_iter_range(BOOST_PP_CAT(rng, N))
@@ -48,7 +48,7 @@ namespace pack_detail {
 } // namespace pack_detail
 
 
-typedef egg::function<pack_detail::baby> T_pack;
+typedef egg::function<pack_detail::little> T_pack;
 PSTADE_POD_CONSTANT((T_pack), pack) = {{}};
 
 

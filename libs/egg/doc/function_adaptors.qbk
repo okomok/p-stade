@@ -39,7 +39,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_ambi++N<_PFo>::type`]
-        [An __AMBI__ __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type.]
+        [An __AMBI__ __MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
         [`PSTADE_EGG_AMBI_L init PSTADE_EGG_AMBI_R`]
@@ -82,6 +82,70 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 
 
+[section bll_lazy]
+
+[heading Description]
+__BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
+`bll_lazy` turns a bindable __FUNCTION_OBJECT__ into such one which can be used with __BOOST_LAMBDA__.
+
+[heading Header]
+* `<pstade/egg/bll/lazy.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `fc(b)` is an object of `result_of_bll_lazy<_typeof(b)>::type` initialized using `b` or an initializer.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_bll_lazy<Bin>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_BLL_LAZY_L init PSTADE_EGG_BLL_LAZY_R`]
+        [A braced initializer of `result_of_bll_lazy<Bin>::type`]
+    ]
+    [
+        [`PSTADE_EGG_BLL_LAZY(I)`]
+        [`PSTADE_EGG_BLL_LAZY_L I PSTADE_EGG_BLL_LAZY_R`]
+    ]
+    [
+        [`fc(b)(a1,...,aN)`]
+        [`boost::lambda::bind(b, _arg_list(a, by_cref))`]
+    ]
+    [
+        [`bll_lazy(b)`]
+        [`fc(b)`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= 9`.
+* `Bin` is a type whose object can be used as the first argument of `boost::lambda::bind`.
+* There is a `b_` such that `Bin b_ = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `result_of_bll_lazy<Bin>::type` is a /POD/ type if and only if `Bin` is a /POD/ type.
+
+[heading Example]
+[code_bll_lazy_example]
+
+[heading See also]
+* __BOOST_PHOENIX__
+* __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
 [section compose]
 
 [heading Description]
@@ -104,7 +168,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_compose<_Dco1, _Dco2, R0 = _default, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_COMPOSE_L init1 PSTADE_EGG_COMPOSE_M init2 PSTADE_EGG_COMPOSE_R`]
@@ -120,7 +184,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_compose<R0 = _default>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_compose<R0>()(d1, d2)`]
@@ -177,7 +241,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_curry++N<_PFo>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_CURRY++N++_L init PSTADE_EGG_CURRY++N++_R`]
@@ -246,7 +310,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_uncurry<_PFo, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_UNCURRY_L init PSTADE_EGG_UNCURRY_R`]
@@ -306,7 +370,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_fuse<_PFo>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_FUSE_L init PSTADE_EGG_FUSE_R`]
@@ -372,7 +436,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_unfuse<_PFo, Pack = _default, R0 = _default, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_UNFUSE_L init PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R`]
@@ -388,7 +452,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_unfuse<R0 = _default>`]
-        [`A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type`]
+        [`A __MAJOR_FUNCTION_OBJECT__ type`]
     ]
     [
         [`X_unfuse<R0>()(d)`]
@@ -446,7 +510,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_indirect<Pco, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_INDIRECT_L init PSTADE_EGG_INDIRECT_R`]
@@ -485,70 +549,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 
 
-[section lazy]
-
-[heading Description]
-__BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
-`lazy` turns a __BINDABLE_FUNCTION_OBJECT__ into such one which can be used with __BOOST_LAMBDA__.
-
-[heading Header]
-* `<pstade/egg/lazy.hpp>`
-
-[heading Model of]
-* __STATIC_FUNCTION_OBJECT__
-
-[heading Notation]
-* `fc(b)` is an object of `result_of_lazy<_typeof(b)>::type` initialized using `b` or an initializer.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`result_of_lazy<Bin>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`PSTADE_EGG_LAZY_L init PSTADE_EGG_LAZY_R`]
-        [A braced initializer of `result_of_lazy<Bin>::type`]
-    ]
-    [
-        [`PSTADE_EGG_LAZY(I)`]
-        [`PSTADE_EGG_LAZY_L I PSTADE_EGG_LAZY_R`]
-    ]
-    [
-        [`fc(b)(a1,...,aN)`]
-        [`boost::lambda::bind(b, _arg_list(a, by_cref))`]
-    ]
-    [
-        [`lazy(b)`]
-        [`fc(b)`]
-    ]
-]
-
-[heading Preconditions]
-* `0 <= N && N <= 9`.
-* `Bin` is a __BINDABLE_FUNCTION_OBJECT__ type.
-* There is a `b_` such that `Bin b_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
-
-[heading Invariants]
-* `result_of_lazy<Bin>::type` is a /POD/ type if and only if `Bin` is a /POD/ type.
-
-[heading Example]
-[code_lazy_example]
-
-[heading See also]
-* __BOOST_PHOENIX__
-* __BOOST_LAMBDA__
-
-[endsect]
-
-
-
-
 [section memoize]
 
 [heading Description]
@@ -571,7 +571,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_pfo)`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__]
+        [A __MAJOR_FUNCTION_OBJECT__]
     ]
     [
         [`memoize(_pfo)(a1)`]
@@ -624,7 +624,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_mono<Fun, Sig>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_MONO_L init PSTADE_EGG_MONO_R`]
@@ -640,7 +640,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`X_mono<Sig>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_mono<Sig>()(f)`]
@@ -697,7 +697,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_perfect<_PFo>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_PERFECT_L init PSTADE_EGG_PERFECT_R`]
@@ -821,7 +821,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`regular(f)`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.]
+        [A __MAJOR_FUNCTION_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.]
     ]
     [
         [`regular(f)(a1,...,aN)`]
@@ -866,7 +866,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`result_of_ret<Fun, R = _default, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_RET_L init PSTADE_EGG_RET_R`]
@@ -882,7 +882,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`X_ret<R>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_ret<R>()(f)`]
@@ -943,7 +943,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`result_of_retby<Fun, R = _default, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_RETBY_L init PSTADE_EGG_RETBY_R`]
@@ -955,7 +955,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`X_retby<R>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_retby<R>()(f)`]
@@ -1012,7 +1012,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`result_of_tagged<_PFo, Tag, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_TAGGED_L init PSTADE_EGG_TAGGED_R`]

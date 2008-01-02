@@ -12,7 +12,7 @@
 
 
 #include <pstade/unused.hpp>
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./merged.hpp"
 #include "./read.hpp"
 
@@ -73,7 +73,7 @@ namespace set_cap_detail {
 } // namespace set_cap_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(set_cap, (X_make_merged<set_cap_detail::merge_routine>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(set_cap, (X_make_merged<set_cap_detail::merge_routine>::little_type))
 
 
 } } // namespace pstade::oven

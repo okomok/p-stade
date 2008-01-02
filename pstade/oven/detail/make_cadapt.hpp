@@ -23,7 +23,7 @@ namespace pstade { namespace oven {
 namespace make_CAdapt_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class T >
         struct apply
@@ -42,7 +42,7 @@ namespace make_CAdapt_detail {
 } // namespace make_CAdapt_detail
 
 
-typedef egg::function<make_CAdapt_detail::baby> T_make_CAdapt;
+typedef egg::function<make_CAdapt_detail::little> T_make_CAdapt;
 PSTADE_POD_CONSTANT((T_make_CAdapt), make_CAdapt) = {{}};
 
 

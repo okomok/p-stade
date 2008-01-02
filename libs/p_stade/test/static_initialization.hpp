@@ -18,7 +18,7 @@
 #include <pstade/pod_constant.hpp>
 
 
-struct baby_my_id
+struct little_my_id
 {
     template<class Myself, class X>
     struct apply
@@ -36,7 +36,7 @@ struct baby_my_id
 };
 
 
-typedef pstade::egg::function<baby_my_id> T_my_id;
+typedef pstade::egg::function<little_my_id> T_my_id;
 PSTADE_POD_CONSTANT((T_my_id), my_id)
     = {{12}};
 

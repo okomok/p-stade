@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
     namespace to_ref_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class X>
             struct apply
@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct cbaby
+        struct clittle
         {
             template<class Myself, class X>
             struct apply
@@ -56,7 +56,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct mbaby
+        struct mlittle
         {
             template<class Myself, class X>
             struct apply
@@ -72,9 +72,9 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby,  by_perfect> op;
-        typedef function<cbaby, by_cref>   cop;
-        typedef function<mbaby, by_cref>   mop;
+        typedef function<little,  by_perfect> op;
+        typedef function<clittle, by_cref>   cop;
+        typedef function<mlittle, by_cref>   mop;
 
 
     } // namespace to_ref_detail

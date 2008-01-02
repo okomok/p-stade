@@ -25,7 +25,7 @@ namespace indexing_detail {
 
 
     template< class Reference, class Value >
-    struct baby
+    struct little
     {
         template< class Myself, class Incrementable1, class Incrementable2, class UnaryFun >
         struct apply :
@@ -57,7 +57,7 @@ template<
     class Value     = boost::use_default
 >
 struct X_indexing :
-    egg::function<indexing_detail::baby<Reference, Value>, egg::by_value>
+    egg::function<indexing_detail::little<Reference, Value>, egg::by_value>
 { };
 
 

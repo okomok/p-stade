@@ -15,7 +15,7 @@
 #define PSTADE_func BOOST_PP_TUPLE_ELEM(2, 1, PSTADE_EGG_CHAR_CONVERSION_PARAMS)
 
 
-    struct BOOST_PP_CAT(baby_, PSTADE_name)
+    struct BOOST_PP_CAT(little_, PSTADE_name)
     {
         template<class Myself, class CharT, class Locale = void>
         struct apply :
@@ -35,7 +35,7 @@
         }
     };
 
-    typedef pstade::egg::function<BOOST_PP_CAT(baby_, PSTADE_name), by_cref> BOOST_PP_CAT(T_, PSTADE_name);
+    typedef pstade::egg::function<BOOST_PP_CAT(little_, PSTADE_name), by_cref> BOOST_PP_CAT(T_, PSTADE_name);
 
     PSTADE_ADL_BARRIER(char_conversion) {
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, PSTADE_name)), PSTADE_name) = {{}};

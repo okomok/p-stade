@@ -18,7 +18,7 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/transform_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -31,7 +31,7 @@ namespace transformed_detail {
 
 
     template< class Reference, class Value >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class UnaryFun >
         struct apply
@@ -98,11 +98,11 @@ template<
     class Value     = boost::use_default
 >
 struct X_make_transformed :
-    egg::function< transformed_detail::baby<Reference, Value> >
+    egg::function< transformed_detail::little<Reference, Value> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(transformed, (X_make_transformed<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(transformed, (X_make_transformed<>::little_type))
 
 
 } } // namespace pstade::oven

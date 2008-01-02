@@ -76,7 +76,7 @@ namespace pstade { namespace oven {
 
 // 'partial_sort' etc use "middle".
 #define PSTADE_range_based_partial_sort(R, _, Name) \
-    struct BOOST_PP_CAT(baby_, Name) \
+    struct BOOST_PP_CAT(little_, Name) \
     { \
         template< class Myself, class Range, class MiddleFun, class Compare = void > \
         struct apply \
@@ -97,7 +97,7 @@ namespace pstade { namespace oven {
         } \
     }; \
     \
-    typedef pstade::egg::function<BOOST_PP_CAT(baby_, Name)> BOOST_PP_CAT(T_, Name); \
+    typedef pstade::egg::function<BOOST_PP_CAT(little_, Name)> BOOST_PP_CAT(T_, Name); \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Name)), Name) = {{}}; \
 /**/
 
@@ -115,7 +115,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // For some reason, they have the different names.
 
-    struct baby_rotate
+    struct little_rotate
     {
         template< class Myself, class Range, class MiddleFun >
         struct apply
@@ -130,10 +130,10 @@ PSTADE_ADL_BARRIER(algorithm) {
         }
     };
 
-    typedef egg::function<baby_rotate> T_rotate;
+    typedef egg::function<little_rotate> T_rotate;
     PSTADE_POD_CONSTANT((T_rotate), rotate) = {{}};
 
-    struct baby_rotate_copy
+    struct little_rotate_copy
     {
         template< class Myself, class Range, class MiddleFun, class OutIter >
         struct apply :
@@ -147,7 +147,7 @@ PSTADE_ADL_BARRIER(algorithm) {
         }
     };
 
-    typedef egg::function<baby_rotate_copy> T_rotate_copy;
+    typedef egg::function<little_rotate_copy> T_rotate_copy;
     PSTADE_POD_CONSTANT((T_rotate_copy), rotate_copy) = {{}};
 
 

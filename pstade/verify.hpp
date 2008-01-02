@@ -23,7 +23,7 @@ namespace pstade {
     namespace verify_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class X, class Assert = void>
             struct apply
@@ -50,7 +50,7 @@ namespace pstade {
     } // namespace verify_detail
 
 
-    typedef egg::function<verify_detail::baby> T_verify;
+    typedef egg::function<verify_detail::little> T_verify;
     PSTADE_POD_CONSTANT((T_verify), verify) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<T_verify>::type), verified)

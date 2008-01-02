@@ -34,7 +34,7 @@ This section uses the following notation.
 , where `V` is `boost::remove_cv<boost::decay<_typeof(a)>::type>::type`.
 
 [note `_val(a)` copies `a` and turns it into mutable lvalue in order to work around __FORWARDING_PROBLEM__.
-      You shouldn't take reference in __BABY_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
+      You shouldn't take reference in __LITTLE_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
 
 
 [import ../example/my_perfect.cpp]

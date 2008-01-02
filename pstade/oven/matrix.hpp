@@ -16,8 +16,8 @@
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
 #include "./counting.hpp"
-#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/base_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
@@ -247,7 +247,7 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(matrix3d, (matrix3d_detail::base<_>))
 namespace matrix_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class D1, class D2, class D3 = void, class D4 = void >
         struct apply
@@ -280,7 +280,7 @@ namespace matrix_detail {
 } // namespace matrix_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(matrix, (matrix_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(matrix, (matrix_detail::little))
 
 
 } } // namespace pstade::oven

@@ -70,7 +70,7 @@ namespace parallel_reduce_detail {
     };
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Difference, class Range, class A1, class A2 = void >
         struct apply :
@@ -104,7 +104,7 @@ namespace parallel_reduce_detail {
 } // namespace parallel_reduce_detail
 
 
-typedef egg::function<parallel_reduce_detail::baby> T_parallel_reduce;
+typedef egg::function<parallel_reduce_detail::little> T_parallel_reduce;
 PSTADE_POD_CONSTANT((T_parallel_reduce), parallel_reduce) = {{}};
 
 

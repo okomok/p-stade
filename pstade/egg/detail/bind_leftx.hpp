@@ -62,7 +62,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Base, BOOST_PP_ENUM_PARAMS(n, class Arg)>
-    struct PSTADE_PP_CAT3(baby_bind_left, n, _result)
+    struct PSTADE_PP_CAT3(little_bind_left, n, _result)
     {
         Base m_base;
         BOOST_PP_REPEAT(n, PSTADE_arg, ~)
@@ -95,14 +95,14 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-    struct BOOST_PP_CAT(baby_bind_left, n)
+    struct BOOST_PP_CAT(little_bind_left, n)
     {
         template<class Myself, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
         struct apply
         {
             typedef
                 function<
-                    PSTADE_PP_CAT3(baby_bind_left, n, _result)<
+                    PSTADE_PP_CAT3(little_bind_left, n, _result)<
                         typename pass_by_value<Base>::type,
                         PSTADE_PP_ENUM_PARAMS_WITH(n, typename bound_arg<A, >::type)
                     >,
@@ -119,7 +119,7 @@ namespace pstade { namespace egg { namespace detail {
         }
     };
 
-    typedef function<BOOST_PP_CAT(baby_bind_left, n), by_cref> BOOST_PP_CAT(T_bind_left, n);
+    typedef function<BOOST_PP_CAT(little_bind_left, n), by_cref> BOOST_PP_CAT(T_bind_left, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind_left, n)), BOOST_PP_CAT(bind_left, n)) = PSTADE_EGG_BIND_LEFTX_INIT;
 
 

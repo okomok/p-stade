@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
     { };
 
     template<class Base, class ResultType, class Strategy, class Tag>
-    struct tag_of< function<detail::baby_ret_result<Base, ResultType, Tag>, Strategy> >
+    struct tag_of< function<detail::little_ret_result<Base, ResultType, Tag>, Strategy> >
     {
         typedef Tag type;
     };

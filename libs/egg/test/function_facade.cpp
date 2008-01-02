@@ -312,7 +312,7 @@ void pstade_minimal_test()
             ::our_identity id2 = *pid;
             delete pid;
 
-            BOOST_ASSERT(id2.m_baby.m_pfacade != pid);
+            BOOST_ASSERT(id2.m_little.m_pfacade != pid);
 
             BOOST_CHECK(id2(3) == 3);
             id0 = id2;
@@ -327,7 +327,7 @@ void pstade_minimal_test()
                 delete pid;
             }
 
-            BOOST_ASSERT(id2.m_baby.m_pfacade != pid);
+            BOOST_ASSERT(id2.m_little.m_pfacade != pid);
 
             BOOST_CHECK(id2(3) == 3);
             id0 = id2;

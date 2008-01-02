@@ -18,7 +18,7 @@
 #include <boost/type.hpp>
 #include <pstade/enable_if.hpp>
 #include "./config.hpp"
-#include "./detail/call_baby_fwd.hpp"
+#include "./detail/call_little_fwd.hpp"
 #include "./detail/is_call_strategy_of.hpp"
 
 
@@ -38,15 +38,15 @@ namespace pstade { namespace egg {
         }
 
 
-        template<class Baby_, class Result>
-        struct call_baby<Baby_, Result,
-            typename enable_if< is_call_strategy_of<deduced_form, Baby_> >::type >
+        template<class Little_, class Result>
+        struct call_little<Little_, Result,
+            typename enable_if< is_call_strategy_of<deduced_form, Little_> >::type >
         {
         // 0ary
-            template<class Baby>
-            static Result call(Baby& baby)
+            template<class Little>
+            static Result call(Little& little)
             {
-                return baby.call(deduced_<Result>());
+                return little.call(deduced_<Result>());
             }
 
         // 1ary-
@@ -66,10 +66,10 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Baby, BOOST_PP_ENUM_PARAMS(n, class A)>
-    static Result call(Baby& baby, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a))
+    template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
+    static Result call(Little& little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a))
     {
-        return baby.call(deduced_<Result>(), BOOST_PP_ENUM_PARAMS(n, a));
+        return little.call(deduced_<Result>(), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

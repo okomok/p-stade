@@ -28,19 +28,19 @@ namespace pstade { namespace egg { namespace detail {
     PSTADE_HAS_TYPE(nullary_result_type)
 
 
-    template<class Baby, class Function>
+    template<class Little, class Function>
     struct get_nullary_result :
-        if_use_default< typename Baby::nullary_result_type,
+        if_use_default< typename Little::nullary_result_type,
             error_non_nullary<Function>,
-            typename Baby::nullary_result_type
+            typename Little::nullary_result_type
         >
     { };
 
 
-    template<class Baby, class Function>
+    template<class Little, class Function>
     struct nullary_result :
-        boost::mpl::eval_if< has_nullary_result_type<Baby>,
-            get_nullary_result<Baby, Function>,
+        boost::mpl::eval_if< has_nullary_result_type<Little>,
+            get_nullary_result<Little, Function>,
             boost::mpl::identity< error_non_nullary<Function> >
         >
     { };

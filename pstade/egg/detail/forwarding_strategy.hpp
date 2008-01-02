@@ -24,18 +24,18 @@ namespace pstade { namespace egg { namespace detail {
     PSTADE_HAS_TYPE(forwarding_strategy)
 
 
-    template<class Baby>
+    template<class Little>
     struct get_forwarding_strategy
     {
-        typedef typename Baby::forwarding_strategy type;
+        typedef typename Little::forwarding_strategy type;
     };
 
 
-    template<class Baby, class Strategy>
+    template<class Little, class Strategy>
     struct forwarding_strategy :
         eval_if_use_default<Strategy,
-            boost::mpl::eval_if< has_forwarding_strategy<Baby>,
-                get_forwarding_strategy<Baby>,
+            boost::mpl::eval_if< has_forwarding_strategy<Little>,
+                get_forwarding_strategy<Little>,
                 boost::mpl::identity<by_perfect>
             >
         >

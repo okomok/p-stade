@@ -15,7 +15,7 @@
 #include <pstade/dont_care.hpp>
 #include <pstade/is_convertible.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/result_of_identities.hpp"
 #include "./range_iterator.hpp"
 #include "./traversal_tags.hpp" // inclusion guaranteed
@@ -28,7 +28,7 @@ namespace identities_detail {
 
 
     template< class Difference, class Tag >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Traversal = boost::use_default >
         struct apply
@@ -57,11 +57,11 @@ namespace identities_detail {
 
 template< class Difference = boost::use_default, class Tag = boost::use_default >
 struct X_make_identities :
-    egg::function< identities_detail::baby<Difference, Tag> >
+    egg::function< identities_detail::little<Difference, Tag> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(identities, (X_make_identities<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(identities, (X_make_identities<>::little_type))
 
 
 } } // namespace pstade::oven

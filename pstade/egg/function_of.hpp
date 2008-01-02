@@ -18,11 +18,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Baby, class Strategy = boost::use_default>
+    template<class Little, class Strategy = boost::use_default>
     struct function_of
     {
         typedef
-            function<Baby, typename detail::forwarding_strategy<Baby, Strategy>::type>
+            function<Little, typename detail::forwarding_strategy<Little, Strategy>::type>
         type;
     };
 

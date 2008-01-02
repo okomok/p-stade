@@ -109,7 +109,7 @@ namespace as_c_str_detail {
     }
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class MaybeCString >
         struct apply :
@@ -134,7 +134,7 @@ namespace as_c_str_detail {
         }
     };
 
-    typedef egg::function<baby> op;
+    typedef egg::function<little> op;
 
 
 } // namespace as_c_str_detail

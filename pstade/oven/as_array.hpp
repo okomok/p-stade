@@ -33,7 +33,7 @@ namespace pstade { namespace oven {
 namespace as_array_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class MaybeArray >
         struct apply :
@@ -55,7 +55,7 @@ namespace as_array_detail {
     };
 
 
-    typedef egg::function<baby> op;
+    typedef egg::function<little> op;
 
 
 } // namespace as_array_detail

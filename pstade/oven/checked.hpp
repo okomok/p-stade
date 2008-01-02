@@ -71,7 +71,7 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(checked, (checked_detail::base<_>))
 namespace checked_begin_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range >
         struct apply
@@ -90,7 +90,7 @@ namespace checked_begin_detail {
         }
     };
 
-    typedef egg::function<baby> base;
+    typedef egg::function<little> base;
 
 
 } // namespace checked_begin_detail

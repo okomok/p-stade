@@ -30,7 +30,7 @@ using namespace pstade::egg;
 
 
 //[code_function_example
-struct baby_second_argument
+struct little_second_argument
 {
     template<class Myself, class A1, class A2>
     struct apply
@@ -47,7 +47,7 @@ struct baby_second_argument
     }
 };
 
-typedef function<baby_second_argument, by_perfect> T_second_argument;
+typedef function<little_second_argument, by_perfect> T_second_argument;
 T_second_argument const second_argument = {{}}; /*< A braced initialization is ok, because `T_second_argument` is /POD/. >*/
 
 void test_function()
@@ -61,7 +61,7 @@ void test_function()
 
 
 //[code_function_by_value_example
-struct baby_value_identity
+struct little_value_identity
 {
     template<class Myself, class A>
     struct apply
@@ -78,7 +78,7 @@ struct baby_value_identity
     }
 };
 
-typedef function<baby_value_identity, by_value> T_value_identity;
+typedef function<little_value_identity, by_value> T_value_identity;
 T_value_identity const value_identity = {{}};
 
 void test_function_by_value()

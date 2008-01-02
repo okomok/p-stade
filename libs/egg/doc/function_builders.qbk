@@ -1,8 +1,7 @@
 [section Function Builders]
 
-
-Function builders build a "baby" function into a __FUNCTION_OBJECT__ which can be used
-with `boost::lambda::bind` and `boost::result_of`.
+Function builders build a __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__ type,
+which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [import ../example/function_builders.cpp]
 
@@ -12,27 +11,27 @@ with `boost::lambda::bind` and `boost::result_of`.
 [section function]
 
 [heading Description]
-`function` is the "kernel" class template which builds a __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type.
+`function` is the "kernel" class template which builds a __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__ type.
 
 [heading Header]
 * `<pstade/egg/function.hpp>`
 
 [heading Synopsys]
-    template<class Baby, class Stg = _default>
+    template<class Little, class Stg = _default>
     struct function
     {
-        typedef Baby baby_type;
+        typedef Little little_type;
         typedef function function_type;
 
-        Baby b; // exposition only
-        Baby baby() const { return b; }
+        Little lit; // exposition only
+        Little little() const { return lit; }
 
         // unspecified
         // ...
     };
 
 [heading Notation]
-* `f` is an object of `function<B, _Stg>`.
+* `f` is an object of `function<_Lit, _Stg>`.
 
 [heading Valid expressions]
 [table 
@@ -41,27 +40,27 @@ with `boost::lambda::bind` and `boost::result_of`.
         [[*Semantics]]
     ]
     [
-        [`function<B, _Stg>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /aggregate/ type]
+        [`function<_Lit, _Stg>`]
+        [A __MAJOR_FUNCTION_OBJECT__ /aggregate/ type]
     ]
     [
         [`f(a1,...,aN)`]
-        [`f.baby().call<B::apply<B const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+        [`f.little().call<_Lit::apply<_Lit const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
     ]
     [
         [`f()`]
-        [`f.baby().call<B::nullary_result_type>()`]
+        [`f.little().call<_Lit::nullary_result_type>()`]
     ]
 ]
 
 [heading Preconditions]
-* `B` is a __BABY_FUNCTION__ type which is neither /reference/ nor /cv-qualified/.
+* `_Lit` is neither /reference/ nor /cv-qualified/.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `function<B, _Stg>` is a /POD/ type if and only if `B` is a /POD/ type.
-* `function<B, _Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `B` is __DEFAULT_CONSTRUCTIBLE__.
-* `function<B, _Stg>` is __ASSIGNABLE__ if and only if `B` is __ASSIGNABLE__.
+* `function<_Lit, _Stg>` is a /POD/ type if and only if `_Lit` is a /POD/ type.
+* `function<_Lit, _Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `_Lit` is __DEFAULT_CONSTRUCTIBLE__.
+* `function<_Lit, _Stg>` is __ASSIGNABLE__ if and only if `_Lit` is __ASSIGNABLE__.
 
 [heading Example]
 [code_function_example]
@@ -80,7 +79,8 @@ with `boost::lambda::bind` and `boost::result_of`.
 [section function_facade]
 
 [heading Description]
-Though a type built from `function_facade` can't be a /POD/ type, it can have non-default constructors unlike __EGG_FUNCTION__.
+`function_facade` creates a new __MAJOR_FUNCTION_OBJECT__ type using "CRTP".
+Though a type built from `function_facade` can't be a /POD/ type, it can have non-default constructors.
 
 [heading Header]
 * `<pstade/egg/function_facade.hpp>`
@@ -95,21 +95,21 @@ Though a type built from `function_facade` can't be a /POD/ type, it can have no
         [[*Semantics]]
     ]
     [
-        [`_baby`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__]
+        [`_lit`]
+        [A __MAJOR_FUNCTION_OBJECT__]
     ]
     [
-        [`_baby(a1,...,aN)`]
-        [`_baby.call<_typeof(_baby)::apply<_typeof(_baby) const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+        [`_lit(a1,...,aN)`]
+        [`_lit.call<_typeof(_lit)::apply<_typeof(_lit) const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
     ]
     [
-        [`_baby()`]
-        [`_baby.call<R0>()`]
+        [`_lit()`]
+        [`_lit.call<R0>()`]
     ]
 ]
 
 [heading Preconditions]
-* `_baby` is an object whose type is derived from `function_facade<_typeof(_baby), R0 = _default, _Stg = _default>`.
+* `_lit` is an object whose type is derived from `function_facade<_typeof(_lit), R0 = _default, _Stg = _default>`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -145,7 +145,7 @@ It is useful because `operator()` can use nested typedefs.
     ]
     [
         [`deferred<Lam, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /POD/ type]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_DEFERRED`]
@@ -193,7 +193,7 @@ See [link egg.object_generator Object Generator] section.
 [section automatic]
 
 [heading Description]
-`automatic` builds a __FUNCTION_OBJECT__ type which adds automatic conversion support to a cast form function.
+`automatic` adds automatic conversion support to a cast form function.
 
 [heading Header]
 * `<pstade/egg/automatic.hpp>`
@@ -210,7 +210,7 @@ See [link egg.object_generator Object Generator] section.
     ]
     [
         [`automatic<Lam, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /POD/ type]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_AUTOMATIC`]
@@ -252,7 +252,7 @@ See [link egg.object_generator Object Generator] section.
 
 [heading Description]
 `make_function` is the object generator of `function<>`.
-This is useful when you need a "self" function in baby `call` template.
+This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNCTION__`call`.
 
 [heading Header]
 * `<pstade/egg/make_function.hpp>`
@@ -271,11 +271,11 @@ This is useful when you need a "self" function in baby `call` template.
     ]
     [
         [`X_make_function<_Stg = _default>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_make_function<_Stg>()(b)`]
-        [`function<_typeof(b), _Stg> f = {b}; return f;`]
+        [`X_make_function<_Stg>()(_lit)`]
+        [`function<_typeof(_lit), _Stg> f = {_lit}; return f;`]
     ]
     [
         [`make_function`]

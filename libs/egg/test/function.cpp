@@ -32,7 +32,7 @@
     /**/
 
 
-struct baby_foo
+struct little_foo
 {
     template<class Myself, class A0, class A1 = void>
     struct apply
@@ -69,7 +69,7 @@ struct baby_foo
     }
 };
 
-PSTADE_EGG_FUNCTION(foo, (baby_foo))
+PSTADE_EGG_FUNCTION(foo, (little_foo))
 
 
 PSTADE_TEST_IS_RESULT_OF((std::string), T_foo(int, double))
@@ -78,7 +78,7 @@ PSTADE_TEST_IS_RESULT_OF((char), T_foo())
 
 
 template< class T0, class T1 >
-struct baby_bar
+struct little_bar
 {
     template< class Myself, class A0, class A1 = void >
     struct apply
@@ -117,14 +117,14 @@ struct baby_bar
 
 template<class T0, class T1>
 struct T_bar :
-    pstade::egg::function< baby_bar<T0, T1>, pstade::egg::by_perfect >
+    pstade::egg::function< little_bar<T0, T1>, pstade::egg::by_perfect >
 { };
 
 #define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (T_bar, 2)
 #include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
 
 
-struct baby_identity
+struct little_identity
 {
     template< class Myself, class A0 >
     struct apply
@@ -139,7 +139,7 @@ struct baby_identity
     }
 };
 
-typedef pstade::egg::function<baby_identity, pstade::egg::by_perfect> T_identity;
+typedef pstade::egg::function<little_identity, pstade::egg::by_perfect> T_identity;
 T_identity const identity = { {} };
 
 
@@ -149,7 +149,7 @@ PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
 
 
-struct baby_keep_const
+struct little_keep_const
 {
     template< class Myself, class A0 >
     struct apply
@@ -163,7 +163,7 @@ struct baby_keep_const
         return a0;
     }
 };
-typedef pstade::egg::function<baby_keep_const, pstade::egg::by_perfect> T_keep_const;
+typedef pstade::egg::function<little_keep_const, pstade::egg::by_perfect> T_keep_const;
 T_keep_const const keep_const = { {} };
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int&>::type, int >));
 BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::meta_arg<int const&>::type, int const >));

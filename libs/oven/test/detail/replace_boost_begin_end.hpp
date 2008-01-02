@@ -173,7 +173,7 @@ namespace range_detail
 
 ///////////////////////////////////////////////////////////////////////////////
 
-    struct pstade_baby_begin
+    struct pstade_little_begin
     {
         template<class Myself, class Range>
         struct apply :
@@ -188,9 +188,9 @@ namespace range_detail
         }
     };
 
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_begin>), begin) = {{}};
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_little_begin>), begin) = {{}};
 
-    struct pstade_baby_const_begin
+    struct pstade_little_const_begin
     {
         template<class Myself, class Range>
         struct apply :
@@ -205,7 +205,7 @@ namespace range_detail
         }
     };
 
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_const_begin>), const_begin) = {{}};
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_little_const_begin>), const_begin) = {{}};
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -358,7 +358,7 @@ namespace range_detail
 
 ///////////////////////////////////////////////////////////////////////////////
 
-    struct pstade_baby_end
+    struct pstade_little_end
     {
         template<class Myself, class Range>
         struct apply :
@@ -373,9 +373,9 @@ namespace range_detail
         }
     };
 
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_end>), end) = {{}};
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_little_end>), end) = {{}};
 
-    struct pstade_baby_const_end
+    struct pstade_little_const_end
     {
         template<class Myself, class Range>
         struct apply :
@@ -390,7 +390,7 @@ namespace range_detail
         }
     };
 
-    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_baby_const_end>), const_end) = {{}};
+    PSTADE_POD_CONSTANT((pstade::egg::function<pstade_little_const_end>), const_end) = {{}};
 
 ///////////////////////////////////////////////////////////////////////////////
 

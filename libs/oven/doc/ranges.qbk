@@ -636,7 +636,7 @@ Pending... `comprehension` emulates set-builder notation.
     [
         [`X_counting<X1,...,XN>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -764,7 +764,7 @@ Pending... `comprehension` emulates set-builder notation.
     [
         [`X_hetero<Ref>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -822,7 +822,7 @@ Pending... `comprehension` emulates set-builder notation.
     [
         [`X_initial_values<T>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -1186,7 +1186,7 @@ and the iterators manage the allocation.
     [
         [`X_stream_lines<A = DefaultA>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -1234,7 +1234,7 @@ and the iterators manage the allocation.
     [
         [`X_stream_read<V, D = std::ptrdiff_t>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [

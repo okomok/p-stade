@@ -27,7 +27,7 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./elements.hpp"
 #include "./range_value.hpp"
 
@@ -86,7 +86,7 @@ namespace unfuzipped_detail {
 
 
     template< class RefTuple >
-    struct baby
+    struct little
     {
         template< class Myself, class TupleRange >
         struct apply
@@ -135,11 +135,11 @@ namespace unfuzipped_detail {
 
 template< class RefTuple = boost::use_default >
 struct X_make_unfuzipped :
-    egg::function< unfuzipped_detail::baby<RefTuple> >
+    egg::function< unfuzipped_detail::little<RefTuple> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(unfuzipped, (X_make_unfuzipped<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(unfuzipped, (X_make_unfuzipped<>::little_type))
 
 
 } } // namespace pstade::oven

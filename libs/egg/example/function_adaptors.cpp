@@ -15,7 +15,7 @@
 #include <pstade/egg/uncurry.hpp>
 #include <pstade/egg/compose.hpp>
 #include <pstade/egg/indirect.hpp>
-#include <pstade/egg/lazy.hpp>
+#include <pstade/egg/bll/lazy.hpp>
 #include <pstade/egg/memoize.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
@@ -87,10 +87,10 @@ void test_indirect()
 }
 
 
-//[code_lazy_example
-result_of_lazy<base_my_plus>::type const my_Plus = PSTADE_EGG_LAZY({});
+//[code_bll_lazy_example
+result_of_bll_lazy<base_my_plus>::type const my_Plus = PSTADE_EGG_BLL_LAZY({});
 
-void test_lazy()
+void test_bll_lazy()
 {
     namespace bll = boost::lambda;
 
@@ -178,7 +178,7 @@ void pstade_minimal_test()
     test_ambi();
     test_curry();
     test_indirect();
-    test_lazy();
+    test_bll_lazy();
     test_memoize();
     test_pipable();
 }

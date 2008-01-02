@@ -14,7 +14,7 @@
 #include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./eater.hpp"
 
 
@@ -24,7 +24,7 @@ namespace pstade { namespace oven {
 namespace intercepter_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class IteratorFrom, class IteratorTo = void >
         struct apply :
@@ -55,7 +55,7 @@ namespace intercepter_detail {
 } // namespace intercepter_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(intercepter, (intercepter_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(intercepter, (intercepter_detail::little))
 
 
 } } // namespace pstade::oven

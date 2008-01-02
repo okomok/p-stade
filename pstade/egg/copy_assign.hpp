@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
     namespace copy_assign_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class To, class From>
             struct apply
@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby, by_perfect> op;
+        typedef function<little, by_perfect> op;
 
 
     } // namespace copy_assign_detail

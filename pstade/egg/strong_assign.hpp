@@ -23,7 +23,7 @@ namespace pstade { namespace egg {
     namespace strong_assign_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class To, class From>
             struct apply
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby, by_perfect> op;
+        typedef function<little, by_perfect> op;
 
 
     } // namespace strong_assign_detail

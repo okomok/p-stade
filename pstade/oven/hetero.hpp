@@ -28,7 +28,7 @@ namespace hetero_detail {
 
 
     template< class Reference, class Value >
-    struct baby
+    struct little
     {
         template< class Myself, class Tuple >
         struct apply
@@ -63,7 +63,7 @@ namespace hetero_detail {
 
 template< class Reference, class Value = boost::use_default >
 struct X_hetero :
-    egg::function< hetero_detail::baby<Reference, Value> >
+    egg::function< hetero_detail::little<Reference, Value> >
 { };
 
 

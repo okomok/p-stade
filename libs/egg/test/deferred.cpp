@@ -19,7 +19,7 @@
 
 
 template<class X>
-struct baby
+struct little
 {
     typedef X& result_type;
 
@@ -35,10 +35,10 @@ struct baby
 };
 
 
-typedef PSTADE_EGG_DEFER((baby<boost::mpl::_>)) T_identity;
+typedef PSTADE_EGG_DEFER((little<boost::mpl::_>)) T_identity;
 PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_DEFERRED;
 
-typedef PSTADE_EGG_DEFER_BY((baby<boost::mpl::_>), boost::use_default) T_identity_;
+typedef PSTADE_EGG_DEFER_BY((little<boost::mpl::_>), boost::use_default) T_identity_;
 PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_DEFERRED;
 
 

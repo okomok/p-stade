@@ -25,7 +25,7 @@ namespace pstade { namespace egg {
 
 #if BOOST_WORKAROUND(__GNUC__, == 3)
     template<class Base>
-    struct baby_flip_result
+    struct little_flip_result
     {
         Base m_base;
 
@@ -47,9 +47,9 @@ namespace pstade { namespace egg {
     struct result_of_flip
     {
 #if !BOOST_WORKAROUND(__GNUC__, == 3)
-        // Keep 'baby' a template for 'generator'.
+        // Keep 'little' a template for 'generator'.
         template<class Base>
-        struct baby
+        struct little
         {
             Base m_base;
 
@@ -65,9 +65,9 @@ namespace pstade { namespace egg {
             }
         };
 
-        typedef function<baby<BinaryBase>, Strategy> type;
+        typedef function<little<BinaryBase>, Strategy> type;
 #else
-        typedef function<baby_flip_result<BinaryBase>, Strategy> type;
+        typedef function<little_flip_result<BinaryBase>, Strategy> type;
 #endif
     };
 

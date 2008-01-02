@@ -29,7 +29,7 @@ namespace pstade { namespace oven {
 namespace distance_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range >
         struct apply :
@@ -47,7 +47,7 @@ namespace distance_detail {
     };
 
 
-    typedef egg::function<baby> op;
+    typedef egg::function<little> op;
 
 
 } // namespace distance_detail

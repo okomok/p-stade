@@ -21,7 +21,7 @@ namespace pstade { namespace biscuit { namespace detail {
 
 
 template< template< class > class Op, class Parser >
-struct baby_without_results
+struct little_without_results
 {
     template< class Myself, class ParsingRange, class UserState = null_state_t >
     struct apply
@@ -55,7 +55,7 @@ struct baby_without_results
 
 template< template< class > class Op, class Parser >
 struct X_without_results :
-    egg::function< baby_without_results<Op, Parser> >
+    egg::function< little_without_results<Op, Parser> >
 { };
 
 

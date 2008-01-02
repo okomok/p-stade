@@ -21,8 +21,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/indirect_iterator.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -34,7 +34,7 @@ namespace indirected_detail {
 
 
     template< class Value, class Traversal, class Reference, class Difference >
-    struct baby
+    struct little
     {
         template< class Myself, class Range >
         struct apply
@@ -73,11 +73,11 @@ template<
     class Difference = boost::use_default
 >
 struct X_make_indirected :
-    egg::function< indirected_detail::baby<Value, Traversal, Reference, Difference> >
+    egg::function< indirected_detail::little<Value, Traversal, Reference, Difference> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(indirected, (X_make_indirected<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(indirected, (X_make_indirected<>::little_type))
 
 
 } } // namespace pstade::oven

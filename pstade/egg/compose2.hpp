@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
 
 
         template<class F, class G1, class G2>
-        struct baby_fused_result
+        struct little_fused_result
         {
             F m_f;
             G1 m_g1;
@@ -56,7 +56,7 @@ namespace pstade { namespace egg {
     template<class F, class G1, class G2, class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct result_of_compose2 :
         result_of_unfuse<
-            function<compose2_detail::baby_fused_result<F, G1, G2>, by_cref>,
+            function<compose2_detail::little_fused_result<F, G1, G2>, by_cref>,
             boost::use_default,
             NullaryResult,
             Strategy
@@ -76,7 +76,7 @@ namespace pstade { namespace egg {
 
 
         template<class NullaryResult>
-        struct baby
+        struct little
         {
             template<class Myself, class F, class G1, class G2>
             struct apply :
@@ -97,7 +97,7 @@ namespace pstade { namespace egg {
 
     template<class NullaryResult = boost::use_default>
     struct X_compose2 :
-        function<compose2_detail::baby<NullaryResult>, by_value>
+        function<compose2_detail::little<NullaryResult>, by_value>
     { };
 
 

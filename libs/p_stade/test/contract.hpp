@@ -147,7 +147,7 @@ namespace contract_detail {
     };
 
 
-    struct baby_return
+    struct little_return
     {
         template< class Unused, class T >
         struct apply

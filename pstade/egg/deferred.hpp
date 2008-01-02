@@ -13,7 +13,7 @@
 
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include "./detail/as_mpl_lambda.hpp"
-#include "./detail/baby_deferred.hpp"
+#include "./detail/little_deferred.hpp"
 #include "./by_perfect.hpp"
 
 
@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
     struct deferred
     {
         typedef
-            function<detail::baby_deferred<Lambda>, Strategy>
+            function<detail::little_deferred<Lambda>, Strategy>
         type;
     };
 

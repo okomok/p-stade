@@ -19,22 +19,22 @@
 namespace pstade { namespace egg {
 
 
-    template<class Baby>
-    struct function<Baby, PSTADE_stg>
+    template<class Little>
+    struct function<Little, PSTADE_stg>
     {
     // header
         typedef function function_type;
-        typedef Baby baby_type;
+        typedef Little little_type;
 
-        Baby m_baby;
+        Little m_little;
 
-        Baby baby() const
+        Little little() const
         {
-            return m_baby;
+            return m_little;
         }
 
         typedef typename
-            detail::nullary_result<Baby, function>::type
+            detail::nullary_result<Little, function>::type
         nullary_result_type;
 
     // 0ary-
@@ -52,9 +52,9 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
         operator()(Params) const \
         { \
-            return detail::call_baby< \
-                Baby, typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
-            >::call(m_baby, BOOST_PP_ENUM_PARAMS(n, a)); \
+            return detail::call_little< \
+                Little, typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
+            >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
@@ -94,9 +94,9 @@ namespace pstade { namespace egg {
 
     nullary_result_type operator()() const
     {
-        return detail::call_baby<
-            Baby, nullary_result_type
-        >::call(m_baby);
+        return detail::call_little<
+            Little, nullary_result_type
+        >::call(m_little);
     }
 
 #else
@@ -105,8 +105,8 @@ private:
     // This indirection is needed for msvc ETI bug.
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
-        Baby::template apply<
-            Baby const,
+        Little::template apply<
+            Little const,
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::meta_arg<A, >::type)
         >
     { };

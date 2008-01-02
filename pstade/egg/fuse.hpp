@@ -14,7 +14,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./detail/baby_fuse_result.hpp"
+#include "./detail/little_fuse_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
 
@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
     struct result_of_fuse
     {
         typedef
-            function<detail::baby_fuse_result<Base>, by_perfect>
+            function<detail::little_fuse_result<Base>, by_perfect>
         type;
     };
 

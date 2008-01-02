@@ -26,7 +26,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/merge_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -120,7 +120,7 @@ namespace merged_detail {
 
 
     template< class MergeRoutine >
-    struct baby
+    struct little
     {
         template< class Myself, class Range1, class Range2, class Compare = egg::T_less const >
         struct apply
@@ -169,11 +169,11 @@ namespace merged_detail {
 
 template< class MergeRoutine = merged_detail::merge_routine >
 struct X_make_merged :
-    egg::function< merged_detail::baby<MergeRoutine> >
+    egg::function< merged_detail::little<MergeRoutine> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(merged, (X_make_merged<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(merged, (X_make_merged<>::little_type))
 
 
 } } // namespace pstade::oven
