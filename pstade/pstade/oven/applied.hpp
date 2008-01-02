@@ -17,7 +17,7 @@
 
 
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./iter_range.hpp"
 
 
@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 namespace applied_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class, class = void >
         struct apply
@@ -56,7 +56,7 @@ namespace applied_detail {
 } // namespace applied_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(applied, (applied_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(applied, (applied_detail::little))
 
 
 } } // namespace pstade::oven

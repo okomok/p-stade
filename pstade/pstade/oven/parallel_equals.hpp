@@ -136,7 +136,7 @@ namespace parallel_equals_detail {
     };
 
 
-    struct baby
+    struct little
     {
         template< class Difference, class IterRange1, class IterRange2, class Predicate >
         bool call_aux(Difference grainsize, IterRange1 rng1, IterRange2 rng2, Predicate pred, boost::random_access_traversal_tag) const
@@ -186,7 +186,7 @@ namespace parallel_equals_detail {
 } // namespace parallel_equals_detail
 
 
-typedef egg::function<parallel_equals_detail::baby> T_parallel_equals;
+typedef egg::function<parallel_equals_detail::little> T_parallel_equals;
 PSTADE_POD_CONSTANT((T_parallel_equals), parallel_equals) = {{}};
 
 

@@ -65,7 +65,7 @@ namespace parallel_copy_detail {
     };
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Difference, class Range, class ForwardIter >
         struct apply :
@@ -84,7 +84,7 @@ namespace parallel_copy_detail {
 } // namespace parallel_copy_detail
 
 
-typedef egg::function<parallel_copy_detail::baby> T_parallel_copy;
+typedef egg::function<parallel_copy_detail::little> T_parallel_copy;
 PSTADE_POD_CONSTANT((T_parallel_copy), parallel_copy) = {{}};
 
 

@@ -23,16 +23,16 @@ namespace pstade { namespace egg {
 
 
         template<class Strategy>
-        struct baby
+        struct little
         {
-            template<class Myself, class Baby>
+            template<class Myself, class Little>
             struct apply
             {
-                typedef function<Baby, Strategy> type;
+                typedef function<Little, Strategy> type;
             };
 
-            template<class Result, class Baby>
-            Result call(Baby b) const
+            template<class Result, class Little>
+            Result call(Little b) const
             {
                 Result r = { b };
                 return r;
@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_make_function :
-        function<make_function_detail::baby<Strategy>, by_value>
+        function<make_function_detail::little<Strategy>, by_value>
     { };
 
 

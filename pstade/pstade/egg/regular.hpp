@@ -14,9 +14,9 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/regularized.hpp"
+#include "./bll/result_of.hpp" // inclusion guaranteed
 #include "./by_value.hpp"
 #include "./indirect.hpp"
-#include "./lambda/result_of.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace egg {
@@ -25,7 +25,7 @@ namespace pstade { namespace egg {
     namespace regular_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class Base>
             struct apply :
@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
     } // namespace regular_detail
 
 
-    typedef function<regular_detail::baby, by_value> T_regular;
+    typedef function<regular_detail::little, by_value> T_regular;
     PSTADE_POD_CONSTANT((T_regular), regular) = {{}};
 
 

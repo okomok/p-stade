@@ -32,7 +32,7 @@ Egg no longer considers function templates to be useful, so that it provides
     ]
     [
         [`X_apply<_Stg = _default>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_apply<_Stg>()(_pfo, a1,...,aN)`]
@@ -59,13 +59,13 @@ Egg no longer considers function templates to be useful, so that it provides
 
 
 
-[section lambda_bind]
+[section bll_bind]
 
 [heading Description]
-`lambda_bind` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
+`bll_bind` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
 
 [heading Header]
-* `<pstade/egg/lambda/bind.hpp>`
+* `<pstade/egg/bll/bind.hpp>`
 
 [heading Model of]
 * __STATIC_FUNCTION_OBJECT__
@@ -80,7 +80,7 @@ Egg no longer considers function templates to be useful, so that it provides
         [[*Semantics]]
     ]
     [
-        [`lambda_bind(f, a1,...,aN)`]
+        [`bll_bind(f, a1,...,aN)`]
         [`boost::lambda::bind(f, a1,...,aN)`]
     ]
 ]
@@ -91,24 +91,24 @@ Egg no longer considers function templates to be useful, so that it provides
 
 
 [heading Example]
-[code_lambda_bind_example]
+[code_bll_bind_example]
 
 [heading See also]
 * __BOOST_LAMBDA__
-* __EGG_LAZY__
+* __EGG_BLL_LAZY__
 
 [endsect]
 
 
 
 
-[section lambda_N]
+[section bll_N]
 
 [heading Description]
-`lambda_N` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
+`bll_N` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
 
 [heading Header]
-* `<pstade/egg/lambda/placeholders.hpp>`
+* `<pstade/egg/bll/placeholders.hpp>`
 
 [heading Model of]
 * __STATIC_FUNCTION_OBJECT__ but not /statically initialized/.
@@ -123,7 +123,7 @@ Egg no longer considers function templates to be useful, so that it provides
         [[*Semantics]]
     ]
     [
-        [`lambda_++N`]
+        [`bll_++N`]
         [`boost::lambda::_++N`]
     ]
 ]
@@ -143,13 +143,13 @@ Egg no longer considers function templates to be useful, so that it provides
 
 
 
-[section lambda/result_of.hpp]
+[section bll/result_of.hpp]
 
 [heading Description]
 This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__.
 
 [heading Header]
-* `<pstade/egg/lambda/result_of.hpp>`
+* `<pstade/egg/bll/result_of.hpp>`
 
 [heading Model of]
 * ...
@@ -164,7 +164,7 @@ This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__
         [[*Semantics]]
     ]
     [
-        [`#include <pstade/egg/lambda/result_of.hpp>`]
+        [`#include <pstade/egg/bll/result_of.hpp>`]
         [A __BOOST_LAMBDA__ functor becomes a __POLYMORPHIC_FUNCTION_OBJECT__.]
     ]
 ]
@@ -251,7 +251,7 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`X_tuple_get<N>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_tuple_get<N>()(t)`]
@@ -307,7 +307,7 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`X_tuple_pack<_Stg = _default>`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_tuple_pack<_Stg>()(a1,...,aN)`]

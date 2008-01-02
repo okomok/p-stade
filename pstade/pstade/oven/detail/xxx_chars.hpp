@@ -51,7 +51,7 @@ private:
 template< class BinaryFun >
 struct xxx_chars
 {
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Locale = std::locale const >
         struct apply :

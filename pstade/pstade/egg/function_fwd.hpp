@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
     struct by_value;
 
 
-    template<class Baby, class Strategy = by_perfect>
+    template<class Little, class Strategy = by_perfect>
     struct function;
 
 

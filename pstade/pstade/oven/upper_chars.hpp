@@ -12,7 +12,7 @@
 
 
 #include <cctype> // toupper
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/xxx_chars.hpp"
 
 
@@ -22,7 +22,7 @@ namespace pstade { namespace oven {
 namespace upper_chars_detail {
 
 
-    struct baby_to
+    struct little_to
     {
         template< class Myself, class CharT, class Locale >
         struct apply
@@ -38,13 +38,13 @@ namespace upper_chars_detail {
     };
 
 
-    typedef egg::function<baby_to> to;
+    typedef egg::function<little_to> to;
 
 
 } // namespace upper_chars_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(upper_chars, (detail::xxx_chars<upper_chars_detail::to>::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(upper_chars, (detail::xxx_chars<upper_chars_detail::to>::little))
 
 
 } } // namespace pstade::oven

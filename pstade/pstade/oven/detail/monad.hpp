@@ -30,7 +30,7 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-struct baby_monad_bind
+struct little_monad_bind
 {
     template< class Myself, class Range, class UnaryFun >
     struct apply :
@@ -61,7 +61,7 @@ struct baby_monad_bind
     }
 };
 
-typedef egg::function<baby_monad_bind> T_monad_bind;
+typedef egg::function<little_monad_bind> T_monad_bind;
 PSTADE_POD_CONSTANT((T_monad_bind), monad_bind) = {{}};
 
 
@@ -70,7 +70,7 @@ PSTADE_POD_CONSTANT((T_monad_bind), monad_bind) = {{}};
 //
 // Todo: 'std::vector' is too "heavy"?
 
-struct baby_monad_unit
+struct little_monad_unit
 {
     template< class Myself, class Value >
     struct apply :
@@ -90,7 +90,7 @@ struct baby_monad_unit
     }
 };
 
-typedef egg::function<baby_monad_unit, egg::by_cref> T_monad_unit;
+typedef egg::function<little_monad_unit, egg::by_cref> T_monad_unit;
 PSTADE_POD_CONSTANT((T_monad_unit), monad_unit) = {{}};
 
 

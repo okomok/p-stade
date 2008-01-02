@@ -1,13 +1,13 @@
 
 
 #include <pstade/vodka/drink.hpp>
-#include <pstade/egg/lambda/bind.hpp>
+#include <pstade/egg/bll/bind.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/minimal_test.hpp>
-#include <pstade/egg/lazy.hpp>
+#include <pstade/egg/bll/lazy.hpp>
 
 
 namespace egg = pstade::egg;
@@ -51,7 +51,7 @@ void pstade_minimal_test()
     BOOST_CHECK( bll::protect(bll::_1)(ignored) (_30, ignored, ignored) == 30 );
 
 
-    egg::T_lambda_bind const bind = egg::lambda_bind;
+    egg::T_bll_bind const bind = egg::bll_bind;
 
     // \x -> (\y -> foo(x, y, 30))
     BOOST_CHECK( 10+20*30 ==
@@ -80,7 +80,7 @@ void pstade_minimal_test()
     );
 
 
-    pstade::result_of<egg::T_lazy(egg::T_lambda_bind const &)>::type const Bind = egg::lazy(egg::lambda_bind);
+    pstade::result_of<egg::T_bll_lazy(egg::T_bll_bind const &)>::type const Bind = egg::bll_lazy(egg::bll_bind);
 
     BOOST_CHECK( 10+20*30 ==
         Bind(foo, bll::_1, bll::protect(bll::_1), bll::protect(bll::_2))

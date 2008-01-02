@@ -23,7 +23,7 @@ namespace pstade { namespace egg {
     namespace negate_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class X>
             struct apply :
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
     } // negate_detail
 
 
-    typedef function<negate_detail::baby, by_cref> T_negate;
+    typedef function<negate_detail::little, by_cref> T_negate;
 
     PSTADE_ADL_BARRIER(negate) { // for 'std'
         PSTADE_POD_CONSTANT((T_negate), negate) = {{}};

@@ -58,7 +58,7 @@ namespace pstade { namespace egg {
 
 
         template<class Derived>
-        struct baby
+        struct little
         {
             template<class Myself, class Base>
             struct apply :
@@ -78,7 +78,7 @@ namespace pstade { namespace egg {
 
     template<class Derived>
     struct X_static_downcast :
-        function<static_downcast_detail::baby<Derived>, by_perfect>
+        function<static_downcast_detail::little<Derived>, by_perfect>
     { };
 
 

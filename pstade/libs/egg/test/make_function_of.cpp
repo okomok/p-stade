@@ -21,7 +21,7 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-struct baby
+struct little
 {
     template<class Myself, class A>
     struct apply
@@ -37,10 +37,10 @@ struct baby
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((function<baby, by_perfect>), T_make_function_of(baby))
+PSTADE_TEST_IS_RESULT_OF((function<little, by_perfect>), T_make_function_of(little))
 
 
 void pstade_minimal_test()
 {
-    BOOST_CHECK( make_function_of(baby())(1) == 1 );
+    BOOST_CHECK( make_function_of(little())(1) == 1 );
 }

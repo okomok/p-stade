@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
 
 
         template<class N>
-        struct baby
+        struct little
         {
             template<class Myself, class Tuple>
             struct apply :
@@ -109,7 +109,7 @@ namespace pstade { namespace egg {
 
     template<class N>
     struct X_tuple_get :
-        function<tuple_get_detail::baby<N>, by_perfect>
+        function<tuple_get_detail::little<N>, by_perfect>
     { };
 
     #define  PSTADE_EGG_SPECIFIED_PARAMS (tuple_get, X_tuple_get, (class), (1))

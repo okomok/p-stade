@@ -32,7 +32,7 @@
     /**/
 
 
-struct baby_foo
+struct little_foo
 {
     template< class Myself, class A0, class A1 = void >
     struct apply
@@ -71,7 +71,7 @@ struct baby_foo
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_VALUE(foo, (baby_foo))
+PSTADE_EGG_FUNCTION_BY_VALUE(foo, (little_foo))
 
 PSTADE_TEST_IS_RESULT_OF((int), T_foo(int, int))
 PSTADE_TEST_IS_RESULT_OF((int), T_foo(int&, int))
@@ -86,7 +86,7 @@ std::auto_ptr<int> make_auto_ptr()
 }
 
 
-struct baby_big_arity
+struct little_big_arity
 {
     template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
@@ -104,7 +104,7 @@ struct baby_big_arity
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_VALUE(big_arity, (baby_big_arity))
+PSTADE_EGG_FUNCTION_BY_VALUE(big_arity, (little_big_arity))
 
 
 

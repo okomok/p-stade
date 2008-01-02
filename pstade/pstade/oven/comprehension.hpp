@@ -28,9 +28,9 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/function_facade.hpp>
-#include <pstade/egg/lambda/bind.hpp>
-#include <pstade/egg/lambda/placeholders.hpp>
-#include <pstade/egg/lambda/unlambda.hpp>
+#include <pstade/egg/bll/bind.hpp>
+#include <pstade/egg/bll/placeholders.hpp>
+#include <pstade/egg/bll/unlambda.hpp>
 #include <pstade/egg/deduced_form.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/dont_care.hpp>
@@ -59,11 +59,11 @@ namespace comprehension_detail {
                 detail::T_monad_bind(
                     typename result_of<MakeRange const(Value1&, Value2&)>::type,
                     typename result_of<
-                        egg::T_lambda_bind(
-                            typename result_of<egg::T_lambda_unlambda(Function const&)>::type,
+                        egg::T_bll_bind(
+                            typename result_of<egg::T_bll_unlambda(Function const&)>::type,
                             Value1&,
                             Value2&,
-                            egg::T_lambda_1 const&
+                            egg::T_bll_1 const&
                         )
                     >::type
                 )
@@ -75,11 +75,11 @@ namespace comprehension_detail {
         {
             return detail::monad_bind(
                 m_makeRng(v1, v2),
-                egg::lambda_bind(
-                    egg::lambda_unlambda(m_fun),
+                egg::bll_bind(
+                    egg::bll_unlambda(m_fun),
                     v1,
                     v2,
-                    egg::lambda_1
+                    egg::bll_1
                 )
             );
         }
@@ -90,10 +90,10 @@ namespace comprehension_detail {
                 detail::T_monad_bind(
                     typename result_of<MakeRange const(Value1&)>::type,
                     typename result_of<
-                        egg::T_lambda_bind(
-                            typename result_of<egg::T_lambda_unlambda(Function const&)>::type,
+                        egg::T_bll_bind(
+                            typename result_of<egg::T_bll_unlambda(Function const&)>::type,
                             Value1&,
-                            egg::T_lambda_1 const&
+                            egg::T_bll_1 const&
                         )
                     >::type
                 )
@@ -105,10 +105,10 @@ namespace comprehension_detail {
         {
             return detail::monad_bind(
                 m_makeRng(v1),
-                egg::lambda_bind(
-                    egg::lambda_unlambda(m_fun),
+                egg::bll_bind(
+                    egg::bll_unlambda(m_fun),
                     v1,
-                    egg::lambda_1
+                    egg::bll_1
                 )
             );
         }
@@ -213,7 +213,7 @@ namespace comprehension_detail {
     PSTADE_POD_CONSTANT((T_make_unit_expr), make_unit_expr) = PSTADE_EGG_GENERATOR;
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Expr, class Guard, class MakeRange1, class MakeRange2 = void, class MakeRange3 = void >
         struct apply :
@@ -310,7 +310,7 @@ namespace comprehension_detail {
 } // namespace comprehension_detail
 
 
-typedef egg::function<comprehension_detail::baby> T_comprehension;
+typedef egg::function<comprehension_detail::little> T_comprehension;
 PSTADE_POD_CONSTANT((T_comprehension), comprehension) = {{}};
 
 
@@ -344,7 +344,7 @@ namespace always_return_detail {
     };
 
 
-    struct baby
+    struct little
     {
         typedef egg::deduced_form call_strategy;
 
@@ -389,7 +389,7 @@ namespace always_return_detail {
 } // namespace always_return_detail
 
 
-typedef egg::function<always_return_detail::baby> T_always_return;
+typedef egg::function<always_return_detail::little> T_always_return;
 PSTADE_POD_CONSTANT((T_always_return), always_return) = {{}};
 
 

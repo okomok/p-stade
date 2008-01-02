@@ -16,7 +16,7 @@
 #include <boost/regex.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -29,7 +29,7 @@ namespace matches_detail {
 
 
     template< class CharT, class Traits >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Regex, class Flag = void >
         struct apply
@@ -78,11 +78,11 @@ template<
     class Traits = boost::use_default
 >
 struct X_make_matches :
-    egg::function< matches_detail::baby<CharT, Traits> >
+    egg::function< matches_detail::little<CharT, Traits> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(matches, (X_make_matches<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(matches, (X_make_matches<>::little_type))
 
 
 } } // namespace pstade::oven

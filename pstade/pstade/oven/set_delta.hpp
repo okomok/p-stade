@@ -17,7 +17,7 @@
 // works fine, but requires the ranges to be Forward.
 
 
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./merged.hpp"
 #include "./read.hpp"
 
@@ -92,7 +92,7 @@ namespace set_delta_detail {
 } // namespace set_delta_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(set_delta, (X_make_merged<set_delta_detail::merge_routine>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(set_delta, (X_make_merged<set_delta_detail::merge_routine>::little_type))
 
 
 } } // namespace pstade::oven

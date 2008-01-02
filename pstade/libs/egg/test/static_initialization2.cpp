@@ -18,7 +18,7 @@ T_my_id const &get_my_id2( )
    return my_id;
 }
 
-int j = get_my_id1().baby().touch;
+int j = get_my_id1().little().touch;
 
 
 T_my_idr const &get_my_idr2( )
@@ -26,7 +26,7 @@ T_my_idr const &get_my_idr2( )
    return my_idr;
 }
 
-int jr = get_my_idr1().baby().base().baby().touch;
+int jr = get_my_idr1().little().base().little().touch;
 
 
 T_my_func const &get_my_func2( )
@@ -40,19 +40,19 @@ T_my_idrr const &get_my_idrr2( )
    return my_idrr;
 }
 
-int jrr = get_my_idrr1().baby().base().baby().base().baby().touch;
+int jrr = get_my_idrr1().little().base().little().base().little().touch;
 
 
 int jfun = get_my_func1().
-    baby().
+    little().
     base().
-    baby().
+    little().
     m_arg.
-    baby().
+    little().
     m_arg.
-    baby().
+    little().
     m_arg.
-    baby().
+    little().
     touch;
 
 
@@ -61,7 +61,7 @@ T_pipa const &get_pipa2( )
    return pipa;
 }
 
-int jpi = get_pipa1().baby().base().touch;
+int jpi = get_pipa1().little().base().touch;
 
 
 T_auxi const &get_auxi2( )
@@ -69,7 +69,7 @@ T_auxi const &get_auxi2( )
    return auxi;
 }
 
-int jau = get_auxi1().baby().base().touch;
+int jau = get_auxi1().little().base().touch;
 
 
 int main()

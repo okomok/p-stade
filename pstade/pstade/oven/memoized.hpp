@@ -17,7 +17,7 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/any.hpp> // any_movable
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/memoize_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -42,7 +42,7 @@ private:
 namespace memoized_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class MemoTable = void >
         struct apply
@@ -113,7 +113,7 @@ namespace memoized_detail {
 } // namespace memoized_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(memoized, (memoized_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(memoized, (memoized_detail::little))
 
 
 } } // namespace pstade::oven

@@ -25,7 +25,7 @@
 
 #include <boost/cstdint.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/u32_to_u16_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -38,7 +38,7 @@ namespace utf16_encoded_detail {
 
 
     template< class U16Type >
-    struct baby
+    struct little
     {
         template< class Myself, class Range >
         struct apply
@@ -69,11 +69,11 @@ namespace utf16_encoded_detail {
 
 template< class U16Type = boost::uint16_t >
 struct X_make_utf16_encoded :
-    egg::function< utf16_encoded_detail::baby<U16Type> >
+    egg::function< utf16_encoded_detail::little<U16Type> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(utf16_encoded, (X_make_utf16_encoded<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(utf16_encoded, (X_make_utf16_encoded<>::little_type))
 
 
 } } // namespace pstade::oven

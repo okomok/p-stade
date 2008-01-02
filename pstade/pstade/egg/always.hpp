@@ -16,10 +16,10 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./baby_apply.hpp"
 #include "./by_cref.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./generator.hpp"
+#include "./little_apply.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
 
 
         template<class X>
-        struct baby
+        struct little
         {
             X m_x;
 
@@ -44,7 +44,7 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct apply
             {
                 typedef X type;
@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
     struct result_of_always
     {
         typedef
-            function<always_detail::baby<X>, by_cref>
+            function<always_detail::little<X>, by_cref>
         type;
     };
 

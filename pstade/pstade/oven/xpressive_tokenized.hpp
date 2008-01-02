@@ -16,7 +16,7 @@
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_token_iterator.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_constant_iterator.hpp"
 
@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 namespace xpressive_tokenized_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Regex, class SubMatches = void, class Flag = void >
         struct apply
@@ -74,7 +74,7 @@ namespace xpressive_tokenized_detail {
 } // namespace xpressive_tokenized_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(xpressive_tokenized, (xpressive_tokenized_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(xpressive_tokenized, (xpressive_tokenized_detail::little))
 
 
 } } // namespace pstade::oven

@@ -20,8 +20,8 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/cycle_iterator.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -69,7 +69,7 @@ namespace cycled_detail {
     };
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Incrementable1 = void, class Incrementable2 = void >
         struct apply
@@ -121,7 +121,7 @@ namespace cycled_detail {
 } // namespace cycled_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(cycled, (cycled_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(cycled, (cycled_detail::little))
 
 
 // cycle_count

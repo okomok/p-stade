@@ -36,7 +36,7 @@ namespace at_detail {
 
 
     template< template< class > class F >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Difference >
         struct apply :
@@ -54,8 +54,8 @@ namespace at_detail {
     };
 
 
-    typedef egg::function< baby<range_reference> > op;
-    typedef egg::function< baby<range_value> > value_op;
+    typedef egg::function< little<range_reference> > op;
+    typedef egg::function< little<range_value> > value_op;
 
 
 } // namespace at_detail

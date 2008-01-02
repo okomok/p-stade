@@ -19,7 +19,7 @@ void test()
     lambda::_1(12|to_ref); // ok
 
     pstade::result_of<
-        pstade::result_of<op::forward(T_lambda_1)>::type(int)
+        pstade::result_of<op::forward(T_bll_1)>::type(int)
     >::type x =
         forward(lambda::_1)(12);
 

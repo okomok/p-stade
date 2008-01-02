@@ -47,7 +47,7 @@ namespace pstade { namespace gravy {
     namespace size_initialize_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class X>
             struct apply :
@@ -63,7 +63,7 @@ namespace pstade { namespace gravy {
         };
 
 
-        typedef egg::function<size_initialize_detail::baby> op;
+        typedef egg::function<size_initialize_detail::little> op;
 
 
     } // namespace size_initialize_detail

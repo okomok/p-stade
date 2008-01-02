@@ -85,7 +85,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`X_make_adjacent_transformed<R>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -489,7 +489,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`X_make_converted<To>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -801,7 +801,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`X_make_elements<N, Ref = boost::use_default>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -1010,7 +1010,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`X_make_indirected<X1,...,XN>`]
         [
-            A _bindable_ _polymorphic_function_object_ type
+            A _major_function_object_ type
         ]
     ]
     [
@@ -2001,7 +2001,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`X_make_transformed<R = boost::use_default>`]
         [
-           A _bindable_ _polymorphic_function_object_ type
+           A _major_function_object_ type
         ]
     ]
     [

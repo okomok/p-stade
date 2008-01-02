@@ -25,7 +25,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    struct baby_substitute
+    struct little_substitute
     {
         template<class Myself, class X>
         struct apply :
@@ -49,7 +49,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-    typedef function<baby_substitute, by_cref> T_substitute;
+    typedef function<little_substitute, by_cref> T_substitute;
     PSTADE_POD_CONSTANT((T_substitute), substitute) = {{}};
 
 

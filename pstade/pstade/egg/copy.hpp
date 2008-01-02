@@ -47,7 +47,7 @@ namespace pstade { namespace egg {
 
 
         template<class To>
-        struct baby
+        struct little
         {
             template<class Myself, class From>
             struct apply
@@ -85,7 +85,7 @@ namespace pstade { namespace egg {
 
     template<class To>
     struct X_copy :
-        function<copy_detail::baby<To>, by_cref>
+        function<copy_detail::little<To>, by_cref>
     { };
 
 

@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
     { };
 
 
-    struct BOOST_PP_CAT(baby_curry, n)
+    struct BOOST_PP_CAT(little_curry, n)
     {
         template<class Myself, class Base>
         struct apply :
@@ -101,7 +101,7 @@ namespace pstade { namespace egg {
     };
 
 
-    typedef function<BOOST_PP_CAT(baby_curry, n), by_value> BOOST_PP_CAT(T_curry, n);
+    typedef function<BOOST_PP_CAT(little_curry, n), by_value> BOOST_PP_CAT(T_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
 
 

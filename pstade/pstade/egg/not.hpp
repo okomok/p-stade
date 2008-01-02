@@ -14,7 +14,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./detail/baby_not_result.hpp"
+#include "./detail/little_not_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
 
@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
     struct result_of_not_
     {
         typedef
-            function<detail::baby_not_result<Base>, Strategy>
+            function<detail::little_not_result<Base>, Strategy>
         type;
     };
 

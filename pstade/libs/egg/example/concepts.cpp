@@ -29,27 +29,6 @@ TT_1 _1;
 }
 
 
-namespace bindable_function_object {
-//[code_concepts_bindable_function_object
-struct bindable
-{
-    template<class Args>
-    struct sig :
-        boost::remove_const<
-            typename boost::tuples::element<3, Args>::type
-        >
-    { };
-
-    template<class A, class C>
-    C operator()(A a, A b, C c) const
-    {
-        return std::for_each(a, b, c);
-    }
-};
-//]
-}
-
-
 namespace pipable_function_object {
 //[code_concepts_pipable_function_object
 struct pipable
@@ -130,9 +109,9 @@ T_is_alpha const is_alpha = &std::isalpha;
 //]
 }
 
-namespace baby_function {
-//[code_concepts_baby_function
-struct baby_identity
+namespace little_function {
+//[code_concepts_little_function
+struct little_identity
 {
     template<class _, class T>
     struct apply

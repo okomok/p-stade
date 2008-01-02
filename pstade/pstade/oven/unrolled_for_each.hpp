@@ -28,7 +28,7 @@ namespace unrolled_for_each_detail {
 
 
     template< class N >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Function >
         struct apply
@@ -52,7 +52,7 @@ namespace unrolled_for_each_detail {
 
 template< class N >
 struct X_unrolled_for_each :
-    egg::function< unrolled_for_each_detail::baby<N> >
+    egg::function< unrolled_for_each_detail::little<N> >
 { };
 
 template< int N >

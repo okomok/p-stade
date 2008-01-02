@@ -71,7 +71,7 @@ use this header.
 [section deduced_form]
 
 [heading Description]
-Under GCC 3.4.x, when you overload `call` in __BABY_FUNCTION__ with the same arity, the following workaround is needed.
+Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
 
 [heading Header]
 * `<pstade/egg/deduced_form.hpp>`

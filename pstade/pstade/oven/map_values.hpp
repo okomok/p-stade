@@ -12,14 +12,14 @@
 
 
 #include <boost/mpl/int.hpp>
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./elements.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(map_values, (X_make_elements< boost::mpl::int_<1> >::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(map_values, (X_make_elements< boost::mpl::int_<1> >::little_type))
 
 
 } } // namespace pstade::oven

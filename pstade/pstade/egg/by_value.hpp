@@ -26,7 +26,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/call_baby.hpp"
+#include "./detail/call_little.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
 #include "./sig_template.hpp"
@@ -38,29 +38,29 @@ namespace pstade { namespace egg {
     struct by_value;
 
 
-    template<class Baby>
-    struct function<Baby, by_value>
+    template<class Little>
+    struct function<Little, by_value>
     {
         typedef function function_type;
-        typedef Baby baby_type;
+        typedef Little little_type;
 
-        Baby m_baby;
+        Little m_little;
 
-        Baby baby() const
+        Little little() const
         {
-            return m_baby;
+            return m_little;
         }
 
     // 0ary
         typedef typename
-            detail::nullary_result<Baby, function>::type
+            detail::nullary_result<Little, function>::type
         nullary_result_type;
 
         nullary_result_type operator()() const
         {
-            return detail::call_baby<
-                Baby, nullary_result_type
-            >::call(m_baby);
+            return detail::call_little<
+                Little, nullary_result_type
+            >::call(m_little);
         }
 
     // 1ary-
@@ -85,8 +85,8 @@ namespace pstade { namespace egg {
 private:
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
-        Baby::template apply<
-            Baby const,
+        Little::template apply<
+            Little const,
             BOOST_PP_ENUM_PARAMS(n, A)
         >
     { };
@@ -103,9 +103,9 @@ public:
     typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
     {
-        return detail::call_baby<
-            Baby, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
-        >::call(m_baby, BOOST_PP_ENUM_PARAMS(n, a));
+        return detail::call_little<
+            Little, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
+        >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a));
     }
     
 

@@ -20,7 +20,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/scan_iterator.hpp"
 #include "./dropped.hpp"
 #include "./front.hpp"
@@ -61,7 +61,7 @@ namespace scanned_detail {
     };
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class State, class BinaryFun = void >
         struct apply :
@@ -90,7 +90,7 @@ namespace scanned_detail {
         template< class Myself, class Range, class BinaryFun >
         struct apply<Myself, Range, BinaryFun> :
             result_of<
-                egg::function<baby>(
+                egg::function<little>(
                     typename result_of<T_make_dropped(Range&, int)>::type,
                     typename result_of<T_value_front(Range&)>::type,
                     BinaryFun&
@@ -114,7 +114,7 @@ namespace scanned_detail {
 } // namespace scanned_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(scanned, (scanned_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(scanned, (scanned_detail::little))
 
 
 } } // namespace pstade::oven

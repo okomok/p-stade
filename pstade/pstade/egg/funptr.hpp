@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
 
 
         template<class Signature, class UniqueID>
-        struct baby
+        struct little
         {
             template<class Myself, class Base>
             struct apply :
@@ -82,7 +82,7 @@ namespace pstade { namespace egg {
 
     template<class Signature, class UniqueID>
     struct X_funptr :
-        function<funptr_detail::baby<Signature, UniqueID>, by_value>
+        function<funptr_detail::little<Signature, UniqueID>, by_value>
     { };
 
 

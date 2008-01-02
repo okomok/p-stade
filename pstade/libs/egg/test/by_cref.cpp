@@ -29,7 +29,7 @@
     /**/
 
 
-struct baby_foo
+struct little_foo
 {
     template< class Myself, class A0, class A1 = void >
     struct apply
@@ -64,7 +64,7 @@ struct baby_foo
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_CREF(foo, (baby_foo))
+PSTADE_EGG_FUNCTION_BY_CREF(foo, (little_foo))
 
 PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int, int))
 PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int&, int))
@@ -73,7 +73,7 @@ PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>) const, T_foo(std::auto_ptr<int>))
 PSTADE_TEST_IS_RESULT_OF((char), T_foo())
 
 
-struct baby_big_arity
+struct little_big_arity
 {
     template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
@@ -88,7 +88,7 @@ struct baby_big_arity
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_CREF(big_arity, (baby_big_arity))
+PSTADE_EGG_FUNCTION_BY_CREF(big_arity, (little_big_arity))
 
 
 void pstade_minimal_test()

@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/lambda/result_of.hpp>
+#include <pstade/egg/bll/result_of.hpp>
 
 
 #endif

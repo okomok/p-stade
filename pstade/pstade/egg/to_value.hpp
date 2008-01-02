@@ -22,10 +22,10 @@ namespace pstade { namespace egg {
     namespace to_value_detail_ {
 
 
-        struct baby
+        struct little
         {
             typedef
-                function<baby, by_value>
+                function<little, by_value>
             nullary_result_type;
 
             template<class Result>
@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby, by_value> op;
+        typedef function<little, by_value> op;
 
 
         template<class A> inline

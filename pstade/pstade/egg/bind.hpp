@@ -20,11 +20,11 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./baby_apply.hpp"
 #include "./bind_n.hpp"
 #include "./by_cref.hpp"
 #include "./config.hpp"
 #include "./detail/result_of_bind.hpp"
+#include "./little_apply.hpp"
 
 
 namespace pstade { namespace egg {
@@ -34,10 +34,10 @@ namespace pstade { namespace egg {
 
 
         template<class NullaryResult>
-        struct baby
+        struct little
         {
-            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct PSTADE_EGG_BABY_APPLY;
+            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            struct PSTADE_EGG_LITTLE_APPLY;
 
         // 1ary-
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
@@ -52,7 +52,7 @@ namespace pstade { namespace egg {
 
     template<class NullaryResult = boost::use_default>
     struct X_bind :
-        function<bind_detail::baby<NullaryResult>, by_cref>
+        function<bind_detail::little<NullaryResult>, by_cref>
     { };
 
     typedef X_bind<>::function_type T_bind;

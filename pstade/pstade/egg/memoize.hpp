@@ -70,7 +70,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class Base_>
             struct apply :
@@ -96,7 +96,7 @@ namespace pstade { namespace egg {
     } // namespace memoize_detail
 
 
-    typedef function<memoize_detail::baby, by_value> T_memoize;
+    typedef function<memoize_detail::little, by_value> T_memoize;
     PSTADE_POD_CONSTANT((T_memoize), memoize) = {{}};
 
 

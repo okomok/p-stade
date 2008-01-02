@@ -14,7 +14,7 @@
 #include <locale>
 #include <pstade/egg/make_function.hpp>
 #include <pstade/result_of.hpp>
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./transformed.hpp"
 
 
@@ -47,7 +47,7 @@ namespace wide_chars_detail {
 
 
     template< class CharT >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Locale = void >
         struct apply :
@@ -75,11 +75,11 @@ namespace wide_chars_detail {
 
 template< class CharT = wchar_t >
 struct X_make_wide_chars :
-    egg::function< wide_chars_detail::baby<CharT> >
+    egg::function< wide_chars_detail::little<CharT> >
 { };
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (X_make_wide_chars<>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(wide_chars, (X_make_wide_chars<>::little_type))
 
 
 } } // namespace pstade::oven

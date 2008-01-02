@@ -15,7 +15,7 @@
 
 #include <pstade/pod_constant.hpp>
 #include <boost/lambda/lambda.hpp>
-#include <pstade/egg/lambda/result_of.hpp>
+#include <pstade/egg/bll/result_of.hpp>
 
 
 namespace egg = pstade::egg;

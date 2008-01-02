@@ -88,7 +88,7 @@ namespace pstade {
         }
 
 
-        struct baby
+        struct little
         {
             template< class Myself, class T, class StringT >
             struct apply
@@ -110,7 +110,7 @@ namespace pstade {
     } // namespace check_detail
 
 
-    typedef egg::function<check_detail::baby> T_check;
+    typedef egg::function<check_detail::little> T_check;
     PSTADE_POD_CONSTANT((T_check), check) = {{}};
 
     PSTADE_POD_CONSTANT((egg::result_of_pipable<T_check>::type), checked)

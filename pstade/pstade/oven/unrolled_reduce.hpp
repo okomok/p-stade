@@ -59,7 +59,7 @@ namespace unrolled_reduce_detail {
 
 
     template< class N >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class State, class BinaryFun >
         struct apply :
@@ -86,7 +86,7 @@ namespace unrolled_reduce_detail {
 
 template< class N >
 struct X_unrolled_reduce :
-    egg::function< unrolled_reduce_detail::baby<N> >
+    egg::function< unrolled_reduce_detail::little<N> >
 { };
 
 template< int N >

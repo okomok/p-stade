@@ -26,7 +26,7 @@ A simple object generator can be made automatically using the following family.
     ]
     [
         [`generator<Lam, R0 = _default, How = _default, _Stg = _default>::type`]
-        [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ /POD/ type]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_GENERATOR`]

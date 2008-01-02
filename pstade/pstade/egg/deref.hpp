@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
     namespace deref_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class X>
             struct apply :
@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
     } // namespace deref_detail
 
 
-    typedef function<deref_detail::baby, by_perfect> T_deref;
+    typedef function<deref_detail::little, by_perfect> T_deref;
     PSTADE_POD_CONSTANT((T_deref), deref) = {{}};
 
 

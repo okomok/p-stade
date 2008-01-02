@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
 
 
         template<class Function, class Thunk>
-        struct baby_fused_result
+        struct little_fused_result
         {
             Function m_fun;
             Thunk m_thunk;
@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
     template<class Function, class Thunk, class Strategy = boost::use_default>
     struct result_of_after :
         result_of_unfuse<
-            function<after_detail::baby_fused_result<Function, Thunk>, by_cref>,
+            function<after_detail::little_fused_result<Function, Thunk>, by_cref>,
             boost::use_default,
             use_nullary_result,
             Strategy
@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
     namespace after_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class Function, class Thunk>
             struct apply :
@@ -96,7 +96,7 @@ namespace pstade { namespace egg {
     } // namespace after_detail
 
 
-    typedef function<after_detail::baby, by_value> T_after;
+    typedef function<after_detail::little, by_value> T_after;
     PSTADE_POD_CONSTANT((T_after), after) = {{}};
 
 

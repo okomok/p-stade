@@ -38,7 +38,7 @@ namespace converter_detail {
 
 
     template< class To >
-    struct baby
+    struct little
     {
         template< class Myself, class Iterator >
         struct apply :
@@ -61,7 +61,7 @@ namespace converter_detail {
 
 template< class To >
 struct X_make_converter :
-    egg::function<converter_detail::baby<To>, egg::by_value>
+    egg::function<converter_detail::little<To>, egg::by_value>
 { };
 
 

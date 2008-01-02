@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 namespace shared_single_detail {
 
 
-    struct baby_new_array1
+    struct little_new_array1
     {
         template< class Myself, class Ptr >
         struct apply
@@ -46,10 +46,10 @@ namespace shared_single_detail {
         }
     };
 
-    typedef egg::function<baby_new_array1, egg::by_value> new_array1;
+    typedef egg::function<little_new_array1, egg::by_value> new_array1;
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Ptr >
         struct apply :
@@ -88,7 +88,7 @@ namespace shared_single_detail {
 } // namespace shared_single_detail
 
 
-typedef egg::function<shared_single_detail::baby, egg::by_value> T_shared_single;
+typedef egg::function<shared_single_detail::little, egg::by_value> T_shared_single;
 PSTADE_POD_CONSTANT((T_shared_single), shared_single) = {{}};
 
 

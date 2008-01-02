@@ -106,7 +106,7 @@ namespace adapted_range_to_detail {
 
 
     template< class Base >
-    struct baby
+    struct little
     {
         template< class Myself, class Adapted >
         struct apply
@@ -131,7 +131,7 @@ namespace adapted_range_to_detail {
 
 template< class Base >
 struct X_adapted_range_to :
-    egg::function< adapted_range_to_detail::baby<Base> >
+    egg::function< adapted_range_to_detail::little<Base> >
 { };
 
 

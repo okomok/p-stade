@@ -26,7 +26,7 @@ namespace pstade { namespace oven {
 namespace begin_end_detail {
 
 
-    struct baby_begin
+    struct little_begin
     {
         template< class Myself, class Range >
         struct apply :
@@ -40,10 +40,10 @@ namespace begin_end_detail {
         }
     };
 
-    typedef egg::function<baby_begin> base_begin;
+    typedef egg::function<little_begin> base_begin;
 
 
-    struct baby_end
+    struct little_end
     {
         template< class Myself, class Range >
         struct apply :
@@ -57,7 +57,7 @@ namespace begin_end_detail {
         }
     };
 
-    typedef egg::function<baby_end> base_end;
+    typedef egg::function<little_end> base_end;
 
 
 } // namespace begin_end_detail

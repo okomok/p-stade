@@ -22,17 +22,17 @@ namespace pstade { namespace egg { namespace detail {
     PSTADE_HAS_TYPE(call_strategy)
 
 
-    template<class Tag, class Baby>
+    template<class Tag, class Little>
     struct is_same_call_strategy :
-        boost::is_same<Tag, typename Baby::call_strategy>
+        boost::is_same<Tag, typename Little::call_strategy>
     { };
 
 
-    template<class Tag, class Baby>
+    template<class Tag, class Little>
     struct is_call_strategy_of :
         boost::mpl::and_<
-            has_call_strategy<Baby>,
-            is_same_call_strategy<Tag, Baby>
+            has_call_strategy<Little>,
+            is_same_call_strategy<Tag, Little>
         >
     { };
 

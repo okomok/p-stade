@@ -27,11 +27,11 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./baby_apply.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
+#include "./little_apply.hpp"
 #include "./pipable.hpp"
 #include "./use_brace2.hpp"
 
@@ -66,7 +66,7 @@ namespace pstade { namespace egg {
 
 
         template<class Base>
-        struct baby_result
+        struct little_result
         {
             Base m_base;
 
@@ -80,7 +80,7 @@ namespace pstade { namespace egg {
 #if n == 1
         // as pipe
             typedef
-                function<baby_result, by_perfect>
+                function<little_result, by_perfect>
             nullary_result_type;
 
             template<class Result>
@@ -102,8 +102,8 @@ namespace pstade { namespace egg {
                 return m_base(a0);
             }
 #else
-            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct PSTADE_EGG_BABY_APPLY;
+            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct PSTADE_EGG_LITTLE_APPLY;
 
         // as pipe
             template<class Myself BOOST_PP_ENUM_TRAILING_PARAMS(n_1, class A)>
@@ -138,30 +138,30 @@ namespace pstade { namespace egg {
     // as pipe
         template<class A0, class Base> inline
         typename result_of<Base(A0&)>::type
-        operator|(A0& a0, function<baby_result<Base>, by_perfect> pi)
+        operator|(A0& a0, function<little_result<Base>, by_perfect> pi)
         {
-            return pi.baby().m_base(a0);
+            return pi.little().m_base(a0);
         }
 
         template<class A0, class Base> inline
         typename result_of<Base(PSTADE_DEDUCED_CONST(A0)&)>::type
-        operator|(A0 const& a0, function<baby_result<Base>, by_perfect> pi)
+        operator|(A0 const& a0, function<little_result<Base>, by_perfect> pi)
         {
-            return pi.baby().m_base(a0);
+            return pi.little().m_base(a0);
         }
 
         template<class A0, class Base> inline
         typename result_of<Base(A0&)>::type
-        operator|=(function<baby_result<Base>, by_perfect> pi, A0& a0)
+        operator|=(function<little_result<Base>, by_perfect> pi, A0& a0)
         {
-            return pi.baby().m_base(a0);
+            return pi.little().m_base(a0);
         }
 
         template<class A0, class Base> inline
         typename result_of<Base(PSTADE_DEDUCED_CONST(A0)&)>::type
-        operator|=(function<baby_result<Base>, by_perfect> pi, A0 const& a0)
+        operator|=(function<little_result<Base>, by_perfect> pi, A0 const& a0)
         {
-            return pi.baby().m_base(a0);
+            return pi.little().m_base(a0);
         }
 
         struct lookup_ambi_operator { };
@@ -175,7 +175,7 @@ namespace pstade { namespace egg {
     struct PSTADE_PP_CAT3(result_of_, ambi, n)
     {
         typedef
-            function<PSTADE_PP_CAT3(ambi, n, _detail)::baby_result<Base>, by_perfect>
+            function<PSTADE_PP_CAT3(ambi, n, _detail)::little_result<Base>, by_perfect>
         type;
     };
 

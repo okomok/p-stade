@@ -18,7 +18,7 @@
 #include <pstade/result_of.hpp>
 #include "./adjacent_filtered.hpp"
 #include "./concepts.hpp"
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 
 
 namespace pstade { namespace oven {
@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 namespace uniqued_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class BinaryPred = egg::T_equal_to const >
         struct apply :
@@ -59,7 +59,7 @@ namespace uniqued_detail {
 } // namespace uniqued_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(uniqued, (uniqued_detail::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(uniqued, (uniqued_detail::little))
 
 
 } } // namespace pstade::oven

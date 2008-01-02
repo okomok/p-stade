@@ -18,10 +18,10 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp>
 #include <pstade/use_default.hpp>
-#include "./baby_apply.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/call_baby.hpp"
+#include "./detail/call_little.hpp"
+#include "./little_apply.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -46,10 +46,10 @@ namespace pstade { namespace egg {
 
 
         template<class Facade>
-        struct baby;
+        struct little;
 
         template<class Derived, class NullaryResult, class Strategy>
-        struct baby< function_facade<Derived, NullaryResult, Strategy> >
+        struct little< function_facade<Derived, NullaryResult, Strategy> >
         {
             function_facade<Derived, NullaryResult, Strategy> *m_pfacade;
 
@@ -64,12 +64,12 @@ namespace pstade { namespace egg {
             template<class Result>
             Result call() const
             {
-                return detail::call_baby<Derived, Result>::call(derived());
+                return detail::call_little<Derived, Result>::call(derived());
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct PSTADE_EGG_BABY_APPLY;
+            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            struct PSTADE_EGG_LITTLE_APPLY;
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/function_facade.hpp>))
             #include BOOST_PP_ITERATE()
@@ -81,7 +81,7 @@ namespace pstade { namespace egg {
         {
             typedef
                 function<
-                    baby< function_facade<Derived, NullaryResult, Strategy> >,
+                    little< function_facade<Derived, NullaryResult, Strategy> >,
                     Strategy
                 >
             type;
@@ -136,7 +136,7 @@ namespace pstade { namespace egg {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return detail::call_baby<Derived, Result>::call(derived(), BOOST_PP_ENUM_PARAMS(n, a));
+        return detail::call_little<Derived, Result>::call(derived(), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

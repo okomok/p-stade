@@ -12,9 +12,9 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./detail/baby_uncurry_result.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./detail/little_uncurry_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
 
@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
     struct result_of_uncurry
     {
         typedef
-            function<detail::baby_uncurry_result<Base>, Strategy>
+            function<detail::little_uncurry_result<Base>, Strategy>
         type;
     };
 

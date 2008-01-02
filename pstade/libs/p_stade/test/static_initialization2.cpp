@@ -17,7 +17,7 @@ T_my_id const &get_my_id2( )
    return my_id;
 }
 
-int j = get_my_id1().baby().touch;
+int j = get_my_id1().little().touch;
 
 
 T_my_idr const &get_my_idr2( )
@@ -25,7 +25,7 @@ T_my_idr const &get_my_idr2( )
    return my_idr;
 }
 
-int jr = get_my_idr1().baby().base().baby().touch;
+int jr = get_my_idr1().little().base().little().touch;
 
 
 int main()

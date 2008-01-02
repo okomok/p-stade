@@ -24,11 +24,11 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/baby_apply.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
+#include <pstade/egg/little_apply.hpp>
 #include <pstade/egg/sig_template.hpp>
 #include <pstade/egg/use_brace2.hpp>
 #include <pstade/pod_constant.hpp>
@@ -41,7 +41,7 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class IterBased >
-struct baby_range_based1_result
+struct little_range_based1_result
 {
     IterBased m_base;
 
@@ -53,7 +53,7 @@ struct baby_range_based1_result
     }
 
     template< class Myself, class Range0, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_ARITY, class A, = void) >
-    struct PSTADE_EGG_BABY_APPLY;
+    struct PSTADE_EGG_LITTLE_APPLY;
 
     // rng0 + 0ary
     template< class Myself, class Range0 >
@@ -89,7 +89,7 @@ template< class IterBased >
 struct result_of_range_based1
 {
     typedef
-        egg::function< baby_range_based1_result<IterBased> >
+        egg::function< little_range_based1_result<IterBased> >
     type;
 };
 

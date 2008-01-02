@@ -14,7 +14,7 @@
 #include <boost/fusion/include/vector.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
-#include "../detail/baby_pack.hpp"
+#include "../detail/little_pack.hpp"
 #include "../function_fwd.hpp" // by_value
 #include "../nullary_result_of.hpp"
 
@@ -23,9 +23,9 @@ namespace pstade { namespace egg {
 
 
     namespace fusion_detail {
-        #define  PSTADE_EGG_BABY_PACK_TEMPLATE(N) boost::fusion::vector
-        #define  PSTADE_EGG_BABY_PACK_MAX_ARITY FUSION_MAX_VECTOR_SIZE
-        #include PSTADE_EGG_BABY_PACK()
+        #define  PSTADE_EGG_LITTLE_PACK_TEMPLATE(N) boost::fusion::vector
+        #define  PSTADE_EGG_LITTLE_PACK_MAX_ARITY FUSION_MAX_VECTOR_SIZE
+        #include PSTADE_EGG_LITTLE_PACK()
     }
 
 
@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_fusion_pack :
-        function<fusion_detail::baby_pack, Strategy>
+        function<fusion_detail::little_pack, Strategy>
     { };
 
     template< >

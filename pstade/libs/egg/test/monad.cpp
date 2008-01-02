@@ -28,7 +28,7 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-struct baby_lookup
+struct little_lookup
 {
     template<class Myself, class Key, class Map>
     struct apply
@@ -47,7 +47,7 @@ struct baby_lookup
     }
 };
 
-result_of_curry2< function<baby_lookup, by_value> >::type
+result_of_curry2< function<little_lookup, by_value> >::type
 const lookup = PSTADE_EGG_CURRY2_L {{}} PSTADE_EGG_CURRY2_R;
 
 

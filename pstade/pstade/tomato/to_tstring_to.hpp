@@ -37,7 +37,7 @@ namespace pstade { namespace tomato {
     namespace to_tstring_detail {
 
 
-        struct baby
+        struct little
         {
             template<class Myself, class WideCharSeq>
             struct apply
@@ -57,7 +57,7 @@ namespace pstade { namespace tomato {
         };
 
 
-        typedef egg::function<baby, egg::by_cref> op;
+        typedef egg::function<little, egg::by_cref> op;
 
 
     } // namespace to_string_detail

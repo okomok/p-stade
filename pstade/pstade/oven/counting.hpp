@@ -77,7 +77,7 @@ namespace counting_detail {
 
 
     template< class Traversal, class Difference >
-    struct baby
+    struct little
     {
         typedef egg::deduced_form call_strategy;
 
@@ -136,7 +136,7 @@ template<
     class Difference = boost::use_default
 >
 struct X_counting :
-    egg::function<counting_detail::baby<Traversal, Difference>, egg::by_value>
+    egg::function<counting_detail::little<Traversal, Difference>, egg::by_value>
 { };
 
 

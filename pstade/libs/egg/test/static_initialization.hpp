@@ -22,7 +22,7 @@
 #include <pstade/pod_constant.hpp>
 
 
-struct baby_my_id
+struct little_my_id
 {
     template<class Myself, class X>
     struct apply
@@ -46,7 +46,7 @@ struct baby_my_id
 // An address expression &my_id isn't statically placed in my_idr.
 
 
-typedef pstade::egg::function<baby_my_id> T_my_id;
+typedef pstade::egg::function<little_my_id> T_my_id;
 PSTADE_POD_CONSTANT((T_my_id), my_id)
     = {{999}};
 
@@ -63,7 +63,7 @@ T_my_idr const &get_my_idr2();
 
 
 
-struct my_baby
+struct my_little
 {
     template<class Myself, class A1, class A2, class A3, class A4>
     struct apply
@@ -81,7 +81,7 @@ struct my_baby
 };
 
 typedef
-    pstade::egg::function<my_baby>
+    pstade::egg::function<my_little>
 T_my_func_;
 
 typedef

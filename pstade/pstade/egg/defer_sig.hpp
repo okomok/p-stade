@@ -24,7 +24,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./detail/baby_defer_sig_result.hpp"
+#include "./detail/little_defer_sig_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
 
@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
     struct result_of_defer_sig
     {
         typedef
-            function<detail::baby_defer_sig_result<SigFun, boost::mpl::false_>, Strategy>
+            function<detail::little_defer_sig_result<SigFun, boost::mpl::false_>, Strategy>
         type;
     };
 
@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
     struct result_of_defer_nullary_sig
     {
         typedef
-            function<detail::baby_defer_sig_result<SigFun, boost::mpl::true_>, by_ref>
+            function<detail::little_defer_sig_result<SigFun, boost::mpl::true_>, by_ref>
         type;
     };
 

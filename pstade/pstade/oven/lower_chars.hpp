@@ -12,7 +12,7 @@
 
 
 #include <cctype> // tolower
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./detail/xxx_chars.hpp"
 
 
@@ -22,7 +22,7 @@ namespace pstade { namespace oven {
 namespace lower_chars_detail {
 
 
-    struct baby_to
+    struct little_to
     {
         template< class Myself, class CharT, class Locale >
         struct apply
@@ -38,13 +38,13 @@ namespace lower_chars_detail {
     };
 
 
-    typedef egg::function<baby_to> to;
+    typedef egg::function<little_to> to;
 
 
 } // namespace lower_chars_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(lower_chars, (detail::xxx_chars<lower_chars_detail::to>::baby))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(lower_chars, (detail::xxx_chars<lower_chars_detail::to>::little))
 
 
 } } // namespace pstade::oven

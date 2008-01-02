@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
 
 
         template<class Signature>
-        struct baby
+        struct little
         {
             template<class Myself, class Base>
             struct apply :
@@ -89,7 +89,7 @@ namespace pstade { namespace egg {
 
     template<class Signature>
     struct X_mono :
-        function<mono_detail::baby<Signature>, by_value>
+        function<mono_detail::little<Signature>, by_value>
     { };
 
 

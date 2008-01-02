@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
 
 
         template<class Element>
-        struct baby
+        struct little
         {
             template<class Myself, class Ptr>
             struct apply
@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
 
     template<class Element = boost::use_default>
     struct X_to_shared_ptr :
-        function<to_shared_ptr_detail::baby<Element>, by_value>
+        function<to_shared_ptr_detail::little<Element>, by_value>
     { };
 
 

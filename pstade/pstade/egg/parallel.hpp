@@ -24,11 +24,11 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./baby_apply.hpp"
 #include "./by_value.hpp"
+#include "./config.hpp" // PSTADE_EGG_MAX_ARITY, PSTADE_EGG_HAS_THREADS
 #include "./function_facade.hpp"
 #include "./generator.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY, PSTADE_EGG_HAS_THREADS
+#include "./little_apply.hpp"
 
 #if defined(PSTADE_EGG_HAS_THREADS)
     #include <boost/detail/lightweight_mutex.hpp>
@@ -63,8 +63,8 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct PSTADE_EGG_BABY_APPLY;
+            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct PSTADE_EGG_LITTLE_APPLY;
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/parallel.hpp>))
             #include BOOST_PP_ITERATE()

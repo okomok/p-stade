@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
 
 
     template<class Base>
-    struct PSTADE_PP_CAT3(baby_fused_named, n, _result)
+    struct PSTADE_PP_CAT3(little_fused_named, n, _result)
     {
         typedef Base base_type;
         Base m_base;
@@ -83,7 +83,7 @@ namespace pstade { namespace egg {
     template<class Base, class NullaryResult = boost::use_default>
     struct PSTADE_PP_CAT3(result_of_, named, n) :
         result_of_unfuse<
-            function<PSTADE_PP_CAT3(baby_fused_named, n, _result)<Base>, by_cref>,
+            function<PSTADE_PP_CAT3(little_fused_named, n, _result)<Base>, by_cref>,
             T_fusion_pack,
             NullaryResult,
             by_cref
@@ -91,7 +91,7 @@ namespace pstade { namespace egg {
     { };
 
 
-    struct BOOST_PP_CAT(baby_named, n)
+    struct BOOST_PP_CAT(little_named, n)
     {
         template<class Myself, class Base>
         struct apply :
@@ -106,7 +106,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef function<BOOST_PP_CAT(baby_named, n), by_value> BOOST_PP_CAT(T_named, n);
+    typedef function<BOOST_PP_CAT(little_named, n), by_value> BOOST_PP_CAT(T_named, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_named, n)), BOOST_PP_CAT(named, n)) = PSTADE_EGG_GENERATOR;
 
 

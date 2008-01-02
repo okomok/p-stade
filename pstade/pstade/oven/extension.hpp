@@ -144,7 +144,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     };
 
 
-    struct baby_begin
+    struct little_begin
     {
         template< class Myself, class T >
         struct apply :
@@ -159,10 +159,10 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_POD_CONSTANT((egg::function<baby_begin>), PSTADE_OVEN_RANGE_BEGIN_NAME) = {{}};
+    PSTADE_POD_CONSTANT((egg::function<little_begin>), PSTADE_OVEN_RANGE_BEGIN_NAME) = {{}};
 
 
-    struct baby_end
+    struct little_end
     {
         template< class Myself, class T >
         struct apply :
@@ -177,12 +177,12 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_POD_CONSTANT((egg::function<baby_end>), PSTADE_OVEN_RANGE_END_NAME) = {{}};
+    PSTADE_POD_CONSTANT((egg::function<little_end>), PSTADE_OVEN_RANGE_END_NAME) = {{}};
 
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
 
-    struct baby_size
+    struct little_size
     {
         template< class Myself, class T >
         struct apply :
@@ -198,7 +198,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_POD_CONSTANT((egg::function<baby_size>), boost_range_size) = {{}};
+    PSTADE_POD_CONSTANT((egg::function<little_size>), boost_range_size) = {{}};
 
 #endif
 

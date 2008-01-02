@@ -64,7 +64,7 @@ namespace unrolled_copy_detail {
 
 
     template< class N >
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class OutIter >
         struct apply :
@@ -90,7 +90,7 @@ namespace unrolled_copy_detail {
 
 template< class N >
 struct X_unrolled_copy :
-    egg::function< unrolled_copy_detail::baby<N> >
+    egg::function< unrolled_copy_detail::little<N> >
 { };
 
 template< int N >

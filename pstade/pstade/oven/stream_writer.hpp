@@ -112,7 +112,7 @@ PSTADE_POD_CONSTANT((T_stream_writer), stream_writer) = PSTADE_EGG_DEFERRED;
 
 namespace streambuf_writer_detail {
 
-     struct baby
+     struct little
     {
         template< class Myself, class OStream >
         struct apply
@@ -144,7 +144,7 @@ namespace streambuf_writer_detail {
 
 } // namespace streambuf_writer_detail
 
-typedef egg::function<streambuf_writer_detail::baby> T_streambuf_writer;
+typedef egg::function<streambuf_writer_detail::little> T_streambuf_writer;
 PSTADE_POD_CONSTANT((T_streambuf_writer), streambuf_writer) = {{}};
 
 

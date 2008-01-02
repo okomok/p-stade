@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/baby_to_adaptor.hpp"
+#include "./detail/little_to_adaptor.hpp"
 #include "./merged.hpp"
 #include "./read.hpp"
 
@@ -57,7 +57,7 @@ namespace set_cup_detail {
 } // namespace set_cup_detail
 
 
-PSTADE_OVEN_BABY_TO_ADAPTOR(set_cup, (X_make_merged<set_cup_detail::merge_routine>::baby_type))
+PSTADE_OVEN_LITTLE_TO_ADAPTOR(set_cup, (X_make_merged<set_cup_detail::merge_routine>::little_type))
 
 
 } } // namespace pstade::oven

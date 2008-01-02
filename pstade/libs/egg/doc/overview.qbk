@@ -96,8 +96,12 @@ This document uses the following notation.
         [A __POLYMORPHIC_FUNCTION_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
     ]
     [
-        [`_baby`]
-        [A __BABY_FUNCTION__ object]
+        [`_lit`]
+        [A __LITTLE_FUNCTION__ object]
+    ]
+    [
+        [`_Lit`]
+        [A __LITTLE_FUNCTION__ type]
     ]
     [
         [`_Stg`]

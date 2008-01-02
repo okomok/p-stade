@@ -55,7 +55,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct baby_fused
+        struct little_fused
         {
             template<class Myself, class ArgTuple>
             struct apply
@@ -73,7 +73,7 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<baby_fused, by_cref> fused;
+        typedef function<little_fused, by_cref> fused;
 
 
     } // namespace auto_object_detail

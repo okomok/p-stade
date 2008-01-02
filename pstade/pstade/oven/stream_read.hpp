@@ -36,7 +36,7 @@ namespace stream_read_detail {
 
 
     template< class Value, class Difference >
-    struct baby
+    struct little
     {
         template< class Myself, class IStream >
         struct apply
@@ -72,7 +72,7 @@ template<
     class Difference = std::ptrdiff_t
 >
 struct X_stream_read :
-    egg::function< stream_read_detail::baby<Value, Difference> >
+    egg::function< stream_read_detail::little<Value, Difference> >
 { };
 
 #define  PSTADE_EGG_SPECIFIED_PARAMS (stream_read, X_stream_read, (class), (1))
@@ -85,7 +85,7 @@ struct X_stream_read :
 namespace streambuf_read_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class IStream >
         struct apply
@@ -129,7 +129,7 @@ namespace streambuf_read_detail {
 } // namespace streambuf_read_detail
 
 
-typedef egg::function<streambuf_read_detail::baby> T_streambuf_read;
+typedef egg::function<streambuf_read_detail::little> T_streambuf_read;
 PSTADE_POD_CONSTANT((T_streambuf_read), streambuf_read) = {{}};
 
 

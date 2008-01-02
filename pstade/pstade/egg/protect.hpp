@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
 
     namespace protect_detail {
 
-        struct baby
+        struct little
         {
             template<class Myself, class Expr>
             struct apply :
@@ -70,7 +70,7 @@ namespace pstade { namespace egg {
 
     } // namespace protect_detail
 
-    typedef function<protect_detail::baby, by_value> T_protect;
+    typedef function<protect_detail::little, by_value> T_protect;
     PSTADE_POD_CONSTANT((T_protect), protect) = {{}};
 
 

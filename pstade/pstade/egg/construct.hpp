@@ -15,9 +15,9 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include "./baby_apply.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./little_apply.hpp"
 #include "./nullary_result_of.hpp"
 
 
@@ -28,7 +28,7 @@ namespace pstade { namespace egg {
 
 
         template<class X>
-        struct baby
+        struct little
         {
         // 0ary
             typedef X nullary_result_type;
@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_BABY_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
             struct apply
             {
                 typedef X type;
@@ -56,7 +56,7 @@ namespace pstade { namespace egg {
 
     template<class X>
     struct X_construct :
-        function<construct_detail::baby<X>, by_perfect>
+        function<construct_detail::little<X>, by_perfect>
     { };
 
 

@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 namespace copied_to_detail {
 
 
-    struct baby
+    struct little
     {
         template< class Myself, class Range, class Iterator >
         struct apply
@@ -49,7 +49,7 @@ namespace copied_to_detail {
     };
 
 
-    typedef egg::function<baby> op;
+    typedef egg::function<little> op;
 
 
 } // namespace copied_to_detail
