@@ -29,7 +29,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * ...
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_ambi++N<_typeof(d)>::type` initialized using `d` or the initializer.
+* `fc(d)` is an object of `result_of_ambi++N<_typeof(d)>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -38,12 +38,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_ambi++N<_Pfo>::type`]
+        [`result_of_ambi++N<_PFo>::type`]
         [An __AMBI__ __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type.]
     ]
     [
         [`PSTADE_EGG_AMBI_L init PSTADE_EGG_AMBI_R`]
-        [A braced initializer of `result_of_ambi++N<_Pfo>::type`]
+        [A braced initializer of `result_of_ambi++N<_PFo>::type`]
     ]
     [
         [`PSTADE_EGG_AMBI(I)`]
@@ -65,11 +65,11 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Preconditions]
 * `1 <= N && N <= PSTADE_EGG_MAX_ARITY`.
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_ambi++N<_Pfo>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
+* `result_of_ambi++N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_ambi_example]
@@ -166,7 +166,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_curry++N<_typeof(d)>::type` initialized using `d` or the initializer.
+* `fc(d)` is an object of `result_of_curry++N<_typeof(d)>::type` initialized using `d` or an initializer.
 * `b` is `a1,...,a(N-1)`.
 
 [heading Valid expressions]
@@ -176,12 +176,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_curry++N<_Pfo>::type`]
+        [`result_of_curry++N<_PFo>::type`]
         [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_CURRY++N++_L init PSTADE_EGG_CURRY++N++_R`]
-        [A braced initializer of `result_of_curry++N<_Pfo>::type`]
+        [A braced initializer of `result_of_curry++N<_PFo>::type`]
     ]
     [
         [`PSTADE_EGG_CURRY++N(I)`]
@@ -202,12 +202,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ]
 
 [heading Preconditions]
-* `N` is the arity of `_Pfo` such that `2 <= N && N <= PSTADE_EGG_MAX_ARITY`.
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* `N` is the arity of `_PFo` such that `2 <= N && N <= PSTADE_EGG_MAX_ARITY`.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_curry++N<_Pfo>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
+* `result_of_curry++N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [note An element of `b` is copied unless it is an array. ]
 
@@ -235,7 +235,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, _Stg)` is an object of `result_of_uncurry<_typeof(d), _Stg>::type` initialized using `d` or the initializer.
+* `fc(d, _Stg)` is an object of `result_of_uncurry<_typeof(d), _Stg>::type` initialized using `d` or an initializer.
 * `parens(b1,...,bN)` is `(b1)(b2),...,(bN)`.
 
 [heading Valid expressions]
@@ -245,12 +245,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_uncurry<_Pfo, _Stg = _default>::type`]
+        [`result_of_uncurry<_PFo, _Stg = _default>::type`]
         [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_UNCURRY_L init PSTADE_EGG_UNCURRY_R`]
-        [A braced initializer of `result_of_uncurry<_Pfo>::type`]
+        [A braced initializer of `result_of_uncurry<_PFo>::type`]
     ]
     [
         [`PSTADE_EGG_UNCURRY(I)`]
@@ -268,11 +268,11 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Preconditions]
 * `2 <= N && N <= PSTADE_EGG_MAX_ARITY`.
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_uncurry<_Pfo>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
+* `result_of_uncurry<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Currying Currying]
@@ -295,7 +295,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_fuse<_typeof(d)>::type` initialized using `d` or the initializer.
+* `fc(d)` is an object of `result_of_fuse<_typeof(d)>::type` initialized using `d` or an initializer.
 * `t_` is `_arg_list(t, by_perfect)`.
 
 [heading Valid expressions]
@@ -305,12 +305,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_fuse<_Pfo>::type`]
+        [`result_of_fuse<_PFo>::type`]
         [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_FUSE_L init PSTADE_EGG_FUSE_R`]
-        [A braced initializer of `result_of_fuse<_Pfo>::type`]
+        [A braced initializer of `result_of_fuse<_PFo>::type`]
     ]
     [
         [`PSTADE_EGG_FUSE(I)`]
@@ -332,12 +332,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Preconditions]
 * `1 <= N && N <= _TUPLE_MAX_SIZE`.
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * `t0` is an empty tuple.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_fuse<_Pfo>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
+* `result_of_fuse<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading See also]
 * __BOOST_FUSION_FUNCTIONAL__
@@ -361,7 +361,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), Pack, R0, _Stg>::type` initialized using `d` or the initializer.
+* `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), Pack, R0, _Stg>::type` initialized using `d` or an initializer.
 * `ref(b1,...,bN)` is `b1&,...,bN&`.
 
 [heading Valid expressions]
@@ -371,12 +371,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_unfuse<_Pfo, Pack = _default, R0 = _default, _Stg = _default>::type`]
+        [`result_of_unfuse<_PFo, Pack = _default, R0 = _default, _Stg = _default>::type`]
         [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_UNFUSE_L init PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R`]
-        [A braced initializer of `result_of_unfuse<_Pfo, _default, R0, _Stg>::type`]
+        [A braced initializer of `result_of_unfuse<_PFo, _default, R0, _Stg>::type`]
     ]
     [
         [`PSTADE_EGG_UNFUSE(I, P)`]
@@ -403,12 +403,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * `Pack` is `_default` (for now).
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 * `_deduce_r0(R0, _decltype(d( boost::tuple<>() ))` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
-* `result_of_unfuse<_Pfo>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
+* `result_of_unfuse<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 ...
@@ -436,7 +436,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(p, _Stg)` is an object of `result_of_indirect<_typeof(p), _Stg>::type` initialized using `p` or the initializer.
+* `fc(p, _Stg)` is an object of `result_of_indirect<_typeof(p), _Stg>::type` initialized using `p` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -462,7 +462,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`indirect(p)`]
-        [`fc(p)(_default)`]
+        [`fc(p, _default)`]
     ]
 ]
 
@@ -498,7 +498,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(b)` is an object of `result_of_lazy<_typeof(b)>::type` initialized using `b` or the initializer.
+* `fc(b)` is an object of `result_of_lazy<_typeof(b)>::type` initialized using `b` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -610,7 +610,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * ...
 
 [heading Notation]
-* `fc(f)` is an object of `result_of_mono<_typeof(f), Sig>::type` initialized using `f` or the initializer.
+* `fc(f)` is an object of `result_of_mono<_typeof(f), Sig>::type` initialized using `f` or an initializer.
 * `N` is an arity of `Sig`.
 * `R` is a return type of `Sig`.
 * `ParamOf(Sig, I)` is an imaginary operator which returns an `I`th parameter type of `Sig`.
@@ -687,7 +687,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_perfect<_typeof(d)>::type` initialized using `d` or the initializer.
+* `fc(d)` is an object of `result_of_perfect<_typeof(d)>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -696,12 +696,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_perfect<_Pfo>::type`]
+        [`result_of_perfect<_PFo>::type`]
         [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_PERFECT_L init PSTADE_EGG_PERFECT_R`]
-        [A braced initializer of `result_of_perfect<_Pfo>::type`]
+        [A braced initializer of `result_of_perfect<_PFo>::type`]
     ]
     [
         [`PSTADE_EGG_PERFECT(I)`]
@@ -718,11 +718,11 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_perfect<_Pfo>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
+* `result_of_perfect<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
     BOOST_CHECK( perfect(boost::lambda::_1)(12) == 12 );
@@ -747,7 +747,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, _Stg)` is an object of `result_of_pipable<_typeof(d), _Stg>::type` initialized using `d` or the initializer.
+* `fc(d, _Stg)` is an object of `result_of_pipable<_typeof(d), _Stg>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -756,12 +756,12 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_pipable<_Pfo, _Stg = _default>::type`]
-        [A __BINDABLE__ __PIPABLE_FUNCTION_OBJECT__ type]
+        [`result_of_pipable<_PFo, _Stg = _default>::type`]
+        [A __PIPABLE_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_PIPABLE_L init PSTADE_EGG_PIPABLE_R`]
-        [A braced initializer of `result_of_pipable<_Pfo, _Stg>::type`]
+        [A braced initializer of `result_of_pipable<_PFo, _Stg>::type`]
     ]
     [
         [`PSTADE_EGG_PIPABLE(I)`]
@@ -779,20 +779,18 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `1 <= N && N <= _TUPLE_MAX_SIZE-1`.
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_pipable<_Pfo, _Stg>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
+* `result_of_pipable<_PFo, _Stg>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_pipable_example]
 
-[note A __PIPABLE_FUNCTION_OBJECT__ can be overloaded with different arity, whereas __AMBI_FUNCTION_OBJECT__ cannot.]
-
 [heading See also]
 * __EGG_AMBI__
-* [@http://en.wikipedia.org/wiki/Extension_method Extension method]
+* __EXTENSION_METHOD__
 
 [endsect]
 
@@ -858,7 +856,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * ...
 
 [heading Notation]
-* `fc(f, R, _Stg)` is an object of `result_of_ret<_typeof(f), R, _Stg>::type` initialized using `f` or the initializer.
+* `fc(f, R, _Stg)` is an object of `result_of_ret<_typeof(f), R, _Stg>::type` initialized using `f` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -930,7 +928,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * ...
 
 [heading Notation]
-* `fc(f, R, _Stg)` is an object of `result_of_retby<_typeof(f), R, _Stg>::type` initialized using `f` or the initializer.
+* `fc(f, R, _Stg)` is an object of `result_of_retby<_typeof(f), R, _Stg>::type` initialized using `f` or an initializer.
 * `ReturnT(a, R)` is:
     * If `R` is `_default`, it is a type which is specified using `boost::result_of`.
     * Else if `R` is `boost::mpl::always<R_>`, it is `R_`.
@@ -1004,7 +1002,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * ...
 
 [heading Notation]
-* `fc(d, Tag, _Stg)` is an object of `result_of_tagged<_typeof(d), Tag, _Stg>::type` initialized using `d` or the initializer.
+* `fc(d, Tag, _Stg)` is an object of `result_of_tagged<_typeof(d), Tag, _Stg>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -1013,12 +1011,12 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
         [[*Semantics]]
     ]
     [
-        [`result_of_tagged<_Pfo, Tag, _Stg = _default>::type`]
+        [`result_of_tagged<_PFo, Tag, _Stg = _default>::type`]
         [A __BINDABLE__ __POLYMORPHIC_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_TAGGED_L init PSTADE_EGG_TAGGED_R`]
-        [A braced initializer of `result_of_tagged<_Pfo, Tag, _Stg>::type`]
+        [A braced initializer of `result_of_tagged<_PFo, Tag, _Stg>::type`]
     ]
     [
         [`PSTADE_EGG_TAGGED(I)`]
@@ -1040,12 +1038,12 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 
 [heading Preconditions]
 * `Tag` is any (possibly incomplete) type.
-* There is a `d_` such that `_Pfo d_ = init;` is a valid expression.
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_tagged<_Pfo, Tag, _Stg>::type` is a /POD/ type if and only if `_Pfo` is a /POD/ type.
-* `result_of_tagged<_Pfo, Tag1, _Stg>::type` is the same type as `result_of_tagged<_Pfo, Tag2, _Stg>::type` if and only if `Tag1` is the same type as `Tag2`.
+* `result_of_tagged<_PFo, Tag, _Stg>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_tagged<_PFo, Tag1, _Stg>::type` is the same type as `result_of_tagged<_PFo, Tag2, _Stg>::type` if and only if `Tag1` is the same type as `Tag2`.
 
 [heading Example]
 ...

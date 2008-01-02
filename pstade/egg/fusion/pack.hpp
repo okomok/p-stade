@@ -48,7 +48,8 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_fusion_pack, (class))
+#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::X_fusion_pack, (class))
+#include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
 
 
 #endif

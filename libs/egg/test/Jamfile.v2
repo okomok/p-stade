@@ -41,6 +41,7 @@ test-suite "egg" :
     [ run curry.cpp ]
     [ run curry_array.cpp ]
     [ run curry_regular.cpp ]
+    [ run curry_result_of.cpp ]
     [ run deduced_form.cpp ]
     [ run defer_sig.cpp ]
     [ run deferred.cpp ]

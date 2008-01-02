@@ -84,6 +84,7 @@ for any __PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 * ...
 
 [heading See also]
+* __EXTENSION_METHOD__
 * __EGG_PIPABLE__
 * __AMBI_FUNCTION_OBJECT__
 
@@ -107,6 +108,8 @@ for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 * `x|i(x1,...,xN)` is a valid expression if and only if `i(x, x1,...,xN)` is a valid expression.
 * `x|i(x1,...,xN)` and `i(x, x1,...,xN)` have the same effects.
 
+[note A __PIPABLE_FUNCTION_OBJECT__ can be overloaded with different arities, whereas __AMBI_FUNCTION_OBJECT__ cannot.]
+
 [heading Example]
 [code_concepts_ambi_function_object]
 
@@ -126,7 +129,7 @@ for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 
 [heading Description]
 A __STATIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
-Egg is the library which helps you define __STATIC_FUNCTION_OBJECT__.
+Egg is the library which helps you build __STATIC_FUNCTION_OBJECT__.
 
 [heading Refinement of]
 * __LEXICALLY_TYPED_OBJECT__

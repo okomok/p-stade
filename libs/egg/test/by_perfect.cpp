@@ -120,7 +120,9 @@ struct T_bar :
     pstade::egg::function< baby_bar<T0, T1>, pstade::egg::by_perfect >
 { };
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
+
+#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (T_bar, 2)
+#include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
 
 
 struct baby_identity
