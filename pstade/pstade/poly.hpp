@@ -179,18 +179,19 @@ namespace pstade {
         };
 
 
-        template<class O, class Q> inline
-        vtable<O> const *vtable_pointer()
+        template<class O, class Q>
+        struct vtable_of
         {
-            static vtable<O> const vtbl = {
-                &override_<O, Q>::destroy,
-                &override_<O, Q>::copy,
-                &override_<O, Q>::get,
-                &override_<O, Q>::typeid_
-            };
+            static vtable<O> const instance;
+        };
 
-            return &vtbl;
-        }
+        template<class O, class Q>
+        vtable<O> const vtable_of<O, Q>::instance = {
+            &override_<O, Q>::destroy,
+            &override_<O, Q>::copy,
+            &override_<O, Q>::get,
+            &override_<O, Q>::typeid_
+        };
 
 
         template<class O, class Q> inline
@@ -223,7 +224,7 @@ namespace pstade {
             explicit impl(Q const &q)
             {
                 here::construct(m_stg, q);
-                m_pvtbl = vtable_pointer<O, Q>();
+                m_pvtbl = &vtable_of<O, Q>::instance;
             }
 
             impl(self_t const &other) :
@@ -253,7 +254,7 @@ namespace pstade {
                 reset(); // nothrow
 
                 here::construct(m_stg, q); // maythrow
-                m_pvtbl = vtable_pointer<O, Q>(); // nothrow
+                m_pvtbl = &vtable_of<O, Q>::instance; // nothrow
             }
 
             void reset(poly<O> const &other) // basic
