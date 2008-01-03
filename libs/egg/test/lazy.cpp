@@ -15,7 +15,7 @@
 
 #include <pstade/test.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/egg/lambda/placeholders.hpp>
+#include <pstade/egg/bll/placeholders.hpp>
 #include <pstade/egg/to_ref.hpp>
 
 
@@ -63,6 +63,7 @@ void pstade_minimal_test()
     {
         BOOST_CHECK(lazy_minus(bll::_1, 2)(3|to_ref) == 1);
         BOOST_CHECK(lazy(base_minus())(bll::_1, 2)(3|to_ref) == 1);
+        BOOST_CHECK(lazy(base_minus(), bll_bind)(bll::_1, 2)(3|to_ref) == 1);
     }
     {
         BOOST_CHECK(lazy_minus(bll::_1, bll::_2)(8|to_ref, 3|to_ref) == 5);

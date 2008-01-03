@@ -16,7 +16,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/bll/lazy.hpp>
+#include <pstade/egg/lazy.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/egg/plus.hpp>
 #include <pstade/egg/to_ref.hpp>
@@ -68,6 +68,6 @@ void pstade_minimal_test()
     {
         int i = 3;
         int (*pf)(int,int) = &my_minus;
-        BOOST_CHECK( bll_lazy(bll_bind)(bll_1, boost::lambda::protect(bll_1), 10)(pf)(i) == -7 );
+        BOOST_CHECK( lazy(bll_bind)(bll_1, boost::lambda::protect(bll_1), 10)(pf)(i) == -7 );
     }
 }

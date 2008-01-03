@@ -15,6 +15,7 @@
 #include <pstade/pod_constant.hpp>
 #include "../by_value.hpp"
 #include "../deduced_form.hpp"
+#include "./result_of.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace egg {

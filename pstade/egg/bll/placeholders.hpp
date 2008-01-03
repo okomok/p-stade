@@ -14,6 +14,7 @@
 #include <boost/lambda/core.hpp> // placeholders
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/constant.hpp>
+#include "./result_of.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace egg {

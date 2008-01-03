@@ -84,7 +84,7 @@ result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_ref>::
     id0r = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
 
 result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_cref>::type const
-    id0c = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
+    id0c = PSTADE_EGG_UNFUSE({});
 
 result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_value>::type const
     id0v = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;

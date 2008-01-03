@@ -53,7 +53,7 @@ void test()
 {
     pipable const to_upper = {};
 
-    int maybeA = 'a'|to_upper;
+    int maybeA = 'a'|to_upper();
     BOOST_CHECK(maybeA == 'A');
 
     int maybeB = to_upper|='b';
@@ -92,7 +92,7 @@ void test()
 {
     ambi const to_lower = {};
 
-    int maybei = 'I'|to_lower();
+    int maybei = 'I'|to_lower;
     BOOST_CHECK(maybei == 'i');
 
     int maybej = to_lower('J');

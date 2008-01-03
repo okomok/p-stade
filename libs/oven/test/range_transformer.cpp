@@ -17,7 +17,7 @@
 #include <pstade/oven/equals.hpp>
 #include "./detail/output_iterator.hpp"
 #include <pstade/oven/regular.hpp>
-#include <pstade/egg/bll/lazy.hpp>
+#include <pstade/egg/lazy.hpp>
 #include <pstade/egg/bll/placeholders.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/oven/filtered.hpp>
@@ -63,19 +63,19 @@ void pstade_minimal_test()
     {
         int o[] = {9,8,7,6,5,4,3,2,1,0};
         std::copy(boost::begin(b), boost::end(b),
-            range_transformer( regular(egg::bll_lazy(make_transformed)(bll::_1, my_add)) ) |= &o[0]);
+            range_transformer( regular(egg::lazy(make_transformed)(bll::_1, my_add)) ) |= &o[0]);
 
         BOOST_CHECK( oven::equals(o, a) );
 
         test::output_iterator(
-            range_transformer( regular(egg::bll_lazy(make_transformed)(bll::_1, my_add)) ) |= &o[0],
+            range_transformer( regular(egg::lazy(make_transformed)(bll::_1, my_add)) ) |= &o[0],
             7
         );
     }
     {
         std::vector<int> vo;
         std::copy(boost::begin(b), boost::end(b),
-            range_transformer( regular(egg::bll_lazy(make_filtered)(bll::_1, ::is_even)) ) |= std::back_inserter(vo));
+            range_transformer( regular(egg::lazy(make_filtered)(bll::_1, ::is_even)) ) |= std::back_inserter(vo));
 
         int a[] = {0,2,4,6,8};
         BOOST_CHECK( oven::equals(vo, a) );

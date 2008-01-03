@@ -1,6 +1,6 @@
 #ifndef PSTADE_EGG_LAZY_HPP
 #define PSTADE_EGG_LAZY_HPP
-#include "./detail/prefix.hpp"
+#include "../detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -11,42 +11,46 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/pod_constant.hpp>
 #include "./by_cref.hpp"
 #include "./by_value.hpp"
-#include "./detail/baby_lazy_result.hpp"
+#include "./detail/little_lazy_result.hpp"
 #include "./generator.hpp"
-#include "./lambda/result_of.hpp" // inclusion guaranteed
 #include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Base>
+    template<class Base, class Bind = boost::use_default>
     struct result_of_lazy
     {
         typedef
-            function<detail::baby_lazy_result<Base>, by_cref>
+            function<detail::little_lazy_result<Base, Bind>, by_cref>
         type;
     };
 
 
     #define PSTADE_EGG_LAZY_L { {
+    #define PSTADE_EGG_LAZY_M ,
+    #define PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_BLL_BIND_INIT
     #define PSTADE_EGG_LAZY_R } }
-    #define PSTADE_EGG_LAZY(F) PSTADE_EGG_LAZY_L F PSTADE_EGG_LAZY_R
+    #define PSTADE_EGG_LAZY(F) PSTADE_EGG_LAZY_L F PSTADE_EGG_LAZY_M PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_LAZY_R
+
 
     typedef
         generator<
-            result_of_lazy< deduce<boost::mpl::_1, as_value> >::type,
+            result_of_lazy<
+                deduce<boost::mpl::_1, as_value>,
+                deduce<boost::mpl::_2, as_value, boost::use_default>
+            >::type,
             boost::use_default,
             use_brace2,
             by_value
         >::type
     T_lazy;
 
-
     PSTADE_POD_CONSTANT((T_lazy), lazy) = PSTADE_EGG_GENERATOR;
-
 
 
 } } // namespace pstade::egg

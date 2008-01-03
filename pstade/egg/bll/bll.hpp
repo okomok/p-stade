@@ -13,7 +13,6 @@
 #include "./bind.hpp"
 #include "./config.hpp"
 #include "./functor_fwd.hpp"
-#include "./lazy.hpp"
 #include "./placeholders.hpp"
 #include "./result_of.hpp"
 #include "./unlambda.hpp"

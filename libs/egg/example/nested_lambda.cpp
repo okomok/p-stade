@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/bll/lazy.hpp>
+#include <pstade/egg/lazy.hpp>
 #include <pstade/egg/bll.hpp>
 #include <pstade/minimal_test.hpp>
 
@@ -36,12 +36,12 @@ struct T_my_apply
 
 T_my_apply const my_apply = {};
 
-result_of_bll_lazy<T_my_apply>::type const my_Apply = PSTADE_EGG_BLL_LAZY({});
+result_of_lazy<T_my_apply>::type const my_Apply = PSTADE_EGG_LAZY({});
 
 
 void pstade_minimal_test()
 {
-    pstade::result_of<T_bll_lazy(T_plus const&)>::type Plus = bll_lazy(plus);
+    pstade::result_of<T_lazy(T_plus const&)>::type Plus = lazy(plus);
 
     using bll::_1;
     using bll::_2;
@@ -59,12 +59,12 @@ void pstade_minimal_test()
     //[code_bll_bind_example
     /*<< This is currying in __BOOST_LAMBDA__. >>*/
     // \x -> (\y -> plus(x, y))
-    BOOST_CHECK( bll_lazy(bll_bind)(plus, _1, bll::protect(_1))
+    BOOST_CHECK( lazy(bll_bind)(plus, _1, bll::protect(_1))
         (a)(b) == plus(a, b) );
     //]
 
     // complicated
     // \x -> my_apply(\y -> plus(x, y), plus(x, 3))
-    BOOST_CHECK( my_Apply(bll_lazy(bll_bind)(plus, _1, bll::protect(_1)), Plus(_1, 3))
+    BOOST_CHECK( my_Apply(lazy(bll_bind)(plus, _1, bll::protect(_1)), Plus(_1, 3))
         (a) == plus(a, a+3) );
 }

@@ -5,7 +5,7 @@
 
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
-Function Adaptor provides two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
+Function Adaptor provides, if possible, two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
 a __METAFUNCTION__ with the corresponding macro for /static initialization/.
 An adapted __FUNCTION_OBJECT__ with /static storage duration/ is /statically initialized/
 if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to the macro is a /constant expression/.
@@ -26,7 +26,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<pstade/egg/ambi.hpp>`
 
 [heading Model of]
-* ...
+* __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_ambi++N<_typeof(d)>::type` initialized using `d` or an initializer.
@@ -54,10 +54,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)(_arg_list(a, by_perfect))`]
     ]
     [
-        [`ambi++N`]
-        [A __STATIC_FUNCTION_OBJECT__]
-    ]
-    [
         [`ambi++N(d)`]
         [`fc(d)`]
     ]
@@ -76,70 +72,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading See also]
 * __EGG_PIPABLE__
-
-[endsect]
-
-
-
-
-[section bll_lazy]
-
-[heading Description]
-__BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
-`bll_lazy` turns a bindable __FUNCTION_OBJECT__ into such one which can be used with __BOOST_LAMBDA__.
-
-[heading Header]
-* `<pstade/egg/bll/lazy.hpp>`
-
-[heading Model of]
-* __STATIC_FUNCTION_OBJECT__
-
-[heading Notation]
-* `fc(b)` is an object of `result_of_bll_lazy<_typeof(b)>::type` initialized using `b` or an initializer.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`result_of_bll_lazy<Bin>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`PSTADE_EGG_BLL_LAZY_L init PSTADE_EGG_BLL_LAZY_R`]
-        [A braced initializer of `result_of_bll_lazy<Bin>::type`]
-    ]
-    [
-        [`PSTADE_EGG_BLL_LAZY(I)`]
-        [`PSTADE_EGG_BLL_LAZY_L I PSTADE_EGG_BLL_LAZY_R`]
-    ]
-    [
-        [`fc(b)(a1,...,aN)`]
-        [`boost::lambda::bind(b, _arg_list(a, by_cref))`]
-    ]
-    [
-        [`bll_lazy(b)`]
-        [`fc(b)`]
-    ]
-]
-
-[heading Preconditions]
-* `0 <= N && N <= 9`.
-* `Bin` is a type whose object can be used as the first argument of `boost::lambda::bind`.
-* There is a `b_` such that `Bin b_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
-
-[heading Invariants]
-* `result_of_bll_lazy<Bin>::type` is a /POD/ type if and only if `Bin` is a /POD/ type.
-
-[heading Example]
-[code_bll_lazy_example]
-
-[heading See also]
-* __BOOST_PHOENIX__
-* __BOOST_LAMBDA__
 
 [endsect]
 
@@ -254,10 +186,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     [
         [`fc(d)(a1)...(aN)`]
         [`_const(d)(_arg_list(b, by_cref),_arg_list(aN, by_perfect))`]
-    ]
-    [
-        [`curry++N`]
-        [A __STATIC_FUNCTION_OBJECT__]
     ]
     [
         [`curry++N(d)`]
@@ -425,7 +353,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), Pack, R0, _Stg>::type` initialized using `d` or an initializer.
+* `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), _default, R0, _Stg>::type` initialized using `d` or an initializer.
 * `ref(b1,...,bN)` is `b1&,...,bN&`.
 
 [heading Valid expressions]
@@ -435,7 +363,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_unfuse<_PFo, Pack = _default, R0 = _default, _Stg = _default>::type`]
+        [`result_of_unfuse<_PFo, _default, R0 = _default, _Stg = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -443,8 +371,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [A braced initializer of `result_of_unfuse<_PFo, _default, R0, _Stg>::type`]
     ]
     [
-        [`PSTADE_EGG_UNFUSE(I, P)`]
-        [`PSTADE_EGG_UNFUSE_L I PSTADE_EGG_UNFUSE_M P PSTADE_EGG_UNFUSE_R`]
+        [`PSTADE_EGG_UNFUSE(I)`]
+        [`PSTADE_EGG_UNFUSE_L I PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R`]
     ]
     [
         [`fc(d, R0, _Stg)(a1,...,aN)`]
@@ -466,7 +394,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
-* `Pack` is `_default` (for now).
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 * `_deduce_r0(R0, _decltype(d( boost::tuple<>() ))` is a valid expression which specifies the nullary return type.
@@ -543,6 +470,69 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading See also]
 * __BOOST_INDIRECT_ITERATOR__
+
+[endsect]
+
+
+
+
+[section lazy]
+
+[heading Description]
+__BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
+`lazy` turns a bindable __FUNCTION_OBJECT__ into such one which can be used with __BOOST_LAMBDA__.
+
+[heading Header]
+* `<pstade/egg/lazy.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `fc(f)` is an object of `result_of_lazy<_typeof(f)>::type` initialized using `f` or an initializer.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_lazy<F>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_LAZY_L init PSTADE_EGG_LAZY_M PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_LAZY_R`]
+        [A braced initializer of `result_of_lazy<F>::type`]
+    ]
+    [
+        [`PSTADE_EGG_LAZY(I)`]
+        [`PSTADE_EGG_LAZY_L I PSTADE_EGG_LAZY_M PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_LAZY_R`]
+    ]
+    [
+        [`fc(f)(a1,...,aN)`]
+        [__POLYMORPHIC__ `boost::lambda::bind(f, _arg_list(a, by_cref))`]
+    ]
+    [
+        [`lazy(f)`]
+        [`fc(f)`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY-1`.
+* There is a `f_` such that `F f_ = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `result_of_lazy<F>::type` is a /POD/ type if and only if `F` is a /POD/ type.
+
+[heading Example]
+[code_lazy_example]
+
+[heading See also]
+* __BOOST_PHOENIX__
+* __BOOST_LAMBDA__
 
 [endsect]
 

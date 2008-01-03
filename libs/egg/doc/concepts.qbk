@@ -100,8 +100,8 @@ for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 [section Major Function Object]
 
 [heading Description]
-A __MAJOR_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is intended to replace normal functions.
-Egg is the library which helps you build __MAJOR_FUNCTION_OBJECT__.
+A __MAJOR_FUNCTION_OBJECT__ is a __POLYMORPHIC_FUNCTION_OBJECT__ which can be used with __BOOST_LAMBDA__.
+Egg is a library which helps you define your own __MAJOR_FUNCTION_OBJECT__.
 
 [heading Refinement of]
 * __POLYMORPHIC_FUNCTION_OBJECT__
@@ -168,10 +168,10 @@ A __LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 * ...
 
 [heading Requirements]
-For any __LITTLE_FUNCTION__ type `B` the following must be met:
+For any __LITTLE_FUNCTION__ type `L` the following must be met:
 
-* `B` has a nested class template named `apply`, where `apply<...>::type` means return type of function calls.
-* `B` has a const /member function/ named `call` whose return type is explicitly specified by the first template parameter.
+* `L` has a nested class template named `apply`, where `apply<...>::type` means return type of function calls.
+* `L` has a const /member function/ named `call` whose return type is explicitly specified by the first template parameter.
 
 [heading Example]
 [code_concepts_little_function]

@@ -69,13 +69,13 @@
 <dt><span class="section"><a href="egg/function_adaptors.html">Function Adaptors</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.ambin">ambiN</a></span></dt>
-<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.bll_lazy">bll_lazy</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.compose">compose</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.curryn">curryN</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.uncurry">uncurry</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.fuse">fuse</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.unfuse">unfuse</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.indirect">indirect</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.lazy">lazy</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.memoize">memoize</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.mono">mono</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.perfect">perfect</a></span></dt>
@@ -298,7 +298,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span> <span class="keyword">const</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span> <span class="keyword">const</span> <span class="special">&amp;&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
               </p>
               </td>
 </tr>
@@ -351,7 +351,7 @@
 <td>
               <p>
                 A <a href="egg/concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>
-                type
+                type which is neither <span class="emphasis"><em>reference</em></span> nor <span class="emphasis"><em>cv-qualified</em></span>.
               </p>
               </td>
 </tr>
@@ -417,7 +417,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: January 02, 2008 at 15:48:49 GMT</p></small></td>
+<td align="left"><small><p>Last revised: January 03, 2008 at 01:05:11 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>
