@@ -50,11 +50,11 @@ namespace pstade { namespace egg { namespace detail {
         >
     { };
 
-    template<class Sacrifice, class Lambda>
+    template<class Dummy, class Lambda>
     struct dummy_to_lambda :
         boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            template_arguments_copy<Sacrifice, Lambda>,
-            boost::mpl::identity<Sacrifice>
+            template_arguments_copy<Dummy, Lambda>,
+            boost::mpl::identity<Dummy>
         >
     { };
 

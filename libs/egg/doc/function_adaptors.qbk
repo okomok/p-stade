@@ -7,7 +7,7 @@ Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJEC
 and returns an "adapted" __FUNCTION_OBJECT__.
 Function Adaptor provides, if possible, two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
 a __METAFUNCTION__ with the corresponding macro for /static initialization/.
-An adapted __FUNCTION_OBJECT__ with /static storage duration/ is /statically initialized/
+An adapted non-local __FUNCTION_OBJECT__ with /static storage duration/ is /statically initialized/
 if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to the macro is a /constant expression/.
 Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__-ness of base __FUNCTION_OBJECT__ unless otherwise specified.
 
