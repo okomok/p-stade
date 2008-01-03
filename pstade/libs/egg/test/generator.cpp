@@ -154,6 +154,7 @@ typedef generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, 
 #endif
 
 
+// Without dummy_to_lambda, the perfect overload resolution would instantiate it with const.
 template< class A0 >
 struct must_mutable
 {

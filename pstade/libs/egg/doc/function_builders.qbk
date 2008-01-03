@@ -163,7 +163,7 @@ It is useful because `operator()` can use nested typedefs.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
+* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [caution For some compiler bug, `deferred` randomly fails to work as a __POLYMORPHIC_FUNCTION_OBJECT__ under msvc-8.0.
@@ -233,7 +233,7 @@ See [link egg.object_generator Object Generator] section.
       For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
-* `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_AUTOMATIC`.
+* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_AUTOMATIC`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]

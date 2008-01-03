@@ -48,6 +48,8 @@ for any __PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 * `x|p(x1,...,xN)` is a valid expresion if and only if `p(x1,...,xN)|=x` is a valid expression.
 * `x|p(x1,...,xN)` and `p(x1,...,xN)|=x` have the same effects.
 * If `N` is `0`, then `x|p()`, `x|p`, `p|=x`, and `p()|=x` are valid expressions which have the same effects.
+* `operator|` works with left-to-right associativity.
+* `operator|=` works with right-to-left associativity.
 
 [heading Example]
 [code_concepts_pipable_function_object]
