@@ -35,7 +35,7 @@
 <a name="egg.concepts.lexically_typed_object"></a><a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed
       Object</a></h3></div></div></div>
 <a name="egg.concepts.lexically_typed_object.description"></a><h5>
-<a name="id502297"></a>
+<a name="id502307"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.description">Description</a>
       </h5>
 <p>
@@ -43,7 +43,7 @@
         is a named lvalue whose type is referable by using prefix <code class="computeroutput"><span class="identifier">T_</span></code>.
       </p>
 <a name="egg.concepts.lexically_typed_object.refinement_of"></a><h5>
-<a name="id502345"></a>
+<a name="id502356"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.refinement_of">Refinement
         of</a>
       </h5>
@@ -51,7 +51,7 @@
           ...
         </li></ul></div>
 <a name="egg.concepts.lexically_typed_object.requirements"></a><h5>
-<a name="id502378"></a>
+<a name="id502389"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -71,7 +71,7 @@
         </li>
 </ul></div>
 <a name="egg.concepts.lexically_typed_object.example"></a><h5>
-<a name="id502523"></a>
+<a name="id502533"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.example">Example</a>
       </h5>
 <p>
@@ -98,14 +98,14 @@
 <p>
       </p>
 <a name="egg.concepts.lexically_typed_object.models"></a><h5>
-<a name="id502648"></a>
+<a name="id502659"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.lexically_typed_object.see_also"></a><h5>
-<a name="id502681"></a>
+<a name="id502692"></a>
         <a href="concepts.html#egg.concepts.lexically_typed_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
@@ -115,7 +115,7 @@
 <a name="egg.concepts.pipable_function_object"></a><a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
       Object</a></h3></div></div></div>
 <a name="egg.concepts.pipable_function_object.description"></a><h5>
-<a name="id502744"></a>
+<a name="id502754"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.description">Description</a>
       </h5>
 <p>
@@ -124,13 +124,13 @@
         which behaves as if it were a "pipe" using <code class="computeroutput"><span class="keyword">operator</span><span class="special">|</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">|=</span></code>.
       </p>
 <a name="egg.concepts.pipable_function_object.refinement_of"></a><h5>
-<a name="id502822"></a>
+<a name="id502832"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="egg.concepts.pipable_function_object.requirements"></a><h5>
-<a name="id502862"></a>
+<a name="id502872"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -154,7 +154,7 @@
         </li>
 </ul></div>
 <a name="egg.concepts.pipable_function_object.example"></a><h5>
-<a name="id503200"></a>
+<a name="id503211"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.example">Example</a>
       </h5>
 <p>
@@ -185,7 +185,7 @@
 <span class="special">{</span>
     <span class="identifier">pipable</span> <span class="keyword">const</span> <span class="identifier">to_upper</span> <span class="special">=</span> <span class="special">{};</span>
 
-    <span class="keyword">int</span> <span class="identifier">maybeA</span> <span class="special">=</span> <span class="char">'a'</span><span class="special">|</span><span class="identifier">to_upper</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">maybeA</span> <span class="special">=</span> <span class="char">'a'</span><span class="special">|</span><span class="identifier">to_upper</span><span class="special">();</span>
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybeA</span> <span class="special">==</span> <span class="char">'A'</span><span class="special">);</span>
 
     <span class="keyword">int</span> <span class="identifier">maybeB</span> <span class="special">=</span> <span class="identifier">to_upper</span><span class="special">|=</span><span class="char">'b'</span><span class="special">;</span>
@@ -204,14 +204,14 @@
 <p>
       </p>
 <a name="egg.concepts.pipable_function_object.models"></a><h5>
-<a name="id503720"></a>
+<a name="id503731"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.pipable_function_object.see_also"></a><h5>
-<a name="id503753"></a>
+<a name="id503764"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -224,7 +224,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.ambi_function_object"></a><a href="concepts.html#egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function Object</a></h3></div></div></div>
 <a name="egg.concepts.ambi_function_object.description"></a><h5>
-<a name="id503837"></a>
+<a name="id503848"></a>
         <a href="concepts.html#egg.concepts.ambi_function_object.description">Description</a>
       </h5>
 <p>
@@ -233,13 +233,13 @@
         Object</a> which can be used also as free function.
       </p>
 <a name="egg.concepts.ambi_function_object.refinement_of"></a><h5>
-<a name="id503883"></a>
+<a name="id503894"></a>
         <a href="concepts.html#egg.concepts.ambi_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function Object</a></li></ul></div>
 <a name="egg.concepts.ambi_function_object.requirements"></a><h5>
-<a name="id503924"></a>
+<a name="id503934"></a>
         <a href="concepts.html#egg.concepts.ambi_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -275,7 +275,7 @@
 </td></tr>
 </table></div>
 <a name="egg.concepts.ambi_function_object.example"></a><h5>
-<a name="id504195"></a>
+<a name="id504206"></a>
         <a href="concepts.html#egg.concepts.ambi_function_object.example">Example</a>
       </h5>
 <p>
@@ -311,7 +311,7 @@
 <span class="special">{</span>
     <span class="identifier">ambi</span> <span class="keyword">const</span> <span class="identifier">to_lower</span> <span class="special">=</span> <span class="special">{};</span>
 
-    <span class="keyword">int</span> <span class="identifier">maybei</span> <span class="special">=</span> <span class="char">'I'</span><span class="special">|</span><span class="identifier">to_lower</span><span class="special">();</span>
+    <span class="keyword">int</span> <span class="identifier">maybei</span> <span class="special">=</span> <span class="char">'I'</span><span class="special">|</span><span class="identifier">to_lower</span><span class="special">;</span>
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybei</span> <span class="special">==</span> <span class="char">'i'</span><span class="special">);</span>
 
     <span class="keyword">int</span> <span class="identifier">maybej</span> <span class="special">=</span> <span class="identifier">to_lower</span><span class="special">(</span><span class="char">'J'</span><span class="special">);</span>
@@ -330,14 +330,14 @@
 <p>
       </p>
 <a name="egg.concepts.ambi_function_object.models"></a><h5>
-<a name="id504802"></a>
+<a name="id504813"></a>
         <a href="concepts.html#egg.concepts.ambi_function_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.ambi_function_object.see_also"></a><h5>
-<a name="id504835"></a>
+<a name="id504845"></a>
         <a href="concepts.html#egg.concepts.ambi_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -349,25 +349,25 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.major_function_object"></a><a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a></h3></div></div></div>
 <a name="egg.concepts.major_function_object.description"></a><h5>
-<a name="id504907"></a>
+<a name="id504917"></a>
         <a href="concepts.html#egg.concepts.major_function_object.description">Description</a>
       </h5>
 <p>
         A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>
-        is a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-        which is intended to replace normal functions. Egg is the library which helps
-        you build <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
-        Object</a>.
+        is a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a> which can be used with <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>.
+        Egg is a library which helps you define your own <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+        Function Object</a>.
       </p>
 <a name="egg.concepts.major_function_object.refinement_of"></a><h5>
-<a name="id504963"></a>
+<a name="id504981"></a>
         <a href="concepts.html#egg.concepts.major_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
           Function Object</a></li></ul></div>
 <a name="egg.concepts.major_function_object.requirements"></a><h5>
-<a name="id505004"></a>
+<a name="id505022"></a>
         <a href="concepts.html#egg.concepts.major_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -379,21 +379,21 @@
           argument of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
         </li></ul></div>
 <a name="egg.concepts.major_function_object.example"></a><h5>
-<a name="id505100"></a>
+<a name="id505118"></a>
         <a href="concepts.html#egg.concepts.major_function_object.example">Example</a>
       </h5>
 <p>
         ...
       </p>
 <a name="egg.concepts.major_function_object.models"></a><h5>
-<a name="id505129"></a>
+<a name="id505147"></a>
         <a href="concepts.html#egg.concepts.major_function_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.major_function_object.see_also"></a><h5>
-<a name="id505161"></a>
+<a name="id505179"></a>
         <a href="concepts.html#egg.concepts.major_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -406,7 +406,7 @@
 <a name="egg.concepts.static_function_object"></a><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function
       Object</a></h3></div></div></div>
 <a name="egg.concepts.static_function_object.description"></a><h5>
-<a name="id505229"></a>
+<a name="id505247"></a>
         <a href="concepts.html#egg.concepts.static_function_object.description">Description</a>
       </h5>
 <p>
@@ -415,7 +415,7 @@
         which is intended to replace normal functions.
       </p>
 <a name="egg.concepts.static_function_object.refinement_of"></a><h5>
-<a name="id505278"></a>
+<a name="id505295"></a>
         <a href="concepts.html#egg.concepts.static_function_object.refinement_of">Refinement
         of</a>
       </h5>
@@ -424,7 +424,7 @@
 <li><a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a></li>
 </ul></div>
 <a name="egg.concepts.static_function_object.requirements"></a><h5>
-<a name="id505331"></a>
+<a name="id505349"></a>
         <a href="concepts.html#egg.concepts.static_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -447,7 +447,7 @@
         </li>
 </ul></div>
 <a name="egg.concepts.static_function_object.example"></a><h5>
-<a name="id505676"></a>
+<a name="id505694"></a>
         <a href="concepts.html#egg.concepts.static_function_object.example">Example</a>
       </h5>
 <p>
@@ -471,14 +471,14 @@
 <p>
       </p>
 <a name="egg.concepts.static_function_object.models"></a><h5>
-<a name="id505815"></a>
+<a name="id505833"></a>
         <a href="concepts.html#egg.concepts.static_function_object.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.static_function_object.see_also"></a><h5>
-<a name="id505847"></a>
+<a name="id505865"></a>
         <a href="concepts.html#egg.concepts.static_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a></li></ul></div>
@@ -487,7 +487,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.concepts.little_function"></a><a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a></h3></div></div></div>
 <a name="egg.concepts.little_function.description"></a><h5>
-<a name="id505900"></a>
+<a name="id505918"></a>
         <a href="concepts.html#egg.concepts.little_function.description">Description</a>
       </h5>
 <p>
@@ -496,34 +496,34 @@
         require.
       </p>
 <a name="egg.concepts.little_function.refinement_of"></a><h5>
-<a name="id505946"></a>
+<a name="id505963"></a>
         <a href="concepts.html#egg.concepts.little_function.refinement_of">Refinement of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.little_function.requirements"></a><h5>
-<a name="id505978"></a>
+<a name="id505996"></a>
         <a href="concepts.html#egg.concepts.little_function.requirements">Requirements</a>
       </h5>
 <p>
         For any <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>
-        type <code class="computeroutput"><span class="identifier">B</span></code> the following must
+        type <code class="computeroutput"><span class="identifier">L</span></code> the following must
         be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">B</span></code> has a nested class template
+<code class="computeroutput"><span class="identifier">L</span></code> has a nested class template
           named <code class="computeroutput"><span class="identifier">apply</span></code>, where <code class="computeroutput"><span class="identifier">apply</span><span class="special">&lt;...&gt;::</span><span class="identifier">type</span></code> means return type of function calls.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">B</span></code> has a const <span class="emphasis"><em>member
+<code class="computeroutput"><span class="identifier">L</span></code> has a const <span class="emphasis"><em>member
           function</em></span> named <code class="computeroutput"><span class="identifier">call</span></code>
           whose return type is explicitly specified by the first template parameter.
         </li>
 </ul></div>
 <a name="egg.concepts.little_function.example"></a><h5>
-<a name="id506104"></a>
+<a name="id506121"></a>
         <a href="concepts.html#egg.concepts.little_function.example">Example</a>
       </h5>
 <p>
@@ -559,14 +559,14 @@
 <p>
       </p>
 <a name="egg.concepts.little_function.models"></a><h5>
-<a name="id506388"></a>
+<a name="id506406"></a>
         <a href="concepts.html#egg.concepts.little_function.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.little_function.see_also"></a><h5>
-<a name="id506420"></a>
+<a name="id506437"></a>
         <a href="concepts.html#egg.concepts.little_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -594,7 +594,7 @@
 </td></tr>
 </table></div>
 <a name="egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id506506"></a>
+<a name="id506523"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.how_to_call">How to call</a>
       </h5>
 <p>
@@ -720,7 +720,7 @@
 <p>
       </p>
 <a name="egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id507684"></a>
+<a name="id507701"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -737,7 +737,7 @@
         The first bug is fixed with Boost1.35.
       </p>
 <a name="egg.concepts.result_of_tutorial.see_also"></a><h5>
-<a name="id507796"></a>
+<a name="id507813"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="workarounds.html#egg.workarounds.pstade__result_of" title="pstade::result_of">pstade::result_of</a></li></ul></div>

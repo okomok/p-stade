@@ -20,6 +20,7 @@
 #include "../by_cref.hpp"
 #include "../little_apply.hpp"
 #include "./config.hpp"
+#include "./result_of.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace egg {
@@ -55,8 +56,9 @@ namespace pstade { namespace egg {
     } // namespace bll_bind_detail
 
 
+    #define PSTADE_EGG_BLL_BIND_INIT {{}}
     typedef function<bll_bind_detail::little, by_cref> T_bll_bind;
-    PSTADE_POD_CONSTANT((T_bll_bind), bll_bind) = {{}};
+    PSTADE_POD_CONSTANT((T_bll_bind), bll_bind) = PSTADE_EGG_BLL_BIND_INIT;
 
 
 } } // namespace pstade::egg

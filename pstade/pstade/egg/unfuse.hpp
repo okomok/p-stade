@@ -40,7 +40,8 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_UNFUSE_M ,
     #define PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_TUPLE_PACK_INIT
     #define PSTADE_EGG_UNFUSE_R } }
-    #define PSTADE_EGG_UNFUSE(F, P) PSTADE_EGG_UNFUSE_L F PSTADE_EGG_UNFUSE_M P PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_UNFUSE(F) PSTADE_EGG_UNFUSE_L F PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
+
 
     template<class NullaryResult = boost::use_default>
     struct X_unfuse :

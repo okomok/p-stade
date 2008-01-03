@@ -88,7 +88,7 @@ namespace pstade { namespace egg {
     T_auto_object;
 
 
-    PSTADE_POD_CONSTANT((T_auto_object), auto_object) = PSTADE_EGG_UNFUSE({{}}, {});
+    PSTADE_POD_CONSTANT((T_auto_object), auto_object) = PSTADE_EGG_UNFUSE({{}});
 
 
 } } // namespace pstade::egg

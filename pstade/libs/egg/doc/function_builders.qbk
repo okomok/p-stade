@@ -1,6 +1,6 @@
 [section Function Builders]
 
-Function builders build a __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__ type,
+Function builders build __MAJOR_FUNCTION_OBJECT__ type,
 which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [import ../example/function_builders.cpp]
@@ -54,7 +54,6 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 ]
 
 [heading Preconditions]
-* `_Lit` is neither /reference/ nor /cv-qualified/.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
