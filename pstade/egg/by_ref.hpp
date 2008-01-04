@@ -18,12 +18,13 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
+#include "./call_little.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/call_little.hpp"
-#include "./detail/meta_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
 #include "./sig_template.hpp"
+#include "./unref_by.hpp"
+
 
 namespace pstade { namespace egg {
 
@@ -48,7 +49,7 @@ namespace pstade { namespace egg {
 
         nullary_result_type operator()() const
         {
-            return detail::call_little<
+            return egg::call_little<
                 Little, nullary_result_type
             >::call(m_little);
         }
@@ -85,7 +86,7 @@ public:
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(result, n)<
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::meta_arg<A, >::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename unref_by_ref<A, >::type)
         >
     { };
 
@@ -93,7 +94,7 @@ public:
     typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return detail::call_little<
+        return egg::call_little<
             Little, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
         >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a));
     }

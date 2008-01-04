@@ -17,8 +17,8 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pod_constant.hpp>
+#include "../apply_decl.hpp"
 #include "../by_cref.hpp"
-#include "../little_apply.hpp"
 #include "./config.hpp"
 #include "./result_of.hpp" // inclusion guaranteed
 
@@ -32,8 +32,8 @@ namespace pstade { namespace egg {
         struct little
         {
         // 1ary-
-            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_BLL_BIND_MAX_ARITY, A)>
-            struct PSTADE_EGG_LITTLE_APPLY;
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_BLL_BIND_MAX_ARITY, A)>
+            struct PSTADE_EGG_APPLY_DECL;
 
         #define PSTADE_bind_tuple_mapper(N) \
             typename boost::lambda::detail::bind_tuple_mapper< \

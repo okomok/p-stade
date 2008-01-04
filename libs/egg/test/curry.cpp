@@ -130,8 +130,8 @@ struct foo3
         typedef int type;
     };
 
-    template<class Int1, class Int2, class Int3>
-    int operator()(Int1&, Int2&, Int3&) const
+    template<class Int1, class Int2>
+    int operator()(Int1&, Int2&, nc3_t&) const
     {
         return 10;
     }

@@ -52,7 +52,7 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
         operator()(Params) const \
         { \
-            return detail::call_little< \
+            return egg::call_little< \
                 Little, typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
             >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
@@ -94,7 +94,7 @@ namespace pstade { namespace egg {
 
     nullary_result_type operator()() const
     {
-        return detail::call_little<
+        return egg::call_little<
             Little, nullary_result_type
         >::call(m_little);
     }
@@ -107,7 +107,7 @@ private:
     struct BOOST_PP_CAT(result, n) :
         Little::template apply<
             Little const,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::meta_arg<A, >::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename unref_by_perfect<A, >::type)
         >
     { };
 

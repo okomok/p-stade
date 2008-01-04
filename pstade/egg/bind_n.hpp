@@ -34,6 +34,7 @@
     #include <pstade/pass_by.hpp>
     #include <pstade/pod_constant.hpp>
     #include <pstade/preprocessor.hpp>
+    #include "./apply_decl.hpp"
     #include "./by_cref.hpp"
     #include "./by_perfect.hpp"
     #include "./config.hpp"
@@ -41,7 +42,6 @@
     #include "./detail/substitute.hpp"
     #include "./detail/use_nullary_result.hpp"
     #include "./is_bind_expression.hpp"
-    #include "./little_apply.hpp"
     #include "./result_of_ref.hpp"
 
 
@@ -99,8 +99,8 @@
             detail::substitute(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
         /**/
 
-            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct PSTADE_EGG_LITTLE_APPLY;
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct PSTADE_EGG_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, PSTADE_EGG_MAX_ARITY, <pstade/egg/bind_n.hpp>))
             #include BOOST_PP_ITERATE()

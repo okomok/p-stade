@@ -18,9 +18,9 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <pstade/egg/apply_decl.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/little_apply.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./iter_range.hpp"
@@ -34,8 +34,8 @@ namespace pack_detail {
 
     struct little
     {
-        template< class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
-        struct PSTADE_EGG_LITTLE_APPLY;
+        template< class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, Range) >
+        struct PSTADE_EGG_APPLY_DECL;
 
         // 1ary-
     #define PSTADE_iter_rng(Z, N, _) make_iter_range(BOOST_PP_CAT(rng, N))

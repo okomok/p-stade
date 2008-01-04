@@ -27,7 +27,7 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/template_arguments.hpp>
 #include <pstade/use_default.hpp>
-#include "../little_apply.hpp"
+#include "../apply_decl.hpp"
 #include "../use_constructor.hpp"
 
 
@@ -102,8 +102,8 @@ namespace pstade { namespace egg { namespace detail {
         }
 
      // 1ary-
-        template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
-        struct PSTADE_EGG_LITTLE_APPLY;
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
+        struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/little_generator.hpp>))
         #include BOOST_PP_ITERATE()

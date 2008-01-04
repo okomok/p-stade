@@ -20,11 +20,11 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "./apply_decl.hpp"
 #include "./bind_n.hpp"
 #include "./by_cref.hpp"
 #include "./config.hpp"
 #include "./detail/result_of_bind.hpp"
-#include "./little_apply.hpp"
 
 
 namespace pstade { namespace egg {
@@ -36,8 +36,8 @@ namespace pstade { namespace egg {
         template<class NullaryResult>
         struct little
         {
-            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct PSTADE_EGG_LITTLE_APPLY;
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            struct PSTADE_EGG_APPLY_DECL;
 
         // 1ary-
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)

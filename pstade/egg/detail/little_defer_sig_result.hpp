@@ -18,9 +18,9 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include "../apply_decl.hpp"
 #include "../bll/config.hpp"
 #include "../by_ref.hpp"
-#include "../little_apply.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -63,8 +63,8 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, A)>
-        struct PSTADE_EGG_LITTLE_APPLY;
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, A)>
+        struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/little_defer_sig_result.hpp>))
         #include BOOST_PP_ITERATE()

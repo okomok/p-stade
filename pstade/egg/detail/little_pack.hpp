@@ -17,9 +17,9 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
+#include "../apply_decl.hpp"
 #include "../by_ref.hpp"
 #include "../config.hpp"
-#include "../little_apply.hpp"
 
    
 #define PSTADE_EGG_LITTLE_PACK() <pstade/egg/detail/little_pack_include.hpp>

@@ -26,7 +26,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include "../little_apply.hpp"
+#include "../apply_decl.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -41,8 +41,8 @@ namespace pstade { namespace egg { namespace detail {
     #undef  PSTADE_typedef_default_arg
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
-        struct PSTADE_EGG_LITTLE_APPLY;
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
+        struct PSTADE_EGG_APPLY_DECL;
 
     #define PSTADE_typedef_arg(Z, N, _) typedef BOOST_PP_CAT(A, N) BOOST_PP_CAT(arg, N);
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/little_deferred.hpp>))

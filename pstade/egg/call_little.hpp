@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DEDUCED_FORM_HPP
-#define PSTADE_EGG_DEDUCED_FORM_HPP
+#ifndef PSTADE_EGG_CALL_LITTLE_HPP
+#define PSTADE_EGG_CALL_LITTLE_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -15,24 +15,18 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/type.hpp>
-#include <pstade/enable_if.hpp>
-#include "./config.hpp"
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/call_little_fwd.hpp"
-#include "./detail/is_call_strategy_of.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    struct deduced_form;
-
-
-    template<class Little_, class Result>
-    struct call_little<Little_, Result,
-        typename enable_if< detail::is_call_strategy_of<deduced_form, Little_> >::type >
+    template<class Little_, class Result, class EnableIf>
+    struct call_little
     {
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/deduced_form.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/call_little.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -48,7 +42,7 @@ namespace pstade { namespace egg {
     template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     static Result call(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
-        return little.call(boost::type<Result>() BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return little.template call<Result>(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

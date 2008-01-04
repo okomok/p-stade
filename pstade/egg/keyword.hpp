@@ -15,9 +15,9 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
-#include "./detail/meta_arg.hpp"
 #include "./detail/named_arg.hpp"
 #include "./sig_template.hpp"
+#include "./unref_by.hpp"
 
 
 namespace pstade { namespace egg {
@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
         struct result<Self(Arg)>
         {
             typedef
-                detail::named_arg<keyword, typename detail::meta_arg<Arg>::type> const
+                detail::named_arg<keyword, typename unref_by_perfect<Arg>::type> const
             type;
         };
 

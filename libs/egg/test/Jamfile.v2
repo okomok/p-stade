@@ -67,7 +67,7 @@ test-suite "egg" :
     [ run generator_wrapped_ref.cpp ]
     [ run identity.cpp ]
     [ run iequal_to.cpp ]
-    [ run incomplete_baby.cpp ]
+    [ run incomplete_little.cpp ]
     [ run indirect.cpp ]
     [ run infix.cpp ]
     [ run integral_cast.cpp ]
