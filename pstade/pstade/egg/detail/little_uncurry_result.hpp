@@ -19,8 +19,8 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
+#include "../apply_decl.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "../little_apply.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -39,8 +39,8 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-        struct PSTADE_EGG_LITTLE_APPLY;
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+        struct PSTADE_EGG_APPLY_DECL;
 
     #define PSTADE_open_result_of(Z, N, _)  typename result_of<
     #define PSTADE_close_result_of(Z, N, _) >::type(BOOST_PP_CAT(A, N)&)

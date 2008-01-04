@@ -25,10 +25,10 @@
     #include <boost/preprocessor/repetition/enum_params.hpp>
     #include <boost/preprocessor/slot/slot.hpp>
     #include <pstade/pod_constant.hpp>
+    #include "./apply_decl.hpp"
     #include "./by_perfect.hpp"
     #include "./config.hpp"
     #include "./is_bind_expression.hpp"
-    #include "./little_apply.hpp"
 
 
     namespace pstade { namespace egg {
@@ -59,8 +59,8 @@
         struct BOOST_PP_CAT(placeholder, n)
         {
             // nary - PSTADE_EGG_MAX_ARITYary
-            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct PSTADE_EGG_LITTLE_APPLY;
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct PSTADE_EGG_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_2 (3, (n, PSTADE_EGG_MAX_ARITY, <pstade/egg/placeholders.hpp>))
             #include BOOST_PP_ITERATE()

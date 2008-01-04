@@ -18,10 +18,10 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp>
 #include <pstade/use_default.hpp>
+#include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
+#include "./call_little.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/call_little.hpp"
-#include "./little_apply.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -64,12 +64,12 @@ namespace pstade { namespace egg {
             template<class Result>
             Result call() const
             {
-                return detail::call_little<Derived, Result>::call(derived());
+                return egg::call_little<Derived, Result>::call(derived());
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct PSTADE_EGG_LITTLE_APPLY;
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            struct PSTADE_EGG_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/function_facade.hpp>))
             #include BOOST_PP_ITERATE()
@@ -136,7 +136,7 @@ namespace pstade { namespace egg {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return detail::call_little<Derived, Result>::call(derived(), BOOST_PP_ENUM_PARAMS(n, a));
+        return egg::call_little<Derived, Result>::call(derived(), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

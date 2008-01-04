@@ -18,11 +18,11 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/apply_decl.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/little_apply.hpp>
 #include <pstade/egg/sig_template.hpp>
 #include <pstade/egg/use_brace2.hpp>
 #include <pstade/pod_constant.hpp>
@@ -47,7 +47,7 @@ struct little_range_based2_result
     }
 
     template< class Myself, class Range0, class Range1, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_ARITY, class A, = void) >
-    struct PSTADE_EGG_LITTLE_APPLY;
+    struct PSTADE_EGG_APPLY_DECL;
 
     // rng0 + rng1 + 0ary
     template< class Myself, class Range0, class Range1 >

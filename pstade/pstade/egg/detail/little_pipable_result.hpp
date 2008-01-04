@@ -20,9 +20,9 @@
 #include <pstade/deduced_const.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "../apply_decl.hpp"
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
-#include "../little_apply.hpp"
 #include "../tuple/config.hpp"
 
 
@@ -65,8 +65,8 @@ namespace little_pipable_resultns_ {
 
     // 1ary-
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
-        template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_max_arity, A)>
-        struct PSTADE_EGG_LITTLE_APPLY;
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_max_arity, A)>
+        struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/little_pipable_result.hpp>))
         #include BOOST_PP_ITERATE()

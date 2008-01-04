@@ -22,9 +22,9 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./little_apply.hpp"
 
 
 namespace pstade { namespace egg {
@@ -36,8 +36,8 @@ namespace pstade { namespace egg {
         struct little
         {
         // 1ary-
-            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct PSTADE_EGG_LITTLE_APPLY;
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            struct PSTADE_EGG_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/apply.hpp>))
             #include BOOST_PP_ITERATE()

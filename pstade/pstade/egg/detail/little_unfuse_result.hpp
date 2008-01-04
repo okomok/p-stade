@@ -24,8 +24,8 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
+#include "../apply_decl.hpp"
 #include "../by_ref.hpp"
-#include "../little_apply.hpp"
 #include "../tuple/config.hpp"
 #include "../tuple/pack.hpp"
 #include "./use_nullary_result.hpp"
@@ -80,8 +80,8 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, A)>
-        struct PSTADE_EGG_LITTLE_APPLY;
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, A)>
+        struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_SIZE, <pstade/egg/detail/little_unfuse_result.hpp>))
         #include BOOST_PP_ITERATE()

@@ -27,11 +27,11 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
-#include "./little_apply.hpp"
 #include "./pipable.hpp"
 #include "./use_brace2.hpp"
 
@@ -102,8 +102,8 @@ namespace pstade { namespace egg {
                 return m_base(a0);
             }
 #else
-            template<class Myself, PSTADE_EGG_LITTLE_APPLY_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct PSTADE_EGG_LITTLE_APPLY;
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            struct PSTADE_EGG_APPLY_DECL;
 
         // as pipe
             template<class Myself BOOST_PP_ENUM_TRAILING_PARAMS(n_1, class A)>

@@ -85,7 +85,7 @@ This document uses the following notation.
     ]
     [
         [`_const(a)`]
-        [`static_cast<_typeof(a) const &>(a)`]
+        [`static_cast<_typeof(a) const>(a)`]
     ]
     [
         [`_pfo`]

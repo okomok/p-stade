@@ -35,8 +35,8 @@ namespace pstade { namespace pod_constant_detail {
 
 
 // Do you know the exact condition?
-#if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
-    // Infact, msvc too can't tell the right answer around cv-qualifiers.
+#if 0 // defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
+    // msvc too can't tell the right answer around cv-qualifiers.
     #include <boost/static_assert.hpp>
     #include <boost/type_traits/is_pod.hpp>
     #define PSTADE_POD_CONSTANT_is_pod_available
