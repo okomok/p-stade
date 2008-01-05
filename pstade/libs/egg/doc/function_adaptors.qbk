@@ -29,7 +29,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_ambi++N<_typeof(d)>::type` initialized using `d` or an initializer.
+* `fc(d, _Stg)` is an object of `result_of_ambi++N<_typeof(d), _Stg>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -38,20 +38,20 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_ambi++N<_PFo>::type`]
+        [`result_of_ambi++N<_PFo, _Stg = _default>::type`]
         [An __AMBI__ __MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
         [`PSTADE_EGG_AMBI_L init PSTADE_EGG_AMBI_R`]
-        [A braced initializer of `result_of_ambi++N<_PFo>::type`]
+        [A braced initializer of `result_of_ambi++N<_PFo, _Stg>::type`]
     ]
     [
         [`PSTADE_EGG_AMBI(I)`]
         [`PSTADE_EGG_AMBI_L I PSTADE_EGG_AMBI_R`]
     ]
     [
-        [`fc(d)(a1,...,aN)`]
-        [`_const(d)(_arg_list(a, by_perfect))`]
+        [`fc(d, _Stg)(a1,...,aN)`]
+        [`_const(d)(_arg_list(a, _Stg))`]
     ]
     [
         [`ambi++N(d)`]
@@ -62,6 +62,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * `1 <= N && N <= PSTADE_EGG_MAX_ARITY`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
+* If `_Stg` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__ for all `I` such that `2 <= I && I <= N`.
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
@@ -774,8 +775,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`PSTADE_EGG_PIPABLE_L I PSTADE_EGG_PIPABLE_R`]
     ]
     [
-        [`a|fc(d, _Stg)(b1,...,bN)`]
-        [`_const(d)(_arg_list(a, by_perfect), _arg_list(b, _Stg))`]
+        [`a1|fc(d, _Stg)(a2,...,aN)`]
+        [`_const(d)(_arg_list(a, _Stg))`]
     ]
     [
         [`X_pipable<_Stg = _default>`]
@@ -792,8 +793,9 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= _TUPLE_MAX_SIZE-1`.
+* `1 <= N && N <= _TUPLE_MAX_SIZE`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
+* If `_Stg` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__ for all `I` such that `2 <= I && I <= N`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]

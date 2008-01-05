@@ -45,6 +45,7 @@
 #include "./extension.hpp"
 #include "./fix.hpp"
 #include "./flip.hpp"
+#include "./forward.hpp"
 #include "./from.hpp"
 #include "./function.hpp"
 #include "./function_facade.hpp"

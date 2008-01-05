@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
     struct result_of_indirect
     {
         typedef
-            function<detail::little_indirect_result<Dereferenceable>, Strategy>
+            function<detail::little_indirect_result<Dereferenceable, Strategy>, Strategy>
         type;
     };
 

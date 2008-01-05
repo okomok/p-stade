@@ -105,7 +105,7 @@ Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same a
 [section DEFER]
 
 [heading Description]
-Under msvc-8.0, `boost::mpl::apply<PlaceholderExpression,..>` randomly fails
+Under msvc-9.0 or below, `boost::mpl::apply<PlaceholderExpression,..>` randomly fails
 at the instantiation process in `boost::result_of`.
 So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
 

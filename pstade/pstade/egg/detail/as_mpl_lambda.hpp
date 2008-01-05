@@ -13,7 +13,7 @@
 
 // What:
 //
-// Works around a VC8 bug that 'mpl::apply<PlaceholderExpression,..>'
+// Works around a msvc8/9 bug that 'mpl::apply<PlaceholderExpression,..>'
 // occasionally fails in the instantiation process of 'boost::result_of'.
 //
 // These workarounds are known:

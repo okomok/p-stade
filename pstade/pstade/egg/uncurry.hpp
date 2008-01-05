@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
     struct result_of_uncurry
     {
         typedef
-            function<detail::little_uncurry_result<Base>, Strategy>
+            function<detail::little_uncurry_result<Base, Strategy>, Strategy>
         type;
     };
 
