@@ -78,12 +78,12 @@ namespace pstade { namespace egg {
     namespace compose_detail {
 
 
-        template<class NullaryResult>
+        template<class NullaryResult, class Strategy>
         struct little
         {
             template<class Myself, class F, class G>
             struct apply :
-                result_of_compose<F, G, NullaryResult>
+                result_of_compose<F, G, NullaryResult, Strategy>
             { };
 
             template<class Result, class F, class G>
@@ -98,11 +98,10 @@ namespace pstade { namespace egg {
     } // namespace compose_detail
 
 
-    template<class NullaryResult = boost::use_default>
+    template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct X_compose :
-        function<compose_detail::little<NullaryResult>, by_value>
+        function<compose_detail::little<NullaryResult, Strategy>, by_value>
     { };
-
 
     typedef X_compose<>::function_type T_compose;
     PSTADE_POD_CONSTANT((T_compose), compose) = {{}};

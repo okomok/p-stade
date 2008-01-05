@@ -36,16 +36,17 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_PIPABLE(F) PSTADE_EGG_PIPABLE_L F PSTADE_EGG_PIPABLE_R
 
 
-    typedef
+    template<class Strategy = by_perfect>
+    struct X_pipable :
         generator<
-            result_of_pipable< deduce<boost::mpl::_1, as_value> >::type,
+            typename result_of_pipable<deduce<boost::mpl::_1, as_value>, Strategy>::type,
             boost::use_default,
             use_brace2,
             by_value
         >::type
-    T_pipable;
+    { };
 
-
+    typedef X_pipable<>::function_type T_pipable;
     PSTADE_POD_CONSTANT((T_pipable), pipable) = PSTADE_EGG_GENERATOR;
 
 

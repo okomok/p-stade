@@ -43,16 +43,17 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_INDIRECT(P) PSTADE_EGG_INDIRECT_L P PSTADE_EGG_INDIRECT_R
 
 
-    typedef
+    template<class Strategy = by_perfect>
+    struct X_indirect :
         generator<
-            result_of_indirect< deduce<boost::mpl::_1, as_value> >::type,
+            typename result_of_indirect<deduce<boost::mpl::_1, as_value>, Strategy>::type,
             boost::use_default,
             use_brace2,
             by_value
         >::type
-    T_indirect;
+    { };
 
-
+    typedef X_indirect<>::function_type T_indirect;
     PSTADE_POD_CONSTANT((T_indirect), indirect) = PSTADE_EGG_GENERATOR;
 
 

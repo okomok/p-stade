@@ -170,6 +170,11 @@ void test_pipable()
     BOOST_CHECK( ( multiplies(3, 4)|= 2 ) == 2 * 3 * 4 );
 }
 //]
+void test_pipable_pipable()
+{
+    base_multiplies const mult = {};
+    BOOST_CHECK( (7 |( mult|(pipable|pipable(pipable)) ) ) == 7 * 7 );
+}
 
 
 
@@ -181,4 +186,5 @@ void pstade_minimal_test()
     test_lazy();
     test_memoize();
     test_pipable();
+    test_pipable_pipable();
 }
