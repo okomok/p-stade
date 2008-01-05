@@ -36,16 +36,17 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_UNCURRY(F) PSTADE_EGG_UNCURRY_L F PSTADE_EGG_UNCURRY_R
 
 
-    typedef
+    template<class Strategy = by_perfect>
+    struct X_uncurry :
         generator<
-            result_of_uncurry< deduce<boost::mpl::_1, as_value> >::type,
+            typename result_of_uncurry<deduce<boost::mpl::_1, as_value>, Strategy>::type,
             boost::use_default,
             use_brace2,
             by_value
         >::type
-    T_uncurry;
+    { };
 
-
+    typedef X_uncurry<>::function_type T_uncurry;
     PSTADE_POD_CONSTANT((T_uncurry), uncurry) = {{}};
 
 

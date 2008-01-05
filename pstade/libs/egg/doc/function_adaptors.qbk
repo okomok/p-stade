@@ -115,16 +115,16 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d1)(_const(d2)(_arg_list(a, _Stg)))`]
     ]
     [
-        [`X_compose<R0 = _default>`]
+        [`X_compose<R0 = _default, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_compose<R0>()(d1, d2)`]
-        [`fc(d1, d2, R0, _default)`]
+        [`X_compose<R0, _Stg>()(d1, d2)`]
+        [`fc(d1, d2, R0, _Stg)`]
     ]
     [
         [`compose`]
-        [`X_compose<R0>()`]
+        [`X_compose<>()`]
     ]
 ]
 
@@ -253,8 +253,16 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)(parens(_arg_list(a, _Stg)))`]
     ]
     [
-        [`uncurry(d)`]
-        [`fc(d, _default)`]
+        [`X_uncurry<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_uncurry<_Stg>()(d)`]
+        [`fc(d, _Stg)`]
+    ]
+    [
+        [`uncurry`]
+        [`X_uncurry<>()`]
     ]
 ]
 
@@ -379,11 +387,11 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)( boost::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
     ]
     [
-        [`X_unfuse<R0 = _default>`]
-        [`A __MAJOR_FUNCTION_OBJECT__ type`]
+        [`X_unfuse<R0 = _default, _Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_unfuse<R0>()(d)`]
+        [`X_unfuse<R0, _Stg>()(d)`]
         [`fc(d, R0, _default)`]
     ]
     [
@@ -452,8 +460,16 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`(*p)(_arg_list(a, _Stg))`]
     ]
     [
-        [`indirect(p)`]
-        [`fc(p, _default)`]
+        [`X_indirect<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_indirect<_Stg>()(p)`]
+        [`fc(p, _Stg)`]
+    ]
+    [
+        [`indirect`]
+        [`X_indirect<>()`]
     ]
 ]
 
@@ -762,8 +778,16 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`_const(d)(_arg_list(a, by_perfect), _arg_list(b, _Stg))`]
     ]
     [
+        [`X_pipable<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_pipable<_Stg>()(d)`]
+        [`fc(d, _Stg)`]
+    ]
+    [
         [`pipable(d)`]
-        [`fc(d, _default)`]
+        [`X_pipable<>()`]
     ]
 ]
 
@@ -871,12 +895,12 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
         [`_const(f)(_arg_list(a, _Stg))`]
     ]
     [
-        [`X_ret<R>`]
+        [`X_ret<R, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_ret<R>()(f)`]
-        [`fc(f)(R, _default)`]
+        [`X_ret<R, _Stg>()(f)`]
+        [`fc(f, R, _Stg)`]
     ]
     [
         [`egg::ret<R>`]

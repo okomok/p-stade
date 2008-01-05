@@ -43,13 +43,14 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_UNFUSE(F) PSTADE_EGG_UNFUSE_L F PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
 
 
-    template<class NullaryResult = boost::use_default>
+    template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct X_unfuse :
         generator<
             typename result_of_unfuse<
                 deduce<boost::mpl::_1, as_value>,
                 deduce<boost::mpl::_2, as_value, boost::use_default>,
-                NullaryResult
+                NullaryResult,
+                Strategy
             >::type,
             boost::use_default,
             use_brace2,
