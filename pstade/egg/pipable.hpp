@@ -22,11 +22,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Base, class Strategy = by_perfect>
+    template<class Base, class Strategy = by_perfect, class StrategyL = Strategy>
     struct result_of_pipable
     {
         typedef
-            function<detail::little_pipable_result<Base, Strategy>, Strategy>
+            function<detail::little_pipable_result<Base, Strategy, StrategyL>, Strategy>
         type;
     };
 
@@ -36,10 +36,10 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_PIPABLE(F) PSTADE_EGG_PIPABLE_L F PSTADE_EGG_PIPABLE_R
 
 
-    template<class Strategy = by_perfect>
+    template<class Strategy = by_perfect, class StrategyL = Strategy>
     struct X_pipable :
         generator<
-            typename result_of_pipable<deduce<boost::mpl::_1, as_value>, Strategy>::type,
+            typename result_of_pipable<deduce<boost::mpl::_1, as_value>, Strategy, StrategyL>::type,
             boost::use_default,
             use_brace2,
             by_value

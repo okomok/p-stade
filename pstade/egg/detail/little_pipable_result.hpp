@@ -12,18 +12,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/if.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
+#include "../forward.hpp"
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
 #include "../tuple/config.hpp"
+#include "./is_a_or_b.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -37,7 +42,7 @@ namespace little_pipable_resultns_ {
 
     // Fortunately, 'boost::tuples::null_type' is a POD type.
 
-    template<class Base, class Strategy, class ArgTuple = boost::tuples::null_type>
+    template<class Base, class Strategy, class StrategyL, class ArgTuple = boost::tuples::null_type>
     struct little_pipable_result
     {
         typedef Base base_type;
@@ -51,9 +56,16 @@ namespace little_pipable_resultns_ {
             return m_base;
         }
 
+        // Arguments must be copied in case of by_value.
+        // Notice that Boost.Tuple doesn't work with movable types.
+        template<class A>
+        struct ref_or_value :
+            result_of_forward<A, Strategy>
+        { };
+
     // 0ary
         typedef
-            function<little_pipable_result, Strategy>
+            function<little_pipable_result, StrategyL>
         nullary_result_type;
 
         template<class Result>
@@ -89,34 +101,58 @@ namespace little_pipable_resultns_ {
     { };
 
 
-    template<class A, class Base, class Strategy, class ArgTuple> inline
-    typename result_of_output<A, Base, ArgTuple>::type
-    operator|(A& a, function<little_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi)
+    // operator|
+    //   msvc-7.1 seems to need lazy_enable_if to keep return type as well-formed as possible.
+    //
+
+    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
+    operator|(A& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
-    template<class A, class Base, class Strategy, class ArgTuple> inline
-    typename result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple>::type
-    operator|(A const& a, function<little_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi)
+    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
+    operator|(A const& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
+        // by_value
+        template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+        typename lazy_enable_if< boost::is_same<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
+        operator|(A a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
+        {
+            // For movable types, we can't turn `a` into `const reference`.
+            return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        }
 
-    template<class A, class Base, class Strategy, class ArgTuple> inline
-    typename result_of_output<A, Base, ArgTuple>::type
-    operator|=(function<little_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi, A& a)
+
+    // operater|=
+    //
+
+    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A& a)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
-    template<class A, class Base, class Strategy, class ArgTuple> inline
-    typename result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple>::type
-    operator|=(function<little_pipable_result<Base, Strategy, ArgTuple>, Strategy> const& pi, A const& a)
+    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A const& a)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
+
+        // by_value
+        template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+        typename lazy_enable_if< boost::is_same<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
+        operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A a)
+        {
+            return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        }
 
 
     struct lookup_pipable_operator { };
@@ -142,7 +178,10 @@ using little_pipable_resultns_::lookup_pipable_operator;
     {
         typedef
             function<
-                little_pipable_result< Base, Strategy, boost::tuples::tuple<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)> >,
+                little_pipable_result<
+                    Base, Strategy, StrategyL,
+                    boost::tuples::tuple<PSTADE_PP_ENUM_PARAMS_WITH(n, typename ref_or_value<A, >::type)>
+                >,
                 Strategy
             >
         type;

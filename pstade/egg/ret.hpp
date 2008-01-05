@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
     struct result_of_ret
     {
         typedef
-            function<detail::little_ret_result<Base, ResultType, Tag>, Strategy>
+            function<detail::little_ret_result<Base, ResultType, Strategy, Tag>, Strategy>
         type;
     };
 

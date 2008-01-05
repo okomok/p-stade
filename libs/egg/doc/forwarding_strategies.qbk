@@ -72,8 +72,7 @@ Egg performs the "perfect forwarding" by default.
 
 [heading Preconditions]
 * `0 <= K && K <= PSTADE_EGG_MAX_ARITY`.
-* `aI` is not a /function reference/.
-
+* `aI` is neither /function reference/ nor /function name/.
 
 [heading Example]
 * `_meta_arg_list(a, by_perfect)` is `int,const int,int const` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.

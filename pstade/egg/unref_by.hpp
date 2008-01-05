@@ -40,13 +40,22 @@ namespace pstade { namespace egg {
     { };
 
 
+    // rvalue
     template<class A>
     struct unref_by_cref
     {
-        typedef typename unref_by_perfect<A>::type const type;
+        typedef A const type;
+    };
+
+    // lvalue
+    template<class A>
+    struct unref_by_cref<A&>
+    {
+        typedef A const type;
     };
 
 
+    // always non-const for movable types.
     template<class A>
     struct unref_by_value :
         pass_by_value<A>

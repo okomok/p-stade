@@ -21,12 +21,13 @@
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../forward.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base>
+    template<class Base, class Strategy>
     struct little_uncurry_result
     {
         Base m_base;
@@ -43,8 +44,8 @@ namespace pstade { namespace egg { namespace detail {
         struct PSTADE_EGG_APPLY_DECL;
 
     #define PSTADE_open_result_of(Z, N, _)  typename result_of<
-    #define PSTADE_close_result_of(Z, N, _) >::type(BOOST_PP_CAT(A, N)&)
-    #define PSTADE_paren(Z, N, _) ( BOOST_PP_CAT(a, N) )
+    #define PSTADE_close_result_of(Z, N, _) >::type(typename result_of_forward<BOOST_PP_CAT(A, N), Strategy>::type)
+    #define PSTADE_paren(Z, N, _) ( egg::forward<Strategy>(BOOST_PP_CAT(a, N)) )
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/little_uncurry_result.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_paren
@@ -65,7 +66,7 @@ namespace pstade { namespace egg { namespace detail {
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_open_result_of, ~)
-                Base const(A0&)
+                Base const(typename result_of_forward<A0, Strategy>::type)
             BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_close_result_of, ~)
         >      
     { };
