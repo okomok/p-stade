@@ -35,9 +35,6 @@
 namespace pstade { namespace egg {
 
 
-    struct by_value;
-
-
     template<class Little>
     struct function<Little, by_value>
     {

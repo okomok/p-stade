@@ -14,8 +14,6 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/type_traits/is_integral.hpp>
-#include <pstade/adl_barrier.hpp>
-#include "./specified.hpp"
 
 
 namespace pstade { namespace egg {
@@ -37,9 +35,10 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_ADL_BARRIER(integral_cast) { // for 'boost'
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (integral_cast, X_integral_cast, (class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+    template<class To, class From> inline
+    To integral_cast(From const& from)
+    {
+        return X_integral_cast<To>()(from);
     }
 
 

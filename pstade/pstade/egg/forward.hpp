@@ -28,24 +28,24 @@
 namespace pstade { namespace egg {
 
 
-    template<class A, class Strategy>
+    template<class Lvalue, class Strategy>
     struct result_of_forward
     {
-        typedef A& type;
+        typedef Lvalue& type;
     };
 
     // must return non-const rvalue for movable types.
-    template<class A>
-    struct result_of_forward<A, by_value> :
-        boost::remove_cv<A>
+    template<class Lvalue>
+    struct result_of_forward<Lvalue, by_value> :
+        boost::remove_cv<Lvalue>
     { };
 
 
 PSTADE_ADL_BARRIER(forward) { // for C++0x
 
-    template<class Strategy, class A> inline
-    typename result_of_forward<A, Strategy>::type
-    forward(A& a)
+    template<class Strategy, class Lvalue> inline
+    typename result_of_forward<Lvalue, Strategy>::type
+    forward(Lvalue& a)
     {
         return a;
     }

@@ -13,7 +13,6 @@
 
 #include <boost/spirit/iterator/position_iterator.hpp>
 #include <pstade/egg/make_function.hpp>
-#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
@@ -99,8 +98,11 @@ struct X_position
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS (position, X_position, (class), (1))
-#include PSTADE_EGG_SPECIFIED()
+template< class Position, class Adapted > inline
+Position position(Adapted ad)
+{
+    return X_position<Position>()(ad);
+}
 
 
 } } // namespace pstade::oven

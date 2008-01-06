@@ -16,7 +16,6 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/copy.hpp>
-#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
@@ -149,8 +148,11 @@ struct X_cycle_count
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS (cycle_count, X_cycle_count, (class), (1))
-#include PSTADE_EGG_SPECIFIED()
+template< class Incrementable, class Adapted > inline
+Incrementable cycle_count(Adapted ad)
+{
+    return X_cycle_count<Incrementable>()(ad);
+}
 
 
 } } // namespace pstade::oven

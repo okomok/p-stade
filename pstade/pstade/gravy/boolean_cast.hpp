@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/specified.hpp>
 #include "./sdk/windows.hpp"
 #include "./sdk/wtypes.hpp" // VARIANT_BOOL
 
@@ -80,8 +79,12 @@ namespace pstade { namespace gravy {
         }
     };
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (boolean_cast, X_boolean_cast, (class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+
+    template<class To, class From> inline
+    To boolean_cast(From from)
+    {
+        return X_boolean_cast<To>()(from);
+    }
 
 
 } } // namespace pstade::gravy

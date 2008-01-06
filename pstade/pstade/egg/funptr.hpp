@@ -26,7 +26,6 @@
 #include <pstade/use_default.hpp>
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./specified.hpp"
 
 
 namespace pstade { namespace egg {
@@ -86,8 +85,11 @@ namespace pstade { namespace egg {
     { };
 
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (funptr, X_funptr, (class)(class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+    template<class Signature, class UniqueID, class Base> inline
+    typename result_of<X_funptr<Signature, UniqueID>(Base&)>::type funptr(Base base)
+    {
+        return X_funptr<Signature, UniqueID>()(base);
+    }
 
 
 } } // namespace pstade::egg

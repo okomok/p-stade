@@ -13,11 +13,11 @@
 
 #include <boost/mpl/lambda.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./detail/little_return_result.hpp"
 #include "./generator.hpp"
-#include "./specified.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -52,8 +52,11 @@ namespace pstade { namespace egg {
     { };
 
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (return_, X_return_, (class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+    template<class Lambda, class Base> inline
+    typename result_of<X_return_<Lambda>(Base&)>::type return_(Base base)
+    {
+        return X_return_<Lambda>()(base);
+    }
 
 
 } } // namespace pstade::egg

@@ -621,7 +621,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `N` is an arity of `Sig`.
 * `R` is a return type of `Sig`.
 * `ParamOf(Sig, I)` is an imaginary operator which returns an `I`th parameter type of `Sig`.
-* `arglist` is `b1,...,bN` such that `ParamOf(Sig, 0) b1 = a1; ... ParamOf(Sig, N-1) bN = aN;`.
+* `bI` is `boost::implicit_cast<ParamOf(Sig, I)>(aI)`.
 
 [heading Valid expressions]
 [table 
@@ -643,7 +643,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [`_const(f)(arglist)`]
+        [`_const(f)(b1,...,bN)`]
     ]
     [
         [`X_mono<Sig>`]
