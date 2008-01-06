@@ -30,8 +30,8 @@
 //#define PSTADE_EGG_TEST_NUMBERED 1
 //#define PSTADE_EGG_TEST_LINEAR 0
 //#define PSTADE_EGG_MAX_ARITY 10
-//#include <pstade/../libs/egg/test/generator_simple.cpp>
+#include <pstade/../libs/egg/test/ret.cpp>
 //#include <pstade/../libs/egg/example/tuple_pack.cpp>
 
-#include <boost/../libs/iterator/test/transform_iterator_test.cpp>
+//#include <boost/../libs/iterator/test/transform_iterator_test.cpp>
 //#include <boost/../libs/oven/example/one_year.cpp>

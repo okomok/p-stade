@@ -36,7 +36,7 @@ Egg no longer considers function templates to be useful, so that it provides
     ]
     [
         [`X_apply<_Stg>()(_pfo, a1,...,aN)`]
-        [`_pfo(_arg_list(a, _Stg))` ]
+        [`_pfo(_safe_arg_list(a, _Stg))` ]
     ]
     [
         [`apply`]
@@ -45,7 +45,7 @@ Egg no longer considers function templates to be useful, so that it provides
 ]
 
 [heading Preconditions]
-* `_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
+* `_safe_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
 * The corresponding semantics is a valid expression.
 
 

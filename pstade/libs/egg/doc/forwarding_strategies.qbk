@@ -30,6 +30,10 @@ This section uses the following notation.
         [`_val(a)`]
         [`const_cast<V &>(static_cast<V const &>(boost::implicit_cast<V>(a)))`]
     ]
+    [
+        [`_rval(a)`]
+        [`boost::implicit_cast<V>(a)`]
+    ]
 ]
 , where `V` is `boost::remove_cv<boost::decay<_typeof(a)>::type>::type`.
 
@@ -38,6 +42,61 @@ This section uses the following notation.
 
 
 [import ../example/my_perfect.cpp]
+
+
+
+
+[section Argument list]
+
+[heading Description]
+Egg defines the following imaginary operators for its documentation.
+
+[heading Header]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_arg_list(a, _Stg)`]
+        [See each section of `_Stg`.]
+    ]
+    [
+        [`_arg_list(a, _default)`]
+        [`_arg_list(a, by_perfect)`]
+    ]
+    [
+        [`_meta_arg_list(a, _Stg)`]
+        [See each section of `_Stg`.]
+    ]
+    [
+        [`_meta_arg_list(a, _default)`]
+        [`_meta_arg_list(a, by_perfect)`]
+    ]
+    [
+        [`_safe_arg_list(a, _Stg)`]
+        [`_rval(a1),...,_rval(aK)` if `_Stg` is `by_value`. `_arg_list(a, _Stg)` otherwise.]
+    ]
+]
+
+[important `_arg_list` and `_safe_arg_list` has slightly different semantics.
+           Put simply, in case of __EGG_FUNCTION_ADAPTORS__ with `by_value`,
+           a base __FUNCTION_OBJECT__ too must take arguments by value or const reference. ]
+
+[heading Preconditions]
+* `_Stg` is `by_perfect`, `by_ref`, `by_value` or `_default`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __FORWARDING_PROBLEM__
+
+[endsect]
 
 
 

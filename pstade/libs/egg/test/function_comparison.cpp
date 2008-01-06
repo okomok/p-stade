@@ -58,9 +58,9 @@ namespace my {
         return left.m_int == right.m_int;
     }
 
-    bool operator<(little const& left, little_ const &right)
+    bool operator>=(little const& left, little_ const &right)
     {
-        return left.m_int < right.m_int;
+        return left.m_int >= right.m_int;
     }
 
 }
@@ -78,12 +78,14 @@ void pstade_minimal_test()
     using namespace pstade;
 
     T_pmajor const pm0 = {{0}};
+    T_pmajor const pm1 = {{1}};
 
     T_rmajor const rm0 = {{0}};
     T_rmajor const rm1 = {{1}};
 
     {
         BOOST_CHECK(pm0 == rm0);
-        BOOST_CHECK(pm0 < rm1);
+        BOOST_CHECK(pm1 >= rm1);
+        BOOST_CHECK(pm1 >= rm0);
     }
 }
