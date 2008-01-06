@@ -20,6 +20,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./curry.hpp"
+#include "./detail/bind_left1.hpp"
 #include "./function.hpp"
 #include "./make_function.hpp"
 

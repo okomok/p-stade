@@ -63,7 +63,7 @@ namespace pstade { namespace egg {
             operator To&() const
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
                 // Thanks to Sergey Shandar.
-                // In fact, SFINAE in exception-specification probably isn't allowed.
+                // In fact, SFINAE in exception-specification isn't allowed.
                 throw(typename disable_if<boost::is_same<To, automator_ref const>, std::exception>::type)
 #endif
             {

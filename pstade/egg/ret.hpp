@@ -12,11 +12,11 @@
 
 
 #include <pstade/adl_barrier.hpp>
+#include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./detail/little_ret_result.hpp"
 #include "./generator.hpp"
-#include "./specified.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -56,10 +56,15 @@ namespace pstade { namespace egg {
     { };
 
 
-    PSTADE_ADL_BARRIER(ret) { // for 'boost'
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (ret, X_ret, (class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+PSTADE_ADL_BARRIER(ret) { // for `boost::lambda`
+
+    template<class ResultType, class Base> inline
+    typename result_of<X_ret<ResultType>(Base&)>::type ret(Base base)
+    {
+        return X_ret<ResultType>()(base);
     }
+
+}
 
 
 } } // namespace pstade::egg

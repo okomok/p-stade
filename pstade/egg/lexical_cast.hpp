@@ -13,7 +13,6 @@
 
 #include <boost/lexical_cast.hpp>
 #include <pstade/adl_barrier.hpp>
-#include "./specified.hpp"
 
 
 namespace pstade { namespace egg {
@@ -33,10 +32,15 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_ADL_BARRIER(lexical_cast) { // for 'boost'
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (lexical_cast, X_lexical_cast, (class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+PSTADE_ADL_BARRIER(lexical_cast) { // for boost
+
+    template<class To, class From> inline
+    To lexical_cast(From const& from)
+    {
+        return X_lexical_cast<To>()(from);
     }
+
+}
 
 
 } } // namespace pstade::egg

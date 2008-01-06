@@ -12,7 +12,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/implicit_cast.hpp>
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
@@ -23,7 +26,7 @@
 #include <pstade/use_default.hpp>
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./specified.hpp"
+#include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
@@ -44,8 +47,10 @@ namespace pstade { namespace egg {
 
 
         // 0ary-
+    #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/mono.hpp>))
         #include BOOST_PP_ITERATE()
+    #undef  PSTADE_forward
 
 
     } // namespace mono_detail
@@ -63,6 +68,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_MONO_L {
     #define PSTADE_EGG_MONO_R }
     #define PSTADE_EGG_MONO(F) PSTADE_EGG_MONO_L F PSTADE_EGG_MONO_R
+
 
     namespace mono_detail {
 
@@ -93,8 +99,11 @@ namespace pstade { namespace egg {
     { };
 
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (mono, X_mono, (class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+    template<class Signature, class Base> inline
+    typename result_of<X_mono<Signature>(Base&)>::type mono(Base base)
+    {
+        return X_mono<Signature>()(base);
+    }
 
 
 } } // namespace pstade::egg
@@ -126,13 +135,13 @@ namespace pstade { namespace egg {
 
         typedef typename
             eval_if_use_default<ResultType,
-                result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::add_reference<A, >::type))>
+                result_of<Base const(BOOST_PP_ENUM_PARAMS(n, A))>
             >::type
         result_type;
 
         result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
         {
-            return m_base(BOOST_PP_ENUM_PARAMS(n, a));
+            return m_base(BOOST_PP_ENUM(n, PSTADE_forward, ~));
         }
     };
 

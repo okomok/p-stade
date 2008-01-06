@@ -28,7 +28,6 @@
 #include <boost/type_traits/is_reference.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./by_cref.hpp"
-#include "./specified.hpp"
 
 
 namespace pstade { namespace egg {
@@ -89,10 +88,15 @@ namespace pstade { namespace egg {
     { };
 
 
-    PSTADE_ADL_BARRIER(copy) { // for 'std'
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (copy, X_copy, (class), (1))
-    #include PSTADE_EGG_SPECIFIED()
+PSTADE_ADL_BARRIER(copy) { // for std
+
+    template<class To, class From> inline
+    To copy(From const& from)
+    {
+        return X_copy<To>()(from);
     }
+
+}
 
 
 } } // namespace pstade::egg

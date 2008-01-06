@@ -19,7 +19,6 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
@@ -97,8 +96,11 @@ struct X_line_number
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS (line_number, X_line_number, (class), (1))
-#include PSTADE_EGG_SPECIFIED()
+template< class Incrementable, class Adapted > inline
+Incrementable line_number(Adapted ad)
+{
+    return X_line_number<Incrementable>()(ad);
+}
 
 
 } } // namespace pstade::oven
