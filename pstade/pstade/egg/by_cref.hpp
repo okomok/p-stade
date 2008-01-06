@@ -74,6 +74,7 @@ namespace pstade { namespace egg {
 
 
 private:
+    // This indirection is needed for msvc ETI bug.
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
         Little::template apply<

@@ -22,7 +22,7 @@
 #define PSTADE_name    BOOST_PP_TUPLE_ELEM(4, 0, PSTADE_EGG_SPECIFIED_PARAMS)
 #define PSTADE_op      BOOST_PP_TUPLE_ELEM(4, 1, PSTADE_EGG_SPECIFIED_PARAMS)
 #define PSTADE_params  PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(BOOST_PP_TUPLE_ELEM(4, 2, PSTADE_EGG_SPECIFIED_PARAMS))
-#define PSTADE_arities BOOST_PP_TUPLE_ELEM(4, 3, PSTADE_EGG_SPECIFIED_PARAMS)
+#define PSTADE_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(4, 3, PSTADE_EGG_SPECIFIED_PARAMS))
 
 
     #define PSTADE_function(R, BitSeq) \
@@ -46,7 +46,7 @@
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A&
     #define PSTADE_ac1(A) PSTADE_EGG_CONST_REF(A)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(PSTADE_arities)), <pstade/egg/detail/specified_include.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_arities)), <pstade/egg/detail/specified_include.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
@@ -66,7 +66,7 @@
 
 
 #else
-#define n BOOST_PP_SEQ_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
+#define n BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
 
 
 #if n == 0

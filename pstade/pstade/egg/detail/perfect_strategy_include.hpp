@@ -13,7 +13,7 @@
     #error Please define PSTADE_EGG_PERFECT_STRATEGY_PARAMS.
 #endif
 #define PSTADE_stg     BOOST_PP_TUPLE_ELEM(2, 0, PSTADE_EGG_PERFECT_STRATEGY_PARAMS)
-#define PSTADE_arities BOOST_PP_TUPLE_ELEM(2, 1, PSTADE_EGG_PERFECT_STRATEGY_PARAMS)
+#define PSTADE_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(2, 1, PSTADE_EGG_PERFECT_STRATEGY_PARAMS))
 
 
 namespace pstade { namespace egg {
@@ -63,7 +63,7 @@ namespace pstade { namespace egg {
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A
     #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(PSTADE_arities)), <pstade/egg/detail/perfect_strategy_include.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_arities)), <pstade/egg/detail/perfect_strategy_include.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
@@ -87,7 +87,7 @@ namespace pstade { namespace egg {
 
 
 #else
-#define n BOOST_PP_SEQ_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
+#define n BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
 
 
 #if n == 0
