@@ -52,7 +52,7 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
         operator()(Params) const \
         { \
-            return egg::call_little< \
+            return detail::call_little_impl< \
                 Little, typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
             >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
@@ -94,7 +94,7 @@ namespace pstade { namespace egg {
 
     nullary_result_type operator()() const
     {
-        return egg::call_little<
+        return detail::call_little_impl<
             Little, nullary_result_type
         >::call(m_little);
     }

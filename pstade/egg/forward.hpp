@@ -17,11 +17,14 @@
 // Otherwise, it introduces the forwarding problem into little functions.
 
 
+#include <boost/mpl/eval_if.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
+#include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
+#include "./detail/compatible_strategy.hpp"
 #include "./function_fwd.hpp"
 
 
@@ -29,15 +32,11 @@ namespace pstade { namespace egg {
 
 
     template<class Lvalue, class Strategy>
-    struct result_of_forward
-    {
-        typedef Lvalue& type;
-    };
-
-    // must return non-const rvalue for movable types.
-    template<class Lvalue>
-    struct result_of_forward<Lvalue, by_value> :
-        boost::remove_cv<Lvalue>
+    struct result_of_forward :
+        boost::mpl::eval_if< detail::is_compatible_strategy<Strategy, by_value>,
+            boost::remove_cv<Lvalue>, // must return non-const rvalue for movable types.
+            boost::add_reference<Lvalue>
+        >
     { };
 
 

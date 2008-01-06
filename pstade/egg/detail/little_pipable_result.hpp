@@ -17,7 +17,6 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
@@ -27,7 +26,7 @@
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
 #include "../tuple/config.hpp"
-#include "./is_a_or_b.hpp"
+#include "./compatible_strategy.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -98,6 +97,9 @@ namespace little_pipable_resultns_ {
             typename result_of<T_fuse(Base const&)>::type(boost::tuples::cons<A&, ArgTuple>)
         >
     { };
+    
+
+    struct lookup_pipable_operator { };
 
 
     // operator|
@@ -105,56 +107,53 @@ namespace little_pipable_resultns_ {
     //
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
     operator|(A& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
+    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
     operator|(A const& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
-        // by_value
-        template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-        typename lazy_enable_if< boost::is_same<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
-        operator|(A a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
-        {
-            // For movable types, we can't turn `a` into `const reference`.
-            return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
-        }
+    // by_value
+    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+    typename lazy_enable_if< is_compatible_strategy<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
+    operator|(A a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
+    {
+        // For movable types, we can't turn `a` into `const reference`.
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+    }
 
 
     // operater|=
     //
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A& a)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< detail::is_a_or_b<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
+    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A const& a)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
-        // by_value
-        template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-        typename lazy_enable_if< boost::is_same<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
-        operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A a)
-        {
-            return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
-        }
-
-
-    struct lookup_pipable_operator { };
+    // by_value
+    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
+    typename lazy_enable_if< is_compatible_strategy<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A a)
+    {
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+    }
 
 
 } // namespace little_pipable_resultns_
