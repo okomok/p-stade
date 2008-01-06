@@ -17,6 +17,9 @@
 // Otherwise, it introduces the forwarding problem into little functions.
 
 
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/enum.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./function_fwd.hpp"
@@ -48,6 +51,24 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
     }
 
 }
+
+
+    #define PSTADE_EGG_FORWARD_ENUM_META_ARGS(N, A, Stg) \
+        BOOST_PP_ENUM(N, PSTADE_EGG_FORWARD_ENUM_META_ARGS_op, (A, Stg)) \
+    /**/
+
+        #define PSTADE_EGG_FORWARD_ENUM_META_ARGS_op(Z, N, A_Stg) \
+            typename pstade::egg::result_of_forward<BOOST_PP_CAT(BOOST_PP_TUPLE_ELEM(2, 0, A_Stg), N), BOOST_PP_TUPLE_ELEM(2, 1, A_Stg) >::type \
+        /**/
+
+
+    #define PSTADE_EGG_FORWARD_ENUM_ARGS(N, A, Stg) \
+        BOOST_PP_ENUM(N, PSTADE_EGG_FORWARD_ENUM_ARGS_op, (A, Stg)) \
+    /**/
+
+        #define PSTADE_EGG_FORWARD_ENUM_ARGS_op(Z, N, A_Stg) \
+            pstade::egg::forward<BOOST_PP_TUPLE_ELEM(2, 1, A_Stg)>( BOOST_PP_CAT(BOOST_PP_TUPLE_ELEM(2, 0, A_Stg), N) ) \
+        /**/
 
 
 } } // namespace pstade::egg
