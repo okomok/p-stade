@@ -123,7 +123,7 @@ namespace pstade { namespace egg { namespace detail {
 // Dereferenceable extension
 //
 
-#include "../extension.hpp"
+#include "../extension_fwd.hpp"
 
 
 namespace pstade_egg_extension {

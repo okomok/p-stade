@@ -20,10 +20,8 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_decl.hpp"
@@ -47,12 +45,6 @@ namespace pstade { namespace egg { namespace detail {
             return m_base;
         }
 
-        // Make a unary metafunction for macros.
-        template<class A>
-        struct meta_forward :
-            result_of_forward<A, Strategy>
-        { };
-
     // 0ary
         typedef typename
             eval_if_use_default< ResultType, result_of<Base const()> >::type
@@ -68,10 +60,8 @@ namespace pstade { namespace egg { namespace detail {
         template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
-    #define PSTADE_forward(Z, N, _) egg::forward<Strategy>(BOOST_PP_CAT(a, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/little_ret_result.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_forward
     };
 
 
@@ -87,14 +77,14 @@ namespace pstade { namespace egg { namespace detail {
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         eval_if_use_default<
             ResultType,
-            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, typename meta_forward<A, >::type))>
+            result_of<Base const(PSTADE_EGG_FORWARD_ENUM_META_ARGS(n, A, Strategy))>
         >
     { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return m_base(BOOST_PP_ENUM(n, PSTADE_forward, ~));
+        return m_base(PSTADE_EGG_FORWARD_ENUM_ARGS(n, a, Strategy));
     }
 
 

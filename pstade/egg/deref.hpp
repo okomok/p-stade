@@ -13,7 +13,7 @@
 
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
-#include "./extension.hpp"
+#include "./detail/deref_extension.hpp"
 
 
 namespace pstade { namespace egg {

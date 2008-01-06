@@ -15,7 +15,6 @@
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
@@ -46,11 +45,8 @@ namespace pstade { namespace egg {
 
 
     // 1ary-
-#define PSTADE_forward(Z, N, _) egg::forward<Strategy>(BOOST_PP_CAT(a, N))
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/ambi.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_forward
-
 
     // If msvc fails to find operator|, use this as super type.
     using ambi1_detail::lookup_ambi_operator;
@@ -80,12 +76,6 @@ namespace pstade { namespace egg {
                 return m_base;
             }
 
-            // Make a unary metafunction for macros.
-            template<class A>
-            struct meta_forward :
-                result_of_forward<A, Strategy>
-            { };
-
 #if n == 1
         // as pipe
             typedef
@@ -102,7 +92,7 @@ namespace pstade { namespace egg {
         // as function call
             template<class Myself, class A0>
             struct apply :
-                result_of<Base const(typename meta_forward<A0>::type)>
+                result_of<Base const(typename result_of_forward<A0, Strategy>::type)>
             { };
 
             template<class Result, class A0>
@@ -131,13 +121,13 @@ namespace pstade { namespace egg {
         // as function call
             template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-                result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, typename meta_forward<A, >::type))>
+                result_of<Base const(PSTADE_EGG_FORWARD_ENUM_META_ARGS(n, A, Strategy))>
             { };    
 
             template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
             Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
             {
-                return m_base(BOOST_PP_ENUM(n, PSTADE_forward, ~));
+                return m_base(PSTADE_EGG_FORWARD_ENUM_ARGS(n, a, Strategy));
             }
 #endif // n == 1
         };

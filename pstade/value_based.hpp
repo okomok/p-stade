@@ -102,7 +102,7 @@ namespace pstade {
 //
 
 #include <boost/pointee.hpp>
-#include <pstade/egg/extension.hpp>
+#include <pstade/egg/extension_fwd.hpp>
 
 
 namespace pstade_egg_extension {
