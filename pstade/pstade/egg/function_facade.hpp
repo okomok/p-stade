@@ -20,8 +20,8 @@
 #include <pstade/use_default.hpp>
 #include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
-#include "./call_little.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./detail/call_little_impl.hpp"
 #include "./use_brace2.hpp"
 
 
@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
             template<class Result>
             Result call() const
             {
-                return egg::call_little<Derived, Result>::call(derived());
+                return detail::call_little_impl<Derived, Result>::call(derived());
             }
 
         // 1ary-
@@ -136,7 +136,7 @@ namespace pstade { namespace egg {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return egg::call_little<Derived, Result>::call(derived(), BOOST_PP_ENUM_PARAMS(n, a));
+        return detail::call_little_impl<Derived, Result>::call(derived(), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

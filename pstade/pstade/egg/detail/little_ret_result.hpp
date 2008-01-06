@@ -32,7 +32,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base, class ResultType, class Tag, class Strategy>
+    template<class Base, class ResultType, class Strategy, class Tag>
     struct little_ret_result
     {
         typedef Base base_type;

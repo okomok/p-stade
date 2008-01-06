@@ -18,7 +18,6 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
@@ -28,7 +27,7 @@
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/is_a_or_b.hpp"
+#include "./detail/compatible_strategy.hpp"
 #include "./forward.hpp"
 #include "./function_fwd.hpp"
 #include "./generator.hpp"
@@ -136,59 +135,63 @@ namespace pstade { namespace egg {
 
 #if n == 1
 
+        struct lookup_ambi_operator { };
+
+
+        using detail::is_compatible_strategy;
+        using detail::is_compatible_strategy2;
+
+
         // operator|
         //
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< detail::is_a_or_b<Strategy, by_perfect, by_ref>, result_of<Base(A0&)> >::type
+        typename lazy_enable_if< is_compatible_strategy2<Strategy, by_perfect, by_ref>, result_of<Base(A0&)> >::type
         operator|(A0& a0, function<little_result<Base, Strategy>, Strategy> pi)
         {
             return pi.little().m_base(a0);
         }
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< detail::is_a_or_b<Strategy, by_perfect, by_cref>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
+        typename lazy_enable_if< is_compatible_strategy2<Strategy, by_perfect, by_cref>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
         operator|(A0 const& a0, function<little_result<Base, Strategy>, Strategy> pi)
         {
             return pi.little().m_base(a0);
         }
 
-            // by_value
-            template<class A0, class Base, class Strategy> inline
-            typename lazy_enable_if< boost::is_same<Strategy, by_value>, result_of<Base(A0)> >::type
-            operator|(A0 a0, function<little_result<Base, Strategy>, Strategy> pi)
-            {
-                return pi.little().m_base(egg::forward<by_value>(a0));
-            }
+        // by_value
+        template<class A0, class Base, class Strategy> inline
+        typename lazy_enable_if< is_compatible_strategy<Strategy, by_value>, result_of<Base(A0)> >::type
+        operator|(A0 a0, function<little_result<Base, Strategy>, Strategy> pi)
+        {
+            return pi.little().m_base(egg::forward<by_value>(a0));
+        }
 
 
         // operator|=
         //
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< detail::is_a_or_b<Strategy, by_perfect, by_ref>, result_of<Base(A0&)> >::type
+        typename lazy_enable_if< is_compatible_strategy2<Strategy, by_perfect, by_ref>, result_of<Base(A0&)> >::type
         operator|=(function<little_result<Base, Strategy>, Strategy> pi, A0& a0)
         {
             return pi.little().m_base(a0);
         }
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< detail::is_a_or_b<Strategy, by_perfect, by_cref>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
+        typename lazy_enable_if< is_compatible_strategy2<Strategy, by_perfect, by_cref>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
         operator|=(function<little_result<Base, Strategy>, Strategy> pi, A0 const& a0)
         {
             return pi.little().m_base(a0);
         }
 
-            // by_value
-            template<class A0, class Base, class Strategy> inline
-            typename lazy_enable_if< boost::is_same<Strategy, by_value>, result_of<Base(A0)> >::type
-            operator|=(function<little_result<Base, Strategy>, Strategy> pi, A0 a0)
-            {
-                return pi.little().m_base(egg::forward<by_value>(a0));
-            }
-
-
-        struct lookup_ambi_operator { };
+        // by_value
+        template<class A0, class Base, class Strategy> inline
+        typename lazy_enable_if< is_compatible_strategy<Strategy, by_value>, result_of<Base(A0)> >::type
+        operator|=(function<little_result<Base, Strategy>, Strategy> pi, A0 a0)
+        {
+            return pi.little().m_base(egg::forward<by_value>(a0));
+        }
 
 #endif // n == 1
 

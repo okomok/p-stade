@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
         template<class Strategy>
         struct little
         {
-            template<class Myself, class F, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_LINEAR_ARITY, class A, = void)>
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)

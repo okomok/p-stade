@@ -15,20 +15,16 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/call_little_fwd.hpp"
+#include "./detail/call_little_impl.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Little_, class Result, class EnableIf>
-    struct call_little
-    {
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/call_little.hpp>))
-        #include BOOST_PP_ITERATE()
-    };
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/call_little.hpp>))
+    #include BOOST_PP_ITERATE()
 
 
 } } // namespace pstade::egg
@@ -39,10 +35,12 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    static Result call(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    template<class Result, class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
+    Result call_little(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
-        return little.template call<Result>(BOOST_PP_ENUM_PARAMS(n, a));
+        return detail::call_little_impl<
+            typename boost::remove_cv<Little>::type, Result
+        >::call(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 

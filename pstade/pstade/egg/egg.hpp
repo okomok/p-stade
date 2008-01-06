@@ -23,6 +23,7 @@
 #include "./by_perfect.hpp"
 #include "./by_ref.hpp"
 #include "./by_value.hpp"
+#include "./call_little.hpp"
 #include "./compose.hpp"
 #include "./compose2.hpp"
 #include "./config.hpp"
