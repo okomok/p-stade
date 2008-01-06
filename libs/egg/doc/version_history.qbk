@@ -44,6 +44,8 @@
 [heading Version 0.90.4]
 * Every FunctionAdaptor provides `X_xxx`.
 * `pipable` and `ambiN` implemented precise Forwarding Strategy.
+* FunctionAdaptor with `by_value` turns arguments into rvalues if possible.
+* Comparison operators added.
 
 
 

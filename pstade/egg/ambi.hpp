@@ -6,7 +6,7 @@
 
 // PStade.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -47,6 +47,7 @@ namespace pstade { namespace egg {
     // 1ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/ambi.hpp>))
     #include BOOST_PP_ITERATE()
+
 
     // If msvc fails to find operator|, use this as super type.
     using ambi1_detail::lookup_ambi_operator;

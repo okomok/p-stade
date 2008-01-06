@@ -68,7 +68,7 @@ A simple object generator can be built automagically using the following family.
 
 
 
-[section Generating Forms]
+[section Generating forms]
 
 [heading Description]
 `generator` generates an object using constructor by default.

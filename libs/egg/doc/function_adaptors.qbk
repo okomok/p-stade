@@ -51,7 +51,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, _Stg)(a1,...,aN)`]
-        [`_const(d)(_arg_list(a, _Stg))`]
+        [`_const(d)(_safe_arg_list(a, _Stg))`]
     ]
     [
         [`ambi++N(d)`]
@@ -113,7 +113,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d1, d2, R0, Stg)(a1,...,aN)`]
-        [`_const(d1)(_const(d2)(_arg_list(a, _Stg)))`]
+        [`_const(d1)(_const(d2)(_safe_arg_list(a, _Stg)))`]
     ]
     [
         [`X_compose<R0 = _default, _Stg = _default>`]
@@ -186,7 +186,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d)(a1)...(aN)`]
-        [`_const(d)(_arg_list(b, by_cref),_arg_list(aN, by_perfect))`]
+        [`_const(d)(_safe_arg_list(b, by_cref),_safe_arg_list(aN, by_perfect))`]
     ]
     [
         [`curry++N(d)`]
@@ -251,7 +251,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, _Stg)(a1,...,aN)`]
-        [`_const(d)(parens(_arg_list(a, _Stg)))`]
+        [`_const(d)(parens(_safe_arg_list(a, _Stg)))`]
     ]
     [
         [`X_uncurry<_Stg = _default>`]
@@ -297,7 +297,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_fuse<_typeof(d)>::type` initialized using `d` or an initializer.
-* `t_` is `_arg_list(t, by_perfect)`.
+* `t_` is `_safe_arg_list(t, by_perfect)`.
 
 [heading Valid expressions]
 [table 
@@ -385,7 +385,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, R0, _Stg)(a1,...,aN)`]
-        [`_const(d)( boost::tuple<ref(_meta_arg_list(a, by_ref))>(_arg_list(a, _Stg)) )`]
+        [`_const(d)( boost::tuple<ref(_meta_safe_arg_list(a, by_ref))>(_safe_arg_list(a, _Stg)) )`]
     ]
     [
         [`X_unfuse<R0 = _default, _Stg = _default>`]
@@ -458,7 +458,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(p, _Stg)(a1,...,aN)`]
-        [`(*p)(_arg_list(a, _Stg))`]
+        [`(*p)(_safe_arg_list(a, _Stg))`]
     ]
     [
         [`X_indirect<_Stg = _default>`]
@@ -528,7 +528,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [__POLYMORPHIC__ `boost::lambda::bind(f, _arg_list(a, by_cref))`]
+        [__POLYMORPHIC__ `boost::lambda::bind(f, _safe_arg_list(a, by_cref))`]
     ]
     [
         [`lazy(f)`]
@@ -582,7 +582,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_pfo)(a1)`]
-        [`_const(_pfo)(fixed, _arg_list(_arg_list(a, by_cref), by_value))`]
+        [`_const(_pfo)(fixed, _safe_arg_list(_safe_arg_list(a, by_cref), by_value))`]
     ]
 ]
 
@@ -591,7 +591,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Preconditions]
 * A __FUNCTION_OBJECT__ returned from `memoize(_pfo)` must always be called with the same type arguments.
 * `_typeof(a1)` is __ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
-* `_decltype( _pfo(fixed, _arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
+* `_decltype( _pfo(fixed, _safe_arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -716,7 +716,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(d)(a1,...,aN)`]
-        [`_const(d)(_arg_list(a, by_perfect))`]
+        [`_const(d)(_safe_arg_list(a, by_perfect))`]
     ]
     [
         [`perfect(d)`]
@@ -776,7 +776,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`a1|fc(d, _Stg)(a2,...,aN)`]
-        [`_const(d)(_arg_list(a, _Stg))`]
+        [`_const(d)(_safe_arg_list(a, _Stg))`]
     ]
     [
         [`X_pipable<_Stg = _default>`]
@@ -841,7 +841,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`regular(f)(a1,...,aN)`]
-        [`_const(f)(_arg_list(a, by_perfect))`]
+        [`_const(f)(_safe_arg_list(a, by_perfect))`]
     ]
 ]
 
@@ -894,7 +894,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`fc(f, R, _Stg)(a1,...,aN)`]
-        [`_const(f)(_arg_list(a, _Stg))`]
+        [`_const(f)(_safe_arg_list(a, _Stg))`]
     ]
     [
         [`X_ret<R, _Stg = _default>`]
@@ -948,8 +948,8 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * `ReturnT(a, R)` is:
     * If `R` is `_default`, it is a type which is specified using `boost::result_of`.
     * Else if `R` is `boost::mpl::always<R_>`, it is `R_`.
-    * Else if `R` is `nullary_meta<R_>`, it is `boost::mpl::apply<R_, _meta_arg_list(a, _Stg)>::type`.
-    * Else, it is `boost::mpl::apply<R, _meta_arg_list(a, _Stg)>::type`.
+    * Else if `R` is `nullary_meta<R_>`, it is `boost::mpl::apply<R_, _meta_safe_arg_list(a, _Stg)>::type`.
+    * Else, it is `boost::mpl::apply<R, _meta_safe_arg_list(a, _Stg)>::type`.
 
 [heading Valid expressions]
 [table 
@@ -967,7 +967,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`fc(f, R, _Stg)(a1,...,aN)`]
-        [`_const(f)(_arg_list(a, _Stg))` whose return type is `ReturnT(a, R)`.]
+        [`_const(f)(_safe_arg_list(a, _Stg))` whose return type is `ReturnT(a, R)`.]
     ]
     [
         [`X_retby<R>`]
@@ -1040,7 +1040,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`fc(d, Tag, _Stg)(a1,...,aN)`]
-        [`_const(d)(_arg_list(a, _Stg))`]
+        [`_const(d)(_safe_arg_list(a, _Stg))`]
     ]
     [
         [`tag_of<F>::type`]

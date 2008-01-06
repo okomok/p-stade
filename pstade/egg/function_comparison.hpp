@@ -6,16 +6,16 @@
 
 // PStade.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/array/size.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #include "./function_fwd.hpp"
 
 
@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
 #define op BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_ops)
 
 
-    template<class L1, class S1, class L2, class S2>
+    template<class L1, class S1, class L2, class S2> inline
     bool operator op (function<L1, S1> const& left, function<L2, S2> const& right)
     {
         return left.little() op right.little();
