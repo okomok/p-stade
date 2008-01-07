@@ -22,6 +22,7 @@
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/use_default.hpp>
 #include "../bll/return_type.hpp"
 #include "../by_perfect.hpp"
 
@@ -94,11 +95,14 @@ namespace pstade { namespace egg {
 #define act  BOOST_PP_TUPLE_ELEM(3, 2, entry)
 
 
+    template<class ResultType>
     struct BOOST_PP_CAT(little_, name)
     {
         template<class Myself, class A1, class A2>
         struct apply :
-            boost::lambda::return_type_2<act, A1, A2>
+            eval_if_use_default<ResultType,
+                boost::lambda::return_type_2<act, A1, A2>
+            >
         { };
 
         template<class Result, class A1, class A2>
@@ -108,9 +112,9 @@ namespace pstade { namespace egg {
         }
     };
 
-    template<class Strategy = by_perfect>
+    template<class ResultType = boost::use_default, class Strategy = by_perfect>
     struct BOOST_PP_CAT(X_, name) :
-        function<BOOST_PP_CAT(little_, name), Strategy>
+        function<BOOST_PP_CAT(little_, name)<ResultType>, Strategy>
     { };
 
     PSTADE_ADL_BARRIER(functional2) {

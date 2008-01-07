@@ -12,6 +12,12 @@
 #include <pstade/egg/functional.hpp>
 #include <pstade/minimal_test.hpp>
 
+struct my_t
+{
+    my_t operator-() const { return my_t(); }
+};
+
+my_t operator+(my_t, my_t) { return my_t(); }
 
 void pstade_minimal_test()
 {
@@ -39,4 +45,8 @@ void pstade_minimal_test()
     BOOST_CHECK( pstade::egg::multiplies(3, 5) == 15 );
 
     BOOST_CHECK( pstade::egg::negate(3) == -3 );
+
+    my_t unk = {};
+    my_t unk_ = pstade::egg::X_plus<my_t>()(unk, unk);
+    unk_ = pstade::egg::X_negate<my_t>()(unk);
 }
