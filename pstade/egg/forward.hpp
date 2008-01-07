@@ -21,29 +21,46 @@
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
-#include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
-#include "./detail/compatible_strategy.hpp"
+#include "./detail/by_at.hpp"
 #include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Lvalue, class Strategy>
+    namespace forward_detail {
+
+
+        template<class Lvalue, class By>
+        struct pass
+        {
+            typedef Lvalue& type;
+        };
+
+        // For movable types, you can't add const-qualifier.
+        template<class Lvalue>
+        struct pass<Lvalue, by_value> :
+            boost::remove_cv<Lvalue>
+        { };
+
+
+    } // forward_detail
+
+
+    template<class Strategy, int N, class Lvalue>
     struct result_of_forward :
-        boost::mpl::eval_if< detail::is_compatible_strategy<Strategy, by_value>,
-            boost::remove_cv<Lvalue>, // must return non-const rvalue for movable types.
-            boost::add_reference<Lvalue>
+        forward_detail::pass<
+            Lvalue, typename detail::by_at<Strategy, N>::type
         >
     { };
 
 
 PSTADE_ADL_BARRIER(forward) { // for C++0x
 
-    template<class Strategy, class Lvalue> inline
-    typename result_of_forward<Lvalue, Strategy>::type
+    template<class Strategy, int N, class Lvalue> inline
+    typename result_of_forward<Strategy, N, Lvalue>::type
     forward(Lvalue& a)
     {
         return a;
@@ -53,20 +70,20 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
 
 
     #define PSTADE_EGG_FORWARD_ENUM_META_ARGS(N, A, Stg) \
-        BOOST_PP_ENUM(N, PSTADE_EGG_FORWARD_ENUM_META_ARGS_op, (2, (A, Stg))) \
+        BOOST_PP_ENUM(N, PSTADE_EGG_FORWARD_ENUM_META_ARGS_op, (2, (Stg, A))) \
     /**/
 
-        #define PSTADE_EGG_FORWARD_ENUM_META_ARGS_op(Z, N, A_Stg) \
-            typename pstade::egg::result_of_forward<BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(0, A_Stg), N), BOOST_PP_ARRAY_ELEM(1, A_Stg)>::type \
+        #define PSTADE_EGG_FORWARD_ENUM_META_ARGS_op(Z, N, Stg_A) \
+            typename pstade::egg::result_of_forward<BOOST_PP_ARRAY_ELEM(0, Stg_A), N, BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(1, Stg_A), N)>::type \
         /**/
 
 
     #define PSTADE_EGG_FORWARD_ENUM_ARGS(N, A, Stg) \
-        BOOST_PP_ENUM(N, PSTADE_EGG_FORWARD_ENUM_ARGS_op, (2, (A, Stg))) \
+        BOOST_PP_ENUM(N, PSTADE_EGG_FORWARD_ENUM_ARGS_op, (2, (Stg, A))) \
     /**/
 
-        #define PSTADE_EGG_FORWARD_ENUM_ARGS_op(Z, N, A_Stg) \
-            pstade::egg::forward<BOOST_PP_ARRAY_ELEM(1, A_Stg)>( BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(0, A_Stg), N) ) \
+        #define PSTADE_EGG_FORWARD_ENUM_ARGS_op(Z, N, Stg_A) \
+            pstade::egg::forward<BOOST_PP_ARRAY_ELEM(0, Stg_A), N>( BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(1, Stg_A), N) ) \
         /**/
 
 

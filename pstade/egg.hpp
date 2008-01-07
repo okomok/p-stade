@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./egg/egg.hpp"
+#include "./egg/detail/egg.hpp"
 
 
 #endif

@@ -16,7 +16,7 @@
 #include <pstade/egg/function_fwd.hpp>
 
 /*<< Declare your strategy tag. >>*/
-struct my_perfect { typedef pstade::egg::by_perfect type; };
+struct my_perfect { };
 
 /*<< `(2)(7)` means call operators can take is 2 or 7 arguments by perfect forwarding. >>*/
 #define  PSTADE_EGG_PERFECT_STRATEGY_PARAMS (::my_perfect, (2)(7))

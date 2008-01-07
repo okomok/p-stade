@@ -26,7 +26,7 @@
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
 #include "../tuple/config.hpp"
-#include "./compatible_strategy.hpp"
+#include "./is_front_by_of.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -54,12 +54,6 @@ namespace little_pipable_resultns_ {
             return m_base;
         }
 
-        // Arguments must be copied in case of by_value.
-        // Notice that Boost.Tuple doesn't work with movable types.
-        template<class A>
-        struct ref_or_value :
-            result_of_forward<A, Strategy>
-        { };
 
     // 0ary
         typedef
@@ -107,14 +101,14 @@ namespace little_pipable_resultns_ {
     //
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_front_by_of2<by_perfect, by_ref, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
     operator|(A& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
+    typename lazy_enable_if< is_front_by_of2<by_perfect, by_cref, StrategyL>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
     operator|(A const& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
@@ -122,7 +116,7 @@ namespace little_pipable_resultns_ {
 
     // by_value
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_compatible_strategy<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_front_by_of<by_value, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
     operator|(A a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
     {
         // For movable types, we can't turn `a` into `const reference`.
@@ -134,14 +128,14 @@ namespace little_pipable_resultns_ {
     //
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_ref>, result_of_output<A, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_front_by_of2<by_perfect, by_ref, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A& a)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
     }
 
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_compatible_strategy2<StrategyL, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
+    typename lazy_enable_if< is_front_by_of2<by_perfect, by_cref, StrategyL>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A const& a)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
@@ -149,7 +143,7 @@ namespace little_pipable_resultns_ {
 
     // by_value
     template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_compatible_strategy<StrategyL, by_value>, result_of_output<A, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_front_by_of<by_value, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A a)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
@@ -178,7 +172,9 @@ using little_pipable_resultns_::lookup_pipable_operator;
             function<
                 little_pipable_result<
                     Base, Strategy, StrategyL,
-                    boost::tuples::tuple<PSTADE_PP_ENUM_PARAMS_WITH(n, typename ref_or_value<A, >::type)>
+                    // Arguments must be copied in case of by_value.
+                    // Notice that Boost.Tuple doesn't work with movable types.
+                    boost::tuples::tuple<PSTADE_EGG_FORWARD_ENUM_META_ARGS(n, A, Strategy)>
                 >,
                 Strategy
             >

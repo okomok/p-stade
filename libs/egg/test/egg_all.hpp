@@ -11,6 +11,6 @@
 //  Note: There are no include guards. This is intentional.
 
 
-#include <pstade/egg/egg.hpp>
-#include <pstade/egg/egg_pending.hpp>
+#include <pstade/egg/detail/egg.hpp>
+#include <pstade/egg/detail/egg_pending.hpp>
 
