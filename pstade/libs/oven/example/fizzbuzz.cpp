@@ -19,6 +19,7 @@
 #include <pstade/egg/to_string.hpp>
 #include <pstade/oven/rvalues.hpp>
 #include <pstade/oven/const_refs.hpp>
+#include <pstade/egg/bll/string.hpp>
 
 
 namespace lambda = boost::lambda;

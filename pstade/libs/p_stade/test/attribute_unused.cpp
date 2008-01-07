@@ -1,7 +1,6 @@
 
 
 #include <pstade/minimal_test.hpp>
-//#include <pstade/egg/egg.hpp>
 
 
 template<class X>

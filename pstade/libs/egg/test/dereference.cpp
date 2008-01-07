@@ -18,6 +18,8 @@
 #include <pstade/result_of.hpp>
 #include <boost/optional/optional.hpp>
 #include <pstade/egg/is_same.hpp>
+#include <pstade/egg/bll/optional.hpp>
+#include <memory>
 
 
 using namespace pstade::egg;
@@ -69,5 +71,13 @@ void pstade_minimal_test()
             r = dereference(o);
         BOOST_CHECK(is_same(x, *o));
         BOOST_CHECK(is_same(r, *o));
+    }
+    {
+        std::auto_ptr<int> const p(new int(3));
+        BOOST_CHECK(*p == 3);
+        *p = 2;
+        BOOST_CHECK(*p == 2);
+        dereference(p) = 4;
+        BOOST_CHECK(*p == 4);
     }
 }

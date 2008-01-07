@@ -29,6 +29,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
+#include <pstade/egg/bll/optional.hpp> // inclusion guaranteed
 #include <pstade/egg/functional.hpp> // dereference
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/remove_cvr.hpp>

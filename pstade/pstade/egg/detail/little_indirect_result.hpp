@@ -21,31 +21,31 @@
 #include "../apply_decl.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "../forward.hpp"
-#include "../functional.hpp" // dereference
+#include "./functional1.hpp" // dereference
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Dereferenceable>
+    template<class Ptr>
     struct indirecting_fun :
         boost::remove_reference<
-            typename result_of<T_dereference(Dereferenceable const&)>::type
+            typename result_of<T_dereference(Ptr const&)>::type
         >
     { };
 
 
-    template<class Dereferenceable, class Strategy>
+    template<class Ptr, class Strategy>
     struct little_indirect_result
     {
-        Dereferenceable m_drf;
+        Ptr m_ptr;
 
-        typedef typename indirecting_fun<Dereferenceable>::type base_type;
+        typedef typename indirecting_fun<Ptr>::type base_type;
 
-        typename result_of<T_dereference(Dereferenceable const&)>::type
+        typename result_of<T_dereference(Ptr const&)>::type
         base() const
         {
-            return *m_drf;
+            return *m_ptr;
         }
 
     // 0ary
@@ -56,7 +56,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result>
         Result call() const
         {
-            return (*m_drf)();
+            return (*m_ptr)();
         }
 
     // 1ary-
@@ -84,7 +84,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return (*m_drf)(PSTADE_EGG_FORWARD_ENUM_ARGS(n, a, Strategy));
+        return (*m_ptr)(PSTADE_EGG_FORWARD_ENUM_ARGS(n, a, Strategy));
     }
 
 

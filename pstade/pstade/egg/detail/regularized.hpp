@@ -78,7 +78,7 @@ namespace pstade { namespace egg { namespace detail {
             return *this;
         }
 
-    // Dereferenceable
+    // dereference
         X& operator*()
         {
             return (*m_opx).m_x;

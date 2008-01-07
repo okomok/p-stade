@@ -29,11 +29,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Dereferenceable, class Strategy = by_perfect>
+    template<class Ptr, class Strategy = by_perfect>
     struct result_of_indirect
     {
         typedef
-            function<detail::little_indirect_result<Dereferenceable, Strategy>, Strategy>
+            function<detail::little_indirect_result<Ptr, Strategy>, Strategy>
         type;
     };
 

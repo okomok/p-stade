@@ -23,7 +23,6 @@
 #include "../bll/return_type.hpp"
 #include "../by_perfect.hpp"
 #include "./bll_contentsof_hack.hpp"
-#include "./contentsof_optional.hpp"
 
 
 namespace pstade { namespace egg {

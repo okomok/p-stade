@@ -19,6 +19,7 @@
 #include <pstade/egg/call_little.hpp>
 #include <boost/mpl/assert.hpp>
 #include <pstade/egg/unref_by.hpp>
+#include <boost/mpl/vector.hpp>
 
 
 namespace egg = pstade::egg;
@@ -27,10 +28,10 @@ using namespace egg;
 
 struct my_by_value
 {
-    typedef by_value type;
+    typedef boost::mpl::vector<by_value, by_value> type;
 };
 
-BOOST_MPL_ASSERT((detail::is_compatible_strategy<my_by_value, by_value>));
+BOOST_MPL_ASSERT((detail::is_front_by_of<by_value, my_by_value>));
 
 
 namespace pstade { namespace egg {

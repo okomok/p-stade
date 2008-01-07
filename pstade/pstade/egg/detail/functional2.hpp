@@ -91,7 +91,7 @@ namespace pstade { namespace egg {
         (%=,  modulus_assign,      boost::lambda::arithmetic_assignment_action<boost::lambda::remainder_action>), \
         (+=,  plus_assign,         boost::lambda::arithmetic_assignment_action<boost::lambda::plus_action>), \
         (-=,  minus_assign,        boost::lambda::arithmetic_assignment_action<boost::lambda::minus_action>), \
-        (&=,   bitwise_and_assign, boost::lambda::bitwise_assignment_action<boost::lambda::and_action>), \
+        (&=,  bitwise_and_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::and_action>), \
         (|=,  bitwise_or_assign,   boost::lambda::bitwise_assignment_action<boost::lambda::or_action>), \
         (^=,  bitwise_xor_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::xor_action>) \
     ) ) \

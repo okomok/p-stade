@@ -30,6 +30,7 @@ test-suite "egg" :
     [ run bind_tests_simple.cpp ]
     [ run bll.cpp ]
     [ run bll_result_of.cpp ]
+    [ run bll_return_type.cpp ]
     [ run by_cref.cpp ]
     [ run by_perfect.cpp ]
     [ run by_ref.cpp ]
