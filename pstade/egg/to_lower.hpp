@@ -10,16 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <locale> // tolower
 #include "./detail/char_conversion.hpp"
-
-
-namespace pstade { namespace egg {
-
-    #define  PSTADE_EGG_CHAR_CONVERSION_PARAMS (to_lower, std::tolower)
-    #include PSTADE_EGG_CHAR_CONVERSION()
-
-} } // namespace pstade::egg
 
 
 #endif

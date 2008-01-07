@@ -27,7 +27,7 @@
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/is_front_by_of.hpp"
+#include "./detail/is_front_bytag_of.hpp"
 #include "./forward.hpp"
 #include "./function_fwd.hpp"
 #include "./generator.hpp"
@@ -138,22 +138,22 @@ namespace pstade { namespace egg {
         struct lookup_ambi_operator { };
 
 
-        using detail::is_front_by_of;
-        using detail::is_front_by_of2;
+        using detail::is_front_bytag_of;
+        using detail::is_front_bytag_of2;
 
 
         // operator|
         //
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< is_front_by_of2<by_perfect, by_ref, Strategy>, result_of<Base(A0&)> >::type
+        typename lazy_enable_if< is_front_bytag_of2<by_perfect, by_ref, Strategy>, result_of<Base(A0&)> >::type
         operator|(A0& a0, function<little_result<Base, Strategy>, Strategy> pi)
         {
             return pi.little().m_base(a0);
         }
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< is_front_by_of2<by_perfect, by_cref, Strategy>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
+        typename lazy_enable_if< is_front_bytag_of2<by_perfect, by_cref, Strategy>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
         operator|(A0 const& a0, function<little_result<Base, Strategy>, Strategy> pi)
         {
             return pi.little().m_base(a0);
@@ -161,7 +161,7 @@ namespace pstade { namespace egg {
 
         // by_value
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< is_front_by_of<by_value, Strategy>, result_of<Base(A0)> >::type
+        typename lazy_enable_if< is_front_bytag_of<by_value, Strategy>, result_of<Base(A0)> >::type
         operator|(A0 a0, function<little_result<Base, Strategy>, Strategy> pi)
         {
             return pi.little().m_base(egg::forward<by_value>(a0));
@@ -172,14 +172,14 @@ namespace pstade { namespace egg {
         //
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< is_front_by_of2<by_perfect, by_ref, Strategy>, result_of<Base(A0&)> >::type
+        typename lazy_enable_if< is_front_bytag_of2<by_perfect, by_ref, Strategy>, result_of<Base(A0&)> >::type
         operator|=(function<little_result<Base, Strategy>, Strategy> pi, A0& a0)
         {
             return pi.little().m_base(a0);
         }
 
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< is_front_by_of2<by_perfect, by_cref, Strategy>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
+        typename lazy_enable_if< is_front_bytag_of2<by_perfect, by_cref, Strategy>, result_of<Base(PSTADE_DEDUCED_CONST(A0)&)> >::type
         operator|=(function<little_result<Base, Strategy>, Strategy> pi, A0 const& a0)
         {
             return pi.little().m_base(a0);
@@ -187,7 +187,7 @@ namespace pstade { namespace egg {
 
         // by_value
         template<class A0, class Base, class Strategy> inline
-        typename lazy_enable_if< is_front_by_of<by_value, Strategy>, result_of<Base(A0)> >::type
+        typename lazy_enable_if< is_front_bytag_of<by_value, Strategy>, result_of<Base(A0)> >::type
         operator|=(function<little_result<Base, Strategy>, Strategy> pi, A0 a0)
         {
             return pi.little().m_base(egg::forward<by_value>(a0));
