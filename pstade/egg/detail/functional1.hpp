@@ -28,7 +28,7 @@
 namespace pstade { namespace egg {
 
 
-#define PSTADE_entries \
+#define entries \
     (10,( \
         (+,  posit,       0, boost::lambda::unary_arithmetic_action<boost::lambda::plus_action>), \
         (-,  negate,      0, boost::lambda::unary_arithmetic_action<boost::lambda::minus_action>), \
@@ -42,9 +42,9 @@ namespace pstade { namespace egg {
         (--, post_dec,    1, boost::lambda::post_increment_decrement_action<boost::lambda::decrement_action>) \
     ) ) \
 /**/
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_entries)), <pstade/egg/detail/functional1.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/functional1.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_entries
+#undef  entries
 
 
 } } // namespace pstade::egg
@@ -52,7 +52,7 @@ namespace pstade { namespace egg {
 
 #endif
 #else
-#define entry BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_entries)
+#define entry BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
 #define op   BOOST_PP_TUPLE_ELEM(4, 0, entry)
 #define name BOOST_PP_TUPLE_ELEM(4, 1, entry)
 #define post BOOST_PP_TUPLE_ELEM(4, 2, entry)
@@ -69,6 +69,8 @@ namespace pstade { namespace egg {
         template<class Result, class A1>
         Result call(A1& a1) const
         {
+            // I have a feeling that egg::forward shouldn't be called,
+            // because Boost.Lambda doesn't care rvalue.
 #if post == 1
             return a1 op;
 #else
