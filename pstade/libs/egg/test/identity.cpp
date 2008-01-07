@@ -14,6 +14,7 @@
 
 
 #include <pstade/test.hpp>
+#include <pstade/egg/by_value.hpp>
 
 
 namespace egg = pstade::egg;
@@ -24,6 +25,8 @@ PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int))
 PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
 PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int const&))
 PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int const))
+
+PSTADE_TEST_IS_RESULT_OF((int), X_identity<by_value>(int&))
 
 
 void pstade_minimal_test()

@@ -14,6 +14,7 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
+#include "./forward.hpp"
 
 
 namespace pstade { namespace egg {
@@ -22,18 +23,18 @@ namespace pstade { namespace egg {
     namespace identity_detail {
 
 
+        template<class Strategy>
         struct little
         {
             template<class Myself, class X>
-            struct apply
-            {
-                typedef X& type;
-            };
+            struct apply :
+                result_of_forward<Strategy, 0, X>
+            { };
 
             template<class Result, class X>
             Result call(X& x) const
             {
-                return x;
+                return egg::forward<Strategy, 0>(x);
             }
         };
 
@@ -41,8 +42,13 @@ namespace pstade { namespace egg {
     } // namespace identity_detail
 
 
-    typedef function<identity_detail::little, by_perfect> T_identity;
-    PSTADE_ADL_BARRIER(identity) { // for std
+    template<class Strategy = by_perfect>
+    struct X_identity :
+        function<identity_detail::little<Strategy>, Strategy>
+    { };
+
+    typedef X_identity<>::function_type T_identity;
+    PSTADE_ADL_BARRIER(identity) {
         PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
     }
 

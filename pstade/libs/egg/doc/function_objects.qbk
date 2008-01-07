@@ -61,6 +61,56 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+[section always]
+
+[heading Description]
+`always` returns a __FUNCTION_OBJECT__ always returning the same object.
+
+[heading Header]
+* `<pstade/egg/always.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `b` is an object of type which is not `boost::reference_wrapper<>`.
+* `w` is an object of `boost::reference_wrapper<>`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`always(x)`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`always(b)(a1,...,aN)`]
+        [`boost::implicit_cast<_typeof(b)>(b)`]
+    ]
+    [
+        [`always(w)(a1,...,aN)`]
+        [`w.get()`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
 [section apply]
 
 [heading Description]
@@ -104,6 +154,55 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [code_infix_apply_example]
 
 [heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section identity]
+
+[heading Description]
+`identity` returns argument unchanged.
+
+[heading Header]
+* `<pstade/egg/identity.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_identity<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_identity<_Stg>()(a)`]
+        [`_safe_arg_list(a, _Stg)` ]
+    ]
+    [
+        [`identity`]
+        [`X_identity<>()`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
 
 [endsect]
 

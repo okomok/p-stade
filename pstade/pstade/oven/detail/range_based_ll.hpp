@@ -12,8 +12,8 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <pstade/egg/bll_defer.hpp>
 #include <pstade/egg/by_cref.hpp>
-#include <pstade/egg/defer_sig.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./range_based1.hpp"
 #include "./range_based2.hpp"
@@ -26,14 +26,14 @@ namespace pstade { namespace oven { namespace detail {
 template< class SigFun >
 struct range_based1_sig_fun :
     result_of_range_based1<
-        typename egg::result_of_defer_sig<SigFun, egg::by_cref>::type
+        typename egg::result_of_bll_defer<SigFun, egg::by_cref>::type
     >
 { };
 
 template< class SigFun >
 struct range_based2_sig_fun :
     result_of_range_based2<
-        typename egg::result_of_defer_sig<SigFun, egg::by_cref>::type
+        typename egg::result_of_bll_defer<SigFun, egg::by_cref>::type
     >
 { };
 
@@ -58,7 +58,7 @@ struct range_based2_sig_fun :
 
 
     #define PSTADE_OVEN_RANGE_BASED_LL_init \
-        PSTADE_EGG_DEFER_SIG({}) \
+        PSTADE_EGG_BLL_DEFER({}) \
     /**/
 
 

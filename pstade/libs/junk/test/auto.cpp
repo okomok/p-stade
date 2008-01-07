@@ -1,5 +1,4 @@
 
-
 // PStade.Junk
 //
 // Copyright Shunsuke Sogame 2007.
@@ -16,8 +15,8 @@
 
 //#include <pstade/../libs/radish/test/swap_reset.cpp>
 
-#include <pstade/../libs/oven/test/unfold.cpp>
-//#include <pstade/../libs/oven/example/fizzbuzz.cpp>
+//#include <pstade/../libs/oven/test/unfold.cpp>
+//#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/oven/test/jointed.cpp>
 //#include <pstade/../libs/oven/test/before_stable_partition.cpp>
     //#include <pstade/../libs/biscuit/test/multiple_defs1.cpp>
@@ -30,7 +29,7 @@
 //#define PSTADE_EGG_TEST_NUMBERED 1
 //#define PSTADE_EGG_TEST_LINEAR 0
 //#define PSTADE_EGG_MAX_ARITY 10
-//#include <pstade/../libs/egg/test/dereference.cpp>
+#include <pstade/../libs/egg/test/bll_defer.cpp>
 //#include <pstade/../libs/egg/example/tuple_pack.cpp>
 
 //#include <boost/../libs/iterator/test/transform_iterator_test.cpp>
