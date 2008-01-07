@@ -132,7 +132,7 @@ void test_memoize()
 
 
 //[code_pipable_example
-struct base_multiplies
+struct base_mult
 {
     typedef int result_type;
 
@@ -152,27 +152,27 @@ struct base_multiplies
     }
 };
 
-result_of_pipable<base_multiplies>::type const multiplies = PSTADE_EGG_PIPABLE({});
+result_of_pipable<base_mult>::type const mult = PSTADE_EGG_PIPABLE({});
 
 void test_pipable()
 {
-    BOOST_CHECK( ( 2|multiplies ) == 2 * 2 );
-    BOOST_CHECK( ( 2|multiplies() ) == 2 * 2 );
-    BOOST_CHECK( ( 2|multiplies(3)|multiplies(4) ) == 2 * 3 * 4 );
-    BOOST_CHECK( ( 2|multiplies(3, 4) ) == 2 * 3 * 4 );
+    BOOST_CHECK( ( 2|mult ) == 2 * 2 );
+    BOOST_CHECK( ( 2|mult() ) == 2 * 2 );
+    BOOST_CHECK( ( 2|mult(3)|mult(4) ) == 2 * 3 * 4 );
+    BOOST_CHECK( ( 2|mult(3, 4) ) == 2 * 3 * 4 );
 
     // `|=` seems an "apply" operator.
-    BOOST_CHECK( ( multiplies|=2 ) == 2 * 2 );
-    BOOST_CHECK( ( multiplies()|=2 ) == 2 * 2 );
-    BOOST_CHECK( ( multiplies|=multiplies|=2) == (2 * 2) * (2 * 2) );
+    BOOST_CHECK( ( mult|=2 ) == 2 * 2 );
+    BOOST_CHECK( ( mult()|=2 ) == 2 * 2 );
+    BOOST_CHECK( ( mult|=mult|=2) == (2 * 2) * (2 * 2) );
 
-    BOOST_CHECK( ( multiplies(3)|=2 ) == 2 * 3 );
-    BOOST_CHECK( ( multiplies(3, 4)|= 2 ) == 2 * 3 * 4 );
+    BOOST_CHECK( ( mult(3)|=2 ) == 2 * 3 );
+    BOOST_CHECK( ( mult(3, 4)|= 2 ) == 2 * 3 * 4 );
 }
 //]
 void test_pipable_pipable()
 {
-    base_multiplies const mult = {};
+    base_mult const mult = {};
     BOOST_CHECK( (7 |( mult|(pipable|pipable(pipable)) ) ) == 7 * 7 );
 }
 

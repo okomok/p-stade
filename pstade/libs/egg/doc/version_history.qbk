@@ -46,6 +46,7 @@
 * `pipable` and `ambiN` implemented precise Forwarding Strategy.
 * FunctionAdaptor with `by_value` turns arguments into rvalues if possible.
 * Comparison operators added.
+* Functionals added.
 
 
 

@@ -13,7 +13,7 @@
 #include <pstade/egg/apply.hpp>
 #include <pstade/minimal_test.hpp>
 
-#include <pstade/egg/negate.hpp>
+#include <pstade/egg/functional.hpp> // negate
 
 using namespace pstade::egg;
 

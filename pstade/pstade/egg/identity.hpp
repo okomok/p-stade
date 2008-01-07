@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
 
 
     typedef function<identity_detail::little, by_perfect> T_identity;
-    PSTADE_ADL_BARRIER(identity) { // for 'std'
+    PSTADE_ADL_BARRIER(identity) { // for std
         PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
     }
 

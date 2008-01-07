@@ -18,13 +18,13 @@
 #include <boost/range/empty.hpp>
 #include <boost/ref.hpp>
 #include <boost/thread/thread.hpp>
-#include <pstade/egg/equal_to.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./detail/default_grainsize.hpp"
+#include "./detail/equal_to.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
@@ -155,7 +155,7 @@ namespace parallel_equals_detail {
             return auxRoot.equal();
         }
 
-        template< class Myself, class Difference, class Range1, class Range2, class Predicate = egg::T_equal_to const >
+        template< class Myself, class Difference, class Range1, class Range2, class Predicate = detail::T_equal_to const >
         struct apply
         {
             typedef bool type;
@@ -178,7 +178,7 @@ namespace parallel_equals_detail {
         template< class Result, class Difference, class Range1, class Range2 >
         Result call(Difference& grainsize, Range1& rng1, Range2& rng2) const
         {
-            return egg::make_function(*this)(grainsize, rng1, rng2, egg::equal_to);
+            return egg::make_function(*this)(grainsize, rng1, rng2, detail::equal_to);
         }
     };
 

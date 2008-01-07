@@ -15,8 +15,8 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
+#include "./bll_bindable.hpp"
 #include "./detail/named_arg.hpp"
-#include "./sig_template.hpp"
 #include "./unref_by.hpp"
 
 
@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
             return (*this)(arg);
         }
 
-        #include PSTADE_EGG_SIG_TEMPLATE()
+        #include PSTADE_EGG_BLL_BINDABLE()
     };
 
 

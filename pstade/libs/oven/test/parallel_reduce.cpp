@@ -13,8 +13,8 @@
 
 
 #include <pstade/oven/numeric.hpp> // accumulate
-#include <pstade/egg/multiplies.hpp>
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // multiplies
+#include <pstade/egg/functional.hpp> // plus
 #include <boost/progress.hpp>
 #include <iostream>
 #include <string>

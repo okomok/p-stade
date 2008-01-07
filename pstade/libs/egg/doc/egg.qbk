@@ -7,7 +7,7 @@
     [category functional]
     [id egg]
     [dirname egg]
-    [purpose functional programming utilities]
+    [purpose functional programming function_objects]
     [source-mode c++]
     [license
 Distributed under the Boost Software License, Version 1.0.
@@ -27,6 +27,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]
 [def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html Boost.Phoenix]]
 [def __BOOST_PREPROCESSOR__ [@http://www.boost.org/libs/preprocessor/doc/index.html Boost.Preprocessor]]
+[def __BOOST_PROTO__ [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/ Boost.Proto]]
 [def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of Boost.ResultOf]]
 [def __BOOST_TUPLE__ [@http://www.boost.org/libs/tuple/index.html Boost.Tuple]]
 [def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
@@ -90,7 +91,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_LAZY__ [link egg.function_adaptors.lazy lazy]]
 [def __EGG_PIPABLE__ [link egg.function_adaptors.pipable pipable]]
 [def __EGG_RET__ [link egg.function_adaptors.ret ret]]
-[def __EGG_BLL_BIND__ [link egg.utilities.bll_bind bll_bind]]
+[def __EGG_BLL_BIND__ [link egg.function_objects.bll_bind bll_bind]]
 
 [def __EGG_GENERATOR__ [link egg.object_generator.generator generator]]
 [def __EGG_GENERATING_FORMS__ [link egg.object_generator.generating_forms Generating forms]]
@@ -107,6 +108,7 @@ Distributed under the Boost Software License, Version 1.0.
 [include forwarding_strategies.qbk]
 [include function_builders.qbk]
 [include function_adaptors.qbk]
+[include function_objects.qbk]
 [include object_generator.qbk]
 [include utilities.qbk]
 [include configuration.qbk]

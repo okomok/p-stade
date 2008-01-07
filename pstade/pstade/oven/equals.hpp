@@ -30,9 +30,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/equal_to.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
+#include "./detail/equal_to.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./range_traversal.hpp"
 #include "./read.hpp"
@@ -100,7 +100,7 @@ struct T_equals
     template< class Range1, class Range2 >
     bool operator()(Range1 const& rng1, Range2 const& rng2) const
     {
-        return (*this)(rng1, rng2, egg::equal_to);
+        return (*this)(rng1, rng2, detail::equal_to);
     }
 };
 

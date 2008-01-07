@@ -18,7 +18,7 @@
 
 #include <pstade/egg/lazy.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/test.hpp>
 

@@ -17,8 +17,7 @@
 
 #include <algorithm>
 #include <string>
-#include <pstade/egg/less.hpp>
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus, less
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/numeric.hpp>
 #include <boost/lambda/core.hpp>

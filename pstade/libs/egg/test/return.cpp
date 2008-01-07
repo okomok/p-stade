@@ -17,7 +17,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/egg/identity.hpp>
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/add_const.hpp>
 

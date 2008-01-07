@@ -63,7 +63,7 @@ namespace little_pipable_resultns_ {
 
     // 0ary
         typedef
-            function<little_pipable_result, StrategyL>
+            function<little_pipable_result, Strategy>
         nullary_result_type;
 
         template<class Result>

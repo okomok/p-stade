@@ -25,11 +25,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/apply_decl.hpp>
+#include <pstade/egg/bll_bindable.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/sig_template.hpp>
 #include <pstade/egg/use_brace2.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
@@ -81,7 +81,7 @@ struct little_range_based1_result
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_max_arity
 
-    #include PSTADE_EGG_SIG_TEMPLATE()
+    #include PSTADE_EGG_BLL_BINDABLE()
 };
 
 

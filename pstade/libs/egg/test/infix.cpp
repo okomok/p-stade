@@ -14,7 +14,7 @@
 
 
 #include <pstade/egg/to_string.hpp>
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus
 #include <string>
 
 

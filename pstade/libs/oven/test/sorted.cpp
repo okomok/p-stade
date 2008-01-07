@@ -23,7 +23,7 @@
 #include <boost/range.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/reversed.hpp>
-#include <pstade/egg/less.hpp>
+#include <pstade/egg/functional.hpp> // less
 #include <pstade/oven/stream_read.hpp>
 #include <pstade/oven/memoized.hpp>
 

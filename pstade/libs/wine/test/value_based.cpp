@@ -16,7 +16,7 @@
 #include <boost/shared_ptr.hpp>
 #include <string>
 #include <pstade/clone_ptr.hpp>
-#include <pstade/egg/deref.hpp>
+#include <pstade/egg/functional.hpp> // dereference
 
 
 using pstade::value_based;
@@ -100,13 +100,13 @@ void test_ptr()
     }
     {
         pstade::value_based< IntPtr > v(3);
-        BOOST_CHECK( pstade::egg::deref(v) == 3 );
-        BOOST_CHECK( pstade::egg::deref(v) = 4 );
-        BOOST_CHECK( pstade::egg::deref(v) == 4 );
+        BOOST_CHECK( pstade::egg::dereference(v) == 3 );
+        BOOST_CHECK( pstade::egg::dereference(v) = 4 );
+        BOOST_CHECK( pstade::egg::dereference(v) == 4 );
     }
     {
         pstade::value_based< IntPtr > const v(3);
-        BOOST_CHECK( pstade::egg::deref(v) == 3 );
+        BOOST_CHECK( pstade::egg::dereference(v) == 3 );
     }
 }
 

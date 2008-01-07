@@ -16,7 +16,7 @@
 
 
 #include <string>
-#include <pstade/egg/less.hpp>
+#include <pstade/egg/functional.hpp> // less
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/filtered.hpp>
 #include <boost/lambda/lambda.hpp>

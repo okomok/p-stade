@@ -27,7 +27,7 @@
 #include <pstade/oven/detail/prefix.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/equal_to.hpp> // equal_to
+#include <pstade/egg/functional.hpp> // equal_to
 
 
 namespace pstade { namespace oven { namespace test {
