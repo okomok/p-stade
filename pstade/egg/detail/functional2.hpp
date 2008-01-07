@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
         (id(&),   bitwise_and,   boost::lambda::bitwise_action<boost::lambda::and_action>), \
         (id(|),   bitwise_or,    boost::lambda::bitwise_action<boost::lambda::or_action>), \
         (id(^),   bitwise_xor,   boost::lambda::bitwise_action<boost::lambda::xor_action>), \
-        (BOOST_PP_COMMA, cooma,  boost::lambda::other_action<boost::lambda::comma_action>), \
+        (BOOST_PP_COMMA, comma,  boost::lambda::other_action<boost::lambda::comma_action>), \
         (id(->*), mem_ptr,       boost::lambda::other_action<boost::lambda::member_pointer_action>) \
     ) ) \
 /**/
