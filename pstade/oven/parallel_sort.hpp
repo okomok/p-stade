@@ -13,11 +13,11 @@
 
 #include <algorithm> // inplace_merge, sort
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/less.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
+#include "./detail/less.hpp"
 #include "./detail/simple_parallel.hpp"
 
 
@@ -55,7 +55,7 @@ namespace parallel_sort_detail {
 
     struct little
     {
-        template< class Myself, class Difference, class Range, class Compare = egg::T_less const >
+        template< class Myself, class Difference, class Range, class Compare = detail::T_less const >
         struct apply
         {
             typedef void type;
@@ -71,7 +71,7 @@ namespace parallel_sort_detail {
         template< class Result, class Difference, class Range >
         void call(Difference& grainsize, Range& rng) const
         {
-            egg::make_function(*this)(grainsize, rng, egg::less);
+            egg::make_function(*this)(grainsize, rng, detail::less);
         }
     };
 

@@ -17,7 +17,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/egg/identity.hpp>
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus
 #include <pstade/test.hpp>
 
 

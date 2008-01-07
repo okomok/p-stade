@@ -408,41 +408,41 @@ namespace pstade {
 } // namespace pstade
 
 
-// Dereferenceable extension
+// dereference extension
 //
 
-#include <pstade/egg/extension_fwd.hpp>
+#include <pstade/egg/bll/extension_fwd.hpp>
 
 
-namespace pstade_egg_extension {
+namespace boost { namespace lambda {
 
 
     template<class O>
-    struct Dereferenceable< pstade::poly<O> >
+    struct return_type_1< other_action<contentsof_action>, pstade::poly<O> >
     {
-        typedef O &reference;
+        typedef O &type;
     };
 
     template<class O>
-    struct Dereferenceable< pstade::poly<O> const >
+    struct return_type_1< other_action<contentsof_action>, pstade::poly<O> const >
     {
-        typedef O const &reference;
+        typedef O const &type;
     };
 
     template< >
-    struct Dereferenceable< pstade::poly<void> >
+    struct return_type_1< other_action<contentsof_action>, pstade::poly<void> >
     {
-        typedef void reference;
+        typedef void type;
     };
 
     template< >
-    struct Dereferenceable< pstade::poly<void> const >
+    struct return_type_1< other_action<contentsof_action>, pstade::poly<void> const >
     {
-        typedef void reference;
+        typedef void type;
     };
 
 
-} // namespace pstade_egg_extension
+} } // namespace boost::lambda
 
 
 #endif

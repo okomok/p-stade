@@ -18,7 +18,7 @@
 #include <pstade/oven/detail/prefix.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/less.hpp> // less
+#include <pstade/egg/functional.hpp> // less
 #include <pstade/oven/do_iter_swap.hpp>
 #include <pstade/oven/read.hpp>
 

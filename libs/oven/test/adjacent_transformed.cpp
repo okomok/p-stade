@@ -16,7 +16,7 @@
 #include "./detail/test.hpp"
 
 
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus
 #include <pstade/egg/compose.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <pstade/oven/const_refs.hpp>

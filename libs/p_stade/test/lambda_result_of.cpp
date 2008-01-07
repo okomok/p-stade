@@ -16,7 +16,7 @@
 #include <pstade/egg/bll/config.hpp>
 #include <pstade/egg/bll/placeholders.hpp>
 #include <pstade/egg/bll/bind.hpp>
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus
 #include <pstade/egg/identity.hpp>
 #include <pstade/test.hpp>
 

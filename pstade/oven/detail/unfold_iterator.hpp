@@ -29,7 +29,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
-#include <pstade/egg/deref.hpp>
+#include <pstade/egg/functional.hpp> // dereference
 #include <pstade/egg/to_ref.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
@@ -52,7 +52,7 @@ struct unfold_iterator_super
     result_t;
 
     typedef typename
-        egg::result_of_deref<result_t const>::type
+        result_of<egg::T_dereference(result_t const&)>::type
     ref_t;
 
     typedef typename

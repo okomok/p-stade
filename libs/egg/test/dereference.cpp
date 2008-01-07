@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/dereference.hpp>
+#include <pstade/egg/functional.hpp> // dereference
 #include <pstade/minimal_test.hpp>
 
 

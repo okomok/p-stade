@@ -56,7 +56,7 @@ namespace pstade { namespace egg {
     { };
 
 
-PSTADE_ADL_BARRIER(ret) { // for `boost::lambda`
+PSTADE_ADL_BARRIER(ret) { // for boost::lambda
 
     template<class ResultType, class Base> inline
     typename result_of<X_ret<ResultType>(Base&)>::type ret(Base base)

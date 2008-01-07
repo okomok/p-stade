@@ -14,7 +14,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/plus.hpp>
+#include <pstade/egg/functional.hpp> // plus
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 

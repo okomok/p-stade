@@ -13,8 +13,10 @@
 #include "./bind.hpp"
 #include "./config.hpp"
 #include "./functor_fwd.hpp"
+#include "./extension_fwd.hpp"
 #include "./placeholders.hpp"
 #include "./result_of.hpp"
+#include "./return_type.hpp"
 #include "./unlambda.hpp"
 
 

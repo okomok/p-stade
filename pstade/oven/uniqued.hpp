@@ -11,13 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/equal_to.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <pstade/egg/not.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
 #include "./adjacent_filtered.hpp"
 #include "./concepts.hpp"
+#include "./detail/equal_to.hpp"
 #include "./detail/little_to_adaptor.hpp"
 
 
@@ -29,7 +29,7 @@ namespace uniqued_detail {
 
     struct little
     {
-        template< class Myself, class Range, class BinaryPred = egg::T_equal_to const >
+        template< class Myself, class Range, class BinaryPred = detail::T_equal_to const >
         struct apply :
             result_of<
                 T_make_adjacent_filtered(
@@ -51,7 +51,7 @@ namespace uniqued_detail {
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            return egg::make_function(*this)(rng, egg::equal_to);
+            return egg::make_function(*this)(rng, detail::equal_to);
         }
     };
 

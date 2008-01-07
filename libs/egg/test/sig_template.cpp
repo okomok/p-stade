@@ -9,19 +9,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/sig_template.hpp>
+#include <pstade/egg/bll_bindable.hpp>
 #include <pstade/minimal_test.hpp>
 
 
 struct my_bindable
 {
-#include PSTADE_EGG_SIG_TEMPLATE()
+#include PSTADE_EGG_BLL_BINDABLE()
 };
 
 
 struct my_bindable2
 {
-#include PSTADE_EGG_SIG_TEMPLATE()
+#include PSTADE_EGG_BLL_BINDABLE()
 };
 
 

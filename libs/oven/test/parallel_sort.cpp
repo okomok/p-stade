@@ -14,7 +14,7 @@
 
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/algorithm.hpp> // sort
-#include <pstade/egg/less.hpp>
+#include <pstade/egg/functional.hpp> // less
 #include <boost/progress.hpp>
 #include <iostream>
 #include <string>

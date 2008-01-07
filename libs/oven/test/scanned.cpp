@@ -28,7 +28,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/oven/dropped.hpp>
-#include <pstade/egg/plus.hpp> // plus
+#include <pstade/egg/functional.hpp> // plus
 
 
 int minus(int state, int x)

@@ -20,8 +20,8 @@
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "../deref.hpp"
 #include "../forward.hpp"
+#include "../functional.hpp" // dereference
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -30,7 +30,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Dereferenceable>
     struct indirecting_fun :
         boost::remove_reference<
-            typename result_of_deref<Dereferenceable const>::type
+            typename result_of<T_dereference(Dereferenceable const&)>::type
         >
     { };
 
@@ -42,7 +42,7 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename indirecting_fun<Dereferenceable>::type base_type;
 
-        typename result_of_deref<Dereferenceable const>::type
+        typename result_of<T_dereference(Dereferenceable const&)>::type
         base() const
         {
             return *m_drf;

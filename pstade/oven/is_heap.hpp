@@ -34,9 +34,9 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/deferred.hpp>
-#include <pstade/egg/less.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
+#include "./detail/less.hpp"
 #include "./range_iterator.hpp"
 #include "./read.hpp"
 
@@ -85,7 +85,7 @@ namespace is_heap_until_detail {
 
         result_type operator()(Range& rng) const
         {
-            return (*this)(rng, egg::less);
+            return (*this)(rng, detail::less);
         }
     };
 
@@ -111,7 +111,7 @@ struct T_is_heap
     template< class Range >
     bool operator()(Range const& rng) const
     {
-        return (*this)(rng, egg::less);
+        return (*this)(rng, detail::less);
     }
 };
 

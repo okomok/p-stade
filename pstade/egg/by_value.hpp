@@ -24,11 +24,11 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
+#include "./bll_bindable.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/call_little_impl.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./function_fwd.hpp"
-#include "./sig_template.hpp"
 #include "./unref_by.hpp"
 
 
@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/by_value.hpp>))
         #include BOOST_PP_ITERATE()
 
-        #include PSTADE_EGG_SIG_TEMPLATE()
+        #include PSTADE_EGG_BLL_BINDABLE()
     };
 
 

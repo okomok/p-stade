@@ -50,4 +50,7 @@ void pstade_minimal_test()
         my_klass k;
         always(boost::ref(k))(1,2,3,4).hello(); // can directly call.
     }
+    {
+        always(always)(1,2)(3);
+    }
 }

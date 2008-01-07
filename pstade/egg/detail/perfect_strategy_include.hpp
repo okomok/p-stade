@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
     #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
 
-        #include PSTADE_EGG_SIG_TEMPLATE()
+        #include PSTADE_EGG_BLL_BINDABLE()
     };
 
 

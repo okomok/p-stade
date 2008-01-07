@@ -120,29 +120,29 @@ namespace pstade { namespace egg { namespace detail {
 } } } // namespace pstade::egg::detail
 
 
-// Dereferenceable extension
+// dereference extension
 //
 
-#include "../extension_fwd.hpp"
+#include "../bll/extension_fwd.hpp"
 
 
-namespace pstade_egg_extension {
+namespace boost { namespace lambda {
 
 
     template< class X >
-    struct Dereferenceable< pstade::egg::detail::regularized<X> >
+    struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> >
     {
-        typedef X& reference;
+        typedef X& type;
     };
 
     template< class X >
-    struct Dereferenceable< pstade::egg::detail::regularized<X> const >
+    struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> const >
     {
-        typedef X const& reference;
+        typedef X const& type;
     };
 
 
-} // namespace pstade_egg_extension
+} } // namespace boost::lambda
 
 
 #endif

@@ -24,8 +24,8 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/any.hpp> // any_movable
+#include <pstade/egg/bll_bindable.hpp>
 #include <pstade/egg/new_auto.hpp>
-#include <pstade/egg/sig_template.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
@@ -152,7 +152,7 @@ struct X_initial_ptrs
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_move_to
 
-    #include PSTADE_EGG_SIG_TEMPLATE()
+    #include PSTADE_EGG_BLL_BINDABLE()
 };
 
 

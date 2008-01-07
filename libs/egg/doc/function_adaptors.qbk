@@ -66,7 +66,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_ambi++N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_ambi++N<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_ambi_example]
@@ -138,7 +138,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [note The last precondition means that `fc(d1, d2, R0, _Stg)` is NOT nullary-callable if `R0` is `_default`. ]
 
 [heading Invariants]
-* `result_of_compose<_Dco1, _Dco2, R0, _Stg>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
+* `result_of_compose<_Dco1, _Dco2,...>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
 
 [heading Example]
 ...
@@ -273,7 +273,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_uncurry<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_uncurry<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Currying Currying]
@@ -408,7 +408,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `_deduce_r0(R0, _decltype(d( boost::tuple<>() ))` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
-* `result_of_unfuse<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_unfuse<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 ...
@@ -480,7 +480,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_indirect<Pco, _Stg>::type` is a /POD/ type if and only if `Pco` is a /POD/ type.
+* `result_of_indirect<Pco,...>::type` is a /POD/ type if and only if `Pco` is a /POD/ type.
 
 [heading Example]
 [code_indirect_example]
@@ -667,8 +667,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_mono<Fun, Sig>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
-* `result_of_mono<Fun, Sig>::type` is __SGI_ADAPTABLE__ if and only if `N` is `1` or `2`.
+* `result_of_mono<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
+* `result_of_mono<Fun,...>::type` is __SGI_ADAPTABLE__ if and only if `N` is `1` or `2`.
 
 [heading Example]
 [code_mono_example]
@@ -799,7 +799,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_pipable<_PFo, _Stg>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_pipable<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_pipable_example]
@@ -917,7 +917,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_ret<Fun, R, _Stg>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
+* `result_of_ret<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
 
 [heading Example]
 ...
@@ -991,7 +991,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_retby<Fun, R, _Stg>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
+* `result_of_retby<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
 
 [heading Example]
 ...
@@ -1058,8 +1058,8 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_tagged<_PFo, Tag, _Stg>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
-* `result_of_tagged<_PFo, Tag1, _Stg>::type` is the same type as `result_of_tagged<_PFo, Tag2, _Stg>::type` if and only if `Tag1` is the same type as `Tag2`.
+* `result_of_tagged<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_tagged<_PFo, Tag1,...>::type` is the same type as `result_of_tagged<_PFo, Tag2,...>::type` if and only if `Tag1` is the same type as `Tag2`.
 
 [heading Example]
 ...
