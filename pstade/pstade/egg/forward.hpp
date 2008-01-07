@@ -23,7 +23,7 @@
 #include <boost/preprocessor/enum.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
-#include "./detail/by_at.hpp"
+#include "./detail/bytag_at.hpp"
 #include "./function_fwd.hpp"
 
 
@@ -52,7 +52,7 @@ namespace pstade { namespace egg {
     template<class Strategy, int N, class Lvalue>
     struct result_of_forward :
         forward_detail::pass<
-            Lvalue, typename detail::by_at<Strategy, N>::type
+            Lvalue, typename detail::bytag_at<Strategy, N>::type
         >
     { };
 

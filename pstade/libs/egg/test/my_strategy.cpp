@@ -31,7 +31,7 @@ struct my_by_value
     typedef boost::mpl::vector<by_value, by_value> type;
 };
 
-BOOST_MPL_ASSERT((detail::is_front_by_of<by_value, my_by_value>));
+BOOST_MPL_ASSERT((detail::is_front_bytag_of<by_value, my_by_value>));
 
 
 namespace pstade { namespace egg {

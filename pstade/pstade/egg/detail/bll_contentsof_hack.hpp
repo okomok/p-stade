@@ -13,7 +13,7 @@
 
 // What:
 //
-// Iterator const-ness shouldn't affects its contents, IMO.
+// Iterator const-ness shouldn't affect its contents, IMO.
 
 
 #include <cstddef> // size_t
