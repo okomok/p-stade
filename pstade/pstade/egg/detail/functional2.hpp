@@ -16,7 +16,9 @@
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/array/size.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/punctuation/comma.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
@@ -27,78 +29,58 @@
 namespace pstade { namespace egg {
 
 
-    struct little_comma
-    {
-        template<class Myself, class A1, class A2>
-        struct apply :
-            boost::lambda::return_type_2<boost::lambda::other_action<boost::lambda::comma_action>, A1, A2>
-        { };
-
-        template<class Result, class A1, class A2>
-        Result call(A1& a1, A2& a2) const
-        {
-            // I have a feeling that egg::forward shouldn't be called,
-            // because Boost.Lambda doesn't care rvalue.
-            return a1 , a2;
-        }
-    };
-
-    template<class Strategy = by_perfect>
-    struct X_comma :
-        function<little_comma, Strategy>
-    { };
-
-    PSTADE_ADL_BARRIER(functional2) {
-        typedef X_comma<>::function_type T_comma;
-        PSTADE_POD_CONSTANT((T_comma), comma) = {{}};
-    }
+#define id BOOST_PP_IDENTITY
 
 
-#define PSTADE_entries \
-    (19,( \
-        (<<,  shift_left,    boost::lambda::bitwise_action<boost::lambda::leftshift_action>), \
-        (>>,  shift_right,   boost::lambda::bitwise_action<boost::lambda::rightshift_action>), \
-        (*,   multiplies,    boost::lambda::arithmetic_action<boost::lambda::multiply_action>), \
-        (/,   divides,       boost::lambda::arithmetic_action<boost::lambda::divide_action>), \
-        (%,   modulus,       boost::lambda::arithmetic_action<boost::lambda::remainder_action>), \
-        (+,   plus,          boost::lambda::arithmetic_action<boost::lambda::plus_action>), \
-        (-,   minus,         boost::lambda::arithmetic_action<boost::lambda::minus_action>), \
-        (<,   less,          boost::lambda::relational_action<boost::lambda::less_action>), \
-        (>,   greater,       boost::lambda::relational_action<boost::lambda::greater_action>), \
-        (<=,  less_equal,    boost::lambda::relational_action<boost::lambda::lessorequal_action>), \
-        (>=,  greater_equal, boost::lambda::relational_action<boost::lambda::greaterorequal_action>), \
-        (==,  equal_to,      boost::lambda::relational_action<boost::lambda::equal_action>), \
-        (!=,  not_equal_to,  boost::lambda::relational_action<boost::lambda::notequal_action>), \
-        (||,  logical_or,    boost::lambda::logical_action<boost::lambda::or_action>), \
-        (&&,  logical_and,   boost::lambda::logical_action<boost::lambda::and_action>), \
-        (&,   bitwise_and,   boost::lambda::bitwise_action<boost::lambda::and_action>), \
-        (|,   bitwise_or,    boost::lambda::bitwise_action<boost::lambda::or_action>), \
-        (^,   bitwise_xor,   boost::lambda::bitwise_action<boost::lambda::xor_action>), \
-        (->*, mem_ptr,       boost::lambda::other_action<boost::lambda::member_pointer_action>) \
+#define entries \
+    (20,( \
+        (id(<<),  shift_left,    boost::lambda::bitwise_action<boost::lambda::leftshift_action>), \
+        (id(>>),  shift_right,   boost::lambda::bitwise_action<boost::lambda::rightshift_action>), \
+        (id(*),   multiplies,    boost::lambda::arithmetic_action<boost::lambda::multiply_action>), \
+        (id(/),   divides,       boost::lambda::arithmetic_action<boost::lambda::divide_action>), \
+        (id(%),   modulus,       boost::lambda::arithmetic_action<boost::lambda::remainder_action>), \
+        (id(+),   plus,          boost::lambda::arithmetic_action<boost::lambda::plus_action>), \
+        (id(-),   minus,         boost::lambda::arithmetic_action<boost::lambda::minus_action>), \
+        (id(<),   less,          boost::lambda::relational_action<boost::lambda::less_action>), \
+        (id(>),   greater,       boost::lambda::relational_action<boost::lambda::greater_action>), \
+        (id(<=),  less_equal,    boost::lambda::relational_action<boost::lambda::lessorequal_action>), \
+        (id(>=),  greater_equal, boost::lambda::relational_action<boost::lambda::greaterorequal_action>), \
+        (id(==),  equal_to,      boost::lambda::relational_action<boost::lambda::equal_action>), \
+        (id(!=),  not_equal_to,  boost::lambda::relational_action<boost::lambda::notequal_action>), \
+        (id(||),  logical_or,    boost::lambda::logical_action<boost::lambda::or_action>), \
+        (id(&&),  logical_and,   boost::lambda::logical_action<boost::lambda::and_action>), \
+        (id(&),   bitwise_and,   boost::lambda::bitwise_action<boost::lambda::and_action>), \
+        (id(|),   bitwise_or,    boost::lambda::bitwise_action<boost::lambda::or_action>), \
+        (id(^),   bitwise_xor,   boost::lambda::bitwise_action<boost::lambda::xor_action>), \
+        (BOOST_PP_COMMA, cooma,  boost::lambda::other_action<boost::lambda::comma_action>), \
+        (id(->*), mem_ptr,       boost::lambda::other_action<boost::lambda::member_pointer_action>) \
     ) ) \
 /**/
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_entries)), <pstade/egg/detail/functional2.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/functional2.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_entries
+#undef  entries
 
 
-#define PSTADE_entries \
+#define entries \
     (10,( \
-        (<<=, shift_left_assign,   boost::lambda::bitwise_assignment_action<boost::lambda::leftshift_action>), \
-        (>>=, shift_right_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::rightshift_action>), \
-        (*=,  multiplies_assign,   boost::lambda::arithmetic_assignment_action<boost::lambda::multiply_action>), \
-        (/=,  divides_assign,      boost::lambda::arithmetic_assignment_action<boost::lambda::divide_action>), \
-        (%=,  modulus_assign,      boost::lambda::arithmetic_assignment_action<boost::lambda::remainder_action>), \
-        (+=,  plus_assign,         boost::lambda::arithmetic_assignment_action<boost::lambda::plus_action>), \
-        (-=,  minus_assign,        boost::lambda::arithmetic_assignment_action<boost::lambda::minus_action>), \
-        (&=,  bitwise_and_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::and_action>), \
-        (|=,  bitwise_or_assign,   boost::lambda::bitwise_assignment_action<boost::lambda::or_action>), \
-        (^=,  bitwise_xor_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::xor_action>) \
+        (id(<<=), shift_left_assign,   boost::lambda::bitwise_assignment_action<boost::lambda::leftshift_action>), \
+        (id(>>=), shift_right_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::rightshift_action>), \
+        (id(*=),  multiplies_assign,   boost::lambda::arithmetic_assignment_action<boost::lambda::multiply_action>), \
+        (id(/=),  divides_assign,      boost::lambda::arithmetic_assignment_action<boost::lambda::divide_action>), \
+        (id(%=),  modulus_assign,      boost::lambda::arithmetic_assignment_action<boost::lambda::remainder_action>), \
+        (id(+=),  plus_assign,         boost::lambda::arithmetic_assignment_action<boost::lambda::plus_action>), \
+        (id(-=),  minus_assign,        boost::lambda::arithmetic_assignment_action<boost::lambda::minus_action>), \
+        (id(&=),  bitwise_and_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::and_action>), \
+        (id(|=),  bitwise_or_assign,   boost::lambda::bitwise_assignment_action<boost::lambda::or_action>), \
+        (id(^=),  bitwise_xor_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::xor_action>) \
     ) ) \
 /**/
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_entries)), <pstade/egg/detail/functional2.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/functional2.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_entries
+#undef  entries
+
+
+#undef  id
 
 
 } } // namespace pstade::egg
@@ -106,7 +88,7 @@ namespace pstade { namespace egg {
 
 #endif
 #else
-#define entry BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_entries)
+#define entry BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
 #define op   BOOST_PP_TUPLE_ELEM(3, 0, entry)
 #define name BOOST_PP_TUPLE_ELEM(3, 1, entry)
 #define act  BOOST_PP_TUPLE_ELEM(3, 2, entry)
@@ -122,7 +104,7 @@ namespace pstade { namespace egg {
         template<class Result, class A1, class A2>
         Result call(A1& a1, A2& a2) const
         {
-            return a1 op a2;
+            return a1 op() a2;
         }
     };
 
