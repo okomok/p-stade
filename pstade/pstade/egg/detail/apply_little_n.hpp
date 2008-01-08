@@ -20,14 +20,14 @@
 
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/utility/result_of.hpp> // BOOST_RESULT_OF_NUM_ARGS
+#include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 
 
 namespace pstade { namespace egg {
 
 
     // 1ary-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_RESULT_OF_NUM_ARGS, <pstade/egg/detail/apply_little_n.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little_n.hpp>))
     #include BOOST_PP_ITERATE()
 
 

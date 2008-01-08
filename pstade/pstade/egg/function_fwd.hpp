@@ -12,6 +12,7 @@
 
 
 #include <pstade/apple/boost/use_default_fwd.hpp>
+#include "./detail/function_preamble.hpp" // inclusion guaranteed
 #include "./nullary_result_of.hpp"
 
 

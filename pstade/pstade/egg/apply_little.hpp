@@ -17,26 +17,17 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/utility/result_of.hpp> // BOOST_RESULT_OF_NUM_ARGS
 #include <pstade/preprocessor.hpp>
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
 #include "./detail/bytag_at.hpp"
-#include "./detail/nullary_result.hpp"
 #include "./detail/unref.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-#if 0 // do you know better name?
-    template<class Little, class Strategy>
-    struct nullary_result_of :
-        detail::nullary_result< Little, function<Little, Strategy> >
-    { };
-#endif
-
-
-    template<class Little, PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(BOOST_RESULT_OF_NUM_ARGS), class A, = void)>
+    template<class Little, PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(PSTADE_EGG_MAX_LINEAR_ARITY), class A, = void)>
     struct apply_little;
 
 
@@ -46,7 +37,7 @@ namespace pstade { namespace egg {
 
     // 1ary-
 #define PSTADE_unref(Z, I, _) typename detail::unref<BOOST_PP_CAT(A, I), typename detail::bytag_at<Strategy, n, I>::type>::type
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_RESULT_OF_NUM_ARGS, <pstade/egg/apply_little.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/apply_little.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_unref
 

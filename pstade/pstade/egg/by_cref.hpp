@@ -18,11 +18,9 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./bll_bindable.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
-#include "./detail/nullary_result.hpp"
 #include "./detail/unref.hpp"
 #include "./function_fwd.hpp"
 
@@ -33,21 +31,10 @@ namespace pstade { namespace egg {
     template<class Little>
     struct function<Little, by_cref>
     {
-        typedef function function_type;
-        typedef Little little_type;
-
-        Little m_little;
-
-        Little little() const
-        {
-            return m_little;
-        }
+        #define  PSTADE_EGG_FUNCTION_PREAMBLE_PARAMS (Little, m_little)
+        #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
     // 0ary
-        typedef typename
-            detail::nullary_result<Little, function>::type
-        nullary_result_type;
-
         nullary_result_type operator()() const
         {
             return detail::call_little_impl<
@@ -61,8 +48,6 @@ namespace pstade { namespace egg {
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/by_cref.hpp>))
         #include BOOST_PP_ITERATE()
-
-        #include PSTADE_EGG_BLL_BINDABLE()
     };
 
 

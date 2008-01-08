@@ -53,38 +53,31 @@ BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 1>::
 
 namespace pstade { namespace egg {
 
-    template<class Little>
-    struct function<Little, my_strategy>
+    template<class Lit>
+    struct function<Lit, my_strategy>
     {
-        typedef Little little_type;
-        typedef function function_type;
-
-        Little m_little;
-
-        Little little() const
-        {
-            return m_little;
-        }
+        #define  PSTADE_EGG_FUNCTION_PREAMBLE_PARAMS (Lit, m_lit)
+        #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
         template<class Signature>
-        struct result : of_apply_little<Signature, Little, my_strategy> {};
+        struct result : of_apply_little<Signature, Lit, my_strategy> {};
 
         template<class A1>
-        typename apply_little<Little, A1>::type operator()(A1& i) const
+        typename apply_little<Lit, A1>::type operator()(A1& i) const
         {
-            return egg::call_little<typename apply_little<Little, A1>::type>(m_little, i);
+            return egg::call_little<typename apply_little<Lit, A1>::type>(m_lit, i);
         }
 
         template<class A1>
-        typename apply_little<Little, A1 const>::type operator()(A1 const& i) const
+        typename apply_little<Lit, A1 const>::type operator()(A1 const& i) const
         {
-            return egg::call_little<typename apply_little<Little, A1 const>::type>(m_little, i);
+            return egg::call_little<typename apply_little<Lit, A1 const>::type>(m_lit, i);
         }
 
         template<class A1, class A2>
-        typename apply_little<Little, A1, A2>::type operator()(A1 i, A2 j) const
+        typename apply_little<Lit, A1, A2>::type operator()(A1 i, A2 j) const
         {
-            return egg::call_little<typename apply_little<Little, A1, A2>::type>(m_little, i, j);
+            return egg::call_little<typename apply_little<Lit, A1, A2>::type>(m_lit, i, j);
         }
     };
 
