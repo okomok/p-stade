@@ -21,7 +21,7 @@ namespace pstade { namespace egg {
 
 
     typedef
-        result_of_ambi1<
+        result_of_ambi0<
             automatic_ref< X_static_downcast<boost::mpl::_> >::type
         >::type
     T_static_down;

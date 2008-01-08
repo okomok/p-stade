@@ -67,7 +67,7 @@ namespace pstade { namespace gravy {
     } // namespace c_str_detail
 
 
-    typedef egg::result_of_ambi1<c_str_detail::op>::type T_c_str;
+    typedef egg::result_of_ambi0<c_str_detail::op>::type T_c_str;
     PSTADE_POD_CONSTANT((T_c_str), c_str) = PSTADE_EGG_AMBI_L {} PSTADE_EGG_AMBI_R;
 
 

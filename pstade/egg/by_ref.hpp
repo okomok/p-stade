@@ -62,20 +62,20 @@ namespace pstade { namespace egg {
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(apply_little, n)<
-            Little,
+            Little const,
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::unref_by_ref<A, >::type)
         >
     { };
 
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(apply_little, n)<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type
+    typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         return detail::call_little_impl<
-            Little, typename BOOST_PP_CAT(apply_little, n)<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type
+            Little, typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM_PARAMS(n, A)>::type
         >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a));
     }
-    
+
 
 #undef n
 #endif

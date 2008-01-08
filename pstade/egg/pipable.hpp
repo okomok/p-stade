@@ -12,6 +12,7 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include <pstade/use_default.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./detail/little_pipable_result.hpp"
@@ -22,11 +23,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Base, class Strategy = by_perfect, class StrategyL = Strategy>
+    template<class Base, class Strategy = by_perfect, class OperandBytag = by_perfect>
     struct result_of_pipable
     {
         typedef
-            function<detail::little_pipable_result<Base, Strategy, StrategyL>, Strategy>
+            function<detail::little_pipable_result<Base, Strategy, OperandBytag>, Strategy>
         type;
     };
 
@@ -36,10 +37,10 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_PIPABLE(F) PSTADE_EGG_PIPABLE_L F PSTADE_EGG_PIPABLE_R
 
 
-    template<class Strategy = by_perfect, class StrategyL = Strategy>
+    template<class Strategy = by_perfect, class OperandBytag = by_perfect>
     struct X_pipable :
         generator<
-            typename result_of_pipable<deduce<boost::mpl::_1, as_value>, Strategy, StrategyL>::type,
+            typename result_of_pipable<deduce<boost::mpl::_1, as_value>, Strategy, OperandBytag>::type,
             boost::use_default,
             use_brace2,
             by_value

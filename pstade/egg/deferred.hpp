@@ -38,8 +38,8 @@ namespace pstade { namespace egg {
         pstade::egg::deferred<PSTADE_EGG_AS_MPL_LAMBDA(L)>::type \
     /**/
 
-    #define PSTADE_EGG_DEFER_BY(L, By) \
-        pstade::egg::deferred<PSTADE_EGG_AS_MPL_LAMBDA(L), By>::type \
+    #define PSTADE_EGG_DEFER_BY(L, Bytag) \
+        pstade::egg::deferred<PSTADE_EGG_AS_MPL_LAMBDA(L), Bytag>::type \
     /**/
 
 

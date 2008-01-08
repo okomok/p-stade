@@ -32,28 +32,28 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
     template<int Arity, int Index>
-    struct bytag_at_impl<by_perfect, Arity, Index>
+    struct bytag_at_impl<by_perfect const, Arity, Index>
     {
         BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_ARITY);
         typedef by_perfect type;
     };
 
     template<int Arity, int Index>
-    struct bytag_at_impl<by_ref, Arity, Index>
+    struct bytag_at_impl<by_ref const, Arity, Index>
     {
         BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
         typedef by_ref type;
     };
 
     template<int Arity, int Index>
-    struct bytag_at_impl<by_cref, Arity, Index>
+    struct bytag_at_impl<by_cref const, Arity, Index>
     {
         BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
         typedef by_cref type;
     };
 
     template<int Arity, int Index>
-    struct bytag_at_impl<by_value, Arity, Index>
+    struct bytag_at_impl<by_value const, Arity, Index>
     {
         BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
         typedef by_value type;
