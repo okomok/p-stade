@@ -11,59 +11,60 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <pstade/has_xxx.hpp>
+#include <boost/mpl/int.hpp>
+#include <boost/static_assert.hpp>
+#include "../config.hpp"
 #include "../function_fwd.hpp"
+#include "./is_bytag.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    namespace bytag_at_detail{
-        PSTADE_HAS_TYPE(type)
-    }
-
-
-    template<class Strategy, int N>
-    struct get_bytag_at
-    {
-        typedef typename Strategy::type seq_t;
-        typedef typename boost::mpl::at_c<seq_t, N>::type type;
-    };
-
-
-    template<class Strategy, int N>
-    struct bytag_at :
-        boost::mpl::eval_if< bytag_at_detail::has_type<Strategy>,
-            get_bytag_at<Strategy, N>,
-            boost::mpl::identity<by_perfect>
-        >
+    template<class Strategy, int Arity, int Index>
+    struct bytag_at_impl :
+        Strategy::template apply<
+            Strategy,
+            boost::mpl::int_<Arity>,
+            boost::mpl::int_<Index>
+        > 
     { };
 
-    template<int N>
-    struct bytag_at<by_perfect, N>
+    template<int Arity, int Index>
+    struct bytag_at_impl<by_perfect, Arity, Index>
     {
+        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_ARITY);
         typedef by_perfect type;
     };
 
-    template<int N>
-    struct bytag_at<by_ref, N>
+    template<int Arity, int Index>
+    struct bytag_at_impl<by_ref, Arity, Index>
     {
+        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
         typedef by_ref type;
     };
 
-    template<int N>
-    struct bytag_at<by_cref, N>
+    template<int Arity, int Index>
+    struct bytag_at_impl<by_cref, Arity, Index>
     {
+        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
         typedef by_cref type;
     };
 
-    template<int N>
-    struct bytag_at<by_value, N>
+    template<int Arity, int Index>
+    struct bytag_at_impl<by_value, Arity, Index>
     {
+        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
         typedef by_value type;
+    };
+
+
+    template<class Strategy, int Arity, int Index>
+    struct bytag_at
+    {
+        BOOST_STATIC_ASSERT(Index < Arity);
+        typedef typename bytag_at_impl<Strategy, Arity, Index>::type type;
+        BOOST_STATIC_ASSERT(is_bytag<type>::value);
     };
 
 

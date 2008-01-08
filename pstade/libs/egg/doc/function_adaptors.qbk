@@ -764,7 +764,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_pipable<_PFo, _Stg = _default>::type`]
-        [A __PIPABLE_FUNCTION_OBJECT__ type]
+        [A __PIPABLE__ __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`PSTADE_EGG_PIPABLE_L init PSTADE_EGG_PIPABLE_R`]
