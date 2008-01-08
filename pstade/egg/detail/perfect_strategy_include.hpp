@@ -22,20 +22,8 @@ namespace pstade { namespace egg {
     template<class Little>
     struct function<Little, PSTADE_stg>
     {
-    // header
-        typedef function function_type;
-        typedef Little little_type;
-
-        Little m_little;
-
-        Little little() const
-        {
-            return m_little;
-        }
-
-        typedef typename
-            detail::nullary_result<Little, function>::type
-        nullary_result_type;
+        #define  PSTADE_EGG_FUNCTION_PREAMBLE_PARAMS (Little, m_little)
+        #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
     // 0ary-
         template<class FunCall>
@@ -73,8 +61,6 @@ namespace pstade { namespace egg {
     #undef  PSTADE_arg_type
     #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
-
-        #include PSTADE_EGG_BLL_BINDABLE()
     };
 
 
