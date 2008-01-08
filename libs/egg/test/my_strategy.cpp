@@ -19,19 +19,18 @@
 #include <pstade/egg/call_little.hpp>
 #include <boost/mpl/assert.hpp>
 #include <pstade/egg/unref_by.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/always.hpp>
 
 
 namespace egg = pstade::egg;
 using namespace egg;
 
 
-struct my_by_value
+struct my_by_value : boost::mpl::always<by_value>
 {
-    typedef boost::mpl::vector<by_value, by_value> type;
 };
 
-BOOST_MPL_ASSERT((detail::is_front_bytag_of<by_value, my_by_value>));
+BOOST_MPL_ASSERT((detail::is_unary_bytag_of<by_value, my_by_value>));
 
 
 namespace pstade { namespace egg {
