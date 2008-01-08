@@ -32,37 +32,39 @@
 namespace pstade {
 
 
-    namespace affect_detail {
+    template<class From, class To>
+    struct affect_const :
+        boost::mpl::eval_if< boost::is_const<From>,
+            boost::add_const<To>,
+            boost::mpl::identity<To>
+        >
+    { };
 
 
-        template<class From, class To>
-        struct constness :
-            boost::mpl::eval_if< boost::is_const<From>,
-                boost::add_const<To>,
-                boost::mpl::identity<To>
-            >
-        { };
+    template<class From, class To>
+    struct affect_volatile :
+        boost::mpl::eval_if< boost::is_volatile<From>,
+            boost::add_volatile<To>,
+            boost::mpl::identity<To>
+        >
+    { };
 
 
-        template<class From, class To>
-        struct volatileness :
-            boost::mpl::eval_if< boost::is_volatile<From>,
-                boost::add_volatile<To>,
-                boost::mpl::identity<To>
-            >
-        { };
+    template<class From, class To>
+    struct affect_cv :
+        affect_const<From,
+            typename affect_volatile<From, To>::type
+        >
+    { };
 
 
-        template<class From, class To>
-        struct referenceness :
-            boost::mpl::eval_if< boost::is_reference<From>,
-                boost::add_reference<To>,
-                boost::mpl::identity<To>
-            >
-        { };
-
-
-    } // namespace affect_detail
+    template<class From, class To>
+    struct affect_reference :
+        boost::mpl::eval_if< boost::is_reference<From>,
+            boost::add_reference<To>,
+            boost::mpl::identity<To>
+        >
+    { };
 
 
     template<class From, class To>
@@ -73,12 +75,8 @@ namespace pstade {
         non_ref_from;
 
         typedef
-            typename affect_detail::referenceness<From,
-                typename affect_detail::constness<non_ref_from,
-                    typename affect_detail::volatileness<non_ref_from,
-                        To
-                    >::type
-                >::type
+            typename affect_reference<From,
+                typename affect_cv<non_ref_from, To>::type
             >::type
         type;
     };

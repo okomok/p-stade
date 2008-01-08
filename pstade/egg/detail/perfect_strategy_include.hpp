@@ -49,15 +49,15 @@ namespace pstade { namespace egg {
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params) \
         template<BOOST_PP_ENUM_PARAMS(n, class A)> \
-        typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
+        typename BOOST_PP_CAT(apply_little, n)<Little, ArgTypes>::type \
         operator()(Params) const \
         { \
             return detail::call_little_impl< \
-                Little, typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
+                Little, typename BOOST_PP_CAT(apply_little, n)<Little, ArgTypes>::type \
             >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
-    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
+    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
     #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
@@ -101,21 +101,11 @@ namespace pstade { namespace egg {
 
 #else
 
-private:
-    // This indirection is needed for msvc ETI bug.
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct BOOST_PP_CAT(result, n) :
-        Little::template apply<
-            Little const,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename unref_by_perfect<A, >::type)
-        >
-    { };
-
-public:
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
-        BOOST_PP_CAT(result, n)<
-            BOOST_PP_ENUM_PARAMS(n, A)
+        BOOST_PP_CAT(apply_little, n)<
+            Little,
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::unref_by_perfect<A, >::type)
         >
     { };
 

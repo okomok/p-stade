@@ -17,7 +17,7 @@
 #include <pstade/enable_if.hpp>
 #include "./bll_bindable.hpp"
 #include "./detail/named_arg.hpp"
-#include "./unref_by.hpp"
+#include "./detail/unref.hpp"
 
 
 namespace pstade { namespace egg {
@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
         struct result<Self(Arg)>
         {
             typedef
-                detail::named_arg<keyword, typename unref_by_perfect<Arg>::type> const
+                detail::named_arg<keyword, typename detail::unref_by_perfect<Arg>::type> const
             type;
         };
 
