@@ -37,11 +37,11 @@ namespace pstade { namespace egg {
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params) \
         template<BOOST_PP_ENUM_PARAMS(n, class A)> \
-        typename BOOST_PP_CAT(apply_little, n)<Little, ArgTypes>::type \
+        typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
         operator()(Params) const \
         { \
             return detail::call_little_impl< \
-                Little, typename BOOST_PP_CAT(apply_little, n)<Little, ArgTypes>::type \
+                Little, typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
             >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
@@ -90,7 +90,7 @@ namespace pstade { namespace egg {
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(apply_little, n)<
-            Little,
+            Little const,
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::unref_by_perfect<A, >::type)
         >
     { };

@@ -17,6 +17,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
@@ -25,8 +26,11 @@
 #include "../forward.hpp"
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
-#include "../tuple/config.hpp"
-#include "./is_unary_bytag_of.hpp"
+#include "../tuple/config.hpp" // PSTADE_EGG_TUPLE_MAX_SIZE
+#include "./or_is_same.hpp"
+
+
+#define PSTADE_EGG_PIPABLE_MAX_ARITY BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -40,7 +44,7 @@ namespace little_pipable_resultns_ {
 
     // Fortunately, boost::tuples::null_type is a POD type.
 
-    template<class Base, class Strategy, class StrategyL, class ArgTuple = boost::tuples::null_type>
+    template<class Base, class Strategy, class OperandBytag, class ArgTuple = boost::tuples::null_type>
     struct little_pipable_result
     {
         typedef Base base_type;
@@ -53,7 +57,6 @@ namespace little_pipable_resultns_ {
         {
             return m_base;
         }
-
 
     // 0ary
         typedef
@@ -68,13 +71,11 @@ namespace little_pipable_resultns_ {
         }
 
     // 1ary-
-    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_max_arity, A)>
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_PIPABLE_MAX_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/little_pipable_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_PIPABLE_MAX_ARITY, <pstade/egg/detail/little_pipable_result.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_max_arity
     };
 
 
@@ -100,53 +101,53 @@ namespace little_pipable_resultns_ {
     //   msvc-7.1 seems to need lazy_enable_if to keep return type as well-formed as possible.
     //
 
-    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_unary_bytag_of2<by_perfect, by_ref, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
-    operator|(A& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
+    typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
-    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_unary_bytag_of2<by_perfect, by_cref, StrategyL>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
-    operator|(A const& a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
+    typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
+    operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
     // by_value
-    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_unary_bytag_of<by_value, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
-    operator|(A a, function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
+    typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
-        // For movable types, we can't turn `a` into const-reference.
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        // For movable types, we can't turn `o` into const-reference.
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
 
     // operater|=
     //
 
-    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_unary_bytag_of2<by_perfect, by_ref, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A& a)
+    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
+    typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O& o)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
-    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_unary_bytag_of2<by_perfect, by_cref, StrategyL>, result_of_output<PSTADE_DEDUCED_CONST(A), Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A const& a)
+    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
+    typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O const& o)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
     // by_value
-    template<class A, class Base, class Strategy, class StrategyL, class ArgTuple> inline
-    typename lazy_enable_if< is_unary_bytag_of<by_value, StrategyL>, result_of_output<A, Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, StrategyL, ArgTuple>, Strategy> const& pi, A a)
+    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
+    typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O o)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, a));
+        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
 
@@ -171,10 +172,10 @@ using little_pipable_resultns_::lookup_pipable_operator;
         typedef
             function<
                 little_pipable_result<
-                    Base, Strategy, StrategyL,
+                    Base, Strategy, OperandBytag,
                     // Arguments must be copied in case of by_value.
                     // Notice that Boost.Tuple doesn't work with movable types.
-                    boost::tuples::tuple<PSTADE_EGG_FORWARD_ENUM_META_ARGS(n, A, Strategy)>
+                    boost::tuples::tuple<PSTADE_EGG_STRATEGY_FORWARD_ENUM_META_ARGS(n, A, Strategy const)>
                 >,
                 Strategy
             >

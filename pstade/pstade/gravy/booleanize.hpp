@@ -27,7 +27,7 @@ namespace pstade { namespace gravy {
 
 
     typedef
-        egg::result_of_ambi1<
+        egg::result_of_ambi0<
             booleanize_detail::base
         >::type
     T_booleanize;

@@ -63,7 +63,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
 
-    template<class A, class By>
+    template<class A, class Bytag>
     struct unref;
 
     template<class A>

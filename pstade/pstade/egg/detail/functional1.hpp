@@ -73,7 +73,7 @@ namespace pstade { namespace egg {
         template<class Result, class A1>
         Result call(A1& a1) const
         {
-            // I have a feeling that egg::forward shouldn't be called,
+            // I have a feeling that egg::strategy_forward shouldn't be called,
             // because Boost.Lambda doesn't care rvalue.
 #if post == 1
             return a1 op;

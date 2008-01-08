@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
     }
 
 
-    typedef result_of_ambi1<integralize_detail::op>::type T_integralize;
+    typedef result_of_ambi0<integralize_detail::op>::type T_integralize;
     PSTADE_POD_CONSTANT((T_integralize), integralize) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
 
 

@@ -47,6 +47,7 @@
 * FunctionAdaptor with `by_value` turns arguments into rvalues if possible.
 * Comparison operators added.
 * Functionals added.
+* `ambiN` -> `ambi(N-1)`.
 
 
 

@@ -78,13 +78,13 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<base_type(PSTADE_EGG_FORWARD_ENUM_META_ARGS(n, A, Strategy))>
+        result_of<base_type(PSTADE_EGG_STRATEGY_FORWARD_ENUM_META_ARGS(n, A, Strategy const))>
     { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return (*m_ptr)(PSTADE_EGG_FORWARD_ENUM_ARGS(n, a, Strategy));
+        return (*m_ptr)(PSTADE_EGG_STRATEGY_FORWARD_ENUM_ARGS(n, a, Strategy const));
     }
 
 

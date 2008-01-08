@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
     template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(apply_little, n) :
         Little::template apply<
-            Little const,
+            Little, // It's your responsibility to add cv-qualifier.
             BOOST_PP_ENUM_PARAMS(n, A)
         >
     { };

@@ -17,6 +17,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
@@ -36,7 +37,7 @@ namespace pstade { namespace egg {
 
 
     // 1ary-
-#define PSTADE_unref(Z, I, _) typename detail::unref<BOOST_PP_CAT(A, I), typename detail::bytag_at<Strategy, n, I>::type>::type
+#define PSTADE_unref(Z, I, _) typename detail::unref<BOOST_PP_CAT(A, I), typename detail::bytag_at<stg_t, n, I>::type>::type
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/apply_little.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_unref
@@ -52,14 +53,26 @@ namespace pstade { namespace egg {
 
     template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)> :
-        BOOST_PP_CAT(apply_little, n)<Little, BOOST_PP_ENUM_PARAMS(n, A)>
+        BOOST_PP_CAT(apply_little, n)<
+            Little,
+            BOOST_PP_ENUM_PARAMS(n, A)
+        >
     { };
 
 
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A), class Little, class Strategy>
-    struct of_apply_little<Fun(BOOST_PP_ENUM_PARAMS(n, A)), Little, Strategy> :
-        BOOST_PP_CAT(apply_little, n)<Little, BOOST_PP_ENUM(n, PSTADE_unref, ~)>
-    { };
+    struct of_apply_little<Fun(BOOST_PP_ENUM_PARAMS(n, A)), Little, Strategy>
+    {
+        typedef typename affect_cv<Fun, Little>::type little_t;
+        typedef typename affect_cv<Fun, Strategy>::type stg_t;
+
+        typedef typename
+            BOOST_PP_CAT(apply_little, n)<
+                little_t,
+                BOOST_PP_ENUM(n, PSTADE_unref, ~)
+            >::type
+        type;
+    };
 
 
 #undef n

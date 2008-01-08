@@ -71,7 +71,7 @@ struct base_op_front :
     }
 };
 
-typedef pstade::egg::result_of_ambi1<
+typedef pstade::egg::result_of_ambi0<
     ::base_op_front<PSTADE_EGG_AS_MPL_LAMBDA((pstade::oven::range_value<boost::mpl::_>))>
 >::type T_my_value_front;
 T_my_value_front my_value_front;

@@ -39,7 +39,7 @@ struct base_my_plus
     }
 };
 
-typedef result_of_ambi2<base_my_plus>::type T_my_plus;
+typedef result_of_ambi1<base_my_plus>::type T_my_plus;
 T_my_plus const my_plus = PSTADE_EGG_AMBI({});
 
 void test_ambi()
@@ -48,8 +48,8 @@ void test_ambi()
     BOOST_CHECK( ( 1|my_plus(2) ) == 3 );
 
     std::plus<int> std_plus;
-    BOOST_CHECK( ambi2(std_plus)(1, 2) == 3);
-    BOOST_CHECK( ( 1|ambi2(std_plus)(2) ) == 3);
+    BOOST_CHECK( ambi1(std_plus)(1, 2) == 3);
+    BOOST_CHECK( ( 1|ambi1(std_plus)(2) ) == 3);
 }
 //]
 
