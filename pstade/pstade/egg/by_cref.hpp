@@ -20,10 +20,11 @@
 #include <pstade/preprocessor.hpp>
 #include "./bll_bindable.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
 #include "./detail/nullary_result.hpp"
+#include "./detail/unref.hpp"
 #include "./function_fwd.hpp"
-#include "./unref_by.hpp"
 
 
 namespace pstade { namespace egg {
@@ -73,30 +74,20 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-private:
-    // This indirection is needed for msvc ETI bug.
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct BOOST_PP_CAT(result, n) :
-        Little::template apply<
-            Little const,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename unref_by_cref<A, >::type)
-        >
-    { };
-
-public:
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
-        BOOST_PP_CAT(result, n)<
-            BOOST_PP_ENUM_PARAMS(n, A)
+        BOOST_PP_CAT(apply_little, n)<
+            Little,
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::unref_by_cref<A, >::type)
         >
     { };
 
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
+    typename BOOST_PP_CAT(apply_little, n)<Little, PSTADE_PP_ENUM_PARAMS_WITH(n, A, const)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
         return detail::call_little_impl<
-            Little, typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
+            Little, typename BOOST_PP_CAT(apply_little, n)<Little, PSTADE_PP_ENUM_PARAMS_WITH(n, A, const)>::type
         >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a));
     }
     

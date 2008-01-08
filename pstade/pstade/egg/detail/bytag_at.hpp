@@ -25,9 +25,10 @@ namespace pstade { namespace egg { namespace detail {
     struct bytag_at_impl :
         Strategy::template apply<
             Strategy,
+            // must be type parameter for MetafunctionClass.
             boost::mpl::int_<Arity>,
             boost::mpl::int_<Index>
-        > 
+        >
     { };
 
     template<int Arity, int Index>
