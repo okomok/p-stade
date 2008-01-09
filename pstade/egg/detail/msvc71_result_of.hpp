@@ -23,6 +23,7 @@
 //     template<class A> // 'add_const' below is ignored.
 //     typename boost::result_of<F(typename add_const<A>::type&)>::type foo(A& a, F) { }
 // So, we must delay to write 'const' for array types, then instantiate 'result_of' using 'const'.
+// In other words, this bug introduces "Metafunction Forwarding Problem".
 // Fortunately, this bug doesn't occur in class scope.
 
 

@@ -108,8 +108,12 @@ This document uses the following notation.
         [A type which is one of the __EGG_FORWARDING_STRATEGIES__.]
     ]
     [
-	    [`_default`]
-	    [`boost::use_default`]
+        [`_Bytag`]
+        [A type which is one of `by_perfect`, `by_ref`, `by_cref`, and `by_value`.]
+    ]
+    [
+        [`_default`]
+        [`boost::use_default`]
     ]
     [
         [`_TUPLE_MAX_SIZE`]

@@ -6,39 +6,28 @@
 
 // PStade.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./call_little_fwd.hpp"
+#include "./call_little_impl.hpp"
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace pstade { namespace egg {
 
 
-    template<class Little_, class Result, class EnableIf>
-    struct call_little
-    {
-    // 0ary
-        template<class Little>
-        static Result call(Little& little)
-        {
-            return little.template call<Result>();
-        }
-
-    // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/call_little.hpp>))
-        #include BOOST_PP_ITERATE()
-    };
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/call_little.hpp>))
+    #include BOOST_PP_ITERATE()
 
 
-} } } // namespace pstade::egg::detail
+} } // namespace pstade::egg
 
 
 #endif
@@ -46,10 +35,12 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
-    static Result call(Little& little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a))
+    template<class Result, class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
+    Result call_little(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
-        return little.template call<Result>(BOOST_PP_ENUM_PARAMS(n, a));
+        return detail::call_little_impl<
+            typename boost::remove_cv<Little>::type, Result
+        >::call(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 

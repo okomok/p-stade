@@ -48,6 +48,7 @@
 * Comparison operators added.
 * `ambiN` -> `ambi(N-1)`.
 * `ret` renamed to `return_`.
+* "Writing your strategy" added.
 
 
 
