@@ -15,7 +15,7 @@
 
 #include <string>
 #include <pstade/result_of.hpp>
-#include <pstade/egg/is_classified_as.hpp>
+#include <pstade/egg/locale.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/filtered.hpp>
 

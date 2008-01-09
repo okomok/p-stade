@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
         {
             return detail::call_little_impl<
                 Little, nullary_result_type
-            >::call(m_little);
+            >::call0(m_little);
         }
 
     // 1ary-
@@ -76,7 +76,7 @@ namespace pstade { namespace egg {
     {
         return detail::call_little_impl<
             Little, typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM_PARAMS(n, A)>::type
-        >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a));
+        >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

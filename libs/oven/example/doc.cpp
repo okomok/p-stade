@@ -28,7 +28,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
-#include <pstade/egg/to_lower.hpp>
+#include <pstade/egg/locale.hpp> // to_lower
 
 
 namespace oven = pstade::oven;

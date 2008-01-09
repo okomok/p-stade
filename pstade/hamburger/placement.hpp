@@ -31,10 +31,10 @@ namespace pstade { namespace hamburger {
             if (!pa)
                 return;
 
-            int left   = *this%Name_left  |lexicalized;
-            int top    = *this%Name_top   |lexicalized;
-            int width  = *this%Name_width |lexicalized;
-            int height = *this%Name_height|lexicalized;
+            int left   = *this%Name_left  |lexicald;
+            int top    = *this%Name_top   |lexicald;
+            int width  = *this%Name_width |lexicald;
+            int height = *this%Name_height|lexicald;
 
             rectangle rc(left, top, left+width, top+height);
             pa.set_bounds(rc);

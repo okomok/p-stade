@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/to_upper.hpp>
+#include <pstade/egg/locale.hpp>
 #include <pstade/minimal_test.hpp>
 
 

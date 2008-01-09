@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/lexicalize.hpp>
+#include <pstade/egg/lexical.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./log.hpp"
@@ -27,8 +27,8 @@ namespace pstade { namespace hamburger {
         bool operator()(Node& node1, Node& node2) const
         {
             try {
-                int zIndex1 = node1%Name_zIndex|egg::lexicalize();
-                int zIndex2 = node2%Name_zIndex|egg::lexicalize();
+                int zIndex1 = node1%Name_zIndex|egg::lexical();
+                int zIndex2 = node2%Name_zIndex|egg::lexical();
                 return zIndex1 < zIndex2;
             }
             catch (boost::bad_lexical_cast const& err) {

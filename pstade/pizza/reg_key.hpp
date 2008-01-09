@@ -11,7 +11,7 @@
 
 
 #include <pstade/detail/overload.hpp>
-#include <pstade/egg/integralize.hpp>
+#include <pstade/egg/integral.hpp>
 #include <pstade/gravy/c_str.hpp>
 #include <pstade/gravy/module_file_name.hpp>
 #include <pstade/gravy/tstring.hpp>
@@ -51,10 +51,10 @@ inline
 bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast, pstade::detail::overload<>)
 {
 #if !(PSTADE_TOMATO_ATL_VER < 0x0700)
-    ULONG ulBufs = (pLast - pFirst)|pstade::egg::integralize();
+    ULONG ulBufs = (pLast - pFirst)|pstade::egg::integral();
     return key.QueryStringValue(pszValueName, pFirst, &ulBufs) == ERROR_SUCCESS;
 #else
-    DWORD dwCount = (pLast - pFirst)|pstade::egg::integralize();
+    DWORD dwCount = (pLast - pFirst)|pstade::egg::integral();
     return key.QueryValue(pFirst, pszValueName, &dwCount) == ERROR_SUCCESS;
 #endif
 }

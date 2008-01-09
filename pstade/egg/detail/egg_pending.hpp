@@ -17,8 +17,5 @@
 #include "../protect.hpp"
 #include "../unlambda.hpp"
 
-#include "../auto_funptr.hpp"
-#include "../funptr.hpp"
-
 
 #endif

@@ -22,18 +22,14 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/preprocessor.hpp>
 #include "../by_cref.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-#define entries \
-    (2,( \
-        (std::toupper,  to_upper), \
-        (std::tolower,  to_lower) \
-    ) ) \
-/**/
+#define entries (2, (upper, lower))
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/char_conversion.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  entries
@@ -44,12 +40,10 @@ namespace pstade { namespace egg {
 
 #endif
 #else
-#define entry BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
-#define op   BOOST_PP_TUPLE_ELEM(2, 0, entry)
-#define name BOOST_PP_TUPLE_ELEM(2, 1, entry)
+#define name BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
 
 
-    struct BOOST_PP_CAT(little_, name)
+    struct PSTADE_PP_CAT3(little_, to_, name)
     {
         template<class Myself, class CharT, class Locale = void>
         struct apply :
@@ -59,7 +53,7 @@ namespace pstade { namespace egg {
         template<class Result, class CharT>
         Result call(CharT& ch, std::locale const& loc) const
         {
-            return op(ch, loc);
+            return std::use_facet< std::ctype<CharT> >(loc).BOOST_PP_CAT(to, name)(ch);
         }
 
         template<class Result, class CharT>
@@ -69,14 +63,12 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef function<BOOST_PP_CAT(little_, name), by_cref> BOOST_PP_CAT(T_, name);
+    typedef function<PSTADE_PP_CAT3(little_, to_, name), by_cref> PSTADE_PP_CAT3(T_, to_, name);
 
     PSTADE_ADL_BARRIER(char_conversion) {
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = {{}};
+        PSTADE_POD_CONSTANT((PSTADE_PP_CAT3(T_, to_, name)), BOOST_PP_CAT(to_, name)) = {{}};
     }
 
 
 #undef  name
-#undef  op
-#undef  entry
 #endif

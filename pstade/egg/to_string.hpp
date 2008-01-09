@@ -14,7 +14,7 @@
 #include <string>
 #include <pstade/pod_constant.hpp>
 #include "./ambi.hpp"
-#include "./lexical_cast.hpp"
+#include "./lexical.hpp"
 
 
 namespace pstade { namespace egg {
