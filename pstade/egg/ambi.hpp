@@ -119,7 +119,7 @@ namespace pstade { namespace egg {
             template<class Myself, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Myself, O, BOOST_PP_ENUM_PARAMS(n, A)> :
                 result_of<Base const(typename result_of_forward<OperandBytag, O>::type, PSTADE_EGG_STRATEGY_FORWARD_ENUM_META_ARGS(n, A, Strategy const))>
-            { };    
+            { };
 
             template<class Result, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
             Result call(O& o, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
@@ -133,8 +133,6 @@ namespace pstade { namespace egg {
 #if n == 0
 
         struct lookup_ambi_operator { };
-
-
         using detail::or_is_same;
 
 

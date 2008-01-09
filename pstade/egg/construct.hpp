@@ -17,7 +17,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./forward.hpp"
 #include "./nullary_result_of.hpp"
 
 
@@ -27,7 +28,7 @@ namespace pstade { namespace egg {
     namespace construct_detail {
 
 
-        template<class X>
+        template<class X, class Strategy>
         struct little
         {
         // 0ary
@@ -40,13 +41,13 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct apply
             {
                 typedef X type;
             };
 
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/construct.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/construct.hpp>))
             #include BOOST_PP_ITERATE()
         };
 
@@ -54,9 +55,9 @@ namespace pstade { namespace egg {
     } // namespace construct_detail
 
 
-    template<class X>
+    template<class X, class Strategy = by_perfect>
     struct X_construct :
-        function<construct_detail::little<X>, by_perfect>
+        function<construct_detail::little<X, Strategy>, Strategy>
     { };
 
 
@@ -75,7 +76,7 @@ namespace pstade { namespace egg {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return Result(BOOST_PP_ENUM_PARAMS(n, a));
+        return Result(PSTADE_EGG_STRATEGY_FORWARD_ENUM_ARGS(n, a, Strategy const));
     }
 
 

@@ -11,11 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/boost_workaround.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./forward.hpp"
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
 
@@ -23,33 +23,11 @@
 namespace pstade { namespace egg {
 
 
-#if BOOST_WORKAROUND(__GNUC__, == 3)
-    template<class Base>
-    struct little_flip_result
-    {
-        Base m_base;
-
-        template<class Myself, class A0, class A1>
-        struct apply :
-            result_of<Base const(A1&, A0&)>
-        { };
-
-        template<class Result, class A0, class A1>
-        Result call(A0& a0, A1& a1) const
-        {
-            return m_base(a1, a0);
-        }
-    };
-#endif
+    namespace flip_detail {
 
 
-    template<class BinaryBase, class Strategy = by_perfect>
-    struct result_of_flip
-    {
-#if !BOOST_WORKAROUND(__GNUC__, == 3)
-        // Keep 'little' a template for 'generator'.
-        template<class Base>
-        struct little
+        template<class Base, class Strategy>
+        struct little_result
         {
             Base m_base;
 
@@ -61,14 +39,18 @@ namespace pstade { namespace egg {
             template<class Result, class A0, class A1>
             Result call(A0& a0, A1& a1) const
             {
-                return m_base(a1, a0);
+                return m_base(egg::strategy_forward<Strategy, 2, 1>(a1), egg::strategy_forward<Strategy, 2, 0>(a0));
             }
         };
 
-        typedef function<little<BinaryBase>, Strategy> type;
-#else
-        typedef function<little_flip_result<BinaryBase>, Strategy> type;
-#endif
+
+    } // namespace flip_detail
+
+
+    template<class BinaryBase, class Strategy = by_perfect>
+    struct result_of_flip
+    {
+        typedef function<flip_detail::little_result<BinaryBase, Strategy>, Strategy> type;
     };
 
 
@@ -77,16 +59,17 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_FLIP(F) PSTADE_EGG_FLIP_L F PSTADE_EGG_FLIP_R
 
 
-    typedef
+    template<class Strategy = by_perfect>
+    struct X_flip :
         generator<
             result_of_flip< deduce<boost::mpl::_1, as_value> >::type,
             boost::use_default,
             use_brace2,
             by_value
         >::type
-    T_flip;
+    { };
 
-
+    typedef X_flip<>::function_type T_flip;
     PSTADE_POD_CONSTANT((T_flip), flip) = PSTADE_EGG_GENERATOR;
 
 

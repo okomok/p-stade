@@ -45,7 +45,7 @@ namespace pstade { namespace egg { namespace detail {
         Result call(X& x, typename disable_if<is_bind_expression<X> >::type = 0) const
         {
             return always(boost::ref(x));
-        }                
+        }
     };
 
 
