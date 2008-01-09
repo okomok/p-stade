@@ -108,7 +108,6 @@ test-suite "egg" :
     [ run pipable_by.cpp ]
     [ run placeholders.cpp ]
     [ run protect.cpp ]
-    [ run ret.cpp ]
     [ run return.cpp ]
     [ run shared_object.cpp ]
     [ run sig_template.cpp ]

@@ -22,8 +22,10 @@ namespace pstade { namespace egg {
     template<class Little>
     struct function<Little, PSTADE_stg>
     {
-        #define  PSTADE_EGG_FUNCTION_PREAMBLE_PARAMS (Little, m_little)
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
+
+        Little m_little;
+        Little little() const { return m_little; }
 
     // 0ary-
         template<class FunCall>

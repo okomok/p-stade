@@ -87,7 +87,6 @@
 #include "../pipable.hpp"
 #include "../regular.hpp"
 #include "../result_of_ref.hpp"
-#include "../ret.hpp"
 #include "../return.hpp"
 #include "../shared_object.hpp"
 #include "../specified.hpp"

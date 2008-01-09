@@ -22,6 +22,8 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
 #include "./detail/bytag_at.hpp"
+#include "./detail/little_of.hpp"
+#include "./detail/strategy_of.hpp"
 #include "./detail/unref.hpp"
 
 
@@ -32,7 +34,7 @@ namespace pstade { namespace egg {
     struct apply_little;
 
 
-    template<class FunCall, class Little, class Strategy>
+    template<class FunCall>
     struct of_apply_little;
 
 
@@ -60,11 +62,11 @@ namespace pstade { namespace egg {
     { };
 
 
-    template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A), class Little, class Strategy>
-    struct of_apply_little<Fun(BOOST_PP_ENUM_PARAMS(n, A)), Little, Strategy>
+    template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct of_apply_little<Fun(BOOST_PP_ENUM_PARAMS(n, A))>
     {
-        typedef typename affect_cv<Fun, Little>::type little_t;
-        typedef typename affect_cv<Fun, Strategy>::type stg_t;
+        typedef typename affect_cv<Fun, typename detail::little_of<Fun>::type>::type little_t;
+        typedef typename affect_cv<Fun, typename detail::strategy_of<Fun>::type>::type stg_t;
 
         typedef typename
             BOOST_PP_CAT(apply_little, n)<

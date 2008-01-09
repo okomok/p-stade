@@ -38,6 +38,9 @@ namespace pstade { namespace egg { namespace detail {
         typedef T (&type)[sz];
     };
 
+    template<class A>
+    struct bound_arg<A&>;
+
 
     // const lvalue, because operator() is const.
     template<class A>

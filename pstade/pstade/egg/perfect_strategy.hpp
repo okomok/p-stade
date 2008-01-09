@@ -28,6 +28,7 @@
 #include "./detail/call_little_impl.hpp"
 #include "./detail/unref.hpp"
 #include "./function_fwd.hpp"
+#include "./function_preamble.hpp"
 
 
 #define PSTADE_EGG_PERFECT_STRATEGY() <pstade/egg/detail/perfect_strategy_include.hpp>

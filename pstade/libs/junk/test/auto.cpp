@@ -11,7 +11,7 @@
 //#include <pstade/../libs/p_stade/test/p_stade.cpp>
 //#include <pstade/../libs/p_stade/test/lambda_result_of.cpp>
 
-//#include <pstade/../libs/wine/test/poly.cpp>
+//#include <pstade/../libs/wine/test/affect.cpp>
 
 //#include <pstade/../libs/radish/test/swap_reset.cpp>
 
@@ -29,7 +29,7 @@
 //#define PSTADE_EGG_TEST_NUMBERED 1
 //#define PSTADE_EGG_TEST_LINEAR 0
 //#define PSTADE_EGG_MAX_ARITY 10
-#include <pstade/../libs/egg/test/bll_defer.cpp>
+#include <pstade/../libs/egg/test/function.cpp>
 //#include <pstade/../libs/egg/example/tuple_pack.cpp>
 
 //#include <boost/../libs/iterator/test/transform_iterator_test.cpp>

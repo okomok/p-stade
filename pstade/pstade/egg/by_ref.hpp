@@ -23,6 +23,7 @@
 #include "./detail/call_little_impl.hpp"
 #include "./detail/unref.hpp"
 #include "./function_fwd.hpp"
+#include "./function_preamble.hpp"
 
 
 namespace pstade { namespace egg {
@@ -31,8 +32,10 @@ namespace pstade { namespace egg {
     template<class Little>
     struct function<Little, by_ref>
     {
-        #define  PSTADE_EGG_FUNCTION_PREAMBLE_PARAMS (Little, m_little)
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
+
+        Little m_little;
+        Little little() const { return m_little; }
 
     // 0ary
         nullary_result_type operator()() const

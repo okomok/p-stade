@@ -19,7 +19,7 @@
 
 #include <boost/version.hpp>
 #include <pstade/egg/fuse.hpp>
-#include <pstade/egg/ret.hpp>
+#include <pstade/egg/return.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/little_to_adaptor.hpp"
 #include "./transformed.hpp"
@@ -52,7 +52,7 @@ namespace zipped_with_detail {
                 X_make_transformed<Reference, Value>(
                     typename result_of<zip_(RangeTuple&)>::type,
                     typename result_of<
-                        egg::T_fuse(typename result_of<egg::X_ret<Reference>(Function&)>::type)
+                        egg::T_fuse(typename result_of<egg::X_return<Reference>(Function&)>::type)
                     >::type
                 )
             >
@@ -64,7 +64,7 @@ namespace zipped_with_detail {
             return
                 X_make_transformed<Reference, Value>()(
                     zip_()(tup),
-                    egg::fuse(egg::X_ret<Reference>()(fun))
+                    egg::fuse(egg::X_return<Reference>()(fun))
                 );
         }
     };
