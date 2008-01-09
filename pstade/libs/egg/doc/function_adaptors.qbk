@@ -29,7 +29,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, _Stg, _StgOp)` is an object of `result_of_ambi++N<_typeof(d), _Stg, _StgOp>::type` initialized using `d` or an initializer.
+* `fc(d, _Stg, _Bytag)` is an object of `result_of_ambi++N<_typeof(d), _Stg, _Bytag>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -38,7 +38,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_ambi++N<_PFo, _Stg = _default, _StgOp = _default>::type`]
+        [`result_of_ambi++N<_PFo, _Stg = _default, _Bytag = _default>::type`]
         [An __AMBI__ __MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
@@ -50,16 +50,16 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_AMBI_L I PSTADE_EGG_AMBI_R`]
     ]
     [
-        [`o|fc(d, _Stg, _StgOp)(a1,...,aN)`]
-        [`_const(d)(_safe_arg_list(o, _StgOp),_safe_arg_list(a, _Stg))`]
+        [`o|fc(d, _Stg, _Bytag)(a1,...,aN)`]
+        [`_const(d)(_safe_arg_list(o, _Bytag),_safe_arg_list(a, _Stg))`]
     ]
     [
-        [`X_ambi++N<_Stg = _default, _StgOp = _default>`]
+        [`X_ambi++N<_Stg = _default, _Bytag = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_ambi++N<_Stg, _StgOp>()(d)`]
-        [`fc(d, _Stg, _StgOp)`]
+        [`X_ambi++N<_Stg, _Bytag>()(d)`]
+        [`fc(d, _Stg, _Bytag)`]
     ]
     [
         [`ambi++N`]
@@ -762,7 +762,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, _Stg, _StgOp)` is an object of `result_of_pipable<_typeof(d), _Stg, _StgOp>::type` initialized using `d` or an initializer.
+* `fc(d, _Stg, _Bytag)` is an object of `result_of_pipable<_typeof(d), _Stg, _Bytag>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -771,7 +771,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_pipable<_PFo, _Stg = _default, _StgOp = _default>::type`]
+        [`result_of_pipable<_PFo, _Stg = _default, _Bytag = _default>::type`]
         [A __PIPABLE__ __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -783,16 +783,16 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`PSTADE_EGG_PIPABLE_L I PSTADE_EGG_PIPABLE_R`]
     ]
     [
-        [`o|fc(d, _Stg, _StgOp)(a1,...,aN)`]
-        [`_const(d)(_safe_arg_list(o, _StgOp),safe_arg_list(a, _Stg))`]
+        [`o|fc(d, _Stg, _Bytag)(a1,...,aN)`]
+        [`_const(d)(_safe_arg_list(o, _Bytag),safe_arg_list(a, _Stg))`]
     ]
     [
-        [`X_pipable<_Stg = _default, _StgOp = _default>`]
+        [`X_pipable<_Stg = _default, _Bytag = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_pipable<_Stg, _StgOp>()(d)`]
-        [`fc(d, _Stg, _StgOp)`]
+        [`X_pipable<_Stg, _Bytag>()(d)`]
+        [`fc(d, _Stg, _Bytag)`]
     ]
     [
         [`pipable`]

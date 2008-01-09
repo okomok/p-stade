@@ -9,10 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-
-#include <pstade/egg/function_preamble.hpp>
-#include <pstade/egg/apply_little.hpp>
-#include <pstade/egg/call_little.hpp>
+#include <pstade/egg/function_extension.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -28,7 +25,7 @@
 namespace egg = pstade::egg;
 using namespace egg;
 
-
+//[code_my_strategy_tag
 struct my_strategy
 {
     // you can use mpl::vector and mpl::at, of course.
@@ -48,12 +45,13 @@ struct my_strategy
         typedef by_value type;
     };
 };
+//]
 
 BOOST_MPL_ASSERT((boost::is_same<by_perfect, detail::bytag_at<my_strategy, 1, 0>::type>));
 BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 0>::type>));
 BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 1>::type>));
 
-
+//[code_my_strategy_function
 namespace pstade { namespace egg {
 
     template<class Lit>
@@ -73,7 +71,7 @@ namespace pstade { namespace egg {
             return egg::call_little<typename apply_little<Lit const, A1>::type>(m_lit, i);
         }
 
-        template<class A1> // PSTADE_DEDUCED_CONST is needed, in fact.
+        template<class A1> // TODO: PSTADE_DEDUCED_CONST is needed, in fact.
         typename apply_little<Lit const, A1 const>::type operator()(A1 const& i) const
         {
             return egg::call_little<typename apply_little<Lit const, A1 const>::type>(m_lit, i);
@@ -87,7 +85,7 @@ namespace pstade { namespace egg {
     };
 
 } }
-
+//]
 
 struct base_mult3
 {

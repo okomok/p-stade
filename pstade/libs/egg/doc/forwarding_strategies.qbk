@@ -124,7 +124,7 @@ Egg performs the "perfect forwarding" by default.
         [`_ref(a1),...,_ref(aK)`]
     ]
     [
-        [`function<B, by_perfect>`]
+        [`function<_Lit, by_perfect>`]
         [See __EGG_FUNCTION__.]
     ]
 ]
@@ -167,7 +167,7 @@ Egg performs the "perfect forwarding" by default.
         [`_ref(a1),...,_ref(aK)`]
     ]
     [
-        [`function<B, by_ref>`]
+        [`function<_Lit, by_ref>`]
         [See __EGG_FUNCTION__.]
     ]
 ]
@@ -210,7 +210,7 @@ Egg performs the "perfect forwarding" by default.
         [`_typeof(a1) const,...,_typeof(aK) const`]
     ]
     [
-        [`function<B, by_cref>`]
+        [`function<_Lit, by_cref>`]
         [See __EGG_FUNCTION__.]
     ]
 ]
@@ -252,7 +252,7 @@ Egg performs the "perfect forwarding" by default.
         [`_typeof(a1),...,_typeof(aK)`]
     ]
     [
-        [`function<B, by_value>`]
+        [`function<_Lit, by_value>`]
         [See __EGG_FUNCTION__.]
     ]
 ]
@@ -294,6 +294,97 @@ Here an imaginary operator is defined for the documentation.
 
 
 
+[section Writing your strategy]
+
+[import ../test/my_strategy.cpp]
+
+[heading Description]
+The predefined strategies, `by_perfect` etc, may be too simple to meet your requirements.
+Egg provides the uniform way to define your own strategy.
+
+[heading Header]
+* `<pstade/egg/function_extension.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`#include PSTADE_EGG_FUNCTION_PREAMBLE()`]
+        [See below.]
+    ]
+    [
+        [`of_apply_little<Sig>`]
+        [See below.]
+    ]
+    [
+        [`apply_little<_Lit, A1,...,AK>`]
+        [`_Lit::apply<A1,...,AK>`]
+    ]
+    [
+        [`egg::call_little<R>(_lit, a1,...,aK)`]
+        [`_lit.call<R>(a1,...,aK)`]
+    ]
+]
+
+[heading Preconditions]
+* `Sig` is a /function type/.
+* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+
+[heading Your strategy tag]
+A strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
+[code_my_strategy_tag]
+
+[heading Specializing `function<>`]
+Using your strategy tag, `function<>` template can be specialized.
+`PSTADE_EGG_FUNCTION_PREAMBLE()` must be placed in first, which defines nested typedefs `little_type`, `nullary_result_type` etc.
+Once you define your strategy tag, `of_apply_little` automagically implements `result` template:
+[code_my_strategy_function]
+For some compiler bugs, you can call neither `result` template nor `_Lit::call` directly.
+You have to use `apply_little` and `call_little` instead. Also notice that `_Lit` is /cv-qualifier/ sensitive.
+
+[heading Your strategy completed]
+Now `function<>` with your strategy has become the __MAJOR_FUNCTION_OBJECT__ type.
+Let's look into the new valid expressions.
+
+[heading Notation]
+* `StgTag` is a __METAFUNCTION_CLASS__ which you have defined.
+* `StgTag_` is possibly cv-qualified `StgTag`.
+* `A` is a `boost::mpl::int_<>` which means an arity of `operator()`.
+* `I` is a `boost::mpl::int_<>` which means an index of parameters.
+
+[heading New valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_arg_list(a, StgTag)`]
+        [`_arg_list(a1, StgTag::apply<StgTag_, A, I>::type),...,_arg_list(aK, StgTag::apply<StgTag_, A, I>::type)`]
+    ]
+
+    [
+        [`_meta_arg_list(a, StgTag)`]
+        [`_meta_arg_list(a1, StgTag::apply<StgTag_, A, I>::type),...,_meta_arg_list(aK, StgTag::apply<StgTag_, A, I>::type)`]
+    ]
+    [
+        [`function<_Lit, StgTag>`]
+        [See __EGG_FUNCTION__.]
+    ]
+]
+
+[heading See also]
+* __FORWARDING_PROBLEM__
+* __BOOST_RESULT_OF__
+
+[endsect]
+
+
+
+
 [/
 
 [section PERFECT_STRATEGY]
@@ -323,7 +414,7 @@ you can define your own forwarding strategy using `PSTADE_EGG_PERFECT_STRATEGY` 
         [`_ref(a1),...,_ref(aK)`]
     ]
     [
-        [`function<B, Tag>`]
+        [`function<_Lit, Tag>`]
         [See __EGG_FUNCTION__.]
     ]
 ]

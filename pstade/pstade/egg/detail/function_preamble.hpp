@@ -13,7 +13,9 @@
 
 #include <boost/preprocessor/tuple/elem.hpp>
 #include "../bll_bindable.hpp"
+#include "./little_of.hpp"
 #include "./nullary_result.hpp"
+#include "./strategy_of.hpp"
 
    
 #define PSTADE_EGG_FUNCTION_PREAMBLE() <pstade/egg/detail/function_preamble_include.hpp>

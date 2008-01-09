@@ -21,9 +21,9 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
+#include "./detail/function_preamble.hpp"
 #include "./detail/unref.hpp"
 #include "./function_fwd.hpp"
-#include "./function_preamble.hpp"
 
 
 namespace pstade { namespace egg {

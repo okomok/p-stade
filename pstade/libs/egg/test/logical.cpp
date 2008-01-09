@@ -9,10 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/logical_xor.hpp>
-#include <pstade/egg/logical_and.hpp>
-#include <pstade/egg/logical_or.hpp>
-#include <pstade/egg/logical_not.hpp>
+#include <pstade/egg/functional.hpp>
 #include <pstade/minimal_test.hpp>
 
 
