@@ -23,10 +23,10 @@ namespace pstade { namespace egg {
 
 
     template<class Base, class Strategy = by_perfect>
-    struct result_of_not_
+    struct result_of_not
     {
         typedef
-            function<detail::little_not_result<Base>, Strategy>
+            function<detail::little_not_result<Base, Strategy>, Strategy>
         type;
     };
 
@@ -36,16 +36,19 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_NOT(F) PSTADE_EGG_NOT_L F PSTADE_EGG_NOT_R
 
 
-    typedef
+    template<class Strategy = by_perfect>
+    struct X_not :
         generator<
-            result_of_not_< deduce<boost::mpl::_1, as_value> >::type,
+            result_of_not<deduce<boost::mpl::_1, as_value>, Strategy>::type,
             boost::use_default,
             use_brace2,
             by_value
         >::type
-    T_not_;
+    { };
 
 
+    typedef X_not<>::function_type T_not;
+    typedef T_not T_not_;
     PSTADE_POD_CONSTANT((T_not_), not_) = PSTADE_EGG_GENERATOR;
 
 

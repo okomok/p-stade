@@ -18,6 +18,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -76,7 +77,9 @@ namespace pstade { namespace egg {
         }
     };
 
+PSTADE_ADL_BARRIER(char_classification) {
     PSTADE_POD_CONSTANT((PSTADE_PP_CAT3(T_, is_, name)), BOOST_PP_CAT(is_, name)) = {};
+}
 
 
 #undef  name

@@ -77,11 +77,12 @@ namespace pstade { namespace egg {
     namespace after_detail {
 
 
+        template<class Strategy>
         struct little
         {
             template<class Myself, class Function, class Thunk>
             struct apply :
-                result_of_after<Function, Thunk>
+                result_of_after<Function, Thunk, Strategy>
             { };
 
             template<class Result, class Function, class Thunk>
@@ -96,7 +97,12 @@ namespace pstade { namespace egg {
     } // namespace after_detail
 
 
-    typedef function<after_detail::little, by_value> T_after;
+    template<class Strategy = boost::use_default>
+    struct X_after :
+        function<after_detail::little<Strategy>, by_value>
+    { };
+
+    typedef X_after<>::function_type T_after;
     PSTADE_POD_CONSTANT((T_after), after) = {{}};
 
 

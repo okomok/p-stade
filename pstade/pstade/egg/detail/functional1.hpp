@@ -88,10 +88,10 @@ namespace pstade { namespace egg {
         function<BOOST_PP_CAT(little_, name)<ResultType>, Strategy>
     { };
 
-    PSTADE_ADL_BARRIER(functional1) {
-        typedef BOOST_PP_CAT(X_, name)<>::function_type BOOST_PP_CAT(T_, name);
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = {{}};
-    }
+PSTADE_ADL_BARRIER(functional1) {
+    typedef BOOST_PP_CAT(X_, name)<>::function_type BOOST_PP_CAT(T_, name);
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = {{}};
+}
 
 
 #undef  act

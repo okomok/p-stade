@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
 
 
     // 1ary-
-#define PSTADE_unref(Z, I, _) typename detail::unref<BOOST_PP_CAT(A, I), typename detail::bytag_at<stg_t, n, I>::type>::type
+#define PSTADE_unref(Z, I, _) typename detail::unref<typename detail::bytag_at<stg_t, n, I>::type, BOOST_PP_CAT(A, I)>::type
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_unref

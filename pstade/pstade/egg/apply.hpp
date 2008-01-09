@@ -55,9 +55,9 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_apply<>::function_type T_apply;
-    PSTADE_ADL_BARRIER(apply) {
-        PSTADE_POD_CONSTANT((T_apply), apply) = {{}};
-    }
+PSTADE_ADL_BARRIER(apply) {
+    PSTADE_POD_CONSTANT((T_apply), apply) = {{}};
+}
 
 
 } } // namespace pstade::egg

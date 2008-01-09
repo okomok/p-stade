@@ -48,9 +48,9 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_identity<>::function_type T_identity;
-    PSTADE_ADL_BARRIER(identity) {
-        PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
-    }
+PSTADE_ADL_BARRIER(identity) {
+    PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
+}
 
 
 } } // namespace pstade::egg

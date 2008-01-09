@@ -18,6 +18,9 @@
 namespace pstade { namespace egg { namespace detail {
 
 
+    // unref_by_xxx
+    //
+
     // rvalue
     template<class A>
     struct unref_by_perfect
@@ -63,26 +66,29 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
 
-    template<class A, class Bytag>
+    // unref
+    //
+
+    template<class Bytag, class A>
     struct unref;
 
     template<class A>
-    struct unref<A, by_perfect> :
+    struct unref<by_perfect, A> :
         unref_by_perfect<A>
     { };
 
     template<class A>
-    struct unref<A, by_ref> :
+    struct unref<by_ref, A> :
         unref_by_ref<A>
     { };
 
     template<class A>
-    struct unref<A, by_cref> :
+    struct unref<by_cref, A> :
         unref_by_cref<A>
     { };
 
     template<class A>
-    struct unref<A, by_value> :
+    struct unref<by_value, A> :
         unref_by_value<A>
     { };
 

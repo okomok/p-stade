@@ -22,12 +22,13 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "../apply_decl.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "../forward.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base>
+    template<class Base, class Strategy>
     struct little_not_result
     {
         Base m_base;
@@ -71,7 +72,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return !m_base(BOOST_PP_ENUM_PARAMS(n, a));
+        return !m_base(PSTADE_EGG_STRATEGY_FORWARD_ENUM_ARGS(n, a, Strategy const));
     }
 
 

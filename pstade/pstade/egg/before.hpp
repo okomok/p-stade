@@ -76,6 +76,7 @@ namespace pstade { namespace egg {
     namespace before_detail {
 
 
+        template<class Strategy>
         struct little
         {
             template<class Myself, class Thunk, class Function>
@@ -95,7 +96,12 @@ namespace pstade { namespace egg {
     } // namespace before_detail
 
 
-    typedef function<before_detail::little, by_value> T_before;
+    template<class Strategy = boost::use_default>
+    struct X_before :
+        function<before_detail::little<Strategy>, by_value>
+    { };
+
+    typedef X_before<>::function_type T_before;
     PSTADE_POD_CONSTANT((T_before), before) = {{}};
 
 
