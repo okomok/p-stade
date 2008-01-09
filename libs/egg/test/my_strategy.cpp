@@ -9,6 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+
+#include <pstade/egg/function_preamble.hpp>
 #include <pstade/egg/apply_little.hpp>
 #include <pstade/egg/call_little.hpp>
 #include <pstade/minimal_test.hpp>
@@ -29,6 +31,8 @@ using namespace egg;
 
 struct my_strategy
 {
+    // you can use mpl::vector and mpl::at, of course.
+
     template<class _, class Arity, class Index>
     struct apply;
 
@@ -55,11 +59,13 @@ namespace pstade { namespace egg {
     template<class Lit>
     struct function<Lit, my_strategy>
     {
-        #define  PSTADE_EGG_FUNCTION_PREAMBLE_PARAMS (Lit, m_lit)
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
+        Lit m_lit;
+        Lit little() const { return m_lit; }
+
         template<class Signature>
-        struct result : of_apply_little<Signature, Lit, my_strategy> {};
+        struct result : of_apply_little<Signature> {};
 
         template<class A1>
         typename apply_little<Lit const, A1>::type operator()(A1& i) const
@@ -67,7 +73,7 @@ namespace pstade { namespace egg {
             return egg::call_little<typename apply_little<Lit const, A1>::type>(m_lit, i);
         }
 
-        template<class A1>
+        template<class A1> // PSTADE_DEDUCED_CONST is needed, in fact.
         typename apply_little<Lit const, A1 const>::type operator()(A1 const& i) const
         {
             return egg::call_little<typename apply_little<Lit const, A1 const>::type>(m_lit, i);

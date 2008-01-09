@@ -12,7 +12,7 @@
 
 
 #include "./function_fwd.hpp"
-#include "./detail/forwarding_strategy.hpp"
+#include "./detail/strategy_of_little.hpp"
 
 
 namespace pstade { namespace egg {
@@ -22,7 +22,7 @@ namespace pstade { namespace egg {
     struct function_of
     {
         typedef
-            function<Little, typename detail::forwarding_strategy<Little, Strategy>::type>
+            function<Little, typename detail::strategy_of_little<Little, Strategy>::type>
         type;
     };
 

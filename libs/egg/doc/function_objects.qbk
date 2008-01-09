@@ -9,7 +9,7 @@ Egg no longer considers function templates to be useful, so that it provides
 [import ../example/nested_lambda.cpp]
 
 
-
+[/
 
 [section Functionals]
 
@@ -58,7 +58,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 [endsect]
 
-
+]
 
 
 [section always]

@@ -14,8 +14,10 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
@@ -31,8 +33,10 @@ namespace pstade { namespace egg {
     template<class Little>
     struct function<Little, by_cref>
     {
-        #define  PSTADE_EGG_FUNCTION_PREAMBLE_PARAMS (Little, m_little)
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
+
+        Little m_little;
+        Little little() const { return m_little; }
 
     // 0ary
         nullary_result_type operator()() const
@@ -46,8 +50,10 @@ namespace pstade { namespace egg {
         template<class FunCall>
         struct result;
 
+    #define PSTADE_const(Z, N, A) PSTADE_DEDUCED_CONST(BOOST_PP_CAT(A, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/by_cref.hpp>))
         #include BOOST_PP_ITERATE()
+    #undef  PSTADE_const
     };
 
 
@@ -68,11 +74,11 @@ namespace pstade { namespace egg {
     { };
 
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(apply_little, n)<Little const, PSTADE_PP_ENUM_PARAMS_WITH(n, A, const)>::type
+    typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM(n, PSTADE_const, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
         return detail::call_little_impl<
-            Little, typename BOOST_PP_CAT(apply_little, n)<Little const, PSTADE_PP_ENUM_PARAMS_WITH(n, A, const)>::type
+            Little, typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM(n, PSTADE_const, A)>::type
         >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a));
     }
 

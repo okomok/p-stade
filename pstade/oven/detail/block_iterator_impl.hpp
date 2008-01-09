@@ -29,7 +29,7 @@
 #include <boost/thread/thread.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/ret.hpp>
+#include <pstade/egg/return.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/static_c.hpp>
@@ -140,7 +140,7 @@ private:
     void work()
     {
         try {
-            m_block( egg::ret<void>(boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)) );
+            m_block( egg::return_<void>(boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)) );
         }
         catch (yield_break_exception const&) {
         }

@@ -13,7 +13,7 @@
 
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include "./ret.hpp"
+#include "./return.hpp"
 
 
 namespace pstade { namespace egg {
@@ -21,12 +21,12 @@ namespace pstade { namespace egg {
 
     template<class Base, class Tag, class Strategy = boost::use_default>
     struct result_of_tagged :
-        result_of_ret<Base, boost::use_default, Strategy, Tag>
+        result_of_return<Base, boost::use_default, Strategy, Tag>
     { };
 
 
-    #define PSTADE_EGG_TAGGED_L PSTADE_EGG_RET_L
-    #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RET_R
+    #define PSTADE_EGG_TAGGED_L PSTADE_EGG_RETURN_L
+    #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RETURN_R
     #define PSTADE_EGG_TAGGED(F) PSTADE_EGG_TAGGED_L F PSTADE_EGG_TAGGED_R
 
 

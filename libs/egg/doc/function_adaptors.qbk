@@ -868,19 +868,19 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 
 
 
-[section ret]
+[section return_]
 
 [heading Description]
-`ret` is akin to `boost::lambda::ret` in the context of __BOOST_RESULT_OF__.
+`return_` just calls a base __FUNCTION_OBJECT__ with possibly modified return type.
 
 [heading Header]
-* `<pstade/egg/ret.hpp>`
+* `<pstade/egg/return.hpp>`
 
 [heading Model of]
 * ...
 
 [heading Notation]
-* `fc(f, R, _Stg)` is an object of `result_of_ret<_typeof(f), R, _Stg>::type` initialized using `f` or an initializer.
+* `fc(f, R, _Stg)` is an object of `result_of_return<_typeof(f), R, _Stg>::type` initialized using `f` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -889,32 +889,32 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
         [[*Semantics]]
     ]
     [
-        [`result_of_ret<Fun, R = _default, _Stg = _default>::type`]
+        [`result_of_return<Fun, R = _default, _Stg = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_RET_L init PSTADE_EGG_RET_R`]
-        [A braced initializer of `result_of_ret<Fun,...>::type`]
+        [`PSTADE_EGG_RETURN_L init PSTADE_EGG_RETURN_R`]
+        [A braced initializer of `result_of_return<Fun,...>::type`]
     ]
     [
-        [`PSTADE_EGG_RET(I)`]
-        [`PSTADE_EGG_RET_L I PSTADE_EGG_RET_R`]
+        [`PSTADE_EGG_RETURN(I)`]
+        [`PSTADE_EGG_RETURN_L I PSTADE_EGG_RETURN_R`]
     ]
     [
         [`fc(f, R, _Stg)(a1,...,aN)`]
         [`_const(f)(_safe_arg_list(a, _Stg))`]
     ]
     [
-        [`X_ret<R, _Stg = _default>`]
+        [`X_return<R, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_ret<R, _Stg>()(f)`]
+        [`X_return<R, _Stg>()(f)`]
         [`fc(f, R, _Stg)`]
     ]
     [
-        [`egg::ret<R>`]
-        [`X_ret<R>()`]
+        [`egg::return_<R>`]
+        [`X_return<R>()`]
     ]
 ]
 
@@ -925,7 +925,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_ret<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
+* `result_of_return<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
 
 [heading Example]
 ...
@@ -970,8 +970,8 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_RETBY_L init PSTADE_EGG_RETBY_R`]
-        [A braced initializer of `result_of_ret<Fun,...>::type`]
+        [`PSTADE_EGG_RETURNBY_L init PSTADE_EGG_RETURNBY_R`]
+        [A braced initializer of `result_of_return<Fun,...>::type`]
     ]
     [
         [`fc(f, R, _Stg)(a1,...,aN)`]
