@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/lexicalize.hpp>
+#include <pstade/egg/lexical.hpp>
 #include <pstade/tomato/atl/win.hpp> // CWindow
 #include "../element_attributes.hpp"
 #include "../rectangle.hpp"
@@ -23,10 +23,10 @@ namespace pstade { namespace hamburger { namespace detail {
     rectangle initial_view_bounds(Node& node)
     {
         try {
-            int left    = node%Name_left  |egg::lexicalize();
-            int width   = node%Name_width |egg::lexicalize();
-            int top     = node%Name_top   |egg::lexicalize();
-            int height  = node%Name_height|egg::lexicalize();
+            int left    = node%Name_left  |egg::lexical();
+            int width   = node%Name_width |egg::lexical();
+            int top     = node%Name_top   |egg::lexical();
+            int height  = node%Name_height|egg::lexical();
 
             rectangle rc(
                 left, top,

@@ -351,9 +351,8 @@ Let's look into the new valid expressions.
 
 [heading Notation]
 * `StgTag` is a __METAFUNCTION_CLASS__ which you have defined.
-* `StgTag_` is possibly cv-qualified `StgTag`.
-* `A` is a `boost::mpl::int_<>` which means an arity of `operator()`.
-* `I` is a `boost::mpl::int_<>` which means an index of parameters.
+* `StgTag_` is (possibly cv-qualified) `StgTag`.
+* `By(I)` is `StgTag::apply< StgTag_, boost::mpl::int_<K>, boost::mpl::int_<I> >::type`.
 
 [heading New valid expressions]
 [table 
@@ -363,12 +362,12 @@ Let's look into the new valid expressions.
     ]
     [
         [`_arg_list(a, StgTag)`]
-        [`_arg_list(a1, StgTag::apply<StgTag_, A, I>::type),...,_arg_list(aK, StgTag::apply<StgTag_, A, I>::type)`]
+        [`_arg_list(a1, By(0)),...,_arg_list(aK, By(K))`]
     ]
 
     [
         [`_meta_arg_list(a, StgTag)`]
-        [`_meta_arg_list(a1, StgTag::apply<StgTag_, A, I>::type),...,_meta_arg_list(aK, StgTag::apply<StgTag_, A, I>::type)`]
+        [`_meta_arg_list(a1, By(0)),...,_meta_arg_list(aK, By(K))`]
     ]
     [
         [`function<_Lit, StgTag>`]

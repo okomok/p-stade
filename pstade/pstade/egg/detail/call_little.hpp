@@ -12,6 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
@@ -40,7 +41,7 @@ namespace pstade { namespace egg {
     {
         return detail::call_little_impl<
             typename boost::remove_cv<Little>::type, Result
-        >::call(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        >::BOOST_PP_CAT(call, n)(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 

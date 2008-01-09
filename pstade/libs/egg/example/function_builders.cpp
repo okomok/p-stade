@@ -144,13 +144,13 @@ struct X_lexical_cast
 
 typedef
     automatic< X_lexical_cast<boost::mpl::_> >::type
-T_lexicalize;
+T_lexical;
 
-T_lexicalize const lexicalize = PSTADE_EGG_AUTOMATIC;
+T_lexical const lexical = PSTADE_EGG_AUTOMATIC;
 
 void test_automatic()
 {
-    std::string str = lexicalize(20);
+    std::string str = lexical(20);
     BOOST_CHECK( str == "20" );
 }
 //]

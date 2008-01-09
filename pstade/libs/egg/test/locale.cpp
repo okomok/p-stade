@@ -20,8 +20,8 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-PSTADE_TEST_IS_RESULT_OF((char), T_to_lower(char, std::locale))
-PSTADE_TEST_IS_RESULT_OF((wchar_t), T_to_lower(wchar_t))
+PSTADE_TEST_IS_RESULT_OF((bool), T_is_alpha(char, std::locale))
+PSTADE_TEST_IS_RESULT_OF((bool), T_is_upper(wchar_t))
 
 
 void pstade_minimal_test()
@@ -29,7 +29,7 @@ void pstade_minimal_test()
     using namespace pstade;
 
     {
-        BOOST_CHECK(to_lower('A') == 'a');
-        BOOST_CHECK(to_lower('A', std::locale()) == 'a');
+        BOOST_CHECK(is_alpha('a'));
+        BOOST_CHECK(is_upper('A', std::locale()));
     }
 }

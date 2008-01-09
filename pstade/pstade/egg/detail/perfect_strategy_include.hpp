@@ -44,7 +44,7 @@ namespace pstade { namespace egg {
         { \
             return detail::call_little_impl< \
                 Little, typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
-            >::call(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
+            >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
     {
         return detail::call_little_impl<
             Little, nullary_result_type
-        >::call(m_little);
+        >::call0(m_little);
     }
 
 #else

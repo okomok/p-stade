@@ -10,8 +10,8 @@
 
 
 #include "./egg_all.hpp"
-#undef PSTADE_EGG_EGG_HPP
-#undef PSTADE_EGG_EGG_PENDING_HPP
+#undef PSTADE_EGG_DETAIL_EGG_HPP
+#undef PSTADE_EGG_EGG_DETAIL_PENDING_HPP
 #include "./egg_all.hpp"
 
 
@@ -22,6 +22,7 @@
 
 
 using namespace pstade::egg;
+using pstade::egg::plus;
 
 
 void pstade_minimal_test()

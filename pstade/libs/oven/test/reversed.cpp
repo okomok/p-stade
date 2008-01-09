@@ -27,7 +27,7 @@
 #include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
-#include <pstade/egg/to_upper.hpp>
+#include <pstade/egg/locale.hpp>
 
 
 template< class Range >

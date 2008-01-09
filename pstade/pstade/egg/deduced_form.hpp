@@ -12,6 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
@@ -52,7 +53,7 @@ namespace pstade { namespace egg {
 
 
     template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    static Result call(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    static Result BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
         return little.call(boost::type<Result>() BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }

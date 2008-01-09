@@ -22,7 +22,7 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/empty.hpp>
-#include <pstade/egg/integralize.hpp>
+#include <pstade/egg/integral.hpp>
 #include <pstade/gravy/c_str.hpp>
 #include <pstade/gravy/module_file_name.hpp>
 #include <pstade/gravy/tstring.hpp>
@@ -60,7 +60,7 @@ namespace ini_section_detail {
             ::GetPrivateProfileString(
                 pszSectionName, pszValueName,
                 gravy::c_str(magicStr), // default
-                boost::begin(buf), oven::distance(buf)|egg::integralize(),
+                boost::begin(buf), oven::distance(buf)|egg::integral(),
                 pszFileName);
 
             if (oven::equals(buf|oven::as_c_str, magicStr))
@@ -69,7 +69,7 @@ namespace ini_section_detail {
 
         ::GetPrivateProfileString( // bufsz contains NULL (== buffer size) >= 1
             pszSectionName, pszValueName,
-            _T(""), pFirst, (pLast - pFirst)|egg::integralize(), pszFileName);
+            _T(""), pFirst, (pLast - pFirst)|egg::integral(), pszFileName);
 
         return true;
     }

@@ -22,7 +22,7 @@
 #include <string> // basic_string
 #include <typeinfo>
 #include <pstade/egg/copy.hpp>
-#include <pstade/egg/lexicalize.hpp>
+#include <pstade/egg/lexical.hpp>
 
 
 namespace pstade { namespace napkin { namespace detail {
@@ -43,7 +43,7 @@ struct basic_placeholder
     void output(const OutputStreamable& x)
     {
         override_output(
-            egg::copy< std::basic_string<CharT> >(x|egg::lexicalize()).c_str()
+            egg::copy< std::basic_string<CharT> >(x|egg::lexical()).c_str()
         );
     }
 

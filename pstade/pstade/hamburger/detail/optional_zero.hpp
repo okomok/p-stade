@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/lexicalize.hpp>
+#include <pstade/egg/lexical.hpp>
 #include <pstade/ustring.hpp>
 
 
@@ -21,7 +21,7 @@ namespace pstade { namespace hamburger { namespace detail {
     void optional_zero(Target& x, Node& node, ustring const& Name)
     {
         try {
-            Target opt = node%Name|egg::lexicalize();
+            Target opt = node%Name|egg::lexical();
             if (opt != 0)
                 x = opt;
         }

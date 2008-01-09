@@ -1023,18 +1023,16 @@
           Class</a> which you have defined.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">StgTag_</span></code> is possibly cv-qualified
+<code class="computeroutput"><span class="identifier">StgTag_</span></code> is (possibly cv-qualified)
           <code class="computeroutput"><span class="identifier">StgTag</span></code>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">A</span></code> is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">int_</span><span class="special">&lt;&gt;</span></code> which means an arity of <code class="computeroutput"><span class="keyword">operator</span><span class="special">()</span></code>.
-        </li>
-<li>
-<code class="computeroutput"><span class="identifier">I</span></code> is a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">int_</span><span class="special">&lt;&gt;</span></code> which means an index of parameters.
+<code class="computeroutput"><span class="identifier">By</span><span class="special">(</span><span class="identifier">I</span><span class="special">)</span></code> is
+          <code class="computeroutput"><span class="identifier">StgTag</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span> <span class="identifier">StgTag_</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">int_</span><span class="special">&lt;</span><span class="identifier">K</span><span class="special">&gt;,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">int_</span><span class="special">&lt;</span><span class="identifier">I</span><span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.new_valid_expressions"></a><h5>
-<a name="id515818"></a>
+<a name="id515864"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.new_valid_expressions">New
         valid expressions</a>
       </h5>
@@ -1064,11 +1062,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,</span> <span class="identifier">StgTag</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">StgTag_</span><span class="special">,</span>
-                <span class="identifier">A</span><span class="special">,</span>
-                <span class="identifier">I</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">),...,</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">aK</span><span class="special">,</span> <span class="identifier">StgTag</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">StgTag_</span><span class="special">,</span>
-                <span class="identifier">A</span><span class="special">,</span>
-                <span class="identifier">I</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,</span> <span class="identifier">By</span><span class="special">(</span><span class="number">0</span><span class="special">)),...,</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">aK</span><span class="special">,</span> <span class="identifier">By</span><span class="special">(</span><span class="identifier">K</span><span class="special">))</span></code>
               </p>
               </td>
 </tr>
@@ -1080,11 +1074,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,</span> <span class="identifier">StgTag</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">StgTag_</span><span class="special">,</span>
-                <span class="identifier">A</span><span class="special">,</span>
-                <span class="identifier">I</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">),...,</span><span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">aK</span><span class="special">,</span> <span class="identifier">StgTag</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">StgTag_</span><span class="special">,</span>
-                <span class="identifier">A</span><span class="special">,</span>
-                <span class="identifier">I</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">)</span></code>
+                <code class="computeroutput"><span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,</span> <span class="identifier">By</span><span class="special">(</span><span class="number">0</span><span class="special">)),...,</span><span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">aK</span><span class="special">,</span> <span class="identifier">By</span><span class="special">(</span><span class="identifier">K</span><span class="special">))</span></code>
               </p>
               </td>
 </tr>
@@ -1104,7 +1094,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.see_also"></a><h5>
-<a name="id516404"></a>
+<a name="id516278"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.see_also">See
         also</a>
       </h5>
