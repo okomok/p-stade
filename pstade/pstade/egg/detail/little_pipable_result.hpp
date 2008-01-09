@@ -175,7 +175,7 @@ using little_pipable_resultns_::lookup_pipable_operator;
                     Base, Strategy, OperandBytag,
                     // Arguments must be copied in case of by_value.
                     // Notice that Boost.Tuple doesn't work with movable types.
-                    boost::tuples::tuple<PSTADE_EGG_STRATEGY_FORWARD_ENUM_META_ARGS(n, A, Strategy const)>
+                    boost::tuples::tuple<PSTADE_EGG_FORWARDING_ENUM_META_ARGS(n, A, Strategy const)>
                 >,
                 Strategy
             >

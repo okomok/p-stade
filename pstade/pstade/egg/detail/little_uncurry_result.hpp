@@ -44,8 +44,8 @@ namespace pstade { namespace egg { namespace detail {
         struct PSTADE_EGG_APPLY_DECL;
 
     #define PSTADE_open_result_of(Z, I, _)  typename result_of<
-    #define PSTADE_close_result_of(Z, I, _) >::type(typename result_of_strategy_forward<Strategy const, n, I, BOOST_PP_CAT(A, I)>::type)
-    #define PSTADE_paren(Z, I, _) ( egg::strategy_forward<Strategy const, n, I>(BOOST_PP_CAT(a, I)) )
+    #define PSTADE_close_result_of(Z, I, _) >::type(typename result_of_forwarding<Strategy const, n, I, BOOST_PP_CAT(A, I)>::type)
+    #define PSTADE_paren(Z, I, _) ( egg::forwarding<Strategy const, n, I>(BOOST_PP_CAT(a, I)) )
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/little_uncurry_result.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_paren
@@ -66,7 +66,7 @@ namespace pstade { namespace egg { namespace detail {
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_open_result_of, ~)
-                Base const(typename result_of_strategy_forward<Strategy const, n, 0, A0>::type)
+                Base const(typename result_of_forwarding<Strategy const, n, 0, A0>::type)
             BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_close_result_of, ~)
         >      
     { };

@@ -28,13 +28,13 @@ namespace pstade { namespace egg {
         {
             template<class Myself, class X>
             struct apply :
-                result_of_strategy_forward<Strategy const, 1, 0, X>
+                result_of_forwarding<Strategy const, 1, 0, X>
             { };
 
             template<class Result, class X>
             Result call(X& x) const
             {
-                return egg::strategy_forward<Strategy const, 1, 0>(x);
+                return egg::forwarding<Strategy const, 1, 0>(x);
             }
         };
 

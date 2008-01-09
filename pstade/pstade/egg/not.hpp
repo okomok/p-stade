@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
     template<class Strategy = by_perfect>
     struct X_not :
         generator<
-            result_of_not<deduce<boost::mpl::_1, as_value>, Strategy>::type,
+            typename result_of_not<deduce<boost::mpl::_1, as_value>, Strategy>::type,
             boost::use_default,
             use_brace2,
             by_value
