@@ -76,7 +76,7 @@ namespace pstade { namespace egg {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return Result(PSTADE_EGG_STRATEGY_FORWARD_ENUM_ARGS(n, a, Strategy const));
+        return Result(PSTADE_EGG_FORWARDING_ENUM_ARGS(n, a, Strategy const));
     }
 
 

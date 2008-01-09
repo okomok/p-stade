@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
             template<class Result, class A0, class A1>
             Result call(A0& a0, A1& a1) const
             {
-                return m_base(egg::strategy_forward<Strategy, 2, 1>(a1), egg::strategy_forward<Strategy, 2, 0>(a0));
+                return m_base(egg::forwarding<Strategy, 2, 1>(a1), egg::forwarding<Strategy, 2, 0>(a0));
             }
         };
 
@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
     template<class Strategy = by_perfect>
     struct X_flip :
         generator<
-            result_of_flip< deduce<boost::mpl::_1, as_value> >::type,
+            typename result_of_flip<deduce<boost::mpl::_1, as_value>, Strategy>::type,
             boost::use_default,
             use_brace2,
             by_value

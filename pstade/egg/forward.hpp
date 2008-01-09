@@ -60,11 +60,11 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
 }
 
 
-    // strategy_forward
+    // forwarding
     //
 
     template<class Strategy, int Arity, int Index, class Lvalue>
-    struct result_of_strategy_forward :
+    struct result_of_forwarding :
         result_of_forward<
             typename detail::bytag_at<Strategy, Arity, Index>::type,
             Lvalue
@@ -73,28 +73,28 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
 
 
     template<class Strategy, int Arity, int Index, class Lvalue> inline
-    typename result_of_strategy_forward<Strategy, Arity, Index, Lvalue>::type
-    strategy_forward(Lvalue& a)
+    typename result_of_forwarding<Strategy, Arity, Index, Lvalue>::type
+    forwarding(Lvalue& a)
     {
         return a;
     }
 
 
-#define PSTADE_EGG_STRATEGY_FORWARD_ENUM_META_ARGS(Arity, Var, Stg) \
-    BOOST_PP_ENUM(Arity, PSTADE_EGG_STRATEGY_FORWARD_ENUM_META_ARGS_op, (3, (Stg, Arity, Var))) \
+#define PSTADE_EGG_FORWARDING_ENUM_META_ARGS(Arity, Var, Stg) \
+    BOOST_PP_ENUM(Arity, PSTADE_EGG_FORWARDING_ENUM_META_ARGS_op, (3, (Stg, Arity, Var))) \
 /**/
 
-    #define PSTADE_EGG_STRATEGY_FORWARD_ENUM_META_ARGS_op(Z, I, S_A_V) \
-        typename pstade::egg::result_of_strategy_forward<BOOST_PP_ARRAY_ELEM(0, S_A_V), BOOST_PP_ARRAY_ELEM(1, S_A_V), I, BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(2, S_A_V), I)>::type \
+    #define PSTADE_EGG_FORWARDING_ENUM_META_ARGS_op(Z, I, S_A_V) \
+        typename pstade::egg::result_of_forwarding<BOOST_PP_ARRAY_ELEM(0, S_A_V), BOOST_PP_ARRAY_ELEM(1, S_A_V), I, BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(2, S_A_V), I)>::type \
     /**/
 
 
-#define PSTADE_EGG_STRATEGY_FORWARD_ENUM_ARGS(Arity, Var, Stg) \
-    BOOST_PP_ENUM(Arity, PSTADE_EGG_STRATEGY_FORWARD_ENUM_ARGS_op, (3, (Stg, Arity, Var))) \
+#define PSTADE_EGG_FORWARDING_ENUM_ARGS(Arity, Var, Stg) \
+    BOOST_PP_ENUM(Arity, PSTADE_EGG_FORWARDING_ENUM_ARGS_op, (3, (Stg, Arity, Var))) \
 /**/
 
-    #define PSTADE_EGG_STRATEGY_FORWARD_ENUM_ARGS_op(Z, I, S_A_V) \
-        pstade::egg::strategy_forward<BOOST_PP_ARRAY_ELEM(0, S_A_V), BOOST_PP_ARRAY_ELEM(1, S_A_V), I>( BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(2, S_A_V), I) ) \
+    #define PSTADE_EGG_FORWARDING_ENUM_ARGS_op(Z, I, S_A_V) \
+        pstade::egg::forwarding<BOOST_PP_ARRAY_ELEM(0, S_A_V), BOOST_PP_ARRAY_ELEM(1, S_A_V), I>( BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(2, S_A_V), I) ) \
     /**/
 
 
