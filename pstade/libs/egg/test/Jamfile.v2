@@ -85,7 +85,6 @@ test-suite "egg" :
     [ run locale.cpp ]
     [ run logical.cpp ]
     [ run make_function.cpp ]
-    [ run make_function_of.cpp ]
     [ run memoize.cpp ]
     [ run monad.cpp ]
     [ run mono.cpp ]

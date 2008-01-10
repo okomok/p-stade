@@ -54,6 +54,36 @@ typename klass2<A const>::type foo(A const& a)
 };
 
 
+
+template<class A>
+struct klass_nonconst
+{
+    typedef A& type;
+};
+
+template<class T, std::size_t N>
+struct klass_nonconst< T[N] >
+{
+    BOOST_STATIC_ASSERT(N == 3);
+    BOOST_MPL_ASSERT_NOT((boost::is_const<T>)); 
+    BOOST_MPL_ASSERT((boost::is_array<T[N]>));
+
+    typedef T* type;
+};
+
+template<class A>
+struct klass2_nonconst :
+    klass_nonconst<PSTADE_EGG_ARRAY_RESURRECT(A)>
+{};
+
+template<class A>
+typename klass2_nonconst<A>::type foo_nonconst(A& a)
+{
+    return a;
+};
+
+
+
 template<class A>
 struct klass_volatile
 {
@@ -138,6 +168,11 @@ void pstade_minimal_test()
     {
         int a[3];
         int const *x = ::foo(a);
+        BOOST_CHECK(x == &a[0]);
+    }
+    {
+        int a[3];
+        int *x = ::foo_nonconst(a);
         BOOST_CHECK(x == &a[0]);
     }
     {
