@@ -316,10 +316,6 @@ Egg provides the uniform way to define your own strategy.
         [See below.]
     ]
     [
-        [`of_apply_little<Sig>`]
-        [See below.]
-    ]
-    [
         [`apply_little<_Lit, A1,...,AK>`]
         [`_Lit::apply<A1,...,AK>`]
     ]
@@ -339,8 +335,8 @@ A strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, 
 
 [heading Specializing `function<>`]
 Using your strategy tag, `function<>` template can be specialized.
-`PSTADE_EGG_FUNCTION_PREAMBLE()` must be placed in first, which defines nested typedefs `little_type`, `nullary_result_type` etc.
-Once you define your strategy tag, `of_apply_little` automagically implements `result` template:
+`PSTADE_EGG_FUNCTION_PREAMBLE()` must be placed in first,
+which automagically defines nested typedefs `little_type`, `nullary_result_type`, `result` etc.
 [code_my_strategy_function]
 For some compiler bugs, you can call neither `result` template nor `_Lit::call` directly.
 You have to use `apply_little` and `call_little` instead. Also notice that `_Lit` is /cv-qualifier/ sensitive.

@@ -13,7 +13,6 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/lexical_cast.hpp>
 #include <pstade/test.hpp>
 
 
@@ -59,14 +58,6 @@ void pstade_minimal_test()
         std::string str = 12|lexical;
         int n = str|lexical;
         BOOST_CHECK( n == 12 );
-
-        BOOST_CHECK((
-            boost::lexical_cast<int, std::string>(
-                X_lexical_cast<int, std::string>()(
-                    12|lexical
-                )|lexical
-            ) == 12
-        ));
     }
 
     ::foo(12|lexical);

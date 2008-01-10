@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
         struct result<Self(Arg)>
         {
             typedef
-                detail::named_arg<keyword, typename detail::unref_by_perfect<Arg>::type> const
+                detail::named_arg<keyword, typename detail::unref<by_perfect, Arg>::type> const
             type;
         };
 

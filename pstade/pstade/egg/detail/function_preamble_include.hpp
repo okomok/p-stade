@@ -16,5 +16,10 @@
         pstade::egg::detail::nullary_result<little_type, function>::type
     nullary_result_type;
 
+    template<class Signature>
+    struct result :
+        pstade::egg::detail::of_apply_little<Signature>
+    { };
+
     #include PSTADE_EGG_BLL_BINDABLE()
 

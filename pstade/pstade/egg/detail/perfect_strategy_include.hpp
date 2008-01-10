@@ -28,9 +28,6 @@ namespace pstade { namespace egg {
         Little little() const { return m_little; }
 
     // 0ary-
-        template<class FunCall>
-        struct result;
-
     #define PSTADE_call_operator(R, BitSeq) \
         PSTADE_call_operator_aux( \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq), \
@@ -42,7 +39,7 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
         operator()(Params) const \
         { \
-            return detail::call_little_impl< \
+            return call_little_impl< \
                 Little, typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
             >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
@@ -82,20 +79,12 @@ namespace pstade { namespace egg {
 
     nullary_result_type operator()() const
     {
-        return detail::call_little_impl<
+        return call_little_impl<
             Little, nullary_result_type
         >::call0(m_little);
     }
 
 #else
-
-    template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
-        BOOST_PP_CAT(apply_little, n)<
-            Little const,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::unref_by_perfect<A, >::type)
-        >
-    { };
 
     BOOST_PP_SEQ_FOR_EACH_PRODUCT(PSTADE_call_operator, PSTADE_PP_SEQ_REPEAT((0)(1), n))
 

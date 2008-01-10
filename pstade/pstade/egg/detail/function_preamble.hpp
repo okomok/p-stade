@@ -15,6 +15,7 @@
 #include "../bll_bindable.hpp"
 #include "./little_of.hpp"
 #include "./nullary_result.hpp"
+#include "./of_apply_little.hpp"
 #include "./strategy_of.hpp"
 
    

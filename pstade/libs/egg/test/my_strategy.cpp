@@ -28,7 +28,7 @@ using namespace egg;
 //[code_my_strategy_tag
 struct my_strategy
 {
-    // you can use mpl::vector and mpl::at, of course.
+    // You could use mpl::vector and mpl::at.
 
     template<class _, class Arity, class Index>
     struct apply;
@@ -57,13 +57,11 @@ namespace pstade { namespace egg {
     template<class Lit>
     struct function<Lit, my_strategy>
     {
+        /*<< Don't miss `#include` directive. >>*/
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
         Lit little() const { return m_lit; }
-
-        template<class Signature>
-        struct result : of_apply_little<Signature> {};
 
         template<class A1>
         typename apply_little<Lit const, A1>::type operator()(A1& i) const
@@ -71,7 +69,7 @@ namespace pstade { namespace egg {
             return egg::call_little<typename apply_little<Lit const, A1>::type>(m_lit, i);
         }
 
-        template<class A1> // TODO: PSTADE_DEDUCED_CONST is needed, in fact.
+        template<class A1>
         typename apply_little<Lit const, A1 const>::type operator()(A1 const& i) const
         {
             return egg::call_little<typename apply_little<Lit const, A1 const>::type>(m_lit, i);
