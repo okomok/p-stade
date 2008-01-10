@@ -16,8 +16,6 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/enable_if.hpp>
-#include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"

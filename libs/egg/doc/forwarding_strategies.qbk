@@ -323,6 +323,10 @@ Egg provides the uniform way to define your own strategy.
         [`egg::call_little<R>(_lit, a1,...,aK)`]
         [`_lit.call<R>(a1,...,aK)`]
     ]
+    [
+        [`by_perfect`, `by_ref`, `by_cref`, and `by_value`]
+        [These can be used as return type of strategy tag.]
+    ]
 ]
 
 [heading Preconditions]
