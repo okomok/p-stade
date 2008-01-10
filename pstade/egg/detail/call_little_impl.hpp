@@ -21,7 +21,7 @@
 #include "./call_little_impl_fwd.hpp"
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace pstade { namespace egg {
 
 
     template<class Little_, class Result, class EnableIf>
@@ -32,7 +32,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-} } } // namespace pstade::egg::detail
+} } // namespace pstade::egg
 
 
 #endif

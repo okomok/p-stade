@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
     template<class Result, class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
     Result call_little(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
-        return detail::call_little_impl<
+        return call_little_impl<
             typename boost::remove_cv<Little>::type, Result
         >::BOOST_PP_CAT(call, n)(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }

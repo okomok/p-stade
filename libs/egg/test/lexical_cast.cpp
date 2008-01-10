@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/lexical_cast.hpp>
+#include <pstade/egg/lexical.hpp>
 #include <pstade/minimal_test.hpp>
 
 

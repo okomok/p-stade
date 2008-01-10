@@ -18,19 +18,20 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    // unref_by_xxx
-    //
+    template<class Bytag, class A>
+    struct unref;
+
 
     // rvalue
     template<class A>
-    struct unref_by_perfect
+    struct unref<by_perfect, A>
     {
         typedef A const type;
     };
 
     // lvalue
     template<class A>
-    struct unref_by_perfect<A&>
+    struct unref<by_perfect, A&>
     {
         typedef A type;
     };
@@ -39,21 +40,21 @@ namespace pstade { namespace egg { namespace detail {
     // Notice const-qualified rvalue can be passed,
     // and cv-qualifier is ignored in function parameter list.
     template<class A>
-    struct unref_by_ref :
-        unref_by_perfect<A>
+    struct unref<by_ref, A> :
+        unref<by_perfect, A>
     { };
 
 
     // rvalue
     template<class A>
-    struct unref_by_cref
+    struct unref<by_cref, A>
     {
         typedef A const type;
     };
 
     // lvalue
     template<class A>
-    struct unref_by_cref<A&>
+    struct unref<by_cref, A&>
     {
         typedef A const type;
     };
@@ -61,35 +62,8 @@ namespace pstade { namespace egg { namespace detail {
 
     // always non-const for movable types.
     template<class A>
-    struct unref_by_value :
-        pass_by_value<A>
-    { };
-
-
-    // unref
-    //
-
-    template<class Bytag, class A>
-    struct unref;
-
-    template<class A>
-    struct unref<by_perfect, A> :
-        unref_by_perfect<A>
-    { };
-
-    template<class A>
-    struct unref<by_ref, A> :
-        unref_by_ref<A>
-    { };
-
-    template<class A>
-    struct unref<by_cref, A> :
-        unref_by_cref<A>
-    { };
-
-    template<class A>
     struct unref<by_value, A> :
-        unref_by_value<A>
+        pass_by_value<A>
     { };
 
 

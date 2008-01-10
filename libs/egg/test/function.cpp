@@ -165,10 +165,10 @@ struct little_keep_const
 };
 typedef pstade::egg::function<little_keep_const, pstade::egg::by_perfect> T_keep_const;
 T_keep_const const keep_const = { {} };
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref_by_perfect<int&>::type, int >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref_by_perfect<int const&>::type, int const >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref_by_perfect<int>::type, int const >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref_by_perfect<int const>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref<pstade::egg::by_perfect, int&>::type, int >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref<pstade::egg::by_perfect, int const&>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref<pstade::egg::by_perfect, int>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::egg::detail::unref<pstade::egg::by_perfect, int const>::type, int const >));
 PSTADE_TEST_IS_RESULT_OF((int), T_keep_const(int&))
 PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int))
 PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int const&))

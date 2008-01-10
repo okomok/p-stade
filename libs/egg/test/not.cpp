@@ -46,7 +46,7 @@ void pstade_minimal_test()
 {
     {
         ::less l;
-        result_of_not_< ::less >::type nl = PSTADE_EGG_NOT(l);
+        result_of_not< ::less >::type nl = PSTADE_EGG_NOT(l);
         BOOST_CHECK( l(0, 1) );
         BOOST_CHECK( !nl(0, 1) );
     }

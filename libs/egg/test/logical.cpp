@@ -24,8 +24,4 @@ void pstade_minimal_test()
     BOOST_CHECK( logical_or(10 ,20) );
     BOOST_CHECK( !logical_not(10) );
     BOOST_CHECK( logical_not(0) );
-    BOOST_CHECK( !logical_xor(0 ,0) );
-    BOOST_CHECK(  logical_xor(0 ,5) );
-    BOOST_CHECK(  logical_xor(8 ,0) );
-    BOOST_CHECK( !logical_xor(8 ,5) );
 }

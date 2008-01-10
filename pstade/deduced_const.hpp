@@ -18,7 +18,7 @@
 // So prefer 'boost::add_const', or
 // you can use this macro to say the bug loudly!
 //
-// See also <pstade/egg/detail/msvc71_result_of.hpp>.
+// See also <pstade/egg/detail/vc7_1_result_of.hpp>.
 
 
 #include <pstade/boost_workaround.hpp>
