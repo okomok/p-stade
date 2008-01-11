@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
 
 
     typedef X_return<>::function_type T_perfect;
-    PSTADE_POD_CONSTANT((T_perfect), perfect) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_perfect), perfect) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

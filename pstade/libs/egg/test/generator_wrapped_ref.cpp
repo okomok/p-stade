@@ -34,7 +34,7 @@ struct foo
 
 
 typedef generator< foo< deduce<boost::mpl::_1, as_wrapped_ref> > >::type T_make_foo;
-T_make_foo const make_foo = PSTADE_EGG_GENERATOR;
+T_make_foo const make_foo = PSTADE_EGG_GENERATOR();
 
 BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(boost::reference_wrapper<int>&)>::type,
                  foo<int&> >));

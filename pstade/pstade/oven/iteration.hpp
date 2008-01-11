@@ -71,7 +71,7 @@ namespace iteration_detail {
 
 
 typedef PSTADE_EGG_DEFER((iteration_detail::base<boost::mpl::_, boost::mpl::_>)) T_iteration;
-PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_DEFERRED();
 
 
 } } // namespace pstade::oven

@@ -67,7 +67,7 @@ namespace pstade { namespace tomato {
 
 
     PSTADE_POD_CONSTANT((T_to_widechar), to_widechar)
-        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
+        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::tomato

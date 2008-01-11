@@ -18,6 +18,8 @@
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/generator.hpp>
+#include <pstade/egg/static.hpp>
+#include <pstade/egg/apply.hpp>
 
 
 #include <boost/lexical_cast.hpp>
@@ -146,7 +148,7 @@ typedef
     automatic< X_lexical_cast<boost::mpl::_> >::type
 T_lexical;
 
-T_lexical const lexical = PSTADE_EGG_AUTOMATIC;
+T_lexical const lexical = PSTADE_EGG_AUTOMATIC();
 
 void test_automatic()
 {
@@ -172,7 +174,7 @@ typedef
     deferred< base_my_identity<boost::mpl::_1> >::type
 T_my_identity;
 
-T_my_identity const my_identity = PSTADE_EGG_DEFERRED;
+T_my_identity const my_identity = PSTADE_EGG_DEFERRED();
 //]
 
 void test_deferred()
@@ -183,6 +185,12 @@ void test_deferred()
 }
 
 
+//[code_static_example
+typedef static_< X_apply<by_value> >::type T_apply_by_value;
+T_apply_by_value const apply_by_value = PSTADE_EGG_STATIC(X_apply<by_value>);
+//]
+
+
 //[code_generator_example
 typedef
     generator<
@@ -190,7 +198,7 @@ typedef
     >::type
 T_make_pair;
 
-T_make_pair const make_pair = PSTADE_EGG_GENERATOR;
+T_make_pair const make_pair = PSTADE_EGG_GENERATOR();
 
 void test_generator()
 {

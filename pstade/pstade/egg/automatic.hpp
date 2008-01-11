@@ -122,11 +122,11 @@ namespace pstade { namespace egg {
         automatic_detail::aux<Lambda, automatic_detail::automator_ref, Strategy>
     { };
 
-    #define PSTADE_EGG_AUTOMATIC \
+    #define PSTADE_EGG_AUTOMATIC() \
         PSTADE_EGG_UNFUSE_L {{}} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     /**/
 
-    #define PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AUTOMATIC
+    #define PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AUTOMATIC()
 
 
 } } // namespace pstade::egg

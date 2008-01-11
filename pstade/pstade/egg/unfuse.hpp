@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
 
 
     typedef X_unfuse<>::function_type T_unfuse;
-    PSTADE_POD_CONSTANT((T_unfuse), unfuse) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_unfuse), unfuse) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

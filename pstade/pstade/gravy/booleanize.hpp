@@ -34,7 +34,7 @@ namespace pstade { namespace gravy {
 
 
     PSTADE_POD_CONSTANT((T_booleanize), booleanize)
-        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
+        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::gravy

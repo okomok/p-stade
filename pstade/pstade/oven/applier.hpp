@@ -30,7 +30,7 @@ typedef
 T_applier;
 
 
-PSTADE_POD_CONSTANT((T_applier), applier) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_applier), applier) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::oven

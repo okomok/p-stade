@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
         >::type
     T_lazy;
 
-    PSTADE_POD_CONSTANT((T_lazy), lazy) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_lazy), lazy) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

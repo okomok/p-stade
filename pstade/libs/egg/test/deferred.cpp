@@ -36,10 +36,10 @@ struct little
 
 
 typedef PSTADE_EGG_DEFER((little<boost::mpl::_>)) T_identity;
-PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_DEFERRED();
 
 typedef PSTADE_EGG_DEFER_BY((little<boost::mpl::_>), boost::use_default) T_identity_;
-PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_DEFERRED();
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))

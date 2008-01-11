@@ -53,13 +53,13 @@ namespace pstade { namespace egg {
         template<class Result, class CharT>
         Result call(CharT& ch, std::locale const& loc) const
         {
-            return std::use_facet< std::ctype<CharT> >(loc).BOOST_PP_CAT(to, name)(ch);
+            return std::use_facet< std::ctype<Result> >(loc).BOOST_PP_CAT(to, name)(ch);
         }
 
         template<class Result, class CharT>
         Result call(CharT& ch) const
         {
-            return op(ch, std::locale());
+            return call<Result>(ch, std::locale());
         }
     };
 

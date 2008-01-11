@@ -131,7 +131,7 @@ namespace comprehension_detail {
         >::type
     T_make_nested;
 
-    PSTADE_POD_CONSTANT((T_make_nested), make_nested) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_make_nested), make_nested) = PSTADE_EGG_GENERATOR();
 
 
     template< class Expr, class Guard >
@@ -210,7 +210,7 @@ namespace comprehension_detail {
         >::type
     T_make_unit_expr;
 
-    PSTADE_POD_CONSTANT((T_make_unit_expr), make_unit_expr) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_make_unit_expr), make_unit_expr) = PSTADE_EGG_GENERATOR();
 
 
     struct little

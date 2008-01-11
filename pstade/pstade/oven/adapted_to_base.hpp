@@ -96,7 +96,7 @@ namespace to_base_detail {
 }
 
 typedef egg::result_of_ambi0<to_base_detail::op>::type T_to_base;
-PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
 // range version
@@ -144,7 +144,7 @@ namespace to_base_range_detail {
 }
 
 typedef egg::result_of_ambi0<to_base_range_detail::op>::type T_to_base_range;
-PSTADE_POD_CONSTANT((T_to_base_range), to_base_range) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_to_base_range), to_base_range) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::oven

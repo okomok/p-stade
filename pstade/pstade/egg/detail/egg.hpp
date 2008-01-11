@@ -85,6 +85,7 @@
 #include "../return.hpp"
 #include "../shared_object.hpp"
 #include "../specified.hpp"
+#include "../static.hpp"
 #include "../static_down.hpp"
 #include "../static_downcast.hpp"
 #include "../strong_assign.hpp"

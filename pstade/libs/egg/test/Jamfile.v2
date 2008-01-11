@@ -113,6 +113,7 @@ test-suite "egg" :
     [ run sig_template.cpp ]
     [ run specified.cpp ]
     [ run specified1.cpp ]
+    [ run static.cpp ]
     [ run static_downcast.cpp ]
     [ run static_down.cpp ]
     [ run-fail static_downcast_fail.cpp ]

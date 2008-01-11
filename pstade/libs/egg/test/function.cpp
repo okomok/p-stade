@@ -28,7 +28,7 @@
 
     #define PSTADE_EGG_FUNCTION(O, B) \
         typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(T_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = PSTADE_EGG_FUNCTION({}); \
     /**/
 
 

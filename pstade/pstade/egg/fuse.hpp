@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
     T_fuse;
 
 
-    PSTADE_POD_CONSTANT((T_fuse), fuse) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_fuse), fuse) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

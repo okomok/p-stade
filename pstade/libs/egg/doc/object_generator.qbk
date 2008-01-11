@@ -32,7 +32,7 @@ A simple object generator can be built automagically using the following family.
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_GENERATOR`]
+        [`PSTADE_EGG_GENERATOR()`]
         [A braced initializer of `generator<Lam, R0, How, _Stg>::type`]
     ]
     [
@@ -52,7 +52,7 @@ A simple object generator can be built automagically using the following family.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR`.
+* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR()`.
 * `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]

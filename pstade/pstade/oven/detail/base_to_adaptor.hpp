@@ -23,8 +23,8 @@
         typedef PSTADE_EGG_DEFER(B) op; \
     } \
     typedef BOOST_PP_CAT(adaptor_workarea_of_, O)::op BOOST_PP_CAT(T_make_, O); \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_make_, O)), BOOST_PP_CAT(make_, O)) = PSTADE_EGG_DEFERRED; \
-    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(T_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_L PSTADE_EGG_DEFERRED PSTADE_EGG_PIPABLE_R; \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_make_, O)), BOOST_PP_CAT(make_, O)) = PSTADE_EGG_DEFERRED(); \
+    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(T_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_L PSTADE_EGG_DEFERRED() PSTADE_EGG_PIPABLE_R; \
 /**/
 
 

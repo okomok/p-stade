@@ -61,9 +61,11 @@ Distributed under the Boost Software License, Version 1.0.
 
 
 
+
 [/ Internal Links ]
 
 [def __LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
+[def __POD_FUNCTION_TEMPLATE__ [link egg.concepts.pod_function_template POD function template]]
 [def __STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
 [def __OPERATABLE__ [link egg.concepts.operatable_object Operatable]]
 [def __AMBI_FUNCTION_OBJECT__ [link egg.concepts.ambi_function_object Ambi Function Object]]

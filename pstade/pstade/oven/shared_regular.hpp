@@ -51,7 +51,7 @@ namespace shared_regular_detail {
 
 
 typedef PSTADE_EGG_DEFER((shared_regular_detail::base<boost::mpl::_>)) T_shared_regular;
-PSTADE_POD_CONSTANT((T_shared_regular), shared_regular) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_shared_regular), shared_regular) = PSTADE_EGG_DEFERRED();
 
 
 } } // namespace pstade::oven

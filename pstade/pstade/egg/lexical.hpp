@@ -51,7 +51,7 @@ PSTADE_ADL_BARRIER(lexical_cast) { // for boost
     }
 
     typedef result_of_ambi0<lexical_detail::op>::type T_lexical;
-    PSTADE_POD_CONSTANT((T_lexical), lexical) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_lexical), lexical) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg
