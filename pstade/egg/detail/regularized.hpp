@@ -129,13 +129,13 @@ namespace pstade { namespace egg { namespace detail {
 namespace boost { namespace lambda {
 
 
-    template< class X >
+    template<class X>
     struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> >
     {
         typedef X& type;
     };
 
-    template< class X >
+    template<class X>
     struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> const >
     {
         typedef X const& type;
