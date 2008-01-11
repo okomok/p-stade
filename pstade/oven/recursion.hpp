@@ -47,7 +47,7 @@ namespace recursion_detail {
 
 
 typedef PSTADE_EGG_DEFER((recursion_detail::base<boost::mpl::_>)) T_recursion;
-PSTADE_POD_CONSTANT((T_recursion), recursion) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_recursion), recursion) = PSTADE_EGG_DEFERRED();
 
 
 } } // namespace pstade::oven

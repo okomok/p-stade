@@ -85,7 +85,7 @@ namespace generation_detail {
 
 
 typedef PSTADE_EGG_DEFER((generation_detail::base<boost::mpl::_>)) T_generation;
-PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_DEFERRED();
 
 
 namespace nonstop_detail {
@@ -129,7 +129,7 @@ typedef
     >::type
 T_nonstop;
 
-PSTADE_POD_CONSTANT((T_nonstop), nonstop) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_nonstop), nonstop) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::oven

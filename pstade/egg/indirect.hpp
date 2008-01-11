@@ -54,7 +54,7 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_indirect<>::function_type T_indirect;
-    PSTADE_POD_CONSTANT((T_indirect), indirect) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_indirect), indirect) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

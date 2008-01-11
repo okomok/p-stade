@@ -14,10 +14,10 @@ A __LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using 
 * ...
 
 [heading Requirements]
-For any __LEXICALLY_TYPED_OBJECT__ `x` the following must be met:
+For any __LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 
-* `x` is a named lvalue.
-* If token `x` doesn't begin with a single underscore, `T_++x` is `_typeof(x)`; `TT++x` otherwise.
+* `a` is a named lvalue.
+* If token `a` doesn't begin with a single underscore, `T_++a` is `_typeof(a)`; `TT++a` otherwise.
 
 [heading Example]
 [code_concepts_lexically_typed_object]
@@ -129,6 +129,44 @@ for any __MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
 
 
 
+[/
+
+[section Major Function Builder]
+
+[heading Description]
+A __MAJOR_FUNCTION_BUILDER__ is a __METAFUNCTION__ which returns a POD __MAJOR_FUNCTION_OBJECT__ type.
+
+[heading Refinement of]
+* __METAFUNCTION__
+
+[heading Notation]
+* `TOUPPER(x)` is a token that `x` is converted to uppercase.
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
+
+* `x<A1,...,AN>::type` is a POD __MAJOR_FUNCTION_OBJECT__ type.
+* `x<A1,...,AN>::type` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `PSTADE_EGG_++TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
+* Non-local object `x<A1,...,AN>::type` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_++TOUPPER(x)()`.
+
+[heading Example]
+[code_concepts_pod_function_builder]
+
+[heading Models]
+* ...
+
+[heading See also]
+* __STATIC_FUNCTION_OBJECT__
+
+[endsect]
+
+]
+
+
+
+
 [section Static Function Object]
 
 [heading Description]
@@ -167,10 +205,11 @@ for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 A __LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 
 [heading Refinement of]
-* ...
+* __COPY_CONSTRUCTIBLE__
 
 [heading Requirements]
-For any __LITTLE_FUNCTION__ type `L` the following must be met:
+In addition to the requirements defined in the refinements,
+for any __LITTLE_FUNCTION__ type `L` the following must be met:
 
 * `L` has a nested class template named `apply`, where `apply<...>::type` means return type of function calls.
 * `L` has a const /member function/ named `call` whose return type is explicitly specified by the first template parameter.

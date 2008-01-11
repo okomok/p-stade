@@ -147,7 +147,7 @@ It is useful because `operator()` can use nested typedefs.
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_DEFERRED`]
+        [`PSTADE_EGG_DEFERRED()`]
         [A braced initializer of `deferred<Lam, _Stg>::type`]
     ]
     [
@@ -163,7 +163,7 @@ It is useful because `operator()` can use nested typedefs.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED`.
+* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_DEFERRED()`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [caution For some compiler bug, `deferred` randomly fails to work as a __POLYMORPHIC_FUNCTION_OBJECT__ under msvc-8.0.
@@ -212,7 +212,7 @@ See [link egg.object_generator Object Generator] section.
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_AUTOMATIC`]
+        [`PSTADE_EGG_AUTOMATIC()`]
         [A braced initializer of `automatic<Lam, _Stg>::type`]
     ]
     [
@@ -233,11 +233,67 @@ See [link egg.object_generator Object Generator] section.
       For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
-* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_AUTOMATIC`.
+* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_AUTOMATIC()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
 [code_automatic_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+
+[endsect]
+
+
+
+
+[section static_]
+
+[heading Description]
+Though Egg provides a __FUNCTION_OBJECT__ class template which begins with `X_`,
+such object isn't POD and no initialization way is offered. So that,
+`static_` builds a POD object from class template specialization of `X_xxx` in Egg.
+
+[heading Header]
+* `<pstade/egg/static.hpp>`
+
+[heading Notation]
+* `X` is a template specialization which begin with `X_` in Egg.
+* `f` is an object of `static_<X>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`static_<X>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_STATIC_L X PSTADE_EGG_STATIC_R`]
+        [A braced initializer of `static_<X>::type`]
+    ]
+    [
+        [`PSTADE_EGG_STATIC(X)`]
+        [`PSTADE_EGG_STATIC_L X PSTADE_EGG_STATIC_R`]
+    ]
+    [
+        [`f`]
+        [`X()`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_STATIC_L` and `PSTADE_EGG_STATIC_R`.
+* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[heading Example]
+[code_static_example]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__

@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_DEFERRED {{}}
+    #define PSTADE_EGG_DEFERRED() {{}}
 
 
     // If you are a msvc-8.0 user, prefer this macro.

@@ -70,7 +70,7 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_flip<>::function_type T_flip;
-    PSTADE_POD_CONSTANT((T_flip), flip) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_flip), flip) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

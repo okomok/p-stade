@@ -102,7 +102,8 @@ namespace pstade { namespace egg {
         function<after_detail::little<Strategy>, by_value>
     { };
 
-    typedef X_after<>::function_type T_after;
+
+    typedef X_after<>::type T_after;
     PSTADE_POD_CONSTANT((T_after), after) = {{}};
 
 

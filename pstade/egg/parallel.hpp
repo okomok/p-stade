@@ -101,7 +101,7 @@ namespace pstade { namespace egg {
         >::type
     T_parallel;
 
-    PSTADE_POD_CONSTANT((T_parallel), parallel) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_parallel), parallel) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

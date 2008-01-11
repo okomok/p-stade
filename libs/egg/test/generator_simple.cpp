@@ -35,7 +35,7 @@ struct my_pair
 
 typedef generator< my_pair< deduce<boost::mpl::_1, as_value>, deduce<boost::mpl::_2, as_value> > >::type T_make_my_pair;
 BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_make_my_pair(int&, double)>::type, my_pair<int, double> >));
-PSTADE_EGG_CONST((T_make_my_pair), make_my_pair) = PSTADE_EGG_GENERATOR;
+PSTADE_EGG_CONST((T_make_my_pair), make_my_pair) = PSTADE_EGG_GENERATOR();
 
 typedef generator< my_pair< deduce<boost::mpl::_1, as_cref>, deduce<boost::mpl::_2, as_ref> > >::type T_make_my_pair_cref;
 BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_make_my_pair_cref(int&, double)>::type, my_pair<int const&, double const&> >));
@@ -50,7 +50,7 @@ typedef generator< id_metafun >::type T_id;
 BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id(int&)>::type, int& >));
 BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id(int const&)>::type, int const& >));
 BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id(int)>::type, int const& >));
-PSTADE_EGG_CONST((T_id), id) = PSTADE_EGG_GENERATOR;
+PSTADE_EGG_CONST((T_id), id) = PSTADE_EGG_GENERATOR();
 
 
 void pstade_minimal_test()

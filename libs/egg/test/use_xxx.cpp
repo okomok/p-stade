@@ -45,11 +45,11 @@ struct your
 struct nullary_check_pod0 { };
 struct nullary_check_pod1 { nullary_check_pod0 m; };
 pstade::egg::generator<nullary_check_pod0, nullary_check_pod0, pstade::egg::use_brace1>::type const
-    make_nullary_check_pod0 = PSTADE_EGG_GENERATOR;
+    make_nullary_check_pod0 = PSTADE_EGG_GENERATOR();
 pstade::egg::generator<nullary_check_pod1, nullary_check_pod1, pstade::egg::use_brace2>::type const
-    make_nullary_check_pod1 = PSTADE_EGG_GENERATOR;
+    make_nullary_check_pod1 = PSTADE_EGG_GENERATOR();
 pstade::egg::generator<nullary_check_pod0, nullary_check_pod0, pstade::egg::use_constructor>::type const
-    make_nullary_check_type = PSTADE_EGG_GENERATOR;
+    make_nullary_check_type = PSTADE_EGG_GENERATOR();
 
 
 void pstade_minimal_test()

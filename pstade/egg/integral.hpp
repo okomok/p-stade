@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
     }
 
     typedef result_of_ambi0<integral_detail::op>::type T_integral;
-    PSTADE_POD_CONSTANT((T_integral), integral) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC PSTADE_EGG_AMBI_R;
+    PSTADE_POD_CONSTANT((T_integral), integral) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

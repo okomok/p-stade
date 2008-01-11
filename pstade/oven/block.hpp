@@ -47,7 +47,7 @@ namespace block_detail {
 
 
 typedef PSTADE_EGG_DEFER((block_detail::base<boost::mpl::_>)) T_block;
-PSTADE_POD_CONSTANT((T_block), block) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_block), block) = PSTADE_EGG_DEFERRED();
 
 
 } } // namespace pstade::oven

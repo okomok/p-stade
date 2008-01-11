@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
 
     typedef X_not<>::function_type T_not;
     typedef T_not T_not_;
-    PSTADE_POD_CONSTANT((T_not_), not_) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_not_), not_) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

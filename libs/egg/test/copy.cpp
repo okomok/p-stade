@@ -34,7 +34,7 @@ struct T_cast0
 };
 
 typedef pstade::egg::automatic< T_cast0<boost::mpl::_> >::type T_auto_cast0;
-T_auto_cast0 const auto_cast0 = PSTADE_EGG_AUTOMATIC;
+T_auto_cast0 const auto_cast0 = PSTADE_EGG_AUTOMATIC();
 
 
 struct xxx

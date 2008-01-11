@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
         >::type
     T_bll_defer;
 
-    PSTADE_POD_CONSTANT((T_bll_defer), bll_defer) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_bll_defer), bll_defer) = PSTADE_EGG_GENERATOR();
 
 
     template<class SigFun>
@@ -73,7 +73,7 @@ namespace pstade { namespace egg {
         >::type
     T_bll_defer_nullary;
 
-    PSTADE_POD_CONSTANT((T_bll_defer_nullary), bll_defer_nullary) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((T_bll_defer_nullary), bll_defer_nullary) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

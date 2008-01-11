@@ -72,3 +72,10 @@ T_auxi const &get_auxi1( )
 int iau = get_auxi2().little().base().touch;
 
 
+T_construct_int const &get_cons_int1( )
+{
+   return construct_int;
+}
+
+T_construct_int::little_type cons_int = get_cons_int2().little();
+

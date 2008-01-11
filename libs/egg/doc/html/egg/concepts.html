@@ -56,18 +56,18 @@
       </h5>
 <p>
         For any <a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed
-        Object</a> <code class="computeroutput"><span class="identifier">x</span></code> the following
+        Object</a> <code class="computeroutput"><span class="identifier">a</span></code> the following
         must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">x</span></code> is a named lvalue.
+<code class="computeroutput"><span class="identifier">a</span></code> is a named lvalue.
         </li>
 <li>
-          If token <code class="computeroutput"><span class="identifier">x</span></code> doesn't begin
-          with a single underscore, <code class="computeroutput"><span class="identifier">T_</span><span class="special">++</span><span class="identifier">x</span></code> is
-          <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>;
-          <code class="computeroutput"><span class="identifier">TT</span><span class="special">++</span><span class="identifier">x</span></code> otherwise.
+          If token <code class="computeroutput"><span class="identifier">a</span></code> doesn't begin
+          with a single underscore, <code class="computeroutput"><span class="identifier">T_</span><span class="special">++</span><span class="identifier">a</span></code> is
+          <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code>;
+          <code class="computeroutput"><span class="identifier">TT</span><span class="special">++</span><span class="identifier">a</span></code> otherwise.
         </li>
 </ul></div>
 <a name="egg.concepts.lexically_typed_object.example"></a><h5>
@@ -80,8 +80,8 @@
           
 </p>
 <pre class="programlisting">
-<span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">T_x</span><span class="special">;</span>
-<span class="identifier">T_x</span> <span class="identifier">x</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">T_a</span><span class="special">;</span>
+<span class="identifier">T_a</span> <span class="identifier">a</span><span class="special">;</span>
 
 <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">TT_1</span><span class="special">;</span>
 <span class="identifier">TT_1</span> <span class="identifier">_1</span><span class="special">;</span>
@@ -115,7 +115,7 @@
 <a name="egg.concepts.pipable_function_object"></a><a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
       Object</a></h3></div></div></div>
 <a name="egg.concepts.pipable_function_object.description"></a><h5>
-<a name="id502822"></a>
+<a name="id502823"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.description">Description</a>
       </h5>
 <p>
@@ -124,7 +124,7 @@
         which behaves as if it were a "pipe" using <code class="computeroutput"><span class="keyword">operator</span><span class="special">|</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">|=</span></code>.
       </p>
 <a name="egg.concepts.pipable_function_object.refinement_of"></a><h5>
-<a name="id502900"></a>
+<a name="id502901"></a>
         <a href="concepts.html#egg.concepts.pipable_function_object.refinement_of">Refinement
         of</a>
       </h5>
@@ -507,17 +507,13 @@
 <a name="id506071"></a>
         <a href="concepts.html#egg.concepts.little_function.refinement_of">Refinement of</a>
       </h5>
-<div class="itemizedlist"><ul type="disc"><li>
-          ...
-        </li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a></li></ul></div>
 <a name="egg.concepts.little_function.requirements"></a><h5>
-<a name="id506104"></a>
+<a name="id506111"></a>
         <a href="concepts.html#egg.concepts.little_function.requirements">Requirements</a>
       </h5>
 <p>
-        For any <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>
-        type <code class="computeroutput"><span class="identifier">L</span></code> the following must
-        be met:
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a> type <code class="computeroutput"><span class="identifier">L</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -531,7 +527,7 @@
         </li>
 </ul></div>
 <a name="egg.concepts.little_function.example"></a><h5>
-<a name="id506229"></a>
+<a name="id506236"></a>
         <a href="concepts.html#egg.concepts.little_function.example">Example</a>
       </h5>
 <p>
@@ -567,14 +563,14 @@
 <p>
       </p>
 <a name="egg.concepts.little_function.models"></a><h5>
-<a name="id506514"></a>
+<a name="id506521"></a>
         <a href="concepts.html#egg.concepts.little_function.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.concepts.little_function.see_also"></a><h5>
-<a name="id506545"></a>
+<a name="id506552"></a>
         <a href="concepts.html#egg.concepts.little_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -602,7 +598,7 @@
 </td></tr>
 </table></div>
 <a name="egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id506631"></a>
+<a name="id506638"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.how_to_call">How to call</a>
       </h5>
 <p>
@@ -728,7 +724,7 @@
 <p>
       </p>
 <a name="egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id507809"></a>
+<a name="id507816"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -745,7 +741,7 @@
         The first bug is fixed with Boost1.35.
       </p>
 <a name="egg.concepts.result_of_tutorial.see_also"></a><h5>
-<a name="id507921"></a>
+<a name="id507928"></a>
         <a href="concepts.html#egg.concepts.result_of_tutorial.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="workarounds.html#egg.workarounds.pstade__result_of" title="pstade::result_of">pstade::result_of</a></li></ul></div>

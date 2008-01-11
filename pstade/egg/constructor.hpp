@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
     T_constructor;
 
 
-    PSTADE_POD_CONSTANT((T_constructor), constructor) = PSTADE_EGG_AUTOMATIC;
+    PSTADE_POD_CONSTANT((T_constructor), constructor) = PSTADE_EGG_AUTOMATIC();
 
 
 } } // namespace pstade::egg

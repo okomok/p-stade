@@ -72,6 +72,15 @@ T_auxi const &get_auxi2( )
 int jau = get_auxi1().little().base().touch;
 
 
+T_construct_int const &get_cons_int2( )
+{
+   return construct_int;
+}
+
+T_construct_int::little_type cons_int_ = get_cons_int1().little();
+
+
+
 int main()
 {
     std::cout << j;

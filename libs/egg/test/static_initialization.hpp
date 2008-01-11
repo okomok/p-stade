@@ -20,6 +20,8 @@
 #include <pstade/egg/ambi.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/egg/static.hpp>
+#include <pstade/egg/construct.hpp>
 
 
 struct little_my_id
@@ -124,5 +126,12 @@ typedef pstade::egg::result_of_ambi1<T_my_plus>::type T_auxi;
 PSTADE_POD_CONSTANT((T_auxi), auxi) = PSTADE_EGG_AMBI_L {999} PSTADE_EGG_AMBI_R;
 T_auxi const &get_auxi1();
 T_auxi const &get_auxi2();
+
+
+typedef pstade::egg::static_<pstade::egg::X_construct<int> >::type T_construct_int;
+T_construct_int const construct_int = PSTADE_EGG_STATIC(pstade::egg::X_construct<int> );
+T_construct_int const &get_cons_int1();
+T_construct_int const &get_cons_int2();
+
 
 #endif

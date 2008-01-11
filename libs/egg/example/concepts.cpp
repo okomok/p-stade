@@ -20,14 +20,34 @@
 
 namespace lexically_typed_object {
 //[code_concepts_lexically_typed_object
-typedef int T_x;
-T_x x;
+typedef int T_a;
+T_a a;
 
 typedef int TT_1;
 TT_1 _1;
 //]
 }
 
+namespace pod_function_builder {
+//[code_concepts_pod_function_builder
+template<class R>
+struct X_construct
+{
+    struct type
+    {
+        R operator()(R x) const
+        {
+            return R(x);
+        }
+    };
+};
+
+#define X_CONSTRUCT() {}
+
+typedef X_construct<int>::type T_construct_int;
+T_construct_int const construct_int = X_CONSTRUCT();
+//]
+}
 
 namespace pipable_function_object {
 //[code_concepts_pipable_function_object

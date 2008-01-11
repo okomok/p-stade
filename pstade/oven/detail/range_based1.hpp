@@ -108,7 +108,7 @@ typedef
     >::type
 T_range_based1;
 
-PSTADE_POD_CONSTANT((T_range_based1), range_based1) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_range_based1), range_based1) = PSTADE_EGG_GENERATOR();
 
 
 } } } // namespace pstade::oven::detail

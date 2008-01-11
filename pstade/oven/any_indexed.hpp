@@ -162,7 +162,7 @@ typedef
     >::type
 T_make_any_indexed;
 
-PSTADE_POD_CONSTANT((T_make_any_indexed), make_any_indexed) = PSTADE_EGG_GENERATOR;
+PSTADE_POD_CONSTANT((T_make_any_indexed), make_any_indexed) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::oven

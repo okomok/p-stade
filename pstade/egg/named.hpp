@@ -107,7 +107,7 @@ namespace pstade { namespace egg {
     };
 
     typedef function<BOOST_PP_CAT(little_named, n), by_value> BOOST_PP_CAT(T_named, n);
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_named, n)), BOOST_PP_CAT(named, n)) = PSTADE_EGG_GENERATOR;
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_named, n)), BOOST_PP_CAT(named, n)) = PSTADE_EGG_GENERATOR();
 
 
 #undef n

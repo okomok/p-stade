@@ -86,7 +86,7 @@ namespace is_sorted_until_detail {
 
 
 typedef PSTADE_EGG_DEFER((is_sorted_until_detail::base<boost::mpl::_>)) T_is_sorted_until;
-PSTADE_POD_CONSTANT((T_is_sorted_until), is_sorted_until) = PSTADE_EGG_DEFERRED;
+PSTADE_POD_CONSTANT((T_is_sorted_until), is_sorted_until) = PSTADE_EGG_DEFERRED();
 
 
 struct T_is_sorted
