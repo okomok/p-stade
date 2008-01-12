@@ -1,6 +1,6 @@
 #ifndef PSTADE_EGG_LAZY_HPP
 #define PSTADE_EGG_LAZY_HPP
-#include "../detail/prefix.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Egg

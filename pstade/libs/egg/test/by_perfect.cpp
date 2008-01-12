@@ -26,7 +26,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 
-    #define PSTADE_EGG_FUNCTION(O, B) \
+    #define PSTADE_EGG_FUNCTION_DEF(O, B) \
         typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_perfect> BOOST_PP_CAT(T_, O); \
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
@@ -69,7 +69,7 @@ struct little_foo
     }
 };
 
-PSTADE_EGG_FUNCTION(foo, (little_foo))
+PSTADE_EGG_FUNCTION_DEF(foo, (little_foo))
 
 
 PSTADE_TEST_IS_RESULT_OF((std::string), T_foo(int, double))

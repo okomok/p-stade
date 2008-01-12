@@ -3,7 +3,7 @@
     [quickbook 1.3]
     [version 0.90.4]
     [authors [Sogame, Shunsuke]]
-    [copyright 2007 Shunsuke Sogame]
+    [copyright 2007-2008 Shunsuke Sogame]
     [category functional]
     [id egg]
     [dirname egg]

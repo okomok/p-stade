@@ -58,8 +58,10 @@ PSTADE_TEST_IS_RESULT_OF((A const volatile&), func_t(A const volatile&))
 #if defined(PSTADE_EGG_BLL_PERFECT_FUNCTORS)
     PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A))
     PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const))
+#if 0 // rvalue udt seems illegal according to Comeau.
     PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A volatile))
     PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const volatile))
+#endif
 #endif
 
 
