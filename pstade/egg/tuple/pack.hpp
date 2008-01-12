@@ -35,11 +35,8 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_tuple_pack :
-        function<tuple_detail::little_pack, Strategy>
+        function<tuple_detail::little_pack<Strategy>, Strategy>
     { };
-
-    template< >
-    struct X_tuple_pack<by_value>;
 
 
     typedef X_tuple_pack<>::function_type T_tuple_pack;

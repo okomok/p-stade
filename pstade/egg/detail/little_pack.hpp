@@ -16,10 +16,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/preprocessor.hpp>
 #include "../apply_decl.hpp"
-#include "../by_ref.hpp"
-#include "../config.hpp"
+#include "../forward.hpp"
 
    
 #define PSTADE_EGG_LITTLE_PACK() <pstade/egg/detail/little_pack_include.hpp>

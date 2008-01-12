@@ -17,6 +17,7 @@
 #endif
 
 
+    template<class Strategy>
     struct little_pack
     {
     // 0ary
@@ -48,7 +49,11 @@
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
     {
-        typedef PSTADE_EGG_LITTLE_PACK_TEMPLATE(n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)> type;
+        typedef
+            PSTADE_EGG_LITTLE_PACK_TEMPLATE(n)<
+                PSTADE_EGG_FORWARDING_ENUM_META_ARGS(n, A, Strategy const)
+            >
+        type;
     };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
