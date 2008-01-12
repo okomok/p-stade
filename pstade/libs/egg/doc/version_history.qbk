@@ -53,4 +53,10 @@
 
 
 
+[heading Version 0.90.5]
+* `tuple_pack` accepts any strategy.
+
+
+
+
 [endsect]

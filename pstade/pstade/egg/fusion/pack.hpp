@@ -34,11 +34,8 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_fusion_pack :
-        function<fusion_detail::little_pack, Strategy>
+        function<fusion_detail::little_pack<Strategy>, Strategy>
     { };
-
-    template< >
-    struct X_fusion_pack<by_value>;
 
 
     typedef X_fusion_pack<>::function_type T_fusion_pack;

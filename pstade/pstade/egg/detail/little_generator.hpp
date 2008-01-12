@@ -77,7 +77,7 @@ namespace pstade { namespace egg { namespace detail {
         dummy_t;
 
         typedef typename
-            affect<Lambda, typename dummy_to_lambda<dummy_t, lambda_t>::type>::type
+            affect_cv<Lambda, typename dummy_to_lambda<dummy_t, lambda_t>::type>::type
         type;
     };
 
