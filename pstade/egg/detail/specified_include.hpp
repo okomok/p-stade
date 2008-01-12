@@ -34,18 +34,19 @@
     /**/
     #define PSTADE_function_aux(ArgTypes, Params, N) \
         template<PSTADE_PP_SEQ_ENUM_PARAMS(PSTADE_params, X), BOOST_PP_ENUM_PARAMS(N, class A)> inline \
-        PSTADE_EGG_RESULT_OF_IN_NS_SCOPE( (PSTADE_op<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_params, X)>), ArgTypes ) \
+        typename pstade::result_of<PSTADE_op<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_params, X)>(ArgTypes)>::type \
         PSTADE_name( Params PSTADE_CONST_OVERLOADED_SEQ(PSTADE_PP_SEQ_PARAMS(N, A)) ) \
         { \
             return PSTADE_op<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_params, X)>()(BOOST_PP_ENUM_PARAMS(N, a)); \
         } \
     /**/
-    #define PSTADE_arg_type(R, _, I, Bit) ( BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) )
-    #define PSTADE_param(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
+    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
+    #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A&
-    #define PSTADE_ac1(A) PSTADE_EGG_CONST_REF(A)
+    // PSTADE_DEDUCED_CONST sometimes doesn't work because of msvc-7.1 weird bug in namespace scope.
+    #define PSTADE_ac1(A) PSTADE_EGG_ARRAY_RESURRECT(A const)&
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_arities)), <pstade/egg/detail/specified_include.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_ac1
