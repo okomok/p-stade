@@ -330,7 +330,6 @@ Egg provides the uniform way to define your own strategy.
 ]
 
 [heading Preconditions]
-* `Sig` is a /function type/.
 * `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 
 [heading Your strategy tag]

@@ -252,13 +252,13 @@ See [link egg.object_generator Object Generator] section.
 [heading Description]
 Though Egg provides a __FUNCTION_OBJECT__ class template which begins with `X_`,
 such object isn't POD and no initialization way is offered. So that,
-`static_` builds a POD object from class template specialization of `X_xxx` in Egg.
+`static_` builds a POD object from class template specialization of `X_xxx`.
 
 [heading Header]
 * `<pstade/egg/static.hpp>`
 
 [heading Notation]
-* `X` is a template specialization which begin with `X_` in Egg.
+* `X` is a template specialization which begins with `X_` in Egg.
 * `f` is an object of `static_<X>::type`.
 
 [heading Valid expressions]
