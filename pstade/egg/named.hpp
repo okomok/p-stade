@@ -22,8 +22,8 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./by_value.hpp"
 #include "./by_cref.hpp"
+#include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/get_arg.hpp"
 #include "./fusion/pack.hpp"

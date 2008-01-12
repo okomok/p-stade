@@ -25,6 +25,7 @@
 // So, we must delay to write 'const' for array types, then instantiate 'result_of' using 'const'.
 // In other words, this bug introduces "Metafunction Forwarding Problem".
 // Fortunately, this bug doesn't occur in class scope.
+// Notice EGG_ARRAY_RESURRECT is metafunction, so that it still doesn't work.
 
 
 #include <boost/preprocessor/cat.hpp>

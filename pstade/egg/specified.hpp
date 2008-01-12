@@ -44,7 +44,7 @@
 #include <pstade/const_overloaded.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./array_ressurect.hpp"
+#include "./detail/result_of_in_ns_scope.hpp"
 
 
 #define PSTADE_EGG_SPECIFIED() <pstade/egg/detail/specified_include.hpp>
