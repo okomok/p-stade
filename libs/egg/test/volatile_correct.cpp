@@ -30,7 +30,7 @@ PSTADE_TEST_IS_RESULT_OF((int const volatile&), T_identity(int const volatile&))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
 #if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
-// intel propagate cv-qualifiers. It seems a bug.
+// intel propagate cv-qualifiers.
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int volatile))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const volatile))
 #endif
@@ -43,8 +43,11 @@ PSTADE_TEST_IS_RESULT_OF((int const volatile&), func_t(int const volatile&))
 #if defined(PSTADE_EGG_BLL_PERFECT_FUNCTORS)
     PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int))
     PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int const))
+#if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
+// intel propagate cv-qualifiers.
     PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int volatile))
     PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int const volatile))
+#endif
 #endif
 
 

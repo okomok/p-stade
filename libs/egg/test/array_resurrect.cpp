@@ -53,6 +53,11 @@ typename klass2<A const>::type foo(A const& a)
     return a;
 };
 
+template<class A>
+typename klass<PSTADE_EGG_ARRAY_RESURRECT(A const)>::type foo_(A const& a)
+{
+    return a;
+};
 
 
 template<class A>
@@ -168,6 +173,11 @@ void pstade_minimal_test()
     {
         int a[3];
         int const *x = ::foo(a);
+        BOOST_CHECK(x == &a[0]);
+    }
+    {
+        int a[3];
+        int const *x = ::foo_(a);
         BOOST_CHECK(x == &a[0]);
     }
     {

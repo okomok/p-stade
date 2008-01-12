@@ -12,10 +12,9 @@
 #include <pstade/minimal_test.hpp>
 
 #include <ctype.h> // old header for mingw+gcc weird name lookup.
-//[code_introduction
 #include <pstade/egg/pipable.hpp>
 using namespace pstade::egg;
-
+//[code_introduction
 // This initialization incurs no runtime overhead.
 result_of_pipable<int(*)(int)>::type const
     to_upper = PSTADE_EGG_PIPABLE(&toupper);
