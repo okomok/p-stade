@@ -1,0 +1,92 @@
+[section Utilities]
+
+
+
+
+[section bll/result_of.hpp]
+
+[heading Description]
+This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__.
+
+[heading Header]
+* `<boost/egg/bll/result_of.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`#include <boost/egg/bll/result_of.hpp>`]
+        [A __BOOST_LAMBDA__ functor becomes a __POLYMORPHIC_FUNCTION_OBJECT__.]
+    ]
+]
+
+[heading Preconditions]
+* ...
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
+[section infix]
+
+[heading Description]
+Egg provides __FCPP__ infix operator syntax.
+
+[heading Header]
+* `<boost/egg/infix.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`a1 ^_pfo^ a2`]
+        [`_pfo(_arg_list(a1, by_perfect), _arg_list(a2, by_perfect))`]
+    ]
+]
+
+[heading Preconditions]
+* `using namespace infix;` is placed before the valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `^_pfo^` behaves as if it had left to right associativity.
+
+[heading Example]
+    using namespace infix;
+    BOOST_CHECK( (10 ^plus^ 12 ^plus^ 3) == 25 );
+
+[heading See also]
+* __FCPP__
+* __EGG_PIPABLE__
+
+[endsect]
+
+
+
+
+[endsect]
