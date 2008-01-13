@@ -70,13 +70,13 @@ PSTADE_ADL_BARRIER(apply) {
 
     template<class Myself, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<F(PSTADE_EGG_FORWARDING_ENUM_META_ARGS(n, A, Strategy const))>
+        result_of<F(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
     { };
 
     template<class Result, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(F& f BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return f(PSTADE_EGG_FORWARDING_ENUM_ARGS(n, a, Strategy const));
+        return f(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }
 
 

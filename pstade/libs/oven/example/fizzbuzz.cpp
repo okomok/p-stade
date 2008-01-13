@@ -6,7 +6,7 @@
 #include <pstade/oven/regular.hpp>
 #include <iostream>
 #include <string>
-#include <pstade/egg/lexical_cast.hpp>
+#include <pstade/egg/lexical.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>

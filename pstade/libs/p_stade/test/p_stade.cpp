@@ -1,34 +1,36 @@
 
-#include <cstddef>
-#include <pstade/boost_workaround.hpp>
-#include <boost/static_assert.hpp>
-#include <pstade/egg/detail/array_resurrect.hpp>
+#include <boost/bind.hpp>
+#include <boost/mem_fn.hpp>
 
 
-template<class A>
-struct spec;
 
-template<class T, std::size_t N>
-struct spec< T[N] >
+
+template<class F>
+void check_default_c(F f)
 {
-    BOOST_STATIC_ASSERT(N == 3);
-    typedef T* type;
+    F f_;
 };
 
-template<class A>
-struct indirection :
-    spec<PSTADE_EGG_ARRAY_RESURRECT(A)>
-{};
-
-template<class A>
-typename indirection<A const>::type foo(A const& a)
+template<class F>
+void check_assignable(F f)
 {
-    return 0;
+    F f_ = f;
+    f_ = f;
 };
 
+struct A
+{
+    void foo(int) const {};
+};
 
 int main()
 {
-    int a[3];
-    int const *x = ::foo(a);
+    A a;
+    boost::bind(&A::foo, &a, 1);
+    boost::mem_fn(&A::foo);
+    ::check_default_c(boost::mem_fn(&A::foo));
+//    ::check_default_c(boost::bind(&A::foo, &a, 1));
+    ::check_assignable(boost::bind(&A::foo, &a, 1));
+    ::check_assignable(boost::mem_fn(&A::foo));
 }
+

@@ -150,14 +150,14 @@ namespace pstade {
             static void destroy(storage<O> &stg)
             {
                 BOOST_ASSERT(stg.ptr);
-                detail::clonable_delete(detail::pointer_cast<Q>(stg.ptr));
+                detail_::clonable_delete(detail_::pointer_cast<Q>(stg.ptr));
             }
 
             static void copy(storage<O> const &stg, storage<O> &to)
             {
                 BOOST_ASSERT(stg.ptr);
-                Q const *q = detail::pointer_cast<Q>(stg.ptr);
-                to.ptr = detail::clonable_new(*q);
+                Q const *q = detail_::pointer_cast<Q>(stg.ptr);
+                to.ptr = detail_::clonable_new(*q);
             }
 
             static O *get(storage<O> const &stg)
@@ -203,7 +203,7 @@ namespace pstade {
         template<class O, class Q> inline
         void construct(storage<O> &stg, Q const &q, typename disable_if<stores_locally<O, Q> >::type = 0)
         {
-            stg.ptr = detail::clonable_new(q);
+            stg.ptr = detail_::clonable_new(q);
         }
 
 
@@ -379,14 +379,14 @@ namespace pstade {
         Q &content()
         {
             BOOST_ASSERT(contains<Q>());
-            return *detail::pointer_cast<Q>(this->get_());
+            return *detail_::pointer_cast<Q>(this->get_());
         }
 
         template<class Q>
         Q const &content() const
         {
             BOOST_ASSERT(contains<Q>());
-            return *detail::pointer_cast<Q>(this->get_());
+            return *detail_::pointer_cast<Q>(this->get_());
         }
 
     // totally_ordered

@@ -11,7 +11,7 @@
 
 #include "./egg_all.hpp"
 #undef PSTADE_EGG_DETAIL_EGG_HPP
-#undef PSTADE_EGG_EGG_DETAIL_PENDING_HPP
+#undef PSTADE_EGG_DETAIL_EGG_PENDING_HPP
 #include "./egg_all.hpp"
 
 
