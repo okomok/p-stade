@@ -20,7 +20,6 @@
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./detail/bytag_at.hpp"
 #include "./function_fwd.hpp"
@@ -40,12 +39,22 @@ namespace pstade { namespace egg {
 
     // For movable types, you can't add const-qualifier.
     template<class Lvalue>
-    struct result_of_forward<by_value, Lvalue> :
-        boost::remove_cv<Lvalue>
-    { };
+    struct result_of_forward<by_value, Lvalue>
+    {
+        typedef Lvalue type;
+    };
+
+    template<class Lvalue>
+    struct result_of_forward<by_value, Lvalue const>;
+
+    template<class Lvalue>
+    struct result_of_forward<by_value, Lvalue volatile>;
 
     template<class Bytag, class Lvalue>
     struct result_of_forward<Bytag const, Lvalue>;
+
+    template<class Bytag, class Lvalue>
+    struct result_of_forward<Bytag volatile, Lvalue>;
 
 
 PSTADE_ADL_BARRIER(forward) { // for C++0x
@@ -80,20 +89,20 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
     }
 
 
-#define PSTADE_EGG_FORWARDING_ENUM_META_ARGS(Arity, Var, Stg) \
-    BOOST_PP_ENUM(Arity, PSTADE_EGG_FORWARDING_ENUM_META_ARGS_op, (3, (Stg, Arity, Var))) \
+#define PSTADE_EGG_FORWARDING_META_ARGS(Arity, Var, Stg) \
+    BOOST_PP_ENUM(Arity, PSTADE_EGG_FORWARDING_META_ARGS_op, (3, (Stg, Arity, Var))) \
 /**/
 
-    #define PSTADE_EGG_FORWARDING_ENUM_META_ARGS_op(Z, I, S_A_V) \
+    #define PSTADE_EGG_FORWARDING_META_ARGS_op(Z, I, S_A_V) \
         typename pstade::egg::result_of_forwarding<BOOST_PP_ARRAY_ELEM(0, S_A_V), BOOST_PP_ARRAY_ELEM(1, S_A_V), I, BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(2, S_A_V), I)>::type \
     /**/
 
 
-#define PSTADE_EGG_FORWARDING_ENUM_ARGS(Arity, Var, Stg) \
-    BOOST_PP_ENUM(Arity, PSTADE_EGG_FORWARDING_ENUM_ARGS_op, (3, (Stg, Arity, Var))) \
+#define PSTADE_EGG_FORWARDING_ARGS(Arity, Var, Stg) \
+    BOOST_PP_ENUM(Arity, PSTADE_EGG_FORWARDING_ARGS_op, (3, (Stg, Arity, Var))) \
 /**/
 
-    #define PSTADE_EGG_FORWARDING_ENUM_ARGS_op(Z, I, S_A_V) \
+    #define PSTADE_EGG_FORWARDING_ARGS_op(Z, I, S_A_V) \
         pstade::egg::forwarding<BOOST_PP_ARRAY_ELEM(0, S_A_V), BOOST_PP_ARRAY_ELEM(1, S_A_V), I>( BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(2, S_A_V), I) ) \
     /**/
 

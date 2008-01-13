@@ -81,7 +81,7 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_KEYWORD {}
+    #define PSTADE_EGG_KEYWORD() {}
 
 
 } } // namespace pstade::egg

@@ -51,7 +51,7 @@
     {
         typedef
             PSTADE_EGG_LITTLE_PACK_TEMPLATE(n)<
-                PSTADE_EGG_FORWARDING_ENUM_META_ARGS(n, A, Strategy const)
+                PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const)
             >
         type;
     };

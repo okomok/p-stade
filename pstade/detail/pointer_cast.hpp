@@ -22,7 +22,7 @@
 #endif
 
 
-namespace pstade { namespace detail {
+namespace pstade { namespace detail_ {
 
 
     template<class To, class From> inline
@@ -60,7 +60,7 @@ namespace pstade { namespace detail {
     }
 
 
-} } // namespace pstade::detail
+} } // namespace pstade::detail_
 
 
 #endif

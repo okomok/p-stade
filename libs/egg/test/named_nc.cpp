@@ -41,8 +41,8 @@ typedef result_of_named2<T_foo1>::type T_named_foo1;
 T_named_foo1 const named_foo1 = PSTADE_EGG_NAMED_L {} PSTADE_EGG_NAMED_R;
 
 
-PSTADE_POD_CONSTANT((pstade::egg::keyword<0>), _in) = PSTADE_EGG_KEYWORD;
-PSTADE_POD_CONSTANT((pstade::egg::keyword<1>), _out) = PSTADE_EGG_KEYWORD;
+PSTADE_POD_CONSTANT((pstade::egg::keyword<0>), _in) = PSTADE_EGG_KEYWORD();
+PSTADE_POD_CONSTANT((pstade::egg::keyword<1>), _out) = PSTADE_EGG_KEYWORD();
 
 
 void pstade_minimal_test()

@@ -52,15 +52,12 @@ namespace pstade {
     namespace result_of_detail {
 
 
-        template<class T>
-        struct is_pointer :
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
-            // In result_of instantiation, remove_cv is needed for some reason.
-            boost::is_pointer<typename boost::remove_cv<T>::type>
+    // In result_of instantiation, remove_cv is needed for some reason.
+    #define PSTADE_RESULT_OF_IS_POINTER(T) boost::is_pointer<typename boost::remove_cv<T>::type>
 #else
-            boost::is_pointer<T>
+    #define PSTADE_RESULT_OF_IS_POINTER(T) boost::is_pointer<T>
 #endif
-        { };
 
 
 #if defined(PSTADE_RESULT_OF_MSVC_WORKAROUND)
@@ -81,7 +78,7 @@ namespace pstade {
         template<class F>
         struct patch :
             boost::mpl::eval_if<
-                boost::mpl::or_< is_pointer<F>, boost::is_member_function_pointer<F> >,
+                boost::mpl::or_< PSTADE_RESULT_OF_IS_POINTER(F), boost::is_member_function_pointer<F> >,
                 boost::remove_cv<F>,
 #if defined(PSTADE_RESULT_OF_MSVC_WORKAROUND)
                 msvc_identity<F>

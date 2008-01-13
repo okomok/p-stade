@@ -28,7 +28,7 @@
         } \
         \
         typedef BOOST_PP_CAT(pstade_automatic_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
-        PSTADE_POD_CONSTANT( (BOOST_PP_CAT(T_, Object)), Object ) = PSTADE_EGG_AUTOMATIC_REF;
+        PSTADE_POD_CONSTANT( (BOOST_PP_CAT(T_, Object)), Object ) = PSTADE_EGG_AUTOMATIC_REF();
     /**/
 
 

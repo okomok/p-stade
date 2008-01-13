@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
     T_static_down;
 
     PSTADE_POD_CONSTANT((T_static_down), static_down)
-        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AMBI_R;
+        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC_REF() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

@@ -53,7 +53,7 @@ public:
 
     ~clone_ptr()
     {
-        detail::clonable_delete(m_ptr);
+        detail_::clonable_delete(m_ptr);
     }
 
     template<class C>
@@ -62,14 +62,14 @@ public:
     { }
 
     clone_ptr(self_t const& other) :
-        m_ptr(other ? detail::clonable_new(*other) : PSTADE_NULLPTR)
+        m_ptr(other ? detail_::clonable_new(*other) : PSTADE_NULLPTR)
     { }
 
     template<class C>
     clone_ptr(clone_ptr<C> const& other,
         typename enable_if< is_convertible<C *, Clonable *> >::type = 0
     ) :
-        m_ptr(other ? detail::clonable_new<Clonable>(*other) : PSTADE_NULLPTR)
+        m_ptr(other ? detail_::clonable_new<Clonable>(*other) : PSTADE_NULLPTR)
     { }
 
     template<class C>

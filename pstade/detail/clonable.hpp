@@ -14,7 +14,7 @@
 #include <boost/ptr_container/clone_allocator.hpp>
 
 
-namespace pstade { namespace detail {
+namespace pstade { namespace detail_ {
 
 
     template<class X> inline
@@ -30,7 +30,7 @@ namespace pstade { namespace detail {
     }
 
 
-} } // namespace pstade::detail
+} } // namespace pstade::detail_
 
 
 #endif
