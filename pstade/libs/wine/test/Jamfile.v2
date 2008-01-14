@@ -57,6 +57,7 @@ test-suite "wine" :
     [ run mpl_min_max.cpp ]
     [ run nullptr.cpp ]
     [ run pause.cpp ]
+    [ run plain.cpp ]
     [ link pod_constant1.cpp pod_constant2.cpp : : pod_constant ]
     [ run poly.cpp ]
     [ run poly.cpp : : : <define>PSTADE_POLY_MIN_STORAGE_SIZE=1024 : poly_local ]
