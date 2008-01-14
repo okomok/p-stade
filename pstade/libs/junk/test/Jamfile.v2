@@ -25,6 +25,6 @@ project
 
 
 test-suite "junk" :
-    [ run pstade_junk_test_auto.cpp ]
+    [ run auto.cpp ]
     ;
 
