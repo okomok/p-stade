@@ -1,0 +1,453 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Chapter 1. Egg 0.90.4</title>
+<link rel="stylesheet" href="boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="index.html" title="Chapter 1. Egg 0.90.4">
+<link rel="next" href="egg/concepts.html" title="Concepts">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="Boost" width="277" height="86" src="../../boost.png"></td></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="egg/concepts.html"><img src="images/next.png" alt="Next"></a></div>
+<div class="chapter" lang="en">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="egg"></a>Chapter 1. Egg 0.90.4</h2></div>
+<div><p class="copyright">Copyright © 2007 -2008 Shunsuke Sogame</p></div>
+<div><div class="legalnotice">
+<a name="id431760"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="index.html#egg.overview">Overview</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#egg.overview.disclaimer">Disclaimer</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.acknowledgements">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.notation">Notation</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/concepts.html">Concepts</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.lexically_typed_object">Lexically Typed
+      Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.pipable_function_object">Pipable Function
+      Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.ambi_function_object">Ambi Function Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.major_function_object">Major Function Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.static_function_object">Static Function
+      Object</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.little_function">Little Function</a></span></dt>
+<dt><span class="section"><a href="egg/concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/forwarding_strategies.html">Forwarding Strategies</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.argument_list">Argument list</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_perfect">by_perfect</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_ref">by_ref</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_cref">by_cref</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_value">by_value</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types">Deducing
+      nullary return types</a></span></dt>
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy">Writing
+      your strategy</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/function_builders.html">Function Builders</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.function">function</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.function_facade">function_facade</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.deferred">deferred</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.generator">generator</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.automatic">automatic</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.static_">static_</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.make_function">make_function</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.comparison_operators">Comparison
+      operators</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/function_adaptors.html">Function Adaptors</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.ambin">ambiN</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.compose">compose</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.curryn">curryN</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.uncurry">uncurry</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.fuse">fuse</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.unfuse">unfuse</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.indirect">indirect</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.lazy">lazy</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.memoize">memoize</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.mono">mono</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.perfect">perfect</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.pipable">pipable</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.regular">regular</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.return_">return_</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.tagged">tagged</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/function_objects.html">Function Objects</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.always">always</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.apply">apply</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.identity">identity</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.bll_bind">bll_bind</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.bll_n">bll_N</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.tuple_get">tuple_get</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.tuple_pack">tuple_pack</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/object_generator.html">Object Generator</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.generator">generator</a></span></dt>
+<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.generating_forms">Generating forms</a></span></dt>
+<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.deducers">Deducers</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/utilities.html">Utilities</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/utilities.html#egg.utilities.bll_result_of_hpp">bll/result_of.hpp</a></span></dt>
+<dt><span class="section"><a href="egg/utilities.html#egg.utilities.infix">infix</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/configuration.html">Configuration</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/configuration.html#egg.configuration.max_arity">MAX_ARITY</a></span></dt>
+<dt><span class="section"><a href="egg/configuration.html#egg.configuration.max_linear_arity">MAX_LINEAR_ARITY</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/workarounds.html">Workarounds</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.pstade__result_of">pstade::result_of</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.detect_result_type_hpp">detect_result_type.hpp</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.deduced_form">deduced_form</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.defer">DEFER</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.const">CONST</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="egg/version_history.html">Version History</a></span></dt>
+</dl>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="egg.overview"></a><a href="index.html#egg.overview" title="Overview">Overview</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#egg.overview.disclaimer">Disclaimer</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.acknowledgements">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.notation">Notation</a></span></dt>
+</dl></div>
+<p>
+      &#8220;<span class="quote">An Egg to day is better than a Hen to-morrow.</span>&#8221; -- Benjamin Franklin
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.disclaimer"></a><a href="index.html#egg.overview.disclaimer" title="Disclaimer">Disclaimer</a></h3></div></div></div>
+<p>
+        This library is not part of Boost.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.introduction"></a><a href="index.html#egg.overview.introduction" title="Introduction">Introduction</a></h3></div></div></div>
+<p>
+        Unlike other modern languages, it is very difficult to make a function in
+        C++ especially if you want to support <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
+        and <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>.
+        Egg is a small header-only framework of building functions, and offers higher-order
+        functions.
+      </p>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="comment">// This initialization incurs no runtime overhead.
+</span><span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">(*)(</span><span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span>
+    <span class="identifier">to_upper</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_PIPABLE</span><span class="special">(&amp;</span><span class="identifier">toupper</span><span class="special">);</span>
+
+<span class="keyword">void</span> <span class="identifier">test</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">maybeI</span> <span class="special">=</span> <span class="char">'i'</span><span class="special">|</span><span class="identifier">to_upper</span><span class="special">|</span><span class="identifier">pipable</span><span class="special">(&amp;</span><span class="identifier">tolower</span><span class="special">)|</span><span class="identifier">to_upper</span><span class="special">();</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybeI</span> <span class="special">==</span> <span class="char">'I'</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.requirements"></a><a href="index.html#egg.overview.requirements" title="Requirements">Requirements</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://www.boost.org" target="_top">Boost C++ Libraries</a> Version 1.34.0
+          or later (build not required)
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.portability"></a><a href="index.html#egg.overview.portability" title="Portability">Portability</a></h3></div></div></div>
+<p>
+        Egg is known to work on the following platforms:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Microsoft Visual C++ .NET Version 7.1 SP1
+        </li>
+<li>
+          Microsoft Visual C++ 2005 Express Edition SP1
+        </li>
+<li>
+          Microsoft Visual C++ 2008 Express Edition
+        </li>
+<li>
+          MinGW with GCC 3.4.4
+        </li>
+<li>
+          MinGW with GCC 4.1.2
+        </li>
+<li>
+          Intel C++ Compiler Professional Edition 10.1 for Windows
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.rationale"></a><a href="index.html#egg.overview.rationale" title="Rationale">Rationale</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Egg works around <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
+          Forwarding Problem</a>.
+        </li>
+<li>
+          Egg framework provides a way of <span class="emphasis"><em>static initialization</em></span>
+          if possible.
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.acknowledgements"></a><a href="index.html#egg.overview.acknowledgements" title="Acknowledgements">Acknowledgements</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Special thanks to David Abrahams. <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm" target="_top">The
+          Forwarding Problem</a> workaround is based on his <a href="http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826" target="_top">callable</a>.
+        </li>
+<li>
+          Special thanks to Eric Niebler, who pointed out importance of <span class="emphasis"><em>static
+          initialization</em></span>.
+        </li>
+<li>
+          Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
+          These people are instrumental in the design and development of Egg.
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.notation"></a><a href="index.html#egg.overview.notation" title="Notation">Notation</a></h3></div></div></div>
+<p>
+        This document uses the following notation.
+      </p>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_decltype</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An imaginary operator which is the same as <code class="computeroutput"><span class="identifier">decltype</span></code>
+                of C++0x.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">_decltype</span><span class="special">(</span><span class="identifier">a</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_const</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="keyword">static_cast</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span> <span class="keyword">const</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_pfo</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_PFo</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a> type which is neither <span class="emphasis"><em>reference</em></span>
+                nor <span class="emphasis"><em>cv-qualified</em></span>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_lit</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="egg/concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>
+                object
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_Lit</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="egg/concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>
+                type which is neither <span class="emphasis"><em>reference</em></span> nor <span class="emphasis"><em>cv-qualified</em></span>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_Stg</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A type which is one of the <a href="egg/forwarding_strategies.html" title="Forwarding Strategies">Forwarding
+                Strageties</a>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_Bytag</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A type which is one of <code class="computeroutput"><span class="identifier">by_perfect</span></code>,
+                <code class="computeroutput"><span class="identifier">by_ref</span></code>, <code class="computeroutput"><span class="identifier">by_cref</span></code>, and <code class="computeroutput"><span class="identifier">by_value</span></code>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_default</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">use_default</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_TUPLE_MAX_SIZE</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="number">10</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">++</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An imaginary operator to concatenate tokens.
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        Also, assume that every expression is placed after:
+      </p>
+<pre class="programlisting">
+<span class="keyword">namespace</span> <span class="identifier">egg</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">egg</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">egg</span><span class="special">;</span>
+</pre>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><small><p>Last revised: January 12, 2008 at 01:00:59 GMT</p></small></td>
+<td align="right"><small></small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="egg/concepts.html"><img src="images/next.png" alt="Next"></a></div>
+</body>
+</html>

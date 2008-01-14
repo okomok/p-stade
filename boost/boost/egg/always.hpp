@@ -1,0 +1,101 @@
+#ifndef BOOST_PP_IS_ITERATING
+#ifndef BOOST_EGG_ALWAYS_HPP
+#define BOOST_EGG_ALWAYS_HPP
+#include "./detail/prefix.hpp"
+
+
+// Boost.Egg
+//
+// Copyright Shunsuke Sogame 2007-2008.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/egg/pstade/pod_constant.hpp>
+#include <boost/egg/pstade/preprocessor.hpp>
+#include "./apply_decl.hpp"
+#include "./by_cref.hpp"
+#include "./config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
+#include "./generator.hpp"
+#include "./use_brace2.hpp"
+
+
+namespace pstade { namespace egg {
+
+
+    namespace always_detail {
+
+
+        template<class X>
+        struct little
+        {
+            X m_x;
+
+        // 0ary
+            typedef X nullary_result_type;
+
+            template<class Result>
+            Result call() const
+            {
+                return m_x;
+            }
+
+        // 1ary-
+            template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
+            struct apply
+            {
+                typedef X type;
+            };
+
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/always.hpp>))
+            #include BOOST_PP_ITERATE()
+        };
+
+
+    } // namespace always_detail
+
+
+    template<class X>
+    struct result_of_always
+    {
+        typedef
+            function<always_detail::little<X>, by_cref>
+        type;
+    };
+
+    #define BOOST_EGG_ALWAYS_L { {
+    #define BOOST_EGG_ALWAYS_R } }
+    #define BOOST_EGG_ALWAYS(F) BOOST_EGG_ALWAYS_L F BOOST_EGG_ALWAYS_R
+
+    typedef
+        generator<
+            result_of_always< deduce<boost::mpl::_1, as_wrapped_ref> >::type,
+            boost::use_default,
+            use_brace2,
+            by_cref
+        >::type
+    T_always;
+
+    PSTADE_POD_CONSTANT((T_always), always) = BOOST_EGG_GENERATOR();
+
+
+} } // namespace pstade::egg
+
+
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Result call(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)) const
+    {
+        return m_x;
+    }
+
+
+#undef n
+#endif

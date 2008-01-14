@@ -1,0 +1,400 @@
+[section Function Objects]
+
+It is difficult or even impossible to get a __FUNCTION_OBJECT__ from a function template.
+Egg no longer considers function templates to be useful, so that it provides
+"objectified" functions which replace some famous function templates.
+
+
+[import ../example/infix_apply.cpp]
+[import ../example/nested_lambda.cpp]
+
+
+[/
+
+[section Functionals]
+
+[heading Description]
+Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
+
+[heading Header]
+* `<boost/egg/functional.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `do_` is an imaginary operator which applies the corresponding operator.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_++op<R = _default, _Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_++op<R, _Stg>()(a1,...,aN)`]
+        [`do_(op, _safe_arg_list(a, _Stg))`]
+    ]
+    [
+        [`op`]
+        [__STATIC_FUNCTION_OBJECT__ which behaves as if it were `X_++op<>()`.]
+    ]
+]
+
+[heading Preconditions]
+* `op` is one of the [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/boost_proto/users_guide/expression_construction/tags_and_meta_functions.html tag names] of __BOOST_PROTO__.
+* `R` specifies operator return type. If `R` is `_default`, it is deduced by using __BOOST_LAMBDA__ [@http://www.boost.org/doc/html/lambda/extending.html deduction system].
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+    BOOST_CHECK(plus(1, 2) == 1 + 2);
+
+[heading See also]
+* ...
+
+[endsect]
+
+]
+
+
+[section always]
+
+[heading Description]
+`always` returns a __FUNCTION_OBJECT__ always returning the same object.
+
+[heading Header]
+* `<boost/egg/always.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `b` is an object of type which is not `boost::reference_wrapper<>`.
+* `w` is an object of `boost::reference_wrapper<>`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`always(x)`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`always(b)(a1,...,aN)`]
+        [`boost::implicit_cast<_typeof(b)>(b)`]
+    ]
+    [
+        [`always(w)(a1,...,aN)`]
+        [`w.get()`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= BOOST_EGG_MAX_LINEAR_ARITY`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section apply]
+
+[heading Description]
+`apply` calls a function with trailing arguments.
+
+[heading Header]
+* `<boost/egg/apply.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_apply<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_apply<_Stg>()(_pfo, a1,...,aN)`]
+        [`_pfo(_safe_arg_list(a, _Stg))` ]
+    ]
+    [
+        [`apply`]
+        [`X_apply<>()`]
+    ]
+]
+
+[heading Preconditions]
+* `_safe_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
+* The corresponding semantics is a valid expression.
+
+
+[heading Example]
+[code_infix_apply_example]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section identity]
+
+[heading Description]
+`identity` returns argument unchanged.
+
+[heading Header]
+* `<boost/egg/identity.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_identity<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_identity<_Stg>()(a)`]
+        [`_safe_arg_list(a, _Stg)` ]
+    ]
+    [
+        [`identity`]
+        [`X_identity<>()`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section bll_bind]
+
+[heading Description]
+`bll_bind` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
+
+[heading Header]
+* `<boost/egg/bll/bind.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`bll_bind(f, a1,...,aN)`]
+        [__POLYMORPHIC__ `boost::lambda::bind(f, a1,...,aN)`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= 9`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+[code_bll_bind_example]
+
+[heading See also]
+* __BOOST_LAMBDA__
+* __EGG_LAZY__
+
+[endsect]
+
+
+
+
+[section bll_N]
+
+[heading Description]
+`bll_N` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
+
+[heading Header]
+* `<boost/egg/bll/placeholders.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__ but not /statically initialized/.
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`bll_++N`]
+        [__POLYMORPHIC__ `boost::lambda::_++N`]
+    ]
+]
+
+[heading Preconditions]
+* `1 <= N && N <= 3`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_LAMBDA__
+
+[endsect]
+
+
+
+
+[section tuple_get]
+
+[heading Description]
+`tuple_get` is akin to `boost::get`.
+
+[heading Header]
+* `<boost/egg/tuple/get.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_tuple_get<N>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_tuple_get<N>()(t)`]
+        [`boost::get<N::value>(t)`]
+    ]
+    [
+        [`X_tuple_get_c<n>`]
+        [`X_tuple_get< boost::mpl::int_<n> >`]
+    ]
+    [
+        [`egg::tuple_get<N>(t)`]
+        [`X_tuple_get<N>()(t)`]
+    ]
+    [
+        [`egg::tuple_get_c<n>(t)`]
+        [`X_tuple_get_c<n>()(t)`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_TUPLE__
+
+[endsect]
+
+
+
+
+[section tuple_pack]
+
+[heading Description]
+`tuple_pack` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::tie` but /const-qualifier/ sensitive.
+
+[heading Header]
+* `<boost/egg/tuple/pack.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `refs(c1,...,cK)` is `c1&,...,cK&`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_tuple_pack<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_tuple_pack<_Stg>()(a1,...,aN)`]
+        [`boost::tuple<refs(_meta_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`tuple_pack`]
+        [`X_tuple_pack<>()`]
+    ]
+]
+
+[heading Preconditions]
+* `_Stg` is not `by_value`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_TUPLE__
+
+[endsect]
+
+
+
+
+[endsect]
