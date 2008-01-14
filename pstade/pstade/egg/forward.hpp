@@ -17,10 +17,12 @@
 // Otherwise, it introduces the forwarding problem into little functions.
 
 
+#include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/plain.hpp>
 #include "./detail/bytag_at.hpp"
 #include "./function_fwd.hpp"
 
@@ -32,29 +34,33 @@ namespace pstade { namespace egg {
     //
 
     template<class Bytag, class Lvalue>
-    struct result_of_forward
+    struct result_of_forward;
+
+    template<class Lvalue>
+    struct result_of_forward<by_perfect, Lvalue>
     {
         typedef Lvalue& type;
+    };
+
+    template<class Lvalue>
+    struct result_of_forward<by_ref, Lvalue>
+    {
+        typedef Lvalue& type;
+    };
+
+    template<class Lvalue>
+    struct result_of_forward<by_cref, Lvalue const>
+    {
+        typedef Lvalue const& type;
     };
 
     // For movable types, you can't add const-qualifier.
     template<class Lvalue>
     struct result_of_forward<by_value, Lvalue>
     {
+        BOOST_MPL_ASSERT((is_plain<Lvalue>));
         typedef Lvalue type;
     };
-
-    template<class Lvalue>
-    struct result_of_forward<by_value, Lvalue const>;
-
-    template<class Lvalue>
-    struct result_of_forward<by_value, Lvalue volatile>;
-
-    template<class Bytag, class Lvalue>
-    struct result_of_forward<Bytag const, Lvalue>;
-
-    template<class Bytag, class Lvalue>
-    struct result_of_forward<Bytag volatile, Lvalue>;
 
 
 PSTADE_ADL_BARRIER(forward) { // for C++0x
