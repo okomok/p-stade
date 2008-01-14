@@ -14,7 +14,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/egg/tuple/size.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/hetero_iterator.hpp"
 #include "./iter_range.hpp"
@@ -37,7 +37,7 @@ namespace hetero_detail {
                 detail::hetero_iterator<
                     Tuple,
                     Reference,
-                    typename eval_if_use_default< Value, remove_cvr<Reference> >::type
+                    typename eval_if_use_default< Value, plain<Reference> >::type
                 >
             iter_t;
 

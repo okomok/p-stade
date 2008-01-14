@@ -17,7 +17,7 @@
 
 #include <boost/mpl/or.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include "./is_associative_container.hpp"
 #include "./is_sequence.hpp"
 
@@ -37,7 +37,7 @@ struct has_range_constructor_impl :
 template< class T >
 struct has_range_constructor :
     has_range_constructor_impl<
-        typename remove_cvr<T>::type
+        typename plain<T>::type
     >
 { };
 

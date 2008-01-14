@@ -23,7 +23,7 @@
 #include <boost/mpl/vector/vector20.hpp>
 #include <boost/mpl/zip_view.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
@@ -57,7 +57,7 @@ namespace unfuzipped_detail {
 
         template< class Fun, class N_Ref >
         struct result<Fun(N_Ref)> :
-            result_aux<typename remove_cvr<N_Ref>::type>
+            result_aux<typename plain<N_Ref>::type>
         { };
 
         template< class N_Ref >

@@ -29,7 +29,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/version.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 
 
 namespace pstade {
@@ -59,8 +59,8 @@ namespace pstade {
                 boost::mpl::and_<
                     boost::is_reference<From>,
                     is_base_of<
-                        typename remove_cvr<To>::type,
-                        typename remove_cvr<From>::type
+                        typename plain<To>::type,
+                        typename plain<From>::type
                     >
                 >
             >

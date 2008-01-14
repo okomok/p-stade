@@ -20,7 +20,7 @@
 
 #include <boost/mpl/or.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include "./is_hash_map.hpp"
 #include "./is_hash_set.hpp"
 #include "./is_map.hpp"
@@ -52,7 +52,7 @@ struct has_upper_bound_impl :
 template< class T >
 struct has_upper_bound :
     has_upper_bound_impl<
-        typename remove_cvr<T>::type
+        typename plain<T>::type
     >
 { };
 

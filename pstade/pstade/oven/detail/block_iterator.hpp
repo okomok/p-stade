@@ -20,7 +20,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include "./block_iterator_impl.hpp"
 
 
@@ -35,7 +35,7 @@ template< class IterationBlock >
 struct block_iterator_super
 {
     typedef typename IterationBlock::yield_type result_t;
-    typedef typename remove_cvr<result_t>::type val_t;
+    typedef typename plain<result_t>::type val_t;
     typedef typename pass_by_reference<result_t>::type ref_t;
 
     typedef boost::iterator_facade<

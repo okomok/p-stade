@@ -32,7 +32,7 @@
 #include <pstade/egg/bll/optional.hpp> // inclusion guaranteed
 #include <pstade/egg/functional.hpp> // dereference
 #include <pstade/egg/to_ref.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
 #include "./begin_end_tag.hpp"
 #include "./has_is_nonpure.hpp"
@@ -57,7 +57,7 @@ struct unfold_iterator_super
     ref_t;
 
     typedef typename
-        remove_cvr<ref_t>::type
+        plain<ref_t>::type
     val_t;
 
     typedef

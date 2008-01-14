@@ -40,7 +40,7 @@
 #include <pstade/poly.hpp>
 #include <pstade/radish/reset_assignment.hpp>
 #include <pstade/radish/swap_reset.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
 #include <pstade/value_based.hpp>
@@ -176,7 +176,7 @@ namespace any_iterator_detail {
         typedef
             boost::iterator_facade<
                 any_iterator<Reference, Traversal, Value, Difference>,
-                typename eval_if_use_default< Value, remove_cvr<Reference> >::type,
+                typename eval_if_use_default< Value, plain<Reference> >::type,
                 Traversal,
                 Reference,
                 typename if_use_default<Difference, std::ptrdiff_t>::type

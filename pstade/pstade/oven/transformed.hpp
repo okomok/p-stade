@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
@@ -58,7 +58,7 @@ namespace transformed_detail {
             typedef typename
                 eval_if_use_default<
                     Value,
-                    remove_cvr<ref_t>
+                    plain<ref_t>
                 >::type
             val_t;
 

@@ -19,7 +19,7 @@
 
 
 #include <pstade/enable_if.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include "./is_list.hpp"
 
 
@@ -35,7 +35,7 @@ struct has_sort_impl :
 template< class T >
 struct has_sort :
     has_sort_impl<
-        typename remove_cvr<T>::type
+        typename plain<T>::type
     >
 { };
 

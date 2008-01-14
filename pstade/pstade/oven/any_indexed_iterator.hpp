@@ -27,9 +27,9 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/nonvirtual.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/radish/swap_reset.hpp>
 #include <pstade/radish/reset_assignment.hpp>
-#include <pstade/remove_cvr.hpp>
 #include <pstade/type_equal_to.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_fwd.hpp"
@@ -99,7 +99,7 @@ namespace any_indexed_iterator_detail {
         base_t;
 
         typedef typename
-            eval_if_use_default< Value, remove_cvr<Reference> >::type
+            eval_if_use_default< Value, plain<Reference> >::type
         val_t;
 
         typedef

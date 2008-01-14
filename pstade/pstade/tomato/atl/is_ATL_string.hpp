@@ -12,7 +12,7 @@
 
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/or.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include "./config.hpp"
 #include "./cstringt_fwd.hpp" // CFixedStringT
 #include "./simpstr_fwd.hpp" // CSimpleStringT
@@ -39,7 +39,7 @@ namespace pstade { namespace tomato {
     template< class T >
     struct is_ATL_CFixedStringT :
         is_ATL_CFixedStringT_detail::aux<
-            typename remove_cvr<T>::type
+            typename plain<T>::type
         >
     { };
 
@@ -61,7 +61,7 @@ namespace pstade { namespace tomato {
     template< class T >
     struct is_ATL_CSimpleStringT :
         is_ATL_CSimpleStringT_detail::aux<
-            typename remove_cvr<T>::type
+            typename plain<T>::type
         >
     { };
 
@@ -83,7 +83,7 @@ namespace pstade { namespace tomato {
     template< class T >
     struct is_ATL_CStringT :
         is_ATL_CStringT_detail::aux<
-            typename remove_cvr<T>::type
+            typename plain<T>::type
         >
     { };
 

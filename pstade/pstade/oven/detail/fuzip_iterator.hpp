@@ -33,7 +33,7 @@
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform_view.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include "./pure_traversal.hpp"
 
 
@@ -86,7 +86,7 @@ struct dereference_iterator
     template< class Fun, class Iterator >
     struct result<Fun(Iterator)> :
         boost::iterator_reference<
-            typename remove_cvr<Iterator>::type
+            typename plain<Iterator>::type
         >
     { };
 

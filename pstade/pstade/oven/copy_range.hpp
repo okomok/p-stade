@@ -15,7 +15,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/copy.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/unevaluated.hpp>
 #include "./concepts.hpp"
@@ -78,7 +78,7 @@ struct X_copy_range
 
         return pstade_oven_extension::Range<To>().template copy<To>(
             copy_range_detail::to_strictly_convertibles<
-                typename remove_cvr<typename range_reference<From>::type>::type,
+                typename plain<typename range_reference<From>::type>::type,
                 typename range_value<To>::type
             >::call(from)
         );

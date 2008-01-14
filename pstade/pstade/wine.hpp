@@ -50,7 +50,6 @@
 #include "./poly.hpp"
 #include "./pp_token_equal.hpp"
 #include "./preprocessor.hpp"
-#include "./remove_cvr.hpp"
 #include "./require.hpp"
 #include "./result_of.hpp"
 // #include "./result_of_lambda.hpp"

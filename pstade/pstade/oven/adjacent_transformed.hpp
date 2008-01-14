@@ -34,7 +34,7 @@
 #include <pstade/egg/tuple/pack.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
@@ -85,7 +85,7 @@ namespace adjacent_transformed_detail {
         typedef typename
             eval_if_use_default<
                 Value,
-                remove_cvr<ref_t>
+                plain<ref_t>
             >::type
         val_t;
 

@@ -20,8 +20,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./by_value.hpp"
@@ -38,7 +38,7 @@ namespace pstade { namespace egg {
         // This should be cv-qualifier sensitive?
         template<class A>
         struct argument_type :
-            remove_cvr<A>
+            plain<A>
         { };
 
 

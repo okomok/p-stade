@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/remove_cvr.hpp>
+#include <pstade/plain.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -17,15 +17,15 @@
 #include <boost/type_traits/is_same.hpp>
 
 
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int>::type > ));
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int const>::type > ));
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int volatile>::type > ));
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int const volatile>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int const>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int volatile>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int const volatile>::type > ));
 
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int&>::type > ));
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int const&>::type > ));
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int volatile&>::type > ));
-BOOST_MPL_ASSERT(( boost::is_same< int, pstade::remove_cvr<int const volatile&>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int&>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int const&>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int volatile&>::type > ));
+BOOST_MPL_ASSERT(( boost::is_same< int, pstade::plain<int const volatile&>::type > ));
 
 
 int test_main(int, char*[])

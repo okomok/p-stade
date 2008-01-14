@@ -19,7 +19,7 @@ namespace pstade {
 
 
 template< class T >
-struct remove_cvr :
+struct plain :
     boost::remove_cv<
         typename boost::remove_reference<T>::type
     >

@@ -17,8 +17,8 @@
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/by_cref.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include "../concatenated.hpp"
 #include "../memoized.hpp"
@@ -101,13 +101,13 @@ struct X_monad_zero
 
     typedef typename
         result_of<
-            T_shared(std::vector<typename remove_cvr<Value>::type> *)
+            T_shared(std::vector<typename plain<Value>::type> *)
         >::type
     result_type;
 
     result_type operator()() const
     {
-        typedef std::vector<typename remove_cvr<Value>::type> vec_t;
+        typedef std::vector<typename plain<Value>::type> vec_t;
 
         // empty range
         std::auto_ptr<vec_t> p(new vec_t());
