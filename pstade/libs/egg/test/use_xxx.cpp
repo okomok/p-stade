@@ -15,6 +15,8 @@
 #include <pstade/minimal_test.hpp>
 
 #include <pstade/egg/generator.hpp>
+#include <pstade/egg/by_ref.hpp>
+#include <pstade/egg/by_value.hpp>
 
 
 #include <string>
@@ -56,13 +58,13 @@ void pstade_minimal_test()
 {
     std::string s1, s2("hello");
 
-    my0 z = pstade::egg::use_brace1()(boost::type<my0>(), s1, s2);
+    my0 z = pstade::egg::use_brace1::call2<my0, pstade::egg::by_value>(s1, s2);
     BOOST_CHECK(z.s2 == "hello");
 
-    my1 a = pstade::egg::use_brace2()(boost::type<my1>(), s1, s2);
+    my1 a = pstade::egg::use_brace2::call2<my1, pstade::egg::by_perfect>(s1, s2);
     BOOST_CHECK(a.m.s2 == "hello");
 
-    your c = pstade::egg::use_constructor()(boost::type<your>(), s1, s2);
+    your c = pstade::egg::use_constructor::call2<your, pstade::egg::by_ref>(s1, s2);
     BOOST_CHECK(c.s2 == "hello");
 
 
