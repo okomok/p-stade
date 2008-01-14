@@ -21,7 +21,7 @@ use-project /boost : $(BOOST_ROOT) ;
 
 project pstade
     : build-dir
-        ../bin
+        ../pstade_bin
     : requirements
         <include>$(PSTADE_ROOT)
         <include>$(BOOST_ROOT)

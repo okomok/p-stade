@@ -3,4 +3,4 @@
 #  Boost Software License, Version 1.0. (See accompanying file
 #  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-For some reason, bjam needs this file.
+# For some reason, bjam needs this file.
