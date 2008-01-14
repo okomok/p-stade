@@ -65,7 +65,6 @@ test-suite "wine" :
     [ run poly_fwd.cpp ]
     [ run pp_token_equal.cpp ]
     [ run preprocessor.cpp ]
-    [ run remove_cvr.cpp ]
     [ run require.cpp ]
     [ run result_of.cpp ]
     [ run result_of_lambda.cpp ]
