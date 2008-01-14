@@ -1,0 +1,503 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Object Generator</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="prev" href="function_objects.html" title="Function Objects">
+<link rel="next" href="utilities.html" title="Utilities">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="function_objects.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="utilities.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="egg.object_generator"></a><a href="object_generator.html" title="Object Generator">Object Generator</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="object_generator.html#egg.object_generator.generator">generator</a></span></dt>
+<dt><span class="section"><a href="object_generator.html#egg.object_generator.generating_forms">Generating forms</a></span></dt>
+<dt><span class="section"><a href="object_generator.html#egg.object_generator.deducers">Deducers</a></span></dt>
+</dl></div>
+<p>
+      A simple object generator can be built automagically using the following family.
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.object_generator.generator"></a><a href="object_generator.html#egg.object_generator.generator" title="generator">generator</a></h3></div></div></div>
+<a name="egg.object_generator.generator.description"></a><h5>
+<a name="id553496"></a>
+        <a href="object_generator.html#egg.object_generator.generator.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">generator</span></code> is one of the
+        <a href="function_builders.html" title="Function Builders">Function Builders</a> which builds
+        an "object generator".
+      </p>
+<a name="egg.object_generator.generator.header"></a><h5>
+<a name="id553543"></a>
+        <a href="object_generator.html#egg.object_generator.generator.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.object_generator.generator.notation"></a><h5>
+<a name="id553624"></a>
+        <a href="object_generator.html#egg.object_generator.generator.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">C</span><span class="special">(</span><span class="identifier">Lam</span><span class="special">)</span></code>
+          is
+          <div class="itemizedlist"><ul type="circle">
+<li>
+              a type which behaves like <code class="computeroutput"><span class="identifier">Lam</span></code>
+              without no nested <code class="computeroutput"><span class="identifier">type</span></code>
+              if <code class="computeroutput"><span class="identifier">Lam</span></code> is an <a href="http://www.boost.org/libs/mpl/doc/refmanual/placeholder-expression.html" target="_top">MPL
+              Placeholder Expression</a>.
+            </li>
+<li>
+<code class="computeroutput"><span class="identifier">Lam</span></code> itself otherwise.
+            </li>
+</ul></div>
+</li>
+<li>
+<code class="computeroutput"><span class="identifier">g</span></code> is an object of <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">R0</span><span class="special">,</span> <span class="identifier">How</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">X</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">(</span><span class="identifier">Lam</span><span class="special">),</span> <span class="identifier">_meta_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span>
+          <span class="identifier">_Stg</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">arglist</span></code> is <code class="computeroutput"><span class="identifier">_safe_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)</span></code>.
+        </li>
+</ul></div>
+<a name="egg.object_generator.generator.valid_expressions"></a><h5>
+<a name="id553977"></a>
+        <a href="object_generator.html#egg.object_generator.generator.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
+                <span class="identifier">R0</span> <span class="special">=</span>
+                <span class="identifier">_default</span><span class="special">,</span>
+                <span class="identifier">How</span> <span class="special">=</span>
+                <span class="identifier">_default</span><span class="special">,</span>
+                <span class="identifier">_Stg</span> <span class="special">=</span>
+                <span class="identifier">_default</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> <span class="emphasis"><em>POD</em></span> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">PSTADE_EGG_GENERATOR</span><span class="special">()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A braced initializer of <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">R0</span><span class="special">,</span> <span class="identifier">How</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">g</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Returns an object made by <code class="computeroutput"><span class="identifier">How</span></code>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">g</span><span class="special">()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                Returns a <code class="computeroutput"><span class="identifier">R0</span></code> object
+                made by <code class="computeroutput"><span class="identifier">How</span></code>.
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.object_generator.generator.preconditions"></a><h5>
+<a name="id554394"></a>
+        <a href="object_generator.html#egg.object_generator.generator.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">Lam</span></code> is an (possibly <span class="emphasis"><em>cv-qualified</em></span>)
+          <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
+          Lambda Expression</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="number">1</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="identifier">BOOST_MPL_LIMIT_METAFUNCTION_ARITY</span></code>,
+          which has a default value <code class="computeroutput"><span class="number">5</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">How</span></code> is <code class="computeroutput"><span class="identifier">_default</span></code>
+          or one of the type in <a href="object_generator.html#egg.object_generator.generating_forms" title="Generating forms">Generating
+          forms</a>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.object_generator.generator.invariants"></a><h5>
+<a name="id554553"></a>
+        <a href="object_generator.html#egg.object_generator.generator.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Non-local object <code class="computeroutput"><span class="identifier">g</span></code> with
+          <span class="emphasis"><em>static storage duration</em></span> is <span class="emphasis"><em>statically initialized</em></span>
+          if initialized using <code class="computeroutput"><span class="identifier">PSTADE_EGG_GENERATOR</span><span class="special">()</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">g</span></code> is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a> and <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
+        </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            <code class="computeroutput"><span class="identifier">Lam</span></code> is not instantiated
+            while invoking <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span></code>,
+            so that any static assertion in generated type doesn't fail.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="egg.object_generator.generator.example"></a><h5>
+<a name="id554700"></a>
+        <a href="object_generator.html#egg.object_generator.generator.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">typedef</span>
+    <span class="identifier">generator</span><span class="special">&lt;</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">deduce</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <span class="identifier">as_value</span><span class="special">&gt;,</span> <span class="identifier">deduce</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_2</span><span class="special">,</span> <span class="identifier">as_value</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+    <span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="identifier">T_make_pair</span><span class="special">;</span>
+
+<span class="identifier">T_make_pair</span> <span class="keyword">const</span> <span class="identifier">make_pair</span> <span class="special">=</span> <span class="identifier">PSTADE_EGG_GENERATOR</span><span class="special">();</span>
+
+<span class="keyword">void</span> <span class="identifier">test_generator</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">make_pair</span><span class="special">(</span><span class="number">10</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"generator"</span><span class="special">))</span>
+        <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">make_pair</span><span class="special">(</span><span class="number">10</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"generator"</span><span class="special">))</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.object_generator.generator.see_also"></a><h5>
+<a name="id555120"></a>
+        <a href="object_generator.html#egg.object_generator.generator.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.object_generator.generating_forms"></a><a href="object_generator.html#egg.object_generator.generating_forms" title="Generating forms">Generating forms</a></h3></div></div></div>
+<a name="egg.object_generator.generating_forms.description"></a><h5>
+<a name="id555174"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">generator</span></code> generates an object
+        using constructor by default. You need these helpers if a generating type
+        has no constructor.
+      </p>
+<a name="egg.object_generator.generating_forms.header"></a><h5>
+<a name="id555217"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">use_constructor</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> defines <code class="computeroutput"><span class="identifier">use_constructor</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">use_brace1</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> defines <code class="computeroutput"><span class="identifier">use_brace1</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">use_brace2</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> defines <code class="computeroutput"><span class="identifier">use_brace2</span></code>.
+        </li>
+</ul></div>
+<a name="egg.object_generator.generating_forms.notation"></a><h5>
+<a name="id555439"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          Notation defined in <a href="object_generator.html#egg.object_generator.generator" title="generator">generator</a>.
+        </li></ul></div>
+<a name="egg.object_generator.generating_forms.valid_expressions"></a><h5>
+<a name="id555480"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">use_constructor</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="keyword">return</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">arglist</span><span class="special">);</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">use_brace1</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X</span> <span class="identifier">x</span>
+                <span class="special">=</span> <span class="special">{</span><span class="identifier">arglist</span><span class="special">};</span>
+                <span class="keyword">return</span> <span class="identifier">x</span><span class="special">;</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">use_brace2</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X</span> <span class="identifier">x</span>
+                <span class="special">=</span> <span class="special">{{</span><span class="identifier">arglist</span><span class="special">}};</span>
+                <span class="keyword">return</span> <span class="identifier">x</span><span class="special">;</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.object_generator.generating_forms.see_also"></a><h5>
+<a name="id555778"></a>
+        <a href="object_generator.html#egg.object_generator.generating_forms.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.object_generator.deducers"></a><a href="object_generator.html#egg.object_generator.deducers" title="Deducers">Deducers</a></h3></div></div></div>
+<a name="egg.object_generator.deducers.description"></a><h5>
+<a name="id555832"></a>
+        <a href="object_generator.html#egg.object_generator.deducers.description">Description</a>
+      </h5>
+<p>
+        Egg provides some basic and useful <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html" target="_top">Metafunction
+        Class</a> types for better error messages. You can place any elaborate
+        <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
+        Lambda Expression</a> in generating type, though.
+      </p>
+<a name="egg.object_generator.deducers.header"></a><h5>
+<a name="id555878"></a>
+        <a href="object_generator.html#egg.object_generator.deducers.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.object_generator.deducers.valid_expressions"></a><h5>
+<a name="id555961"></a>
+        <a href="object_generator.html#egg.object_generator.deducers.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">deduce</span><span class="special">&lt;</span><span class="identifier">A</span><span class="special">,</span> <span class="identifier">As</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">As</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code>
+                if the corresponding argument is passed; ill-formed otherwise.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">deduce</span><span class="special">&lt;</span><span class="identifier">A</span><span class="special">,</span> <span class="identifier">As</span><span class="special">,</span> <span class="identifier">Def</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">As</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code>
+                if the corresponding argument is passed; <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">identity</span><span class="special">&lt;</span><span class="identifier">Def</span><span class="special">&gt;</span></code> otherwise.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">as_ref</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_reference</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">as_cref</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_reference</span><span class="special">&lt;</span>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_const</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span>
+                <span class="special">&gt;</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">as_value</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span>
+                <span class="special">&gt;</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">as_qualified</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">identity</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.object_generator.deducers.see_also"></a><h5>
+<a name="id556705"></a>
+        <a href="object_generator.html#egg.object_generator.deducers.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2007 -2008 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="function_objects.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="utilities.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

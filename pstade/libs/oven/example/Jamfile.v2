@@ -1,0 +1,49 @@
+# (C) Copyright 2007: Shunsuke Sogame
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+project
+    : requirements
+      <library>/boost/filesystem//boost_filesystem/<link>static
+      <library>/boost/regex//boost_regex/<link>static
+      <library>/boost/test//boost_test_exec_monitor/<link>static
+      <library>/boost/test//boost_unit_test_framework/<link>static
+      <library>/boost/thread//boost_thread/<link>static
+      <toolset>gcc:<cxxflags>-ftemplate-depth-1024
+      <toolset>intel:<debug-symbols>off
+      <toolset>intel:<define>_SECURE_SCL=0
+      <toolset>intel:<cxxflags>-wd279
+      <threading>multi
+    ;
+
+test-suite "oven_example" :
+    [ run adjacent_difference.cpp ]
+    [ run as_xxx.cpp ]
+    [ run auto_factorials.cpp ]
+    [ run change_array.cpp ]
+    [ run concat_concat.cpp ]
+    [ run digits.cpp ]
+    [ run doc.cpp ]
+    [ run factorials.cpp ]
+    [ run fibonacci.cpp ]
+    [ run fizzbuzz.cpp ]
+    [ run foreach_line.cpp ]
+    [ run hetero.cpp ]
+    [ run list_comprehension.cpp ]
+    [ run merge_sort.cpp ]
+    [ run newton.cpp ]
+    [ run one_year.cpp ]
+    [ run out_pipe.cpp ]
+    [ run permutations.cpp ]
+    [ run power.cpp ]
+    [ run primes.cpp ]
+    [ run pythagorean_triples.cpp ]
+    [ run quick_sort.cpp ]
+    [ run read.cpp ]
+    [ run range_map.cpp ]
+    [ run specification.cpp ]
+    [ run unfoldr.cpp ]
+    [ run zip.cpp ]
+    ;

@@ -1,0 +1,82 @@
+Building Boost.Regex with the optional Unicode/ICU support disabled.
+Please refer to the Boost.Regex documentation for more information
+(don't panic: this is a strictly optional feature).
+boost-test(RUN) "junk/auto" ["always_show_run_output"] : "libs/junk/test/auto.cpp"
+...patience...
+...patience...
+...patience...
+...patience...
+...found 4820 targets...
+...updating 20 targets...
+gcc.compile.c++ ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-4.1\debug\threading-multi\auto.o
+
+Execution times (seconds)
+ preprocessing         :   0.52 (48%) usr    2535 kB ( 7%) ggc
+ parser                :   0.37 (35%) usr   28801 kB (81%) ggc
+ name lookup           :   0.14 (13%) usr    2561 kB ( 7%) ggc
+ varconst              :   0.02 ( 1%) usr      69 kB ( 0%) ggc
+ final                 :   0.02 ( 1%) usr      18 kB ( 0%) ggc
+ TOTAL                 :   1.08             35623 kB
+gcc.link ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-4.1\debug\threading-multi\auto.exe
+testing.capture-output ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-4.1\debug\threading-multi\auto.run
+        1 個のファイルをコピーしました。
+**passed** ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-4.1\debug\threading-multi\auto.test
+compile-c-c++ ..\..\..\bin\libs\junk\test\auto.test\msvc-7.1\debug\threading-multi\auto.obj
+auto.cpp
+time(C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\BIN\c1xx.dll)=1.391s
+time(C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\BIN\c2.dll)=0.015s
+msvc.link ..\..\..\bin\libs\junk\test\auto.test\msvc-7.1\debug\threading-multi\auto.exe
+testing.capture-output ..\..\..\bin\libs\junk\test\auto.test\msvc-7.1\debug\threading-multi\auto.run
+        1 個のファイルをコピーしました。
+**passed** ..\..\..\bin\libs\junk\test\auto.test\msvc-7.1\debug\threading-multi\auto.test
+compile-c-c++ ..\..\..\bin\libs\junk\test\auto.test\msvc-8.0\debug\threading-multi\auto.obj
+auto.cpp
+time(C:\Program Files\Microsoft Visual Studio 8\VC\BIN\c1xx.dll)=1.266s
+time(C:\Program Files\Microsoft Visual Studio 8\VC\BIN\c2.dll)=0.031s
+msvc.link ..\..\..\bin\libs\junk\test\auto.test\msvc-8.0\debug\threading-multi\auto.exe
+testing.capture-output ..\..\..\bin\libs\junk\test\auto.test\msvc-8.0\debug\threading-multi\auto.run
+        1 個のファイルをコピーしました。
+**passed** ..\..\..\bin\libs\junk\test\auto.test\msvc-8.0\debug\threading-multi\auto.test
+compile-c-c++ ..\..\..\bin\libs\junk\test\auto.test\intel-win-10.1\debug\debug-symbols-off\threading-multi\auto.obj
+Intel(R) C++ Compiler for applications running on IA-32, Version 10.1    Build 20070913 Package ID: w_cc_p_10.1.011
+Copyright (C) 1985-2007 Intel Corporation.  All rights reserved.
+icl -Qvc8 "-Qlocation,link,C:\Program Files\Microsoft Visual Studio 8\VC\Bin" auto.cpp -Fo..\..\..\bin\libs\junk\test\auto.test\intel-win-10.1\debug\debug-symbols-off\threading-multi\auto.obj -TP /Od /Ob0 /W3 /GR /MDd /Zc:forScope /Zc:wchar_t /GB /Op /Qwn5 /Qwd985 -Qoption,c,--arg_dep_lookup -Qoption,cpp,--arg_dep_lookup /wd4675 /EHs -c -DBOOST_TEST_NO_AUTO_LINK=1 -DBOOST_THREAD_BUILD_LIB=1 -D_SECURE_SCL=0 -IE:\Application\boost\stable -IE:\p-stade.sourceforge.net\pstade
+
+30 DAY EVALUATION LICENSE
+
+auto.cpp
+icl: NOTE: The evaluation period for this product ends on 22-jan-2008 UTC.
+Unknown compiler version - please run the configure tests and report the results
+intel-win.link ..\..\..\bin\libs\junk\test\auto.test\intel-win-10.1\debug\debug-symbols-off\threading-multi\auto.exe
+xilink: executing 'link'
+Microsoft (R) Incremental Linker Version 8.00.50727.762
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/subsystem:console 
+/out:..\..\..\bin\libs\junk\test\auto.test\intel-win-10.1\debug\debug-symbols-off\threading-multi\auto.exe 
+..\..\..\bin\libs\junk\test\auto.test\intel-win-10.1\debug\debug-symbols-off\threading-multi\auto.obj 
+E:\Application\boost\stable\bin.v2\libs\filesystem\build\intel-win-10.1\debug\debug-symbols-off\link-static\threading-multi\libboost_filesystem-iw-mt-gd-1_34_1.lib 
+E:\Application\boost\stable\bin.v2\libs\regex\build\intel-win-10.1\debug\debug-symbols-off\link-static\threading-multi\libboost_regex-iw-mt-gd-1_34_1.lib 
+E:\Application\boost\stable\bin.v2\libs\test\build\intel-win-10.1\debug\debug-symbols-off\link-static\threading-multi\libboost_unit_test_framework-iw-mt-gd-1_34_1.lib 
+E:\Application\boost\stable\bin.v2\libs\thread\build\intel-win-10.1\debug\debug-symbols-off\link-static\threading-multi\libboost_thread-iw-mt-gd-1_34_1.lib 
+comctl32.lib 
+comdlg32.lib 
+gdi32.lib 
+user32.lib 
+testing.capture-output ..\..\..\bin\libs\junk\test\auto.test\intel-win-10.1\debug\debug-symbols-off\threading-multi\auto.run
+        1 個のファイルをコピーしました。
+**passed** ..\..\..\bin\libs\junk\test\auto.test\intel-win-10.1\debug\debug-symbols-off\threading-multi\auto.test
+gcc.compile.c++ ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-3.4\debug\threading-multi\auto.o
+
+Execution times (seconds)
+ preprocessing         :   0.67 (57%) usr
+ parser                :   0.34 (29%) usr
+ name lookup           :   0.11 ( 9%) usr
+ local alloc           :   0.02 ( 1%) usr
+ final                 :   0.02 ( 1%) usr
+ symout                :   0.02 ( 1%) usr
+ TOTAL                 :   1.19          gcc.link ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-3.4\debug\threading-multi\auto.exe
+testing.capture-output ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-3.4\debug\threading-multi\auto.run
+        1 個のファイルをコピーしました。
+**passed** ..\..\..\bin\libs\junk\test\auto.test\gcc-mingw-3.4\debug\threading-multi\auto.test
+...updated 20 targets...

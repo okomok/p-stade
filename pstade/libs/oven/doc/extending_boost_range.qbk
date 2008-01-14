@@ -1,0 +1,125 @@
+[section Extending Boost.Range]
+
+Pending section...
+
+
+
+
+[section Concept-like extension]
+
+[heading Description]
+Oven emulates a Concept-like extension way for _boost_range_.
+
+[heading Header]
+* `<pstade/oven/extension.hpp>`
+
+[heading Notation]
+* `X` is a type extending _boost_range_.
+* `x` is an object of (possibly const-qualified) `X`.
+* `ER` is `::pstade_oven_extension::Range<X>`.
+* `XS` is a _boost_preprocessor_ Sequence of typename `X`.
+* `N` is the number of template arguments of `X`, only valid if all template arguments are typenames.
+* `S` is a sequence of template arguments of `X`.
+
+[heading Effects]
+* `X` becomes a model of _range_.
+
+[heading Preconditions]
+* `ER::associate<X>::mutable_iterator` is the mutable iterator type of `X`.
+* `ER::associate<X>::constant_iterator` is the constant iterator type of `X`.
+* `ER::begin<_iter_of<typeof(x)>::type>(x)` is a valid expression which returns the begin iterator.
+* `ER::end<_iter_of<typeof(x)>::type>(x)` is a valid expression which returns the end iterator.
+* If `X` is a type, `PSTADE_OVEN_EXTENSION_OF_TYPE(X)` is placed in the global namespace.
+* If `X` is a template, `PSTADE_OVEN_EXTENSION_OF_TEMPLATE(XS, N)` or `PSTADE_OVEN_EXTENSION_OF_TEMPLATE(XS, S)` is placed in the global namespace.
+
+[heading Example]
+    namespace Foo {
+
+        template< class T >
+        struct Pair
+        {
+            T first, last;
+        };
+
+    } // namespace Foo
+
+    namespace pstade_oven_extension {
+
+        template< class T >
+        struct Range< Foo::Pair<T> >
+        {
+            // X == Foo::Pair<T>
+            template< class X >
+            struct associate
+            {
+                typedef T mutable_iterator;
+                typedef T constant_iterator;
+            };
+
+            // if X is not const, Iterator == mutable_iterator;
+            // otherwise, Iterator == constant_iterator.
+            template< class Iterator, class X >
+            Iterator begin(X& x)
+            {
+                return x.first;
+            }
+
+            template< class Iterator, class X >
+            Iterator end(X& x)
+            {
+                return x.last;
+            }
+        };
+
+    } // namespace pstade_oven_extension
+
+    PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (class))
+    // PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.
+
+[heading See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2196.html Wording for range-based for-loop]
+* [@http://www.generic-programming.org/software/ConceptGCC/ ConceptGCC]
+* _boost_preprocessor_
+
+[endsect]
+
+
+
+
+[section ATL extension]
+
+[heading Header]
+* `<pstade/oven/atl.hpp>`
+
+[heading See]
+* [@../../ms/doc/mfc_atl.html MFC/ATL Extension]
+
+[endsect]
+
+
+
+
+[section MFC extension]
+
+[heading Header]
+* `<pstade/oven/mfc.hpp>`
+
+[heading See]
+* [@../../ms/doc/mfc_atl.html MFC/ATL Extension]
+
+[endsect]
+
+
+
+
+[section WTL extension]
+
+[heading Header]
+* `<pstade/oven/wtl.hpp>`
+
+[endsect]
+
+
+
+
+[endsect]

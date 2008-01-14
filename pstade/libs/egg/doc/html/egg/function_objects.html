@@ -1,0 +1,877 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Function Objects</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="prev" href="function_adaptors.html" title="Function Adaptors">
+<link rel="next" href="object_generator.html" title="Object Generator">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="function_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="object_generator.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="egg.function_objects"></a><a href="function_objects.html" title="Function Objects">Function Objects</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="function_objects.html#egg.function_objects.always">always</a></span></dt>
+<dt><span class="section"><a href="function_objects.html#egg.function_objects.apply">apply</a></span></dt>
+<dt><span class="section"><a href="function_objects.html#egg.function_objects.identity">identity</a></span></dt>
+<dt><span class="section"><a href="function_objects.html#egg.function_objects.bll_bind">bll_bind</a></span></dt>
+<dt><span class="section"><a href="function_objects.html#egg.function_objects.bll_n">bll_N</a></span></dt>
+<dt><span class="section"><a href="function_objects.html#egg.function_objects.tuple_get">tuple_get</a></span></dt>
+<dt><span class="section"><a href="function_objects.html#egg.function_objects.tuple_pack">tuple_pack</a></span></dt>
+</dl></div>
+<p>
+      It is difficult or even impossible to get a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+      Object</a> from a function template. Egg no longer considers function templates
+      to be useful, so that it provides "objectified" functions which replace
+      some famous function templates.
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_objects.always"></a><a href="function_objects.html#egg.function_objects.always" title="always">always</a></h3></div></div></div>
+<a name="egg.function_objects.always.description"></a><h5>
+<a name="id548209"></a>
+        <a href="function_objects.html#egg.function_objects.always.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">always</span></code> returns a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+        Object</a> always returning the same object.
+      </p>
+<a name="egg.function_objects.always.header"></a><h5>
+<a name="id548256"></a>
+        <a href="function_objects.html#egg.function_objects.always.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">always</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_objects.always.model_of"></a><h5>
+<a name="id548337"></a>
+        <a href="function_objects.html#egg.function_objects.always.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
+<a name="egg.function_objects.always.notation"></a><h5>
+<a name="id548378"></a>
+        <a href="function_objects.html#egg.function_objects.always.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">b</span></code> is an object of type
+          which is not <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">reference_wrapper</span><span class="special">&lt;&gt;</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">w</span></code> is an object of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">reference_wrapper</span><span class="special">&lt;&gt;</span></code>.
+        </li>
+</ul></div>
+<a name="egg.function_objects.always.valid_expressions"></a><h5>
+<a name="id548488"></a>
+        <a href="function_objects.html#egg.function_objects.always.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">always</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">always</span><span class="special">(</span><span class="identifier">b</span><span class="special">)(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">implicit_cast</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">b</span><span class="special">)&gt;(</span><span class="identifier">b</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">always</span><span class="special">(</span><span class="identifier">w</span><span class="special">)(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">w</span><span class="special">.</span><span class="identifier">get</span><span class="special">()</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_objects.always.preconditions"></a><h5>
+<a name="id548813"></a>
+        <a href="function_objects.html#egg.function_objects.always.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="identifier">PSTADE_EGG_MAX_LINEAR_ARITY</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_objects.always.example"></a><h5>
+<a name="id548897"></a>
+        <a href="function_objects.html#egg.function_objects.always.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="egg.function_objects.always.see_also"></a><h5>
+<a name="id548925"></a>
+        <a href="function_objects.html#egg.function_objects.always.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_objects.apply"></a><a href="function_objects.html#egg.function_objects.apply" title="apply">apply</a></h3></div></div></div>
+<a name="egg.function_objects.apply.description"></a><h5>
+<a name="id548977"></a>
+        <a href="function_objects.html#egg.function_objects.apply.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">apply</span></code> calls a function with
+        trailing arguments.
+      </p>
+<a name="egg.function_objects.apply.header"></a><h5>
+<a name="id549017"></a>
+        <a href="function_objects.html#egg.function_objects.apply.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">apply</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_objects.apply.model_of"></a><h5>
+<a name="id549098"></a>
+        <a href="function_objects.html#egg.function_objects.apply.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
+<a name="egg.function_objects.apply.notation"></a><h5>
+<a name="id549139"></a>
+        <a href="function_objects.html#egg.function_objects.apply.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_objects.apply.valid_expressions"></a><h5>
+<a name="id549173"></a>
+        <a href="function_objects.html#egg.function_objects.apply.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_apply</span><span class="special">&lt;</span><span class="identifier">_Stg</span> <span class="special">=</span>
+                <span class="identifier">_default</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_apply</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">_pfo</span><span class="special">,</span>
+                <span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_pfo</span><span class="special">(</span><span class="identifier">_safe_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">apply</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_apply</span><span class="special">&lt;&gt;()</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_objects.apply.preconditions"></a><h5>
+<a name="id549472"></a>
+        <a href="function_objects.html#egg.function_objects.apply.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_safe_arg_list</span><span class="special">(</span><span class="identifier">b</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)</span></code> is a valid expression, where <code class="computeroutput"><span class="identifier">b</span></code> is <code class="computeroutput"><span class="identifier">_pfo</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_objects.apply.example"></a><h5>
+<a name="id549586"></a>
+        <a href="function_objects.html#egg.function_objects.apply.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">apply</span><span class="special">(</span><span class="identifier">negate</span><span class="special">,</span> <span class="identifier">apply</span><span class="special">(</span><span class="identifier">negate</span><span class="special">,</span> <span class="identifier">apply</span><span class="special">(</span><span class="identifier">negate</span><span class="special">,</span> <span class="number">10</span><span class="special">)))</span> <span class="special">==</span> <span class="special">-</span><span class="number">10</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.function_objects.apply.see_also"></a><h5>
+<a name="id549736"></a>
+        <a href="function_objects.html#egg.function_objects.apply.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_objects.identity"></a><a href="function_objects.html#egg.function_objects.identity" title="identity">identity</a></h3></div></div></div>
+<a name="egg.function_objects.identity.description"></a><h5>
+<a name="id549791"></a>
+        <a href="function_objects.html#egg.function_objects.identity.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">identity</span></code> returns argument
+        unchanged.
+      </p>
+<a name="egg.function_objects.identity.header"></a><h5>
+<a name="id549830"></a>
+        <a href="function_objects.html#egg.function_objects.identity.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">identity</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_objects.identity.model_of"></a><h5>
+<a name="id549911"></a>
+        <a href="function_objects.html#egg.function_objects.identity.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
+<a name="egg.function_objects.identity.notation"></a><h5>
+<a name="id549952"></a>
+        <a href="function_objects.html#egg.function_objects.identity.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_objects.identity.valid_expressions"></a><h5>
+<a name="id549986"></a>
+        <a href="function_objects.html#egg.function_objects.identity.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_identity</span><span class="special">&lt;</span><span class="identifier">_Stg</span> <span class="special">=</span>
+                <span class="identifier">_default</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_identity</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">a</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_safe_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">identity</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_identity</span><span class="special">&lt;&gt;()</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_objects.identity.preconditions"></a><h5>
+<a name="id550254"></a>
+        <a href="function_objects.html#egg.function_objects.identity.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<a name="egg.function_objects.identity.example"></a><h5>
+<a name="id550287"></a>
+        <a href="function_objects.html#egg.function_objects.identity.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="egg.function_objects.identity.see_also"></a><h5>
+<a name="id550316"></a>
+        <a href="function_objects.html#egg.function_objects.identity.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_objects.bll_bind"></a><a href="function_objects.html#egg.function_objects.bll_bind" title="bll_bind">bll_bind</a></h3></div></div></div>
+<a name="egg.function_objects.bll_bind.description"></a><h5>
+<a name="id550370"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">bll_bind</span></code> is a <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
+        Function Object</a> which represents <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
+      </p>
+<a name="egg.function_objects.bll_bind.header"></a><h5>
+<a name="id550447"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">bll</span><span class="special">/</span><span class="identifier">bind</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_objects.bll_bind.model_of"></a><h5>
+<a name="id550538"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
+<a name="egg.function_objects.bll_bind.notation"></a><h5>
+<a name="id550579"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_objects.bll_bind.valid_expressions"></a><h5>
+<a name="id550613"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">bll_bind</span><span class="special">(</span><span class="identifier">f</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic</a>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">f</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="egg.function_objects.bll_bind.preconditions"></a><h5>
+<a name="id550823"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="number">9</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_objects.bll_bind.example"></a><h5>
+<a name="id550907"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="line_callout_bug"><a name="egg13co" href="function_objects.html#egg13"><img src="../images/callouts/1.png" alt="1" border="0"></a></span><span class="comment">// \x -&gt; (\y -&gt; plus(x, y))
+</span><span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">lazy</span><span class="special">(</span><span class="identifier">bll_bind</span><span class="special">)(</span><span class="identifier">plus</span><span class="special">,</span> <span class="identifier">_1</span><span class="special">,</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">protect</span><span class="special">(</span><span class="identifier">_1</span><span class="special">))</span>
+    <span class="special">(</span><span class="identifier">a</span><span class="special">)(</span><span class="identifier">b</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">plus</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left">
+<a name="egg13"></a><a href="#egg13co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<td valign="top" align="left"><p> This is currying in <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>.
+          </p></td>
+</tr></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.function_objects.bll_bind.see_also"></a><h5>
+<a name="id551145"></a>
+        <a href="function_objects.html#egg.function_objects.bll_bind.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li>
+<li><a href="function_adaptors.html#egg.function_adaptors.lazy" title="lazy">lazy</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_objects.bll_n"></a><a href="function_objects.html#egg.function_objects.bll_n" title="bll_N">bll_N</a></h3></div></div></div>
+<a name="egg.function_objects.bll_n.description"></a><h5>
+<a name="id551216"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">bll_N</span></code> is a <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
+        Function Object</a> which represents <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_N</span></code>.
+      </p>
+<a name="egg.function_objects.bll_n.header"></a><h5>
+<a name="id551294"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">bll</span><span class="special">/</span><span class="identifier">placeholders</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_objects.bll_n.model_of"></a><h5>
+<a name="id551385"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a>
+          but not <span class="emphasis"><em>statically initialized</em></span>.
+        </li></ul></div>
+<a name="egg.function_objects.bll_n.notation"></a><h5>
+<a name="id551431"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_objects.bll_n.valid_expressions"></a><h5>
+<a name="id551465"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">bll_</span><span class="special">++</span><span class="identifier">N</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic</a>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_</span><span class="special">++</span><span class="identifier">N</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="egg.function_objects.bll_n.preconditions"></a><h5>
+<a name="id551623"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="number">1</span> <span class="special">&lt;=</span>
+          <span class="identifier">N</span> <span class="special">&amp;&amp;</span>
+          <span class="identifier">N</span> <span class="special">&lt;=</span>
+          <span class="number">3</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.function_objects.bll_n.example"></a><h5>
+<a name="id551706"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="egg.function_objects.bll_n.see_also"></a><h5>
+<a name="id551735"></a>
+        <a href="function_objects.html#egg.function_objects.bll_n.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_objects.tuple_get"></a><a href="function_objects.html#egg.function_objects.tuple_get" title="tuple_get">tuple_get</a></h3></div></div></div>
+<a name="egg.function_objects.tuple_get.description"></a><h5>
+<a name="id551795"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">tuple_get</span></code> is akin to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">get</span></code>.
+      </p>
+<a name="egg.function_objects.tuple_get.header"></a><h5>
+<a name="id551855"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">tuple</span><span class="special">/</span><span class="identifier">get</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_objects.tuple_get.model_of"></a><h5>
+<a name="id551946"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_objects.tuple_get.notation"></a><h5>
+<a name="id551978"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.function_objects.tuple_get.valid_expressions"></a><h5>
+<a name="id552013"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_get</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_get</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;()(</span><span class="identifier">t</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span><span class="special">&gt;(</span><span class="identifier">t</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_get_c</span><span class="special">&lt;</span><span class="identifier">n</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_get</span><span class="special">&lt;</span>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">int_</span><span class="special">&lt;</span><span class="identifier">n</span><span class="special">&gt;</span>
+                <span class="special">&gt;</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">egg</span><span class="special">::</span><span class="identifier">tuple_get</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">t</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_get</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;()(</span><span class="identifier">t</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">egg</span><span class="special">::</span><span class="identifier">tuple_get_c</span><span class="special">&lt;</span><span class="identifier">n</span><span class="special">&gt;(</span><span class="identifier">t</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_get_c</span><span class="special">&lt;</span><span class="identifier">n</span><span class="special">&gt;()(</span><span class="identifier">t</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_objects.tuple_get.preconditions"></a><h5>
+<a name="id552544"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<a name="egg.function_objects.tuple_get.example"></a><h5>
+<a name="id552577"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="egg.function_objects.tuple_get.see_also"></a><h5>
+<a name="id552605"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_get.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/tuple/index.html" target="_top">Boost.Tuple</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.function_objects.tuple_pack"></a><a href="function_objects.html#egg.function_objects.tuple_pack" title="tuple_pack">tuple_pack</a></h3></div></div></div>
+<a name="egg.function_objects.tuple_pack.description"></a><h5>
+<a name="id552666"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">tuple_pack</span></code> is a <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
+        Function Object</a> which is akin to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_tuple</span></code>
+        or <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tie</span></code> using <a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding
+        Strageties</a>.
+      </p>
+<a name="egg.function_objects.tuple_pack.header"></a><h5>
+<a name="id552763"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">tuple</span><span class="special">/</span><span class="identifier">pack</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.function_objects.tuple_pack.model_of"></a><h5>
+<a name="id552856"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
+<a name="egg.function_objects.tuple_pack.notation"></a><h5>
+<a name="id552897"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">dts_</span><span class="special">(</span><span class="identifier">c1</span><span class="special">,...,</span><span class="identifier">cK</span><span class="special">)</span></code> is
+          <code class="computeroutput"><span class="identifier">_decltype</span><span class="special">(</span><span class="identifier">c1</span><span class="special">),...,</span><span class="identifier">_decltype</span><span class="special">(</span><span class="identifier">cK</span><span class="special">)</span></code>.
+        </li></ul></div>
+<a name="egg.function_objects.tuple_pack.valid_expressions"></a><h5>
+<a name="id553010"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_pack</span><span class="special">&lt;</span><span class="identifier">_Stg</span> <span class="special">=</span>
+                <span class="identifier">_default</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_pack</span><span class="special">&lt;</span><span class="identifier">_Stg</span><span class="special">&gt;()(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span><span class="identifier">dts_</span><span class="special">(</span><span class="identifier">_safe_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))&gt;(</span><span class="identifier">_arg_list</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">_Stg</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">tuple_pack</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_tuple_pack</span><span class="special">&lt;&gt;()</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="egg.function_objects.tuple_pack.preconditions"></a><h5>
+<a name="id553351"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<a name="egg.function_objects.tuple_pack.example"></a><h5>
+<a name="id553383"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="egg.function_objects.tuple_pack.see_also"></a><h5>
+<a name="id553412"></a>
+        <a href="function_objects.html#egg.function_objects.tuple_pack.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/tuple/index.html" target="_top">Boost.Tuple</a></li></ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2007 -2008 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="function_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="object_generator.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+[section Parallel Algorithms]
+
+Pending section...
+
+
+
+
+[section parallel_copy]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/parallel_copy.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`parallel_copy(s, _fwdrng, it)`]
+        [`copy(_fwdrng, it)`]
+    ]
+]
+
+[heading Preconditions]
+* `_iter_of<_fwdrng>::type` and `_typeof(it)` are _parallel_safe_.
+* `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng)>::type`.
+* `it` is a _forward_ _s_ _writable_ Iterator.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[endsect]
+
+
+
+
+[section parallel_equals]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/parallel_equals.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`parallel_equals(s, _fwdrng1, _fwdrng2, _prd)`]
+        [`equals(_fwdrng1, _fwdrng2, _prd)`]
+    ]
+    [
+        [`parallel_equals(s, _fwdrng1, _fwdrng2)`]
+        [`equals(_fwdrng1, _fwdrng2)`]
+    ]
+]
+
+[heading Preconditions]
+* `_iter_of<_fwdrng1>::type`, `_iter_of<_fwdrng2>::type` and `_prd` are _parallel_safe_.
+* `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng1)>::type`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[endsect]
+
+
+
+
+[section parallel_for_each]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/parallel_for_each.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`parallel_for_each(s, _fwdrng, _fun)`]
+        [`for_each(_fwdrng, _fun)` but returns `void`.]
+    ]
+]
+
+[heading Preconditions]
+* `_iter_of<_fwdrng>::type` and `_fun` are _parallel_safe_.
+* `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng)>::type`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[endsect]
+
+
+
+
+[section parallel_reduce]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/parallel_reduce.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Notation]
+* `V` is `_value_of<_typeof(_fwdrng)>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`parallel_reduce(s, _fwdrng, _fun)`]
+        [`std::accumulate(boost::next(_begin(_fwdrng)), _end(_fwdrng), V(*_begin(_fwdrng)), _fun)`]
+    ]
+    [
+        [`parallel_reduce(s, _fwdrng, z, _fun)`]
+        [`std::accumulate(_begin(_fwdrng), _end(_fwdrng), V(z), _fun)`]
+    ]
+]
+
+[heading Preconditions]
+* `_iter_of<_fwdrng>::type` and `_fun` are _parallel_safe_.
+* `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_fwdrng)>::type`.
+* `!boost::empty(_fwdrng)` in the case of the first expression.
+* The corresponding semantics is a valid expression.
+* `_fun` is [@http://planetmath.org/encyclopedia/Associative.html associative].
+
+[heading Example]
+
+[endsect]
+
+
+
+
+[section parallel_sort]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/parallel_sort.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`parallel_sort(s, _rndrng, _fun)`]
+        [`sort(_rndrng, _fun)`]
+    ]
+    [
+        [`parallel_sort(s, _rndrng)`]
+        [`sort(_rndrng)`]
+    ]
+]
+
+[heading Preconditions]
+* `_iter_of<_rndrng>::type` and `_fun` are _parallel_safe_.
+* `s` is a grainsize which is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[endsect]
+
+
+
+
+[endsect]

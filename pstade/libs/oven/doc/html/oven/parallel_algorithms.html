@@ -1,0 +1,497 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Parallel Algorithms</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 1.00.1">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 1.00.1">
+<link rel="prev" href="utilities.html" title="Utilities">
+<link rel="next" href="extending_boost_range.html" title="Extending Boost.Range">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="utilities.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="extending_boost_range.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oven.parallel_algorithms"></a><a href="parallel_algorithms.html" title="Parallel Algorithms">Parallel Algorithms</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy">parallel_copy</a></span></dt>
+<dt><span class="section"><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals">parallel_equals</a></span></dt>
+<dt><span class="section"><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each">parallel_for_each</a></span></dt>
+<dt><span class="section"><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce">parallel_reduce</a></span></dt>
+<dt><span class="section"><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort">parallel_sort</a></span></dt>
+</dl></div>
+<p>
+      Pending section...
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.parallel_algorithms.parallel_copy"></a><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy" title="parallel_copy">parallel_copy</a></h3></div></div></div>
+<a name="oven.parallel_algorithms.parallel_copy.description"></a><h5>
+<a name="id623037"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy.description">Description</a>
+      </h5>
+<a name="oven.parallel_algorithms.parallel_copy.header"></a><h5>
+<a name="id623064"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_copy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_copy.model_of"></a><h5>
+<a name="id623146"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_copy.valid_expressions"></a><h5>
+<a name="id623185"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_copy</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng</span><span class="special">,</span>
+                <span class="identifier">it</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">copy</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">,</span>
+                <span class="identifier">it</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.parallel_algorithms.parallel_copy.preconditions"></a><h5>
+<a name="id623359"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">it</span><span class="special">)</span></code>
+          are <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
+          is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">it</span></code> is a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a><a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators" target="_top">Writable</a>
+          Iterator.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.parallel_algorithms.parallel_copy.example"></a><h5>
+<a name="id623558"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_copy.example">Example</a>
+      </h5>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.parallel_algorithms.parallel_equals"></a><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals" title="parallel_equals">parallel_equals</a></h3></div></div></div>
+<a name="oven.parallel_algorithms.parallel_equals.description"></a><h5>
+<a name="id623605"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals.description">Description</a>
+      </h5>
+<a name="oven.parallel_algorithms.parallel_equals.header"></a><h5>
+<a name="id623631"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_equals</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_equals.model_of"></a><h5>
+<a name="id623713"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_equals.valid_expressions"></a><h5>
+<a name="id623754"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_equals</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng1</span><span class="special">,</span>
+                <span class="identifier">_fwdrng2</span><span class="special">,</span>
+                <span class="identifier">_prd</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">equals</span><span class="special">(</span><span class="identifier">_fwdrng1</span><span class="special">,</span>
+                <span class="identifier">_fwdrng2</span><span class="special">,</span>
+                <span class="identifier">_prd</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_equals</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng1</span><span class="special">,</span>
+                <span class="identifier">_fwdrng2</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">equals</span><span class="special">(</span><span class="identifier">_fwdrng1</span><span class="special">,</span>
+                <span class="identifier">_fwdrng2</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.parallel_algorithms.parallel_equals.preconditions"></a><h5>
+<a name="id624053"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng1</span><span class="special">&gt;::</span><span class="identifier">type</span></code>, <code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng2</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+          and <code class="computeroutput"><span class="identifier">_prd</span></code> are <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel
+          Safe</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
+          is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng1</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.parallel_algorithms.parallel_equals.example"></a><h5>
+<a name="id624239"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_equals.example">Example</a>
+      </h5>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.parallel_algorithms.parallel_for_each"></a><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each" title="parallel_for_each">parallel_for_each</a></h3></div></div></div>
+<a name="oven.parallel_algorithms.parallel_for_each.description"></a><h5>
+<a name="id624286"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each.description">Description</a>
+      </h5>
+<a name="oven.parallel_algorithms.parallel_for_each.header"></a><h5>
+<a name="id624311"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_for_each</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_for_each.model_of"></a><h5>
+<a name="id624394"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each.model_of">Model
+        of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_for_each.valid_expressions"></a><h5>
+<a name="id624435"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_for_each</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng</span><span class="special">,</span> <span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">for_each</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">,</span>
+                <span class="identifier">_fun</span><span class="special">)</span></code>
+                but returns <code class="computeroutput"><span class="keyword">void</span></code>.
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.parallel_algorithms.parallel_for_each.preconditions"></a><h5>
+<a name="id624621"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_fun</span></code>
+          are <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
+          is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.parallel_algorithms.parallel_for_each.example"></a><h5>
+<a name="id624775"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each.example">Example</a>
+      </h5>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.parallel_algorithms.parallel_reduce"></a><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce" title="parallel_reduce">parallel_reduce</a></h3></div></div></div>
+<a name="oven.parallel_algorithms.parallel_reduce.description"></a><h5>
+<a name="id624821"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce.description">Description</a>
+      </h5>
+<a name="oven.parallel_algorithms.parallel_reduce.header"></a><h5>
+<a name="id624847"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_reduce</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_reduce.model_of"></a><h5>
+<a name="id624928"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_reduce.notation"></a><h5>
+<a name="id624969"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">V</span></code> is <code class="computeroutput"><span class="identifier">_value_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li></ul></div>
+<a name="oven.parallel_algorithms.parallel_reduce.valid_expressions"></a><h5>
+<a name="id625053"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_reduce</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng</span><span class="special">,</span>
+                <span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span>
+                <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span>
+                <span class="identifier">V</span><span class="special">(*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span>
+                <span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_reduce</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_fwdrng</span><span class="special">,</span>
+                <span class="identifier">z</span><span class="special">,</span>
+                <span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span>
+                <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span>
+                <span class="identifier">V</span><span class="special">(</span><span class="identifier">z</span><span class="special">),</span> <span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.parallel_algorithms.parallel_reduce.preconditions"></a><h5>
+<a name="id625492"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_fwdrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_fun</span></code>
+          are <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
+          is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code> in the case of the first expression.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_fun</span></code> is <a href="http://planetmath.org/encyclopedia/Associative.html" target="_top">associative</a>.
+        </li>
+</ul></div>
+<a name="oven.parallel_algorithms.parallel_reduce.example"></a><h5>
+<a name="id625712"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce.example">Example</a>
+      </h5>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.parallel_algorithms.parallel_sort"></a><a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort" title="parallel_sort">parallel_sort</a></h3></div></div></div>
+<a name="oven.parallel_algorithms.parallel_sort.description"></a><h5>
+<a name="id625759"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort.description">Description</a>
+      </h5>
+<a name="oven.parallel_algorithms.parallel_sort.header"></a><h5>
+<a name="id625785"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">parallel_sort</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_sort.model_of"></a><h5>
+<a name="id625867"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.parallel_algorithms.parallel_sort.valid_expressions"></a><h5>
+<a name="id625907"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_sort</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_rndrng</span><span class="special">,</span>
+                <span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">sort</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">,</span>
+                <span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">parallel_sort</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">_rndrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">sort</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.parallel_algorithms.parallel_sort.preconditions"></a><h5>
+<a name="id626160"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_rndrng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> and <code class="computeroutput"><span class="identifier">_fun</span></code>
+          are <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">s</span></code> is a grainsize which
+          is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.parallel_algorithms.parallel_sort.example"></a><h5>
+<a name="id626314"></a>
+        <a href="parallel_algorithms.html#oven.parallel_algorithms.parallel_sort.example">Example</a>
+      </h5>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2005 -2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="utilities.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="extending_boost_range.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

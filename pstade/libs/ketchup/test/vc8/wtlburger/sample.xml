@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<desktop>
+	<include href="sample_view0.xml" />
+	<include href="sample_view1s.xml" serializable="true" />
+	<include href="sample_view2.xml" />
+</desktop>

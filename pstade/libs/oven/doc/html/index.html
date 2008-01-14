@@ -1,0 +1,642 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Chapter 1. Oven 1.00.1</title>
+<link rel="stylesheet" href="boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="index.html" title="Chapter 1. Oven 1.00.1">
+<link rel="next" href="oven/concepts.html" title="Concepts">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="oven/concepts.html"><img src="images/next.png" alt="Next"></a></div>
+<div class="chapter" lang="en">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="oven"></a>Chapter 1. Oven 1.00.1</h2></div>
+<div><p class="copyright">Copyright © 2005 -2007 Shunsuke Sogame</p></div>
+<div><div class="legalnotice">
+<a name="id431602"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="index.html#oven.overview">Overview</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#oven.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.related_work">Related Work</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.acknowledgements">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.notation">Notation</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/concepts.html">Concepts</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/concepts.html#oven.concepts.pipable_adaptor">Pipable Adaptor</a></span></dt>
+<dt><span class="section"><a href="oven/concepts.html#oven.concepts.resettable_object">Resettable Object</a></span></dt>
+<dt><span class="section"><a href="oven/concepts.html#oven.concepts.stoppable_generator">Stoppable Generator</a></span></dt>
+<dt><span class="section"><a href="oven/concepts.html#oven.concepts.iteration_block">Iteration Block</a></span></dt>
+<dt><span class="section"><a href="oven/concepts.html#oven.concepts.constant_range">Constant Range</a></span></dt>
+<dt><span class="section"><a href="oven/concepts.html#oven.concepts.contiguous_range">Contiguous Range</a></span></dt>
+<dt><span class="section"><a href="oven/concepts.html#oven.concepts.parallel_safe">Parallel Safe</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/range_algorithms.html">Range Algorithms</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.stl_algorithms">STL Algorithms</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.stl_numerics">STL Numerics</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.at">at</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.back">back</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.front">front</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.begin_end">begin/end</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.copied">copied</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.distance">distance</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.equals">equals</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.exists">exists</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.forall">forall</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.value_at">value_at</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.value_back">value_back</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.range_algorithms.value_front">value_front</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/ranges.html">Ranges</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.any_range">any_range</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.any_indexed">any_indexed</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.array_range">array_range</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.directory_range">directory_range</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.empty_range">empty_range</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.file_range">file_range</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.as_array">as_array</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.as_c_str">as_c_str</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.as_literal">as_literal</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.block">block</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.comprehension">comprehension</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.counting">counting</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.generation">generation</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.hetero">hetero</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.initial_values">initial_values</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.iteration">iteration</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.make_range">make_range</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.recursion">recursion</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.shared">shared</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.single">single</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.shared_single">shared_single</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.stream_lines">stream_lines</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.stream_read">stream_read</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.streambuf_read">streambuf_read</a></span></dt>
+<dt><span class="section"><a href="oven/ranges.html#oven.ranges.unfold">unfold</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/range_adaptors.html">Range Adaptors</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.adjacent_filtered">adjacent_filtered</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.adjacent_transformed">adjacent_transformed</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.always">always</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.applied">applied</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.checked">checked</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.cleared">cleared</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.concatenated">concatenated</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.const_refs">const_refs</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.constants">constants</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.converted">converted</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.copied_to">copied_to</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.cycled">cycled</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.delimited">delimited</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.dropped">dropped</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.dropped_while">dropped_while</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.elements">elements</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.elements_c">elements_c</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.filtered">filtered</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.identities">identities</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.indirected">indirected</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.outdirected">outdirected</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.outplaced">outplaced</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.jointed">jointed</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.map_keys">map_keys</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.map_values">map_values</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.memoized">memoized</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.offset">offset</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.permuted">permuted</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.pointed">pointed</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.popped">popped</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.reversed">reversed</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.rotated">rotated</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.rvalues">rvalues</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.scanned">scanned</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.sliced">sliced</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.sorted">sorted</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.steps">steps</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.taken">taken</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.taken_while">taken_while</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.transformed">transformed</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.uniqued">uniqued</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.range_adaptors.window">window</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/string_adaptors.html">String Adaptors</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.broken_into">broken_into</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.lower_chars">lower_chars</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.upper_chars">upper_chars</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.narrow_chars">narrow_chars</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.wide_chars">wide_chars</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.string_found">string_found</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.string_split">string_split</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.matches">matches</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.tokenized">tokenized</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.utf8_decoded">utf8_decoded</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.utf8_encoded">utf8_encoded</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.utf16_decoded">utf16_decoded</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.utf16_encoded">utf16_encoded</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.xpressive_matches">xpressive_matches</a></span></dt>
+<dt><span class="section"><a href="oven/string_adaptors.html#oven.string_adaptors.xpressive_tokenized">xpressive_tokenized</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/merge_adaptors.html">Merge Adaptors</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/merge_adaptors.html#oven.merge_adaptors.merged">merged</a></span></dt>
+<dt><span class="section"><a href="oven/merge_adaptors.html#oven.merge_adaptors.set_cap">set_cap</a></span></dt>
+<dt><span class="section"><a href="oven/merge_adaptors.html#oven.merge_adaptors.set_cup">set_cup</a></span></dt>
+<dt><span class="section"><a href="oven/merge_adaptors.html#oven.merge_adaptors.set_delta">set_delta</a></span></dt>
+<dt><span class="section"><a href="oven/merge_adaptors.html#oven.merge_adaptors.set_minus">set_minus</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/output_iterators.html">Output Iterators</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/output_iterators.html#oven.output_iterators.any_output_iterator">any_output_iterator</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterators.html#oven.output_iterators.applier">applier</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterators.html#oven.output_iterators.eater">eater</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterators.html#oven.output_iterators.stream_writer">stream_writer</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterators.html#oven.output_iterators.streambuf_writer">streambuf_writer</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterators.html#oven.output_iterators.std_stream_writer">std_stream_writer</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html">Output Iterator Adaptors</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.converter">converter</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.copier">copier</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.filterer">filterer</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.indirecter">indirecter</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.intercepter">intercepter</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.permuter">permuter</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.transformer">transformer</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.range_transformer">range_transformer</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.utf8_encoder">utf8_encoder</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.output_iterator_adaptors.utf16_encoder">utf16_encoder</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/utilities.html">Utilities</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.adapted_to_base"> adapted_to/to_base</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.expression">expression</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.foreach">FOREACH</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.io_hpp">io.hpp</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.optional_hpp">optional.hpp</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.regex_hpp">regex.hpp</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.xpressive_hpp">xpressive.hpp</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.nonstop">nonstop</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.pack">pack</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.partitioned">partitioned</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.regular">regular</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.regular_ref">regular_ref</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.shared_regular">shared_regular</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.split_at">split_at</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.zipped">zipped</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.unzipped">unzipped</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.fuzipped">fuzipped</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.unfuzipped">unfuzipped</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.utilities.zipped_with">zipped_with</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/parallel_algorithms.html">Parallel Algorithms</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/parallel_algorithms.html#oven.parallel_algorithms.parallel_copy">parallel_copy</a></span></dt>
+<dt><span class="section"><a href="oven/parallel_algorithms.html#oven.parallel_algorithms.parallel_equals">parallel_equals</a></span></dt>
+<dt><span class="section"><a href="oven/parallel_algorithms.html#oven.parallel_algorithms.parallel_for_each">parallel_for_each</a></span></dt>
+<dt><span class="section"><a href="oven/parallel_algorithms.html#oven.parallel_algorithms.parallel_reduce">parallel_reduce</a></span></dt>
+<dt><span class="section"><a href="oven/parallel_algorithms.html#oven.parallel_algorithms.parallel_sort">parallel_sort</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/extending_boost_range.html">Extending Boost.Range</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="oven/extending_boost_range.html#oven.extending_boost_range.concept_like_extension">Concept-like
+      extension</a></span></dt>
+<dt><span class="section"><a href="oven/extending_boost_range.html#oven.extending_boost_range.atl_extension">ATL extension</a></span></dt>
+<dt><span class="section"><a href="oven/extending_boost_range.html#oven.extending_boost_range.mfc_extension">MFC extension</a></span></dt>
+<dt><span class="section"><a href="oven/extending_boost_range.html#oven.extending_boost_range.wtl_extension">WTL extension</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="oven/version_history.html">Version History</a></span></dt>
+</dl>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oven.overview"></a><a href="index.html#oven.overview" title="Overview">Overview</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#oven.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.related_work">Related Work</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.acknowledgements">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.overview.notation">Notation</a></span></dt>
+</dl></div>
+<p>
+      &#8220;<span class="quote">I tried to commit suicide by sticking my head in the oven, but there
+      was a cake in it.</span>&#8221; -- Lesley Boone
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.overview.introduction"></a><a href="index.html#oven.overview.introduction" title="Introduction">Introduction</a></h3></div></div></div>
+<p>
+        Oven is an advanced implementation of <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html" target="_top">Range
+        Library Proposal</a>:
+      </p>
+<pre class="programlisting">
+<span class="keyword">namespace</span> <span class="identifier">lambda</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span><span class="special">;</span>
+
+<span class="keyword">typedef</span>
+    <span class="identifier">any_range</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">single_pass_traversal_tag</span><span class="special">&gt;</span>
+<span class="identifier">range</span><span class="special">;</span>
+
+<span class="identifier">range</span> <span class="identifier">sieve</span><span class="special">(</span><span class="identifier">range</span> <span class="identifier">rng</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">rng</span><span class="special">|</span><span class="identifier">dropped</span><span class="special">(</span><span class="number">1</span><span class="special">)|</span><span class="identifier">filtered</span><span class="special">(</span><span class="identifier">regular</span><span class="special">(</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">%</span> <span class="identifier">value_front</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)</span> <span class="special">!=</span> <span class="number">0</span><span class="special">));</span>
+<span class="special">}</span>
+
+<span class="identifier">range</span> <span class="identifier">primes</span>
+    <span class="special">=</span> <span class="identifier">iteration</span><span class="special">(</span><span class="identifier">range</span><span class="special">(</span><span class="identifier">counting</span><span class="special">(</span><span class="number">2</span><span class="special">,</span> <span class="identifier">max_count</span><span class="special">)),</span> <span class="special">&amp;::</span><span class="identifier">sieve</span><span class="special">)|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">value_front</span><span class="special">);</span>
+
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="special">(</span><span class="identifier">primes</span><span class="special">|</span><span class="identifier">taken</span><span class="special">(</span><span class="number">200</span><span class="special">));</span>
+<span class="special">}</span>
+</pre>
+<p>
+        Oven is a header-only template library. All the types, functions and objects
+        are defined in <code class="computeroutput"><span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.overview.requirements"></a><a href="index.html#oven.overview.requirements" title="Requirements">Requirements</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<a href="http://www.boost.org" target="_top">Boost C++ Libraries</a> Version 1.34.0
+          or later
+          <div class="itemizedlist"><ul type="circle">
+<li>
+<a href="oven/ranges.html#oven.ranges.directory_range" title="directory_range">directory_range</a>
+              requires <a href="http://www.boost.org/libs/filesystem/index.html" target="_top">Boost.Filesystem</a>
+              to be built.
+            </li>
+<li>
+<a href="oven/string_adaptors.html#oven.string_adaptors.matches" title="matches">matches</a> and <a href="oven/string_adaptors.html#oven.string_adaptors.tokenized" title="tokenized">tokenized</a> requires
+              <a href="http://boost.org/libs/regex/doc/index.html" target="_top">Boost.Regex</a>
+              to be built.
+            </li>
+<li>
+<a href="oven/ranges.html#oven.ranges.block" title="block">block</a> requires <a href="http://www.boost.org/doc/html/thread.html" target="_top">Boost.Thread</a>
+              to be built.
+            </li>
+</ul></div>
+</li>
+<li>
+<a href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059" target="_top">P-Stade
+          C++ Libraries</a> Version 1.04.2 or later (build not required)
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.overview.portability"></a><a href="index.html#oven.overview.portability" title="Portability">Portability</a></h3></div></div></div>
+<p>
+        Oven is known to work on the following platforms:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Microsoft Visual C++ 2005 Express Edition SP1
+        </li>
+<li>
+          Microsoft Visual C++ .NET Version 7.1 SP1
+        </li>
+<li>
+          MinGW with GCC 3.4.4
+        </li>
+<li>
+          MinGW with GCC 4.1.2
+        </li>
+<li>
+          Intel C++ Compiler Professional Edition 10.1 for Windows
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.overview.rationale"></a><a href="index.html#oven.overview.rationale" title="Rationale">Rationale</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Oven doesn't introduce any new elaborate concept.
+        </li>
+<li>
+          Oven supports an iterator such that destruction of it may invalidate pointers
+          and references previously obtained from that iterator (24.1/9).
+        </li>
+<li>
+          Oven Range Adaptors return in constant time if possible.
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.overview.related_work"></a><a href="index.html#oven.overview.related_work" title="Related Work">Related Work</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost-consulting.com/vault/index.php?&amp;directory=Algorithms" target="_top">Boost.RangeEx</a></li>
+<li><a href="http://www.boost.org/doc/html/string_algo.html" target="_top">Boost.StringAlgorithm</a></li>
+<li><a href="http://boost.cvs.sourceforge.net/boost-sandbox/boost-sandbox/boost/view/" target="_top">Boost.View</a></li>
+<li><a href="http://sourceforge.jp/projects/cradle/" target="_top">Cradle - A C++ Sandbox</a></li>
+<li><a href="http://www.ddj.com/dept/cpp/196513737" target="_top">C++ View Objects</a></li>
+<li><a href="http://hamigaki.sourceforge.jp/doc/html/index.html" target="_top">Hamigaki
+          C++ Libraries</a></li>
+<li><a href="http://www.threadingbuildingblocks.org/" target="_top">Intel Threading Building
+          Blocks</a></li>
+<li><a href="http://www.torjo.com/rangelib/index.html" target="_top">RangeLib - The Boost
+          Iterable Range Library</a></li>
+<li><a href="http://www.assembla.com/wiki/show/baGo5wpz0r3iFaabIlDkbG" target="_top">trotter-libs</a></li>
+<li><a href="http://www.zib.de/weiser/vtl/" target="_top">VTL (View Template Library)</a></li>
+<li><a href="http://www.zeta.org.au/~jon/STL/views/doc/views.html" target="_top">Views
+          - a C++ Standard Library extension</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.overview.acknowledgements"></a><a href="index.html#oven.overview.acknowledgements" title="Acknowledgements">Acknowledgements</a></h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Special thanks to Thorsten Ottosen, the author of <a href="http://www.boost.org/libs/range/index.html" target="_top">Boost.Range</a>
+          and <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html" target="_top">Range
+          Library Proposal</a>.
+        </li>
+<li>
+          Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
+          These people are instrumental in the design and development of Oven.
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.overview.notation"></a><a href="index.html#oven.overview.notation" title="Notation">Notation</a></h3></div></div></div>
+<p>
+        This document uses the following notation:
+      </p>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_typeof</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An imaginary operator to get the type of an expression.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">++</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An imaginary operator to concatenate tokens.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+                such that it is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a>
+                or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_fwdrng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a>
+                <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_bidrng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+                <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rndrng</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
+                Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_outit</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output
+                Iterator</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_fun</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+                Object</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_cal</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_prd</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.sgi.com/tech/stl/Predicate.html" target="_top">Predicate</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_begin</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_end</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_iter_of</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_result_iterator</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_value_of</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+                which behaves as if <code class="computeroutput"><span class="identifier">i</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code> and <code class="computeroutput"><span class="identifier">j</span>
+                <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">{</span><span class="identifier">a0</span><span class="special">,</span><span class="identifier">a1</span><span class="special">,</span><span class="identifier">a2</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">}</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">(</span><span class="identifier">a0</span>
+                <span class="identifier">a1</span> <span class="identifier">a2</span>
+                <span class="special">...</span> <span class="identifier">aN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        Also, assume that every expression is placed after:
+      </p>
+<pre class="programlisting">
+<span class="keyword">namespace</span> <span class="identifier">oven</span> <span class="special">=</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span><span class="special">;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">oven</span><span class="special">;</span>
+</pre>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><small><p>Last revised: January 02, 2008 at 09:05:28 GMT</p></small></td>
+<td align="right"><small></small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="oven/concepts.html"><img src="images/next.png" alt="Next"></a></div>
+</body>
+</html>

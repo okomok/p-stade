@@ -1,0 +1,574 @@
+[section Range Algorithms]
+
+Oven provides range-based algorithms taking a range instead of two iterators.
+
+
+
+
+[section STL Algorithms]
+
+[heading Description]
+`algorithm.hpp` is provided as range-based `<algorithm>`.
+
+[heading Header]
+* `<pstade/oven/algorithm.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`f1(_rng, x1,...,xN)`]
+        [`std::f1(_begin(_rng), _end(_rng), x1,...,xN)`]
+    ]
+    [
+        [`f2(_rng1, _rng2, x1,...,xN)`]
+        [`std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,...,xN)`]
+    ]
+    [
+        [`f3(_rng, _fun, x1,...,xN)`]
+        [`std::f3(_begin(_rng), _fun(_rng), _end(_rng), x1,...,xN)`]
+    ]
+]
+
+[heading Preconditions]
+* `f1` and `f2` is one of the function names defined in `<algorithm>` except for...
+    * `fill_n`, `generate_n`, `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
+* `f3` is one of the following names...
+    * `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
+* `std::f1(_begin(_rng), _end(_rng), x1,...,xN)` is a valid exression.
+* `std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,...,xN)` is a valid expression.
+* `std::f3(_begin(_rng), m, _end(_rng), x1,...,xN)` is a valid expression.
+* `_fun(_rng)` is a valid expression.
+* `_typeof(_fun(_rng))` is `_iter_of<_typeof(_rng)>::type`.
+
+[note `fill_n` and `generate_n` are not considered as range algorithm, so they are excluded.]
+
+[heading Example]
+    std::string str;
+
+    // iterator-based
+    str = "gfedcba";
+    std::sort(str.begin(), str.end());
+    BOOST_CHECK( str == "abcdefg" );
+
+    // Oven range-based
+    str = "gfedcba";
+    sort(str);
+    BOOST_CHECK( str == "abcdefg" );
+
+[endsect]
+
+
+
+
+[section STL Numerics]
+
+[heading Description]
+`numeric.hpp` is provided as range-based `<numeric>`.
+
+[heading Header]
+* `<pstade/oven/numeric.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`f(_rng, x1,...,xN)`]
+        [`std::f(_begin(_rng), _end(_rng), x1,...,xN)`]
+    ]
+]
+
+[heading Preconditions]
+* `f` is one of the function names defined in `<numeric>`.
+* `std::f(_begin(_rng), _end(_rng), x1,...,xN)` is a valid expression.
+
+[endsect]
+
+
+[important Unfortunately, Oven STL Algorithms and Numerics are not traversal-aware.
+  A _random_access_ _range_ whose `boost::range_reference` type is not a /reference type/
+  is regarded as an _input_iterator_ range.]
+
+
+
+
+[section at]
+
+[heading Description]
+`at` returns the N-th referent from the beginning of the range. 
+
+[heading Header]
+* `<pstade/oven/at.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`at(_rndrng, n)`]
+        [`*(_begin(_rndrng) + n)`]
+    ]
+]
+
+[heading Preconditions]
+* `_rndrng` is _readable_ or _lvalue_.
+* If `boost::range_reference<_typeof(_rndrng)>::type` is a /reference type/, `_rndrng` is a _lvalue_ _s_ _range_.
+* `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
+* `0 <= n && n < distance(_rndrng)`
+
+[note you must use _oven_value_at_ if the second precondition can't be met.]
+
+[heading Example]
+    std::string str("f12344513215b");
+    BOOST_CHECK( at(str, 0) == 'f' );
+    BOOST_CHECK( (str|at(4)) == '4' );
+
+[heading See also]
+* _oven_value_at_
+
+[endsect]
+
+
+
+
+[section back]
+
+[heading Description]
+`back` returns the last referent in the range.
+
+[heading Header]
+* `<pstade/oven/back.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`back(_rng)`]
+        [`*boost::prior(_end(_bidrng))`]
+    ]
+]
+
+[heading Preconditions]
+* `_bidrng` is _readable_ or _lvalue_.
+* If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _s_ _range_.
+* `!boost::empty(_bidrng)`
+
+[heading See also]
+* _oven_front_
+* _oven_value_back_
+
+[endsect]
+
+
+
+
+[section front]
+
+[heading Description]
+`front` returns the first referent in the range.
+
+[heading Header]
+* `<pstade/oven/front.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`front(_rng)`]
+        [`*_begin(_rng)`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+* If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_ _s_ _range_.
+* `!boost::empty(_rng)`
+
+[heading See also]
+* _oven_back_
+* _oven_value_front_
+
+[endsect]
+
+
+
+
+[section begin/end]
+
+[heading Description]
+`begin` and `end` is _ambi_ _static_function_object_ which represents `boost::begin` and `boost::end` respectively.
+
+[heading Header]
+* `<pstade/oven/begin_end.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`begin(_rng)`]
+        [`_begin(_rng)`]
+    ]
+    [
+        [`end(_rng)`]
+        [`_end(_rng)`]
+    ]
+]
+
+[heading Example]
+    std::string src("abcDefg");   
+    copy(src|reversed|upper_chars, src|reversed|begin);
+    BOOST_CHECK( equals(src, std::string("ABCDEFG")) );
+    
+[endsect]
+
+
+
+
+[section copied]
+
+[heading Description]
+`copied` automagically calls the range-constructor of the target range without specifying the type.
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Header]
+* `<pstade/oven/copied.hpp>`
+
+[heading Notation]
+* `V1` is `_value_of<_typeof(_rng1)>::type`.
+* `to_v1` is `regular(boost::lambda::ll_static_cast<V1>(boost::lambda::_1))`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`Rng1 _rng1 = _rng|copied;`]
+        [`Rng1 _rng1(_begin(r), _end(r))`, where `r = _rng|transformed(to_v1)`.]
+    ]
+    [
+        [`Rng2 _rng2(_rng0|copied);`]
+        [`Rng2 _rng2 = _rng0|copied;`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng1` is a _sequence_.
+* There is a type `X_` such that `boost::is_convertible<X_, Rng1>::value == false`.
+* `_value_of<_typeof(_rng)>::type` is convertible to `V1`.
+* `Rng2` is an /aggregate type/ such that `Rng2 _rng2 = _rng0|copied;` is a valid expression.
+* `copied` isn't placed in a function default argument list.
+
+[note The first valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
+The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not always a valid expression.]
+
+[heading Example]
+    std::string rng("abcdefg");
+    std::vector<char> vec = rng|copied;
+    BOOST_CHECK( equals(vec, rng) );
+
+[heading See also]
+* _oven_transformed_
+
+[endsect]
+
+
+
+
+[section distance]
+
+[heading Description]
+`distance` is a range-based `std::distance` but traversal-aware.
+
+[heading Header]
+* `<pstade/oven/distance.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`distance(_rng)`]
+        [`std::distance(_begin(_rng), _end(_rng))`]
+    ]
+]
+
+[heading Preconditions]
+* `std::distance(_begin(_rng), _end(_rng))` is a valid expression.
+
+[endsect]
+
+
+
+
+[section equals]
+
+[heading Description]
+`equals` is a range-based `std::equal` but sensitive to the distances.
+
+[heading Header]
+* `<pstade/oven/equals.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Notation]
+* `eq` is `(boost::lambda::_1 == boost::lambda::_2)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`equals(_rng1, _rng2, _prd)`]
+        [`distance(_rng1) == distance(_rng2) ? std::equal(_begin(_rng1), _end(_rng1), _begin(_rng2), _prd) : false`]
+    ]
+    [
+        [`equals(_rng1, _rng2)`]
+        [`equals(_rng1, _rng2, eq)`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng1` and `_rng2` are _readable_ or _lvalue_.
+
+[endsect]
+
+
+
+
+[section exists]
+
+[heading Description]
+`exists` returns true if a predicate is true for a referent in the range.
+
+[heading Header]
+* `<pstade/oven/exists.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`exists(_rng, _prd)`]
+        [`std::find_if(_begin(_rng), _end(_rng), pred) != _end(_rng)`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+
+[heading See also]
+* _oven_forall_
+
+[endsect]
+
+
+
+
+[section forall]
+
+[heading Description]
+`forall` returns true if a predicate is true for all the referents in the range.
+
+[heading Header]
+* `<pstade/oven/forall.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Notation]
+* `not_` is an imaginary function to nagate a predicate.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`forall(_rng, _prd)`]
+        [`std::find_if(_begin(_rng), _end(_rng), not_(pred)) == _end(_rng)`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+
+[heading See also]
+* _oven_exists_
+
+[endsect]
+
+
+
+
+[section value_at]
+
+[heading Description]
+`value_at` returns a copy of N-th referent from the beginning of the range.
+
+[heading Header]
+* `<pstade/oven/at.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Notation]
+* `V` is `_value_of<_typeof(_rndrng)>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`value_at(_rndrng, n)`]
+        [`V(*(_begin(_rndrng) + n))`]
+    ]
+]
+
+[heading Preconditions]
+* `_rndrng` is _readable_.
+* `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
+* `0 <= n && n < distance(_rndrng)`
+
+[heading See also]
+* _oven_at_
+
+[endsect]
+
+
+
+
+[section value_back]
+
+[heading Description]
+`value_back` returns a copy of the last referent in the range.
+
+[heading Header]
+* `<pstade/oven/back.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Notation]
+* `V` is `_value_of<_typeof(_bidrng)>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`value_back(_bidrng)`]
+        [`V(*boost::prior(_bidrng))`]
+    ]
+]
+
+[heading Preconditions]
+* `_bidrng` is _readable_.
+* `!boost::empty(_bidrng)`
+
+[heading See also]
+* _oven_back_
+* _oven_value_front_
+
+[endsect]
+
+
+
+
+[section value_front]
+
+[heading Description]
+`value_front` returns a copy of the first referent in the range.
+
+[heading Header]
+* `<pstade/oven/front.hpp>`
+
+[heading Model of]
+* _ambi_ _static_function_object_
+
+[heading Notation]
+* `V` is `_value_of<_typeof(_rng)>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`value_front(_rng)`]
+        [`V(*_begin(_rng))`]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_.
+* `!boost::empty(_rng)`
+
+[heading See also]
+* _oven_front_
+* _oven_value_back_
+
+[endsect]
+
+
+
+
+[endsect]

@@ -1,0 +1,251 @@
+[section Merge Adaptors]
+
+A Merge Adaptor is a [link oven.range_adaptors Range Adaptor] for sorted ranges.
+
+
+
+
+[section merged]
+
+[heading Description]
+`merged` combines two sorted ranges into a single sorted range.
+
+[heading Header]
+* `<pstade/oven/merged.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `less` is `regular(boost::lambda::_1 < boost::lambda::_2)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|merged(_rng2, _prd)`]
+        [
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `merge(_rng1, _rng2, _prd)`.
+        ]
+    ]
+    [
+        [`_rng1|merged(_rng2)`]
+        [
+            `_rng1|merged(_rng2, less)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng1` and `_rng2` are _readable_ or _lvalue_.
+* `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
+  without binding /reference/ to /rvalue/.
+* `_rng1` and `_rng2` are sorted.
+* `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
+
+[heading Example]
+    std::string A1("abbbfH");
+    std::string A2("ABbCDFFhh");
+    std::string AA("aAbbbBbCDfFFHhh");
+    BOOST_CHECK( equals(A1|merged(A2, &::lt_nocase), AA) );
+
+[heading See also]
+* _oven_set_cap_
+* _oven_set_cup_
+* _oven_set_delta_
+* _oven_set_minus_
+
+[endsect]
+
+
+
+
+[section set_cap]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/set_cap.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|set_cap(_rng2, _prd)`]
+        [
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_intersection(_rng1, _rng2, _prd)`.
+        ]
+    ]
+    [
+        [`_rng1|set_cap(_rng2)`]
+        [
+            `_rng1|set_cap(_rng2, less)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The preconditions of `merged`.
+
+[heading Example]
+
+[heading See also]
+* _oven_merged_
+* _oven_set_cup_
+* _oven_set_delta_
+* _oven_set_minus_
+
+[endsect]
+
+
+
+
+[section set_cup]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/set_cup.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|set_cup(_rng2, _prd)`]
+        [
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_union(_rng1, _rng2, _prd)`.
+        ]
+    ]
+    [
+        [`_rng1|set_cup(_rng2)`]
+        [
+            `_rng1|set_cup(_rng2, less)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The preconditions of `merged`.
+
+[heading Example]
+
+[heading See also]
+* _oven_merged_
+* _oven_set_cap_
+* _oven_set_delta_
+* _oven_set_minus_
+
+[endsect]
+
+
+
+
+[section set_delta]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/set_delta.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|set_delta(_rng2, _prd)`]
+        [
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_symmetric_difference(_rng1, _rng2, _prd)`.
+        ]
+    ]
+    [
+        [`_rng1|set_delta(_rng2)`]
+        [
+            `_rng1|set_delta(_rng2, less)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The preconditions of `merged`.
+
+[heading Example]
+
+[heading See also]
+* _oven_merged_
+* _oven_set_cap_
+* _oven_set_cup_
+* _oven_set_minus_
+
+[endsect]
+
+
+
+
+[section set_minus]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/set_minus.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|set_minus(_rng2, _prd)`]
+        [
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_difference(_rng1, _rng2, _prd)`.
+        ]
+    ]
+    [
+        [`_rng1|set_minus(_rng2)`]
+        [
+            `_rng1|set_minus(_rng2, less)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The preconditions of `merged`.
+
+[heading Example]
+
+[heading See also]
+* _oven_merged_
+* _oven_set_cap_
+* _oven_set_cup_
+* _oven_set_delta_
+
+[endsect]
+
+
+
+
+[endsect]

@@ -1,0 +1,652 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Output Iterators</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 1.00.1">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 1.00.1">
+<link rel="prev" href="merge_adaptors.html" title="Merge Adaptors">
+<link rel="next" href="output_iterator_adaptors.html" title="Output Iterator Adaptors">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="merge_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="output_iterator_adaptors.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oven.output_iterators"></a><a href="output_iterators.html" title="Output Iterators">Output Iterators</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="output_iterators.html#oven.output_iterators.any_output_iterator">any_output_iterator</a></span></dt>
+<dt><span class="section"><a href="output_iterators.html#oven.output_iterators.applier">applier</a></span></dt>
+<dt><span class="section"><a href="output_iterators.html#oven.output_iterators.eater">eater</a></span></dt>
+<dt><span class="section"><a href="output_iterators.html#oven.output_iterators.stream_writer">stream_writer</a></span></dt>
+<dt><span class="section"><a href="output_iterators.html#oven.output_iterators.streambuf_writer">streambuf_writer</a></span></dt>
+<dt><span class="section"><a href="output_iterators.html#oven.output_iterators.std_stream_writer">std_stream_writer</a></span></dt>
+</dl></div>
+<p>
+      Oven provides some useful Output Iterators.
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.output_iterators.any_output_iterator"></a><a href="output_iterators.html#oven.output_iterators.any_output_iterator" title="any_output_iterator">any_output_iterator</a></h3></div></div></div>
+<a name="oven.output_iterators.any_output_iterator.description"></a><h5>
+<a name="id596022"></a>
+        <a href="output_iterators.html#oven.output_iterators.any_output_iterator.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">any_output_iterator</span></code> is an
+        <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output Iterator</a>
+        to which any <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output
+        Iterator</a> can be assigned.
+      </p>
+<a name="oven.output_iterators.any_output_iterator.header"></a><h5>
+<a name="id596078"></a>
+        <a href="output_iterators.html#oven.output_iterators.any_output_iterator.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">any_output_iterator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.output_iterators.any_output_iterator.model_of"></a><h5>
+<a name="id596161"></a>
+        <a href="output_iterators.html#oven.output_iterators.any_output_iterator.model_of">Model
+        of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output Iterator</a></li>
+<li><a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a></li>
+<li><a href="concepts.html#oven.concepts.resettable_object" title="Resettable Object">Resettable</a></li>
+</ul></div>
+<a name="oven.output_iterators.any_output_iterator.valid_expressions"></a><h5>
+<a name="id596225"></a>
+        <a href="output_iterators.html#oven.output_iterators.any_output_iterator.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">any_output_iterator</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span><span class="identifier">_outit</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output
+                Iterator</a> whose iterator operations are forwarded to <code class="computeroutput"><span class="identifier">_outit</span></code>.
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.output_iterators.any_output_iterator.preconditions"></a><h5>
+<a name="id596373"></a>
+        <a href="output_iterators.html#oven.output_iterators.any_output_iterator.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">V</span></code> specifies a (possibly
+          reference) type which is outputted to <code class="computeroutput"><span class="identifier">_outit</span></code>.
+        </li></ul></div>
+<a name="oven.output_iterators.any_output_iterator.example"></a><h5>
+<a name="id596428"></a>
+        <a href="output_iterators.html#oven.output_iterators.any_output_iterator.example">Example</a>
+      </h5>
+<pre class="programlisting">
+<span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">in</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span> <span class="number">1</span><span class="special">,</span><span class="number">2</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">6</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">8</span><span class="special">,</span><span class="number">9</span><span class="special">,</span><span class="number">10</span> <span class="special">};</span>
+<span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">answer</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">2</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">6</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">8</span><span class="special">*</span><span class="number">3</span><span class="special">,</span><span class="number">10</span><span class="special">*</span><span class="number">3</span><span class="special">};</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">out</span><span class="special">;</span>
+<span class="identifier">any_output_iterator</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">o1</span><span class="special">,</span> <span class="identifier">o2</span><span class="special">;</span>
+<span class="identifier">o1</span> <span class="special">=</span> <span class="identifier">filterer</span><span class="special">(</span><span class="identifier">regular</span><span class="special">(</span><span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">%</span> <span class="number">2</span> <span class="special">==</span> <span class="number">0</span><span class="special">))</span> <span class="special">|=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">out</span><span class="special">);</span>
+<span class="identifier">o2</span> <span class="special">=</span> <span class="identifier">transformer</span><span class="special">(</span><span class="identifier">regular</span><span class="special">(</span><span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">*</span> <span class="number">3</span><span class="special">))</span> <span class="special">|=</span> <span class="identifier">o1</span><span class="special">;</span>
+<span class="identifier">copy</span><span class="special">(</span><span class="identifier">in</span><span class="special">,</span>  <span class="identifier">o2</span><span class="special">);</span>
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">out</span><span class="special">,</span> <span class="identifier">answer</span><span class="special">)</span> <span class="special">);</span>
+</pre>
+<a name="oven.output_iterators.any_output_iterator.see_also"></a><h5>
+<a name="id597088"></a>
+        <a href="output_iterators.html#oven.output_iterators.any_output_iterator.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="ranges.html#oven.ranges.any_range" title="any_range">any_range</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.output_iterators.applier"></a><a href="output_iterators.html#oven.output_iterators.applier" title="applier">applier</a></h3></div></div></div>
+<a name="oven.output_iterators.applier.description"></a><h5>
+<a name="id597149"></a>
+        <a href="output_iterators.html#oven.output_iterators.applier.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">applier</span></code> returns an <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output Iterator</a>
+        which passes each item assigned as an argument to the unary function.
+      </p>
+<a name="oven.output_iterators.applier.header"></a><h5>
+<a name="id597196"></a>
+        <a href="output_iterators.html#oven.output_iterators.applier.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">applier</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.output_iterators.applier.model_of"></a><h5>
+<a name="id597278"></a>
+        <a href="output_iterators.html#oven.output_iterators.applier.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.output_iterators.applier.valid_expressions"></a><h5>
+<a name="id597319"></a>
+        <a href="output_iterators.html#oven.output_iterators.applier.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">applier</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.output_iterators.applier.preconditions"></a><h5>
+<a name="id597460"></a>
+        <a href="output_iterators.html#oven.output_iterators.applier.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function_output_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">)</span></code> is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_fun</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>.
+        </li>
+</ul></div>
+<a name="oven.output_iterators.applier.example"></a><h5>
+<a name="id597594"></a>
+        <a href="output_iterators.html#oven.output_iterators.applier.example">Example</a>
+      </h5>
+<a name="oven.output_iterators.applier.see_also"></a><h5>
+<a name="id597619"></a>
+        <a href="output_iterators.html#oven.output_iterators.applier.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.boost.org/libs/iterator/doc/function_output_iterator.html" target="_top">boost::function_output_iterator</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.applied" title="applied">applied</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.output_iterators.eater"></a><a href="output_iterators.html#oven.output_iterators.eater" title="eater">eater</a></h3></div></div></div>
+<a name="oven.output_iterators.eater.description"></a><h5>
+<a name="id597691"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">eater</span></code> returns an <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output
+        Iterator</a> which ignores inputs.
+      </p>
+<a name="oven.output_iterators.eater.header"></a><h5>
+<a name="id597737"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">eater</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.output_iterators.eater.model_of"></a><h5>
+<a name="id597819"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.output_iterators.eater.notation"></a><h5>
+<a name="id597859"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">f_</span></code> is an imaginary <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+          which behaves as if it were <code class="computeroutput"><span class="identifier">v</span>
+          <span class="special">-&gt;</span> <span class="special">(</span><span class="keyword">void</span><span class="special">)</span><span class="identifier">v</span></code>.
+        </li></ul></div>
+<a name="oven.output_iterators.eater.valid_expressions"></a><h5>
+<a name="id597947"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">eater</span><span class="special">()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">applier</span><span class="special">(</span><span class="identifier">f_</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.output_iterators.eater.preconditions"></a><h5>
+<a name="id598078"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<a name="oven.output_iterators.eater.example"></a><h5>
+<a name="id598111"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.example">Example</a>
+      </h5>
+<a name="oven.output_iterators.eater.see_also"></a><h5>
+<a name="id598136"></a>
+        <a href="output_iterators.html#oven.output_iterators.eater.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="output_iterators.html#oven.output_iterators.applier" title="applier">applier</a></li>
+<li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.intercepter" title="intercepter">intercepter</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.output_iterators.stream_writer"></a><a href="output_iterators.html#oven.output_iterators.stream_writer" title="stream_writer">stream_writer</a></h3></div></div></div>
+<a name="oven.output_iterators.stream_writer.description"></a><h5>
+<a name="id598211"></a>
+        <a href="output_iterators.html#oven.output_iterators.stream_writer.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">stream_writer</span></code> returns an
+        <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output Iterator</a>
+        which is a shorthand version of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream_iterator</span></code>.
+        It needs no explicit template parameter to specify the <code class="computeroutput"><span class="identifier">value_type</span></code>
+        to output, but one extra precondition below must be met. It can be easily
+        guaranteed by using <code class="computeroutput"><span class="identifier">converter</span></code>,
+        though.
+      </p>
+<a name="oven.output_iterators.stream_writer.header"></a><h5>
+<a name="id598302"></a>
+        <a href="output_iterators.html#oven.output_iterators.stream_writer.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.output_iterators.stream_writer.model_of"></a><h5>
+<a name="id598384"></a>
+        <a href="output_iterators.html#oven.output_iterators.stream_writer.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.output_iterators.stream_writer.valid_expressions"></a><h5>
+<a name="id598424"></a>
+        <a href="output_iterators.html#oven.output_iterators.stream_writer.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="number">0</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            <code class="computeroutput"><span class="identifier">stream_writer</span></code> doesn't
+            write an extra delimiter after the last element.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="oven.output_iterators.stream_writer.preconditions"></a><h5>
+<a name="id598686"></a>
+        <a href="output_iterators.html#oven.output_iterators.stream_writer.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">hamigaki</span><span class="special">::</span><span class="identifier">ostream_iterator</span><span class="special">&lt;</span><span class="identifier">unspecified</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span>
+          <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code> is a valid expressin.
+        </li>
+<li>
+          An object which is passed to <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">))::</span><span class="keyword">operator</span><span class="special">=</span></code>
+          is <a href="http://www.boost.org/libs/conversion/lexical_cast.htm" target="_top">Output
+          Streamable</a>.
+        </li>
+</ul></div>
+<a name="oven.output_iterators.stream_writer.example"></a><h5>
+<a name="id598921"></a>
+        <a href="output_iterators.html#oven.output_iterators.stream_writer.example">Example</a>
+      </h5>
+<pre class="programlisting">
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="identifier">sample</span>
+    <span class="special">=</span> <span class="identifier">initial_values</span><span class="special">(</span><span class="string">"hello"</span><span class="special">,</span> <span class="string">"oven"</span><span class="special">,</span> <span class="string">"stream_writer"</span><span class="special">);</span>
+
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ofstream</span> <span class="identifier">fout</span><span class="special">(</span><span class="string">"read.txt"</span><span class="special">);</span>
+    <span class="identifier">copy</span><span class="special">(</span><span class="identifier">sample</span><span class="special">,</span> <span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">fout</span><span class="special">,</span> <span class="string">" "</span><span class="special">));</span>
+<span class="special">}</span>
+
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ifstream</span> <span class="identifier">fin</span><span class="special">(</span><span class="string">"read.txt"</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span>
+        <span class="identifier">oven</span><span class="special">::</span><span class="identifier">stream_read</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;(</span><span class="identifier">fin</span><span class="special">),</span>
+        <span class="identifier">sample</span>
+    <span class="special">)</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<a name="oven.output_iterators.stream_writer.see_also"></a><h5>
+<a name="id599294"></a>
+        <a href="output_iterators.html#oven.output_iterators.stream_writer.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html" target="_top">hamigaki::ostream_iteraotor</a></li>
+<li><a href="http://www.sgi.com/tech/stl/ostream_iterator.html" target="_top">std::ostream_iterator</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.delimited" title="delimited">delimited</a></li>
+<li><a href="ranges.html#oven.ranges.stream_read" title="stream_read">stream_read</a></li>
+<li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.converter" title="converter">converter</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.output_iterators.streambuf_writer"></a><a href="output_iterators.html#oven.output_iterators.streambuf_writer" title="streambuf_writer">streambuf_writer</a></h3></div></div></div>
+<a name="oven.output_iterators.streambuf_writer.description"></a><h5>
+<a name="id599405"></a>
+        <a href="output_iterators.html#oven.output_iterators.streambuf_writer.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">streambuf_writer</span></code> is the object
+        generator of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostreambuf_iterator</span></code>.
+      </p>
+<a name="oven.output_iterators.streambuf_writer.header"></a><h5>
+<a name="id599466"></a>
+        <a href="output_iterators.html#oven.output_iterators.streambuf_writer.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.output_iterators.streambuf_writer.model_of"></a><h5>
+<a name="id599549"></a>
+        <a href="output_iterators.html#oven.output_iterators.streambuf_writer.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.output_iterators.streambuf_writer.valid_expressions"></a><h5>
+<a name="id599590"></a>
+        <a href="output_iterators.html#oven.output_iterators.streambuf_writer.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">streambuf_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">streambuf_writer</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">U</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.output_iterators.streambuf_writer.preconditions"></a><h5>
+<a name="id599797"></a>
+        <a href="output_iterators.html#oven.output_iterators.streambuf_writer.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostreambuf_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span>
+          <span class="identifier">typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code> is
+          a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">U</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostreambuf_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(*</span><span class="identifier">p</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span>
+          <span class="identifier">typeof</span><span class="special">(*</span><span class="identifier">p</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">U</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code> is
+          a valid expression.
+        </li>
+</ul></div>
+<a name="oven.output_iterators.streambuf_writer.example"></a><h5>
+<a name="id600078"></a>
+        <a href="output_iterators.html#oven.output_iterators.streambuf_writer.example">Example</a>
+      </h5>
+<a name="oven.output_iterators.streambuf_writer.see_also"></a><h5>
+<a name="id600104"></a>
+        <a href="output_iterators.html#oven.output_iterators.streambuf_writer.see_also">See also</a>
+      </h5>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.output_iterators.std_stream_writer"></a><a href="output_iterators.html#oven.output_iterators.std_stream_writer" title="std_stream_writer">std_stream_writer</a></h3></div></div></div>
+<a name="oven.output_iterators.std_stream_writer.description"></a><h5>
+<a name="id600151"></a>
+        <a href="output_iterators.html#oven.output_iterators.std_stream_writer.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">std_stream_writer</span></code> returns
+        an <a href="http://boost.org/doc/html/OutputIterator.html" target="_top">Output Iterator</a>
+        which behaves as if it were <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream_iterator</span></code>.
+      </p>
+<a name="oven.output_iterators.std_stream_writer.header"></a><h5>
+<a name="id600220"></a>
+        <a href="output_iterators.html#oven.output_iterators.std_stream_writer.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_writer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.output_iterators.std_stream_writer.model_of"></a><h5>
+<a name="id600302"></a>
+        <a href="output_iterators.html#oven.output_iterators.std_stream_writer.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.static_function_object" target="_top">Static
+          Function Object</a></li></ul></div>
+<a name="oven.output_iterators.std_stream_writer.valid_expressions"></a><h5>
+<a name="id600344"></a>
+        <a href="output_iterators.html#oven.output_iterators.std_stream_writer.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">std_stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">d</span><span class="special">)</span></code>
+                but it outputs a trailing delimiter <code class="computeroutput"><span class="identifier">d</span></code>.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">std_stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">stream_writer</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.output_iterators.std_stream_writer.preconditions"></a><h5>
+<a name="id600586"></a>
+        <a href="output_iterators.html#oven.output_iterators.std_stream_writer.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The corresponding semantics is a valid expression.
+        </li></ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          </p>
+<p>
+            <code class="computeroutput"><span class="identifier">std_stream_writer</span></code> doesn't
+            take a template parameter for output <code class="computeroutput"><span class="identifier">value_type</span></code>.
+            Use <code class="computeroutput"><span class="identifier">converter</span></code> when you
+            want to specify it.
+          </p>
+<p>
+        </p>
+</td></tr>
+</table></div>
+<a name="oven.output_iterators.std_stream_writer.example"></a><h5>
+<a name="id600664"></a>
+        <a href="output_iterators.html#oven.output_iterators.std_stream_writer.example">Example</a>
+      </h5>
+<a name="oven.output_iterators.std_stream_writer.see_also"></a><h5>
+<a name="id600690"></a>
+        <a href="output_iterators.html#oven.output_iterators.std_stream_writer.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.sgi.com/tech/stl/ostream_iterator.html" target="_top">std::ostream_iterator</a></li>
+<li><a href="output_iterators.html#oven.output_iterators.stream_writer" title="stream_writer">stream_writer</a></li>
+<li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.converter" title="converter">converter</a></li>
+</ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2005 -2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="merge_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="output_iterator_adaptors.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

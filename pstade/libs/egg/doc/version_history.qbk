@@ -1,0 +1,62 @@
+[section Version History]
+
+
+
+
+[heading Version 0.90.0]
+* Released initial version.
+
+
+
+
+[heading Version 0.90.1]
+* `pipable` supports `|=` operator.
+* Introduced PipableObject concept.
+* `ret` and `perfect` semantics slightly changed.
+* Added `tagged`.
+* Added `apply`.
+
+
+
+
+[heading Version 0.90.2]
+* Concepts rearranged; `op_xxx` was renamed to `T_xxx`.
+* Renamed `before_mpl_has_xxx.hpp` to `detect_result_type.hpp`.
+
+
+
+
+[heading Version 0.90.3]
+* `mono` revised.
+* Ported to Intel C++ Compiler.
+* Fixed a bug of `lambda/result_of.hpp`.
+* `use_brace_levelN` renamed to `use_braceN+1`.
+* `compose1` renamed to `compose`.
+* Added `regular`.
+* `auxiliary` renamed to `ambi` with shifted index.
+* Macros support two forms.
+* `as_reference` renamed to `as_ref`.
+* Concept names were corrected.
+
+
+
+
+[heading Version 0.90.4]
+* Every FunctionAdaptor provides `X_xxx`.
+* `pipable` and `ambiN` implemented precise Forwarding Strategy.
+* FunctionAdaptor with `by_value` turns arguments into rvalues if possible.
+* Comparison operators added.
+* `ambiN` -> `ambi(N-1)`.
+* `ret` renamed to `return_`.
+* "Writing your strategy" added.
+
+
+
+
+[heading Version 0.90.5]
+* `tuple_pack` accepts any strategy.
+
+
+
+
+[endsect]

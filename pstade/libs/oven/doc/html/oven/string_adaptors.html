@@ -1,0 +1,1611 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>String Adaptors</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 1.00.1">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 1.00.1">
+<link rel="prev" href="range_adaptors.html" title="Range Adaptors">
+<link rel="next" href="merge_adaptors.html" title="Merge Adaptors">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="range_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="merge_adaptors.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oven.string_adaptors"></a><a href="string_adaptors.html" title="String Adaptors">String Adaptors</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.broken_into">broken_into</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.lower_chars">lower_chars</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.upper_chars">upper_chars</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.narrow_chars">narrow_chars</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.wide_chars">wide_chars</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.string_found">string_found</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.string_split">string_split</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.matches">matches</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.tokenized">tokenized</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.utf8_decoded">utf8_decoded</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.utf8_encoded">utf8_encoded</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.utf16_decoded">utf16_decoded</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.utf16_encoded">utf16_encoded</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.xpressive_matches">xpressive_matches</a></span></dt>
+<dt><span class="section"><a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized">xpressive_tokenized</a></span></dt>
+</dl></div>
+<p>
+      String Adaptor is <a href="range_adaptors.html" title="Range Adaptors">Range Adaptor</a>
+      for strings.
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.broken_into"></a><a href="string_adaptors.html#oven.string_adaptors.broken_into" title="broken_into">broken_into</a></h3></div></div></div>
+<a name="oven.string_adaptors.broken_into.description"></a><h5>
+<a name="id579519"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.broken_into.description">Description</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">broken_into</span></code> is a range
+          adaptor version of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tokenizer</span></code>.
+        </li></ul></div>
+<a name="oven.string_adaptors.broken_into.header"></a><h5>
+<a name="id579582"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.broken_into.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">broken_into</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.broken_into.model_of"></a><h5>
+<a name="id579665"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.broken_into.model_of">Model of</a>
+      </h5>
+<a name="oven.string_adaptors.broken_into.valid_expressions"></a><h5>
+<a name="id579691"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.broken_into.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_broken_into</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_broken_into</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;()(</span><span class="identifier">_rng</span><span class="special">,</span> <span class="identifier">k</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">k</span><span class="special">,</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">k</span><span class="special">,</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">),</span> <span class="identifier">boost</span><span class="special">:</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">oven</span><span class="special">::</span><span class="identifier">broken_into</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span><span class="identifier">k</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_broken_into</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;()(</span><span class="identifier">_rng</span><span class="special">,</span> <span class="identifier">k</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.broken_into.preconditions"></a><h5>
+<a name="id580143"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.broken_into.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">k</span></code> is a TokenizerFunction.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">token_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">k</span><span class="special">),</span>
+          <span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">V</span><span class="special">&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">k</span><span class="special">,</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.broken_into.example"></a><h5>
+<a name="id580366"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.broken_into.example">Example</a>
+      </h5>
+<pre class="programlisting">
+<span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">offsets</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span> <span class="number">2</span><span class="special">,</span><span class="number">2</span><span class="special">,</span><span class="number">4</span> <span class="special">};</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"12252001"</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="identifier">ans</span><span class="special">;</span> <span class="special">{</span>
+    <span class="identifier">ans</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="string">"12"</span><span class="special">);</span>
+    <span class="identifier">ans</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="string">"25"</span><span class="special">);</span>
+    <span class="identifier">ans</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="string">"2001"</span><span class="special">);</span>
+<span class="special">}</span>
+
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span>
+    <span class="identifier">ans</span><span class="special">,</span>
+    <span class="identifier">src</span><span class="special">|</span><span class="identifier">oven</span><span class="special">::</span><span class="identifier">broken_into</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">offset_separator</span><span class="special">(</span><span class="identifier">offsets</span><span class="special">,</span> <span class="identifier">offsets</span><span class="special">+</span><span class="number">3</span><span class="special">))</span>
+<span class="special">)</span> <span class="special">);</span>
+</pre>
+<a name="oven.string_adaptors.broken_into.see_also"></a><h5>
+<a name="id580806"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.broken_into.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.boost.org/libs/tokenizer/index.html" target="_top">boost::tokenizer</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.concatenated" title="concatenated">concatenated</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.memoized" title="memoized">memoized</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.tokenized" title="tokenized">tokenized</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized" title="xpressive_tokenized">xpressive_tokenized</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.lower_chars"></a><a href="string_adaptors.html#oven.string_adaptors.lower_chars" title="lower_chars">lower_chars</a></h3></div></div></div>
+<a name="oven.string_adaptors.lower_chars.description"></a><h5>
+<a name="id580918"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">lower_chars</span></code> performs case-conversion
+        on all characters in the base range.
+      </p>
+<a name="oven.string_adaptors.lower_chars.header"></a><h5>
+<a name="id580956"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">lower_chars</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.lower_chars.model_of"></a><h5>
+<a name="id581040"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.lower_chars.notation"></a><h5>
+<a name="id581081"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">loc</span></code> is a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span></code> object.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">to_l</span></code> is an imaginary function
+          object to call <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tolower</span></code> using <code class="computeroutput"><span class="identifier">loc</span></code>.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.lower_chars.valid_expressions"></a><h5>
+<a name="id581189"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">lower_chars</span><span class="special">(</span><span class="identifier">loc</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">to_l</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">lower_chars</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">lower_chars</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.lower_chars.preconditions"></a><h5>
+<a name="id581432"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tolower</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">),</span> <span class="identifier">loc</span><span class="special">)</span></code>
+          is well-formed.
+        </li></ul></div>
+<a name="oven.string_adaptors.lower_chars.example"></a><h5>
+<a name="id581530"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.example">Example</a>
+      </h5>
+<pre class="programlisting">
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"AbCdEFG"</span><span class="special">)|</span><span class="identifier">lower_chars</span><span class="special">,</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"abcdefg"</span><span class="special">)</span>
+<span class="special">)</span> <span class="special">);</span>
+</pre>
+<a name="oven.string_adaptors.lower_chars.see_also"></a><h5>
+<a name="id581668"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.lower_chars.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-lower" target="_top">to_lower
+          proposal</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.transformed" title="transformed">transformed</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.upper_chars" title="upper_chars">upper_chars</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.upper_chars"></a><a href="string_adaptors.html#oven.string_adaptors.upper_chars" title="upper_chars">upper_chars</a></h3></div></div></div>
+<a name="oven.string_adaptors.upper_chars.description"></a><h5>
+<a name="id581756"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">upper_chars</span></code> performs case-conversion
+        on all characters in the base range.
+      </p>
+<a name="oven.string_adaptors.upper_chars.header"></a><h5>
+<a name="id581795"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">upper_chars</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.upper_chars.model_of"></a><h5>
+<a name="id581878"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.upper_chars.notation"></a><h5>
+<a name="id581920"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">loc</span></code> is a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span></code> object.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">to_u</span></code> is an imaginary function
+          object to call <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">toupper</span></code> using <code class="computeroutput"><span class="identifier">loc</span></code>.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.upper_chars.valid_expressions"></a><h5>
+<a name="id582027"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">upper_chars</span><span class="special">(</span><span class="identifier">loc</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">to_u</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">upper_chars</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">upper_chars</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.upper_chars.preconditions"></a><h5>
+<a name="id582270"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">toupper</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">),</span> <span class="identifier">loc</span><span class="special">)</span></code>
+          is well-formed.
+        </li></ul></div>
+<a name="oven.string_adaptors.upper_chars.example"></a><h5>
+<a name="id582368"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.example">Example</a>
+      </h5>
+<pre class="programlisting">
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"AbCdEFG"</span><span class="special">)|</span><span class="identifier">upper_chars</span><span class="special">,</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"ABCDEFG"</span><span class="special">)</span>
+<span class="special">)</span> <span class="special">);</span>
+</pre>
+<a name="oven.string_adaptors.upper_chars.see_also"></a><h5>
+<a name="id582506"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.upper_chars.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-upper" target="_top">to_upper
+          proposal</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.lower_chars" title="lower_chars">lower_chars</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.transformed" title="transformed">transformed</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.narrow_chars"></a><a href="string_adaptors.html#oven.string_adaptors.narrow_chars" title="narrow_chars">narrow_chars</a></h3></div></div></div>
+<a name="oven.string_adaptors.narrow_chars.description"></a><h5>
+<a name="id582594"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.description">Description</a>
+      </h5>
+<a name="oven.string_adaptors.narrow_chars.header"></a><h5>
+<a name="id582620"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">narrow_chars</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.narrow_chars.model_of"></a><h5>
+<a name="id582702"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.narrow_chars.notation"></a><h5>
+<a name="id582744"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">loc</span></code> is a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span></code> object.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">to_n</span></code> is an imaginary function
+          object to call <code class="computeroutput"><span class="identifier">narrow</span></code> using
+          <code class="computeroutput"><span class="identifier">loc</span></code>.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.narrow_chars.valid_expressions"></a><h5>
+<a name="id582841"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">narrow_chars</span><span class="special">(</span><span class="identifier">loc</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">to_n</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">narrow_chars</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">narrow_chars</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.narrow_chars.preconditions"></a><h5>
+<a name="id583084"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">use_facet</span><span class="special">&lt;</span>
+          <span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;</span><span class="identifier">_value_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span> <span class="special">&gt;(</span><span class="identifier">loc</span><span class="special">).</span><span class="identifier">narrow</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is well-formed.
+        </li></ul></div>
+<a name="oven.string_adaptors.narrow_chars.example"></a><h5>
+<a name="id583261"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.narrow_chars.see_also"></a><h5>
+<a name="id583286"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.narrow_chars.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="range_adaptors.html#oven.range_adaptors.transformed" title="transformed">transformed</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.wide_chars" title="wide_chars">wide_chars</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.wide_chars"></a><a href="string_adaptors.html#oven.string_adaptors.wide_chars" title="wide_chars">wide_chars</a></h3></div></div></div>
+<a name="oven.string_adaptors.wide_chars.description"></a><h5>
+<a name="id583362"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.description">Description</a>
+      </h5>
+<a name="oven.string_adaptors.wide_chars.header"></a><h5>
+<a name="id583385"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">wide_chars</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.wide_chars.model_of"></a><h5>
+<a name="id583468"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.wide_chars.notation"></a><h5>
+<a name="id583510"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">loc</span></code> is a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span></code> object.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">to_w</span></code> is an imaginary function
+          object to call <code class="computeroutput"><span class="identifier">widen</span></code> using
+          <code class="computeroutput"><span class="identifier">loc</span></code>.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.wide_chars.valid_expressions"></a><h5>
+<a name="id583607"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_wide_chars</span><span class="special">&lt;</span><span class="identifier">CharT</span>
+                <span class="special">=</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_wide_chars</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;()(</span><span class="identifier">_rng</span><span class="special">,</span> <span class="identifier">loc</span>
+                <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span><span class="special">())</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">to_w</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">rng</span><span class="special">|</span><span class="identifier">wide_chars</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_wide_chars</span><span class="special">&lt;&gt;(</span><span class="identifier">_rng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.wide_chars.preconditions"></a><h5>
+<a name="id583928"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">use_facet</span><span class="special">&lt;</span>
+          <span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span> <span class="special">&gt;(</span><span class="identifier">loc</span><span class="special">).</span><span class="identifier">widen</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is well-formed.
+        </li></ul></div>
+<a name="oven.string_adaptors.wide_chars.example"></a><h5>
+<a name="id584073"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.wide_chars.see_also"></a><h5>
+<a name="id584099"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.wide_chars.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="string_adaptors.html#oven.string_adaptors.narrow_chars" title="narrow_chars">narrow_chars</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.transformed" title="transformed">transformed</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.string_found"></a><a href="string_adaptors.html#oven.string_adaptors.string_found" title="string_found">string_found</a></h3></div></div></div>
+<a name="oven.string_adaptors.string_found.description"></a><h5>
+<a name="id584174"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_found.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">string_found</span></code> returns a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">find_iterator</span></code> range.
+      </p>
+<a name="oven.string_adaptors.string_found.header"></a><h5>
+<a name="id584235"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_found.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">string_found</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.string_found.model_of"></a><h5>
+<a name="id584317"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_found.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.string_found.valid_expressions"></a><h5>
+<a name="id584358"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_found.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">string_found</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">,</span> <span class="identifier">f</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.string_adaptors.string_found.preconditions"></a><h5>
+<a name="id584536"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_found.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">f</span></code> is a Finder.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">find_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code>
+          is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.string_found.example"></a><h5>
+<a name="id584695"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_found.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.string_found.see_also"></a><h5>
+<a name="id584721"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_found.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/doc/html/find_iterator.html" target="_top">boost::find_iterator</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.string_split"></a><a href="string_adaptors.html#oven.string_adaptors.string_split" title="string_split">string_split</a></h3></div></div></div>
+<a name="oven.string_adaptors.string_split.description"></a><h5>
+<a name="id584781"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_split.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">string_split</span></code> returns a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">split_iterator</span></code> range.
+      </p>
+<a name="oven.string_adaptors.string_split.header"></a><h5>
+<a name="id584840"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_split.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">string_split</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.string_split.model_of"></a><h5>
+<a name="id584923"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_split.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.string_split.valid_expressions"></a><h5>
+<a name="id584966"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_split.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">string_split</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">,</span> <span class="identifier">f</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.string_adaptors.string_split.preconditions"></a><h5>
+<a name="id585143"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_split.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">f</span></code> is a Finder.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">split_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">,</span> <span class="identifier">f</span><span class="special">)</span></code>
+          is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.string_split.example"></a><h5>
+<a name="id585303"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_split.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.string_split.see_also"></a><h5>
+<a name="id585328"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.string_split.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/doc/html/split_iterator.html" target="_top">boost::split_iterator</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.matches"></a><a href="string_adaptors.html#oven.string_adaptors.matches" title="matches">matches</a></h3></div></div></div>
+<a name="oven.string_adaptors.matches.description"></a><h5>
+<a name="id585386"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">matches</span></code> returns a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex_iterator</span></code> range.
+      </p>
+<a name="oven.string_adaptors.matches.header"></a><h5>
+<a name="id585445"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">matches</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.matches.model_of"></a><h5>
+<a name="id585527"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.matches.valid_expressions"></a><h5>
+<a name="id585569"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_matches</span><span class="special">&lt;</span><span class="identifier">X1</span><span class="special">,...,</span><span class="identifier">XN</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_matches</span><span class="special">&lt;</span><span class="identifier">X1</span><span class="special">,...,</span><span class="identifier">XN</span><span class="special">&gt;()(</span><span class="identifier">_bidrng</span><span class="special">,</span>
+                <span class="identifier">y1</span><span class="special">,...,</span><span class="identifier">yM</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">y1</span><span class="special">,...,</span><span class="identifier">yM</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_bidrng</span><span class="special">|</span><span class="identifier">matches</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_matches</span><span class="special">&lt;&gt;()(</span><span class="identifier">_bidrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.matches.preconditions"></a><h5>
+<a name="id585942"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">X1</span><span class="special">,...,</span><span class="identifier">XN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">y0</span><span class="special">,...,</span><span class="identifier">yM</span><span class="special">)</span></code> is a valid expression.
+        </li></ul></div>
+<a name="oven.string_adaptors.matches.invariants"></a><h5>
+<a name="id586150"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The iterator type of <code class="computeroutput"><span class="identifier">matches</span></code>
+          range is not <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li></ul></div>
+<a name="oven.string_adaptors.matches.example"></a><h5>
+<a name="id586202"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.matches.see_also"></a><h5>
+<a name="id586227"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.matches.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.boost.org/libs/regex/doc/regex_iterator.html" target="_top">boost::regex_iterator</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.tokenized" title="tokenized">tokenized</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.tokenized"></a><a href="string_adaptors.html#oven.string_adaptors.tokenized" title="tokenized">tokenized</a></h3></div></div></div>
+<a name="oven.string_adaptors.tokenized.description"></a><h5>
+<a name="id586298"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">tokenized</span></code> returns a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex_token_iterator</span></code> range.
+      </p>
+<a name="oven.string_adaptors.tokenized.header"></a><h5>
+<a name="id586357"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">tokenized</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.tokenized.model_of"></a><h5>
+<a name="id586439"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.tokenized.valid_expressions"></a><h5>
+<a name="id586481"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_tokenized</span><span class="special">&lt;</span><span class="identifier">Y1</span><span class="special">,...,</span><span class="identifier">YN</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_tokenized</span><span class="special">&lt;</span><span class="identifier">Y1</span><span class="special">,...,</span><span class="identifier">YN</span><span class="special">&gt;()(</span><span class="identifier">_bidrng</span><span class="special">,</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xM</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xM</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_bidrng</span><span class="special">|</span><span class="identifier">tokenized</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_tokenized</span><span class="special">&lt;&gt;()(</span><span class="identifier">_bidrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.tokenized.preconditions"></a><h5>
+<a name="id586856"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex_token_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">Y1</span><span class="special">,...,</span><span class="identifier">YN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xM</span><span class="special">)</span></code> is a valid expression.
+        </li></ul></div>
+<a name="oven.string_adaptors.tokenized.invariants"></a><h5>
+<a name="id587064"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The iterator type of <code class="computeroutput"><span class="identifier">tokenized</span></code>
+          range is not <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li></ul></div>
+<a name="oven.string_adaptors.tokenized.example"></a><h5>
+<a name="id587116"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.tokenized.see_also"></a><h5>
+<a name="id587141"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.tokenized.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.boost.org/libs/regex/doc/regex_token_iterator.html" target="_top">boost::regex_token_iterator</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.broken_into" title="broken_into">broken_into</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.utf8_decoded"></a><a href="string_adaptors.html#oven.string_adaptors.utf8_decoded" title="utf8_decoded">utf8_decoded</a></h3></div></div></div>
+<a name="oven.string_adaptors.utf8_decoded.description"></a><h5>
+<a name="id587215"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_decoded.description">Description</a>
+      </h5>
+<p>
+        Pending...
+      </p>
+<a name="oven.string_adaptors.utf8_decoded.header"></a><h5>
+<a name="id587245"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_decoded.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf8_decoded</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.utf8_decoded.model_of"></a><h5>
+<a name="id587327"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_decoded.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.utf8_decoded.valid_expressions"></a><h5>
+<a name="id587368"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_decoded.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf8_decoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf8_decoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;()(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+                non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>
+                <a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant</a> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_fwdrng</span><span class="special">|</span><span class="identifier">utf8_decoded</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf8_decoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.utf8_decoded.preconditions"></a><h5>
+<a name="id587726"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_decoded.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_fwdrng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">u8_to_u32_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">))</span></code> is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.utf8_decoded.example"></a><h5>
+<a name="id587914"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_decoded.example">Example</a>
+      </h5>
+<pre class="programlisting">
+<span class="identifier">file_range</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">uint8_t</span><span class="special">&gt;</span> <span class="identifier">frng</span><span class="special">(</span><span class="string">"utf8.txt"</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">uint8_t</span><span class="special">&gt;</span> <span class="identifier">result</span><span class="special">;</span>
+<span class="identifier">copy</span><span class="special">(</span><span class="identifier">frng</span><span class="special">|</span><span class="identifier">utf8_decoded</span><span class="special">,</span> <span class="identifier">utf8_encoder</span><span class="special">|=</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">result</span><span class="special">));</span>
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">frng</span><span class="special">,</span> <span class="identifier">result</span><span class="special">)</span> <span class="special">);</span>
+</pre>
+<a name="oven.string_adaptors.utf8_decoded.see_also"></a><h5>
+<a name="id588164"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_decoded.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="ranges.html#oven.ranges.file_range" title="file_range">file_range</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.utf8_encoded" title="utf8_encoded">utf8_encoded</a></li>
+<li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.utf8_encoder" title="utf8_encoder">utf8_encoder</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.utf8_encoded"></a><a href="string_adaptors.html#oven.string_adaptors.utf8_encoded" title="utf8_encoded">utf8_encoded</a></h3></div></div></div>
+<a name="oven.string_adaptors.utf8_encoded.description"></a><h5>
+<a name="id588254"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_encoded.description">Description</a>
+      </h5>
+<p>
+        Pending...
+      </p>
+<a name="oven.string_adaptors.utf8_encoded.header"></a><h5>
+<a name="id588283"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_encoded.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf8_encoded</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.utf8_encoded.model_of"></a><h5>
+<a name="id588366"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_encoded.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.utf8_encoded.valid_expressions"></a><h5>
+<a name="id588407"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_encoded.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf8_encoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf8_encoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;()(</span><span class="identifier">_rng</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+                non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>
+                <a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant</a> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">_end</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">utf8_encoded</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf8_encoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_rng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.utf8_encoded.preconditions"></a><h5>
+<a name="id588765"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_encoded.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_rng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32_to_u8_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.utf8_encoded.example"></a><h5>
+<a name="id588953"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_encoded.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.utf8_encoded.see_also"></a><h5>
+<a name="id588978"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf8_encoded.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="ranges.html#oven.ranges.file_range" title="file_range">file_range</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.utf8_decoded" title="utf8_decoded">utf8_decoded</a></li>
+<li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.utf8_encoder" title="utf8_encoder">utf8_encoder</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.utf16_decoded"></a><a href="string_adaptors.html#oven.string_adaptors.utf16_decoded" title="utf16_decoded">utf16_decoded</a></h3></div></div></div>
+<a name="oven.string_adaptors.utf16_decoded.description"></a><h5>
+<a name="id589066"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_decoded.description">Description</a>
+      </h5>
+<p>
+        Pending...
+      </p>
+<a name="oven.string_adaptors.utf16_decoded.header"></a><h5>
+<a name="id589095"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_decoded.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf16_decoded</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.utf16_decoded.model_of"></a><h5>
+<a name="id589178"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_decoded.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.utf16_decoded.valid_expressions"></a><h5>
+<a name="id589219"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_decoded.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf16_decoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf16_decoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;()(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+                non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>
+                <a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant</a> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_fwdrng</span><span class="special">|</span><span class="identifier">utf16_decoded</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf16_decoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.utf16_decoded.preconditions"></a><h5>
+<a name="id589576"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_decoded.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_fwdrng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">u16_to_u32_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">))</span></code> is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.utf16_decoded.example"></a><h5>
+<a name="id589766"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_decoded.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.utf16_decoded.see_also"></a><h5>
+<a name="id589791"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_decoded.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="ranges.html#oven.ranges.file_range" title="file_range">file_range</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.utf16_encoded" title="utf16_encoded">utf16_encoded</a></li>
+<li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.utf16_encoder" title="utf16_encoder">utf16_encoder</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.utf16_encoded"></a><a href="string_adaptors.html#oven.string_adaptors.utf16_encoded" title="utf16_encoded">utf16_encoded</a></h3></div></div></div>
+<a name="oven.string_adaptors.utf16_encoded.description"></a><h5>
+<a name="id589881"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_encoded.description">Description</a>
+      </h5>
+<p>
+        Pending...
+      </p>
+<a name="oven.string_adaptors.utf16_encoded.header"></a><h5>
+<a name="id589910"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_encoded.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf16_encoded</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.utf16_encoded.model_of"></a><h5>
+<a name="id589993"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_encoded.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.utf16_encoded.valid_expressions"></a><h5>
+<a name="id590034"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_encoded.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf16_encoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://p-stade.sourceforge.net/egg/doc/html/egg/concepts.html#egg.concepts.major_function_object" target="_top">Major
+                Function Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf16_encoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;()(</span><span class="identifier">_rng</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+                non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>
+                <a href="concepts.html#oven.concepts.constant_range" title="Constant Range">Constant</a> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">_end</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">utf16_encoded</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_make_utf16_encoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_rng</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+<a name="oven.string_adaptors.utf16_encoded.preconditions"></a><h5>
+<a name="id590391"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_encoded.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_rng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32_to_u16_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">U1</span><span class="special">,...,</span><span class="identifier">UN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is a valid expression.
+        </li>
+</ul></div>
+<a name="oven.string_adaptors.utf16_encoded.example"></a><h5>
+<a name="id590580"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_encoded.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.utf16_encoded.see_also"></a><h5>
+<a name="id590606"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.utf16_encoded.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="ranges.html#oven.ranges.file_range" title="file_range">file_range</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.utf16_decoded" title="utf16_decoded">utf16_decoded</a></li>
+<li><a href="output_iterator_adaptors.html#oven.output_iterator_adaptors.utf16_encoder" title="utf16_encoder">utf16_encoder</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.xpressive_matches"></a><a href="string_adaptors.html#oven.string_adaptors.xpressive_matches" title="xpressive_matches">xpressive_matches</a></h3></div></div></div>
+<a name="oven.string_adaptors.xpressive_matches.description"></a><h5>
+<a name="id590693"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">xpressive_matches</span></code> returns
+        a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_iterator</span></code> range.
+      </p>
+<a name="oven.string_adaptors.xpressive_matches.header"></a><h5>
+<a name="id590765"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">xpressive_matches</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.xpressive_matches.model_of"></a><h5>
+<a name="id590848"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.xpressive_matches.valid_expressions"></a><h5>
+<a name="id590889"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_bidrng</span><span class="special">|</span><span class="identifier">xpressive_matches</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.string_adaptors.xpressive_matches.preconditions"></a><h5>
+<a name="id591118"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_iterator</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_const_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
+        </li></ul></div>
+<a name="oven.string_adaptors.xpressive_matches.invariants"></a><h5>
+<a name="id591325"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The iterator type of <code class="computeroutput"><span class="identifier">xpressive_matches</span></code>
+          range is not <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li></ul></div>
+<a name="oven.string_adaptors.xpressive_matches.example"></a><h5>
+<a name="id591380"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.xpressive_matches.see_also"></a><h5>
+<a name="id591406"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_matches.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_iterator/hpp.html" target="_top">boost::xpressive::regex_iterator</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.matches" title="matches">matches</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized" title="xpressive_tokenized">xpressive_tokenized</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.string_adaptors.xpressive_tokenized"></a><a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized" title="xpressive_tokenized">xpressive_tokenized</a></h3></div></div></div>
+<a name="oven.string_adaptors.xpressive_tokenized.description"></a><h5>
+<a name="id591491"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.description">Description</a>
+      </h5>
+<p>
+        <code class="computeroutput"><span class="identifier">xpressive_tokenized</span></code> returns
+        a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_token_iterator</span></code> range.
+      </p>
+<a name="oven.string_adaptors.xpressive_tokenized.header"></a><h5>
+<a name="id591563"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">xpressive_tokenized</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="oven.string_adaptors.xpressive_tokenized.model_of"></a><h5>
+<a name="id591645"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.concepts.pipable_adaptor" title="Pipable Adaptor">Pipable Adaptor</a></li></ul></div>
+<a name="oven.string_adaptors.xpressive_tokenized.valid_expressions"></a><h5>
+<a name="id591688"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.valid_expressions">Valid
+        expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_bidrng</span><span class="special">|</span><span class="identifier">xpressive_tokenized</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="oven.string_adaptors.xpressive_tokenized.preconditions"></a><h5>
+<a name="id591917"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_token_iterator</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_const_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
+        </li></ul></div>
+<a name="oven.string_adaptors.xpressive_tokenized.invariants"></a><h5>
+<a name="id592125"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          The iterator type of <code class="computeroutput"><span class="identifier">xpressive_tokenized</span></code>
+          range is not <a href="concepts.html#oven.concepts.parallel_safe" title="Parallel Safe">Parallel Safe</a>.
+        </li></ul></div>
+<a name="oven.string_adaptors.xpressive_tokenized.example"></a><h5>
+<a name="id592180"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.example">Example</a>
+      </h5>
+<a name="oven.string_adaptors.xpressive_tokenized.see_also"></a><h5>
+<a name="id592206"></a>
+        <a href="string_adaptors.html#oven.string_adaptors.xpressive_tokenized.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_token_iterator/hpp.html" target="_top">boost::xpressive::regex_token_iterator</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.concatenated" title="concatenated">concatenated</a></li>
+<li><a href="range_adaptors.html#oven.range_adaptors.memoized" title="memoized">memoized</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.tokenized" title="tokenized">tokenized</a></li>
+<li><a href="string_adaptors.html#oven.string_adaptors.xpressive_matches" title="xpressive_matches">xpressive_matches</a></li>
+</ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2005 -2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="range_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="merge_adaptors.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

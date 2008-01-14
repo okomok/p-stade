@@ -1,0 +1,162 @@
+[section Object Generator]
+
+A simple object generator can be built automagically using the following family.
+
+
+
+
+[section generator]
+
+[heading Description]
+`generator` is one of the __EGG_FUNCTION_BUILDERS__ which builds an "object generator".
+
+[heading Header]
+* `<pstade/egg/generator.hpp>`
+
+[heading Notation]
+* `C(Lam)` is
+    * a type which behaves like `Lam` without no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
+    * `Lam` itself otherwise.
+* `g` is an object of `generator<Lam, R0, How, _Stg>::type`.
+* `X` is `boost::mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
+* `arglist` is `_safe_arg_list(a, _Stg)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`generator<Lam, R0 = _default, How = _default, _Stg = _default>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_GENERATOR()`]
+        [A braced initializer of `generator<Lam, R0, How, _Stg>::type`]
+    ]
+    [
+        [`g(a1,...,aN)`]
+        [Returns an object made by `How`.]
+    ]
+    [
+        [`g()`]
+        [Returns a `R0` object made by `How`.]
+    ]
+]
+
+[heading Preconditions]
+* `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
+* `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
+* `How` is `_default` or one of the type in __EGG_GENERATING_FORMS__.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR()`.
+* `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]
+
+[heading Example]
+[code_generator_example]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section Generating forms]
+
+[heading Description]
+`generator` generates an object using constructor by default.
+You need these helpers if a generating type has no constructor.
+
+[heading Header]
+* `<pstade/egg/use_constructor.hpp>` defines `use_constructor`.
+* `<pstade/egg/use_brace1.hpp>` defines `use_brace1`.
+* `<pstade/egg/use_brace2.hpp>` defines `use_brace2`.
+
+[heading Notation]
+* Notation defined in __EGG_GENERATOR__.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`use_constructor`]
+        [`return X(arglist);`]
+    ]
+    [
+        [`use_brace1`]
+        [`X x = {arglist}; return x;`]
+    ]
+    [
+        [`use_brace2`]
+        [`X x = {{arglist}}; return x;`]
+    ]
+]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section Deducers]
+
+[heading Description]
+Egg provides some basic and useful __METAFUNCTION_CLASS__ types for better error messages.
+You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though.
+
+[heading Header]
+* `<pstade/egg/generator.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`deduce<A, As>`]
+        [` boost::mpl::apply<As, A>` if the corresponding argument is passed; ill-formed otherwise.]
+    ]
+    [
+        [`deduce<A, As, Def>`]
+        [` boost::mpl::apply<As, A>` if the corresponding argument is passed; `boost::mpl::identity<Def>` otherwise.]
+    ]
+    [
+        [`as_ref`]
+        [`boost::add_reference<boost::mpl::_>`]
+    ]
+    [
+        [`as_cref`]
+        [`boost::add_reference< boost::add_const<boost::mpl::_> >`]
+    ]
+    [
+        [`as_value`]
+        [`boost::remove_cv< boost::decay<boost::mpl::_> >`]
+    ]
+    [
+        [`as_qualified`]
+        [`boost::mpl::identity<boost::mpl::_>`]
+    ]
+]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[endsect]

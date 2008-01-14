@@ -1,0 +1,2132 @@
+[section Range Adaptors]
+
+A Range Adaptor delivers an altered presentation of one or more underlying ranges.
+Range Adaptors are lazy, meaning that their elements are only computed on demand.
+A Range Adaptor meets the following requirements unless otherwise specified:
+
+* The complexity is `O(1)`; it returns in constant time.
+* It doesn't modify _range_ concepts to which the base range conforms.
+
+
+
+
+[section adjacent_filtered]
+
+[heading Description]
+`adjacent_filtered` skips elements while a predicate applied to adjacent pairs doesn't satisfy.
+
+[heading Header]
+* `<pstade/oven/adjacent_filtered.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `{a1,...,aN}` is `_rng`.
+* `{b1,...,bM}` is a [@http://en.wikipedia.org/wiki/Subsequence subsequence] of `{a1,...,aN}`.
+* `_prd(b1, b2)`, `_prd(b2, b3)`, ..., `_prd(b(M-1), bM)` are `true`.
+* The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|adjacent_filtered(_prd)`]
+        [
+            A _forward_ _constant_ `{b1,...,bM}`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+* `_prd(*_begin(_rng), *_begin(_rng))` is well-formed.
+* `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
+
+[heading Complexity]
+* At most `distance(_rng)` applications of the corresponding `_prd`.
+
+[heading Example]
+
+[heading See also]
+* _oven_filtered_
+* _oven_uniqued_
+
+[endsect]
+
+
+
+
+[section adjacent_transformed]
+
+[heading Description]
+`adjacent_transformed` is considered as the adaptor version of `std::adjacent_difference`.
+It passes adjacent pairs to a function to transform repeatedly.
+
+[heading Header]
+* `<pstade/oven/adjacent_transformed.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `{a1,...,aN}` is `_rng`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_adjacent_transformed<R>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_adjacent_transformed<R>()(_rng, _fun)`]
+        [
+            `{_fun(a1,a2),_fun(a2,a3),...,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
+        ]
+    ]
+    [
+        [`X_make_adjacent_transformed<>()(_rng, _cal)`]
+        [
+            `{_cal(a1,a2),_cal(a2,a3),...,_cal(a(N-1),aN)}`
+        ]
+    ]
+    [
+        [`_rng|adjacent_transformed(_cal)`]
+        [
+            `X_make_adjacent_transformed<>()(_rng, _cal)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* If `_rng` is not _forward_, `_value_of<_typeof(_rng)>::type` is _assignable_.
+* `!boost::empty(_rng)`
+* `_fun(*_begin(_rng), *_begin(_rng))` is well-formed.
+* `_fun` is _assignable_ and _default_constructible_.
+* `_fun` shall not modify referents.
+* `_cal` meets the preconditions of `_fun`.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.sgi.com/tech/stl/adjacent_difference.html std::adjacent_difference]
+* _oven_transformed_
+
+[endsect]
+
+
+
+
+[section always]
+
+[heading Description]
+`always` returns a range which does not change as the base range varies.
+
+[heading Header]
+* `<pstade/oven/always.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|always(_rng2)`]
+        [
+            `[_begin(_rng2), _end(_rng2))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+
+[heading Example]
+    BOOST_CHECK( equals(
+        std::string("labor")
+            | jointed(std::string("will be"))
+            | always("lost"),
+        std::string("lost")
+    ) );
+
+[endsect]
+
+
+
+
+[section applied]
+
+[heading Description]
+`applied`, given a function object which represents an algorithm, creates an adaptor.
+
+[heading Header]
+* `<pstade/oven/applied.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|applied(_fun1, _fun2)`]
+        [
+            `[_fun1(_rng), _fun2(_rng))`
+        ]
+    ]
+    [
+        [`_rng|applied(_fun3)`]
+        [
+            `[_begin(r), _end(r))`, where `r = _fun3(_rng)`.
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_typeof(_fun1(_rng))` and `_typeof(_fun2(_rng))` are convertible to `_iter_of<_typeof(_rng)>::type`.
+* `_iter_of<_typeof(fun3(_rng))>::type` is convertible to `_iter_of<_typeof(_rng)>::type`.
+* `[_fun1(_rng), _fun2(_rng))` is a _range_.
+* `[_begin(r), _end(_rng))`, where `r = _fun3(_rng)`, is a _range_.
+
+[heading Complexity]
+* Depends on `_fun1`, `_fun2` and `_fun3`.
+
+
+[heading Example]
+    namespace lambda = boost::lambda;
+    std::string src("abcdefghijk");
+    std::string s1("efg");
+    BOOST_CHECK( equals(
+        std::string("efghijk"),
+        src|applied(lambda::bind(search, lambda::_1, s1), end)
+    ) );
+
+[heading See also]
+* _oven_applier_
+* _oven_range_transformer_
+
+[endsect]
+
+
+
+
+[section checked]
+
+[heading Description]
+`checked` adds the bounds checking ability to the base range.
+
+[heading Header]
+* `<pstade/oven/checked.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|checked`]
+        [
+            `[_begin(_fwdrng), _end(_fwdrng))`
+        ]
+    ]
+    [
+        [`checked_begin`]
+        [
+            An _ambi_ _static_function_object_
+        ]
+    ]
+    [
+        [`checked_begin(_fwdrng)`]
+        [
+            `_begin(_fwdrng|checked)`
+        ]
+    ]
+]
+
+[heading Effects]
+* Throws `std::out_of_range` if iterators go out of `_fwdrng`.
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+    std::string in("012345");
+    std::string out("01234");
+
+    try {
+        copy(in, boost::begin(out|checked));
+    }
+    catch (std::out_of_range const& ) {
+        return;
+    }
+    BOOST_CHECK(false);
+
+[endsect]
+
+
+
+
+[section cleared]
+
+[heading Description]
+`cleared` lets the base range viewed as empty.
+
+[heading Header]
+* `<pstade/oven/cleared.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|cleared`]
+        [
+            `[_end(_rng), _end(_rng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+
+[heading Example]
+    BOOST_CHECK( boost::empty(
+        std::string("labor")
+            | jointed(std::string("lost"))
+            | cleared
+    ) );
+
+[heading See also]
+* _oven_empty_range_
+
+[endsect]
+
+
+
+
+[section concatenated]
+
+[heading Description]
+`concatenated`, given a range whose values are ranges, concatenates them.
+
+[heading Header]
+* `<pstade/oven/concatenated.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `SegmentIterator` is `_iter_of<_typeof(_rng)>::type`.
+* `LocalRange` is `_value_of<_typeof(_rng)>::type`.
+* `LocalIterator` is `_iter_of<LocalRange>::type`.
+* `{aI1,aI2,...,aIMI}` is `*boost::next(_begin(_rng), I)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|concatenated`]
+        [
+            An up-to-_bidirectional_ `{a11,a12,...,a1M1,a21,a22,...,a2M2,...,aN1,aN2,...,aMN}`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+* `LocalRange` is _range_.
+* Destruction of a `SegmentIterator` doesn't invalidate the `LocalIterator` previously obtained from that iterator.
+
+[important The last precondition implies that `SegmentIterator` isn't allowed to manage the lifetime of `LocalIterator` referents.
+      Hence `broken_into` can't meets the precondition. (`xpressive_tokenized` with Boost 1.35 works well.)
+      Fortunately, `memoized` can turn them into _lvalue_ _range_ which meets it trivially.]
+
+[heading Example]
+    std::string input("This is his face");
+    boost::regex re("\\w+");
+    BOOST_CHECK( equals(
+        input|tokenized(re)|concatenated,
+        std::string("Thisishisface")
+    ) );
+
+[heading See also]
+* _oven_broken_into_
+* _oven_memoized_
+* _oven_tokenized_
+* _oven_xpressive_tokenized_
+
+[endsect]
+
+
+
+
+[section const_refs]
+
+[heading Description]
+`const_refs` converts the base range into a range of /const reference/,
+then pretends to be a range of _forward_iterator_.
+
+[tip Strictly speaking, an iterator obtained is not a conforming _forward_iterator_.]
+
+[heading Header]
+* `<pstade/oven/const_refs.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|const_refs`]
+        [
+            A _readable_ non-_lvalue_ _constant_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
+
+[heading Example]
+
+[heading See also]
+* _oven_constants_
+
+[endsect]
+
+
+
+
+[section constants]
+
+[heading Description]
+`constants` converts the base range into a _constant_ _range_.
+
+[heading Header]
+* `<pstade/oven/constants.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|constants`]
+        [
+            A _constant_ `[_begin(_rng), _end(_rng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+
+[heading Example]
+
+[heading See also]
+* _oven_const_refs_
+
+[endsect]
+
+
+
+
+[section converted]
+
+[heading Description]
+`converted` changes range referents to specified type.
+
+[heading Header]
+* `<pstade/oven/converted.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `f_` is an imaginary _function_object_ which behaves as if it were `v -> boost::implicit_cast<To>(v)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_converted<To>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_converted<To>()(_rng)`]
+        [
+            `_rng|transformed(f_)`
+        ]
+    ]
+    [
+        [`oven::make_converted<To>(_rng)`]
+        [
+            `X_make_converted<To>()(_rng)`
+        ]
+    ]
+    [
+        [`converted<To>`]
+        [
+            A _pipable_fuction_object_ type
+        ]
+    ]
+    [
+        [`_rng|converted<To>()`]
+        [
+            `X_make_converted<To>()(_rng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+
+[heading Example]
+
+[heading See also]
+* _oven_transformed_
+* _oven_converter_
+
+[endsect]
+
+
+
+
+[section copied_to]
+
+[heading Description]
+`copied_to` makes a side-effect that copies the base range to an _output_iterator_.
+
+[heading Header]
+* `<pstade/oven/copied_to.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|copied_to(_outit)`]
+        [
+            `[_begin(_fwdrng), _end(_fwdrng))`
+        ]
+    ]
+]
+
+[heading Effects]
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), _outit)`
+
+[heading Preconditions]
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), _outit)` is a valid expression.
+
+[heading Complexity]
+* Depends on the `std::copy`.
+
+[heading Example]
+
+[heading See also]
+* _oven_copier_
+
+[endsect]
+
+
+
+
+[section cycled]
+
+[heading Description]
+`cycled` creates a circular range from the base range.
+
+[heading Header]
+* `<pstade/oven/cycled.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `{a1,...,aN}` is `_rng`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|cycled(c)`]
+        [
+            A non-_swappable_ `{a1,...,aN,a1,...,aN,...,a1,...,aN}`, where `a1,...,aN` appears `c` times.
+        ]
+    ]
+]
+
+[heading Invariants]
+* `_rng|cycled(c)` is _lvalue_ if and only if `_rng` is _constant_.
+
+[heading Preconditions]
+* `_typeof(c)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
+* `0 <= c`
+
+[heading Example]
+    BOOST_CHECK( equals(
+        std::string("xyz")|cycled(3),
+        std::string("xyzxyzxyz")
+    ) );
+
+[heading See also]
+* _oven_single_
+
+[endsect]
+
+
+
+
+[section delimited]
+
+[heading Description]
+`delimited`, given a range of range, adds a delimiter.
+
+[heading Header]
+* `<pstade/oven/delimited.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `join` is `regular(boost::lambda::bind(make_jointed, _rng2, boost::lambda::_1))`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|delimited(_rng2)`]
+        [
+            `_rng1|transformed(join)|concatenated`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `make_jointed(_rng2, *_begin(_rng1))` is well-formed.
+* `_rng1|transformed(join)|concatenated` is a valid expression.
+
+[tip `delimited` prepends the delimiter. `dropped` is useful to remove it.]
+
+
+[heading Example]
+    BOOST_CHECK( equals(
+        std::string("abcde")|transformed(single)|
+            delimited("--"|as_literal)|dropped(2),
+        std::string("a--b--c--d--e")
+    ) );
+
+[heading See also]
+* _oven_dropped_
+* _oven_tokenized_
+* _oven_stream_writer_
+
+[endsect]
+
+
+
+
+[section dropped]
+
+[heading Description]
+`dropped` returns the suffix of the base range after the first `n` elements.
+
+[heading Header]
+* `<pstade/oven/dropped.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|dropped(n)`]
+        [
+            `[boost::next(_begin(_rng), std::min(n, distance(_rng))), _end(_rng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_typeof(n)` is convertible to `boost::range_difference<typeof(_rng)>::type`.
+* `0 <= n`
+
+[heading Complexity]
+* `O(1)` if `_rng` is _random_access_, and `O(n)` otherwise.
+
+[heading Example]
+    BOOST_CHECK( equals(
+        std::string("hello, dropped!")|dropped(7),
+        std::string("dropped!")
+    ) );
+
+[heading See also]
+* _oven_dropped_while_
+* _oven_taken_
+
+[endsect]
+
+
+
+
+[section dropped_while]
+
+[heading Description]
+`dropped_while` drops elements from the base range while a predicate satisfies.
+
+[heading Header]
+* `<pstade/oven/dropped_while.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `not_` is an imaginary function to nagate a predicate.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|dropped_while(_prd)`]
+        [
+            `[std::find_if(_begin(_rng), _end(_rng), not_(_prd)), _end(_rng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+* `_prd` shall not modify referents.
+
+[heading Complexity]
+* At most `distance(_rng)` applications of the corresponding `_prd`.
+
+[heading Example]
+    std::string src("11111234516313!");
+
+    BOOST_CHECK( equals(
+        src|dropped_while(boost::lambda::_1 == '1'),
+        std::string("234516313!")
+    ) );
+
+[heading See also]
+* _oven_dropped_
+* _oven_filtered_
+* _oven_taken_while_
+
+[endsect]
+
+
+
+
+[section elements]
+
+[heading Description]
+`elements` is considered as a generalization of `map_keys` and `map_values`.
+
+[heading Header]
+* `<pstade/oven/elements.hpp>`
+
+[heading Model of]
+
+[heading Notation]
+* `Tup` is `_value_of<_typeof(_rng)>::type`.
+* `to_Nth` is an imaginary function object to get the Nth element of _boost_fusion_ Sequence.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_elements<N, Ref = boost::use_default>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_elements<N, Ref = boost::use_default>()(_rng)`]
+        [
+            `_rng|transformed(to_Nth)`
+        ]
+    ]
+    [
+        [`oven::make_elements<N>(_rng)`]
+        [
+            `X_make_elements<N>()(_rng)`
+        ]
+    ]
+    [
+        [`elements<N>`]
+        [
+            A _pipable_fuction_object_ type
+        ]
+    ]
+    [
+        [`_rng|elements<N>()`]
+        [
+            `X_make_elements<N>()(_rng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+* `Tup` is _fusion_forward_sequence_.
+* `N` is a [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant].
+* `Ref` specifies `boost::range_reference` type of an adapted range. If `Ref` is `boost::use_default`, `Ref` is determined by the following:
+    * If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, it is a /reference type/.
+    * Otherwise `boost::fusion::result_of::value_of` is used to specify it.
+
+[heading Example]
+
+[heading See also]
+* _oven_elements_c_
+* _oven_map_keys_
+* _oven_map_values_
+
+[endsect]
+
+
+
+
+[section elements_c]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/elements.hpp>`
+
+[heading Model of]
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_elements_c<n, Ref = boost::use_default>`]
+        [
+            `X_make_elements<boost::mpl::int_<n>, Ref>`
+        ]
+    ]
+    [
+        [`oven::make_elements_c<n>(_rng)`]
+        [
+            `oven::make_elements< boost::mpl::int_<n> >(_rng)`
+        ]
+    ]
+    [
+        [`elements_c<n>`]
+        [
+            `elements< boost::mpl::int_<n> >`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_elements_
+
+[endsect]
+
+
+
+
+[section filtered]
+
+[heading Description]
+`filtered` returns a `filter_iterator` range.
+
+[heading Header]
+* `<pstade/oven/filtered.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|filtered(_prd)`]
+        [
+            `[T(_prd, _begin(_rng), _end(_rng)), T(_prd, boos::end(_rng), _end(_rng)))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::filter_iterator<_typeof(_prd), _typeof(_begin(_rng))>` such that `T(_prd, _begin(_rng), _end(_rng))` is a valid expression.
+* `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
+
+[heading Complexity]
+* At most `distance(_rng)` applications of the corresponding `_prd`.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/libs/iterator/doc/filter_iterator.html boost::filter_iterator]
+* _oven_dropped_while_
+* _oven_filterer_
+
+[endsect]
+
+
+
+
+[section identities]
+
+[heading Description]
+`identities` returns the base range as is, but can change the traversal category.
+
+[heading Header]
+* `<pstade/oven/identities.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `traversal` is an imaginary metafunction which returns a traversal tag type known as `boost::xxx_traversal_tag`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|identities(t)`]
+        [
+            `[_begin(_rng), _end(_rng))` whose `traversal` type is `_typeof(t)`.
+        ]
+    ]
+    [
+        [`_rng|identities`]
+        [
+            `_rng|identities(traversal<_typeof(_rng)>::type())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* There is a `xxx` such that `_typeof(t)` is `boost::xxx_traversal_tag`.
+* `traversal<_typeof(_rng)>::type` is convertible to `_typeof(t)`.
+
+[heading Example]
+
+[heading See also]
+
+[endsect]
+
+
+
+
+[section indirected]
+
+[heading Description]
+`indirected` adapts the base range by applying an extra dereference inside of `operator*()`.
+
+[heading Header]
+* `<pstade/oven/indirected.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_indirected<X1,...,XN>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_indirected<X1,...,XN>()(_rng)`]
+        [
+            `[T(_begin(_rng), T(_end(_rng)))`
+        ]
+    ]
+    [
+        [`_rng|indirected`]
+        [
+           `X_make_indirected<>()(_rng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::indirect_iterator<_iter_of<_typeof(_rng)>::type, X1,...,XN>` such that `T(_begin(_rng))` is a valid expression.
+
+[heading Example]
+    int src[]    = { 1,2,0,4,5 };
+    int answer[] = { 1,2,3,4,5 };
+    int *ptrs[]  = {&src[0],&src[1],&src[2],&src[3],&src[4]};
+
+    BOOST_FOREACH (int& i, ptrs|indirected) {
+        if (i == 0)
+            i = 3;
+    }
+
+    BOOST_CHECK( equals(src, answer) );
+
+[heading See also]
+* [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]
+* _oven_outdirected_
+* _oven_indirecter_
+
+[endsect]
+
+
+
+
+[section outdirected]
+
+[heading Description]
+`outdirected` returns a range whose values are iterators of the base range.
+
+[heading Header]
+* `<pstade/oven/outdirected.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|outdirected`]
+        [
+            `counting(_begin(_rng), _end(_rng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+
+[heading Example]
+    std::string const str("gefadcb");
+    std::string const answer("abcdefg");
+
+    std::vector<std::string::const_iterator> iters;
+    copy(str|outdirected, std::back_inserter(iters));
+    sort( iters, boost::make_indirect_fun(::less_than()) );
+
+    BOOST_CHECK( equals(iters|indirected, answer) );
+
+[heading See also]
+* _oven_indirected_
+* _oven_indirecter_
+* _oven_outplaced_
+* _oven_pointed_
+
+[endsect]
+
+
+
+
+[section outplaced]
+
+[heading Description]
+`outplaced` provides a _random_access_ view through the base range iterators.
+
+[heading Header]
+* `<pstade/oven/outplaced.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `iK = boost::next(boost::begin(_fwdrng), K-1)`
+* `N` is `distance(_fwdrng)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|outplaced`]
+        [
+            A _random_access_ _writable_ _lvalue_ `{i1,...,iN}`
+        ]
+    ]
+]
+
+[heading Preconditions]
+
+[heading Complexity]
+* `O(N)`
+
+[heading Example]
+    std::list<int> lst = initial_values(6,1,3,2,5,4);
+    sort(lst|outplaced|indirected);
+    BOOST_CHECK( equals(lst, initial_values(1,2,3,4,5,6)) );
+
+[heading See also]
+* _oven_indirected_
+* _oven_outdirected_
+* _oven_pointed_
+* _oven_sorted_
+
+[endsect]
+
+
+
+
+[section jointed]
+
+[heading Description]
+`jointed` returns a range which is jointed with its argument.
+
+[heading Header]
+* `<pstade/oven/jointed.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `{a1,...,aN}` is `_rng1`.
+* `{b1,...,bM}` is `_rng2`.
+* `cK = a1` for all `K` such that `1 <= K && K <= N`.
+* `cK = boost::implicit_cast<boost::range_reference<_typeof(_rng1)>::type>(b(K-N))` for all `K` such that `N+1 <= K && K <= N+M`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|jointed(_rng2)`]
+        [
+            `{c1,...,c(N+M)}`
+        ]
+    ]
+]
+
+[heading Invariants]
+* The traversal category of `{c1,...,c(N+M)}` is minimum of `_rng1` and `_rng2`.
+* `{c1,...,c(N+M)}` is _swappable_ if and only if both `_rng1` and `_rng2` is _readable_ and _writable_.
+
+[heading Preconditions]
+* `_rng1` is _readable_ or _lvalue_.
+* `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
+  without binding /reference/ to /rvalue/.
+
+[heading Example]
+    std::string str0("every range");
+    std::vector<char> str1 = std::string(" is")|copied;
+    std::list<char> str2 = std::string(" string!?")|copied;
+
+    BOOST_CHECK( equals(
+        str0|jointed(str1)|jointed(str2),
+        std::string("every range is string!?")
+    ) );
+
+[heading See also]
+
+[endsect]
+
+
+
+
+[section map_keys]
+
+[heading Description]
+`map_keys` returns a range whose values are the keys of the base associative container.
+
+[heading Header]
+* `<pstade/oven/map_keys.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|map_keys`]
+        [
+            `_rng|elements_c<0>()`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng|elements_c<0>()` is a valid expression.
+
+[heading Example]
+    std::map<int, std::string> m;
+    m[12] = "hello";
+    m[4]  = "map";
+    m[99] = "keys";
+
+    BOOST_FOREACH (int k, m|map_keys) {
+        BOOST_CHECK( k != 12 || m[k] == "hello" );
+        BOOST_CHECK( k != 4  || m[k] == "map" );
+        BOOST_CHECK( k != 99 || m[k] == "keys" );
+    }
+
+[heading See also]
+* _oven_elements_
+* _oven_map_keys_
+
+[endsect]
+
+
+
+
+[section map_values]
+
+[heading Description]
+`map_values` returns a range whose values are the mapped values of the base associative container.
+
+[heading Header]
+* `<pstade/oven/map_values.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|map_values`]
+        [
+            `_rng|elements_c<1>()`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng|elements_c<1>()` is a valid expression.
+
+[heading Example]
+    std::map<int, std::string> m;
+    m[12] = "hello";
+    m[4]  = "map";
+    m[99] = "keys";
+
+    BOOST_FOREACH (std::string& v, m|map_values) {
+        if (v == "keys")
+            v = "values";
+    }
+
+    BOOST_CHECK( m[12] == "hello" );
+    BOOST_CHECK( m[4]  == "map" );
+    BOOST_CHECK( m[99] == "values" );
+
+[heading See also]
+* _oven_elements_
+* _oven_map_keys_
+
+[endsect]
+
+
+
+
+[section memoized]
+
+[heading Description]
+`memoized` returns a range whose values are cached for speed, preparing for repeated dereferences.
+
+[heading Header]
+* `<pstade/oven/memoized.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|memoized`]
+        [
+            A _forward_ _lvalue_ _constant_ `[_begin(_rng), _end(_rng))`
+        ]
+    ]
+    [
+        [`_rng|memoized(t)`]
+        [
+            `_rng|memoized`
+        ]
+    ]
+]
+
+[note `memoized` can return a _forward_ _range_ even if the base range is _single_pass_.]
+
+[heading Preconditions]
+* `_rng` is _readable_.
+* `_value_of<_typeof(_rng)>::type` is _assignable_.
+* If `_rng` is a recursive range, `memo_table` object `t` must be passed.
+
+[heading Invariants]
+* The iterator type of `memoized` range is not _parallel_safe_.
+
+[heading Example]
+    std::stringstream ss;
+    ss << "hello, memoized!";
+
+    ::very_complicated_algorithm(
+        oven::stream_read<char>(ss)
+            | memoized
+            | directed
+            | indirected
+            | sorted
+            | memoized
+    );
+
+[heading See also]
+* _oven_any_range_
+* _oven_recursion_
+
+[endsect]
+
+
+
+
+[section offset]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/offset.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|offset(n, m)`]
+        [
+            `[boost::next(_begin(_fwdrng), n), boost::next(_end(_fwdrng), m))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `boost::next(_begin(_fwdrng), n)` is a valid expression.
+* `boost::next(_end(_fwdrng), m)` is a valid expression.
+* `n <= distance(_fwdrng) + m`
+
+[heading Complexity]
+* `O(1)` if `_fwdrng` is a _random_access_, and `O(n)+O(m)` otherwise.
+
+[heading Example]
+
+[heading See also]
+* _oven_sliced_
+* _oven_window_
+
+[endsect]
+
+
+
+
+[section permuted]
+
+[heading Description]
+`permuted` provides a permuted view of a given range.
+That is, the view includes every element of the given range but in a potentially different order.
+
+[heading Header]
+* `<pstade/oven/permuted.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng1|permuted(_rng2)`]
+        [
+            `[T(_begin(_rng1), _begin(_rng2)), T(_begin(_rng1), _end(_rng2))))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::permutation_iterator<_iter_of<_typeof(_rng1)>::type, _iter_of<_typeof(_rng2)>::type>` such that `T(_begin(_rng1), _begin(_rng2))` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/libs/iterator/doc/permutation_iterator.html boost::permutation_iterator]
+* _oven_sliced_
+* _oven_permuter_
+
+[endsect]
+
+
+
+
+[section pointed]
+
+[heading Description]
+`pointed`, by returning a pointer range, provides an interface to have a conversation with legacy APIs.
+Also, you can expect STL to choose optimized implementation by passing raw pointers.
+
+[heading Header]
+* `<pstade/oven/pointed.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`r|pointed`]
+        [
+            `[p, p + distance(r))`, where `p = &*_begin(r)`.
+        ]
+    ]
+    [
+        [`q|pointed`]
+        [
+            `[(P)0, (P)0)`, where `P` is `boost::range_pointer<_typeof(q)>::type`.
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `r` is a _contiguous_ _s_ _range_ such that `!boost::empty(r)`.
+* `q` is a _contiguous_ _s_ _range_ such that `boost::empty(q)`.
+
+[heading Example]
+    std::string const src("hello, pointed");
+    std::vector<char> vec;
+    vec.resize(distance(src) + 1);
+    std::strcpy(boost::begin(vec|pointed), src.c_str());
+    BOOST_CHECK(( equals(vec|as_c_str, src) ));
+
+[heading See also]
+* _oven_outdirected_
+
+[endsect]
+
+
+
+
+[section popped]
+
+[heading Description]
+`popped` returns a range without the last element.
+
+[heading Header]
+* `<pstade/oven/popped.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|popped`]
+        [
+            `[_begin(_rng), boost::next(_begin(_rng), distance(_rng) - 1))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `!boost::empty(_rng)`
+* If `_rng` is not _forward_, `_value_of<_typeof(_rng)>::type` is _assignable_.
+
+[heading Example]
+
+[heading See also]
+* _oven_dropped_
+
+[endsect]
+
+
+
+
+[section reversed]
+
+[heading Description]
+A range returned from `reversed` iterates in the opposite direction.
+
+[heading Header]
+* `<pstade/oven/reversed.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_bidrng|reversed`]
+        [
+            `[T(boost:end(_bidrng)), T(_begin(_bidrng)))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::reverse_iterator<boost::_iter_of<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng))` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/libs/iterator/doc/reverse_iterator.html boost::reverse_iterator]
+
+[endsect]
+
+
+
+
+[section rotated]
+
+[heading Description]
+`rotated` provides a rotated view of a given range.
+
+[heading Header]
+* `<pstade/oven/rotated.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `mid` is `_fun(_fwdrng)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|rotated(_fun)`]
+        [
+            `[mid, _end(_fwdrng))|jointed([mid, _fun(_fwdrng))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_jointed_
+
+[endsect]
+
+
+
+
+[section rvalues]
+
+[heading Description]
+`rvalues` returns a range whose `boost::range_reference` type is the same as `boost::range_value` type.
+
+[heading Header]
+* `<pstade/oven/rvalues.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `to_v` is an imaginary function object to convert the argument to `_value_of<_typeof(_rng>)>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|rvalues`]
+        [
+            `_rng|transformed(to_v)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_.
+
+[heading Example]
+
+[heading See also]
+* _oven_transformed_
+* _oven_value_at_
+* _oven_value_back_
+* _oven_value_front_
+
+[endsect]
+
+
+
+
+[section scanned]
+
+[heading Description]
+`scanned` is similar to `std::accumulate`, but returns a range of successive reduced values from the base range.
+
+[heading Header]
+* `<pstade/oven/scanned.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `{a1,a2,...,aN}` is `_rng`.
+* `{b1,b2,...,bM}` is `_rng1`.
+* `S1` is `_value_of<_typeof(_rng1)>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|scanned(s, _fun)`]
+        [
+            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),...,aN)}`
+        ]
+    ]
+    [
+        [`_rng1|scanned(_fun1)`]
+        [
+            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),...,bM)}`
+        ]
+    ]
+]
+
+[note `s` is copied, meaning that it is not referenced from Oven later.]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+* `s` is _assignable_ and _copy_constructible_.
+* `a = _fun(_fun(s, a), a)` is well-formed, where `_value_of<_typeof(_rng)>::type a = *_begin(_rng))`.
+* `_rng1` is _readable_ or _lvalue_.
+* `S1` is _assignable_ and _copy_constructible_.
+* `b = _fun1(_fun1(b, b), b)` is well-formed, where `_value_of<_typeof(_rng1)>::type b = *_begin(_rng1))`.
+* `!boost::empty(_rng1)`
+* `_fun` and `_fun1` are _assignable_ and _default_constructible_.
+
+[heading Example]
+    int const src[] = { 1,2,3,4,5 };
+    std::string null;
+
+    BOOST_FOREACH (std::string str, src|scanned(null, &::stringize)) {
+        std::cout << "\"" << str << "\" ";
+    }
+    // outputs: "" "1" "12" "123" "1234" "12345"
+
+[heading See also]
+* [@http://www.zvon.org/other/haskell/Outputprelude/scanl_f.html scanl]
+* [@http://www.zvon.org/other/haskell/Outputprelude/scanl1_f.html scanl1]
+
+[endsect]
+
+
+
+
+[section sliced]
+
+[heading Description]
+`sliced` provides a column view of the base range.
+
+[important This name comes from `std::slice` and different from _proposal_, which is the role of `offset` or `window`.]
+
+[heading Header]
+* `<pstade/oven/sliced.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `f` is `_begin(_rndrng)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rndrng|sliced(s, t)`]
+        [
+            `{*(f+s+t*0),*(f+s+t*1),*(f+s+t*2),...,*(f+s+t*(n-1))}`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_typeof(s)` and `_typeof(t)` are convertible to `boost::range_difference<typeof(_rndrng)>::type`.
+* `n` is `distance(_rndrng) / t` such that `n == 0 || n % t == 0`.
+* `0 <= s && s < t`
+
+[heading Example]
+    int const answer[] = { 2,6,10,14 };
+    BOOST_CHECK( equals(answer,
+        counting(0, 16)|sliced(2, 4)
+    ) );
+
+[heading See also]
+* _oven_offset_
+* _oven_steps_
+* _oven_window_
+
+[endsect]
+
+
+
+
+[section sorted]
+
+[heading Description]
+`sorted` provides a sorted view of the base range.
+
+[caution Though `sorted` can accept _forward_ (possibly _constant_) _range_,
+      it may be considered expensive in some applications.]
+
+[heading Header]
+* `<pstade/oven/sorted.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `less` is `boost::lambda::_1 < boost::lambda::_2`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|sorted(_prd)`]
+        [
+            A _range_ which behaves as it were made by `sort(_fwdrng, _prd)`.
+        ]
+    ]
+    [
+        [`_fwdrng|sorted`]
+        [
+            `_fwdrng|sorted(less)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_prd` shall not modify referents.
+
+[heading Complexity]
+* `O(N) + O(NlogN)`, where `N` is `distance(_fwdrng)`.
+
+[heading Example]
+    std::stringstream in;
+    in << "cefabd";
+    BOOST_CHECK( equals(oven::stream_read<char>(in)|memoized|sorted, std::string("abcdef")) );
+
+[heading See also]
+* [@http://www.ddj.com/dept/cpp/196513737 C++ View Objects]
+* _oven_outplaced_
+
+[endsect]
+
+
+
+
+[section steps]
+
+[heading Description]
+`steps`, though it can't return _bidirectional_ _range_, relaxes the preconditions of `sliced` and accepts a _single_pass_ _range_.
+
+[heading Header]
+* `<pstade/oven/steps.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `iK = boost::next(boost::begin(_rng), w*K-1))`
+* `M` is the largest number such that `iM < _end(_rng)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|steps(w)`]
+        [
+            An up-to-_forward_ `{*i1,*i1,*i2,*i3,...,*iM}`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_typeof(w)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
+* `1 <= w`
+
+[heading Example]
+    int const answer[] = { 0, 40, 80 };
+    BOOST_CHECK( equals(
+        counting(0, 100)|steps(10)|steps(4),
+        answer
+    ) );
+
+[heading See also]
+* _oven_sliced_
+
+[endsect]
+
+
+
+
+[section taken]
+
+[heading Description]
+`taken`, applied to the base range, returns the prefix of the range of length `n`.
+
+[heading Header]
+* `<pstade/oven/taken.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|taken(n)`]
+        [
+            An up-to-_forward_ `[_begin(_rng), boost::next(_begin(_rng), std::min(n, distance(_rng))))`
+        ]
+    ]
+]
+
+[note `taken` can't return a _bidirectional_-or-more _range_; for the laziness, meaning that `taken` returns in constant time.
+      If you don't want to reduce the traversal category, use `window` or `offset`, which doesn't return in constant-time
+      unless the base range is _random_access_.]
+
+[heading Preconditions]
+* `_typeof(n)` is convertible to `range_difference<_typeof(_rng)>::type`.
+
+[heading Example]
+
+[heading See also]
+* _oven_dropped_
+* _oven_offset_
+* _oven_sliced_
+* _oven_taken_while_
+* _oven_window_
+
+[endsect]
+
+
+
+
+[section taken_while]
+
+[heading Description]
+`taken_while`, applied to a predicate and the base range,
+returns the longest prefix (possibly empty) of the range of elements that satisfy the predicate.
+
+[heading Header]
+* `<pstade/oven/taken_while.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `not_` is an imaginary function to nagate a predicate.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|taken_while(_prd)`]
+        [
+            An up-to-_forward_ `[_begin(_rng), std::find_if(_begin(_rng), _end(_rng), not_(_prd)))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_ or _lvalue_.
+* `_prd` is _assignable_ and _default_constructible_.
+* `_prd` shall not modify referents.
+
+[heading Example]
+
+[heading See also]
+* _oven_dropped_while_
+* _oven_taken_
+
+[endsect]
+
+
+
+
+[section transformed]
+
+[heading Description]
+`transformed` returns a `transform_iterator` range.
+
+[heading Header]
+* `<pstade/oven/transformed.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_transformed<R = boost::use_default>`]
+        [
+           A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_transformed<R = boost::use_default>()(_rng, _fun)`]
+        [
+            `[T(_begin(_rng), _fun), T(_end(_rng), _fun))`
+        ]
+    ]
+    [
+        [`_rng|transformed(_cal)`]
+        [
+            `X_make_transformed<>()(_rng, _cal)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `R` specifies `boost::range_reference` type of an adapted range.
+* `T` is `boost::transform_iterator<_typeof(_fun), _typeof(_begin(_rng)), R>` such that `T(_begin(_rng), _fun)` is a valid expression.
+* If `R` is `boost::use_default`, `_fun` must be a _polymorphic_function_object_. Then `R` is regarded as `boost::result_of<_typeof(_fun)(boost::range_reference<_typeof(_rng)>::type)>::type`.
+* `_fun` is _assignable_ and _default_constructible_.
+* `_fun` and `_cal` shall not modify referents.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/libs/iterator/doc/transform_iterator.html boost::transform_iterator]
+* _oven_transformer_
+
+[endsect]
+
+
+
+
+[section uniqued]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/uniqued.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `not_` is an imaginary function to nagate a predicate.
+* `eq` is `regular(boost::lambda::_1 == boost::lambda::_2)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|uniqued(_prd)`]
+        [
+            `_rng|adjacent_filtered(not_(_prd))`
+        ]
+    ]
+    [
+        [`_rng|uniqued`]
+        [
+            `_rng|uniqued(eq)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng|adjacent_filtered(not_(_prd))` is a valid expression.
+
+[heading Complexity]
+* At most `distance(_rng)` applications of the corresponding `_prd`.
+
+[heading Example]
+
+[heading See also]
+* _oven_adjacent_filtered_
+
+[endsect]
+
+
+
+
+[section window]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/window.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|window(n, m)`]
+        [
+            `[boost::next(_begin(_fwdrng), n), boost::next(_begin(_fwdrng), m))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `boost::next(_begin(_fwdrng), n)` is a valid expression.
+* `boost::next(_begin(_fwdrng), m)` is a valid expression.
+* `n <= m`
+
+[heading Complexity]
+* `O(1)` if `_fwdrng` is _random_access_, and `O(m)` otherwise.
+
+[heading Example]
+
+[heading See also]
+* _oven_sliced_
+* _oven_offset_
+
+[endsect]
+
+
+
+
+[endsect]

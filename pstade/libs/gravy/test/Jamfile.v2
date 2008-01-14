@@ -1,0 +1,39 @@
+# (C) Copyright 2007: Shunsuke Sogame
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+project
+    : requirements
+      <library>/boost/test//boost_test_exec_monitor/<link>static
+      <library>/boost/test//boost_unit_test_framework/<link>static
+      <library>/boost/thread//boost_thread/<link>static
+      <find-static-library>comctl32
+      <find-static-library>comdlg32
+      <find-static-library>gdi32
+      <find-static-library>user32
+      <threading>multi
+    ;
+
+test-suite "gravy" :
+    [ run boolean_cast.cpp ]
+    [ run booleanize.cpp ]
+    [ run c_str.cpp ]
+    [ run class_name.cpp ]
+    [ run file_range.cpp ]
+    [ run find_file_range.cpp ]
+    [ run for_each_child_window.cpp ]
+    [ run get_stock_brush.cpp ]
+    [ run handle_cast.cpp ]
+    [ run is_window.cpp ]
+    [ run main_instance.cpp ]
+    [ run module_file_name.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
+    [ run register_window_message.cpp ]
+    [ run size_initialize.cpp ]
+    [ run window_ptr.cpp ]
+    [ run window_ref.cpp ]
+    [ run window_text.cpp ]
+    ;
+

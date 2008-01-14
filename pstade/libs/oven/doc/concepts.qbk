@@ -1,0 +1,184 @@
+[section Concepts]
+
+
+
+
+[section Pipable Adaptor]
+
+[heading Description]
+A _pipable_adaptor_ is a _pipable_fuction_object_ which has the associated _static_function_object_ using prefix `make_`.
+
+[heading Refinement of]
+* _pipable_fuction_object_
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any _pipable_adaptor_ `p` the following must be met:
+
+* `_typeof(p)` is a /POD/ type, and `p` is /statically initialized/.
+* `x|p(x1,...,xN)` is a valid expression if and only if `make_++p(x, x1,...,xN)` is a valid expression.
+* `x|p(x1,...,xN)` and `make_++p(x, x1,...,xN)` have the same effects.
+* `make_++p` is a _static_function_object_.
+* If `N` is `0`, `x|p` and and `make_++p(x)` are valid expressions which has the same effects.
+
+[heading Models]
+* _oven_filtered_
+* _oven_transformer_
+
+[endsect]
+
+
+
+
+[section Resettable Object]
+
+[heading Description]
+A _resettable_object_ is an object which is modifiable after its construction.
+
+[heading Refinement of]
+
+[heading Notation]
+* `r` is a _resettable_object_.
+* `R` is `_typeof(r)`.
+* `s` is an object whose type is `R`.
+* `aI` is an object.
+* `bI` is an object whose type is `_typeof(aI)`.
+
+[heading Requirements]
+* `R r(a0);` is a valid expression if and only if `s = b0;` is a valid expression.
+* `R r(a1,...,aN);` is a valid expression if and only if `s.reset(b1,...bN);` is a valid expression.
+* After the two equivalent expressions above are evaluated, `s` and `r` shall have the same states if all the arguments have the same states.
+* `R r;` is a valid expression if and only if `R s = boost::none;` is a valid expression.
+* `R r;` is a valid expression if and only if `s.reset();` is a valid expression.
+* `R r;` is a valid expression if and only if `s = boost::none;` is a valid expression.
+* After the three equivalent expressions above are evaluated, `s` and `r` shall have the same states.
+
+[heading Example]
+
+[heading Models]
+* _oven_any_range_
+* _oven_any_indexed_
+* _oven_any_output_iterator_
+
+[heading See also]
+
+[endsect]
+
+
+
+
+[section Stoppable Generator]
+
+[heading Description]
+A _stoppable_generator_ is a _polymorphic_function_object_ which can specify the stop of generating using _boost_optional_.
+
+[heading Refinement of]
+* _polymorphic_function_object_
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any _stoppable_generator_ `g` the following must be met:
+
+* `_typeof(g(...))` is a `boost::optional`.
+* An /uninitialized/ result is considered as the stop of generating.
+
+[heading Models]
+* Any _polymorphic_function_object_ which _oven_nonstop_ returns.
+
+[endsect]
+
+
+
+
+[section Iteration Block]
+
+[heading Description]
+An _iteration_block_ is a unary _function_object_ that yields an ordered sequence of values.
+
+[heading Refinement of]
+* _function_object_
+
+[heading Requirements]
+In addition to the requirements defined in _function_object_,
+for any _iteration_block_ `b` the following must be met:
+
+* For an unspecified unary _function_object_ _s_ `y`, `b(y)` is a valid expression.
+* `_typeof(b)::yield_type` is a type of object passed to `y`.
+
+[heading Models]
+
+[endsect]
+
+
+
+
+[section Constant Range]
+
+[heading Description]
+A _constant_ _range_ is a _range_ whose elements are not modifiable.
+
+[heading Refinement of]
+* _single_pass_ _s_ _range_
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any _constant_ _range_ `r` the following must be met:
+
+* `boost::implicit_cast<_value_of<_typeof(r)>::type&>(*_begin(_r))` is ill-formed.
+* `r` is neither _writable_ nor _swappable_.
+
+[heading Models]
+* `std::list<int> const`
+* `int const[10]`
+
+[endsect]
+
+
+
+
+[section Contiguous Range]
+
+[heading Description]
+A _contiguous_ _range_ is a _random_access_ _range_ whose elements are stored contiguously.
+
+[heading Refinement of]
+* _random_access_ _s_ _range_
+* _lvalue_ _s_ _range_
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any _contiguous_ _range_ `r` the following must be met:
+
+* `&*(_begin(r) + n) == &*(_begin(r)) + n` for all `n` such that `0 <= n &&  n < _end(r) - _begin(r)`.
+
+[heading Models]
+* `std::vector<int>`
+* `boost::array<char, 50>`
+
+[endsect]
+
+
+
+
+[section Parallel Safe]
+
+[heading Description]
+A _parallel_safe_ type offers the same level of thread safety as built-in types.
+
+[heading Refinement of]
+
+[heading Requirements]
+For any _parallel_safe_ type `t` the following must be met:
+
+* Different instances of `t` can be accessed simultaneosly by multiple threads (even when these instances are copies).
+
+[heading Models]
+* `int`
+* `boost::shared_ptr<int>`
+
+[endsect]
+
+
+
+
+[endsect]

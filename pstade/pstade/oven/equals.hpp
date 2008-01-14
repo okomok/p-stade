@@ -1,0 +1,116 @@
+#ifndef PSTADE_OVEN_EQUALS_HPP
+#define PSTADE_OVEN_EQUALS_HPP
+#include "./detail/prefix.hpp"
+
+
+// PStade.Oven
+//
+// Copyright Shunsuke Sogame 2005-2007.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+// Copyright Pavol Droba 2002-2003. Use, modification and
+// distribution is subject to the Boost Software License, Version
+// 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+// References:
+//
+// [1] Pavol Droba, equals, Proposal for new string algorithms in TR2, 2006.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
+// [2] Pavol Droba, equals, Boost.StringAlgorithm, 2002-2004.
+//     http://www.boost.org/doc/html/string_algo.html
+
+
+#include <algorithm> // equal
+#include <boost/iterator/iterator_categories.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <pstade/adl_barrier.hpp>
+#include <pstade/pod_constant.hpp>
+#include "./concepts.hpp"
+#include "./detail/equal_to.hpp"
+#include "./detail/minimum_pure.hpp"
+#include "./range_traversal.hpp"
+#include "./read.hpp"
+
+
+namespace pstade { namespace oven {
+
+
+namespace equals_detail {
+
+
+    template< class Iterator1, class Iterator2, class BinaryPred >
+    bool aux(
+        Iterator1 first1, Iterator1 last1,
+        Iterator2 first2, Iterator2 last2, BinaryPred pred,
+        boost::random_access_traversal_tag)
+    {
+        if ((last1 - first1) != (last2 - first2))
+            return false;
+
+        return std::equal(first1, last1, first2, pred);
+    }
+
+
+    template< class Iterator1, class Iterator2, class BinaryPred >
+    bool aux(
+        Iterator1 first1, Iterator1 last1,
+        Iterator2 first2, Iterator2 last2, BinaryPred pred,
+        boost::single_pass_traversal_tag)
+    {
+        for (; first1 != last1 && first2 != last2; ++first1, ++first2) {
+            if (!pred(read(first1), read(first2)))
+                return false;
+        }
+
+        return (first2 == last2) && (first1 == last1);
+    }
+
+
+} // namespace equals_detail
+
+
+struct T_equals
+{
+    typedef bool result_type;
+
+    template< class Range1, class Range2, class BinaryPred >
+    bool operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
+    {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
+
+        typedef typename detail::minimum_pure<
+            typename range_traversal<Range1>::type,
+            typename range_traversal<Range2>::type
+        >::type trv_t;
+
+        return equals_detail::aux(
+            boost::begin(rng1), boost::end(rng1),
+            boost::begin(rng2), boost::end(rng2), pred,
+            trv_t()
+        );
+    }
+
+    template< class Range1, class Range2 >
+    bool operator()(Range1 const& rng1, Range2 const& rng2) const
+    {
+        return (*this)(rng1, rng2, detail::equal_to);
+    }
+};
+
+
+PSTADE_ADL_BARRIER(equals) { // for 'boost'
+    PSTADE_POD_CONSTANT((T_equals), equals) = {};
+}
+
+
+} } // namespace pstade::oven
+
+
+#endif

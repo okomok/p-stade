@@ -1,0 +1,27 @@
+# (C) Copyright 2007: Shunsuke Sogame
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+project
+    : requirements
+      <library>/boost/filesystem//boost_filesystem/<link>static
+      <library>/boost/test//boost_test_exec_monitor/<link>static
+      <library>/boost/test//boost_unit_test_framework/<link>static
+      <library>/boost/thread//boost_thread/<link>static
+      <find-static-library>comctl32
+      <find-static-library>comdlg32
+      <find-static-library>gdi32
+      <find-static-library>user32
+    ;
+
+
+test-suite "tomato" :
+    [ run c_str.cpp ]
+    [ run to_tstring_to.cpp ]
+    [ run multibyte_to_widechar.cpp ]
+    [ run widechar_to_multibyte.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
+    ;
+

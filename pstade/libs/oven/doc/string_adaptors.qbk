@@ -1,0 +1,772 @@
+[section String Adaptors]
+
+String Adaptor is [link oven.range_adaptors Range Adaptor] for strings.
+
+
+
+
+[section broken_into]
+
+[heading Description]
+* `broken_into` is a range adaptor version of `boost::tokenizer`.
+
+[heading Header]
+* `<pstade/oven/broken_into.hpp>`
+
+[heading Model of]
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_broken_into<V>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_broken_into<V>()(_rng, k)`]
+        [
+            `[T(k, _begin(_rng), _end(_rng)), T(k, _end(_rng), boost:end(_rng)))`
+        ]
+    ]
+    [
+        [`_rng|oven::broken_into<V>(k)`]
+        [
+            `X_make_broken_into<V>()(_rng, k)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `k` is a TokenizerFunction.
+* `T` is `boost::token_iterator<_typeof(k), _iter_of<_typeof(_rng)>::type, V>` such that `T(k, _begin(_rng), _end(_rng))` is a valid expression.
+
+[heading Example]
+    int const offsets[] = { 2,2,4 };
+    std::string src("12252001");
+    std::vector<std::string> ans; {
+        ans.push_back("12");
+        ans.push_back("25");
+        ans.push_back("2001");
+    }
+
+    BOOST_CHECK( equals(
+        ans,
+        src|oven::broken_into<std::string>(boost::offset_separator(offsets, offsets+3))
+    ) );
+
+[heading See also]
+* [@http://www.boost.org/libs/tokenizer/index.html boost::tokenizer]
+* _oven_concatenated_
+* _oven_memoized_
+* _oven_tokenized_
+* _oven_xpressive_tokenized_
+
+[endsect]
+
+
+
+
+[section lower_chars]
+
+[heading Description]
+`lower_chars` performs case-conversion on all characters in the base range.
+
+[heading Header]
+* `<pstade/oven/lower_chars.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `loc` is a `std::locale` object.
+* `to_l` is an imaginary function object to call `std::tolower` using `loc`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|lower_chars(loc)`]
+        [
+            `_rng|transformed(to_l)`
+        ]
+    ]
+    [
+        [`_rng|lower_chars`]
+        [
+            `_rng|lower_chars(std::locale())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `std::tolower(*boost::begin(_rng), loc)` is well-formed.
+
+[heading Example]
+    BOOST_CHECK( equals(
+        std::string("AbCdEFG")|lower_chars,
+        std::string("abcdefg")
+    ) );
+
+[heading See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-lower to_lower proposal]
+* _oven_transformed_
+* _oven_upper_chars_
+
+[endsect]
+
+
+
+
+[section upper_chars]
+
+[heading Description]
+`upper_chars` performs case-conversion on all characters in the base range.
+
+[heading Header]
+* `<pstade/oven/upper_chars.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `loc` is a `std::locale` object.
+* `to_u` is an imaginary function object to call `std::toupper` using `loc`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|upper_chars(loc)`]
+        [
+            `_rng|transformed(to_u)`
+        ]
+    ]
+    [
+        [`_rng|upper_chars`]
+        [
+            `_rng|upper_chars(std::locale())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `std::toupper(*boost::begin(_rng), loc)` is well-formed.
+
+[heading Example]
+    BOOST_CHECK( equals(
+        std::string("AbCdEFG")|upper_chars,
+        std::string("ABCDEFG")
+    ) );
+
+[heading See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-upper to_upper proposal]
+* _oven_lower_chars_
+* _oven_transformed_
+
+[endsect]
+
+
+
+[section narrow_chars]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/narrow_chars.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `loc` is a `std::locale` object.
+* `to_n` is an imaginary function object to call `narrow` using `loc`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|narrow_chars(loc)`]
+        [
+            `_rng|transformed(to_n)`
+        ]
+    ]
+    [
+        [`_rng|narrow_chars`]
+        [
+            `_rng|narrow_chars(std::locale())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `std::use_facet< std::ctype<_value_of<_typeof(_rng)>::type> >(loc).narrow(*boost::begin(_rng))` is well-formed.
+
+[heading Example]
+
+[heading See also]
+* _oven_transformed_
+* _oven_wide_chars_
+
+[endsect]
+
+
+
+
+[section wide_chars]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/wide_chars.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `loc` is a `std::locale` object.
+* `to_w` is an imaginary function object to call `widen` using `loc`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_wide_chars<CharT = wchar_t>`]
+        [
+            A _major_function_object_
+        ]
+    ]
+    [
+        [`X_make_wide_chars<CharT>()(_rng, loc = std::locale())`]
+        [
+            `_rng|transformed(to_w)`
+        ]
+    ]
+    [
+        [`rng|wide_chars`]
+        [
+            `X_make_wide_chars<>(_rng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `std::use_facet< std::ctype<CharT> >(loc).widen(*boost::begin(_rng))` is well-formed.
+
+[heading Example]
+
+[heading See also]
+* _oven_narrow_chars_
+* _oven_transformed_
+
+[endsect]
+
+
+
+
+[section string_found]
+
+[heading Description]
+`string_found` returns a `boost::find_iterator` range.
+
+[heading Header]
+* `<pstade/oven/string_found.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|string_found(f)`]
+        [
+            `[T(_rng, f), T())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `f` is a Finder.
+* `T` is `boost::find_iterator<_iter_of<_typeof(_rng)>::type>` such that `T(_rng, f)` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/doc/html/find_iterator.html boost::find_iterator]
+
+[endsect]
+
+
+
+[section string_split]
+
+[heading Description]
+`string_split` returns a `boost::split_iterator` range.
+
+[heading Header]
+* `<pstade/oven/string_split.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|string_split(f)`]
+        [
+            `[T(_rng, f), T())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `f` is a Finder.
+* `T` is `boost::split_iterator<_iter_of<_typeof(_rng)>::type>` such that `T(_rng, f)` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/doc/html/split_iterator.html boost::split_iterator]
+
+[endsect]
+
+
+
+
+[section matches]
+
+[heading Description]
+`matches` returns a `boost::regex_iterator` range.
+
+[heading Header]
+* `<pstade/oven/matches.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_matches<X1,...,XN>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_matches<X1,...,XN>()(_bidrng, y1,...,yM)`]
+        [
+            `[T(_begin(_bidrng), _end(_bidrng), y1,...,yM), T())`
+        ]
+    ]
+    [
+        [`_bidrng|matches`]
+        [
+            `X_make_matches<>()(_bidrng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::regex_iterator<_iter_of<_typeof(_bidrng)>::type, X1,...,XN>` such that `T(_begin(_bidrng), _end(_bidrng), y0,...,yM)` is a valid expression.
+
+[heading Invariants]
+* The iterator type of `matches` range is not _parallel_safe_.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/libs/regex/doc/regex_iterator.html boost::regex_iterator]
+* _oven_tokenized_
+
+[endsect]
+
+
+
+
+[section tokenized]
+
+[heading Description]
+`tokenized` returns a `boost::regex_token_iterator` range.
+
+[heading Header]
+* `<pstade/oven/tokenized.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_tokenized<Y1,...,YN>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_tokenized<Y1,...,YN>()(_bidrng, x1,...,xM)`]
+        [
+            `[T(_begin(_bidrng), _end(_bidrng), x1,...,xM), T())`
+        ]
+    ]
+    [
+        [`_bidrng|tokenized`]
+        [
+            `X_make_tokenized<>()(_bidrng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::regex_token_iterator<_iter_of<_typeof(_bidrng)>::type, Y1,...,YN>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xM)` is a valid expression.
+
+[heading Invariants]
+* The iterator type of `tokenized` range is not _parallel_safe_.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/libs/regex/doc/regex_token_iterator.html boost::regex_token_iterator]
+* _oven_broken_into_
+
+[endsect]
+
+
+
+
+[section utf8_decoded]
+
+[heading Description]
+Pending...
+
+[heading Header]
+* `<pstade/oven/utf8_decoded.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_utf8_decoded<U1,...,UN>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_utf8_decoded<U1,...,UN>()(_fwdrng)`]
+        [
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
+        ]
+    ]
+    [
+        [`_fwdrng|utf8_decoded`]
+        [
+            `X_make_utf8_decoded<>()(_fwdrng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_fwdrng` is _readable_.
+* `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,...,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
+
+[heading Example]
+    file_range<boost::uint8_t> frng("utf8.txt");
+    std::vector<boost::uint8_t> result;
+    copy(frng|utf8_decoded, utf8_encoder|=back_inserter(result));
+    BOOST_CHECK( equals(frng, result) );
+
+[heading See also]
+* _oven_file_range_
+* _oven_utf8_encoded_
+* _oven_utf8_encoder_
+
+[endsect]
+
+
+
+
+[section utf8_encoded]
+
+[heading Description]
+Pending...
+
+[heading Header]
+* `<pstade/oven/utf8_encoded.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_utf8_encoded<U1,...,UN>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_utf8_encoded<U1,...,UN>()(_rng)`]
+        [
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
+        ]
+    ]
+    [
+        [`_rng|utf8_encoded`]
+        [
+            `X_make_utf8_encoded<>()(_rng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_.
+* `T` is `boost::u32_to_u8_iterator<_iter_of<_typeof(_rng)>::type, U1,...,UN>` such that `T(_begin(_rng))` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_file_range_
+* _oven_utf8_decoded_
+* _oven_utf8_encoder_
+
+[endsect]
+
+
+
+
+[section utf16_decoded]
+
+[heading Description]
+Pending...
+
+[heading Header]
+* `<pstade/oven/utf16_decoded.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_utf16_decoded<U1,...,UN>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_utf16_decoded<U1,...,UN>()(_fwdrng)`]
+        [
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
+        ]
+    ]
+    [
+        [`_fwdrng|utf16_decoded`]
+        [
+            `X_make_utf16_decoded<>()(_fwdrng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_fwdrng` is _readable_.
+* `T` is `boost::u16_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,...,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_file_range_
+* _oven_utf16_encoded_
+* _oven_utf16_encoder_
+
+[endsect]
+
+
+
+
+[section utf16_encoded]
+
+[heading Description]
+Pending...
+
+[heading Header]
+* `<pstade/oven/utf16_encoded.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_utf16_encoded<U1,...,UN>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_utf16_encoded<U1,...,UN>()(_rng)`]
+        [
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
+        ]
+    ]
+    [
+        [`_rng|utf16_encoded`]
+        [
+            `X_make_utf16_encoded<>()(_rng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_rng` is _readable_.
+* `T` is `boost::u32_to_u16_iterator<_iter_of<_typeof(_rng)>::type, U1,...,UN>` such that `T(_begin(_rng))` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_file_range_
+* _oven_utf16_decoded_
+* _oven_utf16_encoder_
+
+[endsect]
+
+
+
+
+[section xpressive_matches]
+
+[heading Description]
+`xpressive_matches` returns a `boost::xpressive::regex_iterator` range.
+
+[heading Header]
+* `<pstade/oven/xpressive_matches.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_bidrng|xpressive_matches(x1,...,xN)`]
+        [
+            `[T(_begin(_bidrng), _end(_bidrng), x1,...,xN), T())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xN)` is a valid expression.
+
+[heading Invariants]
+* The iterator type of `xpressive_matches` range is not _parallel_safe_.
+
+[heading Example]
+
+[heading See also]
+* [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_iterator/hpp.html boost::xpressive::regex_iterator]
+* _oven_matches_
+* _oven_xpressive_tokenized_
+
+[endsect]
+
+
+
+
+[section xpressive_tokenized]
+
+[heading Description]
+`xpressive_tokenized` returns a `boost::xpressive::regex_token_iterator` range.
+
+[heading Header]
+* `<pstade/oven/xpressive_tokenized.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_bidrng|xpressive_tokenized(x1,...,xN)`]
+        [
+            `[T(_begin(_bidrng), _end(_bidrng), x1,...,xN), T())`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,...,xN)` is a valid expression.
+
+[heading Invariants]
+* The iterator type of `xpressive_tokenized` range is not _parallel_safe_.
+
+[heading Example]
+
+[heading See also]
+* [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_token_iterator/hpp.html boost::xpressive::regex_token_iterator]
+* _oven_concatenated_
+* _oven_memoized_
+* _oven_tokenized_
+* _oven_xpressive_matches_
+
+[endsect]
+
+
+
+
+[endsect]

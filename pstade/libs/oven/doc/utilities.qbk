@@ -1,0 +1,826 @@
+[section Utilities]
+
+Some helper function objects are given to fill the gap between Oven and other libraries.
+
+
+
+
+[section:adapted_to_base adapted_to/to_base]
+
+[heading Description]
+`adapted_to` pulls the base iterator from the adapted one.
+
+[heading Header]
+* `<pstade/oven/adapted_to_base.hpp>`
+
+[heading Model of]
+* `to_base` is an _ambi_ _static_function_object_.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`oven::adapted_to<B>(a)`]
+        [Returns the shortest `a.base().base() ... .base()` such that `_typeof(a.base().base() ... .base())` is convertible to `B`.]
+    ]
+    [
+        [`B b = to_base(a);`]
+        [`B b = oven::adapted_to<B>(a);`]
+    ]
+]
+
+[heading Preconditions]
+* `B` is _copy_constructible_.
+* `_typeof(a)` correctly works with `boost::is_convertible`.
+* There is a (possibly empty) sequence `{ base(), ..., base() }` such that `_typeof(a.base().base() ... .base())` is `B`.
+
+[heading Example]
+    std::string src("cjaigvwzenqhe");
+    std::string::const_iterator it =
+        max_element(
+            src
+                | filtered(regular(boost::lambda::_1 != 'z'))
+                | filtered(regular(boost::lambda::_1 != 'w'))
+        )|to_base;
+
+    BOOST_CHECK( *it == 'v' );
+
+[endsect]
+
+
+
+
+[section expression]
+
+[heading Description]
+_oven_any_range_ incurs an overhead for calling a `virtual` function every iterator operation.
+The overhead can be removed with the help of _boost_typeof_ if your compiler supports the native typeof.
+`expression` converts a range into _boost_typeof_ compatible one, then removes the overhead if possible.
+
+[heading Header]
+* `<pstade/oven/expression.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`expression(_rng)`]
+        [`[_begin(_rng), _end(_rng))` which can be used with _boost_typeof_ macros.]
+    ]
+]
+
+[heading Preconditions]
+* `_typeof(*boost::begin(_rng))` is the same as `_value_of<_typeof(_rng)>::type`.
+* `_value_of<_typeof(_rng)>::type` is registered to _boost_typeof_.
+
+[note As far as the precondition met, `expression` with _boost_typeof_ macros is portable
+      even where native typeof isn't available.]
+
+[heading Example]
+    BOOST_AUTO(factorials,
+        expression(counting(1, max_count)|scanned(1, regular(boost::lambda::_1 * boost::lambda::_2))) );
+
+[heading See also]
+* _boost_typeof_
+* _oven_any_range_
+
+[endsect]
+
+
+
+
+[section FOREACH]
+
+[heading Description]
+`PSTADE_OVEN_FOREACH` is similar to `BOOST_FOREACH`,
+but there is no need to write the referent type of iterating.
+
+[heading Header]
+* `<pstade/oven/foreach.hpp>`
+
+[heading Notation]
+* `auto` is an imaginary operator such that `auto x = y;` is the same as  `_typeof(y) x = y;`
+
+[heading Valid expression and Semantics]
+    PSTADE_OVEN_FOREACH(var, _rng)
+        statement
+
+is conceptually equivalent to
+
+    auto __rng = expression(_rng);
+    for (auto __begin = boost::begin(__rng), __end = boost::end(__rng); __begin != __end; ++__begin) {
+         boost::iterator_reference<_typeof(__begin)>::type var = *__begin;
+         statement
+    }
+
+, where `__rng`, `__begin` and `__end` are variables defined for exposition only.
+
+[important The semantics implies that the range referents must outlive the `PSTADE_OVEN_FOREACH` statement.
+           Unlike `BOOST_FOREACH`, it doens't copy a rvalue `_rng`.]
+
+[heading Preconditions]
+* The preconditions of `expression(_rng)`.
+* The corresponding semantics behavior is well-defined.
+* If `_rng` is a dependent name, `PSTADE_OVEN_FOREACH_TPL` must be used instead.
+
+[heading Example]
+    std::string hello("Hello, world!");
+    PSTADE_OVEN_FOREACH (ch, hello) {
+        std::cout << ch;
+    }
+
+[heading See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2243.html Wording for range-based for-loop]
+* _boost_typeof_
+* _oven_expression_
+
+[endsect]
+
+
+
+
+[section io.hpp]
+
+[heading Description]
+The header `<pstade/oven/io.hpp>` lets Oven ranges be _input_streamable_ and _output_streamable_.
+
+[heading Header]
+* `<pstade/oven/io.hpp>`
+
+[heading Effects]
+* All the ranges which Oven defines and returns become _input_streamable_ and _output_streamable_.
+
+[heading Example]
+    std::string src("abc");
+    std::stringstream ss;
+    ss << (src|identities);
+    BOOST_CHECK( ss.str() == "{a,b,c}" );
+
+[endsect]
+
+
+
+
+[section optional.hpp]
+
+[heading Description]
+The header `<pstade/oven/optional.hpp>` lets `boost::optional` be a model of _range_,
+meaning that it can be used as "one element range".
+
+[heading Header]
+* `<pstade/oven/optional.hpp>`
+
+[heading Effects]
+* `boost::optional` becomes a _random_access_ _s_ _range_.
+
+[heading Invariants]
+* An uninitialized `boost::optional` is an empty range.
+
+[heading See also]
+* _boost_optional_
+
+[endsect]
+
+
+
+
+[section regex.hpp]
+
+[heading Description]
+The header `<pstade/oven/regex.hpp>` lets `boost::sub_match` be a model of _range_.
+
+[heading Header]
+* `<pstade/oven/regex.hpp>`
+
+[heading Effects]
+* `boost::sub_match` becomes a _range_.
+
+[heading See also]
+* _boost_regex_
+* _oven_concatenated_
+
+[endsect]
+
+
+
+
+[section xpressive.hpp]
+
+[heading Description]
+The header `<pstade/oven/xpressive.hpp>` lets `boost::xpressive::sub_match` be a model of _range_.
+
+[heading Header]
+* `<pstade/oven/xpressive.hpp>`
+
+[heading Effects]
+* `boost::xpressive::sub_match` becomes a _range_.
+
+[heading See also]
+* _boost_xpressive_
+* _oven_concatenated_
+
+[endsect]
+
+
+
+
+[section nonstop]
+
+[heading Description]
+The _stoppable_generator_ concept which _oven_generation_ requires is slightly different
+from the _generator_ concept. `nonstop` turns a _generator_ into a _oven_generation_ conforming one.
+
+[heading Header]
+* `<pstade/oven/generation.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`nonstop(g)`]
+        [Converts `g` into a _stoppable_generator_.]
+    ]
+]
+
+[heading Preconditions]
+* `g` is a both _generator_ and _polymorphic_function_object_.
+
+[heading Example]
+    BOOST_FOREACH (long x, generation(nonstop(&std::rand))|taken(30)) {
+        std::cout << "," << x;
+    }
+
+[heading See also]
+* _oven_generation_
+
+[endsect]
+
+
+
+
+[section pack]
+
+[heading Description]
+`pack` makes a tuple of iterator ranges, which is useful for _oven_zipped_.
+
+[heading Header]
+* `<pstade/oven/pack.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Notation]
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`pack(_rng1,...,_rngN)`]
+        [
+            `boost::make_tuple(make_range(_rng1),...,make_range(_rngN))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `1 <= N && N <= 5`
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_zipped_
+* _oven_fuzipped_
+* _oven_zipped_with_
+* _oven_make_range_
+
+[endsect]
+
+
+
+
+[section partitioned]
+
+[heading Description]
+`partitioned` serves as a lazy `std::partition`.
+
+[heading Header]
+* `<pstade/oven/partitioned.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `not_` is an imaginary function to negate a predicate.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|partitioned(_prd)`]
+        [
+            `std::make_pair(_fwdrng|filtered(_prd), _fwdrng|filtered(not_(_prd)))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_fwdrng|filtered(_prd)` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* _oven_filtered_
+* _oven_split_at_
+
+[endsect]
+
+
+
+
+[section regular]
+
+[heading Description]
+A _boost_lambda_ functor is neither _default_constructible_ nor _assignable_.
+An iterator holding such a functor can't conform to even _input_iterator_.
+`regular` converts it into comfortable one for iterators.
+
+[heading Header]
+* `<pstade/oven/regular.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`regular(f)`]
+        [Converts `f` into a _major_function_object_ which is _default_constructible_ and _assignable_.]
+    ]
+]
+
+[heading Preconditions]
+* `f` is a _boost_lambda_ functor or _polymorphic_function_object_.
+
+[heading Example]
+    BOOST_CHECK( equals(
+        std::string("abcdefg")
+            | filtered(regular(boost::lambda::_1 != 'c'))
+            | filtered(regular(boost::lambda::_1 != 'f')),
+        std::string("abdeg")
+    ) );
+
+[heading See also]
+* _boost_lambda_
+* _oven_filtered_
+* _oven_regular_ref_
+* _oven_shared_regular_
+* _oven_transformed_
+
+[endsect]
+
+
+
+
+[section regular_ref]
+
+[heading Description]
+A _polymorphic_function_object_ like a random number generator may not be copyable, while many algorithms require to be.
+`regular_ref`, holding a reference to noncopyable _polymorphic_function_object_, behaves as copyable one.
+
+[heading Header]
+* `<pstade/oven/regular.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`regular_ref(f)`]
+        [A copyable _major_function_object_. All the calls are forwarded to `f`.]
+    ]
+]
+
+[heading Preconditions]
+* `f` is a _polymorphic_function_object_ but may be noncopyable.
+* `f` is not destructed as long as `regular_ref(f)` is called.
+
+
+[heading See also]
+* _oven_regular_
+* _oven_shared_regular_
+
+[endsect]
+
+
+
+
+[section shared_regular]
+
+[heading Description]
+`shared_regular` is similar to `regular_ref`.
+It takes a pointer to heap allocated _function_object_, whereas `regular_ref` takes an object.
+
+[heading Header]
+* `<pstade/oven/shared_regular.hpp>`
+
+[heading Model of]
+* _static_function_object_
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`shared_regular(pf)`]
+        [A copyable _major_function_object_. All the calls are forwarded to `*pf`.]
+    ]
+]
+
+[heading Preconditions]
+* `_typeof(*pf)` is a _polymorphic_function_object_ but may be noncopyable.
+* `boost::shared_ptr<_typeof(*pf)>(pf)` is a valid expression.
+
+[heading See also]
+* _oven_regular_
+* _oven_regular_ref_
+
+[endsect]
+
+
+
+
+[section split_at]
+
+[heading Description]
+
+[heading Header]
+* `<pstade/oven/split_at.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `rng2` is `_fwdrng|dropped(n)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|split_at(n)`]
+        [
+            `std::make_pair([_begin(_fwdrng), _begin(rng2)), rng2)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_fwdrng|dropped(n)` is a valid expression.
+
+[heading Example]
+    typedef
+        any_range<int const&, boost::forward_traversal_tag>
+    range;
+
+    range merge_sort(range rng)
+    {
+        typedef boost::result_of<T_distance(range&)>::type diff_t;
+
+        diff_t const d = distance(rng);
+        if (d < 2)
+            return rng;
+        else {
+            boost::result_of<T_make_split_at(range&, diff_t)>::type
+                xs_ys = make_split_at(rng, d/2);
+
+            return make_merged(
+                merge_sort(xs_ys.first),
+                merge_sort(xs_ys.second)
+            );
+        }
+    }
+
+
+[heading See also]
+* _oven_dropped_
+* _oven_partitioned_
+
+[endsect]
+
+
+
+
+[section zipped]
+
+[heading Description]
+`zipped` takes a tuple of ranges and returns a range of corresponding tuples.
+
+[heading Header]
+* `<pstade/oven/zipped.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `(_rng1 _rng2 ... _rngN)` is `u`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`u|zipped`]
+        [
+            `[T(boost::make_tuple(_begin(_rng1),...,_begin(_rngN))), T(boost::make_tuple(_end(_rng1),...,_end(_rngN))))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),...,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),...,_begin(_rngN)))` is a valid expression.
+
+[heading Example]
+    std::cout <<
+        (
+            boost::make_tuple(
+                boost::assign::list_of(1)(2)(3),
+                boost::assign::list_of(2)(3)(4)
+            )
+                | zipped
+        );
+
+    // output> {(1 2),(2 3),(3 4)}
+
+[heading See also]
+* [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
+* _oven_pack_
+* _oven_unzipped_
+* _oven_fuzipped_
+* _oven_unfuzipped_
+* _oven_zipped_with_
+
+[endsect]
+
+
+
+
+[section unzipped]
+
+[heading Description]
+`unzipped` reverses `zipped`.
+
+[heading Header]
+* `<pstade/oven/unzipped.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `{(a11 a12 ... a1N),(a21 a22 ... a2N),...,(aM1 aM2 ... aMN)}` is `_rng`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|unzipped`]
+        [
+            `({a11,a21,...,aM1} {a12,a22,...,aM2} ... {a1N,a2N,...,aMN})`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `_value_of<_typeof(_rng)>::type` is a `boost::tuple`.
+
+[heading Example]
+    std::cout <<
+        (
+            boost::assign::list_of
+                (boost::make_tuple(1,2))
+                (boost::make_tuple(2,3))
+                (boost::make_tuple(3,4))
+                | unzipped
+        );
+
+    // output> ({1,2,3} {2,3,4})
+
+
+[heading See also]
+* _oven_zipped_
+* _oven_fuzipped_
+* _oven_unfuzipped_
+* _oven_zipped_with_
+
+[endsect]
+
+
+
+
+[section fuzipped]
+
+[heading Description]
+`fuzipped` takes a _fusion_sequence_ of ranges and returns a range of corresponding _fusion_sequence_.
+
+[heading Header]
+* `<pstade/oven/fuzipped.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `(_rng1 _rng2 ... _rngN)` is `u`.
+* `fuzip_iterator` is an imaginary iterator which works like `boost::zip_iterator` but whose `value_type` is a _fusion_random_access_sequence_.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`u|fuzipped`]
+        [
+            `[T(boost::fusion::make_vector(_begin(_rng1),...,_begin(_rngN))), T(boost::fusion::make_vector(_end(_rng1),...,_end(_rngN))))`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `T` is `fuzip_iterator<_typeof(boost::make_tuple(_begin(_rng1),...,_begin(_rngN)))>` such that `T(boost::fusion::make_vector(_begin(_rng1),...,_begin(_rngN)))` is a valid expression.
+
+[heading Example]
+
+[heading See also]
+* [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
+* _oven_pack_
+* _oven_unfuzipped_
+* _oven_zipped_
+* _oven_unzipped_
+* _oven_zipped_with_
+
+[endsect]
+
+
+
+
+[section unfuzipped]
+
+[heading Description]
+`unfuzipped` reverses `fuzipped`.
+
+[heading Header]
+* `<pstade/oven/unfuzipped.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `{a1,...,aN}` is `_rng`.
+* `at<RefSeq, I>::type` is `boost::mpl::at_c<RefSeq, I>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_unfuzipped<RefSeq = boost::use_default>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_unfuzipped<RefSeq = boost::use_default>()(_rng)`]
+        [
+            A _fusion_random_access_sequence_ `(X_make_elements_c<0, at<RefSeq, 0>::type>()(a1) ... X_make_elements_c<N-1, at<RefSeq, N-1>::type>()(aN))`
+        ]
+    ]
+    [
+        [`_rng|unfuzipped`]
+        [
+            `X_make_unfuzipped<>()(_rng)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading See also]
+* _oven_elements_
+* _oven_elements_c_
+* _oven_fuzipped_
+* _oven_zipped_
+* _oven_unzipped_
+* _oven_zipped_with_
+
+[endsect]
+
+
+
+[section zipped_with]
+
+[heading Description]
+Though `zipped` accepts a function taking a `boost::tuple` as the parameter, such a function is not so common.
+`zipped_with` accepts a "normal" function, then turns it into comfortable one for `zipped` before passing.
+
+[heading Header]
+* `<pstade/oven/zipped_with.hpp>`
+
+[heading Model of]
+* _pipable_adaptor_
+
+[heading Notation]
+* `fuse` is an imaginary function to turn the argument into the one taking a `boost::tuple` as the parameter.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_make_zipped_with<R>`]
+        [
+            A _major_function_object_ type
+        ]
+    ]
+    [
+        [`X_make_zipped_with<R>()(u, _fun)`]
+        [
+            `u|fuzipped|X_make_transformed<R>()(fuse(_fun))`
+        ]
+    ]
+    [
+        [`X_make_zipped_with<>()(u, _cal)`]
+        [
+            `u|fuzipped|X_make_transformed<>()(fuse(_cal))`
+        ]
+    ]
+    [
+        [`u|zipped_with(_cal)`]
+        [
+            `X_make_zipped_with<>()(u, _cal)`
+        ]
+    ]
+]
+
+[heading Preconditions]
+* `u` is a `boost::tuple` or _fusion_forward_sequence_.
+* `u|zipped|X_make_transformed<R>(fuse(_fun))` or `u|fuzipped|X_make_transformed<R>(fuse(_fun))` is a valid expressin.
+* `u|zipped|transformed(fuse(_cal))` or `u|fuzipped|transformed(fuse(_cal))` is a valid expressin.
+
+[heading See also]
+* _oven_pack_
+* _oven_zipped_
+* _oven_unzipped_
+* _oven_fuzipped_
+* _oven_unfuzipped_
+
+[endsect]
+
+
+
+
+[endsect]
