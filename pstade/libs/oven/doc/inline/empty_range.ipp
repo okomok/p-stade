@@ -1,1 +1,0 @@
-BOOST_CHECK( boost::empty(empty_range<int>()) );

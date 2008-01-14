@@ -1,1 +1,0 @@
-"E:\p-stade.sourceforge.net\pstade\libs\cupcake\delete_project_dust.wsf" "E:\p-stade.sourceforge.net\pstade\libs\ketchup\test\vc7" "E:\p-stade.sourceforge.net\pstade\libs\ketchup\test\vc8" 

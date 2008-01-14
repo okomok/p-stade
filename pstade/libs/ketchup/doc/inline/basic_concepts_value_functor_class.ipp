@@ -1,1 +1,0 @@
-unspecified operator()(Derived& derived);

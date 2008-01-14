@@ -1,2 +1,0 @@
-    os << "hello, napkin";
-}

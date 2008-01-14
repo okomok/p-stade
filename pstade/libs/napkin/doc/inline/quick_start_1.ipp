@@ -1,1 +1,0 @@
-    napkin::ostream os(std::cout);
