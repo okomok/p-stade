@@ -65,7 +65,7 @@ namespace pstade { namespace egg {
 
 PSTADE_ADL_BARRIER(forward) { // for C++0x
 
-    template<class Bytag, class Lvalue>
+    template<class Bytag, class Lvalue> inline
     typename result_of_forward<Bytag, Lvalue>::type
     forward(Lvalue& v)
     {
