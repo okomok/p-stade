@@ -29,7 +29,7 @@
 //#define PSTADE_EGG_TEST_NUMBERED 1
 //#define PSTADE_EGG_TEST_LINEAR 0
 //#define PSTADE_EGG_MAX_ARITY 10
-#include <pstade/../libs/egg/test/multiple_defs1.cpp>
+#include <pstade/../libs/egg/test/multiple_defs2.cpp>
 //#include <pstade/../libs/egg/test/array_resurrect.cpp>
 //#include <pstade/../libs/egg/example/function_builders.cpp>
 
