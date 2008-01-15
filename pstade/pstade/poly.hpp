@@ -43,6 +43,7 @@
 #include <cstddef> // size_t
 #include <typeinfo>
 #include <boost/assert.hpp>
+#include <boost/mpl/min_max.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/none.hpp>
 #include <boost/operators.hpp> // totally_ordered1
@@ -51,7 +52,6 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/mpl_min_max.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/reset_assignment.hpp>
@@ -67,10 +67,13 @@ namespace pstade {
 
     template<class O>
     struct poly_storage_size :
-        mpl_min_c<std::size_t,
-            PSTADE_POLY_MAX_STORAGE_SIZE,
-            mpl_max_c<std::size_t, PSTADE_POLY_MIN_STORAGE_SIZE, sizeof(O)*2>::value
-        >
+        boost::mpl::min<
+            boost::mpl::size_t<PSTADE_POLY_MAX_STORAGE_SIZE>,
+            typename boost::mpl::max<
+                boost::mpl::size_t<PSTADE_POLY_MIN_STORAGE_SIZE>,
+                boost::mpl::size_t<sizeof(O) * 2>
+            >::type
+        >::type
     { };
 
     template< >
