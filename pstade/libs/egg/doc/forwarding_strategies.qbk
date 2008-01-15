@@ -316,6 +316,10 @@ Egg provides the uniform way to define your own strategy.
         [See below.]
     ]
     [
+        [`PSTADE_EGG_DEDUCED_CONST(A)`]
+        [`A const`]
+    ]
+    [
         [`apply_little<_Lit, A1,...,AK>`]
         [`_Lit::apply<A1,...,AK>`]
     ]
@@ -342,7 +346,9 @@ Using your strategy tag, `function<>` template can be specialized.
 which automagically defines nested typedefs `little_type`, `nullary_result_type`, `result` etc.
 [code_my_strategy_function]
 For some compiler bugs, you can call neither `result` template nor `_Lit::call` directly.
-You have to use `apply_little` and `call_little` instead. Also notice that `_Lit` is /cv-qualifier/ sensitive.
+You have to use `apply_little` and `call_little` instead.
+Moreover, if you want to support buggy msvc-7.1, `PSTADE_EGG_DEDUCED_CONST` instead of `const` must be used.
+Also notice that `_Lit` is /cv-qualifier/ sensitive.
 
 [heading Your strategy completed]
 Now `function<>` with your strategy has become the __MAJOR_FUNCTION_OBJECT__ type.
