@@ -13,6 +13,7 @@
 
 #include "./detail/apply_little.hpp"
 #include "./detail/call_little.hpp"
+#include "./detail/deduced_const.hpp"
 #include "./detail/function_preamble.hpp"
 #include "./function_fwd.hpp"
 

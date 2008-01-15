@@ -15,12 +15,10 @@
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/preprocessor.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./apply_little_n.hpp"
-#include "./array_resurrect.hpp"
 
 
 namespace pstade { namespace egg {
@@ -30,10 +28,8 @@ namespace pstade { namespace egg {
     struct apply_little;
 
     // 1ary-
-#define PSTADE_array_resurrect(Z, N, A) PSTADE_EGG_ARRAY_RESURRECT(BOOST_PP_CAT(A, N))
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_array_resurrect
 
 
 } } // namespace pstade::egg
@@ -48,7 +44,7 @@ namespace pstade { namespace egg {
     struct apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)> :
         BOOST_PP_CAT(apply_little, n)<
             Little,
-            BOOST_PP_ENUM(n, PSTADE_array_resurrect, A)
+            BOOST_PP_ENUM_PARAMS(n, A)
         >
     { };
 
