@@ -18,6 +18,9 @@
 namespace pstade { namespace egg {
 
 
+    typedef by_cref by_variadic;
+
+
     template<
         class Little,
         class Strategy      = boost::use_default,
@@ -25,7 +28,7 @@ namespace pstade { namespace egg {
     >
     struct variadic :
         result_of_unfuse<
-            function<Little, by_cref>,
+            function<Little, by_variadic>,
             boost::use_default,
             NullaryResult,
             Strategy

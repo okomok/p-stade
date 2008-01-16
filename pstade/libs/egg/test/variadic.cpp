@@ -37,7 +37,7 @@ struct little_print
     void call(boost::type<Re>, Args const& args) const
     {
         g_sout << args.get_head();
-        make_function(*this)(args.get_tail());
+        X_make_function<by_variadic>()(*this)(args.get_tail());
     }
 
     template<class Re>
