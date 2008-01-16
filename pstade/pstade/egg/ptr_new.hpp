@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::X_ptr_new, (class))
+#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::X_ptr_new, (class)(class))
 #include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
 
 

@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_flip<deduce<boost::mpl::_1, as_value>, Strategy>::type,
             by_value,
-            use_brace2,
+            use_brace2
         >::type
     { };
 
