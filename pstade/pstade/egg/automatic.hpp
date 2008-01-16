@@ -20,9 +20,8 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <pstade/boost_workaround.hpp>
-#include "./by_cref.hpp"
 #include "./fuse.hpp"
-#include "./unfuse.hpp"
+#include "./variadic.hpp"
 
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
     #include <exception>
@@ -77,7 +76,7 @@ namespace pstade { namespace egg {
 
 
         template<class Lambda, template<class, class> class Automator>
-        struct little_fused
+        struct little
         {
             template<class Myself, class ArgTuple>
             struct apply
@@ -98,14 +97,9 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, template<class, class> class Automator, class Strategy>
+        template<class Lambda, class Strategy, template<class, class> class Automator>
         struct aux :
-            result_of_unfuse<
-                function<little_fused<Lambda, Automator>, by_cref>,
-                boost::use_default,
-                use_nullary_result,
-                Strategy
-            >
+            variadic<little<Lambda, Automator>, Strategy, use_nullary_result>
         { };
 
 
@@ -114,15 +108,15 @@ namespace pstade { namespace egg {
 
     template<class Lambda, class Strategy = boost::use_default>
     struct automatic :
-        automatic_detail::aux<Lambda, automatic_detail::automator, Strategy>
+        automatic_detail::aux<Lambda, Strategy, automatic_detail::automator>
     { };
 
     template<class Lambda, class Strategy = boost::use_default>
     struct automatic_ref :
-        automatic_detail::aux<Lambda, automatic_detail::automator_ref, Strategy>
+        automatic_detail::aux<Lambda, Strategy, automatic_detail::automator_ref>
     { };
 
-    #define PSTADE_EGG_AUTOMATIC() PSTADE_EGG_UNFUSE({{}})
+    #define PSTADE_EGG_AUTOMATIC() PSTADE_EGG_VARIADIC({})
     #define PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AUTOMATIC
 
 
