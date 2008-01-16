@@ -100,6 +100,7 @@
 #include "../use_brace1.hpp"
 #include "../use_brace2.hpp"
 #include "../use_constructor.hpp"
+#include "../variadic.hpp"
 
 
 #endif

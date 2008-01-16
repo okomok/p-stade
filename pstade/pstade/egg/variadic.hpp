@@ -20,13 +20,13 @@ namespace pstade { namespace egg {
 
     template<
         class Little,
-        class NullaryResult = boost::use_default,
-        class Strategy      = boost::use_default
+        class Strategy      = boost::use_default,
+        class NullaryResult = boost::use_default
     >
     struct variadic :
         result_of_unfuse<
             function<Little, by_cref>,
-            boost::use_default, // will be fusion_pack in the future.
+            boost::use_default,
             NullaryResult,
             Strategy
         >
