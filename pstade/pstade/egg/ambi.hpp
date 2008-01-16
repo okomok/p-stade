@@ -206,9 +206,8 @@ namespace pstade { namespace egg {
     struct BOOST_PP_CAT(X_ambi, n) :
         generator<
             typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<boost::mpl::_1, as_value>, Strategy, OperandBytag>::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     { };
 

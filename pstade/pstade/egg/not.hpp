@@ -40,9 +40,8 @@ namespace pstade { namespace egg {
     struct X_not :
         generator<
             typename result_of_not<deduce<boost::mpl::_1, as_value>, Strategy>::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     { };
 

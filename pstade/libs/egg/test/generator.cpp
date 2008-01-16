@@ -60,7 +60,7 @@ struct my_type
 };
 
 
-typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, char >::type T_make_my_type_v;
+typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, boost::use_default, char >::type T_make_my_type_v;
 T_make_my_type_v const make_my_type_v = PSTADE_EGG_GENERATOR();
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), T_make_my_type_v(int&))
 PSTADE_TEST_IS_RESULT_OF((char), T_make_my_type_v())

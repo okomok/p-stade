@@ -52,9 +52,8 @@ namespace pstade { namespace egg {
                 NullaryResult,
                 Strategy
             >::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     { };
 

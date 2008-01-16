@@ -63,9 +63,8 @@ namespace pstade { namespace egg {
     struct X_flip :
         generator<
             typename result_of_flip<deduce<boost::mpl::_1, as_value>, Strategy>::type,
-            boost::use_default,
+            by_value,
             use_brace2,
-            by_value
         >::type
     { };
 

@@ -41,9 +41,8 @@ namespace pstade { namespace egg {
     struct X_pipable :
         generator<
             typename result_of_pipable<deduce<boost::mpl::_1, as_value>, Strategy, OperandBytag>::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     { };
 

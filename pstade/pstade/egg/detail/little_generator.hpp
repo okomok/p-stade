@@ -85,7 +85,7 @@ namespace pstade { namespace egg { namespace detail {
     // Even if using 'lambda_to_dummy', 'NullaryResult' must be explicitly specified.
     // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
 
-    template<class Lambda, class NullaryResult, class Make, class Strategy>
+    template<class Lambda, class Strategy, class Make, class NullaryResult>
     struct little_generator
     {
         typedef typename

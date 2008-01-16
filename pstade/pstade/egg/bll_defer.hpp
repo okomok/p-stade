@@ -47,9 +47,8 @@ namespace pstade { namespace egg {
     typedef
         generator<
             result_of_bll_defer< deduce<boost::mpl::_1, as_value> >::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     T_bll_defer;
 
@@ -67,9 +66,8 @@ namespace pstade { namespace egg {
     typedef
         generator<
             result_of_bll_defer_nullary< deduce<boost::mpl::_1, as_value> >::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     T_bll_defer_nullary;
 

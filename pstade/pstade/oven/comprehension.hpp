@@ -125,8 +125,6 @@ namespace comprehension_detail {
     typedef
         egg::generator<
             nested< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >,
-            boost::use_default,
-            boost::use_default,
             egg::by_value
         >::type
     T_make_nested;
@@ -204,8 +202,6 @@ namespace comprehension_detail {
     typedef
         egg::generator<
             unit_expr< egg::deduce<boost::mpl::_1, egg::as_value>, egg::deduce<boost::mpl::_2, egg::as_value> >,
-            boost::use_default,
-            boost::use_default,
             egg::by_value
         >::type
     T_make_unit_expr;

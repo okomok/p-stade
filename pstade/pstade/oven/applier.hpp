@@ -23,8 +23,6 @@ namespace pstade { namespace oven {
 typedef
     egg::generator<
         detail::function_output_iterator< egg::deduce<boost::mpl::_1, egg::as_value> >,
-        boost::use_default,
-        boost::use_default,
         egg::by_value
     >::type
 T_applier;

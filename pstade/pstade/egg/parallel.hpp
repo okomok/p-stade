@@ -95,8 +95,6 @@ namespace pstade { namespace egg {
     typedef
         generator<
             parallel_detail::result_< deduce<boost::mpl::_1, as_value> >,
-            boost::use_default,
-            boost::use_default,
             by_value
         >::type
     T_parallel;

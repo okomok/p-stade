@@ -17,7 +17,7 @@ A simple object generator can be built automagically using the following family.
 * `C(Lam)` is
     * a type which behaves like `Lam` without no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
     * `Lam` itself otherwise.
-* `g` is an object of `generator<Lam, R0, How, _Stg>::type`.
+* `g` is an object of `generator<Lam,_Stg, How, R0>::type`.
 * `X` is `boost::mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
 * `arglist` is `_safe_arg_list(a, _Stg)`.
 
@@ -28,12 +28,12 @@ A simple object generator can be built automagically using the following family.
         [[*Semantics]]
     ]
     [
-        [`generator<Lam, R0 = _default, How = _default, _Stg = _default>::type`]
+        [`generator<Lam, _Stg = _default, How = _default, R0 = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_GENERATOR()`]
-        [A braced initializer of `generator<Lam, R0, How, _Stg>::type`]
+        [A braced initializer of `generator<Lam, _Stg, How, R0>::type`]
     ]
     [
         [`g(a1,...,aN)`]

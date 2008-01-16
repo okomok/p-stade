@@ -98,8 +98,6 @@ namespace nonpure_detail {
 typedef
     egg::generator<
         nonpure_detail::result_< egg::deduce<boost::mpl::_1, egg::as_value> >,
-        boost::use_default,
-        boost::use_default,
         egg::by_value
     >::type
 T_nonpure;

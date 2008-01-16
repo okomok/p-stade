@@ -48,9 +48,8 @@ namespace pstade { namespace egg {
     struct X_return :
         generator<
             typename result_of_return<deduce<boost::mpl::_1, as_value>, ResultType, Strategy>::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     { };
 

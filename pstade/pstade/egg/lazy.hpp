@@ -44,9 +44,8 @@ namespace pstade { namespace egg {
                 deduce<boost::mpl::_1, as_value>,
                 deduce<boost::mpl::_2, as_value, boost::use_default>
             >::type,
-            boost::use_default,
-            use_brace2,
-            by_value
+            by_value,
+            use_brace2
         >::type
     T_lazy;
 
