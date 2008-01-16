@@ -1,5 +1,5 @@
-#ifndef PSTADE_NEW_SHARED_ARRAY_HPP
-#define PSTADE_NEW_SHARED_ARRAY_HPP
+#ifndef PSTADE_SHARED_NEW_ARRAY_HPP
+#define PSTADE_SHARED_NEW_ARRAY_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -19,9 +19,9 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct X_new_shared_array
+    struct X_shared_new_array
     {
-        typedef X_new_shared_array function_type;
+        typedef X_shared_new_array function_type;
         typedef boost::shared_array<X> result_type;
 
         result_type operator()(std::size_t n) const
