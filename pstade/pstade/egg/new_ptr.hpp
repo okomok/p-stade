@@ -12,6 +12,7 @@
 
 
 #include <boost/pointee.hpp>
+#include "./by_perfect.hpp"
 #include "./compose.hpp"
 #include "./construct.hpp"
 #include "./new.hpp"
@@ -26,6 +27,7 @@ namespace pstade { namespace egg {
         result_of_compose<
             typename X_construct<P>::function_type,
             typename X_new_<typename boost::pointee<P>::type>::function_type,
+            by_perfect,
             P
         >::type
     { };
