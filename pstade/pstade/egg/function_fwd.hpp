@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_FUNCTION_L {
     #define PSTADE_EGG_FUNCTION_R }
-    #define PSTADE_EGG_FUNCTION(l) PSTADE_EGG_FUNCTION_L l PSTADE_EGG_FUNCTION_R
+    #define PSTADE_EGG_FUNCTION(L) PSTADE_EGG_FUNCTION_L L PSTADE_EGG_FUNCTION_R
 
 
 } } // namespace pstade::egg
