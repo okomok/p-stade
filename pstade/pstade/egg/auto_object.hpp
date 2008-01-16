@@ -14,10 +14,10 @@
 #include <memory> // auto_ptr
 #include <pstade/any.hpp> // any_movable
 #include <pstade/pod_constant.hpp>
-#include "./by_cref.hpp"
+#include "./by_perfect.hpp"
 #include "./fuse.hpp"
 #include "./new.hpp"
-#include "./unfuse.hpp"
+#include "./variadic.hpp"
 
 
 namespace pstade { namespace egg {
@@ -55,7 +55,7 @@ namespace pstade { namespace egg {
         };
 
 
-        struct little_fused
+        struct little
         {
             template<class Myself, class ArgTuple>
             struct apply
@@ -73,22 +73,14 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<little_fused, by_cref> fused;
-
-
     } // namespace auto_object_detail
 
 
     typedef
-        result_of_unfuse<
-            auto_object_detail::fused,
-            boost::use_default,
-            use_nullary_result
-        >::type
+        variadic<auto_object_detail::little, by_perfect, use_nullary_result>::type
     T_auto_object;
 
-
-    PSTADE_POD_CONSTANT((T_auto_object), auto_object) = PSTADE_EGG_UNFUSE({{}});
+    PSTADE_POD_CONSTANT((T_auto_object), auto_object) = PSTADE_EGG_VARIADIC({});
 
 
 } } // namespace pstade::egg
