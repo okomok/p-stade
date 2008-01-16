@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
 
         template<class Base>
         struct result_ :
-            function_facade<result_<Base>, typename result_of<Base()>::type>
+            function_facade<result_<Base>, boost::use_default, typename result_of<Base()>::type>
         {
 #if defined(PSTADE_EGG_HAS_THREADS)
         private:

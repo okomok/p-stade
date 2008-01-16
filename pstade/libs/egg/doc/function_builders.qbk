@@ -108,7 +108,7 @@ Though a type built from `function_facade` can't be a /POD/ type, it can have no
 ]
 
 [heading Preconditions]
-* `_lit` is an object whose type is derived from `function_facade<_typeof(_lit), R0 = _default, _Stg = _default>`.
+* `_lit` is an object whose type is derived from `function_facade<_typeof(_lit), _Stg = _default, R0 = _default>`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]

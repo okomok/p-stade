@@ -27,7 +27,7 @@ using namespace pstade::egg;
 
 
 struct my_value_identity :
-    function_facade<my_value_identity, boost::use_default, by_value>
+    function_facade<my_value_identity, by_value>
 {
     template<class Myself, class X>
     struct apply
@@ -46,7 +46,7 @@ struct my_value_identity :
 
 
 struct my_cref_identity :
-    function_facade<my_cref_identity, boost::use_default, by_cref>
+    function_facade<my_cref_identity, by_cref>
 {
     template<class Myself, class X>
     struct apply
@@ -65,7 +65,7 @@ struct my_cref_identity :
 
 
 struct my_ref_identity :
-    function_facade<my_ref_identity, boost::use_default, by_ref>
+    function_facade<my_ref_identity, by_ref>
 {
     template<class Myself, class X>
     struct apply
@@ -83,7 +83,7 @@ struct my_ref_identity :
 
 
 struct my_value_big_arity :
-    function_facade<my_value_big_arity, boost::use_default, by_value>
+    function_facade<my_value_big_arity, by_value>
 {
     template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
@@ -100,7 +100,7 @@ struct my_value_big_arity :
 
 
 struct my_cref_big_arity :
-    function_facade<my_cref_big_arity, boost::use_default, by_cref>
+    function_facade<my_cref_big_arity, by_cref>
 {
     template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
@@ -118,7 +118,7 @@ struct my_cref_big_arity :
 
 
 struct my_ref_big_arity :
-    function_facade<my_ref_big_arity, boost::use_default, by_ref>
+    function_facade<my_ref_big_arity, by_ref>
 {
     template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply

@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
 
 
         struct wrap_ :
-            function_facade<wrap_, boost::use_default, by_cref>
+            function_facade<wrap_, by_cref>
         {
             template<class Myself, class Base, class Fixed, class Arg>
             struct apply :

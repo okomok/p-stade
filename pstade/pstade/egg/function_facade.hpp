@@ -36,8 +36,8 @@ namespace pstade { namespace egg {
 
     template<
         class Derived,
-        class NullaryResult = boost::use_default,
-        class Strategy      = by_perfect
+        class Strategy      = by_perfect,
+        class NullaryResult = boost::use_default
     >
     struct function_facade;
 
@@ -48,10 +48,10 @@ namespace pstade { namespace egg {
         template<class Facade>
         struct little;
 
-        template<class Derived, class NullaryResult, class Strategy>
-        struct little< function_facade<Derived, NullaryResult, Strategy> >
+        template<class Derived, class Strategy, class NullaryResult>
+        struct little< function_facade<Derived, Strategy, NullaryResult> >
         {
-            function_facade<Derived, NullaryResult, Strategy> *m_pfacade;
+            function_facade<Derived, Strategy, NullaryResult> *m_pfacade;
 
             Derived const& derived() const
             {
@@ -78,12 +78,12 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Derived, class NullaryResult, class Strategy>
+        template<class Derived, class Strategy, class NullaryResult>
         struct super_
         {
             typedef
                 function<
-                    little< function_facade<Derived, NullaryResult, Strategy> >,
+                    little< function_facade<Derived, Strategy, NullaryResult> >,
                     Strategy
                 >
             type;
@@ -101,12 +101,12 @@ namespace pstade { namespace egg {
     } // namespace function_facade_detail
 
 
-    template<class Derived, class NullaryResult, class Strategy>
+    template<class Derived, class Strategy, class NullaryResult>
     struct function_facade :
-        function_facade_detail::super_<Derived, NullaryResult, Strategy>::type
+        function_facade_detail::super_<Derived, Strategy, NullaryResult>::type
     {
     private:
-        typedef typename function_facade_detail::super_<Derived, NullaryResult, Strategy>::type super_t;
+        typedef typename function_facade_detail::super_<Derived, Strategy, NullaryResult>::type super_t;
 
     public:
         function_facade() :

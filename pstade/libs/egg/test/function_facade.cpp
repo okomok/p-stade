@@ -20,7 +20,7 @@
 
 
 struct T_foo :
-    pstade::egg::function_facade<T_foo, char>
+    pstade::egg::function_facade<T_foo, boost::use_default, char>
 {
     template< class Myself, class A0, class A1 = void >
     struct apply
@@ -66,7 +66,7 @@ T_foo const foo = T_foo();
 
 template< class T0, class T1 >
 struct T_bar :
-    pstade::egg::function_facade< T_bar<T0, T1>, char >
+    pstade::egg::function_facade< T_bar<T0, T1>, boost::use_default, char >
 {
     template< class Myself, class A0, class A1 = void >
     struct apply
