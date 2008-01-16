@@ -18,10 +18,9 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./by_cref.hpp"
 #include "./by_value.hpp"
 #include "./fuse.hpp"
-#include "./unfuse.hpp"
+#include "./variadic.hpp"
 
 
 namespace pstade { namespace egg {
@@ -31,7 +30,7 @@ namespace pstade { namespace egg {
 
 
         template<class Function, class Thunk>
-        struct little_fused_result
+        struct little_result
         {
             Function m_fun;
             Thunk m_thunk;
@@ -58,19 +57,13 @@ namespace pstade { namespace egg {
 
     template<class Function, class Thunk, class Strategy = boost::use_default>
     struct result_of_after :
-        result_of_unfuse<
-            function<after_detail::little_fused_result<Function, Thunk>, by_cref>,
-            boost::use_default,
-            use_nullary_result,
-            Strategy
-        >
+        variadic<after_detail::little_result<Function, Thunk>, Strategy, use_nullary_result>
     { };
 
 
-    // PSTADE_EGG_UNFUSE_L { { F, T } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
-    #define PSTADE_EGG_AFTER_L PSTADE_EGG_UNFUSE_L { {
+    #define PSTADE_EGG_AFTER_L PSTADE_EGG_VARIADIC_L {
     #define PSTADE_EGG_AFTER_M ,
-    #define PSTADE_EGG_AFTER_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_AFTER_R } PSTADE_EGG_VARIADIC_R
     #define PSTADE_EGG_AFTER(F, T) PSTADE_EGG_AFTER_L F PSTADE_EGG_AFTER_M T PSTADE_EGG_AFTER_R
 
 
