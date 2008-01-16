@@ -13,7 +13,7 @@ int main()
     boost::shared_ptr<int> sp =
         bl::bind(
             bl::constructor< boost::shared_ptr<int> >(),
-            bl::bind(bl::new_ptr<int>(), bl::_1)
+            bl::bind(bl::ptr_new<int>(), bl::_1)
         ) (i);
 
     assert(*sp == 12);

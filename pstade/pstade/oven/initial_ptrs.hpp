@@ -24,8 +24,8 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/any.hpp> // any_movable
+#include <pstade/egg/auto_new.hpp>
 #include <pstade/egg/bll_bindable.hpp>
-#include <pstade/egg/new_auto.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
@@ -173,7 +173,7 @@ struct result_of_initial_ptrs
 };
 
 
-using pstade::egg::X_new_auto;
+using pstade::egg::X_auto_new;
 
 
 } } // namespace pstade::oven

@@ -15,8 +15,8 @@
 #include "./detail/test.hpp"
 
 
-#include <pstade/egg/new_ptr.hpp>
-#include <pstade/egg/new_auto.hpp>
+#include <pstade/egg/ptr_new.hpp>
+#include <pstade/egg/auto_new.hpp>
 #include <boost/foreach.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/ptr_container/detail/static_move_ptr.hpp>
@@ -36,8 +36,8 @@ struct ncint2 : test::ncint
 result_of_initial_ptrs<test::ncint, 9>::type
 make_ptrs()
 {
-    X_new_auto<test::ncint> a_;
-    X_new_auto< ::ncint2 > a2_;
+    X_auto_new<test::ncint> a_;
+    X_auto_new< ::ncint2 > a2_;
     return
         initial_ptrs(
             a_(3), a_(1), a2_(3), a_(6), a_(2), a2_(1), a_(7), a2_(0), a_(9)
@@ -48,9 +48,9 @@ make_ptrs()
 result_of_initial_ptrs<test::ncint, 9>::type
 make_ptrs2()
 {
-    X_new_auto<test::ncint> a_;
-    X_new_auto< ::ncint2 > a2_;
-    pstade::egg::X_new_ptr< boost::ptr_container_detail::static_move_ptr<test::ncint> > m_;
+    X_auto_new<test::ncint> a_;
+    X_auto_new< ::ncint2 > a2_;
+    pstade::egg::X_ptr_new< boost::ptr_container_detail::static_move_ptr<test::ncint> > m_;
     return
         X_initial_ptrs< test::ncint >()(
             a2_(3), a_(1), a2_(3), a_(6), m_(2), a2_(1), a_(7), a2_(0), a_(9)

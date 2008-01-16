@@ -14,7 +14,7 @@
 // What:
 //
 // Makes 'shared_ptr' from a pointer.
-// "make_shared_ptr" is reserved for the same function as 'new_shared'.
+// "make_shared_ptr" is reserved for the same function as 'shared_new'.
 
 
 #include <boost/mpl/bool.hpp>

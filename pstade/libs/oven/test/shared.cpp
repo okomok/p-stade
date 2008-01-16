@@ -19,7 +19,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
-#include <pstade/egg/new_auto.hpp>
+#include <pstade/egg/auto_new.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/identities.hpp>
 
@@ -63,7 +63,7 @@ void test()
     }
 
     {
-        BOOST_CHECK( oven::equals(shared(pstade::egg::X_new_auto<xxx>()("0123")), ans) );
+        BOOST_CHECK( oven::equals(shared(pstade::egg::X_auto_new<xxx>()("0123")), ans) );
     }
 
     {

@@ -14,7 +14,7 @@
 #include <boost/pointee.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./automatic.hpp"
-#include "./new_shared.hpp"
+#include "./shared_new.hpp"
 
 
 namespace pstade { namespace egg {
@@ -22,7 +22,7 @@ namespace pstade { namespace egg {
 
     typedef
         automatic<
-            X_new_shared< boost::pointee<boost::mpl::_1> >
+            X_shared_new< boost::pointee<boost::mpl::_1> >
         >::type
     T_shared_object;
 

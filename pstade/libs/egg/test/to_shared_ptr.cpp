@@ -16,7 +16,7 @@
 #include <memory>
 #include <boost/shared_ptr.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/egg/new_auto.hpp>
+#include <pstade/egg/auto_new.hpp>
 #include <pstade/test.hpp>
 
 
@@ -57,7 +57,7 @@ void pstade_minimal_test()
         BOOST_CHECK( *(p.m_ptr) == 3 );
     }
     {
-        my_ptr<int> p(X_new_auto<int>()(3));
+        my_ptr<int> p(X_auto_new<int>()(3));
         BOOST_CHECK( *(p.m_ptr) == 3 );
     }
     {

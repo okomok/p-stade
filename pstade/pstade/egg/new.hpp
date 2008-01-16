@@ -17,6 +17,7 @@
 #include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./forward.hpp"
 #include "./nullary_result_of.hpp"
 
 
@@ -26,7 +27,7 @@ namespace pstade { namespace egg {
     namespace new_detail {
 
 
-        template<class X>
+        template<class X, class Strategy>
         struct little
         {
         // 0ary
@@ -53,9 +54,9 @@ namespace pstade { namespace egg {
     } // namespace new_detail
 
 
-    template<class X>
+    template<class X, class Strategy = by_perfect>
     struct X_new_ :
-        function<new_detail::little<X>, by_perfect>
+        function<new_detail::little<X, Strategy>, Strategy>
     { };
 
 
@@ -74,7 +75,7 @@ namespace pstade { namespace egg {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return new X(BOOST_PP_ENUM_PARAMS(n, a));
+        return new X(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }
 
 

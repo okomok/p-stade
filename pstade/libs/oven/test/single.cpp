@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 #include "./detail/v1_core.hpp"
-#include <pstade/egg/new_auto.hpp>
+#include <pstade/egg/auto_new.hpp>
 
 
 namespace oven = pstade::oven;
@@ -52,7 +52,7 @@ void pstade_unit_test()
         BOOST_CHECK( equals(::make_rng(), ans) );
     }
     {
-        BOOST_CHECK( equals(shared_single(pstade::egg::X_new_auto<char>()('a')), ans) );
+        BOOST_CHECK( equals(shared_single(pstade::egg::X_auto_new<char>()('a')), ans) );
     }
 }
 
