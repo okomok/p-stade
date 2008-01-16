@@ -13,10 +13,9 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./by_cref.hpp"
 #include "./by_value.hpp"
 #include "./fuse.hpp"
-#include "./unfuse.hpp"
+#include "./variadic.hpp"
 
 
 namespace pstade { namespace egg {
@@ -34,7 +33,7 @@ namespace pstade { namespace egg {
 
 
         template<class F, class G>
-        struct little_fused_result
+        struct little_result
         {
             F m_f;
             G m_g;
@@ -57,33 +56,27 @@ namespace pstade { namespace egg {
     } // namespace compose_detail
 
 
-    template<class F, class G, class Strategy = boost::use_default, class NullaryResult = boost::use_default>
+    template<class F, class G, class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct result_of_compose :
-        result_of_unfuse<
-            function<compose_detail::little_fused_result<F, G>, by_cref>,
-            boost::use_default,
-            NullaryResult,
-            Strategy
-        >
+        variadic<compose_detail::little_result<F, G>, Strategy, NullaryResult>
     { };
 
 
-    // PSTADE_EGG_UNFUSE_L { { F, G } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
-    #define PSTADE_EGG_COMPOSE_L PSTADE_EGG_UNFUSE_L { {
+    #define PSTADE_EGG_COMPOSE_L PSTADE_EGG_VARIADIC_L {
     #define PSTADE_EGG_COMPOSE_M ,
-    #define PSTADE_EGG_COMPOSE_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
-    #define PSTADE_EGG_COMPOSE(F, G) PSTADE_EGG_COMPOSE_L F PSTADE_EGG_COMPOSE_M G PSTADE_EGG_COMPOSE_R
+    #define PSTADE_EGG_COMPOSE_R } PSTADE_EGG_VARIADIC_R
+    #define PSTADE_EGG_COMPOSE(F, T) PSTADE_EGG_COMPOSE_L F PSTADE_EGG_COMPOSE_M T PSTADE_EGG_COMPOSE_R
 
 
     namespace compose_detail {
 
 
-        template<class Strategy, class NullaryResult>
+        template<class NullaryResult, class Strategy>
         struct little
         {
             template<class Myself, class F, class G>
             struct apply :
-                result_of_compose<F, G, Strategy, NullaryResult>
+                result_of_compose<F, G, NullaryResult, Strategy>
             { };
 
             template<class Result, class F, class G>
@@ -98,9 +91,9 @@ namespace pstade { namespace egg {
     } // namespace compose_detail
 
 
-    template<class Strategy = boost::use_default, class NullaryResult = boost::use_default>
+    template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct X_compose :
-        function<compose_detail::little<Strategy, NullaryResult>, by_value>
+        function<compose_detail::little<NullaryResult, Strategy>, by_value>
     { };
 
     typedef X_compose<>::function_type T_compose;
