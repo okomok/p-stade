@@ -2,6 +2,10 @@
 #include <boost/detail/lightweight_test.hpp>
 #include <boost/noncopyable.hpp>
 
+
+// Note: overloaded operator too incurs ambiguity in vc-9.0.
+
+
 namespace xxx {
     namespace nested {
         struct aaa {};
