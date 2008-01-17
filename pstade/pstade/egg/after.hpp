@@ -20,6 +20,8 @@
 #include <pstade/result_of.hpp>
 #include "./by_value.hpp"
 #include "./fuse.hpp"
+#include "./generator.hpp"
+#include "./use_variadic1.hpp"
 #include "./variadic.hpp"
 
 
@@ -67,34 +69,14 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_AFTER(F, T) PSTADE_EGG_AFTER_L F PSTADE_EGG_AFTER_M T PSTADE_EGG_AFTER_R
 
 
-    namespace after_detail {
-
-
-        template<class Strategy>
-        struct little
-        {
-            template<class Myself, class Function, class Thunk>
-            struct apply :
-                result_of_after<Function, Thunk, Strategy>
-            { };
-
-            template<class Result, class Function, class Thunk>
-            Result call(Function f, Thunk t) const
-            {
-                Result r = PSTADE_EGG_AFTER(f, t);
-                return r;
-            }
-        };
-
-
-    } // namespace after_detail
-
-
     template<class Strategy = boost::use_default>
     struct X_after :
-        function<after_detail::little<Strategy>, by_value>
+        generator<
+            typename result_of_after<deduce<boost::mpl::_1, as_value>, deduce<boost::mpl::_2, as_value>, Strategy>::type,
+            by_value,
+            use_variadic1
+        >::type
     { };
-
 
     typedef X_after<>::function_type T_after;
     PSTADE_POD_CONSTANT((T_after), after) = {{}};

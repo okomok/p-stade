@@ -20,6 +20,8 @@
 #include <pstade/result_of.hpp>
 #include "./by_value.hpp"
 #include "./fuse.hpp"
+#include "./generator.hpp"
+#include "./use_variadic1.hpp"
 #include "./variadic.hpp"
 
 
@@ -66,32 +68,13 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_BEFORE(F, T) PSTADE_EGG_BEFORE_L F PSTADE_EGG_BEFORE_M T PSTADE_EGG_BEFORE_R
 
 
-    namespace before_detail {
-
-
-        template<class Strategy>
-        struct little
-        {
-            template<class Myself, class Thunk, class Function>
-            struct apply :
-                result_of_before<Thunk, Function>
-            { };
-
-            template<class Result, class Thunk, class Function>
-            Result call(Thunk t, Function f) const
-            {
-                Result r = PSTADE_EGG_BEFORE(t, f);
-                return r;
-            }
-        };
-
-
-    } // namespace before_detail
-
-
     template<class Strategy = boost::use_default>
     struct X_before :
-        function<before_detail::little<Strategy>, by_value>
+        generator<
+            typename result_of_before<deduce<boost::mpl::_1, as_value>, deduce<boost::mpl::_2, as_value>, Strategy>::type,
+            by_value,
+            use_variadic1
+        >::type
     { };
 
     typedef X_before<>::function_type T_before;

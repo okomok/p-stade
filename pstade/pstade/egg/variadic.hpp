@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
     struct variadic :
         result_of_unfuse<
             function<Little, by_variadic>,
-            boost::use_default,
+            boost::use_default, // will be fusion_pack in the future.
             NullaryResult,
             Strategy
         >

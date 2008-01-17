@@ -15,6 +15,8 @@
 #include <pstade/result_of.hpp>
 #include "./by_value.hpp"
 #include "./fuse.hpp"
+#include "./generator.hpp"
+#include "./use_variadic1.hpp"
 #include "./variadic.hpp"
 
 
@@ -68,32 +70,13 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_COMPOSE(F, T) PSTADE_EGG_COMPOSE_L F PSTADE_EGG_COMPOSE_M T PSTADE_EGG_COMPOSE_R
 
 
-    namespace compose_detail {
-
-
-        template<class NullaryResult, class Strategy>
-        struct little
-        {
-            template<class Myself, class F, class G>
-            struct apply :
-                result_of_compose<F, G, NullaryResult, Strategy>
-            { };
-
-            template<class Result, class F, class G>
-            Result call(F f, G g) const
-            {
-                Result r = PSTADE_EGG_COMPOSE(f, g);
-                return r;
-            }
-        };
-
-
-    } // namespace compose_detail
-
-
     template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct X_compose :
-        function<compose_detail::little<NullaryResult, Strategy>, by_value>
+        generator<
+            typename result_of_compose<deduce<boost::mpl::_1, as_value>, deduce<boost::mpl::_2, as_value>, NullaryResult, Strategy>::type,
+            by_value,
+            use_variadic1
+        >::type
     { };
 
     typedef X_compose<>::function_type T_compose;
