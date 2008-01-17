@@ -55,7 +55,7 @@ namespace pstade { namespace egg {
 
 
     template<class X, class Strategy = by_perfect>
-    struct X_new_ :
+    struct X_new :
         function<new_detail::little<X, Strategy>, Strategy>
     { };
 
@@ -63,7 +63,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::X_new_, (class)(class))
+#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::X_new, (class)(class))
 #include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
 
 

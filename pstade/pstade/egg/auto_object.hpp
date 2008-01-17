@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
             template<class X>
             operator std::auto_ptr<X>& ()
             {
-                std::auto_ptr<X> ptr(fuse(X_new_<X>())(m_args));
+                std::auto_ptr<X> ptr(fuse(X_new<X>())(m_args));
                 m_any = ptr;
                 return m_any.content< std::auto_ptr<X> >();
             }

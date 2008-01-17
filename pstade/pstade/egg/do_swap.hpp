@@ -35,7 +35,6 @@ namespace pstade { namespace egg {
         }
     };
 
-
     PSTADE_POD_CONSTANT((T_do_swap), do_swap) = {};
 
 

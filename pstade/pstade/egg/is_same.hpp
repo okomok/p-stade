@@ -29,7 +29,6 @@ namespace pstade { namespace egg {
         }
     };
 
-
     PSTADE_POD_CONSTANT((T_is_same), is_same) = {};
 
 

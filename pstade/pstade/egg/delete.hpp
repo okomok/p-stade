@@ -18,7 +18,7 @@
 namespace pstade { namespace egg {
 
 
-    struct T_delete_
+    struct T_delete
     {
         typedef void result_type;
 
@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
         }
     };
 
-
+    typedef T_delete T_delete_;
     PSTADE_POD_CONSTANT((T_delete_), delete_) = {};
 
 

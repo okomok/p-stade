@@ -29,7 +29,6 @@ namespace pstade { namespace egg {
         }
     };
 
-
     PSTADE_POD_CONSTANT((T_delete_array), delete_array) = {};
 
 

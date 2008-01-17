@@ -25,7 +25,7 @@ namespace pstade { namespace egg {
     struct X_ptr_new :
         result_of_compose<
             typename X_construct<P>::function_type,
-            typename X_new_<typename boost::pointee<P>::type, Strategy>::function_type,
+            typename X_new<typename boost::pointee<P>::type, Strategy>::function_type,
             P
         >::type
     { };

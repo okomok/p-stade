@@ -34,7 +34,6 @@ namespace pstade { namespace egg {
         }
     };
 
-
     PSTADE_POD_CONSTANT((T_iequal_to), iequal_to) = {};
 
 
