@@ -44,7 +44,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef automatic< X_from_any_to<boost::mpl::_> >::type T_from_any;
+    typedef automatic< X_from_any_to<mpl_1> >::type T_from_any;
     PSTADE_POD_CONSTANT((T_from_any), from_any) = PSTADE_EGG_AUTOMATIC();
 
 
@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef automatic< X_from_boost_any_to<boost::mpl::_> >::type T_from_boost_any;
+    typedef automatic< X_from_boost_any_to<mpl_1> >::type T_from_boost_any;
     PSTADE_POD_CONSTANT((T_from_boost_any), from_boost_any) = PSTADE_EGG_AUTOMATIC();
 
 
@@ -112,7 +112,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef automatic< X_from_poly_to<boost::mpl::_> >::type T_from_poly;
+    typedef automatic< X_from_poly_to<mpl_1> >::type T_from_poly;
     PSTADE_POD_CONSTANT((T_from_poly), from_poly) = PSTADE_EGG_AUTOMATIC();
 
 

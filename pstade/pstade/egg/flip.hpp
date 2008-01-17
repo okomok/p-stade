@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
     template<class Strategy = by_perfect>
     struct X_flip :
         generator<
-            typename result_of_flip<deduce<boost::mpl::_1, as_value>, Strategy>::type,
+            typename result_of_flip<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             use_brace2
         >::type

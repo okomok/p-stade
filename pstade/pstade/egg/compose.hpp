@@ -73,7 +73,7 @@ namespace pstade { namespace egg {
     template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct X_compose :
         generator<
-            typename result_of_compose<deduce<boost::mpl::_1, as_value>, deduce<boost::mpl::_2, as_value>, NullaryResult, Strategy>::type,
+            typename result_of_compose<deduce<mpl_1, as_value>, deduce<mpl_2, as_value>, NullaryResult, Strategy>::type,
             by_value,
             use_variadic1
         >::type

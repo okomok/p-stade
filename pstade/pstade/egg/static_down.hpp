@@ -20,14 +20,8 @@
 namespace pstade { namespace egg {
 
 
-    typedef
-        result_of_ambi0<
-            automatic_ref< X_static_downcast<boost::mpl::_> >::type
-        >::type
-    T_static_down;
-
-    PSTADE_POD_CONSTANT((T_static_down), static_down)
-        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC_REF() PSTADE_EGG_AMBI_R;
+    typedef result_of_ambi0<automatic_ref< X_static_downcast<mpl_1> >::type>::type T_static_down;
+    PSTADE_POD_CONSTANT((T_static_down), static_down) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC_REF() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

@@ -20,13 +20,7 @@
 namespace pstade { namespace egg {
 
 
-    typedef
-        automatic<
-            X_shared_new< boost::pointee<boost::mpl::_1> >
-        >::type
-    T_shared_object;
-
-
+    typedef automatic< X_shared_new< boost::pointee<mpl_1> > >::type T_shared_object;
     PSTADE_POD_CONSTANT((T_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC();
 
 

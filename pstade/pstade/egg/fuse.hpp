@@ -38,7 +38,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            result_of_fuse< deduce<boost::mpl::_1, as_value> >::type,
+            result_of_fuse< deduce<mpl_1, as_value> >::type,
             by_value,
             use_brace2
         >::type

@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
     template<class Strategy = by_perfect, class OperandBytag = by_perfect>
     struct X_pipable :
         generator<
-            typename result_of_pipable<deduce<boost::mpl::_1, as_value>, Strategy, OperandBytag>::type,
+            typename result_of_pipable<deduce<mpl_1, as_value>, Strategy, OperandBytag>::type,
             by_value,
             use_brace2
         >::type

@@ -205,7 +205,7 @@ namespace pstade { namespace egg {
     template<class Strategy = by_perfect, class OperandBytag = by_perfect>
     struct BOOST_PP_CAT(X_ambi, n) :
         generator<
-            typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<boost::mpl::_1, as_value>, Strategy, OperandBytag>::type,
+            typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Strategy, OperandBytag>::type,
             by_value,
             use_brace2
         >::type

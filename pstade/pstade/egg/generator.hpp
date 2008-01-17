@@ -13,12 +13,12 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/apple/boost/reference_wrapper_fwd.hpp>
 #include <pstade/pass_by.hpp>
 #include "./by_perfect.hpp"
 #include "./detail/little_generator.hpp"
+#include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace egg {

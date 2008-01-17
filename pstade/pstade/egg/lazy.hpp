@@ -40,10 +40,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            result_of_lazy<
-                deduce<boost::mpl::_1, as_value>,
-                deduce<boost::mpl::_2, as_value, boost::use_default>
-            >::type,
+            result_of_lazy< deduce<mpl_1, as_value>, deduce<mpl_2, as_value, boost::use_default> >::type,
             by_value,
             use_brace2
         >::type

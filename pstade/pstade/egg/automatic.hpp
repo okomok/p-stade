@@ -18,8 +18,8 @@
 
 
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <pstade/boost_workaround.hpp>
+#include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
 #include "./fuse.hpp"
 #include "./variadic.hpp"
 

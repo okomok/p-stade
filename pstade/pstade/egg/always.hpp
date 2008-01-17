@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            result_of_always< deduce<boost::mpl::_1, as_wrapped_ref> >::type,
+            result_of_always< deduce<mpl_1, as_wrapped_ref> >::type,
             by_cref,
             use_brace2
         >::type

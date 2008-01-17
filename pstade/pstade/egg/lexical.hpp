@@ -46,11 +46,7 @@ PSTADE_ADL_BARRIER(lexical_cast) { // for boost
 #endif
 
 
-    namespace lexical_detail {
-        typedef automatic< X_lexical_cast<boost::mpl::_1> >::type op;
-    }
-
-    typedef result_of_ambi0<lexical_detail::op>::type T_lexical;
+    typedef result_of_ambi0<automatic< X_lexical_cast<mpl_1> >::type>::type T_lexical;
     PSTADE_POD_CONSTANT((T_lexical), lexical) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 

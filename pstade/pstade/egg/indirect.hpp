@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
     template<class Strategy = by_perfect>
     struct X_indirect :
         generator<
-            typename result_of_indirect<deduce<boost::mpl::_1, as_value>, Strategy>::type,
+            typename result_of_indirect<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             use_brace2
         >::type
