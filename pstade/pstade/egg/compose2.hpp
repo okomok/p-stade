@@ -11,11 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// variadic<> would replace this.
-
-
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_value.hpp"
