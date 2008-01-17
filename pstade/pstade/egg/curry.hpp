@@ -49,6 +49,13 @@ namespace pstade { namespace egg {
 #define n_1 BOOST_PP_DEC(n)
 
 
+    // Assume fun4 is 4ary.
+    // curry4(fun4)(a1)(a2)(a3)(a4)
+    // => curry3(bind_left1(bind_left3, fun4))(a1)(a2)(a3)(a4)
+    // => bind_left1(bind_left3, fun4)(a1, a2, a3)(a4)
+    // => bind_left3(fun4, a1, a2, a3)(a4)
+    // => fun4(a1, a2, a3, a4)
+
     template<class Base>
     struct BOOST_PP_CAT(result_of_curry, n) :
         BOOST_PP_CAT(result_of_curry, n_1)<
@@ -72,34 +79,7 @@ namespace pstade { namespace egg {
             Result r = BOOST_PP_CAT(PSTADE_EGG_CURRY, n)(base);
             return r;
         }
-
-#if 0 // These were used to look into result_of_curryN<>::type.
-        template<class Myself, class Base>
-        struct apply :
-            result_of<
-                BOOST_PP_CAT(T_curry, n_1)(
-                    typename result_of<
-                        detail::T_bind_left1(detail::BOOST_PP_CAT(T_bind_left, n_1) const&, Base&)
-                    >::type
-                )
-            >
-        { };
-
-        template<class Result, class Base>
-        Result call(Base base) const
-        {
-            // Assume fun4 is 4ary.
-            // curry3(bind_left1(bind_left3, fun4))(a1)(a2)(a3)(a4)
-            // => bind_left1(bind_left3, fun4)(a1, a2, a3)(a4)
-            // => bind_left3(fun4, a1, a2, a3)(a4)
-            // => fun4(a1, a2, a3, a4)
-            return BOOST_PP_CAT(curry, n_1)(
-                detail::bind_left1(detail::BOOST_PP_CAT(bind_left, n_1), base)
-            );
-        }
-#endif
     };
-
 
     typedef function<BOOST_PP_CAT(little_curry, n), by_value> BOOST_PP_CAT(T_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
