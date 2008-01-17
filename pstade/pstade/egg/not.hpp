@@ -45,7 +45,6 @@ namespace pstade { namespace egg {
         >::type
     { };
 
-
     typedef X_not<>::function_type T_not;
     typedef T_not T_not_;
     PSTADE_POD_CONSTANT((T_not_), not_) = PSTADE_EGG_GENERATOR();

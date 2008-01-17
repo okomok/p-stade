@@ -53,7 +53,6 @@ namespace pstade { namespace egg {
         >::type
     { };
 
-
     template<class ResultType, class Base> inline
     typename result_of<X_return<ResultType>(Base&)>::type return_(Base base)
     {
