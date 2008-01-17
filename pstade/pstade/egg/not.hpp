@@ -30,7 +30,6 @@ namespace pstade { namespace egg {
         type;
     };
 
-
     #define PSTADE_EGG_NOT_L { {
     #define PSTADE_EGG_NOT_R } }
     #define PSTADE_EGG_NOT(F) PSTADE_EGG_NOT_L F PSTADE_EGG_NOT_R

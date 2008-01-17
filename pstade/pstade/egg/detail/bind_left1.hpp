@@ -68,7 +68,6 @@ namespace pstade { namespace egg { namespace detail {
         type;
     };
 
-
     #define PSTADE_EGG_BIND_LEFT1_L { {
     #define PSTADE_EGG_BIND_LEFT1_M ,
     #define PSTADE_EGG_BIND_LEFT1_R } }

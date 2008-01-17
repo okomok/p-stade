@@ -63,7 +63,6 @@ namespace pstade { namespace egg {
         variadic<compose_detail::little_result<F, G>, Strategy, NullaryResult>
     { };
 
-
     #define PSTADE_EGG_COMPOSE_L PSTADE_EGG_VARIADIC_L {
     #define PSTADE_EGG_COMPOSE_M ,
     #define PSTADE_EGG_COMPOSE_R } PSTADE_EGG_VARIADIC_R

@@ -62,7 +62,6 @@ namespace pstade { namespace egg {
         variadic<after_detail::little_result<Function, Thunk>, Strategy, use_nullary_result>
     { };
 
-
     #define PSTADE_EGG_AFTER_L PSTADE_EGG_VARIADIC_L {
     #define PSTADE_EGG_AFTER_M ,
     #define PSTADE_EGG_AFTER_R } PSTADE_EGG_VARIADIC_R

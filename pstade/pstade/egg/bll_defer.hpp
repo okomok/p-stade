@@ -44,6 +44,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_BLL_DEFER_R } }
     #define PSTADE_EGG_BLL_DEFER(F) PSTADE_EGG_BLL_DEFER_L F PSTADE_EGG_BLL_DEFER_R
 
+
     typedef
         generator<
             result_of_bll_defer< deduce<mpl_1, as_value> >::type,
@@ -62,6 +63,7 @@ namespace pstade { namespace egg {
             function<detail::little_bll_defer_result<SigFun, boost::mpl::true_>, by_ref>
         type;
     };
+
 
     typedef
         generator<

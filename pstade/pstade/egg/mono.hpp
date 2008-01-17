@@ -64,7 +64,6 @@ namespace pstade { namespace egg {
         type;
     };
 
-
     #define PSTADE_EGG_MONO_L {
     #define PSTADE_EGG_MONO_R }
     #define PSTADE_EGG_MONO(F) PSTADE_EGG_MONO_L F PSTADE_EGG_MONO_R
@@ -97,7 +96,6 @@ namespace pstade { namespace egg {
     struct X_mono :
         function<mono_detail::little<Signature>, by_value>
     { };
-
 
     template<class Signature, class Base> inline
     typename result_of<X_mono<Signature>(Base&)>::type mono(Base base)

@@ -37,7 +37,6 @@ namespace pstade { namespace egg {
         type;
     };
 
-
     #define PSTADE_EGG_INDIRECT_L { {
     #define PSTADE_EGG_INDIRECT_R } }
     #define PSTADE_EGG_INDIRECT(P) PSTADE_EGG_INDIRECT_L P PSTADE_EGG_INDIRECT_R

@@ -35,7 +35,6 @@ namespace pstade { namespace egg {
         type;
     };
 
-
     #define PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_UNFUSE_M ,
     #define PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_TUPLE_PACK_INIT

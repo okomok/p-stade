@@ -28,7 +28,6 @@ namespace pstade { namespace egg {
         result_of_return<Base>
     { };
 
-
     #define PSTADE_EGG_UNLAMBDA_L PSTADE_EGG_RETURN_L
     #define PSTADE_EGG_UNLAMBDA_R PSTADE_EGG_RETURN_R
     #define PSTADE_EGG_UNLAMBDA(F) PSTADE_EGG_UNLAMBDA_L F PSTADE_EGG_UNLAMBDA_R

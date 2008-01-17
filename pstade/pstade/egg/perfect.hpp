@@ -23,7 +23,6 @@ namespace pstade { namespace egg {
         result_of_return<Base>
     { };
 
-
     #define PSTADE_EGG_PERFECT_L PSTADE_EGG_RETURN_L
     #define PSTADE_EGG_PERFECT_R PSTADE_EGG_RETURN_R
     #define PSTADE_EGG_PERFECT(F) PSTADE_EGG_PERFECT_L F PSTADE_EGG_PERFECT_R

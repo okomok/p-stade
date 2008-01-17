@@ -30,7 +30,6 @@ namespace pstade { namespace egg {
         type;
     };
 
-
     #define PSTADE_EGG_LAZY_L { {
     #define PSTADE_EGG_LAZY_M ,
     #define PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_BLL_BIND_INIT

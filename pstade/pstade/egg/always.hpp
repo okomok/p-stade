@@ -70,6 +70,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_ALWAYS_R } }
     #define PSTADE_EGG_ALWAYS(F) PSTADE_EGG_ALWAYS_L F PSTADE_EGG_ALWAYS_R
 
+
     typedef
         generator<
             result_of_always< deduce<mpl_1, as_wrapped_ref> >::type,

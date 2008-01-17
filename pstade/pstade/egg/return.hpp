@@ -35,7 +35,6 @@ namespace pstade { namespace egg {
         type;
     };
 
-
     #define PSTADE_EGG_RETURN_L { {
     #define PSTADE_EGG_RETURN_R } }
     #define PSTADE_EGG_RETURN(F) PSTADE_EGG_RETURN_L F PSTADE_EGG_RETURN_R
