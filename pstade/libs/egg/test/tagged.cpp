@@ -67,4 +67,5 @@ void pstade_minimal_test()
 {
     BOOST_CHECK( my_foo1(1, 2) == 3 );
     BOOST_CHECK( my_foo2(1, 2) == 3 );
+    BOOST_CHECK( egg::tagged<tag1>(my_foo())(1, 2) == 3 );
 }

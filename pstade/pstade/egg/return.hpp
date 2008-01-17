@@ -43,11 +43,12 @@ namespace pstade { namespace egg {
 
     template<
         class ResultType = boost::use_default,
-        class Strategy   = by_perfect
+        class Strategy   = by_perfect,
+        class Tag        = boost::use_default
     >
     struct X_return :
         generator<
-            typename result_of_return<deduce<mpl_1, as_value>, ResultType, Strategy>::type,
+            typename result_of_return<deduce<mpl_1, as_value>, ResultType, Strategy, Tag>::type,
             by_value,
             use_brace2
         >::type

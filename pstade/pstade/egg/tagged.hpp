@@ -13,6 +13,7 @@
 
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <pstade/result_of.hpp>
 #include "./return.hpp"
 
 
@@ -30,7 +31,16 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_TAGGED(F) PSTADE_EGG_TAGGED_L F PSTADE_EGG_TAGGED_R
 
 
-    // Do you need a function 'egg::tagged<...>(f)'?
+    template<class Tag, class Strategy = boost::use_default>
+    struct X_tagged :
+        X_return<boost::use_default, Strategy, Tag>
+    { };
+
+    template<class Tag, class Base> inline
+    typename result_of<X_tagged<Tag>(Base&)>::type tagged(Base f)
+    {
+        return X_tagged<Tag>()(f);
+    }
 
 
     struct no_tag_tag;
