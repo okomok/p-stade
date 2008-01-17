@@ -37,9 +37,9 @@ namespace pstade { namespace egg {
     { };
 
     template<class Tag, class Base> inline
-    typename result_of<X_tagged<Tag>(Base&)>::type tagged(Base f)
+    typename result_of<X_tagged<Tag>(Base&)>::type tagged(Base base)
     {
-        return X_tagged<Tag>()(f);
+        return X_tagged<Tag>()(base);
     }
 
 
