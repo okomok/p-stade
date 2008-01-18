@@ -97,6 +97,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_PIPABLE__ [link egg.function_adaptors.pipable pipable]]
 [def __EGG_RET__ [link egg.function_adaptors.ret ret]]
 [def __EGG_BLL_BIND__ [link egg.function_objects.bll_bind bll_bind]]
+[def __EGG_TUPLE_PACK__ [link egg.function_objects.tuple_pack tuple_pack]]
 
 [def __EGG_GENERATOR__ [link egg.object_generator.generator generator]]
 [def __EGG_GENERATING_FORMS__ [link egg.object_generator.generating_forms Generating forms]]

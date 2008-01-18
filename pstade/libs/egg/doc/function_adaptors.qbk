@@ -370,8 +370,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, _Stg, R0)` is an object of `result_of_unfuse<_typeof(d), _default, _Stg, R0>::type` initialized using `d` or an initializer.
-* `ref(b1,...,bN)` is `b1&,...,bN&`.
+* `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), _default, R0, _Stg>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -393,7 +392,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, R0, _Stg)(a1,...,aN)`]
-        [`_const(d)( boost::tuple<ref(_meta_safe_arg_list(a, by_ref))>(_safe_arg_list(a, _Stg)) )`]
+        [`_const(d)( X_tuple_pack<_Stg>()(a1,...,aN) )`]
     ]
     [
         [`X_unfuse<R0 = _default, _Stg = _default>`]
@@ -427,6 +426,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
 * __EGG_VARIADIC__
+* __EGG_TUPLE_PACK__
 
 [endsect]
 
