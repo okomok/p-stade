@@ -106,7 +106,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        // To keep movable object movable, `egg::forwarding` can't be used here.
+        // To keep movable object movable, egg::forwarding can't be used here.
         return m_base(m_pack(BOOST_PP_ENUM_PARAMS(n, a)));
     }
 
