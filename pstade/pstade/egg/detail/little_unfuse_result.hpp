@@ -35,7 +35,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Base, class Pack>
-    struct nullary_result_of :
+    struct nullary_result_of_fused :
         result_of<
             Base const(typename result_of<Pack const()>::type)
         >
@@ -69,7 +69,7 @@ namespace pstade { namespace egg { namespace detail {
     // 0ary
         typedef typename
             eval_if_use_nullary_result<NullaryResult,
-                nullary_result_of<Base, pack_type>
+                nullary_result_of_fused<Base, pack_type>
             >::type
         nullary_result_type;
 
