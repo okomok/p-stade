@@ -355,8 +355,9 @@ Now `function<>` with your strategy has become the __MAJOR_FUNCTION_OBJECT__ typ
 Let's look into the new valid expressions.
 
 [heading Notation]
-* `StgTag` is a (possibly cv-qualified) __METAFUNCTION_CLASS__ which you have defined.
-* `By(I)` is `StgTag::apply< StgTag, boost::mpl::int_<K>, boost::mpl::int_<I> >::type`.
+* `StgTag` is a __METAFUNCTION_CLASS__ which you have defined.
+* `StgTag_` is (possibly cv-qualified) `StgTag`.
+* `By(I)` is `StgTag_::apply< StgTag_, boost::mpl::int_<K>, boost::mpl::int_<I> >::type`.
 
 [heading New valid expressions]
 [table 
