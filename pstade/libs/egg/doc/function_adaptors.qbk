@@ -426,6 +426,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __BOOST_FUSION_FUNCTIONAL__
 * __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
+* __EGG_VARIADIC__
 
 [endsect]
 

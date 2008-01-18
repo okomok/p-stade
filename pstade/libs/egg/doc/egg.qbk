@@ -55,6 +55,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
 [def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826  callable]]
 
+[def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
 [def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
 
 [def __INPUT_ITERATOR__ [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
@@ -84,6 +85,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION__ [link egg.function_builders.function function]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_builders.function_facade function_facade]]
 [def __EGG_DEFERRED__ [link egg.function_builders.deferred deferred]]
+[def __EGG_VARIADIC__ [link egg.function_builders.variadic variadic]]
 [def __EGG_MAKE_FUNCTION__ [link egg.function_builders.make_function make_function]]
 
 [def __EGG_AMBI__ [link egg.function_adaptors.ambin ambiN]]

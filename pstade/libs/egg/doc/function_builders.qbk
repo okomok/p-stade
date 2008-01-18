@@ -303,6 +303,56 @@ such object isn't POD and no initialization way is offered. So that,
 
 
 
+[section variadic]
+
+[heading Description]
+Pending... `variadic` emulates __VARIADIC_FUNCTION__ in C++98.
+In fact, this is a syntax sugar of __EGG_UNFUSE__.
+
+[heading Header]
+* `<pstade/egg/variadic.hpp>`
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`variadic<_Lit, _Stg = _default, R0 = _default>::type`]
+        [`result_of_unfuse<function<_Lit, by_cref>, X_funsion_pack<_Stg>, R0, _Stg>::type`]
+    ]
+    [
+        [`PSTADE_EGG_VARIADIC_L _lit PSTADE_EGG_VARIADIC_R`]
+        [A braced initializer of `variadic<_Lit,...>::type`]
+    ]
+    [
+        [`PSTADE_EGG_VARIADIC(X)`]
+        [`PSTADE_EGG_VARIADIC_L X PSTADE_EGG_VARIADIC_R`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* ...
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_UNFUSE__
+* __EGG_FORWARDING_STRATEGIES__
+
+[endsect]
+
+
+
+
 [section make_function]
 
 [heading Description]
