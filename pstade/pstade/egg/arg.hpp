@@ -24,38 +24,39 @@
     #include <boost/preprocessor/repetition/enum_params.hpp>
     #include "./apply_decl.hpp"
     #include "./by_perfect.hpp"
-    #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+    #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+    #include "./forward.hpp"
     #include "./is_bind_expression.hpp"
 
 
     namespace pstade { namespace egg {
 
 
-        template<int N>
+        template<int N, class Strategy = by_perfect>
         struct little_arg;
 
 
-        template<int N>
+        template<int N, class Strategy = by_perfect>
         struct X_arg :
-            function<little_arg<N>, by_perfect>
+            function<little_arg<N, Strategy>, Strategy>
         { };
 
         #define PSTADE_EGG_ARG_INIT {{}}
 
 
-        template<int N>
-        struct is_bind_expression< X_arg<N> > :
+        template<int N, class Strategy>
+        struct is_bind_expression< X_arg<N, Strategy> > :
             boost::mpl::true_
         { };
 
-        template<int N>
-        struct is_bind_expression< function<little_arg<N>, by_perfect> > :
+        template<int N, class Strategy>
+        struct is_bind_expression< function<little_arg<N, Strategy>, Strategy> > :
             boost::mpl::true_
         { };
 
 
         // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/arg.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/arg.hpp>))
         #include BOOST_PP_ITERATE()
 
 
@@ -68,14 +69,14 @@
         template<class T>
         struct is_placeholder;
 
-        template<int N>
-        struct is_placeholder< pstade::egg::X_arg<N> >
+        template<int N, class Strategy>
+        struct is_placeholder< pstade::egg::X_arg<N, Strategy> >
         {
     	    enum _vt { value = N };
         };
 
-        template<int N>
-        struct is_placeholder< pstade::egg::function<pstade::egg::little_arg<N>, pstade::egg::by_perfect> >
+        template<int N, class Strategy>
+        struct is_placeholder< pstade::egg::function<pstade::egg::little_arg<N, Strategy>, Strategy> >
         {
     	    enum _vt { value = N };
         };
@@ -95,14 +96,14 @@
     #define n BOOST_PP_SLOT(1)
 
 
-        template< >
-        struct little_arg< n >
+        template<class Strategy>
+        struct little_arg< n, Strategy >
         {
             // nary - PSTADE_EGG_MAX_ARITYary
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 
-            #define  BOOST_PP_ITERATION_PARAMS_2 (3, (n, PSTADE_EGG_MAX_ARITY, <pstade/egg/arg.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_2 (3, (n, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/arg.hpp>))
             #include BOOST_PP_ITERATE()
         };
 
@@ -117,15 +118,14 @@
 
 
         template<class Myself, BOOST_PP_ENUM_PARAMS(m, class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)>
-        {
-            typedef BOOST_PP_CAT(A, BOOST_PP_DEC(n)) & type;
-        };
+        struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)> :
+            result_of_forwarding<Strategy const, m, BOOST_PP_DEC(n), BOOST_PP_CAT(A, BOOST_PP_DEC(n))>
+        { };
 
         template<class Result, BOOST_PP_ENUM_PARAMS(m, class A)>
         Result call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
         {
-            return BOOST_PP_CAT(a, BOOST_PP_DEC(n));
+            return egg::forwarding<Strategy const, m, BOOST_PP_DEC(n)>(BOOST_PP_CAT(a, BOOST_PP_DEC(n)));
         }
 
 

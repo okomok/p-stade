@@ -20,7 +20,7 @@
     #include <boost/preprocessor/iteration/iterate.hpp>
     #include <pstade/pod_constant.hpp>
     #include "./arg.hpp"
-    #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+    #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 
 
     namespace pstade { namespace egg {
@@ -30,7 +30,7 @@
 
 
         // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/placeholders.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/placeholders.hpp>))
         #include BOOST_PP_ITERATE()
 
 
