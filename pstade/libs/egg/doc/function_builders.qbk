@@ -403,12 +403,12 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
 
 
 
-[section Nullary result type registration]
+[section Nullary result_of registration]
 
 [heading Description]
 __BOOST_RESULT_OF__ treats nullary-callable type as special case.
 A nullary __FUNCTION_OBJECT__ type which is derived from `function<>` or `function_facade<>`
-must inform __BOOST_RESULT_OF__ about its nullary result type using the following macro.
+must inform __BOOST_RESULT_OF__ about its nullary return type using the following macro.
 
 [heading Header]
 * `<pstade/egg/register_nullary_result.hpp>`
