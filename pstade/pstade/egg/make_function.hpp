@@ -48,7 +48,6 @@ namespace pstade { namespace egg {
         function<make_function_detail::little<Strategy>, by_value>
     { };
 
-
     typedef X_make_function<>::function_type T_make_function;
     PSTADE_POD_CONSTANT((T_make_function), make_function) = {{}};
 
