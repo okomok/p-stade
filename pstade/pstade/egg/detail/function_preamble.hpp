@@ -14,7 +14,7 @@
 #include <boost/preprocessor/tuple/elem.hpp>
 #include "../bll_bindable.hpp"
 #include "./little_of.hpp"
-#include "./nullary_result.hpp"
+#include "./nullary_result_of_little.hpp"
 #include "./of_apply_little.hpp"
 #include "./strategy_of.hpp"
 

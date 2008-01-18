@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_NULLARY_RESULT_HPP
-#define PSTADE_EGG_DETAIL_NULLARY_RESULT_HPP
+#ifndef PSTADE_EGG_DETAIL_NULLARY_RESULT_OF_LITTLE_HPP
+#define PSTADE_EGG_DETAIL_NULLARY_RESULT_OF_LITTLE_HPP
 #include "./prefix.hpp"
 
 
@@ -29,7 +29,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Little, class Function>
-    struct get_nullary_result :
+    struct get_nullary_result_of_little :
         if_use_default< typename Little::nullary_result_type,
             error_non_nullary<Function>,
             typename Little::nullary_result_type
@@ -38,9 +38,9 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Little, class Function>
-    struct nullary_result :
+    struct nullary_result_of_little :
         boost::mpl::eval_if< has_nullary_result_type<Little>,
-            get_nullary_result<Little, Function>,
+            get_nullary_result_of_little<Little, Function>,
             boost::mpl::identity< error_non_nullary<Function> >
         >
     { };

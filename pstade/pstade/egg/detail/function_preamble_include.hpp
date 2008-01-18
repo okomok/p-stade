@@ -10,15 +10,15 @@
 
     typedef function function_type;
 
-    typedef typename pstade::egg::detail::little_of<function_type>::type little_type;
-    typedef typename pstade::egg::detail::strategy_of<function_type>::type strategy_type;
+    typedef typename detail::little_of<function_type>::type little_type;
+    typedef typename detail::strategy_of<function_type>::type strategy_type;
 
-    typedef typename pstade::egg::detail::nullary_result<little_type, function>::type nullary_result_type;
+    typedef typename detail::nullary_result_of_little<little_type, function>::type nullary_result_type;
     typedef nullary_result_type mutable_nullary_result_type;
 
     template<class Signature>
     struct result :
-        pstade::egg::detail::of_apply_little<Signature>
+        detail::of_apply_little<Signature>
     { };
 
     #include PSTADE_EGG_BLL_BINDABLE()
