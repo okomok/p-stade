@@ -19,7 +19,7 @@
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./forward.hpp"
-#include "./nullary_result_of.hpp"
+#include "./register_nullary_result.hpp"
 
 
 namespace pstade { namespace egg {
@@ -64,8 +64,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::X_construct, (class)(class))
-#include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_construct, (class)(class))
 
 
 #endif
