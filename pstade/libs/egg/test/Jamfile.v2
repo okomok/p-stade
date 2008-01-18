@@ -107,6 +107,7 @@ test-suite "egg" :
     [ run placeholders.cpp ]
     [ run protect.cpp ]
     [ run ptr_new.cpp ]
+    [ run register_nullary_result.cpp ]
     [ run result_of_in_ns_scope.cpp ]
     [ run return.cpp ]
     [ run shared_new.cpp ]

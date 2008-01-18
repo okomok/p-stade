@@ -120,8 +120,7 @@ struct T_bar :
     pstade::egg::function< little_bar<T0, T1>, pstade::egg::by_perfect >
 { };
 
-#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (T_bar, 2)
-#include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
 
 
 struct little_identity

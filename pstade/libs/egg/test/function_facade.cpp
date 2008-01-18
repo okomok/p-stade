@@ -101,8 +101,7 @@ struct T_bar :
     }
 };
 
-#define  PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (T_bar, 2) 
-#include PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE()
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2) 
 
 
 struct dummy { };
