@@ -403,7 +403,7 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
 
 
 
-[section Nullary result registration]
+[section Nullary result type registration]
 
 [heading Description]
 __BOOST_RESULT_OF__ treats nullary-callable type as special case.
@@ -431,11 +431,12 @@ must inform __BOOST_RESULT_OF__ about its nullary result type using the followin
     ]
     [
         [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TEMPLATE(X, S)`]
-        [`X` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
+        [`X<>` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
     ]
 ]
 
 [heading Preconditions]
+* These macros must be used in the global namespace.
 * `BOOST_TYPEOF_REGISTER_TYPE(T)` is a valid expression.
 * `BOOST_TYPEOF_REGISTER_TEMPLATE(X, S)` is a valid expression.
 
