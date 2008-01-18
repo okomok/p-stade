@@ -34,7 +34,7 @@ struct T_my_plus
 PSTADE_EGG_CONST((T_my_plus), my_plus) = {};
 
 
-typedef result_of_bind3<T_my_plus, boost::use_default, int, int, T_placeholder1>::type T_bplus;
+typedef result_of_bind3<T_my_plus, boost::use_default, int, int, placeholders::TT_1>::type T_bplus;
 PSTADE_EGG_CONST((T_bplus), bplus) = PSTADE_EGG_BIND_L {}, 7, 8, PSTADE_EGG_PLACEHOLDER PSTADE_EGG_BIND_R;
 
 

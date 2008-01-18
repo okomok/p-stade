@@ -17,6 +17,7 @@ test-suite "egg" :
     [ run ambi.cpp ]
     [ run ambi_by.cpp ]
     [ run apply.cpp ]
+    [ run arg.cpp ]
     [ run as_mpl_lambda.cpp ]
     [ run auto_new.cpp ]
     [ run auto_object.cpp ]

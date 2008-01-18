@@ -19,6 +19,7 @@
 #include "../ambi.hpp"
 #include "../apply.hpp"
 #include "../apply_decl.hpp"
+#include "../arg.hpp"
 #include "../auto_new.hpp"
 #include "../auto_object.hpp"
 #include "../automatic.hpp"
