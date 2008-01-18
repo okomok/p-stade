@@ -95,6 +95,7 @@ test-suite "egg" :
 #    [ run named_nullary.cpp ]
 #    [ run named_nc.cpp ]
 #    [ run named_tag.cpp ]
+    [ run nc_little.cpp ]
     [ run new.cpp ]
     [ run new_array.cpp ]
     [ run not.cpp ]
