@@ -30,7 +30,8 @@
 #include <pstade/unparenthesize.hpp>
 
 
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1400) || BOOST_WORKAROUND(BOOST_MSVC, == 1500)
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) \
+    && BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
 
     #include <boost/mpl/lambda.hpp>
 

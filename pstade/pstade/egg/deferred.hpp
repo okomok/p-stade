@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_DEFERRED() {{}}
 
 
-    // If you are a msvc-8.0 user, prefer this macro.
+    // If you are a msvc-8/9 user, prefer this macro.
     // Note that PSTADE_EGG_AS_MPL_LAMBDA in 'deferred' can't work around.
     #define PSTADE_EGG_DEFER(L) \
         pstade::egg::deferred<PSTADE_EGG_AS_MPL_LAMBDA(L)>::type \
