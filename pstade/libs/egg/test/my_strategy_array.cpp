@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
-        Lit little() const { return m_lit; }
+        Lit const& little() const { return m_lit; }
 
         template<class A1>
         typename apply_little<Lit const, A1>::type
@@ -69,7 +69,7 @@ namespace pstade { namespace egg {
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
-        Lit little() const { return m_lit; }
+        Lit const& little() const { return m_lit; }
 
         template<class A1>
         typename apply_little<Lit const, PSTADE_EGG_DEDUCED_CONST(A1)>::type 

@@ -9,12 +9,12 @@
 
 
     typedef function function_type;
+
     typedef typename pstade::egg::detail::little_of<function_type>::type little_type;
     typedef typename pstade::egg::detail::strategy_of<function_type>::type strategy_type;
 
-    typedef typename
-        pstade::egg::detail::nullary_result<little_type, function>::type
-    nullary_result_type;
+    typedef typename pstade::egg::detail::nullary_result<little_type, function>::type nullary_result_type;
+    typedef nullary_result_type mutable_nullary_result_type;
 
     template<class Signature>
     struct result :

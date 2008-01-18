@@ -19,13 +19,14 @@
         template< >
         struct result_of< PSTADE_name(void) >
         {
-            typedef PSTADE_name::nullary_result_type type;
+            typedef PSTADE_name::mutable_nullary_result_type type;
         };
 
         template< >
-        struct result_of< PSTADE_name const(void) > :
-               result_of< PSTADE_name() >
-        { };
+        struct result_of< PSTADE_name const(void) >
+        {
+            typedef PSTADE_name::nullary_result_type type;
+        };
 
     }
 

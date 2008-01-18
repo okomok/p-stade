@@ -24,7 +24,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
         typedef function function_type;
 
         Little lit; // exposition only
-        Little little() const { return lit; }
+        Little const& little() const { return lit; }
 
         // unspecified
         // ...

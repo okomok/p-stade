@@ -205,7 +205,7 @@ for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 A __LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 
 [heading Refinement of]
-* __COPY_CONSTRUCTIBLE__
+* ...
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,

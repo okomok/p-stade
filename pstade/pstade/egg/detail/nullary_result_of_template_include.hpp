@@ -20,14 +20,14 @@
         template<PSTADE_PP_SEQ_ENUM_PARAMS(PSTADE_seq, T)>
         struct result_of< PSTADE_name<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_seq, T)>(void) >
         {
-            typedef typename PSTADE_name<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_seq, T)>::nullary_result_type type;
+            typedef typename PSTADE_name<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_seq, T)>::mutable_nullary_result_type type;
         };
 
         template<PSTADE_PP_SEQ_ENUM_PARAMS(PSTADE_seq, T)>
-        struct result_of< PSTADE_name<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_seq, T)> const(void) > :
-               result_of< PSTADE_name<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_seq, T)>() >
-        { };
-
+        struct result_of< PSTADE_name<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_seq, T)> const(void) >
+        {
+            typedef typename PSTADE_name<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_seq, T)>::nullary_result_type type;
+        };
      }
 
 

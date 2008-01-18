@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
         Little m_little;
-        Little little() const { return m_little; }
+        Little const& little() const { return m_little; }
 
     // 0ary
         nullary_result_type operator()() const
