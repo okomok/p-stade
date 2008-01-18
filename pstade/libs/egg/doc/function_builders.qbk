@@ -54,6 +54,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 ]
 
 [heading Preconditions]
+* `_Lit` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -402,6 +403,7 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
 
 
 
+[/
 
 [section Nullary result_of registration]
 
@@ -450,7 +452,7 @@ must inform __BOOST_RESULT_OF__ about its nullary return type using the followin
 
 [endsect]
 
-
+]
 
 
 [section Comparison operators]

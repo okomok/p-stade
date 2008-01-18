@@ -10,6 +10,7 @@
 
 
 #include <pstade/egg/function_facade.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -18,6 +19,23 @@
 
 namespace egg = pstade::egg;
 using namespace egg;
+
+
+#if 0 // seems not conforming.
+struct little_id : boost::noncopyable
+{
+    template<class _, class A>
+    struct apply { typedef A& type;};
+
+    template<class _, class A>
+    _ call(A& a) const { return a; }
+
+    little_id() {};
+};
+
+function<little_id> const an_id = {};
+#endif
+
 
 
 struct my_id : boost::noncopyable,
@@ -35,6 +53,14 @@ struct my_id : boost::noncopyable,
 
 void pstade_minimal_test()
 {
+#if 0
+    {
+        int i = 3;
+        BOOST_CHECK( an_id(i) == 3 );
+        little_id const& l = an_id.little();
+        (void)l;
+    }
+#endif
     {
         my_id const id;
         int i = 3;

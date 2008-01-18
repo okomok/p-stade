@@ -55,8 +55,7 @@ struct T_foo :
     }
 };
 
-#define  PSTADE_EGG_NULLARY_RESULT_OF_TYPE_PARAMS (T_foo)
-#include PSTADE_EGG_NULLARY_RESULT_OF_TYPE()
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(T_foo)
 
 
 T_foo const foo = T_foo();
