@@ -27,6 +27,7 @@ regulating the maximum supported arity of `by_perfect`.
 
 [heading Precondition]
 * `5 <= N && N <= BOOST_RESULT_OF_NUM_ARGS`.
+* `N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 * The second expression must be placed before including any Egg headers.
 
 [caution `7` or more arity tends to make compile-time very slow.]
@@ -59,6 +60,7 @@ regulating the maximum supported arity of `by_perfect`.
 
 [heading Precondition]
 * `10 <= N && N <= BOOST_RESULT_OF_NUM_ARGS`.
+* `PSTADE_EGG_MAX_ARITY <= N`.
 * The second expression must be placed before including any Egg headers.
 
 [endsect]
