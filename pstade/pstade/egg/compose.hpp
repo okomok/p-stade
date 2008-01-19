@@ -79,7 +79,7 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_compose<>::function_type T_compose;
-    PSTADE_POD_CONSTANT((T_compose), compose) = {{}};
+    PSTADE_POD_CONSTANT((T_compose), compose) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

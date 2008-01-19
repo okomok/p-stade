@@ -78,7 +78,7 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_after<>::function_type T_after;
-    PSTADE_POD_CONSTANT((T_after), after) = {{}};
+    PSTADE_POD_CONSTANT((T_after), after) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg
