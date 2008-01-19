@@ -22,12 +22,17 @@
 BOOST_MPL_ASSERT(( boost::is_same<
     pstade::affect_const<int const volatile&, double>::type,
     double
-> ));
+> )); // reference is not const.
 
 BOOST_MPL_ASSERT(( boost::is_same<
     pstade::affect_const<int const volatile, double>::type,
     double const 
 > ));
+
+BOOST_MPL_ASSERT(( boost::is_same<
+    pstade::affect_const<int const volatile, double&>::type,
+    double&
+> )); // never affect to reference.
 
 BOOST_MPL_ASSERT(( boost::is_same<
     pstade::affect_const<int const, double>::type,
@@ -57,6 +62,11 @@ BOOST_MPL_ASSERT(( boost::is_same<
 > ));
 
 BOOST_MPL_ASSERT(( boost::is_same<
+    pstade::affect_volatile<int const volatile, double&>::type,
+    double&
+> ));
+
+BOOST_MPL_ASSERT(( boost::is_same<
     pstade::affect_volatile<int const, double>::type,
     double
 > ));
@@ -82,6 +92,11 @@ BOOST_MPL_ASSERT(( boost::is_same<
 BOOST_MPL_ASSERT(( boost::is_same<
     pstade::affect_cv<int const volatile, double>::type,
     double const volatile 
+> ));
+
+BOOST_MPL_ASSERT(( boost::is_same<
+    pstade::affect_cv<int const volatile, double&>::type,
+    double& 
 > ));
 
 BOOST_MPL_ASSERT(( boost::is_same<
