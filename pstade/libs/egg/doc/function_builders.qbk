@@ -330,11 +330,11 @@ In fact, this is a syntax sugar of __EGG_UNFUSE__.
     ]
     [
         [`PSTADE_EGG_VARIADIC_L _lit PSTADE_EGG_VARIADIC_R`]
-        [A braced initializer of `variadic<_Lit,...>::type`]
+        [A braced initializer of `variadic<_typeof(_lit),...>::type`]
     ]
     [
-        [`PSTADE_EGG_VARIADIC(X)`]
-        [`PSTADE_EGG_VARIADIC_L X PSTADE_EGG_VARIADIC_R`]
+        [`PSTADE_EGG_VARIADIC(l)`]
+        [`PSTADE_EGG_VARIADIC_L l PSTADE_EGG_VARIADIC_R`]
     ]
 ]
 

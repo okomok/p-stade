@@ -13,8 +13,9 @@
     typedef typename detail::little_of<function_type>::type little_type;
     typedef typename detail::strategy_of<function_type>::type strategy_type;
 
-    typedef typename detail::nullary_result_of_little<little_type, function>::type nullary_result_type;
-    typedef nullary_result_type mutable_nullary_result_type;
+    typedef typename
+        detail::nullary_result_of_little<little_type, function>::type
+    nullary_result_type;
 
     template<class Signature>
     struct result :

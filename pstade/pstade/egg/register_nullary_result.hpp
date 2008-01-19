@@ -20,7 +20,7 @@
         template< > \
         struct result_of< X(void) > \
         { \
-            typedef X::mutable_nullary_result_type type; \
+            typedef X::nullary_result_type type; \
         }; \
     \
         template< > \
@@ -43,7 +43,7 @@
         template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
         struct result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>(void) > \
         { \
-            typedef typename X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>::mutable_nullary_result_type type; \
+            typedef typename X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>::nullary_result_type type; \
         }; \
     \
         template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
