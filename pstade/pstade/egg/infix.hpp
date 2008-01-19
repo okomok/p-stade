@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
     } // namespace infix_detail
 
 
-    namespace infix_by_perfect {
+    namespace infix {
 
 
         template<class Function, class Left> inline
@@ -81,31 +81,7 @@ namespace pstade { namespace egg {
         }
 
 
-    } // namespace infix_by_perfect
-
-
-    namespace infix = infix_by_perfect;
-
-
-    namespace infix_by_value {
-
-
-        template<class Function, class Left> inline
-        infix_detail::thingy<Function, Left>
-        operator^(Left left, Function fun)
-        {
-            return infix_detail::thingy<Function, Left>(fun, left);
-        }
-
-        template<class Function, class Left, class Right> inline
-        typename result_of<Function(Left, Right)>::type
-        operator^(infix_detail::thingy<Function, Left> x, Right right)
-        {
-            return x.m_fun(egg::forward<by_value>(x.m_left), egg::forward<by_value>(right));
-        }
-
-
-    } // namespace infix_by_value
+    } // namespace infix
 
 
 } } // namespace pstade::egg

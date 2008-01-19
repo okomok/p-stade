@@ -16,7 +16,6 @@
 #include <pstade/egg/to_string.hpp>
 #include <pstade/egg/functional.hpp> // plus
 #include <string>
-#include <memory>
 
 
 struct str_plus_int
@@ -26,16 +25,6 @@ struct str_plus_int
     result_type operator()(std::string s, int i) const
     {
         return s + pstade::egg::to_string(i);
-    }
-};
-
-struct get_first_auto_ptr
-{
-    typedef std::auto_ptr<int> result_type;
-
-    result_type operator()(std::auto_ptr<int> a, int i) const
-    {
-        return a;
     }
 };
 
@@ -64,17 +53,8 @@ void pstade_minimal_test()
         BOOST_CHECK( (l ^plus^ r) == 22 );
     }
     {
-        using namespace pstade::egg::infix_by_perfect;
+        using namespace pstade::egg::infix;
 
         BOOST_CHECK( (10 ^plus^ 12 ^plus^ 3) == 25 );
-    }
-
-    {
-        // movable check.
-        using namespace pstade::egg::infix_by_value;
-
-        std::auto_ptr<int> x(new int(3));
-        std::auto_ptr<int> x_ = x ^get_first_auto_ptr()^ 10;
-        (void)x_;
     }
 }
