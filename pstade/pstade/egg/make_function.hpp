@@ -14,42 +14,24 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./generator.hpp"
+#include "./use_brace1.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    namespace make_function_detail {
-
-
-        template<class Strategy>
-        struct little
-        {
-            template<class Myself, class Little>
-            struct apply
-            {
-                typedef function<Little, Strategy> type;
-            };
-
-            template<class Result, class Little>
-            Result call(Little l) const
-            {
-                Result r = { l };
-                return r;
-            }
-        };
-
-
-    } // namespace make_function_detail
-
-
     template<class Strategy = by_perfect>
     struct X_make_function :
-        function<make_function_detail::little<Strategy>, by_value>
+        generator<
+            function<deduce<mpl_1, as_value>, Strategy>,
+            by_value,
+            use_brace1
+        >::type
     { };
 
     typedef X_make_function<>::function_type T_make_function;
-    PSTADE_POD_CONSTANT((T_make_function), make_function) = {{}};
+    PSTADE_POD_CONSTANT((T_make_function), make_function) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg
