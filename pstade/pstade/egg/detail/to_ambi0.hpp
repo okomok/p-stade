@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_LITTLE_TO_AMBI0_HPP
-#define PSTADE_EGG_DETAIL_LITTLE_TO_AMBI0_HPP
+#ifndef PSTADE_EGG_DETAIL_TO_AMBI0_HPP
+#define PSTADE_EGG_DETAIL_TO_AMBI0_HPP
 #include "./prefix.hpp"
 
 
@@ -21,6 +21,12 @@ namespace pstade { namespace egg { namespace detail {
     template<class Little, class Bytag>
     struct little_to_ambi0 :
         result_of_ambi0<function<Little, Bytag>, Bytag, Bytag>
+    { };
+
+
+    template<class Base, class Bytag>
+    struct base_to_ambi0 :
+        result_of_ambi0<Base, Bytag, Bytag>
     { };
 
 

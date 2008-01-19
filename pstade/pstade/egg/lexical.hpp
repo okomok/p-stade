@@ -25,7 +25,6 @@ namespace pstade { namespace egg {
     struct X_lexical_cast
     {
         typedef X_lexical_cast function_type;
-        typedef by_cref strategy_type;
 
         typedef To result_type;
 

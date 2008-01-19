@@ -13,33 +13,17 @@
 
 #include <string>
 #include <pstade/pod_constant.hpp>
-#include "./ambi.hpp"
+#include "./detail/to_ambi0.hpp"
 #include "./lexical.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    namespace to_string_detail {
-
-
-        template<class String>
-        struct to_ :
-            result_of_ambi0<
-                typename X_lexical_cast<String>::function_type,
-                typename X_lexical_cast<String>::strategy_type,
-                typename X_lexical_cast<String>::strategy_type
-            >
-        { };
-
-
-    } // namespace to_string_detail
-
-
-    typedef to_string_detail::to_<std::string>::type T_to_string;
+    typedef detail::base_to_ambi0<X_lexical_cast<std::string>::function_type, by_cref>::type T_to_string;
     PSTADE_POD_CONSTANT((T_to_string), to_string) = PSTADE_EGG_AMBI({});
 
-    typedef to_string_detail::to_<std::wstring>::type T_to_wstring;
+    typedef detail::base_to_ambi0<X_lexical_cast<std::wstring>::function_type, by_cref>::type T_to_wstring;
     PSTADE_POD_CONSTANT((T_to_wstring), to_wstring) = PSTADE_EGG_AMBI({});
 
 
