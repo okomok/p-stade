@@ -17,6 +17,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./ambi.hpp"
 #include "./automatic.hpp"
+#include "./by_value.hpp"
 
 
 namespace pstade { namespace egg {
@@ -26,10 +27,12 @@ namespace pstade { namespace egg {
     struct X_integral_cast
     {
         typedef X_integral_cast function_type;
+        typedef by_value strategy_type;
+
         typedef To result_type;
 
         template<class From>
-        To operator()(From const& from) const
+        To operator()(From from) const
         {
             BOOST_MPL_ASSERT((boost::is_integral<To>));
             BOOST_MPL_ASSERT((boost::is_integral<From>));
@@ -38,13 +41,13 @@ namespace pstade { namespace egg {
     };
 
     template<class To, class From> inline
-    To integral_cast(From const& from)
+    To integral_cast(From from)
     {
         return X_integral_cast<To>()(from);
     }
 
 
-    typedef result_of_ambi0<automatic< X_integral_cast<mpl_1> >::type>::type T_integral;
+    typedef result_of_ambi0<automatic< X_integral_cast<mpl_1> >::type, by_value>::type T_integral;
     PSTADE_POD_CONSTANT((T_integral), integral) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
