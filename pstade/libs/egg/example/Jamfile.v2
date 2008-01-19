@@ -22,6 +22,6 @@ test-suite "egg_example" :
 #    [ run named.cpp ]
     [ run nested_lambda.cpp ]
     [ run result_of_tutorial.cpp ]
-    [ run variadic_print.cpp ]
+#    [ run variadic_print.cpp ]
     ;
 

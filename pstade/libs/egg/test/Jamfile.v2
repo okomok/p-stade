@@ -137,7 +137,7 @@ test-suite "egg" :
     [ run unfuse.cpp ]
     [ run unref.cpp ]
     [ run use_xxx.cpp ]
-    [ run variadic.cpp ]
+#    [ run variadic.cpp ]
     [ run volatile_correct.cpp ]
     [ run volatile_correct_udt.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]

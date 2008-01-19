@@ -4,7 +4,7 @@ Function builders build __MAJOR_FUNCTION_OBJECT__ type,
 which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [import ../example/function_builders.cpp]
-
+[import ../example/variadic_print.cpp]
 
 
 
@@ -326,7 +326,7 @@ In fact, this is a syntax sugar of __EGG_UNFUSE__.
     ]
     [
         [`variadic<_Lit, _Stg = _default, R0 = _default>::type`]
-        [`result_of_unfuse<function<_Lit, by_cref>, X_funsion_pack<_Stg>, R0, _Stg>::type`]
+        [`result_of_unfuse<function<_Lit, by_cref>, X_funsion_pack<by_ref>, R0, _Stg>::type`]
     ]
     [
         [`PSTADE_EGG_VARIADIC_L _lit PSTADE_EGG_VARIADIC_R`]
@@ -345,7 +345,7 @@ In fact, this is a syntax sugar of __EGG_UNFUSE__.
 * ...
 
 [heading Example]
-...
+[code_variadic_print]
 
 [heading See also]
 * __EGG_UNFUSE__
