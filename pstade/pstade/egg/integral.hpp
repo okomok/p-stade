@@ -26,8 +26,6 @@ namespace pstade { namespace egg {
     template<class To>
     struct X_integral_cast
     {
-        typedef by_value strategy_type;
-
         typedef To result_type;
 
         template<class From>
