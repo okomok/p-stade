@@ -27,7 +27,7 @@
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
 #include "../tuple/config.hpp" // PSTADE_EGG_TUPLE_MAX_SIZE
-#include "./or_is_same.hpp"
+#include "./is_a_or_b.hpp"
 
 
 #define PSTADE_EGG_PIPABLE_MAX_ARITY BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
@@ -102,14 +102,14 @@ namespace little_pipable_resultns_ {
     //
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
     operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
     operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
@@ -117,7 +117,7 @@ namespace little_pipable_resultns_ {
 
     // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, ArgTuple> >::type
     operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
         // For movable types, we can't turn `o` into const-reference.
@@ -129,14 +129,14 @@ namespace little_pipable_resultns_ {
     //
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O& o)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O const& o)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
@@ -144,7 +144,7 @@ namespace little_pipable_resultns_ {
 
     // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
+    typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O o)
     {
         return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));

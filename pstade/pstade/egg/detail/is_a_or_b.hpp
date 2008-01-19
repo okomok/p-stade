@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_OR_IS_SAME_HPP
-#define PSTADE_EGG_DETAIL_OR_IS_SAME_HPP
+#ifndef PSTADE_EGG_DETAIL_IS_A_OR_B_HPP
+#define PSTADE_EGG_DETAIL_IS_A_OR_B_HPP
 #include "./prefix.hpp"
 
 
@@ -13,17 +13,16 @@
 
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include "./bytag_at.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class T1, class T2, class U>
-    struct or_is_same :
+    template<class T, class U1, class U2>
+    struct is_a_or_b :
         boost::mpl::or_<
-            boost::is_same<T1, U>,
-            boost::is_same<T2, U>
+            boost::is_same<T, U1>,
+            boost::is_same<T, U2>
         >
     { };
 
