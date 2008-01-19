@@ -48,7 +48,6 @@ namespace pstade { namespace egg { namespace detail {
         }
     };
 
-
     typedef function<little_substitute, by_cref> T_substitute;
     PSTADE_POD_CONSTANT((T_substitute), substitute) = {{}};
 
