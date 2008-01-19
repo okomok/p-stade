@@ -25,7 +25,6 @@
 
 
 #include <pstade/result_of.hpp>
-#include "./forward.hpp"
 
 
 namespace pstade { namespace egg {
