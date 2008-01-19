@@ -26,7 +26,6 @@ namespace pstade { namespace egg {
     template<class To>
     struct X_integral_cast
     {
-        typedef X_integral_cast function_type;
         typedef by_value strategy_type;
 
         typedef To result_type;
@@ -47,7 +46,7 @@ namespace pstade { namespace egg {
     }
 
 
-    typedef result_of_ambi0<automatic< X_integral_cast<mpl_1> >::type, by_value, by_value>::type T_integral;
+    typedef result_of_ambi0<automatic<X_integral_cast<mpl_1>, by_value>::type, by_value>::type T_integral;
     PSTADE_POD_CONSTANT((T_integral), integral) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 

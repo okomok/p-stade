@@ -12,8 +12,8 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./ambi.hpp"
 #include "./by_value.hpp"
-#include "./detail/to_ambi0.hpp"
 
 
 namespace pstade { namespace egg {
@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
     } // namespace to_value_detail
 
 
-    typedef detail::little_to_ambi0<to_value_detail::little, by_value>::type T_to_value;
+    typedef result_of_ambi0<function<to_value_detail::little, by_value>, by_value>::type T_to_value;
     PSTADE_POD_CONSTANT((T_to_value), to_value) = PSTADE_EGG_AMBI({{}});
 
 

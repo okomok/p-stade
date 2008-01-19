@@ -61,7 +61,7 @@ namespace pstade { namespace egg {
     namespace PSTADE_PP_CAT3(ambi, n, _detail) {
 
 
-        template<class Base, class Strategy, class OperandBytag>
+        template<class Base, class Bytag>
         struct little_result
         {
             Base m_base;
@@ -76,7 +76,7 @@ namespace pstade { namespace egg {
 #if n == 0
         // as pipe
             typedef
-                function<little_result, Strategy>
+                function<little_result, Bytag>
             nullary_result_type;
 
             template<class Result>
@@ -89,13 +89,13 @@ namespace pstade { namespace egg {
         // as function call
             template<class Myself, class A0>
             struct apply :
-                result_of<Base const(typename result_of_forward<OperandBytag, A0>::type)>
+                result_of<Base const(typename result_of_forward<Bytag, A0>::type)>
             { };
 
             template<class Result, class A0>
             Result call(A0& a0) const
             {
-                return m_base(egg::forward<OperandBytag>(a0));
+                return m_base(egg::forward<Bytag>(a0));
             }
 #else
             template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_PP_INC(n), A)>
@@ -105,26 +105,26 @@ namespace pstade { namespace egg {
             template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
                 result_of<
-                    typename result_of<X_pipable<Strategy, OperandBytag>(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+                    typename result_of<X_pipable<Bytag, Bytag>(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
                 >
             { };
 
             template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
             Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
             {
-                return X_pipable<Strategy, OperandBytag>()(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
+                return X_pipable<Bytag, Bytag>()(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
             }
 
         // as function call
             template<class Myself, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Myself, O, BOOST_PP_ENUM_PARAMS(n, A)> :
-                result_of<Base const(typename result_of_forward<OperandBytag, O>::type, PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
+                result_of<Base const(typename result_of_forward<Bytag, O>::type, PSTADE_EGG_FORWARDING_META_ARGS(n, A, Bytag const))>
             { };
 
             template<class Result, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
             Result call(O& o, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
             {
-                return m_base(egg::forward<OperandBytag>(o), PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
+                return m_base(egg::forward<Bytag>(o), PSTADE_EGG_FORWARDING_ARGS(n, a, Bytag const));
             }
 #endif // n == 0
         };
@@ -139,24 +139,24 @@ namespace pstade { namespace egg {
         // operator|
         //
 
-        template<class O, class Base, class Strategy, class OperandBytag> inline
-        typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of<Base(O&)> >::type
-        operator|(O& o, function<little_result<Base, Strategy, OperandBytag>, Strategy> pi)
+        template<class O, class Base, class Bytag> inline
+        typename lazy_enable_if< or_is_same<by_perfect, by_ref, Bytag>, result_of<Base(O&)> >::type
+        operator|(O& o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
         }
 
-        template<class O, class Base, class Strategy, class OperandBytag> inline
-        typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of<Base(PSTADE_DEDUCED_CONST(O)&)> >::type
-        operator|(O const& o, function<little_result<Base, Strategy, OperandBytag>, Strategy> pi)
+        template<class O, class Base, class Bytag> inline
+        typename lazy_enable_if< or_is_same<by_perfect, by_cref, Bytag>, result_of<Base(PSTADE_DEDUCED_CONST(O)&)> >::type
+        operator|(O const& o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
         }
 
         // by_value
-        template<class O, class Base, class Strategy, class OperandBytag> inline
-        typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of<Base(O)> >::type
-        operator|(O o, function<little_result<Base, Strategy, OperandBytag>, Strategy> pi)
+        template<class O, class Base, class Bytag> inline
+        typename lazy_enable_if< boost::is_same<by_value, Bytag>, result_of<Base(O)> >::type
+        operator|(O o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(egg::forward<by_value>(o));
         }
@@ -165,24 +165,24 @@ namespace pstade { namespace egg {
         // operator|=
         //
 
-        template<class O, class Base, class Strategy, class OperandBytag> inline
-        typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of<Base(O&)> >::type
-        operator|=(function<little_result<Base, Strategy, OperandBytag>, Strategy> pi, O& o)
+        template<class O, class Base, class Bytag> inline
+        typename lazy_enable_if< or_is_same<by_perfect, by_ref, Bytag>, result_of<Base(O&)> >::type
+        operator|=(function<little_result<Base, Bytag>, Bytag> pi, O& o)
         {
             return pi.little().m_base(o);
         }
 
-        template<class O, class Base, class Strategy, class OperandBytag> inline
-        typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of<Base(PSTADE_DEDUCED_CONST(O)&)> >::type
-        operator|=(function<little_result<Base, Strategy, OperandBytag>, Strategy> pi, O const& o)
+        template<class O, class Base, class Bytag> inline
+        typename lazy_enable_if< or_is_same<by_perfect, by_cref, Bytag>, result_of<Base(PSTADE_DEDUCED_CONST(O)&)> >::type
+        operator|=(function<little_result<Base, Bytag>, Bytag> pi, O const& o)
         {
             return pi.little().m_base(o);
         }
 
         // by_value
-        template<class O, class Base, class Strategy, class OperandBytag> inline
-        typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of<Base(O)> >::type
-        operator|=(function<little_result<Base, Strategy, OperandBytag>, Strategy> pi, O o)
+        template<class O, class Base, class Bytag> inline
+        typename lazy_enable_if< boost::is_same<by_value, Bytag>, result_of<Base(O)> >::type
+        operator|=(function<little_result<Base, Bytag>, Bytag> pi, O o)
         {
             return pi.little().m_base(egg::forward<by_value>(o));
         }
@@ -193,19 +193,19 @@ namespace pstade { namespace egg {
     } // namespace ambiN_detail
 
 
-    template<class Base, class Strategy = by_perfect, class OperandBytag = by_perfect>
+    template<class Base, class Bytag = by_perfect>
     struct PSTADE_PP_CAT3(result_of_, ambi, n)
     {
         typedef
-            function<PSTADE_PP_CAT3(ambi, n, _detail)::little_result<Base, Strategy, OperandBytag>, Strategy>
+            function<PSTADE_PP_CAT3(ambi, n, _detail)::little_result<Base, Bytag>, Bytag>
         type;
     };
 
 
-    template<class Strategy = by_perfect, class OperandBytag = by_perfect>
+    template<class Bytag = by_perfect>
     struct BOOST_PP_CAT(X_ambi, n) :
         generator<
-            typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Strategy, OperandBytag>::type,
+            typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Bytag>::type,
             by_value,
             use_brace2
         >::type

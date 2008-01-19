@@ -15,7 +15,6 @@
 
 #include <pstade/egg/function_fwd.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/egg/ambi.hpp>
 #include <pstade/egg/const.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/always.hpp>
@@ -126,16 +125,11 @@ PSTADE_EGG_CONST((T_id1), id1) = {{}};
 
 typedef result_of_pipable<base_mult3, my_strategy>::type T_mult3;
 PSTADE_EGG_CONST((T_mult3), mult3) = {{}};
-typedef result_of_ambi1<base_plus2, my_strategy>::type T_plus2;
-PSTADE_EGG_CONST((T_plus2), plus2) = {{}};
 
 
 void pstade_minimal_test()
 {
     BOOST_CHECK( (3|mult3(4, 5)) == 3*4*5 );
-
-    BOOST_CHECK( plus2(1, 2) == 3 );
-    BOOST_CHECK( (1|plus2(2)) == 3 );
 
     int x = 10;
     BOOST_CHECK( &(id1(x)) == &x );

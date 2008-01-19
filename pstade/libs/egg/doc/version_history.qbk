@@ -56,6 +56,7 @@
 [heading Version 0.90.5]
 * `tuple_pack` accepts any strategy.
 * `generator` and `function_facade` template parameter order changed.
+* `ambi` takes only `_Bytag`.
 
 
 

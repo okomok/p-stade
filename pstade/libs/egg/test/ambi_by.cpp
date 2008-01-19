@@ -37,7 +37,7 @@ struct base_plus7
     }
 };
 
-typedef result_of_ambi6<base_plus7, by_value, by_value>::type T_plus7;
+typedef result_of_ambi6<base_plus7, by_value>::type T_plus7;
 PSTADE_EGG_CONST((T_plus7), plus7) = PSTADE_EGG_AMBI({});
 
 

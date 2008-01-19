@@ -24,8 +24,6 @@ namespace pstade { namespace egg {
     template<class To>
     struct X_lexical_cast
     {
-        typedef X_lexical_cast function_type;
-
         typedef To result_type;
 
         template<class From>
@@ -48,7 +46,7 @@ PSTADE_ADL_BARRIER(lexical_cast) { // for boost
 #endif
 
 
-    typedef result_of_ambi0<automatic< X_lexical_cast<mpl_1> >::type, by_cref, by_cref>::type T_lexical;
+    typedef result_of_ambi0<automatic<X_lexical_cast<mpl_1>, by_cref>::type, by_cref>::type T_lexical;
     PSTADE_POD_CONSTANT((T_lexical), lexical) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 

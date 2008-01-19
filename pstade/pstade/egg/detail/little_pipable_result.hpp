@@ -154,8 +154,8 @@ namespace little_pipable_resultns_ {
 } // namespace little_pipable_resultns_
 
 
-using little_pipable_resultns_::little_pipable_result;
-using little_pipable_resultns_::lookup_pipable_operator;
+    using little_pipable_resultns_::little_pipable_result;
+    using little_pipable_resultns_::lookup_pipable_operator;
 
 
 } } } // namespace pstade::egg::detail
