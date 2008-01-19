@@ -12,7 +12,6 @@
 
 
 #include "./by_cref.hpp"
-#include "./fusion/pack.hpp"
 #include "./unfuse.hpp"
 
 
@@ -30,7 +29,7 @@ namespace pstade { namespace egg {
     struct variadic :
         result_of_unfuse<
             function<Little, by_variadic>,
-            X_fusion_pack<by_ref>::function_type,
+            boost::use_default, // will be fusion_pack in the future.
             NullaryResult,
             Strategy
         >
@@ -39,7 +38,7 @@ namespace pstade { namespace egg {
 
     // PSTADE_EGG_UNFUSE_L { L } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_VARIADIC_L PSTADE_EGG_UNFUSE_L {
-    #define PSTADE_EGG_VARIADIC_R } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_VARIADIC_R } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_VARIADIC(L) PSTADE_EGG_VARIADIC_L L PSTADE_EGG_VARIADIC_R
 
 
