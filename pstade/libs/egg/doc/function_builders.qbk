@@ -20,8 +20,13 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
     template<class Little, class Stg = _default>
     struct function
     {
-        typedef Little little_type;
         typedef function function_type;
+
+        typedef Little little_type;
+        typedef Stg strategy_type;
+
+        typedef unspecified nullary_result_type;
+        typedef unspecified mutable_nullary_result_type;
 
         Little lit; // exposition only
         Little const& little() const { return lit; }
@@ -403,14 +408,19 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
 
 
 
+
 [/
 
 [section Nullary result_of registration]
 
 [heading Description]
 __BOOST_RESULT_OF__ treats nullary-callable type as special case.
-A nullary __FUNCTION_OBJECT__ type which is derived from `function<>` or `function_facade<>`
-must inform __BOOST_RESULT_OF__ about its nullary return type using the following macro.
+A nullary __FUNCTION_OBJECT__ which doesn't have nested `result_type`
+must inform __BOOST_RESULT_OF__ about its nullary return type by (possibly partially) specializing `boost::result_of`.
+The following macros assist such routine work.
+
+[note If a __FUNCTION_OBJECT__ is a template specialization of `function<...>`, these macros are not needed at all.
+      But a nullary __FUNCTION_OBJECT__ derived from `function<...>` needs these. ]
 
 [heading Header]
 * `<pstade/egg/register_nullary_result.hpp>`
@@ -433,14 +443,19 @@ must inform __BOOST_RESULT_OF__ about its nullary return type using the followin
     ]
     [
         [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TEMPLATE(X, S)`]
-        [`X<>` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
+        [`X<...>` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
     ]
 ]
 
 [heading Preconditions]
 * These macros must be used in the global namespace.
+* `T` and `X<...>` is a nullary-callable __FUNCTION_OBJECT__ type.
 * `BOOST_TYPEOF_REGISTER_TYPE(T)` is a valid expression.
 * `BOOST_TYPEOF_REGISTER_TEMPLATE(X, S)` is a valid expression.
+* If `T` is a type which is derived from neither `function<...>` nor `function_facade<...>`,
+    * `T::nullary_result_type` and `T::mutable_nullary_result_type` must be a valid expression.
+* If `X<...>` is a template specialization which is derived from neither `function<...>` nor `function_facade<...>`,
+    * `X<...>::nullary_result_type` and `X<...>::mutable_nullary_result_type` must be a valid expression.
 
 [heading Example]
 ...
