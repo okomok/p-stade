@@ -47,7 +47,7 @@ namespace pstade { namespace egg {
     }
 
 
-    typedef result_of_ambi0<automatic< X_integral_cast<mpl_1> >::type, by_value>::type T_integral;
+    typedef result_of_ambi0<automatic< X_integral_cast<mpl_1> >::type, by_value, by_value>::type T_integral;
     PSTADE_POD_CONSTANT((T_integral), integral) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
 
 
