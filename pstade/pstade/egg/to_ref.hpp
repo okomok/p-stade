@@ -13,9 +13,9 @@
 
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./ambi.hpp"
 #include "./by_cref.hpp"
 #include "./by_perfect.hpp"
+#include "./detail/little_to_ambi0.hpp"
 
 
 namespace pstade { namespace egg {
@@ -72,18 +72,13 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<little,  by_perfect> op;
-        typedef function<clittle, by_cref>   cop;
-        typedef function<mlittle, by_cref>   mop;
-
-
     } // namespace to_ref_detail
 
 
-    typedef result_of_ambi0<to_ref_detail::op>::type  T_to_ref;
-    typedef result_of_ambi0<to_ref_detail::cop>::type T_to_cref;
-    typedef result_of_ambi0<to_ref_detail::mop>::type T_to_mref;
-    PSTADE_POD_CONSTANT((T_to_ref),  to_ref)  = PSTADE_EGG_AMBI({{}});
+    typedef detail::little_to_ambi0<to_ref_detail::little, by_perfect>::type T_to_ref;
+    typedef detail::little_to_ambi0<to_ref_detail::clittle, by_cref>::type T_to_cref;
+    typedef detail::little_to_ambi0<to_ref_detail::mlittle, by_cref>::type T_to_mref;
+    PSTADE_POD_CONSTANT((T_to_ref), to_ref)  = PSTADE_EGG_AMBI({{}});
     PSTADE_POD_CONSTANT((T_to_cref), to_cref) = PSTADE_EGG_AMBI({{}});
     PSTADE_POD_CONSTANT((T_to_mref), to_mref) = PSTADE_EGG_AMBI({{}});
 

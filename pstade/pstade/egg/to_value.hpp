@@ -11,30 +11,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/bool.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_value.hpp"
+#include "./detail/little_to_ambi0.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    namespace to_value_detail_ {
+    namespace to_value_detail {
 
 
         struct little
         {
-            typedef
-                function<little, by_value>
-            nullary_result_type;
-
-            template<class Result>
-            Result call() const
-            {
-                Result result = {{}};
-                return result;
-            }
-
             template<class Myself, class A>
             struct apply
             {
@@ -49,21 +38,11 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<little, by_value> op;
+    } // namespace to_value_detail
 
 
-        template<class A> inline
-        A operator|(A a, op)
-        {
-            return a;
-        }
-
-
-    } // namespace to_value_detail_
-
-
-    typedef to_value_detail_::op T_to_value;
-    PSTADE_POD_CONSTANT((T_to_value), to_value) = {{}};
+    typedef detail::little_to_ambi0<to_value_detail::little, by_value>::type T_to_value;
+    PSTADE_POD_CONSTANT((T_to_value), to_value) = PSTADE_EGG_AMBI({{}});
 
 
 } } // namespace pstade::egg

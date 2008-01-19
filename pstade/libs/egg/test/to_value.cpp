@@ -14,6 +14,7 @@
 
 
 #include <pstade/test.hpp>
+#include <memory>
 
 
 namespace egg = pstade::egg;
@@ -34,5 +35,11 @@ void pstade_minimal_test()
         BOOST_CHECK( (i|to_value) == 3 );
         BOOST_CHECK( (i|to_value()) == 3 );
         BOOST_CHECK( to_value(3) == 3 );
+    }
+    {
+        std::auto_ptr<int> x(new int(3));
+        std::auto_ptr<int> x_ = x|to_value;
+        x_ = x_|to_value();
+        x_ = to_value(x_);
     }
 }
