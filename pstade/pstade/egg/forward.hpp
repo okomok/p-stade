@@ -17,11 +17,13 @@
 // Otherwise, it introduces the forwarding problem into little functions.
 
 
+#include <cstddef> // size_t
 #include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/plain.hpp>
 #include "./detail/bytag_at.hpp"
 #include "./function_fwd.hpp"
@@ -53,6 +55,14 @@ namespace pstade { namespace egg {
     {
         typedef Lvalue const& type;
     };
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+    template<class T, std::size_t N>
+    struct result_of_forward<by_cref, T const[N]>
+    {
+        typedef T const (&type)[N];
+    };
+#endif
 
     // For movable types, you can't add const-qualifier.
     template<class Lvalue>
