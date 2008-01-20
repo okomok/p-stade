@@ -2,7 +2,7 @@
 
 
 A Forwarding Strategy is a type which has two associated imaginary operators
-`_arg_list` and `_meta_arg_list` which takes a token sequence and a strategy.
+`_bytag_at`, `_arg_list` and `_meta_arg_list`.
 If the first argument of `arg_list` or `_meta_arg_list` is not a sequence,
 assume it is "one element" sequence.
 Egg components use `by_perfect` when you omit or specify `_default` for strategy parameter.
@@ -54,11 +54,19 @@ Egg defines the following imaginary operators for its documentation.
 [heading Header]
 * ...
 
+[heading Notation]
+* `K` is length of `a`.
+* `safe_arg(a, _Stg, K, I)` is `_rval(aI)` if `_bytag_at(_Stg, K, I)` is `by_value`, `_arg_list(aI, _Stg)` otherwise.
+
 [heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
         [[*Semantics]]
+    ]
+    [
+        [`_bytag_at(_Stg, K, I)`]
+        [See each section of `_Stg`.]
     ]
     [
         [`_arg_list(a, _Stg)`]
@@ -78,7 +86,7 @@ Egg defines the following imaginary operators for its documentation.
     ]
     [
         [`_safe_arg_list(a, _Stg)`]
-        [`_rval(a1),...,_rval(aK)` if `_Stg` is `by_value`. `_arg_list(a, _Stg)` otherwise.]
+        [`safe_arg(a, _Stg, K, 0),...,safe_arg(a, _Stg, K, K-1)`]
     ]
 ]
 
@@ -87,7 +95,6 @@ Egg defines the following imaginary operators for its documentation.
            a base __FUNCTION_OBJECT__ too must take arguments by value or const reference. ]
 
 [heading Preconditions]
-* `_Stg` is `by_perfect`, `by_ref`, `by_value` or `_default`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -114,6 +121,10 @@ Egg performs the "perfect forwarding" by default.
     [
         [[*Valid expression]]
         [[*Semantics]]
+    ]
+    [
+        [`_bytag_at(by_perfect, K, I)`]
+        [`by_perfect`]
     ]
     [
         [`_arg_list(a, by_perfect)`]
@@ -159,6 +170,10 @@ Egg performs the "perfect forwarding" by default.
         [[*Semantics]]
     ]
     [
+        [`_bytag_at(by_ref, K, I)`]
+        [`by_ref`]
+    ]
+    [
         [`_arg_list(a, by_ref)`]
         [`_arg(a1),...,_arg(aK)`]
     ]
@@ -202,6 +217,10 @@ Egg performs the "perfect forwarding" by default.
         [[*Semantics]]
     ]
     [
+        [`_bytag_at(by_cref, K, I)`]
+        [`by_cref`]
+    ]
+    [
         [`_arg_list(a, by_cref)`]
         [`_cref(a1),...,_cref(aK)`]
     ]
@@ -242,6 +261,10 @@ Egg performs the "perfect forwarding" by default.
     [
         [[*Valid expression]]
         [[*Semantics]]
+    ]
+    [
+        [`_bytag_at(by_value, K, I)`]
+        [`by_value`]
     ]
     [
         [`_arg_list(a, by_value)`]
@@ -357,7 +380,6 @@ Let's look into the new valid expressions.
 [heading Notation]
 * `StgTag` is a __METAFUNCTION_CLASS__ which you have defined.
 * `StgTag_` is (possibly cv-qualified) `StgTag`.
-* `By(I)` is `StgTag_::apply< StgTag_, boost::mpl::int_<K>, boost::mpl::int_<I> >::type`.
 
 [heading New valid expressions]
 [table 
@@ -366,13 +388,17 @@ Let's look into the new valid expressions.
         [[*Semantics]]
     ]
     [
+        [`_bytag_at(StgTag, K, I)`]
+        [`StgTag_::apply< StgTag_, boost::mpl::int_<K>, boost::mpl::int_<I> >::type`]
+    ]
+    [
         [`_arg_list(a, StgTag)`]
-        [`_arg_list(a1, By(0)),...,_arg_list(aK, By(K))`]
+        [`_arg_list(a1, _bytag_at(StgTag, K, 0)),...,_arg_list(aK, _bytag_at(StgTag, K, K-1))`]
     ]
 
     [
         [`_meta_arg_list(a, StgTag)`]
-        [`_meta_arg_list(a1, By(0)),...,_meta_arg_list(aK, By(K))`]
+        [`_meta_arg_list(a1, _bytag_at(StgTag, K, 0)),...,_meta_arg_list(aK, _bytag_at(StgTag, K, K-1))`]
     ]
     [
         [`function<_Lit, StgTag>`]

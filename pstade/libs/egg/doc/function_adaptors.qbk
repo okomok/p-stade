@@ -804,7 +804,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Preconditions]
 * `0 <= N && N <= _TUPLE_MAX_SIZE-1`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* If `_Stg` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
+* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
