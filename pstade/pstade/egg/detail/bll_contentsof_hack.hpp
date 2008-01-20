@@ -36,7 +36,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
     template<class A, std::size_t N>
-    struct bll_contentsof_type< A[N] >
+    struct bll_contentsof_type<A[N]>
     {
         typedef A& type;
     };

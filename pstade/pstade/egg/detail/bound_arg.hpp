@@ -33,7 +33,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
     template<class T, std::size_t sz>
-    struct bound_arg< T[sz] >
+    struct bound_arg<T[sz]>
     {
         typedef T (&type)[sz];
     };
@@ -50,7 +50,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
     template<class T, std::size_t sz>
-    struct unbound_arg< T(&)[sz] >
+    struct unbound_arg<T(&)[sz]>
     {
         typedef T (&type)[sz];
     };
