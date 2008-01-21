@@ -40,15 +40,15 @@ namespace pstade { namespace egg {
             F m_f;
             G m_g;
 
-            template<class Myself, class ArgTuple>
+            template<class Myself, class Args>
             struct apply :
                 result_of<
-                    F const(typename result_of<typename result_of<T_fuse(G const&)>::type(ArgTuple&)>::type)
+                    F const(typename result_of<typename result_of<T_fuse(G const&)>::type(Args&)>::type)
                 >
             { };
 
-            template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            template<class Result, class Args>
+            Result call(Args& args) const
             {
                 return m_f(fuse(m_g)(args));
             }

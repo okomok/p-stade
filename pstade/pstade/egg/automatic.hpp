@@ -36,10 +36,10 @@ namespace pstade { namespace egg {
     namespace automatic_detail {
 
 
-        template<class Lambda, class ArgTuple>
+        template<class Lambda, class Args>
         struct automator
         {
-            ArgTuple m_args;
+            Args m_args;
 
             template<class To>
             operator To() const
@@ -53,10 +53,10 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, class ArgTuple>
+        template<class Lambda, class Args>
         struct automator_ref
         {
-            ArgTuple m_args;
+            Args m_args;
 
             template<class To>
             operator To&() const
@@ -78,16 +78,16 @@ namespace pstade { namespace egg {
         template<class Lambda, template<class, class> class Automator>
         struct little
         {
-            template<class Myself, class ArgTuple>
+            template<class Myself, class Args>
             struct apply
             {
                 typedef
-                    Automator<Lambda, ArgTuple> const
+                    Automator<Lambda, Args> const
                 type;
             };
 
-            template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            template<class Result, class Args>
+            Result call(Args& args) const
             {
                 // 'automator' must *copy* it to 'm_args';
                 // 'args' is destructed as soon as this 'call' returns.

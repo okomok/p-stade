@@ -32,10 +32,10 @@ namespace pstade { namespace egg {
         // After all, we need a conversion operator to return "lvalue".
 
 
-        template<class ArgTuple>
+        template<class Args>
         struct automator
         {
-            explicit automator(ArgTuple const& args) :
+            explicit automator(Args const& args) :
                 m_args(args)
             { }
 
@@ -48,7 +48,7 @@ namespace pstade { namespace egg {
             }
 
         private:
-            ArgTuple m_args;
+            Args m_args;
             any_movable m_any;
 
             automator& operator=(automator const&);
@@ -57,16 +57,16 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class ArgTuple>
+            template<class Myself, class Args>
             struct apply
             {
                 typedef
-                    automator<ArgTuple>
+                    automator<Args>
                 type;
             };
 
-            template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            template<class Result, class Args>
+            Result call(Args& args) const
             {
                 return Result(args); 
             }
