@@ -38,6 +38,8 @@ struct little_my_id
         return x;
     }
 
+    int base() const { return touch; }
+
     int touch;
 };
 
@@ -113,6 +115,8 @@ struct T_my_plus
     {
         return x + y;
     }
+
+    int base() const { return touch; }
 
     int touch;
 };

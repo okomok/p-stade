@@ -30,18 +30,13 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/is_const.hpp>
-#include <pstade/boost_workaround.hpp>
+#include <pstade/egg/adapted_to_base.hpp>
 #include <pstade/egg/ambi.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/specified.hpp>
-#include <pstade/enable_if.hpp>
-#include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./range_iterator.hpp"
 
@@ -49,58 +44,10 @@
 namespace pstade { namespace oven {
 
 
-template< class Base >
-struct X_adapted_to
-{
-    typedef X_adapted_to function_type;
-    typedef Base result_type;
+using egg::X_adapted_to;
+using egg::adapted_to;
+using egg::to_base;
 
-    template< class Adapted >
-    Base operator()(Adapted& ad,
-        typename enable_if<
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // for weird VC7.1
-            boost::mpl::and_<
-                is_convertible<Adapted&, Base>,
-                boost::mpl::not_< boost::is_const<Adapted> >
-            >
-#else
-            is_convertible<Adapted&, Base>
-#endif
-        >::type = 0) const
-    {
-        return ad;
-    }
-
-    template< class Adapted >
-    Base operator()(Adapted const& ad,
-        typename enable_if< is_convertible<Adapted const&, Base> >::type = 0) const
-    {
-        return ad;
-    }
-
-    template< class Adapted >
-    Base operator()(Adapted const& ad,
-        typename disable_if<is_convertible<Adapted const&, Base> >::type = 0) const
-    {
-        return (*this)(ad.base());
-    }
-};
-
-
-#define  PSTADE_EGG_SPECIFIED_PARAMS (adapted_to, X_adapted_to, (class), (1))
-#include PSTADE_EGG_SPECIFIED()
-
-
-namespace to_base_detail {
-    typedef egg::automatic< X_adapted_to<boost::mpl::_> >::type op;
-}
-
-typedef egg::result_of_ambi0<to_base_detail::op>::type T_to_base;
-PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
-
-
-// range version
-//
 
 namespace adapted_range_to_detail {
 

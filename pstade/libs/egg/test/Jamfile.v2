@@ -137,6 +137,7 @@ test-suite "egg" :
     [ run uncurry.cpp ]
     [ run unfuse.cpp ]
     [ run unref.cpp ]
+    [ run unwrap_ref.cpp ]
     [ run use_xxx.cpp ]
     [ run variadic.cpp ]
     [ run volatile_correct.cpp ]

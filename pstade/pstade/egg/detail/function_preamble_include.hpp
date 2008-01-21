@@ -22,5 +22,7 @@
         detail::of_apply_little<Signature>
     { };
 
+    little_type const& base() const { return little(); }
+
     #include PSTADE_EGG_BLL_BINDABLE()
 

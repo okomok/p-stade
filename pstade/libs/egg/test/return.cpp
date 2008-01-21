@@ -56,7 +56,7 @@ int my_fun1(int x)
 }
 
 PSTADE_POD_CONSTANT(
-    (pstade::egg::result_of_return<my_fun_t, int >::type) const,
+    (pstade::egg::result_of_return<my_fun_t, int >::type),
     fun_return_int
 ) = PSTADE_EGG_RETURN_L {} PSTADE_EGG_RETURN_R;
 

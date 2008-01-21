@@ -15,6 +15,8 @@
 //       This is really needed now, because lambda::bind
 //       unwraps reference before passing nested lambda::bind.
 
+// This is the FunctionObject, which makes adaptor implementations be consistent.
+
 
 namespace pstade { namespace egg {
 

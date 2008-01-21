@@ -16,57 +16,35 @@
 // 'boost::indirect_iterator<>' is famous.
 // This is intended as "indirect_function<>".
 // See also 'boost::indirect_fun'.
+// Note that you cannot implement this using variadic
+// so that this works with noncopyable dereference.
+// fuse could have worked with reference_wrapper, but 
+// tr1 reference_wrapper implementation needs fuse.
+// In other words, this adaptor is primitive.
 
 
+#include <boost/ref.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./detail/functional1.hpp" // dereference
-#include "./fuse.hpp"
+#include "./detail/little_indirect_result.hpp"
 #include "./generator.hpp"
-#include "./use_variadic1.hpp"
-#include "./variadic.hpp"
+#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    namespace indirect_detail {
-
-
-        template<class Ptr>
-        struct little_result
-        {
-            Ptr m_ptr;
-
-            template<class Myself, class Args>
-            struct apply :
-                result_of<
-                    typename result_of<
-                        T_fuse(typename result_of<T_dereference(Ptr const&)>::type)
-                    >::type(Args&)
-                >
-            { };
-
-            template<class Result, class Args>
-            Result call(Args& args) const
-            {
-                return fuse(*m_ptr)(args);
-            }
-        };
-
-
-    } // namespace indirect_detail
-
-
     template<class Ptr, class Strategy = by_perfect>
-    struct result_of_indirect :
-        variadic<indirect_detail::little_result<Ptr>, Strategy, use_nullary_result>
-    { };
+    struct result_of_indirect
+    {
+        typedef
+            function<detail::little_indirect_result<Ptr, Strategy>, Strategy>
+        type;
+    };
 
-    #define PSTADE_EGG_INDIRECT_L PSTADE_EGG_VARIADIC_L {
-    #define PSTADE_EGG_INDIRECT_R } PSTADE_EGG_VARIADIC_R
+    #define PSTADE_EGG_INDIRECT_L { {
+    #define PSTADE_EGG_INDIRECT_R } }
     #define PSTADE_EGG_INDIRECT(P) PSTADE_EGG_INDIRECT_L P PSTADE_EGG_INDIRECT_R
 
 
@@ -75,7 +53,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_indirect<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
-            use_variadic1
+            use_brace2
         >::type
     { };
 

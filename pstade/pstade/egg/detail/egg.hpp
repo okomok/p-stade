@@ -14,6 +14,7 @@
 // This is placed in /detail/ so that you should shy away inclusion.
 
 
+#include "../adapted_to_base.hpp"
 #include "../after.hpp"
 #include "../always.hpp"
 #include "../ambi.hpp"
@@ -98,6 +99,7 @@
 #include "../tuple.hpp"
 #include "../uncurry.hpp"
 #include "../unfuse.hpp"
+#include "../unwrap_ref.hpp"
 #include "../use_brace1.hpp"
 #include "../use_brace2.hpp"
 #include "../use_constructor.hpp"
