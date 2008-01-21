@@ -45,6 +45,7 @@
 #include "./pass_by.hpp"
 #include "./pause.hpp"
 #include "./plain.hpp"
+#include "./pod_assert.hpp"
 #include "./pod_constant.hpp"
 #include "./poly.hpp"
 #include "./pp_token_equal.hpp"
