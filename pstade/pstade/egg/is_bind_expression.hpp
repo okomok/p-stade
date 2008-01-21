@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
     //
 
     template<class X, class EnableIf>
-    struct is_bind_expression_base : // better name?
+    struct is_bind_expression_set :
         boost::mpl::false_
     { };
 
@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
 
     template<class X, class Tag>
     struct is_bind_expression_tagged :
-        is_bind_expression_base<X, enabler>
+        is_bind_expression_set<X, enabler>
     { };
 
 

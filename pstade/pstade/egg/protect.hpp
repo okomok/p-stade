@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct is_bind_expression_base<X, typename enable_if< is_tagged_with<X, protect_detail::tag> >::type> :
+    struct is_bind_expression_set<X, typename enable_if< is_tagged_with<X, protect_detail::tag> >::type> :
         boost::mpl::true_
     { };
 
