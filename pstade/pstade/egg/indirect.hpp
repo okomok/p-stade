@@ -11,16 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
+// Note:
 //
-// 'boost::indirect_iterator<>' is famous.
-// This is intended as "indirect_function<>".
-// See also 'boost::indirect_fun'.
-// Note that you cannot implement this using variadic
-// so that this works with noncopyable dereference.
+// You can't implement this using variadic
+// so that this works with noncopyable referent.
 // fuse could have worked with reference_wrapper, but 
-// tr1 reference_wrapper implementation needs fuse.
-// In other words, this adaptor is primitive.
+// tr1 reference_wrapper implementation needs fuse!
+// In other words, this adaptor is "primitive".
 
 
 #include <boost/ref.hpp>
