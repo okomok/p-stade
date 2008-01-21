@@ -17,11 +17,13 @@ struct udt1 { virtual void foo() {} virtual ~udt1() {} };
 
 
 PSTADE_POD_ASSERT((udt1));
+PSTADE_POD_ASSERT_OF((udt1), x);
 
 template<class T>
 void test_tpl()
 {
     PSTADE_POD_ASSERT((T));
+    PSTADE_POD_ASSERT_OF((T), x);
 }
 
 void pstade_lightweight_test()

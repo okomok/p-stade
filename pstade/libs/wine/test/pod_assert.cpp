@@ -20,10 +20,15 @@ PSTADE_POD_ASSERT((int));
 PSTADE_POD_ASSERT((udt));
 
 
+PSTADE_POD_ASSERT_OF((int), x);
+PSTADE_POD_ASSERT_OF((udt), y);
+
+
 template<class T>
 void test_tpl()
 {
     PSTADE_POD_ASSERT((T));
+    PSTADE_POD_ASSERT_OF((T), x);
 };
 
 

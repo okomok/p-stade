@@ -17,11 +17,13 @@ struct udt_base {};
 struct udt2 : udt_base {};
 
 PSTADE_POD_ASSERT((udt2));
+PSTADE_POD_ASSERT_OF((udt2), x);
 
 template<class T>
 void test_tpl()
 {
     PSTADE_POD_ASSERT((T));
+    PSTADE_POD_ASSERT_OF((T), x);
 }
 
 void pstade_lightweight_test()
