@@ -27,15 +27,51 @@ namespace boost { namespace _bi {
 namespace pstade { namespace egg {
 
 
+    // enable_if layer
+    //
+
     template<class X, class EnableIf>
-    struct is_bind_expression_base :
+    struct is_bind_expression_base : // better name?
         boost::mpl::false_
     { };
 
 
+    // tag layer
+    //
+
+    template<class X>
+    struct bind_expression_tag
+    {
+        typedef void type;
+    };
+
+    template<class X>
+    struct bind_expression_tag<X const> :
+        bind_expression_tag<X>
+    { };
+
+    template<class X>
+    struct bind_expression_tag<X volatile> :
+        bind_expression_tag<X>
+    { };
+
+    template<class X>
+    struct bind_expression_tag<X const volatile> :
+        bind_expression_tag<X>
+    { };
+
+    template<class X, class Tag>
+    struct is_bind_expression_tagged :
+        is_bind_expression_base<X, enabler>
+    { };
+
+
+    // type layer
+    //
+
     template<class X>
     struct is_bind_expression :
-        is_bind_expression_base<X, enabler>
+        is_bind_expression_tagged<X, typename bind_expression_tag<X>::type>
     { };
 
     template<class X>
@@ -53,6 +89,9 @@ namespace pstade { namespace egg {
         is_bind_expression<X>
     { };
 
+
+    // predefined customizations
+    //
 
     template<class T>
     struct is_bind_expression< boost::lambda::lambda_functor<T> > :
