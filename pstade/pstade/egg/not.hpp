@@ -14,24 +14,48 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./detail/little_not_result.hpp"
+#include "./fuse.hpp"
 #include "./generator.hpp"
-#include "./use_brace2.hpp"
+#include "./return.hpp"
+#include "./use_variadic1.hpp"
+#include "./variadic.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Base, class Strategy = by_perfect>
-    struct result_of_not
-    {
-        typedef
-            function<detail::little_not_result<Base, Strategy>, Strategy>
-        type;
-    };
+    namespace not_detail {
 
-    #define PSTADE_EGG_NOT_L { {
-    #define PSTADE_EGG_NOT_R } }
+
+        template<class Base>
+        struct little_result
+        {
+            Base m_base;
+
+            template<class Myself, class Args>
+            struct apply
+            {
+                typedef bool type;
+            };
+
+            template<class Result, class Args>
+            Result call(Args& args) const
+            {
+                return !fuse(egg::return_<bool>(m_base))(args);
+            }
+        };
+
+
+    } // namespace not_detail
+
+
+    template<class Base, class Strategy = by_perfect>
+    struct result_of_not :
+        variadic<not_detail::little_result<Base>, Strategy, use_nullary_result>
+    { };
+
+    #define PSTADE_EGG_NOT_L PSTADE_EGG_VARIADIC_L {
+    #define PSTADE_EGG_NOT_R } PSTADE_EGG_VARIADIC_R
     #define PSTADE_EGG_NOT(F) PSTADE_EGG_NOT_L F PSTADE_EGG_NOT_R
 
 
@@ -40,7 +64,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_not<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
-            use_brace2
+            use_variadic1
         >::type
     { };
 
