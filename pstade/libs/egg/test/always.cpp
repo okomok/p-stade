@@ -41,7 +41,7 @@ void pstade_minimal_test()
         BOOST_CHECK( always(3)() == 3 );
         BOOST_CHECK( always_3(i) == 3 );
         BOOST_CHECK( always(3)(4, 5) == 3 );
-        BOOST_CHECK( always_3(6,7,8,9,1) == 3 );
+        BOOST_CHECK( always_3(6,7,8,9,1,5,6,1,2,4) == 3 );
     }
     {
         BOOST_CHECK( always_4(10) == 4 );

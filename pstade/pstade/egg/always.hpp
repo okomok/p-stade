@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_ALWAYS_HPP
 #define PSTADE_EGG_ALWAYS_HPP
 #include "./detail/prefix.hpp"
@@ -12,15 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/preprocessor.hpp>
-#include "./apply_decl.hpp"
 #include "./by_cref.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./generator.hpp"
-#include "./use_brace2.hpp"
+#include "./use_variadic1.hpp"
+#include "./variadic.hpp"
 
 
 namespace pstade { namespace egg {
@@ -29,53 +24,43 @@ namespace pstade { namespace egg {
     namespace always_detail {
 
 
-        template<class X>
-        struct little
+        template<class Value>
+        struct little_result
         {
-            X m_x;
+            Value m_value;
 
-        // 0ary
-            typedef X nullary_result_type;
-
-            template<class Result>
-            Result call() const
-            {
-                return m_x;
-            }
-
-        // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            template<class Myself, class Args>
             struct apply
             {
-                typedef X type;
+                typedef Value type;
             };
 
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/always.hpp>))
-            #include BOOST_PP_ITERATE()
+            template<class Result, class Args>
+            Result call(Args& ) const
+            {
+                return m_value;
+            }
         };
 
 
     } // namespace always_detail
 
 
-    template<class X>
-    struct result_of_always
-    {
-        typedef
-            function<always_detail::little<X>, by_cref>
-        type;
-    };
+    template<class Value>
+    struct result_of_always :
+        variadic<always_detail::little_result<Value>, by_cref, use_nullary_result>
+    { };
 
-    #define PSTADE_EGG_ALWAYS_L { {
-    #define PSTADE_EGG_ALWAYS_R } }
-    #define PSTADE_EGG_ALWAYS(F) PSTADE_EGG_ALWAYS_L F PSTADE_EGG_ALWAYS_R
+    #define PSTADE_EGG_ALWAYS_L PSTADE_EGG_VARIADIC_L {
+    #define PSTADE_EGG_ALWAYS_R } PSTADE_EGG_VARIADIC_R
+    #define PSTADE_EGG_ALWAYS(V) PSTADE_EGG_ALWAYS_L V PSTADE_EGG_ALWAYS_R
 
 
     typedef
         generator<
             result_of_always< deduce<mpl_1, as_wrapped_ref> >::type,
             by_cref,
-            use_brace2
+            use_variadic1
         >::type
     T_always;
 
@@ -85,17 +70,4 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)) const
-    {
-        return m_x;
-    }
-
-
-#undef n
 #endif
