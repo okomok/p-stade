@@ -89,6 +89,9 @@ namespace pstade { namespace egg {
         is_bind_expression<X>
     { };
 
+    template<class X>
+    struct is_bind_expression<X&>;
+
 
     // predefined customizations
     //
@@ -97,7 +100,6 @@ namespace pstade { namespace egg {
     struct is_bind_expression< boost::lambda::lambda_functor<T> > :
         boost::mpl::true_
     { };
-
 
     template<class R, class F, class L>
     struct is_bind_expression< boost::_bi::bind_t<R, F, L> > :
