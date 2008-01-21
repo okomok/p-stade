@@ -41,10 +41,9 @@ namespace pstade { namespace egg {
             template<class Myself, class Args>
             struct apply :
                 result_of<
-                    typename result_of<T_fuse(bind_type const&)>::type
-                    (
-                        typename result_of<T_tuple_push_front(Args&, Base const&)>::type
-                    )
+                    typename result_of<
+                        T_fuse(bind_type const&)
+                    >::type(typename result_of<T_tuple_push_front(Args&, Base const&)>::type)
                 >
             { };
 
