@@ -23,7 +23,7 @@
 
 
 #define PSTADE_POD_ASSERT(T) \
-    struct BOOST_PP_CAT(POD_ASSERTION_FAILURE_in_line_, PSTADE_PP_LINE()) \
+    struct BOOST_PP_CAT(pod_assertion_in_line_, PSTADE_PP_LINE()) \
     { \
         PSTADE_POD_ASSERT_aux(T) \
     } \
@@ -31,7 +31,7 @@
 
 
 #define PSTADE_POD_ASSERT_OF(T, O) \
-    struct BOOST_PP_CAT(POD_ASSERTION_FAILURE_of_, O) \
+    struct BOOST_PP_CAT(pod_assertion_of_, O) \
     { \
         PSTADE_POD_ASSERT_aux(T) \
     } \
@@ -39,11 +39,14 @@
 
 
     #define PSTADE_POD_ASSERT_aux(T) \
-        void failed() \
+        PSTADE_POD_ASSERTION_FAILURE failed() \
         { \
             pstade::pod_assert_detail::must_be_pod(pstade::pod_assert_detail::make<void T>::value()); \
         } \
     /**/
+
+
+typedef void PSTADE_POD_ASSERTION_FAILURE;
 
 
 namespace pstade { namespace pod_assert_detail {
