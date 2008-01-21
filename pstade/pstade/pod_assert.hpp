@@ -14,6 +14,7 @@
 // Note:
 //
 // clearly imperfect...
+// FWIW, msvc is_pod<> doesn't correctly work at all.
 
 
 #include <boost/preprocessor/cat.hpp>
