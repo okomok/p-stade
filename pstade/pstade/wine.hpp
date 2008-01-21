@@ -29,6 +29,7 @@
 #include "./dont_care.hpp"
 #include "./enable_if.hpp"
 #include "./has_xxx.hpp"
+#include "./ignore_unused.hpp"
 #include "./implicitly_defined.hpp"
 #include "./in_unnamed.hpp"
 #include "./instance.hpp"
