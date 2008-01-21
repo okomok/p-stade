@@ -23,7 +23,7 @@
 
 
 #   if BOOST_WORKAROUND(BOOST_MSVC, >= 1300)
-#       define PSTADE_PP_LINE() __LINE__
+#       define PSTADE_PP_LINE() __COUNTER__
 #   else
 #       define PSTADE_PP_LINE() __LINE__
 #   endif
