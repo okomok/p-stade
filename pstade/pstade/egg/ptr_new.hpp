@@ -12,6 +12,7 @@
 
 
 #include <boost/pointee.hpp>
+#include "./by_value.hpp"
 #include "./compose.hpp"
 #include "./construct.hpp"
 #include "./new.hpp"
@@ -24,7 +25,7 @@ namespace pstade { namespace egg {
     template<class P, class Strategy = boost::use_default>
     struct X_ptr_new :
         result_of_compose<
-            typename X_construct<P>::function_type,
+            typename X_construct<P, by_value>::function_type,
             typename X_new<typename boost::pointee<P>::type, Strategy>::function_type,
             P
         >::type
