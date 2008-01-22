@@ -31,7 +31,7 @@ namespace pstade { namespace egg { namespace detail {
         struct apply :
             boost::mpl::eval_if< is_bind_expression<X>,
                 boost::mpl::identity<X&>,
-                result_of<T_always(boost::reference_wrapper<X>)>
+                result_of<T_always_ref(X&)>
             >
         { };
 
@@ -44,7 +44,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result, class X>
         Result call(X& x, typename disable_if<is_bind_expression<X> >::type = 0) const
         {
-            return always(boost::ref(x));
+            return always_ref(x);
         }
     };
 

@@ -15,6 +15,7 @@
 
 #include <boost/ref.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/utility/addressof.hpp>
 
 
 namespace egg = pstade::egg;
@@ -27,7 +28,7 @@ result_of_always<int>::type const always_4 = PSTADE_EGG_ALWAYS(4);
 
 struct my_klass : boost::noncopyable
 {
-    void hello() {}
+    void hello() {} // non-const
 };
 
 
@@ -48,7 +49,8 @@ void pstade_minimal_test()
     }
     {
         my_klass k;
-        always(boost::ref(k))(1,2,3,4).hello(); // can directly call.
+        always_ref(k)(1,2,3,4).hello(); // can directly call.
+        BOOST_CHECK(boost::addressof(always_ref(k)(1,2)) == boost::addressof(k));
     }
     {
         always(always)(1,2)(3);
