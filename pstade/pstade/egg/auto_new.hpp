@@ -14,6 +14,7 @@
 #include <memory> // auto_ptr
 #include "./ptr_new.hpp"
 #include "./register_nullary_result.hpp"
+#include "./specified.hpp"
 
 
 namespace pstade { namespace egg {
@@ -23,6 +24,9 @@ namespace pstade { namespace egg {
     struct X_auto_new :
         X_ptr_new<std::auto_ptr<X>, Strategy>
     { };
+
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (auto_new, X_auto_new, (class), (0)(1)(2)(3))
+    #include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::egg

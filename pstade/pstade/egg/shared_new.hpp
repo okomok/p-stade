@@ -14,6 +14,7 @@
 #include <boost/shared_ptr.hpp>
 #include "./ptr_new.hpp"
 #include "./register_nullary_result.hpp"
+#include "./specified.hpp"
 
 
 namespace pstade { namespace egg {
@@ -23,6 +24,9 @@ namespace pstade { namespace egg {
     struct X_shared_new :
         X_ptr_new<boost::shared_ptr<X>, Strategy>
     { };
+
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (shared_new, X_shared_new, (class), (0)(1)(2)(3))
+    #include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::egg
