@@ -19,14 +19,14 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/type_traits/add_reference.hpp>
 #include <pstade/plain.hpp>
-#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./function_fwd.hpp"
+#include "./generator.hpp"
+#include "./use_brace1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -61,32 +61,13 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_MONO(F) PSTADE_EGG_MONO_L F PSTADE_EGG_MONO_R
 
 
-    namespace mono_detail {
-
-
-        template<class Signature>
-        struct little
-        {
-            template<class Myself, class Base>
-            struct apply :
-                result_of_mono<Base, Signature>
-            { };
-
-            template<class Result, class Base>
-            Result call(Base base) const
-            {
-                Result r = PSTADE_EGG_MONO(base);
-                return r;
-            }
-        };
-
-
-    } // namespace mono_detail
-
-
     template<class Signature>
     struct X_mono :
-        function<mono_detail::little<Signature>, by_value>
+        generator<
+            typename result_of_mono<deduce<mpl_1, as_value>, Signature>::type,
+            by_value,
+            use_brace1
+        >::type
     { };
 
     template<class Signature, class Base> inline
