@@ -11,6 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// `always` doesn't unwrap reference_wrapper.
+// Consider: always( always(boost::ref(k))(1,2) );
+
+
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_cref.hpp"
