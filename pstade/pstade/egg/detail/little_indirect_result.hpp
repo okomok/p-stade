@@ -15,7 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
@@ -27,20 +27,14 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Ptr>
-    struct indirected_base :
-        boost::remove_reference<
-            typename result_of<T_dereference(Ptr const&)>::type
-        >
-    { };
-
-
     template<class Ptr, class Strategy>
     struct little_indirect_result
     {
         Ptr m_ptr;
 
-        typedef typename indirected_base<Ptr>::type base_type;
+        typedef typename
+            plain<typename result_of<T_dereference(Ptr const&)>::type>::type
+        base_type; // may be noncopyable.
 
         typename result_of<T_dereference(Ptr const&)>::type
         base() const

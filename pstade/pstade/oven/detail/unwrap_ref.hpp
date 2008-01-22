@@ -17,6 +17,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See also `egg::deduce<..., egg::as_wrappred_ref>`.
+
+
 #include <boost/mpl/eval_if.hpp>
 #include <boost/ref.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -30,7 +33,7 @@ template<class X>
 struct unwrap_ref :
     boost::mpl::eval_if< boost::is_reference_wrapper<X>,
         boost::add_reference<typename boost::unwrap_reference<X>::type>,
-        boost::remove_cv<X>
+        boost::remove_cv<X> // not reference.
       >
 { };
 
