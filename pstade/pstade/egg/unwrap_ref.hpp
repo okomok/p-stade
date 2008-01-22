@@ -19,34 +19,41 @@
 namespace pstade { namespace egg {
 
 
-    struct little_unwrap_ref
-    {
-        template<class Myself, class A>
-        struct apply
+    namespace unwrap_ref_detail {
+
+
+        struct little
         {
-            typedef A& type;
+            template<class Myself, class A>
+            struct apply
+            {
+                typedef A& type;
+            };
+
+            template<class Myself, class T>
+            struct apply< Myself, boost::reference_wrapper<T> >
+            {
+                typedef T& type;
+            };
+
+            template<class Myself, class T>
+            struct apply< Myself, boost::reference_wrapper<T> const >
+            {
+                typedef T& type;
+            };
+
+            template<class Result, class A>
+            Result call(A& a) const
+            {
+                return a;
+            }
         };
 
-        template<class Myself, class T>
-        struct apply< Myself, boost::reference_wrapper<T> >
-        {
-            typedef T& type;
-        };
 
-        template<class Myself, class T>
-        struct apply< Myself, boost::reference_wrapper<T> const >
-        {
-            typedef T& type;
-        };
+    } // namespace unwrap_ref_detail
 
-        template<class Result, class A>
-        Result call(A& a) const
-        {
-            return a;
-        }
-    };
 
-    typedef function<little_unwrap_ref, by_perfect> T_unwrap_ref;
+    typedef function<unwrap_ref_detail::little, by_perfect> T_unwrap_ref;
     PSTADE_POD_CONSTANT((T_unwrap_ref), unwrap_ref) = {{}};
 
 
