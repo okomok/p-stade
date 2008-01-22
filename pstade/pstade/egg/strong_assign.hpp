@@ -14,7 +14,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./ambi.hpp"
 #include "./do_swap.hpp"
-#include "./by_perfect.hpp"
+#include "./function.hpp"
 
 
 namespace pstade { namespace egg {
@@ -41,13 +41,10 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<little, by_perfect> op;
-
-
     } // namespace strong_assign_detail
 
 
-    typedef result_of_ambi1<strong_assign_detail::op>::type T_strong_assign;
+    typedef result_of_ambi1< function<strong_assign_detail::little> >::type T_strong_assign;
     PSTADE_POD_CONSTANT((T_strong_assign), strong_assign) = PSTADE_EGG_AMBI({{}});
 
 
