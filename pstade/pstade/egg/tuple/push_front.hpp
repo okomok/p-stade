@@ -11,11 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// TODO:
-//
-// Fusion support.
-
-
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/pod_constant.hpp>
