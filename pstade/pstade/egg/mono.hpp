@@ -35,16 +35,8 @@ namespace pstade { namespace egg {
     namespace mono_detail {
 
 
-        // This should be cv-qualifier sensitive?
-        template<class A>
-        struct argument_type :
-            plain<A>
-        { };
-
-
         template<class Base, class Signature>
         struct result_;
-
 
         // 0ary-
     #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
@@ -117,18 +109,11 @@ namespace pstade { namespace egg {
     {
         typedef Base base_type;
 
-        Base m_base;
-
-        Base const& base() const
-        {
-            return m_base;
-        }
-
 #if n == 1
-        typedef typename argument_type<A0>::type argument_type;
+        typedef typename plain<A0>::type argument_type;
 #elif n == 2
-        typedef typename argument_type<A0>::type first_argument_type;
-        typedef typename argument_type<A1>::type second_argument_type;
+        typedef typename plain<A0>::type first_argument_type;
+        typedef typename plain<A1>::type second_argument_type;
 #endif
 
         typedef typename
@@ -136,6 +121,13 @@ namespace pstade { namespace egg {
                 result_of<Base const(BOOST_PP_ENUM_PARAMS(n, A))>
             >::type
         result_type;
+
+        Base m_base;
+
+        Base const& base() const
+        {
+            return m_base;
+        }
 
         result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
         {
