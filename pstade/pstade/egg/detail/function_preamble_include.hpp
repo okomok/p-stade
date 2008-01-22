@@ -24,7 +24,7 @@
 
     typedef little_type base_type;
 
-    base_type const& base() const
+    little_type const& base() const
     {
         return this->little();
     }

@@ -65,11 +65,11 @@ namespace pstade { namespace egg {
         template<class Base, class Bytag>
         struct little_result
         {
-            Base m_base;
-
             typedef Base base_type;
 
-            Base base() const
+            Base m_base;
+
+            Base const& base() const
             {
                 return m_base;
             }

@@ -77,12 +77,12 @@
         template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
         struct PSTADE_PP_CAT3(little_bind, n, _result)
         {
+            typedef Base base_type;
+
             Base m_base;
             BOOST_PP_REPEAT(n, PSTADE_arg, ~)
 
-            typedef Base base_type;
-
-            Base base() const
+            Base const& base() const
             {
                 return m_base;
             }

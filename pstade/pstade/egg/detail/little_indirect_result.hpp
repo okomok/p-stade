@@ -30,8 +30,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class Ptr, class Strategy>
     struct little_indirect_result
     {
-        Ptr m_ptr;
-
         typedef typename
             result_of<T_dereference(Ptr const&)>::type
         reference;
@@ -39,6 +37,8 @@ namespace pstade { namespace egg { namespace detail {
         typedef typename
             boost::remove_reference<reference>::type
         base_type; // may be noncopyable.
+
+        Ptr m_ptr;
 
         reference base() const
         {

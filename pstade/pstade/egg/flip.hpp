@@ -29,7 +29,14 @@ namespace pstade { namespace egg {
         template<class Base, class Strategy>
         struct little_result
         {
+            typedef Base base_type;
+
             Base m_base;
+
+            Base const& base() const
+            {
+                return m_base;
+            }
 
             template<class Myself, class A0, class A1>
             struct apply :

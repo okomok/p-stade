@@ -45,6 +45,8 @@ namespace pstade { namespace egg {
         struct result_ :
             function_facade<result_<Base>, boost::use_default, typename result_of<Base()>::type>
         {
+            typedef Base base_type;
+
 #if defined(PSTADE_EGG_HAS_THREADS)
         private:
             typedef boost::detail::lightweight_mutex mutex_t;

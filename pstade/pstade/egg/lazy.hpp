@@ -33,10 +33,16 @@ namespace pstade { namespace egg {
         template<class Base, class Bind>
         struct little_result
         {
+            typedef Base base_type;
             typedef typename if_use_default<Bind, T_bll_bind>::type bind_type;
 
             Base m_base;
             bind_type m_bind;
+
+            Base const& base() const
+            {
+                return m_base;
+            }
 
             template<class Myself, class Args>
             struct apply :

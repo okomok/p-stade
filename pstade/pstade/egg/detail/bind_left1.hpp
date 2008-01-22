@@ -39,12 +39,12 @@ namespace pstade { namespace egg { namespace detail {
     template<class Base, class Arg>
     struct little_bind_left1_result
     {
+        typedef Base base_type;
+
         Base m_base;
         Arg m_arg;
 
-        typedef Base base_type;
-
-        Base base() const
+        Base const& base() const
         {
             return m_base;
         }

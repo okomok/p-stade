@@ -54,7 +54,7 @@ namespace little_pipable_resultns_ {
         Base m_base;
         ArgTuple m_arguments;
 
-        Base base() const
+        Base const& base() const
         {
             return m_base;
         }

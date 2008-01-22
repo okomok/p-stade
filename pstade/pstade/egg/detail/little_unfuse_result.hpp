@@ -61,7 +61,7 @@ namespace pstade { namespace egg { namespace detail {
         Base m_base;
         pack_type m_pack;
 
-        Base base() const
+        Base const& base() const
         {
             return m_base;
         }

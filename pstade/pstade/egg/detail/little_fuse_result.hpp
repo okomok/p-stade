@@ -38,7 +38,7 @@ namespace pstade { namespace egg { namespace detail {
 
         Base m_base;
 
-        Base base() const
+        Base const& base() const
         {
             return m_base;
         }

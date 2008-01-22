@@ -26,33 +26,33 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class SigFun>
+    template<class Bindable>
     struct bll_defer_error_non_nullary;
 
 
-    template<class SigFun, class IsNullary>
+    template<class Bindable, class IsNullary>
     struct little_bll_defer_result
     {
-        SigFun m_base;
+        typedef Bindable base_type;
 
-        typedef SigFun base_type;
+        Bindable m_base;
 
-        SigFun base() const
+        Bindable const& base() const
         {
             return m_base;
         }
 
     // 0ary
         struct result0 :
-            SigFun::template sig<
-                boost::tuples::tuple<SigFun>
+            Bindable::template sig<
+                boost::tuples::tuple<Bindable>
             >
         { };
 
         typedef typename
             boost::mpl::eval_if< IsNullary,
                 result0,
-                boost::mpl::identity< bll_defer_error_non_nullary<SigFun> >
+                boost::mpl::identity< bll_defer_error_non_nullary<Bindable> >
             >::type
         nullary_result_type;
 
@@ -81,9 +81,9 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        SigFun::template sig<
+        Bindable::template sig<
             boost::tuples::tuple<
-                SigFun,
+                Bindable,
                 BOOST_PP_ENUM_PARAMS(n, A)
             >
         >

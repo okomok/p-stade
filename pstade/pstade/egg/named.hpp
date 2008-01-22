@@ -60,8 +60,13 @@ namespace pstade { namespace egg {
     struct PSTADE_PP_CAT3(little_fused_named, n, _result)
     {
         typedef Base base_type;
+
         Base m_base;
-        Base base() const { return m_base; }
+
+        Base const& base() const
+        {
+            return m_base;
+        }
 
         template<class Myself, class NamedArgs>
         struct apply

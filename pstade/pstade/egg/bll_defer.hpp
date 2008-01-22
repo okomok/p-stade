@@ -32,11 +32,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class SigFun, class Strategy = by_perfect>
+    template<class Bindable, class Strategy = by_perfect>
     struct result_of_bll_defer
     {
         typedef
-            function<detail::little_bll_defer_result<SigFun, boost::mpl::false_>, Strategy>
+            function<detail::little_bll_defer_result<Bindable, boost::mpl::false_>, Strategy>
         type;
     };
 
@@ -56,11 +56,11 @@ namespace pstade { namespace egg {
     PSTADE_POD_CONSTANT((T_bll_defer), bll_defer) = PSTADE_EGG_GENERATOR();
 
 
-    template<class SigFun>
+    template<class Bindable>
     struct result_of_bll_defer_nullary
     {
         typedef
-            function<detail::little_bll_defer_result<SigFun, boost::mpl::true_>, by_ref>
+            function<detail::little_bll_defer_result<Bindable, boost::mpl::true_>, by_ref>
         type;
     };
 

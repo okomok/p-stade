@@ -115,11 +115,11 @@ namespace pstade { namespace egg {
     template<class Base, class ResultType BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     struct result_<Base, ResultType(BOOST_PP_ENUM_PARAMS(n, A))>
     {
-        Base m_base;
-
         typedef Base base_type;
 
-        Base base() const
+        Base m_base;
+
+        Base const& base() const
         {
             return m_base;
         }
