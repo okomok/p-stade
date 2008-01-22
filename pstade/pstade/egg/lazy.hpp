@@ -17,9 +17,9 @@
 #include "./bll/bind.hpp"
 #include "./by_cref.hpp"
 #include "./by_value.hpp"
+#include "./detail/push_front.hpp"
 #include "./fuse.hpp"
 #include "./generator.hpp"
-#include "./tuple/push_front.hpp"
 #include "./use_variadic1.hpp"
 #include "./variadic.hpp"
 
@@ -49,14 +49,14 @@ namespace pstade { namespace egg {
                 result_of<
                     typename result_of<
                         T_fuse(bind_type const&)
-                    >::type(typename result_of<T_tuple_push_front(Args&, Base const&)>::type)
+                    >::type(typename result_of<detail::T_push_front(Args&, Base const&)>::type)
                 >
             { };
 
             template<class Result, class Args>
             Result call(Args& args) const
             {
-                return fuse(m_bind)(tuple_push_front(args, m_base));
+                return fuse(m_bind)(detail::push_front(args, m_base));
             }
         };
 
