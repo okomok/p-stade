@@ -11,14 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/inc.hpp>
-#include <pstade/preprocessor.hpp> // PSTADE_PP_SEQ_RANGE
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./detail/perfect_arities.hpp"
 #include "./function_fwd.hpp" // by_perfect
 #include "./perfect_strategy.hpp"
 
 
-#define  PSTADE_EGG_PERFECT_STRATEGY_PARAMS (pstade::egg::by_perfect, PSTADE_PP_SEQ_RANGE(0, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY)))
+#define  PSTADE_EGG_PERFECT_STRATEGY_PARAMS (pstade::egg::by_perfect, PSTADE_EGG_PERFECT_ARITIES())
 #include PSTADE_EGG_PERFECT_STRATEGY()
 
 

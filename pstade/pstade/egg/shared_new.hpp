@@ -12,6 +12,7 @@
 
 
 #include <boost/shared_ptr.hpp>
+#include "./detail/perfect_arities.hpp"
 #include "./ptr_new.hpp"
 #include "./register_nullary_result.hpp"
 #include "./specified.hpp"
@@ -25,7 +26,7 @@ namespace pstade { namespace egg {
         X_ptr_new<boost::shared_ptr<X>, Strategy>
     { };
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (shared_new, X_shared_new, (class), (0)(1)(2)(3))
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (shared_new, X_shared_new, (class), PSTADE_EGG_PERFECT_ARITIES())
     #include PSTADE_EGG_SPECIFIED()
 
 
