@@ -13,10 +13,10 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/unwrap_ref.hpp>
 #include <pstade/enable_if.hpp>
 #include "./concepts.hpp"
 #include "./detail/base_to_adaptor.hpp"
+#include "./detail/unwrap_ref.hpp"
 #include "./detail/data_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -37,7 +37,7 @@ namespace with_data_detail {
         typedef
             detail::data_iterator<
                 typename range_iterator<Range>::type,
-                typename egg::result_of_unwrap_ref<Data>::type
+                typename detail::unwrap_ref<Data>::type
             >
         iter_t;
 
