@@ -15,7 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/plain.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
@@ -33,11 +33,14 @@ namespace pstade { namespace egg { namespace detail {
         Ptr m_ptr;
 
         typedef typename
-            plain<typename result_of<T_dereference(Ptr const&)>::type>::type
+            result_of<T_dereference(Ptr const&)>::type
+        contents_type;
+
+        typedef typename
+            boost::remove_reference<contents_type>::type
         base_type; // may be noncopyable.
 
-        typename result_of<T_dereference(Ptr const&)>::type
-        base() const
+        contents_type base() const
         {
             return *m_ptr;
         }
