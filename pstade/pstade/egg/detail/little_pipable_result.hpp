@@ -80,15 +80,17 @@ namespace little_pipable_resultns_ {
     };
 
 
-    template<class A, class Base, class ArgTuple>
+    struct lookup_pipable_operator { };
+
+
+    template<class O, class Base, class ArgTuple>
     struct result_of_output :
         result_of<
-            typename result_of<T_fuse(Base const&)>::type(boost::tuples::cons<A&, ArgTuple>)
+            typename result_of<
+                T_fuse(Base const&)
+            >::type(typename result_of<T_tuple_push_front(ArgTuple&, O&)>::type)
         >
     { };
-    
-
-    struct lookup_pipable_operator { };
 
 
     // operator|
