@@ -23,7 +23,11 @@
     { };
 
     typedef little_type base_type;
-    base_type const& base() const { return little(); }
+
+    base_type const& base() const
+    {
+        return this->little();
+    }
 
     #include PSTADE_EGG_BLL_BINDABLE()
 

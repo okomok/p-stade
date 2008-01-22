@@ -34,13 +34,13 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename
             result_of<T_dereference(Ptr const&)>::type
-        contents_type;
+        reference;
 
         typedef typename
-            boost::remove_reference<contents_type>::type
+            boost::remove_reference<reference>::type
         base_type; // may be noncopyable.
 
-        contents_type base() const
+        reference base() const
         {
             return *m_ptr;
         }
