@@ -37,15 +37,11 @@
 #include <pstade/boost_workaround.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 
 
 #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
     #error This header is used only with msvc-7.1.
-#endif
-
-
-#if !defined(PSTADE_EGG_VC7_1_RESULT_OF_MAX_ARITY)
-    #define PSTADE_EGG_VC7_1_RESULT_OF_MAX_ARITY 5
 #endif
 
 
@@ -91,7 +87,7 @@ namespace pstade { namespace egg { namespace detail_vc7_1 {
     #define PSTADE_c1 const&
     #define PSTADE_ac0(A) A
     #define PSTADE_ac1(A) const_ref<A>
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_VC7_1_RESULT_OF_MAX_ARITY, <pstade/egg/detail/vc7_1_result_of.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/vc7_1_result_of.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
