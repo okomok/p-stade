@@ -24,12 +24,6 @@
 // type as 'Base'. Any pitfalls?
 
 
-// References:
-//
-// [1] Eric Niebler, iterator_cast, Boost.RangeEx, 2004.
-//     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
-
-
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/adapted_to_base.hpp>

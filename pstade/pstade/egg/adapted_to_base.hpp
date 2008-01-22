@@ -11,6 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] Eric Niebler, iterator_cast, Boost.RangeEx, 2004.
+//     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
+
+
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_const.hpp>
