@@ -26,17 +26,23 @@
 namespace pstade { namespace egg { namespace detail {
 
 
+    template<class A>
+    struct bound;
+
     // Not const-qualified to be Regular.
     template<class A>
-    struct bound :
+    struct bound<A const> :
         pass_by_value<A>
     { };
 
     template<class T, std::size_t sz>
-    struct bound<T[sz]>
+    struct bound<T const[sz]>
     {
-        typedef T (&type)[sz];
+        typedef T const (&type)[sz];
     };
+
+    template<class T, std::size_t sz>
+    struct bound<T[sz]>;
 
     template<class A>
     struct bound<A&>;
@@ -50,10 +56,13 @@ namespace pstade { namespace egg { namespace detail {
     };
 
     template<class T, std::size_t sz>
-    struct unbound<T(&)[sz]>
+    struct unbound<T const(&)[sz]>
     {
-        typedef T (&type)[sz];
+        typedef T const (&type)[sz];
     };
+
+    template<class T, std::size_t sz>
+    struct unbound<T(&)[sz]>;
 
 
     struct as_bound

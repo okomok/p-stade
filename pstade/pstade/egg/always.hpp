@@ -20,6 +20,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_cref.hpp"
 #include "./by_perfect.hpp"
+#include "./detail/bound.hpp"
 #include "./generator.hpp"
 #include "./use_variadic1.hpp"
 #include "./variadic.hpp"
@@ -31,26 +32,27 @@ namespace pstade { namespace egg {
     namespace always_detail {
 
 
-        template<class Value>
+        template<class Bound>
         struct little_result
         {
-            Value m_value;
+            typedef typename detail::unbound<Bound>::type unbound_type;
+            Bound m_bound;
 
-            Value const& base() const
+            unbound_type base() const
             {
-                return m_value;
+                return m_bound;
             }
 
             template<class Myself, class Args>
             struct apply
             {
-                typedef Value type;
+                typedef unbound_type type;
             };
 
             template<class Result, class Args>
             Result call(Args& ) const
             {
-                return m_value;
+                return m_bound;
             }
         };
 
@@ -85,9 +87,9 @@ namespace pstade { namespace egg {
     // always
     //
 
-    template<class Value>
+    template<class Bound>
     struct result_of_always :
-        variadic<always_detail::little_result<Value>, by_cref, use_nullary_result>
+        variadic<always_detail::little_result<Bound>, by_cref, use_nullary_result>
     { };
 
     #define PSTADE_EGG_ALWAYS_L PSTADE_EGG_VARIADIC_L {
@@ -96,7 +98,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            result_of_always< deduce<mpl_1, as_value> >::type,
+            result_of_always< deduce<mpl_1, detail::as_bound> >::type,
             by_cref,
             use_variadic1
         >::type
