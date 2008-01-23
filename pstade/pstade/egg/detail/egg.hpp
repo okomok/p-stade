@@ -14,7 +14,7 @@
 // This is placed in /detail/ so that you should shy away inclusion.
 
 
-#include "../adapted_to.hpp"
+#include "../adapted_to_base.hpp"
 #include "../after.hpp"
 #include "../always.hpp"
 #include "../ambi.hpp"

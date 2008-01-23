@@ -26,7 +26,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/adapted_to.hpp>
+#include <pstade/egg/adapted_to_base.hpp>
 #include <pstade/egg/ambi.hpp>
 #include <pstade/egg/automatic.hpp>
 #include <pstade/egg/function.hpp>
