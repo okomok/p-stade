@@ -44,7 +44,9 @@ T_my_idrr const &get_my_idrr1( )
 
 int irr = get_my_idrr2()|pstade::egg::to_base();
 
-int ifun = get_my_func2().
+int ifun = get_my_func2()|pstade::egg::to_base();
+/*
+= get_my_func2().
     little().
     base().
     little().
@@ -55,7 +57,7 @@ int ifun = get_my_func2().
     m_arg.
     little().
     touch;
-
+*/
 
 T_pipa const &get_pipa1( )
 {

@@ -81,6 +81,8 @@ struct my_little
         return a1;
     }
 
+    int base() const { return touch; }
+
     int touch;
 };
 
