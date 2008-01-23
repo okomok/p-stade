@@ -25,7 +25,6 @@ namespace pstade { namespace egg {
         result_of_return<Base, boost::use_default, Strategy, Tag>
     { };
 
-
     #define PSTADE_EGG_TAGGED_L PSTADE_EGG_RETURN_L
     #define PSTADE_EGG_TAGGED_R PSTADE_EGG_RETURN_R
     #define PSTADE_EGG_TAGGED(F) PSTADE_EGG_TAGGED_L F PSTADE_EGG_TAGGED_R

@@ -73,8 +73,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `b` is an object of type which is not `boost::reference_wrapper<>`.
-* `w` is an object of `boost::reference_wrapper<>`.
+* ...
 
 [heading Valid expressions]
 [table 
@@ -83,16 +82,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`always(x)`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [`always(b)`]
+        [A __MAJOR_FUNCTION_OBJECT__]
     ]
     [
         [`always(b)(a1,...,aN)`]
         [`boost::implicit_cast<_typeof(b)>(b)`]
-    ]
-    [
-        [`always(w)(a1,...,aN)`]
-        [`w.get()`]
     ]
 ]
 

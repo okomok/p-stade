@@ -57,6 +57,7 @@
 * `tuple_pack` accepts any strategy.
 * `generator` and `function_facade` template parameter order changed.
 * `ambi` takes only `_Bytag`.
+* `always` doesn't treat `reference_wrapper` as special case.
 
 
 
