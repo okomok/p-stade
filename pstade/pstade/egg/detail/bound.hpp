@@ -41,12 +41,6 @@ namespace pstade { namespace egg { namespace detail {
         typedef T const (&type)[sz];
     };
 
-    template<class T, std::size_t sz>
-    struct bound<T[sz]>;
-
-    template<class A>
-    struct bound<A&>;
-
 
     // const lvalue, because operator() is const.
     template<class A>
@@ -60,9 +54,6 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef T const (&type)[sz];
     };
-
-    template<class T, std::size_t sz>
-    struct unbound<T(&)[sz]>;
 
 
     struct as_bound
