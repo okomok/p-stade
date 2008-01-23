@@ -19,7 +19,7 @@
 // Notice curry2 expects it to work as "normal" bind,
 // meaning that by_perfect and bound/unbound_arg is needed.
 //
-// Note that this can'be use `variadic` because of msvc error C1054.
+// Note that this can't use variadic<> because of msvc error C1054.
 
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
