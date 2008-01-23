@@ -22,8 +22,6 @@
         detail::of_apply_little<Signature>
     { };
 
-    typedef little_type base_type;
-
     little_type const& base() const
     {
         return this->little();

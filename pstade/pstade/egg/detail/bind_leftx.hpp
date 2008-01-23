@@ -64,8 +64,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class Base, BOOST_PP_ENUM_PARAMS(n, class Arg)>
     struct PSTADE_PP_CAT3(little_bind_left, n, _result)
     {
-        typedef Base base_type;
-
         Base m_base;
         BOOST_PP_REPEAT(n, PSTADE_arg, ~)
 

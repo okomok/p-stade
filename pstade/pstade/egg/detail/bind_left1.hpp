@@ -43,12 +43,10 @@ namespace pstade { namespace egg { namespace detail {
     template<class Func, class Arg>
     struct little_bind_left1_result
     {
-        typedef Arg base_type;
-
         Func m_func;
         Arg m_arg;
 
-        Arg const& base() const
+        typename unbound_arg<Arg>::type base() const
         {
             return m_arg;
         }

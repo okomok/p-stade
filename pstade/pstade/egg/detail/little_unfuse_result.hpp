@@ -50,8 +50,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class Base, class Pack, class NullaryResult>
     struct little_unfuse_result
     {
-        typedef Base base_type;
-
         typedef typename
             if_use_default<Pack,
                 typename X_tuple_pack<by_ref>::function_type

@@ -48,7 +48,6 @@ namespace little_pipable_resultns_ {
     template<class Base, class Strategy, class OperandBytag, class ArgTuple = boost::tuples::null_type>
     struct little_pipable_result
     {
-        typedef Base base_type;
         typedef ArgTuple arguments_type;
 
         Base m_base;

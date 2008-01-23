@@ -17,7 +17,6 @@
 // Consider: always( always(boost::ref(k))(1,2) );
 
 
-#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_cref.hpp"
 #include "./by_perfect.hpp"
@@ -35,8 +34,6 @@ namespace pstade { namespace egg {
         template<class Value>
         struct little_result
         {
-            typedef Value base_type;
-
             Value m_value;
 
             Value const& base() const
@@ -61,10 +58,6 @@ namespace pstade { namespace egg {
         template<class Reference>
         struct little_ref_result
         {
-            typedef typename
-                boost::remove_reference<Reference>::type
-            base_type;
-
             Reference m_ref;
 
             Reference base() const

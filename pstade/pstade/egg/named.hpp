@@ -59,8 +59,6 @@ namespace pstade { namespace egg {
     template<class Base>
     struct PSTADE_PP_CAT3(little_fused_named, n, _result)
     {
-        typedef Base base_type;
-
         Base m_base;
 
         Base const& base() const

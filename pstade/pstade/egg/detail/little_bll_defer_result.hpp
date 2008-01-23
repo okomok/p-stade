@@ -33,8 +33,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class Bindable, class IsNullary>
     struct little_bll_defer_result
     {
-        typedef Bindable base_type;
-
         Bindable m_base;
 
         Bindable const& base() const

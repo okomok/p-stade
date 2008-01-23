@@ -34,8 +34,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class Base>
     struct little_fuse_result
     {
-        typedef Base base_type;
-
         Base m_base;
 
         Base const& base() const

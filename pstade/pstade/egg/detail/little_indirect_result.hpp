@@ -36,7 +36,7 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename
             boost::remove_reference<reference>::type
-        base_type; // may be noncopyable.
+        func_type; // may be noncopyable.
 
         Ptr m_ptr;
 
@@ -47,7 +47,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            result_of<base_type()>::type
+            result_of<func_type()>::type
         nullary_result_type;
 
         template<class Result>
@@ -75,7 +75,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<base_type(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
+        result_of<func_type(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
     { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>

@@ -29,8 +29,6 @@ namespace pstade { namespace egg {
         template<class Base, class Strategy>
         struct little_result
         {
-            typedef Base base_type;
-
             Base m_base;
 
             Base const& base() const

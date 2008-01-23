@@ -35,7 +35,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class Base, class ResultType, class Strategy, class Tag>
     struct little_return_result
     {
-        typedef Base base_type;
         typedef Tag tag_type;
 
         Base m_base;

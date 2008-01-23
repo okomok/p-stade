@@ -30,8 +30,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class Base, class Strategy>
     struct little_uncurry_result
     {
-        typedef Base base_type;
-
         Base m_base;
 
         Base const& base() const
