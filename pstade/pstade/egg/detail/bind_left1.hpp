@@ -36,13 +36,13 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base, class Arg>
+    template<class Bind, class Base>
     struct little_bind_left1_result
     {
         typedef Base base_type;
 
-        Base m_base;
-        Arg m_arg;
+        Bind m_bind;
+        Base m_base; // as argument of Bind.
 
         Base const& base() const
         {
@@ -60,11 +60,11 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-    template<class Base, class Arg>
+    template<class Bind, class Base>
     struct result_of_bind_left1
     {
         typedef
-            function<little_bind_left1_result<Base, Arg>, by_perfect>
+            function<little_bind_left1_result<Bind, Base>, by_perfect>
         type;
     };
 
@@ -76,16 +76,16 @@ namespace pstade { namespace egg { namespace detail {
 
     struct little_bind_left1
     {
-        template<class Myself, class Base, class Arg>
+        template<class Myself, class Bind, class Base>
         struct apply :
             result_of_bind_left1<
-                typename pass_by_value<Base>::type,
-                typename bound_arg<Arg>::type
+                typename pass_by_value<Bind>::type,
+                typename bound_arg<Base>::type
             >
         { };
 
-        template<class Result, class Base, class Arg>
-        Result call(Base& base, Arg& arg) const
+        template<class Result, class Bind, class Base>
+        Result call(Bind& base, Base& arg) const
         {
             Result r = PSTADE_EGG_BIND_LEFT1(base, arg);
             return r;
@@ -107,8 +107,8 @@ namespace pstade { namespace egg { namespace detail {
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            Base const(
-                typename unbound_arg<Arg>::type,
+            Bind const(
+                typename unbound_arg<Base>::type,
                 PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
             )
         >
@@ -117,8 +117,8 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return m_base(
-            m_arg,
+        return m_bind(
+            m_base,
             BOOST_PP_ENUM_PARAMS(n, a)
         );
     }
