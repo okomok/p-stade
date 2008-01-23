@@ -2,6 +2,7 @@
 
 [import ../example/function_adaptors.cpp]
 [import ../example/mono_lambda.cpp]
+[import ../example/adapted_to_comparison.cpp]
 
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
@@ -1075,6 +1076,56 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 
 [heading See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2141.html Strong Typedefs in C++09(Revisited)]
+
+[endsect]
+
+
+
+
+[section adapted_to]
+
+[heading Description]
+`adapted_to` provides the way to access underlying base __FUNCTION_OBJECT__ or __LITTLE_FUNCTION__ from adapted __FUNCTION_OBJECT__.
+
+[heading Header]
+* `<pstade/egg/adapted_to.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_adapted_to<B>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_adapted_to<B>()(f)`]
+        [Extracts base __FUNCTION_OBJECT__ from `f`.]
+    ]
+    [
+        [`egg::adapted_to<B>(f)`]
+        [`X_adapted_to<B>()(f)`]
+    ]
+]
+
+[heading Preconditions]
+* `f` is a __FUNCTION_OBJECT__ which __EGG_FUNCTION_ADAPTORS__ or __EGG_FUNCTION_BUILDERS__ makes.
+* `B` is a base __FUNCTION_OBJECT__ or __LITTLE_FUNCTION__ type.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+[code_adapted_to_comparison]
+
+[heading See also]
+* ...
 
 [endsect]
 

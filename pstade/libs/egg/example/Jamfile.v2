@@ -12,6 +12,7 @@ project
     ;
 
 test-suite "egg_example" :
+    [ run adapted_to_comparison.cpp ]
     [ run concepts.cpp ]
     [ run currying.cpp ]
     [ run function_adaptors.cpp ]

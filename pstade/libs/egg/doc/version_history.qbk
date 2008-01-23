@@ -58,6 +58,8 @@
 * `generator` and `function_facade` template parameter order changed.
 * `ambi` takes only `_Bytag`.
 * `always` doesn't treat `reference_wrapper` as special case.
+* Comparison operators removed.
+* `adapted_to` added.
 
 
 
