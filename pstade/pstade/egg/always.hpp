@@ -35,19 +35,17 @@ namespace pstade { namespace egg {
         template<class Bound>
         struct little_result
         {
-            typedef typename detail::unbound<Bound>::type unbound_type;
             Bound m_bound;
 
-            unbound_type base() const
+            typename detail::unbound<Bound>::type base() const
             {
                 return m_bound;
             }
 
             template<class Myself, class Args>
-            struct apply
-            {
-                typedef unbound_type type;
-            };
+            struct apply :
+                detail::unbound<Bound>
+            { };
 
             template<class Result, class Args>
             Result call(Args& ) const
