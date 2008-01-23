@@ -29,7 +29,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class A>
     struct bound;
 
-    // Not const-qualified to be Regular.
+    // To be Regular, not const-qualified.
     template<class A>
     struct bound<A const> :
         pass_by_value<A>
