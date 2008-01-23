@@ -16,6 +16,8 @@
 //
 // bind_left1(f, a1)(a2, a3)
 //   is equivalent to f(a1, a2, a3).
+// Notice curry2 expects it to work as "normal" bind,
+// meaning that by_perfect and bound/unbound_arg is needed.
 
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
@@ -30,23 +32,25 @@
 #include "../by_cref.hpp"
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../generator.hpp"
+#include "../use_brace2.hpp"
 #include "./bound_arg.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Bind, class Base>
+    template<class Func, class Arg>
     struct little_bind_left1_result
     {
-        typedef Base base_type;
+        typedef Arg base_type;
 
-        Bind m_bind;
-        Base m_base; // as argument of Bind.
+        Func m_func;
+        Arg m_arg;
 
-        Base const& base() const
+        Arg const& base() const
         {
-            return m_base;
+            return m_arg;
         }
 
     // 1ary-
@@ -60,11 +64,11 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-    template<class Bind, class Base>
+    template<class Func, class Arg>
     struct result_of_bind_left1
     {
         typedef
-            function<little_bind_left1_result<Bind, Base>, by_perfect>
+            function<little_bind_left1_result<Func, Arg>, by_perfect>
         type;
     };
 
@@ -74,25 +78,14 @@ namespace pstade { namespace egg { namespace detail {
     #define PSTADE_EGG_BIND_LEFT1(F, A) PSTADE_EGG_BIND_LEFT1_L F PSTADE_EGG_BIND_LEFT1_M A PSTADE_EGG_BIND_LEFT1_R
 
 
-    struct little_bind_left1
-    {
-        template<class Myself, class Bind, class Base>
-        struct apply :
-            result_of_bind_left1<
-                typename pass_by_value<Bind>::type,
-                typename bound_arg<Base>::type
-            >
-        { };
+    typedef
+        generator<
+            result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_bound_arg> >::type,
+            by_cref,
+            use_brace2
+        >::type
+    T_bind_left1;
 
-        template<class Result, class Bind, class Base>
-        Result call(Bind& base, Base& arg) const
-        {
-            Result r = PSTADE_EGG_BIND_LEFT1(base, arg);
-            return r;
-        }
-    };
-
-    typedef function<little_bind_left1, by_cref> T_bind_left1;
     PSTADE_POD_CONSTANT((T_bind_left1), bind_left1) = {{}};
 
 
@@ -107,8 +100,8 @@ namespace pstade { namespace egg { namespace detail {
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            Bind const(
-                typename unbound_arg<Base>::type,
+            Func const(
+                typename unbound_arg<Arg>::type,
                 PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
             )
         >
@@ -117,8 +110,8 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return m_bind(
-            m_base,
+        return m_func(
+            m_arg,
             BOOST_PP_ENUM_PARAMS(n, a)
         );
     }

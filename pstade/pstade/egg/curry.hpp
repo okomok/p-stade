@@ -49,6 +49,13 @@ namespace pstade { namespace egg {
 #define n_1 BOOST_PP_DEC(n)
 
 
+    // Assume fun2 is 2ary.
+    // curry2(fun2)(a1)(a2)
+    // => curry1(bind_left1(bind_left1, fun2))(a1)(a2)
+    // => bind_left1(bind_left1, fun2)(a1)(a2)
+    // => bind_left1(fun2, a1)(a2)
+    // => fun2(a1, a2)
+
     // Assume fun4 is 4ary.
     // curry4(fun4)(a1)(a2)(a3)(a4)
     // => curry3(bind_left1(bind_left3, fun4))(a1)(a2)(a3)(a4)

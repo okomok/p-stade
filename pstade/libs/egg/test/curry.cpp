@@ -143,8 +143,10 @@ void pstade_minimal_test()
     using namespace pstade::egg;
 
     {
+        ::my_plus2 plus2;
+        int five = 5;
         BOOST_CHECK(
-            detail::bind_left1(::my_plus2(), 5)(7) == "57"
+            detail::bind_left1(plus2, five)(7) == "57"
         );
     }
     {

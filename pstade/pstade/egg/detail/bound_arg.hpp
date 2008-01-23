@@ -56,6 +56,15 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
+    struct as_bound_arg
+    {
+        template<class A>
+        struct apply :
+            bound_arg<A>
+        { };
+    };
+
+
 } } } // namespace pstade::egg::detail
 
 
