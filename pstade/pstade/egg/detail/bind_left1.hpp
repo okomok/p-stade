@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_DETAIL_BIND_LEFT1_HPP
 #define PSTADE_EGG_DETAIL_BIND_LEFT1_HPP
 #include "./prefix.hpp"
@@ -20,59 +19,58 @@
 // meaning that by_perfect and bound/unbound_arg is needed.
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
 #include "../by_cref.hpp"
 #include "../by_perfect.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../fuse.hpp"
 #include "../generator.hpp"
-#include "../use_brace2.hpp"
+#include "../tuple/push_front.hpp"
+#include "../use_variadic1.hpp"
+#include "../variadic.hpp"
 #include "./bound_arg.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Func, class Arg>
+    template<class Func, class Bound>
     struct little_bind_left1_result
     {
         Func m_func;
-        Arg m_arg;
+        Bound m_bound;
 
-        typename unbound_arg<Arg>::type base() const
+        typename unbound_arg<Bound>::type base() const
         {
-            return m_arg;
+            return m_bound;
         }
 
-    // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-        struct PSTADE_EGG_APPLY_DECL;
+        template<class Myself, class Args>
+        struct apply :
+            result_of<
+                typename result_of<
+                    T_fuse(Func const&)
+                >::type(typename result_of<T_tuple_push_front(Args&, typename unbound_arg<Bound>::type)>::type)
+            >
+        { };
 
-    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/egg/detail/bind_left1.hpp>))
-        #include BOOST_PP_ITERATE()
-    #undef  PSTADE_max_arity
+        template<class Result, class Args>
+        Result call(Args& args) const
+        {
+            return fuse(m_func)(tuple_push_front(args, m_bound));
+        }
     };
 
 
-    template<class Func, class Arg>
-    struct result_of_bind_left1
-    {
-        typedef
-            function<little_bind_left1_result<Func, Arg>, by_perfect>
-        type;
-    };
+    template<class Func, class Bound>
+    struct result_of_bind_left1 :
+        variadic<little_bind_left1_result<Func, Bound>, by_perfect>
+    { };
 
-    #define PSTADE_EGG_BIND_LEFT1_L { {
+    #define PSTADE_EGG_BIND_LEFT1_L PSTADE_EGG_VARIADIC_L {
     #define PSTADE_EGG_BIND_LEFT1_M ,
-    #define PSTADE_EGG_BIND_LEFT1_R } }
+    #define PSTADE_EGG_BIND_LEFT1_R } PSTADE_EGG_VARIADIC_R
     #define PSTADE_EGG_BIND_LEFT1(F, A) PSTADE_EGG_BIND_LEFT1_L F PSTADE_EGG_BIND_LEFT1_M A PSTADE_EGG_BIND_LEFT1_R
 
 
@@ -80,7 +78,7 @@ namespace pstade { namespace egg { namespace detail {
         generator<
             result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_bound_arg> >::type,
             by_cref,
-            use_brace2
+            use_variadic1
         >::type
     T_bind_left1;
 
@@ -90,30 +88,4 @@ namespace pstade { namespace egg { namespace detail {
 } } } // namespace pstade::egg::detail
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<
-            Func const(
-                typename unbound_arg<Arg>::type,
-                PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
-            )
-        >
-    { };
-
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-    {
-        return m_func(
-            m_arg,
-            BOOST_PP_ENUM_PARAMS(n, a)
-        );
-    }
-
-
-#undef n
 #endif
