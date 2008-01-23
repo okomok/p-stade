@@ -35,10 +35,10 @@ namespace pstade { namespace egg { namespace detail {
         pass_by_value<A>
     { };
 
-    template<class T, std::size_t sz>
-    struct bound<T const[sz]>
+    template<class T, std::size_t N>
+    struct bound<T const[N]>
     {
-        typedef T const (&type)[sz];
+        typedef T const (&type)[N];
     };
 
 
@@ -49,10 +49,10 @@ namespace pstade { namespace egg { namespace detail {
         typedef A const& type;
     };
 
-    template<class T, std::size_t sz>
-    struct unbound<T const(&)[sz]>
+    template<class T, std::size_t N>
+    struct unbound<T const(&)[N]>
     {
-        typedef T const (&type)[sz];
+        typedef T const (&type)[N];
     };
 
 
