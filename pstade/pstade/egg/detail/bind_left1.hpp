@@ -86,7 +86,7 @@ namespace pstade { namespace egg { namespace detail {
         >::type
     T_bind_left1;
 
-    PSTADE_POD_CONSTANT((T_bind_left1), bind_left1) = {{}};
+    PSTADE_POD_CONSTANT((T_bind_left1), bind_left1) = PSTADE_EGG_GENERATOR();
 
 
 } } } // namespace pstade::egg::detail
