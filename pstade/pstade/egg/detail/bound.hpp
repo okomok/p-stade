@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_BOUND_ARG_HPP
-#define PSTADE_EGG_DETAIL_BOUND_ARG_HPP
+#ifndef PSTADE_EGG_DETAIL_BOUND_HPP
+#define PSTADE_EGG_DETAIL_BOUND_HPP
 #include "./prefix.hpp"
 
 
@@ -28,39 +28,39 @@ namespace pstade { namespace egg { namespace detail {
 
     // Not const-qualified to be Regular.
     template<class A>
-    struct bound_arg :
+    struct bound :
         pass_by_value<A>
     { };
 
     template<class T, std::size_t sz>
-    struct bound_arg<T[sz]>
+    struct bound<T[sz]>
     {
         typedef T (&type)[sz];
     };
 
     template<class A>
-    struct bound_arg<A&>;
+    struct bound<A&>;
 
 
     // const lvalue, because operator() is const.
     template<class A>
-    struct unbound_arg
+    struct unbound
     {
         typedef A const& type;
     };
 
     template<class T, std::size_t sz>
-    struct unbound_arg<T(&)[sz]>
+    struct unbound<T(&)[sz]>
     {
         typedef T (&type)[sz];
     };
 
 
-    struct as_bound_arg
+    struct as_bound
     {
         template<class A>
         struct apply :
-            bound_arg<A>
+            bound<A>
         { };
     };
 

@@ -17,7 +17,7 @@
 // bind_left1(f, a1)(a2, a3)
 //   is equivalent to f(a1, a2, a3).
 // Notice curry2 expects it to work as "normal" bind,
-// meaning that by_perfect and bound/unbound_arg is needed.
+// meaning that by_perfect and bound/unbound is needed.
 //
 // Note that this can't use variadic<> because of msvc error C1054.
 
@@ -36,21 +36,21 @@
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../generator.hpp"
 #include "../use_brace2.hpp"
-#include "./bound_arg.hpp"
+#include "./bound.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Func, class Arg>
+    template<class Func, class Bound>
     struct little_bind_left1_result
     {
         Func m_func;
-        Arg m_arg;
+        Bound m_bound;
 
-        typename unbound_arg<Arg>::type base() const
+        typename unbound<Bound>::type base() const
         {
-            return m_arg;
+            return m_bound;
         }
 
     // 1ary-
@@ -64,11 +64,11 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-    template<class Func, class Arg>
+    template<class Func, class Bound>
     struct result_of_bind_left1
     {
         typedef
-            function<little_bind_left1_result<Func, Arg>, by_perfect>
+            function<little_bind_left1_result<Func, Bound>, by_perfect>
         type;
     };
 
@@ -80,7 +80,7 @@ namespace pstade { namespace egg { namespace detail {
 
     typedef
         generator<
-            result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_bound_arg> >::type,
+            result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_bound> >::type,
             by_cref,
             use_brace2
         >::type
@@ -101,7 +101,7 @@ namespace pstade { namespace egg { namespace detail {
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             Func const(
-                typename unbound_arg<Arg>::type,
+                typename unbound<Bound>::type,
                 PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
             )
         >
@@ -111,7 +111,7 @@ namespace pstade { namespace egg { namespace detail {
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         return m_func(
-            m_arg,
+            m_bound,
             BOOST_PP_ENUM_PARAMS(n, a)
         );
     }

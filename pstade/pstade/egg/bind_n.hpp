@@ -38,7 +38,7 @@
     #include "./by_cref.hpp"
     #include "./by_perfect.hpp"
     #include "./config.hpp"
-    #include "./detail/bound_arg.hpp"
+    #include "./detail/bound.hpp"
     #include "./detail/substitute.hpp"
     #include "./detail/use_nullary_result.hpp"
     #include "./is_bind_expression.hpp"
@@ -89,7 +89,7 @@
         #define PSTADE_meta_substitute(Z, N, _) \
             typename result_of_ref< \
                 typename result_of_ref< \
-                    detail::T_substitute(typename detail::unbound_arg<BOOST_PP_CAT(Arg, N)>::type) \
+                    detail::T_substitute(typename detail::unbound<BOOST_PP_CAT(Arg, N)>::type) \
                 >::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &)) \
             >::type \
         /**/
@@ -143,7 +143,7 @@
             struct apply :
                 BOOST_PP_CAT(result_of_bind, n)<
                     typename pass_by_value<Base>::type, NullaryResult BOOST_PP_COMMA_IF(n)
-                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::bound_arg<Arg, >::type)
+                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::bound<Arg, >::type)
                 >
             { };
 

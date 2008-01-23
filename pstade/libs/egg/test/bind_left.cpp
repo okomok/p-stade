@@ -23,8 +23,8 @@ using namespace egg;
 
 
 typedef int arr_t[20];
-BOOST_MPL_ASSERT((boost::is_same<detail::bound_arg<arr_t const>::type, int const(&)[20]>));
-PSTADE_TEST_IS_SAME((detail::bound_arg<int const>::type), (int))
+BOOST_MPL_ASSERT((boost::is_same<detail::bound<arr_t const>::type, int const(&)[20]>));
+PSTADE_TEST_IS_SAME((detail::bound<int const>::type), (int))
 
 
 void pstade_minimal_test()

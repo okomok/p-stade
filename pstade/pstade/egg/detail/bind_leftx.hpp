@@ -35,7 +35,7 @@
 #include "../by_cref.hpp"
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./bound_arg.hpp"
+#include "./bound.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -76,7 +76,7 @@ namespace pstade { namespace egg { namespace detail {
         struct apply :
             result_of<
                 Base const(
-                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename unbound_arg<Arg, >::type),
+                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename unbound<Arg, >::type),
                     ArgZ&
                 )
             >
@@ -102,7 +102,7 @@ namespace pstade { namespace egg { namespace detail {
                 function<
                     PSTADE_PP_CAT3(little_bind_left, n, _result)<
                         typename pass_by_value<Base>::type,
-                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename bound_arg<A, >::type)
+                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename bound<A, >::type)
                     >,
                     by_perfect
                 >

@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_ADAPTED_TO_HPP
-#define PSTADE_EGG_ADAPTED_TO_HPP
+#ifndef PSTADE_EGG_ADAPTED_TO_BASE_HPP
+#define PSTADE_EGG_ADAPTED_TO_BASE_HPP
 #include "./detail/prefix.hpp"
 
 
