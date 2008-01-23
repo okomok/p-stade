@@ -35,7 +35,7 @@ typedef result_of_curry2<base_plus>::type T_curried_plus;
 T_curried_plus const curried_plus777 = PSTADE_EGG_CURRY2({777});
 T_curried_plus const curried_plus999 = PSTADE_EGG_CURRY2({999});
 
-bool operator==(T_curried_plus const &left, T_curried_plus const& right)
+bool operator==(T_curried_plus const &left, T_curried_plus const &right)
 {
     return egg::adapted_to<base_plus>(left).id == egg::adapted_to<base_plus>(right).id;
 }

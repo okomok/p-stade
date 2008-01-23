@@ -51,7 +51,6 @@
 #include "../forward.hpp"
 #include "../from.hpp"
 #include "../function.hpp"
-#include "../function_comparison.hpp"
 #include "../function_extension.hpp"
 #include "../function_facade.hpp"
 #include "../function_fwd.hpp"
