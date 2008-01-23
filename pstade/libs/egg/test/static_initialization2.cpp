@@ -10,7 +10,7 @@
 
 //#include "./pod_constant_.hpp"
 #include "./static_initialization.hpp"
-#include <pstade/egg/adapted_to_base.hpp>
+#include <pstade/egg/adapted_to.hpp>
 #include <pstade/minimal_test.hpp>
 
 

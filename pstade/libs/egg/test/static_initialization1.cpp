@@ -12,7 +12,7 @@
 
 //#include "./pod_constant_.hpp"
 #include "./static_initialization.hpp"
-#include <pstade/egg/adapted_to_base.hpp>
+#include <pstade/egg/adapted_to.hpp>
 
 
 T_my_id const &get_my_id1( )
