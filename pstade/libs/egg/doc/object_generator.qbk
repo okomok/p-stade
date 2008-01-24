@@ -17,7 +17,7 @@ A simple object generator can be built automagically using the following family.
 * `C(Lam)` is
     * a type which behaves like `Lam` without no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
     * `Lam` itself otherwise.
-* `g` is an object of `generator<Lam,_Stg, How, R0>::type`.
+* `g` is an object of `generator<Lam,_Stg, Form, R0>::type`.
 * `X` is `boost::mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
 * `arglist` is `_safe_arg_list(a, _Stg)`.
 
@@ -28,27 +28,27 @@ A simple object generator can be built automagically using the following family.
         [[*Semantics]]
     ]
     [
-        [`generator<Lam, _Stg = _default, How = _default, R0 = _default>::type`]
+        [`generator<Lam, _Stg = _default, Form = _default, R0 = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_GENERATOR()`]
-        [A braced initializer of `generator<Lam, _Stg, How, R0>::type`]
+        [A braced initializer of `generator<Lam, _Stg, Form, R0>::type`]
     ]
     [
         [`g(a1,...,aN)`]
-        [Returns an object made by `How`.]
+        [Returns an object made by `Form`.]
     ]
     [
         [`g()`]
-        [Returns a `R0` object made by `How`.]
+        [Returns a `R0` object made by `Form`.]
     ]
 ]
 
 [heading Preconditions]
 * `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `How` is `_default` or one of the type in __EGG_GENERATING_FORMS__.
+* `Form` is `_default` or one of the type in __EGG_GENERATING_FORMS__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -75,9 +75,7 @@ A simple object generator can be built automagically using the following family.
 You need these helpers if a generating type has no constructor.
 
 [heading Header]
-* `<pstade/egg/use_constructor.hpp>` defines `use_constructor`.
-* `<pstade/egg/use_brace1.hpp>` defines `use_brace1`.
-* `<pstade/egg/use_brace2.hpp>` defines `use_brace2`.
+* `<pstade/egg/USE_XXX.hpp>`, where `USE_XXX` is corresponding "Valid Expression" token below.
 
 [heading Notation]
 * Notation defined in __EGG_GENERATOR__.
@@ -99,6 +97,10 @@ You need these helpers if a generating type has no constructor.
     [
         [`use_brace2`]
         [`X x = {{arglist}}; return x;`]
+    ]
+    [
+        [`use_variadic1`]
+        [`X x = PSTADE_EGG_VARIADIC_L {arglist} PSTADE_EGG_VARIADIC_R; return x;`]
     ]
 ]
 

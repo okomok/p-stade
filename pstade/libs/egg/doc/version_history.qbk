@@ -60,6 +60,7 @@
 * `always` doesn't treat `reference_wrapper` as special case.
 * Comparison operators removed.
 * `adapted_to` added.
+* `auto_new` and `shared_new` added.
 
 
 

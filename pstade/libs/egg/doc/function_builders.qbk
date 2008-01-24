@@ -343,7 +343,7 @@ In fact, this is a syntax sugar of __EGG_UNFUSE__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* ...
+* What the corresponding semantics implies.
 
 [heading Example]
 [code_variadic_print]
