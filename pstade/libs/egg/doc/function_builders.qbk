@@ -310,7 +310,7 @@ such object isn't POD and no initialization way is offered. So that,
 [section variadic]
 
 [heading Description]
-Pending... `variadic` emulates __VARIADIC_FUNCTION__ in C++98.
+`variadic` emulates __VARIADIC_FUNCTION__ in C++98.
 In fact, this is a syntax sugar of __EGG_UNFUSE__.
 
 [heading Header]
