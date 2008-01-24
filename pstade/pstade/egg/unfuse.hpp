@@ -14,7 +14,6 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
 #include "./detail/little_unfuse_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
