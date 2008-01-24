@@ -131,7 +131,7 @@ test-suite "egg" :
     [ run tuple_element.cpp ]
     [ run tuple_get.cpp ]
     [ run tuple_pack.cpp ]
-    [ run tuple_push_front.cpp ]
+    [ run tuple_prepend.cpp ]
     [ run tuple_size.cpp ]
     [ run uncurry.cpp ]
     [ run unfuse.cpp ]
