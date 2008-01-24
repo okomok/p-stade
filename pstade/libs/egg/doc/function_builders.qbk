@@ -200,6 +200,7 @@ It is useful because `operator()` can use nested typedefs.
     * `Lam` itself otherwise.
 * `g` is an object of `generator<Lam, _Stg, Cons, R0>::type`.
 * `T` is `boost::mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
+* `T0` is `_deduce_r0(R0, boost::mpl::apply<C(Lam), unspecified(1),...,unspecified(BOOST_MPL_LIMIT_METAFUNCTION_ARITY)>::type())`.
 * `Cst(U)` is `mpl::apply<X_construct<boost::mpl::_1, boost::mpl::_2>, U, _Stg>::type` if `Cons` is `_default`, `mpl::apply<Cons, U, _Stg>::type` otherwise.
 
 [heading Valid expressions]
@@ -218,11 +219,11 @@ It is useful because `operator()` can use nested typedefs.
     ]
     [
         [`g(a1,...,aN)`]
-        [Cst(T)()(_safe_arg_list(a, _Stg))`]
+        [`Cst(T)()(_safe_arg_list(a, _Stg))`]
     ]
     [
         [`g()`]
-        [`Cst(_deduce_r0(R0, boost::mpl::apply<C(Lam)>::type()))()()`]
+        [`Cst(T0)()()`]
     ]
 ]
 
