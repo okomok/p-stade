@@ -27,6 +27,11 @@
 #include <pstade/egg/by_cref.hpp>
 #include <pstade/egg/by_value.hpp>
 
+#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#include <boost/fusion/include/vector.hpp>
+#include <boost/fusion/include/at.hpp>
+#endif
+
 
 namespace egg = pstade::egg;
 using namespace egg;
@@ -53,12 +58,27 @@ BOOST_MPL_ASSERT((boost::is_same<boost::tuples::cons<int, tup_t>, pstade::result
 
 void pstade_minimal_test()
 {
-    int i = 10;
-    tup_t t(i, 1.0);
+    {
+        int i = 10;
+        tup_t t(i, 1.0);
 
-    int v = 999;
-    BOOST_CHECK( egg::is_same(v, egg::tuple_get_c<0>(tuple_prepend(t, v))) );
-    BOOST_CHECK( !egg::is_same(v, egg::tuple_get_c<0>(X_tuple_prepend<by_value>()(t, v))) ); // copied
-    BOOST_CHECK( egg::is_same(boost::get<0>(t), egg::tuple_get_c<1>(tuple_prepend(t, v))) );
-    BOOST_CHECK( !egg::is_same(boost::get<1>(t), egg::tuple_get_c<2>(tuple_prepend(t, v))) ); // copied
+        int v = 999;
+        BOOST_CHECK( egg::is_same(v, egg::tuple_get_c<0>(tuple_prepend(t, v))) );
+        BOOST_CHECK( !egg::is_same(v, egg::tuple_get_c<0>(X_tuple_prepend<by_value>()(t, v))) ); // copied
+        BOOST_CHECK( egg::is_same(boost::get<0>(t), egg::tuple_get_c<1>(tuple_prepend(t, v))) );
+        BOOST_CHECK( !egg::is_same(boost::get<1>(t), egg::tuple_get_c<2>(tuple_prepend(t, v))) ); // copied without Fusion.
+    }
+
+#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+    {
+        int i = 10;
+        boost::fusion::vector<int&, double> t(i, 1.0);
+
+        int v = 999;
+        BOOST_CHECK( egg::is_same(v, egg::tuple_get_c<0>(tuple_prepend(t, v))) );
+        BOOST_CHECK( !egg::is_same(v, egg::tuple_get_c<0>(X_tuple_prepend<by_value>()(t, v))) ); // copied
+        BOOST_CHECK( egg::is_same(boost::fusion::at_c<0>(t), egg::tuple_get_c<1>(tuple_prepend(t, v))) );
+        BOOST_CHECK( egg::is_same(boost::fusion::at_c<1>(t), egg::tuple_get_c<2>(tuple_prepend(t, v))) ); // not copied with Fusion.
+    }
+#endif
 }

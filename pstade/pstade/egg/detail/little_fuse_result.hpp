@@ -55,20 +55,8 @@ namespace pstade { namespace egg { namespace detail {
             return call_aux<Result>(tup, typename int_tuple_size<Tuple>::type());
         }
 
-    // 0ary
-        template<class Tuple>
-        struct apply_aux< Tuple, boost::mpl::int_<0> > :
-            result_of<Base const()>
-        { };
-
-        template<class Result, class Tuple>
-        Result call_aux(Tuple&, boost::mpl::int_<0>) const
-        {
-            return m_base();
-        }
-
-    // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_SIZE, <pstade/egg/detail/little_fuse_result.hpp>))
+    // 0ary-
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_TUPLE_MAX_SIZE, <pstade/egg/detail/little_fuse_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
