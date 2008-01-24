@@ -14,6 +14,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
 #include "./detail/little_unfuse_result.hpp"
 #include "./generator.hpp"
 #include "./use_brace2.hpp"
@@ -37,7 +38,11 @@ namespace pstade { namespace egg {
 
     #define PSTADE_EGG_UNFUSE_L { {
     #define PSTADE_EGG_UNFUSE_M ,
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+    #define PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_FUSION_PACK_INIT
+#else
     #define PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_TUPLE_PACK_INIT
+#endif
     #define PSTADE_EGG_UNFUSE_R } }
     #define PSTADE_EGG_UNFUSE(F) PSTADE_EGG_UNFUSE_L F PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
 
