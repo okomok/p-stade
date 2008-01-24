@@ -278,7 +278,6 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
-* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
 * __EGG_CONSTRUCT__
 * __EGG_CONSTRUCT_BRACED1__
 * __EGG_CONSTRUCT_BRACED2__
