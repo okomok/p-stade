@@ -18,32 +18,63 @@
 #include <sstream>
 #include <pstade/egg/deduced_form.hpp>
 
+
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+    #include <boost/lambda/core.hpp>
+    #include <boost/lambda/lambda.hpp>
+    #include <boost/fusion/include/for_each.hpp>
+    #include <pstade/egg/bll/placeholders.hpp>
+#endif
+
+
 namespace egg = pstade::egg;
 using namespace egg;
 
 std::stringstream g_sout;
 
-struct little_print
-{
-    typedef deduced_form call_strategy;
 
-    template<class Me, class Args>
-    struct apply
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+
+    struct little_print
     {
-        typedef void type;
+        template<class Me, class Args>
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template<class Re, class Args>
+        void call(Args& args) const
+        {
+            boost::fusion::for_each(args, g_sout << bll_1);
+        }
     };
 
-    template<class Re, class Args>
-    void call(boost::type<Re>, Args const& args) const
-    {
-        g_sout << args.get_head();
-        X_make_function<by_variadic>()(*this)(args.get_tail());
-    }
+#else
 
-    template<class Re>
-    void call(boost::type<Re>, boost::tuples::null_type const&) const
-    {}
-};
+    struct little_print
+    {
+        typedef deduced_form call_strategy;
+
+        template<class Me, class Args>
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template<class Re, class Args>
+        void call(boost::type<Re>, Args const& args) const
+        {
+            g_sout << args.get_head();
+            X_make_function<by_variadic>()(*this)(args.get_tail());
+        }
+
+        template<class Re>
+        void call(boost::type<Re>, boost::tuples::null_type const&) const
+        {}
+    };
+
+#endif
 
 typedef variadic<little_print>::type T_print;
 PSTADE_EGG_CONST((T_print), print) = PSTADE_EGG_VARIADIC({});

@@ -21,12 +21,48 @@ int main() {}
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <sstream>
+#include <string>
+
+
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+    #include <boost/lambda/core.hpp>
+    #include <boost/lambda/lambda.hpp>
+    #include <boost/fusion/include/for_each.hpp>
+    #include <pstade/egg/bll/placeholders.hpp>
+#endif
+
 
 namespace egg = pstade::egg;
 using namespace egg;
 
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+
 //[code_variadic_print
-std::stringstream g_out;
+struct little_print
+{
+    template<class Me, class Args>
+    struct apply
+    {
+        typedef void type;
+    };
+
+    template<class Re, class Args>
+    void call(Args& args) const
+    {
+        boost::fusion::for_each(args, std::cout << bll_1);
+    }
+};
+
+typedef variadic<little_print>::type T_print;
+T_print const print = PSTADE_EGG_VARIADIC({});
+
+void test()
+{
+    print(1, '2', 3, std::string("4"));
+}
+//]
+
+#else
 
 struct little_print
 {
@@ -39,7 +75,7 @@ struct little_print
     template<class Re, class Args>
     void call(Args& args) const
     {
-        g_out << args.get_head();
+        std::cout << args.get_head();
         make_function(*this)(args.get_tail());
     }
 
@@ -53,14 +89,15 @@ T_print const print = PSTADE_EGG_VARIADIC({});
 
 void test()
 {
-    print(1,2,3,4,5);
-    BOOST_CHECK(g_out.str() == "12345");
+    ::print(1, '2', 3, std::string("4"));
 }
-//]
+
+#endif
+
 
 void pstade_minimal_test()
 {
-    test();
+    ::test();
 }
 
 #endif
