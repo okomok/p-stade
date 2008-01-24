@@ -410,7 +410,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 * `_deduce_r0(R0, _decltype(d( boost::tuple<>() ))` is a valid expression which specifies the nullary return type.

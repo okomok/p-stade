@@ -11,18 +11,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp> // BOOST_HAS_RVALUE_REFS
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/array/size.hpp>
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
-#include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/preprocessor/seq/to_array.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
-#include <pstade/deduced_const.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
@@ -30,7 +27,23 @@
 #include "./function_fwd.hpp"
 
 
-#define PSTADE_EGG_PERFECT_STRATEGY() <pstade/egg/detail/perfect_strategy_include.hpp>
+#if 0 // defined(BOOST_HAS_RVALUE_REFS)
+
+    #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+    #include <boost/type_traits/remove_reference.hpp>
+
+    #define PSTADE_EGG_PERFECT_STRATEGY() <pstade/egg/detail/native_perfect_strategy_include.hpp>
+
+#else
+
+    #include <boost/preprocessor/punctuation/comma_if.hpp>
+    #include <boost/preprocessor/seq/for_each_i.hpp>
+    #include <boost/preprocessor/seq/for_each_product.hpp>
+    #include <pstade/deduced_const.hpp>
+
+    #define PSTADE_EGG_PERFECT_STRATEGY() <pstade/egg/detail/perfect_strategy_include.hpp>
+
+#endif
 
 
 #endif
