@@ -20,9 +20,9 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/apply_decl.hpp>
 #include <pstade/egg/bll_bindable.hpp>
-#include <pstade/egg/braced2_construct.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
+#include <pstade/egg/construct_braced2.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/pod_constant.hpp>
@@ -91,7 +91,6 @@ struct result_of_range_based2
     type;
 };
 
-
 #define PSTADE_OVEN_RANGE_BASED2_L { {
 #define PSTADE_OVEN_RANGE_BASED2_R } }
 #define PSTADE_OVEN_RANGE_BASED2(F) PSTADE_OVEN_RANGE_BASED2_L F PSTADE_OVEN_RANGE_BASED2_R
@@ -101,7 +100,7 @@ typedef
     egg::generator<
         result_of_range_based2< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
         egg::by_value,
-        egg::X_braced2_construct<boost::mpl::_1, boost::mpl::_2>
+        egg::X_construct_braced2<boost::mpl::_1, boost::mpl::_2>
     >::type
 T_range_based2;
 

@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_BRACED2_CONSTRUCT_HPP
-#define PSTADE_EGG_BRACED2_CONSTRUCT_HPP
+#ifndef PSTADE_EGG_CONSTRUCT_BRACED1_HPP
+#define PSTADE_EGG_CONSTRUCT_BRACED1_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -26,7 +26,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace braced2_construct_detail {
+    namespace construct_braced1_detail {
 
 
         template<class X, class Strategy>
@@ -41,24 +41,24 @@ namespace pstade { namespace egg {
             };
 
         // 0ary-
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/braced2_construct.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/construct_braced1.hpp>))
             #include BOOST_PP_ITERATE()
         };
 
 
-    } // namespace braced2_construct_detail
+    } // namespace construct_braced1_detail
 
 
     template<class X, class Strategy = by_perfect>
-    struct X_braced2_construct :
-        function<braced2_construct_detail::little<X, Strategy>, Strategy>
+    struct X_construct_braced1 :
+        function<construct_braced1_detail::little<X, Strategy>, Strategy>
     { };
 
 
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_braced2_construct, (class)(class))
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_construct_braced1, (class)(class))
 
 
 #endif
@@ -69,7 +69,7 @@ PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_braced2_construct,
     template<class Result BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        Result r = { { PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy) } };
+        Result r = { PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const) };
         return r;
     }
 

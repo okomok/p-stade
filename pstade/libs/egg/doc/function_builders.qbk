@@ -281,9 +281,9 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_DEDUCING_NULLARY_RETURN_TYPES__
 * __EGG_CONSTRUCT__
-* __EGG_BRACED1_CONSTRUCT__
-* __EGG_BRACED2_CONSTRUCT__
-* __EGG_VARIADIC1_CONSTRUCT__
+* __EGG_CONSTRUCT_BRACED1__
+* __EGG_CONSTRUCT_BRACED2__
+* __EGG_CONSTRUCT_VARIADIC1__
 
 [endsect]
 
@@ -448,7 +448,7 @@ In fact, this is a syntax sugar of __EGG_UNFUSE__.
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_UNFUSE__
-* __EGG_VARIADIC1_CONSTRUCT__
+* __EGG_CONSTRUCT_VARIADIC1__
 
 [endsect]
 

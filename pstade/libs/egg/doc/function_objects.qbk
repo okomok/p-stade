@@ -350,13 +350,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section braced1_construct]
+[section construct_braced1]
 
 [heading Description]
-`X_braced1_construct` constructs object using braced-initializer.
+`X_construct_braced1` constructs object using braced-initializer.
 
 [heading Header]
-* `<pstade/egg/braced1_construct.hpp>`
+* `<pstade/egg/construct_braced1.hpp>`
 
 [heading Model of]
 * ...
@@ -371,11 +371,11 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_braced1_construct<T, _Stg = _default>`]
+        [`X_construct_braced1<T, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_braced1_construct<T, _Stg>()(a1,...,aN)`]
+        [`X_construct_braced1<T, _Stg>()(a1,...,aN)`]
         [`T t = {_safe_arg_list(a, _Stg)}; return t;`]
     ]
 ]
@@ -394,13 +394,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section braced2_construct]
+[section construct_braced2]
 
 [heading Description]
-`X_braced2_construct` constructs object using braced-initializer.
+`X_construct_braced2` constructs object using braced-initializer.
 
 [heading Header]
-* `<pstade/egg/braced2_construct.hpp>`
+* `<pstade/egg/construct_braced2.hpp>`
 
 [heading Model of]
 * ...
@@ -415,11 +415,11 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_braced2_construct<T, _Stg = _default>`]
+        [`X_construct_braced2<T, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_braced2_construct<T, _Stg>()(a1,...,aN)`]
+        [`X_construct_braced2<T, _Stg>()(a1,...,aN)`]
         [`T t = {{_safe_arg_list(a, _Stg)}}; return t;`]
     ]
 ]
@@ -438,13 +438,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section variadic1_construct]
+[section construct_variadic1]
 
 [heading Description]
-`X_variadic1_construct` constructs __EGG_VARIADIC__ object using braced-initializer.
+`X_construct_variadic1` constructs __EGG_VARIADIC__ object using braced-initializer.
 
 [heading Header]
-* `<pstade/egg/braced2_construct.hpp>`
+* `<pstade/egg/construct_braced2.hpp>`
 
 [heading Model of]
 * ...
@@ -459,11 +459,11 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_variadic1_construct<T, _Stg = _default>`]
+        [`X_construct_variadic1<T, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_variadic1_construct<T, _Stg>()(a1,...,aN)`]
+        [`X_construct_variadic1<T, _Stg>()(a1,...,aN)`]
         [`T t = PSTADE_EGG_VARIADIC_L {_safe_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
     ]
 ]

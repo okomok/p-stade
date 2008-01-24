@@ -12,9 +12,9 @@
 
 
 #include <pstade/result_of.hpp>
-#include "./braced2_construct.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./construct_braced2.hpp"
 #include "./detail/little_return_result.hpp"
 #include "./generator.hpp"
 
@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_return<deduce<mpl_1, as_value>, ResultType, Strategy, Tag>::type,
             by_value,
-            X_braced2_construct<mpl_1, mpl_2>
+            X_construct_braced2<mpl_1, mpl_2>
         >::type
     { };
 

@@ -22,9 +22,9 @@
 #include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
-#include "./braced1_construct.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./construct_braced1.hpp"
 #include "./function_fwd.hpp"
 #include "./generator.hpp"
 
@@ -66,7 +66,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_mono<deduce<mpl_1, as_value>, Signature>::type,
             by_value,
-            X_braced1_construct<mpl_1, mpl_2>
+            X_construct_braced1<mpl_1, mpl_2>
         >::type
     { };
 

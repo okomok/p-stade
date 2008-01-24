@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_VARIADIC1_CONSTRUCT_HPP
-#define PSTADE_EGG_VARIADIC1_CONSTRUCT_HPP
+#ifndef PSTADE_EGG_CONSTRUCT_VARIADIC1_HPP
+#define PSTADE_EGG_CONSTRUCT_VARIADIC1_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -27,7 +27,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace variadic1_construct_detail {
+    namespace construct_variadic1_detail {
 
 
         template<class X, class Strategy>
@@ -42,24 +42,24 @@ namespace pstade { namespace egg {
             };
 
         // 0ary-
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/variadic1_construct.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/construct_variadic1.hpp>))
             #include BOOST_PP_ITERATE()
         };
 
 
-    } // namespace variadic1_construct_detail
+    } // namespace construct_variadic1_detail
 
 
     template<class X, class Strategy = by_perfect>
-    struct X_variadic1_construct :
-        function<variadic1_construct_detail::little<X, Strategy>, Strategy>
+    struct X_construct_variadic1 :
+        function<construct_variadic1_detail::little<X, Strategy>, Strategy>
     { };
 
 
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_variadic1_construct, (class)(class))
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_construct_variadic1, (class)(class))
 
 
 #endif

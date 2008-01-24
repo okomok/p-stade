@@ -12,9 +12,9 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./braced1_construct.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./construct_braced1.hpp"
 #include "./generator.hpp"
 
 
@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
         generator<
             function<deduce<mpl_1, as_value>, Strategy>,
             by_value,
-            X_braced1_construct<mpl_1, mpl_2>
+            X_construct_braced1<mpl_1, mpl_2>
         >::type
     { };
 

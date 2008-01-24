@@ -9,8 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/braced1_construct.hpp>
-#include <pstade/egg/braced2_construct.hpp>
+#include <pstade/egg/construct_braced1.hpp>
+#include <pstade/egg/construct_braced2.hpp>
 #include <pstade/egg/construct.hpp>
 #include <pstade/minimal_test.hpp>
 
@@ -50,9 +50,9 @@ struct your
 
 struct nullary_check_pod0 { };
 struct nullary_check_pod1 { nullary_check_pod0 m; };
-generator<nullary_check_pod0, boost::use_default, X_braced1_construct<mpl_1, mpl_2>, nullary_check_pod0>::type const
+generator<nullary_check_pod0, boost::use_default, X_construct_braced1<mpl_1, mpl_2>, nullary_check_pod0>::type const
     make_nullary_check_pod0 = PSTADE_EGG_GENERATOR();
-generator<nullary_check_pod1, boost::use_default, X_braced2_construct<mpl_1, mpl_2>, nullary_check_pod1>::type const
+generator<nullary_check_pod1, boost::use_default, X_construct_braced2<mpl_1, mpl_2>, nullary_check_pod1>::type const
     make_nullary_check_pod1 = PSTADE_EGG_GENERATOR();
 generator<nullary_check_pod0, boost::use_default, X_construct<mpl_1, mpl_2>, nullary_check_pod0>::type const
     make_nullary_check_type = PSTADE_EGG_GENERATOR();
@@ -62,10 +62,10 @@ void pstade_minimal_test()
 {
     std::string s1, s2("hello");
 
-    my0 z = X_braced1_construct<my0, by_value>()(s1, s2);
+    my0 z = X_construct_braced1<my0, by_value>()(s1, s2);
     BOOST_CHECK(z.s2 == "hello");
 
-    my1 a = X_braced2_construct<my1, by_perfect>()(s1, s2);
+    my1 a = X_construct_braced2<my1, by_perfect>()(s1, s2);
     BOOST_CHECK(a.m.s2 == "hello");
 
     your c = X_construct<your, by_ref>()(s1, s2);

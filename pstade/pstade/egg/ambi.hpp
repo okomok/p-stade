@@ -24,9 +24,9 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./apply_decl.hpp"
-#include "./braced2_construct.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./construct_braced2.hpp"
 #include "./detail/is_a_or_b.hpp"
 #include "./forward.hpp"
 #include "./function_fwd.hpp"
@@ -206,7 +206,7 @@ namespace pstade { namespace egg {
         generator<
             typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Bytag>::type,
             by_value,
-            X_braced2_construct<mpl_1, mpl_2>
+            X_construct_braced2<mpl_1, mpl_2>
         >::type
     { };
 
