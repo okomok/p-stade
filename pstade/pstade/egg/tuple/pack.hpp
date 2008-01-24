@@ -17,7 +17,7 @@
 #include "../detail/little_pack.hpp"
 #include "../function_fwd.hpp" // by_value
 #include "../register_nullary_result.hpp"
-#include "./config.hpp"
+#include "./config.hpp" // PSTADE_EGG_TUPLE_MAX_SIZE
 
 
 namespace pstade { namespace egg {

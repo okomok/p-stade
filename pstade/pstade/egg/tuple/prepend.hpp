@@ -18,10 +18,10 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
+#include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
 #include "../forward.hpp"
-#include "./config.hpp"
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/begin.hpp>
 //    #include <boost/fusion/include/boost_tuple.hpp> // broken for now.
     #include <boost/fusion/include/end.hpp>
@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
         }
 
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
 
         template<class Bytag, class Tuple, class A>
         struct fusion_result_of
@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
             typedef
                 boost::fusion::single_view<
                     typename result_of_forward<Bytag, A>::type
-                > const // const is needed. This seems a defect.
+                > const // const is needed.
             first_view_t;
 
             typedef
@@ -99,7 +99,7 @@ namespace pstade { namespace egg {
         template<class Bytag>
         struct little
         {
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
             template<class Myself, class Tuple, class A>
             struct apply :
                 boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,

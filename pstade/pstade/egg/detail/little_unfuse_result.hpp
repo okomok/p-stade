@@ -18,6 +18,7 @@
 // but this is the basis together with 'fuse'.
 
 
+#include <boost/version.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -26,9 +27,14 @@
 #include <pstade/use_default.hpp>
 #include "../apply_decl.hpp"
 #include "../by_ref.hpp"
-#include "../tuple/config.hpp"
-#include "../tuple/pack.hpp"
+#include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY, PSTADE_EGG_HAS_FUSIONS
 #include "./use_nullary_result.hpp"
+
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+    #include "../fusion/pack.hpp"
+#else
+    #include "../tuple/pack.hpp"
+#endif
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -52,7 +58,11 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef typename
             if_use_default<Pack,
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+                typename X_fusion_pack<by_ref>::function_type
+#else
                 typename X_tuple_pack<by_ref>::function_type
+#endif
             >::type
         pack_type;
 
@@ -78,10 +88,10 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, A)>
+        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_TUPLE_MAX_SIZE, <pstade/egg/detail/little_unfuse_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/little_unfuse_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

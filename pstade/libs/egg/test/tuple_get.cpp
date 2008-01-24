@@ -22,7 +22,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/result_of.hpp>
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #endif
@@ -66,7 +66,7 @@ BOOST_MPL_ASSERT((boost::is_same<int&, pstade::result_of<X_tuple_get<boost::mpl:
 BOOST_MPL_ASSERT((boost::is_same<double const&, pstade::result_of<X_tuple_get< boost::mpl::int_<1> >(tup_t const)>::type>));
 
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
 
 typedef boost::fusion::vector<int&, double> seq_t;
 
@@ -101,7 +101,7 @@ void pstade_minimal_test()
     BOOST_CHECK( egg::is_same(boost::get<0>(t), egg::tuple_get_c<0>(t)) );
     BOOST_CHECK( egg::is_same(boost::get<1>(t), egg::tuple_get_c<1>(t)) );
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
     seq_t s(p.first, 1.0);
     BOOST_CHECK( egg::is_same(boost::fusion::at_c<0>(s), egg::tuple_get<boost::mpl::int_<0> >(s)) );
     BOOST_CHECK( egg::is_same(boost::fusion::at_c<1>(s), egg::tuple_get<boost::mpl::int_<1> >(s)) );

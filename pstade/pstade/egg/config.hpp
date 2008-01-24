@@ -12,6 +12,7 @@
 
 
 #include <boost/config.hpp> // BOOST_HAS_THREADS
+#include <boost/version.hpp>
 
 
 #if !defined(PSTADE_EGG_MAX_ARITY)
@@ -26,6 +27,11 @@
 
 #if defined(BOOST_HAS_THREADS) && !defined(PSTADE_EGG_DISABLE_THREADS)
     #define PSTADE_EGG_HAS_THREADS
+#endif
+
+
+#if (BOOST_VERSION >= 103500) && !defined(PSTADE_EGG_DISABLE_FUSIONS)
+    #define PSTADE_EGG_HAS_FUSIONS
 #endif
 
 

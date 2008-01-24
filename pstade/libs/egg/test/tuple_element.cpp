@@ -21,7 +21,7 @@
 #include <pstade/egg/is_same.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #endif
@@ -49,7 +49,7 @@ BOOST_MPL_ASSERT((boost::is_same<int&, tuple_element_c<0, tup_t const>::type>));
 BOOST_MPL_ASSERT((boost::is_same<double, tuple_element_c<1, tup_t const>::type>));
 
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
 
 typedef boost::fusion::vector<int&, double> seq_t;
 

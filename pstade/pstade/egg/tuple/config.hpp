@@ -11,16 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/version.hpp>
-
-
 #if !defined(PSTADE_EGG_TUPLE_MAX_SIZE)
     #define PSTADE_EGG_TUPLE_MAX_SIZE 10
-#endif
-
-
-#if BOOST_VERSION >= 103500
-    #define PSTADE_EGG_TUPLE_SUPPORTS_FUSION
 #endif
 
 

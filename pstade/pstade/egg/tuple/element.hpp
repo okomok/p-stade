@@ -20,9 +20,9 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/is_boost_tuple.hpp>
 #include <pstade/apple/pair_fwd.hpp>
-#include "./config.hpp"
+#include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/mpl.hpp> // lets FusionSequence be MPLSequence
 #endif
 

@@ -17,11 +17,11 @@
 #include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
 #include "../by_perfect.hpp"
+#include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
 #include "../specified.hpp"
-#include "./config.hpp"
 #include "./element.hpp"
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
     #include <boost/fusion/include/begin.hpp>
     #include <boost/fusion/include/boost_tuple.hpp> // lets 'boost::tuple' be FusionSequence
@@ -66,7 +66,7 @@ namespace pstade { namespace egg {
         {
             template<class Myself, class Tuple>
             struct apply :
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
                 boost::fusion::result_of::deref<
                     typename boost::fusion::result_of::advance<
                         typename boost::fusion::result_of::begin<Tuple>::type,
@@ -80,12 +80,12 @@ namespace pstade { namespace egg {
 
             template<class Result, class Tuple>
             Result call(Tuple& t
-#if !defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if !defined(PSTADE_EGG_HAS_FUSIONS)
                 , typename disable_if< apple::is_pair<Tuple> >::type = 0
 #endif
             ) const
             {
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
                 namespace fusion = boost::fusion;
                 return fusion::deref(fusion::advance<N>(fusion::begin(t)));
 #else
@@ -93,7 +93,7 @@ namespace pstade { namespace egg {
 #endif
             }
 
-#if !defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if !defined(PSTADE_EGG_HAS_FUSIONS)
             template<class Result, class Pair>
             Result call(Pair& p,
                 typename enable_if< apple::is_pair<Pair> >::type = 0) const

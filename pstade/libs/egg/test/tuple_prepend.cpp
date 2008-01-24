@@ -27,7 +27,7 @@
 #include <pstade/egg/by_cref.hpp>
 #include <pstade/egg/by_value.hpp>
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #endif
@@ -38,7 +38,7 @@ using namespace egg;
 
 typedef boost::tuples::tuple<int&, double> tup_t;
 
-#if !defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if !defined(PSTADE_EGG_HAS_FUSIONS)
 BOOST_MPL_ASSERT((boost::is_same<boost::tuples::cons<int&, tup_t>, pstade::result_of<X_tuple_prepend<by_perfect>(tup_t&, int&)>::type>));
 BOOST_MPL_ASSERT((boost::is_same<boost::tuples::cons<int const&, tup_t>, pstade::result_of<X_tuple_prepend<by_perfect>(tup_t&, int const&)>::type>));
 BOOST_MPL_ASSERT((boost::is_same<boost::tuples::cons<int const&, tup_t>, pstade::result_of<X_tuple_prepend<by_perfect>(tup_t&, int)>::type>));
@@ -69,7 +69,7 @@ void pstade_minimal_test()
         BOOST_CHECK( !egg::is_same(boost::get<1>(t), egg::tuple_get_c<2>(tuple_prepend(t, v))) ); // copied without Fusion.
     }
 
-#if defined(PSTADE_EGG_TUPLE_SUPPORTS_FUSION)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
     {
         int i = 10;
         boost::fusion::vector<int&, double> t(i, 1.0);

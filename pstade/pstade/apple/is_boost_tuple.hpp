@@ -11,6 +11,7 @@
 
 
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/tuple/tuple.hpp>
 
@@ -18,25 +19,37 @@
 namespace pstade { namespace apple {
 
 
-template<class X>
+namespace is_boost_tuple_detail {
+
+
+    template< class T >
+    struct aux :
+        boost::mpl::false_
+    { };
+
+
+    template< BOOST_PP_ENUM_PARAMS(10, class T) >
+    struct aux< boost::tuples::tuple<BOOST_PP_ENUM_PARAMS(10, T)> > :
+        boost::mpl::true_
+    { };
+
+    template< class Head, class Tail >
+    struct aux< boost::tuples::cons<Head, Tail> > :
+        boost::mpl::true_
+    { };
+
+    template< >
+    struct aux< boost::tuples::null_type > :
+        boost::mpl::true_
+    { };
+
+
+} // namespace is_boost_tuple_detail
+
+
+template< class T >
 struct is_boost_tuple :
-    boost::mpl::false_
-{ };
-
-
-template<BOOST_PP_ENUM_PARAMS(10, class T)>
-struct is_boost_tuple< boost::tuples::tuple<BOOST_PP_ENUM_PARAMS(10, T)> > :
-    boost::mpl::true_
-{ };
-
-template<class Head, class Tail>
-struct is_boost_tuple< boost::tuples::cons<Head, Tail> > :
-    boost::mpl::true_
-{ };
-
-template< >
-struct is_boost_tuple< boost::tuples::null_type > :
-    boost::mpl::true_
+    is_boost_tuple_detail::aux<typename boost::remove_cv<T>::type>
 { };
 
 
