@@ -305,7 +305,7 @@ Here an imaginary operator is defined for the documentation.
 * `_deduce_r0(R0, expr)` is defined by the following:
     * If `R0` is `_default`, it is a valid expression and returns an unspecified type .
     * If `R0` is `use_nullary_result`,
-        * If `_decltype(_epxr)` is a valid expression, it is a valid expression and returns `_decltype(expr)`.
+        * If `_decltype(expr)` is a valid expression, it is a valid expression and returns `_decltype(expr)`.
         * Otherwise, it is not a valid expression.
     * Otherwise, `R0`.
 

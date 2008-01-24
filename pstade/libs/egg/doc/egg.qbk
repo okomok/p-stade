@@ -86,6 +86,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION__ [link egg.function_builders.function function]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_builders.function_facade function_facade]]
 [def __EGG_DEFERRED__ [link egg.function_builders.deferred deferred]]
+[def __EGG_GENERATOR__ [link egg.function_builders.generator generator]]
 [def __EGG_VARIADIC__ [link egg.function_builders.variadic variadic]]
 [def __EGG_MAKE_FUNCTION__ [link egg.function_builders.make_function make_function]]
 
@@ -99,9 +100,10 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_RET__ [link egg.function_adaptors.ret ret]]
 [def __EGG_BLL_BIND__ [link egg.function_objects.bll_bind bll_bind]]
 [def __EGG_TUPLE_PACK__ [link egg.function_objects.tuple_pack tuple_pack]]
-
-[def __EGG_GENERATOR__ [link egg.object_generator.generator generator]]
-[def __EGG_GENERATING_FORMS__ [link egg.object_generator.generating_forms Generating forms]]
+[def __EGG_CONSTRUCT__ [link egg.function_objects.construct construct]]
+[def __EGG_BRACED1_CONSTRUCT__ [link egg.function_objects.braced1_construct braced1_construct]]
+[def __EGG_BRACED2_CONSTRUCT__ [link egg.function_objects.braced2_construct braced2_construct]]
+[def __EGG_VARIADIC1_CONSTRUCT__ [link egg.function_objects.variadic1_construct variadic1_construct]]
 
 [def __PSTADE_RESULT_OF__ [link egg.workarounds.pstade__result_of pstade::result_of]]
 [def __EGG_DEFER__ [link egg.workarounds.defer PSTADE_EGG_DEFER]]
@@ -116,7 +118,6 @@ Distributed under the Boost Software License, Version 1.0.
 [include function_builders.qbk]
 [include function_adaptors.qbk]
 [include function_objects.qbk]
-[include object_generator.qbk]
 [include utilities.qbk]
 [include configuration.qbk]
 [include workarounds.qbk]

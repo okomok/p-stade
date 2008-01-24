@@ -21,7 +21,7 @@
 #include "./generator.hpp"
 #include "./tuple/prepend.hpp"
 #include "./variadic.hpp"
-#include "./variadic_construct1.hpp"
+#include "./variadic1_construct.hpp"
 
 
 namespace pstade { namespace egg {
@@ -80,7 +80,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_lazy< deduce<mpl_1, as_value>, deduce<mpl_2, as_value, boost::use_default> >::type,
             by_value,
-            X_variadic_construct1<mpl_1, mpl_2>
+            X_variadic1_construct<mpl_1, mpl_2>
         >::type
     T_lazy;
 

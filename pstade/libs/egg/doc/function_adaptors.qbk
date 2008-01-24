@@ -412,7 +412,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
-* `_deduce_r0(R0, _decltype(d( boost::tuple<>() ))` is a valid expression which specifies the nullary return type.
+* `_deduce_r0(R0, d(boost::tuple<>())` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
 * `result_of_unfuse<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.

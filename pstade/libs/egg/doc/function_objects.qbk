@@ -343,7 +343,140 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ...
 
 [heading See also]
+* __EGG_GENERATOR__
+
+[endsect]
+
+
+
+
+[section braced1_construct]
+
+[heading Description]
+`X_braced1_construct` constructs object using braced-initializer.
+
+[heading Header]
+* `<pstade/egg/braced1_construct.hpp>`
+
+[heading Model of]
 * ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_braced1_construct<T, _Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_braced1_construct<T, _Stg>()(a1,...,aN)`]
+        [`T t = {_safe_arg_list(a, _Stg)}; return t;`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_GENERATOR__
+
+[endsect]
+
+
+
+
+[section braced2_construct]
+
+[heading Description]
+`X_braced2_construct` constructs object using braced-initializer.
+
+[heading Header]
+* `<pstade/egg/braced2_construct.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_braced2_construct<T, _Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_braced2_construct<T, _Stg>()(a1,...,aN)`]
+        [`T t = {{_safe_arg_list(a, _Stg)}}; return t;`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_GENERATOR__
+
+[endsect]
+
+
+
+
+[section variadic1_construct]
+
+[heading Description]
+`X_variadic1_construct` constructs __EGG_VARIADIC__ object using braced-initializer.
+
+[heading Header]
+* `<pstade/egg/braced2_construct.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_variadic1_construct<T, _Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_variadic1_construct<T, _Stg>()(a1,...,aN)`]
+        [`T t = PSTADE_EGG_VARIADIC_R {_safe_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_VARIADIC__
+* __EGG_GENERATOR__
 
 [endsect]
 

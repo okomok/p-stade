@@ -187,7 +187,103 @@ It is useful because `operator()` can use nested typedefs.
 
 
 [section generator]
-See [link egg.object_generator Object Generator] section.
+
+[heading Description]
+`generator` builds "object generator".
+
+[heading Header]
+* `<pstade/egg/generator.hpp>`
+
+[heading Notation]
+* `C(Lam)` is
+    * a type which behaves like `Lam` without no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
+    * `Lam` itself otherwise.
+* `g` is an object of `generator<Lam, _Stg, Cons, R0>::type`.
+* `T` is `boost::mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
+* `Cst(U)` is `mpl::apply<X_construct<boost::mpl::_1, boost::mpl::_2>, U, _Stg>::type` if `Cons` is `_default`, `mpl::apply<Cons, U, _Stg>::type` otherwise.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`generator<Lam, _Stg = _default, Cons = _default, R0 = _default>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_GENERATOR()`]
+        [A braced initializer of `generator<Lam, _Stg, Cons, R0>::type`]
+    ]
+    [
+        [`g(a1,...,aN)`]
+        [Cst(T)()(_safe_arg_list(a, _Stg))`]
+    ]
+    [
+        [`g()`]
+        [`Cst(_deduce_r0(R0, boost::mpl::apply<C(Lam)>::type()))()()`]
+    ]
+]
+
+[heading Preconditions]
+* `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
+* `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR()`.
+* `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]
+
+[heading Deducers]
+Some basic and useful __METAFUNCTION_CLASS__ types are provided for better error messages.
+You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though.
+
+[heading Valid expressions of Deducers]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`deduce<A, As>`]
+        [` boost::mpl::apply<As, A>` if the corresponding argument is passed; ill-formed otherwise.]
+    ]
+    [
+        [`deduce<A, As, Def>`]
+        [` boost::mpl::apply<As, A>` if the corresponding argument is passed; `boost::mpl::identity<Def>` otherwise.]
+    ]
+    [
+        [`as_ref`]
+        [`boost::add_reference<boost::mpl::_>`]
+    ]
+    [
+        [`as_cref`]
+        [`boost::add_reference< boost::add_const<boost::mpl::_> >`]
+    ]
+    [
+        [`as_value`]
+        [`boost::remove_cv< boost::decay<boost::mpl::_> >`]
+    ]
+    [
+        [`as_qualified`]
+        [`boost::mpl::identity<boost::mpl::_>`]
+    ]
+]
+
+[heading Example]
+[code_generator_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
+* __EGG_CONSTRUCT__
+* __EGG_BRACED1_CONSTRUCT__
+* __EGG_BRACED2_CONSTRUCT__
+* __EGG_VARIADIC1_CONSTRUCT__
+
 [endsect]
 
 
@@ -349,8 +445,9 @@ In fact, this is a syntax sugar of __EGG_UNFUSE__.
 [code_variadic_print]
 
 [heading See also]
-* __EGG_UNFUSE__
 * __EGG_FORWARDING_STRATEGIES__
+* __EGG_UNFUSE__
+* __EGG_VARIADIC1_CONSTRUCT__
 
 [endsect]
 

@@ -61,6 +61,7 @@
 * Comparison operators removed.
 * `adapted_to` added.
 * `auto_new` and `shared_new` added.
+* `generator` revised.
 
 
 
