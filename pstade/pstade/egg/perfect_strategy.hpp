@@ -12,10 +12,10 @@
 
 
 #include <boost/config.hpp> // BOOST_HAS_RVALUE_REFS
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/array/size.hpp>
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/seq/to_array.hpp>
