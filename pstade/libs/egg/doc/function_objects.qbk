@@ -464,7 +464,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_variadic1_construct<T, _Stg>()(a1,...,aN)`]
-        [`T t = PSTADE_EGG_VARIADIC_R {_safe_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
+        [`T t = PSTADE_EGG_VARIADIC_L {_safe_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
     ]
 ]
 
