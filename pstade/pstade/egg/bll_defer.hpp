@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_bll_defer< deduce<mpl_1, as_value> >::type,
             by_value,
-            X_construct_braced2<mpl_1, mpl_2>
+            X_construct_braced2<>
         >::type
     T_bll_defer;
 
@@ -69,7 +69,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_bll_defer_nullary< deduce<mpl_1, as_value> >::type,
             by_value,
-            X_construct_braced2<mpl_1, mpl_2>
+            X_construct_braced2<>
         >::type
     T_bll_defer_nullary;
 

@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
         generator<
             function<deduce<mpl_1, as_value>, Strategy>,
             by_value,
-            X_construct_braced1<mpl_1, mpl_2>
+            X_construct_braced1<>
         >::type
     { };
 

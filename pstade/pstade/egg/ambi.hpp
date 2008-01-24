@@ -206,7 +206,7 @@ namespace pstade { namespace egg {
         generator<
             typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Bytag>::type,
             by_value,
-            X_construct_braced2<mpl_1, mpl_2>
+            X_construct_braced2<>
         >::type
     { };
 

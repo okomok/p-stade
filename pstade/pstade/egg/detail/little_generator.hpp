@@ -90,7 +90,7 @@ namespace pstade { namespace egg { namespace detail {
     struct little_generator
     {
         typedef typename
-            if_use_default< Construct, X_construct<mpl_1, mpl_2> >::type
+            if_use_default< Construct, X_construct<> >::type
         construct_t;
 
     // 0ary

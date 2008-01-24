@@ -30,15 +30,15 @@ namespace pstade { namespace egg {
     namespace construct_variadic1_detail {
 
 
-        template<class X, class Strategy>
+        template<class T, class Strategy>
         struct little
         {
-            typedef X nullary_result_type;
+            typedef T nullary_result_type;
 
             template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct apply
             {
-                typedef X type;
+                typedef T type;
             };
 
         // 0ary-
@@ -50,10 +50,20 @@ namespace pstade { namespace egg {
     } // namespace construct_variadic1_detail
 
 
-    template<class X, class Strategy = by_perfect>
+    template<class T = void, class Strategy = by_perfect>
     struct X_construct_variadic1 :
-        function<construct_variadic1_detail::little<X, Strategy>, Strategy>
+        function<construct_variadic1_detail::little<T, Strategy>, Strategy>
     { };
+
+    template< >
+    struct X_construct_variadic1<void, by_perfect>
+    {
+        template<class T, class Strategy>
+        struct apply
+        {
+            typedef X_construct_variadic1<T, Strategy> type;
+        };
+    };
 
 
 } } // namespace pstade::egg

@@ -334,6 +334,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [`X_construct<T, _Stg>()(a1,...,aN)`]
         [`T(_safe_arg_list(a, _Stg))`]
     ]
+    [
+        [`X_construct<>`]
+        [`X_construct<boost::mpl::_1, boost::mpl::_2>`]
+    ]
 ]
 
 [heading Preconditions]
@@ -377,6 +381,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     [
         [`X_construct_braced1<T, _Stg>()(a1,...,aN)`]
         [`T t = {_safe_arg_list(a, _Stg)}; return t;`]
+    ]
+    [
+        [`X_construct_braced1<>`]
+        [`X_construct_braced1<boost::mpl::_1, boost::mpl::_2>`]
     ]
 ]
 
@@ -422,6 +430,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [`X_construct_braced2<T, _Stg>()(a1,...,aN)`]
         [`T t = {{_safe_arg_list(a, _Stg)}}; return t;`]
     ]
+    [
+        [`X_construct_braced2<>`]
+        [`X_construct_braced2<boost::mpl::_1, boost::mpl::_2>`]
+    ]
 ]
 
 [heading Preconditions]
@@ -465,6 +477,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     [
         [`X_construct_variadic1<T, _Stg>()(a1,...,aN)`]
         [`T t = PSTADE_EGG_VARIADIC_L {_safe_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
+    ]
+    [
+        [`X_construct_variadic1<>`]
+        [`X_construct_variadic1<boost::mpl::_1, boost::mpl::_2>`]
     ]
 ]
 

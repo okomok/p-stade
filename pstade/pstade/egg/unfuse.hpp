@@ -54,7 +54,7 @@ namespace pstade { namespace egg {
                 NullaryResult, Strategy
             >::type,
             by_value,
-            X_construct_braced2<mpl_1, mpl_2>
+            X_construct_braced2<>
         >::type
     { };
 

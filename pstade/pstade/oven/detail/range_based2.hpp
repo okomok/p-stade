@@ -100,7 +100,7 @@ typedef
     egg::generator<
         result_of_range_based2< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
         egg::by_value,
-        egg::X_construct_braced2<boost::mpl::_1, boost::mpl::_2>
+        egg::X_construct_braced2<>
     >::type
 T_range_based2;
 

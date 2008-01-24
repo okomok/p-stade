@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_uncurry<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
-            X_construct_braced2<mpl_1, mpl_2>
+            X_construct_braced2<>
         >::type
     { };
 

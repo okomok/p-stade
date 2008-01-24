@@ -28,11 +28,11 @@ namespace pstade { namespace egg {
     namespace construct_detail {
 
 
-        template<class X, class Strategy>
+        template<class T, class Strategy>
         struct little
         {
         // 0ary
-            typedef X nullary_result_type;
+            typedef T nullary_result_type;
 
             template<class Result>
             Result call() const
@@ -44,7 +44,7 @@ namespace pstade { namespace egg {
             template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct apply
             {
-                typedef X type;
+                typedef T type;
             };
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/construct.hpp>))
@@ -55,10 +55,20 @@ namespace pstade { namespace egg {
     } // namespace construct_detail
 
 
-    template<class X, class Strategy = by_perfect>
+    template<class T = void, class Strategy = by_perfect>
     struct X_construct :
-        function<construct_detail::little<X, Strategy>, Strategy>
+        function<construct_detail::little<T, Strategy>, Strategy>
     { };
+
+    template< >
+    struct X_construct<void, by_perfect>
+    {
+        template<class T, class Strategy>
+        struct apply
+        {
+            typedef X_construct<T, Strategy> type;
+        };
+    };
 
 
 } } // namespace pstade::egg

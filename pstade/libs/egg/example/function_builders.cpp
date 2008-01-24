@@ -22,10 +22,13 @@
 #include <pstade/egg/apply.hpp>
 
 
+#include <boost/array.hpp>
+#include <pstade/egg/construct_braced2.hpp>
 #include <boost/lexical_cast.hpp>
 #include <utility> //pair
 #include <string>
 #include <vector>
+#include <boost/mpl/always.hpp>
 
 
 using namespace pstade::egg;
@@ -200,10 +203,27 @@ T_make_pair;
 
 T_make_pair const make_pair = PSTADE_EGG_GENERATOR();
 
+struct array_int4 :
+    boost::mpl::always< boost::array<int, 4> >
+{ };
+
+typedef
+    generator<
+        array_int4,
+        boost::use_default,
+        X_construct_braced2<> /*<< `X_construct_braced1` too is ok, but gcc-4.1 warns about fewer braces. >>*/
+    >::type
+T_make_array4;
+
+T_make_array4 const make_array4 = PSTADE_EGG_GENERATOR();
+
 void test_generator()
 {
     BOOST_CHECK( make_pair(10, std::string("generator"))
         == std::make_pair(10, std::string("generator")) );
+
+    boost::array<int, 4> arr = {{1,2,3,4}};
+    BOOST_CHECK( make_array4(1,2,3,4) == arr );
 }
 //]
 

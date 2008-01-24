@@ -82,7 +82,7 @@ namespace pstade { namespace egg { namespace detail {
         generator<
             result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_bound> >::type,
             by_cref,
-            X_construct_braced2<mpl_1, mpl_2>
+            X_construct_braced2<>
         >::type
     T_bind_left1;
 

@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_fuse< deduce<mpl_1, as_value> >::type,
             by_value,
-            X_construct_braced2<mpl_1, mpl_2>
+            X_construct_braced2<>
         >::type
     T_fuse;
 
