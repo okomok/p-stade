@@ -71,7 +71,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_compose2<deduce<mpl_1, as_value>, deduce<mpl_2, as_value>, deduce<mpl_3, as_value>, NullaryResult, Strategy>::type,
             by_value,
-            X_construct_variadic1<mpl_1, mpl_2>
+            X_construct_variadic1<>
         >::type
     { };
 

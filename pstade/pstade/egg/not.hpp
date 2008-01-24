@@ -69,7 +69,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_not<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
-            X_construct_variadic1<mpl_1, mpl_2>
+            X_construct_variadic1<>
         >::type
     { };
 

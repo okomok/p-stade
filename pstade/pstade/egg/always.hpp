@@ -98,7 +98,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_always< deduce<mpl_1, detail::as_bound> >::type,
             by_cref,
-            X_construct_variadic1<mpl_1, mpl_2>
+            X_construct_variadic1<>
         >::type
     T_always;
 
@@ -121,7 +121,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_always_ref< deduce<mpl_1, as_ref> >::type,
             by_perfect,
-            X_construct_variadic1<mpl_1, mpl_2>
+            X_construct_variadic1<>
         >::type
     T_always_ref;
 
