@@ -12,7 +12,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/int.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/preprocessor.hpp>
@@ -23,12 +22,6 @@
 
 
 namespace pstade { namespace egg { namespace detail {
-
-
-    template<class Tuple>
-    struct int_tuple_size :
-        boost::mpl::int_<tuple_size<Tuple>::value>
-    { };
 
 
     template<class Base>
@@ -46,13 +39,13 @@ namespace pstade { namespace egg { namespace detail {
 
         template<class Myself, class Tuple>
         struct apply :
-            apply_aux<Tuple, typename int_tuple_size<Tuple>::type>
+            apply_aux<Tuple, typename tuple_size<Tuple>::type>
         { };
 
         template<class Result, class Tuple>
         Result call(Tuple& tup) const
         {
-            return call_aux<Result>(tup, typename int_tuple_size<Tuple>::type());
+            return call_aux<Result>(tup, typename tuple_size<Tuple>::type());
         }
 
     // 0ary-

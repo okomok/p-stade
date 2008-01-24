@@ -34,13 +34,13 @@ using namespace egg;
 typedef std::pair<int, char> pair_t;
 
 BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<pair_t>, boost::mpl::int_<2> >));
-BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<pair_t> const, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<pair_t const>, boost::mpl::int_<2> >));
 
 
 typedef boost::tuples::tuple<int&, double> tup_t;
 
 BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<tup_t>, boost::mpl::int_<2> >));
-BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<tup_t> const, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<tup_t const>, boost::mpl::int_<2> >));
 
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
@@ -48,7 +48,7 @@ BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<tup_t> const, boost::mpl::int
 typedef boost::fusion::vector<int&, double> seq_t;
 
 BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<seq_t>, boost::mpl::int_<2> >));
-BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<seq_t> const, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_size<seq_t const>, boost::mpl::int_<2> >));
 
 #endif
 

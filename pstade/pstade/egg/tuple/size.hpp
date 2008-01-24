@@ -37,16 +37,22 @@ namespace pstade { namespace egg {
         { };
 
 
+        template<class Seq>
+        struct boost_mpl_size :
+            boost::mpl::int_<boost::mpl::size<Seq>::type::value>
+        { };
+
+
         template<class Tuple>
-        struct aux :
+        struct aux_ :
             boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
                 boost_tuple_size<Tuple>,
-                boost::mpl::size<Tuple>
+                boost_mpl_size<Tuple>
             >::type
         { };
 
         template<class T, class U>
-        struct aux< std::pair<T, U> > :
+        struct aux_< std::pair<T, U> > :
             boost::mpl::int_<2>
         { };
 
@@ -56,7 +62,7 @@ namespace pstade { namespace egg {
 
     template<class Tuple>
     struct tuple_size :
-        tuple_size_detail::aux<typename boost::remove_cv<Tuple>::type>
+        tuple_size_detail::aux_<typename boost::remove_cv<Tuple>::type>
     { };
 
 
