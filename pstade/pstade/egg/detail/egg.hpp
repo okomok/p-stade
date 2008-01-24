@@ -28,6 +28,8 @@
 #include "../bll.hpp"
 #include "../bll_bindable.hpp"
 #include "../bll_defer.hpp"
+#include "../braced_construct1.hpp"
+#include "../braced_construct2.hpp"
 #include "../by_cref.hpp"
 #include "../by_perfect.hpp"
 #include "../by_ref.hpp"
@@ -99,11 +101,8 @@
 #include "../uncurry.hpp"
 #include "../unfuse.hpp"
 #include "../unwrap_ref.hpp"
-#include "../use_brace1.hpp"
-#include "../use_brace2.hpp"
-#include "../use_constructor.hpp"
-#include "../use_variadic1.hpp"
 #include "../variadic.hpp"
+#include "../variadic_construct1.hpp"
 
 
 #endif

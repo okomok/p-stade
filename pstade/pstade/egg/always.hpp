@@ -22,8 +22,8 @@
 #include "./by_perfect.hpp"
 #include "./detail/bound.hpp"
 #include "./generator.hpp"
-#include "./use_variadic1.hpp"
 #include "./variadic.hpp"
+#include "./variadic_construct1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -98,7 +98,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_always< deduce<mpl_1, detail::as_bound> >::type,
             by_cref,
-            use_variadic1
+            X_variadic_construct1<mpl_1, mpl_2>
         >::type
     T_always;
 
@@ -121,7 +121,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_always_ref< deduce<mpl_1, as_ref> >::type,
             by_perfect,
-            use_variadic1
+            X_variadic_construct1<mpl_1, mpl_2>
         >::type
     T_always_ref;
 

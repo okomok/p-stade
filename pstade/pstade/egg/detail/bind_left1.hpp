@@ -31,11 +31,11 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
+#include "../braced_construct2.hpp"
 #include "../by_cref.hpp"
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../generator.hpp"
-#include "../use_brace2.hpp"
 #include "./bound.hpp"
 
 
@@ -82,7 +82,7 @@ namespace pstade { namespace egg { namespace detail {
         generator<
             result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_bound> >::type,
             by_cref,
-            use_brace2
+            X_braced_construct2<mpl_1, mpl_2>
         >::type
     T_bind_left1;
 

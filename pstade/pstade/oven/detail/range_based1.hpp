@@ -26,11 +26,11 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/apply_decl.hpp>
 #include <pstade/egg/bll_bindable.hpp>
+#include <pstade/egg/braced_construct2.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/use_brace2.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
@@ -103,7 +103,7 @@ typedef
     egg::generator<
         result_of_range_based1< egg::deduce<boost::mpl::_1, egg::as_value> >::type,
         egg::by_value,
-        egg::use_brace2
+        egg::X_braced_construct2<boost::mpl::_1, boost::mpl::_2>
     >::type
 T_range_based1;
 

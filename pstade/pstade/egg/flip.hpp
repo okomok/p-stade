@@ -13,11 +13,11 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
+#include "./braced_construct2.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./forward.hpp"
 #include "./generator.hpp"
-#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_flip<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
-            use_brace2
+            X_braced_construct2<mpl_1, mpl_2>
         >::type
     { };
 

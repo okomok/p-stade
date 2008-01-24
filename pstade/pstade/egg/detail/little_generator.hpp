@@ -28,7 +28,8 @@
 #include <pstade/template_arguments.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_decl.hpp"
-#include "../use_constructor.hpp"
+#include "../construct.hpp"
+#include "./mpl_placeholders.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -85,12 +86,12 @@ namespace pstade { namespace egg { namespace detail {
     // Even if using 'lambda_to_dummy', 'NullaryResult' must be explicitly specified.
     // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
 
-    template<class Lambda, class Strategy, class Form, class NullaryResult>
+    template<class Lambda, class Strategy, class Construct, class NullaryResult>
     struct little_generator
     {
         typedef typename
-            if_use_default<Form, use_constructor>::type
-        form_t;
+            if_use_default< Construct, X_construct<mpl_1, mpl_2> >::type
+        construct_t;
 
     // 0ary
         typedef NullaryResult nullary_result_type;
@@ -98,7 +99,8 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result>
         Result call() const
         {
-            return form_t::template call0<Result, Strategy const>();
+            typedef typename boost::mpl::apply2<construct_t, Result, Strategy>::type cons_t;
+            return cons_t()();
         }
 
      // 1ary-
@@ -128,7 +130,8 @@ namespace pstade { namespace egg { namespace detail {
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return form_t::template BOOST_PP_CAT(call, n)<Result, Strategy const>(BOOST_PP_ENUM_PARAMS(n, a));
+        typedef typename boost::mpl::apply2<construct_t, Result, Strategy>::type cons_t;
+        return cons_t()(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

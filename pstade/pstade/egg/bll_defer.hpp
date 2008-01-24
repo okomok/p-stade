@@ -22,11 +22,11 @@
 
 #include <boost/mpl/bool.hpp>
 #include <pstade/pod_constant.hpp>
+#include "./braced_construct2.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./detail/little_bll_defer_result.hpp"
 #include "./generator.hpp"
-#include "./use_brace2.hpp"
 
 
 namespace pstade { namespace egg {
@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_bll_defer< deduce<mpl_1, as_value> >::type,
             by_value,
-            use_brace2
+            X_braced_construct2<mpl_1, mpl_2>
         >::type
     T_bll_defer;
 
@@ -69,7 +69,7 @@ namespace pstade { namespace egg {
         generator<
             result_of_bll_defer_nullary< deduce<mpl_1, as_value> >::type,
             by_value,
-            use_brace2
+            X_braced_construct2<mpl_1, mpl_2>
         >::type
     T_bll_defer_nullary;
 

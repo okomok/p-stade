@@ -234,11 +234,11 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_auto_new<T, _Stg>()(a1,...,aN)`]
-        [`std::auto_ptr<T>(_safe_arg_list(a, _Stg))`]
+        [`std::auto_ptr<T>(new T(_safe_arg_list(a, _Stg)))`]
     ]
     [
         [`egg::auto_new<T>(a1,...,aM)`]
-        [`X_auto_new<T, _Stg>()(a1,...,aM)`]
+        [`X_auto_new<T>()(a1,...,aM)`]
     ]
 ]
 
@@ -283,11 +283,11 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_shared_new<T, _Stg>()(a1,...,aN)`]
-        [`boost::shared_ptr<T>(_safe_arg_list(a, _Stg))`]
+        [`boost::shared_ptr<T>(new T(_safe_arg_list(a, _Stg)))`]
     ]
     [
         [`egg::shared_new<T>(a1,...,aM)`]
-        [`X_shared_new<T, _Stg>()(a1,...,aM)`]
+        [`X_shared_new<T>()(a1,...,aM)`]
     ]
 ]
 

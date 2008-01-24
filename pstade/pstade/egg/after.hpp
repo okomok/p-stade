@@ -21,8 +21,8 @@
 #include "./by_value.hpp"
 #include "./fuse.hpp"
 #include "./generator.hpp"
-#include "./use_variadic1.hpp"
 #include "./variadic.hpp"
+#include "./variadic_construct1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -73,7 +73,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_after<deduce<mpl_1, as_value>, deduce<mpl_2, as_value>, Strategy>::type,
             by_value,
-            use_variadic1
+            X_variadic_construct1<mpl_1, mpl_2>
         >::type
     { };
 
