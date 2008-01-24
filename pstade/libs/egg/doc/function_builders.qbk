@@ -324,7 +324,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
 * `f` is a __POLYMORPHIC_FUNCTION_OBJECT__.
-* There is a type `X_` such that `boost::is_convertible<X_, _typeof(to)>::value == false`.
+* `boost::is_convertible<unspecified, _typeof(to)>::value == false`.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
 
