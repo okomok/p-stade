@@ -19,6 +19,8 @@
 
 #include <boost/mpl/apply.hpp>
 #include <pstade/boost_workaround.hpp>
+#include <pstade/result_of.hpp>
+#include "./detail/default_pack.hpp"
 #include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
 #include "./fuse.hpp"
 #include "./variadic.hpp"
@@ -37,12 +39,12 @@ namespace pstade { namespace egg {
 
 
         template<class Lambda, class Strategy, class Args>
-        struct automator
+        struct from
         {
             Args m_args;
 
             template<class To>
-            operator To() const
+            To get() const
             {
                 typedef typename
                     boost::mpl::apply2<Lambda, To, Strategy>::type
@@ -50,70 +52,85 @@ namespace pstade { namespace egg {
 
                 return fuse(fun_t())(m_args);
             }
+
+            template<class To>
+            operator To() const
+            {
+                return get<To>();
+            }
         };
 
 
         template<class Lambda, class Strategy, class Args>
-        struct automator_ref
+        struct ref_from
         {
             Args m_args;
+
+            template<class To>
+            To get() const
+            {
+                typedef typename
+                    boost::mpl::apply2<Lambda, To, Strategy>::type
+                fun_t;
+
+                return fuse(fun_t())(m_args);
+            }
 
             template<class To>
             operator To&() const
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
                 // Thanks to Sergey Shandar.
                 // In fact, SFINAE in exception-specification isn't allowed.
-                throw(typename disable_if<boost::is_same<To, automator_ref const>, std::exception>::type)
+                throw(typename disable_if<boost::is_same<To, ref_from const>, std::exception>::type)
 #endif
             {
-                typedef typename
-                    boost::mpl::apply2<Lambda, To, Strategy>::type
-                fun_t;
-
-                return fuse(fun_t())(m_args);
+                return get<To&>();
             }
         };
 
 
-        template<class Lambda, class Strategy, template<class, class, class> class Automator>
+        template<class Lambda, class Strategy, template<class, class, class> class From>
         struct little
         {
             template<class Myself, class Args>
             struct apply
             {
-                typedef
-                    Automator<Lambda, Strategy, Args> const
+                typedef 
+                    From<
+                        Lambda, Strategy,
+                        typename result_of<
+                            typename result_of<T_fuse(PSTADE_EGG_DEFAULT_PACK<Strategy>)>::type(Args&)
+                        >::type
+                    >
                 type;
             };
 
             template<class Result, class Args>
             Result call(Args& args) const
             {
-                // 'automator' must *copy* it to 'm_args';
-                // 'args' is destructed as soon as this 'call' returns.
-                Result r = { args };
+                Result r = { fuse(PSTADE_EGG_DEFAULT_PACK<Strategy>())(args) };
                 return r;
             }
         };
 
 
-        template<class Lambda, class Strategy, template<class, class, class> class Automator>
+        template<class Lambda, class Strategy, template<class, class, class> class From>
         struct aux_ :
-            variadic<little<Lambda, Strategy, Automator>, Strategy, use_nullary_result>
+            variadic<little<Lambda, Strategy, From>, Strategy, use_nullary_result>
         { };
 
 
-    } // namespace automatic_detail
+   } // namespace automatic_detail
 
 
     template<class Lambda, class Strategy = boost::use_default>
     struct automatic :
-        automatic_detail::aux_<Lambda, Strategy, automatic_detail::automator>
+        automatic_detail::aux_<Lambda, Strategy, automatic_detail::from>
     { };
 
     template<class Lambda, class Strategy = boost::use_default>
     struct automatic_ref :
-        automatic_detail::aux_<Lambda, Strategy, automatic_detail::automator_ref>
+        automatic_detail::aux_<Lambda, Strategy, automatic_detail::ref_from>
     { };
 
     #define PSTADE_EGG_AUTOMATIC() PSTADE_EGG_VARIADIC({})

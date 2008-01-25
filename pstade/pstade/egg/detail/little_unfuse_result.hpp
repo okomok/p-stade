@@ -27,14 +27,9 @@
 #include <pstade/use_default.hpp>
 #include "../apply_decl.hpp"
 #include "../by_ref.hpp"
-#include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY, PSTADE_EGG_HAS_FUSIONS
+#include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./default_pack.hpp"
 #include "./use_nullary_result.hpp"
-
-#if defined(PSTADE_EGG_HAS_FUSIONS)
-    #include "../fusion/pack.hpp"
-#else
-    #include "../tuple/pack.hpp"
-#endif
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -58,11 +53,7 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef typename
             if_use_default<Pack,
-#if defined(PSTADE_EGG_HAS_FUSIONS)
-                typename X_fusion_pack<by_ref>::function_type
-#else
-                typename X_tuple_pack<by_ref>::function_type
-#endif
+                typename PSTADE_EGG_DEFAULT_PACK<by_ref>::function_type
             >::type
         pack_type;
 

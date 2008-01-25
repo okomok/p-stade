@@ -14,6 +14,7 @@
 
 
 #include <pstade/test.hpp>
+#include <boost/mpl/apply.hpp>
 
 
 namespace egg = pstade::egg;
@@ -45,5 +46,8 @@ void pstade_unit_test()
         BOOST_CHECK(p->m_i == 1);
         BOOST_CHECK(p->m_j == 2);
         delete p;
+    }
+    {
+        typedef boost::mpl::apply1<X_ptr_new<boost::mpl::_1>, int *>::type aaa_t;
     }
 }

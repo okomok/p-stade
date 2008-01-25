@@ -51,7 +51,7 @@ namespace little_pipable_resultns_ {
         typedef ArgTuple arguments_type;
 
         Base m_base;
-        ArgTuple m_arguments;
+        ArgTuple m_args;
 
         Base const& base() const
         {
@@ -100,14 +100,14 @@ namespace little_pipable_resultns_ {
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
     operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_arguments, o));
+        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
     operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_arguments, o));
+        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
     }
 
     // by_value
@@ -116,7 +116,7 @@ namespace little_pipable_resultns_ {
     operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
         // For movable types, we can't turn `o` into const-reference.
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_arguments, o));
+        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
     }
 
 
@@ -127,14 +127,14 @@ namespace little_pipable_resultns_ {
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O& o)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_arguments, o));
+        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O const& o)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_arguments, o));
+        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
     }
 
     // by_value
@@ -142,7 +142,7 @@ namespace little_pipable_resultns_ {
     typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O o)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_arguments, o));
+        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
     }
 
 
