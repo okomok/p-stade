@@ -98,6 +98,7 @@ test-suite "egg" :
     [ run new.cpp ]
     [ run new_array.cpp ]
     [ run not.cpp ]
+    [ compile-fail nullary_function_fail.cpp ]
     [ run parallel.cpp : : : <library>/boost/thread//boost_thread/<link>static <threading>multi ]
     [ run parallel.cpp : : : <define>PSTADE_EGG_DISABLE_THREADS=1 : parallel_no_threads ]
     [ run perfect.cpp ]
