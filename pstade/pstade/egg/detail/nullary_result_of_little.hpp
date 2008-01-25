@@ -38,7 +38,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
 
-    template<class Little, class Function = function<Little, PSTADE_EGG_UNSPECIFIED> >
+    template<class Little, class Function = function<Little, unspecified> >
     struct nullary_result_of_little :
         boost::mpl::eval_if< has_nullary_result_type<Little>,
             get_nullary_result_of_little<Little, Function>,

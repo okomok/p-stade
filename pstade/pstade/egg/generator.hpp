@@ -11,14 +11,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/apple/boost/reference_wrapper_fwd.hpp>
 #include <pstade/pass_by.hpp>
 #include "./by_perfect.hpp"
 #include "./detail/little_generator.hpp"
 #include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
+#include "./detail/unspecified.hpp"
+
+
+struct PSTADE_EGG_ERROR_GENERATOR_MISSING_ARGUMENT;
 
 
 namespace pstade { namespace egg {
@@ -41,16 +47,16 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_GENERATOR() {{}}
 
 
-    struct generator_error_argument_required;
-
-
     template<
         class A, class Deducer,
-        class Default = generator_error_argument_required
+        class Default = unspecified // = PSTADE_EGG_ERROR_GENERATOR_MISSING_ARGUMENT
     >
     struct deduce :
         boost::mpl::eval_if< boost::is_same<A, void>,
-            boost::mpl::identity<Default>,
+            boost::mpl::eval_if< boost::is_same<Default, unspecified>,
+                boost::mpl::identity<PSTADE_EGG_ERROR_GENERATOR_MISSING_ARGUMENT>,
+                boost::mpl::identity<Default>
+            >,
             boost::mpl::apply1<Deducer, A>
         >
     { };

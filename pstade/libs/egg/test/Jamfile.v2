@@ -66,6 +66,7 @@ test-suite "egg" :
     [ run fuse.cpp ]
 #    [ run fusion_pack.cpp ]
     [ run generator.cpp ]
+    [ compile-fail generator_fail.cpp ]
     [ run generator_incomplete.cpp ]
     [ run generator_simple.cpp ]
     [ run generator_wrapped_ref.cpp ]
