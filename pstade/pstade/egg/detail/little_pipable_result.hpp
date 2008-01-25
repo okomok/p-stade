@@ -23,15 +23,17 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
-#include "../forward.hpp"
+#include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
-#include "../tuple/config.hpp" // PSTADE_EGG_TUPLE_MAX_SIZE
 #include "../tuple/prepend.hpp"
+#include "./default_pack.hpp"
 #include "./is_a_or_b.hpp"
 
 
-#define PSTADE_EGG_PIPABLE_MAX_ARITY BOOST_PP_DEC(PSTADE_EGG_TUPLE_MAX_SIZE)
+#define PSTADE_EGG_PIPABLE_MAX_ARITY \
+    BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY) \
+/**/
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -48,7 +50,7 @@ namespace pipable_operators {
         result_of<
             typename result_of<
                 T_fuse(Base const&)
-            >::type(typename result_of<T_tuple_prepend(Args&, O&)>::type)
+            >::type(typename result_of<T_tuple_prepend(Args const&, O&)>::type)
         >
     { };
 
@@ -58,8 +60,6 @@ namespace pipable_operators {
     template<class Base, class Strategy, class OperandBytag, class Args = boost::tuples::null_type>
     struct little_pipable_result
     {
-        typedef Args args_type;
-
         Base m_base;
         Args m_args;
 
@@ -75,15 +75,23 @@ namespace pipable_operators {
             return fuse(m_base)(tuple_prepend(m_args, o));
         }
 
+        template<class Args_>
+        struct function_with
+        {
+            typedef
+                function<little_pipable_result<Base, Strategy, OperandBytag, Args_>, Strategy>
+            type;
+        };
+
     // 0ary
-        typedef
-            function<little_pipable_result, Strategy>
+        typedef typename
+            function_with<boost::tuples::null_type>::type
         nullary_result_type;
 
         template<class Result>
         Result call() const
         {
-            Result r = { { m_base } };
+            Result r = { { m_base, {} } };
             return r;
         }
 
@@ -100,7 +108,6 @@ namespace pipable_operators {
 
 
     // operator|
-    //   msvc-7.1 seems to need lazy_enable_if to keep return type as well-formed as possible.
     //
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
@@ -169,26 +176,16 @@ namespace pipable_operators {
 
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
-    {
-        typedef
-            function<
-                little_pipable_result<
-                    Base, Strategy, OperandBytag,
-                    // Arguments must be copied in case of by_value.
-                    // Notice that Boost.Tuple doesn't work with movable types.
-                    boost::tuples::tuple<PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const)>
-                >,
-                Strategy
-            >
-        type;
-    };
+    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+        function_with<
+            typename result_of<PSTADE_EGG_DEFAULT_PACK<Strategy>(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type
+        >
+    { };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        typedef typename Result::little_type little_t;
-        Result r = { { m_base, typename little_t::args_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        Result r = { { m_base, PSTADE_EGG_DEFAULT_PACK<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
         return r;
     }
 
