@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
             Args m_args;
 
             template<class To>
-            To get() const
+            To& get() const
             {
                 typedef typename
                     boost::mpl::apply2<Lambda, To, Strategy>::type
@@ -84,7 +84,7 @@ namespace pstade { namespace egg {
                 throw(typename disable_if<boost::is_same<To, ref_from const>, std::exception>::type)
 #endif
             {
-                return get<To&>();
+                return get<To>();
             }
         };
 

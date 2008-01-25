@@ -720,6 +720,57 @@ using __EGG_FORWARDING_STRATEGIES__.
 ]
 
 [heading Preconditions]
+* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_TUPLE__
+
+[endsect]
+
+
+
+
+[section fusion_pack]
+
+[heading Description]
+`fusion_pack` is a __STATIC_FUNCTION_OBJECT__ which is akin to `boost::fusion::make_vector` or `boost::fusion::vector_tie`
+using __EGG_FORWARDING_STRATEGIES__.
+
+[heading Header]
+* `<pstade/egg/fusion/pack.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_fusion_pack<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_fusion_pack<_Stg>()(a1,...,aN)`]
+        [`boost::fusion::vector<dts_(_safe_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`fusion_pack`]
+        [`X_fusion_pack<>()`]
+    ]
+]
+
+[heading Preconditions]
+* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
