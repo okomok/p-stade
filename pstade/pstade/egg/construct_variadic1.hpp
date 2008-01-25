@@ -19,6 +19,7 @@
 #include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./detail/unspecified.hpp"
 #include "./forward.hpp"
 #include "./register_nullary_result.hpp"
 #include "./variadic.hpp"
@@ -50,13 +51,13 @@ namespace pstade { namespace egg {
     } // namespace construct_variadic1_detail
 
 
-    template<class T = void, class Strategy = by_perfect>
+    template<class T = unspecified, class Strategy = by_perfect>
     struct X_construct_variadic1 :
         function<construct_variadic1_detail::little<T, Strategy>, Strategy>
     { };
 
     template< >
-    struct X_construct_variadic1<void, by_perfect>
+    struct X_construct_variadic1< >
     {
         template<class T, class Strategy>
         struct apply
