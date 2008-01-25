@@ -37,10 +37,20 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-namespace little_pipable_resultns_ {
+namespace pipable_operators {
 
 
-    namespace here = little_pipable_resultns_;
+    namespace here = pipable_operators;
+
+
+    template<class O, class Base, class ArgTuple>
+    struct result_of_output :
+        result_of<
+            typename result_of<
+                T_fuse(Base const&)
+            >::type(typename result_of<T_tuple_prepend(ArgTuple&, O&)>::type)
+        >
+    { };
 
 
     // Fortunately, boost::tuples::null_type is a POD type.
@@ -56,6 +66,13 @@ namespace little_pipable_resultns_ {
         Base const& base() const
         {
             return m_base;
+        }
+
+        template<class O>
+        typename result_of_output<O, Base, ArgTuple>::type
+        output(O& o) const
+        {
+            return fuse(m_base)(tuple_prepend(m_args, o));
         }
 
     // 0ary
@@ -82,16 +99,6 @@ namespace little_pipable_resultns_ {
     struct lookup_pipable_operator { };
 
 
-    template<class O, class Base, class ArgTuple>
-    struct result_of_output :
-        result_of<
-            typename result_of<
-                T_fuse(Base const&)
-            >::type(typename result_of<T_tuple_prepend(ArgTuple&, O&)>::type)
-        >
-    { };
-
-
     // operator|
     //   msvc-7.1 seems to need lazy_enable_if to keep return type as well-formed as possible.
     //
@@ -100,14 +107,14 @@ namespace little_pipable_resultns_ {
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
     operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
+        return pi.little().output(o);
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
     operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
+        return pi.little().output(o);
     }
 
     // by_value
@@ -116,7 +123,7 @@ namespace little_pipable_resultns_ {
     operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
     {
         // For movable types, we can't turn `o` into const-reference.
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
+        return pi.little().output(o);
     }
 
 
@@ -127,14 +134,14 @@ namespace little_pipable_resultns_ {
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O& o)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
+        return pi.little().output(o);
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O const& o)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
+        return pi.little().output(o);
     }
 
     // by_value
@@ -142,15 +149,15 @@ namespace little_pipable_resultns_ {
     typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, ArgTuple> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O o)
     {
-        return fuse(pi.little().m_base)(tuple_prepend(pi.little().m_args, o));
+        return pi.little().output(o);
     }
 
 
-} // namespace little_pipable_resultns_
+} // namespace pipable_operators
 
 
-    using little_pipable_resultns_::little_pipable_result;
-    using little_pipable_resultns_::lookup_pipable_operator;
+    using pipable_operators::little_pipable_result;
+    using pipable_operators::lookup_pipable_operator;
 
 
 } } } // namespace pstade::egg::detail
