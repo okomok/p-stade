@@ -15,8 +15,7 @@
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/preprocessor.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./apply_little_n.hpp"
@@ -41,10 +40,10 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Little BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply_little<Little BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct apply_little<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)> :
         BOOST_PP_CAT(apply_little, n)<
-            Little BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, A)
+            Little BOOST_PP_ENUM_TRAILINGPARAMS(n, A)
         >
     { };
 
