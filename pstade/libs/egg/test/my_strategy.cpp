@@ -62,6 +62,11 @@ namespace pstade { namespace egg {
         Lit m_lit;
         Lit const& little() const { return m_lit; }
 
+        typename apply_little<Lit const>::type operator()() const
+        {
+            return egg::call_little<typename apply_little<Lit const>::type>(m_lit);
+        }
+
         template<class A1>
         typename apply_little<Lit const, A1>::type operator()(A1& i) const
         {
@@ -107,6 +112,14 @@ struct base_plus2
 
 struct little_id1
 {
+    typedef char nullary_result_type;
+
+    template<class Re>
+    Re call() const
+    {
+        return '0';
+    }
+
     template<class Me, class A>
     struct apply
     {
@@ -132,5 +145,6 @@ void pstade_minimal_test()
     BOOST_CHECK( (3|mult3(4, 5)) == 3*4*5 );
 
     int x = 10;
+    BOOST_CHECK( id1() == '0' );
     BOOST_CHECK( &(id1(x)) == &x );
 }

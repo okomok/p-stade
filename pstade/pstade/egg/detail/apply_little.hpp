@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
     template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     struct apply_little<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)> :
         BOOST_PP_CAT(apply_little, n)<
-            Little BOOST_PP_ENUM_TRAILINGPARAMS(n, A)
+            Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)
         >
     { };
 
