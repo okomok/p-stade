@@ -328,7 +328,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d)(t)`]
-        [`_const(d)(boost::get<0>(t_),...,boost::get<N-1>(t_))`]
+        [`_const(d)(boost::fusion::at_c<0>(t_),...,boost::fusion::at_c<N-1>(t_))`]
     ]
     [
         [`fc(d)(t0)`]
@@ -393,7 +393,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, R0, _Stg)(a1,...,aN)`]
-        [`_const(d)( X_tuple_pack<_Stg>()(a1,...,aN) )`]
+        [`_const(d)( X_fusion_pack<_Stg>()(a1,...,aN) )`]
     ]
     [
         [`X_unfuse<R0 = _default, _Stg = _default>`]
@@ -412,7 +412,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
-* `_deduce_r0(R0, d(boost::tuple<>())` is a valid expression which specifies the nullary return type.
+* `_deduce_r0(R0, d(boost::fusion::vector<>())` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
 * `result_of_unfuse<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
