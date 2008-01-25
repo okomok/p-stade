@@ -133,14 +133,14 @@ namespace little_function {
 //[code_concepts_little_function
 struct little_identity
 {
-    template<class _, class T>
+    template<class Self, class T>
     struct apply
     {
         typedef T &type;
     };
 
-    template<class _, class T>
-    _ call(T &x) const
+    template<class Auto, class T>
+    Auto call(T &x) const
     {
         return x;
     }
