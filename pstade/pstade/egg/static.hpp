@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
         variadic<static_detail::little<Function>, Strategy, use_nullary_result>
     { };
 
-    #define PSTADE_EGG_STATIC() PSTADE_EGG_VARIADIC_L {} PSTADE_EGG_VARIADIC_R
+    #define PSTADE_EGG_STATIC() PSTADE_EGG_VARIADIC({})
 
 
 } } // namespace pstade::egg
