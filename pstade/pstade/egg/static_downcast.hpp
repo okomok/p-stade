@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
 
 
         template<class Derived, class Base> inline
-        Derived *aux(Base *pbase, typename disable_if<boost::is_polymorphic<Base> >::type = 0)
+        Derived *aux_(Base *pbase, typename disable_if<boost::is_polymorphic<Base> >::type = 0)
         {
             BOOST_MPL_ASSERT((boost::is_base_of<
                 typename boost::remove_cv<Base>::type,
@@ -51,7 +51,7 @@ namespace pstade { namespace egg {
         }
 
         template<class Derived, class Base> inline
-        Derived *aux(Base *pbase, typename enable_if< boost::is_polymorphic<Base> >::type = 0)
+        Derived *aux_(Base *pbase, typename enable_if< boost::is_polymorphic<Base> >::type = 0)
         {
             return boost::polymorphic_downcast<Derived *>(pbase);
         }
@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
             template<class Result, class Base>
             Result call(Base& base) const
             {
-                return *here::aux<typename boost::remove_reference<Result>::type>(boost::addressof(base));
+                return *here::aux_<typename boost::remove_reference<Result>::type>(boost::addressof(base));
             }
         };
 

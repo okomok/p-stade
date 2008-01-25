@@ -189,7 +189,7 @@ void test_deferred()
 
 
 //[code_static_example
-typedef static_<X_apply<by_value>, by_value>::type T_apply_by_value;
+typedef static_<X_apply<boost::mpl::_1>, by_value>::type T_apply_by_value;
 T_apply_by_value const apply_by_value = PSTADE_EGG_STATIC();
 //]
 

@@ -134,7 +134,7 @@ T_auxi const &get_auxi1();
 T_auxi const &get_auxi2();
 
 
-typedef pstade::egg::static_<pstade::egg::X_construct<int> >::type T_construct_int;
+typedef pstade::egg::static_<pstade::egg::X_construct<int, pstade::egg::mpl_1> >::type T_construct_int;
 T_construct_int const construct_int = PSTADE_EGG_STATIC();
 T_construct_int const &get_cons_int1();
 T_construct_int const &get_cons_int2();

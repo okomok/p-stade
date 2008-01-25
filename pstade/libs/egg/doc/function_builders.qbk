@@ -298,7 +298,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 [heading Notation]
 * `u` is an object of `automatic<Lam, _Stg>::type`.
-* `f` is an object of `boost::mpl::apply<Lam, _typeof(to)>::type`.
+* `F` is `boost::mpl::apply<Lam, _typeof(to), _Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -316,14 +316,13 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`To to = u(a1,...,aN);`]
-        [`To to = boost::implicit_cast<_typeof(to)>( f(_safe_arg_list(a, _Stg)) );`]
+        [`To to = boost::implicit_cast<_typeof(to)>( F()(_safe_arg_list(a, _Stg)) );`]
     ]
 ]
 
 [heading Preconditions]
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
-* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
-* `f` is a __POLYMORPHIC_FUNCTION_OBJECT__.
+* `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
 * `boost::is_convertible<unspecified, _typeof(to)>::value == false`.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
@@ -349,7 +348,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 [section static_]
 
 [heading Description]
-`static_` builds POD __FUNCTION_OBJECT__ from __DEFAULT_CONSTRUCTIBLE__ one.
+`static_` builds /POD/ __FUNCTION_OBJECT__ from __DEFAULT_CONSTRUCTIBLE__ one.
 Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
 to be /statically initialized/ without `static_`.
 
@@ -357,7 +356,8 @@ to be /statically initialized/ without `static_`.
 * `<pstade/egg/static.hpp>`
 
 [heading Notation]
-* `f` is an object of `static_<_PFo, _Stg>::type`.
+* `u` is an object of `static_<Lam, _Stg>::type`.
+* `F` is `boost::mpl::apply1<Lam, _Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -366,24 +366,21 @@ to be /statically initialized/ without `static_`.
         [[*Semantics]]
     ]
     [
-        [`static_<_PFo, _Stg = _default>::type`]
+        [`static_<Lam, _Stg = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_STATIC()`]
-        [A braced initializer of `static_<_PFo, _Stg>::type`]
+        [A braced initializer of `static_<Lam, _Stg>::type`]
     ]
     [
-        [`f`]
-        [`_PFo()`]
-    ]
-    [
-        [`f(a1,...,aN)`]
-        [`_PFo()(_safe_arg_list(a, _Stg))`]
+        [`u(a1,...,aN)`]
+        [`F()(_safe_arg_list(a, _Stg))`]
     ]
 ]
 
 [heading Preconditions]
+* `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]

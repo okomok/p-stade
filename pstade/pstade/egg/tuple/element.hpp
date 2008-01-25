@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 
 
         template<class N, class Tuple>
-        struct aux :
+        struct aux_ :
             boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
                 boost::tuples::element<N::value, Tuple>,
                 boost::mpl::at<Tuple, N>
@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
         { };
 
         template<class N, class T, class U>
-        struct aux< N, std::pair<T, U> > :
+        struct aux_< N, std::pair<T, U> > :
             boost::mpl::if_< boost::mpl::equal_to<boost::mpl::int_<0>, N>,
                 T,
                 U
@@ -55,7 +55,7 @@ namespace pstade { namespace egg {
 
     template<class N, class Tuple>
     struct tuple_element :
-        tuple_element_detail::aux<N, typename boost::remove_cv<Tuple>::type>
+        tuple_element_detail::aux_<N, typename boost::remove_cv<Tuple>::type>
     { };
 
 

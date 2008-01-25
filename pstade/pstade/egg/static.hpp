@@ -11,8 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/apply.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
+#include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
 #include "./fuse.hpp"
 #include "./variadic.hpp"
 
@@ -23,20 +25,24 @@ namespace pstade { namespace egg {
     namespace static_detail {
 
 
-        template<class Function>
+        template<class Lambda, class Strategy>
         struct little
         {
+            typedef typename
+                boost::mpl::apply1<Lambda, Strategy>::type
+            fun_t;
+
             template<class Myself, class Args>
             struct apply :
                 result_of<
-                    typename result_of<T_fuse(Function)>::type(Args&)
+                    typename result_of<T_fuse(fun_t)>::type(Args&)
                 >
             { };
 
             template<class Result, class Args>
             Result call(Args& args) const
             {
-                return fuse(Function())(args);
+                return fuse(fun_t())(args);
             }
         };
 
@@ -44,9 +50,9 @@ namespace pstade { namespace egg {
     } // namespace static_detail
 
 
-    template<class Function, class Strategy = by_perfect>
+    template<class Lambda, class Strategy = by_perfect>
     struct static_ :
-        variadic<static_detail::little<Function>, Strategy, use_nullary_result>
+        variadic<static_detail::little<Lambda, Strategy>, Strategy, use_nullary_result>
     { };
 
     #define PSTADE_EGG_STATIC() PSTADE_EGG_VARIADIC({})

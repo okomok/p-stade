@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
     namespace automatic_detail {
 
 
-        template<class Lambda, class Args>
+        template<class Lambda, class Strategy, class Args>
         struct automator
         {
             Args m_args;
@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
             operator To() const
             {
                 typedef typename
-                    boost::mpl::apply1<Lambda, To>::type
+                    boost::mpl::apply2<Lambda, To, Strategy>::type
                 fun_t;
 
                 return fuse(fun_t())(m_args);
@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, class Args>
+        template<class Lambda, class Strategy, class Args>
         struct automator_ref
         {
             Args m_args;
@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
 #endif
             {
                 typedef typename
-                    boost::mpl::apply1<Lambda, To>::type
+                    boost::mpl::apply2<Lambda, To, Strategy>::type
                 fun_t;
 
                 return fuse(fun_t())(m_args);
@@ -75,14 +75,14 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, template<class, class> class Automator>
+        template<class Lambda, class Strategy, template<class, class, class> class Automator>
         struct little
         {
             template<class Myself, class Args>
             struct apply
             {
                 typedef
-                    Automator<Lambda, Args> const
+                    Automator<Lambda, Strategy, Args> const
                 type;
             };
 
@@ -97,9 +97,9 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, class Strategy, template<class, class> class Automator>
-        struct aux :
-            variadic<little<Lambda, Automator>, Strategy, use_nullary_result>
+        template<class Lambda, class Strategy, template<class, class, class> class Automator>
+        struct aux_ :
+            variadic<little<Lambda, Strategy, Automator>, Strategy, use_nullary_result>
         { };
 
 
@@ -108,12 +108,12 @@ namespace pstade { namespace egg {
 
     template<class Lambda, class Strategy = boost::use_default>
     struct automatic :
-        automatic_detail::aux<Lambda, Strategy, automatic_detail::automator>
+        automatic_detail::aux_<Lambda, Strategy, automatic_detail::automator>
     { };
 
     template<class Lambda, class Strategy = boost::use_default>
     struct automatic_ref :
-        automatic_detail::aux<Lambda, Strategy, automatic_detail::automator_ref>
+        automatic_detail::aux_<Lambda, Strategy, automatic_detail::automator_ref>
     { };
 
     #define PSTADE_EGG_AUTOMATIC() PSTADE_EGG_VARIADIC({})
