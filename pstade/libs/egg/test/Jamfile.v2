@@ -22,6 +22,7 @@ test-suite "egg" :
     [ run auto_new.cpp ]
     [ run auto_object.cpp ]
     [ run automatic.cpp ]
+    [ run automatic_by.cpp ]
     [ run automatic_ref.cpp ]
     [ run before.cpp ]
     [ run big_arity.cpp ]
