@@ -16,7 +16,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/test.hpp>
+#include <pstade/egg/const.hpp>
 
 
 namespace egg = pstade::egg;

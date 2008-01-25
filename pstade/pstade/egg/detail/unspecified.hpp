@@ -11,13 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace pstade { namespace egg {
-
-
-    struct UNSPECIFIED;
-
-
-} } // namespace pstade::egg
+struct PSTADE_EGG_UNSPECIFIED;
 
 
 #endif

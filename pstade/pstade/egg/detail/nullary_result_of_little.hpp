@@ -19,41 +19,35 @@
 #include "./unspecified.hpp"
 
 
-namespace pstade { namespace egg {
-    
-
-    template<class Function>
-    struct ERROR_NON_NULLARY;
+template<class Function>
+struct PSTADE_EGG_ERROR_NON_NULLARY;
 
 
-    namespace detail {
+namespace pstade { namespace egg { namespace detail {
 
 
-        PSTADE_HAS_TYPE(nullary_result_type)
+    PSTADE_HAS_TYPE(nullary_result_type)
 
 
-        template<class Little, class Function>
-        struct get_nullary_result_of_little :
-            if_use_default< typename Little::nullary_result_type,
-                ERROR_NON_NULLARY<Function>,
-                typename Little::nullary_result_type
-            >
-        { };
+    template<class Little, class Function>
+    struct get_nullary_result_of_little :
+        if_use_default< typename Little::nullary_result_type,
+            PSTADE_EGG_ERROR_NON_NULLARY<Function>,
+            typename Little::nullary_result_type
+        >
+    { };
 
 
-        template<class Little, class Function = function<Little, UNSPECIFIED> >
-        struct nullary_result_of_little :
-            boost::mpl::eval_if< has_nullary_result_type<Little>,
-                get_nullary_result_of_little<Little, Function>,
-                boost::mpl::identity< ERROR_NON_NULLARY<Function> >
-            >
-        { };
+    template<class Little, class Function = function<Little, PSTADE_EGG_UNSPECIFIED> >
+    struct nullary_result_of_little :
+        boost::mpl::eval_if< has_nullary_result_type<Little>,
+            get_nullary_result_of_little<Little, Function>,
+            boost::mpl::identity< PSTADE_EGG_ERROR_NON_NULLARY<Function> >
+        >
+    { };
 
 
-    } // namespace detail
-
-
-} } // namespace pstade::egg
+} } }// namespace pstade::egg::detail
 
 
 #endif
