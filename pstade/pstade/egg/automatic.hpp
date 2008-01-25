@@ -13,7 +13,7 @@
 
 // Note:
 // 
-// 'To x = a;' seems impossible without yet another 'function<>'.
+// 'To x = a;' seems impossible without yet another forwarding.
 // Use 'To x = a();' instead.
 
 
