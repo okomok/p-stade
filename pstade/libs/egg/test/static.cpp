@@ -23,11 +23,7 @@ using namespace egg;
 
 
 typedef static_< X_construct<int> >::type T_construct_int;
-T_construct_int const construct_int = PSTADE_EGG_STATIC(X_construct<int>);
-
-
-//typedef result_of_indirect<static_< X_construct<int> >::type const *>::type T_construct_int;
-//T_construct_int const construct_int = PSTADE_EGG_INDIRECT(&static_< X_construct<int> >::object);
+T_construct_int const construct_int = PSTADE_EGG_STATIC();
 
 
 void pstade_minimal_test()

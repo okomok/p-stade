@@ -316,7 +316,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`To to = u(a1,...,aN);`]
-        [`To to = boost::implicit_cast<_typeof(to)>( f(_arg_list(a, _Stg)) );`]
+        [`To to = boost::implicit_cast<_typeof(to)>( f(_safe_arg_list(a, _Stg)) );`]
     ]
 ]
 
@@ -349,16 +349,15 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 [section static_]
 
 [heading Description]
-Though Egg provides a __FUNCTION_OBJECT__ class template which begins with `X_`,
-such object isn't POD and no initialization way is offered. So that,
-`static_` builds a POD object from class template specialization of `X_xxx`.
+`static_` builds POD __FUNCTION_OBJECT__ from __DEFAULT_CONSTRUCTIBLE__ one.
+Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
+to be /statically initialized/ without `static_`.
 
 [heading Header]
 * `<pstade/egg/static.hpp>`
 
 [heading Notation]
-* `X` is a template specialization which begins with `X_` in Egg.
-* `f` is an object of `static_<X>::type`.
+* `f` is an object of `static_<_PFo, _Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -367,20 +366,20 @@ such object isn't POD and no initialization way is offered. So that,
         [[*Semantics]]
     ]
     [
-        [`static_<X>::type`]
+        [`static_<_PFo, _Stg = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_STATIC_L X PSTADE_EGG_STATIC_R`]
-        [A braced initializer of `static_<X>::type`]
-    ]
-    [
-        [`PSTADE_EGG_STATIC(X)`]
-        [`PSTADE_EGG_STATIC_L X PSTADE_EGG_STATIC_R`]
+        [`PSTADE_EGG_STATIC()`]
+        [A braced initializer of `static_<_PFo, _Stg>::type`]
     ]
     [
         [`f`]
-        [`X()`]
+        [`_PFo()`]
+    ]
+    [
+        [`f(a1,...,aN)`]
+        [`_PFo()(_safe_arg_list(a, _Stg))`]
     ]
 ]
 
@@ -388,7 +387,7 @@ such object isn't POD and no initialization way is offered. So that,
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_STATIC_L` and `PSTADE_EGG_STATIC_R`.
+* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_STATIC()`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
