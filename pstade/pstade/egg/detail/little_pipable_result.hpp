@@ -43,25 +43,25 @@ namespace pipable_operators {
     namespace here = pipable_operators;
 
 
-    template<class O, class Base, class ArgTuple>
+    template<class O, class Base, class Args>
     struct result_of_output :
         result_of<
             typename result_of<
                 T_fuse(Base const&)
-            >::type(typename result_of<T_tuple_prepend(ArgTuple&, O&)>::type)
+            >::type(typename result_of<T_tuple_prepend(Args&, O&)>::type)
         >
     { };
 
 
     // Fortunately, boost::tuples::null_type is a POD type.
 
-    template<class Base, class Strategy, class OperandBytag, class ArgTuple = boost::tuples::null_type>
+    template<class Base, class Strategy, class OperandBytag, class Args = boost::tuples::null_type>
     struct little_pipable_result
     {
-        typedef ArgTuple arguments_type;
+        typedef Args args_type;
 
         Base m_base;
-        ArgTuple m_args;
+        Args m_args;
 
         Base const& base() const
         {
@@ -69,7 +69,7 @@ namespace pipable_operators {
         }
 
         template<class O>
-        typename result_of_output<O, Base, ArgTuple>::type
+        typename result_of_output<O, Base, Args>::type
         output(O& o) const
         {
             return fuse(m_base)(tuple_prepend(m_args, o));
@@ -103,24 +103,24 @@ namespace pipable_operators {
     //   msvc-7.1 seems to need lazy_enable_if to keep return type as well-formed as possible.
     //
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
-    operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
+    operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi)
     {
         return pi.little().output(o);
     }
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
-    operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, Args> >::type
+    operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi)
     {
         return pi.little().output(o);
     }
 
     // by_value
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, ArgTuple> >::type
-    operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
+    operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi)
     {
         // For movable types, we can't turn `o` into const-reference.
         return pi.little().output(o);
@@ -130,24 +130,24 @@ namespace pipable_operators {
     // operater|=
     //
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O& o)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi, O& o)
     {
         return pi.little().output(o);
     }
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O const& o)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, Args> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi, O const& o)
     {
         return pi.little().output(o);
     }
 
     // by_value
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O o)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi, O o)
     {
         return pi.little().output(o);
     }
@@ -188,7 +188,7 @@ namespace pipable_operators {
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         typedef typename Result::little_type little_t;
-        Result r = { { m_base, typename little_t::arguments_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        Result r = { { m_base, typename little_t::args_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
         return r;
     }
 
