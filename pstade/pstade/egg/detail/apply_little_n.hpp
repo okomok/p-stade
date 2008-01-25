@@ -21,10 +21,16 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./nullary_result_of_little.hpp"
 
 
 namespace pstade { namespace egg {
 
+
+    template<class Little>
+    struct apply_little0 :
+        detail::nullary_result_of_little<Little>
+    { };
 
     // 1ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little_n.hpp>))

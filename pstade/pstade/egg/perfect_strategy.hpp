@@ -29,10 +29,12 @@
 
 #if 0 // defined(BOOST_HAS_RVALUE_REFS)
 
+    #include <boost/preprocessor/punctuation/comma_if.hpp>
     #include <boost/preprocessor/repetition/enum_binary_params.hpp>
     #include <boost/type_traits/remove_reference.hpp>
+    #include "./detail/pp_enum_template_params.hpp"
 
-    #define PSTADE_EGG_PERFECT_STRATEGY() <pstade/egg/detail/native_perfect_strategy_include.hpp>
+    #define PSTADE_EGG_PERFECT_STRATEGY() <pstade/egg/detail/rr_perfect_strategy_include.hpp>
 
 #else
 

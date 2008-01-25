@@ -81,10 +81,11 @@ namespace pstade { namespace egg {
 
 #if n == 0
 
-    nullary_result_type operator()() const
+    typename apply_little0<Little const>::type
+    operator()() const
     {
         return call_little_impl<
-            Little, nullary_result_type
+            Little, typename apply_little0<Little const>::type
         >::call0(m_little);
     }
 

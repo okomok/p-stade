@@ -54,27 +54,21 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
 
 
-#if n == 0
-
-    nullary_result_type operator()() const
-    {
-        return call_little_impl<
-            Little, nullary_result_type
-        >::call0(m_little);
-    }
-
-#else
-
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(apply_little, n)<Little const, PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::remove_reference<A, >::type)>::type
+    PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
+    typename BOOST_PP_CAT(apply_little, n)<
+        Little const BOOST_PP_COMMA_IF(n)
+        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::remove_reference<A, >::type)
+    >::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const
     {
         return call_little_impl<
-            Little, typename BOOST_PP_CAT(apply_little, n)<Little const, PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::remove_reference<A, >::type)>::type
-        >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a));
+            Little,
+            typename BOOST_PP_CAT(apply_little, n)<
+                Little const BOOST_PP_COMMA_IF(n)
+                PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::remove_reference<A, >::type)
+            >::type
+        >::BOOST_PP_CAT(call, n)(m_little BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, a));
     }
-
-#endif // n == 0
 
 
 #undef n

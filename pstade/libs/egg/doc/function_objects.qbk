@@ -237,13 +237,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [`std::auto_ptr<T>(new T(_safe_arg_list(a, _Stg)))`]
     ]
     [
-        [`egg::auto_new<T>(a1,...,aM)`]
-        [`X_auto_new<T>()(a1,...,aM)`]
+        [`egg::auto_new<T>(a1,...,aN)`]
+        [`X_auto_new<T>()(a1,...,aN)`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= M && M <= 5`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -286,13 +285,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [`boost::shared_ptr<T>(new T(_safe_arg_list(a, _Stg)))`]
     ]
     [
-        [`egg::shared_new<T>(a1,...,aM)`]
-        [`X_shared_new<T>()(a1,...,aM)`]
+        [`egg::shared_new<T>(a1,...,aN)`]
+        [`X_shared_new<T>()(a1,...,aN)`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= M && M <= 5`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]

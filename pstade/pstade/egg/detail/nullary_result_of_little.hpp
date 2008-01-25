@@ -15,38 +15,45 @@
 #include <boost/mpl/identity.hpp>
 #include <pstade/has_xxx.hpp>
 #include <pstade/use_default.hpp>
+#include "../function_fwd.hpp"
+#include "./unspecified.hpp"
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace pstade { namespace egg {
+    
 
-
-    // You called a non-nullary function without arguments.
     template<class Function>
-    struct error_non_nullary;
+    struct ERROR_NON_NULLARY;
 
 
-    PSTADE_HAS_TYPE(nullary_result_type)
+    namespace detail {
 
 
-    template<class Little, class Function>
-    struct get_nullary_result_of_little :
-        if_use_default< typename Little::nullary_result_type,
-            error_non_nullary<Function>,
-            typename Little::nullary_result_type
-        >
-    { };
+        PSTADE_HAS_TYPE(nullary_result_type)
 
 
-    template<class Little, class Function>
-    struct nullary_result_of_little :
-        boost::mpl::eval_if< has_nullary_result_type<Little>,
-            get_nullary_result_of_little<Little, Function>,
-            boost::mpl::identity< error_non_nullary<Function> >
-        >
-    { };
+        template<class Little, class Function>
+        struct get_nullary_result_of_little :
+            if_use_default< typename Little::nullary_result_type,
+                ERROR_NON_NULLARY<Function>,
+                typename Little::nullary_result_type
+            >
+        { };
 
 
-} } } // namespace pstade::egg::detail
+        template<class Little, class Function = function<Little, UNSPECIFIED> >
+        struct nullary_result_of_little :
+            boost::mpl::eval_if< has_nullary_result_type<Little>,
+                get_nullary_result_of_little<Little, Function>,
+                boost::mpl::identity< ERROR_NON_NULLARY<Function> >
+            >
+        { };
+
+
+    } // namespace detail
+
+
+} } // namespace pstade::egg
 
 
 #endif
