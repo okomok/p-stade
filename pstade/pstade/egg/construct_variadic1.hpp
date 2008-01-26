@@ -85,5 +85,5 @@ PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_construct_variadic
     }
 
 
-#undef n
+#undef  n
 #endif

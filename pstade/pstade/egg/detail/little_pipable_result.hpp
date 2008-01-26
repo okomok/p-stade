@@ -190,5 +190,5 @@ namespace pipable_operators {
     }
 
 
-#undef n
+#undef  n
 #endif

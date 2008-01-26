@@ -17,7 +17,7 @@
 
 namespace pstade { namespace egg { namespace detail {
 
-    
+
     template<class Function> // derived from `function<>`.
     struct strategy_of_impl
     {

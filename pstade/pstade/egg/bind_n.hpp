@@ -164,7 +164,7 @@
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind, n)), BOOST_PP_CAT(bind, n)) = {{}};
 
 
-    #undef n
+    #undef  n
 
 
 #elif BOOST_PP_ITERATION_DEPTH() == 2

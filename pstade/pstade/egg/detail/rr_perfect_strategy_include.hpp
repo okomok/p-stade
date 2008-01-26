@@ -9,11 +9,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#if !defined(BOOST_HAS_RVALUE_REFS)
-    #error This works only with rvalue references.
-#endif
-
-
 #if !defined(PSTADE_EGG_PERFECT_STRATEGY_PARAMS)
     #error Please define PSTADE_EGG_PERFECT_STRATEGY_PARAMS.
 #endif
@@ -61,6 +56,7 @@ namespace pstade { namespace egg {
     >::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const
     {
+        // Neither egg::forward nor std::forward is used so that LittleFunction can take lvalues.
         return call_little_impl<
             Little,
             typename BOOST_PP_CAT(apply_little, n)<
@@ -71,5 +67,5 @@ namespace pstade { namespace egg {
     }
 
 
-#undef n
+#undef  n
 #endif

@@ -121,5 +121,5 @@ namespace pstade { namespace egg { namespace detail {
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind_left, n)), BOOST_PP_CAT(bind_left, n)) = PSTADE_EGG_BIND_LEFTX_INIT;
 
 
-#undef n
+#undef  n
 #endif

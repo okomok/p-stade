@@ -84,5 +84,5 @@ PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_construct_braced2,
     }
 
 
-#undef n
+#undef  n
 #endif

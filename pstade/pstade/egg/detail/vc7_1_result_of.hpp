@@ -113,5 +113,5 @@ namespace pstade { namespace egg { namespace detail_vc7_1 {
     BOOST_PP_SEQ_FOR_EACH_PRODUCT(PSTADE_result_of, PSTADE_PP_SEQ_REPEAT((0)(1), n))
 
 
-#undef n
+#undef  n
 #endif

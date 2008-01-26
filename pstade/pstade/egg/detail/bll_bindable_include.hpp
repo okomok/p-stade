@@ -48,5 +48,5 @@
     { };
 
 
-#undef n
+#undef  n
 #endif

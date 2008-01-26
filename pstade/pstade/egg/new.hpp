@@ -78,5 +78,5 @@ PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_new, (class)(class
     }
 
 
-#undef n
+#undef  n
 #endif

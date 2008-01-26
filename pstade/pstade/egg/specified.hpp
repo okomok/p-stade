@@ -33,21 +33,34 @@
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/array/size.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/control/if.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
-#include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/preprocessor/seq/to_array.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
-#include <pstade/const_overloaded.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./detail/result_of_in_ns_scope.hpp"
 
 
-#define PSTADE_EGG_SPECIFIED() <pstade/egg/detail/specified_include.hpp>
+#if 0 // defined(BOOST_HAS_RVALUE_REFS)
+
+    #include <boost/preprocessor/repetition/enum.hpp>
+    #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+    #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+    #include "./detail/std_forward.hpp"
+
+    #define PSTADE_EGG_SPECIFIED() <pstade/egg/detail/rr_specified_include.hpp>
+
+#else
+
+    #include <boost/preprocessor/seq/for_each.hpp>
+    #include <boost/preprocessor/seq/for_each_i.hpp>
+    #include <boost/preprocessor/seq/for_each_product.hpp>
+    #include <pstade/const_overloaded.hpp>
+    #include <boost/preprocessor/punctuation/comma_if.hpp>
+    #include "./detail/result_of_in_ns_scope.hpp"
+
+    #define PSTADE_EGG_SPECIFIED() <pstade/egg/detail/specified_include.hpp>
+
+#endif
 
 
 #endif

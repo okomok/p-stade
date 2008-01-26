@@ -94,5 +94,5 @@ namespace pstade { namespace egg { namespace detail {
     }
 
 
-#undef n
+#undef  n
 #endif

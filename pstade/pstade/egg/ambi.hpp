@@ -214,5 +214,5 @@ namespace pstade { namespace egg {
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_ambi, n)), BOOST_PP_CAT(ambi, n)) = PSTADE_EGG_GENERATOR();
 
 
-#undef n
+#undef  n
 #endif

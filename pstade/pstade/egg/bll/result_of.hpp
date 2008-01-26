@@ -108,5 +108,5 @@ namespace boost {
     { };
 
 
-#undef n
+#undef  n
 #endif
