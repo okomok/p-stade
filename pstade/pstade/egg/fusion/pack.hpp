@@ -15,6 +15,7 @@
 #include "../detail/xxx_pack.hpp"
 
 
+// vector0 is not template.
 #define  PSTADE_EGG_FUSION_PACK_TEMPLATE(_) boost::fusion::vector
 #define  PSTADE_EGG_XXX_PACK_PARAMS (fusion_pack, PSTADE_EGG_FUSION_PACK_TEMPLATE, FUSION_MAX_VECTOR_SIZE)
 #include PSTADE_EGG_XXX_PACK()
