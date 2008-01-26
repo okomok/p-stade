@@ -43,27 +43,34 @@ namespace pstade { namespace egg {
 #define name BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
 
 
-    struct PSTADE_PP_CAT3(little_, to_, name)
-    {
-        template<class Myself, class CharT, class Locale = void>
-        struct apply :
-            boost::remove_cv<CharT>
-        { };
+    namespace PSTADE_PP_CAT3(to_, name, _detail) {
 
-        template<class Result, class CharT>
-        Result call(CharT& ch, std::locale const& loc) const
+
+        struct little
         {
-            return std::use_facet< std::ctype<Result> >(loc).BOOST_PP_CAT(to, name)(ch);
-        }
+            template<class Myself, class CharT, class Locale = void>
+            struct apply :
+                boost::remove_cv<CharT>
+            { };
 
-        template<class Result, class CharT>
-        Result call(CharT& ch) const
-        {
-            return call<Result>(ch, std::locale());
-        }
-    };
+            template<class Result, class CharT>
+            Result call(CharT& ch, std::locale const& loc) const
+            {
+                return std::use_facet< std::ctype<Result> >(loc).BOOST_PP_CAT(to, name)(ch);
+            }
 
-    typedef function<PSTADE_PP_CAT3(little_, to_, name), by_cref> PSTADE_PP_CAT3(T_, to_, name);
+            template<class Result, class CharT>
+            Result call(CharT& ch) const
+            {
+                return call<Result>(ch, std::locale());
+            }
+        };
+
+
+    } // namespace PSTADE_PP_CAT3(to_, name, _detail)
+
+
+    typedef function<PSTADE_PP_CAT3(to_, name, _detail)::little, by_cref> PSTADE_PP_CAT3(T_, to_, name);
 
 PSTADE_ADL_BARRIER(char_conversion) {
     PSTADE_POD_CONSTANT((PSTADE_PP_CAT3(T_, to_, name)), BOOST_PP_CAT(to_, name)) = {{}};
