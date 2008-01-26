@@ -101,7 +101,7 @@ namespace pstade { namespace egg {
                         typename result_of<
                             typename result_of<T_fuse(PSTADE_EGG_DEFAULT_PACK<Strategy>)>::type(Args&)
                         >::type
-                    >
+                    > const
                 type;
             };
 
