@@ -35,58 +35,58 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Lambda>
+    template<class Expr>
     struct is_placeholder_expression :
-        boost::mpl::is_lambda_expression<Lambda>
+        boost::mpl::is_lambda_expression<Expr>
     { };
 
 
     // Work around "ETI" of 'boost::mpl::apply'.
 
-    template<class Lambda>
-    struct lambda_to_dummy :
-        boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            template_arguments_of<Lambda>,
-            boost::mpl::identity<Lambda>
+    template<class Expr>
+    struct expr_to_dummy :
+        boost::mpl::eval_if< is_placeholder_expression<Expr>,
+            template_arguments_of<Expr>,
+            boost::mpl::identity<Expr>
         >
     { };
 
-    template<class Dummy, class Lambda>
-    struct dummy_to_lambda :
-        boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            template_arguments_copy<Dummy, Lambda>,
+    template<class Dummy, class Expr>
+    struct dummy_to_expr :
+        boost::mpl::eval_if< is_placeholder_expression<Expr>,
+            template_arguments_copy<Dummy, Expr>,
             boost::mpl::identity<Dummy>
         >
     { };
 
 
     template<
-        class Lambda,
+        class Expr,
         PSTADE_PP_ENUM_PARAMS_WITH(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, class A, = void)
     >
     struct generated_object
     {
         typedef typename
-            boost::remove_cv<Lambda>::type // MPL needs this.
-        lambda_t;
+            boost::remove_cv<Expr>::type // MPL needs this.
+        expr_t;
 
         typedef typename
             boost::mpl::BOOST_PP_CAT(apply, BOOST_MPL_LIMIT_METAFUNCTION_ARITY)<
-                typename lambda_to_dummy<lambda_t>::type,
+                typename expr_to_dummy<expr_t>::type,
                 BOOST_PP_ENUM_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)
             >::type
         dummy_t;
 
         typedef typename
-            affect_cv<Lambda, typename dummy_to_lambda<dummy_t, lambda_t>::type>::type
+            affect_cv<Expr, typename dummy_to_expr<dummy_t, expr_t>::type>::type
         type;
     };
 
 
-    // Even if using 'lambda_to_dummy', 'NullaryResult' must be explicitly specified.
+    // Even if using 'expr_to_dummy', 'NullaryResult' must be explicitly specified.
     // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
 
-    template<class Lambda, class Strategy, class Construct, class NullaryResult>
+    template<class Expr, class Strategy, class Construct, class NullaryResult>
     struct little_generator
     {
         typedef typename
@@ -123,7 +123,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         generated_object<
-            Lambda, BOOST_PP_ENUM_PARAMS(n, A)
+            Expr, BOOST_PP_ENUM_PARAMS(n, A)
         >
     { };
 

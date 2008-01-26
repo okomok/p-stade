@@ -24,20 +24,20 @@ namespace pstade { namespace egg {
     template<
         class Little,
         class Strategy      = boost::use_default,
-        class NullaryResult = boost::use_default
+        class NullaryResult = boost::use_default,
+        class PackExpr      = boost::use_default
     >
     struct variadic :
         result_of_unfuse<
             function<Little, by_variadic>,
-            boost::use_default,
             NullaryResult,
+            PackExpr,
             Strategy
         >
     { };
 
-    // PSTADE_EGG_UNFUSE_L { L } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_VARIADIC_L PSTADE_EGG_UNFUSE_L {
-    #define PSTADE_EGG_VARIADIC_R } PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_VARIADIC_R } PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_VARIADIC(L) PSTADE_EGG_VARIADIC_L L PSTADE_EGG_VARIADIC_R
 
 

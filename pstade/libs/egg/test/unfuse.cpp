@@ -81,13 +81,13 @@ struct T_fused_get0
 };
 
 result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_ref>::type const
-    id0r = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
+    id0r = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_R;
 
 result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_cref>::type const
     id0c = PSTADE_EGG_UNFUSE({});
 
 result_of_unfuse<T_fused_get0, boost::use_default, boost::use_default, by_value>::type const
-    id0v = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
+    id0v = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_R;
 
 
 
@@ -127,7 +127,7 @@ void pstade_minimal_test()
         BOOST_CHECK( unfuse(&::take_nc)(x, y) == 3 );
     }
     {
-        result_of_unfuse< ::zero >::type x = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R;
+        result_of_unfuse< ::zero >::type x = PSTADE_EGG_UNFUSE_L {} PSTADE_EGG_UNFUSE_R;
         (void)x;
     }
     {

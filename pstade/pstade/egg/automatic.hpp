@@ -38,7 +38,7 @@ namespace pstade { namespace egg {
     namespace automatic_detail {
 
 
-        template<class Lambda, class Strategy, class Args>
+        template<class Expr, class Strategy, class Args>
         struct from
         {
             Args m_args;
@@ -47,7 +47,7 @@ namespace pstade { namespace egg {
             To get() const
             {
                 typedef typename
-                    boost::mpl::apply2<Lambda, To, Strategy>::type
+                    boost::mpl::apply2<Expr, To, Strategy>::type
                 fun_t;
 
                 return fuse(fun_t())(m_args);
@@ -61,7 +61,7 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, class Strategy, class Args>
+        template<class Expr, class Strategy, class Args>
         struct ref_from
         {
             Args m_args;
@@ -70,7 +70,7 @@ namespace pstade { namespace egg {
             To& get() const
             {
                 typedef typename
-                    boost::mpl::apply2<Lambda, To, Strategy>::type
+                    boost::mpl::apply2<Expr, To, Strategy>::type
                 fun_t;
 
                 return fuse(fun_t())(m_args);
@@ -89,7 +89,7 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, class Strategy, template<class, class, class> class From>
+        template<class Expr, class Strategy, template<class, class, class> class From>
         struct little
         {
             template<class Myself, class Args>
@@ -97,7 +97,7 @@ namespace pstade { namespace egg {
             {
                 typedef 
                     From<
-                        Lambda, Strategy,
+                        Expr, Strategy,
                         typename result_of<
                             typename result_of<T_fuse(PSTADE_EGG_DEFAULT_PACK<Strategy>)>::type(Args&)
                         >::type
@@ -114,23 +114,23 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Lambda, class Strategy, template<class, class, class> class From>
+        template<class Expr, class Strategy, template<class, class, class> class From>
         struct aux_ :
-            variadic<little<Lambda, Strategy, From>, Strategy, use_nullary_result>
+            variadic<little<Expr, Strategy, From>, Strategy, use_nullary_result>
         { };
 
 
    } // namespace automatic_detail
 
 
-    template<class Lambda, class Strategy = boost::use_default>
+    template<class Expr, class Strategy = boost::use_default>
     struct automatic :
-        automatic_detail::aux_<Lambda, Strategy, automatic_detail::from>
+        automatic_detail::aux_<Expr, Strategy, automatic_detail::from>
     { };
 
-    template<class Lambda, class Strategy = boost::use_default>
+    template<class Expr, class Strategy = boost::use_default>
     struct automatic_ref :
-        automatic_detail::aux_<Lambda, Strategy, automatic_detail::ref_from>
+        automatic_detail::aux_<Expr, Strategy, automatic_detail::ref_from>
     { };
 
     #define PSTADE_EGG_AUTOMATIC() PSTADE_EGG_VARIADIC({})

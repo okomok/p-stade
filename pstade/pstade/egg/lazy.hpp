@@ -33,10 +33,9 @@ namespace pstade { namespace egg {
         template<class Base, class Bind>
         struct little_result
         {
-            typedef typename if_use_default<Bind, T_bll_bind>::type bind_type;
+            typedef typename if_use_default<Bind, T_bll_bind>::type bind_t;
 
             Base m_base;
-            bind_type m_bind;
 
             Base const& base() const
             {
@@ -47,7 +46,7 @@ namespace pstade { namespace egg {
             struct apply :
                 result_of<
                     typename result_of<
-                        T_fuse(bind_type const&)
+                        T_fuse(bind_t)
                     >::type(typename result_of<T_tuple_prepend(Args&, Base const&)>::type)
                 >
             { };
@@ -55,7 +54,7 @@ namespace pstade { namespace egg {
             template<class Result, class Args>
             Result call(Args& args) const
             {
-                return fuse(m_bind)(tuple_prepend(args, m_base));
+                return fuse(bind_t())(tuple_prepend(args, m_base));
             }
         };
 
@@ -68,22 +67,21 @@ namespace pstade { namespace egg {
         variadic<lazy_detail::little_result<Base, Bind>, by_cref>
     { };
 
-    // PSTADE_EGG_VARIADIC_L { F, B } PSTADE_EGG_VARIADIC_R
     #define PSTADE_EGG_LAZY_L PSTADE_EGG_VARIADIC_L {
-    #define PSTADE_EGG_LAZY_M ,
-    #define PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_BLL_BIND_INIT
     #define PSTADE_EGG_LAZY_R } PSTADE_EGG_VARIADIC_R
-    #define PSTADE_EGG_LAZY(F) PSTADE_EGG_LAZY_L F PSTADE_EGG_LAZY_M PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_LAZY_R
+    #define PSTADE_EGG_LAZY(F) PSTADE_EGG_LAZY_L F PSTADE_EGG_LAZY_R
 
 
-    typedef
+    template<class Bind = boost::use_default>
+    struct X_lazy :
         generator<
-            result_of_lazy< deduce<mpl_1, as_value>, deduce<mpl_2, as_value, boost::use_default> >::type,
+            typename result_of_lazy<deduce<mpl_1, as_value>, Bind>::type,
             by_value,
             X_construct_variadic1<>
         >::type
-    T_lazy;
+    { };
 
+    typedef X_lazy<>::function_type T_lazy;
     PSTADE_POD_CONSTANT((T_lazy), lazy) = PSTADE_EGG_GENERATOR();
 
 

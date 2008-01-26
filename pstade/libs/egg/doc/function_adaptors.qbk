@@ -371,7 +371,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), _default, R0, _Stg>::type` initialized using `d` or an initializer.
+* `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), R0, Pack, _Stg>::type` initialized using `d` or an initializer.
+* `pack_` is `X_fusion_pack<by_ref>()` if `Pack` is `_default`, `boost::mpl::apply<Pack, by_ref>::type()` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -380,20 +381,20 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_unfuse<_PFo, _default, R0 = _default, _Stg = _default>::type`]
+        [`result_of_unfuse<_PFo, R0 = _default, Pack = _default, _Stg = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_UNFUSE_L init PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R`]
+        [`PSTADE_EGG_UNFUSE_L init PSTADE_EGG_UNFUSE_R`]
         [A braced initializer of `result_of_unfuse<_PFo,...>::type`]
     ]
     [
         [`PSTADE_EGG_UNFUSE(I)`]
-        [`PSTADE_EGG_UNFUSE_L I PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R`]
+        [`PSTADE_EGG_UNFUSE_L I PSTADE_EGG_UNFUSE_R`]
     ]
     [
         [`fc(d, R0, _Stg)(a1,...,aN)`]
-        [`_const(d)( X_fusion_pack<_Stg>()(a1,...,aN) )`]
+        [`_const(d)( pack_(a1,...,aN) )`]
     ]
     [
         [`X_unfuse<R0 = _default, _Stg = _default>`]
@@ -515,7 +516,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(f)` is an object of `result_of_lazy<_typeof(f)>::type` initialized using `f` or an initializer.
+* `fc(f)` is an object of `result_of_lazy<_typeof(f), Bind>::type` initialized using `f` or an initializer.
+* `bind_` is `bll_bind` if `Bind` is `_default`, `Bind()` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -524,20 +526,20 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_lazy<F>::type`]
+        [`result_of_lazy<F, Bind = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_LAZY_L init PSTADE_EGG_LAZY_M PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_LAZY_R`]
+        [`PSTADE_EGG_LAZY_L init PSTADE_EGG_LAZY_R`]
         [A braced initializer of `result_of_lazy<F>::type`]
     ]
     [
         [`PSTADE_EGG_LAZY(I)`]
-        [`PSTADE_EGG_LAZY_L I PSTADE_EGG_LAZY_M PSTADE_EGG_LAZY_DEFAULT_BIND PSTADE_EGG_LAZY_R`]
+        [`PSTADE_EGG_LAZY_L I PSTADE_EGG_LAZY_R`]
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [__POLYMORPHIC__ `boost::lambda::bind(f, _safe_arg_list(a, by_cref))`]
+        [__POLYMORPHIC__ `bind_(f, _safe_arg_list(a, by_cref))`]
     ]
     [
         [`lazy(f)`]

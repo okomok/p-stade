@@ -446,8 +446,8 @@ In fact, this is a syntax sugar of __EGG_UNFUSE__.
         [[*Semantics]]
     ]
     [
-        [`variadic<_Lit, _Stg = _default, R0 = _default>::type`]
-        [`result_of_unfuse<function<_Lit, by_cref>, _default, R0, _Stg>::type`]
+        [`variadic<_Lit, _Stg = _default, R0 = _default, Pack = _default>::type`]
+        [`result_of_unfuse<function<_Lit, by_cref>, R0, Pack, _Stg>::type`]
     ]
     [
         [`PSTADE_EGG_VARIADIC_L _lit PSTADE_EGG_VARIADIC_R`]

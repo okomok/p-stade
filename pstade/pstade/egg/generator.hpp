@@ -31,7 +31,7 @@ namespace pstade { namespace egg {
 
 
     template<
-        class Lambda,
+        class Expr,
         class Strategy      = by_perfect,
         class Construct     = boost::use_default,
         class NullaryResult = boost::use_default
@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
     struct generator
     {
         typedef
-            function<detail::little_generator<Lambda, Strategy, Construct, NullaryResult>, Strategy>
+            function<detail::little_generator<Expr, Strategy, Construct, NullaryResult>, Strategy>
         type;
     };
 

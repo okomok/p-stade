@@ -44,7 +44,7 @@ std::stringstream g_sout;
         };
 
         template<class Re, class Args>
-        void call(Args& args) const
+        void call(Args const& args) const
         {
             boost::fusion::for_each(args, g_sout << bll_1);
         }

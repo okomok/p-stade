@@ -63,7 +63,9 @@ void pstade_minimal_test()
     {
         BOOST_CHECK(lazy_minus(bll::_1, 2)(3|to_ref) == 1);
         BOOST_CHECK(lazy(base_minus())(bll::_1, 2)(3|to_ref) == 1);
+#if 0 // rejected
         BOOST_CHECK(lazy(base_minus(), bll_bind)(bll::_1, 2)(3|to_ref) == 1);
+#endif
     }
     {
         BOOST_CHECK(lazy_minus(bll::_1, bll::_2)(8|to_ref, 3|to_ref) == 5);

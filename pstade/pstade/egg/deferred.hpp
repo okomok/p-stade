@@ -20,11 +20,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Lambda, class Strategy = by_perfect>
+    template<class Expr, class Strategy = by_perfect>
     struct deferred
     {
         typedef
-            function<detail::little_deferred<Lambda>, Strategy>
+            function<detail::little_deferred<Expr>, Strategy>
         type;
     };
 

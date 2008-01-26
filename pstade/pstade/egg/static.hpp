@@ -25,11 +25,11 @@ namespace pstade { namespace egg {
     namespace static_detail {
 
 
-        template<class Lambda, class Strategy>
+        template<class Expr, class Strategy>
         struct little
         {
             typedef typename
-                boost::mpl::apply1<Lambda, Strategy>::type
+                boost::mpl::apply1<Expr, Strategy>::type
             fun_t;
 
             template<class Myself, class Args>
@@ -50,9 +50,9 @@ namespace pstade { namespace egg {
     } // namespace static_detail
 
 
-    template<class Lambda, class Strategy = by_perfect>
+    template<class Expr, class Strategy = by_perfect>
     struct static_ :
-        variadic<static_detail::little<Lambda, Strategy>, Strategy, use_nullary_result>
+        variadic<static_detail::little<Expr, Strategy>, Strategy, use_nullary_result>
     { };
 
     #define PSTADE_EGG_STATIC() PSTADE_EGG_VARIADIC({})

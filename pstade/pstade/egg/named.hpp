@@ -33,10 +33,8 @@
 namespace pstade { namespace egg {
 
 
-
-    // PSTADE_EGG_UNFUSE_L { { B } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_NAMED_L PSTADE_EGG_UNFUSE_L { {
-    #define PSTADE_EGG_NAMED_R } } PSTADE_EGG_UNFUSE_M PSTADE_EGG_FUSION_PACK_INIT PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_NAMED_R } } PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_NAMED(B) PSTADE_EGG_NAMED_L B PSTADE_EGG_NAMED_R
 
 // 1ary-
@@ -87,8 +85,8 @@ namespace pstade { namespace egg {
     struct PSTADE_PP_CAT3(result_of_, named, n) :
         result_of_unfuse<
             function<PSTADE_PP_CAT3(little_fused_named, n, _result)<Base>, by_cref>,
-            T_fusion_pack,
             NullaryResult,
+            X_fusion_pack<mpl_1>,
             by_cref
         >
     { };

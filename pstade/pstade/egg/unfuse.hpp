@@ -24,31 +24,30 @@ namespace pstade { namespace egg {
 
     template<
         class Base,
-        class Pack          = boost::use_default,
         class NullaryResult = boost::use_default,
+        class PackExpr      = boost::use_default,
         class Strategy      = by_perfect
     >
     struct result_of_unfuse
     {
         typedef
-            function<detail::little_unfuse_result<Base, Pack, NullaryResult>, Strategy>
+            function<detail::little_unfuse_result<Base, NullaryResult, PackExpr>, Strategy>
         type;
     };
 
     #define PSTADE_EGG_UNFUSE_L { {
-    #define PSTADE_EGG_UNFUSE_M ,
-    #define PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_DEFAULT_PACK_INIT
     #define PSTADE_EGG_UNFUSE_R } }
-    #define PSTADE_EGG_UNFUSE(F) PSTADE_EGG_UNFUSE_L F PSTADE_EGG_UNFUSE_M PSTADE_EGG_UNFUSE_DEFAULT_PACK PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_UNFUSE(F) PSTADE_EGG_UNFUSE_L F PSTADE_EGG_UNFUSE_R
 
 
-    template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
+    template<
+        class NullaryResult = boost::use_default,
+        class PackExpr      = boost::use_default,
+        class Strategy      = by_perfect
+    >
     struct X_unfuse :
         generator<
-            typename result_of_unfuse<
-                deduce<mpl_1, as_value>, deduce<mpl_2, as_value, boost::use_default>,
-                NullaryResult, Strategy
-            >::type,
+            typename result_of_unfuse<deduce<mpl_1, as_value>, NullaryResult, PackExpr, Strategy>::type,
             by_value,
             X_construct_braced2<>
         >::type

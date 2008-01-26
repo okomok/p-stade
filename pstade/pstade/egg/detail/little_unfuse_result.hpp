@@ -18,7 +18,8 @@
 // but this is the basis together with 'fuse'.
 
 
-#include <boost/version.hpp>
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -29,16 +30,17 @@
 #include "../by_ref.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./default_pack.hpp"
+#include "./mpl_placeholders.hpp" // inclusion guaranteed
 #include "./use_nullary_result.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base, class Pack>
+    template<class Base, class PackExpr>
     struct nullary_result_of_fused :
         result_of<
-            Base const(typename result_of<Pack const()>::type)
+            Base const(typename result_of<PackExpr()>::type)
         >
     { };
 
@@ -48,17 +50,17 @@ namespace pstade { namespace egg { namespace detail {
     // as callable with an empty tuple, then the result is inspected.
     // Otherwise, a passed type is the result type of this.
 
-    template<class Base, class Pack, class NullaryResult>
+    template<class Base, class NullaryResult, class PackExpr>
     struct little_unfuse_result
     {
         typedef typename
-            if_use_default<Pack,
-                typename PSTADE_EGG_DEFAULT_PACK<by_ref>::function_type
+            eval_if_use_default< PackExpr,
+                boost::mpl::identity< PSTADE_EGG_DEFAULT_PACK<by_ref> >,
+                boost::mpl::apply1<PackExpr, by_ref>
             >::type
-        pack_type;
+        pack_t;
 
         Base m_base;
-        pack_type m_pack;
 
         Base const& base() const
         {
@@ -68,14 +70,14 @@ namespace pstade { namespace egg { namespace detail {
     // 0ary
         typedef typename
             eval_if_use_nullary_result<NullaryResult,
-                nullary_result_of_fused<Base, pack_type>
+                nullary_result_of_fused<Base, pack_t>
             >::type
         nullary_result_type;
 
         template<class Result>
         Result call() const
         {
-            return m_base(m_pack());
+            return m_base(pack_t()());
         }
 
     // 1ary-
@@ -98,7 +100,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            Base const(typename result_of<pack_type const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
+            Base const(typename result_of<pack_t(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
         >
     { };
 
@@ -106,7 +108,7 @@ namespace pstade { namespace egg { namespace detail {
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         // To keep movable object movable, egg::forwarding can't be used here.
-        return m_base(m_pack(BOOST_PP_ENUM_PARAMS(n, a)));
+        return m_base(pack_t()(BOOST_PP_ENUM_PARAMS(n, a)));
     }
 
 

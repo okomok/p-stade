@@ -32,7 +32,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Lambda>
+    template<class Expr>
     struct little_deferred
     {
     // These are redefined in 'apply'.
@@ -67,7 +67,7 @@ namespace pstade { namespace egg { namespace detail {
         // fixed number 'apply' for lightweight compiling
         typedef typename
             BOOST_PP_CAT(boost::mpl::apply, BOOST_MPL_LIMIT_METAFUNCTION_ARITY)<
-                Lambda, BOOST_PP_ENUM_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, arg)
+                Expr, BOOST_PP_ENUM_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, arg)
             >::type
         impl_t;
 
