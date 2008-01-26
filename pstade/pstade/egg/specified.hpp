@@ -38,9 +38,10 @@
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "./config.hpp" // PSTADE_EGG_HAS_RVALUE_REFS
 
 
-#if 0 // defined(BOOST_HAS_RVALUE_REFS)
+#if defined(PSTADE_EGG_HAS_RVALUE_REFS)
 
     #include <boost/preprocessor/repetition/enum.hpp>
     #include <boost/preprocessor/repetition/enum_binary_params.hpp>

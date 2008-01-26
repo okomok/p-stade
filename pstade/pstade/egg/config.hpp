@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_HAS_THREADS
+#include <boost/config.hpp> // BOOST_HAS_THREADS, BOOST_HAS_RVALUE_REFS
 #include <boost/version.hpp>
 
 
@@ -32,6 +32,11 @@
 
 #if (BOOST_VERSION >= 103500) && !defined(PSTADE_EGG_DISABLE_FUSIONS)
     #define PSTADE_EGG_HAS_FUSIONS
+#endif
+
+
+#if defined(BOOST_HAS_RVALUE_REFS) && !defined(PSTADE_EGG_DISABLE_RVALUE_REFS)
+//    #define PSTADE_EGG_HAS_RVALUE_REFS
 #endif
 
 

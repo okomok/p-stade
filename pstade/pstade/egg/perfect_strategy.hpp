@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_HAS_RVALUE_REFS
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/array/size.hpp>
@@ -21,13 +20,14 @@
 #include <boost/preprocessor/seq/to_array.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/preprocessor.hpp>
+#include "./config.hpp" // PSTADE_EGG_HAS_RVALUE_REFS
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
 #include "./detail/function_preamble.hpp"
 #include "./function_fwd.hpp"
 
 
-#if 0 // defined(BOOST_HAS_RVALUE_REFS)
+#if defined(PSTADE_EGG_HAS_RVALUE_REFS)
 
     #include <boost/preprocessor/punctuation/comma_if.hpp>
     #include <boost/preprocessor/repetition/enum_binary_params.hpp>
