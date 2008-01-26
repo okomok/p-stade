@@ -159,8 +159,8 @@ It is useful because `operator()` can use nested typedefs.
         [`boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
     ]
     [
-        [`boost::mpl::_++N`]
-        [`boost::mpl::_++N`]
+        [`boost::mpl::_++M`]
+        [`boost::mpl::_++M`]
     ]
     [
         [`boost::mpl::_`]
@@ -232,8 +232,8 @@ It is useful because `operator()` can use nested typedefs.
         [`Cst(R0)()()`]
     ]
     [
-        [`boost::mpl::_++N`]
-        [`boost::mpl::_++N`]
+        [`boost::mpl::_++M`]
+        [`boost::mpl::_++M`]
     ]
     [
         [`boost::mpl::_`]
@@ -333,8 +333,8 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [`To to = boost::implicit_cast<_typeof(to)>( fuse(F())(X_fusion_pack<_Stg>()(a1,...,aN)) );`]
     ]
     [
-        [`boost::mpl::_++N`]
-        [`boost::mpl::_++N`]
+        [`boost::mpl::_++M`]
+        [`boost::mpl::_++M`]
     ]
     [
         [`boost::mpl::_`]
@@ -399,8 +399,8 @@ to be /statically initialized/ without `static_`.
         [`F()(_safe_arg_list(a, _Stg))`]
     ]
     [
-        [`boost::mpl::_++N`]
-        [`boost::mpl::_++N`]
+        [`boost::mpl::_++M`]
+        [`boost::mpl::_++M`]
     ]
     [
         [`boost::mpl::_`]
