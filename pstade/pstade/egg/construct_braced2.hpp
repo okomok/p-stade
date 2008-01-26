@@ -14,7 +14,7 @@
 #include "./detail/construct_xxx.hpp"
 
 
-#define  PSTADE_EGG_CONSTRUCT_BRACED2_RETURN(Args, T) T x = { { Args } }; return x;
+#define  PSTADE_EGG_CONSTRUCT_BRACED2_RETURN(T, x, Args) T x = { { Args } }; return x;
 #define  PSTADE_EGG_CONSTRUCT_XXX_PARAMS (construct_braced2, PSTADE_EGG_CONSTRUCT_BRACED2_RETURN)
 #include PSTADE_EGG_CONSTRUCT_XXX() 
 

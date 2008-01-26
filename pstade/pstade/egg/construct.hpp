@@ -14,7 +14,7 @@
 #include "./detail/construct_xxx.hpp"
 
 
-#define  PSTADE_EGG_CONSTRUCT_RETURN(Args, T) return T(Args);
+#define  PSTADE_EGG_CONSTRUCT_RETURN(T, _, Args) return T(Args);
 #define  PSTADE_EGG_CONSTRUCT_XXX_PARAMS (construct, PSTADE_EGG_CONSTRUCT_RETURN)
 #include PSTADE_EGG_CONSTRUCT_XXX() 
 
