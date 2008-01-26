@@ -12,14 +12,14 @@
 #if !defined(PSTADE_EGG_CONSTRUCT_XXX_PARAMS)
     #error Please define PSTADE_EGG_CONSTRUCT_XXX_PARAMS.
 #endif
-#define PSTADE_name   BOOST_PP_TUPLE_ELEM(2, 0, PSTADE_EGG_CONSTRUCT_XXX_PARAMS)
-#define PSTADE_return BOOST_PP_TUPLE_ELEM(2, 1, PSTADE_EGG_CONSTRUCT_XXX_PARAMS)
+#define name    BOOST_PP_TUPLE_ELEM(2, 0, PSTADE_EGG_CONSTRUCT_XXX_PARAMS)
+#define return_ BOOST_PP_TUPLE_ELEM(2, 1, PSTADE_EGG_CONSTRUCT_XXX_PARAMS)
 
 
     namespace pstade { namespace egg {
 
 
-        namespace BOOST_PP_CAT(PSTADE_name, _detail) {
+        namespace BOOST_PP_CAT(name, _detail) {
 
 
             template<class T, class Strategy>
@@ -38,21 +38,21 @@
             };
 
 
-        } // namespace BOOST_PP_CAT(PSTADE_name, _detail)
+        } // namespace BOOST_PP_CAT(name, _detail)
 
 
         template<class T = unspecified, class Strategy = by_perfect>
-        struct BOOST_PP_CAT(X_, PSTADE_name) :
-            function<BOOST_PP_CAT(PSTADE_name, _detail)::little<T, Strategy>, Strategy>
+        struct BOOST_PP_CAT(X_, name) :
+            function<BOOST_PP_CAT(name, _detail)::little<T, Strategy>, Strategy>
         { };
 
         template< >
-        struct BOOST_PP_CAT(X_, PSTADE_name)< >
+        struct BOOST_PP_CAT(X_, name)< >
         {
             template<class T, class Strategy>
             struct apply
             {
-                typedef BOOST_PP_CAT(X_, PSTADE_name)<T, Strategy> type;
+                typedef BOOST_PP_CAT(X_, name)<T, Strategy> type;
             };
         };
 
@@ -60,11 +60,11 @@
     } } // namespace pstade::egg
 
 
-    PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::BOOST_PP_CAT(X_, PSTADE_name), (class)(class))
+    PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::BOOST_PP_CAT(X_, name), (class)(class))
 
 
-#undef  PSTADE_return
-#undef  PSTADE_name
+#undef  return_
+#undef  name
 #undef  PSTADE_EGG_CONSTRUCT_XXX_PARAMS
 
 
@@ -75,7 +75,7 @@
     template<class Result BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        PSTADE_return(Result, x, PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const))
+        return_(Result, x, PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const))
     }
 
 

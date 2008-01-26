@@ -17,11 +17,9 @@
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include "../fusion/pack.hpp"
     #define PSTADE_EGG_DEFAULT_PACK pstade::egg::X_fusion_pack
-    #define PSTADE_EGG_DEFAULT_PACK_INIT PSTADE_EGG_FUSION_PACK_INIT
 #else
     #include "../tuple/pack.hpp"
     #define PSTADE_EGG_DEFAULT_PACK pstade::egg::X_tuple_pack
-    #define PSTADE_EGG_DEFAULT_PACK_INIT PSTADE_EGG_TUPLE_PACK_INIT
 #endif
 
 
