@@ -397,11 +397,11 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)( pack_(a1,...,aN) )`]
     ]
     [
-        [`X_unfuse<R0 = _default, _Stg = _default>`]
+        [`X_unfuse<R0 = _default, Pack = _default, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_unfuse<R0, _Stg>()(d)`]
+        [`X_unfuse<R0, Pack, _Stg>()(d)`]
         [`fc(d, R0, _default)`]
     ]
     [

@@ -63,6 +63,7 @@
 * `auto_new` and `shared_new` added.
 * `generator` revised.
 * `static_` revised.
+* `lazy` and `unfuse` takes no helper FunctionObjects.
 
 
 
