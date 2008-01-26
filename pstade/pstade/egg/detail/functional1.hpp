@@ -60,32 +60,39 @@ namespace pstade { namespace egg {
 #define act  BOOST_PP_TUPLE_ELEM(4, 3, entry)
 
 
-    template<class ResultType>
-    struct BOOST_PP_CAT(little_, name)
-    {
-        template<class Myself, class A1>
-        struct apply :
-            eval_if_use_default<ResultType,
-                boost::lambda::return_type_1<act, A1>
-            >
-        { };
+    namespace BOOST_PP_CAT(name, _detail) {
 
-        template<class Result, class A1>
-        Result call(A1& a1) const
+
+        template<class ResultType>
+        struct little
         {
-            // I have a feeling that egg::forwarding shouldn't be called,
-            // because Boost.Lambda doesn't care rvalue.
-#if post == 1
-            return a1 op;
-#else
-            return op a1;
-#endif
-        }
-    };
+            template<class Myself, class A1>
+            struct apply :
+                eval_if_use_default<ResultType,
+                    boost::lambda::return_type_1<act, A1>
+                >
+            { };
+
+            template<class Result, class A1>
+            Result call(A1& a1) const
+            {
+                // I have a feeling that egg::forwarding shouldn't be called,
+                // because Boost.Lambda doesn't care rvalue.
+    #if post == 1
+                return a1 op;
+    #else
+                return op a1;
+    #endif
+            }
+        };
+
+
+    } // namespace BOOST_PP_CAT(name, _detail)
+
 
     template<class ResultType = boost::use_default, class Strategy = by_perfect>
     struct BOOST_PP_CAT(X_, name) :
-        function<BOOST_PP_CAT(little_, name)<ResultType>, Strategy>
+        function<BOOST_PP_CAT(name, _detail)::little<ResultType>, Strategy>
     { };
 
 PSTADE_ADL_BARRIER(functional1) {

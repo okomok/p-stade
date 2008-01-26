@@ -95,26 +95,33 @@ namespace pstade { namespace egg {
 #define act  BOOST_PP_TUPLE_ELEM(3, 2, entry)
 
 
-    template<class ResultType>
-    struct BOOST_PP_CAT(little_, name)
-    {
-        template<class Myself, class A1, class A2>
-        struct apply :
-            eval_if_use_default<ResultType,
-                boost::lambda::return_type_2<act, A1, A2>
-            >
-        { };
+    namespace BOOST_PP_CAT(name, _detail) {
 
-        template<class Result, class A1, class A2>
-        Result call(A1& a1, A2& a2) const
+
+        template<class ResultType>
+        struct little
         {
-            return a1 op() a2;
-        }
-    };
+            template<class Myself, class A1, class A2>
+            struct apply :
+                eval_if_use_default<ResultType,
+                    boost::lambda::return_type_2<act, A1, A2>
+                >
+            { };
+
+            template<class Result, class A1, class A2>
+            Result call(A1& a1, A2& a2) const
+            {
+                return a1 op() a2;
+            }
+        };
+
+
+    } // namespace BOOST_PP_CAT(name, _detail)
+
 
     template<class ResultType = boost::use_default, class Strategy = by_perfect>
     struct BOOST_PP_CAT(X_, name) :
-        function<BOOST_PP_CAT(little_, name)<ResultType>, Strategy>
+        function<BOOST_PP_CAT(name, _detail)::little<ResultType>, Strategy>
     { };
 
 PSTADE_ADL_BARRIER(functional2) {
