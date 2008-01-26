@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_CONSTRUCT_VARIADIC1_HPP
 #define PSTADE_EGG_CONSTRUCT_VARIADIC1_HPP
 #include "./detail/prefix.hpp"
@@ -12,78 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include "./apply_decl.hpp"
-#include "./by_perfect.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/unspecified.hpp"
-#include "./forward.hpp"
-#include "./register_nullary_result.hpp"
+#include "./detail/construct_xxx.hpp"
 #include "./variadic.hpp"
 
 
-namespace pstade { namespace egg {
+#define  PSTADE_EGG_CONSTRUCT_VARIADIC1_RETURN(Args, T) T x = PSTADE_EGG_VARIADIC_L { Args } PSTADE_EGG_VARIADIC_R; return x;
+#define  PSTADE_EGG_CONSTRUCT_XXX_PARAMS (construct_variadic1, PSTADE_EGG_CONSTRUCT_VARIADIC1_RETURN)
+#include PSTADE_EGG_CONSTRUCT_XXX() 
 
 
-    namespace construct_variadic1_detail {
-
-
-        template<class T, class Strategy>
-        struct little
-        {
-            typedef T nullary_result_type;
-
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct apply
-            {
-                typedef T type;
-            };
-
-        // 0ary-
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/construct_variadic1.hpp>))
-            #include BOOST_PP_ITERATE()
-        };
-
-
-    } // namespace construct_variadic1_detail
-
-
-    template<class T = unspecified, class Strategy = by_perfect>
-    struct X_construct_variadic1 :
-        function<construct_variadic1_detail::little<T, Strategy>, Strategy>
-    { };
-
-    template< >
-    struct X_construct_variadic1< >
-    {
-        template<class T, class Strategy>
-        struct apply
-        {
-            typedef X_construct_variadic1<T, Strategy> type;
-        };
-    };
-
-
-} } // namespace pstade::egg
-
-
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_construct_variadic1, (class)(class))
-
-
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-    template<class Result BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-    {
-        Result r = PSTADE_EGG_VARIADIC_L { PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy) } PSTADE_EGG_VARIADIC_R;
-        return r;
-    }
-
-
-#undef  n
 #endif

@@ -12,6 +12,7 @@
 #include <pstade/egg/construct_braced1.hpp>
 #include <pstade/egg/construct_braced2.hpp>
 #include <pstade/egg/construct.hpp>
+#include <pstade/egg/construct_variadic1.hpp>
 #include <pstade/minimal_test.hpp>
 
 #include <pstade/egg/generator.hpp>
