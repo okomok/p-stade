@@ -56,7 +56,12 @@ namespace pstade { namespace egg {
 
     template<class Base, class Strategy = by_perfect>
     struct result_of_not :
-        variadic<not_detail::little_result<Base>, Strategy, use_nullary_result>
+        variadic<
+            not_detail::little_result<Base>,
+            Strategy,
+            boost::use_default,
+            use_nullary_result
+        >
     { };
 
     #define PSTADE_EGG_NOT_L PSTADE_EGG_VARIADIC_L {

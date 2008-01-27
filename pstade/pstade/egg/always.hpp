@@ -87,7 +87,12 @@ namespace pstade { namespace egg {
 
     template<class Bound>
     struct result_of_always :
-        variadic<always_detail::little_result<Bound>, by_cref, use_nullary_result>
+        variadic<
+            always_detail::little_result<Bound>,
+            by_cref,
+            boost::use_default,
+            use_nullary_result
+        >
     { };
 
     #define PSTADE_EGG_ALWAYS_L PSTADE_EGG_VARIADIC_L {
@@ -110,7 +115,12 @@ namespace pstade { namespace egg {
 
     template<class Reference>
     struct result_of_always_ref :
-        variadic<always_detail::little_ref_result<Reference>, by_perfect, use_nullary_result>
+        variadic<
+            always_detail::little_ref_result<Reference>,
+            by_perfect,
+            boost::use_default,
+            use_nullary_result
+        >
     { };
 
     #define PSTADE_EGG_ALWAYS_REF_L PSTADE_EGG_VARIADIC_L {

@@ -77,7 +77,12 @@ namespace pstade { namespace egg {
 
 
     typedef
-        variadic<auto_object_detail::little, by_perfect, use_nullary_result>::type
+        variadic<
+            auto_object_detail::little,
+            by_perfect,
+            boost::use_default,
+            use_nullary_result
+        >::type
     T_auto_object;
 
     PSTADE_POD_CONSTANT((T_auto_object), auto_object) = PSTADE_EGG_VARIADIC({});

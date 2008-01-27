@@ -116,7 +116,12 @@ namespace pstade { namespace egg {
 
         template<class Expr, class Strategy, template<class, class, class> class From>
         struct aux_ :
-            variadic<little<Expr, Strategy, From>, Strategy, use_nullary_result>
+            variadic<
+                little<Expr, Strategy, From>,
+                Strategy,
+                boost::use_default,
+                use_nullary_result
+            >
         { };
 
 

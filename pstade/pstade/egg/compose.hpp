@@ -60,7 +60,12 @@ namespace pstade { namespace egg {
 
     template<class F, class G, class NullaryResult = boost::use_default, class Strategy = boost::use_default>
     struct result_of_compose :
-        variadic<compose_detail::little_result<F, G>, Strategy, NullaryResult>
+        variadic<
+            compose_detail::little_result<F, G>,
+            Strategy,
+            boost::use_default,
+            NullaryResult
+        >
     { };
 
     #define PSTADE_EGG_COMPOSE_L PSTADE_EGG_VARIADIC_L {

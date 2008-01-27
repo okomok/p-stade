@@ -52,7 +52,12 @@ namespace pstade { namespace egg {
 
     template<class Expr, class Strategy = by_perfect>
     struct static_ :
-        variadic<static_detail::little<Expr, Strategy>, Strategy, use_nullary_result>
+        variadic<
+            static_detail::little<Expr, Strategy>,
+            Strategy,
+            boost::use_default,
+            use_nullary_result
+        >
     { };
 
     #define PSTADE_EGG_STATIC() PSTADE_EGG_VARIADIC({})

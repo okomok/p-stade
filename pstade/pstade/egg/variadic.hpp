@@ -24,8 +24,8 @@ namespace pstade { namespace egg {
     template<
         class Little,
         class Strategy      = boost::use_default,
-        class NullaryResult = boost::use_default,
-        class PackExpr      = boost::use_default
+        class PackExpr      = boost::use_default,
+        class NullaryResult = boost::use_default
     >
     struct variadic :
         result_of_unfuse<

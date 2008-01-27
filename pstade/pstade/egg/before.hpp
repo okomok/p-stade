@@ -58,7 +58,12 @@ namespace pstade { namespace egg {
 
     template<class Thunk, class Function, class Strategy = boost::use_default>
     struct result_of_before :
-        variadic<before_detail::little_result<Thunk, Function>, Strategy, use_nullary_result>
+        variadic<
+            before_detail::little_result<Thunk, Function>,
+            Strategy,
+            boost::use_default,
+            use_nullary_result
+        >
     { };
 
     #define PSTADE_EGG_BEFORE_L PSTADE_EGG_VARIADIC_L {
