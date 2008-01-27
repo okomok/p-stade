@@ -97,6 +97,8 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUSE__ [link egg.function_adaptors.fuse fuse]]
 [def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse unfuse]]
 [def __EGG_LAZY__ [link egg.function_adaptors.lazy lazy]]
+[def __EGG_FIX__ [link egg.function_adaptors.fix fix]]
+[def __EGG_MEMOIZE__ [link egg.function_adaptors.memoize memoize]]
 [def __EGG_PIPABLE__ [link egg.function_adaptors.pipable pipable]]
 [def __EGG_RET__ [link egg.function_adaptors.ret ret]]
 [def __EGG_BLL_BIND__ [link egg.function_objects.bll_bind bll_bind]]
