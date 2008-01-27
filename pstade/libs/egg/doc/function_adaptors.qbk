@@ -100,7 +100,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d1, d2, _Stg, R0)` is an object of `result_of_compose<_typeof(d1),_typeof(d2), _Stg, R0>::type`  initialized using `d1` and `d1` or these initializer.
+* `fc(d1, d2, R0, _Stg)` is an object of `result_of_compose<_typeof(d1),_typeof(d2), R0, _Stg>::type`  initialized using `d1` and `d1` or these initializer.
 
 [heading Valid expressions]
 [table 
@@ -109,7 +109,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_compose<_Dco1, _Dco2, _Stg = _default, R0 = _default>::type`]
+        [`result_of_compose<_Dco1, _Dco2, R0 = _default, _Stg = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -121,15 +121,15 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_COMPOSE_L I1 , I2 PSTADE_EGG_COMPOSE_R`]
     ]
     [
-        [`fc(d1, d2, Stg, R0)(a1,...,aN)`]
+        [`fc(d1, d2, R0, Stg)(a1,...,aN)`]
         [`_const(d1)(_const(d2)(_safe_arg_list(a, _Stg)))`]
     ]
     [
-        [`X_compose<_Stg = _default, R0 = _default>`]
+        [`X_compose<R0 = _default, _Stg = _default>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_compose<_Stg, R0>()(d1, d2)`]
+        [`X_compose<R0, _Stg>()(d1, d2)`]
         [`fc(d1, d2, R0, _Stg)`]
     ]
     [
