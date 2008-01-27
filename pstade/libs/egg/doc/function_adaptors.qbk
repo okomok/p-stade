@@ -297,7 +297,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [section fix]
 
 [heading Description]
-`fix` is "Y combinator", which enables you to write recursive functions on the fly.
+`fix` is "fixed point combinator", which enables you to write recursive functions on the fly.
 
 [heading Header]
 * `<pstade/egg/fix.hpp>`
