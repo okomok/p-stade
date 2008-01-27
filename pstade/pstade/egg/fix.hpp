@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
 
 
         // fun fix base a = base (fix base) x;
-        // fun uncurried_fix (base, x) = base(curry(uncurried_fix)(base))(x);
+        // <=> fun uncurried_fix (base, x) = base(curry(uncurried_fix)(base))(x);
 
         struct little_uncurried
         {
