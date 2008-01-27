@@ -43,8 +43,8 @@ PSTADE_EGG_CONST((T_inc), inc) = {};
 
 void unnamed_recursion()
 {
-    T_bll_1 const _1 = bll_1;
-    T_bll_2 const _2 = bll_2;
+    using bll::_1;
+    using bll::_2;
 
     int const two = 2, ten = 10;
 
