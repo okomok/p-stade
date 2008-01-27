@@ -59,7 +59,6 @@ namespace pstade { namespace egg {
             }
         };
 
-
         typedef function<little_uncurried> uncurried;
 
 
