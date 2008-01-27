@@ -55,7 +55,7 @@ result_of_curry2<
 PSTADE_EGG_CURRY2_L
     PSTADE_EGG_COMPOSE_L
         {}
-    PSTADE_EGG_COMPOSE_M
+    ,
         {"my_plus call", 198}
     PSTADE_EGG_COMPOSE_R
 PSTADE_EGG_CURRY2_R

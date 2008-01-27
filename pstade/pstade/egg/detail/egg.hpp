@@ -33,7 +33,6 @@
 #include "../by_ref.hpp"
 #include "../by_value.hpp"
 #include "../compose.hpp"
-#include "../compose2.hpp"
 #include "../config.hpp"
 #include "../const.hpp"
 #include "../construct.hpp"

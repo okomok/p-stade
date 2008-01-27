@@ -64,9 +64,8 @@ namespace pstade { namespace egg {
     { };
 
     #define PSTADE_EGG_COMPOSE_L PSTADE_EGG_VARIADIC_L {
-    #define PSTADE_EGG_COMPOSE_M ,
     #define PSTADE_EGG_COMPOSE_R } PSTADE_EGG_VARIADIC_R
-    #define PSTADE_EGG_COMPOSE(F, T) PSTADE_EGG_COMPOSE_L F PSTADE_EGG_COMPOSE_M T PSTADE_EGG_COMPOSE_R
+    #define PSTADE_EGG_COMPOSE(F, T) PSTADE_EGG_COMPOSE_L F , T PSTADE_EGG_COMPOSE_R
 
 
     template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>

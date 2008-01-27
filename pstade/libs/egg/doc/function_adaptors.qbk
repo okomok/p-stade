@@ -113,12 +113,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_COMPOSE_L init1 PSTADE_EGG_COMPOSE_M init2 PSTADE_EGG_COMPOSE_R`]
+        [`PSTADE_EGG_COMPOSE_L init1, init2 PSTADE_EGG_COMPOSE_R`]
         [A braced initializer of `result_of_compose<_Dco1, _Dco2,...>::type`]
     ]
     [
         [`PSTADE_EGG_COMPOSE(I1, I2)`]
-        [`PSTADE_EGG_COMPOSE_L I1 PSTADE_EGG_COMPOSE_M I2 PSTADE_EGG_COMPOSE_R`]
+        [`PSTADE_EGG_COMPOSE_L I1, I2 PSTADE_EGG_COMPOSE_R`]
     ]
     [
         [`fc(d1, d2, Stg, R0)(a1,...,aN)`]

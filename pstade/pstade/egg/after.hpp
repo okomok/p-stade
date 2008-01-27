@@ -63,9 +63,8 @@ namespace pstade { namespace egg {
     { };
 
     #define PSTADE_EGG_AFTER_L PSTADE_EGG_VARIADIC_L {
-    #define PSTADE_EGG_AFTER_M ,
     #define PSTADE_EGG_AFTER_R } PSTADE_EGG_VARIADIC_R
-    #define PSTADE_EGG_AFTER(F, T) PSTADE_EGG_AFTER_L F PSTADE_EGG_AFTER_M T PSTADE_EGG_AFTER_R
+    #define PSTADE_EGG_AFTER(F, T) PSTADE_EGG_AFTER_L F , T PSTADE_EGG_AFTER_R
 
 
     template<class Strategy = boost::use_default>

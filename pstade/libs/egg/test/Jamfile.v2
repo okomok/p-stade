@@ -40,7 +40,6 @@ test-suite "egg" :
     [ run by_value.cpp ]
     [ run const.cpp ]
     [ run compose.cpp ]
-    [ run compose2.cpp ]
     [ run construct.cpp ]
     [ run construct_xxx.cpp ]
     [ run constructor.cpp ]
