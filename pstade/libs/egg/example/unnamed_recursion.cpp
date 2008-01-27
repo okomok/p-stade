@@ -69,7 +69,7 @@ int r =
     fix(curry2(
         bll::ret<int>(
             bll::if_then_else_return( _2 == 0,
-                bll::constant(1),
+                1,
                 _2 * lazy(_1)(_2 - 1)
             )
         )
