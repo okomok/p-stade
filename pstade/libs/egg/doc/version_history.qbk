@@ -64,6 +64,7 @@
 * `generator` revised.
 * `static_` revised.
 * `lazy` and `unfuse` takes no helper FunctionObjects.
+* `_M` macros removed.
 
 
 
