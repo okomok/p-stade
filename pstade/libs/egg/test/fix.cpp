@@ -48,8 +48,7 @@ struct T_uncurried_fact_
 };
 
 typedef result_of_curry2<T_uncurried_fact_>::type T_fact_;
-PSTADE_POD_CONSTANT((T_fact_), fact_) = PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R;
-
+PSTADE_POD_CONSTANT((T_fact_), fact_) = PSTADE_EGG_CURRY2({});
 
 struct T_uncurried_wrap
 {
@@ -93,6 +92,10 @@ void pstade_minimal_test()
     }
     {
         BOOST_CHECK( 3628800 == fix(fact_)(10) );
+
+        typedef result_of_fix<T_fact_>::type T_fixed_fact;
+        T_fixed_fact const fixed_fact = PSTADE_EGG_FIX(fact_);
+        BOOST_CHECK( 3628800 == fixed_fact(10) );
     }
     {
         BOOST_CHECK( 3628800 == fix(wrap(fact_))(10) );
