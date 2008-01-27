@@ -43,7 +43,6 @@ namespace pstade { namespace egg {
         type;
     };
 
-
     #define PSTADE_EGG_GENERATOR() {{}}
 
 
