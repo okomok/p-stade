@@ -412,7 +412,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_free<Pco,...>::type` is a /POD/ type if and only if `Pco` is a /POD/ type.
+* `result_of_free<MPtr,...>::type` is a /POD/ type.
 
 [heading Example]
 ...
