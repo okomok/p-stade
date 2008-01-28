@@ -21,6 +21,8 @@
 // Also note that BOOST_MPL_HAS_XXX_TRAIT_DEF, which is used by boost::result_of, sometimes doesn't work.
 // (Interestingly, if compiled on IDE, it seems to always work.)
 // If you are lost, include <pstade/detect_result_type.hpp> before any boost header.
+//
+// Note that member function pointers are not supported.
 
 
 #include <boost/mpl/eval_if.hpp>
@@ -28,7 +30,6 @@
 #include <boost/mpl/or.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/is_member_function_pointer.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/version.hpp>
@@ -78,7 +79,7 @@ namespace pstade {
         template<class F>
         struct patch :
             boost::mpl::eval_if<
-                boost::mpl::or_< PSTADE_RESULT_OF_IS_POINTER(F), boost::is_member_function_pointer<F> >,
+                boost::mpl::or_< PSTADE_RESULT_OF_IS_POINTER(F) >,
                 boost::remove_cv<F>,
 #if defined(PSTADE_RESULT_OF_MSVC_WORKAROUND)
                 msvc_identity<F>
