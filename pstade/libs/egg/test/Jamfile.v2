@@ -76,6 +76,8 @@ test-suite "egg" :
     [ run incomplete_little.cpp ]
     [ run indirect.cpp ]
     [ run infix.cpp ]
+    [ run inlined.cpp ]
+    [ run inlined.cpp : : : <define>BOOST_TYPEOF_EMULATION : inlined_emulation ]
     [ run integral.cpp ]
     [ run integral_cast.cpp ]
     [ run is_classified_as.cpp ]

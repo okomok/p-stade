@@ -20,6 +20,7 @@
 // Note:
 //
 // Function reference doesn't work with gcc-4.1.
+// PSTADE_EGG_INLINE can't support dependent names.
 
 
 #include <pstade/boost_workaround.hpp>
@@ -30,8 +31,19 @@
 #include "./by_value.hpp"
 #include "./generator.hpp"
 
+
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1500)
-    #include "./return.hpp"
+
+    #define PSTADE_EGG_INLINE_WORKAROUND
+
+    #include <boost/typeof/typeof.hpp>
+
+    #if defined(BOOST_TYPEOF_EMULATION)
+        #include "./return.hpp"
+    #else
+        #define PSTADE_EGG_INLINE_WORKAROUND_TYPEOF
+    #endif
+
 #endif
 
 
@@ -67,6 +79,10 @@ namespace pstade { namespace egg {
         };
 
 
+        template<class F>
+        F decay(F);
+
+
     } // namespace inline_detail
 
 
@@ -83,12 +99,37 @@ namespace pstade { namespace egg {
     PSTADE_POD_CONSTANT((T_inline_), inline_) = PSTADE_EGG_GENERATOR();
 
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1500)
-    #define PSTADE_EGG_INLINE(F) (F)
-    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_return< boost::use_default, Stg >()( F )
+#if !defined(PSTADE_EGG_INLINE_WORKAROUND)
+
+    #define PSTADE_EGG_INLINE(F) pstade::egg::inline_(F).of< F >()
+    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_inline< Stg >()(F).of< F >()
+
+#elif defined(PSTADE_EGG_INLINE_WORKAROUND_TYPEOF)
+
+    #define PSTADE_EGG_INLINE(F) \
+        pstade::egg::function< \
+            pstade::egg::detail::little_inlined< \
+                BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F, \
+                pstade::egg::by_perfect \
+            >, \
+            pstade::egg::by_perfect \
+        >() \
+    /**/
+    #define PSTADE_EGG_INLINE_BY(F, Stg) \
+        pstade::egg::function< \
+            pstade::egg::detail::little_inlined< \
+                BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F, \
+                Stg \
+            >, \
+            Stg \
+        >() \
+    /**/
+
 #else
-    #define PSTADE_EGG_INLINE(F) pstade::egg::inline_( F ).of< F >()
-    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_inline< Stg >()( F ).of< F >()
+
+    #define PSTADE_EGG_INLINE(F) (F)
+    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_return< boost::use_default, Stg >()(F)
+
 #endif
 
 

@@ -63,6 +63,7 @@
 #include "../iequal_to.hpp"
 #include "../indirect.hpp"
 #include "../infix.hpp"
+#include "../inlined.hpp"
 #include "../integral.hpp"
 #include "../is_same.hpp"
 #include "../keyword.hpp"
