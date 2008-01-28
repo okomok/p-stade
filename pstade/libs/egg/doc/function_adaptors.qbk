@@ -365,8 +365,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Notation]
 * `fc(p, _Stg)` is an object of `result_of_free<_typeof(p), _Stg>::type` initialized using `p` or an initializer.
 * `C` is class type which `_typeof(p)` belongs to.
-* `sa` is `s, a1,...,aN`.
-* `ta` is `t, a1,...,aN`.
+* `sa` is `s,a1,...,aN`.
+* `ta` is `t,a1,...,aN`.
 
 [heading Valid expressions]
 [table 
@@ -387,11 +387,11 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_FREE_L P PSTADE_EGG_FREE_R`]
     ]
     [
-        [`fc(p, _Stg)(s, a1,...,aN)`]
+        [`fc(p, _Stg)(s,a1,...,aN)`]
         [`(s.*p)(_safe_arg_list(sa, _Stg))`]
     ]
     [
-        [`fc(p, _Stg)(t, a1,...,aN)`]
+        [`fc(p, _Stg)(t,a1,...,aN)`]
         [`(get_pointer(t)->*p)(_safe_arg_list(ta, _Stg))`]
     ]
     [
