@@ -392,7 +392,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(p, _Stg)(t, a1,...,aN)`]
-        [`(t->*p)(_safe_arg_list(ta, _Stg))`]
+        [`(get_pointer(t)->*p)(_safe_arg_list(ta, _Stg))`]
     ]
     [
         [`X_free<_Stg = _default>`]
