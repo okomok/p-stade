@@ -51,6 +51,7 @@
 #include "../fix.hpp"
 #include "../flip.hpp"
 #include "../forward.hpp"
+#include "../free.hpp"
 #include "../from.hpp"
 #include "../function.hpp"
 #include "../function_extension.hpp"

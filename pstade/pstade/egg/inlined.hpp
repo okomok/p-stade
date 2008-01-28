@@ -23,10 +23,13 @@
 // PSTADE_EGG_INLINE can't support dependent names.
 
 
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_pointer.hpp>
 #include <pstade/boost_workaround.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/little_inlined.hpp"
+#include "./detail/little_inlined_mem.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./generator.hpp"
@@ -51,12 +54,12 @@ namespace pstade { namespace egg {
 
 
     template<class Ptr, Ptr ptr, class Strategy = by_perfect>
-    struct inlined
-    {
-        typedef
-            function<detail::little_inlined<Ptr, ptr, Strategy>, Strategy>
-        type;
-    };
+    struct inlined :
+        boost::mpl::if_< boost::is_pointer<Ptr>,
+            function<detail::little_inlined<Ptr, ptr, Strategy>, Strategy>,
+            function<detail::little_inlined_mem<Ptr, ptr, Strategy>, Strategy>
+        >
+    { };
 
     #define PSTADE_EGG_INLINED() {{}}
 
@@ -100,36 +103,14 @@ namespace pstade { namespace egg {
 
 
 #if !defined(PSTADE_EGG_INLINE_WORKAROUND)
-
     #define PSTADE_EGG_INLINE(F) pstade::egg::inline_(F).of< F >()
     #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_inline< Stg >()(F).of< F >()
-
 #elif defined(PSTADE_EGG_INLINE_WORKAROUND_TYPEOF)
-
-    #define PSTADE_EGG_INLINE(F) \
-        pstade::egg::function< \
-            pstade::egg::detail::little_inlined< \
-                BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F, \
-                pstade::egg::by_perfect \
-            >, \
-            pstade::egg::by_perfect \
-        >() \
-    /**/
-    #define PSTADE_EGG_INLINE_BY(F, Stg) \
-        pstade::egg::function< \
-            pstade::egg::detail::little_inlined< \
-                BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F, \
-                Stg \
-            >, \
-            Stg \
-        >() \
-    /**/
-
+    #define PSTADE_EGG_INLINE(F) pstade::egg::inlined<BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F>::type()
+    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::inlined<BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F, Stg>::type()
 #else
-
     #define PSTADE_EGG_INLINE(F) (F)
-    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_return< boost::use_default, Stg >()(F)
-
+    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_return<boost::use_default, Stg>()(F)
 #endif
 
 

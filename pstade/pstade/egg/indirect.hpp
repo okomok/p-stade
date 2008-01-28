@@ -20,7 +20,6 @@
 // In other words, this adaptor is "primitive".
 
 
-#include <boost/ref.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"

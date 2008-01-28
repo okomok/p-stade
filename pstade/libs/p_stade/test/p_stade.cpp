@@ -1,16 +1,22 @@
 
-#include <boost/tuple/tuple.hpp>
-#include <boost/fusion/include/begin.hpp>
-#include <boost/fusion/sequence/intrinsic/end.hpp>
-#include <boost/fusion/include/boost_tuple.hpp>
-#include <boost/fusion/include/distance.hpp>
+#include <boost/utility/result_of.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 
-int main()
-{
-    namespace fusion = boost::fusion;
+typedef int (*my_ptr)(int);
+struct A { int print(int) const; };
+typedef int (A::*mem_ptr)(int) const;
 
-    boost::tuple<int, char> t(3, 'a');
+BOOST_MPL_ASSERT((boost::is_same<
+                 int,
+                 boost::result_of<my_ptr()>::type
+>));
 
-    fusion::distance(fusion::begin(t), fusion::end(t)); // doesn't compile.
-}
+BOOST_MPL_ASSERT((boost::is_same<
+                 int,
+                 boost::result_of<mem_ptr()>::type
+>));
+
+
+int main() {}
