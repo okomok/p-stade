@@ -55,6 +55,7 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef R result_type;
         typedef T class_type;
+        typedef int cv_type;
     };
 
     template<class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
@@ -62,6 +63,7 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef R result_type;
         typedef T class_type;
+        typedef int const cv_type;
     };
 
     template<class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
@@ -69,6 +71,7 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef R result_type;
         typedef T class_type;
+        typedef int volatile cv_type;
     };
 
     template<class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
@@ -76,6 +79,7 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef R result_type;
         typedef T class_type;
+        typedef int const volatile cv_type;
     };
 
 

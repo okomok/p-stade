@@ -62,6 +62,7 @@ test-suite "egg" :
     [ run function.cpp ]
     [ run function_facade.cpp ]
     [ run function_facade_by.cpp ]
+    [ run function_name_by_perfect.cpp ]
     [ run functional.cpp ]
     [ run functional1.cpp ]
     [ run functional2.cpp ]

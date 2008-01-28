@@ -4,6 +4,8 @@
 [import ../example/mono_lambda.cpp]
 [import ../example/adapted_to_comparison.cpp]
 [import ../example/unnamed_recursion.cpp]
+[import ../example/freed_begin.cpp]
+
 
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
@@ -351,6 +353,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 
 
+[/
+
 [section free]
 
 [heading Description]
@@ -419,12 +423,14 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `result_of_free<MPtr,...>::type` is a /POD/ type.
 
 [heading Example]
-...
+[code_freed_begin]
 
 [heading See also]
 * ...
 
 [endsect]
+
+]
 
 
 
