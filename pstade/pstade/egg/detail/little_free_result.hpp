@@ -58,14 +58,14 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Result, class O BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     Result call(O& o BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a),
-        typename enable_if< is_convertible<O*, class_t const*> >::type = 0) const
+        typename enable_if< is_convertible<O&, class_t const&> >::type = 0) const
     {
         return (o.*m_ptr)(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }
 
     template<class Result, class O BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     Result call(O& o BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a),
-        typename disable_if<is_convertible<O*, class_t const*> >::type = 0) const
+        typename disable_if<is_convertible<O&, class_t const&> >::type = 0) const
     {
         PSTADE_EGG_GET_POINTER_PREAMBLE()
         return (get_pointer(o)->*m_ptr)(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));

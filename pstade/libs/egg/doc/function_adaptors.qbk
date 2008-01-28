@@ -364,7 +364,9 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(p, _Stg)` is an object of `result_of_free<_typeof(p), _Stg>::type` initialized using `p` or an initializer.
-* `b` is `a2,...,aN`.
+* `C` is class type which `_typeof(p)` belongs to.
+* `sa` is `s, a1,...,aN`.
+* `ta` is `t, a1,...,aN`.
 
 [heading Valid expressions]
 [table 
@@ -385,12 +387,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_FREE_L P PSTADE_EGG_FREE_R`]
     ]
     [
-        [`fc(p, _Stg)(a1,...,aN)`]
-        [`(a1.*p)(_safe_arg_list(b, _Stg))`]
+        [`fc(p, _Stg)(s, a1,...,aN)`]
+        [`(s.*p)(_safe_arg_list(sa, _Stg))`]
     ]
     [
-        [`fc(p, _Stg)(a1,...,aN)`]
-        [`(a1->*p)(_safe_arg_list(b, _Stg))`]
+        [`fc(p, _Stg)(t, a1,...,aN)`]
+        [`(t->*p)(_safe_arg_list(ta, _Stg))`]
     ]
     [
         [`X_free<_Stg = _default>`]
@@ -408,6 +410,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Preconditions]
 * `MPtr` is member function pointer type.
+* `s` is convertible to `C const&`.
+* `t` is not convertible to `C const&`.
 * There is a `p_` such that `Pco p_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
