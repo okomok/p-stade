@@ -37,15 +37,19 @@
 
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1500)
 
-    #define PSTADE_EGG_INLINE_WORKAROUND
-
     #include <boost/typeof/typeof.hpp>
 
     #if defined(BOOST_TYPEOF_EMULATION)
+        #define PSTADE_EGG_INLINE_GIVEUP
+        #include "./free.hpp"
         #include "./return.hpp"
     #else
-        #define PSTADE_EGG_INLINE_WORKAROUND_TYPEOF
+        #define PSTADE_EGG_INLINE_TYPEOF
     #endif
+
+#else
+
+    #define PSTADE_EGG_INLINE_COMPLIANT
 
 #endif
 
@@ -86,7 +90,28 @@ namespace pstade { namespace egg {
         F decay(F);
 
 
+#if defined(PSTADE_EGG_INLINE_GIVEUP)
+
+        template<class F, class Strategy>
+        struct adaptor :
+            boost::mpl::if_< boost::is_pointer<F>,
+                X_return<boost::use_default, Strategy>,
+                X_free<Strategy>
+            >
+        { };
+
+        template<class Strategy, class F> inline
+        typename result_of<typename adaptor<F, Strategy>::type(F&)>::type
+        adapt(F f)
+        {
+            return typename adaptor<F, Strategy>::type()(f);
+        }
+
+#endif
+
+
     } // namespace inline_detail
+
 
 
     template<class Strategy = by_perfect>
@@ -102,15 +127,21 @@ namespace pstade { namespace egg {
     PSTADE_POD_CONSTANT((T_inline_), inline_) = PSTADE_EGG_GENERATOR();
 
 
-#if !defined(PSTADE_EGG_INLINE_WORKAROUND)
+#if defined(PSTADE_EGG_INLINE_COMPLIANT)
+
     #define PSTADE_EGG_INLINE(F) pstade::egg::inline_(F).of< F >()
     #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_inline< Stg >()(F).of< F >()
-#elif defined(PSTADE_EGG_INLINE_WORKAROUND_TYPEOF)
+
+#elif defined(PSTADE_EGG_INLINE_TYPEOF)
+
     #define PSTADE_EGG_INLINE(F) pstade::egg::inlined<BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F>::type()
     #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::inlined<BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F, Stg>::type()
-#else
-    #define PSTADE_EGG_INLINE(F) (F)
-    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_return<boost::use_default, Stg>()(F)
+
+#elif defined(PSTADE_EGG_INLINE_GIVEUP)
+
+    #define PSTADE_EGG_INLINE(F) pstade::egg::inline_detail::adapt<pstade::egg::by_perfect>(F)
+    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::inline_detail::adapt< Stg >(F)
+
 #endif
 
 
