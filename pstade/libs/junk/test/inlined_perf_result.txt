@@ -1,0 +1,4 @@
+msvc-7.1 result = 0.01521120320.016
+msvc-8.0 result = 021120320.016
+msvc-7.1 result = 0 : 0.015
+msvc-8.0 result = 0 : 0.015
