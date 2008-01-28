@@ -16,28 +16,29 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/type_traits/is_pointer.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/result_of.hpp>
+#include <pstade/is_convertible.hpp>
 #include "../apply_decl.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "../forward.hpp"
+#include "./get_pointer_preamble.hpp"
+#include "./mem_fun_ptr_traits.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class MemPtr, class Strategy>
+    template<class MemFunPtr, class Strategy>
     struct little_free_result
     {
-        typedef typename result_of<MemPtr()>::type result_t;
+        typedef typename mem_fun_ptr_traits<MemFunPtr>::class_type class_t;
 
-        MemPtr m_ptr;
+        MemFunPtr m_ptr;
 
         template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
         struct apply
         {
-            typedef result_t type;
+            typedef typename mem_fun_ptr_traits<MemFunPtr>::result_type type;
         };
 
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
@@ -57,15 +58,17 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Result, class O BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     Result call(O& o BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a),
-        typename disable_if< boost::is_pointer<O> >::type = 0) const
+        typename enable_if< is_convertible<O*, class_t const*> >::type = 0) const
     {
         return (o.*m_ptr)(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }
 
     template<class Result, class O BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    Result call(O* o BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a)) const
+    Result call(O& o BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a),
+        typename disable_if<is_convertible<O*, class_t const*> >::type = 0) const
     {
-        return (o->*m_ptr)(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
+        PSTADE_EGG_GET_POINTER_PREAMBLE()
+        return (get_pointer(o)->*m_ptr)(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }
 
 

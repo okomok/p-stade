@@ -52,20 +52,11 @@ namespace pstade {
     namespace result_of_detail {
 
 
-    // Good compilers...
-
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
     // In result_of instantiation, remove_cv is needed for some reason.
     #define PSTADE_RESULT_OF_IS_POINTER(T) boost::is_pointer<typename boost::remove_cv<T>::type>
 #else
     #define PSTADE_RESULT_OF_IS_POINTER(T) boost::is_pointer<T>
-#endif
-
-#if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
-    // Seems to always fail.
-    #define PSTADE_RESULT_OF_IS_MEMBER_FUNCTION_POINTER(T) boost::is_member_function_pointer<typename boost::remove_cv<T>::type>
-#else
-    #define PSTADE_RESULT_OF_IS_MEMBER_FUNCTION_POINTER(T) boost::is_member_function_pointer<T>
 #endif
 
 
@@ -87,7 +78,7 @@ namespace pstade {
         template<class F>
         struct patch :
             boost::mpl::eval_if<
-                boost::mpl::or_< PSTADE_RESULT_OF_IS_POINTER(F), PSTADE_RESULT_OF_IS_MEMBER_FUNCTION_POINTER(F) >,
+                boost::mpl::or_< PSTADE_RESULT_OF_IS_POINTER(F), boost::is_member_function_pointer<F> >,
                 boost::remove_cv<F>,
 #if defined(PSTADE_RESULT_OF_MSVC_WORKAROUND)
                 msvc_identity<F>
@@ -98,46 +89,20 @@ namespace pstade {
         { };
 
 
-#if BOOST_VERSION < 103500
-
-        template<class F>
-        struct patch0
-        {
-            typedef F type;
-        };
-
-        template<class R, class T>
-        struct patch0<R (T::*)(void)>
-        {
-            typedef R (*type)();
-        };
-
-        template<class R, class T>
-        struct patch0<R (T::*)(void) const>
-        {
-            typedef R (*type)();
-        };
-
-        template<class R, class T>
-        struct patch0<R (T::*)(void) volatile>
-        {
-            typedef R (*type)();
-        };
-
-        template<class R, class T>
-        struct patch0<R (T::*)(void) const volatile>
-        {
-            typedef R (*type)();
-        };
-
-#endif
-
-
     } // namespace result_of_detail
 
 
+    // 0ary
+    template<class Fun>
+    struct result_of<Fun(void)> :
+        boost::result_of<
+            typename result_of_detail::patch<Fun>::type()
+        >
+    { };
+
+
     // 1ary-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <pstade/result_of.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_RESULT_OF_NUM_ARGS, <pstade/result_of.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -149,24 +114,11 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-#if n == 0
-    template<class Fun>
-    struct result_of<Fun(void)> :
-#else
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result_of<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
-#endif
-#if BOOST_VERSION < 103500
-        boost::result_of<
-            typename result_of_detail::patch0<
-                typename result_of_detail::patch<Fun>::type
-            >::type(BOOST_PP_ENUM_PARAMS(n, A))
-        >
-#else
         boost::result_of<
             typename result_of_detail::patch<Fun>::type(BOOST_PP_ENUM_PARAMS(n, A))
         >
-#endif
     { };
 
 

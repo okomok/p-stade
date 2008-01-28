@@ -22,11 +22,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class MemPtr, class Strategy = by_perfect>
+    template<class MemFunPtr, class Strategy = by_perfect>
     struct result_of_free
     {
         typedef
-            function<detail::little_free_result<MemPtr, Strategy>, Strategy>
+            function<detail::little_free_result<MemFunPtr, Strategy>, Strategy>
         type;
     };
 
