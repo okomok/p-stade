@@ -351,6 +351,80 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 
 
+[section free]
+
+[heading Description]
+`free` turns member function pointers to free functions.
+
+[heading Header]
+* `<pstade/egg/free.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `fc(p, _Stg)` is an object of `result_of_free<_typeof(p), _Stg>::type` initialized using `p` or an initializer.
+* `b` is `a2,...,aN`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_free<MPtr, _Stg = _default>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_FREE_L init PSTADE_EGG_FREE_R`]
+        [A braced initializer of `result_of_free<Pco,...>::type`]
+    ]
+    [
+        [`PSTADE_EGG_FREE(P)`]
+        [`PSTADE_EGG_FREE_L P PSTADE_EGG_FREE_R`]
+    ]
+    [
+        [`fc(p, _Stg)(a1,...,aN)`]
+        [`(a1.*p)(_safe_arg_list(b, _Stg))`]
+    ]
+    [
+        [`fc(p, _Stg)(a1,...,aN)`]
+        [`(a1->*p)(_safe_arg_list(b, _Stg))`]
+    ]
+    [
+        [`X_free<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_free<_Stg>()(p)`]
+        [`fc(p, _Stg)`]
+    ]
+    [
+        [`free`]
+        [`X_free<>()`]
+    ]
+]
+
+[heading Preconditions]
+* `MPtr` is member function pointer type.
+* There is a `p_` such that `Pco p_ = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `result_of_free<Pco,...>::type` is a /POD/ type if and only if `Pco` is a /POD/ type.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
 [section fuse]
 
 [heading Description]

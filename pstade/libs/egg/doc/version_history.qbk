@@ -66,6 +66,7 @@
 * `lazy` and `unfuse` takes no helper FunctionObjects.
 * `_M` macros removed.
 * `fix` documented.
+* `free` added.
 
 
 

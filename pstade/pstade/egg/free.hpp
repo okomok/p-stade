@@ -45,6 +45,8 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_free<>::function_type T_free;
+    PSTADE_POD_CONSTANT((T_free), free) = PSTADE_EGG_GENERATOR();
+
     typedef T_free T_free_;
     PSTADE_POD_CONSTANT((T_free_), free_) = PSTADE_EGG_GENERATOR();
 

@@ -53,4 +53,8 @@ void pstade_minimal_test()
         BOOST_CHECK( 2 == free_(&my::two)(y) );
         BOOST_CHECK( 2 == free_(&my::two)(&y) );
     }
+    {
+        BOOST_CHECK( 12 == egg::free(&my::plus)(y, 5, 7) );
+        BOOST_CHECK( 12 == egg::free(&my::plus)(&y, 5, 7) );
+    }
 }
