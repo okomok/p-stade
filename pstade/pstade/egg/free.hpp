@@ -30,6 +30,9 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/type_traits/remove_pointer.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
@@ -38,6 +41,7 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./construct_braced1.hpp"
 #include "./detail/free_call.hpp"
+#include "./detail/unref.hpp"
 #include "./generator.hpp"
 
 
@@ -64,30 +68,42 @@ namespace pstade { namespace egg {
                 return m_base;
             }
 
+            template<class U>
+            struct apply_ :
+                boost::mpl::eval_if< is_convertible<U, T const *>,
+                    affect<typename boost::remove_pointer<typename boost::remove_cv<U>::type>::type&, R>,
+                    boost::mpl::eval_if< is_convertible<U, T const &>,
+                        affect<U&, R>,
+                        boost::mpl::identity<R const&> // unknown
+                    >
+                >
+            { };
+
         // convertibles
-            R& operator()(T *p) const
+            typename apply_<T *>::type operator()(T *p) const
             {
                 return (p->*m_base);
             }
 
-            R const& operator()(T const *p) const
+            typename apply_<T const *>::type operator()(T const *p) const
             {
                 return (p->*m_base);
             }
 
-            R& operator()(T &t) const
+            typename apply_<T>::type operator()(T &t) const
             {
                 return (t.*m_base);
             }
 
-            R const& operator()(T const &t) const
+            typename apply_<T const>::type operator()(T const &t) const
             {
                 return (t.*m_base);
             }
 
         // unknown
             template<class U>
-            R const& operator()(U const& u, typename disable_if< is_convertible<U const&, T const&> >::type = 0) const
+            typename apply_<U const>::type operator()(U const& u,
+                typename disable_if< is_convertible<U const&, T const&> >::type = 0) const
             {
                 PSTADE_EGG_GET_POINTER_PREAMBLE()
                 return (get_pointer(u)->*m_base);
@@ -96,13 +112,10 @@ namespace pstade { namespace egg {
         // result_of support
             template<class Signature>
             struct result;
-
+            
             template<class Self, class U>
             struct result<Self(U)> :
-                boost::mpl::eval_if< boost::mpl::or_< is_convertible<U, T *>, is_convertible<U, T&> >,
-                    boost::mpl::identity<R&>,
-                    boost::mpl::identity<R const&>
-                >
+                apply_<typename detail::unref<by_perfect, U>::type>
             { };
 
             #include PSTADE_EGG_BLL_BINDABLE()

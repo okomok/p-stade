@@ -12,9 +12,9 @@
 
 
 #include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/preprocessor.hpp>
 
 
 #if !defined(PSTADE_UNUSED_MAX_ARITY)
@@ -29,7 +29,7 @@ namespace pstade {
     {
         typedef void result_type;
 
-        void operator()(PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_UNUSED_MAX_ARITY, dont_care BOOST_PP_INTERCEPT, = 0)) const
+        void operator()(BOOST_PP_ENUM_BINARY_PARAMS(PSTADE_UNUSED_MAX_ARITY, dont_care BOOST_PP_INTERCEPT, = 0 BOOST_PP_INTERCEPT)) const
         { }
     };
 
