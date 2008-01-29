@@ -11,7 +11,6 @@
 
 #include <pstade/egg/inlined.hpp>
 #include <pstade/egg/return.hpp>
-#include <pstade/egg/free.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -25,6 +24,14 @@ long plus(long x, long y)
 {
     return x + y;
 }
+
+
+template<class Ptr, Ptr ptr>
+struct wrap
+{
+    typedef Ptr result_type;
+    Ptr base() const { return ptr; }
+};
 
 
 long g_repeats = 100000000;
@@ -80,16 +87,15 @@ double test_static(long& k)
 }
 
 
-double test_free(long& k)
+double test_wrapped(long& k)
 {
-    static pstade::egg::result_of_free<long(*)(long, long)>::type const
-        freed_plus = PSTADE_EGG_FREE(&plus);
+    wrap<long (*)(long, long), &plus> wrapped = {};
 
     double measured = 0;
     {
         boost::timer t;
         for (long i = 0; i < g_repeats; ++i) {
-            k += boost::bind<long>(freed_plus, _1, i)(i);
+            k += boost::bind(wrapped.base(), _1, i)(i);
         }
 
         measured = t.elapsed();
@@ -98,18 +104,20 @@ double test_free(long& k)
     return measured;
 }
 
+
 int main()
 {
     long k  = 0;
     double m1 = ::test_pointer(k);
     double m2 = ::test_inlined(k);
     double m3 = ::test_static(k);
-    double m4 = ::test_free(k);
+    double m4 = ::test_wrapped(k);
 
     {
         std::stringstream sout;
         sout << BOOST_COMPILER << " result = "
-            << m1 << " : " << m2 << " : " << m3 << " : " << m4 << std::endl;
+            << m1 << " : " << m2 << " : "
+            << m3 << " : " << m4 << std::endl;
 
         std::cout << sout.str();
         std::ofstream fout("inlined_perf_result.txt", std::ios::out|std::ios::app);

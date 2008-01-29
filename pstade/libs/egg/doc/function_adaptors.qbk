@@ -4,7 +4,7 @@
 [import ../example/mono_lambda.cpp]
 [import ../example/adapted_to_comparison.cpp]
 [import ../example/unnamed_recursion.cpp]
-[import ../example/freed_begin.cpp]
+[import ../example/freed_prisoner.cpp]
 
 
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
@@ -353,12 +353,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 
 
-[/
-
 [section free]
 
 [heading Description]
-`free` turns member function pointers to free functions.
+`free` is akin to `boost::mem_fn`, which turns member pointers into __FUNCTION_OBJECT__.
 
 [heading Header]
 * `<pstade/egg/free.hpp>`
@@ -367,10 +365,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(p, _Stg)` is an object of `result_of_free<_typeof(p), _Stg>::type` initialized using `p` or an initializer.
+* `fc(p)` is an object of `result_of_free<_typeof(p)>::type` initialized using `p` or an initializer.
 * `C` is class type which `_typeof(p)` belongs to.
-* `sa` is `s,a1,...,aN`.
-* `ta` is `t,a1,...,aN`.
 
 [heading Valid expressions]
 [table 
@@ -379,7 +375,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_free<MPtr, _Stg = _default>::type`]
+        [`result_of_free<MPtr>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -391,31 +387,32 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_FREE_L P PSTADE_EGG_FREE_R`]
     ]
     [
-        [`fc(p, _Stg)(s,a1,...,aN)`]
-        [`(s.*p)(_safe_arg_list(sa, _Stg))`]
+        [`fc(p)(a1,...,aN)`]
+        [`(a1.*p)(a2,...,aN)`]
     ]
     [
-        [`fc(p, _Stg)(t,a1,...,aN)`]
-        [`(get_pointer(t)->*p)(_safe_arg_list(ta, _Stg))`]
+        [`fc(p)(b1,...,bN)`]
+        [`(get_pointer(b1)->*p)(b2,...,bN)`]
     ]
     [
-        [`X_free<_Stg = _default>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [`fc(p)(a1)`]
+        [`(a1.*p)`]
     ]
     [
-        [`X_free<_Stg>()(p)`]
-        [`fc(p, _Stg)`]
+        [`fc(p)(b1)`]
+        [`(get_pointer(b1)->*p)`]
     ]
     [
-        [`free`]
-        [`X_free<>()`]
+        [`free(p)`]
+        [`fc(p)`]
     ]
 ]
 
 [heading Preconditions]
-* `MPtr` is member function pointer type.
-* `s` is convertible to `C const&`.
-* `t` is not convertible to `C const&`.
+* `1 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `MPtr` is member pointer type.
+* `a1` is convertible to `C const&`.
+* `b1` is not convertible to `C const&`.
 * There is a `p_` such that `Pco p_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -423,14 +420,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `result_of_free<MPtr,...>::type` is a /POD/ type.
 
 [heading Example]
-[code_freed_begin]
+[code_freed_prisoner]
 
 [heading See also]
 * ...
 
 [endsect]
-
-]
 
 
 
