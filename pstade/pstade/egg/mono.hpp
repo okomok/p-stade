@@ -25,7 +25,6 @@
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./construct_braced1.hpp"
-#include "./function_fwd.hpp"
 #include "./generator.hpp"
 
 
@@ -51,9 +50,7 @@ namespace pstade { namespace egg {
     template<class Base, class Signature>
     struct result_of_mono
     {
-        typedef
-            mono_detail::result_<Base, Signature>
-        type;
+        typedef mono_detail::result_<Base, Signature> type;
     };
 
     #define PSTADE_EGG_MONO_L {
@@ -84,13 +81,19 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
+#if n == 0
+    #define args void
+#else
+    #define args BOOST_PP_ENUM_PARAMS(n, A)
+#endif
+
 
     template<class Base, class ResultType BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<Base, ResultType(BOOST_PP_ENUM_PARAMS(n, A))>
+    struct result_<Base, ResultType(args)>
     {
         typedef typename
             eval_if_use_default<ResultType,
-                result_of<Base const(BOOST_PP_ENUM_PARAMS(n, A))>
+                result_of<Base const(args)>
             >::type
         result_type;
 
@@ -114,6 +117,8 @@ namespace pstade { namespace egg {
         }
     };
 
+
+#undef  args
 
 #undef  n
 #endif

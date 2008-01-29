@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_FREE_HPP
 #define PSTADE_EGG_FREE_HPP
 #include "./detail/prefix.hpp"
@@ -11,40 +12,132 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] boost::bind
+// [2] boost::mem_fn
+
+
+#include <boost/implicit_cast.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/preprocessor/arithmetic/dec.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/type_traits/is_member_object_pointer.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./by_perfect.hpp"
+#include "./bll_bindable.hpp"
 #include "./by_value.hpp"
-#include "./construct_braced2.hpp"
-#include "./detail/little_free_result.hpp"
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./construct_braced1.hpp"
+#include "./detail/get_pointer_preamble.hpp"
 #include "./generator.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class MemFunPtr, class Strategy = by_perfect>
+    namespace free_detail {
+
+
+        template<class Base>
+        struct result_;
+
+
+        // data member pointer
+        template<class R, class T>
+        struct result_<R (T::*)>
+        {
+            typedef R (T::*base_type);
+
+            base_type m_base;
+
+            base_type const& base() const
+            {
+                return m_base;
+            }
+
+        // convertibles
+            R& operator()(T *p) const
+            {
+                return (p->*m_base);
+            }
+
+            R const& operator()(T const *p) const
+            {
+                return (p->*m_base);
+            }
+
+            R& operator()(T &t) const
+            {
+                return (t.*m_base);
+            }
+
+            R const& operator()(T const &t) const
+            {
+                return (t.*m_base);
+            }
+
+        // unknown
+            template<class U>
+            R const& operator()(U const& u) const
+            {
+                PSTADE_EGG_GET_POINTER_PREAMBLE()
+                return (get_pointer(u)->*m_base);
+            }
+
+        // result_of support
+            template<class Signature>
+            struct result;
+
+            template<class Self, class U>
+            struct result<Self(U)> :
+                boost::mpl::eval_if< boost::mpl::or_< is_convertible<U, T *>, is_convertible<U, T&> >,
+                    boost::mpl::identity<R&>,
+                    boost::mpl::identity<R const&>
+                >
+            { };
+
+            #include PSTADE_EGG_BLL_BINDABLE()
+        };
+
+
+        // 0ary- member function pointer
+    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
+    #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/free.hpp>))
+        #include BOOST_PP_ITERATE()
+    #undef  PSTADE_forward
+    #undef  PSTADE_max_arity
+
+
+    } // namespace free_detail
+
+
+    template<class Base>
     struct result_of_free
     {
-        typedef
-            function<detail::little_free_result<MemFunPtr, Strategy>, Strategy>
-        type;
+        typedef free_detail::result_<Base> type;
     };
 
-    #define PSTADE_EGG_FREE_L { {
-    #define PSTADE_EGG_FREE_R } }
-    #define PSTADE_EGG_FREE(P) PSTADE_EGG_FREE_L P PSTADE_EGG_FREE_R
+    #define PSTADE_EGG_FREE_L {
+    #define PSTADE_EGG_FREE_R }
+    #define PSTADE_EGG_FREE(F) PSTADE_EGG_FREE_L F PSTADE_EGG_FREE_R
 
 
-    template<class Strategy = by_perfect>
-    struct X_free :
+    typedef
         generator<
-            typename result_of_free<deduce<mpl_1, as_value>, Strategy>::type,
+            result_of_free< deduce<mpl_1, as_value> >::type,
             by_value,
-            X_construct_braced2<>
+            X_construct_braced1<>
         >::type
-    { };
+    T_free;
 
-    typedef X_free<>::function_type T_free;
     PSTADE_POD_CONSTANT((T_free), free) = PSTADE_EGG_GENERATOR();
 
     typedef T_free T_free_;
@@ -54,4 +147,47 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+#if n == 0
+    #define args void
+#else
+    #define args BOOST_PP_ENUM_PARAMS(n, A)
+#endif
+
+
+    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<ResultType (T::*)(args)>
+    {
+        typedef ResultType (T::*base_type)(args);
+        #include <pstade/egg/detail/free_mem_fun_include.hpp>
+    };
+
+    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<ResultType (T::*)(args) const>
+    {
+        typedef ResultType (T::*base_type)(args) const;
+        #include <pstade/egg/detail/free_mem_fun_include.hpp>
+    };
+
+    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<ResultType (T::*)(args) volatile>
+    {
+        typedef ResultType (T::*base_type)(args) volatile;
+        #include <pstade/egg/detail/free_mem_fun_include.hpp>
+    };
+
+    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<ResultType (T::*)(args) const volatile>
+    {
+        typedef ResultType (T::*base_type)(args) const volatile;
+        #include <pstade/egg/detail/free_mem_fun_include.hpp>
+    };
+
+
+#undef args
+
+#undef  n
 #endif
