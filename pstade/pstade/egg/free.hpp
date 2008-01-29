@@ -36,7 +36,6 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./construct_braced1.hpp"
 #include "./detail/free_call.hpp"
-#include "./detail/get_pointer_preamble.hpp"
 #include "./generator.hpp"
 
 
