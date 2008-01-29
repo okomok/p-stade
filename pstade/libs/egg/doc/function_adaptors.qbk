@@ -380,7 +380,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`PSTADE_EGG_FREE_L init PSTADE_EGG_FREE_R`]
-        [A braced initializer of `result_of_free<Pco,...>::type`]
+        [A braced initializer of `result_of_free<MemPtr>::type`]
     ]
     [
         [`PSTADE_EGG_FREE(P)`]
@@ -417,7 +417,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* `result_of_free<MPtr,...>::type` is a /POD/ type.
+* `result_of_free<MPtr>::type` is a /POD/ type.
 
 [heading Example]
 [code_freed_prisoner]
