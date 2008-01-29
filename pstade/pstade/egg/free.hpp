@@ -22,14 +22,16 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./bll_bindable.hpp"
 #include "./by_value.hpp"
@@ -50,6 +52,8 @@ namespace pstade { namespace egg {
 
 
         // data member pointer
+        //
+
         template<class R, class T>
         struct result_<R (T::*)>
         {
@@ -107,13 +111,11 @@ namespace pstade { namespace egg {
         };
 
 
-        // 0ary- member function pointer
-    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
+        // 0ary-
     #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/free.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_forward
-    #undef  PSTADE_max_arity
 
 
     } // namespace free_detail
@@ -158,6 +160,11 @@ namespace pstade { namespace egg {
 #endif
 
 
+    // member function pointers
+    //
+
+#if n != PSTADE_EGG_MAX_LINEAR_ARITY
+
     #define  cv_qualifier
     #include <pstade/egg/detail/free_mem_fun_include.hpp>
 
@@ -169,6 +176,39 @@ namespace pstade { namespace egg {
 
     #define  cv_qualifier const volatile
     #include <pstade/egg/detail/free_mem_fun_include.hpp>
+
+#endif
+
+
+    // function pointers
+    //
+
+    template<class ResultType BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<ResultType (*)(args)>
+    {
+        typedef ResultType (*base_type)(args);
+
+        typedef ResultType result_type;
+
+#if n == 1
+        typedef typename plain<A0>::type argument_type;
+#elif n == 2
+        typedef typename plain<A0>::type first_argument_type;
+        typedef typename plain<A1>::type second_argument_type;
+#endif
+
+        base_type m_base;
+
+        base_type const& base() const
+        {
+            return m_base;
+        }
+
+        result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
+        {
+            return m_base(BOOST_PP_ENUM_PARAMS(n, a));
+        }
+    };
 
 
 #undef args
