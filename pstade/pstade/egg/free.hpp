@@ -211,7 +211,7 @@ namespace pstade { namespace egg {
     };
 
 
-#undef args
+#undef  args
 
 #undef  n
 #endif
