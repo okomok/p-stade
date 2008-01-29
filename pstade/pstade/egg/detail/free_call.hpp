@@ -16,9 +16,6 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <pstade/preprocessor.hpp>
-#include <pstade/result_of.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./get_pointer_preamble.hpp"
 
@@ -38,13 +35,13 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class To, class Result, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
+    template<class Result, class To, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
     Result free_call_aux(Ptr ptr, From& from, To const *    BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a))
     {
         return (from.*ptr)(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
-    template<class To, class Result, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
+    template<class Result, class To, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
     Result free_call_aux( Ptr ptr, From& from, void const * BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a))
     {
         PSTADE_EGG_GET_POINTER_PREAMBLE()
@@ -52,10 +49,10 @@ namespace pstade { namespace egg { namespace detail {
     }
 
 
-    template<class To, class Result, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
+    template<class Result, class To, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
     Result free_call(Ptr ptr, From& from BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a))
     {
-        return detail::free_call_aux<To, Result>(ptr, from, &from BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return detail::free_call_aux<Result, To>(ptr, from, &from BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 
