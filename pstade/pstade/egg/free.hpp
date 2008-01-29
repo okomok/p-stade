@@ -29,6 +29,7 @@
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/is_member_object_pointer.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./bll_bindable.hpp"
@@ -85,7 +86,7 @@ namespace pstade { namespace egg {
 
         // unknown
             template<class U>
-            R const& operator()(U const& u) const
+            R const& operator()(U const& u, typename disable_if< is_convertible<U const&, T const&> >::type = 0) const
             {
                 PSTADE_EGG_GET_POINTER_PREAMBLE()
                 return (get_pointer(u)->*m_base);
