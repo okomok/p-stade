@@ -380,7 +380,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`PSTADE_EGG_FREE_L init PSTADE_EGG_FREE_R`]
-        [A braced initializer of `result_of_free<MemPtr>::type`]
+        [A braced initializer of `result_of_free<MPtr>::type`]
     ]
     [
         [`PSTADE_EGG_FREE(P)`]
