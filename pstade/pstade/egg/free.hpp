@@ -35,6 +35,7 @@
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./construct_braced1.hpp"
+#include "./detail/free_call.hpp"
 #include "./detail/get_pointer_preamble.hpp"
 #include "./generator.hpp"
 
@@ -158,33 +159,17 @@ namespace pstade { namespace egg {
 #endif
 
 
-    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<ResultType (T::*)(args)>
-    {
-        typedef ResultType (T::*base_type)(args);
-        #include <pstade/egg/detail/free_mem_fun_include.hpp>
-    };
+    #define  cv_qualifier
+    #include <pstade/egg/detail/free_mem_fun_include.hpp>
 
-    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<ResultType (T::*)(args) const>
-    {
-        typedef ResultType (T::*base_type)(args) const;
-        #include <pstade/egg/detail/free_mem_fun_include.hpp>
-    };
+    #define  cv_qualifier const
+    #include <pstade/egg/detail/free_mem_fun_include.hpp>
 
-    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<ResultType (T::*)(args) volatile>
-    {
-        typedef ResultType (T::*base_type)(args) volatile;
-        #include <pstade/egg/detail/free_mem_fun_include.hpp>
-    };
+    #define  cv_qualifier volatile
+    #include <pstade/egg/detail/free_mem_fun_include.hpp>
 
-    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<ResultType (T::*)(args) const volatile>
-    {
-        typedef ResultType (T::*base_type)(args) const volatile;
-        #include <pstade/egg/detail/free_mem_fun_include.hpp>
-    };
+    #define  cv_qualifier const volatile
+    #include <pstade/egg/detail/free_mem_fun_include.hpp>
 
 
 #undef args

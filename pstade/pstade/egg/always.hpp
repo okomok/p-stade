@@ -21,8 +21,8 @@
 #include "./by_cref.hpp"
 #include "./by_perfect.hpp"
 #include "./construct_braced1.hpp"
-#include "./detail/dont_cares.hpp"
 #include "./detail/bound.hpp"
+#include "./detail/dont_cares.hpp"
 #include "./generator.hpp"
 
 

@@ -8,37 +8,37 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-    typedef ResultType result_type;
+#if !defined(cv_qualifier)
+    #error Please define cv_qualifier.
+#endif
 
-    base_type m_base;
 
-    base_type const& base() const
+    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<ResultType (T::*)(args) cv_qualifier>
     {
-        return m_base;
-    }
+        typedef ResultType (T::*base_type)(args) cv_qualifier;
 
-    template<class U>
-    result_type operator()(U const& u BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
-    {
-        return call_aux(u, &u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
-    }
+        typedef ResultType result_type;
 
-    template<class U>
-    result_type operator()(U& u BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
-    {
-        return call_aux(u, &u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
-    }
+        base_type m_base;
 
-    template<class U>
-    result_type call_aux(U& u, T const * BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
-    {
-        return (u.*m_base)(BOOST_PP_ENUM(n, PSTADE_forward, ~));
-    }
+        base_type const& base() const
+        {
+            return m_base;
+        }
 
-    template<class U>
-    result_type call_aux(U& u, void const * BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
-    {
-        PSTADE_EGG_GET_POINTER_PREAMBLE()
-        return (get_pointer(u)->*m_base)(BOOST_PP_ENUM(n, PSTADE_forward, ~));
-    }
+        template<class U>
+        result_type operator()(U& u BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
+        {
+            return detail::free_call<T, result_type>(m_base, u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        }
 
+        template<class U>
+        result_type operator()(U const& u BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
+        {
+            return detail::free_call<T, result_type>(m_base, u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        }
+    };
+
+
+#undef  cv_qualifier
