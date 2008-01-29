@@ -1,1 +1,6 @@
 GNU C++ version 4.1.2 result = 0.015 : 0.016
+GNU C++ version 4.1.2 result = 0 : 0.016
+Microsoft Visual C++ version 7.1 result = 0 : 0.015
+Microsoft Visual C++ version 8.0 result = 0.015 : 0.016
+Microsoft Visual C++ version 1500 result = 0.015 : 0
+GNU C++ version 3.4.4 (mingw special) result = 0 : 0.015
