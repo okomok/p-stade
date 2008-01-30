@@ -29,6 +29,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/boost_workaround.hpp>
 #include <pstade/dont_care.hpp>
@@ -36,6 +37,7 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
+#include "./detail/free_call.hpp"
 #include "./generator.hpp"
 
 
@@ -179,13 +181,11 @@ namespace pstade { namespace egg {
     };
 
 
-#if 0
-
-
     // member function pointers
     //
 
 #if n != PSTADE_EGG_MAX_LINEAR_ARITY
+
     #define  cv_qualifier
     #include <pstade/egg/detail/inlined_mem_fun_include.hpp>
 
@@ -197,7 +197,6 @@ namespace pstade { namespace egg {
 
     #define  cv_qualifier const volatile
     #include <pstade/egg/detail/inlined_mem_fun_include.hpp>
-#endif
 
 #endif
 

@@ -31,13 +31,13 @@
         template<class U>
         result_type operator()(U& u BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
         {
-            return detail::free_call<result_type, T>(m_wrap.base, u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+            return detail::free_call<R, T>(m_wrap.base, u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
         }
 
         template<class U>
         result_type operator()(U const& u BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, a)) const
         {
-            return detail::free_call<result_type, T>(m_wrap.base, u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+            return detail::free_call<R, T>(m_wrap.base, u BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
         }
     };
 
