@@ -24,7 +24,7 @@
 using namespace pstade::egg;
 
 
-//[code_deduced_form_example
+//[code_use_deduced_result_example
 struct little_foo
 {
     /*<< Egg turns on the workaround if nested `use_deduced_result` is found. >>*/
