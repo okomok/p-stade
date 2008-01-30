@@ -16,6 +16,7 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <string>
 
 
 using pstade::result_of;
@@ -50,8 +51,9 @@ void test_builder()
 
     // Boost.Lambda compatible
     namespace bll = boost::lambda;
-    int one = 1;
-    BOOST_CHECK(3 == bll::bind(plus, bll::_1, 2)(one));
+    using std::string;
+    string one("1");
+    BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one));
 }
 
 // Static initialization which incurs no runtime overhead.
