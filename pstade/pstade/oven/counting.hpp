@@ -79,7 +79,7 @@ namespace counting_detail {
     template< class Traversal, class Difference >
     struct little
     {
-        typedef little egg::use_deduced_result;
+        typedef little use_deduced_result;
 
         template< class Myself, class Incrementable1, class Incrementable2 >
         struct apply

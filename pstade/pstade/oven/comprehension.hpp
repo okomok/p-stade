@@ -342,7 +342,7 @@ namespace always_return_detail {
 
     struct little
     {
-        typedef little egg::use_deduced_result;
+        typedef little use_deduced_result;
 
         template< class Myself, class Range >
         struct apply

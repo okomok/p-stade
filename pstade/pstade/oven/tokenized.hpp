@@ -32,7 +32,7 @@ namespace tokenized_detail {
     template< class CharT, class Traits >
     struct little
     {
-        typedef little egg::use_deduced_result;
+        typedef little use_deduced_result;
 
         template< class Myself, class Range, class Regex, class IntOrRandRange = void, class Flag  = void >
         struct apply
