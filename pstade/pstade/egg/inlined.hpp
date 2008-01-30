@@ -95,8 +95,8 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class Ptr>
-        Ptr decay(Ptr);
+        template<class T>
+        T decay(T);
 
 
 #if defined(PSTADE_EGG_INLINE_GIVEUP)
