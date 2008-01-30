@@ -32,7 +32,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Base, class ResultType, class Strategy, class Tag>
+    template<class Base, class Return, class Strategy, class Tag>
     struct little_return_result
     {
         typedef Tag tag_type;
@@ -46,7 +46,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            eval_if_use_default< ResultType, result_of<Base const()> >::type
+            eval_if_use_default< Return, result_of<Base const()> >::type
         nullary_result_type;
 
         template<class Result>
@@ -75,7 +75,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
         eval_if_use_default<
-            ResultType,
+            Return,
             result_of<Base const(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
         >
     { };

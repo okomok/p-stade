@@ -98,12 +98,12 @@ namespace pstade { namespace egg {
     namespace BOOST_PP_CAT(name, _detail) {
 
 
-        template<class ResultType>
+        template<class Return>
         struct little
         {
             template<class Myself, class A1, class A2>
             struct apply :
-                eval_if_use_default<ResultType,
+                eval_if_use_default<Return,
                     boost::lambda::return_type_2<act, A1, A2>
                 >
             { };
@@ -119,9 +119,9 @@ namespace pstade { namespace egg {
     } // namespace BOOST_PP_CAT(name, _detail)
 
 
-    template<class ResultType = boost::use_default, class Strategy = by_perfect>
+    template<class Return = boost::use_default, class Strategy = by_perfect>
     struct BOOST_PP_CAT(X_, name) :
-        function<BOOST_PP_CAT(name, _detail)::little<ResultType>, Strategy>
+        function<BOOST_PP_CAT(name, _detail)::little<Return>, Strategy>
     { };
 
 PSTADE_ADL_BARRIER(functional2) {

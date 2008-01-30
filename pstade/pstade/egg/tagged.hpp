@@ -13,7 +13,9 @@
 
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/result_of.hpp>
+#include "./detail/unspecified.hpp"
 #include "./return.hpp"
 
 
@@ -42,34 +44,29 @@ namespace pstade { namespace egg {
     }
 
 
-    struct no_tag_tag;
+    namespace tag_of_detail {
+
+
+        template<class F>
+        struct aux_
+        {
+            typedef unspecified type;
+        };
+
+        template<class Base, class Return, class Strategy, class Tag>
+        struct aux_< function<detail::little_return_result<Base, Return, Strategy, Tag>, Strategy> >
+        {
+            typedef Tag type;
+        };
+
+
+    } // namespace tag_of_detail
+
 
     template<class F>
-    struct tag_of
-    {
-        typedef no_tag_tag type;
-    };
-
-    template<class F>
-    struct tag_of<F const> :
-        tag_of<F>
+    struct tag_of :
+        tag_of_detail::aux_<typename boost::remove_cv<F>::type>
     { };
-
-    template<class F>
-    struct tag_of<F volatile> :
-        tag_of<F>
-    { };
-
-    template<class F>
-    struct tag_of<F const volatile> :
-        tag_of<F>
-    { };
-
-    template<class Base, class ResultType, class Strategy, class Tag>
-    struct tag_of< function<detail::little_return_result<Base, ResultType, Strategy, Tag>, Strategy> >
-    {
-        typedef Tag type;
-    };
 
 
     template<class F, class Tag>

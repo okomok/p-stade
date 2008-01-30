@@ -24,14 +24,14 @@ namespace pstade { namespace egg {
 
     template<
         class Base,
-        class ResultType = boost::use_default,
-        class Strategy   = by_perfect,
-        class Tag        = boost::use_default
+        class Return   = boost::use_default,
+        class Strategy = by_perfect,
+        class Tag      = boost::use_default
     >
     struct result_of_return
     {
         typedef
-            function<detail::little_return_result<Base, ResultType, Strategy, Tag>, Strategy>
+            function<detail::little_return_result<Base, Return, Strategy, Tag>, Strategy>
         type;
     };
 
@@ -41,22 +41,22 @@ namespace pstade { namespace egg {
 
 
     template<
-        class ResultType = boost::use_default,
-        class Strategy   = by_perfect,
-        class Tag        = boost::use_default
+        class Return   = boost::use_default,
+        class Strategy = by_perfect,
+        class Tag      = boost::use_default
     >
     struct X_return :
         generator<
-            typename result_of_return<deduce<mpl_1, as_value>, ResultType, Strategy, Tag>::type,
+            typename result_of_return<deduce<mpl_1, as_value>, Return, Strategy, Tag>::type,
             by_value,
             X_construct_braced2<>
         >::type
     { };
 
-    template<class ResultType, class Base> inline
-    typename result_of<X_return<ResultType>(Base&)>::type return_(Base base)
+    template<class Return, class Base> inline
+    typename result_of<X_return<Return>(Base&)>::type return_(Base base)
     {
-        return X_return<ResultType>()(base);
+        return X_return<Return>()(base);
     }
 
 
