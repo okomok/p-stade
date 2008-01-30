@@ -88,21 +88,14 @@ namespace pstade { namespace egg {
 #endif
 
 
-    template<class Base, class ResultType BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<Base, ResultType(args)>
+    template<class Base, class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<Base, R(args)>
     {
         typedef typename
-            eval_if_use_default<ResultType,
+            eval_if_use_default<R,
                 result_of<Base const(args)>
             >::type
         result_type;
-
-#if n == 1
-        typedef typename plain<A0>::type argument_type;
-#elif n == 2
-        typedef typename plain<A0>::type first_argument_type;
-        typedef typename plain<A1>::type second_argument_type;
-#endif
 
         Base m_base;
 
@@ -115,6 +108,13 @@ namespace pstade { namespace egg {
         {
             return m_base(BOOST_PP_ENUM(n, PSTADE_forward, ~));
         }
+
+#if n == 1
+        typedef typename plain<A0>::type argument_type;
+#elif n == 2
+        typedef typename plain<A0>::type first_argument_type;
+        typedef typename plain<A1>::type second_argument_type;
+#endif
     };
 
 

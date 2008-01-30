@@ -39,7 +39,6 @@ void test_tpl()
 
 #if 0 // Only msvc-9.0 works.
     BOOST_CHECK( PSTADE_EGG_INLINE(ptr)(3) == 9 );
-    BOOST_CHECK( PSTADE_EGG_INLINE_BY(ptr, pstade::egg::by_value)(3) == 9 );
 #endif
 }
 
@@ -52,13 +51,10 @@ void pstade_minimal_test()
    //     BOOST_CHECK( inline_(&square).of<&square>()(3) == 9 );
 
         BOOST_CHECK( PSTADE_EGG_INLINE(&square)(3) == 9 );
-        BOOST_CHECK( PSTADE_EGG_INLINE_BY(&square, pstade::egg::by_value)(3) == 9 );
 
         BOOST_CHECK( PSTADE_EGG_INLINE(square)(3) == 9 );
-        BOOST_CHECK( PSTADE_EGG_INLINE_BY(square, pstade::egg::by_value)(3) == 9 );
 
         BOOST_CHECK( PSTADE_EGG_INLINE(::square)(3) == 9 );
-        BOOST_CHECK( PSTADE_EGG_INLINE_BY(::square, pstade::egg::by_value)(3) == 9 );
 
 #if 0 // gcc-4.1 doesn't work.
         BOOST_CHECK( rinsquare(3) == 9 );

@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_INLINED_HPP
 #define PSTADE_EGG_INLINED_HPP
 #include "./detail/prefix.hpp"
@@ -24,25 +25,32 @@
 
 
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_pointer.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/boost_workaround.hpp>
 #include <pstade/dont_care.hpp>
+#include <pstade/plain.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./detail/little_inlined.hpp"
-#include "./detail/little_inlined_mem.hpp"
-#include "./by_perfect.hpp"
 #include "./by_value.hpp"
+#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./generator.hpp"
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1500)
 
+    // Fortunately, typeof is native when BOOST_MSVC < 1500.
     #include <boost/typeof/typeof.hpp>
 
     #if defined(BOOST_TYPEOF_EMULATION)
-        #define PSTADE_EGG_INLINE_GIVEUP
+        #include <boost/mpl/identity.hpp>
+        #include <boost/type_traits/is_pointer.hpp>
+        #include <pstade/enable_if.hpp>
+        #include <pstade/result_of.hpp>
         #include "./free.hpp"
-        #include "./return.hpp"
+        #define PSTADE_EGG_INLINE_GIVEUP
     #else
         #define PSTADE_EGG_INLINE_TYPEOF
     #endif
@@ -57,27 +65,26 @@
 namespace pstade { namespace egg {
 
 
-    template<class Ptr, Ptr ptr, class Strategy = by_perfect>
-    struct inlined :
-        boost::mpl::if_< boost::is_pointer<Ptr>,
-            function<detail::little_inlined<Ptr, ptr, Strategy>, Strategy>,
-            function<detail::little_inlined_mem<Ptr, ptr, Strategy>, Strategy>
-        >
-    { };
+    template<class Ptr, Ptr ptr>
+    struct inlined;
 
-    #define PSTADE_EGG_INLINED() {{}}
+    #define PSTADE_EGG_INLINED() {}
+
+
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/inlined.hpp>))
+    #include BOOST_PP_ITERATE()
 
 
     namespace inline_detail {
 
 
-        template<class Ptr, class Strategy>
+        template<class Ptr>
         struct result_
         {
             template<Ptr ptr>
-            typename inlined<Ptr, ptr, Strategy>::type of() const
+            typename inlined<Ptr, ptr>::type of() const
             {
-                typename inlined<Ptr, ptr, Strategy>::type r = PSTADE_EGG_INLINED();
+                typename inlined<Ptr, ptr>::type r = PSTADE_EGG_INLINED();
                 return r;
             }
 
@@ -86,25 +93,26 @@ namespace pstade { namespace egg {
         };
 
 
-        template<class F>
-        F decay(F);
+        template<class Ptr>
+        Ptr decay(Ptr);
 
 
 #if defined(PSTADE_EGG_INLINE_GIVEUP)
 
-        template<class F, class Strategy>
-        struct adaptor :
-            boost::mpl::if_< boost::is_pointer<F>,
-                X_return<boost::use_default, Strategy>,
-                X_free<Strategy>
-            >
-        { };
-
-        template<class Strategy, class F> inline
-        typename result_of<typename adaptor<F, Strategy>::type(F&)>::type
-        adapt(F f)
+        // function pointers
+        template<class Ptr> inline
+        typename lazy_enable_if< boost::is_pointer<Ptr>, boost::mpl::identity<Ptr> >::type
+        adapt(Ptr ptr)
         {
-            return typename adaptor<F, Strategy>::type()(f);
+            return ptr;
+        }
+
+        // member function pointers
+        template<class Ptr> inline
+        typename lazy_disable_if<boost::is_pointer<Ptr>, result_of<T_free(Ptr&)> >::type
+        adapt(Ptr ptr)
+        {
+            return free(ptr);
         }
 
 #endif
@@ -113,39 +121,88 @@ namespace pstade { namespace egg {
     } // namespace inline_detail
 
 
-
-    template<class Strategy = by_perfect>
-    struct X_inline :
+    typedef
         generator<
-            inline_detail::result_<deduce<mpl_1, as_value>, Strategy>,
+            inline_detail::result_< deduce<mpl_1, as_value> >,
             by_value
         >::type
-    { };
+    T_inline;
 
-    typedef X_inline<>::function_type T_inline;
     typedef T_inline T_inline_;
     PSTADE_POD_CONSTANT((T_inline_), inline_) = PSTADE_EGG_GENERATOR();
 
 
 #if defined(PSTADE_EGG_INLINE_COMPLIANT)
-
-    #define PSTADE_EGG_INLINE(F) pstade::egg::inline_(F).of< F >()
-    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::X_inline< Stg >()(F).of< F >()
-
+    #define PSTADE_EGG_INLINE(Ptr) pstade::egg::inline_(Ptr).of< Ptr >()
 #elif defined(PSTADE_EGG_INLINE_TYPEOF)
-
-    #define PSTADE_EGG_INLINE(F) pstade::egg::inlined<BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F>::type()
-    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::inlined<BOOST_TYPEOF(pstade::egg::inline_detail::decay(F)), F, Stg>::type()
-
+    #define PSTADE_EGG_INLINE(Ptr) pstade::egg::inlined<BOOST_TYPEOF(pstade::egg::inline_detail::decay(Ptr)), Ptr>::type()
 #elif defined(PSTADE_EGG_INLINE_GIVEUP)
-
-    #define PSTADE_EGG_INLINE(F) pstade::egg::inline_detail::adapt<pstade::egg::by_perfect>(F)
-    #define PSTADE_EGG_INLINE_BY(F, Stg) pstade::egg::inline_detail::adapt< Stg >(F)
-
+    #define PSTADE_EGG_INLINE(Ptr) pstade::egg::inline_detail::adapt(Ptr)
 #endif
 
 
 } } // namespace pstade::egg
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+#if n == 0
+    #define args void
+#else
+    #define args BOOST_PP_ENUM_PARAMS(n, A)
+#endif
+
+
+    // function pointers
+    //
+
+    template<class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A), R (*ptr)(args)>
+    struct inlined<R (*)(args), ptr>
+    {
+        typedef inlined type;
+
+        typedef R result_type;
+
+        result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
+        {
+            return ptr(BOOST_PP_ENUM_PARAMS(n, a));
+        }
+
+#if n == 1
+        typedef typename plain<A0>::type argument_type;
+#elif n == 2
+        typedef typename plain<A0>::type first_argument_type;
+        typedef typename plain<A1>::type second_argument_type;
+#endif
+    };
+
+
+#if 0
+
+
+    // member function pointers
+    //
+
+#if n != PSTADE_EGG_MAX_LINEAR_ARITY
+    #define  cv_qualifier
+    #include <pstade/egg/detail/inlined_mem_fun_include.hpp>
+
+    #define  cv_qualifier const
+    #include <pstade/egg/detail/inlined_mem_fun_include.hpp>
+
+    #define  cv_qualifier volatile
+    #include <pstade/egg/detail/inlined_mem_fun_include.hpp>
+
+    #define  cv_qualifier const volatile
+    #include <pstade/egg/detail/inlined_mem_fun_include.hpp>
+#endif
+
+#endif
+
+
+#undef  args
+
+#undef  n
 #endif

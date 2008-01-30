@@ -13,17 +13,17 @@
 #endif
 
 
-    template<class ResultType, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<ResultType (T::*)(args) cv_qualifier>
+    template<class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_of_free<R (T::*)(args) cv_qualifier>
     {
-        typedef result_ type_;
+        typedef result_of_free type;
 
-        typedef ResultType (T::*base_type)(args) cv_qualifier;
-        typedef ResultType result_type;
+        typedef R result_type;
+        typedef R (T::*base_t)(args) cv_qualifier;
 
-        wrap<base_type> m_wrap;
+        detail::wrap<base_t> m_wrap;
 
-        base_type const& base() const
+        base_t const& base() const
         {
             return m_wrap.base;
         }
