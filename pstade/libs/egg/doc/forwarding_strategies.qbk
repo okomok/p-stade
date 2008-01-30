@@ -293,7 +293,7 @@ Egg performs the "perfect forwarding" by default.
 
 
 
-[section Deducing nullary return types]
+[section Determining nullary return types]
 
 [heading Description]
 C++ instantiates the declarations of non-dependent member function templates, so that
@@ -301,12 +301,17 @@ some __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__ require a special w
 Here an imaginary operator is defined for the documentation.
 
 [heading Valid expressions and semantics]
-* `_deduce_r0(R0, expr)` is defined by the following:
+* `_decltype_r0(R0, expr)` is defined by the following:
     * If `R0` is `_default`, it is a valid expression and returns an unspecified type .
     * If `R0` is `use_nullary_result`,
         * If `_decltype(expr)` is a valid expression, it is a valid expression and returns `_decltype(expr)`.
         * Otherwise, it is not a valid expression.
     * Otherwise, `R0`.
+
+[note __BOOST_RESULT_OF__ too offers a special workaround:
+      A nullary callable __FUNCTION_OBJECT__ must specialize `result_of` template explicitly.
+      `result_of<..>::type` is `void` otherwise.
+      Unfortunately, that isn't generic workaround. Consider `f(g(), h())` such that `f` isn't a 2ary function. ]
 
 [heading See also]
 * __BOOST_RESULT_OF__

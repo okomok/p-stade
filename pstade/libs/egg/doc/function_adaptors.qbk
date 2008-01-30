@@ -145,7 +145,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `0 <= N && N <= _TUPLE_MAX_SIZE`.
 * There is a `d1_` and `d2_` such that `_Dco1 d1_ = init1; _Dco2 d2_ = init2;` is a valid expression.
 * The corresponding expression is a valid expression.
-* `_deduce_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
+* `_decltype_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
 
 [note The last precondition means that `fc(d1, d2, R0, _Stg)` is NOT nullary-callable if `R0` is `_default`. ]
 
@@ -156,7 +156,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ...
 
 [heading See also]
-* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
+* __EGG_DETERMINING_NULLARY_RETURN_TYPES__
 
 [endsect]
 
@@ -550,7 +550,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
-* `_deduce_r0(R0, d(boost::fusion::vector<>())` is a valid expression which specifies the nullary return type.
+* `_decltype_r0(R0, d(boost::fusion::vector<>())` is a valid expression which specifies the nullary return type.
 
 [heading Invariants]
 * `result_of_unfuse<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
@@ -559,7 +559,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ...
 
 [heading See also]
-* __EGG_DEDUCING_NULLARY_RETURN_TYPES__
+* __EGG_DETERMINING_NULLARY_RETURN_TYPES__
 * __BOOST_FUSION_FUNCTIONAL__
 * __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
