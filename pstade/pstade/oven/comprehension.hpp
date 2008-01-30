@@ -31,8 +31,8 @@
 #include <pstade/egg/bll/bind.hpp>
 #include <pstade/egg/bll/placeholders.hpp>
 #include <pstade/egg/bll/unlambda.hpp>
-#include <pstade/egg/deduced_form.hpp>
 #include <pstade/egg/generator.hpp>
+#include <pstade/egg/use_deduced_result.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -342,7 +342,7 @@ namespace always_return_detail {
 
     struct little
     {
-        typedef egg::deduced_form call_strategy;
+        typedef little egg::use_deduced_result;
 
         template< class Myself, class Range >
         struct apply

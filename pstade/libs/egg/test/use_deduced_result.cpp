@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/deduced_form.hpp>
+#include <pstade/egg/use_deduced_result.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -27,8 +27,8 @@ using namespace pstade::egg;
 //[code_deduced_form_example
 struct little_foo
 {
-    /*<< This enables the workaround. >>*/
-    typedef deduced_form call_strategy;
+    /*<< Egg turns on the workaround if nested `use_deduced_result` is found. >>*/
+    typedef little_foo use_deduced_result;
 
     template<class Myself, class A1>
     struct apply
@@ -57,7 +57,7 @@ typedef function<little_foo, by_cref> T_crfoo;
 
 struct little_vfoo
 {
-    typedef deduced_form call_strategy;
+    typedef little_vfoo use_deduced_result;
 
     template<class Myself, class A1>
     struct apply
@@ -83,7 +83,7 @@ typedef function<little_vfoo, by_value> T_vfoo;
 struct T_foo_ :
     function_facade<T_foo_>
 {
-    typedef deduced_form call_strategy;
+    typedef T_foo_ use_deduced_result;
 
     template<class Myself, class A1>
     struct apply

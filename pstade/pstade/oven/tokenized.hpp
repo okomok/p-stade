@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/regex.hpp>
-#include <pstade/egg/deduced_form.hpp>
+#include <pstade/egg/use_deduced_result.hpp>
 #include <pstade/use_default.hpp>
 #include "./iter_range.hpp"
 #include "./concepts.hpp"
@@ -32,7 +32,7 @@ namespace tokenized_detail {
     template< class CharT, class Traits >
     struct little
     {
-        typedef egg::deduced_form call_strategy;
+        typedef little egg::use_deduced_result;
 
         template< class Myself, class Range, class Regex, class IntOrRandRange = void, class Flag  = void >
         struct apply

@@ -17,7 +17,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/deduced_form.hpp> // check it.
+#include <pstade/egg/use_deduced_result.hpp> // check it.
 
 
 #include <boost/utility/addressof.hpp>

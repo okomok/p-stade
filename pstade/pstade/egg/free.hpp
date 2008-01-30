@@ -36,10 +36,10 @@
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./deduced_form.hpp"
 #include "./detail/free_call.hpp"
 #include "./detail/get_pointer_preamble.hpp"
 #include "./detail/wrap.hpp"
+#include "./use_deduced_result.hpp"
 
 
 namespace pstade { namespace egg {
@@ -70,7 +70,7 @@ namespace pstade { namespace egg {
             return m_base;
         }
 
-        typedef deduced_form call_strategy;
+        typedef result_of_free use_deduced_result;
 
         template<class Myself, class U>
         struct apply :

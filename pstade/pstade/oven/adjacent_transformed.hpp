@@ -135,7 +135,7 @@ namespace adjacent_transformed_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(!boost::empty(rng));
 
-            // gcc needs a type envelope; see <pstade/egg/deduced_form.hpp>.
+            // gcc needs a type envelope; see <pstade/egg/use_deduced_result.hpp>.
             return call_aux(rng, fun, typename range_traversal<Range>::type(), boost::type<Result>());
         }
 

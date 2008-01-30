@@ -16,7 +16,7 @@
 #include <pstade/egg/const.hpp>
 #include <pstade/egg/make_function.hpp>
 #include <sstream>
-#include <pstade/egg/deduced_form.hpp>
+#include <pstade/egg/use_deduced_result.hpp>
 
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
@@ -54,7 +54,7 @@ std::stringstream g_sout;
 
     struct little_print
     {
-        typedef deduced_form call_strategy;
+        typedef little_print use_deduced_result;
 
         template<class Me, class Args>
         struct apply

@@ -2,7 +2,7 @@
 
 Egg provides some workaround utilities.
 
-[import ../test/deduced_form.cpp]
+[import ../test/use_deduced_result.cpp]
 
 
 [section pstade::result_of]
@@ -68,13 +68,13 @@ use this header.
 
 
 
-[section deduced_form]
+[section use_deduced_result]
 
 [heading Description]
 Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
 
 [heading Header]
-* `<pstade/egg/deduced_form.hpp>`
+* `<pstade/egg/use_deduced_result.hpp>`
 
 [heading Valid expressions]
 [table 
@@ -83,13 +83,13 @@ Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same a
         [[*Semantics]]
     ]
     [
-        [`deduced_form`]
-        [A type]
+        [`boost::type<...>`]
+        [Passed to `call` as the first argument.]
     ]
 ]
 
 [heading Example]
-[code_deduced_form_example]
+[code_use_deduced_result_example]
 
 [note You can also use __BOOST_ENABLE_IF__ instead. ]
 

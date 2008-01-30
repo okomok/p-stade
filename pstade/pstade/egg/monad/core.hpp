@@ -64,9 +64,9 @@
 #include <pstade/pod_constant.hpp>
 #include "../always.hpp"
 #include "../copy.hpp"
-#include "../deduced_form.hpp"
 #include "../function.hpp"
 #include "../make_function.hpp"
+#include "../use_deduced_result.hpp"
 
 
 namespace pstade_egg_extension {
@@ -149,7 +149,7 @@ namespace pstade { namespace egg {
 
         struct little_bind
         {
-            typedef deduced_form call_strategy;
+            typedef little_bind use_deduced_result;
 
             template<class MA, class A_MB>
             struct apply_aux :

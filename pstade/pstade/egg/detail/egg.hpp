@@ -43,7 +43,6 @@
 #include "../copy.hpp"
 #include "../copy_assign.hpp"
 #include "../curry.hpp"
-#include "../deduced_form.hpp"
 #include "../deferred.hpp"
 #include "../delete.hpp"
 #include "../delete_array.hpp"
@@ -101,6 +100,7 @@
 #include "../uncurry.hpp"
 #include "../unfuse.hpp"
 #include "../unwrap_ref.hpp"
+#include "../use_deduced_result.hpp"
 #include "../variadic.hpp"
 
 

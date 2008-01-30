@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DEDUCED_FORM_HPP
-#define PSTADE_EGG_DEDUCED_FORM_HPP
+#ifndef PSTADE_EGG_USE_DEDUCED_RESULT_HPP
+#define PSTADE_EGG_USE_DEDUCED_RESULT_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -18,22 +18,22 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type.hpp> // inclusion guaranteed
 #include <pstade/enable_if.hpp>
+#include <pstade/has_xxx.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/call_little_impl_fwd.hpp"
-#include "./detail/is_call_strategy_of.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    struct deduced_form;
+    PSTADE_HAS_TYPE(use_deduced_result)
 
 
     template<class Little_, class Result>
     struct call_little_impl<Little_, Result,
-        typename enable_if< detail::is_call_strategy_of<deduced_form, Little_> >::type >
+        typename enable_if< has_use_deduced_result<Little_> >::type>
     {
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/deduced_form.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/use_deduced_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
