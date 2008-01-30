@@ -86,6 +86,7 @@ test-suite "egg" :
     [ run inlined_mem.cpp ]
     [ run inlined_mem.cpp : : : <define>BOOST_TYPEOF_EMULATION : inlined_mem_emulation ]
 #    [ run inlined_perf.cpp : : : : : <variant>release ]
+#    [ run inlined_mem_perf.cpp : : : : : <variant>release ]
     [ run integral.cpp ]
     [ run integral_cast.cpp ]
     [ run is_classified_as.cpp ]
