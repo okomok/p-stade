@@ -454,7 +454,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 `X_construct_variadic1` constructs __EGG_VARIADIC__ object using braced-initializer.
 
 [heading Header]
-* `<pstade/egg/construct_braced2.hpp>`
+* `<pstade/egg/construct_variadic1.hpp>`
 
 [heading Model of]
 * ...
