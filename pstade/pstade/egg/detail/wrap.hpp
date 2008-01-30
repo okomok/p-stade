@@ -14,6 +14,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
+    // can synchronize initializers.
     template<class Base>
     struct wrap
     {
