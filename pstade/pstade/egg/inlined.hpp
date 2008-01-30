@@ -81,7 +81,7 @@ namespace pstade { namespace egg {
 
 
         template<class Ptr>
-        struct result_
+        struct returned
         {
             template<Ptr ptr>
             typename inlined<Ptr, ptr>::type of() const
@@ -90,7 +90,7 @@ namespace pstade { namespace egg {
                 return r;
             }
 
-            explicit result_(dont_care = 0)
+            explicit returned(dont_care = 0)
             { }
         };
 
@@ -125,7 +125,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            inline_detail::result_< deduce<mpl_1, as_value> >,
+            inline_detail::returned< deduce<mpl_1, as_value> >,
             by_value
         >::type
     T_inline;

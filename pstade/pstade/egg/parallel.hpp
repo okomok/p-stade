@@ -42,8 +42,8 @@ namespace pstade { namespace egg {
 
 
         template<class Base>
-        struct result_ :
-            function_facade<result_<Base>, boost::use_default, typename result_of<Base()>::type>
+        struct returned :
+            function_facade<returned<Base>, boost::use_default, typename result_of<Base()>::type>
         {
 #if defined(PSTADE_EGG_HAS_THREADS)
         private:
@@ -69,7 +69,7 @@ namespace pstade { namespace egg {
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/parallel.hpp>))
             #include BOOST_PP_ITERATE()
 
-            explicit result_(Base base) :
+            explicit returned(Base base) :
                 m_pbase(new Base(base))
 #if defined(PSTADE_EGG_HAS_THREADS)
                 , m_pmtx(new mutex_t())
@@ -94,7 +94,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            parallel_detail::result_< deduce<mpl_1, as_value> >,
+            parallel_detail::returned< deduce<mpl_1, as_value> >,
             by_value
         >::type
     T_parallel;

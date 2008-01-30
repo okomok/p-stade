@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
 
 
         template<class Bound>
-        struct result_
+        struct returned
         {
             Bound m_bound;
 
@@ -52,7 +52,7 @@ namespace pstade { namespace egg {
 
 
         template<class Reference>
-        struct ref_result_
+        struct ref_returned
         {
             Reference m_ref;
 
@@ -79,7 +79,7 @@ namespace pstade { namespace egg {
     template<class Bound>
     struct result_of_always
     {
-        typedef always_detail::result_<Bound> type;
+        typedef always_detail::returned<Bound> type;
     };
 
     #define PSTADE_EGG_ALWAYS_L {
@@ -103,7 +103,7 @@ namespace pstade { namespace egg {
     template<class Reference>
     struct result_of_always_ref
     {
-        typedef always_detail::ref_result_<Reference> type;
+        typedef always_detail::ref_returned<Reference> type;
     };
 
     #define PSTADE_EGG_ALWAYS_REF_L {
