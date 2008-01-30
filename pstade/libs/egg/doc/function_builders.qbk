@@ -207,7 +207,7 @@ It is useful because `operator()` can use nested typedefs.
     * `Lam` itself otherwise.
 * `g` is an object of `generator<Lam, _Stg, Cons, R0>::type`.
 * `T` is `_mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
-* `Cst(U)` is `_mpl::apply<X_construct<_mpl::_1, _mpl::_2>, U, _Stg>::type` if `Cons` is `_default`, `mpl::apply<Cons, U, _Stg>::type` otherwise.
+* `Cst(U)` is `_mpl::apply<X_construct<_mpl::_1, _mpl::_2>, U, _Stg>::type` if `Cons` is `_default`, `_mpl::apply<Cons, U, _Stg>::type` otherwise.
 
 [heading Valid expressions]
 [table 
