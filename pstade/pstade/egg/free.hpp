@@ -36,13 +36,11 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./bll_bindable.hpp"
+#include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./construct_braced1.hpp"
+#include "./deduced_form.hpp"
 #include "./detail/free_call.hpp"
-#include "./detail/unref.hpp"
-#include "./generator.hpp"
 
 
 namespace pstade { namespace egg {
@@ -57,7 +55,7 @@ namespace pstade { namespace egg {
 
         // data member pointer
         template<class R, class T>
-        struct result_<R (T::*)>
+        struct little_obj_result
         {
             typedef R (T::*base_type);
 
@@ -68,11 +66,13 @@ namespace pstade { namespace egg {
                 return m_base;
             }
 
-            template<class U>
-            struct apply_ :
+            typedef deduced_form call_strategy;
+
+            template<class Myself, class U>
+            struct apply :
                 boost::mpl::eval_if< is_convertible<U, T const *>,
-                    affect<typename boost::remove_pointer<typename boost::remove_cv<U>::type>::type&, R>,
-                    boost::mpl::eval_if< is_convertible<U, T const &>,
+                    affect<typename boost::remove_pointer<typename boost::remove_cv<U>::type>::type &, R>,
+                    boost::mpl::eval_if< is_convertible<U, T const&>,
                         affect<U&, R>,
                         boost::mpl::identity<R const&> // unknown
                     >
@@ -80,45 +80,53 @@ namespace pstade { namespace egg {
             { };
 
         // convertibles
-            typename apply_<T *>::type operator()(T *p) const
+            template<class Result>
+            Result call(boost::type<Result>, T *p) const
             {
                 return (p->*m_base);
             }
 
-            typename apply_<T const *>::type operator()(T const *p) const
+            template<class Result>
+            Result call(boost::type<Result>, T const *p) const
             {
                 return (p->*m_base);
             }
 
-            typename apply_<T>::type operator()(T &t) const
+            template<class Result>
+            Result call(boost::type<Result>, T &t) const
             {
                 return (t.*m_base);
             }
 
-            typename apply_<T const>::type operator()(T const &t) const
+            template<class Result>
+            Result call(boost::type<Result>, T const &t) const
             {
                 return (t.*m_base);
             }
 
         // unknown
-            template<class U>
-            typename apply_<U const>::type operator()(U const& u,
+            template<class Result, class U>
+            Result call(boost::type<Result>, U const& u,
                 typename disable_if< is_convertible<U const&, T const&> >::type = 0) const
             {
                 PSTADE_EGG_GET_POINTER_PREAMBLE()
                 return (get_pointer(u)->*m_base);
             }
+        };
 
-        // result_of support
-            template<class Signature>
-            struct result;
-            
-            template<class Self, class U>
-            struct result<Self(U)> :
-                apply_<typename detail::unref<by_perfect, U>::type>
-            { };
 
-            #include PSTADE_EGG_BLL_BINDABLE()
+        template<class R, class T>
+        struct result_<R (T::*)>
+        {
+            typedef function<little_obj_result<R, T>, by_perfect> type_;
+        };
+
+
+        // synchronize initializers.
+        template<class Base>
+        struct wrap
+        {
+            Base base;
         };
 
 
@@ -137,26 +145,42 @@ namespace pstade { namespace egg {
     template<class Base>
     struct result_of_free
     {
-        typedef free_detail::result_<Base> type;
+        typedef typename free_detail::result_<Base>::type_ type;
     };
 
-    #define PSTADE_EGG_FREE_L {
-    #define PSTADE_EGG_FREE_R }
+    #define PSTADE_EGG_FREE_L { {
+    #define PSTADE_EGG_FREE_R } }
     #define PSTADE_EGG_FREE(F) PSTADE_EGG_FREE_L F PSTADE_EGG_FREE_R
 
 
-    typedef
-        generator<
-            result_of_free< deduce<mpl_1, as_value> >::type,
-            by_value,
-            X_construct_braced1<>
-        >::type
-    T_free;
+    namespace free_detail {
 
-    PSTADE_POD_CONSTANT((T_free), free) = PSTADE_EGG_GENERATOR();
+
+        // generator isn't usable, because result_of_free calls "metafunction".
+        struct little
+        {
+            template<class Myself, class Base>
+            struct apply :
+                result_of_free<Base>
+            { };
+
+            template<class Result, class Base>
+            Result call(Base base) const
+            {
+                Result r = PSTADE_EGG_FREE(base);
+                return r;
+            }
+        };
+
+
+    } // namespace free_detail
+
+
+    typedef function<free_detail::little, by_value> T_free;
+    PSTADE_POD_CONSTANT((T_free), free) = {{}};
 
     typedef T_free T_free_;
-    PSTADE_POD_CONSTANT((T_free_), free_) = PSTADE_EGG_GENERATOR();
+    PSTADE_POD_CONSTANT((T_free_), free_) = {{}};
 
 
 } } // namespace pstade::egg

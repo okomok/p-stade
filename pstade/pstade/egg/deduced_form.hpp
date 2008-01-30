@@ -16,7 +16,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/type.hpp>
+#include <boost/type.hpp> // inclusion guaranteed
 #include <pstade/enable_if.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/call_little_impl_fwd.hpp"
