@@ -128,6 +128,7 @@ namespace pstade { namespace egg {
     namespace free_detail {
 
 
+        // `generator` isn't usable around template specializations.
         struct little
         {
             template<class Myself, class Base>
