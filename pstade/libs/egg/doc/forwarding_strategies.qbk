@@ -388,7 +388,7 @@ Let's look into the new valid expressions.
     ]
     [
         [`_bytag_at(StgTag, K, I)`]
-        [`StgTag_::apply< StgTag_, boost::mpl::int_<K>, boost::mpl::int_<I> >::type`]
+        [`StgTag_::apply< StgTag_, _mpl::int_<K>, _mpl::int_<I> >::type`]
     ]
     [
         [`_arg_list(a, StgTag)`]

@@ -334,7 +334,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct<>`]
-        [`X_construct<boost::mpl::_1, boost::mpl::_2>`]
+        [`X_construct<_mpl::_1, _mpl::_2>`]
     ]
 ]
 
@@ -382,7 +382,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_braced1<>`]
-        [`X_construct_braced1<boost::mpl::_1, boost::mpl::_2>`]
+        [`X_construct_braced1<_mpl::_1, _mpl::_2>`]
     ]
 ]
 
@@ -430,7 +430,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_braced2<>`]
-        [`X_construct_braced2<boost::mpl::_1, boost::mpl::_2>`]
+        [`X_construct_braced2<_mpl::_1, _mpl::_2>`]
     ]
 ]
 
@@ -478,7 +478,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_variadic1<>`]
-        [`X_construct_variadic1<boost::mpl::_1, boost::mpl::_2>`]
+        [`X_construct_variadic1<_mpl::_1, _mpl::_2>`]
     ]
 ]
 
@@ -658,7 +658,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_tuple_get_c<n>`]
-        [`X_tuple_get< boost::mpl::int_<n> >`]
+        [`X_tuple_get< _mpl::int_<n> >`]
     ]
     [
         [`egg::tuple_get<N>(t)`]

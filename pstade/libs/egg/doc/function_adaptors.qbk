@@ -509,7 +509,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), R0, Pack, _Stg>::type` initialized using `d` or an initializer.
-* `pack_` is `X_fusion_pack<by_ref>()` if `Pack` is `_default`, `boost::mpl::apply<Pack, by_ref>::type()` otherwise.
+* `pack_` is `X_fusion_pack<by_ref>()` if `Pack` is `_default`, `_mpl::apply<Pack, by_ref>::type()` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -1096,9 +1096,9 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * `fc(f, R, _Stg)` is an object of `result_of_retby<_typeof(f), R, _Stg>::type` initialized using `f` or an initializer.
 * `ReturnT(a, R)` is:
     * If `R` is `_default`, it is a type which is specified using `boost::result_of`.
-    * Else if `R` is `boost::mpl::always<R_>`, it is `R_`.
-    * Else if `R` is `nullary_meta<R_>`, it is `boost::mpl::apply<R_, _meta_safe_arg_list(a, _Stg)>::type`.
-    * Else, it is `boost::mpl::apply<R, _meta_safe_arg_list(a, _Stg)>::type`.
+    * Else if `R` is `_mpl::always<R_>`, it is `R_`.
+    * Else if `R` is `nullary_meta<R_>`, it is `_mpl::apply<R_, _meta_safe_arg_list(a, _Stg)>::type`.
+    * Else, it is `_mpl::apply<R, _meta_safe_arg_list(a, _Stg)>::type`.
 
 [heading Valid expressions]
 [table 
@@ -1136,7 +1136,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * `Fun` is a __FUNCTION_OBJECT__ type.
 * `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type if `R` is `_default`.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
-* If `fc(f, R, _Stg)` is nullary, `R` must be `nullary_meta<R_>`, `boost::mpl::always<R_>`, or `_default`.
+* If `fc(f, R, _Stg)` is nullary, `R` must be `nullary_meta<R_>`, `_mpl::always<R_>`, or `_default`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]

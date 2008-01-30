@@ -156,21 +156,21 @@ It is useful because `operator()` can use nested typedefs.
     ]
     [
         [`f(a1,...,aN)`]
-        [`boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
+        [`_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
     ]
     [
-        [`boost::mpl::_++M`]
-        [`boost::mpl::_++M`]
+        [`_mpl::_++M`]
+        [`_mpl::_++M`]
     ]
     [
-        [`boost::mpl::_`]
-        [`boost::mpl::_`]
+        [`_mpl::_`]
+        [`_mpl::_`]
     ]
 ]
 
 [heading Preconditions]
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
+* `_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -206,8 +206,8 @@ It is useful because `operator()` can use nested typedefs.
     * a type which behaves like `Lam` without no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
     * `Lam` itself otherwise.
 * `g` is an object of `generator<Lam, _Stg, Cons, R0>::type`.
-* `T` is `boost::mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
-* `Cst(U)` is `mpl::apply<X_construct<boost::mpl::_1, boost::mpl::_2>, U, _Stg>::type` if `Cons` is `_default`, `mpl::apply<Cons, U, _Stg>::type` otherwise.
+* `T` is `_mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
+* `Cst(U)` is `_mpl::apply<X_construct<_mpl::_1, _mpl::_2>, U, _Stg>::type` if `Cons` is `_default`, `mpl::apply<Cons, U, _Stg>::type` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -232,12 +232,12 @@ It is useful because `operator()` can use nested typedefs.
         [`Cst(R0)()()`]
     ]
     [
-        [`boost::mpl::_++M`]
-        [`boost::mpl::_++M`]
+        [`_mpl::_++M`]
+        [`_mpl::_++M`]
     ]
     [
-        [`boost::mpl::_`]
-        [`boost::mpl::_`]
+        [`_mpl::_`]
+        [`_mpl::_`]
     ]
 ]
 
@@ -249,7 +249,7 @@ It is useful because `operator()` can use nested typedefs.
 * Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR()`.
 * `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
-[note `Lam` is not instantiated while invoking `boost::mpl::apply`, so that any static assertion in generated type doesn't fail.]
+[note `Lam` is not instantiated while invoking `_mpl::apply`, so that any static assertion in generated type doesn't fail.]
 
 [heading Deducers]
 Some basic and useful __METAFUNCTION_CLASS__ types are provided for better error messages.
@@ -263,27 +263,27 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`deduce<A, As>`]
-        [` boost::mpl::apply<As, A>` if the corresponding argument is passed; ill-formed otherwise.]
+        [` _mpl::apply<As, A>` if the corresponding argument is passed; ill-formed otherwise.]
     ]
     [
         [`deduce<A, As, Def>`]
-        [` boost::mpl::apply<As, A>` if the corresponding argument is passed; `boost::mpl::identity<Def>` otherwise.]
+        [` _mpl::apply<As, A>` if the corresponding argument is passed; `_mpl::identity<Def>` otherwise.]
     ]
     [
         [`as_ref`]
-        [`boost::add_reference<boost::mpl::_>`]
+        [`boost::add_reference<_mpl::_>`]
     ]
     [
         [`as_cref`]
-        [`boost::add_reference< boost::add_const<boost::mpl::_> >`]
+        [`boost::add_reference< boost::add_const<_mpl::_> >`]
     ]
     [
         [`as_value`]
-        [`boost::remove_cv< boost::decay<boost::mpl::_> >`]
+        [`boost::remove_cv< boost::decay<_mpl::_> >`]
     ]
     [
         [`as_qualified`]
-        [`boost::mpl::identity<boost::mpl::_>`]
+        [`_mpl::identity<_mpl::_>`]
     ]
 ]
 
@@ -312,7 +312,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 [heading Notation]
 * `u` is an object of `automatic<Lam, _Stg>::type`.
-* `F` is `boost::mpl::apply<Lam, _typeof(to), _Stg>::type`.
+* `F` is `_mpl::apply<Lam, _typeof(to), _Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -333,12 +333,12 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [`To to = boost::implicit_cast<_typeof(to)>( fuse(F())(X_fusion_pack<_Stg>()(a1,...,aN)) );`]
     ]
     [
-        [`boost::mpl::_++M`]
-        [`boost::mpl::_++M`]
+        [`_mpl::_++M`]
+        [`_mpl::_++M`]
     ]
     [
-        [`boost::mpl::_`]
-        [`boost::mpl::_`]
+        [`_mpl::_`]
+        [`_mpl::_`]
     ]
 ]
 
@@ -378,7 +378,7 @@ to be /statically initialized/ without `static_`.
 
 [heading Notation]
 * `u` is an object of `static_<Lam, _Stg>::type`.
-* `F` is `boost::mpl::apply<Lam, _Stg>::type`.
+* `F` is `_mpl::apply<Lam, _Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -399,12 +399,12 @@ to be /statically initialized/ without `static_`.
         [`F()(_safe_arg_list(a, _Stg))`]
     ]
     [
-        [`boost::mpl::_++M`]
-        [`boost::mpl::_++M`]
+        [`_mpl::_++M`]
+        [`_mpl::_++M`]
     ]
     [
-        [`boost::mpl::_`]
-        [`boost::mpl::_`]
+        [`_mpl::_`]
+        [`_mpl::_`]
     ]
 ]
 
