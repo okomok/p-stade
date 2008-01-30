@@ -41,10 +41,8 @@ void pstade_minimal_test()
         BOOST_CHECK( insquare(y, 3) == 9 );
 
         BOOST_CHECK( PSTADE_EGG_INLINE(&my::square)(y, 3) == 9 );
-        BOOST_CHECK( PSTADE_EGG_INLINE_BY(&my::square, pstade::egg::by_value)(y, 3) == 9 );
 
         BOOST_CHECK( PSTADE_EGG_INLINE(&my::square)(&y, 3) == 9 );
-        BOOST_CHECK( PSTADE_EGG_INLINE_BY(&my::square, pstade::egg::by_value)(&y, 3) == 9 );
     }
 
     ::test_tpl<int(my::*)(int), &my::square>(y);
