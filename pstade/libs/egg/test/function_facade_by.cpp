@@ -29,7 +29,7 @@ using namespace pstade::egg;
 struct my_value_identity :
     function_facade<my_value_identity, by_value>
 {
-    template<class Myself, class X>
+    template<class Me, class X>
     struct apply
     {
         BOOST_MPL_ASSERT_NOT((boost::is_const<X>));
@@ -37,8 +37,8 @@ struct my_value_identity :
         typedef X type;
     };
 
-    template<class Result, class X>
-    Result call(X x) const
+    template<class Re, class X>
+    Re call(X x) const
     {
         return x;
     }
@@ -48,7 +48,7 @@ struct my_value_identity :
 struct my_cref_identity :
     function_facade<my_cref_identity, by_cref>
 {
-    template<class Myself, class X>
+    template<class Me, class X>
     struct apply
     {
         BOOST_MPL_ASSERT((boost::is_const<X>));
@@ -56,8 +56,8 @@ struct my_cref_identity :
         typedef X& type;
     };
 
-    template<class Result, class X>
-    Result call(X& x) const
+    template<class Re, class X>
+    Re call(X& x) const
     {
         return x;
     }
@@ -67,14 +67,14 @@ struct my_cref_identity :
 struct my_ref_identity :
     function_facade<my_ref_identity, by_ref>
 {
-    template<class Myself, class X>
+    template<class Me, class X>
     struct apply
     {
         typedef X& type;
     };
 
-    template<class Result, class X>
-    Result call(X& x) const
+    template<class Re, class X>
+    Re call(X& x) const
     {
         return x;
     }
@@ -85,14 +85,14 @@ struct my_ref_identity :
 struct my_value_big_arity :
     function_facade<my_value_big_arity, by_value>
 {
-    template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
+    template<class Me, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
     {
         typedef A0 type;
     };
 
-    template<class Result, class A0>
-    Result call(A0 a0, ...) const
+    template<class Re, class A0>
+    Re call(A0 a0, ...) const
     {
         return a0;
     }
@@ -102,14 +102,14 @@ struct my_value_big_arity :
 struct my_cref_big_arity :
     function_facade<my_cref_big_arity, by_cref>
 {
-    template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
+    template<class Me, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
     {
         typedef A0& type;
     };
 
-    template<class Result, class A0>
-    Result call(A0& a0, ...) const
+    template<class Re, class A0>
+    Re call(A0& a0, ...) const
     {
         return a0;
     }
@@ -120,14 +120,14 @@ struct my_cref_big_arity :
 struct my_ref_big_arity :
     function_facade<my_ref_big_arity, by_ref>
 {
-    template<class Myself, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
+    template<class Me, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
     struct apply
     {
         typedef A0& type;
     };
 
-    template<class Result, class A0>
-    Result call(A0& a0, ...) const
+    template<class Re, class A0>
+    Re call(A0& a0, ...) const
     {
         return a0;
     }

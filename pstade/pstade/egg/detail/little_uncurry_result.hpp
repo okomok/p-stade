@@ -38,7 +38,7 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+        template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
     #define PSTADE_open_result_of(Z, I, _)  typename result_of<
@@ -60,8 +60,8 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_open_result_of, ~)
                 Base const(typename result_of_forwarding<Strategy const, n, 0, A0>::type)
@@ -69,8 +69,8 @@ namespace pstade { namespace egg { namespace detail {
         >      
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         return m_base BOOST_PP_REPEAT(n, PSTADE_paren, ~) ;
     }

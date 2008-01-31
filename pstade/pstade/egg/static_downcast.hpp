@@ -60,15 +60,15 @@ namespace pstade { namespace egg {
         template<class Derived>
         struct little
         {
-            template<class Myself, class Base>
+            template<class Me, class Base>
             struct apply :
                 affect<Base&, Derived>
             { };
 
-            template<class Result, class Base>
-            Result call(Base& base) const
+            template<class Re, class Base>
+            Re call(Base& base) const
             {
-                return *here::aux_<typename boost::remove_reference<Result>::type>(boost::addressof(base));
+                return *here::aux_<typename boost::remove_reference<Re>::type>(boost::addressof(base));
             }
         };
 

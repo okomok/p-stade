@@ -100,7 +100,7 @@ namespace pstade { namespace egg {
         struct little
         {
 #if defined(PSTADE_EGG_HAS_FUSIONS)
-            template<class Myself, class Tuple, class A>
+            template<class Me, class Tuple, class A>
             struct apply :
                 boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
                     tuple_result_of<Bytag, Tuple, A>,
@@ -108,25 +108,25 @@ namespace pstade { namespace egg {
                 >
             { };
 
-            template<class Result, class Tuple, class A>
-            Result call(Tuple& t, A& a, typename enable_if< apple::is_boost_tuple<Tuple> >::type = 0) const
+            template<class Re, class Tuple, class A>
+            Re call(Tuple& t, A& a, typename enable_if< apple::is_boost_tuple<Tuple> >::type = 0) const
             {
                 return here::tuple_call<Bytag>(t, a);
             }
 
-            template<class Result, class Tuple, class A>
-            Result call(Tuple& t, A& a, typename disable_if<apple::is_boost_tuple<Tuple> >::type = 0) const
+            template<class Re, class Tuple, class A>
+            Re call(Tuple& t, A& a, typename disable_if<apple::is_boost_tuple<Tuple> >::type = 0) const
             {
                 return here::fusion_call<Bytag>(t, a);
             }
 #else
-            template<class Myself, class Tuple, class A>
+            template<class Me, class Tuple, class A>
             struct apply :
                 tuple_result_of<Bytag, Tuple, A>
             { };
 
-            template<class Result, class Tuple, class A>
-            Result call(Tuple& t, A& a) const
+            template<class Re, class Tuple, class A>
+            Re call(Tuple& t, A& a) const
             {
                 return here::tuple_call<Bytag>(t, a);
             }

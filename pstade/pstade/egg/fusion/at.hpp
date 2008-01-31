@@ -37,24 +37,24 @@ namespace pstade { namespace egg {
     namespace fusion_at_detail {
 
 
-        template<class Result, class N>
+        template<class Re, class N>
         struct pair_get;
 
-        template<class Result>
-        struct pair_get< Result, boost::mpl::int_<0> >
+        template<class Re>
+        struct pair_get< Re, boost::mpl::int_<0> >
         {
             template< class Pair >
-            static Result call(Pair& p)
+            static Re call(Pair& p)
             {
                 return p.first;
             }
         };
 
-        template<class Result>
-        struct pair_get< Result, boost::mpl::int_<1> >
+        template<class Re>
+        struct pair_get< Re, boost::mpl::int_<1> >
         {
             template< class Pair >
-            static Result call(Pair& p)
+            static Re call(Pair& p)
             {
                 return p.second;
             }
@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
         template<class N>
         struct little
         {
-            template<class Myself, class Tuple>
+            template<class Me, class Tuple>
             struct apply :
 #if defined(PSTADE_EGG_HAS_FUSIONS)
                 boost::fusion::result_of::deref<
@@ -78,8 +78,8 @@ namespace pstade { namespace egg {
 #endif
             { };
 
-            template<class Result, class Tuple>
-            Result call(Tuple& t
+            template<class Re, class Tuple>
+            Re call(Tuple& t
 #if !defined(PSTADE_EGG_HAS_FUSIONS)
                 , typename disable_if< apple::is_pair<Tuple> >::type = 0
 #endif
@@ -94,11 +94,11 @@ namespace pstade { namespace egg {
             }
 
 #if !defined(PSTADE_EGG_HAS_FUSIONS)
-            template<class Result, class Pair>
-            Result call(Pair& p,
+            template<class Re, class Pair>
+            Re call(Pair& p,
                 typename enable_if< apple::is_pair<Pair> >::type = 0) const
             {
-                return pair_get< Result, boost::mpl::int_<N::value> >::call(p);
+                return pair_get< Re, boost::mpl::int_<N::value> >::call(p);
             }
 #endif
         };

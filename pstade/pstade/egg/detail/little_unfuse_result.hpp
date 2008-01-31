@@ -74,14 +74,14 @@ namespace pstade { namespace egg { namespace detail {
             >::type
         nullary_result_type;
 
-        template<class Result>
-        Result call() const
+        template<class Re>
+        Re call() const
         {
             return m_base(pack_t()());
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+        template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/little_unfuse_result.hpp>))
@@ -97,15 +97,15 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             Base const(typename result_of<pack_t(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
         >
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         // To keep movable object movable, egg::forwarding can't be used here.
         return m_base(pack_t()(BOOST_PP_ENUM_PARAMS(n, a)));

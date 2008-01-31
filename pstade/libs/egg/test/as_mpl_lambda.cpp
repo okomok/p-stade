@@ -59,13 +59,13 @@ template< class Lambda >
 struct base_op_front :
     pstade::egg::function_facade< base_op_front<Lambda> >
 {
-    template< class Myself, class Range >
+    template< class Me, class Range >
     struct apply :
         boost::mpl::apply1<Lambda, Range>
     { };
 
-    template< class Result, class Range >
-    Result call(Range& rng) const
+    template< class Re, class Range >
+    Re call(Range& rng) const
     {
         return *boost::begin(rng);
     }

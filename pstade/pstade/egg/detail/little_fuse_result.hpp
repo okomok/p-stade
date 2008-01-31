@@ -37,15 +37,15 @@ namespace pstade { namespace egg { namespace detail {
         template<class Tuple, class Arity>
         struct apply_aux;
 
-        template<class Myself, class Tuple>
+        template<class Me, class Tuple>
         struct apply :
             apply_aux<Tuple, typename fusion_length<Tuple>::type>
         { };
 
-        template<class Result, class Tuple>
-        Result call(Tuple& tup) const
+        template<class Re, class Tuple>
+        Re call(Tuple& tup) const
         {
-            return call_aux<Result>(tup, typename fusion_length<Tuple>::type());
+            return call_aux<Re>(tup, typename fusion_length<Tuple>::type());
         }
 
     // 0ary-
@@ -69,8 +69,8 @@ namespace pstade { namespace egg { namespace detail {
         >
     { };
 
-    template<class Result, class Tuple>
-    Result call_aux(Tuple& tup, boost::mpl::int_<n>) const
+    template<class Re, class Tuple>
+    Re call_aux(Tuple& tup, boost::mpl::int_<n>) const
     {
         return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, X_fusion_at_c<PSTADE_PP_INT_, >()(tup)) );
     }

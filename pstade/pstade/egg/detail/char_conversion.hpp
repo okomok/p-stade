@@ -48,21 +48,21 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class CharT, class Locale = void>
+            template<class Me, class CharT, class Locale = void>
             struct apply :
                 boost::remove_cv<CharT>
             { };
 
-            template<class Result, class CharT>
-            Result call(CharT& ch, std::locale const& loc) const
+            template<class Re, class CharT>
+            Re call(CharT& ch, std::locale const& loc) const
             {
-                return std::use_facet< std::ctype<Result> >(loc).BOOST_PP_CAT(to, name)(ch);
+                return std::use_facet< std::ctype<Re> >(loc).BOOST_PP_CAT(to, name)(ch);
             }
 
-            template<class Result, class CharT>
-            Result call(CharT& ch) const
+            template<class Re, class CharT>
+            Re call(CharT& ch) const
             {
-                return call<Result>(ch, std::locale());
+                return call<Re>(ch, std::locale());
             }
         };
 

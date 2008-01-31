@@ -96,15 +96,15 @@ namespace pstade { namespace egg { namespace detail {
     // 0ary
         typedef NullaryResult nullary_result_type;
 
-        template<class Result>
-        Result call() const
+        template<class Re>
+        Re call() const
         {
-            typedef typename boost::mpl::apply2<construct_t, Result, Strategy>::type cons_t;
+            typedef typename boost::mpl::apply2<construct_t, Re, Strategy>::type cons_t;
             return cons_t()();
         }
 
      // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
+        template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/little_generator.hpp>))
@@ -120,17 +120,17 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         generated_object<
             Expr, BOOST_PP_ENUM_PARAMS(n, A)
         >
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        typedef typename boost::mpl::apply2<construct_t, Result, Strategy>::type cons_t;
+        typedef typename boost::mpl::apply2<construct_t, Re, Strategy>::type cons_t;
         return cons_t()(BOOST_PP_ENUM_PARAMS(n, a));
     }
 

@@ -24,14 +24,14 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class A>
+            template<class Me, class A>
             struct apply
             {
                 typedef A type;
             };
 
-            template<class Result, class A>
-            Result call(A a) const
+            template<class Re, class A>
+            Re call(A a) const
             {
                 return a;
             }

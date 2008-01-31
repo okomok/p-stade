@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
         template<class NullaryResult>
         struct little
         {
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 
         // 1ary-
@@ -67,13 +67,13 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-    struct apply<Myself, Base BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)> :
+    template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+    struct apply<Me, Base BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)> :
         result_of<BOOST_PP_CAT(X_bind, n)<NullaryResult>(Base& BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg))>
     { };
 
-    template<class Result, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-    Result call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
+    template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+    Re call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
     {
         return BOOST_PP_CAT(X_bind, n)<NullaryResult>()(base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg));
     }

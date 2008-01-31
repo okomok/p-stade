@@ -37,16 +37,16 @@ using namespace pstade::egg;
 //[code_function_example
 struct little_second_argument
 {
-    template<class Myself, class A1, class A2>
+    template<class Me, class A1, class A2>
     struct apply
     {
         /*<< `A2` is possibly cv-qualifed but not a reference type. >>*/
         typedef A2 &type;
     };
 
-    /*<< `Result` is `A2 &`. >>*/
-    template<class Result, class A1, class A2>
-    Result call(A1 &a1, A2 &a2) const
+    /*<< `Re` is `A2 &`. >>*/
+    template<class Re, class A1, class A2>
+    Re call(A1 &a1, A2 &a2) const
     {
         return a2;
     }
@@ -68,16 +68,16 @@ void test_function()
 //[code_function_by_value_example
 struct little_value_identity
 {
-    template<class Myself, class A>
+    template<class Me, class A>
     struct apply
     {
         /*<< `A` is a "plain" type. >>*/
         typedef A type;
     };
 
-    /*<< `Result` is `A`. >>*/
-    template<class Result, class A>
-    Result call(A a) const
+    /*<< `Re` is `A`. >>*/
+    template<class Re, class A>
+    Re call(A a) const
     {
         return a;
     }
@@ -99,14 +99,14 @@ template<class T>
 struct plus_to
     : function_facade< plus_to<T> >
 {
-    template<class Myself, class A>
+    template<class Me, class A>
     struct apply
     {
         typedef T type;
     };
 
-    template<class Result, class A>
-    Result call(A &a) const
+    template<class Re, class A>
+    Re call(A &a) const
     {
         return m_x + a;
     }

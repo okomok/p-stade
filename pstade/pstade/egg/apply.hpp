@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
         template<class Strategy>
         struct little
         {
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
@@ -68,13 +68,13 @@ PSTADE_ADL_BARRIER(apply) {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<F(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
     { };
 
-    template<class Result, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(F& f BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(F& f BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         return f(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }

@@ -14,16 +14,16 @@
 
 struct T_foo
 {
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
-        return Result();
+        return Re();
     }
 
-    template< class Result, class A0 >
-    Result call(A0 const&) const
+    template< class Re, class A0 >
+    Re call(A0 const&) const
     {
-        return Result();
+        return Re();
     }
 };
 

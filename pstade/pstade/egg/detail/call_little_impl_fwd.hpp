@@ -19,7 +19,7 @@ namespace pstade { namespace egg {
 
     // Little_ is guaranteed to be complete when call_little_impl instantiated,
     // because this is instantiated only in function body.
-    template<class Little_, class Result, class EnableIf = enabler>
+    template<class Little_, class Re, class EnableIf = enabler>
     struct call_little_impl;
 
 

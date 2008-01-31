@@ -29,8 +29,8 @@ namespace pstade { namespace egg {
     PSTADE_HAS_TYPE(use_deduced_form)
 
 
-    template<class Little_, class Result>
-    struct call_little_impl<Little_, Result,
+    template<class Little_, class Re>
+    struct call_little_impl<Little_, Re,
         typename enable_if< has_use_deduced_form<Little_> >::type>
     {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/use_deduced_form.hpp>))
@@ -47,9 +47,9 @@ namespace pstade { namespace egg {
 
 
     template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    static Result BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    static Re BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
-        return little.call(boost::type<Result>() BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return little.call(boost::type<Re>() BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 

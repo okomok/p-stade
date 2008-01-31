@@ -37,17 +37,17 @@ namespace pstade { namespace egg {
             Function m_fun;
             Thunk m_thunk;
 
-            template<class Myself, class Args>
+            template<class Me, class Args>
             struct apply :
                 result_of<
                     typename result_of<T_fuse(Function const&)>::type(Args&)
                 >
             { };
 
-            template<class Result, class Args>
-            Result call(Args& args) const
+            template<class Re, class Args>
+            Re call(Args& args) const
             {
-                Result r = fuse(m_fun)(args);
+                Re r = fuse(m_fun)(args);
                 m_thunk();
                 return r;
             }

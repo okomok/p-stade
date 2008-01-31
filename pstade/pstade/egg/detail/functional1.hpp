@@ -66,15 +66,15 @@ namespace pstade { namespace egg {
         template<class Return>
         struct little
         {
-            template<class Myself, class A1>
+            template<class Me, class A1>
             struct apply :
                 eval_if_use_default<Return,
                     boost::lambda::return_type_1<act, A1>
                 >
             { };
 
-            template<class Result, class A1>
-            Result call(A1& a1) const
+            template<class Re, class A1>
+            Re call(A1& a1) const
             {
                 // I have a feeling that egg::forwarding shouldn't be called,
                 // because Boost.Lambda doesn't care rvalue.

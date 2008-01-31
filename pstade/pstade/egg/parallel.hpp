@@ -53,8 +53,8 @@ namespace pstade { namespace egg {
 #endif
 
         // 0ary
-            template<class Result>
-            Result call() const
+            template<class Re>
+            Re call() const
             {
 #if defined(PSTADE_EGG_HAS_THREADS)
                 scoped_lock_t lock(*m_pmtx);
@@ -63,7 +63,7 @@ namespace pstade { namespace egg {
             }
 
         // 1ary-
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/parallel.hpp>))
@@ -110,13 +110,13 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<Base(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
 #if defined(PSTADE_EGG_HAS_THREADS)
         scoped_lock_t lock(*m_pmtx);

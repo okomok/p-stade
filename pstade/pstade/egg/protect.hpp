@@ -55,15 +55,15 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class Expr>
+            template<class Me, class Expr>
             struct apply :
                 result_of_protect<Expr>
             { };
 
-            template<class Result, class Expr>
-            Result call(Expr f) const
+            template<class Re, class Expr>
+            Re call(Expr f) const
             {
-                Result r = PSTADE_EGG_PROTECT(f);
+                Re r = PSTADE_EGG_PROTECT(f);
                 return r;
             }
         };

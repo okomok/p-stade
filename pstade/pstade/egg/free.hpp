@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
 
         typedef result_of_free use_deduced_form;
 
-        template<class Myself, class U>
+        template<class Me, class U>
         struct apply :
             boost::mpl::eval_if< is_convertible<U, T const *>,
                 affect<typename boost::remove_pointer<typename boost::remove_cv<U>::type>::type &, R>,
@@ -84,33 +84,33 @@ namespace pstade { namespace egg {
         { };
 
     // convertibles
-        template<class Result>
-        Result call(boost::type<Result>, T *p) const
+        template<class Re>
+        Re call(boost::type<Re>, T *p) const
         {
             return (p->*m_base);
         }
 
-        template<class Result>
-        Result call(boost::type<Result>, T const *p) const
+        template<class Re>
+        Re call(boost::type<Re>, T const *p) const
         {
             return (p->*m_base);
         }
 
-        template<class Result>
-        Result call(boost::type<Result>, T &t) const
+        template<class Re>
+        Re call(boost::type<Re>, T &t) const
         {
             return (t.*m_base);
         }
 
-        template<class Result>
-        Result call(boost::type<Result>, T const &t) const
+        template<class Re>
+        Re call(boost::type<Re>, T const &t) const
         {
             return (t.*m_base);
         }
 
     // unknown
-        template<class Result, class U>
-        Result call(boost::type<Result>, U const& u,
+        template<class Re, class U>
+        Re call(boost::type<Re>, U const& u,
             typename disable_if< is_convertible<U const&, T const&> >::type = 0) const
         {
             PSTADE_EGG_GET_POINTER_PREAMBLE()
@@ -131,15 +131,15 @@ namespace pstade { namespace egg {
         // `generator` isn't usable around template specializations.
         struct little
         {
-            template<class Myself, class Base>
+            template<class Me, class Base>
             struct apply :
                 result_of_free<Base>
             { };
 
-            template<class Result, class Base>
-            Result call(Base base) const
+            template<class Re, class Base>
+            Re call(Base base) const
             {
-                Result r = PSTADE_EGG_FREE(base);
+                Re r = PSTADE_EGG_FREE(base);
                 return r;
             }
         };

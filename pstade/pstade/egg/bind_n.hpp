@@ -97,7 +97,7 @@
             detail::substitute(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
         /**/
 
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
+            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, PSTADE_EGG_MAX_ARITY, <pstade/egg/bind_n.hpp>))
@@ -139,7 +139,7 @@
         template<class NullaryResult>
         struct BOOST_PP_CAT(little_bind, n)
         {
-            template<class Myself, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+            template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
             struct apply :
                 BOOST_PP_CAT(result_of_bind, n)<
                     typename pass_by_value<Base>::type, NullaryResult BOOST_PP_COMMA_IF(n)
@@ -147,10 +147,10 @@
                 >
             { };
 
-            template<class Result, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-            Result call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
+            template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+            Re call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
             {
-                Result r = PSTADE_EGG_BIND_L base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg) PSTADE_EGG_BIND_R;
+                Re r = PSTADE_EGG_BIND_L base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg) PSTADE_EGG_BIND_R;
                 return r;
             }
         };
@@ -192,8 +192,8 @@
 
     #else
 
-        template<class Myself, BOOST_PP_ENUM_PARAMS(m, class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)> :
+        template<class Me, BOOST_PP_ENUM_PARAMS(m, class A)>
+        struct apply<Me, BOOST_PP_ENUM_PARAMS(m, A)> :
             result_of_ref<
                 typename result_of_ref<typename result_of_ref<detail::T_substitute(Base&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
                 (
@@ -204,8 +204,8 @@
 
     #endif
 
-        template<class Result BOOST_PP_ENUM_TRAILING_PARAMS(m, class A)>
-        Result call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
+        template<class Re BOOST_PP_ENUM_TRAILING_PARAMS(m, class A)>
+        Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
         {
             return
                 detail::substitute(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.

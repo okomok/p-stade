@@ -24,7 +24,7 @@
 namespace pstade { namespace egg {
 
 
-    template<class Little_, class Result, class EnableIf>
+    template<class Little_, class Re, class EnableIf>
     struct call_little_impl
     {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/call_little_impl.hpp>))
@@ -41,9 +41,9 @@ namespace pstade { namespace egg {
 
 
     template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    static Result BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    static Re BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
-        return little.template call<Result>(BOOST_PP_ENUM_PARAMS(n, a));
+        return little.template call<Re>(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
                 return m_base;
             }
 
-            template<class Myself, class Args>
+            template<class Me, class Args>
             struct apply :
                 result_of<
                     typename result_of<
@@ -51,8 +51,8 @@ namespace pstade { namespace egg {
                 >
             { };
 
-            template<class Result, class Args>
-            Result call(Args& args) const
+            template<class Re, class Args>
+            Re call(Args& args) const
             {
                 return fuse(bind_t())(fusion_prepend(args, m_base));
             }

@@ -41,7 +41,7 @@ namespace pstade { namespace egg { namespace detail {
     #undef  PSTADE_typedef_default_arg
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
+        template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
     #define PSTADE_typedef_arg(Z, N, _) typedef BOOST_PP_CAT(A, N) BOOST_PP_CAT(arg, N);
@@ -59,8 +59,8 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)>
     {
         BOOST_PP_REPEAT(n, PSTADE_typedef_arg, ~)
 
@@ -74,8 +74,8 @@ namespace pstade { namespace egg { namespace detail {
         typedef typename impl_t::result_type type;
     };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         typedef typename apply<void, BOOST_PP_ENUM_PARAMS(n, A)>::impl_t impl_t;
         return impl_t()(BOOST_PP_ENUM_PARAMS(n, a));

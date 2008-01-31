@@ -28,26 +28,26 @@ namespace pstade { namespace egg {
         {
             typedef little use_deduced_form;
 
-            template<class Myself, class Function>
+            template<class Me, class Function>
             struct apply
             {
                 typedef Function type;
             };
 
-            template<class Myself, class Arg>
-            struct apply< Myself, boost::lambda::lambda_functor<Arg> >
+            template<class Me, class Arg>
+            struct apply< Me, boost::lambda::lambda_functor<Arg> >
             {
                 typedef boost::lambda::non_lambda_functor< boost::lambda::lambda_functor<Arg> > type;
             };
 
-            template<class Result, class Function>
-            Result call(boost::type<Result>, Function fun) const
+            template<class Re, class Function>
+            Re call(boost::type<Re>, Function fun) const
             {
                 return fun;
             }
 
-            template<class Result, class Arg>
-            Result call(boost::type<Result>, boost::lambda::lambda_functor<Arg> lam) const
+            template<class Re, class Arg>
+            Re call(boost::type<Re>, boost::lambda::lambda_functor<Arg> lam) const
             {
                 return boost::lambda::unlambda(lam);
             }

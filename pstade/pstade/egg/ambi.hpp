@@ -78,50 +78,50 @@ namespace pstade { namespace egg {
                 function<little_result, Bytag>
             nullary_result_type;
 
-            template<class Result>
-            Result call() const
+            template<class Re>
+            Re call() const
             {
-                Result r = { { m_base } };
+                Re r = { { m_base } };
                 return r;
             }
 
         // as function call
-            template<class Myself, class A0>
+            template<class Me, class A0>
             struct apply :
                 result_of<Base const(typename result_of_forward<Bytag, A0>::type)>
             { };
 
-            template<class Result, class A0>
-            Result call(A0& a0) const
+            template<class Re, class A0>
+            Re call(A0& a0) const
             {
                 return m_base(egg::forward<Bytag>(a0));
             }
 #else
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_PP_INC(n), A)>
+            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_PP_INC(n), A)>
             struct PSTADE_EGG_APPLY_DECL;
 
         // as pipe
-            template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-            struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+            template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+            struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
                 result_of<
                     typename result_of<X_pipable<Bytag, Bytag>(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
                 >
             { };
 
-            template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-            Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+            template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+            Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
             {
                 return X_pipable<Bytag, Bytag>()(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
             }
 
         // as function call
-            template<class Myself, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
-            struct apply<Myself, O, BOOST_PP_ENUM_PARAMS(n, A)> :
+            template<class Me, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
+            struct apply<Me, O, BOOST_PP_ENUM_PARAMS(n, A)> :
                 result_of<Base const(typename result_of_forward<Bytag, O>::type, PSTADE_EGG_FORWARDING_META_ARGS(n, A, Bytag const))>
             { };
 
-            template<class Result, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
-            Result call(O& o, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+            template<class Re, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
+            Re call(O& o, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
             {
                 return m_base(egg::forward<Bytag>(o), PSTADE_EGG_FORWARDING_ARGS(n, a, Bytag const));
             }

@@ -26,14 +26,14 @@
 
 struct little_my_id
 {
-    template<class Myself, class X>
+    template<class Me, class X>
     struct apply
     {
         typedef X &type;
     };
 
-    template<class Result, class X>
-    Result call(X &x) const
+    template<class Re, class X>
+    Re call(X &x) const
     {
         return x;
     }
@@ -69,14 +69,14 @@ T_my_idr const &get_my_idr2();
 
 struct my_little
 {
-    template<class Myself, class A1, class A2, class A3, class A4>
+    template<class Me, class A1, class A2, class A3, class A4>
     struct apply
     {
         typedef A1 &type;
     };
 
-    template<class Result, class A1, class A2, class A3, class A4>
-    Result call(A1 &a1, A2 &, A3 &, A4 &) const
+    template<class Re, class A1, class A2, class A3, class A4>
+    Re call(A1 &a1, A2 &, A3 &, A4 &) const
     {
         return a1;
     }

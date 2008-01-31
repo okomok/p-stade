@@ -30,21 +30,21 @@ struct little_foo
     /*<< Egg turns on the workaround if nested `use_deduced_form` is found. >>*/
     typedef little_foo use_deduced_form;
 
-    template<class Myself, class A1>
+    template<class Me, class A1>
     struct apply
     {
         typedef A1 &type;
     };
 
-    /*<< `Result` is given with the first argument using `boost::type`. >>*/
-    template<class Result, class A1>
-    Result call(boost::type<Result>, A1 &a1) const
+    /*<< `Re` is given with the first argument using `boost::type`. >>*/
+    template<class Re, class A1>
+    Re call(boost::type<Re>, A1 &a1) const
     {
         return a1;
     }
 
-    template<class Result, class A1>
-    Result call(boost::type<Result>, A1 const &a1) const
+    template<class Re, class A1>
+    Re call(boost::type<Re>, A1 const &a1) const
     {
         return a1;
     }
@@ -59,20 +59,20 @@ struct little_vfoo
 {
     typedef little_vfoo use_deduced_form;
 
-    template<class Myself, class A1>
+    template<class Me, class A1>
     struct apply
     {
         typedef A1 type;
     };
 
-    template<class Result, class A1>
-    Result call(boost::type<Result>, A1 &a1) const
+    template<class Re, class A1>
+    Re call(boost::type<Re>, A1 &a1) const
     {
         return a1;
     }
 
-    template<class Result, class A1>
-    Result call(boost::type<Result>, A1 const &a1) const
+    template<class Re, class A1>
+    Re call(boost::type<Re>, A1 const &a1) const
     {
         return a1;
     }
@@ -85,20 +85,20 @@ struct T_foo_ :
 {
     typedef T_foo_ use_deduced_form;
 
-    template<class Myself, class A1>
+    template<class Me, class A1>
     struct apply
     {
         typedef A1 &type;
     };
 
-    template<class Result, class A1>
-    Result call(boost::type<Result>, A1 &a1) const
+    template<class Re, class A1>
+    Re call(boost::type<Re>, A1 &a1) const
     {
         return a1;
     }
 
-    template<class Result, class A1>
-    Result call(boost::type<Result>, A1 const&a1) const
+    template<class Re, class A1>
+    Re call(boost::type<Re>, A1 const&a1) const
     {
         return a1;
     }

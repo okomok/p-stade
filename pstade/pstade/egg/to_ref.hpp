@@ -26,14 +26,14 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class X>
+            template<class Me, class X>
             struct apply
             {
                 typedef X& type;
             };
 
-            template<class Result, class X>
-            Result call(X& x) const
+            template<class Re, class X>
+            Re call(X& x) const
             {
                 return x;
             }
@@ -42,14 +42,14 @@ namespace pstade { namespace egg {
 
         struct clittle
         {
-            template<class Myself, class X>
+            template<class Me, class X>
             struct apply
             {
                 typedef X& type;
             };
 
-            template<class Result, class X>
-            Result call(X& x) const
+            template<class Re, class X>
+            Re call(X& x) const
             {
                 return x;
             }
@@ -58,14 +58,14 @@ namespace pstade { namespace egg {
 
         struct mlittle
         {
-            template<class Myself, class X>
+            template<class Me, class X>
             struct apply
             {
                 typedef typename boost::remove_cv<X>::type& type;
             };
 
-            template<class Result, class X>
-            Result call(X const& x) const
+            template<class Re, class X>
+            Re call(X const& x) const
             {
                 return const_cast<X&>(x);
             }

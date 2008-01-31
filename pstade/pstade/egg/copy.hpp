@@ -48,13 +48,13 @@ namespace pstade { namespace egg {
         template<class To>
         struct little
         {
-            template<class Myself, class From>
+            template<class Me, class From>
             struct apply
             {
                 typedef To type;
             };
 
-            template<class Result, class From>
+            template<class Re, class From>
             To call(From& from) const
             {
                 BOOST_MPL_ASSERT_NOT((boost::is_reference<To>));

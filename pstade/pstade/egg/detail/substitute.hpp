@@ -27,7 +27,7 @@ namespace pstade { namespace egg { namespace detail {
 
     struct little_substitute
     {
-        template<class Myself, class X>
+        template<class Me, class X>
         struct apply :
             boost::mpl::eval_if< is_bind_expression<X>,
                 boost::mpl::identity<X&>,
@@ -35,14 +35,14 @@ namespace pstade { namespace egg { namespace detail {
             >
         { };
 
-        template<class Result, class X>
-        Result call(X& x, typename enable_if< is_bind_expression<X> >::type = 0) const
+        template<class Re, class X>
+        Re call(X& x, typename enable_if< is_bind_expression<X> >::type = 0) const
         {
             return x;
         }
 
-        template<class Result, class X>
-        Result call(X& x, typename disable_if<is_bind_expression<X> >::type = 0) const
+        template<class Re, class X>
+        Re call(X& x, typename disable_if<is_bind_expression<X> >::type = 0) const
         {
             return always_ref(x);
         }

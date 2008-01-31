@@ -30,20 +30,20 @@ using namespace egg;
 
 struct little_lookup
 {
-    template<class Myself, class Key, class Map>
+    template<class Me, class Key, class Map>
     struct apply
     {
         typedef boost::optional<typename Map::mapped_type> type;
     };
 
-    template<class Result, class Key, class Map>
-    Result call(Key key, Map map) const
+    template<class Re, class Key, class Map>
+    Re call(Key key, Map map) const
     {
         typename Map::iterator it = map.find(key);
         if (it != map.end())
             return it->second;
         else
-            return Result();
+            return Re();
     }
 };
 

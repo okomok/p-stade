@@ -100,7 +100,7 @@
         struct little_arg< n, Strategy >
         {
             // nary - PSTADE_EGG_MAX_ARITYary
-            template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 
             #define  BOOST_PP_ITERATION_PARAMS_2 (3, (n, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/arg.hpp>))
@@ -117,13 +117,13 @@
     #define m BOOST_PP_ITERATION()
 
 
-        template<class Myself, BOOST_PP_ENUM_PARAMS(m, class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)> :
+        template<class Me, BOOST_PP_ENUM_PARAMS(m, class A)>
+        struct apply<Me, BOOST_PP_ENUM_PARAMS(m, A)> :
             result_of_forwarding<Strategy const, m, BOOST_PP_DEC(n), BOOST_PP_CAT(A, BOOST_PP_DEC(n))>
         { };
 
-        template<class Result, BOOST_PP_ENUM_PARAMS(m, class A)>
-        Result call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
+        template<class Re, BOOST_PP_ENUM_PARAMS(m, class A)>
+        Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
         {
             return egg::forwarding<Strategy const, m, BOOST_PP_DEC(n)>(BOOST_PP_CAT(a, BOOST_PP_DEC(n)));
         }

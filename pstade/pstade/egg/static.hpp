@@ -32,15 +32,15 @@ namespace pstade { namespace egg {
                 boost::mpl::apply1<Expr, Strategy>::type
             fun_t;
 
-            template<class Myself, class Args>
+            template<class Me, class Args>
             struct apply :
                 result_of<
                     typename result_of<T_fuse(fun_t)>::type(Args&)
                 >
             { };
 
-            template<class Result, class Args>
-            Result call(Args& args) const
+            template<class Re, class Args>
+            Re call(Args& args) const
             {
                 return fuse(fun_t())(args);
             }

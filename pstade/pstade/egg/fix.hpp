@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
 
         struct little_uncurried
         {
-            template<class Myself, class Base, class Arg>
+            template<class Me, class Base, class Arg>
             struct apply :
                 result_of<
                     typename result_of<
@@ -49,8 +49,8 @@ namespace pstade { namespace egg {
                 >
             { };
 
-            template<class Result, class Base, class Arg>
-            Result call(Base& base, Arg& arg) const
+            template<class Re, class Base, class Arg>
+            Re call(Base& base, Arg& arg) const
             {
                 // Base must be curried in advance.
                 return base

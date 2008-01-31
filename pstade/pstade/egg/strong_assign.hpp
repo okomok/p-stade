@@ -25,14 +25,14 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class To, class From>
+            template<class Me, class To, class From>
             struct apply
             {
                 typedef To& type;
             };
 
-            template<class Result, class To, class From>
-            Result call(To& to, From& from) const
+            template<class Re, class To, class From>
+            Re call(To& to, From& from) const
             {
                 To tmp = from;
                 do_swap(to, tmp);

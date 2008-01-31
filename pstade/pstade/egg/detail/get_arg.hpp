@@ -82,7 +82,7 @@ namespace pstade { namespace egg { namespace detail {
             }
         };
 
-        template<class Myself, class NamedArgs, class PrecedingArgs>
+        template<class Me, class NamedArgs, class PrecedingArgs>
         struct apply
         {
             typedef typename
@@ -102,8 +102,8 @@ namespace pstade { namespace egg { namespace detail {
             type;
         };
 
-        template<class Result, class NamedArgs, class PrecedingArgs>
-        Result call(NamedArgs& nargs, PrecedingArgs& pargs) const
+        template<class Re, class NamedArgs, class PrecedingArgs>
+        Re call(NamedArgs& nargs, PrecedingArgs& pargs) const
         {
             typedef apply<void, NamedArgs, PrecedingArgs> apply_;
 

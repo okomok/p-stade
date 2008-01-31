@@ -50,14 +50,14 @@ namespace pstade { namespace egg { namespace detail {
             result_of<func_type()>::type
         nullary_result_type;
 
-        template<class Result>
-        Result call() const
+        template<class Re>
+        Re call() const
         {
             return (*m_ptr)();
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
+        template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/little_indirect_result.hpp>))
@@ -73,13 +73,13 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<func_type(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         return (*m_ptr)(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }

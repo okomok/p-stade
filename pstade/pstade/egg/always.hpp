@@ -42,13 +42,13 @@ namespace pstade { namespace egg {
                 return m_bound;
             }
 
-            template<class Myself, class Args>
+            template<class Me, class Args>
             struct apply :
                 detail::unbound<Bound>
             { };
 
-            template<class Result, class Args>
-            Result call(Args& ) const
+            template<class Re, class Args>
+            Re call(Args& ) const
             {
                 return m_bound;
             }
@@ -65,14 +65,14 @@ namespace pstade { namespace egg {
                 return m_ref;
             }
 
-            template<class Myself, class Args>
+            template<class Me, class Args>
             struct apply
             {
                 typedef Reference type;
             };
 
-            template<class Result, class Args>
-            Result call(Args& ) const
+            template<class Re, class Args>
+            Re call(Args& ) const
             {
                 return m_ref;
             }

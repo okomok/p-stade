@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class Args>
+            template<class Me, class Args>
             struct apply
             {
                 typedef
@@ -65,10 +65,10 @@ namespace pstade { namespace egg {
                 type;
             };
 
-            template<class Result, class Args>
-            Result call(Args& args) const
+            template<class Re, class Args>
+            Re call(Args& args) const
             {
-                return Result(args); 
+                return Re(args); 
             }
         };
 

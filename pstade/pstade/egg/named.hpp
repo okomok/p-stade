@@ -64,15 +64,15 @@ namespace pstade { namespace egg {
             return m_base;
         }
 
-        template<class Myself, class NamedArgs>
+        template<class Me, class NamedArgs>
         struct apply
         {
             BOOST_PP_REPEAT(n, PSTADE_in_apply, ~)
             typedef typename result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::add_reference<t_b, >::type))>::type type;
         };
 
-        template<class Result, class NamedArgs>
-        Result call(NamedArgs& nargs) const
+        template<class Re, class NamedArgs>
+        Re call(NamedArgs& nargs) const
         {
             typedef apply<void, NamedArgs> apply_;
             BOOST_PP_REPEAT(n, PSTADE_in_call, ~)
@@ -94,15 +94,15 @@ namespace pstade { namespace egg {
 
     struct BOOST_PP_CAT(little_named, n)
     {
-        template<class Myself, class Base>
+        template<class Me, class Base>
         struct apply :
             PSTADE_PP_CAT3(result_of_, named, n)<Base>
         { };
 
-        template<class Result, class Base>
-        Result call(Base base) const
+        template<class Re, class Base>
+        Re call(Base base) const
         {
-            Result r = PSTADE_EGG_NAMED(base);
+            Re r = PSTADE_EGG_NAMED(base);
             return r;
         }
     };

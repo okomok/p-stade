@@ -29,14 +29,14 @@
             // 0ary
                 typedef template_(0)<> nullary_result_type;
 
-                template<class Result>
-                Result call() const
+                template<class Re>
+                Re call() const
                 {
-                    return Result();
+                    return Re();
                 }
 
             // 1ary-
-                template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(max_size, A)>
+                template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(max_size, A)>
                 struct PSTADE_EGG_APPLY_DECL;
 
                 #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, max_size, <pstade/egg/detail/xxx_pack_include.hpp>))
@@ -73,8 +73,8 @@
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)>
     {
         typedef
             template_(n)<
@@ -83,10 +83,10 @@
         type;
     };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return Result(BOOST_PP_ENUM_PARAMS(n, a));
+        return Re(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

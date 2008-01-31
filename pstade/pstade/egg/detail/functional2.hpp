@@ -101,15 +101,15 @@ namespace pstade { namespace egg {
         template<class Return>
         struct little
         {
-            template<class Myself, class A1, class A2>
+            template<class Me, class A1, class A2>
             struct apply :
                 eval_if_use_default<Return,
                     boost::lambda::return_type_2<act, A1, A2>
                 >
             { };
 
-            template<class Result, class A1, class A2>
-            Result call(A1& a1, A2& a2) const
+            template<class Re, class A1, class A2>
+            Re call(A1& a1, A2& a2) const
             {
                 return a1 op() a2;
             }

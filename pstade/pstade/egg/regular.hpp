@@ -28,13 +28,13 @@ namespace pstade { namespace egg {
         template<class Strategy>
         struct little
         {
-            template<class Myself, class Base>
+            template<class Me, class Base>
             struct apply :
                 result_of<X_indirect<Strategy>(detail::regularized<Base>)>
             { };
 
-            template<class Result, class Base>
-            Result call(Base base) const
+            template<class Re, class Base>
+            Re call(Base base) const
             {
                 return X_indirect<Strategy>()(detail::regularized<Base>(base));
             }

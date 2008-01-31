@@ -158,11 +158,11 @@ namespace pstade { namespace egg {
                 >
             { };
 
-            template<class Result, class MA, class A_MB>
-            Result call(boost::type<Result>, MA const& m, A_MB& f) const
+            template<class Re, class MA, class A_MB>
+            Re call(boost::type<Re>, MA const& m, A_MB& f) const
             {
                 typedef ext::Monad<MA> extM_t;
-                return extM_t().template bind<Result>(m, f);
+                return extM_t().template bind<Re>(m, f);
             }
 
             template<class A, class A_MB>
@@ -172,15 +172,15 @@ namespace pstade { namespace egg {
                 >
             { };
 
-            template<class Result, class A, class A_MB>
-            Result call(boost::type<Result>, wrapper<A> const& w, A_MB& f) const
+            template<class Re, class A, class A_MB>
+            Re call(boost::type<Re>, wrapper<A> const& w, A_MB& f) const
             {
-                typedef ext::Monad<Result> extM_t_;
+                typedef ext::Monad<Re> extM_t_;
                 typedef typename extM_t_::template wrap<A>::type MA_t;
                 return make_function(*this)(egg::copy<MA_t>(w), f);
             }
 
-            template<class Myself, class MA, class A_MB>
+            template<class Me, class MA, class A_MB>
             struct apply :
                 apply_aux<typename pass_by_value<MA>::type, A_MB>
             { };
@@ -189,24 +189,24 @@ namespace pstade { namespace egg {
 
         struct little_bind_
         {
-            template<class Myself, class MA, class MB>
+            template<class Me, class MA, class MB>
             struct apply
             {
                 typedef MB type;
             };
 
-            template<class Result, class MA, class MB>
-            Result call(MA& m, MB& k) const
+            template<class Re, class MA, class MB>
+            Re call(MA& m, MB& k) const
             {
-                typedef ext::Monad<Result> extM_t_;
-                return extM_t_().template bind_<Result>(m, k);
+                typedef ext::Monad<Re> extM_t_;
+                return extM_t_().template bind_<Re>(m, k);
             }
         };
 
 
         struct little_return_wrapper
         {
-            template<class Myself, class A>
+            template<class Me, class A>
             struct apply
             {
                 typedef
@@ -214,10 +214,10 @@ namespace pstade { namespace egg {
                 type;
             };
 
-            template<class Result, class A>
-            Result call(A& a) const
+            template<class Re, class A>
+            Re call(A& a) const
             {
-                Result r = { boost::addressof(a) };
+                Re r = { boost::addressof(a) };
                 return r;
             }
         };

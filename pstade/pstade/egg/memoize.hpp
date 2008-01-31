@@ -37,17 +37,17 @@ namespace pstade { namespace egg {
         struct wrap_ :
             function_facade<wrap_, by_cref>
         {
-            template<class Myself, class Base, class Fixed, class Arg>
+            template<class Me, class Base, class Fixed, class Arg>
             struct apply :
                 result_of<
                     typename result_of<Base(Fixed const&)>::type(Arg const&)
                 >
             { };
 
-            template<class Result, class Base, class Fixed, class Arg>
-            Result call(Base& base, Fixed& fixed, Arg const& arg) const
+            template<class Re, class Base, class Fixed, class Arg>
+            Re call(Base& base, Fixed& fixed, Arg const& arg) const
             {
-                typedef std::map<Arg, Result> map_t;
+                typedef std::map<Arg, Re> map_t;
 
                 if (m_pany->empty())
                     *m_pany = map_t();
@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class Base_>
+            template<class Me, class Base_>
             struct apply :
                 result_of<
                     T_fix(
@@ -83,8 +83,8 @@ namespace pstade { namespace egg {
                 >
             { };
 
-            template<class Result, class Base_>
-            Result call(Base_ base) const
+            template<class Re, class Base_>
+            Re call(Base_ base) const
             {
                 return fix(
                     curry3(wrap_())(curry2(base))

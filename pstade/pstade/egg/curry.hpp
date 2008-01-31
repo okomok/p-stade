@@ -75,15 +75,15 @@ namespace pstade { namespace egg {
 
     struct BOOST_PP_CAT(little_curry, n)
     {
-        template<class Myself, class Base>
+        template<class Me, class Base>
         struct apply :
             BOOST_PP_CAT(result_of_curry, n)<Base>
         { };
 
-        template<class Result, class Base>
-        Result call(Base base) const
+        template<class Re, class Base>
+        Re call(Base base) const
         {
-            Result r = BOOST_PP_CAT(PSTADE_EGG_CURRY, n)(base);
+            Re r = BOOST_PP_CAT(PSTADE_EGG_CURRY, n)(base);
             return r;
         }
     };

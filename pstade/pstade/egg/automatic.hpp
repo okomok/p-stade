@@ -92,7 +92,7 @@ namespace pstade { namespace egg {
         template<class Expr, class Strategy, template<class, class, class> class From>
         struct little
         {
-            template<class Myself, class Args>
+            template<class Me, class Args>
             struct apply
             {
                 typedef 
@@ -105,10 +105,10 @@ namespace pstade { namespace egg {
                 type;
             };
 
-            template<class Result, class Args>
-            Result call(Args& args) const
+            template<class Re, class Args>
+            Re call(Args& args) const
             {
-                Result r = { fuse(PSTADE_EGG_DEFAULT_PACK<Strategy>())(args) };
+                Re r = { fuse(PSTADE_EGG_DEFAULT_PACK<Strategy>())(args) };
                 return r;
             }
         };

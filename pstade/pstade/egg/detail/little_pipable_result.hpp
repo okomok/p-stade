@@ -88,15 +88,15 @@ namespace pipable_operators {
             function_with<boost::tuples::null_type>::type
         nullary_result_type;
 
-        template<class Result>
-        Result call() const
+        template<class Re>
+        Re call() const
         {
-            Result r = { { m_base, {} } };
+            Re r = { { m_base, {} } };
             return r;
         }
 
     // 1ary-
-        template<class Myself, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_PIPABLE_MAX_ARITY, A)>
+        template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_PIPABLE_MAX_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_PIPABLE_MAX_ARITY, <pstade/egg/detail/little_pipable_result.hpp>))
@@ -175,17 +175,17 @@ namespace pipable_operators {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         function_with<
             typename result_of<PSTADE_EGG_DEFAULT_PACK<Strategy>(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type
         >
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        Result r = { { m_base, PSTADE_EGG_DEFAULT_PACK<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        Re r = { { m_base, PSTADE_EGG_DEFAULT_PACK<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
         return r;
     }
 

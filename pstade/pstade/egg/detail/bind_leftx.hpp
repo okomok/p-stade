@@ -72,7 +72,7 @@ namespace pstade { namespace egg { namespace detail {
             return m_base;
         }
 
-        template<class Myself, class ArgZ>
+        template<class Me, class ArgZ>
         struct apply :
             result_of<
                 Base const(
@@ -82,8 +82,8 @@ namespace pstade { namespace egg { namespace detail {
             >
         { };
 
-        template<class Result, class ArgZ>
-        Result call(ArgZ& argZ) const
+        template<class Re, class ArgZ>
+        Re call(ArgZ& argZ) const
         {
             return m_base(
                 BOOST_PP_ENUM_PARAMS(n, m_arg),
@@ -95,7 +95,7 @@ namespace pstade { namespace egg { namespace detail {
 
     struct BOOST_PP_CAT(little_bind_left, n)
     {
-        template<class Myself, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
+        template<class Me, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
         struct apply
         {
             typedef
@@ -109,10 +109,10 @@ namespace pstade { namespace egg { namespace detail {
             type;
         };
 
-        template<class Result, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
-        Result call(Base& base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+        template<class Re, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
+        Re call(Base& base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
         {
-            Result r = { { base, BOOST_PP_ENUM_PARAMS(n, a) } };
+            Re r = { { base, BOOST_PP_ENUM_PARAMS(n, a) } };
             return r;
         }
     };

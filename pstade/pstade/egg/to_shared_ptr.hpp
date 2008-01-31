@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
         template<class Element>
         struct little
         {
-            template<class Myself, class Ptr>
+            template<class Me, class Ptr>
             struct apply
             {
                 typedef typename
@@ -47,10 +47,10 @@ namespace pstade { namespace egg {
                 type;
             };
 
-            template<class Result, class Ptr>
-            Result call(Ptr p) const
+            template<class Re, class Ptr>
+            Re call(Ptr p) const
             {
-                return Result(p);
+                return Re(p);
             }
         };
 
