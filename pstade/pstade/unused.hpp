@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_UNUSED_HPP
 #define PSTADE_UNUSED_HPP
 #include "./detail/prefix.hpp"
@@ -11,10 +12,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/intercept.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <pstade/dont_care.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/preprocessor.hpp>
 
 
 #if !defined(PSTADE_UNUSED_MAX_ARITY)
@@ -29,9 +31,20 @@ namespace pstade {
     {
         typedef void result_type;
 
-        void operator()(BOOST_PP_ENUM_BINARY_PARAMS(PSTADE_UNUSED_MAX_ARITY, dont_care BOOST_PP_INTERCEPT, = 0 BOOST_PP_INTERCEPT)) const
+        // 0ary
+        void operator()() const
         { }
+
+        // 1ary
+        template< class A0 >
+        void operator()(A0 const&) const
+        { }
+
+        // 2ary-
+        #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
+        #include BOOST_PP_ITERATE()
     };
+
 
     PSTADE_POD_CONSTANT((T_unused), unused) = {};
 
@@ -39,4 +52,15 @@ namespace pstade {
 } // namespace pstade
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+template<BOOST_PP_ENUM_PARAMS(n, class A)>
+void operator()(PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)) const
+{ }
+
+
+#undef n
 #endif
