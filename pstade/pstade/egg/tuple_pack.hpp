@@ -12,12 +12,12 @@
 
 
 #include <boost/tuple/tuple.hpp>
+#include <pstade/boost_tuple_config.hpp> // PSTADE_BOOST_TUPLE_MAX_SIZE
 #include "../detail/xxx_pack.hpp"
-#include "./config.hpp" // PSTADE_EGG_TUPLE_MAX_SIZE
 
 
 #define  PSTADE_EGG_TUPLE_PACK_TEMPLATE(_) boost::tuples::tuple
-#define  PSTADE_EGG_XXX_PACK_PARAMS (tuple_pack, PSTADE_EGG_TUPLE_PACK_TEMPLATE, PSTADE_EGG_TUPLE_MAX_SIZE)
+#define  PSTADE_EGG_XXX_PACK_PARAMS (tuple_pack, PSTADE_EGG_TUPLE_PACK_TEMPLATE, PSTADE_BOOST_TUPLE_MAX_SIZE)
 #include PSTADE_EGG_XXX_PACK()
 
 

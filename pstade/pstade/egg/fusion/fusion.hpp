@@ -1,6 +1,5 @@
-#ifndef PSTADE_EGG_TUPLE_CONFIG_HPP
-#define PSTADE_EGG_TUPLE_CONFIG_HPP
-#include "../detail/prefix.hpp"
+#ifndef PSTADE_EGG_FUSION_FUSION_HPP
+#define PSTADE_EGG_FUSION_FUSION_HPP
 
 
 // PStade.Egg
@@ -11,9 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#if !defined(PSTADE_EGG_TUPLE_MAX_SIZE)
-    #define PSTADE_EGG_TUPLE_MAX_SIZE 10
-#endif
+#include "./at.hpp"
+#include "./length.hpp"
+#include "./pack.hpp"
+#include "./prepend.hpp"
+#include "./value_at.hpp"
 
 
 #endif

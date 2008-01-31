@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_TUPLE_HPP
-#define PSTADE_EGG_TUPLE_HPP
+#ifndef PSTADE_EGG_FUSION_HPP
+#define PSTADE_EGG_FUSION_HPP
 
 
 // PStade.Egg
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./tuple/tuple.hpp"
+#include "./fusion/fusion.hpp"
 
 
 #endif
