@@ -18,6 +18,7 @@ test-suite "egg_example" :
     [ run freed_prisoner.cpp ]
     [ run function_adaptors.cpp ]
     [ run function_builders.cpp ]
+    [ run fusing.cpp ]
     [ run introduction.cpp ]
     [ run mono_lambda.cpp ]
     [ run my_perfect.cpp ]
