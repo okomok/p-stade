@@ -631,7 +631,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section fusion_at]
 
 [heading Description]
-`fusion_at` is akin to `boost::fusion::at`.
+`fusion_at` is a __STATIC_FUNCTION_OBJECT__ which is akin to `boost::fusion::at`.
 
 [heading Header]
 * `<pstade/egg/fusion/at.hpp>`
@@ -654,7 +654,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_fusion_at<N>()(t)`]
-        [`boost::fusion::at<N::value>(t)`]
+        [`boost::fusion::at<N>(t)`]
     ]
     [
         [`X_fusion_at_c<n>`]
