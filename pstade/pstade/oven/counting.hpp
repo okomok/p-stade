@@ -23,7 +23,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/copy.hpp>
-#include <pstade/egg/use_deduced_result.hpp>
+#include <pstade/egg/use_deduced_form.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./iter_range.hpp"
@@ -79,7 +79,7 @@ namespace counting_detail {
     template< class Traversal, class Difference >
     struct little
     {
-        typedef little use_deduced_result;
+        typedef little use_deduced_form;
 
         template< class Myself, class Incrementable1, class Incrementable2 >
         struct apply

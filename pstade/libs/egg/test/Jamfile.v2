@@ -150,7 +150,7 @@ test-suite "egg" :
     [ run unfuse.cpp ]
     [ run unref.cpp ]
     [ run unwrap_ref.cpp ]
-    [ run use_deduced_result.cpp ]
+    [ run use_deduced_form.cpp ]
     [ run variadic.cpp ]
     [ run volatile_correct.cpp ]
     [ run volatile_correct_udt.cpp ]

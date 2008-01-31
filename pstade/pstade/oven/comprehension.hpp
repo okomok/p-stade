@@ -32,7 +32,7 @@
 #include <pstade/egg/bll/placeholders.hpp>
 #include <pstade/egg/bll/unlambda.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/use_deduced_result.hpp>
+#include <pstade/egg/use_deduced_form.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -342,7 +342,7 @@ namespace always_return_detail {
 
     struct little
     {
-        typedef little use_deduced_result;
+        typedef little use_deduced_form;
 
         template< class Myself, class Range >
         struct apply

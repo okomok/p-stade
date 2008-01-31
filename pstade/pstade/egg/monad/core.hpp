@@ -66,7 +66,7 @@
 #include "../copy.hpp"
 #include "../function.hpp"
 #include "../make_function.hpp"
-#include "../use_deduced_result.hpp"
+#include "../use_deduced_form.hpp"
 
 
 namespace pstade_egg_extension {
@@ -149,7 +149,7 @@ namespace pstade { namespace egg {
 
         struct little_bind
         {
-            typedef little_bind use_deduced_result;
+            typedef little_bind use_deduced_form;
 
             template<class MA, class A_MB>
             struct apply_aux :

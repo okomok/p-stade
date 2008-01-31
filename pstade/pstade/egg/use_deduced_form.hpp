@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_USE_DEDUCED_RESULT_HPP
-#define PSTADE_EGG_USE_DEDUCED_RESULT_HPP
+#ifndef PSTADE_EGG_USE_DEDUCED_FORM_HPP
+#define PSTADE_EGG_USE_DEDUCED_FORM_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -26,14 +26,14 @@
 namespace pstade { namespace egg {
 
 
-    PSTADE_HAS_TYPE(use_deduced_result)
+    PSTADE_HAS_TYPE(use_deduced_form)
 
 
     template<class Little_, class Result>
     struct call_little_impl<Little_, Result,
-        typename enable_if< has_use_deduced_result<Little_> >::type>
+        typename enable_if< has_use_deduced_form<Little_> >::type>
     {
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/use_deduced_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/use_deduced_form.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

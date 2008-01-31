@@ -14,7 +14,7 @@
 #include <boost/lambda/core.hpp> // unlambda
 #include <pstade/pod_constant.hpp>
 #include "../by_value.hpp"
-#include "../use_deduced_result.hpp"
+#include "../use_deduced_form.hpp"
 #include "./result_of.hpp" // inclusion guaranteed
 
 
@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            typedef little use_deduced_result;
+            typedef little use_deduced_form;
 
             template<class Myself, class Function>
             struct apply

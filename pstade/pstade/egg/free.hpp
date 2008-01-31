@@ -39,7 +39,7 @@
 #include "./detail/free_call.hpp"
 #include "./detail/get_pointer_preamble.hpp"
 #include "./detail/wrap.hpp"
-#include "./use_deduced_result.hpp"
+#include "./use_deduced_form.hpp"
 
 
 namespace pstade { namespace egg {
@@ -70,7 +70,7 @@ namespace pstade { namespace egg {
             return m_base;
         }
 
-        typedef result_of_free use_deduced_result;
+        typedef result_of_free use_deduced_form;
 
         template<class Myself, class U>
         struct apply :

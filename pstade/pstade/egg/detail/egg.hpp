@@ -101,7 +101,7 @@
 #include "../uncurry.hpp"
 #include "../unfuse.hpp"
 #include "../unwrap_ref.hpp"
-#include "../use_deduced_result.hpp"
+#include "../use_deduced_form.hpp"
 #include "../variadic.hpp"
 
 
