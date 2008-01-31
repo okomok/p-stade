@@ -736,6 +736,8 @@ using __EGG_FORWARDING_STRATEGIES__.
 
 
 
+[/
+
 [section tuple_pack]
 
 [heading Description]
@@ -783,6 +785,8 @@ using __EGG_FORWARDING_STRATEGIES__.
 * __BOOST_TUPLE__
 
 [endsect]
+
+]
 
 
 
