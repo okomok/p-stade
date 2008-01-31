@@ -18,9 +18,11 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./result_of_ref.hpp"
+#include <pstade/result_of.hpp>
 
 
 namespace pstade { namespace egg {
@@ -31,7 +33,7 @@ namespace pstade { namespace egg {
 
 
     template<class Fun>
-    struct F_ptr;
+    struct as_arg;
 
 
     template<class Arg>
@@ -40,27 +42,36 @@ namespace pstade { namespace egg {
         typedef Arg type;
     };
 
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+    template<class Fun>
+    struct return_of< as_arg<Fun> > :
+        boost::mpl::eval_if< boost::is_function<Fun>,
+            boost::mpl::identity<Fun *>, // manually decay
+            boost::mpl::identity<Fun>
+        >
+    { };
+#else
+    template<class Fun>
+    struct return_of< as_arg<Fun> >
+    {
+        typedef Fun type;
+    };
+#endif
+
 
     template<class Arg>
     struct return_of<Arg *> :
-        boost::mpl::eval_if< boost::is_function<Arg>,
+        boost::mpl::eval_if< boost::is_function<Arg>, // if decayed
             return_of<Arg>,
             boost::mpl::identity<Arg *>
         >
     { };
 
 
-    template<class Fun>
-    struct return_of< F_ptr<Fun> >
-    {
-        typedef typename boost::remove_pointer<Fun>::type *type;
-    };
-
-
     // 0ary
     template<class Fun>
     struct return_of<Fun(void)> :
-        result_of_ref<Fun()>
+        result_of<typename boost::remove_reference<Fun>::type()>
     { };
 
 
@@ -79,8 +90,8 @@ namespace pstade { namespace egg {
 
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct return_of<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
-        result_of_ref<
-            Fun(
+        result_of<
+            typename boost::remove_reference<Fun>::type(
                 PSTADE_PP_ENUM_PARAMS_WITH(n, typename return_of<A, >::type)
             )
         >

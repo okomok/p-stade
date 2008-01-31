@@ -19,7 +19,7 @@
 
 
 using pstade::egg::return_of;
-using pstade::egg::F_ptr;
+using pstade::egg::as_arg;
 using pstade::egg::T_apply;
 using pstade::egg::apply;
 
@@ -55,21 +55,20 @@ int minus(int i, int j)
 }
 
 
-
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(int, int)>::type, int>));
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(int, T_plus(int, int))>::type, int>));
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_plus(int, int), int)>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_plus(int, int), T_plus(int, int))>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_plus(int, int), T_plus(int, T_plus(int, int)))>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_plus(int, as_arg<int>), T_plus(int, int))>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_plus(int, int), T_plus(int, T_plus(int, as_arg<int>)))>::type, int>));
 
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_negate(int)>::type, int>));
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_negate(int), T_plus(int, int))>::type, int>));
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_plus(int, int), T_negate(int))>::type, int>));
 
-BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(F_ptr<int(*)(int, int)>, int)>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(F_ptr<int(int, int)>, int)>::type, int>));
-
-
+BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(as_arg<int(*)(int, int)>, int)>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(as_arg<int(int, int)>, int)>::type, int>));
+//BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_apply(int(&)(int, int), int)>::type, int>));
+//BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(as_arg<int(&)(int, int)>, int)>::type, int>));
 
 
 void pstade_lightweight_test()
@@ -85,12 +84,7 @@ void pstade_lightweight_test()
         BOOST_CHECK( r == 1+(-2)+3 );
     }
     {
-        return_of<T_apply(F_ptr<int(*)(int, int)>, int)>::type
-            r = apply(&minus, 3, 2);
-        BOOST_CHECK( r == 1 );
-    }
-    {
-        return_of<T_apply(F_ptr<int(int, int)>, int)>::type
+        return_of<T_apply(as_arg<int(*)(int, int)>, int)>::type
             r = apply(&minus, 3, 2);
         BOOST_CHECK( r == 1 );
     }
