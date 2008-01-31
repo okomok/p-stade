@@ -20,10 +20,10 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_cref.hpp"
 #include "./by_perfect.hpp"
-#include "./construct_braced1.hpp"
+#include "./construct_variadic1.hpp"
 #include "./detail/bound.hpp"
-#include "./detail/dont_cares.hpp"
 #include "./generator.hpp"
+#include "./variadic.hpp"
 
 
 namespace pstade { namespace egg {
@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
 
 
         template<class Bound>
-        struct returned
+        struct little_returned
         {
             Bound m_bound;
 
@@ -42,9 +42,13 @@ namespace pstade { namespace egg {
                 return m_bound;
             }
 
-            typedef typename detail::unbound<Bound>::type result_type;
+            template<class Myself, class Args>
+            struct apply :
+                detail::unbound<Bound>
+            { };
 
-            result_type operator()(PSTADE_EGG_DONT_CARES()) const
+            template<class Result, class Args>
+            Result call(Args& ) const
             {
                 return m_bound;
             }
@@ -52,7 +56,7 @@ namespace pstade { namespace egg {
 
 
         template<class Reference>
-        struct ref_returned
+        struct little_ref_returned
         {
             Reference m_ref;
 
@@ -61,9 +65,14 @@ namespace pstade { namespace egg {
                 return m_ref;
             }
 
-            typedef Reference result_type;
+            template<class Myself, class Args>
+            struct apply
+            {
+                typedef Reference type;
+            };
 
-            result_type operator()(PSTADE_EGG_DONT_CARES()) const
+            template<class Result, class Args>
+            Result call(Args& ) const
             {
                 return m_ref;
             }
@@ -77,20 +86,24 @@ namespace pstade { namespace egg {
     //
 
     template<class Bound>
-    struct result_of_always
-    {
-        typedef always_detail::returned<Bound> type;
-    };
+    struct result_of_always :
+        variadic<
+            always_detail::little_returned<Bound>,
+            by_cref,
+            boost::use_default,
+            use_nullary_result
+        >
+    { };
 
-    #define PSTADE_EGG_ALWAYS_L {
-    #define PSTADE_EGG_ALWAYS_R }
+    #define PSTADE_EGG_ALWAYS_L PSTADE_EGG_VARIADIC_L {
+    #define PSTADE_EGG_ALWAYS_R } PSTADE_EGG_VARIADIC_R
     #define PSTADE_EGG_ALWAYS(V) PSTADE_EGG_ALWAYS_L V PSTADE_EGG_ALWAYS_R
 
     typedef
         generator<
             result_of_always< deduce<mpl_1, detail::as_bound> >::type,
             by_cref,
-            X_construct_braced1<>
+            X_construct_variadic1<>
         >::type
     T_always;
 
@@ -101,20 +114,24 @@ namespace pstade { namespace egg {
     //
 
     template<class Reference>
-    struct result_of_always_ref
-    {
-        typedef always_detail::ref_returned<Reference> type;
-    };
+    struct result_of_always_ref :
+        variadic<
+            always_detail::little_ref_returned<Reference>,
+            by_perfect,
+            boost::use_default,
+            use_nullary_result
+        >
+    { };
 
-    #define PSTADE_EGG_ALWAYS_REF_L {
-    #define PSTADE_EGG_ALWAYS_REF_R }
+    #define PSTADE_EGG_ALWAYS_REF_L PSTADE_EGG_VARIADIC_L {
+    #define PSTADE_EGG_ALWAYS_REF_R } PSTADE_EGG_VARIADIC_R
     #define PSTADE_EGG_ALWAYS_REF(R) PSTADE_EGG_ALWAYS_REF_L R PSTADE_EGG_ALWAYS_REF_R
 
     typedef
         generator<
             result_of_always_ref< deduce<mpl_1, as_ref> >::type,
             by_perfect,
-            X_construct_braced1<>
+            X_construct_variadic1<>
         >::type
     T_always_ref;
 

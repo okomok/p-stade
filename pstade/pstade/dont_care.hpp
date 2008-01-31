@@ -18,6 +18,9 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/boost_workaround.hpp>
+
+
 namespace pstade {
 
 
@@ -26,6 +29,11 @@ namespace pstade {
         template<class X>
         dont_care(X const&)
         { }
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+        dont_care(int const&)
+        { }
+#endif
     };
 
 

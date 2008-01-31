@@ -16,6 +16,16 @@
 using namespace pstade;
 
 
+struct to_any
+{
+    template<class To>
+    operator To() const
+    {
+        return To(1,2);
+    }
+};
+
+
 void foo(dont_care = 0, dont_care = 0)
 {
 }
@@ -26,6 +36,11 @@ void test()
     ::foo();
     ::foo(1);
     ::foo('a', 1.0);
+
+#if 0 // ambiguous. no workaround.
+    to_any a;
+    ::foo(a);
+#endif
 }
 
 

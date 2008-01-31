@@ -13,10 +13,22 @@
 #include <boost/test/minimal.hpp>
 
 
+struct to_any
+{
+    template<class To>
+    operator To() const
+    {
+        return To(1,2);
+    }
+};
+
 void test()
 {
     pstade::unused();
     pstade::unused(0,1,2,3,4,5,6,7,8);
+
+    to_any a;
+    pstade::unused(a, to_any());
 }
 
 

@@ -32,6 +32,15 @@ struct my_klass : boost::noncopyable
 };
 
 
+struct to_any
+{
+    template<class To>
+    operator To() const
+    {
+        return To(1,2);
+    }
+};
+
 void pstade_minimal_test()
 {
     {
@@ -54,5 +63,10 @@ void pstade_minimal_test()
     }
     {
         always(always)(1,2)(3);
+    }
+    {
+        to_any a;
+        always(1)(a, to_any());
+        always_ref(1)(a, to_any());
     }
 }
