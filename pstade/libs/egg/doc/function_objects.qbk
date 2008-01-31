@@ -631,7 +631,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section fusion_at]
 
 [heading Description]
-`fusion_at` is akin to `boost::get`.
+`fusion_at` is akin to `boost::fusion::at`.
 
 [heading Header]
 * `<pstade/egg/fusion/at.hpp>`
@@ -654,7 +654,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_fusion_at<N>()(t)`]
-        [`boost::get<N::value>(t)`]
+        [`boost::fusion::at<N::value>(t)`]
     ]
     [
         [`X_fusion_at_c<n>`]
@@ -677,56 +677,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ...
 
 [heading See also]
-* __BOOST_TUPLE__
-
-[endsect]
-
-
-
-
-[section tuple_pack]
-
-[heading Description]
-`tuple_pack` is a __STATIC_FUNCTION_OBJECT__ which is akin to `boost::make_tuple` or `boost::tie`
-using __EGG_FORWARDING_STRATEGIES__.
-
-[heading Header]
-* `<pstade/egg/tuple_pack.hpp>`
-
-[heading Model of]
-* __STATIC_FUNCTION_OBJECT__
-
-[heading Notation]
-* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`X_tuple_pack<_Stg = _default>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`X_tuple_pack<_Stg>()(a1,...,aN)`]
-        [`boost::tuple<dts_(_safe_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
-    ]
-    [
-        [`tuple_pack`]
-        [`X_tuple_pack<>()`]
-    ]
-]
-
-[heading Preconditions]
-* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
-* The corresponding semantics is a valid expression.
-
-[heading Example]
-...
-
-[heading See also]
+* __BOOST_FUSION__
 * __BOOST_TUPLE__
 
 [endsect]
@@ -778,6 +729,58 @@ using __EGG_FORWARDING_STRATEGIES__.
 
 [heading See also]
 * __BOOST_FUSION__
+* __BOOST_TUPLE__
+
+[endsect]
+
+
+
+
+[section tuple_pack]
+
+[heading Description]
+`tuple_pack` is a __STATIC_FUNCTION_OBJECT__ which is akin to `boost::make_tuple` or `boost::tie`
+using __EGG_FORWARDING_STRATEGIES__.
+
+[heading Header]
+* `<pstade/egg/tuple_pack.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_tuple_pack<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_tuple_pack<_Stg>()(a1,...,aN)`]
+        [`boost::tuple<dts_(_safe_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`tuple_pack`]
+        [`X_tuple_pack<>()`]
+    ]
+]
+
+[heading Preconditions]
+* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_FUSION__
+* __BOOST_TUPLE__
 
 [endsect]
 
