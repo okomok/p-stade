@@ -72,7 +72,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _TUPLE_MAX_SIZE-1`.
+* `0 <= N && N+1 <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `N+1 <= _PACK_MAX_ARITY`
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * If `_Bytag` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding expression is a valid expression.
@@ -142,7 +143,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _TUPLE_MAX_SIZE`.
+* `0 <= N && N <= _PACK_MAX_ARITY`.
 * There is a `d1_` and `d2_` such that `_Dco1 d1_ = init1; _Dco2 d2_ = init2;` is a valid expression.
 * The corresponding expression is a valid expression.
 * `_decltype_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
@@ -478,7 +479,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= _TUPLE_MAX_SIZE`.
+* `1 <= N && N <= _PACK_MAX_ARITY`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * `t0` is an empty tuple.
 * The corresponding semantics is a valid expression.
@@ -564,7 +565,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
 * __EGG_VARIADIC__
-* __EGG_TUPLE_PACK__
+* __EGG_FUSION_PACK__
 
 [endsect]
 
@@ -942,7 +943,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _TUPLE_MAX_SIZE-1`.
+* `0 <= N && N+1 <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `N+1 <= _PACK_MAX_ARITY`
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
