@@ -13,8 +13,8 @@ project
 
 test-suite "wine" :
     [ run adl_barrier.cpp ]
-    [ run adl_barrier_broken.cpp ]
-    [ run adl_barrier_broken_.cpp ]
+#    [ run adl_barrier_broken.cpp ]
+#    [ run adl_barrier_broken_.cpp ]
     [ run affect.cpp ]
     [ run any.cpp ]
     [ run any_fwd.cpp ]
