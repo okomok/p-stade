@@ -20,7 +20,7 @@
 #include "./detail/is_a_or_b.hpp"
 #include "./function_fwd.hpp"
 #include "./fuse.hpp"
-#include "./tuple/prepend.hpp"
+#include "./fusion/prepend.hpp"
 #include "./variadic.hpp"
 
 
@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
             result_of<
                 typename result_of<
                     T_fuse(Base const&)
-                >::type(typename result_of<T_tuple_prepend(Args&, O&)>::type)
+                >::type(typename result_of<T_fusion_prepend(Args&, O&)>::type)
             >
         { };
 
@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
             typename result_of_output<O, Base, Args>::type
             output(O& o) const
             {
-                return fuse(m_base)(tuple_prepend(m_args, o));
+                return fuse(m_base)(fusion_prepend(m_args, o));
             }
         };
 

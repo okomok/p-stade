@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/tuple/pack.hpp>
+#include <pstade/egg/tuple_pack.hpp>
 #include <pstade/egg/by_ref.hpp>
 #include <pstade/minimal_test.hpp>
 

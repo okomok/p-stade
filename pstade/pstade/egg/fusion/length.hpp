@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_TUPLE_SIZE_HPP
-#define PSTADE_EGG_TUPLE_SIZE_HPP
+#ifndef PSTADE_EGG_FUSION_LENGTH_HPP
+#define PSTADE_EGG_FUSION_LENGTH_HPP
 #include "../detail/prefix.hpp"
 
 
@@ -9,6 +9,11 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+
+
+// Note:
+//
+// It is guaranteed that return type is `mpl::int_`.
 
 
 #include <boost/mpl/eval_if.hpp>
@@ -28,17 +33,17 @@
 namespace pstade { namespace egg {
 
 
-    namespace tuple_size_detail {
+    namespace fusion_length_detail {
 
 
         template<class Tuple>
-        struct boost_tuple_size :
+        struct tuple_length :
             boost::mpl::int_<boost::tuples::length<Tuple>::value>
         { };
 
 
         template<class Seq>
-        struct boost_mpl_size :
+        struct mpl_size :
             boost::mpl::int_<boost::mpl::size<Seq>::type::value>
         { };
 
@@ -46,8 +51,8 @@ namespace pstade { namespace egg {
         template<class Tuple>
         struct aux_ :
             boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
-                boost_tuple_size<Tuple>,
-                boost_mpl_size<Tuple>
+                tuple_length<Tuple>,
+                mpl_size<Tuple>
             >::type
         { };
 
@@ -57,12 +62,12 @@ namespace pstade { namespace egg {
         { };
 
 
-    } // namespace tuple_size_detail
+    } // namespace fusion_length_detail
 
 
     template<class Tuple>
-    struct tuple_size :
-        tuple_size_detail::aux_<typename boost::remove_cv<Tuple>::type>
+    struct fusion_length :
+        fusion_length_detail::aux_<typename boost::remove_cv<Tuple>::type>
     { };
 
 

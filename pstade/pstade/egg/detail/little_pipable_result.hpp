@@ -26,7 +26,7 @@
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
-#include "../tuple/prepend.hpp"
+#include "../fusion/prepend.hpp"
 #include "./default_pack.hpp"
 #include "./is_a_or_b.hpp"
 
@@ -50,7 +50,7 @@ namespace pipable_operators {
         result_of<
             typename result_of<
                 T_fuse(Base const&)
-            >::type(typename result_of<T_tuple_prepend(Args const&, O&)>::type)
+            >::type(typename result_of<T_fusion_prepend(Args const&, O&)>::type)
         >
     { };
 
@@ -72,7 +72,7 @@ namespace pipable_operators {
         typename result_of_output<O, Base, Args>::type
         output(O& o) const
         {
-            return fuse(m_base)(tuple_prepend(m_args, o));
+            return fuse(m_base)(fusion_prepend(m_args, o));
         }
 
         template<class Args_>

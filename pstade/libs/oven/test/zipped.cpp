@@ -23,7 +23,7 @@
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/egg/tuple/pack.hpp>
+#include <pstade/egg/tuple_pack.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/egg/to_value.hpp>
 #include <pstade/oven/identities.hpp>

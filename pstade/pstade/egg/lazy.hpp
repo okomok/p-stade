@@ -19,8 +19,8 @@
 #include "./by_value.hpp"
 #include "./construct_variadic1.hpp"
 #include "./fuse.hpp"
+#include "./fusion/prepend.hpp"
 #include "./generator.hpp"
-#include "./tuple/prepend.hpp"
 #include "./variadic.hpp"
 
 
@@ -47,14 +47,14 @@ namespace pstade { namespace egg {
                 result_of<
                     typename result_of<
                         T_fuse(bind_t)
-                    >::type(typename result_of<T_tuple_prepend(Args&, Base const&)>::type)
+                    >::type(typename result_of<T_fusion_prepend(Args&, Base const&)>::type)
                 >
             { };
 
             template<class Result, class Args>
             Result call(Args& args) const
             {
-                return fuse(bind_t())(tuple_prepend(args, m_base));
+                return fuse(bind_t())(fusion_prepend(args, m_base));
             }
         };
 

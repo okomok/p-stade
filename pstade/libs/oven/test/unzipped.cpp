@@ -23,8 +23,8 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/egg/tuple/get.hpp>
-#include <pstade/egg/tuple/pack.hpp>
+#include <pstade/egg/fusion/at.hpp>
+#include <pstade/egg/tuple_pack.hpp>
 
 
 void test()
@@ -40,12 +40,12 @@ void test()
         std::vector<int> ans1  = rng1|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::egg::tuple_get_c<0>(pstade::egg::tuple_pack(rng0, rng1)|zipped|unzipped),
+            pstade::egg::fusion_at_c<0>(pstade::egg::tuple_pack(rng0, rng1)|zipped|unzipped),
             ans0
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::egg::tuple_get_c<1>(pstade::egg::tuple_pack(rng0, rng1)|zipped|unzipped),
+            pstade::egg::fusion_at_c<1>(pstade::egg::tuple_pack(rng0, rng1)|zipped|unzipped),
             ans1
         ) );
     }

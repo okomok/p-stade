@@ -17,8 +17,8 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "../tuple/get.hpp"
-#include "../tuple/size.hpp"
+#include "../fusion/at.hpp"
+#include "../fusion/length.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -39,13 +39,13 @@ namespace pstade { namespace egg { namespace detail {
 
         template<class Myself, class Tuple>
         struct apply :
-            apply_aux<Tuple, typename tuple_size<Tuple>::type>
+            apply_aux<Tuple, typename fusion_length<Tuple>::type>
         { };
 
         template<class Result, class Tuple>
         Result call(Tuple& tup) const
         {
-            return call_aux<Result>(tup, typename tuple_size<Tuple>::type());
+            return call_aux<Result>(tup, typename fusion_length<Tuple>::type());
         }
 
     // 0ary-
@@ -65,14 +65,14 @@ namespace pstade { namespace egg { namespace detail {
     template<class Tuple>
     struct apply_aux< Tuple, boost::mpl::int_<n> > :
         result_of<
-            Base const( PSTADE_PP_ENUM_PARAMS_WITH(n, typename result_of<X_tuple_get_c<PSTADE_PP_INT_, >(Tuple&)>::type) )
+            Base const( PSTADE_PP_ENUM_PARAMS_WITH(n, typename result_of<X_fusion_at_c<PSTADE_PP_INT_, >(Tuple&)>::type) )
         >
     { };
 
     template<class Result, class Tuple>
     Result call_aux(Tuple& tup, boost::mpl::int_<n>) const
     {
-        return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, X_tuple_get_c<PSTADE_PP_INT_, >()(tup)) );
+        return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, X_fusion_at_c<PSTADE_PP_INT_, >()(tup)) );
     }
 
 

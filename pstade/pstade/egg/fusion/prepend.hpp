@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_TUPLE_PREPEND_HPP
-#define PSTADE_EGG_TUPLE_PREPEND_HPP
+#ifndef PSTADE_EGG_FUSION_PREPEND_HPP
+#define PSTADE_EGG_FUSION_PREPEND_HPP
 #include "../detail/prefix.hpp"
 
 
@@ -34,10 +34,10 @@
 namespace pstade { namespace egg {
 
 
-    namespace prepend_detail {
+    namespace fusion_prepend_detail {
 
 
-        namespace here = prepend_detail;
+        namespace here = fusion_prepend_detail;
 
 
         template<class Bytag, class Tuple, class A>
@@ -134,16 +134,16 @@ namespace pstade { namespace egg {
         };
 
 
-    } // namespace prepend_detail
+    } // namespace fusion_prepend_detail
 
 
     template<class Bytag = by_perfect>
-    struct X_tuple_prepend :
-        function<prepend_detail::little<Bytag>, Bytag>
+    struct X_fusion_prepend :
+        function<fusion_prepend_detail::little<Bytag>, Bytag>
     { };
 
-    typedef X_tuple_prepend<>::function_type T_tuple_prepend;
-    PSTADE_POD_CONSTANT((T_tuple_prepend), tuple_prepend) = {{}};
+    typedef X_fusion_prepend<>::function_type T_fusion_prepend;
+    PSTADE_POD_CONSTANT((T_fusion_prepend), fusion_prepend) = {{}};
 
 
 } } // namespace pstade::egg

@@ -18,7 +18,7 @@
     #include "../fusion/pack.hpp"
     #define PSTADE_EGG_DEFAULT_PACK pstade::egg::X_fusion_pack
 #else
-    #include "../tuple/pack.hpp"
+    #include "../tuple_pack.hpp"
     #define PSTADE_EGG_DEFAULT_PACK pstade::egg::X_tuple_pack
 #endif
 

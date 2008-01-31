@@ -628,13 +628,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section tuple_get]
+[section fusion_at]
 
 [heading Description]
-`tuple_get` is akin to `boost::get`.
+`fusion_at` is akin to `boost::get`.
 
 [heading Header]
-* `<pstade/egg/tuple/get.hpp>`
+* `<pstade/egg/fusion/at.hpp>`
 
 [heading Model of]
 * ...
@@ -649,24 +649,24 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_tuple_get<N>`]
+        [`X_fusion_at<N>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_tuple_get<N>()(t)`]
+        [`X_fusion_at<N>()(t)`]
         [`boost::get<N::value>(t)`]
     ]
     [
-        [`X_tuple_get_c<n>`]
-        [`X_tuple_get< _mpl::int_<n> >`]
+        [`X_fusion_at_c<n>`]
+        [`X_fusion_at< _mpl::int_<n> >`]
     ]
     [
-        [`egg::tuple_get<N>(t)`]
-        [`X_tuple_get<N>()(t)`]
+        [`egg::fusion_at<N>(t)`]
+        [`X_fusion_at<N>()(t)`]
     ]
     [
-        [`egg::tuple_get_c<n>(t)`]
-        [`X_tuple_get_c<n>()(t)`]
+        [`egg::fusion_at_c<n>(t)`]
+        [`X_fusion_at_c<n>()(t)`]
     ]
 ]
 
@@ -691,7 +691,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 using __EGG_FORWARDING_STRATEGIES__.
 
 [heading Header]
-* `<pstade/egg/tuple/pack.hpp>`
+* `<pstade/egg/tuple_pack.hpp>`
 
 [heading Model of]
 * __STATIC_FUNCTION_OBJECT__

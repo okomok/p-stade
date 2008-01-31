@@ -23,7 +23,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/egg/tuple/pack.hpp> // tuple_pack
+#include <pstade/egg/tuple_pack.hpp> // tuple_pack
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/comparison.hpp> // DON'T FORGET for Readable test

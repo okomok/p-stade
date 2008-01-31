@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_TUPLE_ELEMENT_HPP
-#define PSTADE_EGG_TUPLE_ELEMENT_HPP
+#ifndef PSTADE_EGG_FUSION_VALUE_AT_HPP
+#define PSTADE_EGG_FUSION_VALUE_AT_HPP
 #include "../detail/prefix.hpp"
 
 
@@ -30,7 +30,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace tuple_element_detail {
+    namespace fusion_value_at_detail {
 
 
         template<class N, class Tuple>
@@ -50,18 +50,18 @@ namespace pstade { namespace egg {
         { };
 
 
-    } // namespace tuple_element_detail
+    } // namespace fusion_value_at_detail
 
 
     template<class N, class Tuple>
-    struct tuple_element :
-        tuple_element_detail::aux_<N, typename boost::remove_cv<Tuple>::type>
+    struct fusion_value_at :
+        fusion_value_at_detail::aux_<N, typename boost::remove_cv<Tuple>::type>
     { };
 
 
     template<int N, class Tuple>
-    struct tuple_element_c :
-        tuple_element<boost::mpl::int_<N>, Tuple>
+    struct fusion_value_at_c :
+        fusion_value_at<boost::mpl::int_<N>, Tuple>
     { };
 
 

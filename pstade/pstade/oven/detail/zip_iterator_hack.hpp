@@ -20,7 +20,7 @@
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/egg/tuple/config.hpp> // PSTADE_EGG_TUPLE_MAX_SIZE
+#include <pstade/boost_tuple_config.hpp> // PSTADE_BOOST_TUPLE_MAX_SIZE
 #include "./pure_traversal.hpp"
 
 
@@ -53,9 +53,9 @@ namespace pstade { namespace oven { namespace detail {
 namespace boost { namespace detail {
 
 
-    template< BOOST_PP_ENUM_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, class T) >
-    struct minimum_traversal_category_in_iterator_tuple< tuples::tuple<BOOST_PP_ENUM_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, T)> > :
-        pstade::oven::detail::minimum_traversal_category_in_iterator_tuple< tuples::tuple<BOOST_PP_ENUM_PARAMS(PSTADE_EGG_TUPLE_MAX_SIZE, T)> >
+    template< BOOST_PP_ENUM_PARAMS(PSTADE_BOOST_TUPLE_MAX_SIZE, class T) >
+    struct minimum_traversal_category_in_iterator_tuple< tuples::tuple<BOOST_PP_ENUM_PARAMS(PSTADE_BOOST_TUPLE_MAX_SIZE, T)> > :
+        pstade::oven::detail::minimum_traversal_category_in_iterator_tuple< tuples::tuple<BOOST_PP_ENUM_PARAMS(PSTADE_BOOST_TUPLE_MAX_SIZE, T)> >
     { };
 
     template< class Head, class Tail >

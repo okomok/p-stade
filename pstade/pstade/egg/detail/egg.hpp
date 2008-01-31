@@ -58,6 +58,7 @@
 #include "../function_fwd.hpp"
 #include "../functional.hpp"
 #include "../fuse.hpp"
+#include "../fusion.hpp"
 #include "../generator.hpp"
 #include "../identity.hpp"
 #include "../iequal_to.hpp"

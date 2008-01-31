@@ -31,7 +31,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/type.hpp>
-#include <pstade/egg/tuple/pack.hpp>
+#include <pstade/egg/tuple_pack.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/plain.hpp>

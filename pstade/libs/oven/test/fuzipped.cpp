@@ -23,7 +23,7 @@
 #include <boost/range.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/egg/tuple/pack.hpp> // tuple_pack
+#include <pstade/egg/tuple_pack.hpp> // tuple_pack
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/copied.hpp>
 
