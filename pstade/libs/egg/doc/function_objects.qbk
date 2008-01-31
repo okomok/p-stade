@@ -211,7 +211,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section auto_new]
 
 [heading Description]
-`auto_new` return a `std::auto_ptr<>`.
+`auto_new` returns a `std::auto_ptr<>`.
 
 [heading Header]
 * `<pstade/egg/auto_new.hpp>`
@@ -259,7 +259,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section shared_new]
 
 [heading Description]
-`shared_new` return a `boost::shared_ptr<>`.
+`shared_new` returns a `boost::shared_ptr<>`.
 
 [heading Header]
 * `<pstade/egg/shared_new.hpp>`
