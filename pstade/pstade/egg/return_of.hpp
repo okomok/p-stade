@@ -19,7 +19,6 @@
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <pstade/boost_workaround.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
@@ -42,21 +41,11 @@ namespace pstade { namespace egg {
         typedef Arg type;
     };
 
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-    template<class Fun>
-    struct return_of< as_arg<Fun> > :
-        boost::mpl::eval_if< boost::is_function<Fun>,
-            boost::mpl::identity<Fun *>, // manually decay
-            boost::mpl::identity<Fun>
-        >
-    { };
-#else
     template<class Fun>
     struct return_of< as_arg<Fun> >
     {
         typedef Fun type;
     };
-#endif
 
 
     template<class Arg>

@@ -66,9 +66,6 @@ BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_negate(int), T_plus(int, int
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_plus(T_plus(int, int), T_negate(int))>::type, int>));
 
 BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(as_arg<int(*)(int, int)>, int)>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(as_arg<int(int, int)>, int)>::type, int>));
-//BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_apply(int(&)(int, int), int)>::type, int>));
-//BOOST_MPL_ASSERT((boost::is_same<return_of<T_apply(as_arg<int(&)(int, int)>, int)>::type, int>));
 
 
 void pstade_lightweight_test()
