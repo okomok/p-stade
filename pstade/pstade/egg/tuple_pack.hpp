@@ -13,7 +13,7 @@
 
 #include <boost/tuple/tuple.hpp>
 #include <pstade/boost_tuple_config.hpp> // PSTADE_BOOST_TUPLE_MAX_SIZE
-#include "../detail/xxx_pack.hpp"
+#include "./detail/xxx_pack.hpp"
 
 
 #define  PSTADE_EGG_TUPLE_PACK_TEMPLATE(_) boost::tuples::tuple

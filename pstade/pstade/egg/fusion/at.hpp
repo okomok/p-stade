@@ -19,7 +19,7 @@
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
 #include "../specified.hpp"
-#include "./valu_at.hpp"
+#include "./value_at.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
