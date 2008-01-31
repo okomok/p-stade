@@ -17,9 +17,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/is_function.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 
