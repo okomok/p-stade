@@ -17,6 +17,7 @@
 // #include "../named.hpp"
 #include "../placeholders.hpp"
 #include "../protect.hpp"
+#include "../return_of.hpp"
 #include "../unlambda.hpp"
 
 

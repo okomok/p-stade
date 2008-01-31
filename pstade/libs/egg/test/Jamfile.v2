@@ -125,6 +125,7 @@ test-suite "egg" :
     [ run register_nullary_result.cpp ]
     [ run result_of_in_ns_scope.cpp ]
     [ run return.cpp ]
+    [ run return_of.cpp ]
     [ run shared_new.cpp ]
     [ run shared_new_array.cpp ]
     [ run shared_object.cpp ]
