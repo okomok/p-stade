@@ -36,9 +36,10 @@ Egg is known to work on the following platforms:
 
 * Microsoft Visual C++ .NET Version 7.1 SP1
 * Microsoft Visual C++ 2005 Express Edition SP1
+* Microsoft Visual C++ 2008 Express Edition
 * MinGW with GCC 3.4.4
 * MinGW with GCC 4.1.2
-* Intel C++ Compiler Professional Edition 10.1 for Windows
+[/ * Intel C++ Compiler Professional Edition 10.1 for Windows ]
 
 [endsect]
 
