@@ -26,14 +26,14 @@ using namespace pstade::egg;
 //[code_introduction
 struct little_plus
 {
-    template<class _, class X, class Y>
+    template<class Me, class X, class Y>
     struct apply :
         // Determining return type
         boost::remove_cv<X>
     { };
 
-    template<class _, class X, class Y>
-    _ call(X &x, Y &y) const
+    template<class Re, class X, class Y>
+    Re call(X &x, Y &y) const
     {
         return x + y;
     }

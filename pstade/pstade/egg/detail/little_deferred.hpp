@@ -52,9 +52,7 @@ namespace pstade { namespace egg { namespace detail {
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)>
     {
         typedef typename
-            boost::mpl::BOOST_PP_CAT(apply, n)<
-                Expr, BOOST_PP_ENUM_PARAMS(n, A)
-            >::type
+            boost::mpl::BOOST_PP_CAT(apply, n)<Expr, BOOST_PP_ENUM_PARAMS(n, A)>::type
         impl_t;
 
         typedef typename impl_t::result_type type;
