@@ -38,13 +38,21 @@ namespace pstade { namespace egg {
 
             template<class Me, class A0, class A1>
             struct apply :
-                result_of<Base const(A1&, A0&)>
+                result_of<
+                    Base const(
+                        typename result_of_forwarding<Strategy, 2, 1, A1>::type,
+                        typename result_of_forwarding<Strategy, 2, 0, A0>::type
+                    )
+                >
             { };
 
             template<class Re, class A0, class A1>
             Re call(A0& a0, A1& a1) const
             {
-                return m_base(egg::forwarding<Strategy, 2, 1>(a1), egg::forwarding<Strategy, 2, 0>(a0));
+                return m_base(
+                    egg::forwarding<Strategy, 2, 1>(a1),
+                    egg::forwarding<Strategy, 2, 0>(a0)
+                );
             }
         };
 

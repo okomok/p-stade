@@ -431,7 +431,7 @@ to be /statically initialized/ without `static_`.
 
 [heading Description]
 `variadic` emulates __VARIADIC_FUNCTION__ in C++98.
-In fact, this is a syntax sugar of __EGG_UNFUSE__.
+In fact, this is a shortcut to __EGG_UNFUSE__.
 
 [heading Header]
 * `<pstade/egg/variadic.hpp>`
