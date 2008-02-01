@@ -16,10 +16,11 @@
 #include <pstade/test.hpp>
 #include <pstade/pod_constant.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 
 
 template<class X>
-struct little
+struct foo
 {
     typedef X& result_type;
 
@@ -35,7 +36,7 @@ struct little
 };
 
 template<>
-struct little<char>
+struct foo<char>
 {
     typedef std::string result_type;
 
@@ -46,16 +47,49 @@ struct little<char>
 };
 
 template<>
-struct little<char const> :
-    little<char>
+struct foo<char const> :
+    foo<char>
 {};
 
 
-typedef PSTADE_EGG_DEFER((little<boost::mpl::_>)) T_identity;
+struct nested_plus
+{
+    template<class A1, class A2, class A3 = void>
+    struct apply
+    {
+        typedef apply type;
+
+        typedef typename boost::remove_cv<A1>::type result_type;
+
+        result_type operator()(A1& a1, A2& a2, A3& a3) const
+        {
+            return a1 + a2 + a3;
+        }
+    };
+
+    template<class A1, class A2>
+    struct apply<A1, A2>
+    {
+        typedef apply type;
+
+        typedef typename boost::remove_cv<A1>::type result_type;
+
+        result_type operator()(A1& a1, A2& a2) const
+        {
+            return a1 + a2;
+        }
+    };
+};
+
+
+typedef PSTADE_EGG_DEFER((foo<boost::mpl::_>)) T_identity;
 PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_DEFERRED();
 
-typedef PSTADE_EGG_DEFER_BY((little<boost::mpl::_>), boost::use_default) T_identity_;
+typedef PSTADE_EGG_DEFER_BY((foo<boost::mpl::_>), boost::use_default) T_identity_;
 PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_DEFERRED();
+
+typedef PSTADE_EGG_DEFER((nested_plus)) T_nplus;
+PSTADE_POD_CONSTANT((T_nplus), nplus) = PSTADE_EGG_DEFERRED();
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
@@ -68,11 +102,13 @@ PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int, int))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const, int))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&, int))
 
-
 PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char))
 PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char &))
 PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char const&))
 
+
+PSTADE_TEST_IS_RESULT_OF((int), T_nplus(int&, int))
+PSTADE_TEST_IS_RESULT_OF((int const), T_nplus(int, int, int))
 
 struct nc_t : boost::noncopyable
 { };
@@ -110,5 +146,9 @@ void pstade_minimal_test()
         char ch = 'a';
         BOOST_CHECK( identity(ch) == "char" );
         BOOST_CHECK( identity('a') == "char" );
+    }
+    {
+        BOOST_CHECK( nplus(1, 2) == 1+2 );
+        BOOST_CHECK( nplus(1,2,3) == 1+2+3 );
     }
 }
