@@ -155,7 +155,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `result_of_compose<_Dco1, _Dco2,...>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
 
 [heading Example]
-...
 
 [heading See also]
 * __EGG_DETERMINING_NULLARY_RETURN_TYPES__
@@ -355,6 +354,77 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 
 
+[section flip]
+
+[heading Description]
+`flip` flips the order of arguments.
+
+[heading Header]
+* `<pstade/egg/flip.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `fc(d, _Stg)` is an object of `result_of_flip<_typeof(d), _Stg>::type` initialized using `d` or an initializer.
+* `b` is `a2, a1`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_flip<_PFo, _Stg = _default>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`PSTADE_EGG_FLIP_L init PSTADE_EGG_FLIP_R`]
+        [A braced initializer of `result_of_flip<_PFo,...>::type`]
+    ]
+    [
+        [`PSTADE_EGG_FLIP(I)`]
+        [`PSTADE_EGG_FLIP_L I PSTADE_EGG_FLIP_R`]
+    ]
+    [
+        [`fc(d, _Stg)(a1, a2)`]
+        [`_const(d)( _safe_arg_list(b, _Stg) )`]
+    ]
+    [
+        [`X_flip<_Stg = _default>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_flip<_Stg>()(d)`]
+        [`fc(d, _default)`]
+    ]
+    [
+        [`flip`]
+        [`X_flip<>()`]
+    ]
+]
+
+[heading Preconditions]
+* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* `result_of_flip<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[/
+
 [section free]
 
 [heading Description]
@@ -428,6 +498,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * ...
 
 [endsect]
+
+]
 
 
 
@@ -1081,82 +1153,6 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * ...
 
 [endsect]
-
-
-
-
-[/
-
-[section retby]
-
-[heading Description]
-`retby` is akin to `boost::lambda::retby` in the context of __BOOST_RESULT_OF__.
-
-[heading Header]
-* `<pstade/egg/retby.hpp>`
-
-[heading Model of]
-* ...
-
-[heading Notation]
-* `fc(f, R, _Stg)` is an object of `result_of_retby<_typeof(f), R, _Stg>::type` initialized using `f` or an initializer.
-* `ReturnT(a, R)` is:
-    * If `R` is `_default`, it is a type which is specified using `boost::result_of`.
-    * Else if `R` is `_mpl::always<R_>`, it is `R_`.
-    * Else if `R` is `nullary_meta<R_>`, it is `_mpl::apply<R_, _meta_safe_arg_list(a, _Stg)>::type`.
-    * Else, it is `_mpl::apply<R, _meta_safe_arg_list(a, _Stg)>::type`.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`result_of_retby<Fun, R = _default, _Stg = _default>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`PSTADE_EGG_RETURNBY_L init PSTADE_EGG_RETURNBY_R`]
-        [A braced initializer of `result_of_return<Fun,...>::type`]
-    ]
-    [
-        [`fc(f, R, _Stg)(a1,...,aN)`]
-        [`_const(f)(_safe_arg_list(a, _Stg))` whose return type is `ReturnT(a, R)`.]
-    ]
-    [
-        [`X_retby<R>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`X_retby<R>()(f)`]
-        [`fc(f)(R, _default)`]
-    ]
-    [
-        [`egg::retby<R>`]
-        [`X_retby<R>()`]
-    ]
-]
-
-[heading Preconditions]
-* `Fun` is a __FUNCTION_OBJECT__ type.
-* `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type if `R` is `_default`.
-* There is a `f_` such that `Fun f_ = init;` is a valid expression.
-* If `fc(f, R, _Stg)` is nullary, `R` must be `nullary_meta<R_>`, `_mpl::always<R_>`, or `_default`.
-* The corresponding semantics is a valid expression.
-
-[heading Invariants]
-* `result_of_retby<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
-
-[heading Example]
-...
-
-[heading See also]
-* ...
-
-[endsect]
-
-]
 
 
 

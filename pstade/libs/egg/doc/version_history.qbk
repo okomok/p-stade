@@ -60,13 +60,13 @@
 * `always` doesn't treat `reference_wrapper` as special case.
 * Comparison operators removed.
 * `adapted_to` added.
-* `auto_new` and `shared_new` added.
 * `generator` revised.
 * `static_` revised.
 * `lazy` and `unfuse` takes no helper FunctionObjects.
 * `_M` macros removed.
 * `fix` documented.
 * `call_strategy` renamed to `use_deduced_form`.
+* `flip` documented.
 
 
 

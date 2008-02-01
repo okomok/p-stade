@@ -125,7 +125,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* ...
+* `s` is not an array.
+* `y` is an array.
 
 [heading Valid expressions]
 [table 
@@ -134,14 +135,32 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`always(b)`]
+        [`always(x)`]
         [A __MAJOR_FUNCTION_OBJECT__]
     ]
     [
-        [`always(b)(a1,...,aN)`]
-        [`boost::implicit_cast<_typeof(b)>(b)`]
+        [`always(s)(a1,...,aN)`]
+        [`_arg_list(s, by_value)`]
+    ]
+    [
+        [`always(y)(a1,...,aN)`]
+        [`_arg_list(y, by_cref)`]
+    ]
+    [
+        [`always_ref`]
+        [A __STATIC_FUNCTION_OBJECT__]
+    ]
+    [
+        [`always_ref(t)`]
+        [A __MAJOR_FUNCTION_OBJECT__]
+    ]
+    [
+        [`always_ref(t)(a1,...,aN)`]
+        [`_arg_list(t, by_perfect)`]
     ]
 ]
+
+[note `always` doesn't unwrap `boost::reference_wrapper<>` to avoid "early unwrapping" in nested invocation. ]
 
 [heading Preconditions]
 * `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
@@ -207,6 +226,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+
+[/
 
 [section auto_new]
 
@@ -300,6 +321,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * ...
 
 [endsect]
+
+]
 
 
 
