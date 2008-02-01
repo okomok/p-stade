@@ -34,6 +34,22 @@ struct little
     }
 };
 
+template<>
+struct little<char>
+{
+    typedef std::string result_type;
+
+    result_type operator()(char ch) const
+    {
+        return std::string("char");
+    }
+};
+
+template<>
+struct little<char const> :
+    little<char>
+{};
+
 
 typedef PSTADE_EGG_DEFER((little<boost::mpl::_>)) T_identity;
 PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_DEFERRED();
@@ -51,6 +67,11 @@ PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&, int))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int, int))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const, int))
 PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&, int))
+
+
+PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char))
+PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char &))
+PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char const&))
 
 
 struct nc_t : boost::noncopyable
@@ -85,4 +106,9 @@ void pstade_minimal_test()
         BOOST_CHECK(abc() == "abc");
     }
 #endif
+    {
+        char ch = 'a';
+        BOOST_CHECK( identity(ch) == "char" );
+        BOOST_CHECK( identity('a') == "char" );
+    }
 }
