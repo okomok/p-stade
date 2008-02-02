@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
     >
     struct variadic_d :
         result_of_unfuse<
-            typename deferred<Expr, Strategy>::type,
+            typename deferred<Expr, by_variadic>::type,
             NullaryResult,
             PackExpr,
             Strategy
