@@ -239,13 +239,13 @@ operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator, Injector>
 }
 
 
-typedef PSTADE_EGG_DEFER((io_detail::base_open<boost::mpl::_>)) T_range_open;
+typedef egg::polymorphic< io_detail::base_open<boost::mpl::_> >::type T_range_open;
 PSTADE_POD_CONSTANT((T_range_open), range_open) = PSTADE_EGG_POLYMORPHIC();
 
-typedef PSTADE_EGG_DEFER((io_detail::base_close<boost::mpl::_>)) T_range_close;
+typedef egg::polymorphic< io_detail::base_close<boost::mpl::_> >::type T_range_close;
 PSTADE_POD_CONSTANT((T_range_close), range_close) = PSTADE_EGG_POLYMORPHIC();
 
-typedef PSTADE_EGG_DEFER((io_detail::base_delimiter<boost::mpl::_>)) T_range_delimiter;
+typedef egg::polymorphic< io_detail::base_delimiter<boost::mpl::_> >::type T_range_delimiter;
 PSTADE_POD_CONSTANT((T_range_delimiter), range_delimiter) = PSTADE_EGG_POLYMORPHIC();
 
 

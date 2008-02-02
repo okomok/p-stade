@@ -84,7 +84,7 @@ namespace generation_detail {
 } // namespace generation_detail
 
 
-typedef PSTADE_EGG_DEFER((generation_detail::base<boost::mpl::_>)) T_generation;
+typedef egg::polymorphic< generation_detail::base<boost::mpl::_> >::type T_generation;
 PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_POLYMORPHIC();
 
 

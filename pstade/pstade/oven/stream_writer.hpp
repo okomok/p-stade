@@ -103,7 +103,7 @@ namespace stream_writer_detail {
 
 } // namespace stream_writer_detail
 
-typedef PSTADE_EGG_DEFER((stream_writer_detail::base<boost::mpl::_>)) T_stream_writer;
+typedef egg::polymorphic< stream_writer_detail::base<boost::mpl::_> >::type T_stream_writer;
 PSTADE_POD_CONSTANT((T_stream_writer), stream_writer) = PSTADE_EGG_POLYMORPHIC();
 
 
@@ -194,7 +194,7 @@ namespace std_stream_writer_detail {
 
 } // namespace std_stream_writer_detail
 
-typedef PSTADE_EGG_DEFER((std_stream_writer_detail::base<boost::mpl::_>)) T_std_stream_writer;
+typedef egg::polymorphic< std_stream_writer_detail::base<boost::mpl::_> >::type T_std_stream_writer;
 PSTADE_POD_CONSTANT((T_std_stream_writer), std_stream_writer) = PSTADE_EGG_POLYMORPHIC();
 
 

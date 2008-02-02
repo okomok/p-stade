@@ -15,12 +15,13 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/egg/polymorphic.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 #define PSTADE_OVEN_BASE_TO_ADAPTOR(O, B) \
     namespace BOOST_PP_CAT(adaptor_workarea_of_, O) { \
         using namespace boost::mpl::placeholders; \
-        typedef PSTADE_EGG_DEFER(B) op; \
+        typedef pstade::egg::polymorphic<PSTADE_UNPARENTHESIZE(B)>::type op; \
     } \
     typedef BOOST_PP_CAT(adaptor_workarea_of_, O)::op BOOST_PP_CAT(T_make_, O); \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_make_, O)), BOOST_PP_CAT(make_, O)) = PSTADE_EGG_POLYMORPHIC(); \

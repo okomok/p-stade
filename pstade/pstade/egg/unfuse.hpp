@@ -38,7 +38,7 @@ namespace pstade { namespace egg {
         typedef typename
             eval_if_use_default< PackExpr,
                 boost::mpl::identity< PSTADE_EGG_DEFAULT_PACK<by_ref> >,
-                boost::mpl::apply1<PSTADE_EGG_MPL_LAMBDA(PackExpr), by_ref>
+                boost::mpl::apply1<PSTADE_EGG_MPL_LAMBDA_TPL(PackExpr), by_ref>
             >::type
         pack_t;
 

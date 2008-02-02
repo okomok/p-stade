@@ -46,7 +46,7 @@ namespace block_detail {
 } // namespace block_detail
 
 
-typedef PSTADE_EGG_DEFER((block_detail::base<boost::mpl::_>)) T_block;
+typedef egg::polymorphic< block_detail::base<boost::mpl::_> >::type T_block;
 PSTADE_POD_CONSTANT((T_block), block) = PSTADE_EGG_POLYMORPHIC();
 
 

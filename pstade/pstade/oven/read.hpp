@@ -63,7 +63,7 @@ namespace read_detail {
 } // namespace read_detail
 
 
-typedef PSTADE_EGG_DEFER((read_detail::base<boost::mpl::_>)) T_read;
+typedef egg::polymorphic< read_detail::base<boost::mpl::_> >::type T_read;
 PSTADE_POD_CONSTANT((T_read), read) = PSTADE_EGG_POLYMORPHIC();
 
 

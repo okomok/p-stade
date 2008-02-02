@@ -20,18 +20,20 @@
 //   1. Don't use `mpl::apply` when possible.
 //   2. Hide PlaceholderExpression by using inheritance like <boost/numeric/functional.hpp>.
 //      -- this way may require nullary result_of specialization to be reworked, though.
-//   3. Call `mpl::lambda` outside of result_of instantiation process using the following macro. 
+//   3. Call `mpl::lambda` outside of result_of instantiation process using the following macro.
+//      -- "What is outside" is not well-known, though.
 
 
 #include <pstade/boost_workaround.hpp>
-#include <pstade/unparenthesize.hpp>
 
 
 #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) && BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
     #include <boost/mpl/lambda.hpp>
-    #define PSTADE_EGG_MPL_LAMBDA(Expr) typename boost::mpl::lambda< Expr >::type
+    #define PSTADE_EGG_MPL_LAMBDA(Expr) boost::mpl::lambda< Expr >::type
+    #define PSTADE_EGG_MPL_LAMBDA_TPL typename PSTADE_EGG_MPL_LAMBDA
 #else
     #define PSTADE_EGG_MPL_LAMBDA(Expr) Expr
+    #define PSTADE_EGG_MPL_LAMBDA_TPL PSTADE_EGG_MPL_LAMBDA
 #endif
 
 

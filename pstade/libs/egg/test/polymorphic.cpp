@@ -112,17 +112,17 @@ struct base_neg
 };
 
 
-typedef PSTADE_EGG_DEFER((foo<boost::mpl::_>)) T_identity;
+typedef pstade::egg::polymorphic< foo<boost::mpl::_> >::type T_identity;
 PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_POLYMORPHIC();
 
-typedef PSTADE_EGG_DEFER_BY((foo<boost::mpl::_>), boost::use_default) T_identity_;
+typedef pstade::egg::polymorphic<foo<boost::mpl::_>, boost::use_default>::type T_identity_;
 PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_POLYMORPHIC();
 
-typedef PSTADE_EGG_DEFER((nested_plus)) T_nplus;
+typedef pstade::egg::polymorphic< nested_plus >::type T_nplus;
 PSTADE_POD_CONSTANT((T_nplus), nplus) = PSTADE_EGG_POLYMORPHIC();
 
 
-typedef PSTADE_EGG_DEFER((base_neg)) T_neg;
+typedef pstade::egg::polymorphic< base_neg >::type T_neg;
 PSTADE_POD_CONSTANT((T_neg), neg) = PSTADE_EGG_POLYMORPHIC();
 
 

@@ -70,7 +70,7 @@ namespace iteration_detail {
 } // namespace iteration_detail
 
 
-typedef PSTADE_EGG_DEFER((iteration_detail::base<boost::mpl::_, boost::mpl::_>)) T_iteration;
+typedef egg::polymorphic< iteration_detail::base<boost::mpl::_, boost::mpl::_> >::type T_iteration;
 PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_POLYMORPHIC();
 
 

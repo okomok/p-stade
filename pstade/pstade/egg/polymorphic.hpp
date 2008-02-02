@@ -12,7 +12,6 @@
 
 
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
-#include "./detail/as_mpl_lambda.hpp"
 #include "./detail/little_polymorphic.hpp"
 #include "./detail/mpl_lambda.hpp"
 #include "./by_perfect.hpp"
@@ -25,22 +24,11 @@ namespace pstade { namespace egg {
     struct polymorphic
     {
         typedef
-            function<detail::little_polymorphic<PSTADE_EGG_MPL_LAMBDA(Expr)>, Strategy>
+            function<detail::little_polymorphic<PSTADE_EGG_MPL_LAMBDA_TPL(Expr)>, Strategy>
         type;
     };
 
     #define PSTADE_EGG_POLYMORPHIC() {{}}
-
-
-    // If you are a msvc-8/9 user, prefer this macro.
-    // Note that PSTADE_EGG_AS_MPL_LAMBDA in 'polymorphic' can't work around.
-    #define PSTADE_EGG_DEFER(L) \
-        pstade::egg::polymorphic<PSTADE_EGG_AS_MPL_LAMBDA(L)>::type \
-    /**/
-
-    #define PSTADE_EGG_DEFER_BY(L, Stg) \
-        pstade::egg::polymorphic<PSTADE_EGG_AS_MPL_LAMBDA(L), Stg>::type \
-    /**/
 
 
 } } // namespace pstade::egg

@@ -93,7 +93,7 @@ namespace is_heap_until_detail {
 } // namespace is_heap_until_detail
 
 
-typedef PSTADE_EGG_DEFER((is_heap_until_detail::base<boost::mpl::_>)) T_is_heap_until;
+typedef egg::polymorphic< is_heap_until_detail::base<boost::mpl::_> >::type T_is_heap_until;
 PSTADE_POD_CONSTANT((T_is_heap_until), is_heap_until) = PSTADE_EGG_POLYMORPHIC();
 
 

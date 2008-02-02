@@ -46,7 +46,7 @@ namespace recursion_detail {
 } // recursion_detail
 
 
-typedef PSTADE_EGG_DEFER((recursion_detail::base<boost::mpl::_>)) T_recursion;
+typedef egg::polymorphic< recursion_detail::base<boost::mpl::_> >::type T_recursion;
 PSTADE_POD_CONSTANT((T_recursion), recursion) = PSTADE_EGG_POLYMORPHIC();
 
 

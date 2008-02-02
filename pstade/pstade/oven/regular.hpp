@@ -86,10 +86,10 @@ namespace regular_detail {
 using egg::T_regular;
 using egg::regular;
 
-typedef PSTADE_EGG_DEFER((regular_detail::base_c<boost::mpl::_>)) T_regular_c;
+typedef egg::polymorphic< regular_detail::base_c<boost::mpl::_> >::type T_regular_c;
 PSTADE_POD_CONSTANT((T_regular_c), regular_c) = PSTADE_EGG_POLYMORPHIC();
 
-typedef PSTADE_EGG_DEFER((regular_detail::base_ref<boost::mpl::_>)) T_regular_ref;
+typedef egg::polymorphic< regular_detail::base_ref<boost::mpl::_> >::type T_regular_ref;
 PSTADE_POD_CONSTANT((T_regular_ref), regular_ref) = PSTADE_EGG_POLYMORPHIC();
 
 

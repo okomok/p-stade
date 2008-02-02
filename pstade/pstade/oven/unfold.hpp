@@ -56,7 +56,7 @@ namespace unfold_detail {
 } // namespace unfold_detail
 
 
-typedef PSTADE_EGG_DEFER((unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_>)) T_unfold;
+typedef egg::polymorphic< unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_> >::type T_unfold;
 PSTADE_POD_CONSTANT((T_unfold), unfold) = PSTADE_EGG_POLYMORPHIC();
 
 

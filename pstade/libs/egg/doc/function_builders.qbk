@@ -177,16 +177,11 @@ you can access nested typedefs in `operator()`.
 * Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_POLYMORPHIC()`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
-[caution For some compiler bug, `polymorphic` randomly fails to work as a __POLYMORPHIC_FUNCTION_OBJECT__ under msvc-8.0.
-         Use `PSTADE_EGG_DEFER` and `PSTADE_EGG_DEFER_BY` if you need portability. ]
-
-
 [heading Example]
 [code_polymorphic_example]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
-* __EGG_DEFER__
 
 [endsect]
 
