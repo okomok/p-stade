@@ -163,7 +163,7 @@ void test_automatic()
 
 //[code_deferred_example
 template<class X>
-struct base_my_identity
+struct mono_my_identity
 {
     typedef X &result_type;
 
@@ -174,7 +174,7 @@ struct base_my_identity
 };
 
 typedef
-    deferred< base_my_identity<boost::mpl::_1> >::type
+    deferred< mono_my_identity<boost::mpl::_1> >::type
 T_my_identity;
 
 T_my_identity const my_identity = PSTADE_EGG_DEFERRED();
@@ -211,7 +211,7 @@ typedef
     generator<
         array_int4,
         boost::use_default,
-        X_construct_braced2<> /*<< `X_construct_braced1` too is ok, but gcc-4.1 warns about fewer braces. >>*/
+        X_construct_braced2<> /*<< `X_construct_braced1` too is ok. gcc-4.1 warns about fewer braces, though. >>*/
     >::type
 T_make_array4;
 

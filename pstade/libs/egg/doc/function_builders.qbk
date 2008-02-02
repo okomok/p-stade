@@ -131,8 +131,8 @@ Though a type built from `function_facade` can't be a /POD/ type, it can have no
 [section deferred]
 
 [heading Description]
-`deferred` is akin to `boost::detail::functionN` family.
-It is useful because `operator()` can use nested typedefs.
+Though `deferred` can have neither non-default constructors nor initializers,
+you can access nested typedefs in `operator()`.
 
 [heading Header]
 * `<pstade/egg/deferred.hpp>`
@@ -464,6 +464,14 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
     [
         [`PSTADE_EGG_VARIADIC_D()`]
         [A braced initializer of `variadic_d<Lam,...>::type`]
+    ]
+    [
+        [`_mpl::_++M`]
+        [`_mpl::_++M`]
+    ]
+    [
+        [`_mpl::_`]
+        [`_mpl::_`]
     ]
 ]
 
