@@ -16,6 +16,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_cref.hpp"
 #include "./by_value.hpp"
@@ -73,25 +74,32 @@ namespace pstade { namespace egg {
     { };
 
 
-    struct BOOST_PP_CAT(little_curry, n)
-    {
-        template<class Me, class Base>
-        struct apply :
-            BOOST_PP_CAT(result_of_curry, n)<Base>
-        { };
+    namespace PSTADE_PP_CAT3(curry, n, _detail) {
 
-        template<class Re, class Base>
-        Re call(Base base) const
+
+        struct little
         {
-            Re r = BOOST_PP_CAT(PSTADE_EGG_CURRY, n)(base);
-            return r;
-        }
-    };
+            template<class Me, class Base>
+            struct apply :
+                BOOST_PP_CAT(result_of_curry, n)<Base>
+            { };
 
-    typedef function<BOOST_PP_CAT(little_curry, n), by_value> BOOST_PP_CAT(T_curry, n);
+            template<class Re, class Base>
+            Re call(Base base) const
+            {
+                Re r = BOOST_PP_CAT(PSTADE_EGG_CURRY, n)(base);
+                return r;
+            }
+        };
+
+
+    } // namespace PSTADE_PP_CAT3(curry, n, _detail)
+
+
+    typedef function<PSTADE_PP_CAT3(curry, n, _detail)::little, by_value> BOOST_PP_CAT(T_curry, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
 
 
-#undef n_1
+#undef  n_1
 #undef  n
 #endif
