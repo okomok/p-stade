@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
 
 
         template<class Bound>
-        struct little_returned
+        struct little_result
         {
             Bound m_bound;
 
@@ -56,7 +56,7 @@ namespace pstade { namespace egg {
 
 
         template<class Reference>
-        struct little_ref_returned
+        struct little_ref_result
         {
             Reference m_ref;
 
@@ -88,7 +88,7 @@ namespace pstade { namespace egg {
     template<class Bound>
     struct result_of_always :
         variadic<
-            always_detail::little_returned<Bound>,
+            always_detail::little_result<Bound>,
             by_cref,
             boost::use_default,
             use_nullary_result
@@ -116,7 +116,7 @@ namespace pstade { namespace egg {
     template<class Reference>
     struct result_of_always_ref :
         variadic<
-            always_detail::little_ref_returned<Reference>,
+            always_detail::little_ref_result<Reference>,
             by_perfect,
             boost::use_default,
             use_nullary_result

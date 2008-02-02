@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
 
 
         template<class Base, class Signature>
-        struct returned;
+        struct result_;
 
         // 0ary-
     #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
     template<class Base, class Signature>
     struct result_of_mono
     {
-        typedef mono_detail::returned<Base, Signature> type;
+        typedef mono_detail::result_<Base, Signature> type;
     };
 
     #define PSTADE_EGG_MONO_L {
@@ -89,7 +89,7 @@ namespace pstade { namespace egg {
 
 
     template<class Base, class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct returned<Base, R(args)>
+    struct result_<Base, R(args)>
     {
         typedef typename
             eval_if_use_default<R,
