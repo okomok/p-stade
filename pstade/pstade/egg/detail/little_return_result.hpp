@@ -74,8 +74,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        eval_if_use_default<
-            Return,
+        eval_if_use_default< Return,
             result_of<Base const(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
         >
     { };

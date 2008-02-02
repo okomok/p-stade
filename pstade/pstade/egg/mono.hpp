@@ -92,7 +92,7 @@ namespace pstade { namespace egg {
     struct result_<Base, R(args)>
     {
         typedef typename
-            eval_if_use_default<R,
+            eval_if_use_default< R,
                 result_of<Base const(args)>
             >::type
         result_type;

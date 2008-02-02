@@ -25,24 +25,20 @@ namespace pstade { namespace egg {
     namespace static_detail {
 
 
-        template<class Expr, class Strategy>
+        template<class Fun>
         struct little
         {
-            typedef typename
-                boost::mpl::apply1<Expr, Strategy>::type
-            fun_t;
-
             template<class Me, class Args>
             struct apply :
                 result_of<
-                    typename result_of<T_fuse(fun_t)>::type(Args&)
+                    typename result_of<T_fuse(Fun)>::type(Args&)
                 >
             { };
 
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return fuse(fun_t())(args);
+                return fuse(Fun())(args);
             }
         };
 
@@ -53,7 +49,7 @@ namespace pstade { namespace egg {
     template<class Expr, class Strategy = by_perfect>
     struct static_ :
         variadic<
-            static_detail::little<Expr, Strategy>,
+            static_detail::little<typename boost::mpl::apply1<Expr, Strategy>::type>,
             Strategy,
             boost::use_default,
             use_nullary_result

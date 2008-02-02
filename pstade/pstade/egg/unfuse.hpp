@@ -12,10 +12,15 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include <pstade/use_default.hpp>
 #include "./by_perfect.hpp"
+#include "./by_ref.hpp"
 #include "./by_value.hpp"
 #include "./construct_braced2.hpp"
+#include "./detail/default_pack.hpp"
 #include "./detail/little_unfuse_result.hpp"
+#include "./detail/mpl_lambda.hpp"
+#include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
 #include "./generator.hpp"
 
 
@@ -30,8 +35,15 @@ namespace pstade { namespace egg {
     >
     struct result_of_unfuse
     {
+        typedef typename
+            eval_if_use_default< PackExpr,
+                boost::mpl::identity< PSTADE_EGG_DEFAULT_PACK<by_ref> >,
+                boost::mpl::apply1<PSTADE_EGG_MPL_LAMBDA(PackExpr), by_ref>
+            >::type
+        pack_t;
+
         typedef
-            function<detail::little_unfuse_result<Base, NullaryResult, PackExpr>, Strategy>
+            function<detail::little_unfuse_result<Base, NullaryResult, pack_t>, Strategy>
         type;
     };
 

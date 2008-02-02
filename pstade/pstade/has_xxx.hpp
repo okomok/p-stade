@@ -27,7 +27,7 @@
 // http://svn.boost.org/trac/boost/ticket/1317
 
 
-#include <boost/mpl/bool.hpp>
+#include <boost/config.hpp> // BOOST_STATIC_CONSTANT
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/type_traits/detail/yes_no_type.hpp>
@@ -61,13 +61,16 @@
             \
         } \
         \
-        template< class T > \
-        struct Name : \
-            boost::mpl::bool_< \
+        template< class T, class Dummy = void > \
+        struct Name \
+        { \
+            typedef Name type; \
+            \
+            BOOST_STATIC_CONSTANT(bool, value = \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
                     == sizeof(boost::type_traits::yes_type) \
-            > \
-        { }; \
+            ); \
+        }; \
     /**/
 
 
@@ -130,12 +133,15 @@
         } \
         \
         template< class T > \
-        struct Name : \
-            boost::mpl::bool_< \
+        struct Name \
+        { \
+            typedef Name type; \
+            \
+            BOOST_STATIC_CONSTANT(bool, value = \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
                     == sizeof(boost::type_traits::yes_type) \
-            > \
-        { }; \
+            ); \
+        }; \
     /**/
 
 
@@ -193,12 +199,15 @@
         } \
         \
         template< class T > \
-        struct Name : \
-            boost::mpl::bool_< \
+        struct Name \
+        { \
+            typedef Name type; \
+            \
+            BOOST_STATIC_CONSTANT(bool, value = \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
                     == sizeof(boost::type_traits::yes_type) \
-            > \
-        { }; \
+            ); \
+        }; \
     /**/
 
 

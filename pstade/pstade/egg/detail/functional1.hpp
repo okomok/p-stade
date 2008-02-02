@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
         {
             template<class Me, class A1>
             struct apply :
-                eval_if_use_default<Return,
+                eval_if_use_default< Return,
                     boost::lambda::return_type_1<act, A1>
                 >
             { };

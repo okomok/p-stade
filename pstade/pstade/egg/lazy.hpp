@@ -33,8 +33,6 @@ namespace pstade { namespace egg {
         template<class Base, class Bind>
         struct little_result
         {
-            typedef typename if_use_default<Bind, T_bll_bind>::type bind_t;
-
             Base m_base;
 
             Base const& base() const
@@ -46,7 +44,7 @@ namespace pstade { namespace egg {
             struct apply :
                 result_of<
                     typename result_of<
-                        T_fuse(bind_t)
+                        T_fuse(Bind)
                     >::type(typename result_of<T_fusion_prepend(Args&, Base const&)>::type)
                 >
             { };
@@ -54,7 +52,7 @@ namespace pstade { namespace egg {
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return fuse(bind_t())(fusion_prepend(args, m_base));
+                return fuse(Bind())(fusion_prepend(args, m_base));
             }
         };
 
@@ -64,7 +62,10 @@ namespace pstade { namespace egg {
 
     template<class Base, class Bind = boost::use_default>
     struct result_of_lazy :
-        variadic<lazy_detail::little_result<Base, Bind>, by_cref>
+        variadic<
+            lazy_detail::little_result<Base, typename if_use_default<Bind, T_bll_bind>::type>,
+            by_cref
+        >
     { };
 
     #define PSTADE_EGG_LAZY_L PSTADE_EGG_VARIADIC_L {
