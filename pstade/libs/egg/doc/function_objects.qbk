@@ -160,7 +160,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
 ]
 
-[note `always` doesn't unwrap `boost::reference_wrapper<>` to avoid "early unwrapping" in nested invocation. ]
+[note `always` doesn't unwrap `boost::reference_wrapper<>` to avoid "early unwrapping" in nested invocation.
+      You can use `always_ref` instead. ]
 
 [heading Preconditions]
 * `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
