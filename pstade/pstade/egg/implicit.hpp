@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_AUTOMATIC_HPP
-#define PSTADE_EGG_AUTOMATIC_HPP
+#ifndef PSTADE_EGG_IMPLICIT_HPP
+#define PSTADE_EGG_IMPLICIT_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -35,7 +35,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace automatic_detail {
+    namespace implicit_detail {
 
 
         template<class Expr, class Strategy, class Args>
@@ -125,21 +125,21 @@ namespace pstade { namespace egg {
         { };
 
 
-   } // namespace automatic_detail
+   } // namespace implicit_detail
 
 
     template<class Expr, class Strategy = boost::use_default>
-    struct automatic :
-        automatic_detail::aux_<Expr, Strategy, automatic_detail::from>
+    struct implicit :
+        implicit_detail::aux_<Expr, Strategy, implicit_detail::from>
     { };
 
     template<class Expr, class Strategy = boost::use_default>
-    struct automatic_ref :
-        automatic_detail::aux_<Expr, Strategy, automatic_detail::ref_from>
+    struct implicit_ref :
+        implicit_detail::aux_<Expr, Strategy, implicit_detail::ref_from>
     { };
 
-    #define PSTADE_EGG_AUTOMATIC() PSTADE_EGG_VARIADIC({})
-    #define PSTADE_EGG_AUTOMATIC_REF PSTADE_EGG_AUTOMATIC
+    #define PSTADE_EGG_IMPLICIT() PSTADE_EGG_VARIADIC({})
+    #define PSTADE_EGG_IMPLICIT_REF PSTADE_EGG_IMPLICIT
 
 
 } } // namespace pstade::egg

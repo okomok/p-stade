@@ -11,7 +11,7 @@
 
 
 #include <pstade/egg/ambi.hpp>
-#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/implicit.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./boolean_cast.hpp"
 
@@ -21,7 +21,7 @@ namespace pstade { namespace gravy {
 
     namespace booleanize_detail {
 
-        typedef egg::automatic< X_boolean_cast<boost::mpl::_> >::type base;
+        typedef egg::implicit< X_boolean_cast<boost::mpl::_> >::type base;
 
     }
 
@@ -34,7 +34,7 @@ namespace pstade { namespace gravy {
 
 
     PSTADE_POD_CONSTANT((T_booleanize), booleanize)
-        = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
+        = PSTADE_EGG_AMBI_L PSTADE_EGG_IMPLICIT() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::gravy

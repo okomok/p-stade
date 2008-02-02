@@ -13,15 +13,15 @@
 
 #include <boost/pointee.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./automatic.hpp"
+#include "./implicit.hpp"
 #include "./shared_new.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    typedef automatic< X_shared_new< boost::pointee<mpl_1> > >::type T_shared_object;
-    PSTADE_POD_CONSTANT((T_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC();
+    typedef implicit< X_shared_new< boost::pointee<mpl_1> > >::type T_shared_object;
+    PSTADE_POD_CONSTANT((T_shared_object), shared_object) = PSTADE_EGG_IMPLICIT();
 
 
 } } // namespace pstade::egg

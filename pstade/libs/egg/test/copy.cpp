@@ -14,7 +14,7 @@
 
 
 #include <pstade/result_of.hpp>
-#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/implicit.hpp>
 #include <boost/mpl/placeholders.hpp>
 
 
@@ -33,8 +33,8 @@ struct T_cast0
     }
 };
 
-typedef pstade::egg::automatic< T_cast0<boost::mpl::_> >::type T_auto_cast0;
-T_auto_cast0 const auto_cast0 = PSTADE_EGG_AUTOMATIC();
+typedef pstade::egg::implicit< T_cast0<boost::mpl::_> >::type T_auto_cast0;
+T_auto_cast0 const auto_cast0 = PSTADE_EGG_IMPLICIT();
 
 
 struct xxx

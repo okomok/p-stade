@@ -15,7 +15,7 @@
 #include <pstade/egg/by_perfect.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
-#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/implicit.hpp>
 #include <pstade/egg/deferred.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/static.hpp>
@@ -134,7 +134,7 @@ void test_function_facade()
 //]
 
 
-//[code_automatic_example
+//[code_implicit_example
 template<class To>
 struct X_lexical_cast
 {
@@ -148,10 +148,10 @@ struct X_lexical_cast
 };
 
 typedef
-    automatic< X_lexical_cast<boost::mpl::_> >::type
+    implicit< X_lexical_cast<boost::mpl::_> >::type
 T_lexical;
 
-T_lexical const lexical = PSTADE_EGG_AUTOMATIC();
+T_lexical const lexical = PSTADE_EGG_IMPLICIT();
 
 void test_automatic()
 {

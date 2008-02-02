@@ -302,16 +302,16 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 
 
-[section automatic]
+[section implicit]
 
 [heading Description]
-`automatic` adds automatic conversion support to a cast form function.
+`implicit` adds implicit conversion support to a cast form function.
 
 [heading Header]
-* `<pstade/egg/automatic.hpp>`
+* `<pstade/egg/implicit.hpp>`
 
 [heading Notation]
-* `u` is an object of `automatic<Lam, _Stg>::type`.
+* `u` is an object of `implicit<Lam, _Stg>::type`.
 * `F` is `_mpl::apply<Lam, _typeof(to), _Stg>::type`.
 
 [heading Valid expressions]
@@ -321,12 +321,12 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [[*Semantics]]
     ]
     [
-        [`automatic<Lam, _Stg = _default>::type`]
+        [`implicit<Lam, _Stg = _default>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_AUTOMATIC()`]
-        [A braced initializer of `automatic<Lam, _Stg>::type`]
+        [`PSTADE_EGG_IMPLICIT()`]
+        [A braced initializer of `implicit<Lam, _Stg>::type`]
     ]
     [
         [`To to = u(a1,...,aN);`]
@@ -352,11 +352,11 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
       For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
-* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_AUTOMATIC()`.
+* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_IMPLICIT()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
-[code_automatic_example]
+[code_implicit_example]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__

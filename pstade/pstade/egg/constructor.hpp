@@ -12,15 +12,15 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./automatic.hpp"
 #include "./construct.hpp"
+#include "./implicit.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    typedef automatic< X_construct<mpl_1> >::type T_constructor;
-    PSTADE_POD_CONSTANT((T_constructor), constructor) = PSTADE_EGG_AUTOMATIC();
+    typedef implicit< X_construct<mpl_1> >::type T_constructor;
+    PSTADE_POD_CONSTANT((T_constructor), constructor) = PSTADE_EGG_IMPLICIT();
 
 
 } } // namespace pstade::egg

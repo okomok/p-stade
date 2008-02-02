@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/implicit.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -23,8 +23,8 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-typedef automatic<X_construct<mpl_1, mpl_2>, by_value>::type T_value_constructor;
-PSTADE_EGG_CONST((T_value_constructor), value_constructor) = PSTADE_EGG_AUTOMATIC();
+typedef implicit<X_construct<mpl_1, mpl_2>, by_value>::type T_value_constructor;
+PSTADE_EGG_CONST((T_value_constructor), value_constructor) = PSTADE_EGG_IMPLICIT();
 
 
 void pstade_minimal_test()

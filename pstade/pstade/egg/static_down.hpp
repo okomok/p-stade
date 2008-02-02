@@ -13,15 +13,15 @@
 
 #include <pstade/pod_constant.hpp>
 #include "./ambi.hpp"
-#include "./automatic.hpp"
+#include "./implicit.hpp"
 #include "./static_downcast.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    typedef result_of_ambi0<automatic_ref< X_static_downcast<mpl_1> >::type>::type T_static_down;
-    PSTADE_POD_CONSTANT((T_static_down), static_down) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC_REF() PSTADE_EGG_AMBI_R;
+    typedef result_of_ambi0<implicit_ref< X_static_downcast<mpl_1> >::type>::type T_static_down;
+    PSTADE_POD_CONSTANT((T_static_down), static_down) = PSTADE_EGG_AMBI_L PSTADE_EGG_IMPLICIT_REF() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

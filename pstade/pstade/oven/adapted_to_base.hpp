@@ -28,8 +28,8 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/adapted_to_base.hpp>
 #include <pstade/egg/ambi.hpp>
-#include <pstade/egg/automatic.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/implicit.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./range_iterator.hpp"
@@ -81,11 +81,11 @@ struct X_adapted_range_to :
 
 
 namespace to_base_range_detail {
-    typedef egg::automatic< X_adapted_range_to<boost::mpl::_> >::type op;
+    typedef egg::implicit< X_adapted_range_to<boost::mpl::_> >::type op;
 }
 
 typedef egg::result_of_ambi0<to_base_range_detail::op>::type T_to_base_range;
-PSTADE_POD_CONSTANT((T_to_base_range), to_base_range) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
+PSTADE_POD_CONSTANT((T_to_base_range), to_base_range) = PSTADE_EGG_AMBI_L PSTADE_EGG_IMPLICIT() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::oven

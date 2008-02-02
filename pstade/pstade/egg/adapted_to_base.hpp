@@ -25,8 +25,8 @@
 #include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./ambi.hpp"
-#include "./automatic.hpp"
 #include "./by_perfect.hpp"
+#include "./implicit.hpp"
 #include "./specified.hpp"
 
 
@@ -73,11 +73,11 @@ namespace pstade { namespace egg {
     #include PSTADE_EGG_SPECIFIED()
 
 
-    typedef result_of_ambi0<automatic<X_adapted_to<mpl_1>, by_perfect>::type, by_perfect>::type T_to_base;
-    PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC() PSTADE_EGG_AMBI_R;
+    typedef result_of_ambi0<implicit<X_adapted_to<mpl_1>, by_perfect>::type, by_perfect>::type T_to_base;
+    PSTADE_POD_CONSTANT((T_to_base), to_base) = PSTADE_EGG_AMBI_L PSTADE_EGG_IMPLICIT() PSTADE_EGG_AMBI_R;
 
-    typedef result_of_ambi0<automatic_ref<X_adapted_to<mpl_1>, by_perfect>::type, by_perfect>::type T_to_base_ref;
-    PSTADE_POD_CONSTANT((T_to_base_ref), to_base_ref) = PSTADE_EGG_AMBI_L PSTADE_EGG_AUTOMATIC_REF() PSTADE_EGG_AMBI_R;
+    typedef result_of_ambi0<implicit_ref<X_adapted_to<mpl_1>, by_perfect>::type, by_perfect>::type T_to_base_ref;
+    PSTADE_POD_CONSTANT((T_to_base_ref), to_base_ref) = PSTADE_EGG_AMBI_L PSTADE_EGG_IMPLICIT_REF() PSTADE_EGG_AMBI_R;
 
 
 } } // namespace pstade::egg

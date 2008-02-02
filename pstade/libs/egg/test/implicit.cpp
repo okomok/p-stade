@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/implicit.hpp>
 #include <pstade/minimal_test.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -21,14 +21,14 @@
 #include <boost/mpl/placeholders.hpp>
 
 
-    #define PSTADE_AUTOMATIC(Object, Lambda) \
-        namespace BOOST_PP_CAT(pstade_automatic_workarea_of_, Object) { \
+    #define PSTADE_IMPLICIT(Object, Lambda) \
+        namespace BOOST_PP_CAT(pstade_implicit_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::pstade::egg::automatic<PSTADE_UNPARENTHESIZE(Lambda)>::type op; \
+            typedef ::pstade::egg::implicit<PSTADE_UNPARENTHESIZE(Lambda)>::type op; \
         } \
         \
-        typedef BOOST_PP_CAT(pstade_automatic_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
-        PSTADE_POD_CONSTANT( (BOOST_PP_CAT(T_, Object)), Object ) = PSTADE_EGG_AUTOMATIC();
+        typedef BOOST_PP_CAT(pstade_implicit_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
+        PSTADE_POD_CONSTANT( (BOOST_PP_CAT(T_, Object)), Object ) = PSTADE_EGG_IMPLICIT();
     /**/
 
 
@@ -45,7 +45,7 @@ struct T_cast0
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast0, (T_cast0<boost::mpl::_1>))
+PSTADE_IMPLICIT(auto_cast0, (T_cast0<boost::mpl::_1>))
 
 
 template<class To>
@@ -60,7 +60,7 @@ struct T_cast1
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast1, (T_cast1<_>))
+PSTADE_IMPLICIT(auto_cast1, (T_cast1<_>))
 
 
 template<class To>
@@ -75,7 +75,7 @@ struct T_cast2
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast2, (T_cast2<_>))
+PSTADE_IMPLICIT(auto_cast2, (T_cast2<_>))
 
 
 void pstade_minimal_test()
