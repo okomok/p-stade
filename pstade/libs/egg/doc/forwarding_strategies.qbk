@@ -145,8 +145,8 @@ Egg performs the "perfect forwarding" by default.
 
 [heading Preconditions]
 * `0 <= K && K <= PSTADE_EGG_MAX_ARITY`.
-* `_arg(b1),...,_arg(bK)` is a valid expression where `_arg_list(a, by_perfect)` will be placed.
-* `_ref(b1),...,_ref(bK)` is a valid expression where `_meta_arg_list(a, by_perfect)` will be placed.
+* If `Expr(_arg_list(a, by_perfect))` is a precondition as valid expression, `Expr(_arg_list(b, by_perfect))` must be well-formed.
+* If `Expr(_meta_arg_list(a, by_perfect))` is a precondition as valid expression, `Expr(_meta_arg_list(b, by_perfect))` must be well-formed.
 
 [heading Example]
 * `_meta_arg_list(a, by_perfect)` is `int,const int,int const` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
