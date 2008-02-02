@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_OVEN_PARALLEL_HPP
 #define PSTADE_OVEN_PARALLEL_HPP
 #include "./detail/prefix.hpp"
@@ -17,18 +16,15 @@
 // Turns a base object into ParallelSafe one.
 
 
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./apply_decl.hpp"
+#include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY, PSTADE_EGG_HAS_THREADS
+#include "./config.hpp" // PSTADE_EGG_HAS_THREADS
 #include "./function_facade.hpp"
-#include "./generator.hpp"
+#include "./fuse.hpp"
+#include "./unfuse.hpp"
 
 #if defined(PSTADE_EGG_HAS_THREADS)
     #include <boost/detail/lightweight_mutex.hpp>
@@ -41,35 +37,34 @@ namespace pstade { namespace egg {
     namespace parallel_detail {
 
 
-        template<class Base>
-        struct result_ :
-            function_facade<result_<Base>, boost::use_default, typename result_of<Base()>::type>
+        template<class Base, class Strategy>
+        struct fused_result :
+            function_facade<fused_result<Base, Strategy>, Strategy, use_nullary_result>
         {
 #if defined(PSTADE_EGG_HAS_THREADS)
         private:
             typedef boost::detail::lightweight_mutex mutex_t;
             typedef mutex_t::scoped_lock scoped_lock_t;
+
         public:
 #endif
+            template<class Me, class Args>
+            struct apply :
+                result_of<
+                    typename result_of<T_fuse(Base&)>::type(Args&)
+                >
+            { };
 
-        // 0ary
-            template<class Re>
-            Re call() const
+            template<class Re, class Args>
+            Re call(Args const& args) const
             {
 #if defined(PSTADE_EGG_HAS_THREADS)
                 scoped_lock_t lock(*m_pmtx);
 #endif
-                return (*m_pbase)();
+                return fuse(*m_pbase)(args);
             }
 
-        // 1ary-
-            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
-            struct PSTADE_EGG_APPLY_DECL;
-
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/parallel.hpp>))
-            #include BOOST_PP_ITERATE()
-
-            explicit result_(Base base) :
+            explicit fused_result(Base base) :
                 m_pbase(new Base(base))
 #if defined(PSTADE_EGG_HAS_THREADS)
                 , m_pmtx(new mutex_t())
@@ -89,41 +84,39 @@ namespace pstade { namespace egg {
         };
 
 
+        template<class Strategy>
+        struct little
+        {
+            typedef
+                X_unfuse<use_nullary_result, boost::use_default, Strategy>
+            X_unfuse_;
+
+            template<class Me, class Base>
+            struct apply :
+                result_of<X_unfuse_(fused_result<Base, Strategy>)>
+            { };
+
+            template<class Re, class Base>
+            Re call(Base base) const
+            {
+                return X_unfuse_()(fused_result<Base, Strategy>(base));
+            }
+        };
+
+
     } // namespace parallel_detail
 
 
-    typedef
-        generator<
-            parallel_detail::result_< deduce<mpl_1, as_value> >,
-            by_value
-        >::type
-    T_parallel;
+    template<class Strategy = by_perfect>
+    struct X_parallel :
+        function<parallel_detail::little<Strategy>, by_value>
+    { };
 
-    PSTADE_POD_CONSTANT((T_parallel), parallel) = PSTADE_EGG_GENERATOR();
+    typedef X_parallel<>::function_type T_parallel;
+    PSTADE_POD_CONSTANT((T_parallel), parallel) = {{}};
 
 
 } } // namespace pstade::egg
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<Base(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
-    { };
-
-    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-    {
-#if defined(PSTADE_EGG_HAS_THREADS)
-        scoped_lock_t lock(*m_pmtx);
-#endif
-        return (*m_pbase)(BOOST_PP_ENUM_PARAMS(n, a));
-    }
-
-
-#undef  n
 #endif

@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args const& args) const
             {
                 m_thunk();
                 return fuse(m_fun)(args);
