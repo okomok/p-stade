@@ -47,7 +47,7 @@ struct little_print
     };
 
     template<class Re, class Args>
-    void call(Args const& args) const
+    void call(Args& args) const
     {
         boost::fusion::for_each(args, std::cout << bll_1);
     }
@@ -73,7 +73,7 @@ struct little_print
     };
 
     template<class Re, class Args>
-    void call(Args const& args) const
+    void call(Args& args) const
     {
         std::cout << args.get_head();
         make_function(*this)(args.get_tail());

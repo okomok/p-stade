@@ -106,7 +106,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Re, class Args>
-            Re call(Args const& args) const
+            Re call(Args& args) const
             {
                 Re r = { fuse(PSTADE_EGG_DEFAULT_PACK<Strategy>())(args) };
                 return r;

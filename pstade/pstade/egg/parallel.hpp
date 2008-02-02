@@ -19,6 +19,7 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
+#include "./by_cref.hpp"
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_HAS_THREADS
@@ -37,9 +38,9 @@ namespace pstade { namespace egg {
     namespace parallel_detail {
 
 
-        template<class Base, class Strategy>
+        template<class Base>
         struct fused_result :
-            function_facade<fused_result<Base, Strategy>, Strategy, use_nullary_result>
+            function_facade<fused_result<Base>, by_cref, use_nullary_result>
         {
 #if defined(PSTADE_EGG_HAS_THREADS)
         private:
@@ -56,7 +57,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class Args>
-            Re call(Args const& args) const
+            Re call(Args& args) const
             {
 #if defined(PSTADE_EGG_HAS_THREADS)
                 scoped_lock_t lock(*m_pmtx);
@@ -89,17 +90,17 @@ namespace pstade { namespace egg {
         {
             typedef
                 X_unfuse<use_nullary_result, boost::use_default, Strategy>
-            X_unfuse_;
+            unfuse_t;
 
             template<class Me, class Base>
             struct apply :
-                result_of<X_unfuse_(fused_result<Base, Strategy>)>
+                result_of<unfuse_t(fused_result<Base>)>
             { };
 
             template<class Re, class Base>
             Re call(Base base) const
             {
-                return X_unfuse_()(fused_result<Base, Strategy>(base));
+                return unfuse_t()(fused_result<Base>(base));
             }
         };
 

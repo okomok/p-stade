@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class Args>
-            Re call(Args const& args) const
+            Re call(Args& args) const
             {
                 return fuse(fun_t())(args);
             }
