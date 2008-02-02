@@ -457,6 +457,14 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
         [`PSTADE_EGG_VARIADIC(L)`]
         [`PSTADE_EGG_VARIADIC_L L PSTADE_EGG_VARIADIC_R`]
     ]
+    [
+        [`variadic_d<Lam, _Stg = _default, Pack = _default, R0 = _default>::type`]
+        [`result_of_unfuse<deferred<Lam, by_cref>::type, R0, Pack, _Stg>::type`]
+    ]
+    [
+        [`PSTADE_EGG_VARIADIC_D()`]
+        [A braced initializer of `variadic_d<Lam,...>::type`]
+    ]
 ]
 
 [heading Preconditions]

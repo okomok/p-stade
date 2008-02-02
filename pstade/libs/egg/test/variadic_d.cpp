@@ -21,22 +21,21 @@ using namespace egg;
 using pstade::result_of;
 
 
-struct little_second
+template<class Args>
+struct mono_second
 {
-    template<class Me, class Args>
-    struct apply :
-        result_of<X_fusion_get_c<1>(Args&)>
-    { };
+    typedef typename
+        result_of<X_fusion_get_c<1>(Args&)>::type
+    result_type;
 
-    template<class Re, class Args>
-    Re call(Args& args) const
+    result_type operator()(Args& args) const
     {
         return X_fusion_get_c<1>()(args);
     }
 };
 
-typedef variadic< little_second >::type T_second;
-T_second const second = PSTADE_EGG_VARIADIC({});
+typedef variadic_d< mono_second<boost::mpl::_> >::type T_second;
+T_second const second = PSTADE_EGG_VARIADIC_D();
 
 
 void pstade_minimal_test()

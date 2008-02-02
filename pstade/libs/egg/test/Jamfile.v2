@@ -153,6 +153,7 @@ test-suite "egg" :
     [ run unwrap_ref.cpp ]
     [ run use_deduced_form.cpp ]
     [ run variadic.cpp ]
+    [ run variadic_d.cpp ]
     [ run volatile_correct.cpp ]
     [ run volatile_correct_udt.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]

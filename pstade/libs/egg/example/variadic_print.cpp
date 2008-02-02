@@ -38,23 +38,19 @@ using namespace egg;
 #if defined(PSTADE_EGG_HAS_FUSIONS)
 
 //[code_variadic_print
-struct little_print
+template<class Args>
+struct mono_print
 {
-    template<class Me, class Args>
-    struct apply
-    {
-        typedef void type;
-    };
+    typedef void result_type;
 
-    template<class Re, class Args>
-    void call(Args& args) const
+    void operator()(Args& args) const
     {
         boost::fusion::for_each(args, std::cout << bll_1);
     }
 };
 
-typedef variadic<little_print>::type T_print;
-T_print const print = PSTADE_EGG_VARIADIC({});
+typedef variadic_d< mono_print<boost::mpl::_1> >::type T_print;
+T_print const print = PSTADE_EGG_VARIADIC_D();
 
 void test()
 {
