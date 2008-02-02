@@ -10,10 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
+
+
 #include "./element.hpp"
 #include "./get.hpp"
 #include "./length.hpp"
-// #include "./pack.hpp"
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+    #include "./pack.hpp"
+#endif
 #include "./prepend.hpp"
 
 
