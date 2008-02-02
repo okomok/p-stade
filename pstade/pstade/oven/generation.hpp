@@ -13,9 +13,9 @@
 
 #include <boost/optional/optional.hpp>
 #include <pstade/egg/by_value.hpp>
-#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/identity.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -85,7 +85,7 @@ namespace generation_detail {
 
 
 typedef PSTADE_EGG_DEFER((generation_detail::base<boost::mpl::_>)) T_generation;
-PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_POLYMORPHIC();
 
 
 namespace nonstop_detail {

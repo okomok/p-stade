@@ -34,8 +34,8 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/function_output_iterator.hpp"
 
@@ -104,7 +104,7 @@ namespace stream_writer_detail {
 } // namespace stream_writer_detail
 
 typedef PSTADE_EGG_DEFER((stream_writer_detail::base<boost::mpl::_>)) T_stream_writer;
-PSTADE_POD_CONSTANT((T_stream_writer), stream_writer) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_stream_writer), stream_writer) = PSTADE_EGG_POLYMORPHIC();
 
 
 // streambuf_writer
@@ -195,7 +195,7 @@ namespace std_stream_writer_detail {
 } // namespace std_stream_writer_detail
 
 typedef PSTADE_EGG_DEFER((std_stream_writer_detail::base<boost::mpl::_>)) T_std_stream_writer;
-PSTADE_POD_CONSTANT((T_std_stream_writer), std_stream_writer) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_std_stream_writer), std_stream_writer) = PSTADE_EGG_POLYMORPHIC();
 
 
 } } // namespace pstade::oven

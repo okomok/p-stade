@@ -49,8 +49,8 @@ struct mono_print
     }
 };
 
-typedef variadic_d< mono_print<boost::mpl::_1> >::type T_print;
-T_print const print = PSTADE_EGG_VARIADIC_D();
+typedef variadic_poly< mono_print<boost::mpl::_1> >::type T_print;
+T_print const print = PSTADE_EGG_VARIADIC_POLY();
 
 void test()
 {

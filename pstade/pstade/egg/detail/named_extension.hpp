@@ -14,12 +14,8 @@
 #include <pstade/enable_if.hpp>
 
 
-namespace pstade { namespace egg {
-
-    template<class Function, int N>
-    struct error_Nth_argument_must_be_supplied;
-
-} }
+template<class Function, int N>
+struct PSTADE_EGG_ERROR_NAMED_MISSING_Nth_ARGUMENT;
 
 
 namespace pstade_egg_extension {
@@ -28,7 +24,7 @@ namespace pstade_egg_extension {
     template<class X, int Index>
     struct default_value_error
     {
-        typedef pstade::egg::error_Nth_argument_must_be_supplied<X, Index> result_type;
+        typedef PSTADE_EGG_ERROR_NAMED_MISSING_Nth_ARGUMENT<X, Index> result_type;
     };
 
 

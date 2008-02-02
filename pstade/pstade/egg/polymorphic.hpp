@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DEFERRED_HPP
-#define PSTADE_EGG_DEFERRED_HPP
+#ifndef PSTADE_EGG_POLYMORPHIC_HPP
+#define PSTADE_EGG_POLYMORPHIC_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -13,7 +13,7 @@
 
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include "./detail/as_mpl_lambda.hpp"
-#include "./detail/little_deferred.hpp"
+#include "./detail/little_polymorphic.hpp"
 #include "./detail/mpl_lambda.hpp"
 #include "./by_perfect.hpp"
 
@@ -22,24 +22,24 @@ namespace pstade { namespace egg {
 
 
     template<class Expr, class Strategy = by_perfect>
-    struct deferred
+    struct polymorphic
     {
         typedef
-            function<detail::little_deferred<PSTADE_EGG_MPL_LAMBDA(Expr)>, Strategy>
+            function<detail::little_polymorphic<PSTADE_EGG_MPL_LAMBDA(Expr)>, Strategy>
         type;
     };
 
-    #define PSTADE_EGG_DEFERRED() {{}}
+    #define PSTADE_EGG_POLYMORPHIC() {{}}
 
 
     // If you are a msvc-8/9 user, prefer this macro.
-    // Note that PSTADE_EGG_AS_MPL_LAMBDA in 'deferred' can't work around.
+    // Note that PSTADE_EGG_AS_MPL_LAMBDA in 'polymorphic' can't work around.
     #define PSTADE_EGG_DEFER(L) \
-        pstade::egg::deferred<PSTADE_EGG_AS_MPL_LAMBDA(L)>::type \
+        pstade::egg::polymorphic<PSTADE_EGG_AS_MPL_LAMBDA(L)>::type \
     /**/
 
     #define PSTADE_EGG_DEFER_BY(L, Stg) \
-        pstade::egg::deferred<PSTADE_EGG_AS_MPL_LAMBDA(L), Stg>::type \
+        pstade::egg::polymorphic<PSTADE_EGG_AS_MPL_LAMBDA(L), Stg>::type \
     /**/
 
 

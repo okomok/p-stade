@@ -12,7 +12,7 @@
 
 
 #include "./by_cref.hpp"
-#include "./deferred.hpp"
+#include "./polymorphic.hpp"
 #include "./unfuse.hpp"
 
 
@@ -48,16 +48,16 @@ namespace pstade { namespace egg {
         class PackExpr      = boost::use_default,
         class NullaryResult = boost::use_default
     >
-    struct variadic_d :
+    struct variadic_poly :
         result_of_unfuse<
-            typename deferred<Expr, by_variadic>::type,
+            typename polymorphic<Expr, by_variadic>::type,
             NullaryResult,
             PackExpr,
             Strategy
         >
     { };
 
-    #define PSTADE_EGG_VARIADIC_D() PSTADE_EGG_UNFUSE_L PSTADE_EGG_DEFERRED() PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_VARIADIC_POLY() PSTADE_EGG_UNFUSE_L PSTADE_EGG_POLYMORPHIC() PSTADE_EGG_UNFUSE_R
 
 
 } } // namespace pstade::egg

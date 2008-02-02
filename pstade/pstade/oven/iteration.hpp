@@ -20,7 +20,7 @@
 
 
 #include <boost/optional/optional.hpp>
-#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -71,7 +71,7 @@ namespace iteration_detail {
 
 
 typedef PSTADE_EGG_DEFER((iteration_detail::base<boost::mpl::_, boost::mpl::_>)) T_iteration;
-PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_POLYMORPHIC();
 
 
 } } // namespace pstade::oven

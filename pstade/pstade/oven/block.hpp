@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/block_iterator.hpp"
@@ -47,7 +47,7 @@ namespace block_detail {
 
 
 typedef PSTADE_EGG_DEFER((block_detail::base<boost::mpl::_>)) T_block;
-PSTADE_POD_CONSTANT((T_block), block) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_block), block) = PSTADE_EGG_POLYMORPHIC();
 
 
 } } // namespace pstade::oven

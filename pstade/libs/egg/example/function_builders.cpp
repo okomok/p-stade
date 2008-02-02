@@ -16,7 +16,7 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/implicit.hpp>
-#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/static.hpp>
 #include <pstade/egg/apply.hpp>
@@ -161,7 +161,7 @@ void test_automatic()
 //]
 
 
-//[code_deferred_example
+//[code_polymorphic_example
 template<class X>
 struct mono_my_identity
 {
@@ -174,13 +174,13 @@ struct mono_my_identity
 };
 
 typedef
-    deferred< mono_my_identity<boost::mpl::_1> >::type
+    polymorphic< mono_my_identity<boost::mpl::_1> >::type
 T_my_identity;
 
-T_my_identity const my_identity = PSTADE_EGG_DEFERRED();
+T_my_identity const my_identity = PSTADE_EGG_POLYMORPHIC();
 //]
 
-void test_deferred()
+void test_polymorphic()
 {
     int i = 10;
     BOOST_CHECK( &(my_identity(i)) == &i );
@@ -237,6 +237,6 @@ void pstade_minimal_test()
     test_envelope();
 #endif
     test_automatic();
-    test_deferred();
+    test_polymorphic();
     test_generator();
 }

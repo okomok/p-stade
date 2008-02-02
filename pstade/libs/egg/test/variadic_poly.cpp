@@ -34,8 +34,8 @@ struct mono_second
     }
 };
 
-typedef variadic_d< mono_second<boost::mpl::_> >::type T_second;
-T_second const second = PSTADE_EGG_VARIADIC_D();
+typedef variadic_poly< mono_second<boost::mpl::_> >::type T_second;
+T_second const second = PSTADE_EGG_VARIADIC_POLY();
 
 
 void pstade_minimal_test()

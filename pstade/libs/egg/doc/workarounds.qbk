@@ -107,10 +107,10 @@ Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same a
 [heading Description]
 Under msvc-9.0 or below, `boost::mpl::apply<PlaceholderExpression,..>` randomly fails
 at the instantiation process in `boost::result_of`.
-So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
+So that, `polymorphic` that depends on `boost::mpl::apply` needs a workaround.
 
 [heading Header]
-* `<pstade/egg/deferred.hpp>`
+* `<pstade/egg/polymorphic.hpp>`
 
 [heading Valid expressions]
 [table 
@@ -120,11 +120,11 @@ So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
     ]
     [
         [`PSTADE_EGG_DEFER((Lam))`]
-        [`deferred<Lam>::type` with some workaround.]
+        [`polymorphic<Lam>::type` with some workaround.]
     ]
     [
         [`PSTADE_EGG_DEFER_BY((Lam), _Stg)`]
-        [`deferred<Lam, _Stg>::type` with some workaround.]
+        [`polymorphic<Lam, _Stg>::type` with some workaround.]
     ]
 ]
 
@@ -133,7 +133,7 @@ So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
 * The corresponding semantics is a valid expression.
 
 [heading See also]
-* __EGG_DEFERRED__
+* __EGG_POLYMORPHIC__
 
 [endsect]
 

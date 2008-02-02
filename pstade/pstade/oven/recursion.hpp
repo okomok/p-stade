@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./detail/lazy_iterator.hpp"
@@ -47,7 +47,7 @@ namespace recursion_detail {
 
 
 typedef PSTADE_EGG_DEFER((recursion_detail::base<boost::mpl::_>)) T_recursion;
-PSTADE_POD_CONSTANT((T_recursion), recursion) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_recursion), recursion) = PSTADE_EGG_POLYMORPHIC();
 
 
 } } // namespace pstade::oven

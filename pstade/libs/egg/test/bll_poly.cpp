@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/bll_defer.hpp>
+#include <pstade/egg/bll_poly.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -26,8 +26,8 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-typedef result_of_bll_defer<ll::equal>::type adapted_equal;
-adapted_equal const adapted_equal_fun = PSTADE_EGG_BLL_DEFER({});
+typedef result_of_bll_poly<ll::equal>::type adapted_equal;
+adapted_equal const adapted_equal_fun = PSTADE_EGG_BLL_POLY({});
 PSTADE_TEST_IS_RESULT_OF((bool), adapted_equal(int*, int*, int*))
 
 
@@ -46,8 +46,8 @@ struct nullary_sig
   { return 0; }
 };
 
-typedef result_of_bll_defer_nullary< ::nullary_sig >::type adapted_nullary;
-adapted_nullary const adapted_nullary_fun = PSTADE_EGG_BLL_DEFER_L {} PSTADE_EGG_BLL_DEFER_R;
+typedef result_of_bll_poly_nullary< ::nullary_sig >::type adapted_nullary;
+adapted_nullary const adapted_nullary_fun = PSTADE_EGG_BLL_POLY_L {} PSTADE_EGG_BLL_POLY_R;
 PSTADE_TEST_IS_RESULT_OF((int), adapted_nullary())
 
 
@@ -61,14 +61,14 @@ struct null_op
 void pstade_minimal_test()
 {
     {
-        pstade::result_of<T_bll_defer(ll::for_each)>::type adapted  = bll_defer(ll::for_each());
+        pstade::result_of<T_bll_poly(ll::for_each)>::type adapted  = bll_poly(ll::for_each());
 
         std::string s;
         adapted(s.begin()|to_ref, s.end()|to_ref, null_op()|to_ref);
         ::adapted_equal_fun(s.begin()|to_ref, s.begin()|to_ref, s.begin()|to_ref);
     }
     {
-        pstade::result_of<T_bll_defer_nullary(::nullary_sig)>::type adapted = bll_defer_nullary(::nullary_sig());
+        pstade::result_of<T_bll_poly_nullary(::nullary_sig)>::type adapted = bll_poly_nullary(::nullary_sig());
         BOOST_CHECK( adapted() == 0 );
         int i = 0;
         BOOST_CHECK( adapted(i, i) == 2 );

@@ -29,8 +29,8 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/deferred.hpp>
 #include <pstade/egg/indirect.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/egg/regular.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
@@ -87,10 +87,10 @@ using egg::T_regular;
 using egg::regular;
 
 typedef PSTADE_EGG_DEFER((regular_detail::base_c<boost::mpl::_>)) T_regular_c;
-PSTADE_POD_CONSTANT((T_regular_c), regular_c) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_regular_c), regular_c) = PSTADE_EGG_POLYMORPHIC();
 
 typedef PSTADE_EGG_DEFER((regular_detail::base_ref<boost::mpl::_>)) T_regular_ref;
-PSTADE_POD_CONSTANT((T_regular_ref), regular_ref) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_regular_ref), regular_ref) = PSTADE_EGG_POLYMORPHIC();
 
 
 } } // namespace pstade::oven

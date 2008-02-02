@@ -116,7 +116,7 @@ namespace boost { namespace mpl {
 
 #include <pstade/test.hpp>
 #include <pstade/egg/ambi.hpp>
-#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

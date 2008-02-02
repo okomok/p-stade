@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DETAIL_LITTLE_BLL_DEFER_RESULT_HPP
-#define PSTADE_EGG_DETAIL_LITTLE_BLL_DEFER_RESULT_HPP
+#ifndef PSTADE_EGG_DETAIL_LITTLE_BLL_POLY_RESULT_HPP
+#define PSTADE_EGG_DETAIL_LITTLE_BLL_POLY_RESULT_HPP
 #include "./prefix.hpp"
 
 
@@ -19,19 +19,19 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include "../apply_decl.hpp"
-#include "../bll/config.hpp"
+#include "../bll/config.hpp" // PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY
 #include "../by_ref.hpp"
+
+
+template<class Bindable>
+struct PSTADE_EGG_ERROR_BLL_POLY_NON_NULLARY;
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Bindable>
-    struct bll_defer_error_non_nullary;
-
-
     template<class Bindable, class IsNullary>
-    struct little_bll_defer_result
+    struct little_bll_poly_result
     {
         Bindable m_base;
 
@@ -50,7 +50,7 @@ namespace pstade { namespace egg { namespace detail {
         typedef typename
             boost::mpl::eval_if< IsNullary,
                 result0,
-                boost::mpl::identity< bll_defer_error_non_nullary<Bindable> >
+                boost::mpl::identity< PSTADE_EGG_ERROR_BLL_POLY_NON_NULLARY<Bindable> >
             >::type
         nullary_result_type;
 
@@ -64,7 +64,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/little_bll_defer_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/little_bll_poly_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

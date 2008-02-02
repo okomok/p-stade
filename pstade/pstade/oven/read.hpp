@@ -23,7 +23,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <pstade/egg/deferred.hpp>
+#include <pstade/egg/polymorphic.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/is_reference_iterator.hpp"
 
@@ -64,7 +64,7 @@ namespace read_detail {
 
 
 typedef PSTADE_EGG_DEFER((read_detail::base<boost::mpl::_>)) T_read;
-PSTADE_POD_CONSTANT((T_read), read) = PSTADE_EGG_DEFERRED();
+PSTADE_POD_CONSTANT((T_read), read) = PSTADE_EGG_POLYMORPHIC();
 
 
 } } // namespace pstade::oven

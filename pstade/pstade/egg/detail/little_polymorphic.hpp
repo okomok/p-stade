@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DETAIL_LITTLE_DEFERRED_HPP
-#define PSTADE_EGG_DETAIL_LITTLE_DEFERRED_HPP
+#ifndef PSTADE_EGG_DETAIL_LITTLE_POLYMORPHIC_HPP
+#define PSTADE_EGG_DETAIL_LITTLE_POLYMORPHIC_HPP
 #include "./prefix.hpp"
 
 
@@ -30,12 +30,12 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Expr>
-    struct little_deferred
+    struct little_polymorphic
     {
         template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/little_deferred.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/little_polymorphic.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
