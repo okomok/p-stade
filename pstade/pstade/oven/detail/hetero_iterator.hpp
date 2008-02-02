@@ -19,7 +19,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/fusion/at.hpp>
+#include <pstade/egg/fusion/get.hpp>
 #include <pstade/egg/fusion/length.hpp>
 
 
@@ -37,7 +37,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class Tuple, class Reference, int Size = egg::fusion_length<Tuple>::value >
 struct hetero_iterator_dereference;
 
-#define PSTADE_return_at(Z, N, _) case N: return egg::fusion_at_c<N>(tup);
+#define PSTADE_return_at(Z, N, _) case N: return egg::fusion_get_c<N>(tup);
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_OVEN_HETERO_MAX_SIZE, <pstade/oven/detail/hetero_iterator.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_return_at

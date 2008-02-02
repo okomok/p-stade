@@ -14,8 +14,8 @@
 #include <boost/mpl/int.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/fusion/at.hpp>
-#include <pstade/egg/fusion/value_at.hpp>
+#include <pstade/egg/fusion/element.hpp>
+#include <pstade/egg/fusion/get.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/result_of.hpp>
@@ -42,7 +42,7 @@ namespace elements_detail {
             eval_if_use_default<Reference,
                 affect<
                     typename iterator_read<typename range_iterator<TupleRange>::type>::type,
-                    typename egg::fusion_value_at<N, typename range_value<TupleRange>::type>::type
+                    typename egg::fusion_element<N, typename range_value<TupleRange>::type>::type
                 >
             >
         { };
@@ -52,7 +52,7 @@ namespace elements_detail {
         struct apply :
             result_of<
                 X_make_transformed<typename ref_of<TupleRange>::type>(
-                    TupleRange&, egg::X_fusion_at<N>
+                    TupleRange&, egg::X_fusion_get<N>
                 )
             >
         { };
@@ -63,7 +63,7 @@ namespace elements_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
 
             return X_make_transformed<typename ref_of<TupleRange>::type>()(
-                rng, egg::X_fusion_at<N>()
+                rng, egg::X_fusion_get<N>()
             );
         }
     };

@@ -101,7 +101,7 @@ namespace zipped_detail {
     template< class RangeTuple >
     struct with_apply
     {
-        template< class Range > // 'Range' is what 'fusion_value_at' returns.
+        template< class Range > // 'Range' is what 'fusion_element' returns.
         struct apply :
             result_of<
                 T_begin(typename affect<RangeTuple&, Range>::type)

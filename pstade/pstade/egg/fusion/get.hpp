@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_FUSION_AT_HPP
-#define PSTADE_EGG_FUSION_AT_HPP
+#ifndef PSTADE_EGG_FUSION_GET_HPP
+#define PSTADE_EGG_FUSION_GET_HPP
 #include "../detail/prefix.hpp"
 
 
@@ -19,7 +19,7 @@
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
 #include "../specified.hpp"
-#include "./value_at.hpp"
+#include "./element.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
@@ -34,7 +34,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace fusion_at_detail {
+    namespace fusion_get_detail {
 
 
         template<class Re, class N>
@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
                     >::type
                 >
 #else
-                affect<Tuple&, typename fusion_value_at<N, Tuple>::type>
+                affect<Tuple&, typename fusion_element<N, Tuple>::type>
 #endif
             { };
 
@@ -104,24 +104,24 @@ namespace pstade { namespace egg {
         };
 
 
-    } // namespace fusion_at_detail
+    } // namespace fusion_get_detail
 
 
     template<class N>
-    struct X_fusion_at :
-        function<fusion_at_detail::little<N>, by_perfect>
+    struct X_fusion_get :
+        function<fusion_get_detail::little<N>, by_perfect>
     { };
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (fusion_at, X_fusion_at, (class), (1))
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (fusion_get, X_fusion_get, (class), (1))
     #include PSTADE_EGG_SPECIFIED()
 
 
     template<int N>
-    struct X_fusion_at_c :
-        X_fusion_at< boost::mpl::int_<N> >
+    struct X_fusion_get_c :
+        X_fusion_get< boost::mpl::int_<N> >
     { };
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (fusion_at_c, X_fusion_at_c, (int), (1))
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (fusion_get_c, X_fusion_get_c, (int), (1))
     #include PSTADE_EGG_SPECIFIED()
 
 
