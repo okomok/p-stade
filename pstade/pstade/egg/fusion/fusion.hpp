@@ -13,6 +13,7 @@
 #include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
 
 
+#include "./drop1.hpp"
 #include "./element.hpp"
 #include "./get.hpp"
 #include "./length.hpp"

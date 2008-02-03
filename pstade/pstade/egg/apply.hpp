@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_APPLY_HPP
 #define PSTADE_EGG_APPLY_HPP
 #include "./detail/prefix.hpp"
@@ -12,19 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./forward.hpp"
+#include "./fuse.hpp"
+#include "./fusion/drop1.hpp"
+#include "./fusion/get.hpp"
+#include "./variadic.hpp"
 
 
 namespace pstade { namespace egg {
@@ -33,16 +27,22 @@ namespace pstade { namespace egg {
     namespace apply_detail {
 
 
-        template<class Strategy>
         struct little
         {
-            template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_LINEAR_ARITY, A)>
-            struct PSTADE_EGG_APPLY_DECL;
+            template<class Me, class Args>
+            struct apply :
+                result_of<
+                    typename result_of<
+                        T_fuse(typename result_of<X_fusion_get_c<0>(Args&)>::type)
+                    >::type(typename result_of<T_fusion_drop1(Args&)>::type)
+                >
+            { };
 
-        #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <pstade/egg/apply.hpp>))
-            #include BOOST_PP_ITERATE()
-        #undef  PSTADE_max_arity
+            template<class Re, class Args>
+            Re call(Args& args) const
+            {
+                return fuse(X_fusion_get_c<0>()(args))(fusion_drop1(args));
+            }
         };
 
 
@@ -51,34 +51,16 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_apply :
-        function<apply_detail::little<Strategy>, Strategy>
+        variadic<apply_detail::little, Strategy>::type
     { };
-
+    
     typedef X_apply<>::function_type T_apply;
 PSTADE_ADL_BARRIER(apply) {
-    PSTADE_POD_CONSTANT((T_apply), apply) = {{}};
+    PSTADE_POD_CONSTANT((T_apply), apply) = PSTADE_EGG_VARIADIC({});
 }
 
 
 } } // namespace pstade::egg
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-    template<class Me, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Me, F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<F(PSTADE_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
-    { };
-
-    template<class Re, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
-    Re call(F& f BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-    {
-        return f(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
-    }
-
-
-#undef  n
 #endif

@@ -24,7 +24,7 @@
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/begin.hpp>
 //    #include <boost/fusion/include/boost_tuple.hpp> // broken for now.
-    #include <boost/fusion/include/end.hpp>
+    #include <boost/fusion/sequence/intrinsic/end.hpp>
     #include <boost/fusion/include/iterator_range.hpp>
     #include <boost/fusion/include/joint_view.hpp>
     #include <boost/fusion/include/single_view.hpp>
