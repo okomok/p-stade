@@ -185,7 +185,7 @@
         { };
 
         typedef typename
-            eval_if_use_nullary_result<NullaryResult,
+            eval_if_use_nullary_result< NullaryResult,
                 nullary_result
             >::type
         nullary_result_type;

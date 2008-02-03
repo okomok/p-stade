@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/tuple/elem.hpp>
 #include "../bll_bindable.hpp"
 #include "./little_of.hpp"
 #include "./nullary_result_of_little.hpp"

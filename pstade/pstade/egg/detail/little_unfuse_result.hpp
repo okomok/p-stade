@@ -58,7 +58,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // 0ary
         typedef typename
-            eval_if_use_nullary_result<NullaryResult,
+            eval_if_use_nullary_result< NullaryResult,
                 nullary_result_of_fused<Base, Pack>
             >::type
         nullary_result_type;
