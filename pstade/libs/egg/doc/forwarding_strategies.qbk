@@ -117,7 +117,8 @@ Egg performs the "perfect forwarding" by default.
 * `<pstade/egg/by_perfect.hpp>`
 
 [heading Notation]
-* `bI` is (possibly const-qualified) `aI`.
+* `remove_cr(x)` is `boost::remove_const<boost::remove_reference<_decltype(x)>::type>::type`.
+* `bI` is any object such that `remove_cr(bI)` is the same as `remove_cr(aI)`.
 
 [heading Valid expressions]
 [table 
