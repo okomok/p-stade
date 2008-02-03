@@ -97,6 +97,8 @@ namespace pstade { namespace egg {
             >::type
         result_type;
 
+        typedef result_type (signature_type)(args);
+
         Base m_base;
 
         Base const& base() const
