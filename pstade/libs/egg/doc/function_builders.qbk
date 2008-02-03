@@ -84,6 +84,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [heading Description]
 `function_facade` creates a new __MAJOR_FUNCTION_OBJECT__ type using "CRTP".
 Though a type built from `function_facade` can't be a /POD/ type, it can have non-default constructors.
+This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 [heading Header]
 * `<pstade/egg/function_facade.hpp>`
@@ -133,6 +134,7 @@ Though a type built from `function_facade` can't be a /POD/ type, it can have no
 [heading Description]
 Though `polymorphic` can have neither non-default constructors nor initializers,
 you can access nested typedefs in `operator()`.
+This magical "monopoly" is a port of `detail::functionN` family which is secretly contained in __BOOST_ACCUMULATORS__.
 
 [heading Header]
 * `<pstade/egg/polymorphic.hpp>`
