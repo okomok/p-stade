@@ -53,7 +53,7 @@ namespace pstade { namespace egg {
     struct X_apply :
         variadic<apply_detail::little, Strategy>::type
     { };
-    
+
     typedef X_apply<>::function_type T_apply;
 PSTADE_ADL_BARRIER(apply) {
     PSTADE_POD_CONSTANT((T_apply), apply) = PSTADE_EGG_VARIADIC({});
