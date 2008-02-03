@@ -60,8 +60,12 @@ Egg is known to work on the following platforms:
 [section Acknowledgements]
 * Special thanks to David Abrahams. __FORWARDING_PROBLEM__ workaround is based on his __DAVID_CALLABLE__.
 * Special thanks to Eric Niebler, who pointed out importance of /static initialization/.
-* Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
+* Special thanks to Cryolite, Hitobashira, Takeshi Mouri, yotto-k, and Yusuke Kajimoto.
   These people are instrumental in the design and development of Egg.
+* Special thanks to Atry, Charles Brockman, Dan Marsden, David Abrahams, Giovanni Piero Deretta,
+  Joel de Guzman, Kirit Salensminde, Larry Evans, Sid Sacek, and Tobias Schwinger.
+  These people gave encouraging feedbacks or interests.
+* Special thanks to Dan Marsden, who is review manager of this library.
 
 [endsect]
 

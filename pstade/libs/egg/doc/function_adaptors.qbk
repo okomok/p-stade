@@ -1032,6 +1032,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Example]
 [code_pipable_example]
 
+[tip According to Charles Brockman's research, "pipAble" is not misspelling of "pipEable". ]
+
 [heading See also]
 * __EGG_AMBI__
 * __EXTENSION_METHOD__
