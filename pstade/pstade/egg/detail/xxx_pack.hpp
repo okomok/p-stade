@@ -24,7 +24,6 @@
 #include "../register_nullary_result.hpp"
 
 
-#define PSTADE_EGG_XXX_PACK_INIT() {{}}
 #define PSTADE_EGG_XXX_PACK() <pstade/egg/detail/xxx_pack_include.hpp>
 
 

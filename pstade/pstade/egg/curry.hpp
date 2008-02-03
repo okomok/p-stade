@@ -29,6 +29,9 @@
 namespace pstade { namespace egg {
 
 
+    #define PSTADE_EGG_CURRY_INIT {{}}
+
+
     // for curry2 implementation
     template<class Base>
     struct result_of_curry1
@@ -97,7 +100,7 @@ namespace pstade { namespace egg {
 
 
     typedef function<PSTADE_PP_CAT3(curry, n, _detail)::little, by_value> BOOST_PP_CAT(T_curry, n);
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_curry, n)), BOOST_PP_CAT(curry, n)) = {{}};
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_curry, n)), BOOST_PP_CAT(curry, n)) = PSTADE_EGG_CURRY_INIT;
 
 
 #undef  n_1

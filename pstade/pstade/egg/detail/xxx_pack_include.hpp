@@ -54,7 +54,7 @@
 
 
         typedef BOOST_PP_CAT(X_, name)<>::function_type BOOST_PP_CAT(T_, name);
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = PSTADE_EGG_XXX_PACK_INIT();
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = {{}};
 
 
     } } // namespace pstade::egg
