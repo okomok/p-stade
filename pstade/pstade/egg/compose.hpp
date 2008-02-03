@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_value.hpp"
@@ -83,7 +84,9 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_compose<>::function_type T_compose;
+PSTADE_ADL_BARRIER(compose) {
     PSTADE_POD_CONSTANT((T_compose), compose) = PSTADE_EGG_GENERATOR();
+}
 
 
 } } // namespace pstade::egg

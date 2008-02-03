@@ -89,6 +89,7 @@ void pstade_minimal_test()
 {
     {
         BOOST_CHECK( 89 == fix( curry2(unfixed_fib()) )(10) );
+        BOOST_CHECK( 89 == fix2(unfixed_fib())(10) );
     }
     {
         BOOST_CHECK( 3628800 == fix(fact_)(10) );

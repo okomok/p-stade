@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
     { };
 
     typedef X_uncurry<>::function_type T_uncurry;
-    PSTADE_POD_CONSTANT((T_uncurry), uncurry) = PSTADE_EGG_GENERATOR();;
+    PSTADE_POD_CONSTANT((T_uncurry), uncurry) = PSTADE_EGG_GENERATOR();
 
 
 } } // namespace pstade::egg

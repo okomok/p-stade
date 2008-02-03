@@ -309,7 +309,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_fix<_typeof(d)>::type` initialized using `d` or an initializer.
+* ...
+[/ * `fc(d)` is an object of `result_of_fix<_typeof(d)>::type` initialized using `d` or an initializer. ]
 
 [heading Valid expressions]
 [table 
@@ -317,6 +318,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Valid expression]]
         [[*Semantics]]
     ]
+[/
     [
         [`result_of_fix<_PFo>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
@@ -329,17 +331,23 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`PSTADE_EGG_FIX(I)`]
         [`PSTADE_EGG_FIX_L I PSTADE_EGG_FIX_R`]
     ]
+]
     [
-        [`fc(d)(a1)`]
-        [`_const(_pfo)(fc(d))(_arg_list(a1, by_perfect))`]
+        [`fix(_pfo)(a1)`]
+        [`_const(_pfo)(fix(_pfo))(_arg_list(a1, by_perfect))`]
+    ]
+    [
+        [`fix2`]
+        [`compose(fix, curry2)`]
     ]
 ]
 
 [heading Preconditions]
-* There is a `d_` such that `_PFo d_ = init;` is a valid expression.
+[/ * There is a `d_` such that `_PFo d_ = init;` is a valid expression. ]
 * The corresponding semantics is a valid expression.
 
-[note `fc(d)` that is passed to `_pfo` as the first argument represents `_pfo` itself. Also notice that `_pfo` must be curried in advance. ]
+[note `fix(_pfo)` that is passed to `_pfo` as the first argument represents `_pfo` itself.
+      Also notice that `_pfo` must be curried in advance. ]
 
 [heading Example]
 [code_unnamed_recursion]

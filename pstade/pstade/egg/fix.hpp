@@ -19,7 +19,8 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./curry.hpp"
+#include "./compose.hpp"
+#include "./curry.hpp" // curry2
 #include "./detail/bind_left1.hpp"
 #include "./function.hpp"
 #include "./make_function.hpp"
@@ -86,6 +87,10 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_FIX_L PSTADE_EGG_BIND_LEFT1_L {{}} ,
     #define PSTADE_EGG_FIX_R PSTADE_EGG_BIND_LEFT1_R
     #define PSTADE_EGG_FIX(F) PSTADE_EGG_FIX_L F PSTADE_EGG_FIX_R
+
+
+    typedef result_of_compose<T_fix, T_curry2>::type T_fix2;
+    PSTADE_POD_CONSTANT((T_fix2), fix2) = PSTADE_EGG_COMPOSE_L PSTADE_EGG_CURRY2({{}}), {{}} PSTADE_EGG_COMPOSE_R;
 
 
 } } // namespace pstade::egg

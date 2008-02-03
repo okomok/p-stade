@@ -66,14 +66,14 @@ void unnamed_recursion()
 
 //[code_unnamed_recursion
 int r =
-    fix(curry2(
+    fix2(
         bll::ret<int>(
             bll::if_then_else_return( _2 == 0,
                 1,
                 _2 * lazy(_1)(_2 - 1)
             )
         )
-    )) (5);
+    ) (5);
 
 BOOST_CHECK(r == 5*4*3*2*1);
 //]
