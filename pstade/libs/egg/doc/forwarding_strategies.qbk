@@ -5,7 +5,7 @@ A Forwarding Strategy is a type which has two associated imaginary operators
 `_bytag_at`, `_arg_list` and `_meta_arg_list`.
 If the first argument of `arg_list` or `_meta_arg_list` is not a sequence,
 assume it is "one element" sequence.
-Egg components use `by_perfect` when you omit or specify `_default` for strategy parameter.
+Egg components use `by_perfect` when you omit or specify `_ud` for strategy parameter.
 
 This section uses the following notation.
 
@@ -73,7 +73,7 @@ Egg defines the following imaginary operators for its documentation.
         [See each section of `_Stg`.]
     ]
     [
-        [`_arg_list(a, _default)`]
+        [`_arg_list(a, _ud)`]
         [`_arg_list(a, by_perfect)`]
     ]
     [
@@ -81,7 +81,7 @@ Egg defines the following imaginary operators for its documentation.
         [See each section of `_Stg`.]
     ]
     [
-        [`_meta_arg_list(a, _default)`]
+        [`_meta_arg_list(a, _ud)`]
         [`_meta_arg_list(a, by_perfect)`]
     ]
     [
@@ -307,7 +307,7 @@ Here an imaginary operator is defined for the documentation.
 
 [heading Valid expressions and semantics]
 * `_decltype_r0(R0, expr)` is defined by the following:
-    * If `R0` is `_default`, it is a valid expression and returns an unspecified type .
+    * If `R0` is `_ud`, it is a valid expression and returns an unspecified type .
     * If `R0` is `use_nullary_result`,
         * If `_decltype(expr)` is a valid expression, it is a valid expression and returns `_decltype(expr)`.
         * Otherwise, it is not a valid expression.

@@ -54,7 +54,6 @@
 
 
 [heading Version 0.90.5]
-* `tuple_pack` accepts any strategy.
 * `generator` and `function_facade` template parameter order changed.
 * `ambi` takes only `_Bytag`.
 * `always` doesn't treat `reference_wrapper` as special case.
@@ -68,6 +67,7 @@
 * `call_strategy` renamed to `use_deduced_form`.
 * `flip` documented.
 * `automatic` renamed to `implicit`.
+* `EGG_DEFER` removed.
 
 
 

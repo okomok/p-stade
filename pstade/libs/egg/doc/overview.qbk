@@ -113,7 +113,7 @@ This document uses the following notation.
         [A type which is one of `by_perfect`, `by_ref`, `by_cref`, and `by_value`.]
     ]
     [
-        [`_default`]
+        [`_ud`]
         [`boost::use_default`]
     ]
     [

@@ -43,7 +43,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_ambi++N<_PFo, _Bytag = _default>::type`]
+        [`result_of_ambi++N<_PFo, _Bytag = _ud>::type`]
         [An __AMBI__ __MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
@@ -59,7 +59,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)(_safe_arg_list(o, _Bytag),_safe_arg_list(a, _Bytag))`]
     ]
     [
-        [`X_ambi++N<_Bytag = _default>`]
+        [`X_ambi++N<_Bytag = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -114,7 +114,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_compose<_Dco1, _Dco2, R0 = _default, _Stg = _default>::type`]
+        [`result_of_compose<_Dco1, _Dco2, R0 = _ud, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -130,7 +130,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d1)(_const(d2)(_safe_arg_list(a, _Stg)))`]
     ]
     [
-        [`X_compose<R0 = _default, _Stg = _default>`]
+        [`X_compose<R0 = _ud, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -149,7 +149,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding expression is a valid expression.
 * `_decltype_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
 
-[note The last precondition means that `fc(d1, d2, R0, _Stg)` is NOT nullary-callable if `R0` is `_default`. ]
+[note The last precondition means that `fc(d1, d2, R0, _Stg)` is NOT nullary-callable if `R0` is `_ud`. ]
 
 [heading Invariants]
 * `result_of_compose<_Dco1, _Dco2,...>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
@@ -251,7 +251,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_uncurry<_PFo, _Stg = _default>::type`]
+        [`result_of_uncurry<_PFo, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -267,7 +267,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)(parens(_safe_arg_list(a, _Stg)))`]
     ]
     [
-        [`X_uncurry<_Stg = _default>`]
+        [`X_uncurry<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -376,7 +376,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_flip<_PFo, _Stg = _default>::type`]
+        [`result_of_flip<_PFo, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -392,12 +392,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)( _safe_arg_list(b, _Stg) )`]
     ]
     [
-        [`X_flip<_Stg = _default>`]
+        [`X_flip<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_flip<_Stg>()(d)`]
-        [`fc(d, _default)`]
+        [`fc(d, _ud)`]
     ]
     [
         [`flip`]
@@ -586,7 +586,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), R0, Pack, _Stg>::type` initialized using `d` or an initializer.
-* `pack_` is `X_fusion_pack<_Stg>()` if `Pack` is `_default`, `_mpl::apply<Pack, _Stg>::type()` otherwise.
+* `pack_` is `X_fusion_pack<_Stg>()` if `Pack` is `_ud`, `_mpl::apply<Pack, _Stg>::type()` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -595,7 +595,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_unfuse<_PFo, R0 = _default, Pack = _default, _Stg = _default>::type`]
+        [`result_of_unfuse<_PFo, R0 = _ud, Pack = _ud, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -611,12 +611,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)( pack_(_arg_list(a, _Stg)) )`]
     ]
     [
-        [`X_unfuse<R0 = _default, Pack = _default, _Stg = _default>`]
+        [`X_unfuse<R0 = _ud, Pack = _ud, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_unfuse<R0, Pack, _Stg>()(d)`]
-        [`fc(d, R0, _default)`]
+        [`fc(d, R0, _ud)`]
     ]
     [
         [`unfuse`]
@@ -628,7 +628,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 * `_decltype_r0(R0, d(pack_())` is a valid expression which specifies the nullary return type.
-* If `Pack` isn't `_default`, `_mpl::apply<Pack, by_ref>::type` is a valid expression.
+* If `Pack` isn't `_ud`, `_mpl::apply<Pack, by_ref>::type` is a valid expression.
 
 [heading Invariants]
 * `result_of_unfuse<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
@@ -670,7 +670,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_indirect<Pco, _Stg = _default>::type`]
+        [`result_of_indirect<Pco, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -686,7 +686,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`(*p)(_safe_arg_list(a, _Stg))`]
     ]
     [
-        [`X_indirect<_Stg = _default>`]
+        [`X_indirect<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -732,7 +732,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Notation]
 * `fc(f)` is an object of `result_of_lazy<_typeof(f), Bind>::type` initialized using `f` or an initializer.
-* `bind_` is `bll_bind` if `Bind` is `_default`, `Bind()` otherwise.
+* `bind_` is `bll_bind` if `Bind` is `_ud`, `Bind()` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -741,7 +741,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_lazy<F, Bind = _default>::type`]
+        [`result_of_lazy<F, Bind = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -890,7 +890,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `Fun` is a __FUNCTION_OBJECT__ type.
 * `Sig` is a /function/ type.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
-* If `R` is `_default`, `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
+* If `R` is `_ud`, `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -990,7 +990,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`result_of_pipable<_PFo, _Stg = _default, _Bytag = _default>::type`]
+        [`result_of_pipable<_PFo, _Stg = _ud, _Bytag = _ud>::type`]
         [A __PIPABLE__ __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -1006,7 +1006,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`_const(d)(_safe_arg_list(o, _Bytag),safe_arg_list(a, _Stg))`]
     ]
     [
-        [`X_pipable<_Stg = _default, _Bytag = _default>`]
+        [`X_pipable<_Stg = _ud, _Bytag = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -1109,7 +1109,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
         [[*Semantics]]
     ]
     [
-        [`result_of_return<Fun, R = _default, _Stg = _default>::type`]
+        [`result_of_return<Fun, R = _ud, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -1125,7 +1125,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
         [`_const(f)(_safe_arg_list(a, _Stg))`]
     ]
     [
-        [`X_return<R, _Stg = _default>`]
+        [`X_return<R, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -1140,7 +1140,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
-* `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type if `R` is `_default`.
+* `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type if `R` is `_ud`.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -1179,7 +1179,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
         [[*Semantics]]
     ]
     [
-        [`result_of_tagged<_PFo, Tag, _Stg = _default>::type`]
+        [`result_of_tagged<_PFo, Tag, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [

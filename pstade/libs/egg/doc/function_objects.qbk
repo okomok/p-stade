@@ -32,7 +32,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_++op<R = _default, _Stg = _default>`]
+        [`X_++op<R = _ud, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -47,7 +47,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 [heading Preconditions]
 * `op` is one of the [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/boost_proto/users_guide/expression_construction/tags_and_meta_functions.html tag names] of __BOOST_PROTO__.
-* `R` specifies operator return type. If `R` is `_default`, it is deduced by using __BOOST_LAMBDA__ [@http://www.boost.org/doc/html/lambda/extending.html deduction system].
+* `R` specifies operator return type. If `R` is `_ud`, it is deduced by using __BOOST_LAMBDA__ [@http://www.boost.org/doc/html/lambda/extending.html deduction system].
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -199,7 +199,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_apply<_Stg = _default>`]
+        [`X_apply<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -251,7 +251,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_auto_new<T, _Stg = _default>`]
+        [`X_auto_new<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -299,7 +299,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_shared_new<T, _Stg = _default>`]
+        [`X_shared_new<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -349,7 +349,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct<T, _Stg = _default>`]
+        [`X_construct<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -397,7 +397,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct_braced1<T, _Stg = _default>`]
+        [`X_construct_braced1<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -445,7 +445,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct_braced2<T, _Stg = _default>`]
+        [`X_construct_braced2<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -493,7 +493,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct_variadic1<T, _Stg = _default>`]
+        [`X_construct_variadic1<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -542,7 +542,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_identity<_Stg = _default>`]
+        [`X_identity<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -731,7 +731,7 @@ using __EGG_FORWARDING_STRATEGIES__.
         [[*Semantics]]
     ]
     [
-        [`X_fusion_pack<_Stg = _default>`]
+        [`X_fusion_pack<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -784,7 +784,7 @@ using __EGG_FORWARDING_STRATEGIES__.
         [[*Semantics]]
     ]
     [
-        [`X_tuple_pack<_Stg = _default>`]
+        [`X_tuple_pack<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
