@@ -22,7 +22,6 @@
     <pstade/detail/pp_array_iterate_include.hpp> \
 /**/
 
-
 #define PSTADE_PP_ARRAY_ITERATION() \
     BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_PP_ARRAY_ITERATION_array) \
 /**/
