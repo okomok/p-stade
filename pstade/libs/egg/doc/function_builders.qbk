@@ -343,7 +343,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
 
-[note These valid expressions imply that the automatic deduction is available everywhere /copy-initialization/ is invoked.
+[note These valid expressions imply that the implicit conversion is available everywhere /copy-initialization/ is invoked.
       For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
