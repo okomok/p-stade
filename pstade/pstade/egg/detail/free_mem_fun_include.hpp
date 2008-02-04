@@ -14,12 +14,12 @@
 
 
     template<class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_of_free<R (T::*)(fparams) cv_qualifier>
+    struct result_of_free<R (T::*)(fargs) cv_qualifier>
     {
         typedef result_of_free type;
 
         typedef R result_type;
-        typedef R (T::*base_t)(fparams) cv_qualifier;
+        typedef R (T::*base_t)(fargs) cv_qualifier;
 
         detail::wrap<base_t> m_wrap;
 

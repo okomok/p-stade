@@ -25,7 +25,7 @@
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./construct_braced1.hpp"
-#include "./detail/pp_enum_fun_param_types.hpp"
+#include "./detail/pp_enum_fun_arg_types.hpp"
 #include "./generator.hpp"
 
 
@@ -82,19 +82,19 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define fparams PSTADE_EGG_PP_ENUM_FUN_PARAM_TYPES(n, A)
+#define fargs PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A)
 
 
     template<class Base, class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<Base, R(fparams)>
+    struct result_<Base, R(fargs)>
     {
         typedef typename
             eval_if_use_default< R,
-                result_of<Base const(fparams)>
+                result_of<Base const(fargs)>
             >::type
         result_type;
 
-        typedef result_type (signature_type)(fparams);
+        typedef result_type (signature_type)(fargs);
 
         Base m_base;
 
@@ -117,7 +117,7 @@ namespace pstade { namespace egg {
     };
 
 
-#undef  fparams
+#undef  fargs
 
 #undef  n
 #endif

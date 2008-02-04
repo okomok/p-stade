@@ -38,7 +38,7 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/free_call.hpp"
 #include "./detail/get_pointer_preamble.hpp"
-#include "./detail/pp_enum_fun_param_types.hpp"
+#include "./detail/pp_enum_fun_arg_types.hpp"
 #include "./detail/wrap.hpp"
 #include "./use_deduced_form.hpp"
 
@@ -163,7 +163,7 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define fparams PSTADE_EGG_PP_ENUM_FUN_PARAM_TYPES(n, A)
+#define fargs PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A)
 
 
     // member function pointers
@@ -182,7 +182,7 @@ namespace pstade { namespace egg {
     #include <pstade/egg/detail/free_mem_fun_include.hpp>
 
 
-#undef  fparams
+#undef  fargs
 
 #undef  n
 #endif
