@@ -1,5 +1,5 @@
-#ifndef PSTADE_DERIEVD_FROM_HPP
-#define PSTADE_DERIEVD_FROM_HPP
+#ifndef PSTADE_DERIVED_FROM_HPP
+#define PSTADE_DERIVED_FROM_HPP
 #include "./detail/prefix.hpp"
 
 
