@@ -18,8 +18,8 @@
 
 #include <pstade/pod_constant.hpp>
 #include "./ambi.hpp"
+#include "./by_perfect.hpp"
 #include "./copy.hpp"
-#include "./function.hpp"
 #include "./move_assign.hpp"
 
 
@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
     } // namespace copy_assign_detail
 
 
-    typedef result_of_ambi1< function<copy_assign_detail::little> >::type T_copy_assign;
+    typedef result_of_ambi1<function<copy_assign_detail::little>, by_perfect>::type T_copy_assign;
     PSTADE_POD_CONSTANT((T_copy_assign), copy_assign) = PSTADE_EGG_AMBI({{}});
 
 

@@ -19,10 +19,10 @@
 
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
+#include "./by_perfect.hpp"
 #include "./compose.hpp"
 #include "./curry.hpp" // curry2
 #include "./detail/bind_left1.hpp"
-#include "./function.hpp"
 #include "./make_function.hpp"
 
 
@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
             }
         };
 
-        typedef function<little_uncurried> uncurried;
+        typedef function<little_uncurried, by_perfect> uncurried;
 
 
     } // namespace fix_detail
@@ -91,7 +91,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_FIX(F) PSTADE_EGG_FIX_L F PSTADE_EGG_FIX_R
 
 
-    typedef result_of_compose<T_fix, T_curry2>::type T_fix2;
+    typedef result_of_compose<T_fix, T_curry2, boost::use_default, by_perfect>::type T_fix2;
     PSTADE_POD_CONSTANT((T_fix2), fix2) = PSTADE_EGG_COMPOSE_L PSTADE_EGG_FIX_INIT, PSTADE_EGG_CURRY_INIT PSTADE_EGG_COMPOSE_R;
 
 

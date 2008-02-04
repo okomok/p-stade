@@ -69,7 +69,7 @@ test-suite "egg" :
     [ run functional1.cpp ]
     [ run functional2.cpp ]
     [ run fuse.cpp ]
-    [ run fusion_drop1.cpp ]
+    [ run fusion_drop.cpp ]
     [ run fusion_element.cpp ]
     [ run fusion_get.cpp ]
     [ run fusion_length.cpp ]

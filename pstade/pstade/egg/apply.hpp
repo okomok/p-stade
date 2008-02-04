@@ -16,7 +16,7 @@
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./fuse.hpp"
-#include "./fusion/drop1.hpp"
+#include "./fusion/drop.hpp"
 #include "./fusion/get.hpp"
 #include "./variadic.hpp"
 
@@ -34,14 +34,14 @@ namespace pstade { namespace egg {
                 result_of<
                     typename result_of<
                         T_fuse(typename result_of<X_fusion_get_c<0>(Args&)>::type)
-                    >::type(typename result_of<T_fusion_drop1(Args&)>::type)
+                    >::type(typename result_of<X_fusion_drop_c<1>(Args&)>::type)
                 >
             { };
 
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return fuse(X_fusion_get_c<0>()(args))(fusion_drop1(args));
+                return fuse(X_fusion_get_c<0>()(args))(X_fusion_drop_c<1>()(args));
             }
         };
 
