@@ -13,6 +13,7 @@
 
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
@@ -51,7 +52,7 @@ namespace pstade { namespace egg {
 
             template<class Tuple>
             struct result_ :
-                tuple_<N-1, tail_t>::template result_<typename affect_cv<Tuple, tail_t>::type>
+                tuple_<N-1, tail_t>::template result_<typename affect_const<Tuple, tail_t>::type>
             { };
 
             template<class Tuple>
@@ -95,14 +96,14 @@ namespace pstade { namespace egg {
 
         template<class N, class Tuple>
         struct tuple_result_of :
-            tuple_<N::value, typename boost::remove_cv<Tuple>::type>::template result_<Tuple>
+            tuple_<N::value, typename boost::remove_const<Tuple>::type>::template result_<Tuple>
         { };
 
         template<class N, class Tuple> inline
         typename tuple_result_of<N, Tuple>::type
         tuple_call(Tuple& t)
         {
-            return tuple_<N::value, typename boost::remove_cv<Tuple>::type>::call_(t);
+            return tuple_<N::value, typename boost::remove_const<Tuple>::type>::call_(t);
         }
 
 
