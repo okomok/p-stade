@@ -132,7 +132,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 [heading Description]
 Though `polymorphic` can have neither non-default constructors nor initializers,
 you can access nested typedefs in `operator()`.
-This magical "monopoly" is a port of `detail::function` family which is secretly contained in __BOOST_ACCUMULATORS__.
+This is a port of `detail::function` family which is secretly contained in __BOOST_ACCUMULATORS__.
 
 [heading Header]
 * `<pstade/egg/polymorphic.hpp>`
