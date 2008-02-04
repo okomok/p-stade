@@ -77,6 +77,7 @@ namespace pstade { namespace egg {
             }
         };
 
+        // needed cuz t.get_tail() doesn't return reference when t is one element tuple.
         template< >
         struct tuple_<0, boost::tuples::null_type>
         {
