@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_PP_ENUM_FUN_PARAMS_HPP
-#define PSTADE_EGG_DETAIL_PP_ENUM_FUN_PARAMS_HPP
+#ifndef PSTADE_EGG_DETAIL_PP_ENUM_ARG_TYPES_HPP
+#define PSTADE_EGG_DETAIL_PP_ENUM_ARG_TYPES_HPP
 #include "./prefix.hpp"
 
 
@@ -18,7 +18,7 @@
 
 // Some compilers seem to prefer `(void)` to `()` in template specialization.
 
-#define PSTADE_EGG_PP_ENUM_FUN_PARAMS(N, A) \
+#define PSTADE_EGG_PP_ENUM_ARG_TYPES(N, A) \
     BOOST_PP_IF(N, BOOST_PP_ENUM_PARAMS, void BOOST_PP_TUPLE_EAT(2))(N, A) \
 /**/
 
