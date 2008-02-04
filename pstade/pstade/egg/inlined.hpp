@@ -38,7 +38,7 @@
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/free_call.hpp"
-#include "./detail/pp_enum_arg_types.hpp"
+#include "./detail/pp_enum_fun_param_types.hpp"
 #include "./generator.hpp"
 
 
@@ -151,14 +151,14 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define args PSTADE_EGG_PP_ENUM_ARG_TYPES(n, A)
+#define fparams PSTADE_EGG_PP_ENUM_FUN_PARAM_TYPES(n, A)
 
 
     // function pointers
     //
 
-    template<class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A), R (*ptr)(args)>
-    struct inlined<R (*)(args), ptr>
+    template<class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A), R (*ptr)(fparams)>
+    struct inlined<R (*)(fparams), ptr>
     {
         typedef inlined type;
 
@@ -198,7 +198,7 @@ namespace pstade { namespace egg {
 #endif
 
 
-#undef  args
+#undef  fparams
 
 #undef  n
 #endif
