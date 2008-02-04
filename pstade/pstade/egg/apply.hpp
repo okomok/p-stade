@@ -12,6 +12,7 @@
 
 
 #include <pstade/adl_barrier.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
@@ -50,11 +51,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_apply :
-        variadic<apply_detail::little, Strategy>::type
+    struct X_apply : derived_from<
+        typename variadic<apply_detail::little, Strategy>::type
+    >
     { };
 
-    typedef X_apply<>::function_type T_apply;
+    typedef X_apply<>::base_class T_apply;
 PSTADE_ADL_BARRIER(apply) {
     PSTADE_POD_CONSTANT((T_apply), apply) = PSTADE_EGG_VARIADIC({});
 }

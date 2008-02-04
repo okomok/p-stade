@@ -97,8 +97,6 @@ PSTADE_POD_CONSTANT((T_monad_unit), monad_unit) = {{}};
 template< class Value >
 struct X_monad_zero
 {
-    typedef X_monad_zero function_type;
-
     typedef typename
         result_of<
             T_shared(std::vector<typename plain<Value>::type> *)

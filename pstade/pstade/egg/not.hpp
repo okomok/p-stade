@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
@@ -70,15 +71,16 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_not :
-        generator<
+    struct X_not : derived_from<
+        typename generator<
             typename result_of_not<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_variadic1<>
         >::type
+    >
     { };
 
-    typedef X_not<>::function_type T_not;
+    typedef X_not<>::base_class T_not;
     typedef T_not T_not_;
     PSTADE_POD_CONSTANT((T_not_), not_) = PSTADE_EGG_GENERATOR();
 

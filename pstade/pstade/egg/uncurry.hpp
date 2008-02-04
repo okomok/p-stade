@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
@@ -36,15 +37,16 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_uncurry :
-        generator<
+    struct X_uncurry : derived_from<
+        typename generator<
             typename result_of_uncurry<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_braced2<>
         >::type
+    >
     { };
 
-    typedef X_uncurry<>::function_type T_uncurry;
+    typedef X_uncurry<>::base_class T_uncurry;
     PSTADE_POD_CONSTANT((T_uncurry), uncurry) = PSTADE_EGG_GENERATOR();
 
 

@@ -28,7 +28,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_PERFECT(F) PSTADE_EGG_PERFECT_L F PSTADE_EGG_PERFECT_R
 
 
-    typedef X_return<>::function_type T_perfect;
+    typedef X_return<>::base_class T_perfect;
     PSTADE_POD_CONSTANT((T_perfect), perfect) = PSTADE_EGG_GENERATOR();
 
 

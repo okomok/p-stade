@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
@@ -45,12 +46,13 @@ namespace pstade { namespace egg {
         class Strategy = by_perfect,
         class Tag      = boost::use_default
     >
-    struct X_return :
-        generator<
+    struct X_return : derived_from<
+        typename generator<
             typename result_of_return<deduce<mpl_1, as_value>, Return, Strategy, Tag>::type,
             by_value,
             X_construct_braced2<>
         >::type
+    >
     { };
 
     template<class Return, class Base> inline

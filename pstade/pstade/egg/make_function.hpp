@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
@@ -22,15 +23,16 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_make_function :
-        generator<
+    struct X_make_function : derived_from<
+        typename generator<
             function<deduce<mpl_1, as_value>, Strategy>,
             by_value,
             X_construct_braced1<>
         >::type
+    >
     { };
 
-    typedef X_make_function<>::function_type T_make_function;
+    typedef X_make_function<>::base_class T_make_function;
     PSTADE_POD_CONSTANT((T_make_function), make_function) = PSTADE_EGG_GENERATOR();
 
 

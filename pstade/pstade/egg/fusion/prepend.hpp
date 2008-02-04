@@ -15,6 +15,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/is_boost_tuple.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
@@ -138,11 +139,12 @@ namespace pstade { namespace egg {
 
 
     template<class Bytag = by_perfect>
-    struct X_fusion_prepend :
+    struct X_fusion_prepend : derived_from<
         function<fusion_prepend_detail::little<Bytag>, Bytag>
+    >
     { };
 
-    typedef X_fusion_prepend<>::function_type T_fusion_prepend;
+    typedef X_fusion_prepend<>::base_class T_fusion_prepend;
     PSTADE_POD_CONSTANT((T_fusion_prepend), fusion_prepend) = {{}};
 
 

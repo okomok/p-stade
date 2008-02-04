@@ -47,7 +47,7 @@
 
 
         namespace placeholders {
-            typedef X_arg< n >::function_type BOOST_PP_CAT(TT_, n);
+            typedef X_arg< n >::base_class BOOST_PP_CAT(TT_, n);
             PSTADE_POD_CONSTANT((BOOST_PP_CAT(TT_, n)), BOOST_PP_CAT(_, n)) = PSTADE_EGG_PLACEHOLDER;
         }
 

@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
@@ -72,15 +73,16 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_flip :
-        generator<
+    struct X_flip : derived_from<
+        typename generator<
             typename result_of_flip<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_braced2<>
         >::type
+    >
     { };
 
-    typedef X_flip<>::function_type T_flip;
+    typedef X_flip<>::base_class T_flip;
     PSTADE_POD_CONSTANT((T_flip), flip) = PSTADE_EGG_GENERATOR();
 
 

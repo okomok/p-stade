@@ -21,8 +21,6 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
     template<class Little, class Stg = _ud>
     struct function
     {
-        typedef function function_type;
-
         typedef Little little_type;
         typedef Stg strategy_type;
 

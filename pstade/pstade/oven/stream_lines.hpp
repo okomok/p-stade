@@ -12,6 +12,7 @@
 
 
 #include <memory> // allocator
+#include <pstade/derived_from.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
@@ -61,12 +62,13 @@ namespace stream_lines_detail {
 
 
 template< class Allocator = boost::use_default >
-struct X_stream_lines :
+struct X_stream_lines : derived_from<
     egg::function< stream_lines_detail::little<Allocator> >
+>
 { };
 
 
-typedef X_stream_lines<>::function_type T_stream_lines;
+typedef X_stream_lines<>::base_class T_stream_lines;
 PSTADE_POD_CONSTANT((T_stream_lines), stream_lines) = {{}};
 
 

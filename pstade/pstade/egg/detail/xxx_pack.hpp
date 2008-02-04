@@ -17,6 +17,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../apply_decl.hpp"
 #include "../by_perfect.hpp"

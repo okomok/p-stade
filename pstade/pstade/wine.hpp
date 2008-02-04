@@ -25,6 +25,7 @@
 #include "./constant.hpp"
 #include "./debug.hpp"
 #include "./deduced_const.hpp"
+#include "./derived_from.hpp"
 // #include "./detect_result_type.hpp"
 #include "./disable_if_copy.hpp"
 #include "./dont_care.hpp"

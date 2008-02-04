@@ -48,12 +48,13 @@
 
 
         template<class Strategy = by_perfect>
-        struct BOOST_PP_CAT(X_, name) :
+        struct BOOST_PP_CAT(X_, name) : derived_from<
             function<BOOST_PP_CAT(name, _detail)::little<Strategy>, Strategy>
+        >
         { };
 
 
-        typedef BOOST_PP_CAT(X_, name)<>::function_type BOOST_PP_CAT(T_, name);
+        typedef BOOST_PP_CAT(X_, name)<>::base_class BOOST_PP_CAT(T_, name);
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = {{}};
 
 

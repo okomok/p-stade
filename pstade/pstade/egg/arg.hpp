@@ -22,6 +22,7 @@
     #include <boost/preprocessor/iteration/iterate.hpp>
     #include <boost/preprocessor/repetition/enum_binary_params.hpp>
     #include <boost/preprocessor/repetition/enum_params.hpp>
+    #include <pstade/derived_from.hpp>
     #include "./apply_decl.hpp"
     #include "./by_perfect.hpp"
     #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
@@ -37,8 +38,9 @@
 
 
         template<int N, class Strategy = by_perfect>
-        struct X_arg :
+        struct X_arg : derived_from<
             function<little_arg<N, Strategy>, Strategy>
+        >
         { };
 
         #define PSTADE_EGG_ARG_INIT {{}}

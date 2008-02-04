@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./bll/result_of.hpp" // inclusion guaranteed
@@ -45,11 +46,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = boost::use_default>
-    struct X_regular :
+    struct X_regular : derived_from<
         function<regular_detail::little<Strategy>, by_value>
+    >
     { };
 
-    typedef X_regular<>::function_type T_regular;
+    typedef X_regular<>::base_class T_regular;
     PSTADE_POD_CONSTANT((T_regular), regular) = {{}};
 
 

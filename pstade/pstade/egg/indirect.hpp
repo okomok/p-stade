@@ -20,6 +20,7 @@
 // In other words, this adaptor is "primitive".
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
@@ -45,15 +46,16 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_indirect :
-        generator<
+    struct X_indirect : derived_from<
+        typename generator<
             typename result_of_indirect<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_braced2<>
         >::type
+    >
     { };
 
-    typedef X_indirect<>::function_type T_indirect;
+    typedef X_indirect<>::base_class T_indirect;
     PSTADE_POD_CONSTANT((T_indirect), indirect) = PSTADE_EGG_GENERATOR();
 
 

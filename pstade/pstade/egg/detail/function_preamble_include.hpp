@@ -8,10 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-    typedef function function_type;
-
-    typedef typename detail::little_of<function_type>::type little_type;
-    typedef typename detail::strategy_of<function_type>::type strategy_type;
+    typedef typename detail::little_of<function>::type little_type;
+    typedef typename detail::strategy_of<function>::type strategy_type;
 
     typedef typename
         detail::nullary_result_of_little<little_type, function>::type

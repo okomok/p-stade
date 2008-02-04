@@ -17,6 +17,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
@@ -51,11 +52,12 @@ namespace pstade { namespace egg {
 
 
     template<class NullaryResult = boost::use_default>
-    struct X_bind :
+    struct X_bind : derived_from<
         function<bind_detail::little<NullaryResult>, by_cref>
+    >
     { };
 
-    typedef X_bind<>::function_type T_bind;
+    typedef X_bind<>::base_class T_bind;
     PSTADE_POD_CONSTANT((T_bind), bind) = {{}};
 
 

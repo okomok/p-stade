@@ -31,6 +31,7 @@
     #include <boost/preprocessor/selection/max.hpp>
     #include <boost/preprocessor/slot/slot.hpp>
     #include <pstade/apple/boost/use_default_fwd.hpp>
+    #include <pstade/derived_from.hpp>
     #include <pstade/pass_by.hpp>
     #include <pstade/pod_constant.hpp>
     #include <pstade/preprocessor.hpp>
@@ -156,11 +157,12 @@
         };
 
         template<class NullaryResult = boost::use_default>
-        struct BOOST_PP_CAT(X_bind, n) :
+        struct BOOST_PP_CAT(X_bind, n) : derived_from<
             function<BOOST_PP_CAT(little_bind, n)<NullaryResult>, by_cref>
+        >
         { };
 
-        typedef BOOST_PP_CAT(X_bind, n)<>::function_type BOOST_PP_CAT(T_bind, n);
+        typedef BOOST_PP_CAT(X_bind, n)<>::base_class BOOST_PP_CAT(T_bind, n);
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind, n)), BOOST_PP_CAT(bind, n)) = {{}};
 
 

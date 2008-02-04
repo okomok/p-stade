@@ -12,6 +12,7 @@
 
 
 #include <boost/mpl/assert.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/is_convertible.hpp>
 #include "./concepts.hpp"
@@ -56,8 +57,9 @@ namespace identities_detail {
 
 
 template< class Difference = boost::use_default, class Tag = boost::use_default >
-struct X_make_identities :
+struct X_make_identities : derived_from<
     egg::function< identities_detail::little<Difference, Tag> >
+>
 { };
 
 

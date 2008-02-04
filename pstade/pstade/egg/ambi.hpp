@@ -19,6 +19,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
@@ -202,15 +203,16 @@ namespace pstade { namespace egg {
 
 
     template<class Bytag = by_perfect>
-    struct BOOST_PP_CAT(X_ambi, n) :
-        generator<
+    struct BOOST_PP_CAT(X_ambi, n) : derived_from<
+        typename generator<
             typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Bytag>::type,
             by_value,
             X_construct_braced2<>
         >::type
+    >
     { };
 
-    typedef BOOST_PP_CAT(X_ambi, n)<>::function_type BOOST_PP_CAT(T_ambi, n);
+    typedef BOOST_PP_CAT(X_ambi, n)<>::base_class BOOST_PP_CAT(T_ambi, n);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_ambi, n)), BOOST_PP_CAT(ambi, n)) = PSTADE_EGG_GENERATOR();
 
 

@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -56,12 +57,13 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct X_indexing :
+struct X_indexing : derived_from<
     egg::function<indexing_detail::little<Reference, Value>, egg::by_value>
+>
 { };
 
 
-typedef X_indexing<>::function_type T_indexing;
+typedef X_indexing<>::base_class T_indexing;
 PSTADE_POD_CONSTANT((T_indexing), indexing) = {{}};
 
 

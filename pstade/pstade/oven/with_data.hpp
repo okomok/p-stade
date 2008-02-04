@@ -65,7 +65,6 @@ PSTADE_OVEN_BASE_TO_ADAPTOR(with_data, (with_data_detail::base<_, _>))
 template< class Data >
 struct X_iter_data
 {
-    typedef X_iter_data function_type;
     typedef Data result_type;
 
     template< class Adapted >
@@ -97,7 +96,6 @@ Data iter_data(Adapted ad)
 template< class Data >
 struct X_data
 {
-    typedef X_data function_type;
     typedef Data result_type;
 
     template< class Adapted >

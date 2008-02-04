@@ -21,6 +21,7 @@
 #include <boost/preprocessor/punctuation/comma.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
 #include "../bll/return_type.hpp"
@@ -120,12 +121,13 @@ namespace pstade { namespace egg {
 
 
     template<class Return = boost::use_default, class Strategy = by_perfect>
-    struct BOOST_PP_CAT(X_, name) :
+    struct BOOST_PP_CAT(X_, name) : derived_from<
         function<BOOST_PP_CAT(name, _detail)::little<Return>, Strategy>
+    >
     { };
 
 PSTADE_ADL_BARRIER(functional2) {
-    typedef BOOST_PP_CAT(X_, name)<>::function_type BOOST_PP_CAT(T_, name);
+    typedef BOOST_PP_CAT(X_, name)<>::base_class BOOST_PP_CAT(T_, name);
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = {{}};
 }
 

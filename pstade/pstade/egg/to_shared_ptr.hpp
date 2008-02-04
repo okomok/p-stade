@@ -21,6 +21,7 @@
 #include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/apple/auto_ptr_fwd.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
 #include "./by_value.hpp"
@@ -59,12 +60,13 @@ namespace pstade { namespace egg {
 
 
     template<class Element = boost::use_default>
-    struct X_to_shared_ptr :
+    struct X_to_shared_ptr : derived_from<
         function<to_shared_ptr_detail::little<Element>, by_value>
+    >
     { };
 
 
-    typedef X_to_shared_ptr<>::function_type T_to_shared_ptr;
+    typedef X_to_shared_ptr<>::base_class T_to_shared_ptr;
     PSTADE_POD_CONSTANT((T_to_shared_ptr), to_shared_ptr) = {{}};
 
 

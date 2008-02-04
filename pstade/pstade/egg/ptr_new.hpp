@@ -25,8 +25,8 @@ namespace pstade { namespace egg {
     template<class Ptr, class Strategy = boost::use_default>
     struct X_ptr_new :
         result_of_compose<
-            typename X_construct<Ptr, by_value>::function_type,
-            typename X_new<typename boost::pointee<Ptr>::type, Strategy>::function_type,
+            X_construct<Ptr, by_value>,
+            X_new<typename boost::pointee<Ptr>::type, Strategy>,
             Ptr,
             Strategy
         >::type

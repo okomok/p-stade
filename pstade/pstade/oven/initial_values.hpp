@@ -116,8 +116,6 @@ namespace initial_values_detail {
 template< class Value = boost::use_default >
 struct X_initial_values
 {
-    typedef X_initial_values function_type;
-
     template< class A >
     struct value_ :
         eval_if_use_default< Value, pass_by_value<A> >
@@ -134,7 +132,7 @@ struct X_initial_values
 };
 
 
-typedef X_initial_values<>::function_type T_initial_values;
+typedef X_initial_values<> T_initial_values;
 PSTADE_POD_CONSTANT((T_initial_values), initial_values) = {};
 
 

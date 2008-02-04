@@ -34,6 +34,7 @@ test-suite "wine" :
     [ run debug.cpp ]
     [ run debug.cpp : : : <define>NDEBUG : debug_ndebug ]
     [ run deduced_const.cpp ]
+    [ run derived_from.cpp ]
     [ run detail_overload.cpp ]
     [ run disable_if_copy.cpp ]
     [ run dont_care.cpp ]

@@ -68,7 +68,6 @@ namespace pstade { namespace gravy {
     template<class To>
     struct X_boolean_cast
     {
-        typedef X_boolean_cast function_type;
         typedef To result_type;
 
         template<class From>

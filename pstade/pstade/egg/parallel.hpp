@@ -17,6 +17,7 @@
 
 
 #include <boost/shared_ptr.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_cref.hpp"
@@ -109,11 +110,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_parallel :
+    struct X_parallel : derived_from<
         function<parallel_detail::little<Strategy>, by_value>
+    >
     { };
 
-    typedef X_parallel<>::function_type T_parallel;
+    typedef X_parallel<>::base_class T_parallel;
     PSTADE_POD_CONSTANT((T_parallel), parallel) = {{}};
 
 

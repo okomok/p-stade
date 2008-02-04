@@ -75,15 +75,16 @@ namespace pstade { namespace egg {
 
 
     template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
-    struct X_compose :
-        generator<
+    struct X_compose : derived_from<
+        typename generator<
             typename result_of_compose<deduce<mpl_1, as_value>, deduce<mpl_2, as_value>, NullaryResult, Strategy>::type,
             by_value,
             X_construct_variadic1<>
         >::type
+    >
     { };
 
-    typedef X_compose<>::function_type T_compose;
+    typedef X_compose<>::base_class T_compose;
 PSTADE_ADL_BARRIER(compose) {
     PSTADE_POD_CONSTANT((T_compose), compose) = PSTADE_EGG_GENERATOR();
 }

@@ -16,6 +16,7 @@
 // http://www.cc.gatech.edu/~yannis/fc++/
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_value.hpp"
@@ -72,15 +73,16 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = boost::use_default>
-    struct X_before :
-        generator<
+    struct X_before : derived_from<
+        typename generator<
             typename result_of_before<deduce<mpl_1, as_value>, deduce<mpl_2, as_value>, Strategy>::type,
             by_value,
             X_construct_variadic1<>
         >::type
+    >
     { };
 
-    typedef X_before<>::function_type T_before;
+    typedef X_before<>::base_class T_before;
     PSTADE_POD_CONSTANT((T_before), before) = PSTADE_EGG_GENERATOR();
 
 

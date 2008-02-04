@@ -12,6 +12,7 @@
 
 
 #include <pstade/adl_barrier.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./forward.hpp"
@@ -43,11 +44,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_identity :
+    struct X_identity : derived_from<
         function<identity_detail::little<Strategy>, Strategy>
+    >
     { };
 
-    typedef X_identity<>::function_type T_identity;
+    typedef X_identity<>::base_class T_identity;
 PSTADE_ADL_BARRIER(identity) {
     PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
 }

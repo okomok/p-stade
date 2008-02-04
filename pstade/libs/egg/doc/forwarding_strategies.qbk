@@ -375,7 +375,7 @@ A strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, 
 [heading Specializing `function<>`]
 Using your strategy tag, `function<>` template can be specialized.
 `PSTADE_EGG_FUNCTION_PREAMBLE()` must be placed in first,
-which automagically defines nested typedefs `little_type`, `strategy_type`, and `result` etc.
+which automagically defines nested typedefs `little_type`, `strategy_type`, and `result<...>` etc.
 [code_my_strategy_function]
 For some compiler bugs, you can call neither `result` template nor `_Lit::call` directly.
 You have to use `apply_little` and `call_little` instead.

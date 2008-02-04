@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
 #include "./by_perfect.hpp"
@@ -57,15 +58,16 @@ namespace pstade { namespace egg {
         class PackExpr      = boost::use_default,
         class Strategy      = by_perfect
     >
-    struct X_unfuse :
-        generator<
+    struct X_unfuse : derived_from<
+        typename generator<
             typename result_of_unfuse<deduce<mpl_1, as_value>, NullaryResult, PackExpr, Strategy>::type,
             by_value,
             X_construct_braced2<>
         >::type
+    >
     { };
 
-    typedef X_unfuse<>::function_type T_unfuse;
+    typedef X_unfuse<>::base_class T_unfuse;
     PSTADE_POD_CONSTANT((T_unfuse), unfuse) = PSTADE_EGG_GENERATOR();
 
 

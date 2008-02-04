@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
 #include "./by_perfect.hpp"
@@ -37,15 +38,16 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect, class OperandBytag = by_perfect>
-    struct X_pipable :
-        generator<
+    struct X_pipable : derived_from<
+        typename generator<
             typename result_of_pipable<deduce<mpl_1, as_value>, Strategy, OperandBytag>::type,
             by_value,
             X_construct_braced2<>
         >::type
+    >
     { };
 
-    typedef X_pipable<>::function_type T_pipable;
+    typedef X_pipable<>::base_class T_pipable;
     PSTADE_POD_CONSTANT((T_pipable), pipable) = PSTADE_EGG_GENERATOR();
 
 

@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_UNLAMBDA(F) PSTADE_EGG_UNLAMBDA_L F PSTADE_EGG_UNLAMBDA_R
 
 
-    typedef X_return<>::function_type T_unlambda;
+    typedef X_return<>::base_class T_unlambda;
     PSTADE_POD_CONSTANT((T_unlambda), unlambda) = PSTADE_EGG_GENERATOR();
 
 

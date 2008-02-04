@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
@@ -74,15 +75,16 @@ namespace pstade { namespace egg {
 
 
     template<class Bind = boost::use_default>
-    struct X_lazy :
-        generator<
+    struct X_lazy : derived_from<
+        typename generator<
             typename result_of_lazy<deduce<mpl_1, as_value>, Bind>::type,
             by_value,
             X_construct_variadic1<>
         >::type
+    >
     { };
 
-    typedef X_lazy<>::function_type T_lazy;
+    typedef X_lazy<>::base_class T_lazy;
     PSTADE_POD_CONSTANT((T_lazy), lazy) = PSTADE_EGG_GENERATOR();
 
 

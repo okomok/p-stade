@@ -21,6 +21,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <pstade/derived_from.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/egg/use_deduced_form.hpp>
@@ -135,12 +136,13 @@ template<
     class Traversal  = boost::use_default,
     class Difference = boost::use_default
 >
-struct X_counting :
+struct X_counting : derived_from<
     egg::function<counting_detail::little<Traversal, Difference>, egg::by_value>
+>
 { };
 
 
-typedef X_counting<>::function_type T_counting;
+typedef X_counting<>::base_class T_counting;
 PSTADE_POD_CONSTANT((T_counting), counting) = {{}};
 
 

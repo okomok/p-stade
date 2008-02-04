@@ -37,8 +37,6 @@ namespace pstade { namespace oven {
 template< class Value = boost::use_default >
 struct X_shared_values
 {
-    typedef X_shared_values function_type;
-
     template< class A >
     struct value_ :
         eval_if_use_default< Value, pass_by_value<A> >

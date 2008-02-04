@@ -129,7 +129,6 @@ PSTADE_OVEN_LITTLE_TO_ADAPTOR(cycled, (cycled_detail::little))
 template< class Incrementable >
 struct X_cycle_count
 {
-    typedef X_cycle_count function_type;
     typedef Incrementable result_type;
 
     template< class Adapted >
