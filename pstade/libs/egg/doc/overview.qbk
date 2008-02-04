@@ -50,7 +50,7 @@ Egg is known to work on the following platforms:
 
 * Egg works around __FORWARDING_PROBLEM__.
 * Egg framework provides a way of /static initialization/ if possible.
-* Egg doesn't introduce any elaborate "traits".
+* Egg doesn't introduce any new elaborate "traits".
 
 [endsect]
 
@@ -62,9 +62,6 @@ Egg is known to work on the following platforms:
 * Special thanks to Eric Niebler, who pointed out importance of /static initialization/.
 * Special thanks to Cryolite, Hitobashira, Takeshi Mouri, yotto-k, and Yusuke Kajimoto.
   These people are instrumental in the design and development of Egg.
-* Special thanks to Atry, Charles Brockman, Dan Marsden, David Abrahams, Giovanni Piero Deretta,
-  Joel de Guzman, Kirit Salensminde, Larry Evans, Sid Sacek, and Tobias Schwinger.
-  These people gave encouraging feedbacks, interests or comments.
 * Special thanks to Dan Marsden, who is review manager of this library.
 
 [endsect]
