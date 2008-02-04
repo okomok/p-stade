@@ -53,7 +53,6 @@
         >
         { };
 
-
         typedef BOOST_PP_CAT(X_, name)<>::base_class BOOST_PP_CAT(T_, name);
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, name)), name) = {{}};
 
