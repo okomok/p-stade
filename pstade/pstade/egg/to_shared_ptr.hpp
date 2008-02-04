@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
         template<class Element>
         struct little
         {
-            template<class Me, class Ptr>
+            template<class Me, class Ptr, class D = void, class A = void>
             struct apply
             {
                 typedef typename
@@ -53,6 +53,18 @@ namespace pstade { namespace egg {
             {
                 return Re(p);
             }
+
+            template<class Re, class Ptr, class D>
+            Re call(Ptr p, D d) const
+            {
+                return Re(p, d);
+            }
+
+            template<class Re, class Ptr, class D, class A>
+            Re call(Ptr p, D d, A a) const
+            {
+                return Re(p, d, a);
+            }
         };
 
 
@@ -64,7 +76,6 @@ namespace pstade { namespace egg {
         function<to_shared_ptr_detail::little<Element>, by_value>
     >
     { };
-
 
     typedef X_to_shared_ptr<>::base_class T_to_shared_ptr;
     PSTADE_POD_CONSTANT((T_to_shared_ptr), to_shared_ptr) = {{}};
