@@ -70,6 +70,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
 [def __STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
+[def __STATIC__ [link egg.concepts.static_function_object Static]]
 [def __AMBI_FUNCTION_OBJECT__ [link egg.concepts.ambi_function_object Ambi Function Object]]
 [def __AMBI__ [link egg.concepts.ambi_function_object Ambi]]
 [def __MAJOR_FUNCTION_OBJECT__ [link egg.concepts.major_function_object Major Function Object]]

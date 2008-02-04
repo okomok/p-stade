@@ -338,7 +338,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fix2`]
-        [`compose(fix, curry2)`]
+        [__STATIC__ `compose(fix, curry2)`]
     ]
 ]
 
