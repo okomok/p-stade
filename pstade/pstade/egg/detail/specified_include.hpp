@@ -46,8 +46,8 @@
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A&
     #define PSTADE_ac1(A) PSTADE_EGG_CONST_REF(A)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_arities)), <pstade/egg/detail/specified_include.hpp>))
-        #include BOOST_PP_ITERATE()
+        #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (PSTADE_arities, <pstade/egg/detail/specified_include.hpp>)
+        #include PSTADE_PP_ARRAY_ITERATE()
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
     #undef  PSTADE_c1
@@ -66,7 +66,7 @@
 
 
 #else
-#define n BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
+#define n PSTADE_PP_ARRAY_ITERATION()
 
 
 #if n == 0

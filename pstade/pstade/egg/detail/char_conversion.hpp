@@ -13,15 +13,11 @@
 
 
 #include <locale>
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/array/elem.hpp>
-#include <boost/preprocessor/array/size.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/pp_array_iterate.hpp>
 #include <pstade/preprocessor.hpp>
 #include "../by_cref.hpp"
 
@@ -30,8 +26,8 @@ namespace pstade { namespace egg {
 
 
 #define entries (2, (upper, lower))
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/char_conversion.hpp>))
-    #include BOOST_PP_ITERATE()
+    #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (entries, <pstade/egg/detail/char_conversion.hpp>)
+    #include PSTADE_PP_ARRAY_ITERATE()
 #undef  entries
 
 
@@ -40,7 +36,7 @@ namespace pstade { namespace egg {
 
 #endif
 #else
-#define name BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
+#define name PSTADE_PP_ARRAY_ITERATION()
 
 
     namespace PSTADE_PP_CAT3(to_, name, _detail) {

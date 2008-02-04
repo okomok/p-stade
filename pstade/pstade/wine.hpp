@@ -51,6 +51,7 @@
 #include "./pod_assert.hpp"
 #include "./pod_constant.hpp"
 #include "./poly.hpp"
+#include "./pp_array_iterate.hpp"
 #include "./pp_token_equal.hpp"
 #include "./preprocessor.hpp"
 #include "./require.hpp"

@@ -19,8 +19,8 @@
 
 
     #define PSTADE_forward(Z, N, A) pstade::egg::std_forward<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_arities)), <pstade/egg/detail/rr_specified_include.hpp>))
-        #include BOOST_PP_ITERATE()
+        #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (PSTADE_arities, <pstade/egg/detail/rr_specified_include.hpp>)
+        #include PSTADE_PP_ARRAY_ITERATE()
     #undef  PSTADE_forward
 
 
@@ -32,7 +32,7 @@
 
 
 #else
-#define n BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
+#define n PSTADE_PP_ARRAY_ITERATION()
 
 
     template<PSTADE_PP_SEQ_ENUM_PARAMS(PSTADE_params, X) BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline

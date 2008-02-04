@@ -32,8 +32,8 @@ namespace pstade { namespace egg {
         }
 
     // 0ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_arities)), <pstade/egg/detail/native_perfect_strategy_include.hpp>))
-        #include BOOST_PP_ITERATE()
+        #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (PSTADE_arities, <pstade/egg/detail/native_perfect_strategy_include.hpp>)
+        #include PSTADE_PP_ARRAY_ITERATE()
     };
 
 
@@ -46,7 +46,7 @@ namespace pstade { namespace egg {
 
 
 #else
-#define n BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
+#define n PSTADE_PP_ARRAY_ITERATION()
 
 
     PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)

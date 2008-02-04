@@ -12,17 +12,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/array/elem.hpp>
-#include <boost/preprocessor/array/size.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/pp_array_iterate.hpp>
 #include <pstade/use_default.hpp>
 #include "../bll/return_type.hpp"
 #include "../by_perfect.hpp"
@@ -58,8 +55,8 @@ namespace pstade { namespace egg {
         (id(->*), mem_ptr,       boost::lambda::other_action<boost::lambda::member_pointer_action>) \
     ) ) \
 /**/
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/functional2.hpp>))
-    #include BOOST_PP_ITERATE()
+    #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (entries, <pstade/egg/detail/functional2.hpp>)
+    #include PSTADE_PP_ARRAY_ITERATE()
 #undef  entries
 
 
@@ -77,8 +74,8 @@ namespace pstade { namespace egg {
         (id(^=),  bitwise_xor_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::xor_action>) \
     ) ) \
 /**/
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/functional2.hpp>))
-    #include BOOST_PP_ITERATE()
+    #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (entries, <pstade/egg/detail/functional2.hpp>)
+    #include PSTADE_PP_ARRAY_ITERATE()
 #undef  entries
 
 
@@ -90,7 +87,7 @@ namespace pstade { namespace egg {
 
 #endif
 #else
-#define entry BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
+#define entry PSTADE_PP_ARRAY_ITERATION()
 #define op   BOOST_PP_TUPLE_ELEM(3, 0, entry)
 #define name BOOST_PP_TUPLE_ELEM(3, 1, entry)
 #define act  BOOST_PP_TUPLE_ELEM(3, 2, entry)

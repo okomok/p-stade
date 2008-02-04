@@ -12,15 +12,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/array/elem.hpp>
-#include <boost/preprocessor/array/size.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/pp_array_iterate.hpp>
 #include <pstade/use_default.hpp>
 #include "../bll/return_type.hpp"
 #include "../by_perfect.hpp"
@@ -44,8 +41,8 @@ namespace pstade { namespace egg {
         (--, post_dec,    1, boost::lambda::post_increment_decrement_action<boost::lambda::decrement_action>) \
     ) ) \
 /**/
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <pstade/egg/detail/functional1.hpp>))
-    #include BOOST_PP_ITERATE()
+    #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (entries, <pstade/egg/detail/functional1.hpp>)
+    #include PSTADE_PP_ARRAY_ITERATE()
 #undef  entries
 
 
@@ -54,7 +51,7 @@ namespace pstade { namespace egg {
 
 #endif
 #else
-#define entry BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
+#define entry PSTADE_PP_ARRAY_ITERATION()
 #define op   BOOST_PP_TUPLE_ELEM(4, 0, entry)
 #define name BOOST_PP_TUPLE_ELEM(4, 1, entry)
 #define post BOOST_PP_TUPLE_ELEM(4, 2, entry)
