@@ -15,9 +15,9 @@
         detail::nullary_result_of_little<little_type, function>::type
     nullary_result_type;
 
-    template<class Signature>
+    template<class FunCall>
     struct result :
-        detail::of_apply_little<Signature>
+        detail::of_apply_little<FunCall>
     { };
 
     little_type const& base() const
