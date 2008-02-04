@@ -38,12 +38,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect, class OperandBytag = by_perfect>
-    struct X_pipable : derived_from<
-        typename generator<
+    struct X_pipable : derived_from_eval<
+        generator<
             typename result_of_pipable<deduce<mpl_1, as_value>, Strategy, OperandBytag>::type,
             by_value,
             X_construct_braced2<>
-        >::type
+        >
     >
     { };
 

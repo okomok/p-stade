@@ -51,8 +51,8 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_apply : derived_from<
-        typename variadic<apply_detail::little, Strategy>::type
+    struct X_apply : derived_from_eval<
+        variadic<apply_detail::little, Strategy>
     >
     { };
 

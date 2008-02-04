@@ -71,12 +71,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_not : derived_from<
-        typename generator<
+    struct X_not : derived_from_eval<
+        generator<
             typename result_of_not<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_variadic1<>
-        >::type
+        >
     >
     { };
 

@@ -22,6 +22,14 @@ namespace pstade {
     };
 
 
+    template<class Base>
+    struct derived_from_eval :
+        Base::type
+    {
+        typedef typename Base::type base_class;
+    };
+
+
 } // namespace pstade
 
 

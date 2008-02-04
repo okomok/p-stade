@@ -23,12 +23,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_make_function : derived_from<
-        typename generator<
+    struct X_make_function : derived_from_eval<
+        generator<
             function<deduce<mpl_1, as_value>, Strategy>,
             by_value,
             X_construct_braced1<>
-        >::type
+        >
     >
     { };
 

@@ -203,12 +203,12 @@ namespace pstade { namespace egg {
 
 
     template<class Bytag = by_perfect>
-    struct BOOST_PP_CAT(X_ambi, n) : derived_from<
-        typename generator<
+    struct BOOST_PP_CAT(X_ambi, n) : derived_from_eval<
+        generator<
             typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Bytag>::type,
             by_value,
             X_construct_braced2<>
-        >::type
+        >
     >
     { };
 

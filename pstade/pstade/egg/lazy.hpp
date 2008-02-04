@@ -75,12 +75,12 @@ namespace pstade { namespace egg {
 
 
     template<class Bind = boost::use_default>
-    struct X_lazy : derived_from<
-        typename generator<
+    struct X_lazy : derived_from_eval<
+        generator<
             typename result_of_lazy<deduce<mpl_1, as_value>, Bind>::type,
             by_value,
             X_construct_variadic1<>
-        >::type
+        >
     >
     { };
 

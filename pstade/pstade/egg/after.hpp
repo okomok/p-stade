@@ -74,12 +74,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = boost::use_default>
-    struct X_after : derived_from<
-        typename generator<
+    struct X_after : derived_from_eval<
+        generator<
             typename result_of_after<deduce<mpl_1, as_value>, deduce<mpl_2, as_value>, Strategy>::type,
             by_value,
             X_construct_variadic1<>
-        >::type
+        >
     >
     { };
 

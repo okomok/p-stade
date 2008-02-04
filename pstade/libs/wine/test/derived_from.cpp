@@ -29,6 +29,17 @@ struct derived : pstade::derived_from<super>
 BOOST_MPL_ASSERT((boost::is_same<derived::base_class, super>));
 
 
+struct make_super
+{
+    typedef super type;
+};
+
+struct derived2 : pstade::derived_from_eval<make_super>
+{ };
+
+BOOST_MPL_ASSERT((boost::is_same<derived2::base_class, super>));
+
+
 void pstade_minimal_test()
 {
     derived d;
@@ -36,4 +47,11 @@ void pstade_minimal_test()
 
     derived::my_type k = 0;
     (void)k;
+
+
+    derived2 d2;
+    d2.foo();
+
+    derived2::my_type k2 = 0;
+    (void)k2;
 }

@@ -58,12 +58,12 @@ namespace pstade { namespace egg {
         class PackExpr      = boost::use_default,
         class Strategy      = by_perfect
     >
-    struct X_unfuse : derived_from<
-        typename generator<
+    struct X_unfuse : derived_from_eval<
+        generator<
             typename result_of_unfuse<deduce<mpl_1, as_value>, NullaryResult, PackExpr, Strategy>::type,
             by_value,
             X_construct_braced2<>
-        >::type
+        >
     >
     { };
 

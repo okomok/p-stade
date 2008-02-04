@@ -37,12 +37,12 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_uncurry : derived_from<
-        typename generator<
+    struct X_uncurry : derived_from_eval<
+        generator<
             typename result_of_uncurry<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_braced2<>
-        >::type
+        >
     >
     { };
 
