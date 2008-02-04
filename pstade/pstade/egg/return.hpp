@@ -55,6 +55,9 @@ namespace pstade { namespace egg {
     >
     { };
 
+    #define PSTADE_EGG_RETURN_INIT PSTADE_EGG_GENERATOR()
+
+
     template<class Return, class Base> inline
     typename result_of<X_return<Return>(Base&)>::type return_(Base base)
     {
