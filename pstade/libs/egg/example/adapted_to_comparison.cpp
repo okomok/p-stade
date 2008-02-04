@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/adapted_to_base.hpp>
+#include <pstade/egg/adapted_to.hpp>
 #include <pstade/egg/curry.hpp>
 #include <pstade/minimal_test.hpp>
 

@@ -69,7 +69,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 `adapted_to` provides the way to access underlying base __FUNCTION_OBJECT__ or __LITTLE_FUNCTION__ from adapted __FUNCTION_OBJECT__.
 
 [heading Header]
-* `<pstade/egg/adapted_to_base.hpp>`
+* `<pstade/egg/adapted_to.hpp>`
 
 [heading Model of]
 * ...
