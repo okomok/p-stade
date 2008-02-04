@@ -12,8 +12,8 @@
 
 
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
+#include "./detail/before_mpl_apply.hpp"
 #include "./detail/little_polymorphic.hpp"
-#include "./detail/mpl_lambda.hpp"
 #include "./by_perfect.hpp"
 
 
@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
     struct polymorphic
     {
         typedef
-            function<detail::little_polymorphic<PSTADE_EGG_MPL_LAMBDA_TPL(Expr)>, Strategy>
+            function<detail::little_polymorphic<PSTADE_EGG_BEFORE_MPL_APPLY_TPL(Expr)>, Strategy>
         type;
     };
 

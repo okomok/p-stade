@@ -17,9 +17,9 @@
 #include "./by_ref.hpp"
 #include "./by_value.hpp"
 #include "./construct_braced2.hpp"
+#include "./detail/before_mpl_apply.hpp"
 #include "./detail/default_pack.hpp"
 #include "./detail/little_unfuse_result.hpp"
-#include "./detail/mpl_lambda.hpp"
 #include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
 #include "./generator.hpp"
 
@@ -38,7 +38,7 @@ namespace pstade { namespace egg {
         typedef typename
             eval_if_use_default< PackExpr,
                 boost::mpl::identity< PSTADE_EGG_DEFAULT_PACK<by_ref> >,
-                boost::mpl::apply1<PSTADE_EGG_MPL_LAMBDA_TPL(PackExpr), by_ref>
+                boost::mpl::apply1<PSTADE_EGG_BEFORE_MPL_APPLY_TPL(PackExpr), by_ref>
             >::type
         pack_t;
 

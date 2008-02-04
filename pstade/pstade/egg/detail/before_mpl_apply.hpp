@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_MPL_LAMBDA_HPP
-#define PSTADE_EGG_DETAIL_MPL_LAMBDA_HPP
+#ifndef PSTADE_EGG_DETAIL_BEFORE_MPL_APPLY_HPP
+#define PSTADE_EGG_DETAIL_BEFORE_MPL_APPLY_HPP
 #include "./prefix.hpp"
 
 
@@ -29,11 +29,11 @@
 
 #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) && BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
     #include <boost/mpl/lambda.hpp>
-    #define PSTADE_EGG_MPL_LAMBDA(Expr) boost::mpl::lambda< Expr >::type
-    #define PSTADE_EGG_MPL_LAMBDA_TPL typename PSTADE_EGG_MPL_LAMBDA
+    #define PSTADE_EGG_BEFORE_MPL_APPLY(Expr) boost::mpl::lambda< Expr >::type
+    #define PSTADE_EGG_BEFORE_MPL_APPLY_TPL typename PSTADE_EGG_BEFORE_MPL_APPLY
 #else
-    #define PSTADE_EGG_MPL_LAMBDA(Expr) Expr
-    #define PSTADE_EGG_MPL_LAMBDA_TPL PSTADE_EGG_MPL_LAMBDA
+    #define PSTADE_EGG_BEFORE_MPL_APPLY(Expr) Expr
+    #define PSTADE_EGG_BEFORE_MPL_APPLY_TPL PSTADE_EGG_BEFORE_MPL_APPLY
 #endif
 
 
