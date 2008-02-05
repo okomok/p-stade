@@ -131,6 +131,7 @@ test-suite "egg" :
     [ run protect.cpp ]
     [ run ptr_new.cpp ]
     [ run register_nullary_result.cpp ]
+    [ run resolve.cpp ]
     [ run result_of_in_ns_scope.cpp ]
     [ run return.cpp ]
     [ run return_of.cpp ]

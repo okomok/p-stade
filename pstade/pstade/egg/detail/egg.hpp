@@ -75,6 +75,7 @@
 #include "../new.hpp"
 #include "../new_array.hpp"
 #include "../ptr_new.hpp"
+#include "../resolve.hpp"
 #include "../shared_new.hpp"
 #include "../shared_new_array.hpp"
 #include "../not.hpp"
