@@ -20,9 +20,10 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/result_of.hpp>
+#include "./detail/pp_enum_fun_arg_types.hpp"
 
 
 namespace pstade { namespace egg {
@@ -32,17 +33,7 @@ namespace pstade { namespace egg {
     struct result_of_ref;
 
 
-    // 0ary
-    template<class Fun>
-    struct result_of_ref<Fun(void)> :
-        result_of<
-            typename boost::remove_reference<Fun>::type()
-        >
-    { };
-
-
-    // 1ary-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_RESULT_OF_NUM_ARGS, <pstade/egg/result_of_ref.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <pstade/egg/result_of_ref.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -53,14 +44,18 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
+#define fargs PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A)
 
-    template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct result_of_ref<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
+
+    template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_of_ref<Fun(fargs)> :
         result_of<
-            typename boost::remove_reference<Fun>::type(BOOST_PP_ENUM_PARAMS(n, A))
+            typename boost::remove_reference<Fun>::type(fargs)
         >
     { };
 
+
+#undef  fargs
 
 #undef  n
 #endif

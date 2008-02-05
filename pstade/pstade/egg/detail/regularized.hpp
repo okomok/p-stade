@@ -29,7 +29,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template< class X>
+    template<class X>
     struct dummy_assignable
     {
     private:

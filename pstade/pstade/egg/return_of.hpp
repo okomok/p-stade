@@ -15,11 +15,12 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "./detail/pp_enum_fun_arg_types.hpp"
 
 
 namespace pstade { namespace egg {
@@ -55,15 +56,7 @@ namespace pstade { namespace egg {
     { };
 
 
-    // 0ary
-    template<class Fun>
-    struct return_of<Fun(void)> :
-        result_of<typename boost::remove_reference<Fun>::type()>
-    { };
-
-
-    // 1ary-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_RESULT_OF_NUM_ARGS, <pstade/egg/return_of.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <pstade/egg/return_of.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -75,8 +68,8 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct return_of<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
+    template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct return_of<Fun(PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A))> :
         result_of<
             typename boost::remove_reference<Fun>::type(
                 PSTADE_PP_ENUM_PARAMS_WITH(n, typename return_of<A, >::type)
