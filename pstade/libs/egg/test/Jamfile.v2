@@ -85,6 +85,7 @@ test-suite "egg" :
     [ run iequal_to.cpp ]
     [ run implicit.cpp ]
     [ run implicit_by.cpp ]
+    [ compile-fail implicit_fail.cpp ]
     [ run implicit_ref.cpp ]
     [ run incomplete_little.cpp ]
     [ run indirect.cpp ]

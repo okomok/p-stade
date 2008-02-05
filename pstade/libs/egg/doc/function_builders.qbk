@@ -198,7 +198,7 @@ This is a port of `detail::function` family which is secretly contained in __BOO
 
 [heading Notation]
 * `C(Lam)` is
-    * a type which behaves like `Lam` without no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
+    * a type which behaves like `Lam` with no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
     * `Lam` itself otherwise.
 * `g` is an object of `generator<Lam, _Stg, Cons, R0>::type`.
 * `T` is `_mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.

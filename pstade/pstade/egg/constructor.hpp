@@ -19,7 +19,7 @@
 namespace pstade { namespace egg {
 
 
-    typedef implicit< X_construct<mpl_1> >::type T_constructor;
+    typedef implicit< X_construct<> >::type T_constructor;
     PSTADE_POD_CONSTANT((T_constructor), constructor) = PSTADE_EGG_IMPLICIT();
 
 

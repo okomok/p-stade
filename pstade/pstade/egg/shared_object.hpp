@@ -20,7 +20,7 @@
 namespace pstade { namespace egg {
 
 
-    typedef implicit< X_shared_new< boost::pointee<mpl_1> > >::type T_shared_object;
+    typedef implicit< X_shared_new<boost::pointee<mpl_1>, mpl_2> >::type T_shared_object;
     PSTADE_POD_CONSTANT((T_shared_object), shared_object) = PSTADE_EGG_IMPLICIT();
 
 
