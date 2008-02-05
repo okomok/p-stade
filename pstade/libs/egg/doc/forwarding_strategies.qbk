@@ -315,7 +315,7 @@ Here an imaginary operator is defined for the documentation.
     * Otherwise, `R0`.
 
 [note __BOOST_RESULT_OF__ too offers a special workaround:
-      A nullary callable `F` must specialize `result_of<F()>`. `result_of<F()>::type` is `void` otherwise.
+      A nullary callable `class F` without nested `result_type` must specialize `result_of<F()>`. `result_of<F()>::type` is `void` otherwise.
       Unfortunately, that isn't generic workaround. Consider `f(g(), h())` such that `f` isn't a 2ary function. ]
 
 [heading See also]

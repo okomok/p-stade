@@ -9,10 +9,11 @@
 
 [section Introduction]
 
-Unlike other modern languages, it is very difficult to make a function in C++
-especially if you want to support __BOOST_RESULT_OF__ and __BOOST_LAMBDA__.
-Egg is a small header-only framework of building functions, and offers higher-order functions.
-
+Unlike other modern languages, it is very difficult to make "polymorphic" functions in C++.
+The "polymorphic" means that return type of function depends on its argument types.
+If you want to support __BOOST_RESULT_OF__ and __BOOST_LAMBDA__, it becomes more difficult.
+Egg is header-only framework of building functions which can work with __BOOST_RESULT_OF__ and __BOOST_LAMBDA__.
+Also, Egg provides function adaptors, also known as higher-order functions.
 [code_introduction]
 
 [endsect]

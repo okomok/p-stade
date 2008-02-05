@@ -23,6 +23,7 @@ test-suite "egg" :
     [ run before.cpp ]
     [ run before_mpl_apply.cpp ]
     [ run big_arity.cpp ]
+    [ run bind_abstract.cpp ]
     [ run bind_left.cpp ]
     [ run bind_n.cpp ]
     [ run bind_nested.cpp ]
