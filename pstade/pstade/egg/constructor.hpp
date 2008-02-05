@@ -12,6 +12,7 @@
 
 
 #include <pstade/pod_constant.hpp>
+#include "./by_perfect.hpp"
 #include "./construct.hpp"
 #include "./implicit.hpp"
 
@@ -19,7 +20,7 @@
 namespace pstade { namespace egg {
 
 
-    typedef implicit< X_construct<> >::type T_constructor;
+    typedef implicit<X_construct<>, by_perfect>::type T_constructor;
     PSTADE_POD_CONSTANT((T_constructor), constructor) = PSTADE_EGG_IMPLICIT();
 
 

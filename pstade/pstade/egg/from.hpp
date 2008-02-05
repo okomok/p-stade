@@ -16,6 +16,8 @@
 #include <pstade/apple/boost/any_fwd.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/poly_fwd.hpp>
+#include "./by_cref.hpp"
+#include "./by_perfect.hpp"
 #include "./implicit.hpp"
 
 
@@ -43,7 +45,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef implicit< X_from_any_to<mpl_1> >::type T_from_any;
+    typedef implicit<X_from_any_to<mpl_1>, by_cref>::type T_from_any;
     PSTADE_POD_CONSTANT((T_from_any), from_any) = PSTADE_EGG_IMPLICIT();
 
 
@@ -75,7 +77,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef implicit< X_from_boost_any_to<mpl_1> >::type T_from_boost_any;
+    typedef implicit<X_from_boost_any_to<mpl_1>, by_perfect>::type T_from_boost_any;
     PSTADE_POD_CONSTANT((T_from_boost_any), from_boost_any) = PSTADE_EGG_IMPLICIT();
 
 
@@ -109,7 +111,7 @@ namespace pstade { namespace egg {
         }
     };
 
-    typedef implicit< X_from_poly_to<mpl_1> >::type T_from_poly;
+    typedef implicit<X_from_poly_to<mpl_1>, by_perfect>::type T_from_poly;
     PSTADE_POD_CONSTANT((T_from_poly), from_poly) = PSTADE_EGG_IMPLICIT();
 
 

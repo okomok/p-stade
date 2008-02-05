@@ -13,6 +13,7 @@
 
 #include <boost/pointee.hpp>
 #include <pstade/pod_constant.hpp>
+#include "./by_perfect.hpp"
 #include "./implicit.hpp"
 #include "./shared_new.hpp"
 
@@ -20,7 +21,7 @@
 namespace pstade { namespace egg {
 
 
-    typedef implicit< X_shared_new<boost::pointee<mpl_1>, mpl_2> >::type T_shared_object;
+    typedef implicit<X_shared_new<boost::pointee<mpl_1>, mpl_2>, by_perfect>::type T_shared_object;
     PSTADE_POD_CONSTANT((T_shared_object), shared_object) = PSTADE_EGG_IMPLICIT();
 
 
