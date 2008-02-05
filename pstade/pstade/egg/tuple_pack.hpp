@@ -1,6 +1,6 @@
 #ifndef PSTADE_EGG_TUPLE_PACK_HPP
 #define PSTADE_EGG_TUPLE_PACK_HPP
-#include "../detail/prefix.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -21,4 +21,5 @@
 #include PSTADE_EGG_XXX_PACK()
 
 
+#include "./detail/suffix.hpp"
 #endif

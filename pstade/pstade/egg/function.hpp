@@ -14,4 +14,5 @@
 #include "./by_perfect.hpp"
 
 
+#include "./detail/suffix.hpp"
 #endif

@@ -1,5 +1,6 @@
 #ifndef PSTADE_EGG_IEQUAL_TO_HPP
 #define PSTADE_EGG_IEQUAL_TO_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -40,4 +41,5 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
+#include "./detail/suffix.hpp"
 #endif

@@ -66,6 +66,7 @@ namespace pstade { namespace egg {
 PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::X_new, (class)(class))
 
 
+#include "./detail/suffix.hpp"
 #endif
 #else
 #define n BOOST_PP_ITERATION()

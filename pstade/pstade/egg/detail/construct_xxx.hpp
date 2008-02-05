@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_CONSTRUCT_XXX_HPP
 #define PSTADE_EGG_DETAIL_CONSTRUCT_XXX_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

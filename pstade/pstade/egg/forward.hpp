@@ -126,4 +126,5 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
 } } // namespace pstade::egg
 
 
+#include "./detail/suffix.hpp"
 #endif

@@ -133,6 +133,7 @@ namespace pstade { namespace egg {
 #endif
 
 
+#include "./detail/suffix.hpp"
 #endif
 #else
 #define n BOOST_PP_ITERATION()

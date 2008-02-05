@@ -1,4 +1,4 @@
-#include <pstade/vodka/drink.hpp>
+// #include <pstade/vodka/drink.hpp>
 
 
 // PStade.Egg
@@ -25,6 +25,15 @@ using namespace pstade::egg;
 using pstade::egg::plus;
 
 
+// warning check should be shown in IDE.
+struct no_assignment
+{
+    int const &x;
+};
+
+
 void pstade_minimal_test()
 {
+    int x;
+    no_assignment a = { x };
 }

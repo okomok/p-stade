@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_NULLARY_RESULT_OF_LITTLE_HPP
 #define PSTADE_EGG_DETAIL_NULLARY_RESULT_OF_LITTLE_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

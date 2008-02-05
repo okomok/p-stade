@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_PP_ENUM_TEMPLATE_PARAMS_HPP
 #define PSTADE_EGG_DETAIL_PP_ENUM_TEMPLATE_PARAMS_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

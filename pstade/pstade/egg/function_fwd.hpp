@@ -38,4 +38,5 @@ namespace pstade { namespace egg {
 PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, (class)(class))
 
 
+#include "./detail/suffix.hpp"
 #endif

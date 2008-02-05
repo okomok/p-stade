@@ -33,4 +33,5 @@
     #define PSTADE_EGG_APPLY_DECL_PARAMS_op(Z, N, A) , class BOOST_PP_CAT(A, N) = void
 
 
+#include "./detail/suffix.hpp"
 #endif

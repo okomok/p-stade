@@ -23,4 +23,5 @@
 #include PSTADE_EGG_CONSTRUCT_XXX() 
 
 
+#include "./detail/suffix.hpp"
 #endif

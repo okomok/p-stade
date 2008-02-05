@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_TYPEOF_BOOST_FUNCTION_HPP
 #define PSTADE_EGG_DETAIL_TYPEOF_BOOST_FUNCTION_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

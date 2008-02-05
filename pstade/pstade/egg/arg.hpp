@@ -87,6 +87,7 @@
     } // namespace boost
 
 
+    #include "./detail/suffix.hpp"
     #endif // PSTADE_EGG_ARG_HPP
 
 

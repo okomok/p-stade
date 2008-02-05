@@ -29,4 +29,5 @@ namespace boost { namespace lambda {
 } } // namespace boost::lambda
 
 
+#include "../detail/suffix.hpp"
 #endif

@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_DETAIL_LITTLE_BLL_POLY_RESULT_HPP
 #define PSTADE_EGG_DETAIL_LITTLE_BLL_POLY_RESULT_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

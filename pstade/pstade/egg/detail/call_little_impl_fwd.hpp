@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_CALL_LITTLE_IMPL_FWD_HPP
 #define PSTADE_EGG_DETAIL_CALL_LITTLE_IMPL_FWD_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

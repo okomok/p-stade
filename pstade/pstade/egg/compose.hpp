@@ -93,4 +93,5 @@ PSTADE_ADL_BARRIER(compose) {
 } } // namespace pstade::egg
 
 
+#include "./detail/suffix.hpp"
 #endif

@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_BOUND_HPP
 #define PSTADE_EGG_DETAIL_BOUND_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

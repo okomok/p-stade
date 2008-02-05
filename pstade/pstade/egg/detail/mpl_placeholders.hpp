@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_MPL_PLACEHOLDERS_HPP
 #define PSTADE_EGG_DETAIL_MPL_PLACEHOLDERS_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

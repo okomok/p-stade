@@ -51,4 +51,5 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
+#include "./detail/suffix.hpp"
 #endif

@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_RESULT_OF_IN_NS_SCOPE_HPP
 #define PSTADE_EGG_DETAIL_RESULT_OF_IN_NS_SCOPE_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

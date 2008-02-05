@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_DETAIL_LITTLE_POLYMORPHIC_HPP
 #define PSTADE_EGG_DETAIL_LITTLE_POLYMORPHIC_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

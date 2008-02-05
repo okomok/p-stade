@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_DETAIL_VC7_1_RESULT_OF_HPP
 #define PSTADE_EGG_DETAIL_VC7_1_RESULT_OF_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

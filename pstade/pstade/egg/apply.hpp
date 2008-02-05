@@ -65,4 +65,5 @@ PSTADE_ADL_BARRIER(apply) {
 } } // namespace pstade::egg
 
 
+#include "./detail/suffix.hpp"
 #endif

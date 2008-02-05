@@ -64,6 +64,7 @@
     } } // namespace pstade::egg
 
 
+    #include "./detail/suffix.hpp"
     #endif // PSTADE_EGG_BIND_N_HPP
 
 

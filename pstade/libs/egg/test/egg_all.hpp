@@ -13,4 +13,3 @@
 
 #include <pstade/egg/detail/egg.hpp>
 #include <pstade/egg/detail/egg_pending.hpp>
-

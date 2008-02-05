@@ -20,4 +20,5 @@
 #include PSTADE_EGG_PERFECT_STRATEGY()
 
 
+#include "./detail/suffix.hpp"
 #endif

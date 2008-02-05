@@ -1,6 +1,5 @@
 #ifndef PSTADE_EGG_DETAIL_BLL_CONTENTSOF_HACK_HPP
 #define PSTADE_EGG_DETAIL_BLL_CONTENTSOF_HACK_HPP
-#include "./prefix.hpp"
 
 
 // PStade.Egg

@@ -37,6 +37,7 @@
     } } // namespace pstade::egg
 
 
+    #include "./detail/suffix.hpp"
     #endif // PSTADE_EGG_PLACEHOLDERS_HPP
 
 

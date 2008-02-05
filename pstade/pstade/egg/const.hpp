@@ -17,4 +17,5 @@
 #define PSTADE_EGG_CONST PSTADE_POD_CONSTANT
 
 
+#include "./detail/suffix.hpp"
 #endif

@@ -28,4 +28,5 @@
 #define PSTADE_EGG_BLL_BINDABLE() <pstade/egg/detail/bll_bindable_include.hpp>
 
 
+#include "./detail/suffix.hpp"
 #endif

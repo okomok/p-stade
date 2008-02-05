@@ -43,4 +43,5 @@ namespace boost { namespace lambda {
 #include <boost/lambda/detail/operator_actions.hpp>
 
 
+#include "../detail/suffix.hpp"
 #endif

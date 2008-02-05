@@ -102,4 +102,5 @@ PSTADE_ADL_BARRIER(copy) { // for std
 } } // namespace pstade::egg
 
 
+#include "./detail/suffix.hpp"
 #endif

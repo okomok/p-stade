@@ -28,4 +28,5 @@ namespace boost { namespace lambda {
 #include <boost/lambda/detail/member_ptr.hpp>
 
 
+#include "../detail/suffix.hpp"
 #endif

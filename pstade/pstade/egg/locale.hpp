@@ -1,5 +1,6 @@
 #ifndef PSTADE_EGG_LOCAL_HPP
 #define PSTADE_EGG_LOCAL_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -14,4 +15,5 @@
 #include "./detail/char_conversion.hpp"
 
 
+#include "./detail/suffix.hpp"
 #endif

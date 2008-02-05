@@ -1,5 +1,6 @@
 #ifndef PSTADE_EGG_RESISTER_NULLARY_RESULT_HPP
 #define PSTADE_EGG_RESISTER_NULLARY_RESULT_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -57,4 +58,5 @@
 /**/
 
 
+#include "./detail/suffix.hpp"
 #endif

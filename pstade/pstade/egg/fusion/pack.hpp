@@ -21,4 +21,5 @@
 #include PSTADE_EGG_XXX_PACK()
 
 
+#include "../detail/suffix.hpp"
 #endif
