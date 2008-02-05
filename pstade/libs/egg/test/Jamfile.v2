@@ -163,6 +163,7 @@ test-suite "egg" :
     [ run variadic_poly.cpp ]
     [ run volatile_correct.cpp ]
     [ run volatile_correct_udt.cpp ]
+    [ run with_boost_function.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 
