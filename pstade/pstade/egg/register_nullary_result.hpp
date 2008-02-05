@@ -11,6 +11,7 @@
 
 
 #include <pstade/apple/boost/result_of_fwd.hpp>
+#include <pstade/in_fun_spec.hpp>
 #include <pstade/preprocessor.hpp>
 
 
@@ -18,13 +19,13 @@
     namespace boost { \
     \
         template< > \
-        struct result_of< X(void) > \
+        struct result_of<X(PSTADE_VOID_IN_FUN_SPEC)> \
         { \
             typedef X::nullary_result_type type; \
         }; \
     \
         template< > \
-        struct result_of< X const(void) > \
+        struct result_of<X const(PSTADE_VOID_IN_FUN_SPEC)> \
         { \
             typedef X::nullary_result_type type; \
         }; \
@@ -41,13 +42,13 @@
     namespace boost { \
     \
         template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
-        struct result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>(void) > \
+        struct result_of<X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>(PSTADE_VOID_IN_FUN_SPEC)> \
         { \
             typedef typename X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>::nullary_result_type type; \
         }; \
     \
         template<PSTADE_PP_SEQ_ENUM_PARAMS(Seq, T)> \
-        struct result_of< X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)> const(void) > \
+        struct result_of<X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)> const(PSTADE_VOID_IN_FUN_SPEC)> \
         { \
             typedef typename X<PSTADE_PP_SEQ_ENUM_ARGS(Seq, T)>::nullary_result_type type; \
         }; \

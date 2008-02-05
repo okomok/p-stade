@@ -33,6 +33,7 @@
 #include "./has_xxx.hpp"
 #include "./ignore_unused.hpp"
 #include "./implicitly_defined.hpp"
+#include "./in_fun_spec.hpp"
 #include "./in_unnamed.hpp"
 #include "./instance.hpp"
 #include "./invariant.hpp"

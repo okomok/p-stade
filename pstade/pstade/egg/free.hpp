@@ -31,6 +31,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/in_fun_spec.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
@@ -38,7 +39,6 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/free_call.hpp"
 #include "./detail/get_pointer_preamble.hpp"
-#include "./detail/pp_enum_fun_arg_types.hpp"
 #include "./detail/wrap.hpp"
 #include "./use_deduced_form.hpp"
 
@@ -163,7 +163,7 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define fargs PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A)
+#define fparams PSTADE_PP_ENUM_PARAMS_IN_FUN_SPEC(n, A)
 
 
     // member function pointers
@@ -182,7 +182,7 @@ namespace pstade { namespace egg {
     #include <pstade/egg/detail/free_mem_fun_include.hpp>
 
 
-#undef  fargs
+#undef  fparams
 
 #undef  n
 #endif

@@ -18,9 +18,9 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/in_fun_spec.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include "./detail/pp_enum_fun_arg_types.hpp"
 
 
 namespace pstade { namespace egg {
@@ -69,7 +69,7 @@ namespace pstade { namespace egg {
 
 
     template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct return_of<Fun(PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A))> :
+    struct return_of<Fun(PSTADE_PP_ENUM_PARAMS_IN_FUN_SPEC(n, A))> :
         result_of<
             typename boost::remove_reference<Fun>::type(
                 PSTADE_PP_ENUM_PARAMS_WITH(n, typename return_of<A, >::type)

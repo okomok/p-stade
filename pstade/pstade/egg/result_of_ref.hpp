@@ -22,8 +22,8 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/in_fun_spec.hpp>
 #include <pstade/result_of.hpp>
-#include "./detail/pp_enum_fun_arg_types.hpp"
 
 
 namespace pstade { namespace egg {
@@ -44,18 +44,18 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define fargs PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A)
+#define fparams PSTADE_PP_ENUM_PARAMS_IN_FUN_SPEC(n, A)
 
 
     template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_of_ref<Fun(fargs)> :
+    struct result_of_ref<Fun(fparams)> :
         result_of<
-            typename boost::remove_reference<Fun>::type(fargs)
+            typename boost::remove_reference<Fun>::type(fparams)
         >
     { };
 
 
-#undef  fargs
+#undef  fparams
 
 #undef  n
 #endif

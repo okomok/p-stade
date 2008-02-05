@@ -13,8 +13,8 @@
 #endif
 
 
-    template<class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A), R (T::*ptr)(fargs) cv_qualifier>
-    struct inlined<R (T::*)(fargs) cv_qualifier, ptr>
+    template<class R, class T BOOST_PP_ENUM_TRAILING_PARAMS(n, class A), R (T::*ptr)(fparams) cv_qualifier>
+    struct inlined<R (T::*)(fparams) cv_qualifier, ptr>
     {
         typedef inlined type;
 

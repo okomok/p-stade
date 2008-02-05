@@ -19,13 +19,13 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <pstade/in_fun_spec.hpp>
 #include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./construct_braced1.hpp"
-#include "./detail/pp_enum_fun_arg_types.hpp"
 #include "./generator.hpp"
 
 
@@ -82,19 +82,19 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define fargs PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A)
+#define fparams PSTADE_PP_ENUM_PARAMS_IN_FUN_SPEC(n, A)
 
 
     template<class Base, class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<Base, R(fargs)>
+    struct result_<Base, R(fparams)>
     {
         typedef typename
             eval_if_use_default< R,
-                result_of<Base const(fargs)>
+                result_of<Base const(fparams)>
             >::type
         result_type;
 
-        typedef result_type (signature_type)(fargs);
+        typedef result_type (signature_type)(fparams);
 
         Base m_base;
 
@@ -117,7 +117,7 @@ namespace pstade { namespace egg {
     };
 
 
-#undef  fargs
+#undef  fparams
 
 #undef  n
 #endif

@@ -33,12 +33,12 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/boost_workaround.hpp>
 #include <pstade/dont_care.hpp>
+#include <pstade/in_fun_spec.hpp>
 #include <pstade/plain.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./by_value.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/free_call.hpp"
-#include "./detail/pp_enum_fun_arg_types.hpp"
 #include "./generator.hpp"
 
 
@@ -151,14 +151,14 @@ namespace pstade { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define fargs PSTADE_EGG_PP_ENUM_FUN_ARG_TYPES(n, A)
+#define fparams PSTADE_PP_ENUM_PARAMS_IN_FUN_SPEC(n, A)
 
 
     // function pointers
     //
 
-    template<class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A), R (*ptr)(fargs)>
-    struct inlined<R (*)(fargs), ptr>
+    template<class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A), R (*ptr)(fparams)>
+    struct inlined<R (*)(fparams), ptr>
     {
         typedef inlined type;
 
@@ -198,7 +198,7 @@ namespace pstade { namespace egg {
 #endif
 
 
-#undef  fargs
+#undef  fparams
 
 #undef  n
 #endif
