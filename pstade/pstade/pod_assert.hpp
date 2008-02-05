@@ -41,19 +41,22 @@
     #define PSTADE_POD_ASSERT_aux(T) \
         PSTADE_POD_ASSERTION_FAILURE failed() \
         { \
-            pstade::pod_assert_detail::must_be_pod(pstade::pod_assert_detail::make<void T>::value()); \
+            return pstade::pod_assert_detail::must_be_pod(pstade::pod_assert_detail::make<void T>::value()); \
         } \
     /**/
 
 
-typedef void PSTADE_POD_ASSERTION_FAILURE;
+struct PSTADE_POD_ASSERTION_FAILURE { };
 
 
 namespace pstade { namespace pod_assert_detail {
 
 
     // Some compilers can warn if non-POD passed through ellipsis. 
-    inline void must_be_pod(...) { }
+    inline PSTADE_POD_ASSERTION_FAILURE must_be_pod(...)
+    {
+        return PSTADE_POD_ASSERTION_FAILURE();
+    }
 
 
     template<class Sig>
