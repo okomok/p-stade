@@ -26,6 +26,7 @@ namespace pstade { namespace egg {
 
 #if !defined(BOOST_TYPEOF_NATIVE)
 
+    // X_mono needed for boost::use_default specified as return type.
     template<class Signature, class Base> inline
     boost::function<typename result_of<X_mono<Signature>(Base&)>::type::signature_type>
     expr(Base base)
