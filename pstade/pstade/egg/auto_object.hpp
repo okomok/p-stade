@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
 
 
         // 'automatic' doesn't work; 'auto_ptr' is not CopyConstructible.
-        // Note also 'operator auto_ptr_ref<X>()' can't be of help, because
+        // Note also 'operator auto_ptr_ref<T>()' can't be of help, because
         // some implementations require "move sequence" to be in the same scope.
         // After all, we need a conversion operator to return "lvalue".
 
@@ -39,12 +39,12 @@ namespace pstade { namespace egg {
                 m_args(args)
             { }
 
-            template<class X>
-            operator std::auto_ptr<X>& ()
+            template<class T>
+            operator std::auto_ptr<T>& ()
             {
-                std::auto_ptr<X> ptr(fuse(X_new<X>())(m_args));
+                std::auto_ptr<T> ptr(fuse(X_new<T>())(m_args));
                 m_any = ptr;
-                return m_any.content< std::auto_ptr<X> >();
+                return m_any.content< std::auto_ptr<T> >();
             }
 
         private:

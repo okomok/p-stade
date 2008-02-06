@@ -17,14 +17,14 @@
 namespace pstade { namespace egg {
 
 
-    template<class X>
+    template<class T>
     struct X_new_array
     {
-        typedef X *result_type;
+        typedef T *result_type;
 
-        X *operator()(std::size_t n) const
+        T *operator()(std::size_t n) const
         {
-            return new X[n];
+            return new T[n];
         }
     };
 

@@ -18,14 +18,14 @@
 namespace pstade { namespace egg {
 
 
-    template<class X>
+    template<class T>
     struct X_shared_new_array
     {
-        typedef boost::shared_array<X> result_type;
+        typedef boost::shared_array<T> result_type;
 
         result_type operator()(std::size_t n) const
         {
-            return result_type(new X[n]);
+            return result_type(new T[n]);
         }
     };
 

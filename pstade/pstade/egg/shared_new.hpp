@@ -21,9 +21,9 @@
 namespace pstade { namespace egg {
 
 
-    template<class X, class Strategy = boost::use_default>
+    template<class T, class Strategy = boost::use_default>
     struct X_shared_new :
-        X_ptr_new<boost::shared_ptr<X>, Strategy>
+        X_ptr_new<boost::shared_ptr<T>, Strategy>
     { };
 
     #define  PSTADE_EGG_SPECIFIED_PARAMS (shared_new, X_shared_new, (class), PSTADE_EGG_PERFECT_ARITIES())
