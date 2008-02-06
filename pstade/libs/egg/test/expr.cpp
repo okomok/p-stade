@@ -47,7 +47,7 @@ BOOST_TYPEOF(egg::expr<int(char, int)>(unfuse(fused_second)))
 test_type()
 {
     {
-        BOOST_AUTO(f, egg::expr<int(char, int)>(unfuse(fused_second)));
+        BOOST_AUTO(f, egg::expr<boost::use_default(char, int)>(unfuse(fused_second)));
         BOOST_CHECK(f('a', 9) == 9);
     }
 
@@ -68,7 +68,7 @@ typename ::result_of_test_template<F>::type
 test_tpl(F ff)
 {
     {
-        BOOST_AUTO_TPL(f, egg::expr<int(char, int)>(unfuse(ff)));
+        BOOST_AUTO_TPL(f, egg::expr<boost::use_default(char, int)>(unfuse(ff)));
         BOOST_CHECK(f('a', 9) == 9);
     }
 

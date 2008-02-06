@@ -2,6 +2,51 @@
 
 
 
+[/
+
+[section expr]
+
+[heading Description]
+`expr`
+
+[heading Header]
+* `<pstade/egg/expr.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`egg::expr<Sig>(_pfo)`]
+        [`X_mono<Sig>()(_pfo)` which can be used with __BOOST_TYPEOF__.]
+    ]
+]
+
+[heading Preconditions]
+* Except for `boost::use_default`, types in `Sig` is registered to __BOOST_TYPEOF__.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_FUNCTION__
+* __BOOST_TYPEOF__
+
+[endsect]
+
+]
+
+
+
 
 [section bll/result_of.hpp]
 
