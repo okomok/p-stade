@@ -61,6 +61,7 @@
 #include "./singleton.hpp"
 #include "./statement.hpp"
 #include "./static_c.hpp"
+#include "./suppress_warning.hpp"
 #include "./template_arguments.hpp"
 #include "./type_equal_to.hpp"
 #include "./unevaluated.hpp"
