@@ -21,4 +21,14 @@
     #pragma inline_recursion(on) // turn on inline recursion
     #pragma inline_depth(255) // max inline depth
 
+    #if !defined(_SCL_SECURE_NO_DEPRECATE)
+        #define _SCL_SECURE_NO_DEPRECATE
+        #define PSTADE_SCL_SECURE_NO_DEPRECATE
+    #endif
+
+    #if !defined(_CRT_SECURE_NO_DEPRECATE)
+        #define _CRT_SECURE_NO_DEPRECATE
+        #define PSTADE_CRT_SECURE_NO_DEPRECATE
+    #endif
+
 #endif

@@ -21,6 +21,21 @@
 #include <pstade/egg/alias.hpp>
 
 
+#if defined(_CRT_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+#if defined(_SCL_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+
+#if defined(PSTADE_CRT_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+#if defined(PSTADE_SCL_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+
+
 using namespace pstade::egg;
 using pstade::egg::plus;
 

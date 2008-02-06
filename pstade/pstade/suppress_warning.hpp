@@ -1,6 +1,5 @@
 #ifndef PSTADE_SUPPRESS_WARNING_HPP
 #define PSTADE_SUPPRESS_WARNING_HPP
-#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
