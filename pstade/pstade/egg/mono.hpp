@@ -38,7 +38,6 @@ namespace pstade { namespace egg {
         template<class Base, class Signature>
         struct result_;
 
-        // 0ary-
     #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/mono.hpp>))
         #include BOOST_PP_ITERATE()

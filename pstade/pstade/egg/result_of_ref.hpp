@@ -32,7 +32,6 @@ namespace pstade { namespace egg {
     template<class FunCall>
     struct result_of_ref;
 
-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <pstade/egg/result_of_ref.hpp>))
     #include BOOST_PP_ITERATE()
 

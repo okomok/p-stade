@@ -30,7 +30,6 @@ namespace pstade { namespace egg { namespace detail {
     template<class FunCall>
     struct of_apply_little;
 
-    // 1ary-
 #define PSTADE_unref(Z, I, _) typename unref<typename bytag_at<stg_t, n, I>::type, BOOST_PP_CAT(A, I)>::type
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/of_apply_little.hpp>))
     #include BOOST_PP_ITERATE()

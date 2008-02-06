@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
         typedef Base type;
     };
 
-// 2ary-
+
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/curry.hpp>))
     #include BOOST_PP_ITERATE()
 

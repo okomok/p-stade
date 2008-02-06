@@ -47,7 +47,6 @@ namespace pstade { namespace egg { namespace detail {
             return call_aux<Re>(tup, typename fusion_length<Tuple>::type());
         }
 
-    // 0ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/little_fuse_result.hpp>))
         #include BOOST_PP_ITERATE()
     };

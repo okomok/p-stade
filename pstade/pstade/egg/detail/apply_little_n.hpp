@@ -38,7 +38,6 @@ namespace pstade { namespace egg {
     struct apply_little0<Little volatile>;
 
 
-    // 1ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little_n.hpp>))
     #include BOOST_PP_ITERATE()
 

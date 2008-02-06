@@ -52,7 +52,7 @@
         #define PSTADE_EGG_BIND_L { {
         #define PSTADE_EGG_BIND_R } }
 
-        // 0ary-
+
     #define PSTADE_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <pstade/egg/bind_n.hpp>))

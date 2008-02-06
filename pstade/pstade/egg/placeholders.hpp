@@ -29,7 +29,6 @@
         #define PSTADE_EGG_PLACEHOLDER PSTADE_EGG_ARG_INIT
 
 
-        // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/placeholders.hpp>))
         #include BOOST_PP_ITERATE()
 

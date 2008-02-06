@@ -26,7 +26,6 @@ namespace pstade { namespace egg {
     template<class Base, class NullaryResult, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_EGG_MAX_LINEAR_ARITY, class Arg, = void)>
     struct result_of_bind;
 
-    // 0ary-
 #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_LINEAR_ARITY)
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <pstade/egg/detail/result_of_bind.hpp>))
     #include BOOST_PP_ITERATE()

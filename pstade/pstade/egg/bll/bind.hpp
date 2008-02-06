@@ -31,7 +31,6 @@ namespace pstade { namespace egg {
 
         struct little
         {
-        // 1ary-
             template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_BLL_BIND_MAX_ARITY, A)>
             struct PSTADE_EGG_APPLY_DECL;
 

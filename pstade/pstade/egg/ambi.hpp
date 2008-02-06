@@ -43,7 +43,6 @@ namespace pstade { namespace egg {
     #define PSTADE_EGG_AMBI(F) PSTADE_EGG_AMBI_L F PSTADE_EGG_AMBI_R
 
 
-    // 0ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_PIPABLE_MAX_ARITY, <pstade/egg/ambi.hpp>))
     #include BOOST_PP_ITERATE()
 

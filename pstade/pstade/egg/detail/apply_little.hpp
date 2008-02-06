@@ -26,7 +26,6 @@ namespace pstade { namespace egg {
     template<class Little, PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(PSTADE_EGG_MAX_LINEAR_ARITY), class A, = void)>
     struct apply_little;
 
-    // 0ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little.hpp>))
     #include BOOST_PP_ITERATE()
 
