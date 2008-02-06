@@ -66,7 +66,6 @@ namespace pstade { namespace egg {
 
 
     typedef function<PSTADE_PP_CAT3(to_, name, _detail)::little, by_cref> PSTADE_PP_CAT3(T_, to_, name);
-
 PSTADE_ADL_BARRIER(char_conversion) {
     PSTADE_POD_CONSTANT((PSTADE_PP_CAT3(T_, to_, name)), BOOST_PP_CAT(to_, name)) = {{}};
 }
