@@ -61,7 +61,7 @@ namespace pstade { namespace egg {
             template<class Me, class X>
             struct apply
             {
-                typedef typename boost::remove_cv<X>::type& type;
+                typedef typename boost::remove_cv<X>::type & type;
             };
 
             template<class Re, class X>
