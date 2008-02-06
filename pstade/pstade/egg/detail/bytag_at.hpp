@@ -23,7 +23,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Strategy, int Arity, int Index>
-    struct bytag_at_impl :
+    struct bytag_at_aux :
         Strategy::template apply<
             Strategy,
             // must be type parameter for MetafunctionClass.
@@ -69,7 +69,7 @@ namespace pstade { namespace egg { namespace detail {
     struct bytag_at :
         boost::mpl::eval_if< is_bytag<Strategy>,
             bytag_identity<typename boost::remove_const<Strategy>::type, Arity>, // no volatile specializations yet.
-            bytag_at_impl<Strategy, Arity, Index>
+            bytag_at_aux<Strategy, Arity, Index>
         >
     {
         BOOST_STATIC_ASSERT(0 <= Index); 

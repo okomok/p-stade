@@ -18,13 +18,13 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Function> // derived from `function<>`.
-    struct little_of_impl
+    struct little_of_aux
     {
         typedef typename Function::little_type type;
     };
 
     template<class Little, class Strategy>
-    struct little_of_impl< function<Little, Strategy> > // for incomplete context.
+    struct little_of_aux< function<Little, Strategy> > // for incomplete context.
     {
         typedef Little type;
     };
@@ -32,7 +32,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Function>
     struct little_of :
-        little_of_impl<typename boost::remove_cv<Function>::type>
+        little_of_aux<typename boost::remove_cv<Function>::type>
     { };
 
 

@@ -20,7 +20,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class X>
-    struct is_bytag_impl :
+    struct is_bytag_aux :
         boost::mpl::or_<
             boost::is_same<X, by_perfect>,
             boost::is_same<X, by_ref>,
@@ -32,7 +32,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class X>
     struct is_bytag :
-        is_bytag_impl<typename boost::remove_cv<X>::type>
+        is_bytag_aux<typename boost::remove_cv<X>::type>
     { };
 
 
