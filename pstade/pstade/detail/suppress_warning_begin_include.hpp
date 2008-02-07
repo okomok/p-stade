@@ -23,6 +23,7 @@
 
     #pragma warning(push)
 
+    #pragma warning(disable: 4180) // qualifier applied to function type has no meaning; ignored
     #pragma warning(disable: 4510) // default constructor could not be generated
     #pragma warning(disable: 4511) // copy constructor could not be generated
     #pragma warning(disable: 4512) // assignment operator could not be generated

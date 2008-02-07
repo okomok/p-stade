@@ -17,6 +17,7 @@
 #include <pstade/egg/lazy.hpp>
 #include <pstade/egg/bll/placeholders.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <pstade/egg/bll/result_of.hpp>
 #include <functional>
 
 
@@ -29,7 +30,7 @@ void test_apply()
     //[code_infix_apply_example
     BOOST_CHECK(apply(negate, apply(negate, apply(negate, 10))) == -10);
     //]
-#if 0 // rejected
+#if 0 // right-to-left; rejected
     BOOST_CHECK((negate ^=apply^= 10) == -10);
     BOOST_CHECK((negate ^=apply^= negate ^=apply^= 10) == 10);
     BOOST_CHECK((negate ^=apply^= negate ^=apply^= negate ^=apply^= 10) == -10);
@@ -38,6 +39,14 @@ void test_apply()
     std::plus<int> my_plus;
     BOOST_CHECK( (1 ^my_plus^ 2) == 3 );
     //]
+
+    {
+#if 0 // doesn't work cuz operator^ is overloaded.
+        std::plus<int> my_plus;
+        int one = 1;
+        BOOST_CHECK( (bll_1 ^lazy(my_plus)^ 2)(one) == 3 );
+#endif 
+    }
 }
 
 
