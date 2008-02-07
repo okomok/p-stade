@@ -57,6 +57,8 @@ test-suite "wine" :
     [ run locale_saver.cpp ]
     [ run make_bool.cpp ]
     [ run metapredicate.cpp ]
+    [ run mpl_boost_tuple.cpp ]
+    [ run mpl_boost_tuple_test.cpp ]
     [ run mpl_std_pair.cpp ]
     [ run nullptr.cpp ]
     [ run pause.cpp ]

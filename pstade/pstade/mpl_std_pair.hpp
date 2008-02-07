@@ -27,6 +27,9 @@
 template<class Iterator>
 struct ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE;
 
+template<class Iterator>
+struct ERROR_PSTADE_MPL_STD_PAIR_DANGLING;
+
 
 namespace pstade { namespace mpl_std_pair {
 
@@ -35,39 +38,39 @@ namespace pstade { namespace mpl_std_pair {
 
 
     template<class Pair, int N>
-    struct iterator_aux;
+    struct iterator;
 
     template<class T, class U>
-    struct iterator_aux<std::pair<T, U>, 0>
+    struct iterator<std::pair<T, U>, 0>
     {
         typedef boost::mpl::random_access_iterator_tag category;
         typedef T type;
-        typedef iterator_aux<std::pair<T, U>, 1> next;
-        typedef ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE<iterator_aux> prior;
+        typedef iterator<std::pair<T, U>, 1> next;
+        typedef ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE<iterator> prior;
     };
 
     template<class T, class U>
-    struct iterator_aux<std::pair<T, U>, 1>
+    struct iterator<std::pair<T, U>, 1>
     {
         typedef boost::mpl::random_access_iterator_tag category;
         typedef U type;
-        typedef iterator_aux<std::pair<T, U>, 2> next;
-        typedef iterator_aux<std::pair<T, U>, 0> prior;
+        typedef iterator<std::pair<T, U>, 2> next;
+        typedef iterator<std::pair<T, U>, 0> prior;
     };
 
     template<class T, class U>
-    struct iterator_aux<std::pair<T, U>, 2>
+    struct iterator<std::pair<T, U>, 2>
     {
         typedef boost::mpl::random_access_iterator_tag category;
-        typedef ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE<iterator_aux> type;
-        typedef ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE<iterator_aux> next;
-        typedef iterator_aux<std::pair<T, U>, 1> prior;
+        typedef ERROR_PSTADE_MPL_STD_PAIR_DANGLING<iterator> type;
+        typedef ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE<iterator> next;
+        typedef iterator<std::pair<T, U>, 1> prior;
     };
 
 
     template<class Pair, class N>
-    struct iterator :
-        iterator_aux<Pair, N::value>
+    struct iterator_aux :
+        iterator<Pair, N::value>
     { };
 
 
@@ -94,17 +97,17 @@ namespace boost { namespace mpl {
 
 
     template<class Pair, class Pos, class N>
-    struct advance<pstade::mpl_std_pair::iterator<Pair, Pos>, N>
+    struct advance<pstade::mpl_std_pair::iterator_aux<Pair, Pos>, N>
     {
         typedef
-            pstade::mpl_std_pair::iterator<Pair, typename plus<Pos, N>::type>
+            pstade::mpl_std_pair::iterator_aux<Pair, typename plus<Pos, N>::type>
         type;
     };
 
     template<class Pair, class Pos1, class Pos2>
     struct distance<
-        pstade::mpl_std_pair::iterator<Pair, Pos1>,
-        pstade::mpl_std_pair::iterator<Pair, Pos2>
+        pstade::mpl_std_pair::iterator_aux<Pair, Pos1>,
+        pstade::mpl_std_pair::iterator_aux<Pair, Pos2>
     > :
         minus<Pos2, Pos1>
     { };
@@ -122,7 +125,7 @@ namespace boost { namespace mpl {
         template<class Pair>
         struct apply
         {
-            typedef pstade::mpl_std_pair::iterator_aux<Pair, 0> type;
+            typedef pstade::mpl_std_pair::iterator<Pair, 0> type;
         };
     };
 
@@ -132,7 +135,7 @@ namespace boost { namespace mpl {
         template<class Pair>
         struct apply
         {
-            typedef pstade::mpl_std_pair::iterator_aux<Pair, 2> type;
+            typedef pstade::mpl_std_pair::iterator<Pair, 2> type;
         };
     };
 
