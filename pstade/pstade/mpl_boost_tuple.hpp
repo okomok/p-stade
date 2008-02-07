@@ -103,6 +103,12 @@ namespace pstade { namespace mpl_boost_tuple {
 namespace boost { namespace mpl {
 
 
+    template<BOOST_PP_ENUM_PARAMS(PSTADE_BOOST_TUPLE_MAX_SIZE, class T)>
+    struct sequence_tag< tuples::tuple<BOOST_PP_ENUM_PARAMS(PSTADE_BOOST_TUPLE_MAX_SIZE, T)> >
+    {
+        typedef pstade::mpl_boost_tuple::tag type;
+    };
+
     template<class HT, class TT>
     struct sequence_tag< tuples::cons<HT, TT> >
     {
@@ -111,12 +117,6 @@ namespace boost { namespace mpl {
     
     template< >
     struct sequence_tag< tuples::null_type >
-    {
-        typedef pstade::mpl_boost_tuple::tag type;
-    };
-    
-    template<BOOST_PP_ENUM_PARAMS(PSTADE_BOOST_TUPLE_MAX_SIZE, class T)>
-    struct sequence_tag< tuples::tuple<BOOST_PP_ENUM_PARAMS(PSTADE_BOOST_TUPLE_MAX_SIZE, T)> >
     {
         typedef pstade::mpl_boost_tuple::tag type;
     };
