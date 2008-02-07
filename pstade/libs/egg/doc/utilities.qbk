@@ -1,5 +1,8 @@
 [section Utilities]
 
+[import ../example/infix_apply.cpp]
+
+
 
 
 [/
@@ -122,8 +125,7 @@ Egg provides __FCPP__ infix operator syntax.
 * `^_pfo^` behaves as if it had left to right associativity.
 
 [heading Example]
-    using namespace infix;
-    BOOST_CHECK( (10 ^plus^ 12 ^plus^ 3) == 25 );
+[code_infix_plus_example]
 
 [heading See also]
 * __FCPP__

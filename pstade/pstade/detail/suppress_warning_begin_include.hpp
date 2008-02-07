@@ -1,4 +1,5 @@
 
+
 // PStade.Wine
 //
 // Copyright Shunsuke Sogame 2005-2008.
@@ -7,7 +8,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#if defined(_MSC_VER)
+// (C) Copyright Ion Gaztanaga 2005-2008. Distributed under the Boost
+// Software License, Version 1.0. (See accompanying file
+// LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+
+#ifndef PSTADE_DETAIL_SUPPRESS_WARNING_BEGIN_INCLUDE_HPP
+#define PSTADE_DETAIL_SUPPRESS_WARNING_BEGIN_INCLUDE_HPP
+#include <boost/config.hpp>
+#endif
+
+
+#if defined(BOOST_MSVC)
 
     #pragma warning(push)
 
