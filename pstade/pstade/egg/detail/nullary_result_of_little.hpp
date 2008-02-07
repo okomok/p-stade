@@ -19,7 +19,7 @@
 
 
 template<class Function>
-struct PSTADE_EGG_ERROR_NON_NULLARY;
+struct ERROR_PSTADE_EGG_FUNCTION_NON_NULLARY;
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -31,7 +31,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Little, class Function>
     struct get_nullary_result_of_little :
         if_use_default< typename Little::nullary_result_type,
-            PSTADE_EGG_ERROR_NON_NULLARY<Function>,
+            ERROR_PSTADE_EGG_FUNCTION_NON_NULLARY<Function>,
             typename Little::nullary_result_type
         >
     { };
@@ -41,7 +41,7 @@ namespace pstade { namespace egg { namespace detail {
     struct nullary_result_of_little :
         boost::mpl::eval_if< has_nullary_result_type<Little>,
             get_nullary_result_of_little<Little, Function>,
-            boost::mpl::identity< PSTADE_EGG_ERROR_NON_NULLARY<Function> >
+            boost::mpl::identity< ERROR_PSTADE_EGG_FUNCTION_NON_NULLARY<Function> >
         >
     { };
 

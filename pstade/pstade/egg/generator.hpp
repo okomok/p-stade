@@ -24,7 +24,7 @@
 #include "./detail/unspecified.hpp"
 
 
-struct PSTADE_EGG_ERROR_GENERATOR_MISSING_ARGUMENT;
+struct ERROR_PSTADE_EGG_GENERATOR_MISSING_ARGUMENT;
 
 
 namespace pstade { namespace egg {
@@ -48,12 +48,12 @@ namespace pstade { namespace egg {
 
     template<
         class A, class Deducer,
-        class Default = unspecified // = PSTADE_EGG_ERROR_GENERATOR_MISSING_ARGUMENT
+        class Default = unspecified // = ERROR_PSTADE_EGG_GENERATOR_MISSING_ARGUMENT
     >
     struct deduce :
         boost::mpl::eval_if< boost::is_same<A, void>,
             boost::mpl::eval_if< boost::is_same<Default, unspecified>,
-                boost::mpl::identity<PSTADE_EGG_ERROR_GENERATOR_MISSING_ARGUMENT>,
+                boost::mpl::identity<ERROR_PSTADE_EGG_GENERATOR_MISSING_ARGUMENT>,
                 boost::mpl::identity<Default>
             >,
             boost::mpl::apply1<Deducer, A>

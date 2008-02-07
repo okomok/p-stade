@@ -57,6 +57,7 @@ test-suite "wine" :
     [ run locale_saver.cpp ]
     [ run make_bool.cpp ]
     [ run metapredicate.cpp ]
+    [ run mpl_std_pair.cpp ]
     [ run nullptr.cpp ]
     [ run pause.cpp ]
     [ run plain.cpp ]

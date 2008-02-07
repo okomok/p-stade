@@ -23,7 +23,7 @@
 
 
 template<class Bindable>
-struct PSTADE_EGG_ERROR_BLL_POLY_NON_NULLARY;
+struct ERROR_PSTADE_EGG_BLL_POLY_NON_NULLARY;
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -49,7 +49,7 @@ namespace pstade { namespace egg { namespace detail {
         typedef typename
             boost::mpl::eval_if< IsNullary,
                 result0,
-                boost::mpl::identity< PSTADE_EGG_ERROR_BLL_POLY_NON_NULLARY<Bindable> >
+                boost::mpl::identity< ERROR_PSTADE_EGG_BLL_POLY_NON_NULLARY<Bindable> >
             >::type
         nullary_result_type;
 
