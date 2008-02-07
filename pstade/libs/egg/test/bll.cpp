@@ -45,6 +45,12 @@ void pstade_minimal_test()
         BOOST_CHECK( bll_bind(&big_arity, 1,2,3,4,bll_1,6,bll_2,8,9)(3|to_ref, 4|to_ref) == 3 );
     }
     {
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+        int two = 2;
+        BOOST_CHECK(bll_bind(my_minus, 10, bll_1)(two) == 8);
+#endif
+    }
+    {
         typedef
             pstade::result_of<T_bll_bind(int (*)(int), int)>::type
         b_t;

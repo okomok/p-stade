@@ -13,10 +13,15 @@
 
 
 #include <boost/lambda/bind.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/is_function.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/preprocessor.hpp>
 #include "../apply_decl.hpp"
 #include "../by_cref.hpp"
 #include "./config.hpp"
@@ -29,6 +34,15 @@ namespace pstade { namespace egg {
     namespace bll_bind_detail {
 
 
+        template<class X>
+        struct fun_to_ref :
+            boost::mpl::eval_if< boost::is_function<X>,
+                boost::add_reference<X>,
+                boost::mpl::identity<X>
+            >
+        { };
+
+
         struct little
         {
             template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_BLL_BIND_MAX_ARITY, A)>
@@ -36,7 +50,7 @@ namespace pstade { namespace egg {
 
         #define PSTADE_bind_tuple_mapper(N) \
             typename boost::lambda::detail::bind_tuple_mapper< \
-                BOOST_PP_ENUM_PARAMS(N, const A) \
+                PSTADE_PP_ENUM_PARAMS_WITH(N, typename fun_to_ref<A, >::type) \
             >::type \
         /**/
         #define PSTADE_lambda_functor_base(N) \
