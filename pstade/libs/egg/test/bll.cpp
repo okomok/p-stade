@@ -9,8 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/bll/unlambda.hpp>
 #include <pstade/egg/bll/bind.hpp>
+#include <pstade/egg/bll/unlambda.hpp>
 #include <pstade/egg/bll/placeholders.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <pstade/minimal_test.hpp>
