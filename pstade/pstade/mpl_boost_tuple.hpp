@@ -16,13 +16,9 @@
 // [1] boost::mpl::list iterator
 
 
-#include <boost/mpl/advance_fwd.hpp>
-#include <boost/mpl/at_fwd.hpp>
 #include <boost/mpl/begin_end_fwd.hpp>
 #include <boost/mpl/clear_fwd.hpp>
 #include <boost/mpl/iterator_tags.hpp>
-#include <boost/mpl/minus.hpp>
-#include <boost/mpl/plus.hpp>
 #include <boost/mpl/pop_front_fwd.hpp>
 #include <boost/mpl/push_front_fwd.hpp>
 #include <boost/mpl/sequence_tag_fwd.hpp>
