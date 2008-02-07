@@ -16,6 +16,8 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/at.hpp>
+#include <boost/mpl/size.hpp>
+#include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/equal.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/begin_end.hpp>
@@ -42,6 +44,7 @@ namespace test1 {
     BOOST_MPL_ASSERT((boost::is_same<mpl::at_c<seq_t, 0>::type, int>));
     BOOST_MPL_ASSERT((boost::is_same<mpl::at_c<seq_t, 1>::type, int>));
     BOOST_MPL_ASSERT((mpl::equal<seq_t, ans_t>));
+    BOOST_MPL_ASSERT((mpl::equal_to<mpl::size<seq_t>::type, mpl::size<ans_t>::type>));
 
 }
 

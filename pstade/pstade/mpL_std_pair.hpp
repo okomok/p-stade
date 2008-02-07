@@ -11,22 +11,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <utility> // pair
 #include <boost/mpl/advance_fwd.hpp>
 #include <boost/mpl/at_fwd.hpp>
 #include <boost/mpl/begin_end_fwd.hpp>
+#include <boost/mpl/int.hpp>
 #include <boost/mpl/distance_fwd.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/minus.hpp>
 #include <boost/mpl/plus.hpp>
 #include <boost/mpl/sequence_tag_fwd.hpp>
-
-
-namespace std {
-
-    template<class T, class U>
-    struct pair;
-
-} // namespace std
+#include <boost/mpl/size_fwd.hpp>
 
 
 template<class Iterator>
@@ -98,12 +93,28 @@ namespace pstade { namespace mpl_std_pair {
 namespace boost { namespace mpl {
 
 
+    template<class Pair, class Pos, class N>
+    struct advance<pstade::mpl_std_pair::iterator<Pair, Pos>, N>
+    {
+        typedef
+            pstade::mpl_std_pair::iterator<Pair, typename plus<Pos, N>::type>
+        type;
+    };
+
+    template<class Pair, class Pos1, class Pos2>
+    struct distance<
+        pstade::mpl_std_pair::iterator<Pair, Pos1>,
+        pstade::mpl_std_pair::iterator<Pair, Pos2>
+    > :
+        minus<Pos2, Pos1>
+    { };
+
+
     template<class T, class U>
     struct sequence_tag< std::pair<T, U> >
     {
         typedef pstade::mpl_std_pair::tag type;
     };
-
 
     template< >
     struct begin_impl<pstade::mpl_std_pair::tag>
@@ -134,23 +145,14 @@ namespace boost { namespace mpl {
         { };
     };
 
-
-    template<class Pair, class Pos, class N>
-    struct advance<pstade::mpl_std_pair::iterator<Pair, Pos>, N>
+    template< >
+    struct size_impl<pstade::mpl_std_pair::tag>
     {
-        typedef
-            pstade::mpl_std_pair::iterator<Pair, typename plus<Pos, N>::type>
-        type;
+        template<class Pair>
+        struct apply :
+            int_<2>
+        { };
     };
-
-
-    template<class Pair, class Pos1, class Pos2>
-    struct distance<
-        pstade::mpl_std_pair::iterator<Pair, Pos1>,
-        pstade::mpl_std_pair::iterator<Pair, Pos2>
-    > :
-        minus<Pos2, Pos1>
-    { };
 
 
 } } // namespace boost::mpl
