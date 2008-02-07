@@ -762,7 +762,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [__POLYMORPHIC__ `bind_(f, _safe_arg_list(a, by_cref))`]
+        [__POLYMORPHIC__ `bind_(_safe_arg_list(f, by_cref), _safe_arg_list(a, by_cref))`]
     ]
     [
         [`lazy(f)`]
