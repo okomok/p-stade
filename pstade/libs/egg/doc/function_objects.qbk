@@ -112,7 +112,6 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[/
 
 [section always]
 
@@ -175,8 +174,6 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * ...
 
 [endsect]
-
-]
 
 
 
@@ -524,8 +521,6 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[/
-
 [section identity]
 
 [heading Description]
@@ -570,8 +565,6 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * ...
 
 [endsect]
-
-]
 
 
 
