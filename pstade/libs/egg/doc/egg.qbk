@@ -24,6 +24,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BOOST__ [@http://www.boost.org Boost C++ Libraries]]
 [def __BOOST_ACCUMULATORS__ [@http://boost-sandbox.sourceforge.net/libs/accumulators/doc/html/index.html Boost.Accumulators]]
 [def __BOOST_ENABLE_IF__ [@http://www.boost.org/libs/utility/enable_if.html Boost.EnableIf]]
+[def __BOOST_FUNCTION__ [@http://www.boost.org/libs/function/ Boost.Function]]
 [def __BOOST_FUSION__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/index.html Boost.Fusion]]
 [def __BOOST_ITERATOR__ [@http://boost.org/libs/iterator/doc/index.html Boost.Iterator]]
 [def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]

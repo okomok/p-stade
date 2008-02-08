@@ -1,16 +1,17 @@
 [section Utilities]
 
-[import ../example/infix_apply.cpp]
+[/ [import ../example/infix_apply.cpp] ]
+[import ../example/typeof_meets_type_erasure.cpp]
 
 
 
-
-[/
 
 [section expr]
 
 [heading Description]
-`expr`
+"typeof" and "type-erasure" are not conflicting forces.
+`expr` performs type-erasure using __BOOST_FUNCTION__ when native typeof isn't available.
+So that, type registrations into __BOOST_TYPEOF__ can be minimized.
 
 [heading Header]
 * `<pstade/egg/expr.hpp>`
@@ -34,19 +35,17 @@
 ]
 
 [heading Preconditions]
-* Except for `boost::use_default`, types in `Sig` is registered to __BOOST_TYPEOF__.
+* Except for `boost::use_default` and `boost::function<...>`, types in `Sig` is registered to __BOOST_TYPEOF__.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
-...
+[code_typeof_meets_type_erasure]
 
 [heading See also]
 * __BOOST_FUNCTION__
 * __BOOST_TYPEOF__
 
 [endsect]
-
-]
 
 
 

@@ -241,6 +241,7 @@ Egg performs the "perfect forwarding" by default.
 
 [heading Preconditions]
 * `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `aI` is not /function name/ under msvc-7.1.
 
 [heading Example]
 * `_meta_arg_list(a, by_cref)` is `int const,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
