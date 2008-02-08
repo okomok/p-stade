@@ -712,8 +712,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section fusion_pack]
 
 [heading Description]
-`fusion_pack` is a __STATIC_FUNCTION_OBJECT__ which is akin to `boost::fusion::make_vector` or `boost::fusion::vector_tie`
-using __EGG_FORWARDING_STRATEGIES__.
+`fusion_pack` packs arguments for forwarding.
 
 [heading Header]
 * `<pstade/egg/fusion/pack.hpp>`
