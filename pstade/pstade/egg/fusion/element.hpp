@@ -12,14 +12,10 @@
 
 
 #include <boost/mpl/at.hpp>
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <pstade/apple/is_boost_tuple.hpp>
-#include <pstade/apple/pair_fwd.hpp>
+#include <pstade/mpl_boost_tuple.hpp>
+#include <pstade/mpl_std_pair.hpp>
 #include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
@@ -30,34 +26,10 @@
 namespace pstade { namespace egg {
 
 
-    namespace fusion_element_detail {
-
-
-        template<class N, class Tuple>
-        struct aux_ :
-            boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
-                boost::tuples::element<N::value, Tuple>,
-                boost::mpl::at<Tuple, N>
-            >
-        { };
-
-        template<class N, class T, class U>
-        struct aux_< N, std::pair<T, U> > :
-            boost::mpl::if_< boost::mpl::equal_to<boost::mpl::int_<0>, N>,
-                T,
-                U
-            >
-        { };
-
-
-    } // namespace fusion_element_detail
-
-
     template<class N, class Tuple>
     struct fusion_element :
-        fusion_element_detail::aux_<N, typename boost::remove_cv<Tuple>::type>
+        boost::mpl::at<typename boost::remove_cv<Tuple>::type, N>
     { };
-
 
     template<int N, class Tuple>
     struct fusion_element_c :
