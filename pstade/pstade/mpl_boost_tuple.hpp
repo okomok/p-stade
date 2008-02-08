@@ -16,6 +16,7 @@
 // [1] boost::mpl::list iterator
 
 
+#include <boost/mpl/at_fwd.hpp>
 #include <boost/mpl/begin_end_fwd.hpp>
 #include <boost/mpl/clear_fwd.hpp>
 #include <boost/mpl/front_fwd.hpp>
@@ -182,6 +183,18 @@ namespace boost { namespace mpl {
 
     // optimizations
     //
+
+    template< >
+    struct at_impl<pstade::mpl_boost_tuple::tag>
+    {
+        template<class Tuple, class N>
+        struct apply :
+            tuples::element<N::value, Tuple>
+        { };
+
+        template<class Tuple, class N>
+        struct apply<Tuple const, N>;
+    };
 
     template< >
     struct front_impl<pstade::mpl_boost_tuple::tag>
