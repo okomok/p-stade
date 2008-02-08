@@ -25,14 +25,6 @@
 #include <boost/mpl/empty.hpp>
 
 
-// incomplete check
-namespace std {
-
-    template<>
-    struct pair<int, int>;
-
-}
-
 namespace mpl = boost::mpl;
 
 

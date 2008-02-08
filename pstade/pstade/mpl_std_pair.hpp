@@ -14,9 +14,13 @@
 #include <utility> // pair
 #include <boost/mpl/advance_fwd.hpp>
 #include <boost/mpl/at_fwd.hpp>
+#include <boost/mpl/back_fwd.hpp>
 #include <boost/mpl/begin_end_fwd.hpp>
-#include <boost/mpl/int.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/distance_fwd.hpp>
+#include <boost/mpl/empty_fwd.hpp>
+#include <boost/mpl/front_fwd.hpp>
+#include <boost/mpl/int.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/minus.hpp>
 #include <boost/mpl/plus.hpp>
@@ -40,31 +44,31 @@ namespace pstade { namespace mpl_std_pair {
     template<class Pair, int N>
     struct iterator;
 
-    template<class T, class U>
-    struct iterator<std::pair<T, U>, 0>
+    template<class Pair>
+    struct iterator<Pair, 0>
     {
         typedef boost::mpl::random_access_iterator_tag category;
-        typedef T type;
-        typedef iterator<std::pair<T, U>, 1> next;
+        typedef typename Pair::first_type type;
+        typedef iterator<Pair, 1> next;
         typedef ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE<iterator> prior;
     };
 
-    template<class T, class U>
-    struct iterator<std::pair<T, U>, 1>
+    template<class Pair>
+    struct iterator<Pair, 1>
     {
         typedef boost::mpl::random_access_iterator_tag category;
-        typedef U type;
-        typedef iterator<std::pair<T, U>, 2> next;
-        typedef iterator<std::pair<T, U>, 0> prior;
+        typedef typename Pair::second_type type;
+        typedef iterator<Pair, 2> next;
+        typedef iterator<Pair, 0> prior;
     };
 
-    template<class T, class U>
-    struct iterator<std::pair<T, U>, 2>
+    template<class Pair>
+    struct iterator<Pair, 2>
     {
         typedef boost::mpl::random_access_iterator_tag category;
         typedef ERROR_PSTADE_MPL_STD_PAIR_DANGLING<iterator> type;
         typedef ERROR_PSTADE_MPL_STD_PAIR_OUT_OF_RANGE<iterator> next;
-        typedef iterator<std::pair<T, U>, 1> prior;
+        typedef iterator<Pair, 1> prior;
     };
 
 
@@ -77,16 +81,16 @@ namespace pstade { namespace mpl_std_pair {
     template<class Pair, int N>
     struct at;
 
-    template<class T, class U>
-    struct at<std::pair<T, U>, 0>
+    template<class Pair>
+    struct at<Pair, 0>
     {
-        typedef T type;
+        typedef typename Pair::first_type type;
     };
 
-    template<class T, class U>
-    struct at<std::pair<T, U>, 1>
+    template<class Pair>
+    struct at<Pair, 1>
     {
-        typedef U type;
+        typedef typename Pair::second_type type;
     };
 
 
@@ -119,6 +123,7 @@ namespace boost { namespace mpl {
         typedef pstade::mpl_std_pair::tag type;
     };
 
+
     template< >
     struct begin_impl<pstade::mpl_std_pair::tag>
     {
@@ -146,6 +151,39 @@ namespace boost { namespace mpl {
         struct apply :
             pstade::mpl_std_pair::at<Pair, N::value>
         { };
+    };
+
+
+    // optimizations
+    //
+
+    template< >
+    struct empty_impl<pstade::mpl_std_pair::tag>
+    {
+        template<class Pair>
+        struct apply :
+            false_
+        { };
+    };
+
+    template< >
+    struct front_impl<pstade::mpl_std_pair::tag>
+    {
+        template<class Pair>
+        struct apply
+        {
+            typedef typename Pair::first_type type;
+        };
+    };
+
+    template< >
+    struct back_impl<pstade::mpl_std_pair::tag>
+    {
+        template<class Pair>
+        struct apply
+        {
+            typedef typename Pair::second_type type;
+        };
     };
 
     template< >

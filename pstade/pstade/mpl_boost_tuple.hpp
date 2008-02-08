@@ -18,10 +18,13 @@
 
 #include <boost/mpl/begin_end_fwd.hpp>
 #include <boost/mpl/clear_fwd.hpp>
+#include <boost/mpl/front_fwd.hpp>
+#include <boost/mpl/int.hpp>
 #include <boost/mpl/iterator_tags.hpp>
 #include <boost/mpl/pop_front_fwd.hpp>
 #include <boost/mpl/push_front_fwd.hpp>
 #include <boost/mpl/sequence_tag_fwd.hpp>
+#include <boost/mpl/size_fwd.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/boost_tuple_config.hpp>
@@ -175,6 +178,30 @@ namespace boost { namespace mpl {
             typedef typename Tuple::tail_type type;
         };
     };
+
+
+    // optimizations
+    //
+
+    template< >
+    struct front_impl<pstade::mpl_boost_tuple::tag>
+    {
+        template<class Tuple>
+        struct apply
+        {
+            typedef typename Tuple::head_type type;
+        };
+    };
+
+    template< >
+    struct size_impl<pstade::mpl_boost_tuple::tag>
+    {
+        template<class Tuple>
+        struct apply :
+            int_<tuples::length<Tuple>::value>
+        { };
+    };
+
 
 
 } } // namespace boost::mpl
