@@ -27,7 +27,6 @@
     #include <boost/fusion/include/begin.hpp>
     #include <boost/fusion/include/boost_tuple.hpp> // lets 'boost::tuple' be FusionSequence
     #include <boost/fusion/include/deref.hpp>
-    #include <boost/fusion/include/mpl.hpp> // lets FusionSequence be MPLSequence
     #include <boost/fusion/include/std_pair.hpp> // lets 'std::pair' be FusionSequence
 #endif
 
