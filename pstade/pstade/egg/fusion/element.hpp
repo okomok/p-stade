@@ -26,14 +26,14 @@
 namespace pstade { namespace egg {
 
 
-    template<class N, class Tuple>
+    template<class Tuple, class N>
     struct fusion_element :
         boost::mpl::at<typename boost::remove_cv<Tuple>::type, N>
     { };
 
-    template<int N, class Tuple>
+    template<class Tuple, int N>
     struct fusion_element_c :
-        fusion_element<boost::mpl::int_<N>, Tuple>
+        fusion_element< Tuple, boost::mpl::int_<N> >
     { };
 
 

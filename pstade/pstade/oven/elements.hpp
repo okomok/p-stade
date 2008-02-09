@@ -42,7 +42,7 @@ namespace elements_detail {
             eval_if_use_default<Reference,
                 affect<
                     typename iterator_read<typename range_iterator<TupleRange>::type>::type,
-                    typename egg::fusion_element<N, typename range_value<TupleRange>::type>::type
+                    typename egg::fusion_element<typename range_value<TupleRange>::type, N>::type
                 >
             >
         { };

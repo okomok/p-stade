@@ -23,7 +23,6 @@
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/vector.hpp>
-#include <boost/fusion/include/at.hpp>
 #endif
 
 
@@ -31,33 +30,43 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 
-typedef std::pair<int, char> pair_t;
+namespace pair_test {
 
-BOOST_MPL_ASSERT((boost::is_same<int, fusion_element_c<0, pair_t>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, fusion_element_c<1, pair_t>::type>));
+    typedef std::pair<int, double> seq_t;
 
-BOOST_MPL_ASSERT((boost::is_same<int, fusion_element_c<0, pair_t const>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, fusion_element_c<1, pair_t const>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<int, fusion_element_c<seq_t, 0>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<seq_t, 1>::type>));
 
+    BOOST_MPL_ASSERT((boost::is_same<int, fusion_element_c<seq_t const, 0>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<seq_t const, 1>::type>));
 
-typedef boost::tuples::tuple<int&, double> tup_t;
+}
 
-BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<0, tup_t>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<1, tup_t>::type>));
+namespace tuple_test {
 
-BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<0, tup_t const>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<1, tup_t const>::type>));
+    typedef boost::tuples::tuple<int&, double> seq_t;
+
+    BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<seq_t, 0>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<seq_t, 1>::type>));
+
+    BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<seq_t const, 0>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<seq_t const, 1>::type>));
+}
 
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
 
-typedef boost::fusion::vector<int&, double> seq_t;
+namespace fusion_test {
 
-BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<0, seq_t>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<1, seq_t>::type>));
+    typedef boost::fusion::vector<int&, double> seq_t;
 
-BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<0, seq_t const>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<1, seq_t const>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<seq_t, 0>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<seq_t, 1>::type>));
+
+    BOOST_MPL_ASSERT((boost::is_same<int&, fusion_element_c<seq_t const, 0>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<double, fusion_element_c<seq_t const, 1>::type>));
+
+}
 
 #endif
 

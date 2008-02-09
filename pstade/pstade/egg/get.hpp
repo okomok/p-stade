@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
                     >::type
                 >
 #else
-                affect<Tuple&, typename fusion_element<N, Tuple>::type>
+                affect<Tuple&, typename fusion_element<Tuple, N>::type>
 #endif
             { };
 
