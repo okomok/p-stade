@@ -594,7 +594,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), R0, Pack, _Stg>::type` initialized using `d` or an initializer.
-* `pack_` is `X_fusion_pack<_Stg>()` if `Pack` is `_ud`, `_mpl::apply<Pack, _Stg>::type()` otherwise.
+* `pack_` is `X_pack<_Stg>()` if `Pack` is `_ud`, `_mpl::apply<Pack, _Stg>::type()` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -650,7 +650,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
 * __EGG_VARIADIC__
-* __EGG_FUSION_PACK__
+* __EGG_PACK__
 
 [endsect]
 

@@ -15,7 +15,7 @@
 #include <pstade/oven/zipped_with.hpp>
 #include <pstade/oven/taken.hpp>
 #include <pstade/egg/functional.hpp> // plus
-#include <pstade/egg/tuple_pack.hpp>
+#include <pstade/egg/pack.hpp>
 #include <pstade/egg/to_string.hpp>
 #include <pstade/oven/rvalues.hpp>
 #include <pstade/oven/const_refs.hpp>
@@ -57,9 +57,9 @@ int main()
 
     std::cout << (
         make_zipped_with(
-            pstade::egg::tuple_pack(
+            pstade::egg::pack(
                 make_zipped_with(
-                    pstade::egg::tuple_pack(
+                    pstade::egg::pack(
                         make_cycled(initial_values(std::string(), "", "Fizz")),
                         make_cycled(initial_values(std::string(), "", "", "", "Buzz"))
                     ),

@@ -26,7 +26,7 @@
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
 #include "../fusion/prepend.hpp"
-#include "./default_pack.hpp"
+#include "../pack.hpp"
 #include "./is_a_or_b.hpp"
 
 
@@ -177,14 +177,14 @@ namespace pipable_operators {
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         function_with<
-            typename result_of<PSTADE_EGG_DEFAULT_PACK<Strategy>(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type
+            typename result_of<X_pack<Strategy>(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type
         >
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        Re r = { { m_base, PSTADE_EGG_DEFAULT_PACK<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        Re r = { { m_base, X_pack<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
         return r;
     }
 

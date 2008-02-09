@@ -23,7 +23,7 @@
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/egg/tuple_pack.hpp>
+#include <pstade/egg/pack.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/egg/to_value.hpp>
 #include <pstade/oven/identities.hpp>
@@ -49,7 +49,7 @@ void test()
         expected.push_back(tt('3', 3));
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            pstade::egg::tuple_pack(rng0, rng1)|zipped,
+            pstade::egg::pack(rng0, rng1)|zipped,
             expected
         ) );
     }
@@ -71,7 +71,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            pstade::egg::tuple_pack(rng0, rng1, rng2)|zipped,
+            pstade::egg::pack(rng0, rng1, rng2)|zipped,
             expected
         ) );
     }
@@ -90,7 +90,7 @@ void test()
 
         BOOST_FOREACH (
             PSTADE_UNPARENTHESIZE((boost::tuple<char&, int&>)) t,
-            pstade::egg::tuple_pack(src0, src1)|zipped
+            pstade::egg::pack(src0, src1)|zipped
         ) {
             char& ch = boost::get<0>(t);
             if (ch == '4')
@@ -140,9 +140,9 @@ void test()
         std::string rng2("abcdefg");
 
         using pstade::egg::to_value;
-        using pstade::egg::tuple_pack;
+        using pstade::egg::pack;
 
-        tuple_pack(
+        pack(
             rng1|identities(boost::forward_traversal_tag())|transformed(to_value),
             rng2
         ) | zipped;

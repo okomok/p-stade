@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_TUPLE_PACK_HPP
-#define PSTADE_EGG_TUPLE_PACK_HPP
+#ifndef PSTADE_EGG_PACK_HPP
+#define PSTADE_EGG_PACK_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -16,8 +16,8 @@
 #include "./detail/xxx_pack.hpp"
 
 
-#define  PSTADE_EGG_TUPLE_PACK_TEMPLATE(_) boost::tuples::tuple
-#define  PSTADE_EGG_XXX_PACK_PARAMS (tuple_pack, PSTADE_EGG_TUPLE_PACK_TEMPLATE, PSTADE_BOOST_TUPLE_MAX_SIZE)
+#define  PSTADE_EGG_PACK_TEMPLATE(_) boost::tuples::tuple
+#define  PSTADE_EGG_XXX_PACK_PARAMS (pack, PSTADE_EGG_PACK_TEMPLATE, PSTADE_BOOST_TUPLE_MAX_SIZE)
 #include PSTADE_EGG_XXX_PACK()
 
 

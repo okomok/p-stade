@@ -15,7 +15,7 @@
 
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/noncopyable.hpp>
-#include <pstade/egg/tuple_pack.hpp>
+#include <pstade/egg/pack.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -62,7 +62,7 @@ void pstade_minimal_test()
     }
     {
         ::nc x;
-        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::tuple_pack(x)) == 3 );
+        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::pack(x)) == 3 );
     }
     {
         ::my_f f0;

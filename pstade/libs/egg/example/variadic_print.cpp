@@ -27,6 +27,7 @@ int main() {}
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/lambda/core.hpp>
     #include <boost/lambda/lambda.hpp>
+    #include <boost/fusion/include/boost_tuple.hpp>
     #include <boost/fusion/include/for_each.hpp>
     #include <pstade/egg/bll/placeholders.hpp>
 #endif

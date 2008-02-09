@@ -325,7 +325,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`To to = u(a1,...,aN);`]
-        [`To to = boost::implicit_cast<_typeof(to)>( fuse(F())(X_fusion_pack<_Stg>()(a1,...,aN)) );`]
+        [`To to = boost::implicit_cast<_typeof(to)>( fuse(F())(X_pack<_Stg>()(a1,...,aN)) );`]
     ]
     [
         [`_mpl::_++M`]
@@ -355,6 +355,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
+* __EGG_PACK__
 
 [endsect]
 

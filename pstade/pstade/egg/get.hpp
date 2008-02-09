@@ -1,6 +1,6 @@
-#ifndef PSTADE_EGG_FUSION_GET_HPP
-#define PSTADE_EGG_FUSION_GET_HPP
-#include "../detail/prefix.hpp"
+#ifndef PSTADE_EGG_GET_HPP
+#define PSTADE_EGG_GET_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -13,13 +13,14 @@
 
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
-#include "../by_perfect.hpp"
-#include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
-#include "../specified.hpp"
-#include "./element.hpp"
+#include "./by_perfect.hpp"
+#include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
+#include "./fusion/element.hpp"
+#include "./specified.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
@@ -34,7 +35,7 @@
 namespace pstade { namespace egg {
 
 
-    namespace fusion_get_detail {
+    namespace get_detail {
 
 
         template<class Re, class N>
@@ -104,29 +105,30 @@ namespace pstade { namespace egg {
         };
 
 
-    } // namespace fusion_get_detail
+    } // namespace get_detail
 
 
     template<class N>
-    struct X_fusion_get :
-        function<fusion_get_detail::little<N>, by_perfect>
+    struct X_get :
+        function<get_detail::little<N>, by_perfect>
     { };
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (fusion_get, X_fusion_get, (class), (1))
+PSTADE_ADL_BARRIER(get) {
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (get, X_get, (class), (1))
     #include PSTADE_EGG_SPECIFIED()
-
+}
 
     template<int N>
-    struct X_fusion_get_c :
-        X_fusion_get< boost::mpl::int_<N> >
+    struct X_get_c :
+        X_get< boost::mpl::int_<N> >
     { };
 
-    #define  PSTADE_EGG_SPECIFIED_PARAMS (fusion_get_c, X_fusion_get_c, (int), (1))
+    #define  PSTADE_EGG_SPECIFIED_PARAMS (get_c, X_get_c, (int), (1))
     #include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::egg
 
 
-#include "../detail/suffix.hpp"
+#include "./detail/suffix.hpp"
 #endif

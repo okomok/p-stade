@@ -12,7 +12,7 @@
 #include <pstade/egg/variadic.hpp>
 #include <pstade/minimal_test.hpp>
 
-#include <pstade/egg/fusion/get.hpp>
+#include <pstade/egg/get.hpp>
 #include <pstade/result_of.hpp>
 
 
@@ -25,13 +25,13 @@ struct little_second
 {
     template<class Me, class Args>
     struct apply :
-        result_of<X_fusion_get_c<1>(Args&)>
+        result_of<X_get_c<1>(Args&)>
     { };
 
     template<class Re, class Args>
     Re call(Args& args) const
     {
-        return X_fusion_get_c<1>()(args);
+        return X_get_c<1>()(args);
     }
 };
 

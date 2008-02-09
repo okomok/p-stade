@@ -15,7 +15,6 @@
 
 #include "./drop.hpp"
 #include "./element.hpp"
-#include "./get.hpp"
 #include "./length.hpp"
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include "./pack.hpp"

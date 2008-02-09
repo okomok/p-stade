@@ -15,7 +15,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/fusion/element.hpp>
-#include <pstade/egg/fusion/get.hpp>
+#include <pstade/egg/get.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/result_of.hpp>
@@ -52,7 +52,7 @@ namespace elements_detail {
         struct apply :
             result_of<
                 X_make_transformed<typename ref_of<TupleRange>::type>(
-                    TupleRange&, egg::X_fusion_get<N>
+                    TupleRange&, egg::X_get<N>
                 )
             >
         { };
@@ -63,7 +63,7 @@ namespace elements_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
 
             return X_make_transformed<typename ref_of<TupleRange>::type>()(
-                rng, egg::X_fusion_get<N>()
+                rng, egg::X_get<N>()
             );
         }
     };

@@ -13,7 +13,7 @@
 
 // Note:
 //
-// This could be implementedy by 'compose' with 'tuple_pack',
+// This could be implementedy by 'compose' with 'pack',
 // but this is the basis together with 'fuse'.
 
 

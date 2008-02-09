@@ -31,7 +31,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/type.hpp>
-#include <pstade/egg/tuple_pack.hpp>
+#include <pstade/egg/pack.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/plain.hpp>
@@ -106,7 +106,7 @@ namespace adjacent_transformed_detail {
         result_of<
             X_make_zipped_with<Reference, Value>(
                 typename result_of<
-                    egg::T_tuple_pack(
+                    egg::T_pack(
                         typename result_of<T_make_popped(Range&)>::type,
                         typename result_of<T_make_dropped(Range&, int)>::type
                     )
@@ -145,7 +145,7 @@ namespace adjacent_transformed_detail {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             return X_make_zipped_with<Reference, Value>()(
-                egg::tuple_pack(make_popped(rng), make_dropped(rng, 1)), fun
+                egg::pack(make_popped(rng), make_dropped(rng, 1)), fun
             );
         }
 

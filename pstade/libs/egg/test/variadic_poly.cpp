@@ -12,7 +12,7 @@
 #include <pstade/egg/variadic.hpp>
 #include <pstade/minimal_test.hpp>
 
-#include <pstade/egg/fusion/get.hpp>
+#include <pstade/egg/get.hpp>
 #include <pstade/result_of.hpp>
 
 
@@ -25,12 +25,12 @@ template<class Args>
 struct mono_second
 {
     typedef typename
-        result_of<X_fusion_get_c<1>(Args&)>::type
+        result_of<X_get_c<1>(Args&)>::type
     result_type;
 
     result_type operator()(Args& args) const
     {
-        return X_fusion_get_c<1>()(args);
+        return X_get_c<1>()(args);
     }
 };
 

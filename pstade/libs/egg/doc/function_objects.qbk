@@ -327,6 +327,88 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+[section bll_bind]
+
+[heading Description]
+`bll_bind` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
+
+[heading Header]
+* `<pstade/egg/bll/bind.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`bll_bind(f, a1,...,aN)`]
+        [__POLYMORPHIC__ `boost::lambda::bind(f, a1,...,aN)`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= N && N <= 9`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+[code_bll_bind_example]
+
+[heading See also]
+* __BOOST_LAMBDA__
+* __EGG_LAZY__
+
+[endsect]
+
+
+
+
+[section bll_N]
+
+[heading Description]
+`bll_N` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
+
+[heading Header]
+* `<pstade/egg/bll/placeholders.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__ but not /statically initialized/.
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`bll_++N`]
+        [__POLYMORPHIC__ `boost::lambda::_++N`]
+    ]
+]
+
+[heading Preconditions]
+* `1 <= N && N <= 3`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_LAMBDA__
+
+[endsect]
+
+
+
 
 [section construct]
 
@@ -521,6 +603,64 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+[section get]
+
+[heading Description]
+`get<N>` is akin to `boost::tuples::get<N::value>`.
+
+[heading Header]
+* `<pstade/egg/get.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `fusion` is `boost::fusion`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_get<N>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_get<N>()(t)`]
+        [`fusion::deref(fusion::advance<N>(fusion::begin(t)))`]
+    ]
+    [
+        [`X_get_c<n>`]
+        [`X_get< _mpl::int_<n> >`]
+    ]
+    [
+        [`egg::get<N>(t)`]
+        [`X_get<N>()(t)`]
+    ]
+    [
+        [`egg::get_c<n>(t)`]
+        [`X_get_c<n>()(t)`]
+    ]
+]
+
+[heading Preconditions]
+* `t` can be `boost::tuple<...>`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_FUSION__
+* __BOOST_TUPLE__
+
+[endsect]
+
+
+
+
 [section identity]
 
 [heading Description]
@@ -569,19 +709,19 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section bll_bind]
+[section pack]
 
 [heading Description]
-`bll_bind` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::bind`.
+`pack` makes `boost::tuple<...>` for argument forwarding.
 
 [heading Header]
-* `<pstade/egg/bll/bind.hpp>`
+* `<pstade/egg/pack.hpp>`
 
 [heading Model of]
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* ...
+* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
 
 [heading Valid expressions]
 [table 
@@ -590,111 +730,21 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`bll_bind(f, a1,...,aN)`]
-        [__POLYMORPHIC__ `boost::lambda::bind(f, a1,...,aN)`]
-    ]
-]
-
-[heading Preconditions]
-* `0 <= N && N <= 9`.
-* The corresponding semantics is a valid expression.
-
-[heading Example]
-[code_bll_bind_example]
-
-[heading See also]
-* __BOOST_LAMBDA__
-* __EGG_LAZY__
-
-[endsect]
-
-
-
-
-[section bll_N]
-
-[heading Description]
-`bll_N` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
-
-[heading Header]
-* `<pstade/egg/bll/placeholders.hpp>`
-
-[heading Model of]
-* __STATIC_FUNCTION_OBJECT__ but not /statically initialized/.
-
-[heading Notation]
-* ...
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`bll_++N`]
-        [__POLYMORPHIC__ `boost::lambda::_++N`]
-    ]
-]
-
-[heading Preconditions]
-* `1 <= N && N <= 3`.
-* The corresponding semantics is a valid expression.
-
-[heading Example]
-...
-
-[heading See also]
-* __BOOST_LAMBDA__
-
-[endsect]
-
-
-
-
-[section fusion_get]
-
-[heading Description]
-`fusion_get` is akin to `boost::fusion::at`.
-
-[heading Header]
-* `<pstade/egg/fusion/get.hpp>`
-
-[heading Model of]
-* ...
-
-[heading Notation]
-* `fusion` is `boost::fusion`.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`X_fusion_get<N>`]
+        [`X_pack<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_fusion_get<N>()(t)`]
-        [`fusion::deref(fusion::advance<N>(fusion::begin(t)))`]
+        [`X_pack<_Stg>()(a1,...,aN)`]
+        [`boost::tuple<dts_(_safe_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
     ]
     [
-        [`X_fusion_get_c<n>`]
-        [`X_fusion_get< _mpl::int_<n> >`]
-    ]
-    [
-        [`egg::fusion_get<N>(t)`]
-        [`X_fusion_get<N>()(t)`]
-    ]
-    [
-        [`egg::fusion_get_c<n>(t)`]
-        [`X_fusion_get_c<n>()(t)`]
+        [`pack`]
+        [`X_pack<>()`]
     ]
 ]
 
 [heading Preconditions]
+* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -709,10 +759,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+[/
+
 [section fusion_pack]
 
 [heading Description]
-`fusion_pack` packs arguments for forwarding.
+`fusion_pack` makes `boost::fusion::vector<>` for arguments for forwarding.
 
 [heading Header]
 * `<pstade/egg/fusion/pack.hpp>`
@@ -740,59 +792,6 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     [
         [`fusion_pack`]
         [`X_fusion_pack<>()`]
-    ]
-]
-
-[heading Preconditions]
-* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
-* The corresponding semantics is a valid expression.
-
-[heading Example]
-...
-
-[heading See also]
-* __BOOST_FUSION__
-* __BOOST_TUPLE__
-
-[endsect]
-
-
-
-
-[/
-
-[section tuple_pack]
-
-[heading Description]
-`tuple_pack` is a __STATIC_FUNCTION_OBJECT__ which is akin to `boost::make_tuple` or `boost::tie`
-using __EGG_FORWARDING_STRATEGIES__.
-
-[heading Header]
-* `<pstade/egg/tuple_pack.hpp>`
-
-[heading Model of]
-* __STATIC_FUNCTION_OBJECT__
-
-[heading Notation]
-* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`X_tuple_pack<_Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`X_tuple_pack<_Stg>()(a1,...,aN)`]
-        [`boost::tuple<dts_(_safe_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
-    ]
-    [
-        [`tuple_pack`]
-        [`X_tuple_pack<>()`]
     ]
 ]
 
