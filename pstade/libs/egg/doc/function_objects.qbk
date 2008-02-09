@@ -148,7 +148,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`always_ref`]
-        [A __STATIC_FUNCTION_OBJECT__]
+        [__STATIC_FUNCTION_OBJECT__]
     ]
     [
         [`always_ref(t)`]

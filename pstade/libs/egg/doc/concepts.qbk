@@ -180,7 +180,9 @@ A __STATIC_FUNCTION_OBJECT__ is a __MAJOR_FUNCTION_OBJECT__ which is intended to
 In addition to the requirements defined in the refinements,
 for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
-* `_typeof(f)` is a /POD/ type, and `f` is /statically initialized/.
+* `_typeof(f)` is a /POD/ type in C++03 (a /trivial/ type in C++0x).
+* `_typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `f` is /statically initialized/.
 * `boost::remove_reference<_decltype(f)>::type` is `_typeof(f) const`.
 * If `boost::result_of<_typeof(f) const(a1,...,aN)>::type` is a valid expression,
   `boost::result_of<_typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
