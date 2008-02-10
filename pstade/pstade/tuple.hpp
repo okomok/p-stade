@@ -53,7 +53,3 @@ namespace pstade {
 
 
 #endif
-
-
-
-#endif
