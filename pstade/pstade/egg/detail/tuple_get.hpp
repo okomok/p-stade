@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/apple/is_boost_tuple.hpp>
 #include <pstade/enable_if.hpp>
@@ -50,17 +49,14 @@ namespace pstade { namespace egg { namespace detail {
         function<little_tuple_get<N>, by_perfect>
     { };
 
-    template<int N>
-    struct X_tuple_get_c :
-        X_tuple_get< boost::mpl::int_<N> >
-    { };
-
 
     // boost::tuple
     //
 
     template<class N, class Tuple>
-    struct tuple_get_impl<N, Tuple, typename enable_if< apple::is_boost_tuple<Tuple> >::type>
+    struct tuple_get_impl<N, Tuple,
+        typename enable_if< apple::is_boost_tuple<Tuple> >::type
+    >
     {
         typedef typename
             result_of_tuple_get<N::value, Tuple>::type
