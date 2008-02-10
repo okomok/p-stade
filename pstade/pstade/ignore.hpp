@@ -33,6 +33,7 @@ namespace pstade {
         { }
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+        // `foo(T_ignore = 0)` form needs this to link.
         T_ignore(int const &)
         { }
 #endif
