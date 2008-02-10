@@ -14,9 +14,8 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/tuple.hpp>
+#include <pstade/tuple.hpp> // tuple_length
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "../fusion/length.hpp"
 #include "../get.hpp"
 
 

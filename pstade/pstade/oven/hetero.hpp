@@ -12,10 +12,9 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/fusion/length.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/plain.hpp>
-#include <pstade/tuple.hpp>
+#include <pstade/tuple.hpp> // tuple_length
 #include <pstade/use_default.hpp>
 #include "./detail/hetero_iterator.hpp"
 #include "./iter_range.hpp"
