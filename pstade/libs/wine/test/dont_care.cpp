@@ -9,11 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/ignore.hpp>
+#include <pstade/dont_care.hpp>
 #include <boost/test/minimal.hpp>
-
-
-#include <boost/tuple/tuple.hpp>
 
 
 using namespace pstade;
@@ -29,7 +26,7 @@ struct to_any
 };
 
 
-void foo(T_ignore = 0, T_ignore = 0)
+void foo(dont_care = 0, dont_care = 0)
 {
 }
 
@@ -44,10 +41,6 @@ void test()
     to_any a;
     ::foo(a);
 #endif
-
-    int a;
-    boost::tie(ignore, a, ignore) = boost::make_tuple(1,2,3);
-    BOOST_CHECK(a == 2);
 }
 
 

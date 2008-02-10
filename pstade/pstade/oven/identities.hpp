@@ -13,7 +13,7 @@
 
 #include <boost/mpl/assert.hpp>
 #include <pstade/derived_from.hpp>
-#include <pstade/ignore.hpp>
+#include <pstade/dont_care.hpp>
 #include <pstade/is_convertible.hpp>
 #include "./concepts.hpp"
 #include "./detail/little_to_adaptor.hpp"
@@ -40,7 +40,7 @@ namespace identities_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng, T_ignore = 0) const
+        Result call(Range& rng, dont_care = 0) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_MPL_ASSERT((is_convertible<
