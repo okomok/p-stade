@@ -176,24 +176,6 @@ void test_automatic()
 
 
 //[code_polymorphic_example
-template<class X>
-struct mono_my_identity
-{
-    typedef X &result_type;
-
-    result_type operator()(X &x) const
-    {
-        return x;
-    }
-};
-
-typedef
-    polymorphic< mono_my_identity<boost::mpl::_1> >::type
-T_my_identity;
-
-T_my_identity const my_identity = PSTADE_EGG_POLYMORPHIC();
-
-
 struct my_begin_impl
 {
     template<class Seq>
@@ -224,12 +206,32 @@ struct my_begin_impl
 typedef polymorphic<my_begin_impl>::type T_my_begin;
 T_my_begin const my_begin = PSTADE_EGG_POLYMORPHIC();
 
+/*< When function is not overloaded with different arities,
+     you can also use __MPL_PLACEHOLDER_EXPRESSION__. >*/
+template<class X>
+struct mono_my_identity
+{
+    typedef X &result_type;
+
+    result_type operator()(X &x) const
+    {
+        return x;
+    }
+};
+
+typedef
+    polymorphic< mono_my_identity<boost::mpl::_1> >::type
+T_my_identity;
+
+T_my_identity const my_identity = PSTADE_EGG_POLYMORPHIC();
+
 void test_polymorphic()
 {
     std::string str("abc");
+    std::string const cstr("ayz");
     result_of<T_my_begin(result_of<T_my_identity(std::string &)>::type)>::type
         i = my_begin(my_identity(str));
-    BOOST_CHECK( i == str.begin() );
+    BOOST_CHECK( *i == *my_begin(cstr) );
 }
 //]
 

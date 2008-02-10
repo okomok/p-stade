@@ -130,8 +130,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 [section polymorphic]
 
 [heading Description]
-Though `polymorphic` can have neither non-default constructors nor initializers,
-you can access nested typedefs in `operator()`.
+Though `polymorphic` can't be "stateful", you can access nested typedefs in `operator()`.
 This is a port of `detail::function` family which is secretly contained in __BOOST_ACCUMULATORS__.
 
 [heading Header]
