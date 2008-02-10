@@ -90,6 +90,7 @@ test-suite "egg" :
     [ run incomplete_little.cpp ]
     [ run indirect.cpp ]
     [ run infix.cpp ]
+    [ run inheritance.cpp ]
     [ run inlined.cpp ]
     [ run inlined.cpp : : : <define>BOOST_TYPEOF_EMULATION : inlined_emulation ]
     [ run inlined_mem.cpp ]

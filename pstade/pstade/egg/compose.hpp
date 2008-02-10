@@ -44,7 +44,11 @@ namespace pstade { namespace egg {
             template<class Me, class Args>
             struct apply :
                 result_of<
-                    F const(typename result_of<typename result_of<detail::T_tuple_fuse(G const&)>::type(Args&)>::type)
+                    F const(
+                        typename result_of<
+                            typename result_of<detail::T_tuple_fuse(G const&)>::type(Args&)
+                        >::type
+                    )
                 >
             { };
 

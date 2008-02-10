@@ -17,14 +17,15 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Function> // derived from `function<>`.
+    template<class Function>
     struct strategy_of_aux
     {
         typedef typename Function::strategy_type type;
     };
 
+    // minimize name lookup.
     template<class Little, class Strategy>
-    struct strategy_of_aux< function<Little, Strategy> > // for incomplete context.
+    struct strategy_of_aux< function<Little, Strategy> >
     {
         typedef Strategy type;
     };

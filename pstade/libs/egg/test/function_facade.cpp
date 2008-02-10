@@ -53,6 +53,12 @@ struct T_foo :
     {
         return '0';
     }
+
+    // complete check
+    pstade::result_of<T_foo(int, int)>::type bar() const
+    {
+        return (*this)(1, 2);
+    }
 };
 
 PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(T_foo)
