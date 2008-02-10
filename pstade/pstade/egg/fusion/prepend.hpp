@@ -83,7 +83,7 @@ namespace pstade { namespace egg {
             template<class Me, class Tuple, class A>
             struct apply :
                 boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
-                    result_of<X_tuple_prepend<Bytag>(Tuple&, A&)>,
+                    result_of<detail::X_tuple_prepend<Bytag>(Tuple&, A&)>,
                     apply_aux<Bytag, Tuple, A>
                 >
             { };
@@ -91,7 +91,7 @@ namespace pstade { namespace egg {
             template<class Re, class Tuple, class A>
             Re call(Tuple& t, A& a, typename enable_if< apple::is_boost_tuple<Tuple> >::type = 0) const
             {
-                return X_tuple_prepend<Bytag>()(t, a);
+                return detail::X_tuple_prepend<Bytag>()(t, a);
             }
 
             template<class Re, class Tuple, class A>

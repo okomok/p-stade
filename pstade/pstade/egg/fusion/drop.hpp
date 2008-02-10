@@ -56,10 +56,10 @@ namespace pstade { namespace egg {
         };
 
         template<class N, class Tuple> inline
-        typename fusion_result_of<N, Tuple>::type
+        typename apply_aux<N, Tuple>::type
         call_aux(Tuple& t)
         {
-            return typename fusion_result_of<N, Tuple>::type(
+            return typename apply_aux<N, Tuple>::type(
                 fusion::advance<N>(fusion::begin(t)),
                 fusion::end(t)
             );
