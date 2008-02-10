@@ -43,24 +43,24 @@ struct little_unwrap
     struct apply
     {
         /*<< `A` is possibly cv-qualifed but not reference type. >>*/
-        typedef A & type;
+        typedef A &type;
     };
 
     template<class Me, class T>
     struct apply< Me, boost::reference_wrapper<T> >
     {
-        typedef T & type;
+        typedef T &type;
     };
 
     template<class Me, class T>
     struct apply< Me, boost::reference_wrapper<T> const >
     {
-        typedef T & type;
+        typedef T &type;
     };
 
     template<class Re, class A>
     /*<< `Re` is `apply<little_unwrap const, A>::type`. >>*/
-    Re call(A & a) const
+    Re call(A &a) const
     {
         return a;
     }
@@ -120,7 +120,7 @@ struct plus_to
     };
 
     template<class Re, class A>
-    Re call(A & a) const
+    Re call(A &a) const
     {
         return m_x + a;
     }
@@ -182,7 +182,7 @@ struct my_begin_impl
         typedef apply type;
         typedef typename Seq::iterator result_type;
 
-        result_type operator()(Seq & seq) const
+        result_type operator()(Seq &seq) const
         {
             return seq.begin();
         }
@@ -194,7 +194,7 @@ struct my_begin_impl
         typedef apply type;
         typedef typename Seq::const_iterator result_type;
 
-        result_type operator()(Seq const & seq) const
+        result_type operator()(Seq const &seq) const
         {
             return seq.begin();
         }
@@ -209,7 +209,7 @@ struct mono_my_identity
 {
     typedef X &result_type;
 
-    result_type operator()(X & x) const
+    result_type operator()(X &x) const
     {
         return x;
     }
