@@ -20,11 +20,11 @@
 #include "../forward.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
-    #include <boost/boost::fusion/include/begin.hpp>
-    #include <boost/boost::fusion/sequence/intrinsic/end.hpp> // for include guard bug
-    #include <boost/boost::fusion/include/iterator_range.hpp>
-    #include <boost/boost::fusion/include/joint_view.hpp>
-    #include <boost/boost::fusion/include/single_view.hpp>
+    #include <boost/fusion/include/begin.hpp>
+    #include <boost/fusion/sequence/intrinsic/end.hpp> // for include guard bug
+    #include <boost/fusion/include/iterator_range.hpp>
+    #include <boost/fusion/include/joint_view.hpp>
+    #include <boost/fusion/include/single_view.hpp>
 #endif
 
 
@@ -58,11 +58,11 @@ namespace pstade { namespace egg {
                 boost::fusion::joint_view<first_view_t, second_view_t>
             result_type;
 
-            result_type operator()(Tuple& t, A& a)() const
+            result_type operator()(Tuple& t, A& a) const
             {
                 return result_type(
-                    typename first_view_t(a),
-                    typename second_view_t(boost::fusion::begin(t), boost::fusion::end(t))
+                    first_view_t(a),
+                    second_view_t(boost::fusion::begin(t), boost::fusion::end(t))
                 );
             }
         };

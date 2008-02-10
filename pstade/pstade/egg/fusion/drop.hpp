@@ -48,7 +48,7 @@ namespace pstade { namespace egg {
                     >::type,
                     typename boost::fusion::result_of::end<Tuple>::type
                 >
-            result_type type;
+            result_type;
 
             result_type operator()(Tuple& t) const
             {

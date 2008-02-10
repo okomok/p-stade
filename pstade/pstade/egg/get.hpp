@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
         //
 
         template<class N, class Tuple>
-        struct tuple_get_impl<N, class Tuple,
+        struct tuple_get_impl<N, Tuple,
             typename enable_if< is_fusion_sequence<Tuple> >::type>
         {
             typedef typename
@@ -51,7 +51,7 @@ namespace pstade { namespace egg {
                         typename boost::fusion::result_of::begin<Tuple>::type,
                         N
                     >::type
-                >
+                >::type
             result_type;
 
             result_type operator()(Tuple& t) const
