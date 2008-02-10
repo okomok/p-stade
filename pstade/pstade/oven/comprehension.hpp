@@ -33,7 +33,7 @@
 #include <pstade/egg/bll/unlambda.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/use_deduced_form.hpp>
-#include <pstade/dont_care.hpp>
+#include <pstade/ignore.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/result_of_lambda.hpp>
@@ -321,7 +321,7 @@ namespace always_return_detail {
     {
         typedef Value result_type;
 
-        Value operator()(dont_care = 0, dont_care = 0, dont_care = 0) const
+        Value operator()(T_ignore = 0, T_ignore = 0, T_ignore = 0) const
         {
             return m_value;
         }

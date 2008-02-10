@@ -32,7 +32,7 @@
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/boost_workaround.hpp>
-#include <pstade/dont_care.hpp>
+#include <pstade/ignore.hpp>
 #include <pstade/in_fun_spec.hpp>
 #include <pstade/plain.hpp>
 #include <pstade/pod_constant.hpp>
@@ -91,7 +91,7 @@ namespace pstade { namespace egg {
                 return r;
             }
 
-            explicit result_(dont_care = 0)
+            explicit result_(T_ignore = 0)
             { }
         };
 

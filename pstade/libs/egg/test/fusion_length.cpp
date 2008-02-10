@@ -21,7 +21,7 @@
 #include <pstade/egg/is_same.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#if defined(PSTADE_TUPLE_HAS_FUSIONS)
+#if defined(PSTADE_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #endif
