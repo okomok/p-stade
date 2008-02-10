@@ -25,9 +25,9 @@
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
     #include <boost/fusion/include/begin.hpp>
-    #include <boost/fusion/include/boost_tuple.hpp> // lets 'boost::tuple' be FusionSequence
+    #include <boost/fusion/include/boost_tuple.hpp>
     #include <boost/fusion/include/deref.hpp>
-    #include <boost/fusion/include/std_pair.hpp> // lets 'std::pair' be FusionSequence
+    #include <boost/fusion/include/std_pair.hpp>
 #endif
 
 
