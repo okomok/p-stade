@@ -31,6 +31,7 @@ namespace pstade {
         { }
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+        // `foo(dont_care = 0)` form needs this to link.
         dont_care(int const&)
         { }
 #endif
