@@ -43,24 +43,24 @@ struct little_unwrap
     struct apply
     {
         /*<< `A` is possibly cv-qualifed but not reference type. >>*/
-        typedef A& type;
+        typedef A & type;
     };
 
     template<class Me, class T>
     struct apply< Me, boost::reference_wrapper<T> >
     {
-        typedef T& type;
+        typedef T & type;
     };
 
     template<class Me, class T>
     struct apply< Me, boost::reference_wrapper<T> const >
     {
-        typedef T& type;
+        typedef T & type;
     };
 
-    /*<< `Re` is `apply<little_unwrap const, A>::type`. >>*/
     template<class Re, class A>
-    Re call(A& a) const
+    /*<< `Re` is `apply<little_unwrap const, A>::type`. >>*/
+    Re call(A & a) const
     {
         return a;
     }
@@ -89,8 +89,8 @@ struct little_value_identity
         typedef A type;
     };
 
-    /*<< `Re` is `A`. >>*/
     template<class Re, class A>
+    /*<< `Re` is `A`. >>*/
     Re call(A a) const
     {
         return a;
@@ -120,7 +120,7 @@ struct plus_to
     };
 
     template<class Re, class A>
-    Re call(A &a) const
+    Re call(A & a) const
     {
         return m_x + a;
     }
@@ -131,9 +131,7 @@ struct plus_to
 
 private:
     T m_x;
-};
-
-/*<< `plus_to<>` is already a MajorFunctionObject type. >>*/
+}; /*<< `plus_to<>` is already a MajorFunctionObject type. >>*/
 
 template<class T>
 plus_to<T> make_plus_to(T x)
@@ -184,7 +182,7 @@ struct my_begin_impl
         typedef apply type;
         typedef typename Seq::iterator result_type;
 
-        result_type operator()(Seq &seq) const
+        result_type operator()(Seq & seq) const
         {
             return seq.begin();
         }
@@ -196,7 +194,7 @@ struct my_begin_impl
         typedef apply type;
         typedef typename Seq::const_iterator result_type;
 
-        result_type operator()(Seq const &seq) const
+        result_type operator()(Seq const & seq) const
         {
             return seq.begin();
         }
@@ -206,20 +204,20 @@ struct my_begin_impl
 typedef polymorphic<my_begin_impl>::type T_my_begin;
 T_my_begin const my_begin = PSTADE_EGG_POLYMORPHIC();
 
-/*< When function is not overloaded with different arities,
-     you can also use __MPL_PLACEHOLDER_EXPRESSION__. >*/
 template<class X>
 struct mono_my_identity
 {
     typedef X &result_type;
 
-    result_type operator()(X &x) const
+    result_type operator()(X & x) const
     {
         return x;
     }
 };
 
 typedef
+    /*<< When function is not overloaded with different arities,
+         you can use __MPL_PLACEHOLDER_EXPRESSION__. >>*/
     polymorphic< mono_my_identity<boost::mpl::_1> >::type
 T_my_identity;
 
@@ -260,7 +258,8 @@ typedef
     generator<
         array_int4,
         boost::use_default,
-        X_construct_braced2<> /*<< `X_construct_braced1` too is ok. gcc-4.1 warns about fewer braces, though. >>*/
+         /*<< `X_construct_braced1` too is ok. gcc-4.1 warns about fewer braces, though. >>*/
+        X_construct_braced2<>
     >::type
 T_make_array4;
 
