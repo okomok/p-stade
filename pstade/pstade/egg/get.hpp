@@ -17,9 +17,9 @@
 #include <pstade/affect.hpp>
 #include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/tuple.hpp> // tuple_element
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
-#include "./fusion/element.hpp"
 #include "./specified.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
                     >::type
                 >
 #else
-                affect<Tuple&, typename fusion_element<Tuple, N>::type>
+                affect<Tuple&, typename tuple_element<Tuple, N>::type>
 #endif
             { };
 

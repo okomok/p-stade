@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/fusion/length.hpp>
+#include <pstade/tuple.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -21,34 +21,33 @@
 #include <pstade/egg/is_same.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
+#if defined(PSTADE_TUPLE_HAS_FUSIONS)
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #endif
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+using namespace pstade;
 
 
 typedef std::pair<int, char> pair_t;
 
-BOOST_MPL_ASSERT((boost::mpl::equal_to< fusion_length<pair_t>, boost::mpl::int_<2> >));
-BOOST_MPL_ASSERT((boost::mpl::equal_to< fusion_length<pair_t const>, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_length<pair_t>, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_length<pair_t const>, boost::mpl::int_<2> >));
 
 
 typedef boost::tuples::tuple<int&, double> tup_t;
 
-BOOST_MPL_ASSERT((boost::mpl::equal_to< fusion_length<tup_t>, boost::mpl::int_<2> >));
-BOOST_MPL_ASSERT((boost::mpl::equal_to< fusion_length<tup_t const>, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_length<tup_t>, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_length<tup_t const>, boost::mpl::int_<2> >));
 
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
 
 typedef boost::fusion::vector<int&, double> seq_t;
 
-BOOST_MPL_ASSERT((boost::mpl::equal_to< fusion_length<seq_t>, boost::mpl::int_<2> >));
-BOOST_MPL_ASSERT((boost::mpl::equal_to< fusion_length<seq_t const>, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_length<seq_t>, boost::mpl::int_<2> >));
+BOOST_MPL_ASSERT((boost::mpl::equal_to< tuple_length<seq_t const>, boost::mpl::int_<2> >));
 
 #endif
 
@@ -61,10 +60,10 @@ void pstade_minimal_test()
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     seq_t s(p.first, 1.0);
-    BOOST_CHECK( fusion_length<seq_t>::value == 2);
+    BOOST_CHECK( tuple_length<seq_t>::value == 2);
 #endif
 
-    BOOST_CHECK( egg::fusion_length<pair_t>::value == 2);
-    BOOST_CHECK( egg::fusion_length<tup_t>::value == 2);
-    BOOST_CHECK( egg::fusion_length<boost::tuples::null_type>::value == 0 );
+    BOOST_CHECK( tuple_length<pair_t>::value == 2);
+    BOOST_CHECK( tuple_length<tup_t>::value == 2);
+    BOOST_CHECK( tuple_length<boost::tuples::null_type>::value == 0 );
 }

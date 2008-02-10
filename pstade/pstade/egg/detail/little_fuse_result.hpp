@@ -12,9 +12,9 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/tuple/tuple.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include <pstade/tuple.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "../fusion/length.hpp"
 #include "../get.hpp"
@@ -38,13 +38,13 @@ namespace pstade { namespace egg { namespace detail {
 
         template<class Me, class Tuple>
         struct apply :
-            apply_aux<Tuple, typename fusion_length<Tuple>::type>
+            apply_aux<Tuple, typename tuple_length<Tuple>::type>
         { };
 
         template<class Re, class Tuple>
         Re call(Tuple& tup) const
         {
-            return call_aux<Re>(tup, typename fusion_length<Tuple>::type());
+            return call_aux<Re>(tup, typename tuple_length<Tuple>::type());
         }
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/little_fuse_result.hpp>))

@@ -71,8 +71,6 @@ test-suite "egg" :
     [ run functional2.cpp ]
     [ run fuse.cpp ]
     [ run fusion_drop.cpp ]
-    [ run fusion_element.cpp ]
-    [ run fusion_length.cpp ]
     [ run fusion_prepend.cpp ]
 #    [ run fusion_pack.cpp ]
     [ run generator.cpp ]
