@@ -11,26 +11,14 @@
 
 
 #include <boost/mpl/int.hpp>
-#include <pstade/affect.hpp>
+#include <boost/tuple/tuple.hpp>
 #include <pstade/apple/is_boost_tuple.hpp>
-#include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
-#include "./tuple_element.hpp"
+#include "./result_of_tuple_get.hpp"
+#include "../by_perfect.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
-
-
-    // shortcut; std::pair not supported
-    //
-
-    template<int N, class Tuple>
-    struct result_of_tuple_get :
-        affect<
-            Tuple&,
-            typename tuple_element<N, Tuple>::type
-        >
-    { };
 
 
     // tuple_get
@@ -83,44 +71,6 @@ namespace pstade { namespace egg { namespace detail {
             return boost::tuples::get<N::value>(t);
         }
     };
-
-
-    // std::pair
-    //
-
-    template<int N, class Pair>
-    struct pair_get_aux;
-
-    template<class Pair>
-    struct pair_get_aux<0, Pair>
-    {
-        typedef typename
-            affect<Pair&, typename Pair::first_type>::type
-        result_type;
-
-        result_type operator()(Pair& p) const
-        {
-            return p.first;
-        }
-    };
-
-    template<class Pair>
-    struct pair_get_aux<1, Pair>
-    {
-        typedef typename
-            affect<Pair&, typename Pair::second_type>::type
-        result_type;
-
-        result_type operator()(Pair& p) const
-        {
-            return p.second;
-        }
-    };
-
-    template<class N, class Tuple>
-    struct tuple_get_impl<N, Tuple, typename enable_if< apple::is_pair<Tuple> >::type> :
-        pair_get_aux<N::value, Tuple>
-    { };
 
 
 } } } // namespace pstade::egg::detail

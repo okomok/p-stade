@@ -18,9 +18,9 @@
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./by_ref.hpp"
+#include "./detail/result_of_tuple_get.hpp"
 #include "./detail/tuple_drop.hpp"
 #include "./detail/tuple_fuse.hpp"
-#include "./detail/tuple_get.hpp"
 #include "./variadic.hpp"
 
 

@@ -12,7 +12,7 @@
 
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -22,7 +22,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Tuple>
     struct tuple_length :
         boost::mpl::int_<
-            boost::tuples::length<typename boost::remove_const<Tuple>::type>::value
+            boost::tuples::length<typename boost::remove_cv<Tuple>::type>::value
         >
     { };
 

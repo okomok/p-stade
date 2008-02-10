@@ -14,7 +14,7 @@
 #include <pstade/derived_from.hpp>
 #include <pstade/enable_if.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "../forward.hpp"
 
 
@@ -63,7 +63,7 @@ namespace pstade { namespace egg { namespace detail {
         typedef
             boost::tuples::cons<
                 typename result_of_forward<Bytag, A>::type,
-                typename boost::remove_const<Tuple>::type
+                typename boost::remove_cv<Tuple>::type
             >
         result_type;
 

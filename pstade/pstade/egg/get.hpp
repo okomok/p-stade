@@ -15,6 +15,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
@@ -32,11 +33,13 @@
 namespace pstade { namespace egg {
 
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
-
-
     namespace detail {
 
+
+#if defined(PSTADE_EGG_HAS_FUSIONS)
+
+        // FusionSequence
+        //
 
         template<class N, class Tuple>
         struct tuple_get_impl<N, class Tuple,
@@ -58,11 +61,47 @@ namespace pstade { namespace egg {
             }
         };
 
+#endif
+
+        // std::pair
+        //
+
+        template<int N, class Pair>
+        struct pair_get_aux;
+
+        template<class Pair>
+        struct pair_get_aux<0, Pair>
+        {
+            typedef typename
+                affect<Pair&, typename Pair::first_type>::type
+            result_type;
+
+            result_type operator()(Pair& p) const
+            {
+                return p.first;
+            }
+        };
+
+        template<class Pair>
+        struct pair_get_aux<1, Pair>
+        {
+            typedef typename
+                affect<Pair&, typename Pair::second_type>::type
+            result_type;
+
+            result_type operator()(Pair& p) const
+            {
+                return p.second;
+            }
+        };
+
+        template<class N, class Tuple>
+        struct tuple_get_impl<N, Tuple, typename enable_if< apple::is_pair<Tuple> >::type> :
+            pair_get_aux<N::value, Tuple>
+        { };
+
 
     } // namespace detail
-
-
-#endif // defined(PSTADE_EGG_HAS_FUSIONS)
 
 
     template<class N>

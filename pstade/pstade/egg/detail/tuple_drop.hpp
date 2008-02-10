@@ -12,7 +12,6 @@
 
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_const.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/apple/is_boost_tuple.hpp>
 #include <pstade/enable_if.hpp>

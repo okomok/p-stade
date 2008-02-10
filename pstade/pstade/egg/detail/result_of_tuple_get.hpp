@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_DETAIL_TUPLE_ELEMENT_HPP
-#define PSTADE_EGG_DETAIL_TUPLE_ELEMENT_HPP
+#ifndef PSTADE_EGG_DETAIL_RESULT_OF_TUPLE_GET_HPP
+#define PSTADE_EGG_DETAIL_RESULT_OF_TUPLE_GET_HPP
 
 
 // PStade.Egg
@@ -10,16 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/affect.hpp>
+#include "./tuple_element.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
     template<int N, class Tuple>
-    struct tuple_element :
-        boost::tuples::element<N, typename boost::remove_cv<Tuple>::type>
+    struct result_of_tuple_get :
+        affect<
+            Tuple&,
+            typename tuple_element<N, Tuple>::type
+        >
     { };
 
 

@@ -13,7 +13,6 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/ref.hpp>
-#include <boost/type_traits/remove_const.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../always.hpp"
