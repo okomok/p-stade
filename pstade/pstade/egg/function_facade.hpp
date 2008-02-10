@@ -64,9 +64,7 @@ namespace pstade { namespace egg {
             template<class Re>
             Re call() const
             {
-                return call_little_impl<
-                    Derived, Re
-                >::call0(derived());
+                return call_little_impl<Derived const, Re>::call0(derived());
             }
 
         // 1ary-
@@ -147,9 +145,7 @@ namespace pstade { namespace egg {
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
-        return call_little_impl<
-            Derived, Re
-        >::BOOST_PP_CAT(call, n)(derived(), BOOST_PP_ENUM_PARAMS(n, a));
+        return call_little_impl<Derived const, Re>::BOOST_PP_CAT(call, n)(derived(), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

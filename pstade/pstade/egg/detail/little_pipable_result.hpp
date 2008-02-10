@@ -22,6 +22,7 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
+#include "../by_ref.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "../function_fwd.hpp"
 #include "../pack.hpp"

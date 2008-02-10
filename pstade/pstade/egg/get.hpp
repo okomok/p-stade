@@ -15,101 +15,59 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/apple/is_pair.hpp>
 #include <pstade/enable_if.hpp>
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
-#include "./fusion/element.hpp"
+#include "./detail/is_fusion_sequence.hpp"
+#include "./detail/tuple_get.hpp"
 #include "./specified.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
     #include <boost/fusion/include/begin.hpp>
-    #include <boost/fusion/include/boost_tuple.hpp>
     #include <boost/fusion/include/deref.hpp>
-    #include <boost/fusion/include/std_pair.hpp>
 #endif
 
 
 namespace pstade { namespace egg {
 
 
-    namespace get_detail {
-
-
-        template<class Re, class N>
-        struct pair_get;
-
-        template<class Re>
-        struct pair_get< Re, boost::mpl::int_<0> >
-        {
-            template< class Pair >
-            static Re call(Pair& p)
-            {
-                return p.first;
-            }
-        };
-
-        template<class Re>
-        struct pair_get< Re, boost::mpl::int_<1> >
-        {
-            template< class Pair >
-            static Re call(Pair& p)
-            {
-                return p.second;
-            }
-        };
-
-
-        template<class N>
-        struct little
-        {
-            template<class Me, class Tuple>
-            struct apply :
 #if defined(PSTADE_EGG_HAS_FUSIONS)
+
+
+    namespace detail {
+
+
+        template<class N, class Tuple>
+        struct tuple_get_impl<N, class Tuple,
+            typename enable_if< is_fusion_sequence<Tuple> >::type>
+        {
+            typedef typename
                 boost::fusion::result_of::deref<
                     typename boost::fusion::result_of::advance<
                         typename boost::fusion::result_of::begin<Tuple>::type,
                         N
                     >::type
                 >
-#else
-                affect<Tuple&, typename fusion_element<Tuple, N>::type>
-#endif
-            { };
+            result_type;
 
-            template<class Re, class Tuple>
-            Re call(Tuple& t
-#if !defined(PSTADE_EGG_HAS_FUSIONS)
-                , typename disable_if< apple::is_pair<Tuple> >::type = 0
-#endif
-            ) const
+            result_type operator()(Tuple& t) const
             {
-#if defined(PSTADE_EGG_HAS_FUSIONS)
                 namespace fusion = boost::fusion;
                 return fusion::deref(fusion::advance<N>(fusion::begin(t)));
-#else
-                return boost::tuples::get<N::value>(t);
-#endif
             }
-
-#if !defined(PSTADE_EGG_HAS_FUSIONS)
-            template<class Re, class Pair>
-            Re call(Pair& p,
-                typename enable_if< apple::is_pair<Pair> >::type = 0) const
-            {
-                return pair_get< Re, boost::mpl::int_<N::value> >::call(p);
-            }
-#endif
         };
 
 
-    } // namespace get_detail
+    } // namespace detail
+
+
+#endif // defined(PSTADE_EGG_HAS_FUSIONS)
 
 
     template<class N>
     struct X_get :
-        function<get_detail::little<N>, by_perfect>
+        detail::X_tuple_get<N>
     { };
 
 PSTADE_ADL_BARRIER(get) {

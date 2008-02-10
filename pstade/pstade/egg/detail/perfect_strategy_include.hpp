@@ -43,8 +43,8 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
         operator()(Params) const \
         { \
-            return call_little_impl< \
-                Little, typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
+            return call_little_impl<Little const, \
+                typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
             >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
@@ -84,8 +84,8 @@ namespace pstade { namespace egg {
     typename apply_little0<Little const>::type
     operator()() const
     {
-        return call_little_impl<
-            Little, typename apply_little0<Little const>::type
+        return call_little_impl<Little const,
+            typename apply_little0<Little const>::type
         >::call0(m_little);
     }
 

@@ -357,8 +357,8 @@ Egg provides the uniform way to define your own strategy.
         [`_Lit::apply<A1,...,AK>`]
     ]
     [
-        [`egg::call_little<R>(_lit, a1,...,aK)`]
-        [`_lit.call<R>(a1,...,aK)`]
+        [`call_little(_lit, a1,...,aK)`]
+        [`_lit.call<apply_little<_meta_arg_list(_lit, by_ref), _meta_arg_list(a, by_ref)>::type>(a1,...,aK)`]
     ]
     [
         [`by_perfect`, `by_ref`, `by_cref`, and `by_value`]

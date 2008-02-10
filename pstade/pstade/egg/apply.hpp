@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
             struct apply :
                 result_of<
                     typename result_of<
-                        detail::T_tuple_fuse(typename detail::result_of_tuple_get<0, Args&>::type)
+                        detail::T_tuple_fuse(typename detail::result_of_tuple_get<0, Args>::type)
                     >::type(typename result_of<detail::X_tuple_drop_c<1, by_ref>(Args&)>::type)
                 >
             { };

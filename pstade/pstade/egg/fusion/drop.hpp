@@ -12,21 +12,19 @@
 
 
 #include <boost/mpl/int.hpp>
+#include <pstade/enable_if.hpp>
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
+#include "../detail/is_fusion_sequence.hpp"
 #include "../detail/tuple_drop.hpp"
 #include "../specified.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
-    #include <boost/mpl/eval_if.hpp>
     #include <boost/fusion/include/begin.hpp>
-//    #include <boost/fusion/include/boost_tuple.hpp> // broken for now.
     #include <boost/fusion/sequence/intrinsic/end.hpp>
     #include <boost/fusion/include/iterator_range.hpp>
     #include <boost/fusion/include/advance.hpp>
     #include <pstade/apple/is_boost_tuple.hpp>
-    #include <pstade/enable_if.hpp>
-    #include <pstade/result_of.hpp>
 #endif
 
 
@@ -35,73 +33,42 @@ namespace pstade { namespace egg {
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
 
-    namespace fusion_drop_detail {
 
-
-        namespace here = fusion_drop_detail;
-        namespace fusion = boost::fusion;
+    namespace detail {
 
 
         template<class N, class Tuple>
-        struct apply_aux
+        struct tuple_drop_impl<N, Tuple,
+            typename enable_if< is_fusion_sequence<Tuple> >::type>
         {
             typedef
-                fusion::iterator_range<
-                    typename fusion::result_of::advance<
-                        typename fusion::result_of::begin<Tuple>::type, N
+                boost::fusion::iterator_range<
+                    typename boost::fusion::result_of::advance<
+                        typename boost::fusion::result_of::begin<Tuple>::type, N
                     >::type,
-                    typename fusion::result_of::end<Tuple>::type
+                    typename boost::fusion::result_of::end<Tuple>::type
                 >
-            type;
-        };
+            result_type type;
 
-        template<class N, class Tuple> inline
-        typename apply_aux<N, Tuple>::type
-        call_aux(Tuple& t)
-        {
-            return typename apply_aux<N, Tuple>::type(
-                fusion::advance<N>(fusion::begin(t)),
-                fusion::end(t)
-            );
-        }
-
-        template<class N>
-        struct little
-        {
-            template<class Me, class Tuple>
-            struct apply :
-                boost::mpl::eval_if< apple::is_boost_tuple<Tuple>,
-                    result_of<detail::X_tuple_drop<N, by_perfect>(Tuple&)>,
-                    apply_aux<N, Tuple>
-                >
-            { };
-
-            template<class Re, class Tuple>
-            Re call(Tuple& t, typename enable_if< apple::is_boost_tuple<Tuple> >::type = 0) const
+            result_type operator()(Tuple& t) const
             {
-                return detail::X_tuple_drop<N, by_perfect>()(t);
-            }
-
-            template<class Re, class Tuple>
-            Re call(Tuple& t, typename disable_if<apple::is_boost_tuple<Tuple> >::type = 0) const
-            {
-                return here::call_aux<N>(t);
+                return result_type(
+                    boost::fusion::advance<N>(boost::fusion::begin(t)),
+                    boost::fusion::end(t)
+                );
             }
         };
 
 
-    } // namespace fusion_drop_detail
+    } // namespace detail
+
 
 #endif // defined(PSTADE_EGG_HAS_FUSIONS)
 
 
     template<class N>
     struct X_fusion_drop :
-#if defined(PSTADE_EGG_HAS_FUSIONS)
-        function<fusion_drop_detail::little<N>, by_perfect>
-#else
         detail::X_tuple_drop<N, by_perfect>
-#endif
     { };
 
      #define  PSTADE_EGG_SPECIFIED_PARAMS (fusion_drop, X_fusion_drop, (class), (1))

@@ -70,19 +70,19 @@ namespace pstade { namespace egg {
         template<class A1>
         typename apply_little<Lit const, A1>::type operator()(A1& i) const
         {
-            return egg::call_little<typename apply_little<Lit const, A1>::type>(m_lit, i);
+            return call_little(m_lit, i);
         }
 
         template<class A1>
         typename apply_little<Lit const, PSTADE_EGG_DEDUCED_CONST(A1)>::type operator()(A1 const& i) const
         {
-            return egg::call_little<typename apply_little<Lit const, PSTADE_EGG_DEDUCED_CONST(A1)>::type>(m_lit, i);
+            return call_little(m_lit, i);
         }
 
         template<class A1, class A2>
         typename apply_little<Lit const, A1, A2>::type operator()(A1 i, A2 j) const
         {
-            return egg::call_little<typename apply_little<Lit const, A1, A2>::type>(m_lit, i, j);
+            return call_little(m_lit, i, j);
         }
     };
 

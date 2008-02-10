@@ -11,11 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// It is guaranteed that return type is `mpl::int_`.
-
-
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -31,6 +26,7 @@
 namespace pstade { namespace egg {
 
 
+    // It is guaranteed to return `int_`.
     template<class Tuple>
     struct fusion_length :
         boost::mpl::int_<

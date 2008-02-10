@@ -17,6 +17,7 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../by_cref.hpp"
+#include "../by_value.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "../construct_braced2.hpp"
 #include "../generator.hpp"

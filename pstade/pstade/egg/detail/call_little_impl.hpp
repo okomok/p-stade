@@ -14,16 +14,16 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./call_little_impl_fwd.hpp"
+#include "./pp_enum_template_params.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Little_, class Re, class EnableIf>
+    template<class Little, class Re, class EnableIf>
     struct call_little_impl
     {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/call_little_impl.hpp>))
@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
     static Re BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
     {
         return little.template call<Re>(BOOST_PP_ENUM_PARAMS(n, a));
