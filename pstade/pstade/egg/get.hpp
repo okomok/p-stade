@@ -19,7 +19,7 @@
 #include <pstade/enable_if.hpp>
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
-#include "./detail/tuple_get.hpp"
+#include "./fusion/element.hpp"
 #include "./specified.hpp"
 
 #if defined(PSTADE_EGG_HAS_FUSIONS)
@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
                     >::type
                 >
 #else
-                detail::result_of_tuple_get<N::value, Tuple>
+                affect<Tuple&, typename fusion_element<Tuple, N>::type>
 #endif
             { };
 
