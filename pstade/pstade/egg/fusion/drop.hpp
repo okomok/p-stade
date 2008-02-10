@@ -15,7 +15,6 @@
 #include <pstade/enable_if.hpp>
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
-#include "../detail/is_fusion_sequence.hpp"
 #include "../detail/tuple_drop.hpp"
 #include "../specified.hpp"
 
@@ -25,6 +24,7 @@
     #include <boost/fusion/include/iterator_range.hpp>
     #include <boost/fusion/include/advance.hpp>
     #include <pstade/apple/is_boost_tuple.hpp>
+    #include "../detail/is_fusion_sequence.hpp"
 #endif
 
 

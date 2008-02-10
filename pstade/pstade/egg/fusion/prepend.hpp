@@ -15,7 +15,6 @@
 #include <pstade/pod_constant.hpp>
 #include "../by_perfect.hpp"
 #include "../config.hpp" // PSTADE_EGG_HAS_FUSIONS
-#include "../detail/is_fusion_sequence.hpp"
 #include "../detail/tuple_prepend.hpp"
 #include "../forward.hpp"
 
@@ -25,6 +24,7 @@
     #include <boost/fusion/include/iterator_range.hpp>
     #include <boost/fusion/include/joint_view.hpp>
     #include <boost/fusion/include/single_view.hpp>
+    #include "../detail/is_fusion_sequence.hpp"
 #endif
 
 

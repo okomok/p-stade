@@ -19,7 +19,6 @@
 #include <pstade/enable_if.hpp>
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_HAS_FUSIONS
-#include "./detail/is_fusion_sequence.hpp"
 #include "./detail/tuple_get.hpp"
 #include "./specified.hpp"
 
@@ -27,6 +26,7 @@
     #include <boost/fusion/include/advance.hpp>
     #include <boost/fusion/include/begin.hpp>
     #include <boost/fusion/include/deref.hpp>
+    #include "./detail/is_fusion_sequence.hpp"
 #endif
 
 

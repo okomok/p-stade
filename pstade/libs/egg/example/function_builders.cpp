@@ -67,7 +67,7 @@ struct little_unwrap
 };
 
 typedef function<little_unwrap> T_unwrap;
-PSTADE_POD_CONSTANT((T_unwrap), unwrap) = {{}};
+T_unwrap const unwrap = {{}};
 
 void test_function()
 {
