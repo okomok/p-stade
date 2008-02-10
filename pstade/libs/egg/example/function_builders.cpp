@@ -173,7 +173,6 @@ void test_automatic()
 //]
 
 
-//[code_polymorphic_example
 struct my_begin_impl
 {
     template<class Seq>
@@ -204,6 +203,7 @@ struct my_begin_impl
 typedef polymorphic<my_begin_impl>::type T_my_begin;
 T_my_begin const my_begin = PSTADE_EGG_POLYMORPHIC();
 
+//[code_polymorphic_example
 template<class X>
 struct mono_my_identity
 {
@@ -216,12 +216,11 @@ struct mono_my_identity
 };
 
 typedef
-    /*<< When function is not overloaded with different arities,
-         you can use __MPL_PLACEHOLDER_EXPRESSION__. >>*/
     polymorphic< mono_my_identity<boost::mpl::_1> >::type
 T_my_identity;
 
 T_my_identity const my_identity = PSTADE_EGG_POLYMORPHIC();
+//]
 
 void test_polymorphic()
 {
@@ -231,7 +230,6 @@ void test_polymorphic()
         i = my_begin(my_identity(str));
     BOOST_CHECK( *i == *my_begin(cstr) );
 }
-//]
 
 
 
