@@ -15,7 +15,7 @@
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
 #include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
-#include "./fuse.hpp"
+#include "./detail/tuple_fuse.hpp"
 #include "./variadic.hpp"
 
 
@@ -31,14 +31,14 @@ namespace pstade { namespace egg {
             template<class Me, class Args>
             struct apply :
                 result_of<
-                    typename result_of<T_fuse(Fun)>::type(Args&)
+                    typename result_of<detail::T_tuple_fuse(Fun)>::type(Args&)
                 >
             { };
 
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return fuse(Fun())(args);
+                return detail::tuple_fuse(Fun())(args);
             }
         };
 

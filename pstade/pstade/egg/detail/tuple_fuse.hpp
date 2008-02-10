@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DETAIL_LITTLE_FUSE_RESULT_HPP
-#define PSTADE_EGG_DETAIL_LITTLE_FUSE_RESULT_HPP
+#ifndef PSTADE_EGG_DETAIL_TUPLE_FUSE_HPP
+#define PSTADE_EGG_DETAIL_TUPLE_FUSE_HPP
 
 
 // PStade.Egg
@@ -12,18 +12,23 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
+#include "../by_cref.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "../fusion/length.hpp"
-#include "../get.hpp"
+#include "../construct_braced2.hpp"
+#include "../generator.hpp"
+#include "./tuple_get.hpp"
+#include "./tuple_length.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
     template<class Base>
-    struct little_fuse_result
+    struct little_tuple_fuse_result
     {
         Base m_base;
 
@@ -37,18 +42,30 @@ namespace pstade { namespace egg { namespace detail {
 
         template<class Me, class Tuple>
         struct apply :
-            apply_aux<Tuple, typename fusion_length<Tuple>::type>
+            apply_aux<Tuple, typename tuple_length<Tuple>::type>
         { };
 
         template<class Re, class Tuple>
         Re call(Tuple& t) const
         {
-            return call_aux<Re>(t, typename fusion_length<Tuple>::type());
+            return call_aux<Re>(t, typename tuple_length<Tuple>::type());
         }
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/little_fuse_result.hpp>))
+    #define PSTADE_result_of_get(Z, N, _) typename result_of_tuple_get<N, Tuple>::type
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/tuple_fuse.hpp>))
         #include BOOST_PP_ITERATE()
+    #undef  PSTADE_result_of_get
     };
+
+    typedef
+        generator<
+            function< little_tuple_fuse_result<deduce<mpl_1, as_value> >, by_cref>,
+            by_value,
+            X_construct_braced2<>
+        >::type
+    T_tuple_fuse;
+
+    PSTADE_POD_CONSTANT((T_tuple_fuse), tuple_fuse) = PSTADE_EGG_GENERATOR();
 
 
 } } } // namespace pstade::egg::detail
@@ -62,14 +79,14 @@ namespace pstade { namespace egg { namespace detail {
     template<class Tuple>
     struct apply_aux< Tuple, boost::mpl::int_<n> > :
         result_of<
-            Base const( PSTADE_PP_ENUM_PARAMS_WITH(n, typename result_of<X_get_c<PSTADE_PP_INT_, >(Tuple&)>::type) )
+            Base const( BOOST_PP_ENUM(n, PSTADE_result_of_get, ~) )
         >
     { };
 
     template<class Re, class Tuple>
     Re call_aux(Tuple& t, boost::mpl::int_<n>) const
     {
-        return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, X_get_c<PSTADE_PP_INT_, >()(t)) );
+        return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, boost::tuples::get<PSTADE_PP_INT_, >(t)) );
     }
 
 

@@ -21,7 +21,7 @@
 #include <pstade/boost_workaround.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/mpl_placeholders.hpp" // inclusion guaranteed
-#include "./fuse.hpp"
+#include "./detail/tuple_fuse.hpp"
 #include "./pack.hpp"
 #include "./variadic.hpp"
 
@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
                     boost::mpl::apply2<Expr, To, Strategy>::type
                 fun_t;
 
-                return fuse(fun_t())(m_args);
+                return detail::tuple_fuse(fun_t())(m_args);
             }
 
             template<class To>
@@ -73,7 +73,7 @@ namespace pstade { namespace egg {
                     boost::mpl::apply2<Expr, To, Strategy>::type
                 fun_t;
 
-                return fuse(fun_t())(m_args);
+                return detail::tuple_fuse(fun_t())(m_args);
             }
 
             template<class To>
@@ -99,7 +99,7 @@ namespace pstade { namespace egg {
                     From<
                         Expr, Strategy,
                         typename result_of<
-                            typename result_of<T_fuse(X_pack<Strategy>)>::type(Args&)
+                            typename result_of<detail::T_tuple_fuse(X_pack<Strategy>)>::type(Args&)
                         >::type
                     > const
                 type;
@@ -108,7 +108,7 @@ namespace pstade { namespace egg {
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                Re r = { fuse(X_pack<Strategy>())(args) };
+                Re r = { detail::tuple_fuse(X_pack<Strategy>())(args) };
                 return r;
             }
         };

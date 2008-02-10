@@ -17,10 +17,11 @@
 #include <pstade/use_default.hpp>
 #include "./bll/bind.hpp"
 #include "./by_cref.hpp"
+#include "./by_ref.hpp"
 #include "./by_value.hpp"
 #include "./construct_variadic1.hpp"
-#include "./fuse.hpp"
-#include "./fusion/prepend.hpp"
+#include "./detail/tuple_fuse.hpp"
+#include "./detail/tuple_prepend.hpp"
 #include "./generator.hpp"
 #include "./variadic.hpp"
 
@@ -45,15 +46,15 @@ namespace pstade { namespace egg {
             struct apply :
                 result_of<
                     typename result_of<
-                        T_fuse(Bind)
-                    >::type(typename result_of<T_fusion_prepend(Args&, Base const&)>::type)
+                        detail::T_tuple_fuse(Bind)
+                    >::type(typename result_of<detail::X_tuple_prepend<by_ref>(Args&, Base const&)>::type)
                 >
             { };
 
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return fuse(Bind())(fusion_prepend(args, m_base));
+                return detail::tuple_fuse(Bind())(detail::X_tuple_prepend<by_ref>()(args, m_base));
             }
         };
 

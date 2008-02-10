@@ -65,7 +65,6 @@
 #include "./static_c.hpp"
 #include "./suppress_warning.hpp"
 #include "./template_arguments.hpp"
-#include "./tuple.hpp"
 #include "./type_equal_to.hpp"
 #include "./unevaluated.hpp"
 // #include "./unit_test.hpp"

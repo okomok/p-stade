@@ -15,7 +15,7 @@
 #include <pstade/any.hpp> // any_movable
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
-#include "./fuse.hpp"
+#include "./detail/tuple_fuse.hpp"
 #include "./new.hpp"
 #include "./variadic.hpp"
 
@@ -42,7 +42,7 @@ namespace pstade { namespace egg {
             template<class T>
             operator std::auto_ptr<T>& ()
             {
-                std::auto_ptr<T> ptr(fuse(X_new<T>())(m_args));
+                std::auto_ptr<T> ptr(detail::tuple_fuse(X_new<T>())(m_args));
                 m_any = ptr;
                 return m_any.content< std::auto_ptr<T> >();
             }

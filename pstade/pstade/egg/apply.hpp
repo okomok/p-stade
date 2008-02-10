@@ -11,14 +11,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/tuple/tuple.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_from.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./by_perfect.hpp"
-#include "./fuse.hpp"
-#include "./fusion/drop.hpp"
-#include "./get.hpp"
+#include "./by_ref.hpp"
+#include "./detail/tuple_drop.hpp"
+#include "./detail/tuple_fuse.hpp"
+#include "./detail/tuple_get.hpp"
 #include "./variadic.hpp"
 
 
@@ -34,15 +36,15 @@ namespace pstade { namespace egg {
             struct apply :
                 result_of<
                     typename result_of<
-                        T_fuse(typename result_of<X_get_c<0>(Args&)>::type)
-                    >::type(typename result_of<X_fusion_drop_c<1>(Args&)>::type)
+                        detail::T_tuple_fuse(typename detail::result_of_tuple_get<0, Args&>::type)
+                    >::type(typename result_of<detail::X_tuple_drop_c<1, by_ref>(Args&)>::type)
                 >
             { };
 
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return fuse(X_get_c<0>()(args))(X_fusion_drop_c<1>()(args));
+                return detail::tuple_fuse(boost::tuples::get<0>(args))(detail::X_tuple_drop_c<1, by_ref>()(args));
             }
         };
 

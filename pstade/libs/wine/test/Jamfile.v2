@@ -82,8 +82,6 @@ test-suite "wine" :
     [ run static_c.cpp ]
     [ run template_arguments.cpp ]
     [ run test_test.cpp ]
-    [ run tuple_element.cpp ]
-    [ run tuple_length.cpp ]
     [ run type_equal_to.cpp ]
     [ run type_equal_to.cpp : : : <define>PSTADE_TYPE_EQUAL_TO_WORKAROUND=1 : type_equal_to_workaround ]
     [ run unevaluated.cpp ]

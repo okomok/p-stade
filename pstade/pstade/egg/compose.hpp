@@ -16,7 +16,7 @@
 #include <pstade/result_of.hpp>
 #include "./by_value.hpp"
 #include "./construct_variadic1.hpp"
-#include "./fuse.hpp"
+#include "./detail/tuple_fuse.hpp"
 #include "./generator.hpp"
 #include "./variadic.hpp"
 
@@ -44,14 +44,14 @@ namespace pstade { namespace egg {
             template<class Me, class Args>
             struct apply :
                 result_of<
-                    F const(typename result_of<typename result_of<T_fuse(G const&)>::type(Args&)>::type)
+                    F const(typename result_of<typename result_of<detail::T_tuple_fuse(G const&)>::type(Args&)>::type)
                 >
             { };
 
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return m_f(fuse(m_g)(args));
+                return m_f(detail::tuple_fuse(m_g)(args));
             }
         };
 

@@ -19,8 +19,8 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/egg/fusion/length.hpp>
 #include <pstade/egg/get.hpp>
-#include <pstade/tuple.hpp>
 
 
 #if !defined(PSTADE_OVEN_HETERO_MAX_SIZE)
@@ -34,7 +34,7 @@ namespace pstade { namespace oven { namespace detail {
 // hetero_iterator_dereference
 //
 
-template< class Tuple, class Reference, int Size = tuple_length<Tuple>::value >
+template< class Tuple, class Reference, int Size = egg::fusion_length<Tuple>::value >
 struct hetero_iterator_dereference;
 
 #define PSTADE_return_at(Z, N, _) case N: return egg::get_c<N>(tup);

@@ -12,9 +12,9 @@
 
 
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/fusion/length.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/plain.hpp>
-#include <pstade/tuple.hpp> // tuple_length
 #include <pstade/use_default.hpp>
 #include "./detail/hetero_iterator.hpp"
 #include "./iter_range.hpp"
@@ -52,7 +52,7 @@ namespace hetero_detail {
             typedef typename Result::iterator iter_t;
             return Result(
                 iter_t(tup, 0),
-                iter_t(tup, tuple_length<Tuple>::value)
+                iter_t(tup, egg::fusion_length<Tuple>::value)
             );
         }
     };

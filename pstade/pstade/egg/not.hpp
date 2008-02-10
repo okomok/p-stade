@@ -16,7 +16,7 @@
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
 #include "./construct_variadic1.hpp"
-#include "./fuse.hpp"
+#include "./detail/tuple_fuse.hpp"
 #include "./generator.hpp"
 #include "./return.hpp"
 #include "./variadic.hpp"
@@ -47,7 +47,7 @@ namespace pstade { namespace egg {
             template<class Re, class Args>
             Re call(Args& args) const
             {
-                return !fuse(egg::return_<bool>(m_base))(args);
+                return !detail::tuple_fuse(egg::return_<bool>(m_base))(args);
             }
         };
 

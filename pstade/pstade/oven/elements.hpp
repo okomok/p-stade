@@ -14,11 +14,11 @@
 #include <boost/mpl/int.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/fusion/element.hpp>
 #include <pstade/egg/get.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/tuple.hpp> // tuple_element
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
@@ -42,7 +42,7 @@ namespace elements_detail {
             eval_if_use_default<Reference,
                 affect<
                     typename iterator_read<typename range_iterator<TupleRange>::type>::type,
-                    typename tuple_element<typename range_value<TupleRange>::type, N>::type
+                    typename egg::fusion_element<typename range_value<TupleRange>::type, N>::type
                 >
             >
         { };
