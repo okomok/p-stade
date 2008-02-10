@@ -258,7 +258,7 @@ typedef
     generator<
         array_int4,
         boost::use_default,
-         /*<< `X_construct_braced1` too is ok. gcc-4.1 warns about fewer braces, though. >>*/
+        /*<< `X_construct_braced1` too is ok. gcc-4.1 warns about fewer braces, though. >>*/
         X_construct_braced2<>
     >::type
 T_make_array4;
