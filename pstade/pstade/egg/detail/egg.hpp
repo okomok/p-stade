@@ -45,6 +45,7 @@
 #include "../delete.hpp"
 #include "../delete_array.hpp"
 #include "../do_swap.hpp"
+#include "../expr.hpp"
 #include "../fix.hpp"
 #include "../flip.hpp"
 #include "../forward.hpp"

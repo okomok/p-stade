@@ -29,37 +29,51 @@
 #include <string>
 #include <vector>
 #include <boost/mpl/always.hpp>
+#include <boost/ref.hpp>
 
 
+using pstade::result_of;
 using namespace pstade::egg;
 
 
 //[code_function_example
-struct little_second_argument
+struct little_unwrap
 {
-    template<class Me, class A1, class A2>
+    template<class Me, class A>
     struct apply
     {
-        /*<< `A2` is possibly cv-qualifed but not a reference type. >>*/
-        typedef A2 &type;
+        /*<< `A` is possibly cv-qualifed but not reference type. >>*/
+        typedef A& type;
     };
 
-    /*<< `Re` is `A2 &`. >>*/
-    template<class Re, class A1, class A2>
-    Re call(A1 &a1, A2 &a2) const
+    template<class Me, class T>
+    struct apply< Me, boost::reference_wrapper<T> >
     {
-        return a2;
+        typedef T& type;
+    };
+
+    template<class Me, class T>
+    struct apply< Me, boost::reference_wrapper<T> const >
+    {
+        typedef T& type;
+    };
+
+    /*<< `Re` is `apply<little_unwrap const, A>::type`. >>*/
+    template<class Re, class A>
+    Re call(A& a) const
+    {
+        return a;
     }
 };
 
-typedef function<little_second_argument, by_perfect> T_second_argument;
-T_second_argument const second_argument = {{}}; /*< A braced initialization is ok, because `T_second_argument` is /POD/. >*/
+typedef function<little_unwrap> T_unwrap;
+PSTADE_POD_CONSTANT((T_unwrap), unwrap) = {{}};
 
 void test_function()
 {
-    int i = 2;
-    BOOST_CHECK( &(second_argument(1, i)) == &i );
-    BOOST_CHECK( second_argument(1, i) == 2 );
+    int i = 1;
+    BOOST_CHECK( &(unwrap(i)) == &i );
+    BOOST_CHECK( &(unwrap(boost::ref(i))) == &i );
 }
 //]
 
@@ -178,14 +192,47 @@ typedef
 T_my_identity;
 
 T_my_identity const my_identity = PSTADE_EGG_POLYMORPHIC();
-//]
+
+
+struct my_begin_impl
+{
+    template<class Seq>
+    struct apply
+    {
+        typedef apply type;
+        typedef typename Seq::iterator result_type;
+
+        result_type operator()(Seq &seq) const
+        {
+            return seq.begin();
+        }
+    };
+
+    template<class Seq>
+    struct apply<Seq const>
+    {
+        typedef apply type;
+        typedef typename Seq::const_iterator result_type;
+
+        result_type operator()(Seq const &seq) const
+        {
+            return seq.begin();
+        }
+    };
+};
+
+typedef polymorphic<my_begin_impl>::type T_my_begin;
+T_my_begin const my_begin = PSTADE_EGG_POLYMORPHIC();
 
 void test_polymorphic()
 {
-    int i = 10;
-    BOOST_CHECK( &(my_identity(i)) == &i );
-    BOOST_CHECK( my_identity(10) == 10 );
+    std::string str("abc");
+    result_of<T_my_begin(result_of<T_my_identity(std::string &)>::type)>::type
+        i = my_begin(my_identity(str));
+    BOOST_CHECK( i == str.begin() );
 }
+//]
+
 
 
 //[code_static_example

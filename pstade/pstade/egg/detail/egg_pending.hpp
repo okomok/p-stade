@@ -15,7 +15,6 @@
 
 #include "../bind.hpp"
 #include "../bind_n.hpp"
-#include "../expr.hpp"
 #include "../inlined.hpp"
 #include "../is_bind_expression.hpp"
 #if defined(PSTADE_EGG_HAS_FUSIONS)
