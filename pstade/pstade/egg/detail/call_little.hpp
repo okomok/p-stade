@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "../apply_little_n.hpp"
+#include "./apply_little_n.hpp"
 #include "./call_little_impl.hpp"
 
 
@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
         #include BOOST_PP_ITERATE()
     };
 
-    PSTADE_POD_CONSTANT((T_call_little, call_little) = {};
+    PSTADE_POD_CONSTANT((T_call_little), call_little) = {};
 
 
 } } // namespace pstade::egg
@@ -41,11 +41,13 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
+    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     typename BOOST_PP_CAT(apply_little, n)<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
     operator()(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a)) const
     {
-        return call_little_impl<Little, Re>::BOOST_PP_CAT(call, n)(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return call_little_impl<Little,
+            typename BOOST_PP_CAT(apply_little, n)<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
+        >::BOOST_PP_CAT(call, n)(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 

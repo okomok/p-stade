@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
 
         typename apply_little<Lit const>::type operator()() const
         {
-            return egg::call_little<typename apply_little<Lit const>::type>(m_lit);
+            return call_little(m_lit);
         }
 
         template<class A1>
