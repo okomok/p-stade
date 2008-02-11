@@ -12,19 +12,12 @@
     template<class Egg_Fun, class Egg_Args, class Egg_Arity>
     struct sig_aux;
 
-    // 0ary
-    template<class Egg_Fun, class Egg_Args>
-    struct sig_aux< Egg_Fun, Egg_Args, boost::mpl::int_<0> > :
-        pstade::result_of<
-            Egg_Fun()
-        >
-    { };
-
-    // 1ary-
+    // 0ary-
 #define PSTADE_element(Z, N, _) typename boost::tuples::element<N, Egg_Args>::type &
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/bll_bindable_include.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/bll_bindable_include.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_element
+
 
     template<class Egg_SigArgs>
     struct sig :
