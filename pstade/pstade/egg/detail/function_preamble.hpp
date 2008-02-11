@@ -16,6 +16,15 @@
 #include "./of_apply_little.hpp"
 #include "./strategy_of.hpp"
 
+
+namespace pstade { namespace egg {
+
+    namespace detail { }
+
+    namespace egg_detail = detail;
+
+} }
+
    
 #define PSTADE_EGG_FUNCTION_PREAMBLE() <pstade/egg/detail/function_preamble_include.hpp>
 

@@ -8,16 +8,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-    typedef typename detail::little_of<function>::type little_type;
-    typedef typename detail::strategy_of<function>::type strategy_type;
+    typedef typename egg_detail::little_of<function>::type little_type;
+    typedef typename egg_detail::strategy_of<function>::type strategy_type;
 
     typedef typename
-        detail::nullary_result_of_little<little_type, function>::type
+        egg_detail::nullary_result_of_little<little_type, function>::type
     nullary_result_type;
 
     template<class Egg_FunCall>
     struct result :
-        detail::of_apply_little<Egg_FunCall>
+        egg_detail::of_apply_little<Egg_FunCall>
     { };
 
     little_type const& base() const
