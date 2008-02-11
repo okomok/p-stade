@@ -28,6 +28,7 @@ This section uses the following notation.
     ]
     [
         [`_val(a)`]
+        [/ implicit_cast means this is not direct-initialization but copy-initialization. ]
         [`const_cast<V &>(static_cast<V const &>(boost::implicit_cast<V>(a)))`]
     ]
     [
@@ -294,6 +295,26 @@ Egg performs the "perfect forwarding" by default.
 
 [heading See also]
 * __FORWARDING_PROBLEM__
+
+[endsect]
+
+
+
+
+[section Bound arguments]
+
+[heading Description]
+Some Egg components have to copy and hold arguments for forwarding. Here an imaginary operator is defined for the documentation.
+
+[heading Valid expressions and semantics]
+* `_bound(x)` is defined by the following:
+    * If `x` is array, `_cref(x)`
+    * Otherwise, `_rval(x)`.
+
+[note `_bound` doesn't unwrap `boost::reference_wrapper<>` so that it avoids "early unwrapping" in nested invocation. ]
+
+[heading See also]
+* __BOOST_LAMBDA__
 
 [endsect]
 

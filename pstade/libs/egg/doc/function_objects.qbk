@@ -125,8 +125,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `s` is not an array.
-* `y` is an array.
+* ...
 
 [heading Valid expressions]
 [table 
@@ -136,15 +135,11 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`always(x)`]
-        [A __MAJOR_FUNCTION_OBJECT__]
+        [A __MAJOR_FUNCTION_OBJECT__ which holds `_bound(x)`.]
     ]
     [
-        [`always(s)(a1,...,aN)`]
-        [`_arg_list(s, by_value)`]
-    ]
-    [
-        [`always(y)(a1,...,aN)`]
-        [`_arg_list(y, by_cref)`]
+        [`always(x)(a1,...,aN)`]
+        [`_cref(_bound(x))`]
     ]
     [
         [`always_ref`]
@@ -160,9 +155,6 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
 ]
 
-[note `always` doesn't unwrap `boost::reference_wrapper<>` to avoid "early unwrapping" in nested invocation.
-      You can use `always_ref` instead. ]
-
 [heading Preconditions]
 * `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 * The corresponding semantics is a valid expression.
@@ -171,7 +163,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ...
 
 [heading See also]
-* ...
+* __EGG_BOUND_ARGUMENTS__
 
 [endsect]
 

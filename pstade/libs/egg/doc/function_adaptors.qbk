@@ -177,7 +177,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_curry++N<_typeof(d)>::type` initialized using `d` or an initializer.
-* `b` is `a1,...,a(N-1)`.
+* `b` is `_bound(a1),...,_bound(a(N-1))`.
 
 [heading Valid expressions]
 [table 
@@ -215,14 +215,13 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Invariants]
 * `result_of_curry++N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
-[note An element of `b` is copied unless it is an array. ]
-
 [heading Example]
 [code_curry_example]
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Currying Currying]
 * __EGG_UNCURRY__
+* __EGG_BOUND_ARGUMENTS__
 
 [endsect]
 
