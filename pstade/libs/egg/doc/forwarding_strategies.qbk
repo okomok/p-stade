@@ -41,6 +41,8 @@ This section uses the following notation.
 [note `_val(a)` copies `a` and turns it into mutable lvalue in order to work around __FORWARDING_PROBLEM__.
       You shouldn't take reference in __LITTLE_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
 
+[note Under msvc-7.1, `a` in `_cref(a)` can't be function name.
+           It is preferable to add `&` then turn function name into function pointer. ]
 
 [import ../example/my_perfect.cpp]
 
@@ -242,7 +244,6 @@ Egg performs the "perfect forwarding" by default.
 
 [heading Preconditions]
 * `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
-* `aI` is not /function name/ under msvc-7.1.
 
 [heading Example]
 * `_meta_arg_list(a, by_cref)` is `int const,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
@@ -308,8 +309,8 @@ Some Egg components have to copy and hold arguments for forwarding. Here an imag
 
 [heading Valid expressions and semantics]
 * `_bound(x)` is defined by the following:
-    * If `x` is array, `_cref(x)`
-    * Otherwise, `_rval(x)`.
+    * If `x` is array, `_cref(x)`.
+    * Otherwise, `_rval(_cref(x))`.
 
 [note `_bound` doesn't unwrap `boost::reference_wrapper<>` so that it avoids "early unwrapping" in nested invocation. ]
 
