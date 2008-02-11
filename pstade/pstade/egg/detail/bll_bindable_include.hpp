@@ -37,16 +37,14 @@
 
 
 #else
-#define n BOOST_PP_ITERATION()
 
 
     template<class Egg_Fun, class Egg_Args>
-    struct sig_aux< Egg_Fun, Egg_Args, boost::mpl::int_<n> > :
+    struct sig_aux< Egg_Fun, Egg_Args, boost::mpl::int_<BOOST_PP_ITERATION()> > :
         pstade::result_of<
-            Egg_Fun(BOOST_PP_ENUM(n, PSTADE_element, ~))
+            Egg_Fun(BOOST_PP_ENUM(BOOST_PP_ITERATION(), PSTADE_element, ~))
         >
     { };
 
 
-#undef  n
 #endif
