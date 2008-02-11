@@ -10,20 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "../bll_bindable.hpp"
+#include "../bll_sig.hpp"
 #include "./little_of.hpp"
 #include "./nullary_result_of_little.hpp"
 #include "./of_apply_little.hpp"
 #include "./strategy_of.hpp"
-
-
-namespace pstade { namespace egg {
-
-    namespace detail { }
-
-    namespace egg_detail = detail;
-
-} }
 
    
 #define PSTADE_EGG_FUNCTION_PREAMBLE() <pstade/egg/detail/function_preamble_include.hpp>

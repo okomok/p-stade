@@ -17,7 +17,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/egg/bll_bindable.hpp>
+#include <pstade/egg/bll_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
@@ -49,7 +49,10 @@ struct X_shared_values
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_SHARED_VALUES_MAX_ARITY, <pstade/oven/shared_values.hpp>))
     #include BOOST_PP_ITERATE()
 
-    #include PSTADE_EGG_BLL_BINDABLE()
+    template<class FunArgs>
+    struct sig :
+        egg::bll_sig<FunArgs>
+    { };
 };
 
 

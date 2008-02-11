@@ -15,7 +15,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
-#include "./bll_bindable.hpp"
+#include "./bll_sig.hpp"
 #include "./detail/named_arg.hpp"
 #include "./detail/unref.hpp"
 
@@ -77,7 +77,10 @@ namespace pstade { namespace egg {
             return (*this)(arg);
         }
 
-        #include PSTADE_EGG_BLL_BINDABLE()
+        template<class FunArgs>
+        struct sig :
+            bll_sig<FunArgs>
+        { };
     };
 
 

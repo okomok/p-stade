@@ -8,16 +8,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-    typedef typename egg_detail::little_of<function>::type little_type;
-    typedef typename egg_detail::strategy_of<function>::type strategy_type;
+    typedef typename pstade::egg::detail::little_of<function>::type little_type;
+    typedef typename pstade::egg::detail::strategy_of<function>::type strategy_type;
 
     typedef typename
-        egg_detail::nullary_result_of_little<little_type, function>::type
+        pstade::egg::detail::nullary_result_of_little<little_type, function>::type
     nullary_result_type;
 
-    template<class Egg_FunCall>
+    template<class PStadeEgg_FunCall>
     struct result :
-        egg_detail::of_apply_little<Egg_FunCall>
+        pstade::egg::detail::of_apply_little<PStadeEgg_FunCall>
     { };
 
     little_type const& base() const
@@ -25,4 +25,7 @@
         return this->little();
     }
 
-    #include PSTADE_EGG_BLL_BINDABLE()
+    template<class PStadeEgg_FunArgs>
+    struct sig :
+        pstade::egg::bll_sig<PStadeEgg_FunArgs>
+    { };
