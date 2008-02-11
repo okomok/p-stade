@@ -173,63 +173,33 @@ void test_automatic()
 //]
 
 
-struct my_begin_impl
-{
-    template<class Seq>
-    struct apply
-    {
-        typedef apply type;
-        typedef typename Seq::iterator result_type;
-
-        result_type operator()(Seq &seq) const
-        {
-            return seq.begin();
-        }
-    };
-
-    template<class Seq>
-    struct apply<Seq const>
-    {
-        typedef apply type;
-        typedef typename Seq::const_iterator result_type;
-
-        result_type operator()(Seq const &seq) const
-        {
-            return seq.begin();
-        }
-    };
-};
-
-typedef polymorphic<my_begin_impl>::type T_my_begin;
-T_my_begin const my_begin = PSTADE_EGG_POLYMORPHIC();
-
 //[code_polymorphic_example
-template<class X>
-struct mono_my_identity
+template<class F, class X>
+struct mono_twice
 {
-    typedef X &result_type;
+    typedef typename
+        result_of<F(typename result_of<F(X &)>::type)>::type
+    result_type;
 
-    result_type operator()(X &x) const
+    result_type operator()(F &f, X &x) const
     {
-        return x;
+        return f(f(x));
     }
 };
 
 typedef
-    polymorphic< mono_my_identity<boost::mpl::_1> >::type
-T_my_identity;
+    polymorphic< mono_twice<boost::mpl::_, boost::mpl::_> >::type
+T_twice;
 
-T_my_identity const my_identity = PSTADE_EGG_POLYMORPHIC();
-//]
+T_twice const twice = PSTADE_EGG_POLYMORPHIC();
+
+int increment(int i) { return i+1; }
 
 void test_polymorphic()
 {
-    std::string str("abc");
-    std::string const cstr("ayz");
-    result_of<T_my_begin(result_of<T_my_identity(std::string &)>::type)>::type
-        i = my_begin(my_identity(str));
-    BOOST_CHECK( *i == *my_begin(cstr) );
+    BOOST_CHECK(twice(&increment, 3) == 1+1+3);
 }
+//]
 
 
 
