@@ -75,9 +75,7 @@ namespace pstade { namespace egg {
 
 #if n == 0
         // as pipe
-            typedef
-                function<little_result, Bytag>
-            nullary_result_type;
+            typedef function<little_result, Bytag> nullary_result_type;
 
             template<class Re>
             Re call() const
