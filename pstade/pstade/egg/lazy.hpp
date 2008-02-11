@@ -37,7 +37,7 @@ namespace pstade { namespace egg {
         {
             Base m_base;
 
-            Base const& base() const
+            Base const &base() const
             {
                 return m_base;
             }
@@ -47,12 +47,12 @@ namespace pstade { namespace egg {
                 result_of<
                     typename result_of<
                         detail::T_tuple_fuse(Bind)
-                    >::type(typename result_of<detail::X_tuple_prepend<by_ref>(Args&, Base const&)>::type)
+                    >::type(typename result_of<detail::X_tuple_prepend<by_ref>(Args &, Base const &)>::type)
                 >
             { };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 return detail::tuple_fuse(Bind())(detail::X_tuple_prepend<by_ref>()(args, m_base));
             }

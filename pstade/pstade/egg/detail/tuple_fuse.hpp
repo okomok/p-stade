@@ -33,7 +33,7 @@ namespace pstade { namespace egg { namespace detail {
     {
         Base m_base;
 
-        Base const& base() const
+        Base const &base() const
         {
             return m_base;
         }
@@ -47,7 +47,7 @@ namespace pstade { namespace egg { namespace detail {
         { };
 
         template<class Re, class Tuple>
-        Re call(Tuple& t) const
+        Re call(Tuple &t) const
         {
             return call_aux<Re>(t, typename tuple_length<Tuple>::type());
         }
@@ -60,7 +60,7 @@ namespace pstade { namespace egg { namespace detail {
 
     typedef
         generator<
-            function< little_tuple_fuse_result<deduce<mpl_1, as_value> >, by_cref>,
+            function<little_tuple_fuse_result< deduce<mpl_1, as_value> >, by_cref>,
             by_value,
             X_construct_braced2<>
         >::type
@@ -85,7 +85,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
     template<class Re, class Tuple>
-    Re call_aux(Tuple& t, boost::mpl::int_<n>) const
+    Re call_aux(Tuple &t, boost::mpl::int_<n>) const
     {
         return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, boost::tuples::get<PSTADE_PP_INT_, >(t)) );
     }

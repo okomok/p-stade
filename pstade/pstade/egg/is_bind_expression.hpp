@@ -90,7 +90,7 @@ namespace pstade { namespace egg {
     { };
 
     template<class X>
-    struct is_bind_expression<X&>;
+    struct is_bind_expression<X &>;
 
 
     // predefined customizations

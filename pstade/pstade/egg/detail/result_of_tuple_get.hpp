@@ -20,7 +20,7 @@ namespace pstade { namespace egg { namespace detail {
     template<int N, class Tuple>
     struct result_of_tuple_get :
         affect<
-            Tuple&,
+            Tuple &,
             typename tuple_element<N, Tuple>::type
         >
     { };

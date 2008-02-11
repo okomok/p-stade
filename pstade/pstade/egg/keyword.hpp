@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
 
         template<class Arg>
         detail::named_arg<keyword, Arg> const
-        operator()(Arg& arg) const
+        operator()(Arg &arg) const
         {
             detail::named_arg<keyword, Arg> r = {arg};
             return r;
@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
 
         template<class Arg>
         detail::named_arg<keyword, PSTADE_DEDUCED_CONST(Arg)> const
-        operator()(Arg const& arg) const
+        operator()(Arg const &arg) const
         {
             detail::named_arg<keyword, PSTADE_DEDUCED_CONST(Arg)> r = {arg};
             return r;
@@ -65,14 +65,14 @@ namespace pstade { namespace egg {
 
         template<class Arg>
         typename disable_if<boost::is_same<Arg, keyword>, detail::named_arg<keyword, Arg> const>::type
-        operator=(Arg& arg) const
+        operator=(Arg &arg) const
         {
             return (*this)(arg);
         }
 
         template<class Arg>
         detail::named_arg<keyword, PSTADE_DEDUCED_CONST(Arg)> const
-        operator=(Arg const& arg) const
+        operator=(Arg const &arg) const
         {
             return (*this)(arg);
         }

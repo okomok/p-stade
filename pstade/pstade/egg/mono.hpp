@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
     { };
 
     template<class Signature, class Base> inline
-    typename result_of<X_mono<Signature>(Base&)>::type mono(Base base)
+    typename result_of<X_mono<Signature>(Base &)>::type mono(Base base)
     {
         return X_mono<Signature>()(base);
     }
@@ -98,7 +98,7 @@ namespace pstade { namespace egg {
 
         Base m_base;
 
-        Base const& base() const
+        Base const &base() const
         {
             return m_base;
         }

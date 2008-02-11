@@ -53,12 +53,12 @@ namespace pstade { namespace egg {
             template<class Me, class Args>
             struct apply :
                 result_of<
-                    typename result_of<T_fuse(Base&)>::type(Args&)
+                    typename result_of<T_fuse(Base &)>::type(Args &)
                 >
             { };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
 #if defined(PSTADE_EGG_HAS_THREADS)
                 scoped_lock_t lock(*m_pmtx);
@@ -73,7 +73,7 @@ namespace pstade { namespace egg {
 #endif
             { }
 
-            Base& base() const
+            Base &base() const
             {
                 return *m_pbase;
             }

@@ -35,12 +35,12 @@ namespace pstade { namespace egg {
         template<class Args>
         struct automator
         {
-            explicit automator(Args const& args) :
+            explicit automator(Args const &args) :
                 m_args(args)
             { }
 
             template<class T>
-            operator std::auto_ptr<T>& ()
+            operator std::auto_ptr<T> &()
             {
                 std::auto_ptr<T> ptr(detail::tuple_fuse(X_new<T>())(m_args));
                 m_any = ptr;
@@ -51,7 +51,7 @@ namespace pstade { namespace egg {
             Args m_args;
             any_movable m_any;
 
-            automator& operator=(automator const&);
+            automator &operator=(automator const &);
         };
 
 
@@ -66,7 +66,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 return Re(args); 
             }

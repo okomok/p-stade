@@ -47,7 +47,7 @@
     /**/
 
     #define PSTADE_EGG_CONST_REF(A) \
-        A const& \
+        A const &\
     /**/
 
 #endif

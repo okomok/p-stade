@@ -58,7 +58,7 @@ namespace pstade { namespace egg {
                 boost::fusion::joint_view<first_view_t, second_view_t>
             result_type;
 
-            result_type operator()(Tuple& t, A& a) const
+            result_type operator()(Tuple &t, A &a) const
             {
                 return result_type(
                     first_view_t(a),

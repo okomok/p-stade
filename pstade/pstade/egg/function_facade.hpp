@@ -53,9 +53,9 @@ namespace pstade { namespace egg {
         {
             function_facade<Derived, Strategy, NullaryResult> *m_pfacade;
 
-            Derived const& derived() const
+            Derived const &derived() const
             {
-                return static_cast<Derived const&>(*m_pfacade);
+                return static_cast<Derived const &>(*m_pfacade);
             }
 
         // 0ary
@@ -112,11 +112,11 @@ namespace pstade { namespace egg {
         { }
 
     // You can't copy 'm_pfacade', which refers to the other facade.
-        function_facade(function_facade const&) :
+        function_facade(function_facade const &) :
             super_t(function_facade_detail::make_<super_t>(this))
         { }
 
-        function_facade& operator=(function_facade const&)
+        function_facade &operator=(function_facade const &)
         {
             return *this;
         }
@@ -143,7 +143,7 @@ namespace pstade { namespace egg {
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         return call_little_impl<Derived const, Re>::BOOST_PP_CAT(call, n)(derived(), BOOST_PP_ENUM_PARAMS(n, a));
     }

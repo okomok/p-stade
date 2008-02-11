@@ -41,19 +41,19 @@ namespace pstade { namespace egg {
     template<class Lvalue>
     struct result_of_forward<by_perfect, Lvalue>
     {
-        typedef Lvalue& type;
+        typedef Lvalue &type;
     };
 
     template<class Lvalue>
     struct result_of_forward<by_ref, Lvalue>
     {
-        typedef Lvalue& type;
+        typedef Lvalue &type;
     };
 
     template<class Lvalue>
     struct result_of_forward<by_cref, Lvalue const>
     {
-        typedef Lvalue const& type;
+        typedef Lvalue const &type;
     };
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
@@ -77,7 +77,7 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
 
     template<class Bytag, class Lvalue> inline
     typename result_of_forward<Bytag, Lvalue>::type
-    forward(Lvalue& v)
+    forward(Lvalue &v)
     {
         return v;
     }
@@ -99,7 +99,7 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
 
     template<class Strategy, int Arity, int Index, class Lvalue> inline
     typename result_of_forwarding<Strategy, Arity, Index, Lvalue>::type
-    forwarding(Lvalue& a)
+    forwarding(Lvalue &a)
     {
         return a;
     }

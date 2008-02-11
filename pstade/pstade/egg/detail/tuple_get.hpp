@@ -38,7 +38,7 @@ namespace pstade { namespace egg { namespace detail {
         };
 
         template<class Re, class Tuple>
-        Re call(Tuple& t) const
+        Re call(Tuple &t) const
         {
             return tuple_get_impl<N, Tuple>()(t);
         }
@@ -62,7 +62,7 @@ namespace pstade { namespace egg { namespace detail {
             result_of_tuple_get<N::value, Tuple>::type
         result_type;
 
-        result_type operator()(Tuple& t) const
+        result_type operator()(Tuple &t) const
         {
             return boost::tuples::get<N::value>(t);
         }

@@ -37,12 +37,12 @@ namespace pstade { namespace egg { namespace detail {
     public:
         X m_x;
 
-        explicit dummy_assignable(X const& x) :
+        explicit dummy_assignable(X const &x) :
             m_x(x)
         { }
 
         // never called if uninitialized
-        self_t& operator=(self_t const&)
+        self_t &operator=(self_t const &)
         {
             BOOST_ASSERT(false);
             return *this;
@@ -65,12 +65,12 @@ namespace pstade { namespace egg { namespace detail {
         explicit regularized()
         { }
 
-        explicit regularized(X const& x) :
+        explicit regularized(X const &x) :
             m_opx(dummy_assignable_t(x))
         { }
 
     // assignments
-        self_t& operator=(self_t const& other)
+        self_t &operator=(self_t const &other)
         {
             m_opx.reset(); // Force uninitialized.
             m_opx = other.m_opx;
@@ -78,12 +78,12 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // dereference
-        X& operator*()
+        X &operator *()
         {
             return (*m_opx).m_x;
         }
 
-        X const& operator*() const
+        X const &operator *() const
         {
             return (*m_opx).m_x;
         }
@@ -95,18 +95,18 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // swappable
-        void swap(self_t& other)
+        void swap(self_t &other)
         {
             egg::do_swap(m_opx, other.m_opx);
         }
 
     // totally_ordered
-        bool operator< (self_t const& other) const
+        bool operator< (self_t const &other) const
         {
             return m_opx < other.m_opx;
         }
 
-        bool operator==(self_t const& other) const
+        bool operator==(self_t const &other) const
         {
             return m_opx == other.m_opx;
         }
@@ -131,13 +131,13 @@ namespace boost { namespace lambda {
     template<class X>
     struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> >
     {
-        typedef X& type;
+        typedef X &type;
     };
 
     template<class X>
     struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> const >
     {
-        typedef X const& type;
+        typedef X const &type;
     };
 
 

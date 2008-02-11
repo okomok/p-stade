@@ -20,7 +20,7 @@
         pstade::egg::detail::of_apply_little<PStadeEgg_FunCall>
     { };
 
-    little_type const& base() const
+    little_type const &base() const
     {
         return this->little();
     }

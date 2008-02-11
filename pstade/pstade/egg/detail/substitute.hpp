@@ -28,19 +28,19 @@ namespace pstade { namespace egg { namespace detail {
         template<class Me, class X>
         struct apply :
             boost::mpl::eval_if< is_bind_expression<X>,
-                boost::mpl::identity<X&>,
-                result_of<T_always_ref(X&)>
+                boost::mpl::identity<X &>,
+                result_of<T_always_ref(X &)>
             >
         { };
 
         template<class Re, class X>
-        Re call(X& x, typename enable_if< is_bind_expression<X> >::type = 0) const
+        Re call(X &x, typename enable_if< is_bind_expression<X> >::type = 0) const
         {
             return x;
         }
 
         template<class Re, class X>
-        Re call(X& x, typename disable_if<is_bind_expression<X> >::type = 0) const
+        Re call(X &x, typename disable_if<is_bind_expression<X> >::type = 0) const
         {
             return always_ref(x);
         }

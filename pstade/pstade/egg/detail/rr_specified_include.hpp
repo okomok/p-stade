@@ -39,7 +39,7 @@
     typename result_of<PSTADE_op<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_params, X)>(
         BOOST_PP_ENUM_PARAMS(n, A)
     )>::type
-    PSTADE_name(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a))
+    PSTADE_name(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &&a))
     {
         return PSTADE_op<PSTADE_PP_SEQ_ENUM_ARGS(PSTADE_params, X)>()(
             BOOST_PP_ENUM(n, PSTADE_forward, A)

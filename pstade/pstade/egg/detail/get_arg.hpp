@@ -50,10 +50,10 @@ namespace pstade { namespace egg { namespace detail {
         template<class Arg, class Iter>
         struct get_aux
         {
-            typedef Arg& result_type;
+            typedef Arg &result_type;
 
             template<class PrecedingArgs>
-            result_type operator()(Iter it, PrecedingArgs& pargs) const
+            result_type operator()(Iter it, PrecedingArgs &pargs) const
             {
                 unused(pargs);
                 return boost::fusion::deref(it).m_arg;
@@ -75,7 +75,7 @@ namespace pstade { namespace egg { namespace detail {
             typedef typename get_aux_t::result_type result_type;
 
             template<class PrecedingArgs>
-            result_type operator()(Iter it, PrecedingArgs& pargs) const
+            result_type operator()(Iter it, PrecedingArgs &pargs) const
             {
                 return get_aux_t()(it, pargs);
             }
@@ -102,7 +102,7 @@ namespace pstade { namespace egg { namespace detail {
         };
 
         template<class Re, class NamedArgs, class PrecedingArgs>
-        Re call(NamedArgs& nargs, PrecedingArgs& pargs) const
+        Re call(NamedArgs &nargs, PrecedingArgs &pargs) const
         {
             typedef apply<void, NamedArgs, PrecedingArgs> apply_;
 

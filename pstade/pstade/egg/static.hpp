@@ -31,12 +31,12 @@ namespace pstade { namespace egg {
             template<class Me, class Args>
             struct apply :
                 result_of<
-                    typename result_of<detail::T_tuple_fuse(Fun)>::type(Args&)
+                    typename result_of<detail::T_tuple_fuse(Fun)>::type(Args &)
                 >
             { };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 return detail::tuple_fuse(Fun())(args);
             }

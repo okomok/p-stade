@@ -71,11 +71,11 @@ namespace pstade { namespace egg {
 
     template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
     struct apply<Me, Base BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)> :
-        result_of<BOOST_PP_CAT(X_bind, n)<NullaryResult>(Base& BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg))>
+        result_of<BOOST_PP_CAT(X_bind, n)<NullaryResult>(Base & BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg))>
     { };
 
     template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-    Re call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
+    Re call(Base &base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, &arg)) const
     {
         return BOOST_PP_CAT(X_bind, n)<NullaryResult>()(base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg));
     }

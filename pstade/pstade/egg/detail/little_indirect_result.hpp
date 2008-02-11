@@ -30,7 +30,7 @@ namespace pstade { namespace egg { namespace detail {
     struct little_indirect_result
     {
         typedef typename
-            result_of<T_dereference(Ptr const&)>::type
+            result_of<T_dereference(Ptr const &)>::type
         reference;
 
         typedef typename
@@ -78,7 +78,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         return (*m_ptr)(PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }

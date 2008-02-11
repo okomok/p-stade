@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
         typedef bool result_type;
 
         template<class CharT>
-        bool operator()(CharT ch, std::ctype_base::mask m, std::locale const& loc) const
+        bool operator()(CharT ch, std::ctype_base::mask m, std::locale const &loc) const
         {
             return std::use_facet< std::ctype<CharT> >(loc).is(m, ch);
         }
@@ -61,7 +61,7 @@ namespace pstade { namespace egg {
         typedef bool result_type;
 
         template<class CharT>
-        bool operator()(CharT ch, std::locale const& loc) const
+        bool operator()(CharT ch, std::locale const &loc) const
         {
             return std::use_facet< std::ctype<CharT> >(loc).is(std::ctype_base::name, ch);
         }

@@ -106,7 +106,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class A1, class A2>
-            Re call(A1& a1, A2& a2) const
+            Re call(A1 &a1, A2 &a2) const
             {
                 return a1 op() a2;
             }

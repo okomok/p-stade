@@ -44,7 +44,7 @@
     #define PSTADE_param(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
-    #define PSTADE_ac0(A) A&
+    #define PSTADE_ac0(A) A &
     #define PSTADE_ac1(A) PSTADE_EGG_CONST_REF(A)
         #define  PSTADE_PP_ARRAY_ITERATION_PARAMS (PSTADE_arities, <pstade/egg/detail/specified_include.hpp>)
         #include PSTADE_PP_ARRAY_ITERATE()

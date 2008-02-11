@@ -30,7 +30,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // lvalue
     template<class A>
-    struct unref<by_perfect, A&>
+    struct unref<by_perfect, A &>
     {
         typedef A type;
     };
@@ -53,7 +53,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // lvalue
     template<class A>
-    struct unref<by_cref, A&>
+    struct unref<by_cref, A &>
     {
         typedef A const type;
     };

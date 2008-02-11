@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
         typedef void result_type;
 
         template<class T>
-        void operator()(T& a, T& b) const
+        void operator()(T &a, T &b) const
         {
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
             using namespace std;

@@ -21,25 +21,25 @@ namespace boost { namespace lambda {
     template<class T>
     struct return_type_1< other_action<contentsof_action>, boost::optional<T> >
     {
-        typedef T& type;
+        typedef T &type;
     };
 
     template<class T>
     struct return_type_1< other_action<contentsof_action>, boost::optional<T> const >
     {
-        typedef T const& type;
+        typedef T const &type;
     };
 
     template<class T>
-    struct return_type_1< other_action<contentsof_action>, boost::optional<T&> >
+    struct return_type_1< other_action<contentsof_action>, boost::optional<T &> >
     {
-        typedef T& type;
+        typedef T &type;
     };
 
     template<class T>
-    struct return_type_1< other_action<contentsof_action>, boost::optional<T&> const >
+    struct return_type_1< other_action<contentsof_action>, boost::optional<T &> const >
     {
-        typedef T& type;
+        typedef T &type;
     };
 
 

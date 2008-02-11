@@ -127,7 +127,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         typedef typename boost::mpl::apply2<construct_t, Re, Strategy>::type cons_t;
         return cons_t()(BOOST_PP_ENUM_PARAMS(n, a));

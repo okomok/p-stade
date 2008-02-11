@@ -32,7 +32,7 @@ namespace pstade { namespace egg {
         {
             Base m_base;
 
-            Base const& base() const
+            Base const &base() const
             {
                 return m_base;
             }
@@ -48,7 +48,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class A0, class A1>
-            Re call(A0& a0, A1& a1) const
+            Re call(A0 &a0, A1 &a1) const
             {
                 return m_base(
                     egg::forwarding<Strategy, 2, 1>(a1),

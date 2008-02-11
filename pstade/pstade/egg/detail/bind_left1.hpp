@@ -105,7 +105,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         return m_func(
             m_bound,

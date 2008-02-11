@@ -15,12 +15,12 @@
 //
 // Works around a msvc-7.1 bug;
 // msvc-7.1 complains about the "const A" syntax of:
-//     template<class A> ...A const... foo(A& a) { }
+//     template<class A> ...A const... foo(A &a) { }
 // if A is deduced as array type, which "../deduced_const.hpp" using 'add_const' easily works around.
 // But, only in namespace scope, msvc-7.1 (fairly infrequently) fails to const-qualify 'A'
 // in 'boost::result_of' parameter types if a metafunction is used:
 //     template<class A> // 'add_const' below is ignored.
-//     typename boost::result_of<F(typename add_const<A>::type&)>::type foo(A& a, F) { }
+//     typename boost::result_of<F(typename add_const<A>::type &)>::type foo(A &a, F) { }
 // So, we must delay to write 'const' for array types, then instantiate 'result_of' using 'const'.
 // In other words, this bug introduces "Metafunction Forwarding Problem".
 // Fortunately, this bug doesn't occur in class scope.
@@ -63,7 +63,7 @@ namespace pstade { namespace egg { namespace detail_vc7_1 {
     // Delay to const-qualify for array type.
     template<class Fun, class A0>
     struct result_of1< Fun, const_ref<A0> > :
-        pstade::result_of<Fun(A0 const&)> // Write 'const' without metafuntion for 'result_of'.
+        pstade::result_of<Fun(A0 const &)> // Write 'const' without metafuntion for 'result_of'.
     { };
 
 
@@ -83,7 +83,7 @@ namespace pstade { namespace egg { namespace detail_vc7_1 {
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
     #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit)
     #define PSTADE_c0
-    #define PSTADE_c1 const&
+    #define PSTADE_c1 const &
     #define PSTADE_ac0(A) A
     #define PSTADE_ac1(A) const_ref<A>
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/vc7_1_result_of.hpp>))

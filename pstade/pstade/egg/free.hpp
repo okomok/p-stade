@@ -66,7 +66,7 @@ namespace pstade { namespace egg {
 
         base_t m_base;
 
-        base_t const& base() const
+        base_t const &base() const
         {
             return m_base;
         }
@@ -77,9 +77,9 @@ namespace pstade { namespace egg {
         struct apply :
             boost::mpl::eval_if< is_convertible<U, T const *>,
                 affect<typename boost::remove_pointer<typename boost::remove_cv<U>::type>::type &, R>,
-                boost::mpl::eval_if< is_convertible<U, T const&>,
-                    affect<U&, R>,
-                    boost::mpl::identity<R const&> // unknown
+                boost::mpl::eval_if< is_convertible<U, T const &>,
+                    affect<U &, R>,
+                    boost::mpl::identity<R const &> // unknown
                 >
             >
         { };
@@ -111,8 +111,8 @@ namespace pstade { namespace egg {
 
     // unknown
         template<class Re, class U>
-        Re call(boost::type<Re>, U const& u,
-            typename disable_if< is_convertible<U const&, T const&> >::type = 0) const
+        Re call(boost::type<Re>, U const &u,
+            typename disable_if< is_convertible<U const &, T const &> >::type = 0) const
         {
             PSTADE_EGG_GET_POINTER_PREAMBLE()
             return (get_pointer(u)->*m_base);

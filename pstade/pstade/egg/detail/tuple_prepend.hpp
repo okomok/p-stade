@@ -40,7 +40,7 @@ namespace pstade { namespace egg { namespace detail {
         };
 
         template<class Re, class Tuple, class A>
-        Re call(Tuple& t, A& a) const
+        Re call(Tuple &t, A &a) const
         {
             return tuple_prepend_impl<Bytag, Tuple, A>()(t, a);
         }
@@ -67,7 +67,7 @@ namespace pstade { namespace egg { namespace detail {
             >
         result_type;
 
-        result_type operator()(Tuple& t, A& a) const
+        result_type operator()(Tuple &t, A &a) const
         {
             return result_type(a, t);
         }

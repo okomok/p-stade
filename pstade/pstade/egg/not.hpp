@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
         {
             Base m_base;
 
-            Base const& base() const
+            Base const &base() const
             {
                 return m_base;
             }
@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 return !detail::tuple_fuse(egg::return_<bool>(m_base))(args);
             }

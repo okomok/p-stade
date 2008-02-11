@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
 
         Little m_little;
 
-        Little const& little() const 
+        Little const &little() const 
         {
             return m_little;
         }
@@ -54,7 +54,7 @@ namespace pstade { namespace egg {
         Little const BOOST_PP_COMMA_IF(n)
         PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::remove_reference<A, >::type)
     >::type
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &&a)) const
     {
         // Neither egg::forward nor std::forward is used so that LittleFunction can take lvalues.
         return call_little_impl<Little const,

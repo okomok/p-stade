@@ -23,7 +23,7 @@ namespace pstade { namespace egg {
         typedef bool result_type;
 
         template<class X, class Y>
-        bool operator()(X const& x, Y const& y) const
+        bool operator()(X const &x, Y const &y) const
         {
             return boost::addressof(x) == boost::addressof(y);
         }

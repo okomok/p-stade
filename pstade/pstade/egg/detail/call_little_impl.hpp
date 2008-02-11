@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
 
 
     PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
-    static Re BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    static Re BOOST_PP_CAT(call, n)(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
     {
         return little.template call<Re>(BOOST_PP_ENUM_PARAMS(n, a));
     }

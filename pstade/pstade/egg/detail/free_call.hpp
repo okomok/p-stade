@@ -35,13 +35,13 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Re, class To, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
-    Re free_call_aux(Ptr ptr, From& from, To const *    BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    Re free_call_aux(Ptr ptr, From &from, To const *   BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
     {
         return (from.*ptr)(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
     template<class Re, class To, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
-    Re free_call_aux( Ptr ptr, From& from, void const * BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    Re free_call_aux(Ptr ptr, From &from, void const * BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
     {
         PSTADE_EGG_GET_POINTER_PREAMBLE()
         return (get_pointer(from)->*ptr)(BOOST_PP_ENUM_PARAMS(n, a));
@@ -49,7 +49,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Re, class To, class Ptr, class From BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
-    Re free_call(Ptr ptr, From& from BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    Re free_call(Ptr ptr, From &from BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
     {
         return detail::free_call_aux<Re, To>(ptr, from, &from BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }

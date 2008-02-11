@@ -33,7 +33,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class X>
-            Re call(X& x) const
+            Re call(X &x) const
             {
                 return egg::forwarding<Strategy const, 1, 0>(x);
             }

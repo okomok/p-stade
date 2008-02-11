@@ -107,7 +107,7 @@ namespace pstade { namespace egg {
         typedef MA result_type;
 
         template<class A>
-        result_type operator()(A const& a) const
+        result_type operator()(A const &a) const
         {
             typedef pstade_egg_extension::Monad<MA> extM_t;
             return extM_t().template unit<MA>(a);
@@ -120,7 +120,7 @@ namespace pstade { namespace egg {
     {
         typedef MA result_type;
 
-        result_type operator()(std::string const& s) const
+        result_type operator()(std::string const &s) const
         {
             typedef pstade_egg_extension::Monad<MA> extM_t;
             return extM_t().template fail<MA>(s);
@@ -159,7 +159,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class MA, class A_MB>
-            Re call(boost::type<Re>, MA const& m, A_MB& f) const
+            Re call(boost::type<Re>, MA const &m, A_MB &f) const
             {
                 typedef ext::Monad<MA> extM_t;
                 return extM_t().template bind<Re>(m, f);
@@ -173,7 +173,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class A, class A_MB>
-            Re call(boost::type<Re>, wrapper<A> const& w, A_MB& f) const
+            Re call(boost::type<Re>, wrapper<A> const &w, A_MB &f) const
             {
                 typedef ext::Monad<Re> extM_t_;
                 typedef typename extM_t_::template wrap<A>::type MA_t;
@@ -196,7 +196,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Re, class MA, class MB>
-            Re call(MA& m, MB& k) const
+            Re call(MA &m, MB &k) const
             {
                 typedef ext::Monad<Re> extM_t_;
                 return extM_t_().template bind_<Re>(m, k);
@@ -215,7 +215,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Re, class A>
-            Re call(A& a) const
+            Re call(A &a) const
             {
                 Re r = { boost::addressof(a) };
                 return r;
@@ -255,14 +255,14 @@ namespace pstade_egg_extension {
     struct Monad_default
     {
         template<class MB, class MA>
-        MB bind_(MA const& m, MB const& k)
+        MB bind_(MA const &m, MB const &k)
         {
             namespace egg = pstade::egg;
             return egg::monad_bind(m, egg::always(k));
         }
 
         template<class MA>
-        MA fail(std::string const& s)
+        MA fail(std::string const &s)
         {
             throw pstade::egg::monad_failure(s);
         }

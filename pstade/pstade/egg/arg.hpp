@@ -125,7 +125,7 @@
         { };
 
         template<class Re, BOOST_PP_ENUM_PARAMS(m, class A)>
-        Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
+        Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, &a)) const
         {
             return egg::forwarding<Strategy const, m, BOOST_PP_DEC(n)>(BOOST_PP_CAT(a, BOOST_PP_DEC(n)));
         }

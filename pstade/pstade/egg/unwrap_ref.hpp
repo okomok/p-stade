@@ -27,23 +27,23 @@ namespace pstade { namespace egg {
             template<class Me, class A>
             struct apply
             {
-                typedef A& type;
+                typedef A &type;
             };
 
             template<class Me, class T>
             struct apply< Me, boost::reference_wrapper<T> >
             {
-                typedef T& type;
+                typedef T &type;
             };
 
             template<class Me, class T>
             struct apply< Me, boost::reference_wrapper<T> const >
             {
-                typedef T& type;
+                typedef T &type;
             };
 
             template<class Re, class A>
-            Re call(A& a) const
+            Re call(A &a) const
             {
                 return a;
             }

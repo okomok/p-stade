@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
         {
             Base m_base;
 
-            Base const& base() const
+            Base const &base() const
             {
                 return m_base;
             }
@@ -93,7 +93,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class A0>
-            Re call(A0& a0) const
+            Re call(A0 &a0) const
             {
                 return m_base(egg::forward<Bytag>(a0));
             }
@@ -105,12 +105,12 @@ namespace pstade { namespace egg {
             template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
                 result_of<
-                    typename result_of<X_pipable<Bytag, Bytag>(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+                    typename result_of<X_pipable<Bytag, Bytag>(Base const &)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
                 >
             { };
 
             template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
-            Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+            Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
             {
                 return X_pipable<Bytag, Bytag>()(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
             }
@@ -122,7 +122,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
-            Re call(O& o, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+            Re call(O &o, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
             {
                 return m_base(egg::forward<Bytag>(o), PSTADE_EGG_FORWARDING_ARGS(n, a, Bytag const));
             }
@@ -140,15 +140,15 @@ namespace pstade { namespace egg {
         //
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of<Base(O&)> >::type
-        operator|(O& o, function<little_result<Base, Bytag>, Bytag> pi)
+        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of<Base(O &)> >::type
+        operator|(O &o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
         }
 
         template<class O, class Base, class Bytag> inline
         typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of<Base(PSTADE_DEDUCED_CONST(O)&)> >::type
-        operator|(O const& o, function<little_result<Base, Bytag>, Bytag> pi)
+        operator|(O const &o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
         }
@@ -166,15 +166,15 @@ namespace pstade { namespace egg {
         //
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of<Base(O&)> >::type
-        operator|=(function<little_result<Base, Bytag>, Bytag> pi, O& o)
+        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of<Base(O &)> >::type
+        operator|=(function<little_result<Base, Bytag>, Bytag> pi, O &o)
         {
             return pi.little().m_base(o);
         }
 
         template<class O, class Base, class Bytag> inline
         typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of<Base(PSTADE_DEDUCED_CONST(O)&)> >::type
-        operator|=(function<little_result<Base, Bytag>, Bytag> pi, O const& o)
+        operator|=(function<little_result<Base, Bytag>, Bytag> pi, O const &o)
         {
             return pi.little().m_base(o);
         }

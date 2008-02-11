@@ -54,7 +54,7 @@ namespace pstade { namespace egg {
                 >::type
             result_type;
 
-            result_type operator()(Tuple& t) const
+            result_type operator()(Tuple &t) const
             {
                 namespace fusion = boost::fusion;
                 return fusion::deref(fusion::advance<N>(fusion::begin(t)));
@@ -73,10 +73,10 @@ namespace pstade { namespace egg {
         struct pair_get_aux<0, Pair>
         {
             typedef typename
-                affect<Pair&, typename Pair::first_type>::type
+                affect<Pair &, typename Pair::first_type>::type
             result_type;
 
-            result_type operator()(Pair& p) const
+            result_type operator()(Pair &p) const
             {
                 return p.first;
             }
@@ -86,10 +86,10 @@ namespace pstade { namespace egg {
         struct pair_get_aux<1, Pair>
         {
             typedef typename
-                affect<Pair&, typename Pair::second_type>::type
+                affect<Pair &, typename Pair::second_type>::type
             result_type;
 
-            result_type operator()(Pair& p) const
+            result_type operator()(Pair &p) const
             {
                 return p.second;
             }

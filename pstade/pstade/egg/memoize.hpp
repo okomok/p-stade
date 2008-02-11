@@ -40,19 +40,19 @@ namespace pstade { namespace egg {
             template<class Me, class Base, class Fixed, class Arg>
             struct apply :
                 result_of<
-                    typename result_of<Base(Fixed const&)>::type(Arg const&)
+                    typename result_of<Base(Fixed const &)>::type(Arg const &)
                 >
             { };
 
             template<class Re, class Base, class Fixed, class Arg>
-            Re call(Base& base, Fixed& fixed, Arg const& arg) const
+            Re call(Base &base, Fixed &fixed, Arg const &arg) const
             {
                 typedef std::map<Arg, Re> map_t;
 
                 if (m_pany->empty())
                     *m_pany = map_t();
 
-                map_t& m = boost::any_cast<map_t&>(*m_pany);
+                map_t &m = boost::any_cast<map_t &>(*m_pany);
 
                 typename map_t::iterator it = m.find(arg);
                 if (it != m.end())
@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
                 result_of<
                     T_fix(
                         typename result_of<
-                            typename result_of<T_curry3(wrap_)>::type(typename result_of<T_curry2(Base_&)>::type)
+                            typename result_of<T_curry3(wrap_)>::type(typename result_of<T_curry2(Base_ &)>::type)
                         >::type
                     )
                 >

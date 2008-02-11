@@ -31,12 +31,12 @@ namespace pstade { namespace egg {
     struct X_from_any_to;
 
     template<class T>
-    struct X_from_any_to< boost::optional<T&> >
+    struct X_from_any_to< boost::optional<T &> >
     {
-        typedef boost::optional<T&> result_type;
+        typedef boost::optional<T &> result_type;
 
         template<class Any>
-        result_type operator()(Any const& a) const
+        result_type operator()(Any const &a) const
         {
             if (a.template contains<T>())
                 return a.template content<T>();
@@ -56,11 +56,11 @@ namespace pstade { namespace egg {
     struct X_from_boost_any_to;
 
     template<class T>
-    struct X_from_boost_any_to< boost::optional<T&> >
+    struct X_from_boost_any_to< boost::optional<T &> >
     {
-        typedef boost::optional<T&> result_type;
+        typedef boost::optional<T &> result_type;
 
-        result_type operator()(boost::any& a) const
+        result_type operator()(boost::any &a) const
         {
             if (T *p = boost::any_cast<T>(&a))
                 return *p;
@@ -68,7 +68,7 @@ namespace pstade { namespace egg {
                 return boost::none;
         }
 
-        result_type operator()(boost::any const& a) const
+        result_type operator()(boost::any const &a) const
         {
             if (T *p = boost::any_cast<T>(&a))
                 return *p;
@@ -88,12 +88,12 @@ namespace pstade { namespace egg {
     struct X_from_poly_to;
 
     template<class T>
-    struct X_from_poly_to< boost::optional<T&> >
+    struct X_from_poly_to< boost::optional<T &> >
     {
-        typedef boost::optional<T&> result_type;
+        typedef boost::optional<T &> result_type;
 
         template<class O>
-        result_type operator()(poly<O>& p) const
+        result_type operator()(poly<O> &p) const
         {
             if (p.template contains<T>())
                 return p.template content<T>();
@@ -102,7 +102,7 @@ namespace pstade { namespace egg {
         }
 
         template<class O>
-        result_type operator()(poly<O> const& p) const
+        result_type operator()(poly<O> const &p) const
         {
             if (p.template contains<T>())
                 return p.template content<T>();

@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
             Args m_args;
 
             template<class To>
-            To& get() const
+            To &get() const
             {
                 typedef typename
                     boost::mpl::apply2<Expr, To, Strategy>::type
@@ -77,7 +77,7 @@ namespace pstade { namespace egg {
             }
 
             template<class To>
-            operator To&() const
+            operator To &() const
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
                 // Thanks to Sergey Shandar.
                 // In fact, SFINAE in exception-specification isn't allowed.
@@ -99,14 +99,14 @@ namespace pstade { namespace egg {
                     From<
                         Expr, Strategy,
                         typename result_of<
-                            typename result_of<detail::T_tuple_fuse(X_pack<Strategy>)>::type(Args&)
+                            typename result_of<detail::T_tuple_fuse(X_pack<Strategy>)>::type(Args &)
                         >::type
                     > const
                 type;
             };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 Re r = { detail::tuple_fuse(X_pack<Strategy>())(args) };
                 return r;

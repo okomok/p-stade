@@ -21,7 +21,7 @@ namespace pstade { namespace egg {
     // ADL customization point.
     // Note this is in the same namespace as below for a msvc bug.
     template<class From, class To> inline
-    void pstade_egg_move_assign(From& from, To& to)
+    void pstade_egg_move_assign(From &from, To &to)
     {
         do_swap(to, from);
     }
@@ -33,9 +33,9 @@ namespace pstade { namespace egg {
 
         // `from` can never be a const-qualified object.
         template<class From, class To> inline
-        void operator()(From const& from, To& to) const
+        void operator()(From const &from, To &to) const
         {
-            pstade_egg_move_assign(const_cast<From&>(from), to);
+            pstade_egg_move_assign(const_cast<From &>(from), to);
         }
     };
 

@@ -37,12 +37,12 @@ namespace pstade { namespace egg {
                 result_of<
                     typename result_of<
                         detail::T_tuple_fuse(typename detail::result_of_tuple_get<0, Args>::type)
-                    >::type(typename result_of<detail::X_tuple_drop_c<1, by_ref>(Args&)>::type)
+                    >::type(typename result_of<detail::X_tuple_drop_c<1, by_ref>(Args &)>::type)
                 >
             { };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 return detail::tuple_fuse(boost::tuples::get<0>(args))(detail::X_tuple_drop_c<1, by_ref>()(args));
             }

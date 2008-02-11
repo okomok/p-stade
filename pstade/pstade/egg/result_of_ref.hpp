@@ -15,7 +15,7 @@
 // What:
 //
 // Boost.ResultOf doesn't support:
-//     result_of<F&(int,...)>::type
+//     result_of<F &(int,...)>::type
 // A target function sometimes may be a reference.
 
 

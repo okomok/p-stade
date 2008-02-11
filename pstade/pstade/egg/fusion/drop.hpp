@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
                 >
             result_type;
 
-            result_type operator()(Tuple& t) const
+            result_type operator()(Tuple &t) const
             {
                 return result_type(
                     boost::fusion::advance<N>(boost::fusion::begin(t)),

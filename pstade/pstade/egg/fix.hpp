@@ -43,15 +43,15 @@ namespace pstade { namespace egg {
                     typename result_of<
                         Base(
                             typename result_of<
-                                typename result_of<T_curry2(function<little_uncurried>)>::type(Base&)
+                                typename result_of<T_curry2(function<little_uncurried>)>::type(Base &)
                             >::type
                         )
-                    >::type(Arg&)
+                    >::type(Arg &)
                 >
             { };
 
             template<class Re, class Base, class Arg>
-            Re call(Base& base, Arg& arg) const
+            Re call(Base &base, Arg &arg) const
             {
                 // Base must be curried in advance.
                 return base

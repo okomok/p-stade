@@ -66,7 +66,7 @@ namespace pstade { namespace egg {
         template<class A>
         struct apply
         {
-            typedef A& type;
+            typedef A &type;
         };
     };
 
@@ -75,7 +75,7 @@ namespace pstade { namespace egg {
         template<class A>
         struct apply
         {
-            typedef A const& type;
+            typedef A const &type;
         };
     };
 
@@ -106,13 +106,13 @@ namespace pstade { namespace egg {
         template<class T>
         struct apply< boost::reference_wrapper<T> >
         {
-            typedef T& type;
+            typedef T &type;
         };
 
         template<class T>
         struct apply< boost::reference_wrapper<T> const >
         {
-            typedef T& type;
+            typedef T &type;
         };
     };
 

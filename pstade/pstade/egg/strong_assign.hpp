@@ -28,11 +28,11 @@ namespace pstade { namespace egg {
             template<class Me, class To, class From>
             struct apply
             {
-                typedef To& type;
+                typedef To &type;
             };
 
             template<class Re, class To, class From>
-            Re call(To& to, From& from) const
+            Re call(To &to, From &from) const
             {
                 To tmp = from;
                 do_swap(to, tmp);

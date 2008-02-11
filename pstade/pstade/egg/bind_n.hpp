@@ -82,7 +82,7 @@
             Base m_base;
             BOOST_PP_REPEAT(n, PSTADE_arg, ~)
 
-            Base const& base() const
+            Base const &base() const
             {
                 return m_base;
             }
@@ -150,7 +150,7 @@
             { };
 
             template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-            Re call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
+            Re call(Base &base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, &arg)) const
             {
                 Re r = PSTADE_EGG_BIND_L base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg) PSTADE_EGG_BIND_R;
                 return r;
@@ -180,7 +180,7 @@
 
         struct nullary_result :
             result_of_ref<
-                typename result_of_ref<typename result_of_ref<detail::T_substitute(Base&)>::type()>::type // `Base const` in Boost.Bind.
+                typename result_of_ref<typename result_of_ref<detail::T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
                 (
                     BOOST_PP_ENUM(n, PSTADE_meta_substitute, ~)
                 )
@@ -198,7 +198,7 @@
         template<class Me, BOOST_PP_ENUM_PARAMS(m, class A)>
         struct apply<Me, BOOST_PP_ENUM_PARAMS(m, A)> :
             result_of_ref<
-                typename result_of_ref<typename result_of_ref<detail::T_substitute(Base&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
+                typename result_of_ref<typename result_of_ref<detail::T_substitute(Base &)>::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
                 (
                     BOOST_PP_ENUM(n, PSTADE_meta_substitute, ~)
                 )
@@ -208,7 +208,7 @@
     #endif
 
         template<class Re BOOST_PP_ENUM_TRAILING_PARAMS(m, class A)>
-        Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
+        Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, &a)) const
         {
             return
                 detail::substitute(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.

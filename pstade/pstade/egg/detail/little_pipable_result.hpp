@@ -49,8 +49,8 @@ namespace pipable_operators {
     struct result_of_output :
         result_of<
             typename result_of<
-                T_tuple_fuse(Base const&)
-            >::type(typename result_of<X_tuple_prepend<by_ref>(Args const&, O&)>::type)
+                T_tuple_fuse(Base const &)
+            >::type(typename result_of<X_tuple_prepend<by_ref>(Args const &, O &)>::type)
         >
     { };
 
@@ -63,14 +63,14 @@ namespace pipable_operators {
         Base m_base;
         Args m_args;
 
-        Base const& base() const
+        Base const &base() const
         {
             return m_base;
         }
 
         template<class O>
         typename result_of_output<O, Base, Args>::type
-        output(O& o) const
+        output(O &o) const
         {
             return tuple_fuse(m_base)(X_tuple_prepend<by_ref>()(m_args, o));
         }
@@ -112,14 +112,14 @@ namespace pipable_operators {
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
-    operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi)
+    operator|(O &o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
         return pi.little().output(o);
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, Args> >::type
-    operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi)
+    operator|(O const &o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
         return pi.little().output(o);
     }
@@ -127,7 +127,7 @@ namespace pipable_operators {
     // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
-    operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi)
+    operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
         // For movable types, we can't turn `o` into const-reference.
         return pi.little().output(o);
@@ -139,14 +139,14 @@ namespace pipable_operators {
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi, O& o)
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O &o)
     {
         return pi.little().output(o);
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, Args> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi, O const& o)
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O const &o)
     {
         return pi.little().output(o);
     }
@@ -154,7 +154,7 @@ namespace pipable_operators {
     // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if< boost::is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const& pi, O o)
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O o)
     {
         return pi.little().output(o);
     }
@@ -183,7 +183,7 @@ namespace pipable_operators {
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         Re r = { { m_base, X_pack<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
         return r;

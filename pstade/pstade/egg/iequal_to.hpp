@@ -23,7 +23,7 @@ namespace pstade { namespace egg {
         typedef bool result_type;
 
         template<class CharT>
-        bool operator()(CharT ch1, CharT ch2, std::locale const& loc) const
+        bool operator()(CharT ch1, CharT ch2, std::locale const &loc) const
         {
             return std::tolower(ch1, loc) == std::tolower(ch2, loc);
         }

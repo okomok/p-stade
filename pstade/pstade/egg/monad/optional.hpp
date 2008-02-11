@@ -37,7 +37,7 @@ namespace pstade_egg_extension {
         };
 
         template<class MB, class MA, class A_MB>
-        MB bind(MA const& m, A_MB f)
+        MB bind(MA const &m, A_MB f)
         {
             if (m)
                 return f(*m);
@@ -46,7 +46,7 @@ namespace pstade_egg_extension {
         }
 
         template<class MA, class A>
-        MA unit(A const& a)
+        MA unit(A const &a)
         {
             return MA(a);
         }

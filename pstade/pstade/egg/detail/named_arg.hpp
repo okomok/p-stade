@@ -21,7 +21,7 @@ namespace pstade { namespace egg { namespace detail {
     {
         typedef Keyword keyword_type;
         typedef Arg arg_type;
-        Arg& m_arg;
+        Arg &m_arg;
     };
 
 

@@ -46,14 +46,14 @@ namespace pstade { namespace egg {
                 result_of<
                     F const(
                         typename result_of<
-                            typename result_of<detail::T_tuple_fuse(G const&)>::type(Args&)
+                            typename result_of<detail::T_tuple_fuse(G const &)>::type(Args &)
                         >::type
                     )
                 >
             { };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 return m_f(detail::tuple_fuse(m_g)(args));
             }

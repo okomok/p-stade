@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
         typedef To result_type;
 
         template<class From>
-        To operator()(From const& from) const
+        To operator()(From const &from) const
         {
             return boost::lexical_cast<To>(from);
         }

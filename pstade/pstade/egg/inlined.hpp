@@ -112,7 +112,7 @@ namespace pstade { namespace egg {
 
         // member function pointers
         template<class Ptr> inline
-        typename lazy_disable_if<boost::is_pointer<Ptr>, result_of<T_free_(Ptr&)> >::type
+        typename lazy_disable_if<boost::is_pointer<Ptr>, result_of<T_free_(Ptr &)> >::type
         adapt(Ptr ptr)
         {
             return free_(ptr);

@@ -39,15 +39,15 @@ namespace pstade { namespace egg {
         typedef Base result_type;
 
         template<class Adapted>
-        Base operator()(Adapted& ad,
+        Base operator()(Adapted &ad,
             typename enable_if<
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
                 boost::mpl::and_<
-                    is_convertible<Adapted&, Base>,
+                    is_convertible<Adapted &, Base>,
                     boost::mpl::not_< boost::is_const<Adapted> >
                 >
 #else
-                is_convertible<Adapted&, Base>
+                is_convertible<Adapted &, Base>
 #endif
             >::type = 0) const
         {
@@ -55,15 +55,15 @@ namespace pstade { namespace egg {
         }
 
         template<class Adapted>
-        Base operator()(Adapted const& ad,
-            typename enable_if< is_convertible<Adapted const&, Base> >::type = 0) const
+        Base operator()(Adapted const &ad,
+            typename enable_if< is_convertible<Adapted const &, Base> >::type = 0) const
         {
             return ad;
         }
 
         template<class Adapted>
-        Base operator()(Adapted const& ad,
-            typename disable_if<is_convertible<Adapted const&, Base> >::type = 0) const
+        Base operator()(Adapted const &ad,
+            typename disable_if<is_convertible<Adapted const &, Base> >::type = 0) const
         {
             return (*this)(ad.base());
         }

@@ -65,7 +65,7 @@ namespace pstade { namespace egg { namespace detail {
         Base m_base;
         BOOST_PP_REPEAT(n, PSTADE_arg, ~)
 
-        Base const& base() const
+        Base const &base() const
         {
             return m_base;
         }
@@ -75,13 +75,13 @@ namespace pstade { namespace egg { namespace detail {
             result_of<
                 Base const(
                     PSTADE_PP_ENUM_PARAMS_WITH(n, typename unbound<Arg, >::type),
-                    ArgZ&
+                    ArgZ &
                 )
             >
         { };
 
         template<class Re, class ArgZ>
-        Re call(ArgZ& argZ) const
+        Re call(ArgZ &argZ) const
         {
             return m_base(
                 BOOST_PP_ENUM_PARAMS(n, m_arg),
@@ -108,7 +108,7 @@ namespace pstade { namespace egg { namespace detail {
         };
 
         template<class Re, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
-        Re call(Base& base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+        Re call(Base &base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
         {
             Re r = { { base, BOOST_PP_ENUM_PARAMS(n, a) } };
             return r;

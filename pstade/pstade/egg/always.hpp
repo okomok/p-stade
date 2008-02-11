@@ -48,7 +48,7 @@ namespace pstade { namespace egg {
             { };
 
             template<class Re, class Args>
-            Re call(Args& ) const
+            Re call(Args &) const
             {
                 return m_bound;
             }
@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
             };
 
             template<class Re, class Args>
-            Re call(Args& ) const
+            Re call(Args &) const
             {
                 return m_ref;
             }

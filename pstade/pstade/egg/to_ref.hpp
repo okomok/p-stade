@@ -29,11 +29,11 @@ namespace pstade { namespace egg {
             template<class Me, class X>
             struct apply
             {
-                typedef X& type;
+                typedef X &type;
             };
 
             template<class Re, class X>
-            Re call(X& x) const
+            Re call(X &x) const
             {
                 return x;
             }
@@ -45,11 +45,11 @@ namespace pstade { namespace egg {
             template<class Me, class X>
             struct apply
             {
-                typedef X& type;
+                typedef X &type;
             };
 
             template<class Re, class X>
-            Re call(X& x) const
+            Re call(X &x) const
             {
                 return x;
             }
@@ -61,13 +61,13 @@ namespace pstade { namespace egg {
             template<class Me, class X>
             struct apply
             {
-                typedef typename boost::remove_cv<X>::type & type;
+                typedef typename boost::remove_cv<X>::type &type;
             };
 
             template<class Re, class X>
-            Re call(X const& x) const
+            Re call(X const &x) const
             {
-                return const_cast<X&>(x);
+                return const_cast<X &>(x);
             }
         };
 

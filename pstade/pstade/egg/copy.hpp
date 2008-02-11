@@ -55,14 +55,14 @@ namespace pstade { namespace egg {
             };
 
             template<class Re, class From>
-            To call(From& from) const
+            To call(From &from) const
             {
                 BOOST_MPL_ASSERT_NOT((boost::is_reference<To>));
                 return aux_(from, boost::mpl::and_< is_numeric<To>, is_numeric<From> >());
             }
 
             template<class From>
-            To aux_(From& from, boost::mpl::true_) const
+            To aux_(From &from, boost::mpl::true_) const
             {
 #if !defined(NDEBUG)
                 return boost::numeric_cast<To>(from);
@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
             }
 
             template<class From>
-            To aux_(From& from, boost::mpl::false_) const
+            To aux_(From &from, boost::mpl::false_) const
             {
                 return from;
             }
@@ -91,7 +91,7 @@ namespace pstade { namespace egg {
 PSTADE_ADL_BARRIER(copy) { // for std
 
     template<class To, class From> inline
-    To copy(From const& from)
+    To copy(From const &from)
     {
         return X_copy<To>()(from);
     }

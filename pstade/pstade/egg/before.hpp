@@ -41,12 +41,12 @@ namespace pstade { namespace egg {
             template<class Me, class Args>
             struct apply :
                 result_of<
-                    typename result_of<T_fuse(Function const&)>::type(Args&)
+                    typename result_of<T_fuse(Function const &)>::type(Args &)
                 >
             { };
 
             template<class Re, class Args>
-            Re call(Args& args) const
+            Re call(Args &args) const
             {
                 m_thunk();
                 return fuse(m_fun)(args);

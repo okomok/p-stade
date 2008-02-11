@@ -38,7 +38,7 @@ namespace pstade { namespace egg { namespace detail {
         };
 
         template<class Re, class Tuple>
-        Re call(Tuple& t) const
+        Re call(Tuple &t) const
         {
             return tuple_drop_impl<N, Tuple>()(t);
         }
@@ -73,7 +73,7 @@ namespace pstade { namespace egg { namespace detail {
             tuple_drop_aux<N-1, tail_t>::result_type
         result_type;
 
-        result_type operator()(Tuple& t) const
+        result_type operator()(Tuple &t) const
         {
             return tuple_drop_aux<N-1, tail_t>()(t.get_tail());
         }
@@ -82,9 +82,9 @@ namespace pstade { namespace egg { namespace detail {
     template<class Tuple>
     struct tuple_drop_aux<0, Tuple>
     {
-        typedef Tuple& result_type;
+        typedef Tuple &result_type;
 
-        result_type operator()(Tuple& t) const
+        result_type operator()(Tuple &t) const
         {
             return t;
         }
@@ -116,7 +116,7 @@ namespace pstade { namespace egg { namespace detail {
             tuple_drop_aux<N::value, Tuple>::result_type
         result_type;
 
-        result_type operator()(Tuple& t) const
+        result_type operator()(Tuple &t) const
         {
             return tuple_drop_aux<N::value, Tuple>()(t);
         }

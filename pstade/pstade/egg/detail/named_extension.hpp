@@ -84,7 +84,7 @@ namespace pstade { namespace egg { namespace detail {
         typedef typename fun_t::result_type result_type;
 
         template<class Iter, class PrecedingArgs>
-        result_type operator()(Iter, PrecedingArgs& args) const
+        result_type operator()(Iter, PrecedingArgs &args) const
         {
             return fun_t()(args);
         }

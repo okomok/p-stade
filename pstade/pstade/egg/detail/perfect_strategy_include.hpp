@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
 
         Little m_little;
 
-        Little const& little() const 
+        Little const &little() const 
         {
             return m_little;
         }

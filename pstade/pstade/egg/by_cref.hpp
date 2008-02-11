@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
 
         Little m_little;
 
-        Little const& little() const
+        Little const &little() const
         {
             return m_little;
         }
@@ -59,7 +59,7 @@ namespace pstade { namespace egg {
 
     PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
     typename BOOST_PP_CAT(apply_little, n)<Little const BOOST_PP_ENUM_TRAILING(n, PSTADE_const, A)>::type
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const &a)) const
     {
         return call_little_impl<Little const,
             typename BOOST_PP_CAT(apply_little, n)<Little const BOOST_PP_ENUM_TRAILING(n, PSTADE_const, A)>::type

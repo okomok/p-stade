@@ -45,7 +45,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class A>
     struct unbound
     {
-        typedef A const& type;
+        typedef A const &type;
     };
 
     template<class T, std::size_t N>
