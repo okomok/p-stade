@@ -15,9 +15,9 @@
         detail::nullary_result_of_little<little_type, function>::type
     nullary_result_type;
 
-    template<class FunCall>
+    template<class Egg_FunCall>
     struct result :
-        detail::of_apply_little<FunCall>
+        detail::of_apply_little<Egg_FunCall>
     { };
 
     little_type const& base() const

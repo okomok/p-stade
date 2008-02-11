@@ -9,29 +9,29 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-    template<class Fun, class Args, class Arity>
+    template<class Egg_Fun, class Egg_Args, class Egg_Arity>
     struct sig_aux;
 
     // 0ary
-    template<class Fun, class Args>
-    struct sig_aux< Fun, Args, boost::mpl::int_<0> > :
+    template<class Egg_Fun, class Egg_Args>
+    struct sig_aux< Egg_Fun, Egg_Args, boost::mpl::int_<0> > :
         pstade::result_of<
-            Fun()
+            Egg_Fun()
         >
     { };
 
     // 1ary-
-#define PSTADE_element(Z, N, _) typename boost::tuples::element<N, Args>::type &
+#define PSTADE_element(Z, N, _) typename boost::tuples::element<N, Egg_Args>::type &
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/detail/bll_bindable_include.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_element
 
-    template<class SigArgs>
+    template<class Egg_SigArgs>
     struct sig :
         sig_aux<
-            typename SigArgs::head_type, // function
-            typename SigArgs::tail_type, // argument tuple
-            boost::mpl::int_<boost::tuples::length<SigArgs>::value - 1>
+            typename Egg_SigArgs::head_type, // function
+            typename Egg_SigArgs::tail_type, // argument tuple
+            boost::mpl::int_<boost::tuples::length<Egg_SigArgs>::value - 1>
         >
     { };
 
@@ -40,10 +40,10 @@
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Fun, class Args>
-    struct sig_aux< Fun, Args, boost::mpl::int_<n> > :
+    template<class Egg_Fun, class Egg_Args>
+    struct sig_aux< Egg_Fun, Egg_Args, boost::mpl::int_<n> > :
         pstade::result_of<
-            Fun(BOOST_PP_ENUM(n, PSTADE_element, ~))
+            Egg_Fun(BOOST_PP_ENUM(n, PSTADE_element, ~))
         >
     { };
 
