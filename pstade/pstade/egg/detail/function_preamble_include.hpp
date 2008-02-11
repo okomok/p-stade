@@ -26,4 +26,3 @@
     }
 
     #include PSTADE_EGG_BLL_BINDABLE()
-
