@@ -174,7 +174,7 @@ This is a port of `detail::function` family which is secretly contained in __BOO
 [heading Preconditions]
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
 * `_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression
-  such that it is the same as `_decltype(_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`.
+  such that it is the same as `_decltype(_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg)))`.
 * If `R0` is `use_nullary_result`, `_mpl::apply<Lam>::type::result_type` is a valid expression
   such that it is the same as `_decltype(_mpl::apply<Lam>::type()())`.
 * The corresponding semantics is a valid expression.

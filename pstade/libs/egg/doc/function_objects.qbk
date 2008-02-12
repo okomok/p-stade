@@ -75,7 +75,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * ...
 
 [heading Notation]
-* ...
+* `b` is a base object such that `_decltype(b)` is `B const &`.
 
 [heading Valid expressions]
 [table 
@@ -89,7 +89,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_adapted_to<B>()(f)`]
-        [Extracts base __FUNCTION_OBJECT__ from `f`.]
+        [Extracts `b` from `f`.]
     ]
     [
         [`egg::adapted_to<B>(f)`]
