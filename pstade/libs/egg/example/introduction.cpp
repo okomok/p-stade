@@ -65,7 +65,7 @@ void test_adaptor()
     BOOST_CHECK(r == 3);
 
     // Dynamic initialization without macros.
-    result_of<T_pipable(T_plus)>::type your_plus = pipable(plus);
+    result_of<T_pipable(T_plus const &)>::type your_plus = pipable(plus);
     BOOST_CHECK((1|your_plus(2)) == 3);
 }
 //]

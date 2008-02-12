@@ -57,7 +57,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`o|fc(d, _Bytag)(a1,...,aN)`]
-        [`_const(d)(_safe_arg_list(o, _Bytag),_safe_arg_list(a, _Bytag))`]
+        [`_const(d)(_fwd_arg_list(o, _Bytag),_fwd_arg_list(a, _Bytag))`]
     ]
     [
         [`X_ambi++N<_Bytag = _ud>`]
@@ -128,7 +128,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d1, d2, R0, Stg)(a1,...,aN)`]
-        [`_const(d1)(_const(d2)(_safe_arg_list(a, _Stg)))`]
+        [`_const(d1)(_const(d2)(_fwd_arg_list(a, _Stg)))`]
     ]
     [
         [`X_compose<R0 = _ud, _Stg = _ud>`]
@@ -202,7 +202,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d)(a1)...(aN)`]
-        [`_const(d)(_safe_arg_list(b, by_cref),_safe_arg_list(aN, by_perfect))`]
+        [`_const(d)(_fwd_arg_list(b, by_cref),_fwd_arg_list(aN, by_perfect))`]
     ]
     [
         [`curry++N(d)`]
@@ -266,7 +266,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, _Stg)(a1,...,aN)`]
-        [`_const(d)(parens(_safe_arg_list(a, _Stg)))`]
+        [`_const(d)(parens(_fwd_arg_list(a, _Stg)))`]
     ]
     [
         [`X_uncurry<_Stg = _ud>`]
@@ -399,7 +399,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, _Stg)(a1, a2)`]
-        [`_const(d)( _safe_arg_list(b, _Stg) )`]
+        [`_const(d)( _fwd_arg_list(b, _Stg) )`]
     ]
     [
         [`X_flip<_Stg = _ud>`]
@@ -527,7 +527,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_fuse<_typeof(d)>::type` initialized using `d` or an initializer.
-* `t_` is `_safe_arg_list(t, by_perfect)`.
+* `t_` is `_fwd_arg_list(t, by_perfect)`.
 
 [heading Valid expressions]
 [table 
@@ -693,7 +693,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(p, _Stg)(a1,...,aN)`]
-        [`(*p)(_safe_arg_list(a, _Stg))`]
+        [`(*p)(_fwd_arg_list(a, _Stg))`]
     ]
     [
         [`X_indirect<_Stg = _ud>`]
@@ -764,7 +764,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [__POLYMORPHIC__ `bind_(_safe_arg_list(f, by_cref), _safe_arg_list(a, by_cref))`]
+        [__POLYMORPHIC__ `bind_(_fwd_arg_list(f, by_cref), _fwd_arg_list(a, by_cref))`]
     ]
     [
         [`lazy(f)`]
@@ -818,7 +818,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_pfo)(a1)`]
-        [`_const(_pfo)(fixed, _safe_arg_list(_safe_arg_list(a, by_cref), by_value))`]
+        [`_const(_pfo)(fixed, _fwd_arg_list(_fwd_arg_list(a, by_cref), by_value))`]
     ]
 ]
 
@@ -827,7 +827,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Preconditions]
 * A __FUNCTION_OBJECT__ returned from `memoize(_pfo)` must always be called with the same type arguments.
 * `_typeof(a1)` is __ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
-* `_decltype( _pfo(fixed, _safe_arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
+* `_decltype( _pfo(fixed, _fwd_arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -953,7 +953,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(d)(a1,...,aN)`]
-        [`_const(d)(_safe_arg_list(a, by_perfect))`]
+        [`_const(d)(_fwd_arg_list(a, by_perfect))`]
     ]
     [
         [`perfect(d)`]
@@ -1013,7 +1013,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`o|fc(d, _Stg, _Bytag)(a1,...,aN)`]
-        [`_const(d)(_safe_arg_list(o, _Bytag),safe_arg_list(a, _Stg))`]
+        [`_const(d)(_fwd_arg_list(o, _Bytag),safe_arg_list(a, _Stg))`]
     ]
     [
         [`X_pipable<_Stg = _ud, _Bytag = _ud>`]
@@ -1081,7 +1081,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`regular(f)(a1,...,aN)`]
-        [`_const(f)(_safe_arg_list(a, by_perfect))`]
+        [`_const(f)(_fwd_arg_list(a, by_perfect))`]
     ]
 ]
 
@@ -1134,7 +1134,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`fc(f, R, _Stg)(a1,...,aN)`]
-        [`_const(f)(_safe_arg_list(a, _Stg))`]
+        [`_const(f)(_fwd_arg_list(a, _Stg))`]
     ]
     [
         [`X_return<R, _Stg = _ud>`]
@@ -1204,7 +1204,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`fc(d, Tag, _Stg)(a1,...,aN)`]
-        [`_const(d)(_safe_arg_list(a, _Stg))`]
+        [`_const(d)(_fwd_arg_list(a, _Stg))`]
     ]
     [
         [`tag_of<F>::type`]

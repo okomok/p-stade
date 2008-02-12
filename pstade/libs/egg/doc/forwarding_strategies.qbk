@@ -59,7 +59,7 @@ Egg defines the following imaginary operators for its documentation.
 
 [heading Notation]
 * `K` is length of `a`.
-* `safe_arg(a, _Stg, K, I)` is `_rval(aI)` if `_bytag_at(_Stg, K, I)` is `by_value`, `_arg_list(aI, _Stg)` otherwise.
+* `fwd_arg(a, _Stg, K, I)` is `_rval(aI)` if `_bytag_at(_Stg, K, I)` is `by_value`, `_arg_list(aI, _Stg)` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -88,12 +88,12 @@ Egg defines the following imaginary operators for its documentation.
         [`_meta_arg_list(a, by_perfect)`]
     ]
     [
-        [`_safe_arg_list(a, _Stg)`]
-        [`safe_arg(a, _Stg, K, 0),...,safe_arg(a, _Stg, K, K-1)`]
+        [`_fwd_arg_list(a, _Stg)`]
+        [`fwd_arg(a, _Stg, K, 0),...,fwd_arg(a, _Stg, K, K-1)`]
     ]
 ]
 
-[important `_arg_list` and `_safe_arg_list` has slightly different semantics.
+[important `_arg_list` and `_fwd_arg_list` has slightly different semantics.
            Put simply, in case of __EGG_FUNCTION_ADAPTORS__ with `by_value`,
            a base __FUNCTION_OBJECT__ too must take arguments by value or const reference. ]
 

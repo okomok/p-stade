@@ -37,7 +37,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_++op<R, _Stg>()(a1,...,aN)`]
-        [`do_(op, _safe_arg_list(a, _Stg))`]
+        [`do_(op, _fwd_arg_list(a, _Stg))`]
     ]
     [
         [`op`]
@@ -196,7 +196,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_apply<_Stg>()(_pfo, a1,...,aN)`]
-        [`_pfo(_safe_arg_list(a, _Stg))` ]
+        [`_pfo(_fwd_arg_list(a, _Stg))` ]
     ]
     [
         [`apply`]
@@ -205,7 +205,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* `_safe_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
+* `_fwd_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
 * The corresponding semantics is a valid expression.
 
 
@@ -248,7 +248,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_auto_new<T, _Stg>()(a1,...,aN)`]
-        [`std::auto_ptr<T>(new T(_safe_arg_list(a, _Stg)))`]
+        [`std::auto_ptr<T>(new T(_fwd_arg_list(a, _Stg)))`]
     ]
     [
         [`egg::auto_new<T>(a1,...,aN)`]
@@ -296,7 +296,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_shared_new<T, _Stg>()(a1,...,aN)`]
-        [`boost::shared_ptr<T>(new T(_safe_arg_list(a, _Stg)))`]
+        [`boost::shared_ptr<T>(new T(_fwd_arg_list(a, _Stg)))`]
     ]
     [
         [`egg::shared_new<T>(a1,...,aN)`]
@@ -427,7 +427,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct<T, _Stg>()(a1,...,aN)`]
-        [`T(_safe_arg_list(a, _Stg))`]
+        [`T(_fwd_arg_list(a, _Stg))`]
     ]
     [
         [`X_construct<>`]
@@ -475,7 +475,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_braced1<T, _Stg>()(a1,...,aN)`]
-        [`T t = {_safe_arg_list(a, _Stg)}; return t;`]
+        [`T t = {_fwd_arg_list(a, _Stg)}; return t;`]
     ]
     [
         [`X_construct_braced1<>`]
@@ -523,7 +523,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_braced2<T, _Stg>()(a1,...,aN)`]
-        [`T t = {{_safe_arg_list(a, _Stg)}}; return t;`]
+        [`T t = {{_fwd_arg_list(a, _Stg)}}; return t;`]
     ]
     [
         [`X_construct_braced2<>`]
@@ -571,7 +571,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_variadic1<T, _Stg>()(a1,...,aN)`]
-        [`T t = PSTADE_EGG_VARIADIC_L {_safe_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
+        [`T t = PSTADE_EGG_VARIADIC_L {_fwd_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
     ]
     [
         [`X_construct_variadic1<>`]
@@ -678,7 +678,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_identity<_Stg>()(a)`]
-        [`_safe_arg_list(a, _Stg)` ]
+        [`_fwd_arg_list(a, _Stg)` ]
     ]
     [
         [`identity`]
@@ -726,7 +726,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_pack<_Stg>()(a1,...,aN)`]
-        [`boost::tuple<dts_(_safe_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+        [`boost::tuple<dts_(_fwd_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
     ]
     [
         [`pack`]
@@ -778,7 +778,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_fusion_pack<_Stg>()(a1,...,aN)`]
-        [`boost::fusion::vector<dts_(_safe_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+        [`boost::fusion::vector<dts_(_fwd_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
     ]
     [
         [`fusion_pack`]

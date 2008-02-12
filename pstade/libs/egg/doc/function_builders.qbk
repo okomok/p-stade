@@ -25,7 +25,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
         typedef Stg strategy_type;
 
         Little lit; // exposition only
-        Little const& little() const { return lit; }
+        Little const & little() const { return lit; }
 
         // unspecified
         // ...
@@ -226,7 +226,7 @@ This is a port of `detail::function` family which is secretly contained in __BOO
     ]
     [
         [`g(a1,...,aN)`]
-        [`Cst(T)()(_safe_arg_list(a, _Stg))`]
+        [`Cst(T)()(_fwd_arg_list(a, _Stg))`]
     ]
     [
         [`g()`]
@@ -399,7 +399,7 @@ to be /statically initialized/ without `static_`.
     ]
     [
         [`u(a1,...,aN)`]
-        [`F()(_safe_arg_list(a, _Stg))`]
+        [`F()(_fwd_arg_list(a, _Stg))`]
     ]
     [
         [`_mpl::_++M`]

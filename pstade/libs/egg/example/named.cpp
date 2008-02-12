@@ -53,7 +53,7 @@ struct draw_text_impl
     typedef void result_type;
     
     template<class String>
-    void operator()(int x, int y, String const& msg, int width) const
+    void operator()(int x, int y, String const &msg, int width) const
     {
         std::cout << "(" << std::setw(width) << x << ","
             << std::setw(width) << y << ") : " << msg << std::endl;

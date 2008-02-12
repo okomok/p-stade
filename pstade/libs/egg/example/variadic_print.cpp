@@ -44,7 +44,7 @@ struct mono_print
 {
     typedef void result_type;
 
-    void operator()(Args& args) const
+    void operator()(Args &args) const
     {
         boost::fusion::for_each(args, std::cout << bll_1);
     }
@@ -70,7 +70,7 @@ struct little_print
     };
 
     template<class Re, class Args>
-    void call(Args& args) const
+    void call(Args &args) const
     {
         std::cout << args.get_head();
         make_function(*this)(args.get_tail());
