@@ -20,11 +20,11 @@
 namespace pstade { namespace egg {
 
 
-    template<class Expr, class Strategy = by_perfect>
+    template<class Expr, class Strategy = by_perfect, class NullaryResult = boost::use_default>
     struct polymorphic
     {
         typedef
-            function<detail::little_polymorphic<PSTADE_EGG_BEFORE_MPL_APPLY_TPL(Expr)>, Strategy>
+            function<detail::little_polymorphic<PSTADE_EGG_BEFORE_MPL_APPLY_TPL(Expr), NullaryResult>, Strategy>
         type;
     };
 

@@ -17,10 +17,10 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/use_default.hpp>
 #include "../apply_decl.hpp"
 #include "../construct.hpp"
 #include "./generate_n.hpp"
+#include "./use_nullary_result.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -34,7 +34,11 @@ namespace pstade { namespace egg { namespace detail {
         construct_t;
 
     // 0ary
-        typedef NullaryResult nullary_result_type;
+        typedef typename
+            eval_if_use_nullary_result< NullaryResult,
+                generate0<Expr>
+            >::type
+        nullary_result_type;
 
         template<class Re>
         Re call() const

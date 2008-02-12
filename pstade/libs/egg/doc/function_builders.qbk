@@ -137,7 +137,7 @@ This is a port of `detail::function` family which is secretly contained in __BOO
 * `<pstade/egg/polymorphic.hpp>`
 
 [heading Notation]
-* `f` is an object of `polymorphic<Lam, _Stg>::type`.
+* `f` is an object of `polymorphic<Lam,...>::type`.
 
 [heading Valid expressions]
 [table 
@@ -146,16 +146,20 @@ This is a port of `detail::function` family which is secretly contained in __BOO
         [[*Semantics]]
     ]
     [
-        [`polymorphic<Lam, _Stg = _ud>::type`]
+        [`polymorphic<Lam, _Stg = _ud, R0 = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
         [`PSTADE_EGG_POLYMORPHIC()`]
-        [A braced initializer of `polymorphic<Lam, _Stg>::type`]
+        [A braced initializer of `polymorphic<Lam,...>::type`]
     ]
     [
         [`f(a1,...,aN)`]
         [`_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`f()`]
+        [`_mpl::apply<Lam>::type()()`]
     ]
     [
         [`_mpl::_++M`]
@@ -169,7 +173,10 @@ This is a port of `detail::function` family which is secretly contained in __BOO
 
 [heading Preconditions]
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
+* `_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression
+  such that it is the same as `_decltype(_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`.
+* If `R0` is `use_nullary_result`, `_mpl::apply<Lam>::type::result_type` is a valid expression
+  such that it is the same as `_decltype(_mpl::apply<Lam>::type()())`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -223,7 +230,7 @@ This is a port of `detail::function` family which is secretly contained in __BOO
     ]
     [
         [`g()`]
-        [`Cst(R0)()()`]
+        [`Cst(_decltype_r0(R0, _mpl::apply<C(Lam)>::type())()()`]
     ]
     [
         [`_mpl::_++M`]
@@ -286,6 +293,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
+* __EGG_DETERMINING_NULLARY_RETURN_TYPES__
 * __EGG_CONSTRUCT__
 * __EGG_CONSTRUCT_BRACED1__
 * __EGG_CONSTRUCT_BRACED2__

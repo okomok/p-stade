@@ -14,9 +14,11 @@
 
 
 #include <boost/mpl/assert.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/egg/const.hpp>
+#include <string>
 
 
 namespace egg = pstade::egg;
@@ -54,24 +56,27 @@ PSTADE_EGG_CONST((T_id), id) = PSTADE_EGG_GENERATOR();
 
 struct id_metafun_
 {
-    template<class A>
+    template<class A = std::string> // nullary
     struct apply
     {
-        typedef A& type;
+        typedef typename boost::remove_cv<A>::type type;
     };
 };
 
-typedef generator< id_metafun_ >::type T_id_;
-BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int&)>::type, int& >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int const&)>::type, int const& >));
-BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int)>::type, int const& >));
+typedef generator< id_metafun_, boost::use_default, boost::use_default, use_nullary_result >::type T_id_;
+BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int&)>::type, int >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_()>::type, std::string >)); // nullary
+BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int const&)>::type, int >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int)>::type, int >));
 PSTADE_EGG_CONST((T_id_), id_) = PSTADE_EGG_GENERATOR();
 
 void pstade_minimal_test()
 {
     int i = 10;
     BOOST_CHECK( &(id(i)) == &i );
-    BOOST_CHECK( &(id_(i)) == &i );
+
+    BOOST_CHECK( id_(i) == 10 );
+    BOOST_CHECK( id_().empty() );
 
     my_pair<int, int> p = make_my_pair(1, 2);
     (void)p;

@@ -23,14 +23,39 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "../apply_decl.hpp"
+#include "./use_nullary_result.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Expr>
+    template<class Expr, class NullaryResult>
     struct little_polymorphic
     {
+    // 0ary
+        struct nullary_result
+        {
+            typedef typename
+                boost::mpl::apply0<Expr>::type
+            impl_t;
+
+            typedef typename impl_t::result_type type;
+        };
+
+        typedef typename
+            eval_if_use_nullary_result< NullaryResult,
+                nullary_result
+            >::type
+        nullary_result_type;
+
+        template<class Re>
+        Re call() const
+        {
+            typedef typename nullary_result::impl_t impl_t;
+            return impl_t()();
+        }
+
+    // 1ary-
         template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 

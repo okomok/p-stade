@@ -82,7 +82,7 @@ struct nested_plus
 };
 
 
-// total specialization can'be nested.
+// total specialization must be outside.
 template<class A1>
 struct neg_impl // needed cuz instantiated in overload resolution.
 {
@@ -103,9 +103,22 @@ struct neg_impl<int>
     }
 };
 
+template<>
+struct neg_impl< void >
+{
+    typedef neg_impl type;
+
+    typedef char result_type;
+
+    result_type operator()() const
+    {
+        return 'c';
+    }
+};
+
 struct base_neg
 {
-    template<class A1>
+    template<class A1 = void> // nullary
     struct apply :
         neg_impl<A1>
     { };
@@ -122,7 +135,7 @@ typedef pstade::egg::polymorphic< nested_plus >::type T_nplus;
 PSTADE_POD_CONSTANT((T_nplus), nplus) = PSTADE_EGG_POLYMORPHIC();
 
 
-typedef pstade::egg::polymorphic< base_neg >::type T_neg;
+typedef pstade::egg::polymorphic< base_neg, boost::use_default, pstade::egg::use_nullary_result >::type T_neg;
 PSTADE_POD_CONSTANT((T_neg), neg) = PSTADE_EGG_POLYMORPHIC();
 
 
@@ -145,6 +158,7 @@ PSTADE_TEST_IS_RESULT_OF((int), T_nplus(int&, int))
 PSTADE_TEST_IS_RESULT_OF((int const), T_nplus(int, int, int))
 
 PSTADE_TEST_IS_RESULT_OF((int), T_neg(int&))
+PSTADE_TEST_IS_RESULT_OF((char), T_neg())
 
 
 struct nc_t : boost::noncopyable
@@ -191,5 +205,6 @@ void pstade_minimal_test()
     {
         int i = 10;
         BOOST_CHECK( neg(i) == -10 );
+        BOOST_CHECK( neg() == 'c' );
     }
 }
