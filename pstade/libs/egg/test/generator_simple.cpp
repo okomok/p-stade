@@ -52,11 +52,26 @@ BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id(int const&)>::type, int
 BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id(int)>::type, int const& >));
 PSTADE_EGG_CONST((T_id), id) = PSTADE_EGG_GENERATOR();
 
+struct id_metafun_
+{
+    template<class A>
+    struct apply
+    {
+        typedef A& type;
+    };
+};
+
+typedef generator< id_metafun_ >::type T_id_;
+BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int&)>::type, int& >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int const&)>::type, int const& >));
+BOOST_MPL_ASSERT((boost::is_same< pstade::result_of<T_id_(int)>::type, int const& >));
+PSTADE_EGG_CONST((T_id_), id_) = PSTADE_EGG_GENERATOR();
 
 void pstade_minimal_test()
 {
     int i = 10;
     BOOST_CHECK( &(id(i)) == &i );
+    BOOST_CHECK( &(id_(i)) == &i );
 
     my_pair<int, int> p = make_my_pair(1, 2);
     (void)p;
