@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DETAIL_GENERATE_N_HPP
-#define PSTADE_EGG_DETAIL_GENERATE_N_HPP
+#ifndef PSTADE_EGG_DETAIL_SUPPLY_N_HPP
+#define PSTADE_EGG_DETAIL_SUPPLY_N_HPP
 
 
 // PStade.Egg
@@ -40,7 +40,7 @@ namespace pstade { namespace egg { namespace detail {
         class Expr,
         PSTADE_PP_ENUM_PARAMS_WITH(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, class A, = void)
     >
-    struct generate_from_placeholder
+    struct supply_placeholder
     {
         typedef typename
             boost::remove_cv<Expr>::type // MPL requires this.
@@ -60,15 +60,15 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename
             template_arguments_copy<applied_t, expr_t>::type
-        generated_t;
+        supplyd_t;
 
         typedef typename
-            affect_cv<Expr, generated_t>::type
+            affect_cv<Expr, supplyd_t>::type
         type;
     };
 
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/generate_n.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/supply_n.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -81,7 +81,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct PSTADE_PP_CAT3(generate, n, _from) :
+    struct PSTADE_PP_CAT3(supply, n, _meta) :
         boost::mpl::BOOST_PP_CAT(apply, n)<
             typename boost::remove_cv<Expr>::type
             BOOST_PP_ENUM_TRAILING_PARAMS(n, A)
@@ -90,10 +90,10 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct BOOST_PP_CAT(generate, n) :
+    struct BOOST_PP_CAT(supply, n) :
         boost::mpl::eval_if< is_placeholder_expression<Expr>,
-            generate_from_placeholder<Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>,
-            PSTADE_PP_CAT3(generate, n, _from)<Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>
+            supply_placeholder<Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>,
+            PSTADE_PP_CAT3(supply, n, _meta)<Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>
         >
     { };
 

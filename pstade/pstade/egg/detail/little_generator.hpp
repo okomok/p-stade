@@ -19,7 +19,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include "../apply_decl.hpp"
 #include "../construct.hpp"
-#include "./generate_n.hpp"
+#include "./supply_n.hpp"
 #include "./use_nullary_result.hpp"
 
 
@@ -36,7 +36,7 @@ namespace pstade { namespace egg { namespace detail {
     // 0ary
         typedef typename
             eval_if_use_nullary_result< NullaryResult,
-                generate0<Expr>
+                supply0<Expr>
             >::type
         nullary_result_type;
 
@@ -66,7 +66,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        BOOST_PP_CAT(generate, n)<Expr, BOOST_PP_ENUM_PARAMS(n, A)>
+        BOOST_PP_CAT(supply, n)<Expr, BOOST_PP_ENUM_PARAMS(n, A)>
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
