@@ -33,7 +33,7 @@ namespace pstade { namespace egg { namespace detail {
     struct little_polymorphic
     {
     // 0ary
-        struct nullary_result
+        struct extract_nullary_result
         {
             typedef typename
                 boost::mpl::apply0<Expr>::type
@@ -44,14 +44,14 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename
             eval_if_use_nullary_result< NullaryResult,
-                nullary_result
+                extract_nullary_result
             >::type
         nullary_result_type;
 
         template<class Re>
         Re call() const
         {
-            typedef typename nullary_result::impl_t impl_t;
+            typedef typename extract_nullary_result::impl_t impl_t;
             return impl_t()();
         }
 

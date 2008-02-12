@@ -29,7 +29,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Little, class Function>
-    struct get_nullary_result_of_little :
+    struct extract_nullary_result_of_little :
         if_use_default< typename Little::nullary_result_type,
             ERROR_PSTADE_EGG_FUNCTION_NON_NULLARY<Function>,
             typename Little::nullary_result_type
@@ -40,7 +40,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Little, class Function = function<Little, unspecified> >
     struct nullary_result_of_little :
         boost::mpl::eval_if< has_nullary_result_type<Little>,
-            get_nullary_result_of_little<Little, Function>,
+            extract_nullary_result_of_little<Little, Function>,
             boost::mpl::identity< ERROR_PSTADE_EGG_FUNCTION_NON_NULLARY<Function> >
         >
     { };

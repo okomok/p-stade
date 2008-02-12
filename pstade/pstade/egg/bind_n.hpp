@@ -178,7 +178,7 @@
 
     #if m == 0
 
-        struct nullary_result :
+        struct extract_nullary_result :
             result_of_ref<
                 typename result_of_ref<typename result_of_ref<detail::T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
                 (
@@ -189,7 +189,7 @@
 
         typedef typename
             eval_if_use_nullary_result< NullaryResult,
-                nullary_result
+                extract_nullary_result
             >::type
         nullary_result_type;
 
