@@ -32,8 +32,11 @@ namespace pstade { namespace egg {
     };
 
     template<class F>
-    struct X_resolve<F, typename enable_if<
-            boost::mpl::or_< boost::is_pointer<F>, boost::is_member_function_pointer<F> > >::type>
+    struct X_resolve<F,
+        typename enable_if<
+            boost::mpl::or_< boost::is_pointer<F>, boost::is_member_function_pointer<F> >
+        >::type
+    >
     {
         typedef F result_type;
 
