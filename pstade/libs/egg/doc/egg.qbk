@@ -110,6 +110,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_CONSTRUCT_BRACED1__ [link egg.function_objects.construct_braced1 construct_braced1]]
 [def __EGG_CONSTRUCT_BRACED2__ [link egg.function_objects.construct_braced2 construct_braced2]]
 [def __EGG_CONSTRUCT_VARIADIC1__ [link egg.function_objects.construct_variadic1 construct_variadic1]]
+[def __EGG_INFIX__ [link egg.utilities.infix infix]]
 
 [def __PSTADE_RESULT_OF__ [link egg.workarounds.pstade__result_of pstade::result_of]]
 [def __EGG_USE_DEDUCED_FORM__ [link egg.workarounds.use_deduced_form use_deduced_form]]

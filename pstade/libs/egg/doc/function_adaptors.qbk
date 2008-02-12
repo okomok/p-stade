@@ -6,6 +6,7 @@
 [import ../example/unnamed_recursion.cpp]
 [import ../example/freed_prisoner.cpp]
 [import ../example/fusing.cpp]
+[import ../example/composing.cpp]
 
 
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
@@ -155,9 +156,11 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `result_of_compose<_Dco1, _Dco2,...>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
 
 [heading Example]
+[code_example_composing]
 
 [heading See also]
 * __EGG_DETERMINING_NULLARY_RETURN_TYPES__
+* __EGG_INFIX__
 
 [endsect]
 

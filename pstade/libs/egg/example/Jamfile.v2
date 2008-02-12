@@ -13,6 +13,7 @@ project
 
 test-suite "egg_example" :
     [ run adapted_to_comparison.cpp ]
+    [ run composing.cpp ]
     [ run concepts.cpp ]
     [ run currying.cpp ]
     [ run freed_prisoner.cpp ]
