@@ -149,7 +149,7 @@ struct deduce_to_hello :
 { };
 
 typedef generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > >::type T_make_nap;
-#if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
+#if !BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(3)) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
     T_make_nap const make_nap = PSTADE_EGG_GENERATOR();
 #endif
 
@@ -206,7 +206,7 @@ void pstade_minimal_test()
         //number<A, B, C> x = ::make_number_(A(), B(), C());
     }
 
-#if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
+#if !BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(3)) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
     {
         needs_all_param<H, int> x = ::make_nap(H());
         needs_all_param<H> y = ::make_nap(H());

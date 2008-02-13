@@ -50,7 +50,7 @@ namespace pstade { namespace egg { namespace detail {
             template_arguments_of<expr_t>::type
         target_t;
 
-        // Abundant voids are passed so that `deduce` with `Default` can work. 
+        // Abundant arguments are passed so that `deduce` with `Default` can work. 
         typedef typename
             boost::mpl::BOOST_PP_CAT(apply, BOOST_MPL_LIMIT_METAFUNCTION_ARITY)<
                 target_t,
@@ -60,10 +60,10 @@ namespace pstade { namespace egg { namespace detail {
 
         typedef typename
             template_arguments_copy<applied_t, expr_t>::type
-        supplyd_t;
+        supplied_t;
 
         typedef typename
-            affect_cv<Expr, supplyd_t>::type
+            affect_cv<Expr, supplied_t>::type
         type;
     };
 
