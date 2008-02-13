@@ -14,7 +14,7 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -56,8 +56,8 @@ namespace unfold_detail {
 } // namespace unfold_detail
 
 
-typedef egg::polymorphic< unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_> >::type T_unfold;
-PSTADE_POD_CONSTANT((T_unfold), unfold) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< unfold_detail::base<boost::mpl::_, boost::mpl::_, boost::mpl::_> >::type T_unfold;
+PSTADE_POD_CONSTANT((T_unfold), unfold) = PSTADE_EGG_POLY();
 
 
 namespace nonpure_detail {

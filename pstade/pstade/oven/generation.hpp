@@ -15,7 +15,7 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/identity.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -84,8 +84,8 @@ namespace generation_detail {
 } // namespace generation_detail
 
 
-typedef egg::polymorphic< generation_detail::base<boost::mpl::_> >::type T_generation;
-PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< generation_detail::base<boost::mpl::_> >::type T_generation;
+PSTADE_POD_CONSTANT((T_generation), generation) = PSTADE_EGG_POLY();
 
 
 namespace nonstop_detail {

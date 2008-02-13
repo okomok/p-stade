@@ -1,6 +1,6 @@
 #ifndef PSTADE_EGG_BLL_POLY_HPP
 #define PSTADE_EGG_BLL_POLY_HPP
-#include "./detail/prefix.hpp"
+#include "../detail/prefix.hpp"
 
 
 // PStade.Egg
@@ -22,11 +22,11 @@
 
 #include <boost/mpl/bool.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./by_perfect.hpp"
-#include "./by_value.hpp"
-#include "./construct_braced2.hpp"
-#include "./detail/little_bll_poly_result.hpp"
-#include "./generator.hpp"
+#include "../by_perfect.hpp"
+#include "../by_value.hpp"
+#include "../construct_braced2.hpp"
+#include "../detail/little_bll_poly_result.hpp"
+#include "../generator.hpp"
 
 
 namespace pstade { namespace egg {
@@ -79,5 +79,5 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-#include "./detail/suffix.hpp"
+#include "../detail/suffix.hpp"
 #endif

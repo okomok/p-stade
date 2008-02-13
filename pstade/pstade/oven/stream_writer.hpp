@@ -35,7 +35,7 @@
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/function_output_iterator.hpp"
 
@@ -103,8 +103,8 @@ namespace stream_writer_detail {
 
 } // namespace stream_writer_detail
 
-typedef egg::polymorphic< stream_writer_detail::base<boost::mpl::_> >::type T_stream_writer;
-PSTADE_POD_CONSTANT((T_stream_writer), stream_writer) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< stream_writer_detail::base<boost::mpl::_> >::type T_stream_writer;
+PSTADE_POD_CONSTANT((T_stream_writer), stream_writer) = PSTADE_EGG_POLY();
 
 
 // streambuf_writer
@@ -194,8 +194,8 @@ namespace std_stream_writer_detail {
 
 } // namespace std_stream_writer_detail
 
-typedef egg::polymorphic< std_stream_writer_detail::base<boost::mpl::_> >::type T_std_stream_writer;
-PSTADE_POD_CONSTANT((T_std_stream_writer), std_stream_writer) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< std_stream_writer_detail::base<boost::mpl::_> >::type T_std_stream_writer;
+PSTADE_POD_CONSTANT((T_std_stream_writer), std_stream_writer) = PSTADE_EGG_POLY();
 
 
 } } // namespace pstade::oven

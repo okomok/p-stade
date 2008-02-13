@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_DETAIL_LITTLE_POLYMORPHIC_HPP
-#define PSTADE_EGG_DETAIL_LITTLE_POLYMORPHIC_HPP
+#ifndef PSTADE_EGG_DETAIL_LITTLE_POLY_HPP
+#define PSTADE_EGG_DETAIL_LITTLE_POLY_HPP
 
 
 // PStade.Egg
@@ -30,7 +30,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Expr, class NullaryResult>
-    struct little_polymorphic
+    struct little_poly
     {
     // 0ary
         struct extract_nullary_result
@@ -59,7 +59,7 @@ namespace pstade { namespace egg { namespace detail {
         template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct PSTADE_EGG_APPLY_DECL;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/little_polymorphic.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/little_poly.hpp>))
         #include BOOST_PP_ITERATE()
     };
 

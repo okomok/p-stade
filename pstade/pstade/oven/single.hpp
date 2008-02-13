@@ -18,7 +18,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./iter_range.hpp"
 
@@ -46,8 +46,8 @@ namespace single_detail {
 } // namespace single_detail
 
 
-typedef egg::polymorphic< single_detail::base<boost::mpl::_> >::type T_single;
-PSTADE_POD_CONSTANT((T_single), single) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< single_detail::base<boost::mpl::_> >::type T_single;
+PSTADE_POD_CONSTANT((T_single), single) = PSTADE_EGG_POLY();
 
 
 } } // namespace pstade::oven

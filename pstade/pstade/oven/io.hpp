@@ -35,7 +35,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./iter_range.hpp"
 #include "./read.hpp"
@@ -239,14 +239,14 @@ operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator, Injector>
 }
 
 
-typedef egg::polymorphic< io_detail::base_open<boost::mpl::_> >::type T_range_open;
-PSTADE_POD_CONSTANT((T_range_open), range_open) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< io_detail::base_open<boost::mpl::_> >::type T_range_open;
+PSTADE_POD_CONSTANT((T_range_open), range_open) = PSTADE_EGG_POLY();
 
-typedef egg::polymorphic< io_detail::base_close<boost::mpl::_> >::type T_range_close;
-PSTADE_POD_CONSTANT((T_range_close), range_close) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< io_detail::base_close<boost::mpl::_> >::type T_range_close;
+PSTADE_POD_CONSTANT((T_range_close), range_close) = PSTADE_EGG_POLY();
 
-typedef egg::polymorphic< io_detail::base_delimiter<boost::mpl::_> >::type T_range_delimiter;
-PSTADE_POD_CONSTANT((T_range_delimiter), range_delimiter) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< io_detail::base_delimiter<boost::mpl::_> >::type T_range_delimiter;
+PSTADE_POD_CONSTANT((T_range_delimiter), range_delimiter) = PSTADE_EGG_POLY();
 
 
 } } // namespace pstade::oven

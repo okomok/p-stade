@@ -20,7 +20,7 @@
 
 
 #include <boost/optional/optional.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
@@ -70,8 +70,8 @@ namespace iteration_detail {
 } // namespace iteration_detail
 
 
-typedef egg::polymorphic< iteration_detail::base<boost::mpl::_, boost::mpl::_> >::type T_iteration;
-PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< iteration_detail::base<boost::mpl::_, boost::mpl::_> >::type T_iteration;
+PSTADE_POD_CONSTANT((T_iteration), iteration) = PSTADE_EGG_POLY();
 
 
 } } // namespace pstade::oven

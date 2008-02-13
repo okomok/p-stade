@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_POLYMORPHIC_HPP
-#define PSTADE_EGG_POLYMORPHIC_HPP
+#ifndef PSTADE_EGG_POLY_HPP
+#define PSTADE_EGG_POLY_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -13,7 +13,7 @@
 
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include "./detail/before_mpl_apply.hpp"
-#include "./detail/little_polymorphic.hpp"
+#include "./detail/little_poly.hpp"
 #include "./by_perfect.hpp"
 
 
@@ -21,14 +21,14 @@ namespace pstade { namespace egg {
 
 
     template<class Expr, class Strategy = by_perfect, class NullaryResult = boost::use_default>
-    struct polymorphic
+    struct poly
     {
         typedef
-            function<detail::little_polymorphic<PSTADE_EGG_BEFORE_MPL_APPLY_TPL(Expr), NullaryResult>, Strategy>
+            function<detail::little_poly<PSTADE_EGG_BEFORE_MPL_APPLY_TPL(Expr), NullaryResult>, Strategy>
         type;
     };
 
-    #define PSTADE_EGG_POLYMORPHIC() {{}}
+    #define PSTADE_EGG_POLY() {{}}
 
 
 } } // namespace pstade::egg

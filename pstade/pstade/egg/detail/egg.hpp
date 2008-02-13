@@ -83,7 +83,7 @@
 #include "../parallel.hpp"
 #include "../perfect.hpp"
 #include "../pipable.hpp"
-#include "../polymorphic.hpp"
+#include "../poly.hpp"
 #include "../register_nullary_result.hpp"
 #include "../regular.hpp"
 #include "../result_of_ref.hpp"

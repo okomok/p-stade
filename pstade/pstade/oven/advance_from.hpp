@@ -28,7 +28,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 
@@ -84,8 +84,8 @@ namespace advance_from_detail {
 } // namespace advance_from_detail
 
 
-typedef egg::polymorphic< advance_from_detail::base<boost::mpl::_> >::type T_advance_from;
-PSTADE_POD_CONSTANT((T_advance_from), advance_from) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< advance_from_detail::base<boost::mpl::_> >::type T_advance_from;
+PSTADE_POD_CONSTANT((T_advance_from), advance_from) = PSTADE_EGG_POLY();
 
 
 } } // namespace pstade::oven

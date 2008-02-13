@@ -13,7 +13,7 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 
@@ -21,11 +21,11 @@
 #define PSTADE_OVEN_BASE_TO_ADAPTOR(O, B) \
     namespace BOOST_PP_CAT(adaptor_workarea_of_, O) { \
         using namespace boost::mpl::placeholders; \
-        typedef pstade::egg::polymorphic<PSTADE_UNPARENTHESIZE(B)>::type op; \
+        typedef pstade::egg::poly<PSTADE_UNPARENTHESIZE(B)>::type op; \
     } \
     typedef BOOST_PP_CAT(adaptor_workarea_of_, O)::op BOOST_PP_CAT(T_make_, O); \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_make_, O)), BOOST_PP_CAT(make_, O)) = PSTADE_EGG_POLYMORPHIC(); \
-    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(T_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_L PSTADE_EGG_POLYMORPHIC() PSTADE_EGG_PIPABLE_R; \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_make_, O)), BOOST_PP_CAT(make_, O)) = PSTADE_EGG_POLY(); \
+    PSTADE_POD_CONSTANT((pstade::egg::result_of_pipable<BOOST_PP_CAT(T_make_, O)>::type), O) = PSTADE_EGG_PIPABLE_L PSTADE_EGG_POLY() PSTADE_EGG_PIPABLE_R; \
 /**/
 
 

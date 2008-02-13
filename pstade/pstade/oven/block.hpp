@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./detail/block_iterator.hpp"
@@ -46,8 +46,8 @@ namespace block_detail {
 } // namespace block_detail
 
 
-typedef egg::polymorphic< block_detail::base<boost::mpl::_> >::type T_block;
-PSTADE_POD_CONSTANT((T_block), block) = PSTADE_EGG_POLYMORPHIC();
+typedef egg::poly< block_detail::base<boost::mpl::_> >::type T_block;
+PSTADE_POD_CONSTANT((T_block), block) = PSTADE_EGG_POLY();
 
 
 } } // namespace pstade::oven

@@ -127,17 +127,17 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 
 
-[section polymorphic]
+[section poly]
 
 [heading Description]
-Though `polymorphic` can't be "stateful", you can access nested typedefs from `operator()` body.
+Though `poly` can't be "stateful", you can access nested typedefs from `operator()` body.
 This is a port of `detail::function` family which is secretly contained in __BOOST_ACCUMULATORS__.
 
 [heading Header]
-* `<pstade/egg/polymorphic.hpp>`
+* `<pstade/egg/poly.hpp>`
 
 [heading Notation]
-* `f` is an object of `polymorphic<Lam,...>::type`.
+* `f` is an object of `poly<Lam,...>::type`.
 
 [heading Valid expressions]
 [table 
@@ -146,12 +146,12 @@ This is a port of `detail::function` family which is secretly contained in __BOO
         [[*Semantics]]
     ]
     [
-        [`polymorphic<Lam, _Stg = _ud, R0 = _ud>::type`]
+        [`poly<Lam, _Stg = _ud, R0 = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_POLYMORPHIC()`]
-        [A braced initializer of `polymorphic<Lam,...>::type`]
+        [`PSTADE_EGG_POLY()`]
+        [A braced initializer of `poly<Lam,...>::type`]
     ]
     [
         [`f(a1,...,aN)`]
@@ -180,11 +180,11 @@ This is a port of `detail::function` family which is secretly contained in __BOO
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_POLYMORPHIC()`.
+* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_POLY()`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
-[code_polymorphic_example]
+[code_poly_example]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -345,7 +345,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 ]
 
 [heading Preconditions]
-* `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
+* `F` is a __POLY_FUNCTION_OBJECT__ type.
 * `boost::is_convertible<unspecified, _typeof(to)>::value == false`.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
@@ -412,7 +412,7 @@ to be /statically initialized/ without `static_`.
 ]
 
 [heading Preconditions]
-* `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
+* `F` is a __POLY_FUNCTION_OBJECT__ type.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -462,7 +462,7 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
     ]
     [
         [`variadic_poly<Lam, _Stg = _ud, Pack = _ud, R0 = _ud>::type`]
-        [`result_of_unfuse<polymorphic<Lam, by_cref>::type, R0, Pack, _Stg>::type`]
+        [`result_of_unfuse<poly<Lam, by_cref>::type, R0, Pack, _Stg>::type`]
     ]
     [
         [`PSTADE_EGG_VARIADIC_POLY()`]
@@ -577,11 +577,11 @@ The following macros assist such routine work.
     ]
     [
         [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TYPE(T)`]
-        [`T` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
+        [`T` becomes __POLY_FUNCTION_OBJECT__ which is nullary-callable.]
     ]
     [
         [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TEMPLATE(X, S)`]
-        [`X<...>` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
+        [`X<...>` becomes __POLY_FUNCTION_OBJECT__ which is nullary-callable.]
     ]
 ]
 

@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -125,18 +125,18 @@ struct base_neg
 };
 
 
-typedef pstade::egg::polymorphic< foo<boost::mpl::_> >::type T_identity;
-PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_POLYMORPHIC();
+typedef pstade::egg::poly< foo<boost::mpl::_> >::type T_identity;
+PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_POLY();
 
-typedef pstade::egg::polymorphic<foo<boost::mpl::_>, boost::use_default>::type T_identity_;
-PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_POLYMORPHIC();
+typedef pstade::egg::poly<foo<boost::mpl::_>, boost::use_default>::type T_identity_;
+PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_POLY();
 
-typedef pstade::egg::polymorphic< nested_plus >::type T_nplus;
-PSTADE_POD_CONSTANT((T_nplus), nplus) = PSTADE_EGG_POLYMORPHIC();
+typedef pstade::egg::poly< nested_plus >::type T_nplus;
+PSTADE_POD_CONSTANT((T_nplus), nplus) = PSTADE_EGG_POLY();
 
 
-typedef pstade::egg::polymorphic< base_neg, boost::use_default, pstade::egg::use_nullary_result >::type T_neg;
-PSTADE_POD_CONSTANT((T_neg), neg) = PSTADE_EGG_POLYMORPHIC();
+typedef pstade::egg::poly< base_neg, boost::use_default, pstade::egg::use_nullary_result >::type T_neg;
+PSTADE_POD_CONSTANT((T_neg), neg) = PSTADE_EGG_POLY();
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))

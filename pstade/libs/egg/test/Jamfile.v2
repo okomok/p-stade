@@ -130,7 +130,7 @@ test-suite "egg" :
     [ run pipable.cpp ]
     [ run pipable_by.cpp ]
     [ run placeholders.cpp ]
-    [ run polymorphic.cpp ]
+    [ run poly.cpp ]
     [ run protect.cpp ]
     [ run ptr_new.cpp ]
     [ run register_nullary_result.cpp ]

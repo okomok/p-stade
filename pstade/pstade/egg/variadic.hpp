@@ -12,7 +12,7 @@
 
 
 #include "./by_cref.hpp"
-#include "./polymorphic.hpp"
+#include "./poly.hpp"
 #include "./unfuse.hpp"
 
 
@@ -50,14 +50,14 @@ namespace pstade { namespace egg {
     >
     struct variadic_poly :
         result_of_unfuse<
-            typename polymorphic<Expr, by_variadic>::type,
+            typename poly<Expr, by_variadic>::type,
             NullaryResult,
             PackExpr,
             Strategy
         >
     { };
 
-    #define PSTADE_EGG_VARIADIC_POLY() PSTADE_EGG_UNFUSE_L PSTADE_EGG_POLYMORPHIC() PSTADE_EGG_UNFUSE_R
+    #define PSTADE_EGG_VARIADIC_POLY() PSTADE_EGG_UNFUSE_L PSTADE_EGG_POLY() PSTADE_EGG_UNFUSE_R
 
 
 } } // namespace pstade::egg

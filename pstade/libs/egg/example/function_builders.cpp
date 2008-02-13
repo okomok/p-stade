@@ -16,7 +16,7 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function_facade.hpp>
 #include <pstade/egg/implicit.hpp>
-#include <pstade/egg/polymorphic.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/static.hpp>
 #include <pstade/egg/apply.hpp>
@@ -173,7 +173,7 @@ void test_automatic()
 //]
 
 
-//[code_polymorphic_example
+//[code_poly_example
 template<class F, class X>
 struct mono_twice
 {
@@ -188,14 +188,14 @@ struct mono_twice
 };
 
 typedef
-    polymorphic< mono_twice<boost::mpl::_, boost::mpl::_> >::type
+    poly< mono_twice<boost::mpl::_, boost::mpl::_> >::type
 T_twice;
 
-T_twice const twice = PSTADE_EGG_POLYMORPHIC();
+T_twice const twice = PSTADE_EGG_POLY();
 
 int increment(int i) { return i+1; }
 
-void test_polymorphic()
+void test_poly()
 {
     BOOST_CHECK(twice(&increment, 3) == 1+1+3);
 }
@@ -253,6 +253,6 @@ void pstade_minimal_test()
     test_envelope();
 #endif
     test_automatic();
-    test_polymorphic();
+    test_poly();
     test_generator();
 }
