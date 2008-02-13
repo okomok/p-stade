@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/function.hpp> // no way of forward declaration
 #include <boost/typeof/std/memory.hpp> // allocator
 #include <boost/typeof/typeof.hpp>
+#include <pstade/egg/white/boost_function_fwd.hpp>
+
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
 

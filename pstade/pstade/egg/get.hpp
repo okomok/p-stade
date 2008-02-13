@@ -12,7 +12,6 @@
 
 
 #include <boost/mpl/int.hpp>
-#include <boost/tuple/tuple.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/apple/is_pair.hpp>
