@@ -30,7 +30,7 @@ struct ERROR_PSTADE_EGG_GENERATOR_MISSING_ARGUMENT;
 namespace pstade { namespace egg {
 
 
-    // Even using generate_n, NullaryResult is needed;
+    // Even using `supply_n`, NullaryResult is needed;
     // consider `foo< metafun<_1> >` where `metafun<void>::type` is ill-formed.
 
     template<
