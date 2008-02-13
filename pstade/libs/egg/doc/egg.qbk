@@ -51,6 +51,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __MPL_LAMBDA_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html MPL Lambda Expression]]
 [def __MPL_PLACEHOLDER_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/placeholder-expression.html MPL Placeholder Expression]]
 [def __MPL_FORWARD_SEQUENCE__ [@http://www.boost.org/libs/mpl/doc/refmanual/forward-sequence.html MPL Forward Sequence]]
+[def __SGI_ADAPTABLE_FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable Function Object]]
 [def __SGI_ADAPTABLE__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable]]
 
 [def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]]
@@ -86,6 +87,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __EGG_FUNCTION_BUILDERS__ [link egg.function_builders Function Builders]]
 [def __EGG_FUNCTION_ADAPTORS__ [link egg.function_adaptors Function Adaptors]]
+[def __EGG_FUNCTION_OBJECTS__ [link egg.function_objects Function Objects]]
 [def __EGG_FUNCTION__ [link egg.function_builders.function function]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_builders.function_facade function_facade]]
 [def __EGG_POLY__ [link egg.function_builders.poly poly]]

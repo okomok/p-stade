@@ -1,20 +1,65 @@
 [section Overview]
 
+[import ../example/introduction.cpp]
+
+
+
+
+[section Preface]
+
 ["An Egg to day is better than a Hen to-morrow.] -- Benjamin Franklin
 
-[import ../example/introduction.cpp]
+[endsect]
 
 
 
 
 [section Introduction]
 
-Unlike other modern languages, it is very difficult to make "polymorphic" functions in C++.
-The "polymorphic" means that return type of function depends on its argument types.
-If you want to support __BOOST_RESULT_OF__ and __BOOST_LAMBDA__, it becomes more difficult.
-Egg is header-only framework of building functions which can work with __BOOST_RESULT_OF__ and __BOOST_LAMBDA__.
-Also, Egg provides function adaptors, also known as higher-order functions.
+Egg is a header-only library for building __POLYMORPHIC_FUNCTION_OBJECT__ which can be used
+with __BOOST_LAMBDA__. Such a function object is named __MAJOR_FUNCTION_OBJECT__.
+
+Egg mainly provides three components:
+
+* __EGG_FUNCTION_BUILDERS__ which build __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__.
+* __EGG_FUNCTION_ADAPTORS__ which take __POLYMORPHIC_FUNCTION_OBJECT__ then return adapted one.
+* __EGG_FUNCTION_OBJECTS__ which are ports of famous function templates.
+
 [code_introduction]
+
+[endsect]
+
+
+
+
+[section Motivation]
+
+[heading What's Polymorphic Function Object?]
+In short, __POLYMORPHIC_FUNCTION_OBJECT__ is __FUNCTION_OBJECT__ which can be used with __BOOST_RESULT_OF__.
+__BOOST_RESULT_OF__ is a __METAFUNCTION__ to extract function return types without help of C++0x `decltype`,
+so that it enables you to do the functional programming in C++03.
+
+[heading Polymorphic Function Object Models]
+Fortunately, __POLYMORPHIC_FUNCTION_OBJECT__ types are superset of __SGI_ADAPTABLE_FUNCTION_OBJECT__ types,
+so that you don't need extra efforts to play with Egg if you're already familiar with that concept.
+For example, the followings are trivially conforming __POLYMORPHIC_FUNCTION_OBJECT__ types:
+
+* function pointers
+* `std::less<int>`
+* function objects `boost::bind(...)` returns.
+* `boost::function<...>`
+
+We can say these function objects "monomorphic", meaning that its return type doesn't depend on its argument types.
+If you want to build such a function object into __BOOST_RESULT_OF__ conforming one, it is very easy:
+[code_introduction_monomorphic]
+A function object which has nested `result_type` is trivially conforming __POLYMORPHIC_FUNCTION_OBJECT__ (as monomorphic one),
+which can be used with __BOOST_RESULT_OF__.
+
+[heading Egg what for?]
+Unfortunately, if you need a __POLYMORPHIC_FUNCTION_OBJECT__ whose return type depends on
+its argument types, it is not easy. There are many compiler bugs, pitfalls, and key-typings.
+
+Egg is the framework for building such function objects.
 
 [endsect]
 

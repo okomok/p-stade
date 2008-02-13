@@ -70,8 +70,24 @@ void test_adaptor()
 }
 //]
 
+//[code_introduction_monomorphic
+struct T_plus_int
+{
+    typedef int result_type;
+
+    result_type operator()(int x, int y) const
+    {
+        return x + y;
+    }
+};
+
+T_plus_int const plus_int = {};
+//]
+
 void pstade_minimal_test()
 {
     ::test_builder();
     ::test_adaptor();
+
+    BOOST_CHECK( plus_int(1, 2) == 3 );
 }
