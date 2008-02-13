@@ -54,7 +54,8 @@ namespace pstade { namespace egg {
             template<class Re, class Args>
             Re call(Args &args) const
             {
-                return detail::tuple_fuse(Bind())(detail::X_tuple_prepend<by_ref>()(args, m_base));
+                return detail::tuple_fuse(Bind())
+                    (detail::X_tuple_prepend<by_ref>()(args, m_base));
             }
         };
 
