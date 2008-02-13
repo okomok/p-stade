@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/bll_sig.hpp>
+#include <pstade/egg/bll/sig_base.hpp>
 #include <pstade/minimal_test.hpp>
 
 #include <boost/lambda/core.hpp>
@@ -34,7 +34,7 @@ struct T_my_plus
     }
 
     template<class FunArgs>
-    struct sig : pstade::egg::bll_sig<FunArgs>
+    struct sig : pstade::egg::bll_sig_base<FunArgs>
     { };
 };
 

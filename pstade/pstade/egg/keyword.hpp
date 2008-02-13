@@ -15,7 +15,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
-#include "./bll_sig.hpp"
+#include "./bll/sig_base.hpp"
 #include "./detail/named_arg.hpp"
 #include "./detail/unref.hpp"
 
@@ -79,7 +79,7 @@ namespace pstade { namespace egg {
 
         template<class FunArgs>
         struct sig :
-            bll_sig<FunArgs>
+            bll_sig_base<FunArgs>
         { };
     };
 

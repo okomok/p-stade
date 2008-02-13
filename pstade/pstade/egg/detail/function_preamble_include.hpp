@@ -32,5 +32,5 @@
 
     template<class PStadeEgg_FunArgs>
     struct sig : pstade::egg::
-        bll_sig<PStadeEgg_FunArgs>
+        bll_sig_base<PStadeEgg_FunArgs>
     { };
