@@ -25,7 +25,6 @@
 #include "../auto_object.hpp"
 #include "../before.hpp"
 #include "../bll.hpp"
-#include "../bll_poly.hpp"
 #include "../by_cref.hpp"
 #include "../by_perfect.hpp"
 #include "../by_ref.hpp"

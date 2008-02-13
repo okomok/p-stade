@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/bll_poly.hpp>
+#include <pstade/egg/bll/poly.hpp>
 #include <pstade/minimal_test.hpp>
 
 

@@ -12,7 +12,7 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <pstade/egg/bll_poly.hpp>
+#include <pstade/egg/bll/poly.hpp>
 #include <pstade/egg/by_cref.hpp>
 #include <pstade/pod_constant.hpp>
 #include "./range_based1.hpp"

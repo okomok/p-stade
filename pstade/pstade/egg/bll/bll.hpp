@@ -16,6 +16,7 @@
 #include "./extension_fwd.hpp"
 #include "./optional.hpp"
 #include "./placeholders.hpp"
+#include "./poly.hpp"
 #include "./sig_base.hpp"
 #include "./string.hpp"
 #include "./result_of.hpp"
