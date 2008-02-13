@@ -1,9 +1,9 @@
 [section Forwarding Strategies]
 
-
-A Forwarding Strategy is a type which has two associated imaginary operators
+A Forwarding Strategy is a type which has three associated imaginary operators
 `_bytag_at`, `_arg_list` and `_meta_arg_list`.
-Egg components use `by_perfect` when you omit or specify `_ud` for strategy parameter.
+Egg predefines the fundamental strategy quartet: `by_perfect`, `by_ref`, `by_cref`, and `by_value`.
+Also note Egg components use `by_perfect` when you omit or specify `_ud` for strategy parameter.
 
 This section uses the following notation.
 
@@ -164,7 +164,7 @@ Egg performs the "perfect forwarding" by default.
 [section by_ref]
 
 [heading Description]
-`by_ref` offers a large arity, but can't take a non-const rvalue.
+`by_ref` offers large arity, but can't take non-const rvalues.
 
 [heading Header]
 * `<pstade/egg/by_ref.hpp>`
@@ -211,7 +211,7 @@ Egg performs the "perfect forwarding" by default.
 [section by_cref]
 
 [heading Description]
-`by_cref` takes the arguments by /const reference/.
+`by_cref` takes arguments by /const reference/.
 
 [heading Header]
 * `<pstade/egg/by_cref.hpp>`
@@ -257,7 +257,8 @@ Egg performs the "perfect forwarding" by default.
 [section by_value]
 
 [heading Description]
-`by_value` takes the arguments by value, which means that it can take a temporary "movable type" like `std::auto_ptr<>`.
+`by_value` takes arguments by value so that arguments are "decayed".
+Also, it can forward "movable" rvalues like `std::auto_ptr<>` with keeping movability.
 
 [heading Header]
 * `<pstade/egg/by_value.hpp>`
@@ -378,11 +379,11 @@ Egg provides the uniform way to define your own strategy.
     ]
     [
         [`call_little(_lit, a1,...,aK)`]
-        [`_lit.call<apply_little<_meta_arg_list(_lit, by_ref), _meta_arg_list(a, by_ref)>::type>(a1,...,aK)`]
+        [`_lit.call<apply_little<_meta_arg_list([_lit]++a, by_ref)>::type>(a1,...,aK)`]
     ]
     [
         [`by_perfect`, `by_ref`, `by_cref`, and `by_value`]
-        [These can be used as return type of strategy tag.]
+        [These can be used as "meta" return type of strategy tag.]
     ]
 ]
 
@@ -390,7 +391,7 @@ Egg provides the uniform way to define your own strategy.
 * `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 
 [heading Your strategy tag]
-A strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
+A user-defined strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
 [code_my_strategy_tag]
 
 [heading Specializing `function<>`]

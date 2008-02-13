@@ -170,7 +170,7 @@ This document uses the following notation.
     ]
     [
         [`_PACK_MAX_SIZE`]
-        [`FUSION_MAX_VECTOR_SIZE`]
+        [`10`]
     ]
     [
         [`[a1,...,aN]`]
