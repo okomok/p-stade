@@ -35,8 +35,7 @@ namespace pstade { namespace egg {
     struct X_resolve<F,
         typename enable_if<
             boost::mpl::or_< boost::is_pointer<F>, boost::is_member_function_pointer<F> >
-        >::type
-    >
+        >::type>
     {
         typedef F result_type;
 

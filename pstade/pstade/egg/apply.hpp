@@ -44,7 +44,8 @@ namespace pstade { namespace egg {
             template<class Re, class Args>
             Re call(Args &args) const
             {
-                return detail::tuple_fuse(boost::tuples::get<0>(args))(detail::X_tuple_drop_c<1, by_ref>()(args));
+                return detail::tuple_fuse(boost::tuples::get<0>(args))
+                    (detail::X_tuple_drop_c<1, by_ref>()(args));
             }
         };
 
