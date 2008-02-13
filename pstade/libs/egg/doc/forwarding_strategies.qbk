@@ -3,8 +3,6 @@
 
 A Forwarding Strategy is a type which has two associated imaginary operators
 `_bytag_at`, `_arg_list` and `_meta_arg_list`.
-If the first argument of `arg_list` or `_meta_arg_list` is not a sequence,
-assume it is "one element" sequence.
 Egg components use `by_perfect` when you omit or specify `_ud` for strategy parameter.
 
 This section uses the following notation.
@@ -425,12 +423,12 @@ Let's look into the new valid expressions.
     ]
     [
         [`_arg_list(a, StgTag)`]
-        [`_arg_list(a1, _bytag_at(StgTag, K, 0)),...,_arg_list(aK, _bytag_at(StgTag, K, K-1))`]
+        [`_arg_list([a1], _bytag_at(StgTag, K, 0))++...++_arg_list([aK], _bytag_at(StgTag, K, K-1))`]
     ]
 
     [
         [`_meta_arg_list(a, StgTag)`]
-        [`_meta_arg_list(a1, _bytag_at(StgTag, K, 0)),...,_meta_arg_list(aK, _bytag_at(StgTag, K, K-1))`]
+        [`_meta_arg_list([a1], _bytag_at(StgTag, K, 0))++...++_meta_arg_list([aK], _bytag_at(StgTag, K, K-1))`]
     ]
     [
         [`function<_Lit, StgTag>`]

@@ -173,7 +173,15 @@ This document uses the following notation.
         [`FUSION_MAX_VECTOR_SIZE`]
     ]
     [
+        [`[a1,...,aN]`]
+        [An imaginary operator to construct parameter list.]
+    ]
+    [
         [`++`]
+        [An imaginary operator to concatenate parameter lists.]
+    ]
+    [
+        [`+++`]
         [An imaginary operator to concatenate tokens.]
     ]
 ]

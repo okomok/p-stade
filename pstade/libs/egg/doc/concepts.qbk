@@ -17,7 +17,7 @@ A __LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using 
 For any __LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 
 * `a` is a named lvalue.
-* If token `a` doesn't begin with a single underscore, `T_++a` is `_typeof(a)`; `TT++a` otherwise.
+* If token `a` doesn't begin with a single underscore, `T_+++a` is `_typeof(a)`; `TT+++a` otherwise.
 
 [heading Example]
 [code_concepts_lexically_typed_object]
@@ -148,8 +148,8 @@ for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 
 * `x<A1,...,AN>::type` is a POD __MAJOR_FUNCTION_OBJECT__ type.
 * `x<A1,...,AN>::type` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
-* `PSTADE_EGG_++TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
-* Non-local object `x<A1,...,AN>::type` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_++TOUPPER(x)()`.
+* `PSTADE_EGG_+++TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
+* Non-local object `x<A1,...,AN>::type` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_+++TOUPPER(x)()`.
 
 [heading Example]
 [code_concepts_pod_function_builder]

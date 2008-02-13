@@ -35,7 +35,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, _Bytag)` is an object of `result_of_ambi++N<_typeof(d), _Bytag>::type` initialized using `d` or an initializer.
+* `fc(d, _Bytag)` is an object of `result_of_ambi+++N<_typeof(d), _Bytag>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -44,12 +44,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_ambi++N<_PFo, _Bytag = _ud>::type`]
+        [`result_of_ambi+++N<_PFo, _Bytag = _ud>::type`]
         [An __AMBI__ __MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
         [`PSTADE_EGG_AMBI_L init PSTADE_EGG_AMBI_R`]
-        [A braced initializer of `result_of_ambi++N<_PFo,...>::type`]
+        [A braced initializer of `result_of_ambi+++N<_PFo,...>::type`]
     ]
     [
         [`PSTADE_EGG_AMBI(I)`]
@@ -57,31 +57,30 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`o|fc(d, _Bytag)(a1,...,aN)`]
-        [`_const(d)(_fwd_arg_list(o, _Bytag),_fwd_arg_list(a, _Bytag))`]
+        [`_const(d)(_fwd_arg_list([o]++a, _Bytag))`]
     ]
     [
-        [`X_ambi++N<_Bytag = _ud>`]
+        [`X_ambi+++N<_Bytag = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_ambi++N<_Bytag>()(d)`]
+        [`X_ambi+++N<_Bytag>()(d)`]
         [`fc(d, _Bytag)`]
     ]
     [
-        [`ambi++N`]
-        [`X_ambi++N<>()`]
+        [`ambi+++N`]
+        [`X_ambi+++N<>()`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N+1 <= PSTADE_EGG_MAX_LINEAR_ARITY`.
-* `N+1 <= _PACK_MAX_ARITY`
+* `N <= _PACK_MAX_ARITY-1`
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * If `_Bytag` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_ambi++N<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_ambi+++N<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_ambi_example]
@@ -179,7 +178,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_curry++N<_typeof(d)>::type` initialized using `d` or an initializer.
+* `fc(d)` is an object of `result_of_curry+++N<_typeof(d)>::type` initialized using `d` or an initializer.
 * `b` is `_bound(a1),...,_bound(a(N-1))`.
 
 [heading Valid expressions]
@@ -189,23 +188,23 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_curry++N<_PFo>::type`]
+        [`result_of_curry+++N<_PFo>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_CURRY++N++_L init PSTADE_EGG_CURRY++N++_R`]
-        [A braced initializer of `result_of_curry++N<_PFo>::type`]
+        [`PSTADE_EGG_CURRY+++N+++_L init PSTADE_EGG_CURRY+++N+++_R`]
+        [A braced initializer of `result_of_curry+++N<_PFo>::type`]
     ]
     [
-        [`PSTADE_EGG_CURRY++N(I)`]
-        [`PSTADE_EGG_CURRY++N++_L I PSTADE_EGG_CURRY++N++_R`]
+        [`PSTADE_EGG_CURRY+++N(I)`]
+        [`PSTADE_EGG_CURRY+++N+++_L I PSTADE_EGG_CURRY+++N+++_R`]
     ]
     [
         [`fc(d)(a1)...(aN)`]
-        [`_const(d)(_fwd_arg_list(b, by_cref),_fwd_arg_list(aN, by_perfect))`]
+        [`_const(d)(_fwd_arg_list(b, by_cref)++_fwd_arg_list([aN], by_perfect))`]
     ]
     [
-        [`curry++N(d)`]
+        [`curry+++N(d)`]
         [`fc(d)`]
     ]
 ]
@@ -216,7 +215,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_curry++N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_curry+++N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_curry_example]
@@ -358,6 +357,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]
 * __EGG_CURRY__
 * __EGG_MEMOIZE__
+* __EGG_COMPOSE__
 
 [endsect]
 
@@ -377,7 +377,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Notation]
 * `fc(d, _Stg)` is an object of `result_of_flip<_typeof(d), _Stg>::type` initialized using `d` or an initializer.
-* `b` is `a2, a1`.
 
 [heading Valid expressions]
 [table 
@@ -399,7 +398,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d, _Stg)(a1, a2)`]
-        [`_const(d)( _fwd_arg_list(b, _Stg) )`]
+        [`_const(d)(_fwd_arg_list([a2, a1], _Stg))`]
     ]
     [
         [`X_flip<_Stg = _ud>`]
@@ -764,7 +763,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [__POLYMORPHIC__ `bind_(_fwd_arg_list(f, by_cref), _fwd_arg_list(a, by_cref))`]
+        [__POLYMORPHIC__ `bind_(_fwd_arg_list([f]++a, by_cref))`]
     ]
     [
         [`lazy(f)`]
@@ -773,7 +772,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY-1`.
 * There is a `f_` such that `F f_ = init;` is a valid expression.
 * The corresponding semantics is a valid expression.
 
@@ -1013,7 +1011,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`o|fc(d, _Stg, _Bytag)(a1,...,aN)`]
-        [`_const(d)(_fwd_arg_list(o, _Bytag),safe_arg_list(a, _Stg))`]
+        [`_const(d)(_fwd_arg_list(o, _Bytag)++_safe_arg_list(a, _Stg))`]
     ]
     [
         [`X_pipable<_Stg = _ud, _Bytag = _ud>`]

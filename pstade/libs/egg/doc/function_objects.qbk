@@ -32,16 +32,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_++op<R = _ud, _Stg = _ud>`]
+        [`X_+++op<R = _ud, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_++op<R, _Stg>()(a1,...,aN)`]
+        [`X_+++op<R, _Stg>()(a1,...,aN)`]
         [`do_(op, _fwd_arg_list(a, _Stg))`]
     ]
     [
         [`op`]
-        [__STATIC_FUNCTION_OBJECT__ which behaves as if it were `X_++op<>()`.]
+        [__STATIC_FUNCTION_OBJECT__ which behaves as if it were `X_+++op<>()`.]
     ]
 ]
 
@@ -195,8 +195,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_apply<_Stg>()(_pfo, a1,...,aN)`]
-        [`_pfo(_fwd_arg_list(a, _Stg))` ]
+        [`X_apply<_Stg>()(_pfo,a1,...,aN)`]
+        [`_const(_pfo)(_fwd_arg_list(a, _Stg))` ]
     ]
     [
         [`apply`]
@@ -205,7 +205,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* `_fwd_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
+* `_arg_list([_pfo,a1,...,aN], _Stg)` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 
@@ -340,13 +340,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`bll_bind(f, a1,...,aN)`]
-        [__POLYMORPHIC__ `boost::lambda::bind(f, a1,...,aN)`]
+        [`bll_bind(a1,...,aN)`]
+        [__POLYMORPHIC__ `boost::lambda::bind(_fwd_arg_list(a, by_cref))`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= 9`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -382,8 +381,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`bll_++N`]
-        [__POLYMORPHIC__ `boost::lambda::_++N`]
+        [`bll_+++N`]
+        [__POLYMORPHIC__ `boost::lambda::_+++N`]
     ]
 ]
 
@@ -637,7 +636,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* `t` can be `boost::tuple<...>`.
+* `t` can be `boost::tuple<...>` or `std::pair<...>`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -677,8 +676,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_identity<_Stg>()(a)`]
-        [`_fwd_arg_list(a, _Stg)` ]
+        [`X_identity<_Stg>()(a1)`]
+        [`_fwd_arg_list([a1], _Stg)` ]
     ]
     [
         [`identity`]

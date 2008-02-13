@@ -96,6 +96,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_MAKE_FUNCTION__ [link egg.function_builders.make_function make_function]]
 
 [def __EGG_AMBI__ [link egg.function_adaptors.ambin ambiN]]
+[def __EGG_COMPOSE__ [link egg.function_adaptors.compose compose]]
 [def __EGG_CURRY__ [link egg.function_adaptors.curryn curryN]]
 [def __EGG_UNCURRY__ [link egg.function_adaptors.uncurry uncurry]]
 [def __EGG_FUSE__ [link egg.function_adaptors.fuse fuse]]
