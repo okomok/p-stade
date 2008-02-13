@@ -67,7 +67,7 @@
 * `call_strategy` renamed to `use_deduced_form`.
 * `flip` documented.
 * `automatic` renamed to `implicit`.
-* `deferred` renamed to `polymorphic`.
+* `deferred` renamed to `poly`.
 * `EGG_DEFER` removed.
 * `variadic` added.
 

@@ -130,7 +130,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 [section poly]
 
 [heading Description]
-Though `poly` can't be "stateful", you can access nested typedefs from `operator()` body.
+Though `poly` can't build "stateful" one, you can access nested typedefs from `operator()` body.
 This is a port of `detail::function` family which is secretly contained in __BOOST_ACCUMULATORS__.
 
 [heading Header]

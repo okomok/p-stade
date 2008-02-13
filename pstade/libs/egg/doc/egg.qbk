@@ -88,7 +88,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION_ADAPTORS__ [link egg.function_adaptors Function Adaptors]]
 [def __EGG_FUNCTION__ [link egg.function_builders.function function]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_builders.function_facade function_facade]]
-[def __EGG_POLYMORPHIC__ [link egg.function_builders.polymorphic polymorphic]]
+[def __EGG_POLY__ [link egg.function_builders.poly poly]]
 [def __EGG_GENERATOR__ [link egg.function_builders.generator generator]]
 [def __EGG_VARIADIC__ [link egg.function_builders.variadic variadic]]
 [def __EGG_MAKE_FUNCTION__ [link egg.function_builders.make_function make_function]]
