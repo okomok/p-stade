@@ -35,7 +35,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, _Bytag)` is an object of `result_of_ambi+++N<_typeof(d), _Bytag>::type` initialized using `d` or an initializer.
+* `fc(d, _Bytag)` is an object of `result_of_ambi##N<_typeof(d), _Bytag>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -44,12 +44,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_ambi+++N<_PFo, _Bytag = _ud>::type`]
+        [`result_of_ambi##N<_PFo, _Bytag = _ud>::type`]
         [An __AMBI__ __MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
         [`PSTADE_EGG_AMBI_L init PSTADE_EGG_AMBI_R`]
-        [A braced initializer of `result_of_ambi+++N<_PFo,...>::type`]
+        [A braced initializer of `result_of_ambi##N<_PFo,...>::type`]
     ]
     [
         [`PSTADE_EGG_AMBI(I)`]
@@ -60,16 +60,16 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [`_const(d)(_fwd_arg_list([o]++a, _Bytag))`]
     ]
     [
-        [`X_ambi+++N<_Bytag = _ud>`]
+        [`X_ambi##N<_Bytag = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_ambi+++N<_Bytag>()(d)`]
+        [`X_ambi##N<_Bytag>()(d)`]
         [`fc(d, _Bytag)`]
     ]
     [
-        [`ambi+++N`]
-        [`X_ambi+++N<>()`]
+        [`ambi##N`]
+        [`X_ambi##N<>()`]
     ]
 ]
 
@@ -80,7 +80,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_ambi+++N<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_ambi##N<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_ambi_example]
@@ -178,7 +178,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_curry+++N<_typeof(d)>::type` initialized using `d` or an initializer.
+* `fc(d)` is an object of `result_of_curry##N<_typeof(d)>::type` initialized using `d` or an initializer.
 * `b` is `_bound(a1),...,_bound(a(N-1))`.
 
 [heading Valid expressions]
@@ -188,23 +188,23 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
         [[*Semantics]]
     ]
     [
-        [`result_of_curry+++N<_PFo>::type`]
+        [`result_of_curry##N<_PFo>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`PSTADE_EGG_CURRY+++N+++_L init PSTADE_EGG_CURRY+++N+++_R`]
-        [A braced initializer of `result_of_curry+++N<_PFo>::type`]
+        [`PSTADE_EGG_CURRY##N##_L init PSTADE_EGG_CURRY##N##_R`]
+        [A braced initializer of `result_of_curry##N<_PFo>::type`]
     ]
     [
-        [`PSTADE_EGG_CURRY+++N(I)`]
-        [`PSTADE_EGG_CURRY+++N+++_L I PSTADE_EGG_CURRY+++N+++_R`]
+        [`PSTADE_EGG_CURRY##N(I)`]
+        [`PSTADE_EGG_CURRY##N##_L I PSTADE_EGG_CURRY##N##_R`]
     ]
     [
         [`fc(d)(a1)...(aN)`]
         [`_const(d)(_fwd_arg_list(b, by_cref)++_fwd_arg_list([aN], by_perfect))`]
     ]
     [
-        [`curry+++N(d)`]
+        [`curry##N(d)`]
         [`fc(d)`]
     ]
 ]
@@ -215,7 +215,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * The corresponding expression is a valid expression.
 
 [heading Invariants]
-* `result_of_curry+++N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_curry##N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
 
 [heading Example]
 [code_curry_example]

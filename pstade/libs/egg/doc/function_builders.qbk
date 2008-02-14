@@ -166,8 +166,8 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
         [`Cst(_decltype_r0(R0, _mpl::apply<C(Lam)>::type())()()`]
     ]
     [
-        [`_mpl::_+++M`]
-        [`_mpl::_+++M`]
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
     ]
     [
         [`_mpl::_`]
@@ -268,8 +268,8 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [`To to = boost::implicit_cast<_typeof(to)>( fuse(F())(X_pack<_Stg>()(a1,...,aN)) );`]
     ]
     [
-        [`_mpl::_+++M`]
-        [`_mpl::_+++M`]
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
     ]
     [
         [`_mpl::_`]
@@ -338,8 +338,8 @@ When you want to build stateless one, `poly` is the coolest builder.
         [`_mpl::apply<Lam>::type()()`]
     ]
     [
-        [`_mpl::_+++M`]
-        [`_mpl::_+++M`]
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
     ]
     [
         [`_mpl::_`]
@@ -403,8 +403,8 @@ to be /statically initialized/ without `static_`.
         [`F()(_fwd_arg_list(a, _Stg))`]
     ]
     [
-        [`_mpl::_+++M`]
-        [`_mpl::_+++M`]
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
     ]
     [
         [`_mpl::_`]
@@ -470,8 +470,8 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
         [A braced initializer of `variadic_poly<Lam,...>::type`]
     ]
     [
-        [`_mpl::_+++M`]
-        [`_mpl::_+++M`]
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
     ]
     [
         [`_mpl::_`]

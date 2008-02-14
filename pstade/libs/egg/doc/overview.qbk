@@ -54,7 +54,7 @@ It is really easy to build such one:
 
 [heading Egg what for?]
 Unfortunately, if you need a __POLYMORPHIC_FUNCTION_OBJECT__ whose return type depends on
-its argument types, it is not easy. There are many compiler bugs, pitfalls, and key-typings.
+its argument types, it is not easy. There are many compiler bugs, pitfalls, and typings.
 
 Egg is the framework for building such function objects.
 [code_introduction]
@@ -179,7 +179,7 @@ This document uses the following notation.
         [An imaginary operator to concatenate parameter lists.]
     ]
     [
-        [`+++`]
+        [`##`]
         [An imaginary operator to concatenate tokens.]
     ]
 ]
