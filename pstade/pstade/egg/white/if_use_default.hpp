@@ -20,7 +20,7 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include "./use_default_fwd.hpp"
+#include "./boost_use_default_fwd.hpp"
 
 
 namespace boost { namespace egg { namespace white {

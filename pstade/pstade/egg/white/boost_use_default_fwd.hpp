@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_WHITE_FUNCTION_FWD_HPP
-#define PSTADE_EGG_WHITE_FUNCTION_FWD_HPP
+#ifndef PSTADE_EGG_WHITE_BOOST_USE_DEFAULT_FWD_HPP
+#define PSTADE_EGG_WHITE_BOOST_USE_DEFAULT_FWD_HPP
 
 
 // PStade.Egg
@@ -10,7 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/function.hpp>
+namespace boost {
+
+    struct use_default;
+
+}
 
 
 #endif
