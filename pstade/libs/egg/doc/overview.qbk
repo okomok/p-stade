@@ -25,8 +25,6 @@ Egg mainly provides three components:
 * __EGG_FUNCTION_ADAPTORS__ which take __POLYMORPHIC_FUNCTION_OBJECT__ then return adapted one.
 * __EGG_FUNCTION_OBJECTS__ which are ports of famous function templates.
 
-[code_introduction]
-
 [endsect]
 
 
@@ -60,6 +58,7 @@ Unfortunately, if you need a __POLYMORPHIC_FUNCTION_OBJECT__ whose return type d
 its argument types, it is not easy. There are many compiler bugs, pitfalls, and key-typings.
 
 Egg is the framework for building such function objects.
+[code_introduction]
 
 [endsect]
 
