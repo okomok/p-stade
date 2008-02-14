@@ -12,7 +12,7 @@
 
 #include <boost/typeof/std/memory.hpp> // allocator
 #include <boost/typeof/typeof.hpp>
-#include <pstade/egg/white/boost_function_fwd.hpp>
+#include <pstade/egg/white/function_fwd.hpp>
 
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
