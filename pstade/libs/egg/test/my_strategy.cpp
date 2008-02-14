@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
         #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
-        Lit const& little() const { return m_lit; }
+        Lit const & little() const { return m_lit; }
 
         typename apply_little<Lit const>::type operator()() const
         {

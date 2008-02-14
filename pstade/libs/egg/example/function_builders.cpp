@@ -131,8 +131,8 @@ struct plus_to
 
 private:
     T m_x;
-}; /*<< `plus_to<>` is already a MajorFunctionObject type. >>*/
-
+};
+/*< `plus_to<>` is already a MajorFunctionObject type. >*/
 template<class T>
 plus_to<T> make_plus_to(T x)
 {
