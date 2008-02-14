@@ -114,7 +114,7 @@ for any __MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
 
 * `f` can be used as the first argument of `boost::lambda::bind`.
 
-[tip Thanks to elaborate customization way of __BOOST_LAMBDA__, __EGG_FUNCTION_BUILDERS__ don't depend on __BOOST_LAMBDA__ library. ]
+[tip This concept can be implemented without depending on __BOOST_LAMBDA__ library. ]
 
 [heading Example]
 ...
