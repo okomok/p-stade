@@ -17,7 +17,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/egg/bll/sig_base.hpp>
+#include <pstade/egg/bll/sig_impl.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
@@ -51,7 +51,7 @@ struct X_shared_values
 
     template<class FunArgs>
     struct sig :
-        egg::bll_sig_base<FunArgs>
+        egg::bll_sig_impl<FunArgs>
     { };
 };
 

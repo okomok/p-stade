@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_BLL_SIG_BASE_HPP
-#define PSTADE_EGG_BLL_SIG_BASE_HPP
+#ifndef PSTADE_EGG_BLL_SIG_IMPL_HPP
+#define PSTADE_EGG_BLL_SIG_IMPL_HPP
 
 
 // PStade.Egg
@@ -14,7 +14,7 @@
 // Usage:
 //
 // template<class FunArgs>
-// struct sig : bll_sig_base<FunArgs> {};
+// struct sig : bll_sig_impl<FunArgs> {};
 
 
 #include <boost/mpl/int.hpp>
@@ -28,24 +28,24 @@
 namespace pstade { namespace egg {
 
 
-    namespace bll_sig_base_detail {
+    namespace bll_sig_impl_detail {
 
 
         template<class Fun, class Args, class Arity>
         struct aux_;
 
     #define PSTADE_element(Z, N, _) typename boost::tuples::element<N, Args>::type &
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/bll/sig_base.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_BLL_BIND_TARGET_MAX_ARITY, <pstade/egg/bll/sig_impl.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_element
 
 
-    } // namespace bll_sig_base_detail
+    } // namespace bll_sig_impl_detail
 
 
     template<class FunArgs>
-    struct bll_sig_base :
-        bll_sig_base_detail::aux_<
+    struct bll_sig_impl :
+        bll_sig_impl_detail::aux_<
             typename FunArgs::head_type, // function
             typename FunArgs::tail_type, // argument tuple
             boost::mpl::int_<boost::tuples::length<FunArgs>::value - 1>

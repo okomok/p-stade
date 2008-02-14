@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "../bll/sig_base.hpp"
+#include "../bll/sig_impl.hpp"
 #include "./little_of.hpp"
 #include "./nullary_result_of_little.hpp"
 #include "./of_apply_little.hpp"

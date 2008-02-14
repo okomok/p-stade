@@ -32,7 +32,7 @@ test-suite "egg" :
     [ run bll_poly.cpp ]
     [ run bll_result_of.cpp ]
     [ run bll_return_type.cpp ]
-    [ run bll_sig_base.cpp ]
+    [ run bll_sig_impl.cpp ]
     [ run typeof_boost_function.cpp ]
     [ run typeof_boost_function.cpp : : : <define>BOOST_TYPEOF_EMULATION : typeof_boost_function_emulation ]
     [ run by_cref.cpp ]

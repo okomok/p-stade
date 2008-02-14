@@ -25,7 +25,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/apply_decl.hpp>
-#include <pstade/egg/bll/sig_base.hpp>
+#include <pstade/egg/bll/sig_impl.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/config.hpp> // PSTADE_EGG_MAX_ARITY
 #include <pstade/egg/construct_braced2.hpp>
@@ -83,7 +83,7 @@ struct little_range_based1_result
 
     template<class FunArgs>
     struct sig :
-        egg::bll_sig_base<FunArgs>
+        egg::bll_sig_impl<FunArgs>
     { };
 };
 
