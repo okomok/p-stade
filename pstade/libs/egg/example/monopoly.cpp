@@ -39,6 +39,10 @@ void test()
         BOOST_CHECK( r == 3 );
     }
     {
+        int r = poly< mono_minus<> >::type()(5, 2);
+        BOOST_CHECK( r == 3 );
+    }
+    {
         int r = egg::mono<use_default(int const &, int const &)>( poly< mono_minus<> >::type() )(5, 2);
         BOOST_CHECK( r == 3 );
     }
