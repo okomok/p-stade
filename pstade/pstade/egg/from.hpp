@@ -93,7 +93,7 @@ namespace pstade { namespace egg {
         typedef boost::optional<T &> result_type;
 
         template<class O>
-        result_type operator()(poly<O> &p) const
+        result_type operator()(pstade::poly<O> &p) const
         {
             if (p.template contains<T>())
                 return p.template content<T>();
@@ -102,7 +102,7 @@ namespace pstade { namespace egg {
         }
 
         template<class O>
-        result_type operator()(poly<O> const &p) const
+        result_type operator()(pstade::poly<O> const &p) const
         {
             if (p.template contains<T>())
                 return p.template content<T>();

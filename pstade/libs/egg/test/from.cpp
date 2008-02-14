@@ -27,7 +27,6 @@ using namespace egg;
 using pstade::any_ref;
 using pstade::any_cref;
 using pstade::any_movable;
-using pstade::poly;
 
 
 struct my_base { virtual int value() const = 0; };
@@ -201,6 +200,8 @@ void test_from_any()
 #endif
 
     {
+        using pstade::poly;
+        
         my_derived i(3);
         poly<my_base> a = i;
 
@@ -228,6 +229,8 @@ void test_from_any()
         BOOST_CHECK( !q );
     }
     {// works as if boost::any.
+        using pstade::poly;
+        
         poly<void> a = 3;
 
         boost::optional<int &> o = from_poly(a);
