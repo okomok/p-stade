@@ -652,6 +652,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * __EGG_FUSE__
 * __EGG_VARIADIC__
 * __EGG_PACK__
+* __EGG_CONSTRUCT_UNFUSED1__
 
 [endsect]
 

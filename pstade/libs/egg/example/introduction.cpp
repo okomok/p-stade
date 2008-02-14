@@ -69,7 +69,7 @@ void test_adaptor()
 }
 //]
 
-//[code_introduction_monomorphic
+//[code_introduction_fixed_result
 struct T_to_string
 {
     typedef std::string result_type;

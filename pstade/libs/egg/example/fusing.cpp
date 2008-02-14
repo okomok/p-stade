@@ -14,14 +14,17 @@
 #include <pstade/minimal_test.hpp>
 
 #include <boost/tuple/tuple.hpp>
+#include <boost/fusion/include/boost_tuple.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/core.hpp>
+#include <iostream>
+#include <boost/fusion/include/for_each.hpp>
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
-    #include <boost/fusion/include/boost_tuple.hpp>
-#endif
 
-
+namespace bll = boost::lambda;
 namespace egg = pstade::egg;
 using namespace egg;
+
 
 //[code_fuse_example
 int unfused_plus(int i, int j, int k)
@@ -36,14 +39,23 @@ void test_fuse()
 //]
 
 //[code_unfuse_example
-int fused_plus(boost::tuple<int, int, int> const &t)
+struct fused_print
 {
-    return boost::get<0>(t) + boost::get<1>(t) + boost::get<2>(t);
-}
+    typedef void result_type;
+
+    template<class Args>
+    void operator()(Args const &args) const
+    {
+        boost::fusion::for_each(args, std::cout << bll::_1);
+    }
+};
+
+typedef result_of_unfuse<fused_print>::type T_print;
+T_print const print = PSTADE_EGG_UNFUSE({});
 
 void test_unfuse()
 {
-    BOOST_CHECK( 1+2+3 == unfuse(&fused_plus)(1,2,3) );
+    print(1, '2', "34");
 }
 //]
 

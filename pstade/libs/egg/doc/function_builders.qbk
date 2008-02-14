@@ -4,7 +4,7 @@ Function builders build __MAJOR_FUNCTION_OBJECT__ type,
 which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [import ../example/function_builders.cpp]
-[import ../example/variadic_print.cpp]
+[import ../example/variadic_plus.cpp]
 
 
 
@@ -486,7 +486,7 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 * What the corresponding semantics implies.
 
 [heading Example]
-[code_variadic_print]
+[code_variadic_plus]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
