@@ -56,8 +56,10 @@ struct my_little
     };
 
     template<class Re, class A1, class A2, class A3, class A4>
-    Re call(A1 &a1, A2 &, A3 &, A4 &) const
+    Re call(A1 &a1, A2 &a2, A3 &a3, A4 &a4) const
     {
+        if (!&a1)
+            my_func()(a1, a2, a3, a4); // call myself.
         return a1;
     }
 };
