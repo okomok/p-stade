@@ -24,21 +24,26 @@ namespace egg = pstade::egg;
 using namespace egg;
 
 //[code_fuse_example
-int plus(int i, int j, int k)
+int unfused_plus(int i, int j, int k)
 {
     return i + j + k;
 }
 
 void test_fuse()
 {
-    BOOST_CHECK( 1+2+3 == fuse(&plus)(boost::make_tuple(1,2,3)) );
+    BOOST_CHECK( 1+2+3 == fuse(&unfused_plus)(boost::make_tuple(1,2,3)) );
 }
 //]
 
 //[code_unfuse_example
+int fused_plus(boost::tuple<int, int, int> const &t)
+{
+    return boost::get<0>(t) + boost::get<1>(t) + boost::get<2>(t);
+}
+
 void test_unfuse()
 {
-    BOOST_CHECK( 1+2+3 == unfuse(fuse(&plus))(1,2,3) );
+    BOOST_CHECK( 1+2+3 == unfuse(&fused_plus)(1,2,3) );
 }
 //]
 

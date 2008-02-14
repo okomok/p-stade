@@ -17,6 +17,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <string>
+#include <boost/lexical_cast.hpp>
 
 
 using pstade::result_of;
@@ -71,17 +72,18 @@ void test_adaptor()
 //]
 
 //[code_introduction_monomorphic
-struct T_plus_int
+struct T_to_string
 {
-    typedef int result_type;
+    typedef std::string result_type;
 
-    result_type operator()(int x, int y) const
+    template<class T>
+    result_type operator()(T const &t) const
     {
-        return x + y;
+        return boost::lexical_cast<std::string>(t);
     }
 };
 
-T_plus_int const plus_int = {};
+T_to_string const to_string = {};
 //]
 
 void pstade_minimal_test()
@@ -89,5 +91,5 @@ void pstade_minimal_test()
     ::test_builder();
     ::test_adaptor();
 
-    BOOST_CHECK( plus_int(1, 2) == 3 );
+    BOOST_CHECK( to_string(1) == "1" );
 }
