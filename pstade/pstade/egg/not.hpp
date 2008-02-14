@@ -15,11 +15,11 @@
 #include <pstade/pod_constant.hpp>
 #include "./by_perfect.hpp"
 #include "./by_value.hpp"
-#include "./construct_variadic1.hpp"
+#include "./construct_unfused1.hpp"
 #include "./detail/tuple_fuse.hpp"
 #include "./generator.hpp"
 #include "./return.hpp"
-#include "./variadic.hpp"
+#include "./unfuse.hpp"
 
 
 namespace pstade { namespace egg {
@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
 
 
         template<class Base>
-        struct little_result
+        struct fused_result
         {
             Base m_base;
 
@@ -38,14 +38,10 @@ namespace pstade { namespace egg {
                 return m_base;
             }
 
-            template<class Me, class Args>
-            struct apply
-            {
-                typedef bool type;
-            };
+            typedef bool result_type;
 
-            template<class Re, class Args>
-            Re call(Args &args) const
+            template<class Args>
+            result_type operator()(Args const &args) const
             {
                 return !detail::tuple_fuse(egg::return_<bool>(m_base))(args);
             }
@@ -57,16 +53,16 @@ namespace pstade { namespace egg {
 
     template<class Base, class Strategy = by_perfect>
     struct result_of_not :
-        variadic<
-            not_detail::little_result<Base>,
-            Strategy,
+        result_of_unfuse<
+            not_detail::fused_result<Base>,
+            use_nullary_result,
             boost::use_default,
-            use_nullary_result
+            Strategy
         >
     { };
 
-    #define PSTADE_EGG_NOT_L PSTADE_EGG_VARIADIC_L {
-    #define PSTADE_EGG_NOT_R } PSTADE_EGG_VARIADIC_R
+    #define PSTADE_EGG_NOT_L PSTADE_EGG_UNFUSE_L {
+    #define PSTADE_EGG_NOT_R } PSTADE_EGG_UNFUSE_R
     #define PSTADE_EGG_NOT(F) PSTADE_EGG_NOT_L F PSTADE_EGG_NOT_R
 
 
@@ -75,7 +71,7 @@ namespace pstade { namespace egg {
         generator<
             typename result_of_not<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
-            X_construct_variadic1<>
+            X_construct_unfused1<>
         >
     >
     { };

@@ -35,6 +35,7 @@
 #include "../construct.hpp"
 #include "../construct_braced1.hpp"
 #include "../construct_braced2.hpp"
+#include "../construct_unfused1.hpp"
 #include "../construct_variadic1.hpp"
 #include "../constructor.hpp"
 #include "../copy.hpp"
