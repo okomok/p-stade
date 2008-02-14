@@ -34,6 +34,7 @@ Egg mainly provides three components:
 
 [heading What's Polymorphic Function Object?]
 In short, __POLYMORPHIC_FUNCTION_OBJECT__ is __FUNCTION_OBJECT__ which can be used with __BOOST_RESULT_OF__.
+(See also __RESULT_OF_TUTORIAL__.)
 __BOOST_RESULT_OF__ is a __METAFUNCTION__ to extract function return types without help of C++0x `decltype`,
 so that it enables you to do the functional programming in C++03.
 

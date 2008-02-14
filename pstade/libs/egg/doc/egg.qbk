@@ -80,6 +80,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __PIPABLE_FUNCTION_OBJECT__ [link egg.concepts.pipable_function_object Pipable Function Object]]
 [def __PIPABLE__ [link egg.concepts.pipable_function_object Pipable]]
 [def __LITTLE_FUNCTION__ [link egg.concepts.little_function Little Function]]
+[def __RESULT_OF_TUTORIAL__ [link egg.concepts.result_of_tutorial result_of tutorial]]
 
 [def __EGG_FORWARDING_STRATEGIES__ [link egg.forwarding_strategies Forwarding Strategies]]
 [def __EGG_DETERMINING_NULLARY_RETURN_TYPES__ [link egg.forwarding_strategies.determining_nullary_return_types Determining nullary return types]]
