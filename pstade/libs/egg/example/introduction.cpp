@@ -11,6 +11,7 @@
 
 #include <pstade/minimal_test.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/egg/poly.hpp>
 #include <pstade/result_of.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/lambda/bind.hpp>
@@ -25,24 +26,21 @@ using namespace pstade::egg;
 
 
 //[code_introduction
-struct little_plus
+template<class X, class Y>
+struct mono_plus
 {
-    template<class Me, class X, class Y>
-    struct apply :
-        // Determining return type
-        boost::remove_cv<X>
-    { };
+    // Determining return type
+    typedef typename boost::remove_cv<X>::type result_type;
 
-    template<class Re, class X, class Y>
-    Re call(X &x, Y &y) const
+    result_type operator()(X &x, Y &y) const
     {
         return x + y;
     }
 };
 
-// Building LittleFunction into MajorFunction.
-typedef function<little_plus> T_plus;
-T_plus const plus = {{}};
+// Building MajorFunction
+typedef poly< mono_plus<boost::mpl::_, boost::mpl::_> >::type T_plus;
+T_plus const plus = PSTADE_EGG_POLY();
 
 void test_builder()
 {
