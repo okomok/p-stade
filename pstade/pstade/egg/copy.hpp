@@ -89,13 +89,11 @@ namespace pstade { namespace egg {
 
 
 PSTADE_ADL_BARRIER(copy) { // for std
-
     template<class To, class From> inline
     To copy(From const &from)
     {
         return X_copy<To>()(from);
     }
-
 }
 
 

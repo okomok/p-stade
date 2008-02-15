@@ -12,25 +12,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// A "movable type" like 'auto_ptr' must be called by value.
-// "./by_perfect.hpp" makes rvalue unmovable.
-
-
+#include <boost/mpl/always.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <pstade/plain.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
 #include "./detail/function_preamble.hpp"
 #include "./detail/pp_enum_template_params.hpp"
+#include "./detail/result_of_forward_fwd.hpp"
 #include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
+
+
+    struct by_value :
+        boost::mpl::always<by_value>
+    { };
 
 
     template<class Little>
@@ -47,6 +50,15 @@ namespace pstade { namespace egg {
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/by_value.hpp>))
         #include BOOST_PP_ITERATE()
+    };
+
+
+    // For movable types, you can't add const-qualifier.
+    template<class Lvalue>
+    struct result_of_forward<by_value, Lvalue>
+    {
+        BOOST_MPL_ASSERT((is_plain<Lvalue>));
+        typedef Lvalue type;
     };
 
 

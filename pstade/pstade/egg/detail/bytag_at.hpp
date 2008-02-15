@@ -10,70 +10,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include "../config.hpp"
-#include "../function_fwd.hpp"
-#include "./is_bytag.hpp"
+#include "../function_fwd.hpp" // by_perfect
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
     template<class Strategy, int Arity, int Index>
-    struct bytag_at_aux :
+    struct bytag_at :
         Strategy::template apply<
             Strategy,
-            // must be type parameter for MetafunctionClass.
             boost::mpl::int_<Arity>,
             boost::mpl::int_<Index>
         >
     { };
 
-
-    template<class Bytag, int Arity>
-    struct bytag_identity;
-
-    template<int Arity>
-    struct bytag_identity<by_perfect, Arity>
+    template<int Arity, int Index>
+    struct bytag_at<by_perfect, Arity, Index>
     {
-        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_ARITY);
         typedef by_perfect type;
     };
 
-    template<int Arity>
-    struct bytag_identity<by_ref, Arity>
+    template<int Arity, int Index>
+    struct bytag_at<by_perfect const, Arity, Index>
     {
-        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
-        typedef by_ref type;
-    };
-
-    template<int Arity>
-    struct bytag_identity<by_cref, Arity>
-    {
-        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
-        typedef by_cref type;
-    };
-
-    template<int Arity>
-    struct bytag_identity<by_value, Arity>
-    {
-        BOOST_STATIC_ASSERT(Arity <= PSTADE_EGG_MAX_LINEAR_ARITY);
-        typedef by_value type;
-    };
-
-
-    template<class Strategy, int Arity, int Index>
-    struct bytag_at :
-        boost::mpl::eval_if< is_bytag<Strategy>,
-            bytag_identity<typename boost::remove_const<Strategy>::type, Arity>, // no volatile specializations yet.
-            bytag_at_aux<Strategy, Arity, Index>
-        >
-    {
-        BOOST_STATIC_ASSERT(0 <= Index); 
-        BOOST_STATIC_ASSERT(Index < Arity); 
+        typedef by_perfect type;
     };
 
 

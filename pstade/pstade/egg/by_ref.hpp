@@ -12,6 +12,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/always.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -20,11 +21,17 @@
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
 #include "./detail/function_preamble.hpp"
+#include "./detail/result_of_forward_fwd.hpp"
 #include "./detail/pp_enum_template_params.hpp"
 #include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
+
+
+    struct by_ref :
+        boost::mpl::always<by_ref>
+    { };
 
 
     template<class Little>
@@ -41,6 +48,13 @@ namespace pstade { namespace egg {
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/by_ref.hpp>))
         #include BOOST_PP_ITERATE()
+    };
+
+
+    template<class Lvalue>
+    struct result_of_forward<by_ref, Lvalue>
+    {
+        typedef Lvalue &type;
     };
 
 

@@ -12,21 +12,30 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <cstddef> // size_t
+#include <boost/mpl/always.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/deduced_const.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
 #include "./detail/apply_little_n.hpp"
 #include "./detail/call_little_impl.hpp"
 #include "./detail/function_preamble.hpp"
 #include "./detail/pp_enum_template_params.hpp"
+#include "./detail/result_of_forward_fwd.hpp"
 #include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
+
+
+    struct by_cref :
+        boost::mpl::always<by_cref>
+    { };
 
 
     template<class Little>
@@ -46,6 +55,21 @@ namespace pstade { namespace egg {
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_const
     };
+
+
+    template<class Lvalue>
+    struct result_of_forward<by_cref, Lvalue const>
+    {
+        typedef Lvalue const &type;
+    };
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+    template<class T, std::size_t N>
+    struct result_of_forward<by_cref, T const[N]>
+    {
+        typedef T const (&type)[N];
+    };
+#endif
 
 
 } } // namespace pstade::egg
