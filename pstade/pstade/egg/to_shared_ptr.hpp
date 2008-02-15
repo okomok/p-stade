@@ -73,8 +73,7 @@ namespace pstade { namespace egg {
 
     template<class Element = boost::use_default>
     struct X_to_shared_ptr : derived_from<
-        function<to_shared_ptr_detail::little<Element>, by_value>
-    >
+        function<to_shared_ptr_detail::little<Element>, by_value> >
     { };
 
     typedef X_to_shared_ptr<>::base_class T_to_shared_ptr;

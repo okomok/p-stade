@@ -159,8 +159,7 @@
 
         template<class NullaryResult = boost::use_default>
         struct BOOST_PP_CAT(X_bind, n) : derived_from<
-            function<BOOST_PP_CAT(little_bind, n)<NullaryResult>, by_cref>
-        >
+            function<BOOST_PP_CAT(little_bind, n)<NullaryResult>, by_cref> >
         { };
 
         typedef BOOST_PP_CAT(X_bind, n)<>::base_class BOOST_PP_CAT(T_bind, n);

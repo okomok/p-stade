@@ -42,8 +42,7 @@ namespace pstade { namespace egg {
             typename result_of_uncurry<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_braced2<>
-        >
-    >
+        > >
     { };
 
     typedef X_uncurry<>::base_class T_uncurry;

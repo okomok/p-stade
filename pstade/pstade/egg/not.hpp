@@ -72,8 +72,7 @@ namespace pstade { namespace egg {
             typename result_of_not<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_unfused1<>
-        >
-    >
+        > >
     { };
 
     typedef X_not<>::base_class T_not;

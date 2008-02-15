@@ -51,8 +51,7 @@ namespace pstade { namespace egg {
             typename result_of_return<deduce<mpl_1, as_value>, Return, Strategy, Tag>::type,
             by_value,
             X_construct_braced2<>
-        >
-    >
+        > >
     { };
 
     #define PSTADE_EGG_RETURN_INIT PSTADE_EGG_GENERATOR()

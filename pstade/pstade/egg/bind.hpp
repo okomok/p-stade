@@ -52,8 +52,7 @@ namespace pstade { namespace egg {
 
     template<class NullaryResult = boost::use_default>
     struct X_bind : derived_from<
-        function<bind_detail::little<NullaryResult>, by_cref>
-    >
+        function<bind_detail::little<NullaryResult>, by_cref> >
     { };
 
     typedef X_bind<>::base_class T_bind;

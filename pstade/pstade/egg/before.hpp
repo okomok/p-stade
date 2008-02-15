@@ -78,8 +78,7 @@ namespace pstade { namespace egg {
             typename result_of_before<deduce<mpl_1, as_value>, deduce<mpl_2, as_value>, Strategy>::type,
             by_value,
             X_construct_variadic1<>
-        >
-    >
+        > >
     { };
 
     typedef X_before<>::base_class T_before;

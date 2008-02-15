@@ -22,12 +22,9 @@
 #include <pstade/boost_workaround.hpp>
 #include <pstade/deduced_const.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/apply_little_n.hpp"
-#include "./detail/call_little_impl.hpp"
-#include "./detail/function_preamble.hpp"
 #include "./detail/pp_enum_template_params.hpp"
 #include "./detail/result_of_forward.hpp"
-#include "./function_fwd.hpp"
+#include "./function_extension.hpp"
 
 
 namespace pstade { namespace egg {
@@ -82,12 +79,10 @@ namespace pstade { namespace egg {
 
 
     PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
-    typename BOOST_PP_CAT(apply_little, n)<Little const BOOST_PP_ENUM_TRAILING(n, PSTADE_const, A)>::type
+    typename apply_little<Little const BOOST_PP_ENUM_TRAILING(n, PSTADE_const, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const &a)) const
     {
-        return call_little_impl<Little const,
-            typename BOOST_PP_CAT(apply_little, n)<Little const BOOST_PP_ENUM_TRAILING(n, PSTADE_const, A)>::type
-        >::BOOST_PP_CAT(call, n)(m_little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return call_little(m_little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 

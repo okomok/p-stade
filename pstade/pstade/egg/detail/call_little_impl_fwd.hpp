@@ -13,7 +13,7 @@
 #include <pstade/enable_if.hpp>
 
 
-namespace pstade { namespace egg {
+namespace pstade { namespace egg { namespace detail {
 
 
     // Little is guaranteed to be complete when call_little_impl instantiated,
@@ -22,7 +22,7 @@ namespace pstade { namespace egg {
     struct call_little_impl;
 
 
-} } // namespace pstade::egg
+} } } // namespace pstade::egg::detail
 
 
 #endif

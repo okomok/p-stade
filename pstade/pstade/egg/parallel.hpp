@@ -111,8 +111,7 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_parallel : derived_from<
-        function<parallel_detail::little<Strategy>, by_value>
-    >
+        function<parallel_detail::little<Strategy>, by_value> >
     { };
 
     typedef X_parallel<>::base_class T_parallel;

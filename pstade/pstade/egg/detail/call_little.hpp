@@ -11,13 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <pstade/pod_constant.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./apply_little_n.hpp"
+#include "./apply_little.hpp"
 #include "./call_little_impl.hpp"
 
 
@@ -42,12 +41,12 @@ namespace pstade { namespace egg {
 
 
     template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(apply_little, n)<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
+    typename apply_little<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
     operator()(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a)) const
     {
-        return call_little_impl<Little,
-            typename BOOST_PP_CAT(apply_little, n)<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
-        >::BOOST_PP_CAT(call, n)(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return detail::call_little_impl<Little,
+            typename apply_little<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
+        >::call(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 

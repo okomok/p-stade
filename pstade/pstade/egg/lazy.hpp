@@ -82,8 +82,7 @@ namespace pstade { namespace egg {
             typename result_of_lazy<deduce<mpl_1, as_value>, Bind>::type,
             by_value,
             X_construct_variadic1<>
-        >
-    >
+        > >
     { };
 
     typedef X_lazy<>::base_class T_lazy;

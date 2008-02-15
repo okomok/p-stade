@@ -206,8 +206,7 @@ namespace pstade { namespace egg {
             typename PSTADE_PP_CAT3(result_of_, ambi, n)<deduce<mpl_1, as_value>, Bytag>::type,
             by_value,
             X_construct_braced2<>
-        >
-    >
+        > >
     { };
 
     typedef BOOST_PP_CAT(X_ambi, n)<>::base_class BOOST_PP_CAT(T_ambi, n);

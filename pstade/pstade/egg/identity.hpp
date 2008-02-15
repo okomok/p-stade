@@ -45,8 +45,7 @@ namespace pstade { namespace egg {
 
     template<class Strategy = by_perfect>
     struct X_identity : derived_from<
-        function<identity_detail::little<Strategy>, Strategy>
-    >
+        function<identity_detail::little<Strategy>, Strategy> >
     { };
 
     typedef X_identity<>::base_class T_identity;

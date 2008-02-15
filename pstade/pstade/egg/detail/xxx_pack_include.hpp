@@ -49,8 +49,7 @@
 
         template<class Strategy = by_perfect>
         struct BOOST_PP_CAT(X_, name) : derived_from<
-            function<BOOST_PP_CAT(name, _detail)::little<Strategy>, Strategy>
-        >
+            function<BOOST_PP_CAT(name, _detail)::little<Strategy>, Strategy> >
         { };
 
         typedef BOOST_PP_CAT(X_, name)<>::base_class BOOST_PP_CAT(T_, name);

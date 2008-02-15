@@ -39,8 +39,7 @@
 
         template<int N, class Strategy = by_perfect>
         struct X_arg : derived_from<
-            function<little_arg<N, Strategy>, Strategy>
-        >
+            function<little_arg<N, Strategy>, Strategy> >
         { };
 
         #define PSTADE_EGG_ARG_INIT {{}}

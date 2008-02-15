@@ -40,12 +40,10 @@ namespace pstade { namespace egg {
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params) \
         template<BOOST_PP_ENUM_PARAMS(n, class A)> \
-        typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
+        typename apply_little<Little const, ArgTypes>::type \
         operator()(Params) const \
         { \
-            return call_little_impl<Little const, \
-                typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
-            >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
+            return call_little(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
@@ -81,12 +79,10 @@ namespace pstade { namespace egg {
 
 #if n == 0
 
-    typename apply_little0<Little const>::type
+    typename apply_little<Little const>::type
     operator()() const
     {
-        return call_little_impl<Little const,
-            typename apply_little0<Little const>::type
-        >::call0(m_little);
+        return call_little(m_little);
     }
 
 #else

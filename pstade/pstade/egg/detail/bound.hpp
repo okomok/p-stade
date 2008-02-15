@@ -34,7 +34,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class A>
     struct bound<A const>
     {
-        BOOST_MPL_ASSERT_NOT((boost::is_array<A>)); // different from Boost.Lambda way.
+        BOOST_MPL_ASSERT_NOT((boost::is_array<A>));
         typedef typename pass_by_value<A>::type type;
     };
 

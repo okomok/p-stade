@@ -48,8 +48,7 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Bytag>
     struct X_tuple_prepend : derived_from<
-        function<little_tuple_prepend<Bytag>, Bytag>
-    >
+        function<little_tuple_prepend<Bytag>, Bytag> >
     { };
 
 

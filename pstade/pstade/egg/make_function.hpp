@@ -28,8 +28,7 @@ namespace pstade { namespace egg {
             function<deduce<mpl_1, as_value>, Strategy>,
             by_value,
             X_construct_braced1<>
-        >
-    >
+        > >
     { };
 
     typedef X_make_function<>::base_class T_make_function;

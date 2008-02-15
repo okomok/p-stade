@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/affect.hpp>
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./apply_little_n.hpp"
+#include "./apply_little.hpp"
 #include "./bytag_at.hpp"
 #include "./little_of.hpp"
 #include "./strategy_of.hpp"
@@ -47,14 +47,16 @@ namespace pstade { namespace egg { namespace detail {
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct of_apply_little<Fun(BOOST_PP_ENUM_PARAMS(n, A))>
     {
-        typedef typename affect_cv<Fun, typename little_of<Fun>::type>::type little_t;
-        typedef typename affect_cv<Fun, typename strategy_of<Fun>::type>::type stg_t;
+        typedef typename
+            affect_cv<Fun, typename little_of<Fun>::type>::type
+        little_t;
 
         typedef typename
-            BOOST_PP_CAT(apply_little, n)<
-                little_t,
-                BOOST_PP_ENUM(n, PSTADE_unref, ~)
-            >::type
+            affect_cv<Fun, typename strategy_of<Fun>::type>::type
+        stg_t;
+
+        typedef typename
+            apply_little<little_t, BOOST_PP_ENUM(n, PSTADE_unref, ~)>::type
         type;
     };
 

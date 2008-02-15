@@ -11,13 +11,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// This indirection is needed to work around msvc ETI bug.
+// You can't use `result` template directly in function declaration.
+
+
 #include <boost/preprocessor/arithmetic/inc.hpp>
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <pstade/preprocessor.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <pstade/preprocessor.hpp> // PSTADE_PP_ENUM_PARAMS_WITH
 #include "../config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./apply_little_n.hpp"
+#include "./nullary_result_of_little.hpp"
 
 
 namespace pstade { namespace egg {
@@ -26,7 +32,20 @@ namespace pstade { namespace egg {
     template<class Little, PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(PSTADE_EGG_MAX_LINEAR_ARITY), class A, = void)>
     struct apply_little;
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little.hpp>))
+
+// 0ary
+    template<class Little>
+    struct apply_little<Little> :
+        detail::nullary_result_of_little<
+            typename boost::remove_const<Little>::type
+        >
+    { };
+
+    template<class Little>
+    struct apply_little<Little volatile>;
+
+// 1ary-
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/detail/apply_little.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -38,11 +57,9 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct apply_little<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)> :
-        BOOST_PP_CAT(apply_little, n)<
-            Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)
-        >
+    template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)> :
+        Little::template apply<Little, BOOST_PP_ENUM_PARAMS(n, A)>
     { };
 
 

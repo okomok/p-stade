@@ -47,8 +47,7 @@ namespace pstade { namespace egg {
 
     template<class Strategy = boost::use_default>
     struct X_regular : derived_from<
-        function<regular_detail::little<Strategy>, by_value>
-    >
+        function<regular_detail::little<Strategy>, by_value> >
     { };
 
     typedef X_regular<>::base_class T_regular;

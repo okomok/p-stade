@@ -51,8 +51,7 @@ namespace pstade { namespace egg {
             typename result_of_indirect<deduce<mpl_1, as_value>, Strategy>::type,
             by_value,
             X_construct_braced2<>
-        >
-    >
+        > >
     { };
 
     typedef X_indirect<>::base_class T_indirect;

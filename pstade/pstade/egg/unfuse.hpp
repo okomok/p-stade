@@ -63,8 +63,7 @@ namespace pstade { namespace egg {
             typename result_of_unfuse<deduce<mpl_1, as_value>, NullaryResult, PackExpr, Strategy>::type,
             by_value,
             X_construct_braced2<>
-        >
-    >
+        > >
     { };
 
     typedef X_unfuse<>::base_class T_unfuse;

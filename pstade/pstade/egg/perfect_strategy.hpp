@@ -18,10 +18,7 @@
 #include <pstade/pp_array_iterate.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_HAS_RVALUE_REFS
-#include "./detail/apply_little_n.hpp"
-#include "./detail/call_little_impl.hpp"
-#include "./detail/function_preamble.hpp"
-#include "./function_fwd.hpp"
+#include "./function_extension.hpp"
 
 
 #if defined(PSTADE_EGG_HAS_RVALUE_REFS)

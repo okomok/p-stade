@@ -118,8 +118,7 @@ namespace pstade { namespace egg {
 
     template<class Return = boost::use_default, class Strategy = by_perfect>
     struct BOOST_PP_CAT(X_, name) : derived_from<
-        function<BOOST_PP_CAT(name, _detail)::little<Return>, Strategy>
-    >
+        function<BOOST_PP_CAT(name, _detail)::little<Return>, Strategy> >
     { };
 
 PSTADE_ADL_BARRIER(functional2) {

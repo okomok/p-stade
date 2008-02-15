@@ -12,7 +12,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
@@ -30,13 +29,19 @@ namespace pstade { namespace egg {
     PSTADE_HAS_TYPE(use_deduced_form)
 
 
-    template<class Little, class Re>
-    struct call_little_impl<Little, Re,
-        typename enable_if< has_use_deduced_form<Little> >::type>
-    {
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/use_deduced_form.hpp>))
-        #include BOOST_PP_ITERATE()
-    };
+    namespace detail {
+
+
+        template<class Little, class Re>
+        struct call_little_impl<Little, Re,
+            typename enable_if< has_use_deduced_form<Little> >::type>
+        {
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_EGG_MAX_LINEAR_ARITY, <pstade/egg/use_deduced_form.hpp>))
+            #include BOOST_PP_ITERATE()
+        };
+
+
+    } // namespace detail
 
 
 } } // namespace pstade::egg
@@ -49,7 +54,7 @@ namespace pstade { namespace egg {
 
 
     PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
-    static Re BOOST_PP_CAT(call, n)(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
+    static Re call(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
     {
         return little.call(boost::type<Re>() BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }

@@ -13,7 +13,6 @@
 
 
 #include <boost/config.hpp> // BOOST_MSVC
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -22,7 +21,8 @@
 #include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_LINEAR_ARITY
-#include "./detail/call_little_impl.hpp"
+#include "./detail/apply_little.hpp"
+#include "./detail/call_little.hpp"
 
 
 #if defined(BOOST_MSVC)
@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
             template<class Re>
             Re call() const
             {
-                return call_little_impl<Derived const, Re>::call0(derived());
+                return call_little(derived());
             }
 
         // 1ary-
@@ -139,13 +139,13 @@ namespace pstade { namespace egg {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        Derived::template apply<Derived const, BOOST_PP_ENUM_PARAMS(n, A)>
+        apply_little<Derived const, BOOST_PP_ENUM_PARAMS(n, A)>
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return call_little_impl<Derived const, Re>::BOOST_PP_CAT(call, n)(derived(), BOOST_PP_ENUM_PARAMS(n, a));
+        return call_little(derived(), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 
