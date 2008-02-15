@@ -1,5 +1,5 @@
-#ifndef PSTADE_UNEVALUATED_HPP
-#define PSTADE_UNEVALUATED_HPP
+#ifndef PSTADE_FAKE_HPP
+#define PSTADE_FAKE_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -29,13 +29,13 @@ namespace pstade {
 
 
     template<class X> inline
-    X unevaluated()
+    X fake()
     { 
-        BOOST_ASSERT(!"unevaluated");
-        throw "unevaluated";
+        BOOST_ASSERT(!"fake");
+        throw "fake";
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
         // suppress warning: no return statement in function returning non-void
-        return unevaluated<X>();
+        return fake<X>();
 #endif
     }
 

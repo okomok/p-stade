@@ -31,7 +31,7 @@
 #include <boost/range/end.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/to_ref.hpp>
-#include <pstade/unevaluated.hpp>
+#include <pstade/fake.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/config.hpp"
 #include "./range_iterator.hpp"
@@ -101,7 +101,7 @@ struct SinglePass
 
     PSTADE_CONCEPT_USAGE(SinglePass)
     {
-        rng_t& rng = unevaluated<rng_t&>();
+        rng_t& rng = fake<rng_t&>();
         mutable_iterator f = boost::begin(rng);
         mutable_iterator l = boost::end(rng);
         constant_iterator cf = boost::begin(egg::to_cref(rng));
@@ -128,7 +128,7 @@ struct Forward :
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
     PSTADE_CONCEPT_USAGE(Forward)
     {
-        rng_t& rng = unevaluated<rng_t&>();
+        rng_t& rng = fake<rng_t&>();
         size_type sz = boost::size(rng);
         unused(sz);
     }

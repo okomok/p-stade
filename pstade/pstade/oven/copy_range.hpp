@@ -15,9 +15,9 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/copy.hpp>
+#include <pstade/fake.hpp>
 #include <pstade/plain.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/unevaluated.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
 #include "./identities.hpp"
@@ -115,7 +115,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
 
         PSTADE_CONCEPT_USAGE(Copyable)
         {
-            rng_t& from = unevaluated<rng_t&>();
+            rng_t& from = fake<rng_t&>();
             rng_t rng = X_copy_range<rng_t>()(make_identities(from)); 
         }
     };

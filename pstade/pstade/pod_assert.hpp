@@ -18,8 +18,8 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <pstade/fake.hpp>
 #include <pstade/pp_line.hpp>
-#include <pstade/unevaluated.hpp>
 
 
 #define PSTADE_POD_ASSERT(T) \
@@ -67,7 +67,7 @@ namespace pstade { namespace pod_assert_detail {
     {
         static T value()
         {
-            return unevaluated<T>();
+            return fake<T>();
         }
     };
 

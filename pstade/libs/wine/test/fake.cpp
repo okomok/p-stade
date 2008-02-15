@@ -9,20 +9,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/unevaluated.hpp>
+#include <pstade/fake.hpp>
 #include <pstade/minimal_test.hpp>
 
 struct A {};
 
-using pstade::unevaluated;
+using pstade::fake;
 
 void pstade_minimal_test()
 {
     bool b = false;
     if (b)
-        unevaluated<int>();
+        fake<int>();
     if (b)
-        unevaluated<A>();
+        fake<A>();
     if (b)
-        unevaluated<A&>();
+        fake<A&>();
 }
