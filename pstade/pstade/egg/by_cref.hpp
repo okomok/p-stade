@@ -26,7 +26,7 @@
 #include "./detail/call_little_impl.hpp"
 #include "./detail/function_preamble.hpp"
 #include "./detail/pp_enum_template_params.hpp"
-#include "./detail/result_of_forward_fwd.hpp"
+#include "./detail/result_of_forward.hpp"
 #include "./function_fwd.hpp"
 
 

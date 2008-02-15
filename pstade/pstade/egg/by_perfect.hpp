@@ -12,7 +12,7 @@
 
 
 #include "./detail/perfect_arities.hpp"
-#include "./detail/result_of_forward_fwd.hpp"
+#include "./detail/result_of_forward.hpp"
 #include "./function_fwd.hpp" // by_perfect
 #include "./perfect_strategy.hpp"
 

@@ -21,9 +21,8 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/plain.hpp>
 #include "./detail/bytag_at.hpp"
-#include "./detail/result_of_forward_fwd.hpp"
+#include "./detail/result_of_forward.hpp"
 #include "./function_fwd.hpp"
 
 
@@ -54,7 +53,6 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
         >
     { };
 
-
     template<class Strategy, int Arity, int Index, class Lvalue> inline
     typename result_of_forwarding<Strategy, Arity, Index, Lvalue>::type
     forwarding(Lvalue &a)
@@ -70,7 +68,6 @@ PSTADE_ADL_BARRIER(forward) { // for C++0x
     #define PSTADE_EGG_FORWARDING_META_ARGS_op(Z, I, S_A_V) \
         typename pstade::egg::result_of_forwarding<BOOST_PP_ARRAY_ELEM(0, S_A_V), BOOST_PP_ARRAY_ELEM(1, S_A_V), I, BOOST_PP_CAT(BOOST_PP_ARRAY_ELEM(2, S_A_V), I)>::type \
     /**/
-
 
 #define PSTADE_EGG_FORWARDING_ARGS(Arity, Var, Stg) \
     BOOST_PP_ENUM(Arity, PSTADE_EGG_FORWARDING_ARGS_op, (3, (Stg, Arity, Var))) \
