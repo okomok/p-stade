@@ -11,7 +11,6 @@
 
 
 #include <boost/mpl/int.hpp>
-#include "../function_fwd.hpp" // by_perfect
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -25,18 +24,6 @@ namespace pstade { namespace egg { namespace detail {
             boost::mpl::int_<Index>
         >
     { };
-
-    template<int Arity, int Index>
-    struct bytag_at<by_perfect, Arity, Index>
-    {
-        typedef by_perfect type;
-    };
-
-    template<int Arity, int Index>
-    struct bytag_at<by_perfect const, Arity, Index>
-    {
-        typedef by_perfect type;
-    };
 
 
 } } } // namespace pstade::egg::detail

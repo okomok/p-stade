@@ -19,6 +19,8 @@
 
 
 #include <cstddef> // size_t
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_array.hpp>
 #include <pstade/pass_by.hpp>
 
 
@@ -30,14 +32,10 @@ namespace pstade { namespace egg { namespace detail {
 
     // To be Regular, not const-qualified.
     template<class A>
-    struct bound<A const> :
-        pass_by_value<A>
-    { };
-
-    template<class T, std::size_t N>
-    struct bound<T const[N]>
+    struct bound<A const>
     {
-        typedef T const (&type)[N];
+        BOOST_MPL_ASSERT_NOT((boost::is_array<A>)); // different from Boost.Lambda way.
+        typedef typename pass_by_value<A>::type type;
     };
 
 
@@ -45,13 +43,8 @@ namespace pstade { namespace egg { namespace detail {
     template<class A>
     struct unbound
     {
+        BOOST_MPL_ASSERT_NOT((boost::is_array<A>));
         typedef A const &type;
-    };
-
-    template<class T, std::size_t N>
-    struct unbound<T const(&)[N]>
-    {
-        typedef T const (&type)[N];
     };
 
 

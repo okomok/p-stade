@@ -308,10 +308,11 @@ Some Egg components have to copy and hold arguments for forwarding. Here an imag
 
 [heading Valid expressions and semantics]
 * `_bound(x)` is defined by the following:
-    * If `x` is array, `_cref(x)`.
+    * If `x` is array, it is ill-formed.
     * Otherwise, `_rval(_cref(x))`.
 
-[note `_bound` doesn't unwrap `boost::reference_wrapper<>` so that it avoids "early unwrapping" in nested invocation. ]
+[note `_bound` doesn't unwrap `boost::reference_wrapper<>` so that it avoids "early unwrapping" in nested invocation.
+      Also note array isn't turned into array reference. Use array pointer or `boost::ref` instead. This behavior is different from __BOOST_LAMBDA__'s. ]
 
 [heading See also]
 * __BOOST_LAMBDA__
