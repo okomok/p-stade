@@ -11,19 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// We can't use this in function<>::operator().
-// Otherwise, it introduces the forwarding problem into little functions.
-
-
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./detail/bytag_at.hpp"
 #include "./detail/result_of_forward.hpp"
-#include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
