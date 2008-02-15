@@ -26,7 +26,7 @@ namespace pstade { namespace egg {
         template<class T>
         void operator()(T &a, T &b) const
         {
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
             using namespace std;
 #else
             using std::swap;
