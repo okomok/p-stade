@@ -51,13 +51,13 @@ namespace pstade { namespace egg {
 
     PSTADE_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
     typename apply_little<
-        Little const BOOST_PP_COMMA_IF(n)
-        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::remove_reference<A, >::type)
+        Little const
+        BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, typename boost::remove_reference<A, >::type BOOST_PP_INTERCEPT)
     >::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &&a)) const
     {
         // Neither egg::forward nor std::forward is used so that LittleFunction can take lvalues.
-        return call_little(m_little BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, a));
+        return call_little(m_little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 
