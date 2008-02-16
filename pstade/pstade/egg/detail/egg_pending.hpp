@@ -22,6 +22,7 @@
 #endif
 #include "../placeholders.hpp"
 #include "../protect.hpp"
+#include "../result_typeof.hpp"
 #include "../return_of.hpp"
 #include "../unlambda.hpp"
 

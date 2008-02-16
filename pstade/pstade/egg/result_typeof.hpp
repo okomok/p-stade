@@ -55,6 +55,7 @@ namespace pstade { namespace egg {
     struct result_typeof<Fun(fparams)>
     {
 #if defined(BOOST_TYPEOF_NATIVE)
+        // Hmm, typeof requires type to be complete.
         BOOST_TYPEOF_NESTED_TYPEDEF_TPL( nested, fake<Fun>()(BOOST_PP_ENUM(n, PSTADE_fake, A)) )
 #else
         typedef result_of<typename boost::remove_reference<Fun>::type(fparams)> nested;
