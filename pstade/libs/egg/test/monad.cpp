@@ -79,15 +79,15 @@ void pstade_minimal_test()
 
     BOOST_CHECK( !(
         X_monad_return< boost::optional<map_t> >()(config)
-            ^monad_bind^ lookup("foo")
-            ^monad_bind^ lookup("encoding")
+            ^monad_bind^ lookup(std::string("foo"))
+            ^monad_bind^ lookup(std::string("encoding"))
     ) );
 
     boost::optional<map_t> r = monad_return(config); // automatic deduction.
 
     BOOST_CHECK( *(
         monad_return(config)
-            ^monad_bind^ lookup("database")
-            ^monad_bind^ lookup("encoding")
+            ^monad_bind^ lookup(std::string("database"))
+            ^monad_bind^ lookup(std::string("encoding"))
     ) == "euc-jp");
 }

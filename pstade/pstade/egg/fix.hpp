@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
                     typename result_of<
                         Base(
                             typename result_of<
-                                typename result_of<T_curry2(function<little_uncurried>)>::type(Base &)
+                                result_of<T_curry2(function<little_uncurried>)>::type(Base &)
                             >::type
                         )
                     >::type(Arg &)

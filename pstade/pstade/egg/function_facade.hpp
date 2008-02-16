@@ -17,6 +17,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp>
+#include <pstade/boost_workaround.hpp>
 #include <pstade/use_default.hpp>
 #include "./apply_decl.hpp"
 #include "./by_perfect.hpp"
@@ -139,7 +140,11 @@ namespace pstade { namespace egg {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
+#if BOOST_WORKAROUND(__GNUC__, == 4)
+        Derived::template apply<Derived const, BOOST_PP_ENUM_PARAMS(n, A)>
+#else
         apply_little<Derived const, BOOST_PP_ENUM_PARAMS(n, A)>
+#endif
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>

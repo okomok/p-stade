@@ -12,6 +12,8 @@
 #include <pstade/egg/curry.hpp>
 #include <pstade/minimal_test.hpp>
 
+#include <boost/ref.hpp>
+
 
 struct array_size
 {
@@ -31,6 +33,6 @@ void pstade_minimal_test()
 
     {
         int arr[10] = {};
-        BOOST_CHECK(10 == curry2(array_size())(arr)(999));
+        BOOST_CHECK(10 == curry2(array_size())(boost::ref(arr))(999));
     }
 }
