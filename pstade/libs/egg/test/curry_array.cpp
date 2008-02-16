@@ -19,10 +19,9 @@ struct array_size
 {
     typedef int result_type;
 
-    template<std::size_t sz>
-    int operator()(int const (&)[sz], int) const
+    int operator()(int const (&)[10], int) const
     {
-        return sz;
+        return 10;
     }
 };
 
