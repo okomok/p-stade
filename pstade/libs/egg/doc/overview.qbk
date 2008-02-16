@@ -52,7 +52,7 @@ For example, the followings are trivially conforming __POLYMORPHIC_FUNCTION_OBJE
 * function objects `boost::bind(...)` returns.
 * `boost::function<...>`
 
-These function objects has nested `result_type`, meaning that its return type doesn't depend on its argument types.
+These function objects have nested `result_type`, meaning that its return type doesn't depend on its argument types.
 Such a function object is trivially conforming __POLYMORPHIC_FUNCTION_OBJECT__.
 It is really easy to build such one:
 [code_introduction_fixed_result]

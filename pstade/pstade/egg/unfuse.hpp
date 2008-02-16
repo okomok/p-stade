@@ -36,6 +36,7 @@ namespace pstade { namespace egg {
     >
     struct result_of_unfuse
     {
+        // To keep movable object movable, by_ref is used for now.
         typedef typename
             eval_if_use_default< PackExpr,
                 boost::mpl::identity< X_pack<by_ref> >,
