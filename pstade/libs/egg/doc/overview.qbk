@@ -38,7 +38,7 @@ In short, __POLYMORPHIC_FUNCTION_OBJECT__ is __FUNCTION_OBJECT__ which can be us
 __BOOST_RESULT_OF__ is a __METAFUNCTION__ to extract function return types without help of C++0x `decltype`,
 so that it enables you to do the functional programming in C++03.
 
-[heading Polymorphic Function Object Models]
+[heading Polymorphic Function Object Models?]
 Fortunately, __POLYMORPHIC_FUNCTION_OBJECT__ types are superset of __SGI_ADAPTABLE_FUNCTION_OBJECT__ types,
 so that you don't need extra efforts to play with Egg if you're already familiar with that concept.
 For example, the followings are trivially conforming __POLYMORPHIC_FUNCTION_OBJECT__ types:
