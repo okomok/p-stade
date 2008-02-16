@@ -63,7 +63,6 @@ namespace pstade { namespace egg {
         };
 
 
-
     } // namespace fix_detail
 
 
