@@ -26,16 +26,16 @@ namespace pstade { namespace egg {
     namespace auto_object_detail {
 
 
-        // 'automatic' doesn't work; 'auto_ptr' is not CopyConstructible.
-        // Note also 'operator auto_ptr_ref<T>()' can't be of help, because
+        // `implicit` doesn't work; `auto_ptr` is not CopyConstructible.
+        // `implicit_ref` too doesn't work; conversion is ambiguous.
+        // Note also `operator auto_ptr_ref<T>()` can't be of help, because
         // some implementations require "move sequence" to be in the same scope.
         // After all, we need a conversion operator to return "lvalue".
 
-
         template<class Args>
-        struct automator
+        struct from
         {
-            explicit automator(Args const &args) :
+            explicit from(Args const &args) :
                 m_args(args)
             { }
 
@@ -51,7 +51,7 @@ namespace pstade { namespace egg {
             Args m_args;
             any_movable m_any;
 
-            automator &operator=(automator const &);
+            from &operator=(from const &);
         };
 
 
@@ -60,9 +60,7 @@ namespace pstade { namespace egg {
             template<class Me, class Args>
             struct apply
             {
-                typedef
-                    automator<Args>
-                type;
+                typedef from<Args> type;
             };
 
             template<class Re, class Args>
