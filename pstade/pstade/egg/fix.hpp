@@ -35,6 +35,9 @@ namespace pstade { namespace egg {
         // fun fix base a = base (fix base) x;
         // <=> fun uncurried_fix (base, x) = base(curry(uncurried_fix)(base))(x);
 
+        struct little_uncurried;
+        typedef function<little_uncurried, by_perfect> uncurried;
+
         struct little_uncurried
         {
             template<class Me, class Base, class Arg>
@@ -43,7 +46,7 @@ namespace pstade { namespace egg {
                     typename result_of<
                         Base(
                             typename result_of<
-                                result_of<T_curry2(function<little_uncurried>)>::type(Base &)
+                                result_of<T_curry2(uncurried &)>::type(Base &)
                             >::type
                         )
                     >::type(Arg &)
@@ -54,13 +57,11 @@ namespace pstade { namespace egg {
             Re call(Base &base, Arg &arg) const
             {
                 // Base must be curried in advance.
-                return base
-                    ( curry2(make_function(*this))(base) )
-                    ( arg );
+                uncurried u = {*this};
+                return base(curry2(u)(base))(arg);
             }
         };
 
-        typedef function<little_uncurried, by_perfect> uncurried;
 
 
     } // namespace fix_detail
