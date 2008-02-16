@@ -118,5 +118,5 @@ namespace pstade {
 
 #undef  fparams
 
-#undef n
+#undef  n
 #endif

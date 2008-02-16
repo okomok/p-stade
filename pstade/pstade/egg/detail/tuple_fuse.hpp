@@ -87,6 +87,7 @@ namespace pstade { namespace egg { namespace detail {
     template<class Re, class Tuple>
     Re call_aux(Tuple &t, boost::mpl::int_<n>) const
     {
+        (void)t; // for n == 0.
         return m_base( PSTADE_PP_ENUM_PARAMS_WITH(n, boost::tuples::get<PSTADE_PP_INT_, >(t)) );
     }
 

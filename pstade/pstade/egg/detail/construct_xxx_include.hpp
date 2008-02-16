@@ -72,11 +72,21 @@
 #define n BOOST_PP_ITERATION()
 
 
+// 'x' is clearly initialized, but msvc warns for some reason.
+#if defined(BOOST_MSVC)
+    #pragma warning(push)
+    #pragma warning(disable: 4700) // uninitialized local variable 'x' used
+#endif
+
     template<class Re BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         return_(Re, x, PSTADE_EGG_FORWARDING_ARGS(n, a, Strategy const))
     }
+
+#if defined(BOOST_MSVC)
+    #pragma warning(pop)
+#endif
 
 
 #undef  n
