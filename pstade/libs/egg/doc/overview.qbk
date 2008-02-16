@@ -60,6 +60,13 @@ its argument types, it is not easy. There are many compiler bugs, pitfalls, and 
 Egg is the framework for building such function objects.
 [code_introduction]
 
+[heading Forwarding strategy?]
+Egg provides the way to specify how to forward arguments.
+(See __EGG_FORWARDING_STRATEGIES__.)
+Egg emulates, by default, the "perfect forwarding" using `by_perfect`.
+`by_perfect` usually works well, so that you need not fully understand that section at first.
+
+Now, let's enjoy functional programming.
 [endsect]
 
 
