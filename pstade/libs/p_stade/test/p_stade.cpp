@@ -1,19 +1,35 @@
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
 
+#include <boost/bind.hpp>
+#include <boost/lexical_cast.hpp>
 
-#include <boost/utility/result_of.hpp>
-using boost::result_of;
+static unsigned int INDEX = 0;
 
+class A {
 
-struct an_incomplete;
+public:
+    A() : myIndex(boost::lexical_cast<std::string>(INDEX++)) {};
 
-struct foo
-{
-    typedef an_incomplete result_type;
+    std::string GetIndex() const { return myIndex; }
 
-    result_type operator()(an_incomplete) const;
+private:
+    std::string myIndex;
 };
 
+int main()
+{
+    std::vector<A> aArray(10);
+    std::vector<std::string> values;
+    values.reserve(10);
 
-typedef result_of<foo(an_incomplete)>::type incom_t;
+    std::transform(aArray.begin(),aArray.end(), std::back_inserter(values),
+                   boost::bind(&A::GetIndex, _1));
 
-int main() {}
+    std::copy(values.begin(), values.end(),
+              std::ostream_iterator<std::string>(std::cout, ","));
+
+    return 0;
+}
