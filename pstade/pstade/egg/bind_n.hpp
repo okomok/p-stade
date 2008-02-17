@@ -36,10 +36,9 @@
     #include <pstade/pod_constant.hpp>
     #include <pstade/preprocessor.hpp>
     #include "./apply_decl.hpp"
-    #include "./by_cref.hpp"
     #include "./by_perfect.hpp"
+    #include "./by_value.hpp"
     #include "./config.hpp"
-    #include "./detail/bound.hpp"
     #include "./detail/substitute.hpp"
     #include "./detail/use_nullary_result.hpp"
     #include "./is_bind_expression.hpp"
@@ -91,7 +90,7 @@
         #define PSTADE_meta_substitute(Z, N, _) \
             typename result_of_ref< \
                 typename result_of_ref< \
-                    detail::T_substitute(typename detail::unbound<BOOST_PP_CAT(Arg, N)>::type) \
+                    detail::T_substitute(BOOST_PP_CAT(Arg, N) const &) \
                 >::type(PSTADE_PP_ENUM_PARAMS_WITH(m, A, &)) \
             >::type \
         /**/
@@ -116,8 +115,7 @@
             typedef
                 function<
                     PSTADE_PP_CAT3(little_bind, n, _result)<
-                        Base, NullaryResult
-                        BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
+                        Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
                     >,
                     by_perfect
                 >
@@ -129,8 +127,7 @@
         struct is_bind_expression<
                 function<
                     PSTADE_PP_CAT3(little_bind, n, _result)<
-                        Base, NullaryResult
-                        BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
+                        Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
                     >,
                     by_perfect
                 >
@@ -144,13 +141,12 @@
             template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
             struct apply :
                 BOOST_PP_CAT(result_of_bind, n)<
-                    typename pass_by_value<Base>::type, NullaryResult BOOST_PP_COMMA_IF(n)
-                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::bound<Arg, >::type)
+                    Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
                 >
             { };
 
             template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-            Re call(Base &base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, &arg)) const
+            Re call(Base base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, arg)) const
             {
                 Re r = PSTADE_EGG_BIND_L base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg) PSTADE_EGG_BIND_R;
                 return r;
@@ -159,7 +155,7 @@
 
         template<class NullaryResult = boost::use_default>
         struct BOOST_PP_CAT(X_bind, n) : derived_from<
-            function<BOOST_PP_CAT(little_bind, n)<NullaryResult>, by_cref> >
+            function<BOOST_PP_CAT(little_bind, n)<NullaryResult>, by_value> >
         { };
 
         typedef BOOST_PP_CAT(X_bind, n)<>::base_class BOOST_PP_CAT(T_bind, n);

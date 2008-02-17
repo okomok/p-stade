@@ -301,27 +301,6 @@ Also, it can forward "movable" rvalues like `std::auto_ptr<>` with keeping movab
 
 
 
-[section Bound arguments]
-
-[heading Description]
-Some Egg components have to copy and hold arguments for forwarding. Here an imaginary operator is defined for the documentation.
-
-[heading Valid expressions and semantics]
-* `_bound(x)` is defined by the following:
-    * If `x` is array, it is ill-formed.
-    * Otherwise, `_rval(_cref(x))`.
-
-[note `_bound` doesn't unwrap `boost::reference_wrapper<>` so that it avoids "early unwrapping" in nested invocation.
-      Also note array isn't turned into array reference. Use array pointer or `boost::ref` instead. This behavior is different from __BOOST_LAMBDA__'s. ]
-
-[heading See also]
-* __BOOST_LAMBDA__
-
-[endsect]
-
-
-
-
 [section Determining nullary return types]
 
 [heading Description]

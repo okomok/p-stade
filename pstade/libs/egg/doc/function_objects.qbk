@@ -125,7 +125,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* ...
+* `y` is `_fwd_arg_list([x], by_value)`
 
 [heading Valid expressions]
 [table 
@@ -135,23 +135,23 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`always(x)`]
-        [A __MAJOR_FUNCTION_OBJECT__ which holds `_bound(x)`.]
+        [A __MAJOR_FUNCTION_OBJECT__ which holds `y`.]
     ]
     [
         [`always(x)(a1,...,aN)`]
-        [`_cref(_bound(x))`]
+        [`_arg_list(y, by_cref)`]
     ]
     [
         [`always_ref`]
         [__STATIC_FUNCTION_OBJECT__]
     ]
     [
-        [`always_ref(t)`]
+        [`always_ref(x)`]
         [A __MAJOR_FUNCTION_OBJECT__]
     ]
     [
-        [`always_ref(t)(a1,...,aN)`]
-        [`_arg_list(t, by_perfect)`]
+        [`always_ref(x)(a1,...,aN)`]
+        [`_arg_list([x], by_perfect)`]
     ]
 ]
 
@@ -163,7 +163,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ...
 
 [heading See also]
-* __EGG_BOUND_ARGUMENTS__
+* ...
 
 [endsect]
 

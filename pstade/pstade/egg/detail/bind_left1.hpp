@@ -16,7 +16,7 @@
 // bind_left1(f, a1)(a2, a3)
 //   is equivalent to f(a1, a2, a3).
 // Notice curry2 expects it to work as "normal" bind,
-// meaning that by_perfect and bound/unbound is needed.
+// meaning that by_value is needed.
 //
 // Note that this can't use `variadic` because of msvc error C1054.
 
@@ -30,26 +30,26 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_decl.hpp"
-#include "../by_cref.hpp"
 #include "../by_perfect.hpp"
+#include "../by_value.hpp"
 #include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../construct_braced2.hpp"
 #include "../generator.hpp"
-#include "./bound.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
 
 
-    template<class Func, class Bound>
+    template<class Fun, class Arg>
     struct little_bind_left1_result
     {
-        Func m_func;
-        Bound m_bound;
+        Fun m_fun;
+        Arg m_arg;
 
-        typename unbound<Bound>::type base() const
+        // For currying, Arg is the base FunctionObject!
+        Arg const &base() const
         {
-            return m_bound;
+            return m_arg;
         }
 
         template<class Me, PSTADE_EGG_APPLY_DECL_PARAMS(PSTADE_EGG_MAX_ARITY, A)>
@@ -62,11 +62,11 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-    template<class Func, class Bound>
+    template<class Fun, class Arg>
     struct result_of_bind_left1
     {
         typedef
-            function<little_bind_left1_result<Func, Bound>, by_perfect>
+            function<little_bind_left1_result<Fun, Arg>, by_perfect>
         type;
     };
 
@@ -77,8 +77,8 @@ namespace pstade { namespace egg { namespace detail {
 
     typedef
         generator<
-            result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_bound> >::type,
-            by_cref,
+            result_of_bind_left1< deduce<mpl_1, as_value>, deduce<mpl_2, as_value> >::type,
+            by_value,
             X_construct_braced2<>
         >::type
     T_bind_left1;
@@ -97,20 +97,14 @@ namespace pstade { namespace egg { namespace detail {
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            Func const(
-                typename unbound<Bound>::type,
-                PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
-            )
+            Fun const(Arg const &, PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
         >
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return m_func(
-            m_bound,
-            BOOST_PP_ENUM_PARAMS(n, a)
-        );
+        return m_fun(m_arg, BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

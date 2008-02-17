@@ -22,8 +22,8 @@
 #include <pstade/result_of.hpp>
 #include "./by_cref.hpp"
 #include "./by_perfect.hpp"
+#include "./by_value.hpp"
 #include "./construct_unfused1.hpp"
-#include "./detail/bound.hpp"
 #include "./generator.hpp"
 #include "./unfuse.hpp"
 
@@ -36,33 +36,31 @@ namespace pstade { namespace egg {
 
     namespace always_detail {
 
-        template<class Bound>
+        template<class Value>
         struct fused_result
         {
-            Bound m_bound;
+            Value m_value;
 
-            Bound base() const
+            Value const &base() const
             {
-                return m_bound;
+                return m_value;
             }
 
-            typedef typename
-                detail::unbound<Bound>::type
-            result_type;
+            typedef Value const &result_type;
 
             template<class Args>
             result_type operator()(Args const &) const
             {
-                return m_bound;
+                return m_value;
             }
         };
 
     } // namespace always_detail
 
-    template<class Bound>
+    template<class Value>
     struct result_of_always :
         result_of_unfuse<
-            always_detail::fused_result<Bound>,
+            always_detail::fused_result<Value>,
             use_nullary_result,
             boost::use_default,
             by_cref
@@ -75,8 +73,8 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            result_of_always< deduce<mpl_1, detail::as_bound> >::type,
-            by_cref,
+            result_of_always< deduce<mpl_1, as_value> >::type,
+            by_value,
             X_construct_unfused1<>
         >::type
     T_always;
