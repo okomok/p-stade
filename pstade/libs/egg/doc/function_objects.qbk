@@ -146,17 +146,18 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [__STATIC_FUNCTION_OBJECT__]
     ]
     [
-        [`always_ref(x)`]
+        [`always_ref(y)`]
         [A __MAJOR_FUNCTION_OBJECT__]
     ]
     [
-        [`always_ref(x)(a1,...,aN)`]
-        [`_arg_list([x], by_perfect)`]
+        [`always_ref(y)(a1,...,aN)`]
+        [`_arg_list([y], by_perfect)`]
     ]
 ]
 
 [heading Preconditions]
 * `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `_typeof(x)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Example]

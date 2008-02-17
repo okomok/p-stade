@@ -210,6 +210,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Preconditions]
 * `N` is the arity of `_PFo` such that `2 <= N && N <= PSTADE_EGG_MAX_ARITY`.
+* For all `I` such that `1 <= I && I <= N-1`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * The corresponding expression is a valid expression.
 
