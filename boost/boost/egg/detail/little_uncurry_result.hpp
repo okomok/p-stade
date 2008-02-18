@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_LITTLE_UNCURRY_RESULT_HPP
 #define BOOST_EGG_DETAIL_LITTLE_UNCURRY_RESULT_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -17,14 +16,13 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "../apply_decl.hpp"
-#include "../config.hpp" // BOOST_EGG_MAX_ARITY
-#include "../forward.hpp"
+#include <boost/egg/apply_decl.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
+#include <boost/egg/forward.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
     template<class Base, class Strategy>
@@ -32,15 +30,12 @@ namespace pstade { namespace egg { namespace detail {
     {
         Base m_base;
 
-        typedef Base base_type;
-
-        Base base() const
+        Base const &base() const
         {
             return m_base;
         }
 
-    // 1ary-
-        template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
+        template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
         struct BOOST_EGG_APPLY_DECL;
 
     #define PSTADE_open_result_of(Z, I, _)  typename result_of<
@@ -54,7 +49,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 #endif
@@ -62,8 +57,8 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
             BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_open_result_of, ~)
                 Base const(typename result_of_forwarding<Strategy const, n, 0, A0>::type)
@@ -71,12 +66,12 @@ namespace pstade { namespace egg { namespace detail {
         >      
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         return m_base BOOST_PP_REPEAT(n, PSTADE_paren, ~) ;
     }
 
 
-#undef n
+#undef  n
 #endif

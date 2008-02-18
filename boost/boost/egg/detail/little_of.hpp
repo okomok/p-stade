@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_LITTLE_OF_HPP
 #define BOOST_EGG_DETAIL_LITTLE_OF_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -12,20 +11,21 @@
 
 
 #include <boost/type_traits/remove_cv.hpp>
-#include "../function_fwd.hpp"
+#include <boost/egg/function_fwd.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
-    template<class Function> // derived from `function<>`.
-    struct little_of_impl
+    template<class Function>
+    struct little_of_aux
     {
         typedef typename Function::little_type type;
     };
 
+    // minimize name lookup.
     template<class Little, class Strategy>
-    struct little_of_impl< function<Little, Strategy> > // for incomplete context.
+    struct little_of_aux< function<Little, Strategy> >
     {
         typedef Little type;
     };
@@ -33,11 +33,11 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Function>
     struct little_of :
-        little_of_impl<typename boost::remove_cv<Function>::type>
+        little_of_aux<typename boost::remove_cv<Function>::type>
     { };
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 #endif

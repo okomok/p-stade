@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_INFIX_HPP
 #define BOOST_EGG_INFIX_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -24,24 +24,24 @@
 // x ^= (foo ^= y)
 
 
-#include <boost/egg/pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace infix_detail {
 
 
-        template<class Function, class Arg>
+        template<class Function, class Left>
         struct thingy
         {
-            thingy(Function fun, Arg& arg) :
-                m_fun(fun), m_arg(arg)
-            { }
-
             Function m_fun;
-            Arg& m_arg;
+            Left m_left;
+
+            thingy(Function fun, Left left) :
+                m_fun(fun), m_left(left)
+            { }
         };
 
 
@@ -51,74 +51,40 @@ namespace pstade { namespace egg {
     namespace infix {
 
 
-        // operator^
-        //
-
-        template<class Function, class Arg> inline
-        infix_detail::thingy<Function, Arg>
-        operator^(Arg& arg, Function fun)
+        template<class Function, class Left> inline
+        infix_detail::thingy<Function, Left &>
+        operator^(Left &left, Function fun)
         {
-            return infix_detail::thingy<Function, Arg>(fun, arg);
+            return infix_detail::thingy<Function, Left &>(fun, left);
         }
 
-        template<class Function, class Arg> inline
-        infix_detail::thingy<Function, Arg const>
-        operator^(Arg const& arg, Function fun)
+        template<class Function, class Left> inline
+        infix_detail::thingy<Function, Left const &>
+        operator^(Left const &left, Function fun)
         {
-            return infix_detail::thingy<Function, Arg const>(fun, arg);
+            return infix_detail::thingy<Function, Left const &>(fun, left);
         }
 
-        template<class Function, class Arg, class Right> inline
-        typename result_of<Function(Arg&, Right&)>::type
-        operator^(infix_detail::thingy<Function, Arg> x, Right& right)
+        template<class Function, class Left, class Right> inline
+        typename result_of<Function(Left &, Right &)>::type
+        operator^(infix_detail::thingy<Function, Left &> x, Right &right)
         {
-            return x.m_fun(x.m_arg, right);
+            return x.m_fun(x.m_left, right);
         }
 
-        template<class Function, class Arg, class Right> inline
-        typename result_of<Function(Arg&, Right const&)>::type
-        operator^(infix_detail::thingy<Function, Arg> x, Right const& right)
+        template<class Function, class Left, class Right> inline
+        typename result_of<Function(Left &, Right const &)>::type
+        operator^(infix_detail::thingy<Function, Left &> x, Right const &right)
         {
-            return x.m_fun(x.m_arg, right);
-        }
-
-
-        // operator=>>, operator<<=
-        //
-
-        template<class Function, class Arg> inline
-        infix_detail::thingy<Function, Arg>
-        operator^=(Function fun, Arg& arg)
-        {
-            return infix_detail::thingy<Function, Arg>(fun, arg);
-        }
-
-        template<class Function, class Arg> inline
-        infix_detail::thingy<Function, Arg const>
-        operator^=(Function fun, Arg const& arg)
-        {
-            return infix_detail::thingy<Function, Arg const>(fun, arg);
-        }
-
-        template<class Function, class Arg, class Left> inline
-        typename result_of<Function(Left&, Arg&)>::type
-        operator^=(Left& left, infix_detail::thingy<Function, Arg> x)
-        {
-            return x.m_fun(left, x.m_arg);
-        }
-
-        template<class Function, class Arg, class Left> inline
-        typename result_of<Function(Left const&, Arg&)>::type
-        operator^=(Left const& left, infix_detail::thingy<Function, Arg> x)
-        {
-            return x.m_fun(left, x.m_arg);
+            return x.m_fun(x.m_left, right);
         }
 
 
     } // namespace infix
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

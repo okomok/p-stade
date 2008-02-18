@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_APPLY_DECL_HPP
 #define BOOST_EGG_APPLY_DECL_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -14,7 +14,7 @@
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <boost/egg/pstade/boost_workaround.hpp>
+#include <boost/egg/detail/boost_workaround.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
@@ -33,4 +33,5 @@
     #define BOOST_EGG_APPLY_DECL_PARAMS_op(Z, N, A) , class BOOST_PP_CAT(A, N) = void
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

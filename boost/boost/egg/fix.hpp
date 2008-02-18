@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_FIX_HPP
 #define BOOST_EGG_FIX_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -17,57 +17,59 @@
 // http://citeseer.ist.psu.edu/51062.html
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "./curry.hpp"
-#include "./detail/bind_left1.hpp"
-#include "./function.hpp"
-#include "./make_function.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/compose.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/curry.hpp> // curry2
+#include <boost/egg/detail/bind_left1.hpp>
+#include <boost/egg/make_function.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace fix_detail {
 
 
         // fun fix base a = base (fix base) x;
-        // fun uncurried_fix (base, x) = base(curry(uncurried_fix)(base))(x);
+        // <=> fun uncurried_fix (base, x) = base(curry(uncurried_fix)(base))(x);
+
+        struct little_uncurried;
+        typedef function<little_uncurried, by_perfect> uncurried;
 
         struct little_uncurried
         {
-            template<class Myself, class Base, class Arg>
+            template<class Me, class Base, class Arg>
             struct apply :
                 result_of<
                     typename result_of<
                         Base(
                             typename result_of<
-                                typename result_of<T_curry2(function<little_uncurried>)>::type(Base&)
+                                result_of<T_curry2(uncurried &)>::type(Base &)
                             >::type
-                         )
-                    >::type(Arg&)
+                        )
+                    >::type(Arg &)
                 >
             { };
 
-            template<class Result, class Base, class Arg>
-            Result call(Base& base, Arg& arg) const
+            template<class Re, class Base, class Arg>
+            Re call(Base &base, Arg &arg) const
             {
                 // Base must be curried in advance.
-                return base
-                    ( curry2(make_function(*this))(base) )
-                    ( arg );
+                uncurried u = {*this};
+                return base(curry2(u)(base))(arg);
             }
         };
-
-
-        typedef function<little_uncurried> uncurried;
 
 
     } // namespace fix_detail
 
 
+    #define BOOST_EGG_FIX_INIT BOOST_EGG_CURRY2({{}})
+
     typedef result_of_curry2<fix_detail::uncurried>::type T_fix;
-    PSTADE_POD_CONSTANT((T_fix), fix) = BOOST_EGG_CURRY2({{}});
+    BOOST_EGG_CONST((T_fix), fix) = BOOST_EGG_FIX_INIT;
 
 
     // fix(base)
@@ -77,19 +79,24 @@ namespace pstade { namespace egg {
 
     template<class Base>
     struct result_of_fix :
-        detail::result_of_bind_left1<
+        details::result_of_bind_left1<
             fix_detail::uncurried,
             Base
         >
     { };
 
-    // BOOST_EGG_BIND_LEFT1_L {{}} BOOST_EGG_BIND_LEFT1_M Base BOOST_EGG_BIND_LEFT1_R
-    #define BOOST_EGG_FIX_L BOOST_EGG_BIND_LEFT1_L {{}} BOOST_EGG_BIND_LEFT1_M
+    // BOOST_EGG_BIND_LEFT1_L {{}} , Base BOOST_EGG_BIND_LEFT1_R
+    #define BOOST_EGG_FIX_L BOOST_EGG_BIND_LEFT1_L {{}} ,
     #define BOOST_EGG_FIX_R BOOST_EGG_BIND_LEFT1_R
     #define BOOST_EGG_FIX(F) BOOST_EGG_FIX_L F BOOST_EGG_FIX_R
 
 
-} } // namespace pstade::egg
+    typedef result_of_compose<T_fix, T_curry2, use_default, by_perfect>::type T_fix2;
+    BOOST_EGG_CONST((T_fix2), fix2) = BOOST_EGG_COMPOSE_L BOOST_EGG_FIX_INIT, BOOST_EGG_CURRY_INIT BOOST_EGG_COMPOSE_R;
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif

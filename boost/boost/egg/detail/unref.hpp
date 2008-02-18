@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_UNREF_HPP
 #define BOOST_EGG_DETAIL_UNREF_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -11,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pass_by.hpp>
-#include "../function_fwd.hpp"
+#include <boost/egg/function_fwd.hpp>
+#include <boost/egg/detail/pass_by_value.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
     template<class Bytag, class A>
@@ -31,7 +30,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // lvalue
     template<class A>
-    struct unref<by_perfect, A&>
+    struct unref<by_perfect, A &>
     {
         typedef A type;
     };
@@ -54,7 +53,7 @@ namespace pstade { namespace egg { namespace detail {
 
     // lvalue
     template<class A>
-    struct unref<by_cref, A&>
+    struct unref<by_cref, A &>
     {
         typedef A const type;
     };
@@ -67,7 +66,7 @@ namespace pstade { namespace egg { namespace detail {
     { };
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 #endif

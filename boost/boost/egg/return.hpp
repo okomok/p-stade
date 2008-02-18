@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_RETURN_HPP
 #define BOOST_EGG_RETURN_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,30 +11,30 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/result_of.hpp>
-#include "./by_perfect.hpp"
-#include "./by_value.hpp"
-#include "./detail/little_return_result.hpp"
-#include "./generator.hpp"
-#include "./use_brace2.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/construct_braced2.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/detail/little_return_result.hpp>
+#include <boost/egg/generator.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     template<
         class Base,
-        class ResultType = boost::use_default,
-        class Strategy   = by_perfect,
-        class Tag        = boost::use_default
+        class Return   = use_default,
+        class Strategy = by_perfect,
+        class Tag      = use_default
     >
     struct result_of_return
     {
         typedef
-            function<detail::little_return_result<Base, ResultType, Strategy, Tag>, Strategy>
+            function<details::little_return_result<Base, Return, Strategy, Tag>, Strategy>
         type;
     };
-
 
     #define BOOST_EGG_RETURN_L { {
     #define BOOST_EGG_RETURN_R } }
@@ -42,27 +42,30 @@ namespace pstade { namespace egg {
 
 
     template<
-        class ResultType = boost::use_default,
-        class Strategy   = by_perfect
+        class Return   = use_default,
+        class Strategy = by_perfect,
+        class Tag      = use_default
     >
-    struct X_return :
+    struct X_return : details::derived_from_eval<
         generator<
-            typename result_of_return<deduce<boost::mpl::_1, as_value>, ResultType, Strategy>::type,
-            boost::use_default,
-            use_brace2,
-            by_value
-        >::type
+            typename result_of_return<deduce<mpl::_1, as_value>, Return, Strategy, Tag>::type,
+            by_value,
+            X_construct_braced2<>
+        > >
     { };
 
+    #define BOOST_EGG_RETURN_INIT BOOST_EGG_GENERATOR()
 
-    template<class ResultType, class Base> inline
-    typename result_of<X_return<ResultType>(Base&)>::type return_(Base base)
+
+    template<class Return, class Base> inline
+    typename result_of<X_return<Return>(Base &)>::type return_(Base base)
     {
-        return X_return<ResultType>()(base);
+        return X_return<Return>()(base);
     }
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

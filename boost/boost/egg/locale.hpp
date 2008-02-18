@@ -1,5 +1,6 @@
 #ifndef BOOST_EGG_LOCAL_HPP
 #define BOOST_EGG_LOCAL_HPP
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -10,8 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/char_classification.hpp"
-#include "./detail/char_conversion.hpp"
+#include <boost/egg/detail/char_classification.hpp>
+#include <boost/egg/detail/char_conversion.hpp>
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

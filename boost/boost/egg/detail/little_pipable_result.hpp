@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_LITTLE_PIPABLE_RESULT_HPP
 #define BOOST_EGG_DETAIL_LITTLE_PIPABLE_RESULT_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -18,60 +17,86 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/egg/pstade/deduced_const.hpp>
-#include <boost/egg/pstade/enable_if.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "../apply_decl.hpp"
-#include "../forward.hpp"
-#include "../function_fwd.hpp"
-#include "../fuse.hpp"
-#include "../tuple/config.hpp" // BOOST_EGG_TUPLE_MAX_SIZE
-#include "./or_is_same.hpp"
+#include <boost/egg/apply_decl.hpp>
+#include <boost/egg/by_ref.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/detail/enable_if.hpp>
+#include <boost/egg/function_fwd.hpp>
+#include <boost/egg/pack.hpp>
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/detail/deduced_const.hpp>
+#include <boost/egg/detail/is_a_or_b.hpp>
+#include <boost/egg/detail/pp_enum_params_with.hpp>
+#include <boost/egg/detail/tuple_fuse.hpp>
+#include <boost/egg/detail/tuple_prepend.hpp>
 
 
-#define BOOST_EGG_PIPABLE_MAX_ARITY BOOST_PP_DEC(BOOST_EGG_TUPLE_MAX_SIZE)
+#define BOOST_EGG_PIPABLE_MAX_ARITY \
+    BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY) \
+/**/
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
-namespace little_pipable_resultns_ {
+namespace pipable_operators {
 
 
-    namespace here = little_pipable_resultns_;
+    namespace here = pipable_operators;
 
 
-    // Fortunately, boost::tuples::null_type is a POD type.
+    template<class O, class Base, class Args>
+    struct result_of_output :
+        result_of<
+            typename result_of<
+                T_tuple_fuse(Base const &)
+            >::type(typename result_of<X_tuple_prepend<by_ref>(Args const &, O &)>::type)
+        >
+    { };
 
-    template<class Base, class Strategy, class OperandBytag, class ArgTuple = boost::tuples::null_type>
+
+    // Fortunately, tuples::null_type is a POD type.
+
+    template<class Base, class Strategy, class OperandBytag, class Args = tuples::null_type>
     struct little_pipable_result
     {
-        typedef Base base_type;
-        typedef ArgTuple arguments_type;
-
         Base m_base;
-        ArgTuple m_arguments;
+        Args m_args;
 
-        Base base() const
+        Base const &base() const
         {
             return m_base;
         }
 
+        template<class O>
+        typename result_of_output<O, Base, Args>::type
+        output(O &o) const
+        {
+            return tuple_fuse(m_base)(X_tuple_prepend<by_ref>()(m_args, o));
+        }
+
+        template<class Args_>
+        struct function_with
+        {
+            typedef
+                function<little_pipable_result<Base, Strategy, OperandBytag, Args_>, Strategy>
+            type;
+        };
+
     // 0ary
-        typedef
-            function<little_pipable_result, Strategy>
+        typedef typename
+            function_with<tuples::null_type>::type
         nullary_result_type;
 
-        template<class Result>
-        Result call() const
+        template<class Re>
+        Re call() const
         {
-            Result r = { { m_base } };
+            Re r = { { m_base, {} } };
             return r;
         }
 
     // 1ary-
-        template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_PIPABLE_MAX_ARITY, A)>
+        template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_PIPABLE_MAX_ARITY, A)>
         struct BOOST_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_PIPABLE_MAX_ARITY, <boost/egg/detail/little_pipable_result.hpp>))
@@ -79,86 +104,70 @@ namespace little_pipable_resultns_ {
     };
 
 
-    template<class ArgTuple, class A> inline
-    boost::tuples::cons<A&, ArgTuple> tuple_push_front(ArgTuple const& args, A& a)
-    {
-        return boost::tuples::cons<A&, ArgTuple>(a, args);
-    }
-
-
-    template<class A, class Base, class ArgTuple>
-    struct result_of_output :
-        result_of<
-            typename result_of<T_fuse(Base const&)>::type(boost::tuples::cons<A&, ArgTuple>)
-        >
-    { };
-    
-
     struct lookup_pipable_operator { };
 
 
     // operator|
-    //   msvc-7.1 seems to need lazy_enable_if to keep return type as well-formed as possible.
     //
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
-    operator|(O& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
+    operator|(O &o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
+        return pi.little().output(o);
     }
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
-    operator|(O const& o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<BOOST_EGG_DEDUCED_CONST(O), Base, Args> >::type
+    operator|(O const &o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
+        return pi.little().output(o);
     }
 
     // by_value
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
-    operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
+    operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
         // For movable types, we can't turn `o` into const-reference.
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
+        return pi.little().output(o);
     }
 
 
     // operater|=
     //
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_ref, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O& o)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O &o)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
+        return pi.little().output(o);
     }
 
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< or_is_same<by_perfect, by_cref, OperandBytag>, result_of_output<PSTADE_DEDUCED_CONST(O), Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O const& o)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<BOOST_EGG_DEDUCED_CONST(O), Base, Args> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O const &o)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
+        return pi.little().output(o);
     }
 
     // by_value
-    template<class O, class Base, class Strategy, class OperandBytag, class ArgTuple> inline
-    typename lazy_enable_if< boost::is_same<by_value, OperandBytag>, result_of_output<O, Base, ArgTuple> >::type
-    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, ArgTuple>, Strategy> const& pi, O o)
+    template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
+    typename lazy_enable_if< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
+    operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O o)
     {
-        return fuse(pi.little().m_base)(here::tuple_push_front(pi.little().m_arguments, o));
+        return pi.little().output(o);
     }
 
 
-} // namespace little_pipable_resultns_
+} // namespace pipable_operators
 
 
-using little_pipable_resultns_::little_pipable_result;
-using little_pipable_resultns_::lookup_pipable_operator;
+    using pipable_operators::little_pipable_result;
+    using pipable_operators::lookup_pipable_operator;
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 #endif
@@ -166,30 +175,20 @@ using little_pipable_resultns_::lookup_pipable_operator;
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
-    {
-        typedef
-            function<
-                little_pipable_result<
-                    Base, Strategy, OperandBytag,
-                    // Arguments must be copied in case of by_value.
-                    // Notice that Boost.Tuple doesn't work with movable types.
-                    boost::tuples::tuple<BOOST_EGG_FORWARDING_ENUM_META_ARGS(n, A, Strategy const)>
-                >,
-                Strategy
-            >
-        type;
-    };
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
+        function_with<
+            typename result_of<X_pack<Strategy>(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type
+        >
+    { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        typedef typename Result::little_type little_t;
-        Result r = { { m_base, typename little_t::arguments_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        Re r = { { m_base, X_pack<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
         return r;
     }
 
 
-#undef n
+#undef  n
 #endif

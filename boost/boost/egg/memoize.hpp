@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_MEMOIZE_HPP
 #define BOOST_EGG_MEMOIZE_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -20,39 +20,39 @@
 #include <map>
 #include <boost/any.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "./by_cref.hpp"
-#include "./by_value.hpp"
-#include "./fix.hpp"
-#include "./function_facade.hpp"
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/fix.hpp>
+#include <boost/egg/function_facade.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace memoize_detail {
 
 
         struct wrap_ :
-            function_facade<wrap_, boost::use_default, by_cref>
+            function_facade<wrap_, by_cref>
         {
-            template<class Myself, class Base, class Fixed, class Arg>
+            template<class Me, class Base, class Fixed, class Arg>
             struct apply :
                 result_of<
-                    typename result_of<Base(Fixed const&)>::type(Arg const&)
+                    typename result_of<Base(Fixed const &)>::type(Arg const &)
                 >
             { };
 
-            template<class Result, class Base, class Fixed, class Arg>
-            Result call(Base& base, Fixed& fixed, Arg const& arg) const
+            template<class Re, class Base, class Fixed, class Arg>
+            Re call(Base &base, Fixed &fixed, Arg const &arg) const
             {
-                typedef std::map<Arg, Result> map_t;
+                typedef std::map<Arg, Re> map_t;
 
                 if (m_pany->empty())
                     *m_pany = map_t();
 
-                map_t& m = boost::any_cast<map_t&>(*m_pany);
+                map_t &m = boost::any_cast<map_t &>(*m_pany);
 
                 typename map_t::iterator it = m.find(arg);
                 if (it != m.end())
@@ -62,29 +62,29 @@ namespace pstade { namespace egg {
             }
 
             wrap_() :
-                m_pany(new boost::any())
+                m_pany(new any())
             { }
 
         private:
-            boost::shared_ptr<boost::any> m_pany;
+            shared_ptr<any> m_pany;
         };
 
 
         struct little
         {
-            template<class Myself, class Base_>
+            template<class Me, class Base_>
             struct apply :
                 result_of<
                     T_fix(
                         typename result_of<
-                            typename result_of<T_curry3(wrap_)>::type(typename result_of<T_curry2(Base_&)>::type)
+                            typename result_of<T_curry3(wrap_)>::type(typename result_of<T_curry2(Base_ &)>::type)
                         >::type
                     )
                 >
             { };
 
-            template<class Result, class Base_>
-            Result call(Base_ base) const
+            template<class Re, class Base_>
+            Re call(Base_ base) const
             {
                 return fix(
                     curry3(wrap_())(curry2(base))
@@ -97,10 +97,11 @@ namespace pstade { namespace egg {
 
 
     typedef function<memoize_detail::little, by_value> T_memoize;
-    PSTADE_POD_CONSTANT((T_memoize), memoize) = {{}};
+    BOOST_EGG_CONST((T_memoize), memoize) = {{}};
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

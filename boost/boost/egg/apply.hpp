@@ -1,7 +1,6 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_APPLY_HPP
 #define BOOST_EGG_APPLY_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,37 +11,41 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/egg/pstade/adl_barrier.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "./apply_decl.hpp"
-#include "./by_perfect.hpp"
-#include "./config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
-#include "./forward.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_ref.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/adl_barrier.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/detail/result_of_tuple_get.hpp>
+#include <boost/egg/detail/tuple_drop.hpp>
+#include <boost/egg/detail/tuple_fuse.hpp>
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/variadic.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace apply_detail {
 
 
-        template<class Strategy>
         struct little
         {
-            template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
-            struct BOOST_EGG_APPLY_DECL;
+            template<class Me, class Args>
+            struct apply :
+                result_of<
+                    typename result_of<
+                        details::T_tuple_fuse(typename details::result_of_tuple_get<0, Args>::type)
+                    >::type(typename result_of<details::X_tuple_drop_c<1, by_ref>(Args &)>::type)
+                >
+            { };
 
-        #define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <boost/egg/apply.hpp>))
-            #include BOOST_PP_ITERATE()
-        #undef  PSTADE_max_arity
+            template<class Re, class Args>
+            Re call(Args &args) const
+            {
+                return details::tuple_fuse(tuples::get<0>(args))
+                    (details::X_tuple_drop_c<1, by_ref>()(args));
+            }
         };
 
 
@@ -50,35 +53,18 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_apply :
-        function<apply_detail::little<Strategy>, Strategy>
+    struct X_apply : details::derived_from_eval<
+        variadic<apply_detail::little, Strategy> >
     { };
 
-    typedef X_apply<>::function_type T_apply;
-PSTADE_ADL_BARRIER(apply) {
-    PSTADE_POD_CONSTANT((T_apply), apply) = {{}};
+    typedef X_apply<>::base_class T_apply;
+BOOST_EGG_ADL_BARRIER(apply) {
+    BOOST_EGG_CONST((T_apply), apply) = BOOST_EGG_VARIADIC({});
 }
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-    template<class Myself, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<F(BOOST_EGG_FORWARDING_ENUM_META_ARGS(n, A, Strategy const))>
-    { };
-
-    template<class Result, class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(F& f BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
-    {
-        return f(BOOST_EGG_FORWARDING_ENUM_ARGS(n, a, Strategy const));
-    }
-
-
-#undef n
+#include <boost/egg/detail/suffix.hpp>
 #endif

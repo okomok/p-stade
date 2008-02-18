@@ -1,9 +1,9 @@
 #ifndef BOOST_EGG_BLL_STRING_HPP
 #define BOOST_EGG_BLL_STRING_HPP
-#include "../detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -11,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/apple/basic_string_fwd.hpp>
-#include "./extension_fwd.hpp"
+#include <boost/egg/detail/std_string_fwd.hpp>
+#include <boost/egg/bll/extension_fwd.hpp>
 
 
 namespace boost { namespace lambda {
@@ -29,4 +29,5 @@ namespace boost { namespace lambda {
 } } // namespace boost::lambda
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

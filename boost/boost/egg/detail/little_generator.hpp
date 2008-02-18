@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_LITTLE_GENERATOR_HPP
 #define BOOST_EGG_DETAIL_LITTLE_GENERATOR_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -13,96 +12,43 @@
 
 
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/mpl/limits/arity.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-#include <boost/egg/pstade/affect.hpp>
-#include <boost/egg/pstade/pass_by.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include <boost/egg/pstade/template_arguments.hpp>
-#include <boost/egg/pstade/use_default.hpp>
-#include "../apply_decl.hpp"
-#include "../use_constructor.hpp"
+#include <boost/egg/apply_decl.hpp>
+#include <boost/egg/construct.hpp>
+#include <boost/egg/detail/supply_n.hpp>
+#include <boost/egg/detail/use_nullary_result.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
-    template<class Lambda>
-    struct is_placeholder_expression :
-        boost::mpl::is_lambda_expression<Lambda>
-    { };
-
-
-    // Work around "ETI" of 'boost::mpl::apply'.
-
-    template<class Lambda>
-    struct lambda_to_dummy :
-        boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            template_arguments_of<Lambda>,
-            boost::mpl::identity<Lambda>
-        >
-    { };
-
-    template<class Dummy, class Lambda>
-    struct dummy_to_lambda :
-        boost::mpl::eval_if< is_placeholder_expression<Lambda>,
-            template_arguments_copy<Dummy, Lambda>,
-            boost::mpl::identity<Dummy>
-        >
-    { };
-
-
-    template<
-        class Lambda,
-        PSTADE_PP_ENUM_PARAMS_WITH(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, class A, = void)
-    >
-    struct generated_object
-    {
-        typedef typename
-            boost::remove_cv<Lambda>::type // MPL needs this.
-        lambda_t;
-
-        typedef typename
-            boost::mpl::BOOST_PP_CAT(apply, BOOST_MPL_LIMIT_METAFUNCTION_ARITY)<
-                typename lambda_to_dummy<lambda_t>::type,
-                BOOST_PP_ENUM_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)
-            >::type
-        dummy_t;
-
-        typedef typename
-            affect<Lambda, typename dummy_to_lambda<dummy_t, lambda_t>::type>::type
-        type;
-    };
-
-
-    // Even if using 'lambda_to_dummy', 'NullaryResult' must be explicitly specified.
-    // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
-
-    template<class Lambda, class NullaryResult, class Make>
+    template<class Expr, class Strategy, class Construct, class NullaryResult>
     struct little_generator
     {
         typedef typename
-            if_use_default<Make, use_constructor>::type
-        how_t;
+            if_use_default< Construct, X_construct<> >::type
+        construct_t;
 
     // 0ary
-        typedef NullaryResult nullary_result_type;
+        typedef typename
+            eval_if_use_nullary_result< NullaryResult,
+                supply0<Expr>
+            >::type
+        nullary_result_type;
 
-        template<class Result>
-        Result call() const
+        template<class Re>
+        Re call() const
         {
-            return how_t()(boost::type<Result>());
+            typedef typename mpl::apply2<construct_t, Re, Strategy>::type cons_t;
+            return cons_t()();
         }
 
      // 1ary-
-        template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
+        template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, A)>
         struct BOOST_EGG_APPLY_DECL;
 
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <boost/egg/detail/little_generator.hpp>))
@@ -110,7 +56,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 #endif
@@ -118,19 +64,18 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        generated_object<
-            Lambda, BOOST_PP_ENUM_PARAMS(n, A)
-        >
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
+        BOOST_PP_CAT(supply, n)<Expr, BOOST_PP_ENUM_PARAMS(n, A)>
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return how_t()(boost::type<Result>(), BOOST_PP_ENUM_PARAMS(n, a));
+        typedef typename mpl::apply2<construct_t, Re, Strategy>::type cons_t;
+        return cons_t()(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 
-#undef n
+#undef  n
 #endif

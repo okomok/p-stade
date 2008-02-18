@@ -1,9 +1,9 @@
 #ifndef BOOST_EGG_BLL_UNLAMBDA_HPP
 #define BOOST_EGG_BLL_UNLAMBDA_HPP
-#include "../detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -12,13 +12,13 @@
 
 
 #include <boost/lambda/core.hpp> // unlambda
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "../by_value.hpp"
-#include "../deduced_form.hpp"
-#include "./result_of.hpp" // inclusion guaranteed
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/use_deduced_form.hpp>
+#include <boost/egg/bll/result_of.hpp> // inclusion guaranteed
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace bll_unlambda_detail {
@@ -26,30 +26,30 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            typedef deduced_form call_strategy;
+            typedef little use_deduced_form;
 
-            template<class Myself, class Function>
+            template<class Me, class Function>
             struct apply
             {
                 typedef Function type;
             };
 
-            template<class Myself, class Arg>
-            struct apply< Myself, boost::lambda::lambda_functor<Arg> >
+            template<class Me, class Arg>
+            struct apply< Me, lambda::lambda_functor<Arg> >
             {
-                typedef boost::lambda::non_lambda_functor< boost::lambda::lambda_functor<Arg> > type;
+                typedef lambda::non_lambda_functor< lambda::lambda_functor<Arg> > type;
             };
 
-            template<class Result, class Function>
-            Result call(boost::type<Result>, Function fun) const
+            template<class Re, class Function>
+            Re call(boost::type<Re>, Function fun) const
             {
                 return fun;
             }
 
-            template<class Result, class Arg>
-            Result call(boost::type<Result>, boost::lambda::lambda_functor<Arg> lam) const
+            template<class Re, class Arg>
+            Re call(boost::type<Re>, lambda::lambda_functor<Arg> lam) const
             {
-                return boost::lambda::unlambda(lam);
+                return lambda::unlambda(lam);
             }
         };
 
@@ -58,10 +58,11 @@ namespace pstade { namespace egg {
 
 
     typedef function<bll_unlambda_detail::little, by_value> T_bll_unlambda;
-    PSTADE_POD_CONSTANT((T_bll_unlambda), bll_unlambda) = {{}};
+    BOOST_EGG_CONST((T_bll_unlambda), bll_unlambda) = {{}};
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

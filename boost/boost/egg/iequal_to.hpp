@@ -1,5 +1,6 @@
 #ifndef BOOST_EGG_IEQUAL_TO_HPP
 #define BOOST_EGG_IEQUAL_TO_HPP
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,10 +12,10 @@
 
 
 #include <locale>
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     struct T_iequal_to
@@ -22,7 +23,7 @@ namespace pstade { namespace egg {
         typedef bool result_type;
 
         template<class CharT>
-        bool operator()(CharT ch1, CharT ch2, std::locale const& loc) const
+        bool operator()(CharT ch1, CharT ch2, std::locale const &loc) const
         {
             return std::tolower(ch1, loc) == std::tolower(ch2, loc);
         }
@@ -34,11 +35,11 @@ namespace pstade { namespace egg {
         }
     };
 
-
-    PSTADE_POD_CONSTANT((T_iequal_to), iequal_to) = {};
-
-
-} } // namespace pstade::egg
+    BOOST_EGG_CONST((T_iequal_to), iequal_to) = {};
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif

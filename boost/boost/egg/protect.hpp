@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_PROTECT_HPP
 #define BOOST_EGG_PROTECT_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -17,15 +17,15 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <boost/egg/pstade/enable_if.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./always.hpp"
-#include "./by_value.hpp"
-#include "./is_bind_expression.hpp"
-#include "./tagged.hpp"
+#include <boost/egg/always.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/enable_if.hpp>
+#include <boost/egg/is_bind_expression.hpp>
+#include <boost/egg/tagged.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace protect_detail {
@@ -46,8 +46,8 @@ namespace pstade { namespace egg {
 
 
     template<class X>
-    struct is_bind_expression_base<X, typename enable_if< is_tagged_with<X, protect_detail::tag> >::type> :
-        boost::mpl::true_
+    struct is_bind_expression_set<X, typename details::enable_if< is_tagged_with<X, protect_detail::tag> >::type> :
+        mpl::true_
     { };
 
 
@@ -55,15 +55,15 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class Expr>
+            template<class Me, class Expr>
             struct apply :
                 result_of_protect<Expr>
             { };
 
-            template<class Result, class Expr>
-            Result call(Expr f) const
+            template<class Re, class Expr>
+            Re call(Expr f) const
             {
-                Result r = BOOST_EGG_PROTECT(f);
+                Re r = BOOST_EGG_PROTECT(f);
                 return r;
             }
         };
@@ -71,10 +71,11 @@ namespace pstade { namespace egg {
     } // namespace protect_detail
 
     typedef function<protect_detail::little, by_value> T_protect;
-    PSTADE_POD_CONSTANT((T_protect), protect) = {{}};
+    BOOST_EGG_CONST((T_protect), protect) = {{}};
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_CHAR_CONVERSION_HPP
 #define BOOST_EGG_DETAIL_CHAR_CONVERSION_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -13,60 +12,62 @@
 
 
 #include <locale>
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/array/elem.hpp>
-#include <boost/preprocessor/array/size.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <boost/egg/pstade/adl_barrier.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include "../by_cref.hpp"
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/adl_barrier.hpp>
+#include <boost/egg/detail/pp_array_iterate.hpp>
+#include <boost/egg/detail/pp_cat3.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
 #define entries (2, (upper, lower))
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(entries)), <boost/egg/detail/char_conversion.hpp>))
-    #include BOOST_PP_ITERATE()
+    #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (entries, <boost/egg/detail/char_conversion.hpp>)
+    #include BOOST_EGG_PP_ARRAY_ITERATE()
 #undef  entries
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
 #endif
 #else
-#define name BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), entries)
+#define name BOOST_EGG_PP_ARRAY_ITERATION()
 
 
-    struct PSTADE_PP_CAT3(little_, to_, name)
-    {
-        template<class Myself, class CharT, class Locale = void>
-        struct apply :
-            boost::remove_cv<CharT>
-        { };
+    namespace BOOST_EGG_PP_CAT3(to_, name, _detail) {
 
-        template<class Result, class CharT>
-        Result call(CharT& ch, std::locale const& loc) const
+
+        struct little
         {
-            return std::use_facet< std::ctype<Result> >(loc).BOOST_PP_CAT(to, name)(ch);
-        }
+            template<class Me, class CharT, class Locale = void>
+            struct apply :
+                boost::remove_cv<CharT>
+            { };
 
-        template<class Result, class CharT>
-        Result call(CharT& ch) const
-        {
-            return call<Result>(ch, std::locale());
-        }
-    };
+            template<class Re, class CharT>
+            Re call(CharT &ch, std::locale const &loc) const
+            {
+                return std::use_facet< std::ctype<Re> >(loc).BOOST_PP_CAT(to, name)(ch);
+            }
 
-    typedef function<PSTADE_PP_CAT3(little_, to_, name), by_cref> PSTADE_PP_CAT3(T_, to_, name);
+            template<class Re, class CharT>
+            Re call(CharT &ch) const
+            {
+                return call<Re>(ch, std::locale());
+            }
+        };
 
-PSTADE_ADL_BARRIER(char_conversion) {
-    PSTADE_POD_CONSTANT((PSTADE_PP_CAT3(T_, to_, name)), BOOST_PP_CAT(to_, name)) = {{}};
+
+    } // namespace BOOST_EGG_PP_CAT3(to_, name, _detail)
+
+
+    typedef function<BOOST_EGG_PP_CAT3(to_, name, _detail)::little, by_cref> BOOST_EGG_PP_CAT3(T_, to_, name);
+BOOST_EGG_ADL_BARRIER(char_conversion) {
+    BOOST_EGG_CONST((BOOST_EGG_PP_CAT3(T_, to_, name)), BOOST_PP_CAT(to_, name)) = {{}};
 }
 
 

@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_INTEGRAL_HPP
 #define BOOST_EGG_INTEGRAL_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -14,45 +14,42 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/type_traits/is_integral.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./ambi.hpp"
-#include "./automatic.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/implicit.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     template<class To>
     struct X_integral_cast
     {
-        typedef X_integral_cast function_type;
         typedef To result_type;
 
         template<class From>
-        To operator()(From const& from) const
+        To operator()(From from) const
         {
-            BOOST_MPL_ASSERT((boost::is_integral<To>));
-            BOOST_MPL_ASSERT((boost::is_integral<From>));
+            BOOST_MPL_ASSERT((is_integral<To>));
+            BOOST_MPL_ASSERT((is_integral<From>));
             return boost::numeric_cast<To>(from);
         }
     };
 
     template<class To, class From> inline
-    To integral_cast(From const& from)
+    To integral_cast(From from)
     {
         return X_integral_cast<To>()(from);
     }
 
 
-    namespace integral_detail {
-        typedef automatic< X_integral_cast<boost::mpl::_1> >::type op;
-    }
-
-    typedef result_of_ambi0<integral_detail::op>::type T_integral;
-    PSTADE_POD_CONSTANT((T_integral), integral) = BOOST_EGG_AMBI_L BOOST_EGG_AUTOMATIC() BOOST_EGG_AMBI_R;
+    typedef result_of_ambi0<implicit<X_integral_cast<mpl::_1>, by_value>::type, by_value>::type T_integral;
+    BOOST_EGG_CONST((T_integral), integral) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

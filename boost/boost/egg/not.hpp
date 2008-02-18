@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_NOT_HPP
 #define BOOST_EGG_NOT_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,48 +11,77 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./by_perfect.hpp"
-#include "./by_value.hpp"
-#include "./detail/little_not_result.hpp"
-#include "./generator.hpp"
-#include "./use_brace2.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/construct_unfused1.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/detail/tuple_fuse.hpp>
+#include <boost/egg/generator.hpp>
+#include <boost/egg/return.hpp>
+#include <boost/egg/unfuse.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
+
+
+    namespace not_detail {
+
+
+        template<class Base>
+        struct fused_result
+        {
+            Base m_base;
+
+            Base const &base() const
+            {
+                return m_base;
+            }
+
+            typedef bool result_type;
+
+            template<class Args>
+            result_type operator()(Args const &args) const
+            {
+                return !details::tuple_fuse(egg::return_<bool>(m_base))(args);
+            }
+        };
+
+
+    } // namespace not_detail
 
 
     template<class Base, class Strategy = by_perfect>
-    struct result_of_not
-    {
-        typedef
-            function<detail::little_not_result<Base, Strategy>, Strategy>
-        type;
-    };
+    struct result_of_not :
+        result_of_unfuse<
+            not_detail::fused_result<Base>,
+            use_nullary_result,
+            use_default,
+            Strategy
+        >
+    { };
 
-
-    #define BOOST_EGG_NOT_L { {
-    #define BOOST_EGG_NOT_R } }
+    #define BOOST_EGG_NOT_L BOOST_EGG_UNFUSE_L {
+    #define BOOST_EGG_NOT_R } BOOST_EGG_UNFUSE_R
     #define BOOST_EGG_NOT(F) BOOST_EGG_NOT_L F BOOST_EGG_NOT_R
 
 
     template<class Strategy = by_perfect>
-    struct X_not :
+    struct X_not : details::derived_from_eval<
         generator<
-            typename result_of_not<deduce<boost::mpl::_1, as_value>, Strategy>::type,
-            boost::use_default,
-            use_brace2,
-            by_value
-        >::type
+            typename result_of_not<deduce<mpl::_1, as_value>, Strategy>::type,
+            by_value,
+            X_construct_unfused1<>
+        > >
     { };
 
-
-    typedef X_not<>::function_type T_not;
+    typedef X_not<>::base_class T_not;
     typedef T_not T_not_;
-    PSTADE_POD_CONSTANT((T_not_), not_) = BOOST_EGG_GENERATOR();
+    BOOST_EGG_CONST((T_not_), not_) = BOOST_EGG_GENERATOR();
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

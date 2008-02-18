@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_TO_REF_HPP
 #define BOOST_EGG_TO_REF_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,13 +12,13 @@
 
 
 #include <boost/type_traits/remove_cv.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./ambi.hpp"
-#include "./by_cref.hpp"
-#include "./by_perfect.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/const.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace to_ref_detail {
@@ -26,14 +26,14 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class X>
+            template<class Me, class X>
             struct apply
             {
-                typedef X& type;
+                typedef X &type;
             };
 
-            template<class Result, class X>
-            Result call(X& x) const
+            template<class Re, class X>
+            Re call(X &x) const
             {
                 return x;
             }
@@ -42,14 +42,14 @@ namespace pstade { namespace egg {
 
         struct clittle
         {
-            template<class Myself, class X>
+            template<class Me, class X>
             struct apply
             {
-                typedef X& type;
+                typedef X &type;
             };
 
-            template<class Result, class X>
-            Result call(X& x) const
+            template<class Re, class X>
+            Re call(X &x) const
             {
                 return x;
             }
@@ -58,37 +58,39 @@ namespace pstade { namespace egg {
 
         struct mlittle
         {
-            template<class Myself, class X>
+            template<class Me, class X>
             struct apply
             {
-                typedef typename boost::remove_cv<X>::type& type;
+                typedef typename remove_cv<X>::type &type;
             };
 
-            template<class Result, class X>
-            Result call(X const& x) const
+            template<class Re, class X>
+            Re call(X const &x) const
             {
-                return const_cast<X&>(x);
+                return const_cast<X &>(x);
             }
         };
 
 
-        typedef function<little,  by_perfect> op;
-        typedef function<clittle, by_cref>   cop;
-        typedef function<mlittle, by_cref>   mop;
+        template<class Little, class Strategy>
+        struct ambify :
+            result_of_ambi0<function<Little, Strategy>, Strategy>
+        { };
 
 
     } // namespace to_ref_detail
 
 
-    typedef result_of_ambi0<to_ref_detail::op>::type  T_to_ref;
-    typedef result_of_ambi0<to_ref_detail::cop>::type T_to_cref;
-    typedef result_of_ambi0<to_ref_detail::mop>::type T_to_mref;
-    PSTADE_POD_CONSTANT((T_to_ref),  to_ref)  = BOOST_EGG_AMBI({{}});
-    PSTADE_POD_CONSTANT((T_to_cref), to_cref) = BOOST_EGG_AMBI({{}});
-    PSTADE_POD_CONSTANT((T_to_mref), to_mref) = BOOST_EGG_AMBI({{}});
+    typedef to_ref_detail::ambify<to_ref_detail::little, by_perfect>::type T_to_ref;
+    typedef to_ref_detail::ambify<to_ref_detail::clittle, by_cref>::type T_to_cref;
+    typedef to_ref_detail::ambify<to_ref_detail::mlittle, by_cref>::type T_to_mref;
+    BOOST_EGG_CONST((T_to_ref), to_ref) = BOOST_EGG_AMBI({{}});
+    BOOST_EGG_CONST((T_to_cref), to_cref) = BOOST_EGG_AMBI({{}});
+    BOOST_EGG_CONST((T_to_mref), to_mref) = BOOST_EGG_AMBI({{}});
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

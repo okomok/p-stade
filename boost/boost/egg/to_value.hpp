@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_TO_VALUE_HPP
 #define BOOST_EGG_TO_VALUE_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,62 +11,42 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/bool.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./by_value.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    namespace to_value_detail_ {
+    namespace to_value_detail {
 
 
         struct little
         {
-            typedef
-                function<little, by_value>
-            nullary_result_type;
-
-            template<class Result>
-            Result call() const
-            {
-                Result result = {{}};
-                return result;
-            }
-
-            template<class Myself, class A>
+            template<class Me, class A>
             struct apply
             {
                 typedef A type;
             };
 
-            template<class Result, class A>
-            Result call(A a) const
+            template<class Re, class A>
+            Re call(A a) const
             {
                 return a;
             }
         };
 
 
-        typedef function<little, by_value> op;
+    } // namespace to_value_detail
 
 
-        template<class A> inline
-        A operator|(A a, op)
-        {
-            return a;
-        }
+    typedef result_of_ambi0<function<to_value_detail::little, by_value>, by_value>::type T_to_value;
+    BOOST_EGG_CONST((T_to_value), to_value) = BOOST_EGG_AMBI({{}});
 
 
-    } // namespace to_value_detail_
+} } // namespace boost::egg
 
 
-    typedef to_value_detail_::op T_to_value;
-    PSTADE_POD_CONSTANT((T_to_value), to_value) = {{}};
-
-
-} } // namespace pstade::egg
-
-
+#include <boost/egg/detail/suffix.hpp>
 #endif

@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_STATIC_HPP
 #define BOOST_EGG_STATIC_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,91 +11,56 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/assert.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/egg/pstade/affect.hpp>
-#include <boost/egg/pstade/has_xxx.hpp>
-#include "./by_perfect.hpp"
-#include "./indirect.hpp"
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/detail/tuple_fuse.hpp>
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/variadic.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace static_detail {
 
 
-        PSTADE_HAS_TYPE(result_type)
-        PSTADE_HAS_TYPE(function_type)
-
-        template<class X>
-        struct identity_storage
+        template<class Fun>
+        struct little
         {
-            typedef X object_type;
-            static object_type object;
+            template<class Me, class Args>
+            struct apply :
+                result_of<
+                    typename result_of<details::T_tuple_fuse(Fun)>::type(Args &)
+                >
+            { };
+
+            template<class Re, class Args>
+            Re call(Args &args) const
+            {
+                return details::tuple_fuse(Fun())(args);
+            }
         };
-
-        template<class X>
-        typename identity_storage<X>::object_type identity_storage<X>::object = {};
-
-
-        template<class X>
-        struct function_storage
-        {
-            BOOST_MPL_ASSERT((has_function_type<X>));
-            typedef typename affect_cv<X, typename X::function_type>::type object_type;
-            static object_type object;
-        };
-
-        template<class X>
-        typename function_storage<X>::object_type function_storage<X>::object = {{}};
-
-
-        PSTADE_HAS_TYPE(strategy_type)
-
-        template<class X>
-        struct get_strategy_of
-        {
-            typedef typename X::strategy_type type;
-        };
-
-        template<class X>
-        struct strategy_of :
-            boost::mpl::eval_if< has_strategy_type<X>,
-                get_strategy_of<X>,
-                boost::mpl::identity<by_perfect>
-            >
-        { };
 
 
     } // namespace static_detail
 
 
-    // TODO: cooler customization point
-    template<class X>
-    struct static_storage :
-        boost::mpl::if_< static_detail::has_result_type<X>,
-            static_detail::identity_storage<X>,
-            static_detail::function_storage<X>
-        >::type
-    { };
-
-
-    template<class X>
+    template<class Expr, class Strategy = by_perfect>
     struct static_ :
-        result_of_indirect<
-            typename static_storage<X const>::object_type *, // const for now.
-            typename static_detail::strategy_of<X>::type
+        variadic<
+            static_detail::little<typename mpl::apply1<Expr, Strategy>::type>,
+            Strategy,
+            use_default,
+            use_nullary_result
         >
     { };
 
-    #define BOOST_EGG_STATIC_L BOOST_EGG_INDIRECT_L &pstade::egg::static_storage<
-    #define BOOST_EGG_STATIC_R >::object BOOST_EGG_INDIRECT_R 
-    #define BOOST_EGG_STATIC(F) BOOST_EGG_STATIC_L F BOOST_EGG_STATIC_R
+    #define BOOST_EGG_STATIC() BOOST_EGG_VARIADIC({})
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

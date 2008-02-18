@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_RESULT_OF_BIND_HPP
 #define BOOST_EGG_DETAIL_RESULT_OF_BIND_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -16,25 +15,24 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include "../bind_n.hpp"
-#include "../config.hpp"
+#include <boost/egg/bind_n.hpp>
+#include <boost/egg/config.hpp>
+#include <boost/egg/detail/pp_enum_params_with.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    template<class Base, class NullaryResult, PSTADE_PP_ENUM_PARAMS_WITH(BOOST_EGG_MAX_LINEAR_ARITY, class Arg, = void)>
+    template<class Base, class NullaryResult, BOOST_EGG_PP_ENUM_PARAMS_WITH(BOOST_EGG_MAX_LINEAR_ARITY, class Arg, = void)>
     struct result_of_bind;
 
-    // 0ary-
 #define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <boost/egg/detail/result_of_bind.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_max_arity
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
 #endif
@@ -48,5 +46,5 @@ namespace pstade { namespace egg {
     { };
 
 
-#undef n
+#undef  n
 #endif

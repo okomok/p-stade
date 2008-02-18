@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_LEXICALIZE_HPP
 #define BOOST_EGG_LEXICALIZE_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,49 +12,33 @@
 
 
 #include <boost/lexical_cast.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./ambi.hpp"
-#include "./automatic.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/implicit.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     template<class To>
     struct X_lexical_cast
     {
-        typedef X_lexical_cast function_type;
         typedef To result_type;
 
         template<class From>
-        To operator()(From const& from) const
+        To operator()(From const &from) const
         {
             return boost::lexical_cast<To>(from);
         }
     };
 
-#if 0
-PSTADE_ADL_BARRIER(lexical_cast) { // for boost
-
-    template<class To, class From> inline
-    To lexical_cast(From const& from)
-    {
-        return X_lexical_cast<To>()(from);
-    }
-
-}
-#endif
+    typedef result_of_ambi0<implicit<X_lexical_cast<mpl::_1>, by_cref>::type, by_cref>::type T_lexical;
+    BOOST_EGG_CONST((T_lexical), lexical) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
 
 
-    namespace lexical_detail {
-        typedef automatic< X_lexical_cast<boost::mpl::_1> >::type op;
-    }
-
-    typedef result_of_ambi0<lexical_detail::op>::type T_lexical;
-    PSTADE_POD_CONSTANT((T_lexical), lexical) = BOOST_EGG_AMBI_L BOOST_EGG_AUTOMATIC() BOOST_EGG_AMBI_R;
+} } // namespace boost::egg
 
 
-} } // namespace pstade::egg
-
-
+#include <boost/egg/detail/suffix.hpp>
 #endif

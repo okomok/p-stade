@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_STRONG_ASSIGN_HPP
 #define BOOST_EGG_STRONG_ASSIGN_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,13 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./ambi.hpp"
-#include "./do_swap.hpp"
-#include "./by_perfect.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/do_swap.hpp>
+#include <boost/egg/function.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace strong_assign_detail {
@@ -25,14 +25,14 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class To, class From>
+            template<class Me, class To, class From>
             struct apply
             {
-                typedef To& type;
+                typedef To &type;
             };
 
-            template<class Result, class To, class From>
-            Result call(To& to, From& from) const
+            template<class Re, class To, class From>
+            Re call(To &to, From &from) const
             {
                 To tmp = from;
                 do_swap(to, tmp);
@@ -41,17 +41,15 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<little, by_perfect> op;
-
-
     } // namespace strong_assign_detail
 
 
-    typedef result_of_ambi1<strong_assign_detail::op>::type T_strong_assign;
-    PSTADE_POD_CONSTANT((T_strong_assign), strong_assign) = BOOST_EGG_AMBI({{}});
+    typedef result_of_ambi1< function<strong_assign_detail::little> >::type T_strong_assign;
+    BOOST_EGG_CONST((T_strong_assign), strong_assign) = BOOST_EGG_AMBI({{}});
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

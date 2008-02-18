@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_BLL_CONTENTSOF_HACK_HPP
 #define BOOST_EGG_DETAIL_BLL_CONTENTSOF_HACK_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -22,27 +21,27 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include "../bll/extension_fwd.hpp"
+#include <boost/egg/bll/extension_fwd.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
     template<class A>
     struct bll_contentsof_type :
-        boost::indirect_reference<
-            typename boost::remove_cv<A>::type
+        indirect_reference<
+            typename remove_cv<A>::type
         >
     { };
 
     template<class A, std::size_t N>
-    struct bll_contentsof_type< A[N] >
+    struct bll_contentsof_type<A[N]>
     {
-        typedef A& type;
+        typedef A &type;
     };
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 namespace boost { namespace lambda {
@@ -54,14 +53,14 @@ namespace boost { namespace lambda {
         typedef typename
             plain_return_type_1<
                 other_action<contentsof_action>,
-                typename remove_cv<A const>::type
+                typename boost::remove_cv<A const>::type
             >::type
         type1;
 
         typedef typename
-            mpl::eval_if< is_same<type1, detail::unspecified>,
-                pstade::egg::detail::bll_contentsof_type<A const>,
-                mpl::identity<type1>
+            boost::mpl::eval_if< boost::is_same<type1, detail::unspecified>,
+                boost::egg::details::bll_contentsof_type<A const>,
+                boost::mpl::identity<type1>
             >::type
         type;
     };

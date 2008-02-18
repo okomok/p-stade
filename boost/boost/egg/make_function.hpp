@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_MAKE_FUNCTION_HPP
 #define BOOST_EGG_MAKE_FUNCTION_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,49 +11,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./by_perfect.hpp"
-#include "./by_value.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/construct_braced1.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/generator.hpp>
 
 
-namespace pstade { namespace egg {
-
-
-    namespace make_function_detail {
-
-
-        template<class Strategy>
-        struct little
-        {
-            template<class Myself, class Little>
-            struct apply
-            {
-                typedef function<Little, Strategy> type;
-            };
-
-            template<class Result, class Little>
-            Result call(Little b) const
-            {
-                Result r = { b };
-                return r;
-            }
-        };
-
-
-    } // namespace make_function_detail
+namespace boost { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_make_function :
-        function<make_function_detail::little<Strategy>, by_value>
+    struct X_make_function : details::derived_from_eval<
+        generator<
+            function<deduce<mpl::_1, as_value>, Strategy>,
+            by_value,
+            X_construct_braced1<>
+        > >
     { };
 
-
-    typedef X_make_function<>::function_type T_make_function;
-    PSTADE_POD_CONSTANT((T_make_function), make_function) = {{}};
-
-
-} } // namespace pstade::egg
+    typedef X_make_function<>::base_class T_make_function;
+    BOOST_EGG_CONST((T_make_function), make_function) = BOOST_EGG_GENERATOR();
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif

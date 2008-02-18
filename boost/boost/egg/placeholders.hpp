@@ -13,97 +13,46 @@
 
     #ifndef BOOST_EGG_PLACEHOLDERS_HPP
     #define BOOST_EGG_PLACEHOLDERS_HPP
-    #include "./detail/prefix.hpp"
+    #include <boost/egg/detail/prefix.hpp>
 
 
-    #include <boost/mpl/bool.hpp>
-    #include <boost/preprocessor/arithmetic/dec.hpp>
     #include <boost/preprocessor/cat.hpp>
     #include <boost/preprocessor/iteration/iterate.hpp>
-    #include <boost/preprocessor/repetition/enum.hpp>
-    #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-    #include <boost/preprocessor/repetition/enum_params.hpp>
-    #include <boost/preprocessor/slot/slot.hpp>
-    #include <boost/egg/pstade/pod_constant.hpp>
-    #include "./apply_decl.hpp"
-    #include "./by_perfect.hpp"
-    #include "./config.hpp"
-    #include "./is_bind_expression.hpp"
+    #include <boost/egg/arg.hpp>
+    #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+    #include <boost/egg/const.hpp>
 
 
-    namespace pstade { namespace egg {
+    namespace boost { namespace egg {
 
 
-        #define BOOST_EGG_PLACEHOLDER {{}}
+        #define BOOST_EGG_PLACEHOLDER BOOST_EGG_ARG_INIT
 
 
-        // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_ARITY, <boost/egg/placeholders.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/placeholders.hpp>))
         #include BOOST_PP_ITERATE()
 
 
-    } } // namespace pstade::egg
+    } } // namespace boost::egg
 
 
+    #include <boost/egg/detail/suffix.hpp>
     #endif // BOOST_EGG_PLACEHOLDERS_HPP
 
 
-#elif BOOST_PP_ITERATION_DEPTH() == 1
+#else
 
 
-    #define  BOOST_PP_VALUE BOOST_PP_ITERATION()
-    #include BOOST_PP_ASSIGN_SLOT(1)
-    #define n BOOST_PP_SLOT(1)
+    #define n BOOST_PP_ITERATION()
 
-
-        struct BOOST_PP_CAT(placeholder, n)
-        {
-            // nary - BOOST_EGG_MAX_ARITYary
-            template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
-            struct BOOST_EGG_APPLY_DECL;
-
-            #define  BOOST_PP_ITERATION_PARAMS_2 (3, (n, BOOST_EGG_MAX_ARITY, <boost/egg/placeholders.hpp>))
-            #include BOOST_PP_ITERATE()
-        };
-
-
-        typedef function<BOOST_PP_CAT(placeholder, n), by_perfect> BOOST_PP_CAT(T_placeholder, n);
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_placeholder, n)), BOOST_PP_CAT(placeholder, n)) = BOOST_EGG_PLACEHOLDER;
 
         namespace placeholders {
-            typedef BOOST_PP_CAT(T_placeholder, n) BOOST_PP_CAT(TT_, n);
-            PSTADE_POD_CONSTANT((BOOST_PP_CAT(TT_, n)), BOOST_PP_CAT(_, n)) = BOOST_EGG_PLACEHOLDER;
-        }
-
-        template< >
-        struct is_bind_expression< BOOST_PP_CAT(T_placeholder, n) > :
-            boost::mpl::true_
-        { };
-
-
-    #undef n
-
-
-#elif BOOST_PP_ITERATION_DEPTH() == 2
-
-
-    #define m BOOST_PP_ITERATION()
-
-
-        template<class Myself, BOOST_PP_ENUM_PARAMS(m, class A)>
-        struct apply<Myself, BOOST_PP_ENUM_PARAMS(m, A)>
-        {
-            typedef BOOST_PP_CAT(A, BOOST_PP_DEC(n)) & type;
-        };
-
-        template<class Result, BOOST_PP_ENUM_PARAMS(m, class A)>
-        Result call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, & a)) const
-        {
-            return BOOST_PP_CAT(a, BOOST_PP_DEC(n));
+            typedef X_arg< n >::base_class BOOST_PP_CAT(TT_, n);
+            BOOST_EGG_CONST((BOOST_PP_CAT(TT_, n)), BOOST_PP_CAT(_, n)) = BOOST_EGG_PLACEHOLDER;
         }
 
 
-    #undef m
+    #undef  n
 
 
 #endif

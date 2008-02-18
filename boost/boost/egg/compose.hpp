@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_COMPOSE_HPP
 #define BOOST_EGG_COMPOSE_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,15 +11,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "./by_cref.hpp"
-#include "./by_value.hpp"
-#include "./fuse.hpp"
-#include "./unfuse.hpp"
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/construct_variadic1.hpp>
+#include <boost/egg/detail/adl_barrier.hpp>
+#include <boost/egg/detail/tuple_fuse.hpp>
+#include <boost/egg/generator.hpp>
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/variadic.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     // The nullary result type must be explicitly specified.
@@ -34,22 +36,26 @@ namespace pstade { namespace egg {
 
 
         template<class F, class G>
-        struct little_fused_result
+        struct little_result
         {
             F m_f;
             G m_g;
 
-            template<class Myself, class ArgTuple>
+            template<class Me, class Args>
             struct apply :
                 result_of<
-                    F const(typename result_of<typename result_of<T_fuse(G const&)>::type(ArgTuple&)>::type)
+                    F const(
+                        typename result_of<
+                            typename result_of<details::T_tuple_fuse(G const &)>::type(Args &)
+                        >::type
+                    )
                 >
             { };
 
-            template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            template<class Re, class Args>
+            Re call(Args &args) const
             {
-                return m_f(fuse(m_g)(args));
+                return m_f(details::tuple_fuse(m_g)(args));
             }
         };
 
@@ -57,57 +63,38 @@ namespace pstade { namespace egg {
     } // namespace compose_detail
 
 
-    template<class F, class G, class NullaryResult = boost::use_default, class Strategy = boost::use_default>
+    template<class F, class G, class NullaryResult = use_default, class Strategy = use_default>
     struct result_of_compose :
-        result_of_unfuse<
-            function<compose_detail::little_fused_result<F, G>, by_cref>,
-            boost::use_default,
-            NullaryResult,
-            Strategy
+        variadic<
+            compose_detail::little_result<F, G>,
+            Strategy,
+            use_default,
+            NullaryResult
         >
     { };
 
-
-    // BOOST_EGG_UNFUSE_L { { F, G } } BOOST_EGG_UNFUSE_M BOOST_EGG_UNFUSE_DEFAULT_PACK BOOST_EGG_UNFUSE_R
-    #define BOOST_EGG_COMPOSE_L BOOST_EGG_UNFUSE_L { {
-    #define BOOST_EGG_COMPOSE_M ,
-    #define BOOST_EGG_COMPOSE_R } } BOOST_EGG_UNFUSE_M BOOST_EGG_UNFUSE_DEFAULT_PACK BOOST_EGG_UNFUSE_R
-    #define BOOST_EGG_COMPOSE(F, G) BOOST_EGG_COMPOSE_L F BOOST_EGG_COMPOSE_M G BOOST_EGG_COMPOSE_R
+    #define BOOST_EGG_COMPOSE_L BOOST_EGG_VARIADIC_L {
+    #define BOOST_EGG_COMPOSE_R } BOOST_EGG_VARIADIC_R
+    #define BOOST_EGG_COMPOSE(F, T) BOOST_EGG_COMPOSE_L F , T BOOST_EGG_COMPOSE_R
 
 
-    namespace compose_detail {
-
-
-        template<class NullaryResult, class Strategy>
-        struct little
-        {
-            template<class Myself, class F, class G>
-            struct apply :
-                result_of_compose<F, G, NullaryResult, Strategy>
-            { };
-
-            template<class Result, class F, class G>
-            Result call(F f, G g) const
-            {
-                Result r = BOOST_EGG_COMPOSE(f, g);
-                return r;
-            }
-        };
-
-
-    } // namespace compose_detail
-
-
-    template<class NullaryResult = boost::use_default, class Strategy = boost::use_default>
-    struct X_compose :
-        function<compose_detail::little<NullaryResult, Strategy>, by_value>
+    template<class NullaryResult = use_default, class Strategy = use_default>
+    struct X_compose : details::derived_from_eval<
+        generator<
+            typename result_of_compose<deduce<mpl::_1, as_value>, deduce<mpl::_2, as_value>, NullaryResult, Strategy>::type,
+            by_value,
+            X_construct_variadic1<>
+        > >
     { };
 
-    typedef X_compose<>::function_type T_compose;
-    PSTADE_POD_CONSTANT((T_compose), compose) = {{}};
+    typedef X_compose<>::base_class T_compose;
+BOOST_EGG_ADL_BARRIER(compose) {
+    BOOST_EGG_CONST((T_compose), compose) = BOOST_EGG_GENERATOR();
+}
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

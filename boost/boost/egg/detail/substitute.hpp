@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_SUBSTITUTE_HPP
 #define BOOST_EGG_DETAIL_SUBSTITUTE_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -14,46 +13,44 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/ref.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/egg/pstade/enable_if.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "../always.hpp"
-#include "../by_cref.hpp"
-#include "../is_bind_expression.hpp"
+#include <boost/egg/always.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/enable_if.hpp>
+#include <boost/egg/is_bind_expression.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
     struct little_substitute
     {
-        template<class Myself, class X>
+        template<class Me, class X>
         struct apply :
-            boost::mpl::eval_if< is_bind_expression<X>,
-                boost::mpl::identity<X&>,
-                result_of<T_always(boost::reference_wrapper<X>)>
+            mpl::eval_if< is_bind_expression<X>,
+                mpl::identity<X &>,
+                result_of<T_always_ref(X &)>
             >
         { };
 
-        template<class Result, class X>
-        Result call(X& x, typename enable_if< is_bind_expression<X> >::type = 0) const
+        template<class Re, class X>
+        Re call(X &x, typename enable_if< is_bind_expression<X> >::type = 0) const
         {
             return x;
         }
 
-        template<class Result, class X>
-        Result call(X& x, typename disable_if<is_bind_expression<X> >::type = 0) const
+        template<class Re, class X>
+        Re call(X &x, typename disable_if<is_bind_expression<X> >::type = 0) const
         {
-            return always(boost::ref(x));
+            return always_ref(x);
         }
     };
 
-
     typedef function<little_substitute, by_cref> T_substitute;
-    PSTADE_POD_CONSTANT((T_substitute), substitute) = {{}};
+    BOOST_EGG_CONST((T_substitute), substitute) = {{}};
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 #endif

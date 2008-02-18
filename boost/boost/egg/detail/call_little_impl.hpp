@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_CALL_LITTLE_IMPL_HPP
 #define BOOST_EGG_DETAIL_CALL_LITTLE_IMPL_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -12,19 +11,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include "../config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
-#include "./call_little_impl_fwd.hpp"
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/detail/call_little_impl_fwd.hpp>
+#include <boost/egg/detail/pp_enum_template_params.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg { namespace details {
 
 
-    template<class Little_, class Result, class EnableIf>
+    template<class Little, class Re, class EnableIf>
     struct call_little_impl
     {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/call_little_impl.hpp>))
@@ -32,7 +30,7 @@ namespace pstade { namespace egg {
     };
 
 
-} } // namespace pstade::egg
+} } } // namespace boost::egg::details
 
 
 #endif
@@ -40,12 +38,12 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    static Result BOOST_PP_CAT(call, n)(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
+    static Re call(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
     {
-        return little.template call<Result>(BOOST_PP_ENUM_PARAMS(n, a));
+        return little.template call<Re>(BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 
-#undef n
+#undef  n
 #endif

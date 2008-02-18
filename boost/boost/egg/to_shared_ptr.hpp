@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_TO_SHARED_PTR_HPP
 #define BOOST_EGG_TO_SHARED_PTR_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -14,19 +14,20 @@
 // What:
 //
 // Makes 'shared_ptr' from a pointer.
-// "make_shared_ptr" is reserved for the same function as 'new_shared'.
+// "make_shared_ptr" is reserved for the same function as 'shared_new'.
 
 
 #include <boost/mpl/bool.hpp>
 #include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/egg/pstade/apple/auto_ptr_fwd.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/use_default.hpp>
-#include "./by_value.hpp"
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/detail/if_use_default.hpp>
+#include <boost/egg/detail/std_auto_ptr_fwd.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace to_shared_ptr_detail {
@@ -35,22 +36,34 @@ namespace pstade { namespace egg {
         template<class Element>
         struct little
         {
-            template<class Myself, class Ptr>
+            template<class Me, class Ptr, class D = void, class A = void>
             struct apply
             {
                 typedef typename
-                    eval_if_use_default< Element, boost::pointee<Ptr> >::type
+                    details::eval_if_use_default< Element, pointee<Ptr> >::type
                 elem_t;
 
                 typedef
-                    boost::shared_ptr<elem_t>
+                    shared_ptr<elem_t>
                 type;
             };
 
-            template<class Result, class Ptr>
-            Result call(Ptr p) const
+            template<class Re, class Ptr>
+            Re call(Ptr p) const
             {
-                return Result(p);
+                return Re(p);
+            }
+
+            template<class Re, class Ptr, class D>
+            Re call(Ptr p, D d) const
+            {
+                return Re(p, d);
+            }
+
+            template<class Re, class Ptr, class D, class A>
+            Re call(Ptr p, D d, A a) const
+            {
+                return Re(p, d, a);
             }
         };
 
@@ -58,38 +71,38 @@ namespace pstade { namespace egg {
     } // namespace to_shared_ptr_detail
 
 
-    template<class Element = boost::use_default>
-    struct X_to_shared_ptr :
-        function<to_shared_ptr_detail::little<Element>, by_value>
+    template<class Element = use_default>
+    struct X_to_shared_ptr : details::derived_from<
+        function<to_shared_ptr_detail::little<Element>, by_value> >
     { };
 
-
-    typedef X_to_shared_ptr<>::function_type T_to_shared_ptr;
-    PSTADE_POD_CONSTANT((T_to_shared_ptr), to_shared_ptr) = {{}};
+    typedef X_to_shared_ptr<>::base_class T_to_shared_ptr;
+    BOOST_EGG_CONST((T_to_shared_ptr), to_shared_ptr) = {{}};
 
 
     template<class X, class Ptr>
     struct is_to_shared_ptr_param :
-        boost::mpl::false_
+        mpl::false_
     { };
 
     template<class X>
     struct is_to_shared_ptr_param< X, X * > :
-        boost::mpl::true_
+        mpl::true_
     { };
 
     template<class X>
-    struct is_to_shared_ptr_param< X, boost::shared_ptr<X> > :
-        boost::mpl::true_
+    struct is_to_shared_ptr_param< X, shared_ptr<X> > :
+        mpl::true_
     { };
 
     template<class X>
     struct is_to_shared_ptr_param< X, std::auto_ptr<X> > :
-        boost::mpl::true_
+        mpl::true_
     { };
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_LITTLE_UNFUSE_RESULT_HPP
 #define BOOST_EGG_DETAIL_LITTLE_UNFUSE_RESULT_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -14,81 +13,71 @@
 
 // Note:
 //
-// This could be implementedy by 'compose' with 'tuple_pack',
+// This could be implementedy by 'compose' with 'pack',
 // but this is the basis together with 'fuse'.
 
 
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include <boost/egg/pstade/use_default.hpp>
-#include "../apply_decl.hpp"
-#include "../by_ref.hpp"
-#include "../tuple/config.hpp"
-#include "../tuple/pack.hpp"
-#include "./use_nullary_result.hpp"
+#include <boost/egg/apply_decl.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/detail/pp_enum_params_with.hpp>
+#include <boost/egg/detail/use_nullary_result.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
     template<class Base, class Pack>
-    struct nullary_result_of :
+    struct nullary_result_of_fused :
         result_of<
-            Base const(typename result_of<Pack const()>::type)
+            Base const(typename result_of<Pack()>::type)
         >
     { };
 
 
-    // If 'NullaryResult' is 'boost::use_default', this is not nullary-callable.
+    // If 'NullaryResult' is 'use_default', this is not nullary-callable.
     // Else if 'NullaryResult' is 'use_nullary_result', 'Base' is considered
     // as callable with an empty tuple, then the result is inspected.
     // Otherwise, a passed type is the result type of this.
 
-    template<class Base, class Pack, class NullaryResult>
+    template<class Base, class NullaryResult, class Pack>
     struct little_unfuse_result
     {
-        typedef Base base_type;
-
-        typedef typename
-            if_use_default<Pack,
-                typename X_tuple_pack<by_ref>::function_type
-            >::type
-        pack_type;
-
         Base m_base;
-        pack_type m_pack;
 
-        Base base() const
+        Base const &base() const
         {
             return m_base;
         }
 
     // 0ary
         typedef typename
-            eval_if_use_nullary_result<NullaryResult,
-                nullary_result_of<Base, pack_type>
+            eval_if_use_nullary_result< NullaryResult,
+                nullary_result_of_fused<Base, Pack>
             >::type
         nullary_result_type;
 
-        template<class Result>
-        Result call() const
+        template<class Re>
+        Re call() const
         {
-            return m_base(m_pack());
+            return m_base(Pack()());
         }
 
     // 1ary-
-        template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_TUPLE_MAX_SIZE, A)>
+        template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
         struct BOOST_EGG_APPLY_DECL;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_TUPLE_MAX_SIZE, <boost/egg/detail/little_unfuse_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/little_unfuse_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
 
-} } } // namespace pstade::detail
+} } } // namespace boost::detail
 
 
 #endif
@@ -96,19 +85,19 @@ namespace pstade { namespace egg { namespace detail {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            Base const(typename result_of<pack_type const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
+            Base const(typename result_of<Pack(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
         >
     { };
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return m_base(m_pack(BOOST_PP_ENUM_PARAMS(n, a)));
+        return m_base(Pack()(BOOST_PP_ENUM_PARAMS(n, a)));
     }
 
 
-#undef n
+#undef  n
 #endif

@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_FUNCTIONAL_HPP
 #define BOOST_EGG_FUNCTIONAL_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,8 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/functional1.hpp"
-#include "./detail/functional2.hpp"
+#include <boost/egg/detail/functional1.hpp>
+#include <boost/egg/detail/functional2.hpp>
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

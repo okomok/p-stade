@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_NEW_ARRAY_HPP
 #define BOOST_EGG_NEW_ARRAY_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -14,23 +14,23 @@
 #include <cstddef> // size_t
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    template<class X>
+    template<class T>
     struct X_new_array
     {
-        typedef X_new_array function_type;
-        typedef X *result_type;
+        typedef T *result_type;
 
-        X *operator()(std::size_t n) const
+        T *operator()(std::size_t n) const
         {
-            return new X[n];
+            return new T[n];
         }
     };
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

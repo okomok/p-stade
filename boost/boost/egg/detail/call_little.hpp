@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_CALL_LITTLE_HPP
 #define BOOST_EGG_DETAIL_CALL_LITTLE_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -12,23 +11,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-#include "../config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
-#include "./call_little_impl.hpp"
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/apply_little.hpp>
+#include <boost/egg/detail/call_little_impl.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/call_little.hpp>))
-    #include BOOST_PP_ITERATE()
+    struct T_call_little
+    {
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/call_little.hpp>))
+        #include BOOST_PP_ITERATE()
+    };
+
+    BOOST_EGG_CONST((T_call_little), call_little) = {};
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
 #endif
@@ -36,14 +40,15 @@ namespace pstade { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Result, class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
-    Result call_little(Little& little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, & a))
+    template<class Little BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    typename apply_little<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
+    operator()(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a)) const
     {
-        return call_little_impl<
-            typename boost::remove_cv<Little>::type, Result
-        >::BOOST_PP_CAT(call, n)(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return details::call_little_impl<Little,
+            typename apply_little<Little BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
+        >::call(little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 
-#undef n
+#undef  n
 #endif

@@ -1,9 +1,9 @@
 #ifndef BOOST_EGG_BLL_RETURN_TYPE_HPP
 #define BOOST_EGG_BLL_RETURN_TYPE_HPP
-#include "../detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./extension_fwd.hpp"
+#include <boost/egg/bll/extension_fwd.hpp>
 
 
 #include <boost/tuple/tuple.hpp>
@@ -28,4 +28,5 @@ namespace boost { namespace lambda {
 #include <boost/lambda/detail/member_ptr.hpp>
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

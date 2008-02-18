@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_BIND_HPP
 #define BOOST_EGG_BIND_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -17,17 +17,17 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "./apply_decl.hpp"
-#include "./bind_n.hpp"
-#include "./by_cref.hpp"
-#include "./config.hpp"
-#include "./detail/result_of_bind.hpp"
+#include <boost/egg/apply_decl.hpp>
+#include <boost/egg/bind_n.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/config.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/detail/result_of_bind.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace bind_detail {
@@ -36,10 +36,9 @@ namespace pstade { namespace egg {
         template<class NullaryResult>
         struct little
         {
-            template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
+            template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
             struct BOOST_EGG_APPLY_DECL;
 
-        // 1ary-
         #define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <boost/egg/bind.hpp>))
             #include BOOST_PP_ITERATE()
@@ -50,34 +49,35 @@ namespace pstade { namespace egg {
     } // namespace bind_detail
 
 
-    template<class NullaryResult = boost::use_default>
-    struct X_bind :
-        function<bind_detail::little<NullaryResult>, by_cref>
+    template<class NullaryResult = use_default>
+    struct X_bind : details::derived_from<
+        function<bind_detail::little<NullaryResult>, by_cref> >
     { };
 
-    typedef X_bind<>::function_type T_bind;
-    PSTADE_POD_CONSTANT((T_bind), bind) = {{}};
+    typedef X_bind<>::base_class T_bind;
+    BOOST_EGG_CONST((T_bind), bind) = {{}};
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif
 #else
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Myself, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-    struct apply<Myself, Base BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)> :
-        result_of<BOOST_PP_CAT(X_bind, n)<NullaryResult>(Base& BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg))>
+    template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+    struct apply<Me, Base BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)> :
+        result_of<BOOST_PP_CAT(X_bind, n)<NullaryResult>(Base & BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg))>
     { };
 
-    template<class Result, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-    Result call(Base& base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, & arg)) const
+    template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+    Re call(Base &base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, &arg)) const
     {
         return BOOST_PP_CAT(X_bind, n)<NullaryResult>()(base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg));
     }
 
 
-#undef n
+#undef  n
 #endif

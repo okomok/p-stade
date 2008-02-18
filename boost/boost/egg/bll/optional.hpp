@@ -1,9 +1,9 @@
 #ifndef BOOST_EGG_BLL_OPTIONAL_HPP
 #define BOOST_EGG_BLL_OPTIONAL_HPP
-#include "../detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -12,38 +12,39 @@
 
 
 #include <boost/optional/optional_fwd.hpp>
-#include "./extension_fwd.hpp"
+#include <boost/egg/bll/extension_fwd.hpp>
 
 
 namespace boost { namespace lambda {
 
 
     template<class T>
-    struct return_type_1< other_action<contentsof_action>, boost::optional<T> >
+    struct return_type_1< other_action<contentsof_action>, optional<T> >
     {
-        typedef T& type;
+        typedef T &type;
     };
 
     template<class T>
-    struct return_type_1< other_action<contentsof_action>, boost::optional<T> const >
+    struct return_type_1< other_action<contentsof_action>, optional<T> const >
     {
-        typedef T const& type;
+        typedef T const &type;
     };
 
     template<class T>
-    struct return_type_1< other_action<contentsof_action>, boost::optional<T&> >
+    struct return_type_1< other_action<contentsof_action>, optional<T &> >
     {
-        typedef T& type;
+        typedef T &type;
     };
 
     template<class T>
-    struct return_type_1< other_action<contentsof_action>, boost::optional<T&> const >
+    struct return_type_1< other_action<contentsof_action>, optional<T &> const >
     {
-        typedef T& type;
+        typedef T &type;
     };
 
 
 } } // namespace boost::lambda
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

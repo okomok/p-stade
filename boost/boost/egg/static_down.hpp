@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_STATIC_DOWN_HPP
 #define BOOST_EGG_STATIC_DOWN_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,26 +11,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./ambi.hpp"
-#include "./automatic.hpp"
-#include "./static_downcast.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/implicit.hpp>
+#include <boost/egg/static_downcast.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    typedef
-        result_of_ambi0<
-            automatic_ref< X_static_downcast<boost::mpl::_> >::type
-        >::type
-    T_static_down;
-
-    PSTADE_POD_CONSTANT((T_static_down), static_down)
-        = BOOST_EGG_AMBI_L BOOST_EGG_AUTOMATIC_REF BOOST_EGG_AMBI_R;
+    typedef result_of_ambi0<implicit_ref< X_static_downcast<mpl::_1> >::type>::type T_static_down;
+    BOOST_EGG_CONST((T_static_down), static_down) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

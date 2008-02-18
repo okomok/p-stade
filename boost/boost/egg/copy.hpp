@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_COPY_HPP
 #define BOOST_EGG_COPY_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -26,11 +26,11 @@
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_reference.hpp>
-#include <boost/egg/pstade/adl_barrier.hpp>
-#include "./by_cref.hpp"
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/detail/adl_barrier.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace copy_detail {
@@ -38,9 +38,9 @@ namespace pstade { namespace egg {
 
         template<class T>
         struct is_numeric :
-            boost::mpl::or_<
-                boost::is_floating_point<T>,
-                boost::is_integral<T>
+            mpl::or_<
+                is_floating_point<T>,
+                is_integral<T>
             >
         { };
 
@@ -48,21 +48,21 @@ namespace pstade { namespace egg {
         template<class To>
         struct little
         {
-            template<class Myself, class From>
+            template<class Me, class From>
             struct apply
             {
                 typedef To type;
             };
 
-            template<class Result, class From>
-            To call(From& from) const
+            template<class Re, class From>
+            To call(From &from) const
             {
-                BOOST_MPL_ASSERT_NOT((boost::is_reference<To>));
-                return aux(from, boost::mpl::and_< is_numeric<To>, is_numeric<From> >());
+                BOOST_MPL_ASSERT_NOT((is_reference<To>));
+                return aux_(from, mpl::and_< is_numeric<To>, is_numeric<From> >());
             }
 
             template<class From>
-            To aux(From& from, boost::mpl::true_) const
+            To aux_(From &from, mpl::true_) const
             {
 #if !defined(NDEBUG)
                 return boost::numeric_cast<To>(from);
@@ -72,7 +72,7 @@ namespace pstade { namespace egg {
             }
 
             template<class From>
-            To aux(From& from, boost::mpl::false_) const
+            To aux_(From &from, mpl::false_) const
             {
                 return from;
             }
@@ -88,18 +88,17 @@ namespace pstade { namespace egg {
     { };
 
 
-PSTADE_ADL_BARRIER(copy) { // for std
-
+BOOST_EGG_ADL_BARRIER(copy) { // for std
     template<class To, class From> inline
-    To copy(From const& from)
+    To copy(From const &from)
     {
         return X_copy<To>()(from);
     }
-
 }
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

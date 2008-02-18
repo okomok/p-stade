@@ -1,6 +1,6 @@
-#ifndef BOOST_EGG_IS_SAME_HPP
-#define BOOST_EGG_IS_SAME_HPP
-#include "./detail/prefix.hpp"
+#ifndef BOOST_EGG_IS_SAME_OBJ_HPP
+#define BOOST_EGG_IS_SAME_OBJ_HPP
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,28 +12,28 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    struct T_is_same
+    struct T_is_same_obj
     {
         typedef bool result_type;
 
         template<class X, class Y>
-        bool operator()(X const& x, Y const& y) const
+        bool operator()(X const &x, Y const &y) const
         {
             return boost::addressof(x) == boost::addressof(y);
         }
     };
 
-
-    PSTADE_POD_CONSTANT((T_is_same), is_same) = {};
-
-
-} } // namespace pstade::egg
+    BOOST_EGG_CONST((T_is_same_obj), is_same_obj) = {};
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif

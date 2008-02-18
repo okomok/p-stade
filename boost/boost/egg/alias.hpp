@@ -12,7 +12,7 @@
 
 namespace {
 
-    namespace egg = pstade::egg;
+    namespace egg = boost::egg;
 
 }
 

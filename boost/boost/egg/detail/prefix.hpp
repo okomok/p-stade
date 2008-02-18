@@ -1,5 +1,3 @@
-#ifndef BOOST_EGG_DETAIL_PREFIX_HPP
-#define BOOST_EGG_DETAIL_PREFIX_HPP
 
 
 // Boost.Egg
@@ -10,23 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#if 1
-
-    namespace pstade {
-        namespace egg { }
-    }
-
-    namespace boost {
-        namespace egg = pstade::egg;
-    }
-
-#endif
+#include <boost/egg/detail/suppress_warning.hpp>
 
 
-#ifdef _MSC_VER
-    #pragma inline_recursion(on)
-    #pragma inline_depth(255)
-#endif
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 
-
-#endif

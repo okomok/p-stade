@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_DETAIL_BIND_LEFTX_HPP
 #define BOOST_EGG_DETAIL_BIND_LEFTX_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -28,23 +27,21 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/egg/pstade/pass_by.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "../by_cref.hpp"
-#include "../by_perfect.hpp"
-#include "../config.hpp" // BOOST_EGG_MAX_ARITY
-#include "./bound_arg.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
+#include <boost/egg/const.hpp>
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/detail/pp_cat3.hpp>
+#include <boost/egg/detail/pp_enum_params_with.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
     #define BOOST_EGG_BIND_LEFTX_INIT {{}}
 
 
-    // 2ary-
 #define PSTADE_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
 #define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_ARITY)
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <boost/egg/detail/bind_leftx.hpp>))
@@ -53,7 +50,7 @@ namespace pstade { namespace egg { namespace detail {
 #undef  PSTADE_arg
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 #endif
@@ -62,66 +59,57 @@ namespace pstade { namespace egg { namespace detail {
 
 
     template<class Base, BOOST_PP_ENUM_PARAMS(n, class Arg)>
-    struct PSTADE_PP_CAT3(little_bind_left, n, _result)
+    struct BOOST_EGG_PP_CAT3(little_bind_left, n, _result)
     {
         Base m_base;
         BOOST_PP_REPEAT(n, PSTADE_arg, ~)
 
-        typedef Base base_type;
-
-        Base base() const
+        Base const &base() const
         {
             return m_base;
         }
 
-        template<class Myself, class ArgZ>
+        template<class Me, class ArgZ>
         struct apply :
             result_of<
-                Base const(
-                    PSTADE_PP_ENUM_PARAMS_WITH(n, typename unbound_arg<Arg, >::type),
-                    ArgZ&
-                )
+                Base const(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, Arg, const &), ArgZ &)
             >
         { };
 
-        template<class Result, class ArgZ>
-        Result call(ArgZ& argZ) const
+        template<class Re, class ArgZ>
+        Re call(ArgZ &argZ) const
         {
-            return m_base(
-                BOOST_PP_ENUM_PARAMS(n, m_arg),
-                argZ
-            );
+            return m_base(BOOST_PP_ENUM_PARAMS(n, m_arg), argZ);
         }
     };
 
 
     struct BOOST_PP_CAT(little_bind_left, n)
     {
-        template<class Myself, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
+        template<class Me, class Base, BOOST_PP_ENUM_PARAMS(n, class Arg)>
         struct apply
         {
             typedef
                 function<
-                    PSTADE_PP_CAT3(little_bind_left, n, _result)<
-                        typename pass_by_value<Base>::type,
-                        PSTADE_PP_ENUM_PARAMS_WITH(n, typename bound_arg<A, >::type)
+                    BOOST_EGG_PP_CAT3(little_bind_left, n, _result)<
+                        Base, BOOST_PP_ENUM_PARAMS(n, Arg)
                     >,
                     by_perfect
                 >
             type;
         };
 
-        template<class Result, class Base, BOOST_PP_ENUM_PARAMS(n, class A)>
-        Result call(Base& base, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+        template<class Re, class Base, BOOST_PP_ENUM_PARAMS(n, class Arg)>
+        Re call(Base base, BOOST_PP_ENUM_BINARY_PARAMS(n, Arg, arg)) const
         {
-            Result r = { { base, BOOST_PP_ENUM_PARAMS(n, a) } };
+            Re r = { { base, BOOST_PP_ENUM_PARAMS(n, arg) } };
             return r;
         }
     };
 
-    typedef function<BOOST_PP_CAT(little_bind_left, n), by_cref> BOOST_PP_CAT(T_bind_left, n);
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_bind_left, n)), BOOST_PP_CAT(bind_left, n)) = BOOST_EGG_BIND_LEFTX_INIT;
+    typedef function<BOOST_PP_CAT(little_bind_left, n), by_value> BOOST_PP_CAT(T_bind_left, n);
+    BOOST_EGG_CONST((BOOST_PP_CAT(T_bind_left, n)), BOOST_PP_CAT(bind_left, n)) = BOOST_EGG_BIND_LEFTX_INIT;
 
 
-#undef n
+#undef  n
 #endif

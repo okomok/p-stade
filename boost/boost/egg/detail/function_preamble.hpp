@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_FUNCTION_PREAMBLE_HPP
 #define BOOST_EGG_DETAIL_FUNCTION_PREAMBLE_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -11,12 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/tuple/elem.hpp>
-#include "../bll_bindable.hpp"
-#include "./little_of.hpp"
-#include "./nullary_result.hpp"
-#include "./of_apply_little.hpp"
-#include "./strategy_of.hpp"
+#include <boost/egg/bll/sig_impl.hpp>
+#include <boost/egg/detail/little_of.hpp>
+#include <boost/egg/detail/nullary_result_of_little.hpp>
+#include <boost/egg/detail/of_apply_little.hpp>
+#include <boost/egg/detail/strategy_of.hpp>
 
    
 #define BOOST_EGG_FUNCTION_PREAMBLE() <boost/egg/detail/function_preamble_include.hpp>

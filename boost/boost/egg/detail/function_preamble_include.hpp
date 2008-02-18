@@ -8,18 +8,29 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-    typedef function function_type;
-    typedef typename pstade::egg::detail::little_of<function_type>::type little_type;
-    typedef typename pstade::egg::detail::strategy_of<function_type>::type strategy_type;
+    typedef typename boost::egg::
+        details::little_of<function>::type
+    little_type;
 
-    typedef typename
-        pstade::egg::detail::nullary_result<little_type, function>::type
+    typedef typename boost::egg::
+        details::strategy_of<function>::type
+    strategy_type;
+
+    typedef typename boost::egg::
+        details::nullary_result_of_little<little_type, function>::type
     nullary_result_type;
 
-    template<class Signature>
-    struct result :
-        pstade::egg::detail::of_apply_little<Signature>
+    template<class BoostEgg_FunCall>
+    struct result : boost::egg::
+        details::of_apply_little<BoostEgg_FunCall>
     { };
 
-    #include BOOST_EGG_BLL_BINDABLE()
+    little_type const &base() const
+    {
+        return this->little();
+    }
 
+    template<class BoostEgg_FunArgs>
+    struct sig : boost::egg::
+        bll_sig_impl<BoostEgg_FunArgs>
+    { };

@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_STATIC_DOWNCAST_HPP
 #define BOOST_EGG_STATIC_DOWNCAST_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -24,13 +24,13 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
-#include <boost/egg/pstade/affect.hpp>
-#include <boost/egg/pstade/enable_if.hpp>
-#include "./by_perfect.hpp"
-#include "./specified.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/detail/affect.hpp>
+#include <boost/egg/detail/enable_if.hpp>
+#include <boost/egg/specified.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace static_downcast_detail {
@@ -40,18 +40,18 @@ namespace pstade { namespace egg {
 
 
         template<class Derived, class Base> inline
-        Derived *aux(Base *pbase, typename disable_if<boost::is_polymorphic<Base> >::type = 0)
+        Derived *aux_(Base *pbase, typename details::disable_if<is_polymorphic<Base> >::type = 0)
         {
-            BOOST_MPL_ASSERT((boost::is_base_of<
-                typename boost::remove_cv<Base>::type,
-                typename boost::remove_cv<Derived>::type
+            BOOST_MPL_ASSERT((is_base_of<
+                typename remove_cv<Base>::type,
+                typename remove_cv<Derived>::type
             >));
 
             return static_cast<Derived *>(pbase);
         }
 
         template<class Derived, class Base> inline
-        Derived *aux(Base *pbase, typename enable_if< boost::is_polymorphic<Base> >::type = 0)
+        Derived *aux_(Base *pbase, typename details::enable_if< is_polymorphic<Base> >::type = 0)
         {
             return boost::polymorphic_downcast<Derived *>(pbase);
         }
@@ -60,15 +60,15 @@ namespace pstade { namespace egg {
         template<class Derived>
         struct little
         {
-            template<class Myself, class Base>
+            template<class Me, class Base>
             struct apply :
-                affect<Base&, Derived>
+                details::affect<Base &, Derived>
             { };
 
-            template<class Result, class Base>
-            Result call(Base& base) const
+            template<class Re, class Base>
+            Re call(Base &base) const
             {
-                return *here::aux<typename boost::remove_reference<Result>::type>(boost::addressof(base));
+                return *here::aux_<typename remove_reference<Re>::type>(boost::addressof(base));
             }
         };
 
@@ -86,7 +86,8 @@ namespace pstade { namespace egg {
     #include BOOST_EGG_SPECIFIED()
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

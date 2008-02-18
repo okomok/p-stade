@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_UNCURRY_HPP
 #define BOOST_EGG_UNCURRY_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,25 +11,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./by_perfect.hpp"
-#include "./by_value.hpp"
-#include "./detail/little_uncurry_result.hpp"
-#include "./generator.hpp"
-#include "./use_brace2.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/construct_braced2.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/detail/little_uncurry_result.hpp>
+#include <boost/egg/generator.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     template<class Base, class Strategy = by_perfect>
     struct result_of_uncurry
     {
         typedef
-            function<detail::little_uncurry_result<Base, Strategy>, Strategy>
+            function<details::little_uncurry_result<Base, Strategy>, Strategy>
         type;
     };
-
 
     #define BOOST_EGG_UNCURRY_L { {
     #define BOOST_EGG_UNCURRY_R } }
@@ -37,20 +37,20 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_uncurry :
+    struct X_uncurry : details::derived_from_eval<
         generator<
-            typename result_of_uncurry<deduce<boost::mpl::_1, as_value>, Strategy>::type,
-            boost::use_default,
-            use_brace2,
-            by_value
-        >::type
+            typename result_of_uncurry<deduce<mpl::_1, as_value>, Strategy>::type,
+            by_value,
+            X_construct_braced2<>
+        > >
     { };
 
-    typedef X_uncurry<>::function_type T_uncurry;
-    PSTADE_POD_CONSTANT((T_uncurry), uncurry) = {{}};
+    typedef X_uncurry<>::base_class T_uncurry;
+    BOOST_EGG_CONST((T_uncurry), uncurry) = BOOST_EGG_GENERATOR();
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

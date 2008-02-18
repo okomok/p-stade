@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_COPY_ASSIGN_HPP
 #define BOOST_EGG_COPY_ASSIGN_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -16,14 +16,14 @@
 // The ambiguity buster; call copy-assignment explicitly.
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./ambi.hpp"
-#include "./by_perfect.hpp"
-#include "./copy.hpp"
-#include "./move_assign.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/copy.hpp>
+#include <boost/egg/move_assign.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace copy_assign_detail {
@@ -31,14 +31,14 @@ namespace pstade { namespace egg {
 
         struct little
         {
-            template<class Myself, class To, class From>
+            template<class Me, class To, class From>
             struct apply
             {
-                typedef To& type;
+                typedef To &type;
             };
 
-            template<class Result, class To, class From>
-            Result call(To& to, From& from) const
+            template<class Re, class To, class From>
+            Re call(To &to, From &from) const
             {
                 move_assign(egg::copy<To>(from), to);
                 return to;
@@ -46,17 +46,15 @@ namespace pstade { namespace egg {
         };
 
 
-        typedef function<little, by_perfect> op;
-
-
     } // namespace copy_assign_detail
 
 
-    typedef result_of_ambi1<copy_assign_detail::op>::type T_copy_assign;
-    PSTADE_POD_CONSTANT((T_copy_assign), copy_assign) = BOOST_EGG_AMBI({{}});
+    typedef result_of_ambi1<function<copy_assign_detail::little>, by_perfect>::type T_copy_assign;
+    BOOST_EGG_CONST((T_copy_assign), copy_assign) = BOOST_EGG_AMBI({{}});
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_USE_NULLARY_RESULT_HPP
 #define BOOST_EGG_DETAIL_USE_NULLARY_RESULT_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -17,7 +16,7 @@
 #include <boost/type_traits/is_same.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     struct use_nullary_result;
@@ -25,23 +24,23 @@ namespace pstade { namespace egg {
 
     template< class X, class Then, class Else = X >
     struct if_use_nullary_result :
-        boost::mpl::if_< boost::is_same<X, use_nullary_result>,
+        mpl::if_< is_same<X, use_nullary_result>,
             Then,
             Else
         >
     { };
 
 
-    template< class X, class Then, class Else = boost::mpl::identity<X> >
+    template< class X, class Then, class Else = mpl::identity<X> >
     struct eval_if_use_nullary_result :
-        boost::mpl::eval_if< boost::is_same<X, use_nullary_result>,
+        mpl::eval_if< is_same<X, use_nullary_result>,
             Then,
             Else
         >
     { };
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
 #endif

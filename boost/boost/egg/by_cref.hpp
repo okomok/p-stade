@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_BY_CREF_HPP
 #define BOOST_EGG_BY_CREF_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,20 +12,27 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <cstddef> // size_t
+#include <boost/mpl/always.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/egg/pstade/deduced_const.hpp>
-#include "./config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
-#include "./detail/apply_little_n.hpp"
-#include "./detail/call_little_impl.hpp"
-#include "./detail/function_preamble.hpp"
-#include "./function_fwd.hpp"
+#include <boost/preprocessor/repetition/enum_trailing.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/detail/boost_workaround.hpp>
+#include <boost/egg/detail/deduced_const.hpp>
+#include <boost/egg/detail/pp_enum_template_params.hpp>
+#include <boost/egg/detail/result_of_forward.hpp>
+#include <boost/egg/function_extension.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
+
+
+    struct by_cref :
+        mpl::always<by_cref>
+    { };
 
 
     template<class Little>
@@ -34,41 +41,50 @@ namespace pstade { namespace egg {
         #include BOOST_EGG_FUNCTION_PREAMBLE()
 
         Little m_little;
-        Little little() const { return m_little; }
 
-    // 0ary
-        nullary_result_type operator()() const
+        Little const &little() const
         {
-            return call_little_impl<
-                Little, nullary_result_type
-            >::call0(m_little);
+            return m_little;
         }
 
-    // 1ary-
-    #define PSTADE_const(Z, N, A) PSTADE_DEDUCED_CONST(BOOST_PP_CAT(A, N))
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_cref.hpp>))
+    #define PSTADE_const(Z, N, A) BOOST_EGG_DEDUCED_CONST(BOOST_PP_CAT(A, N))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_cref.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_const
     };
 
 
-} } // namespace pstade::egg
+    template<class Lvalue>
+    struct result_of_forward<by_cref, Lvalue const>
+    {
+        typedef Lvalue const &type;
+    };
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+    template<class T, std::size_t N>
+    struct result_of_forward<by_cref, T const[N]>
+    {
+        typedef T const (&type)[N];
+    };
+#endif
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif
 #else
 #define n BOOST_PP_ITERATION()
 
 
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM(n, PSTADE_const, A)>::type
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
+    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
+    typename apply_little<Little const BOOST_PP_ENUM_TRAILING(n, PSTADE_const, A)>::type
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const &a)) const
     {
-        return call_little_impl<
-            Little, typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM(n, PSTADE_const, A)>::type
-        >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a));
+        return call_little(m_little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 
-#undef n
+#undef  n
 #endif

@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_TAGGED_HPP
 #define BOOST_EGG_TAGGED_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -13,63 +13,70 @@
 
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include "./return.hpp"
+#include <boost/type_traits/remove_cv.hpp>
+#include <boost/egg/detail/unspecified.hpp>
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/return.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    template<class Base, class Tag, class Strategy = boost::use_default>
+    template<class Base, class Tag, class Strategy = use_default>
     struct result_of_tagged :
-        result_of_return<Base, boost::use_default, Strategy, Tag>
+        result_of_return<Base, use_default, Strategy, Tag>
     { };
-
 
     #define BOOST_EGG_TAGGED_L BOOST_EGG_RETURN_L
     #define BOOST_EGG_TAGGED_R BOOST_EGG_RETURN_R
     #define BOOST_EGG_TAGGED(F) BOOST_EGG_TAGGED_L F BOOST_EGG_TAGGED_R
 
 
-    // Do you need a function 'egg::tagged<...>(f)'?
+    template<class Tag, class Strategy = use_default>
+    struct X_tagged :
+        X_return<use_default, Strategy, Tag>
+    { };
 
-
-    struct no_tag_tag;
-
-    template<class F>
-    struct tag_of
+    template<class Tag, class Base> inline
+    typename result_of<X_tagged<Tag>(Base &)>::type tagged(Base base)
     {
-        typedef no_tag_tag type;
-    };
+        return X_tagged<Tag>()(base);
+    }
+
+
+    namespace tag_of_detail {
+
+
+        template<class F>
+        struct aux_
+        {
+            typedef unspecified type;
+        };
+
+        template<class Base, class Return, class Strategy, class Tag>
+        struct aux_< function<details::little_return_result<Base, Return, Strategy, Tag>, Strategy> >
+        {
+            typedef Tag type;
+        };
+
+
+    } // namespace tag_of_detail
+
 
     template<class F>
-    struct tag_of<F const> :
-        tag_of<F>
+    struct tag_of :
+        tag_of_detail::aux_<typename remove_cv<F>::type>
     { };
-
-    template<class F>
-    struct tag_of<F volatile> :
-        tag_of<F>
-    { };
-
-    template<class F>
-    struct tag_of<F const volatile> :
-        tag_of<F>
-    { };
-
-    template<class Base, class ResultType, class Strategy, class Tag>
-    struct tag_of< function<detail::little_return_result<Base, ResultType, Strategy, Tag>, Strategy> >
-    {
-        typedef Tag type;
-    };
 
 
     template<class F, class Tag>
     struct is_tagged_with :
-        boost::is_same<typename tag_of<F>::type, Tag>
+        is_same<typename tag_of<F>::type, Tag>
     { };
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

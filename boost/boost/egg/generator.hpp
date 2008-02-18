@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_GENERATOR_HPP
 #define BOOST_EGG_GENERATOR_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,47 +11,55 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/type_traits/is_same.hpp>
-#include <boost/egg/pstade/apple/boost/reference_wrapper_fwd.hpp>
-#include <boost/egg/pstade/pass_by.hpp>
-#include "./by_perfect.hpp"
-#include "./detail/little_generator.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/detail/boost_reference_wrapper_fwd.hpp>
+#include <boost/egg/detail/little_generator.hpp>
+#include <boost/egg/detail/pass_by_value.hpp>
+#include <boost/egg/detail/unspecified.hpp>
 
 
-namespace pstade { namespace egg {
+struct ERROR_BOOST_EGG_GENERATOR_MISSING_ARGUMENT;
 
+
+namespace boost { namespace egg {
+
+
+    // Even if using `supply_n`, NullaryResult is needed;
+    // consider `foo< metafun<_1> >` where `metafun<void>::type` is ill-formed.
 
     template<
-        class Lambda,
-        class NullaryResult = boost::use_default,
-        class Make          = boost::use_default,
-        class Strategy      = by_perfect
+        class Expr,
+        class Strategy      = by_perfect,
+        class Construct     = use_default,
+        class NullaryResult = use_default
     >
     struct generator
     {
         typedef
-            function<detail::little_generator<Lambda, NullaryResult, Make>, Strategy>
+            function<details::little_generator<Expr, Strategy, Construct, NullaryResult>, Strategy>
         type;
     };
-
 
     #define BOOST_EGG_GENERATOR() {{}}
 
 
-    struct generator_error_argument_required;
-
-
     template<
         class A, class Deducer,
-        class Default = generator_error_argument_required
+        class Default = unspecified // = ERROR_BOOST_EGG_GENERATOR_MISSING_ARGUMENT
     >
     struct deduce :
-        boost::mpl::eval_if< boost::is_same<A, void>,
-            boost::mpl::identity<Default>,
-            boost::mpl::apply1<Deducer, A>
+        mpl::eval_if< is_same<A, void>,
+            mpl::eval_if< is_same<Default, unspecified>,
+                mpl::identity<ERROR_BOOST_EGG_GENERATOR_MISSING_ARGUMENT>,
+                mpl::identity<Default>
+            >,
+            mpl::apply1<Deducer, A>
         >
     { };
 
@@ -61,7 +69,7 @@ namespace pstade { namespace egg {
         template<class A>
         struct apply
         {
-            typedef A& type;
+            typedef A &type;
         };
     };
 
@@ -70,7 +78,7 @@ namespace pstade { namespace egg {
         template<class A>
         struct apply
         {
-            typedef A const& type;
+            typedef A const &type;
         };
     };
 
@@ -78,7 +86,7 @@ namespace pstade { namespace egg {
     {
         template<class A>
         struct apply :
-            pass_by_value<A>
+            details::pass_by_value<A>
         { };
     };
 
@@ -95,24 +103,25 @@ namespace pstade { namespace egg {
     {
         template<class A>
         struct apply :
-            pass_by_value<A>
+            details::pass_by_value<A>
         { };
 
         template<class T>
-        struct apply< boost::reference_wrapper<T> >
+        struct apply< reference_wrapper<T> >
         {
-            typedef T& type;
+            typedef T &type;
         };
 
         template<class T>
-        struct apply< boost::reference_wrapper<T> const >
+        struct apply< reference_wrapper<T> const >
         {
-            typedef T& type;
+            typedef T &type;
         };
     };
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

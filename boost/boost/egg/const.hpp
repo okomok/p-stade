@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_CONST_HPP
 #define BOOST_EGG_CONST_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,10 +11,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <boost/egg/detail/ignore_unused.hpp>
+#include <boost/egg/detail/pod_assert.hpp>
+#include <boost/egg/detail/unparen.hpp>
 
 
-#define BOOST_EGG_CONST PSTADE_POD_CONSTANT
+#define BOOST_EGG_CONST(F, O) \
+    BOOST_EGG_POD_ASSERT_OF(F, O); \
+    BOOST_EGG_UNPAREN(F) const BOOST_EGG_IGNORE_UNUSED O \
+/**/
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

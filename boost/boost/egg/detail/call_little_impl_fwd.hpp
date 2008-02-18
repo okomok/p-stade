@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_CALL_LITTLE_IMPL_FWD_HPP
 #define BOOST_EGG_DETAIL_CALL_LITTLE_IMPL_FWD_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -11,19 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/enable_if.hpp>
+#include <boost/egg/detail/enable_if.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg { namespace details {
 
 
-    // Little_ is guaranteed to be complete when call_little_impl instantiated,
+    // Little is guaranteed to be complete when call_little_impl instantiated,
     // because this is instantiated only in function body.
-    template<class Little_, class Result, class EnableIf = enabler>
+    template<class Little, class Re, class EnableIf = enabler>
     struct call_little_impl;
 
 
-} } // namespace pstade::egg
+} } } // namespace boost::egg::details
 
 
 #endif

@@ -1,7 +1,6 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_ALWAYS_HPP
 #define BOOST_EGG_ALWAYS_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,90 +11,129 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include "./apply_decl.hpp"
-#include "./by_cref.hpp"
-#include "./config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
-#include "./generator.hpp"
-#include "./use_brace2.hpp"
+// Note:
+//
+// `always` doesn't unwrap reference_wrapper.
+// Consider: always( always(boost::ref(k))(1,2) );
 
 
-namespace pstade { namespace egg {
+#include <boost/utility/addressof.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/construct_unfused1.hpp>
+#include <boost/egg/generator.hpp>
+#include <boost/egg/result_of.hpp>
+#include <boost/egg/unfuse.hpp>
 
+
+namespace boost { namespace egg {
+
+
+    // always
+    //
 
     namespace always_detail {
 
-
-        template<class X>
-        struct little
+        template<class Value>
+        struct fused_result
         {
-            X m_x;
+            Value m_value;
 
-        // 0ary
-            typedef X nullary_result_type;
-
-            template<class Result>
-            Result call() const
+            Value const &base() const
             {
-                return m_x;
+                return m_value;
             }
 
-        // 1ary-
-            template<class Myself, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
-            struct apply
+            typedef Value const &result_type;
+
+            template<class Args>
+            result_type operator()(Args const &) const
             {
-                typedef X type;
-            };
-
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/always.hpp>))
-            #include BOOST_PP_ITERATE()
+                return m_value;
+            }
         };
-
 
     } // namespace always_detail
 
+    template<class Value>
+    struct result_of_always :
+        result_of_unfuse<
+            always_detail::fused_result<Value>,
+            use_nullary_result,
+            use_default,
+            by_cref
+        >
+    { };
 
-    template<class X>
-    struct result_of_always
-    {
-        typedef
-            function<always_detail::little<X>, by_cref>
-        type;
-    };
-
-    #define BOOST_EGG_ALWAYS_L { {
-    #define BOOST_EGG_ALWAYS_R } }
-    #define BOOST_EGG_ALWAYS(F) BOOST_EGG_ALWAYS_L F BOOST_EGG_ALWAYS_R
+    #define BOOST_EGG_ALWAYS_L BOOST_EGG_UNFUSE_L {
+    #define BOOST_EGG_ALWAYS_R } BOOST_EGG_UNFUSE_R
+    #define BOOST_EGG_ALWAYS(V) BOOST_EGG_ALWAYS_L V BOOST_EGG_ALWAYS_R
 
     typedef
         generator<
-            result_of_always< deduce<boost::mpl::_1, as_wrapped_ref> >::type,
-            boost::use_default,
-            use_brace2,
-            by_cref
+            result_of_always< deduce<mpl::_1, as_value> >::type,
+            by_value,
+            X_construct_unfused1<>
         >::type
     T_always;
 
-    PSTADE_POD_CONSTANT((T_always), always) = BOOST_EGG_GENERATOR();
+    BOOST_EGG_CONST((T_always), always) = BOOST_EGG_GENERATOR();
 
 
-} } // namespace pstade::egg
+    // always_ref
+    //
+
+    namespace always_ref_detail {
+
+        template<class T>
+        struct fused_result
+        {
+            T *m_ptr; // Use pointer for Regular.
+
+            T &base() const
+            {
+                return *m_ptr;
+            }
+
+            typedef T &result_type;
+
+            template<class Args>
+            result_type operator()(Args const &) const
+            {
+                return *m_ptr;
+            }
+        };
+
+        struct little
+        {
+            typedef
+                X_unfuse<use_nullary_result, use_default, by_cref>
+            unfuse_t;
+
+            template<class Me, class T>
+            struct apply :
+                result_of<unfuse_t(fused_result<T> &)>
+            { };
+
+            template<class Re, class T>
+            Re call(T &t) const
+            {
+                fused_result<T> f = {boost::addressof(t)};
+                return unfuse_t()(f);
+            }
+
+        };
+
+    } // namespace always_ref_detail
+
+    typedef function<always_ref_detail::little, by_perfect> T_always_ref;
+    BOOST_EGG_CONST((T_always_ref), always_ref) = BOOST_EGG_GENERATOR();
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
+} } // namespace boost::egg
 
 
-    template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)) const
-    {
-        return m_x;
-    }
-
-
-#undef n
+#include <boost/egg/detail/suffix.hpp>
 #endif

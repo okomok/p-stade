@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_IDENTITY_HPP
 #define BOOST_EGG_IDENTITY_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,13 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/adl_barrier.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./by_perfect.hpp"
-#include "./forward.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/adl_barrier.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/forward.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace identity_detail {
@@ -26,13 +27,13 @@ namespace pstade { namespace egg {
         template<class Strategy>
         struct little
         {
-            template<class Myself, class X>
+            template<class Me, class X>
             struct apply :
                 result_of_forwarding<Strategy const, 1, 0, X>
             { };
 
-            template<class Result, class X>
-            Result call(X& x) const
+            template<class Re, class X>
+            Re call(X &x) const
             {
                 return egg::forwarding<Strategy const, 1, 0>(x);
             }
@@ -43,17 +44,18 @@ namespace pstade { namespace egg {
 
 
     template<class Strategy = by_perfect>
-    struct X_identity :
-        function<identity_detail::little<Strategy>, Strategy>
+    struct X_identity : details::derived_from<
+        function<identity_detail::little<Strategy>, Strategy> >
     { };
 
-    typedef X_identity<>::function_type T_identity;
-PSTADE_ADL_BARRIER(identity) {
-    PSTADE_POD_CONSTANT((T_identity), identity) = {{}};
+    typedef X_identity<>::base_class T_identity;
+BOOST_EGG_ADL_BARRIER(identity) {
+    BOOST_EGG_CONST((T_identity), identity) = {{}};
 }
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

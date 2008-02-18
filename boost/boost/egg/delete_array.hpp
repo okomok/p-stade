@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_DELETE_ARRAY_HPP
 #define BOOST_EGG_DELETE_ARRAY_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,10 +12,10 @@
 
 
 #include <boost/checked_delete.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     struct T_delete_array
@@ -29,11 +29,11 @@ namespace pstade { namespace egg {
         }
     };
 
-
-    PSTADE_POD_CONSTANT((T_delete_array), delete_array) = {};
-
-
-} } // namespace pstade::egg
+    BOOST_EGG_CONST((T_delete_array), delete_array) = {};
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif

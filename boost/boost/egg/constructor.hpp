@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_CONSTRUCTOR_HPP
 #define BOOST_EGG_CONSTRUCTOR_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,25 +11,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./automatic.hpp"
-#include "./construct.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/construct.hpp>
+#include <boost/egg/implicit.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    typedef
-        automatic<
-            X_construct<boost::mpl::_1>
-        >::type
-    T_constructor;
+    typedef implicit<X_construct<>, by_perfect>::type T_constructor;
+    BOOST_EGG_CONST((T_constructor), constructor) = BOOST_EGG_IMPLICIT();
 
 
-    PSTADE_POD_CONSTANT((T_constructor), constructor) = BOOST_EGG_AUTOMATIC();
+} } // namespace boost::egg
 
 
-} } // namespace pstade::egg
-
-
+#include <boost/egg/detail/suffix.hpp>
 #endif

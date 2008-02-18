@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_BY_VALUE_HPP
 #define BOOST_EGG_BY_VALUE_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,24 +12,24 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// A "movable type" like 'auto_ptr' must be called by value.
-// "./by_perfect.hpp" makes rvalue unmovable.
-
-
-#include <boost/preprocessor/cat.hpp>
+#include <boost/mpl/always.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include "./config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
-#include "./detail/apply_little_n.hpp"
-#include "./detail/call_little_impl.hpp"
-#include "./detail/function_preamble.hpp"
-#include "./function_fwd.hpp"
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/detail/plain.hpp>
+#include <boost/egg/detail/pp_enum_template_params.hpp>
+#include <boost/egg/detail/result_of_forward.hpp>
+#include <boost/egg/function_extension.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
+
+
+    struct by_value :
+        mpl::always<by_value>
+    { };
 
 
     template<class Little>
@@ -38,39 +38,42 @@ namespace pstade { namespace egg {
         #include BOOST_EGG_FUNCTION_PREAMBLE()
 
         Little m_little;
-        Little little() const { return m_little; }
 
-    // 0ary
-        nullary_result_type operator()() const
+        Little const &little() const
         {
-            return call_little_impl<
-                Little, nullary_result_type
-            >::call0(m_little);
+            return m_little;
         }
 
-    // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_value.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_value.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
 
-} } // namespace pstade::egg
+    // For movable types, you can't add const-qualifier.
+    template<class Lvalue>
+    struct result_of_forward<by_value, Lvalue>
+    {
+        BOOST_MPL_ASSERT((details::is_plain<Lvalue>));
+        typedef Lvalue type;
+    };
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif
 #else
 #define n BOOST_PP_ITERATION()
 
 
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM_PARAMS(n, A)>::type
+    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
+    typename apply_little<Little const BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
     {
-        return call_little_impl<
-            Little, typename BOOST_PP_CAT(apply_little, n)<Little const, BOOST_PP_ENUM_PARAMS(n, A)>::type
-        >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a));
+        return call_little(m_little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
     }
 
 
-#undef n
+#undef  n
 #endif

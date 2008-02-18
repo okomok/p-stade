@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_REGULARIZED_HPP
 #define BOOST_EGG_DETAIL_REGULARIZED_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -21,15 +20,15 @@
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/optional/optional.hpp>
 #include <boost/utility/addressof.hpp>
-#include <boost/egg/pstade/radish/bool_testable.hpp>
-#include <boost/egg/pstade/radish/swappable.hpp>
-#include "../do_swap.hpp"
+#include <boost/egg/do_swap.hpp>
+#include <boost/egg/detail/bool_testable.hpp>
+#include <boost/egg/detail/swappable.hpp>
 
 
-namespace pstade { namespace egg { namespace detail {
+namespace boost { namespace egg { namespace details {
 
 
-    template< class X>
+    template<class X>
     struct dummy_assignable
     {
     private:
@@ -38,12 +37,12 @@ namespace pstade { namespace egg { namespace detail {
     public:
         X m_x;
 
-        explicit dummy_assignable(X const& x) :
+        explicit dummy_assignable(X const &x) :
             m_x(x)
         { }
 
         // never called if uninitialized
-        self_t& operator=(self_t const&)
+        self_t &operator=(self_t const &)
         {
             BOOST_ASSERT(false);
             return *this;
@@ -53,9 +52,9 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class X>
     struct regularized :
-        radish::bool_testable  < regularized<X>,
-        radish::swappable      < regularized<X>,
-        boost::totally_ordered1< regularized<X> > > >
+        bool_testable   < regularized<X>,
+        swappable       < regularized<X>,
+        totally_ordered1< regularized<X> > > >
     {
     private:
         typedef regularized self_t;
@@ -66,12 +65,12 @@ namespace pstade { namespace egg { namespace detail {
         explicit regularized()
         { }
 
-        explicit regularized(X const& x) :
+        explicit regularized(X const &x) :
             m_opx(dummy_assignable_t(x))
         { }
 
     // assignments
-        self_t& operator=(self_t const& other)
+        self_t &operator=(self_t const &other)
         {
             m_opx.reset(); // Force uninitialized.
             m_opx = other.m_opx;
@@ -79,66 +78,66 @@ namespace pstade { namespace egg { namespace detail {
         }
 
     // dereference
-        X& operator*()
+        X &operator *()
         {
             return (*m_opx).m_x;
         }
 
-        X const& operator*() const
+        X const &operator *() const
         {
             return (*m_opx).m_x;
         }
 
     // bool_testable
-        operator radish::safe_bool() const
+        operator safe_bool() const
         {
-            return radish::make_safe_bool(m_opx);
+            return details::make_safe_bool(m_opx);
         }
 
     // swappable
-        void swap(self_t& other)
+        void swap(self_t &other)
         {
             egg::do_swap(m_opx, other.m_opx);
         }
 
     // totally_ordered
-        bool operator< (self_t const& other) const
+        bool operator< (self_t const &other) const
         {
             return m_opx < other.m_opx;
         }
 
-        bool operator==(self_t const& other) const
+        bool operator==(self_t const &other) const
         {
             return m_opx == other.m_opx;
         }
 
     private:
-        boost::optional<dummy_assignable_t> m_opx;
+        optional<dummy_assignable_t> m_opx;
     };
 
 
-} } } // namespace pstade::egg::detail
+} } } // namespace boost::egg::details
 
 
 // dereference extension
 //
 
-#include "../bll/extension_fwd.hpp"
+#include <boost/egg/bll/extension_fwd.hpp>
 
 
 namespace boost { namespace lambda {
 
 
     template<class X>
-    struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> >
+    struct return_type_1< other_action<contentsof_action>, egg::details::regularized<X> >
     {
-        typedef X& type;
+        typedef X &type;
     };
 
     template<class X>
-    struct return_type_1< other_action<contentsof_action>, pstade::egg::detail::regularized<X> const >
+    struct return_type_1< other_action<contentsof_action>, egg::details::regularized<X> const >
     {
-        typedef X const& type;
+        typedef X const &type;
     };
 
 

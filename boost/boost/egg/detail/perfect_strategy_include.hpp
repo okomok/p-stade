@@ -16,7 +16,7 @@
 #define PSTADE_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(2, 1, BOOST_EGG_PERFECT_STRATEGY_PARAMS))
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     template<class Little>
@@ -25,7 +25,11 @@ namespace pstade { namespace egg {
         #include BOOST_EGG_FUNCTION_PREAMBLE()
 
         Little m_little;
-        Little little() const { return m_little; }
+
+        Little const &little() const 
+        {
+            return m_little;
+        }
 
     // 0ary-
     #define PSTADE_call_operator(R, BitSeq) \
@@ -36,12 +40,10 @@ namespace pstade { namespace egg {
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params) \
         template<BOOST_PP_ENUM_PARAMS(n, class A)> \
-        typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
+        typename apply_little<Little const, ArgTypes>::type \
         operator()(Params) const \
         { \
-            return call_little_impl< \
-                Little, typename BOOST_PP_CAT(apply_little, n)<Little const, ArgTypes>::type \
-            >::BOOST_PP_CAT(call, n)(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
+            return call_little(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
@@ -49,9 +51,9 @@ namespace pstade { namespace egg {
     #define PSTADE_c0
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A
-    #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PP_ARRAY_SIZE(PSTADE_arities)), <boost/egg/detail/perfect_strategy_include.hpp>))
-        #include BOOST_PP_ITERATE()
+    #define PSTADE_ac1(A) BOOST_EGG_DEDUCED_CONST(A)
+        #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (PSTADE_arities, <boost/egg/detail/perfect_strategy_include.hpp>)
+        #include BOOST_EGG_PP_ARRAY_ITERATE()
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
     #undef  PSTADE_c1
@@ -63,7 +65,7 @@ namespace pstade { namespace egg {
     };
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
 #undef  PSTADE_arities
@@ -72,24 +74,23 @@ namespace pstade { namespace egg {
 
 
 #else
-#define n BOOST_PP_ARRAY_ELEM(BOOST_PP_ITERATION(), PSTADE_arities)
+#define n BOOST_EGG_PP_ARRAY_ITERATION()
 
 
 #if n == 0
 
-    nullary_result_type operator()() const
+    typename apply_little<Little const>::type
+    operator()() const
     {
-        return call_little_impl<
-            Little, nullary_result_type
-        >::call0(m_little);
+        return call_little(m_little);
     }
 
 #else
 
-    BOOST_PP_SEQ_FOR_EACH_PRODUCT(PSTADE_call_operator, PSTADE_PP_SEQ_REPEAT((0)(1), n))
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(PSTADE_call_operator, BOOST_EGG_PP_SEQ_REPEAT((0)(1), n))
 
 #endif // n == 0
 
 
-#undef n
+#undef  n
 #endif

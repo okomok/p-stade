@@ -2,7 +2,7 @@
 #define BOOST_EGG_BLL_BLL_HPP
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -10,16 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./bind.hpp"
-#include "./config.hpp"
-#include "./functor_fwd.hpp"
-#include "./extension_fwd.hpp"
-#include "./optional.hpp"
-#include "./placeholders.hpp"
-#include "./string.hpp"
-#include "./result_of.hpp"
-#include "./return_type.hpp"
-#include "./unlambda.hpp"
+#include <boost/egg/bll/bind.hpp>
+#include <boost/egg/bll/config.hpp>
+#include <boost/egg/bll/functor_fwd.hpp>
+#include <boost/egg/bll/extension_fwd.hpp>
+#include <boost/egg/bll/optional.hpp>
+#include <boost/egg/bll/placeholders.hpp>
+#include <boost/egg/bll/poly.hpp>
+#include <boost/egg/bll/sig_impl.hpp>
+#include <boost/egg/bll/string.hpp>
+#include <boost/egg/bll/result_of.hpp>
+#include <boost/egg/bll/return_type.hpp>
+#include <boost/egg/bll/unlambda.hpp>
 
 
 #endif

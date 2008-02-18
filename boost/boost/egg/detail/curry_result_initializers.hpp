@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_DETAIL_CURRY_RESULT_INITIALIZERS_HPP
 #define BOOST_EGG_DETAIL_CURRY_RESULT_INITIALIZERS_HPP
-#include "./prefix.hpp"
 
 
 // Boost.Egg
@@ -11,16 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/preprocessor.hpp>
-#include "./bind_left1.hpp"
-#include "./bind_leftx.hpp"
+#include <boost/egg/detail/bind_left1.hpp>
+#include <boost/egg/detail/bind_leftx.hpp>
+#include <boost/egg/detail/pp_cat3.hpp>
 
 
-#define BOOST_EGG_CURRY_L(N) PSTADE_PP_CAT3(BOOST_EGG_CURRY, N, _L)
-#define BOOST_EGG_CURRY_R(N) PSTADE_PP_CAT3(BOOST_EGG_CURRY, N, _R)
+#define BOOST_EGG_CURRY_L(N) BOOST_EGG_PP_CAT3(BOOST_EGG_CURRY, N, _L)
+#define BOOST_EGG_CURRY_R(N) BOOST_EGG_PP_CAT3(BOOST_EGG_CURRY, N, _R)
 
-// BOOST_EGG_BIND_LEFT1_L BOOST_EGG_BIND_LEFTX_INIT BOOST_EGG_BIND_LEFT1_M Base BOOST_EGG_BIND_LEFT1_R
-#define BOOST_EGG_CURRY_left  BOOST_EGG_BIND_LEFT1_L BOOST_EGG_BIND_LEFTX_INIT BOOST_EGG_BIND_LEFT1_M
+// BOOST_EGG_BIND_LEFT1_L BOOST_EGG_BIND_LEFTX_INIT , Base BOOST_EGG_BIND_LEFT1_R
+#define BOOST_EGG_CURRY_left  BOOST_EGG_BIND_LEFT1_L BOOST_EGG_BIND_LEFTX_INIT ,
 #define BOOST_EGG_CURRY_right BOOST_EGG_BIND_LEFT1_R
 
 #define BOOST_EGG_CURRY2_L BOOST_EGG_CURRY_left

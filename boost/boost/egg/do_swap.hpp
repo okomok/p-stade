@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_DO_SWAP_HPP
 #define BOOST_EGG_DO_SWAP_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,11 +12,11 @@
 
 
 #include <algorithm> // swap
-#include <boost/egg/pstade/boost_workaround.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/boost_workaround.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     struct T_do_swap
@@ -24,9 +24,9 @@ namespace pstade { namespace egg {
         typedef void result_type;
 
         template<class T>
-        void operator()(T& a, T& b) const
+        void operator()(T &a, T &b) const
         {
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
             using namespace std;
 #else
             using std::swap;
@@ -35,11 +35,11 @@ namespace pstade { namespace egg {
         }
     };
 
-
-    PSTADE_POD_CONSTANT((T_do_swap), do_swap) = {};
-
-
-} } // namespace pstade::egg
+    BOOST_EGG_CONST((T_do_swap), do_swap) = {};
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif

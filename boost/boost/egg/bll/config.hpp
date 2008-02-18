@@ -1,9 +1,9 @@
 #ifndef BOOST_EGG_BLL_CONFIG_HPP
 #define BOOST_EGG_BLL_CONFIG_HPP
-#include "../detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -34,4 +34,5 @@
 #endif
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

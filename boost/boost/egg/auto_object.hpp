@@ -1,6 +1,9 @@
 #ifndef BOOST_EGG_AUTO_OBJECT_HPP
 #define BOOST_EGG_AUTO_OBJECT_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
+
+
+#error will be removed.
 
 
 // Boost.Egg
@@ -12,86 +15,82 @@
 
 
 #include <memory> // auto_ptr
-#include <boost/egg/pstade/any.hpp> // any_movable
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./by_cref.hpp"
-#include "./fuse.hpp"
-#include "./new.hpp"
-#include "./unfuse.hpp"
+#include <pstade/any.hpp> // any_movable
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/tuple_fuse.hpp>
+#include <boost/egg/new.hpp>
+#include <boost/egg/variadic.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace auto_object_detail {
 
 
-        // 'automatic' doesn't work; 'auto_ptr' is not CopyConstructible.
-        // Note also 'operator auto_ptr_ref<X>()' can't be of help, because
+        // `implicit` doesn't work; `auto_ptr` is not CopyConstructible.
+        // `implicit_ref` too doesn't work; conversion is ambiguous.
+        // Note also `operator auto_ptr_ref<T>()` can't be of help, because
         // some implementations require "move sequence" to be in the same scope.
         // After all, we need a conversion operator to return "lvalue".
 
-
-        template<class ArgTuple>
-        struct automator
+        template<class Args>
+        struct from
         {
-            explicit automator(ArgTuple const& args) :
+            explicit from(Args const &args) :
                 m_args(args)
             { }
 
-            template<class X>
-            operator std::auto_ptr<X>& ()
+            template<class T>
+            operator std::auto_ptr<T> &()
             {
-                std::auto_ptr<X> ptr(fuse(X_new_<X>())(m_args));
+                std::auto_ptr<T> ptr(details::tuple_fuse(X_new<T>())(m_args));
                 m_any = ptr;
-                return m_any.content< std::auto_ptr<X> >();
+                return m_any.content< std::auto_ptr<T> >();
             }
 
         private:
-            ArgTuple m_args;
+            Args m_args;
             any_movable m_any;
 
-            automator& operator=(automator const&);
+            from &operator=(from const &);
         };
 
 
-        struct little_fused
+        struct little
         {
-            template<class Myself, class ArgTuple>
+            template<class Me, class Args>
             struct apply
             {
-                typedef
-                    automator<ArgTuple>
-                type;
+                typedef from<Args> type;
             };
 
-            template<class Result, class ArgTuple>
-            Result call(ArgTuple& args) const
+            template<class Re, class Args>
+            Re call(Args &args) const
             {
-                return Result(args); 
+                return Re(args); 
             }
         };
-
-
-        typedef function<little_fused, by_cref> fused;
 
 
     } // namespace auto_object_detail
 
 
     typedef
-        result_of_unfuse<
-            auto_object_detail::fused,
-            boost::use_default,
+        variadic<
+            auto_object_detail::little,
+            by_perfect,
+            use_default,
             use_nullary_result
         >::type
     T_auto_object;
 
-
-    PSTADE_POD_CONSTANT((T_auto_object), auto_object) = BOOST_EGG_UNFUSE({{}});
-
-
-} } // namespace pstade::egg
+    BOOST_EGG_CONST((T_auto_object), auto_object) = BOOST_EGG_VARIADIC({});
 
 
+} } // namespace boost::egg
+
+
+#include <boost/egg/detail/suffix.hpp>
 #endif

@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_UNLAMBDA_HPP
 #define BOOST_EGG_UNLAMBDA_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -16,11 +16,11 @@
 // This is the same as `perfect`.
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./return.hpp"
+#include <boost/egg/const.hpp>
+#include <boost/egg/return.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     template<class Base>
@@ -28,17 +28,17 @@ namespace pstade { namespace egg {
         result_of_return<Base>
     { };
 
-
     #define BOOST_EGG_UNLAMBDA_L BOOST_EGG_RETURN_L
     #define BOOST_EGG_UNLAMBDA_R BOOST_EGG_RETURN_R
     #define BOOST_EGG_UNLAMBDA(F) BOOST_EGG_UNLAMBDA_L F BOOST_EGG_UNLAMBDA_R
 
 
-    typedef X_return<>::function_type T_unlambda;
-    PSTADE_POD_CONSTANT((T_unlambda), unlambda) = BOOST_EGG_GENERATOR();
+    typedef X_return<>::base_class T_unlambda;
+    BOOST_EGG_CONST((T_unlambda), unlambda) = BOOST_EGG_RETURN_INIT;
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

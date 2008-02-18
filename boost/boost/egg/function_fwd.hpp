@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_FUNCTION_FWD_HPP
 #define BOOST_EGG_FUNCTION_FWD_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,14 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/apple/boost/use_default_fwd.hpp>
-#include "./nullary_result_of.hpp"
+#include <boost/egg/detail/boost_use_default_fwd.hpp>
+#include <boost/egg/register_nullary_result.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    typedef boost::use_default by_perfect;
+    typedef use_default by_perfect;
     struct by_ref;
     struct by_cref;
     struct by_value;
@@ -29,14 +29,14 @@ namespace pstade { namespace egg {
 
     #define BOOST_EGG_FUNCTION_L {
     #define BOOST_EGG_FUNCTION_R }
-    #define BOOST_EGG_FUNCTION(l) BOOST_EGG_FUNCTION_L l BOOST_EGG_FUNCTION_R
+    #define BOOST_EGG_FUNCTION(L) BOOST_EGG_FUNCTION_L L BOOST_EGG_FUNCTION_R
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
-#define  BOOST_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (pstade::egg::function, (class)(class))
-#include BOOST_EGG_NULLARY_RESULT_OF_TEMPLATE()
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(boost::egg::function, (class)(class))
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

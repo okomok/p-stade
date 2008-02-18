@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_REGULAR_HPP
 #define BOOST_EGG_REGULAR_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -11,31 +11,33 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include "./detail/regularized.hpp"
-#include "./bll/result_of.hpp" // inclusion guaranteed
-#include "./by_value.hpp"
-#include "./indirect.hpp"
+#include <boost/egg/bll/result_of.hpp> // inclusion guaranteed
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/detail/derived_from.hpp>
+#include <boost/egg/detail/regularized.hpp>
+#include <boost/egg/indirect.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace regular_detail {
 
 
+        template<class Strategy>
         struct little
         {
-            template<class Myself, class Base>
+            template<class Me, class Base>
             struct apply :
-                result_of<T_indirect(detail::regularized<Base>)>
+                result_of<X_indirect<Strategy>(details::regularized<Base>)>
             { };
 
-            template<class Result, class Base>
-            Result call(Base base) const
+            template<class Re, class Base>
+            Re call(Base base) const
             {
-                return indirect(detail::regularized<Base>(base));
+                return X_indirect<Strategy>()(details::regularized<Base>(base));
             }
         };
 
@@ -43,11 +45,17 @@ namespace pstade { namespace egg {
     } // namespace regular_detail
 
 
-    typedef function<regular_detail::little, by_value> T_regular;
-    PSTADE_POD_CONSTANT((T_regular), regular) = {{}};
+    template<class Strategy = use_default>
+    struct X_regular : details::derived_from<
+        function<regular_detail::little<Strategy>, by_value> >
+    { };
+
+    typedef X_regular<>::base_class T_regular;
+    BOOST_EGG_CONST((T_regular), regular) = {{}};
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif

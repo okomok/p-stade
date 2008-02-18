@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_MONO_HPP
 #define BOOST_EGG_MONO_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -19,34 +19,25 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
-#include <boost/type_traits/add_reference.hpp>
-#include <boost/egg/pstade/preprocessor.hpp>
-#include <boost/egg/pstade/remove_cvr.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include <boost/egg/pstade/use_default.hpp>
-#include "./by_value.hpp"
-#include "./config.hpp" // BOOST_EGG_MAX_LINEAR_ARITY
-#include "./function_fwd.hpp"
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/construct_braced1.hpp>
+#include <boost/egg/detail/if_use_default.hpp>
+#include <boost/egg/detail/in_fun_spec.hpp>
+#include <boost/egg/detail/plain.hpp>
+#include <boost/egg/generator.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     namespace mono_detail {
 
 
-        // This should be cv-qualifier sensitive?
-        template<class A>
-        struct argument_type :
-            remove_cvr<A>
-        { };
-
-
         template<class Base, class Signature>
         struct result_;
 
-
-        // 0ary-
     #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/mono.hpp>))
         #include BOOST_PP_ITERATE()
@@ -59,92 +50,74 @@ namespace pstade { namespace egg {
     template<class Base, class Signature>
     struct result_of_mono
     {
-        typedef
-            mono_detail::result_<Base, Signature>
-        type;
+        typedef mono_detail::result_<Base, Signature> type;
     };
-
 
     #define BOOST_EGG_MONO_L {
     #define BOOST_EGG_MONO_R }
     #define BOOST_EGG_MONO(F) BOOST_EGG_MONO_L F BOOST_EGG_MONO_R
 
 
-    namespace mono_detail {
-
-
-        template<class Signature>
-        struct little
-        {
-            template<class Myself, class Base>
-            struct apply :
-                result_of_mono<Base, Signature>
-            { };
-
-            template<class Result, class Base>
-            Result call(Base base) const
-            {
-                Result r = BOOST_EGG_MONO(base);
-                return r;
-            }
-        };
-
-
-    } // namespace mono_detail
-
-
     template<class Signature>
     struct X_mono :
-        function<mono_detail::little<Signature>, by_value>
+        generator<
+            typename result_of_mono<deduce<mpl::_1, as_value>, Signature>::type,
+            by_value,
+            X_construct_braced1<>
+        >::type
     { };
 
-
     template<class Signature, class Base> inline
-    typename result_of<X_mono<Signature>(Base&)>::type mono(Base base)
+    typename result_of<X_mono<Signature>(Base &)>::type mono(Base base)
     {
         return X_mono<Signature>()(base);
     }
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif
 #else
 #define n BOOST_PP_ITERATION()
 
+#define fparams BOOST_EGG_PP_ENUM_PARAMS_IN_FUN_SPEC(n, A)
 
-    template<class Base, class ResultType BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_<Base, ResultType(BOOST_PP_ENUM_PARAMS(n, A))>
+
+    template<class Base, class R BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
+    struct result_<Base, R(fparams)>
     {
+        typedef typename
+            details::eval_if_use_default< R,
+                result_of<Base const(fparams)>
+            >::type
+        result_type;
+
+        typedef result_type (signature_type)(fparams);
+
         Base m_base;
 
-        typedef Base base_type;
-
-        Base base() const
+        Base const &base() const
         {
             return m_base;
         }
-
-#if n == 1
-        typedef typename argument_type<A0>::type argument_type;
-#elif n == 2
-        typedef typename argument_type<A0>::type first_argument_type;
-        typedef typename argument_type<A1>::type second_argument_type;
-#endif
-
-        typedef typename
-            eval_if_use_default<ResultType,
-                result_of<Base const(BOOST_PP_ENUM_PARAMS(n, A))>
-            >::type
-        result_type;
 
         result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
         {
             return m_base(BOOST_PP_ENUM(n, PSTADE_forward, ~));
         }
+
+#if n == 1
+        typedef typename details::plain<A0>::type argument_type;
+#elif n == 2
+        typedef typename details::plain<A0>::type first_argument_type;
+        typedef typename details::plain<A1>::type second_argument_type;
+#endif
     };
 
 
-#undef n
+#undef  fparams
+
+#undef  n
 #endif

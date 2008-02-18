@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_TO_STRING_HPP
 #define BOOST_EGG_TO_STRING_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,33 +12,23 @@
 
 
 #include <string>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include "./ambi.hpp"
-#include "./lexical.hpp"
+#include <boost/egg/ambi.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/lexical.hpp>
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
-    typedef
-        result_of_ambi0<
-            X_lexical_cast<std::string>::function_type
-        >::type
-    T_to_string;
+    typedef result_of_ambi0<X_lexical_cast<std::string>, by_cref>::type T_to_string;
+    BOOST_EGG_CONST((T_to_string), to_string) = BOOST_EGG_AMBI({});
 
-    PSTADE_POD_CONSTANT((T_to_string), to_string) = BOOST_EGG_AMBI({});
+    typedef result_of_ambi0<X_lexical_cast<std::wstring>, by_cref>::type T_to_wstring;
+    BOOST_EGG_CONST((T_to_wstring), to_wstring) = BOOST_EGG_AMBI({});
 
 
-    typedef
-        result_of_ambi0<
-            X_lexical_cast<std::wstring>::function_type
-        >::type
-    T_to_wstring;
-
-    PSTADE_POD_CONSTANT((T_to_wstring), to_wstring) = BOOST_EGG_AMBI({});
+} } // namespace boost::egg
 
 
-} } // namespace pstade::egg
-
-
+#include <boost/egg/detail/suffix.hpp>
 #endif

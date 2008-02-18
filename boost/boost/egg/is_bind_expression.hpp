@@ -1,6 +1,6 @@
 #ifndef BOOST_EGG_IS_BIND_EXPRESSION_HPP
 #define BOOST_EGG_IS_BIND_EXPRESSION_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -12,8 +12,8 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <boost/egg/pstade/enable_if.hpp>
-#include "./bll/functor_fwd.hpp"
+#include <boost/egg/bll/functor_fwd.hpp>
+#include <boost/egg/detail/enable_if.hpp>
 
 
 namespace boost { namespace _bi {
@@ -24,18 +24,54 @@ namespace boost { namespace _bi {
 } }
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
+
+    // enable_if layer
+    //
 
     template<class X, class EnableIf>
-    struct is_bind_expression_base :
-        boost::mpl::false_
+    struct is_bind_expression_set :
+        mpl::false_
     { };
 
 
+    // tag layer
+    //
+
+    template<class X>
+    struct bind_expression_tag
+    {
+        typedef void type;
+    };
+
+    template<class X>
+    struct bind_expression_tag<X const> :
+        bind_expression_tag<X>
+    { };
+
+    template<class X>
+    struct bind_expression_tag<X volatile> :
+        bind_expression_tag<X>
+    { };
+
+    template<class X>
+    struct bind_expression_tag<X const volatile> :
+        bind_expression_tag<X>
+    { };
+
+    template<class X, class Tag>
+    struct is_bind_expression_tagged :
+        is_bind_expression_set<X, details::enabler>
+    { };
+
+
+    // type layer
+    //
+
     template<class X>
     struct is_bind_expression :
-        is_bind_expression_base<X, enabler>
+        is_bind_expression_tagged<X, typename bind_expression_tag<X>::type>
     { };
 
     template<class X>
@@ -53,20 +89,26 @@ namespace pstade { namespace egg {
         is_bind_expression<X>
     { };
 
+    template<class X>
+    struct is_bind_expression<X &>;
+
+
+    // predefined customizations
+    //
 
     template<class T>
-    struct is_bind_expression< boost::lambda::lambda_functor<T> > :
-        boost::mpl::true_
+    struct is_bind_expression< lambda::lambda_functor<T> > :
+        mpl::true_
     { };
-
 
     template<class R, class F, class L>
-    struct is_bind_expression< boost::_bi::bind_t<R, F, L> > :
-        boost::mpl::true_
+    struct is_bind_expression< _bi::bind_t<R, F, L> > :
+        mpl::true_
     { };
 
 
-} } // namespace pstade::egg
+} } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif
