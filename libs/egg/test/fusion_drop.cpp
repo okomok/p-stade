@@ -15,7 +15,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/equal.hpp>
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/result_of.hpp>
 
@@ -92,10 +92,10 @@ void egg_test()
         namespace egg = boost::egg;
         int k = 999;
         tuple<char, int, double, int&> t('a', 1, 1.0, k);
-        BOOST_CHECK( egg::is_same(boost::get<3>(egg::fusion_drop_c<0>(t)), k) );
-        BOOST_CHECK( egg::is_same(boost::get<2>(egg::fusion_drop_c<1>(t)), k) );
-        BOOST_CHECK( egg::is_same(boost::get<1>(egg::fusion_drop_c<2>(t)), k) );
-        BOOST_CHECK( egg::is_same(boost::get<0>(egg::fusion_drop_c<3>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::get<3>(egg::fusion_drop_c<0>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::get<2>(egg::fusion_drop_c<1>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::get<1>(egg::fusion_drop_c<2>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::get<0>(egg::fusion_drop_c<3>(t)), k) );
 
         null_type nt;
         null_type nt_ = egg::fusion_drop_c<0>(nt);
@@ -114,10 +114,10 @@ void egg_test()
         namespace egg = boost::egg;
         int k = 999;
         vector<char, int, double, int&> t('a', 1, 1.0, k);
-        BOOST_CHECK( egg::is_same(boost::fusion::at_c<3>(egg::fusion_drop_c<0>(t)), k) );
-        BOOST_CHECK( egg::is_same(boost::fusion::at_c<2>(egg::fusion_drop_c<1>(t)), k) );
-        BOOST_CHECK( egg::is_same(boost::fusion::at_c<1>(egg::fusion_drop_c<2>(t)), k) );
-        BOOST_CHECK( egg::is_same(boost::fusion::at_c<0>(egg::fusion_drop_c<3>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<3>(egg::fusion_drop_c<0>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<2>(egg::fusion_drop_c<1>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<1>(egg::fusion_drop_c<2>(t)), k) );
+        BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<0>(egg::fusion_drop_c<3>(t)), k) );
         
         vector<> nt;
         BOOST_CHECK( boost::fusion::equal_to(egg::fusion_drop_c<0>(nt), nt) );

@@ -17,7 +17,7 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/result_of.hpp>
 
@@ -89,22 +89,22 @@ BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get< boo
 void egg_test()
 {
     pair_t p(1, 'a');
-    BOOST_CHECK( egg::is_same(p.first, egg::get_c<0>(p)) );
-    BOOST_CHECK( egg::is_same(p.second, egg::get_c<1>(p)) );
+    BOOST_CHECK( egg::is_same_obj(p.first, egg::get_c<0>(p)) );
+    BOOST_CHECK( egg::is_same_obj(p.second, egg::get_c<1>(p)) );
 
     tup_t t(p.first, 1.0);
-    BOOST_CHECK( egg::is_same(boost::get<0>(t), egg::get<boost::mpl::int_<0> >(t)) );
-    BOOST_CHECK( egg::is_same(boost::get<1>(t), egg::get<boost::mpl::int_<1> >(t)) );
+    BOOST_CHECK( egg::is_same_obj(boost::get<0>(t), egg::get<boost::mpl::int_<0> >(t)) );
+    BOOST_CHECK( egg::is_same_obj(boost::get<1>(t), egg::get<boost::mpl::int_<1> >(t)) );
 
-    BOOST_CHECK( egg::is_same(boost::get<0>(t), egg::get_c<0>(t)) );
-    BOOST_CHECK( egg::is_same(boost::get<1>(t), egg::get_c<1>(t)) );
+    BOOST_CHECK( egg::is_same_obj(boost::get<0>(t), egg::get_c<0>(t)) );
+    BOOST_CHECK( egg::is_same_obj(boost::get<1>(t), egg::get_c<1>(t)) );
 
 #if defined(BOOST_EGG_HAS_FUSIONS)
     seq_t s(p.first, 1.0);
-    BOOST_CHECK( egg::is_same(boost::fusion::at_c<0>(s), egg::get<boost::mpl::int_<0> >(s)) );
-    BOOST_CHECK( egg::is_same(boost::fusion::at_c<1>(s), egg::get<boost::mpl::int_<1> >(s)) );
+    BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<0>(s), egg::get<boost::mpl::int_<0> >(s)) );
+    BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<1>(s), egg::get<boost::mpl::int_<1> >(s)) );
 
-    BOOST_CHECK( egg::is_same(boost::fusion::at_c<0>(s), egg::get_c<0>(s)) );
-    BOOST_CHECK( egg::is_same(boost::fusion::at_c<1>(s), egg::get_c<1>(s)) );
+    BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<0>(s), egg::get_c<0>(s)) );
+    BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<1>(s), egg::get_c<1>(s)) );
 #endif
 }

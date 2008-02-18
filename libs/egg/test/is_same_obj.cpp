@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 #include "./egg_test.hpp"
 #include "./check_is_result_of.hpp"
 
@@ -22,11 +22,11 @@ CHECK_IS_RESULT_OF((bool), T_is_same(int, int&))
 void egg_test()
 {
     int x = 0;
-    BOOST_CHECK( egg::is_same(x, x) );
+    BOOST_CHECK( egg::is_same_obj(x, x) );
     int& y = x;
-    BOOST_CHECK( egg::is_same(x, y) );
+    BOOST_CHECK( egg::is_same_obj(x, y) );
 
     int z = 0;
-    BOOST_CHECK( !egg::is_same(x, z) );
-    BOOST_CHECK( !egg::is_same(y, z) );
+    BOOST_CHECK( !egg::is_same_obj(x, z) );
+    BOOST_CHECK( !egg::is_same_obj(y, z) );
 }
