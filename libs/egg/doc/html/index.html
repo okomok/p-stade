@@ -122,7 +122,7 @@
 </dl></dd>
 <dt><span class="section"><a href="egg/workarounds.html">Workarounds</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.egg__result_of">egg::result_of</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.result__of_">result_of_</a></span></dt>
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.detect_result_type_hpp">detect_result_type.hpp</a></span></dt>
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.use_deduced_form">use_deduced_form</a></span></dt>
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.const">CONST</a></span></dt>
@@ -304,7 +304,7 @@
 <span class="keyword">void</span> <span class="identifier">test_builder</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="comment">// Boost.ResultOf compatible
-</span>    <span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">T_plus</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">2</span><span class="special">);</span>
+</span>    <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_plus</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">2</span><span class="special">);</span>
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">r</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
 
     <span class="comment">// Boost.Lambda compatible
@@ -323,7 +323,7 @@
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">r</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
 
     <span class="comment">// Dynamic initialization without macros.
-</span>    <span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span> <span class="keyword">const</span> <span class="special">&amp;)&gt;::</span><span class="identifier">type</span> <span class="identifier">your_plus</span> <span class="special">=</span> <span class="identifier">pipable</span><span class="special">(</span><span class="identifier">plus</span><span class="special">);</span>
+</span>    <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span> <span class="keyword">const</span> <span class="special">&amp;)&gt;::</span><span class="identifier">type</span> <span class="identifier">your_plus</span> <span class="special">=</span> <span class="identifier">pipable</span><span class="special">(</span><span class="identifier">plus</span><span class="special">);</span>
     <span class="identifier">BOOST_CHECK</span><span class="special">((</span><span class="number">1</span><span class="special">|</span><span class="identifier">your_plus</span><span class="special">(</span><span class="number">2</span><span class="special">))</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
@@ -643,7 +643,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: February 18, 2008 at 19:38:49 GMT</p></small></td>
+<td align="left"><small><p>Last revised: February 18, 2008 at 20:17:11 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>
