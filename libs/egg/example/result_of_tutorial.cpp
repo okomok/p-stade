@@ -1,15 +1,14 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
 
 
 // Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/minimal_test.hpp>
+#include "../test/egg_test.hpp"
 
 
 
@@ -68,7 +67,7 @@ void test_nonconst()
 //]
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     test_lvalue();
     test_const();

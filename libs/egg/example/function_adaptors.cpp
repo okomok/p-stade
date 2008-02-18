@@ -1,10 +1,9 @@
-#include <boost/egg/pstade/detect_result_type.hpp>
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <boost/egg/detect_result_type.hpp>
 
 
 // Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -22,10 +21,10 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <functional>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include "../test/egg_test.hpp"
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 //[code_ambi_example
@@ -178,7 +177,7 @@ void test_pipable_pipable()
 
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     test_ambi();
     test_curry();

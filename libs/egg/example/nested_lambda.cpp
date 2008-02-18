@@ -1,9 +1,8 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
 
 
 // Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -11,7 +10,7 @@
 
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/bll.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include "../test/egg_test.hpp"
 
 
 #include <boost/egg/functional.hpp> // plus
@@ -19,7 +18,7 @@
 #include <boost/lambda/core.hpp>
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 namespace bll = boost::lambda;
 
 
@@ -39,9 +38,9 @@ T_my_apply const my_apply = {};
 result_of_lazy<T_my_apply>::type const my_Apply = BOOST_EGG_LAZY({});
 
 
-void pstade_minimal_test()
+void egg_test()
 {
-    pstade::result_of<T_lazy(T_plus const&)>::type Plus = lazy(plus);
+    boost::egg::result_of<T_lazy(T_plus const&)>::type Plus = lazy(plus);
 
     using bll::_1;
     using bll::_2;

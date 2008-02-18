@@ -1,15 +1,14 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
 
 
 // Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/lightweight_test.hpp>
+#include "../test/egg_test.hpp"
 
 
 #include <algorithm>
@@ -133,14 +132,14 @@ namespace little_function {
 //[code_concepts_little_function
 struct little_identity
 {
-    template<class _, class T>
+    template<class Self, class T>
     struct apply
     {
         typedef T &type;
     };
 
-    template<class _, class T>
-    _ call(T &x) const
+    template<class Auto, class T>
+    Auto call(T &x) const
     {
         return x;
     }
@@ -149,7 +148,7 @@ struct little_identity
 }
 
 
-void pstade_lightweight_test()
+void egg_test()
 {
     pipable_function_object::test();
     ambi_function_object::test();
