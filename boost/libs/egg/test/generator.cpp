@@ -189,7 +189,7 @@ void egg_test()
 
     {
         return_const<int> x = ::make_return_const(1);
-        BOOST_MPL_ASSERT(( boost::is_const<boost::egg::result_of< ::T_make_return_const(int) >::type> ));
+        BOOST_MPL_ASSERT(( boost::is_const<boost::egg::result_of_< ::T_make_return_const(int) >::type> ));
     }
 
     {

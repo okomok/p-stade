@@ -18,24 +18,24 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
-BOOST_MPL_ASSERT((boost::is_same<int&, result_of<T_unwrap_ref(int&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(int const&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(int)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(int const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, result_of_<T_unwrap_ref(int&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, result_of_<T_unwrap_ref(int const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, result_of_<T_unwrap_ref(int)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, result_of_<T_unwrap_ref(int const)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, result_of<T_unwrap_ref(boost::reference_wrapper<int>&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int&, result_of<T_unwrap_ref(boost::reference_wrapper<int> const&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int&, result_of<T_unwrap_ref(boost::reference_wrapper<int>)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int&, result_of<T_unwrap_ref(boost::reference_wrapper<int> const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, result_of_<T_unwrap_ref(boost::reference_wrapper<int>&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, result_of_<T_unwrap_ref(boost::reference_wrapper<int> const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, result_of_<T_unwrap_ref(boost::reference_wrapper<int>)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, result_of_<T_unwrap_ref(boost::reference_wrapper<int> const)>::type>));
 
 
-BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(boost::reference_wrapper<int const>&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(boost::reference_wrapper<int const> const&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(boost::reference_wrapper<int const>)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(boost::reference_wrapper<int const> const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, result_of_<T_unwrap_ref(boost::reference_wrapper<int const>&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, result_of_<T_unwrap_ref(boost::reference_wrapper<int const> const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, result_of_<T_unwrap_ref(boost::reference_wrapper<int const>)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, result_of_<T_unwrap_ref(boost::reference_wrapper<int const> const)>::type>));
 
 
 void egg_test()

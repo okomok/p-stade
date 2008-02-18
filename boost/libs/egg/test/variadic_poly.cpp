@@ -16,14 +16,14 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
 template<class Args>
 struct mono_second
 {
     typedef typename
-        result_of<X_get_c<1>(Args&)>::type
+        result_of_<X_get_c<1>(Args&)>::type
     result_type;
 
     result_type operator()(Args& args) const

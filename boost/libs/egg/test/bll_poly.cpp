@@ -59,14 +59,14 @@ struct null_op
 void egg_test()
 {
     {
-        boost::egg::result_of<T_bll_poly(ll::for_each)>::type adapted  = bll_poly(ll::for_each());
+        boost::egg::result_of_<T_bll_poly(ll::for_each)>::type adapted  = bll_poly(ll::for_each());
 
         std::string s;
         adapted(s.begin()|to_ref, s.end()|to_ref, null_op()|to_ref);
         ::adapted_equal_fun(s.begin()|to_ref, s.begin()|to_ref, s.begin()|to_ref);
     }
     {
-        boost::egg::result_of<T_bll_poly_nullary(::nullary_sig)>::type adapted = bll_poly_nullary(::nullary_sig());
+        boost::egg::result_of_<T_bll_poly_nullary(::nullary_sig)>::type adapted = bll_poly_nullary(::nullary_sig());
         BOOST_CHECK( adapted() == 0 );
         int i = 0;
         BOOST_CHECK( adapted(i, i) == 2 );

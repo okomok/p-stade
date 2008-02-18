@@ -33,35 +33,35 @@
 typedef std::pair<int, char> pair_t;
 
 // lvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get_c<0>(pair_t&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char&, boost::egg::result_of<X_get_c<1>(pair_t&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get_c<0>(pair_t&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<char&, boost::egg::result_of_<X_get_c<1>(pair_t&)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int const&, boost::egg::result_of<X_get_c<0>(pair_t const&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char const&, boost::egg::result_of<X_get_c<1>(pair_t const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, boost::egg::result_of_<X_get_c<0>(pair_t const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<char const&, boost::egg::result_of_<X_get_c<1>(pair_t const&)>::type>));
 
 // rvalue
-BOOST_MPL_ASSERT((boost::is_same<int const&, boost::egg::result_of<X_get_c<0>(pair_t)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char const&, boost::egg::result_of<X_get_c<1>(pair_t)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, boost::egg::result_of_<X_get_c<0>(pair_t)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<char const&, boost::egg::result_of_<X_get_c<1>(pair_t)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int const&, boost::egg::result_of<X_get_c<0>(pair_t const)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char const&, boost::egg::result_of<X_get_c<1>(pair_t const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, boost::egg::result_of_<X_get_c<0>(pair_t const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<char const&, boost::egg::result_of_<X_get_c<1>(pair_t const)>::type>));
 
 
 typedef boost::tuples::tuple<int&, double> tup_t;
 
 // lvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(tup_t&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double&, boost::egg::result_of<X_get<boost::mpl::int_<1> >(tup_t&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(tup_t&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double&, boost::egg::result_of_<X_get<boost::mpl::int_<1> >(tup_t&)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(tup_t const&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get<boost::mpl::int_<1> >(tup_t const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(tup_t const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of_<X_get<boost::mpl::int_<1> >(tup_t const&)>::type>));
 
 // rvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(tup_t)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get<boost::mpl::int_<1> >(tup_t)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(tup_t)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of_<X_get<boost::mpl::int_<1> >(tup_t)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(tup_t const)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get< boost::mpl::int_<1> >(tup_t const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(tup_t const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of_<X_get< boost::mpl::int_<1> >(tup_t const)>::type>));
 
 
 #if defined(BOOST_EGG_HAS_FUSIONS)
@@ -69,18 +69,18 @@ BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get< boo
 typedef boost::fusion::vector<int&, double> seq_t;
 
 // lvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(seq_t&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double&, boost::egg::result_of<X_get<boost::mpl::int_<1> >(seq_t&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(seq_t&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double&, boost::egg::result_of_<X_get<boost::mpl::int_<1> >(seq_t&)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(seq_t const&)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get<boost::mpl::int_<1> >(seq_t const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(seq_t const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of_<X_get<boost::mpl::int_<1> >(seq_t const&)>::type>));
 
 // rvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(seq_t)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get<boost::mpl::int_<1> >(seq_t)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(seq_t)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of_<X_get<boost::mpl::int_<1> >(seq_t)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of<X_get<boost::mpl::int_<0> >(seq_t const)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of<X_get< boost::mpl::int_<1> >(seq_t const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::egg::result_of_<X_get<boost::mpl::int_<0> >(seq_t const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::egg::result_of_<X_get< boost::mpl::int_<1> >(seq_t const)>::type>));
 
 #endif
 

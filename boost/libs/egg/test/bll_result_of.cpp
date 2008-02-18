@@ -22,7 +22,7 @@
 
 namespace bll = boost::lambda;
 using namespace boost::egg;
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
 // 1ary
@@ -85,26 +85,26 @@ void egg_test()
 
     {
         int i = 10;
-        result_of<T_bll_1(int&)>::type r = bll_1(i);
+        result_of_<T_bll_1(int&)>::type r = bll_1(i);
         BOOST_CHECK(&r == &i);
         BOOST_CHECK(r == 10);
     }
     {
         int const i = 10;
-        result_of<T_bll_1(int const&)>::type r = bll_1(i);
+        result_of_<T_bll_1(int const&)>::type r = bll_1(i);
         BOOST_CHECK(&r == &i);
         BOOST_CHECK(r == 10);
     }
 
 #if defined(BOOST_EGG_BLL_PERFECT_FUNCTORS)
     {
-        result_of<T_bll_1(int)>::type r = bll_1(10);
+        result_of_<T_bll_1(int)>::type r = bll_1(10);
         BOOST_CHECK(r == 10);
     }
 #endif
 
     {
-        typedef result_of<T_bll_bind(T_plus const&, int, T_bll_1 const&)>::type fun_t;
+        typedef result_of_<T_bll_bind(T_plus const&, int, T_bll_1 const&)>::type fun_t;
         fun_t fun = bll_bind(plus, 3, bll_1);
 
         CHECK_IS_RESULT_OF((int), fun_t(int&))
@@ -123,7 +123,7 @@ void egg_test()
     }
 
     {
-        typedef result_of<T_bll_bind(T_identity const&, T_bll_1 const&)>::type fun_t;
+        typedef result_of_<T_bll_bind(T_identity const&, T_bll_1 const&)>::type fun_t;
         fun_t fun = bll_bind(identity, bll_1);
 
         CHECK_IS_RESULT_OF((int&), fun_t(int&))
@@ -142,15 +142,15 @@ void egg_test()
     }
 
     { // nullary
-        typedef result_of<T_bll_bind(my_two)>::type T_f;
+        typedef result_of_<T_bll_bind(my_two)>::type T_f;
         T_f f = bll_bind(my_two());
-        result_of<T_f()>::type i = f();
+        result_of_<T_f()>::type i = f();
         BOOST_CHECK(i == 2);
     }
     { // nullary
-        typedef result_of<T_bll_bind const(my_two)>::type T_f;
+        typedef result_of_<T_bll_bind const(my_two)>::type T_f;
         T_f f = bll_bind(my_two());
-        result_of<T_f()>::type i = f();
+        result_of_<T_f()>::type i = f();
         BOOST_CHECK(i == 2);
     }
 }

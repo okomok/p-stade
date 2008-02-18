@@ -110,15 +110,15 @@ BOOST_EGG_CONST((T_big_arity), big_arity) = {{}};
 void egg_test()
 {
     {
-        boost::egg::result_of<T_foo(int, int)>::type x = foo(1, 2);
+        boost::egg::result_of_<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == 3 );
     }
     {
-        boost::egg::result_of<T_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
+        boost::egg::result_of_<T_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
         BOOST_CHECK( *x == 3 );
     }
     {
-        boost::egg::result_of<T_foo()>::type x = foo();
+        boost::egg::result_of_<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {

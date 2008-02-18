@@ -18,7 +18,7 @@
 #include <utility>
 
 
-using boost::egg::result_of;
+using boost::egg::result_of_;
 #include "./using_egg.hpp"
 
 
@@ -70,7 +70,7 @@ void bar(std::pair<int, char> p = constructor(3, 'c'))
 void egg_test()
 {
     {
-        result_of<X_construct<std::string>(char const*)>::type
+        result_of_<X_construct<std::string>(char const*)>::type
             x = X_construct<std::string>()("hello"|to_value);
         BOOST_CHECK( x == std::string("hello") );
     }

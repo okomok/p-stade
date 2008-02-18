@@ -91,16 +91,16 @@ void egg_test()
 {
     {
         int i = 1, j = 2;
-        boost::egg::result_of<T_foo(int&, int&)>::type x = foo(i, j);
+        boost::egg::result_of_<T_foo(int&, int&)>::type x = foo(i, j);
         BOOST_CHECK( x == 3 );
     }
     {
         int i = 1;
-        boost::egg::result_of<T_foo(int&)>::type x = foo(i);
+        boost::egg::result_of_<T_foo(int&)>::type x = foo(i);
         BOOST_CHECK( &i == &x );
     }
     {
-        boost::egg::result_of<T_foo()>::type x = foo();
+        boost::egg::result_of_<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {

@@ -44,7 +44,7 @@ struct my_fun0_t
 template< class FunctorWithResult >
 int foo(FunctorWithResult fun)
 {
-    typename boost::egg::result_of<FunctorWithResult(int)>::type x = fun(1, 2);
+    typename boost::egg::result_of_<FunctorWithResult(int)>::type x = fun(1, 2);
     return x;
 }
 
@@ -95,8 +95,8 @@ void egg_test()
 
     ::my_fun0_t my_fun0;
     {
-        boost::egg::result_of<
-            boost::egg::result_of<egg::X_return< int >(my_fun0_t)>::type()
+        boost::egg::result_of_<
+            boost::egg::result_of_<egg::X_return< int >(my_fun0_t)>::type()
         >::type result = egg::X_return< int >()(my_fun0)();
         BOOST_CHECK( result == 10 );
     }

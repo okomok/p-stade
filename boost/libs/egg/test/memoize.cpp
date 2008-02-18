@@ -43,7 +43,7 @@ void egg_unit_test()
         BOOST_CHECK(memoize(fib_block())(10) == 89);
     }
     {
-        boost::egg::result_of<T_memoize(fib_block)>::type mfib = memoize(fib_block());
+        boost::egg::result_of_<T_memoize(fib_block)>::type mfib = memoize(fib_block());
         BOOST_CHECK( mfib(10) == 89);
 
         bool thrown = false;

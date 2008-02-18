@@ -20,7 +20,7 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
 
@@ -107,18 +107,18 @@ BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(my::four, 2)
 BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(my::our::five, (int)(class)(int)(class))
 
 
-BOOST_MPL_ASSERT((boost::is_same<result_of<three()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<my::your::three()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<four<int,int>()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<my::four<int, int>()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<my::our::five<3, int, 2, int>()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<three()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<my::your::three()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<four<int,int>()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<my::four<int, int>()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<my::our::five<3, int, 2, int>()>::type, int>));
 
 
-BOOST_MPL_ASSERT((boost::is_same<result_of<three const()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<my::your::three const()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<four<int,int> const()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<my::four<int, int> const()>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<result_of<my::our::five<3, int, 2, int> const()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<three const()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<my::your::three const()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<four<int,int> const()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<my::four<int, int> const()>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<result_of_<my::our::five<3, int, 2, int> const()>::type, int>));
 
 
 void egg_test()
