@@ -1,4 +1,3 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
 
 
 // Boost.Egg
@@ -10,21 +9,16 @@
 
 
 #include "./egg_all.hpp"
-#undef BOOST_EGG_DETAIL_EGG_HPP
-#undef BOOST_EGG_EGG_DETAIL_PENDING_HPP
 #include "./egg_all.hpp"
-
-
-#include <boost/egg/pstade/minimal_test.hpp>
-
 
 #include <boost/egg/alias.hpp>
 
 
-using namespace pstade::egg;
-using pstade::egg::plus;
+using namespace boost::egg;
+using boost::egg::plus;
 
 
-void pstade_minimal_test()
+int main()
 {
+    return 0;
 }
