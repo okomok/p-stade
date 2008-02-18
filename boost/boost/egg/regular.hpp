@@ -31,7 +31,7 @@ namespace boost { namespace egg {
         {
             template<class Me, class Base>
             struct apply :
-                result_of<X_indirect<Strategy>(details::regularized<Base>)>
+                result_of_<X_indirect<Strategy>(details::regularized<Base>)>
             { };
 
             template<class Re, class Base>

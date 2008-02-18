@@ -98,8 +98,8 @@ namespace boost { namespace egg {
                 typedef 
                     From<
                         Expr, Strategy,
-                        typename result_of<
-                            typename result_of<details::T_tuple_fuse(X_pack<Strategy>)>::type(Args &)
+                        typename result_of_<
+                            typename result_of_<details::T_tuple_fuse(X_pack<Strategy>)>::type(Args &)
                         >::type
                     > const
                 type;

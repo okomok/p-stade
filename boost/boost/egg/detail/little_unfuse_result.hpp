@@ -34,8 +34,8 @@ namespace boost { namespace egg { namespace details {
 
     template<class Base, class Pack>
     struct nullary_result_of_fused :
-        result_of<
-            Base const(typename result_of<Pack()>::type)
+        result_of_<
+            Base const(typename result_of_<Pack()>::type)
         >
     { };
 
@@ -87,8 +87,8 @@ namespace boost { namespace egg { namespace details {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<
-            Base const(typename result_of<Pack(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
+        result_of_<
+            Base const(typename result_of_<Pack(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
         >
     { };
 

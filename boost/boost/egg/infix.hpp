@@ -66,14 +66,14 @@ namespace boost { namespace egg {
         }
 
         template<class Function, class Left, class Right> inline
-        typename result_of<Function(Left &, Right &)>::type
+        typename result_of_<Function(Left &, Right &)>::type
         operator^(infix_detail::thingy<Function, Left &> x, Right &right)
         {
             return x.m_fun(x.m_left, right);
         }
 
         template<class Function, class Left, class Right> inline
-        typename result_of<Function(Left &, Right const &)>::type
+        typename result_of_<Function(Left &, Right const &)>::type
         operator^(infix_detail::thingy<Function, Left &> x, Right const &right)
         {
             return x.m_fun(x.m_left, right);

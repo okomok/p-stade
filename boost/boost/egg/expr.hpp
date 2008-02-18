@@ -28,7 +28,7 @@ namespace boost { namespace egg {
 
     // X_mono needed for use_default specified as return type.
     template<class Signature, class Base> inline
-    boost::function<typename result_of<X_mono<Signature>(Base &)>::type::signature_type>
+    boost::function<typename result_of_<X_mono<Signature>(Base &)>::type::signature_type>
     expr(Base base)
     {
         return base;
@@ -37,7 +37,7 @@ namespace boost { namespace egg {
 #else
 
     template<class Signature, class Base> inline
-    typename result_of<X_mono<Signature>(Base &)>::type
+    typename result_of_<X_mono<Signature>(Base &)>::type
     expr(Base base)
     {
         return X_mono<Signature>()(base);

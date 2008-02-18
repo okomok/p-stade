@@ -44,10 +44,10 @@ namespace boost { namespace egg {
 
             template<class Me, class Args>
             struct apply :
-                result_of<
-                    typename result_of<
+                result_of_<
+                    typename result_of_<
                         details::T_tuple_fuse(Bind)
-                    >::type(typename result_of<details::X_tuple_prepend<by_ref>(Args &, Base const &)>::type)
+                    >::type(typename result_of_<details::X_tuple_prepend<by_ref>(Args &, Base const &)>::type)
                 >
             { };
 

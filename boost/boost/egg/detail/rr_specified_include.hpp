@@ -36,7 +36,7 @@
 
 
     template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_EGG_params, X) BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)> inline
-    typename result_of<BOOST_EGG_op<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_EGG_params, X)>(
+    typename result_of_<BOOST_EGG_op<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_EGG_params, X)>(
         BOOST_PP_ENUM_PARAMS(n, A)
     )>::type
     BOOST_EGG_name(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &&a))

@@ -38,7 +38,7 @@ namespace boost { namespace egg { namespace details {
         template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
         struct BOOST_EGG_APPLY_DECL;
 
-    #define BOOST_EGG_open_result_of(Z, I, _)  typename result_of<
+    #define BOOST_EGG_open_result_of(Z, I, _)  typename result_of_<
     #define BOOST_EGG_close_result_of(Z, I, _) >::type(typename result_of_forwarding<Strategy const, n, I, BOOST_PP_CAT(A, I)>::type)
     #define BOOST_EGG_paren(Z, I, _) ( egg::forwarding<Strategy const, n, I>(BOOST_PP_CAT(a, I)) )
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_ARITY, <boost/egg/detail/little_uncurry_result.hpp>))
@@ -59,7 +59,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<
+        result_of_<
             BOOST_PP_REPEAT_FROM_TO(1, n, BOOST_EGG_open_result_of, ~)
                 Base const(typename result_of_forwarding<Strategy const, n, 0, A0>::type)
             BOOST_PP_REPEAT_FROM_TO(1, n, BOOST_EGG_close_result_of, ~)

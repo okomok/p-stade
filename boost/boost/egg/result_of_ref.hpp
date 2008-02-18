@@ -15,7 +15,7 @@
 // What:
 //
 // Boost.ResultOf doesn't support:
-//     result_of<F &(int,...)>::type
+//     result_of_<F &(int,...)>::type
 // A target function sometimes may be a reference.
 
 
@@ -49,7 +49,7 @@ namespace boost { namespace egg {
 
     template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     struct result_of_ref<Fun(fparams)> :
-        result_of<
+        result_of_<
             typename remove_reference<Fun>::type(fparams)
         >
     { };

@@ -39,7 +39,7 @@ namespace boost { namespace egg {
 
             template<class Me, class A0, class A1>
             struct apply :
-                result_of<
+                result_of_<
                     Base const(
                         typename result_of_forwarding<Strategy, 2, 1, A1>::type,
                         typename result_of_forwarding<Strategy, 2, 0, A0>::type

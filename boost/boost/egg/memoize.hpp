@@ -39,8 +39,8 @@ namespace boost { namespace egg {
         {
             template<class Me, class Base, class Fixed, class Arg>
             struct apply :
-                result_of<
-                    typename result_of<Base(Fixed const &)>::type(Arg const &)
+                result_of_<
+                    typename result_of_<Base(Fixed const &)>::type(Arg const &)
                 >
             { };
 
@@ -74,10 +74,10 @@ namespace boost { namespace egg {
         {
             template<class Me, class Base_>
             struct apply :
-                result_of<
+                result_of_<
                     T_fix(
-                        typename result_of<
-                            typename result_of<T_curry3(wrap_)>::type(typename result_of<T_curry2(Base_ &)>::type)
+                        typename result_of_<
+                            typename result_of_<T_curry3(wrap_)>::type(typename result_of_<T_curry2(Base_ &)>::type)
                         >::type
                     )
                 >

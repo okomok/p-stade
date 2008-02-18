@@ -80,7 +80,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Tuple>
     struct apply_aux< Tuple, mpl::int_<n> > :
-        result_of<
+        result_of_<
             Base const( BOOST_PP_ENUM(n, BOOST_EGG_result_of_get, ~) )
         >
     { };

@@ -72,7 +72,7 @@
 #if n == 0
 
     template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_EGG_params, X)> inline
-    typename boost::egg::result_of<BOOST_EGG_op<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_EGG_params, X)>()>::type
+    typename boost::egg::result_of_<BOOST_EGG_op<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_EGG_params, X)>()>::type
     BOOST_EGG_name()
     {
         return BOOST_EGG_op<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_EGG_params, X)>()();

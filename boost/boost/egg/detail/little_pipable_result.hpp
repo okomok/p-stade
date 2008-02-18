@@ -47,10 +47,10 @@ namespace pipable_operators {
 
     template<class O, class Base, class Args>
     struct result_of_output :
-        result_of<
-            typename result_of<
+        result_of_<
+            typename result_of_<
                 T_tuple_fuse(Base const &)
-            >::type(typename result_of<X_tuple_prepend<by_ref>(Args const &, O &)>::type)
+            >::type(typename result_of_<X_tuple_prepend<by_ref>(Args const &, O &)>::type)
         >
     { };
 
@@ -178,7 +178,7 @@ namespace pipable_operators {
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         function_with<
-            typename result_of<X_pack<Strategy>(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type
+            typename result_of_<X_pack<Strategy>(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type
         >
     { };
 

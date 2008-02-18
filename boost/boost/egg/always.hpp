@@ -114,7 +114,7 @@ namespace boost { namespace egg {
 
             template<class Me, class T>
             struct apply :
-                result_of<unfuse_t(fused_result<T> &)>
+                result_of_<unfuse_t(fused_result<T> &)>
             { };
 
             template<class Re, class T>

@@ -63,7 +63,7 @@ namespace boost { namespace egg {
 
     template<class Fun, class Args>
     struct aux_< Fun, Args, mpl::int_<n> > :
-        result_of<
+        result_of_<
             Fun(BOOST_PP_ENUM(n, BOOST_EGG_element, ~))
         >
     { };

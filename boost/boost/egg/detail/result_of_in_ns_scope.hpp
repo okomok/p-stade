@@ -41,7 +41,7 @@
 #else
 
     #define BOOST_EGG_RESULT_OF_IN_NS_SCOPE(F, ArgSeq) \
-        typename boost::egg::result_of< \
+        typename boost::egg::result_of_< \
             BOOST_EGG_UNPAREN_TPL(F)(BOOST_PP_SEQ_ENUM(ArgSeq)) \
         >::type \
     /**/

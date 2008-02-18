@@ -69,7 +69,7 @@ namespace boost { namespace egg {
 
     template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
     struct apply<Me, Base BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)> :
-        result_of<BOOST_PP_CAT(X_bind, n)<NullaryResult>(Base & BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg))>
+        result_of_<BOOST_PP_CAT(X_bind, n)<NullaryResult>(Base & BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg))>
     { };
 
     template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>

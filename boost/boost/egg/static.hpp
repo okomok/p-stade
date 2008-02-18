@@ -30,8 +30,8 @@ namespace boost { namespace egg {
         {
             template<class Me, class Args>
             struct apply :
-                result_of<
-                    typename result_of<details::T_tuple_fuse(Fun)>::type(Args &)
+                result_of_<
+                    typename result_of_<details::T_tuple_fuse(Fun)>::type(Args &)
                 >
             { };
 

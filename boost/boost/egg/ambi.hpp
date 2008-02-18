@@ -88,7 +88,7 @@ namespace boost { namespace egg {
         // as function call
             template<class Me, class A0>
             struct apply :
-                result_of<Base const(typename result_of_forward<Bytag, A0>::type)>
+                result_of_<Base const(typename result_of_forward<Bytag, A0>::type)>
             { };
 
             template<class Re, class A0>
@@ -103,8 +103,8 @@ namespace boost { namespace egg {
         // as pipe
             template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-                result_of<
-                    typename result_of<X_pipable<Bytag, Bytag>(Base const &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))
+                result_of_<
+                    typename result_of_<X_pipable<Bytag, Bytag>(Base const &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))
                 >
             { };
 
@@ -117,7 +117,7 @@ namespace boost { namespace egg {
         // as function call
             template<class Me, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Me, O, BOOST_PP_ENUM_PARAMS(n, A)> :
-                result_of<Base const(typename result_of_forward<Bytag, O>::type, BOOST_EGG_FORWARDING_META_ARGS(n, A, Bytag const))>
+                result_of_<Base const(typename result_of_forward<Bytag, O>::type, BOOST_EGG_FORWARDING_META_ARGS(n, A, Bytag const))>
             { };
 
             template<class Re, class O, BOOST_PP_ENUM_PARAMS(n, class A)>
@@ -140,14 +140,14 @@ namespace boost { namespace egg {
         //
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of<Base(O &)> >::type
+        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of_<Base(O &)> >::type
         operator|(O &o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
         }
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
+        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of_<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
         operator|(O const &o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
@@ -155,7 +155,7 @@ namespace boost { namespace egg {
 
         // by_value
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_same<Bytag, by_value>, result_of<Base(O)> >::type
+        typename lazy_enable_if< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
         operator|(O o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(egg::forward<by_value>(o));
@@ -166,14 +166,14 @@ namespace boost { namespace egg {
         //
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of<Base(O &)> >::type
+        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of_<Base(O &)> >::type
         operator|=(function<little_result<Base, Bytag>, Bytag> pi, O &o)
         {
             return pi.little().m_base(o);
         }
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
+        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of_<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
         operator|=(function<little_result<Base, Bytag>, Bytag> pi, O const &o)
         {
             return pi.little().m_base(o);
@@ -181,7 +181,7 @@ namespace boost { namespace egg {
 
         // by_value
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_same<Bytag, by_value>, result_of<Base(O)> >::type
+        typename lazy_enable_if< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
         operator|=(function<little_result<Base, Bytag>, Bytag> pi, O o)
         {
             return pi.little().m_base(egg::forward<by_value>(o));
