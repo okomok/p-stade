@@ -14,7 +14,7 @@
 #include <boost/egg/identity.hpp>
 #include <boost/egg/bll.hpp>
 #include <boost/egg/result_of.hpp>
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
@@ -35,30 +35,30 @@ struct A
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((A&), T_identity(A&))
-PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const&))
-PSTADE_TEST_IS_RESULT_OF((A volatile&), T_identity(A volatile&))
-PSTADE_TEST_IS_RESULT_OF((A const volatile&), T_identity(A const volatile&))
-PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A))
-PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const))
+CHECK_IS_RESULT_OF((A&), T_identity(A&))
+CHECK_IS_RESULT_OF((A const&), T_identity(A const&))
+CHECK_IS_RESULT_OF((A volatile&), T_identity(A volatile&))
+CHECK_IS_RESULT_OF((A const volatile&), T_identity(A const volatile&))
+CHECK_IS_RESULT_OF((A const&), T_identity(A))
+CHECK_IS_RESULT_OF((A const&), T_identity(A const))
 
 #if 0 // rvalue udt seems illegal according to Comeau.
-PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A volatile))
-PSTADE_TEST_IS_RESULT_OF((A const&), T_identity(A const volatile))
+CHECK_IS_RESULT_OF((A const&), T_identity(A volatile))
+CHECK_IS_RESULT_OF((A const&), T_identity(A const volatile))
 #endif
 
 
 typedef result_of<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
-PSTADE_TEST_IS_RESULT_OF((A&), func_t(A&))
-PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const&))
-PSTADE_TEST_IS_RESULT_OF((A volatile&), func_t(A volatile&))
-PSTADE_TEST_IS_RESULT_OF((A const volatile&), func_t(A const volatile&))
+CHECK_IS_RESULT_OF((A&), func_t(A&))
+CHECK_IS_RESULT_OF((A const&), func_t(A const&))
+CHECK_IS_RESULT_OF((A volatile&), func_t(A volatile&))
+CHECK_IS_RESULT_OF((A const volatile&), func_t(A const volatile&))
 #if defined(BOOST_EGG_BLL_PERFECT_FUNCTORS)
-    PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A))
-    PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const))
+    CHECK_IS_RESULT_OF((A const&), func_t(A))
+    CHECK_IS_RESULT_OF((A const&), func_t(A const))
 #if 0 // rvalue udt seems illegal according to Comeau.
-    PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A volatile))
-    PSTADE_TEST_IS_RESULT_OF((A const&), func_t(A const volatile))
+    CHECK_IS_RESULT_OF((A const&), func_t(A volatile))
+    CHECK_IS_RESULT_OF((A const&), func_t(A const volatile))
 #endif
 #endif
 

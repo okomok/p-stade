@@ -12,7 +12,7 @@
 #include "./egg_unit_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
@@ -28,12 +28,12 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), X_auto_new<int>())
-PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), X_auto_new<int>(int))
+CHECK_IS_RESULT_OF((std::auto_ptr<int>), X_auto_new<int>())
+CHECK_IS_RESULT_OF((std::auto_ptr<int>), X_auto_new<int>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<udt>), X_auto_new<udt>(int,int))
-PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<udt const>), X_auto_new<udt const>(int,int))
+CHECK_IS_RESULT_OF((std::auto_ptr<udt>), X_auto_new<udt>(int,int))
+CHECK_IS_RESULT_OF((std::auto_ptr<udt const>), X_auto_new<udt const>(int,int))
 
 
 void egg_unit_test()

@@ -14,37 +14,37 @@
 #include <boost/egg/identity.hpp>
 #include <boost/egg/bll.hpp>
 #include <boost/egg/result_of.hpp>
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
 using boost::egg::result_of;
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&))
-PSTADE_TEST_IS_RESULT_OF((int volatile&), T_identity(int volatile&))
-PSTADE_TEST_IS_RESULT_OF((int const volatile&), T_identity(int const volatile&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
+CHECK_IS_RESULT_OF((int&), T_identity(int&))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const&))
+CHECK_IS_RESULT_OF((int volatile&), T_identity(int volatile&))
+CHECK_IS_RESULT_OF((int const volatile&), T_identity(int const volatile&))
+CHECK_IS_RESULT_OF((int const&), T_identity(int))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const))
 #if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
 // intel propagate cv-qualifiers.
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int volatile))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const volatile))
+CHECK_IS_RESULT_OF((int const&), T_identity(int volatile))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const volatile))
 #endif
 
 typedef result_of<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
-PSTADE_TEST_IS_RESULT_OF((int&), func_t(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int const&))
-PSTADE_TEST_IS_RESULT_OF((int volatile&), func_t(int volatile&))
-PSTADE_TEST_IS_RESULT_OF((int const volatile&), func_t(int const volatile&))
+CHECK_IS_RESULT_OF((int&), func_t(int&))
+CHECK_IS_RESULT_OF((int const&), func_t(int const&))
+CHECK_IS_RESULT_OF((int volatile&), func_t(int volatile&))
+CHECK_IS_RESULT_OF((int const volatile&), func_t(int const volatile&))
 #if defined(BOOST_EGG_BLL_PERFECT_FUNCTORS)
-    PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int))
-    PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int const))
+    CHECK_IS_RESULT_OF((int const&), func_t(int))
+    CHECK_IS_RESULT_OF((int const&), func_t(int const))
 #if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
 // intel propagate cv-qualifiers.
-    PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int volatile))
-    PSTADE_TEST_IS_RESULT_OF((int const&), func_t(int const volatile))
+    CHECK_IS_RESULT_OF((int const&), func_t(int volatile))
+    CHECK_IS_RESULT_OF((int const&), func_t(int const volatile))
 #endif
 #endif
 

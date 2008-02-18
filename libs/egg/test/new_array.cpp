@@ -12,7 +12,7 @@
 #include "./egg_unit_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
@@ -22,11 +22,11 @@ struct udt
 {};
 
 
-PSTADE_TEST_IS_RESULT_OF((int *), X_new_array<int>(int))
+CHECK_IS_RESULT_OF((int *), X_new_array<int>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((udt *), X_new_array<udt>(int))
-PSTADE_TEST_IS_RESULT_OF((udt const*), X_new_array<udt const>(int))
+CHECK_IS_RESULT_OF((udt *), X_new_array<udt>(int))
+CHECK_IS_RESULT_OF((udt const*), X_new_array<udt const>(int))
 
 
 void egg_unit_test()

@@ -12,19 +12,19 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 #include <boost/egg/by_value.hpp>
 
 
 #include "./using_egg.hpp"
 
 
-PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int const&))
-PSTADE_TEST_IS_RESULT_OF((const int&), T_identity(int const))
+CHECK_IS_RESULT_OF((const int&), T_identity(int))
+CHECK_IS_RESULT_OF((int&), T_identity(int&))
+CHECK_IS_RESULT_OF((const int&), T_identity(int const&))
+CHECK_IS_RESULT_OF((const int&), T_identity(int const))
 
-PSTADE_TEST_IS_RESULT_OF((int), X_identity<by_value>(int&))
+CHECK_IS_RESULT_OF((int), X_identity<by_value>(int&))
 
 
 void egg_test()

@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/static_downcast.hpp>
-#include "./egg_test.hpp"
+#include "./egg_unit_test.hpp"
 
 
 #include <boost/noncopyable.hpp>
@@ -25,7 +25,8 @@ BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t const>));
 BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t volatile>));
 BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t volatile const>));
 
-void egg_test()
+
+void egg_unit_test()
 {
     polymorphic_base_t B;
     polymorphic_base_t const& rB = B;

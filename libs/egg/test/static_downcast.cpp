@@ -14,7 +14,6 @@
 
 #include <iostream>
 #include <boost/noncopyable.hpp>
-#include <pstade/unused.hpp>
 #include <boost/egg/is_same.hpp>
 
 

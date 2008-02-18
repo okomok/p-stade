@@ -12,7 +12,7 @@
 #include "./egg_unit_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 #include <boost/mpl/apply.hpp>
 
 
@@ -29,12 +29,12 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((int *), X_ptr_new<int *>())
-PSTADE_TEST_IS_RESULT_OF((int *), X_ptr_new<int *>(int))
+CHECK_IS_RESULT_OF((int *), X_ptr_new<int *>())
+CHECK_IS_RESULT_OF((int *), X_ptr_new<int *>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((udt *), X_ptr_new<udt *>(int,int))
-PSTADE_TEST_IS_RESULT_OF((udt const*), X_ptr_new<udt const *>(int,int))
+CHECK_IS_RESULT_OF((udt *), X_ptr_new<udt *>(int,int))
+CHECK_IS_RESULT_OF((udt const*), X_ptr_new<udt const *>(int,int))
 
 
 void egg_unit_test()

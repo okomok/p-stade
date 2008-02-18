@@ -10,15 +10,13 @@
 
 #include <boost/egg/is_same.hpp>
 #include "./egg_test.hpp"
-
-
-#include <boost/egg/pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
 
 
-PSTADE_TEST_IS_RESULT_OF((bool), T_is_same(int, int&))
+CHECK_IS_RESULT_OF((bool), T_is_same(int, int&))
 
 
 void egg_test()

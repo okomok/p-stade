@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 #include <boost/egg/const.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -138,26 +138,26 @@ typedef boost::egg::poly< base_neg, boost::use_default, boost::egg::use_nullary_
 BOOST_EGG_CONST((T_neg), neg) = BOOST_EGG_POLY();
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&))
+CHECK_IS_RESULT_OF((int&), T_identity(int&))
+CHECK_IS_RESULT_OF((int const&), T_identity(int))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const&))
 
-PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&, int))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int, int))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const, int))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&, int))
+CHECK_IS_RESULT_OF((int&), T_identity(int&, int))
+CHECK_IS_RESULT_OF((int const&), T_identity(int, int))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const, int))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const&, int))
 
-PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char))
-PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char &))
-PSTADE_TEST_IS_RESULT_OF((std::string), T_identity(char const&))
+CHECK_IS_RESULT_OF((std::string), T_identity(char))
+CHECK_IS_RESULT_OF((std::string), T_identity(char &))
+CHECK_IS_RESULT_OF((std::string), T_identity(char const&))
 
 
-PSTADE_TEST_IS_RESULT_OF((int), T_nplus(int&, int))
-PSTADE_TEST_IS_RESULT_OF((int const), T_nplus(int, int, int))
+CHECK_IS_RESULT_OF((int), T_nplus(int&, int))
+CHECK_IS_RESULT_OF((int const), T_nplus(int, int, int))
 
-PSTADE_TEST_IS_RESULT_OF((int), T_neg(int&))
-PSTADE_TEST_IS_RESULT_OF((char), T_neg())
+CHECK_IS_RESULT_OF((int), T_neg(int&))
+CHECK_IS_RESULT_OF((char), T_neg())
 
 
 struct nc_t : boost::noncopyable

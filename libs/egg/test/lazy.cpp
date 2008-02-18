@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 #include <boost/egg/const.hpp>
 #include <boost/egg/bll/placeholders.hpp>
 #include <boost/egg/to_ref.hpp>
