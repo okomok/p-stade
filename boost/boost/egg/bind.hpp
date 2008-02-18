@@ -39,10 +39,10 @@ namespace boost { namespace egg {
             template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
             struct BOOST_EGG_APPLY_DECL;
 
-        #define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <boost/egg/bind.hpp>))
+        #define BOOST_EGG_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_max_arity, <boost/egg/bind.hpp>))
             #include BOOST_PP_ITERATE()
-        #undef  PSTADE_max_arity
+        #undef  BOOST_EGG_max_arity
         };
 
 

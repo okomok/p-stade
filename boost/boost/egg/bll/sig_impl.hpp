@@ -34,10 +34,10 @@ namespace boost { namespace egg {
         template<class Fun, class Args, class Arity>
         struct aux_;
 
-    #define PSTADE_element(Z, N, _) typename tuples::element<N, Args>::type &
+    #define BOOST_EGG_element(Z, N, _) typename tuples::element<N, Args>::type &
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_BLL_BIND_TARGET_MAX_ARITY, <boost/egg/bll/sig_impl.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_element
+    #undef  BOOST_EGG_element
 
 
     } // namespace bll_sig_impl_detail
@@ -64,7 +64,7 @@ namespace boost { namespace egg {
     template<class Fun, class Args>
     struct aux_< Fun, Args, mpl::int_<n> > :
         result_of<
-            Fun(BOOST_PP_ENUM(n, PSTADE_element, ~))
+            Fun(BOOST_PP_ENUM(n, BOOST_EGG_element, ~))
         >
     { };
 

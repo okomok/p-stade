@@ -29,22 +29,22 @@ namespace boost { namespace egg { namespace details {
 
 // GCC needs arity parameter to succeed at specialization.
 // Note VC++ would crash with this.
-#define PSTADE_arity_param() \
+#define BOOST_EGG_arity_param() \
     BOOST_MPL_AUX_LAMBDA_ARITY_PARAM( \
         class Arity = mpl::int_<mpl::aux::template_arity<X>::value>) \
 /**/
-#define PSTADE_arity(N) \
+#define BOOST_EGG_arity(N) \
     BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(mpl::int_<N>) \
 /**/
 
-#define PSTADE_at_c(z, N, _) \
+#define BOOST_EGG_at_c(z, N, _) \
     typename mpl::at_c<ArgumentSeq, N>::type \
 /**/
 
 
     template<
         class X
-        PSTADE_arity_param()
+        BOOST_EGG_arity_param()
     >
     struct template_arguments_of
     {
@@ -55,7 +55,7 @@ namespace boost { namespace egg { namespace details {
     template<
         class ArgumentSeq,
         class X
-        PSTADE_arity_param()
+        BOOST_EGG_arity_param()
     >
     struct template_arguments_copy
     {
@@ -68,9 +68,9 @@ namespace boost { namespace egg { namespace details {
     #include BOOST_PP_ITERATE()
 
 
-#undef  PSTADE_at_c
-#undef  PSTADE_arity
-#undef  PSTADE_arity_param
+#undef  BOOST_EGG_at_c
+#undef  BOOST_EGG_arity
+#undef  BOOST_EGG_arity_param
 
 
 } } } // namespace boost::egg::details
@@ -85,7 +85,7 @@ namespace boost { namespace egg { namespace details {
         template<BOOST_PP_ENUM_PARAMS(n, class _)> class X,
         BOOST_PP_ENUM_PARAMS(n, class T)
     >
-    struct template_arguments_of< X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n) >
+    struct template_arguments_of< X<BOOST_PP_ENUM_PARAMS(n, T)> BOOST_EGG_arity(n) >
     {
         // must be the numbered form for MPL PlaceholderExpression.
         typedef mpl::BOOST_PP_CAT(vector, n)<BOOST_PP_ENUM_PARAMS(n, T)> type;
@@ -97,9 +97,9 @@ namespace boost { namespace egg { namespace details {
         template<BOOST_PP_ENUM_PARAMS(n, class _)> class X,
         BOOST_PP_ENUM_PARAMS(n, class T)
     >
-    struct template_arguments_copy< ArgumentSeq, X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n) >
+    struct template_arguments_copy< ArgumentSeq, X<BOOST_PP_ENUM_PARAMS(n, T)> BOOST_EGG_arity(n) >
     {
-        typedef X<BOOST_PP_ENUM(n, PSTADE_at_c, ~)> type;
+        typedef X<BOOST_PP_ENUM(n, BOOST_EGG_at_c, ~)> type;
     };
 
 

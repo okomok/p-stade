@@ -47,10 +47,10 @@ namespace boost { namespace egg {
             return m_little;
         }
 
-    #define PSTADE_const(Z, N, A) BOOST_EGG_DEDUCED_CONST(BOOST_PP_CAT(A, N))
+    #define BOOST_EGG_const(Z, N, A) BOOST_EGG_DEDUCED_CONST(BOOST_PP_CAT(A, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_cref.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_const
+    #undef  BOOST_EGG_const
     };
 
 
@@ -79,7 +79,7 @@ namespace boost { namespace egg {
 
 
     BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
-    typename apply_little<Little const BOOST_PP_ENUM_TRAILING(n, PSTADE_const, A)>::type
+    typename apply_little<Little const BOOST_PP_ENUM_TRAILING(n, BOOST_EGG_const, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const &a)) const
     {
         return call_little(m_little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));

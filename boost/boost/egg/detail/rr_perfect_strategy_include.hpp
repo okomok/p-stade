@@ -12,15 +12,15 @@
 #if !defined(BOOST_EGG_PERFECT_STRATEGY_PARAMS)
     #error Please define BOOST_EGG_PERFECT_STRATEGY_PARAMS.
 #endif
-#define PSTADE_stg     BOOST_PP_TUPLE_ELEM(2, 0, BOOST_EGG_PERFECT_STRATEGY_PARAMS)
-#define PSTADE_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(2, 1, BOOST_EGG_PERFECT_STRATEGY_PARAMS))
+#define BOOST_EGG_stg     BOOST_PP_TUPLE_ELEM(2, 0, BOOST_EGG_PERFECT_STRATEGY_PARAMS)
+#define BOOST_EGG_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(2, 1, BOOST_EGG_PERFECT_STRATEGY_PARAMS))
 
 
 namespace boost { namespace egg {
 
 
     template<class Little>
-    struct function<Little, PSTADE_stg>
+    struct function<Little, BOOST_EGG_stg>
     {
         #include BOOST_EGG_FUNCTION_PREAMBLE()
 
@@ -32,7 +32,7 @@ namespace boost { namespace egg {
         }
 
     // 0ary-
-        #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (PSTADE_arities, <boost/egg/detail/native_perfect_strategy_include.hpp>)
+        #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (BOOST_EGG_arities, <boost/egg/detail/native_perfect_strategy_include.hpp>)
         #include BOOST_EGG_PP_ARRAY_ITERATE()
     };
 
@@ -40,8 +40,8 @@ namespace boost { namespace egg {
 } } // namespace boost::egg
 
 
-#undef  PSTADE_arities
-#undef  PSTADE_stg
+#undef  BOOST_EGG_arities
+#undef  BOOST_EGG_stg
 #undef  BOOST_EGG_PERFECT_STRATEGY_PARAMS
 
 

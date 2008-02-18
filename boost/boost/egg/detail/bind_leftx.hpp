@@ -42,12 +42,12 @@ namespace boost { namespace egg { namespace details {
     #define BOOST_EGG_BIND_LEFTX_INIT {{}}
 
 
-#define PSTADE_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
-#define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_ARITY)
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <boost/egg/detail/bind_leftx.hpp>))
+#define BOOST_EGG_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
+#define BOOST_EGG_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_ARITY)
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, BOOST_EGG_max_arity, <boost/egg/detail/bind_leftx.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_max_arity
-#undef  PSTADE_arg
+#undef  BOOST_EGG_max_arity
+#undef  BOOST_EGG_arg
 
 
 } } } // namespace boost::egg::details
@@ -62,7 +62,7 @@ namespace boost { namespace egg { namespace details {
     struct BOOST_EGG_PP_CAT3(little_bind_left, n, _result)
     {
         Base m_base;
-        BOOST_PP_REPEAT(n, PSTADE_arg, ~)
+        BOOST_PP_REPEAT(n, BOOST_EGG_arg, ~)
 
         Base const &base() const
         {

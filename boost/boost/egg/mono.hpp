@@ -38,10 +38,10 @@ namespace boost { namespace egg {
         template<class Base, class Signature>
         struct result_;
 
-    #define PSTADE_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
+    #define BOOST_EGG_forward(Z, N, _) boost::implicit_cast<BOOST_PP_CAT(A, N)>(BOOST_PP_CAT(a, N))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/mono.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_forward
+    #undef  BOOST_EGG_forward
 
 
     } // namespace mono_detail
@@ -105,7 +105,7 @@ namespace boost { namespace egg {
 
         result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
         {
-            return m_base(BOOST_PP_ENUM(n, PSTADE_forward, ~));
+            return m_base(BOOST_PP_ENUM(n, BOOST_EGG_forward, ~));
         }
 
 #if n == 1
