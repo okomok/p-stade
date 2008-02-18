@@ -50,7 +50,7 @@ BOOST_EGG_ADL_BARRIER(bool_testable) {
         // Prefer 'friend' to member for disambiguity.
         // One of base classes may have its own member 'operator!()'.
         friend
-        bool operator !(Derived const& x)
+        bool operator !(Derived const &x)
         {
             return !boost::implicit_cast<safe_bool>(x);
         }
@@ -60,14 +60,14 @@ BOOST_EGG_ADL_BARRIER(bool_testable) {
     // You must win the overloading race against...
     //
     template<class D1, class I1, class D2, class I2> inline
-    bool operator==(bool_testable<D1, I1> const& x, bool_testable<D2, I2> const&)
+    bool operator==(bool_testable<D1, I1> const &x, bool_testable<D2, I2> const &)
     {
         x.does_not_support_comparisons();
         return false;
     }
 
     template<class D1, class I1, class D2, class I2> inline
-    bool operator!=(bool_testable<D1, I1> const& x, bool_testable<D2, I2> const&)
+    bool operator!=(bool_testable<D1, I1> const &x, bool_testable<D2, I2> const &)
     {
         x.does_not_support_comparisons();
         return false;

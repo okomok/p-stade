@@ -23,7 +23,7 @@ BOOST_EGG_ADL_BARRIER(swappable) {
         Injector
     {
         friend
-        void swap(Derived& x, Derived& y)
+        void swap(Derived &x, Derived &y)
         {
             x.swap(y);
         }
