@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,13 +9,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/make_function.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/make_function.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/pstade/test.hpp>
-#include <boost/egg/by_value.hpp>
-#include <boost/egg/by_perfect.hpp>
+#include <pstade/test.hpp>
+#include <pstade/egg/by_value.hpp>
+#include <pstade/egg/by_perfect.hpp>
 
 
 #include <boost/utility/addressof.hpp>
@@ -27,14 +27,14 @@ using namespace egg;
 
 struct little
 {
-    template<class Myself, class A>
+    template<class Me, class A>
     struct apply
     {
         typedef A& type;
     };
 
-    template<class Result, class A>
-    Result call(A& a) const
+    template<class Re, class A>
+    Re call(A& a) const
     {
         return a;
     }

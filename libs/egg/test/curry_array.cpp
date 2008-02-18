@@ -1,4 +1,4 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,18 +9,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/curry.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/curry.hpp>
+#include <pstade/minimal_test.hpp>
+
+#include <boost/ref.hpp>
 
 
 struct array_size
 {
     typedef int result_type;
 
-    template<std::size_t sz>
-    int operator()(int const (&)[sz], int) const
+    int operator()(int const (&)[10], int) const
     {
-        return sz;
+        return 10;
     }
 };
 
@@ -31,6 +32,6 @@ void pstade_minimal_test()
 
     {
         int arr[10] = {};
-        BOOST_CHECK(10 == curry2(array_size())(arr)(999));
+        BOOST_CHECK(10 == curry2(array_size())(boost::ref(arr))(999));
     }
 }

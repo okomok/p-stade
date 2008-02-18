@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,15 +9,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/function.hpp>
-#include <boost/egg/fuse.hpp>
-#include <boost/egg/unfuse.hpp>
-#include <boost/egg/curry.hpp>
-#include <boost/egg/uncurry.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/fuse.hpp>
+#include <pstade/egg/unfuse.hpp>
+#include <pstade/egg/curry.hpp>
+#include <pstade/egg/uncurry.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/deduced_form.hpp> // check it.
+#include <pstade/egg/use_deduced_form.hpp> // check it.
 
 
 #include <boost/utility/addressof.hpp>
@@ -49,15 +49,17 @@ my_func3;
 // borns now.
 struct my_little
 {
-    template<class Myself, class A1, class A2, class A3, class A4>
+    template<class Me, class A1, class A2, class A3, class A4>
     struct apply
     {
         typedef A1 &type;
     };
 
-    template<class Result, class A1, class A2, class A3, class A4>
-    Result call(A1 &a1, A2 &, A3 &, A4 &) const
+    template<class Re, class A1, class A2, class A3, class A4>
+    Re call(A1 &a1, A2 &a2, A3 &a3, A4 &a4) const
     {
+        if (!&a1)
+            my_func()(a1, a2, a3, a4); // call myself.
         return a1;
     }
 };

@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,11 +9,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/new.hpp>
-#include <boost/egg/pstade/unit_test.hpp>
+#include <pstade/egg/new.hpp>
+#include <pstade/unit_test.hpp>
 
 
-#include <boost/egg/pstade/test.hpp>
+#include <pstade/test.hpp>
 
 
 namespace egg = pstade::egg;
@@ -30,18 +30,18 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((int *), X_new_<int>())
-PSTADE_TEST_IS_RESULT_OF((int *), X_new_<int>(int))
+PSTADE_TEST_IS_RESULT_OF((int *), X_new<int>())
+PSTADE_TEST_IS_RESULT_OF((int *), X_new<int>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((udt *), X_new_<udt>(int,int))
-PSTADE_TEST_IS_RESULT_OF((udt const*), X_new_<udt const>(int,int))
+PSTADE_TEST_IS_RESULT_OF((udt *), X_new<udt>(int,int))
+PSTADE_TEST_IS_RESULT_OF((udt const*), X_new<udt const>(int,int))
 
 
 void pstade_unit_test()
 {
     {
-        udt *p = X_new_<udt>()(1,2);
+        udt *p = X_new<udt>()(1,2);
         BOOST_CHECK(p->m_i == 1);
         BOOST_CHECK(p->m_j == 2);
         delete p;

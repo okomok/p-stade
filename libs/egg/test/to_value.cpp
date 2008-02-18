@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,11 +9,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/to_value.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/to_value.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/pstade/test.hpp>
+#include <pstade/test.hpp>
+#include <memory>
 
 
 namespace egg = pstade::egg;
@@ -34,5 +35,11 @@ void pstade_minimal_test()
         BOOST_CHECK( (i|to_value) == 3 );
         BOOST_CHECK( (i|to_value()) == 3 );
         BOOST_CHECK( to_value(3) == 3 );
+    }
+    {
+        std::auto_ptr<int> x(new int(3));
+        std::auto_ptr<int> x_ = x|to_value;
+        x_ = x_|to_value();
+        x_ = to_value(x_);
     }
 }

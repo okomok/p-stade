@@ -1,4 +1,4 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,14 +9,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/fuse.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/fuse.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/egg/tuple/pack.hpp>
-#include <boost/egg/pstade/unused.hpp>
+#include <pstade/egg/pack.hpp>
+#include <pstade/unused.hpp>
 
 
 int my_plus(int x, int y, int z)
@@ -62,12 +62,12 @@ void pstade_minimal_test()
     }
     {
         ::nc x;
-        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::tuple_pack(x)) == 3 );
+        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::pack(x)) == 3 );
     }
     {
         ::my_f f0;
-        result_of_fuse< ::my_f >::type f1 = BOOST_EGG_FUSE_L f0 BOOST_EGG_FUSE_R;
-        result_of_fuse< ::my_f >::type f2 = BOOST_EGG_FUSE({});
+        result_of_fuse< ::my_f >::type f1 = PSTADE_EGG_FUSE_L f0 PSTADE_EGG_FUSE_R;
+        result_of_fuse< ::my_f >::type f2 = PSTADE_EGG_FUSE({});
         pstade::unused(f1, f2);
     }
 }

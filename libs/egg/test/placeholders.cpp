@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,11 +9,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/placeholders.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/placeholders.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/detail/substitute.hpp>
+#include <pstade/egg/detail/substitute.hpp>
 #include <boost/utility/addressof.hpp>
 
 
@@ -23,25 +23,6 @@ using namespace egg;
 
 void pstade_minimal_test()
 {
-    int i1 = 1, i2 = 2, i3 = 3, i4 = 4, i5 = 5;
-    BOOST_CHECK(placeholder1(i1, i2, i3, i4, i5) == 1);
-    BOOST_CHECK(placeholder1(i1, i2, i3, i4, i5) == 1);
-    BOOST_CHECK(placeholder1(i1, i2, i3, i4, i5) == 1);
-    BOOST_CHECK(placeholder1(i1, i2, i3, i4, i5) == 1);
-    BOOST_CHECK(placeholder1(i1, i2, i3, i4, i5) == 1);
-
-    BOOST_CHECK(placeholder2(i1, i2, i3, i4, i5) == 2);
-    BOOST_CHECK(placeholder2(i1, i2, i3, i4, i5) == 2);
-    BOOST_CHECK(placeholder2(i1, i2, i3, i4, i5) == 2);
-    BOOST_CHECK(placeholder2(i1, i2, i3, i4, i5) == 2);
-    BOOST_CHECK(placeholder2(i1, i2, i3, i4, i5) == 2);
-
-    BOOST_CHECK(placeholder1(i1, i2, i3, i4, i5) == 1);
-    BOOST_CHECK(placeholder2(i1, i2, i3, i4, i5) == 2);
-    BOOST_CHECK(placeholder3(i1, i2, i3, i4, i5) == 3);
-    BOOST_CHECK(placeholder4(i1, i2, i3, i4, i5) == 4);
-    BOOST_CHECK(placeholder5(i1, i2, i3, i4, i5) == 5);
-
     {
         using namespace placeholders;
 
@@ -53,6 +34,8 @@ void pstade_minimal_test()
     }
 
     {
-        BOOST_CHECK(detail::substitute(placeholder2)(i1, i2, i3, i4, i5) == 2);
+        int i1 = 1, i2 = 2, i3 = 3, i4 = 4, i5 = 5;
+        BOOST_CHECK(detail::substitute(X_arg<2>())(i1, i2, i3, i4, i5) == 2);
+        BOOST_CHECK(detail::substitute(placeholders::_2)(i1, i2, i3, i4, i5) == 2);
     }
 }

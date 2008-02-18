@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,18 +9,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/bll/unlambda.hpp>
-#include <boost/egg/bll/bind.hpp>
-#include <boost/egg/bll/placeholders.hpp>
-#include <boost/egg/pstade/result_of_lambda.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/bll/bind.hpp>
+#include <pstade/egg/bll/unlambda.hpp>
+#include <pstade/egg/bll/placeholders.hpp>
+#include <pstade/result_of_lambda.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/lazy.hpp>
-#include <boost/egg/pstade/result_of.hpp>
-#include <boost/egg/functional.hpp> // plus
-#include <boost/egg/to_ref.hpp>
-#include <boost/egg/pstade/test.hpp>
+#include <pstade/egg/lazy.hpp>
+#include <pstade/result_of.hpp>
+#include <pstade/egg/functional.hpp> // plus
+#include <pstade/egg/to_ref.hpp>
+#include <pstade/test.hpp>
 
 
 using namespace pstade::egg;
@@ -43,6 +43,12 @@ void pstade_minimal_test()
 
         BOOST_CHECK( b(20|to_ref) == 30 );
         BOOST_CHECK( bll_bind(&big_arity, 1,2,3,4,bll_1,6,bll_2,8,9)(3|to_ref, 4|to_ref) == 3 );
+    }
+    {
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+        int two = 2;
+        BOOST_CHECK(bll_bind(my_minus, 10, bll_1)(two) == 8);
+#endif
     }
     {
         typedef

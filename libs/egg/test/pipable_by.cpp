@@ -1,4 +1,4 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,13 +9,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pipable.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/const.hpp>
+#include <pstade/egg/const.hpp>
 #include <memory> // auto_ptr
-#include <boost/egg/by_cref.hpp>
+#include <pstade/egg/by_cref.hpp>
 
 
 namespace egg = pstade::egg;
@@ -38,7 +38,7 @@ struct base_plus7
 };
 
 typedef result_of_pipable<base_plus7, by_value, by_value>::type T_plus7;
-BOOST_EGG_CONST((T_plus7), plus7) = BOOST_EGG_PIPABLE({});
+PSTADE_EGG_CONST((T_plus7), plus7) = PSTADE_EGG_PIPABLE({});
 
 
 struct base_get5th
@@ -52,7 +52,7 @@ struct base_get5th
 };
 
 typedef result_of_pipable<base_get5th, by_cref>::type T_get5th;
-BOOST_EGG_CONST((T_get5th), get5th) = BOOST_EGG_PIPABLE({});
+PSTADE_EGG_CONST((T_get5th), get5th) = PSTADE_EGG_PIPABLE({});
 
 
 void pstade_minimal_test()

@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,54 +9,59 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/function_facade.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/function_facade.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/type_traits/is_pod.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/utility/result_of.hpp>
-#include <boost/egg/pstade/unused.hpp>
+#include <pstade/unused.hpp>
 
 
 struct T_foo :
-    pstade::egg::function_facade<T_foo, char>
+    pstade::egg::function_facade<T_foo, boost::use_default, char>
 {
-    template< class Myself, class A0, class A1 = void >
+    template< class Me, class A0, class A1 = void >
     struct apply
     {
         typedef std::string type;
     };
 
-    template< class Result, class A0, class A1 >
-    Result call(A0& a0, A1& a1) const
+    template< class Re, class A0, class A1 >
+    Re call(A0& a0, A1& a1) const
     {
         (void)a0; (void)a1;
         return "2";
     }
 
-    template< class Myself, class A0 >
-    struct apply<Myself, A0>
+    template< class Me, class A0 >
+    struct apply<Me, A0>
     {
         typedef int type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         (void)a0;
         return 1;
     }
 
-    template< class Result >
-    Result call() const
+    template< class Re >
+    Re call() const
     {
         return '0';
     }
+
+    // complete check
+    pstade::result_of<T_foo(int, int)>::type bar() const
+    {
+        return (*this)(1, 2);
+    }
 };
 
-#define  BOOST_EGG_NULLARY_RESULT_OF_TYPE_PARAMS (T_foo)
-#include BOOST_EGG_NULLARY_RESULT_OF_TYPE()
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(T_foo)
 
 
 T_foo const foo = T_foo();
@@ -66,43 +71,42 @@ T_foo const foo = T_foo();
 
 template< class T0, class T1 >
 struct T_bar :
-    pstade::egg::function_facade< T_bar<T0, T1>, char >
+    pstade::egg::function_facade< T_bar<T0, T1>, boost::use_default, char >
 {
-    template< class Myself, class A0, class A1 = void >
+    template< class Me, class A0, class A1 = void >
     struct apply
     {
         typedef std::string type;
     };
 
-    template< class Result, class A0, class A1 >
-    Result call(A0& a0, A1& a1) const
+    template< class Re, class A0, class A1 >
+    Re call(A0& a0, A1& a1) const
     {
         (void)a0; (void)a1;
         return "2";
     }
 
-    template< class Myself, class A0 >
-    struct apply<Myself, A0>
+    template< class Me, class A0 >
+    struct apply<Me, A0>
     {
         typedef int type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         (void)a0;
         return 1;
     }
 
-    template< class Result >
-    Result call() const
+    template< class Re >
+    Re call() const
     {
         return '0';
     }
 };
 
-#define  BOOST_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (T_bar, 2) 
-#include BOOST_EGG_NULLARY_RESULT_OF_TEMPLATE()
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2) 
 
 
 struct dummy { };
@@ -114,8 +118,8 @@ struct T_hoge
     template< class Signature >
     struct result;
 
-    template< class Myself, class A0, class A1 >
-    struct result<Myself(A0, A1)>
+    template< class Me, class A0, class A1 >
+    struct result<Me(A0, A1)>
     {
         typedef std::string type;
     };
@@ -126,8 +130,8 @@ struct T_hoge
         return "2";
     }
 
-    template< class Myself, class A0 >
-    struct result<Myself(A0)>
+    template< class Me, class A0 >
+    struct result<Me(A0)>
     {
         typedef int type;
     };
@@ -166,14 +170,14 @@ namespace boost {
 struct error_msg_check :
     pstade::egg::function_facade<error_msg_check>
 {
-    template< class Myself, class A0 >
+    template< class Me, class A0 >
     struct apply
     {
         typedef int type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         return 1;
     }
@@ -183,14 +187,14 @@ struct error_msg_check :
 struct my_identity :
     pstade::egg::function_facade<my_identity>
 {
-    template< class Myself, class A0 >
+    template< class Me, class A0 >
     struct apply
     {
         typedef A0& type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         return a0;
     }
@@ -214,14 +218,14 @@ A const volatile get_cv()
 struct our_identity :
     pstade::egg::function_facade<our_identity>
 {
-    template< class Myself, class A0 >
+    template< class Me, class A0 >
     struct apply
     {
         typedef A0& type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         return a0;
     }

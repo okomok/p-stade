@@ -1,4 +1,4 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,14 +9,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/curry.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/curry.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/egg/to_string.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <pstade/egg/to_string.hpp>
+#include <pstade/pod_constant.hpp>
 
 using pstade::egg::to_string;
 
@@ -39,7 +39,7 @@ struct my_plus2
 };
 
 typedef pstade::egg::result_of_curry2<my_plus2>::type T_curried_plus2;
-PSTADE_POD_CONSTANT((T_curried_plus2), curried_plus2) = BOOST_EGG_CURRY2_L {} BOOST_EGG_CURRY2_R;
+PSTADE_POD_CONSTANT((T_curried_plus2), curried_plus2) = PSTADE_EGG_CURRY2_L {} PSTADE_EGG_CURRY2_R;
 
 
 struct my_plus3
@@ -60,7 +60,7 @@ struct my_plus3
 };
 
 typedef pstade::egg::result_of_curry3<my_plus3>::type T_curried_plus3;
-PSTADE_POD_CONSTANT((T_curried_plus3), curried_plus3) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
+PSTADE_POD_CONSTANT((T_curried_plus3), curried_plus3) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
 
 
 struct my_plus4
@@ -81,7 +81,7 @@ struct my_plus4
 };
 
 typedef pstade::egg::result_of_curry4<my_plus4>::type T_curried_plus4;
-PSTADE_POD_CONSTANT((T_curried_plus4), curried_plus4) = BOOST_EGG_CURRY4_L {} BOOST_EGG_CURRY4_R;
+PSTADE_POD_CONSTANT((T_curried_plus4), curried_plus4) = PSTADE_EGG_CURRY4_L {} PSTADE_EGG_CURRY4_R;
 
 
 struct my_plus5
@@ -104,7 +104,7 @@ struct my_plus5
 };
 
 typedef pstade::egg::result_of_curry5<my_plus5>::type T_curried_plus5;
-PSTADE_POD_CONSTANT((T_curried_plus5), curried_plus5) = BOOST_EGG_CURRY5_L {1,2} BOOST_EGG_CURRY5_R;
+PSTADE_POD_CONSTANT((T_curried_plus5), curried_plus5) = PSTADE_EGG_CURRY5_L {1,2} PSTADE_EGG_CURRY5_R;
 
 
 template<class F>

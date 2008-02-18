@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,22 +9,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/by_perfect.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/by_perfect.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <string>
-#include <boost/egg/pstade/result_of.hpp>
-#include <boost/egg/pstade/unused.hpp>
-#include <boost/egg/pstade/test.hpp>
+#include <pstade/result_of.hpp>
+#include <pstade/unused.hpp>
+#include <pstade/test.hpp>
 
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/pstade/unparenthesize.hpp>
+#include <pstade/pod_constant.hpp>
+#include <pstade/unparenthesize.hpp>
 
     #define PSTADE_EGG_FUNCTION_DEF(O, B) \
         typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_perfect> BOOST_PP_CAT(T_, O); \
@@ -34,27 +34,27 @@
 
 struct little_foo
 {
-    template<class Myself, class A0, class A1 = void>
+    template<class Me, class A0, class A1 = void>
     struct apply
     {
         typedef std::string type;
     };
 
-    template<class Result, class A0, class A1>
-    Result call(A0& a0, A1& a1) const
+    template<class Re, class A0, class A1>
+    Re call(A0& a0, A1& a1) const
     {
         (void)a0; (void)a1;
         return "2";
     }
 
-    template<class Myself, class A0>
-    struct apply<Myself, A0>
+    template<class Me, class A0>
+    struct apply<Me, A0>
     {
         typedef int type;
     };
 
-    template<class Result, class A0>
-    Result call(A0& a0) const
+    template<class Re, class A0>
+    Re call(A0& a0) const
     {
         (void)a0;
         return 1;
@@ -62,8 +62,8 @@ struct little_foo
 
     typedef char nullary_result_type;
 
-    template< class Result >
-    Result call() const
+    template< class Re >
+    Re call() const
     {
         return '0';
     }
@@ -80,27 +80,27 @@ PSTADE_TEST_IS_RESULT_OF((char), T_foo())
 template< class T0, class T1 >
 struct little_bar
 {
-    template< class Myself, class A0, class A1 = void >
+    template< class Me, class A0, class A1 = void >
     struct apply
     {
         typedef std::string type;
     };
 
-    template< class Result, class A0, class A1 >
-    Result call(A0& a0, A1& a1) const
+    template< class Re, class A0, class A1 >
+    Re call(A0& a0, A1& a1) const
     {
         (void)a0; (void)a1;
         return "2";
     }
 
-    template< class Myself, class A0 >
-    struct apply<Myself, A0>
+    template< class Me, class A0 >
+    struct apply<Me, A0>
     {
         typedef int type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         (void)a0;
         return 1;
@@ -108,8 +108,8 @@ struct little_bar
 
     typedef char nullary_result_type;
 
-    template< class Result >
-    Result call() const
+    template< class Re >
+    Re call() const
     {
         return '0';
     }
@@ -121,20 +121,19 @@ struct T_bar :
 { };
 
 
-#define  BOOST_EGG_NULLARY_RESULT_OF_TEMPLATE_PARAMS (T_bar, 2)
-#include BOOST_EGG_NULLARY_RESULT_OF_TEMPLATE()
+PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
 
 
 struct little_identity
 {
-    template< class Myself, class A0 >
+    template< class Me, class A0 >
     struct apply
     {
         typedef A0& type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         return a0;
     }
@@ -152,14 +151,14 @@ PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
 
 struct little_keep_const
 {
-    template< class Myself, class A0 >
+    template< class Me, class A0 >
     struct apply
     {
         typedef A0 type;
     };
 
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
         return a0;
     }

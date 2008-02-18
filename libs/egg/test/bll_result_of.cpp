@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,16 +9,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/bll/result_of.hpp>
-#include <boost/egg/bll/result_of.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/bll/result_of.hpp>
+#include <pstade/egg/bll/result_of.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/bll/placeholders.hpp>
-#include <boost/egg/bll/bind.hpp>
-#include <boost/egg/functional.hpp> // plus
-#include <boost/egg/identity.hpp>
-#include <boost/egg/pstade/test.hpp>
+#include <pstade/egg/bll/placeholders.hpp>
+#include <pstade/egg/bll/bind.hpp>
+#include <pstade/egg/functional.hpp> // plus
+#include <pstade/egg/identity.hpp>
+#include <pstade/test.hpp>
 
 
 namespace bll = boost::lambda;
@@ -97,7 +97,7 @@ void pstade_minimal_test()
         BOOST_CHECK(r == 10);
     }
 
-#if defined(BOOST_EGG_BLL_PERFECT_FUNCTORS)
+#if defined(PSTADE_EGG_BLL_PERFECT_FUNCTORS)
     {
         result_of<T_bll_1(int)>::type r = bll_1(10);
         BOOST_CHECK(r == 10);
@@ -118,7 +118,7 @@ void pstade_minimal_test()
 
         int i = 9;
         BOOST_CHECK( fun(i) == 3+9 );
-#if defined(BOOST_EGG_BLL_PERFECT_FUNCTORS)
+#if defined(PSTADE_EGG_BLL_PERFECT_FUNCTORS)
         BOOST_CHECK( fun(9) == 3+9 );
 #endif
     }
@@ -137,7 +137,7 @@ void pstade_minimal_test()
 
         int i = 9;
         BOOST_CHECK( fun(i) == 9 );
-#if defined(BOOST_EGG_BLL_PERFECT_FUNCTORS)
+#if defined(PSTADE_EGG_BLL_PERFECT_FUNCTORS)
         BOOST_CHECK( fun(9) == 9 );
 #endif
     }
