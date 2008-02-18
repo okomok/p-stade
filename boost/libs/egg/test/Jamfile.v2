@@ -156,6 +156,7 @@ test-suite "egg" :
     [ run with_boost_function.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     [ run __cv_ignored.cpp ]
+    [ run __fewer_braces.cpp ]
     [ run __is_pod.cpp ]
     [ run __mem_fun_ordering.cpp ]
     [ run __vs_incomplete.cpp ]
