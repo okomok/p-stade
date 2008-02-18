@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy get
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/fusion/element.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/fusion/element.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/tuple/tuple.hpp>
@@ -18,10 +17,10 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/assert.hpp>
-#include <pstade/egg/is_same.hpp>
+#include <boost/egg/is_same.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
+#if defined(BOOST_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/vector.hpp>
 #endif
 
@@ -53,7 +52,7 @@ namespace tuple_test {
 }
 
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
+#if defined(BOOST_EGG_HAS_FUSIONS)
 
 namespace fusion_test {
 
@@ -70,6 +69,6 @@ namespace fusion_test {
 #endif
 
 
-void pstade_minimal_test()
+void egg_test()
 {
 }

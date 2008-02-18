@@ -1,7 +1,6 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,14 +8,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/do_swap.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/do_swap.hpp>
+#include "./egg_test.hpp"
 
 
 using pstade::egg::do_swap;
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     int x = 0;
     int y = 1;

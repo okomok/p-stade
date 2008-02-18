@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
 //
-// Copyright Shunsuke Sogame 2005-2007.
+// Copyright Shunsuke Sogame 2005-2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/specified.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/specified.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/mpl/if.hpp>
@@ -27,8 +26,8 @@ struct T_my_cast
         return i;
     }
 };
-#define  PSTADE_EGG_SPECIFIED_PARAMS (my_cast, T_my_cast, 1, (1))
-#include PSTADE_EGG_SPECIFIED()
+#define  BOOST_EGG_SPECIFIED_PARAMS (my_cast, T_my_cast, 1, (1))
+#include BOOST_EGG_SPECIFIED()
 
 
 template<class X, int Y>
@@ -42,8 +41,8 @@ struct T_my_cast_
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS (my_cast_, T_my_cast_, (class)(int), (1))
-#include PSTADE_EGG_SPECIFIED()
+#define  BOOST_EGG_SPECIFIED_PARAMS (my_cast_, T_my_cast_, (class)(int), (1))
+#include BOOST_EGG_SPECIFIED()
 
 
 struct x
@@ -84,8 +83,8 @@ struct T_my_make
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS (my_make, T_my_make, 1, (1)(2))
-#include PSTADE_EGG_SPECIFIED()
+#define  BOOST_EGG_SPECIFIED_PARAMS (my_make, T_my_make, 1, (1)(2))
+#include BOOST_EGG_SPECIFIED()
 
 
 template<class X, int N>
@@ -111,8 +110,8 @@ struct T_my_make_0_3
     }
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS (my_make_0_3, T_my_make_0_3, (class)(int), (3)(0)(1))
-#include PSTADE_EGG_SPECIFIED()
+#define  BOOST_EGG_SPECIFIED_PARAMS (my_make_0_3, T_my_make_0_3, (class)(int), (3)(0)(1))
+#include BOOST_EGG_SPECIFIED()
 
 
 struct const_ { };
@@ -155,11 +154,11 @@ struct T_array_check
     T_array_check() { } // for Boost v1.33 result_of
 };
 
-#define  PSTADE_EGG_SPECIFIED_PARAMS (array_check, T_array_check, 1, (1))
-#include PSTADE_EGG_SPECIFIED()
+#define  BOOST_EGG_SPECIFIED_PARAMS (array_check, T_array_check, 1, (1))
+#include BOOST_EGG_SPECIFIED()
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         BOOST_CHECK( ::my_cast<int>(3) == 3 );

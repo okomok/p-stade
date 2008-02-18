@@ -2,9 +2,9 @@
 #define PSTADE_LIBS_EGG_TEST_LARGE_ARITY_ID0_HPP
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -12,10 +12,10 @@
 
 
 // inclusion guaranteed
-#include <pstade/egg/by_perfect.hpp>
-#include <pstade/egg/by_ref.hpp>
-#include <pstade/egg/by_cref.hpp>
-#include <pstade/egg/by_value.hpp>
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_ref.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/by_value.hpp>
 
 
 struct T_large_arity_id0

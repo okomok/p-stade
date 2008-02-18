@@ -1,30 +1,28 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
-#include <pstade/egg/fuse.hpp>
-#include <pstade/egg/unfuse.hpp>
-#include <pstade/egg/curry.hpp>
-#include <pstade/egg/uncurry.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/function.hpp>
+#include <boost/egg/fuse.hpp>
+#include <boost/egg/unfuse.hpp>
+#include <boost/egg/curry.hpp>
+#include <boost/egg/uncurry.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/use_deduced_form.hpp> // check it.
+#include <boost/egg/use_deduced_form.hpp> // check it.
 
 
 #include <boost/utility/addressof.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct my_little; // not borns yet.
@@ -65,7 +63,7 @@ struct my_little
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         int i = 10;

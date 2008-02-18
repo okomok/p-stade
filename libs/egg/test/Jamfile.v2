@@ -125,7 +125,7 @@ test-suite "egg" :
     [ compile-fail nullary_function_fail.cpp ]
     [ run pack.cpp ]
     [ run parallel.cpp : : : <library>/boost/thread//boost_thread/<link>static <threading>multi ]
-    [ run parallel.cpp : : : <define>PSTADE_EGG_DISABLE_THREADS=1 : parallel_no_threads ]
+    [ run parallel.cpp : : : <define>BOOST_EGG_DISABLE_THREADS=1 : parallel_no_threads ]
     [ run perfect.cpp ]
     [ run pipable.cpp ]
     [ run pipable_by.cpp ]

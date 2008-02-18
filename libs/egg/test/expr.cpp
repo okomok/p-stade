@@ -1,7 +1,6 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
 // Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,20 +8,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/expr.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/expr.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/result_of.hpp>
-#include <pstade/egg/function.hpp>
+#include <boost/egg/function.hpp>
 #include <boost/typeof/typeof.hpp>
-#include <pstade/egg/get.hpp>
-#include <pstade/egg/unfuse.hpp>
+#include <boost/egg/get.hpp>
+#include <boost/egg/unfuse.hpp>
 #include <pstade/fake.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct little_second
@@ -76,7 +74,7 @@ test_tpl(F ff)
 }
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     BOOST_CHECK( 9 == ::test_type()('a', 9) );
     BOOST_CHECK( 9 == ::test_tpl(fused_second)('a', 9) );

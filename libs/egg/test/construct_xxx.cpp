@@ -1,30 +1,28 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/construct_braced1.hpp>
-#include <pstade/egg/construct_braced2.hpp>
-#include <pstade/egg/construct.hpp>
-#include <pstade/egg/construct_variadic1.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/construct_braced1.hpp>
+#include <boost/egg/construct_braced2.hpp>
+#include <boost/egg/construct.hpp>
+#include <boost/egg/construct_variadic1.hpp>
+#include "./egg_test.hpp"
 
-#include <pstade/egg/generator.hpp>
-#include <pstade/egg/by_ref.hpp>
-#include <pstade/egg/by_value.hpp>
+#include <boost/egg/generator.hpp>
+#include <boost/egg/by_ref.hpp>
+#include <boost/egg/by_value.hpp>
 
 
 #include <string>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct my0
@@ -52,14 +50,14 @@ struct your
 struct nullary_check_pod0 { };
 struct nullary_check_pod1 { nullary_check_pod0 m; };
 generator<nullary_check_pod0, boost::use_default, X_construct_braced1<mpl_1, mpl_2>, nullary_check_pod0>::type const
-    make_nullary_check_pod0 = PSTADE_EGG_GENERATOR();
+    make_nullary_check_pod0 = BOOST_EGG_GENERATOR();
 generator<nullary_check_pod1, boost::use_default, X_construct_braced2<mpl_1, mpl_2>, nullary_check_pod1>::type const
-    make_nullary_check_pod1 = PSTADE_EGG_GENERATOR();
+    make_nullary_check_pod1 = BOOST_EGG_GENERATOR();
 generator<nullary_check_pod0, boost::use_default, X_construct<mpl_1, mpl_2>, nullary_check_pod0>::type const
-    make_nullary_check_type = PSTADE_EGG_GENERATOR();
+    make_nullary_check_type = BOOST_EGG_GENERATOR();
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     std::string s1, s2("hello");
 

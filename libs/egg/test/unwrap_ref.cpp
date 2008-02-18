@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,8 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/unwrap_ref.hpp>
-#include <pstade/lightweight_test.hpp>
+#include <boost/egg/unwrap_ref.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/mpl/assert.hpp>
@@ -18,8 +17,7 @@
 #include <pstade/result_of.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 using pstade::result_of;
 
 
@@ -40,7 +38,7 @@ BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(boost::refer
 BOOST_MPL_ASSERT((boost::is_same<int const&, result_of<T_unwrap_ref(boost::reference_wrapper<int const> const)>::type>));
 
 
-void pstade_lightweight_test()
+void egg_test()
 {
     {
         int x = 999;

@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/by_cref.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/by_cref.hpp>
+#include "./egg_test.hpp"
 
 
 #include <string>
@@ -23,7 +22,7 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 
-    #define PSTADE_EGG_FUNCTION_BY_CREF(O, B) \
+    #define BOOST_EGG_FUNCTION_BY_CREF(O, B) \
         typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_cref> BOOST_PP_CAT(T_, O); \
         PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
@@ -64,7 +63,7 @@ struct little_foo
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_CREF(foo, (little_foo))
+BOOST_EGG_FUNCTION_BY_CREF(foo, (little_foo))
 
 PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int, int))
 PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int&, int))
@@ -88,10 +87,10 @@ struct little_big_arity
     }
 };
 
-PSTADE_EGG_FUNCTION_BY_CREF(big_arity, (little_big_arity))
+BOOST_EGG_FUNCTION_BY_CREF(big_arity, (little_big_arity))
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         pstade::result_of<T_foo(int, int)>::type x = foo(1, 2);

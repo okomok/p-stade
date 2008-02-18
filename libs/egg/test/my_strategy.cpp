@@ -1,28 +1,26 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function_extension.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/function_extension.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/function_fwd.hpp>
-#include <pstade/egg/pipable.hpp>
-#include <pstade/egg/const.hpp>
+#include <boost/egg/function_fwd.hpp>
+#include <boost/egg/pipable.hpp>
+#include <boost/egg/const.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/always.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 //[code_my_strategy_tag
 struct my_strategy
@@ -57,7 +55,7 @@ namespace pstade { namespace egg {
     struct function<Lit, my_strategy>
     {
         /*<< Don't miss `#include` directive. >>*/
-        #include PSTADE_EGG_FUNCTION_PREAMBLE()
+        #include BOOST_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
         Lit const & little() const { return m_lit; }
@@ -74,7 +72,7 @@ namespace pstade { namespace egg {
         }
 
         template<class A1>
-        typename apply_little<Lit const, PSTADE_EGG_DEDUCED_CONST(A1)>::type operator()(A1 const& i) const
+        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type operator()(A1 const& i) const
         {
             return call_little(m_lit, i);
         }
@@ -133,14 +131,14 @@ struct little_id1
     }
 };
 typedef function<little_id1, my_strategy> T_id1;
-PSTADE_EGG_CONST((T_id1), id1) = {{}};
+BOOST_EGG_CONST((T_id1), id1) = {{}};
 
 
 typedef result_of_pipable<base_mult3, my_strategy>::type T_mult3;
-PSTADE_EGG_CONST((T_mult3), mult3) = {{}};
+BOOST_EGG_CONST((T_mult3), mult3) = {{}};
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     BOOST_CHECK( (3|mult3(4, 5)) == 3*4*5 );
 

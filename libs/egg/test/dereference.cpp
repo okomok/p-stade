@@ -1,24 +1,23 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/functional.hpp> // dereference
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/functional.hpp> // dereference
+#include "./egg_test.hpp"
 
 
 #include <boost/shared_ptr.hpp>
 #include <pstade/test.hpp>
 #include <pstade/result_of.hpp>
 #include <boost/optional/optional.hpp>
-#include <pstade/egg/is_same.hpp>
-#include <pstade/egg/bll/optional.hpp>
+#include <boost/egg/is_same.hpp>
+#include <boost/egg/bll/optional.hpp>
 #include <memory>
 
 
@@ -47,7 +46,7 @@ PSTADE_TEST_IS_RESULT_OF((int&), T_dereference(boost::optional<int&> &))
 PSTADE_TEST_IS_RESULT_OF((int&), T_dereference(boost::optional<int&> const &))
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         int x = 12;

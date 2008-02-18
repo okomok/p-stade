@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,8 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/pipable.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/pipable.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/pod_constant.hpp>
@@ -28,7 +27,7 @@
             using namespace boost::mpl::placeholders; \
             typedef pstade::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
         } \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE({}); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = BOOST_EGG_PIPABLE({}); \
     /**/
 
 
@@ -101,10 +100,10 @@ PSTADE_decl_pipable(my_append, (my_append_t))
 
 using namespace pstade::egg;
 
-result_of_pipable<T_large_arity_id0, by_cref>::type const lar = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
+result_of_pipable<T_large_arity_id0, by_cref>::type const lar = BOOST_EGG_PIPABLE_L {} BOOST_EGG_PIPABLE_R;
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         BOOST_CHECK( (3|my_fun) == 4 );

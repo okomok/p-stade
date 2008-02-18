@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/poly.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/poly.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/test.hpp>
@@ -126,17 +125,17 @@ struct base_neg
 
 
 typedef pstade::egg::poly< foo<boost::mpl::_> >::type T_identity;
-PSTADE_POD_CONSTANT((T_identity), identity) = PSTADE_EGG_POLY();
+PSTADE_POD_CONSTANT((T_identity), identity) = BOOST_EGG_POLY();
 
 typedef pstade::egg::poly<foo<boost::mpl::_>, boost::use_default>::type T_identity_;
-PSTADE_POD_CONSTANT((T_identity_), identity_) = PSTADE_EGG_POLY();
+PSTADE_POD_CONSTANT((T_identity_), identity_) = BOOST_EGG_POLY();
 
 typedef pstade::egg::poly< nested_plus >::type T_nplus;
-PSTADE_POD_CONSTANT((T_nplus), nplus) = PSTADE_EGG_POLY();
+PSTADE_POD_CONSTANT((T_nplus), nplus) = BOOST_EGG_POLY();
 
 
 typedef pstade::egg::poly< base_neg, boost::use_default, pstade::egg::use_nullary_result >::type T_neg;
-PSTADE_POD_CONSTANT((T_neg), neg) = PSTADE_EGG_POLY();
+PSTADE_POD_CONSTANT((T_neg), neg) = BOOST_EGG_POLY();
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
@@ -165,7 +164,7 @@ struct nc_t : boost::noncopyable
 { };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         int i = 10;

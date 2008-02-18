@@ -1,25 +1,24 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/bll/bind.hpp>
-#include <pstade/egg/bll/unlambda.hpp>
-#include <pstade/egg/bll/placeholders.hpp>
+#include <boost/egg/bll/bind.hpp>
+#include <boost/egg/bll/unlambda.hpp>
+#include <boost/egg/bll/placeholders.hpp>
 #include <pstade/result_of_lambda.hpp>
-#include <pstade/minimal_test.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/lazy.hpp>
+#include <boost/egg/lazy.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/egg/functional.hpp> // plus
-#include <pstade/egg/to_ref.hpp>
+#include <boost/egg/functional.hpp> // plus
+#include <boost/egg/to_ref.hpp>
 #include <pstade/test.hpp>
 
 
@@ -35,7 +34,7 @@ int big_arity(int, int, int, int, int, int, int, int, int)
     return 3;
 }
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         pstade::result_of<T_bll_bind(T_plus, T_bll_1, int)>::type b =

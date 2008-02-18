@@ -1,26 +1,25 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy get
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/fusion/drop.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/fusion/drop.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/equal.hpp>
-#include <pstade/egg/is_same.hpp>
+#include <boost/egg/is_same.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/result_of.hpp>
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
+#if defined(BOOST_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
@@ -58,7 +57,7 @@ void test_tuple0()
 }
 
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
+#if defined(BOOST_EGG_HAS_FUSIONS)
 
 template<int N, class From, class To>
 void test_fusion()
@@ -77,7 +76,7 @@ void test_fusion()
 #endif
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         using boost::tuples::cons;
@@ -103,7 +102,7 @@ void pstade_minimal_test()
         (void)nt_;
     }
 
-#if defined(PSTADE_EGG_HAS_FUSIONS)
+#if defined(BOOST_EGG_HAS_FUSIONS)
     {
         using boost::fusion::vector;
 

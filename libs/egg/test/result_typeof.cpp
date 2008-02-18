@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,8 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/result_typeof.hpp>
-#include <pstade/lightweight_test.hpp>
+#include <boost/egg/result_typeof.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/mpl/assert.hpp>
@@ -53,6 +52,6 @@ BOOST_MPL_ASSERT((boost::is_same<result_typeof<T_negate(int)>::type, int>));
 
 
 
-void pstade_lightweight_test()
+void egg_test()
 {
 }

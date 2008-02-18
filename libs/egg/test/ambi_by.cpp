@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,17 +8,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/ambi.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/ambi.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/const.hpp>
-#include <pstade/egg/by_cref.hpp>
+#include <boost/egg/const.hpp>
+#include <boost/egg/by_cref.hpp>
 #include <memory> // auto_ptr
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct base_plus7
@@ -38,7 +36,7 @@ struct base_plus7
 };
 
 typedef result_of_ambi6<base_plus7, by_value>::type T_plus7;
-PSTADE_EGG_CONST((T_plus7), plus7) = PSTADE_EGG_AMBI({});
+BOOST_EGG_CONST((T_plus7), plus7) = BOOST_EGG_AMBI({});
 
 
 struct base_get5th
@@ -52,10 +50,10 @@ struct base_get5th
 };
 
 typedef result_of_ambi6<base_get5th, by_cref>::type T_get5th;
-PSTADE_EGG_CONST((T_get5th), get5th) = PSTADE_EGG_AMBI({});
+BOOST_EGG_CONST((T_get5th), get5th) = BOOST_EGG_AMBI({});
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         BOOST_CHECK( plus7(1,2,3,4,5,6,7) == 1+2+3+4+5+6+7 );

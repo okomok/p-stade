@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function_extension.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/function_extension.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/mpl/always.hpp>
@@ -25,10 +24,10 @@
 #include <boost/mpl/or.hpp>
 #include <cstddef>
 #include <string>
-#include <pstade/egg/by_perfect.hpp>
-#include <pstade/egg/by_cref.hpp>
-#include <pstade/egg/by_ref.hpp>
-#include <pstade/egg/const.hpp>
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/by_ref.hpp>
+#include <boost/egg/const.hpp>
 #include <pstade/enable_if.hpp>
 
 
@@ -43,7 +42,7 @@ namespace pstade { namespace egg {
     template<class Lit>
     struct function<Lit, my_strategy>
     {
-        #include PSTADE_EGG_FUNCTION_PREAMBLE()
+        #include BOOST_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
         Lit const& little() const { return m_lit; }
@@ -56,7 +55,7 @@ namespace pstade { namespace egg {
         }
 
         template<class A1>
-        typename apply_little<Lit const, PSTADE_EGG_DEDUCED_CONST(A1)>::type 
+        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type 
         operator()(A1 const& i) const
         {
             return call_little(m_lit, i);
@@ -66,13 +65,13 @@ namespace pstade { namespace egg {
     template<class Lit>
     struct function<Lit, my_c_strategy>
     {
-        #include PSTADE_EGG_FUNCTION_PREAMBLE()
+        #include BOOST_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
         Lit const& little() const { return m_lit; }
 
         template<class A1>
-        typename apply_little<Lit const, PSTADE_EGG_DEDUCED_CONST(A1)>::type 
+        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type 
         operator()(A1 const& i) const
         {
             return call_little(m_lit, i);
@@ -82,8 +81,7 @@ namespace pstade { namespace egg {
 } }
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 using pstade::result_of;
 
 struct little_bgn
@@ -108,16 +106,16 @@ struct little_bgn
 };
 
 typedef function<little_bgn, my_strategy> T_my_bgn;
-PSTADE_EGG_CONST((T_my_bgn), my_bgn) = {{}};
+BOOST_EGG_CONST((T_my_bgn), my_bgn) = {{}};
 
 typedef function<little_bgn, by_perfect> T_per_bgn;
-PSTADE_EGG_CONST((T_per_bgn), per_bgn) = {{}};
+BOOST_EGG_CONST((T_per_bgn), per_bgn) = {{}};
 
 typedef function<little_bgn, by_ref> T_ref_bgn;
-PSTADE_EGG_CONST((T_ref_bgn), ref_bgn) = {{}};
+BOOST_EGG_CONST((T_ref_bgn), ref_bgn) = {{}};
 
 typedef function<little_bgn, by_cref> T_cref_bgn;
-PSTADE_EGG_CONST((T_cref_bgn), cref_bgn) = {{}};
+BOOST_EGG_CONST((T_cref_bgn), cref_bgn) = {{}};
 
 
 
@@ -141,14 +139,14 @@ struct little_cbgn
 };
 
 typedef function<little_cbgn, my_c_strategy> T_my_cbgn;
-PSTADE_EGG_CONST((T_my_cbgn), my_cbgn) = {{}};
+BOOST_EGG_CONST((T_my_cbgn), my_cbgn) = {{}};
 
 
 template<class T>
 T identity_(T x) { return x; }
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_bgn(int(&)[3])>::type, int *>));
