@@ -26,12 +26,12 @@ namespace boost { namespace egg { namespace details {
     struct dont_care
     {
         template<class X>
-        dont_care(X const&)
+        dont_care(X const &)
         { }
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
         // `foo(dont_care = 0)` form needs this to link.
-        dont_care(int const&)
+        dont_care(int const &)
         { }
 #endif
     };
