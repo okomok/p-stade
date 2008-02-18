@@ -5,18 +5,18 @@
 
 
 
-[section Preface]
+[section Disclaimer]
 
-["An Egg to day is better than a Hen to-morrow.] -- Benjamin Franklin
+This library is not part of Boost (yet).
 
 [endsect]
 
 
 
 
-[section Disclaimer]
+[section Preface]
 
-This library is not part of Boost.
+["An Egg to day is better than a Hen to-morrow.] -- Benjamin Franklin
 
 [endsect]
 
