@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/lazy.hpp>
-#include <boost/egg/bll.hpp>
+#include <boost/egg/bll/bind.hpp>
 #include "../test/egg_test.hpp"
 
 
