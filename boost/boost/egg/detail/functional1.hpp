@@ -28,16 +28,16 @@ namespace boost { namespace egg {
 
 #define entries \
     (10,( \
-        (+,  posit,       0, boost::lambda::unary_arithmetic_action<boost::lambda::plus_action>), \
-        (-,  negate,      0, boost::lambda::unary_arithmetic_action<boost::lambda::minus_action>), \
-        (*,  dereference, 0, boost::lambda::other_action<boost::lambda::contentsof_action>), \
-        (~,  complement,  0, boost::lambda::unary_arithmetic_action<boost::lambda::minus_action>), \
-        (&,  address_of,  0, boost::lambda::other_action<boost::lambda::addressof_action>), \
-        (!,  logical_not, 0, boost::lambda::logical_action<boost::lambda::not_action>), \
-        (++, pre_inc,     0, boost::lambda::pre_increment_decrement_action<boost::lambda::increment_action>), \
-        (--, pre_dec,     0, boost::lambda::pre_increment_decrement_action<boost::lambda::decrement_action>), \
-        (++, post_inc,    1, boost::lambda::post_increment_decrement_action<boost::lambda::increment_action>), \
-        (--, post_dec,    1, boost::lambda::post_increment_decrement_action<boost::lambda::decrement_action>) \
+        (+,  posit,       0, lambda::unary_arithmetic_action<lambda::plus_action>), \
+        (-,  negate,      0, lambda::unary_arithmetic_action<lambda::minus_action>), \
+        (*,  dereference, 0, lambda::other_action<lambda::contentsof_action>), \
+        (~,  complement,  0, lambda::unary_arithmetic_action<lambda::minus_action>), \
+        (&,  address_of,  0, lambda::other_action<lambda::addressof_action>), \
+        (!,  logical_not, 0, lambda::logical_action<lambda::not_action>), \
+        (++, pre_inc,     0, lambda::pre_increment_decrement_action<lambda::increment_action>), \
+        (--, pre_dec,     0, lambda::pre_increment_decrement_action<lambda::decrement_action>), \
+        (++, post_inc,    1, lambda::post_increment_decrement_action<lambda::increment_action>), \
+        (--, post_dec,    1, lambda::post_increment_decrement_action<lambda::decrement_action>) \
     ) ) \
 /**/
     #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (entries, <boost/egg/detail/functional1.hpp>)
@@ -66,7 +66,7 @@ namespace boost { namespace egg {
             template<class Me, class A1>
             struct apply :
                 details::eval_if_use_default< Return,
-                    boost::lambda::return_type_1<act, A1>
+                    lambda::return_type_1<act, A1>
                 >
             { };
 

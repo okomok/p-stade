@@ -132,7 +132,6 @@ namespace boost { namespace egg {
 #if n == 0
 
         struct lookup_ambi_operator { };
-        using details::enable_if;
         using details::lazy_enable_if;
         using details::is_a_or_b;
 

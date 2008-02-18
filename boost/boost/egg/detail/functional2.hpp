@@ -32,26 +32,26 @@ namespace boost { namespace egg {
 
 #define entries \
     (20,( \
-        (id(<<),  shift_left,    boost::lambda::bitwise_action<boost::lambda::leftshift_action>), \
-        (id(>>),  shift_right,   boost::lambda::bitwise_action<boost::lambda::rightshift_action>), \
-        (id(*),   multiplies,    boost::lambda::arithmetic_action<boost::lambda::multiply_action>), \
-        (id(/),   divides,       boost::lambda::arithmetic_action<boost::lambda::divide_action>), \
-        (id(%),   modulus,       boost::lambda::arithmetic_action<boost::lambda::remainder_action>), \
-        (id(+),   plus,          boost::lambda::arithmetic_action<boost::lambda::plus_action>), \
-        (id(-),   minus,         boost::lambda::arithmetic_action<boost::lambda::minus_action>), \
-        (id(<),   less,          boost::lambda::relational_action<boost::lambda::less_action>), \
-        (id(>),   greater,       boost::lambda::relational_action<boost::lambda::greater_action>), \
-        (id(<=),  less_equal,    boost::lambda::relational_action<boost::lambda::lessorequal_action>), \
-        (id(>=),  greater_equal, boost::lambda::relational_action<boost::lambda::greaterorequal_action>), \
-        (id(==),  equal_to,      boost::lambda::relational_action<boost::lambda::equal_action>), \
-        (id(!=),  not_equal_to,  boost::lambda::relational_action<boost::lambda::notequal_action>), \
-        (id(||),  logical_or,    boost::lambda::logical_action<boost::lambda::or_action>), \
-        (id(&&),  logical_and,   boost::lambda::logical_action<boost::lambda::and_action>), \
-        (id(&),   bitwise_and,   boost::lambda::bitwise_action<boost::lambda::and_action>), \
-        (id(|),   bitwise_or,    boost::lambda::bitwise_action<boost::lambda::or_action>), \
-        (id(^),   bitwise_xor,   boost::lambda::bitwise_action<boost::lambda::xor_action>), \
-        (BOOST_PP_COMMA, comma,  boost::lambda::other_action<boost::lambda::comma_action>), \
-        (id(->*), mem_ptr,       boost::lambda::other_action<boost::lambda::member_pointer_action>) \
+        (id(<<),  shift_left,    lambda::bitwise_action<lambda::leftshift_action>), \
+        (id(>>),  shift_right,   lambda::bitwise_action<lambda::rightshift_action>), \
+        (id(*),   multiplies,    lambda::arithmetic_action<lambda::multiply_action>), \
+        (id(/),   divides,       lambda::arithmetic_action<lambda::divide_action>), \
+        (id(%),   modulus,       lambda::arithmetic_action<lambda::remainder_action>), \
+        (id(+),   plus,          lambda::arithmetic_action<lambda::plus_action>), \
+        (id(-),   minus,         lambda::arithmetic_action<lambda::minus_action>), \
+        (id(<),   less,          lambda::relational_action<lambda::less_action>), \
+        (id(>),   greater,       lambda::relational_action<lambda::greater_action>), \
+        (id(<=),  less_equal,    lambda::relational_action<lambda::lessorequal_action>), \
+        (id(>=),  greater_equal, lambda::relational_action<lambda::greaterorequal_action>), \
+        (id(==),  equal_to,      lambda::relational_action<lambda::equal_action>), \
+        (id(!=),  not_equal_to,  lambda::relational_action<lambda::notequal_action>), \
+        (id(||),  logical_or,    lambda::logical_action<lambda::or_action>), \
+        (id(&&),  logical_and,   lambda::logical_action<lambda::and_action>), \
+        (id(&),   bitwise_and,   lambda::bitwise_action<lambda::and_action>), \
+        (id(|),   bitwise_or,    lambda::bitwise_action<lambda::or_action>), \
+        (id(^),   bitwise_xor,   lambda::bitwise_action<lambda::xor_action>), \
+        (BOOST_PP_COMMA, comma,  lambda::other_action<lambda::comma_action>), \
+        (id(->*), mem_ptr,       lambda::other_action<lambda::member_pointer_action>) \
     ) ) \
 /**/
     #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (entries, <boost/egg/detail/functional2.hpp>)
@@ -61,16 +61,16 @@ namespace boost { namespace egg {
 
 #define entries \
     (10,( \
-        (id(<<=), shift_left_assign,   boost::lambda::bitwise_assignment_action<boost::lambda::leftshift_action>), \
-        (id(>>=), shift_right_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::rightshift_action>), \
-        (id(*=),  multiplies_assign,   boost::lambda::arithmetic_assignment_action<boost::lambda::multiply_action>), \
-        (id(/=),  divides_assign,      boost::lambda::arithmetic_assignment_action<boost::lambda::divide_action>), \
-        (id(%=),  modulus_assign,      boost::lambda::arithmetic_assignment_action<boost::lambda::remainder_action>), \
-        (id(+=),  plus_assign,         boost::lambda::arithmetic_assignment_action<boost::lambda::plus_action>), \
-        (id(-=),  minus_assign,        boost::lambda::arithmetic_assignment_action<boost::lambda::minus_action>), \
-        (id(&=),  bitwise_and_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::and_action>), \
-        (id(|=),  bitwise_or_assign,   boost::lambda::bitwise_assignment_action<boost::lambda::or_action>), \
-        (id(^=),  bitwise_xor_assign,  boost::lambda::bitwise_assignment_action<boost::lambda::xor_action>) \
+        (id(<<=), shift_left_assign,   lambda::bitwise_assignment_action<lambda::leftshift_action>), \
+        (id(>>=), shift_right_assign,  lambda::bitwise_assignment_action<lambda::rightshift_action>), \
+        (id(*=),  multiplies_assign,   lambda::arithmetic_assignment_action<lambda::multiply_action>), \
+        (id(/=),  divides_assign,      lambda::arithmetic_assignment_action<lambda::divide_action>), \
+        (id(%=),  modulus_assign,      lambda::arithmetic_assignment_action<lambda::remainder_action>), \
+        (id(+=),  plus_assign,         lambda::arithmetic_assignment_action<lambda::plus_action>), \
+        (id(-=),  minus_assign,        lambda::arithmetic_assignment_action<lambda::minus_action>), \
+        (id(&=),  bitwise_and_assign,  lambda::bitwise_assignment_action<lambda::and_action>), \
+        (id(|=),  bitwise_or_assign,   lambda::bitwise_assignment_action<lambda::or_action>), \
+        (id(^=),  bitwise_xor_assign,  lambda::bitwise_assignment_action<lambda::xor_action>) \
     ) ) \
 /**/
     #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (entries, <boost/egg/detail/functional2.hpp>)
@@ -101,7 +101,7 @@ namespace boost { namespace egg {
             template<class Me, class A1, class A2>
             struct apply :
                 details::eval_if_use_default< Return,
-                    boost::lambda::return_type_2<act, A1, A2>
+                    lambda::return_type_2<act, A1, A2>
                 >
             { };
 
