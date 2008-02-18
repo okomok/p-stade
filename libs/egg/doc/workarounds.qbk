@@ -122,7 +122,7 @@ GCC might show unused variable warnings without this macro.
         [[*Semantics]]
     ]
     [
-        [`PSTADE_EGG_CONST((F), obj) = init;`]
+        [`BOOST_EGG_CONST((F), obj) = init;`]
         [`F const obj = init;`]
     ]
 ]
@@ -133,7 +133,7 @@ GCC might show unused variable warnings without this macro.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
-    PSTADE_EGG_CONST((T_foo), foo) = &foo_impl;
+    BOOST_EGG_CONST((T_foo), foo) = &foo_impl;
 
 [heading See also]
 * ...

@@ -156,7 +156,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `0 <= N && N <= BOOST_EGG_MAX_LINEAR_ARITY`.
 * `_typeof(x)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
@@ -572,7 +572,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_unfused1<T, _Stg>()(a1,...,aN)`]
-        [`T t = PSTADE_EGG_UNFUSE_L {_fwd_arg_list(a, _Stg)} PSTADE_EGG_UNFUSE_R; return t;`]
+        [`T t = BOOST_EGG_UNFUSE_L {_fwd_arg_list(a, _Stg)} BOOST_EGG_UNFUSE_R; return t;`]
     ]
     [
         [`X_construct_unfused1<>`]
@@ -623,7 +623,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_construct_variadic1<T, _Stg>()(a1,...,aN)`]
-        [`T t = PSTADE_EGG_VARIADIC_L {_fwd_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
+        [`T t = BOOST_EGG_VARIADIC_L {_fwd_arg_list(a, _Stg)} BOOST_EGG_VARIADIC_R; return t;`]
     ]
     [
         [`X_construct_variadic1<>`]
