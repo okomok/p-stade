@@ -40,7 +40,7 @@ result_of_lazy<T_my_apply>::type const my_Apply = BOOST_EGG_LAZY({});
 
 void egg_test()
 {
-    boost::egg::result_of<T_lazy(T_plus const&)>::type Plus = lazy(plus);
+    result_of_<T_lazy(T_plus const&)>::type Plus = lazy(plus);
 
     using bll::_1;
     using bll::_2;
