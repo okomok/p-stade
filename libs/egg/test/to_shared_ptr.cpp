@@ -14,13 +14,13 @@
 
 #include <memory>
 #include <boost/shared_ptr.hpp>
-#include <pstade/enable_if.hpp>
+#include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/auto_new.hpp>
 #include <pstade/test.hpp>
 
 
-using namespace boost::egg;
-using pstade::enable_if;
+#include "./using_egg.hpp"
+using boost::egg::details::enable_if;
 
 
 template<class T>

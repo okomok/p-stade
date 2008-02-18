@@ -15,7 +15,7 @@
 
 
 
-#include <pstade/unparenthesize.hpp>
+#include <boost/egg/detail/unparen.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/mpl/placeholders.hpp>
 
@@ -23,7 +23,7 @@
     #define PSTADE_IMPLICIT(Object, Lambda) \
         namespace BOOST_PP_CAT(pstade_implicit_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::boost::egg::implicit_ref<PSTADE_UNPARENTHESIZE(Lambda)>::type op; \
+            typedef ::boost::egg::implicit_ref<BOOST_EGG_UNPAREN(Lambda)>::type op; \
         } \
         \
         typedef BOOST_PP_CAT(pstade_implicit_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \

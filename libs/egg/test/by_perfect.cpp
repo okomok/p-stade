@@ -23,10 +23,10 @@
 
 
 #include <boost/egg/const.hpp>
-#include <pstade/unparenthesize.hpp>
+#include <boost/egg/detail/unparen.hpp>
 
     #define BOOST_EGG_FUNCTION_DEF(O, B) \
-        typedef boost::egg::function<PSTADE_UNPARENTHESIZE(B), boost::egg::by_perfect> BOOST_PP_CAT(T_, O); \
+        typedef boost::egg::function<BOOST_EGG_UNPAREN(B), boost::egg::by_perfect> BOOST_PP_CAT(T_, O); \
         BOOST_EGG_CONST((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
 

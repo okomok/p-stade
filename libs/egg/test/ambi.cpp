@@ -18,13 +18,13 @@
 
 
 #include <boost/preprocessor/facilities/identity.hpp>
-#include <pstade/unparenthesize.hpp>
+#include <boost/egg/detail/unparen.hpp>
 
 
     #define PSTADE_AMBI(N, Object, Function) \
         namespace BOOST_PP_CAT(pstade_ambi_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::boost::egg::result_of< ::boost::egg::BOOST_PP_CAT(T_ambi, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
+            typedef ::boost::egg::result_of< ::boost::egg::BOOST_PP_CAT(T_ambi, N)(BOOST_EGG_UNPAREN(Function)) >::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_ambi_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
         BOOST_EGG_CONST((BOOST_PP_CAT(T_, Object)), Object) = BOOST_EGG_AMBI({}); \
