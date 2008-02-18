@@ -35,6 +35,7 @@
 #include <boost/egg/curry.hpp>
 #include <boost/egg/delete.hpp>
 #include <boost/egg/delete_array.hpp>
+#include <boost/egg/detect_result_type.hpp>
 #include <boost/egg/do_swap.hpp>
 #include <boost/egg/expr.hpp>
 #include <boost/egg/fix.hpp>
@@ -75,6 +76,7 @@
 #include <boost/egg/poly.hpp>
 #include <boost/egg/register_nullary_result.hpp>
 #include <boost/egg/regular.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/egg/result_of_ref.hpp>
 #include <boost/egg/return.hpp>
 #include <boost/egg/shared_object.hpp>
