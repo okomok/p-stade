@@ -1,7 +1,7 @@
 
 [library Egg
     [quickbook 1.3]
-    [version 0.90.4]
+    [version 0.90.5]
     [authors [Sogame, Shunsuke]]
     [copyright 2007-2008 Shunsuke Sogame]
     [category functional]
@@ -22,7 +22,10 @@ Distributed under the Boost Software License, Version 1.0.
 [/ External Links ]
 
 [def __BOOST__ [@http://www.boost.org Boost C++ Libraries]]
+[def __BOOST_ACCUMULATORS__ [@http://boost-sandbox.sourceforge.net/libs/accumulators/doc/html/index.html Boost.Accumulators]]
 [def __BOOST_ENABLE_IF__ [@http://www.boost.org/libs/utility/enable_if.html Boost.EnableIf]]
+[def __BOOST_FUNCTION__ [@http://www.boost.org/libs/function/ Boost.Function]]
+[def __BOOST_FUSION__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/index.html Boost.Fusion]]
 [def __BOOST_ITERATOR__ [@http://boost.org/libs/iterator/doc/index.html Boost.Iterator]]
 [def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]
 [def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html Boost.Phoenix]]
@@ -30,6 +33,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BOOST_PROTO__ [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/ Boost.Proto]]
 [def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of Boost.ResultOf]]
 [def __BOOST_TUPLE__ [@http://www.boost.org/libs/tuple/index.html Boost.Tuple]]
+[def __BOOST_TYPEOF__ [@http://www.boost.org/libs/typeof/index.html Boost.Typeof]]
 [def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
 [def __FCPP__ [@http://www.cc.gatech.edu/~yannis/fc++/ FC++]]
 [def __EXTENSION_METHOD__ [@http://en.wikipedia.org/wiki/Extension_method Extension method]]
@@ -47,6 +51,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __MPL_LAMBDA_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html MPL Lambda Expression]]
 [def __MPL_PLACEHOLDER_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/placeholder-expression.html MPL Placeholder Expression]]
 [def __MPL_FORWARD_SEQUENCE__ [@http://www.boost.org/libs/mpl/doc/refmanual/forward-sequence.html MPL Forward Sequence]]
+[def __SGI_ADAPTABLE_FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable Function Object]]
 [def __SGI_ADAPTABLE__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable]]
 
 [def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]]
@@ -55,6 +60,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
 [def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826  callable]]
 
+[def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
 [def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
 
 [def __INPUT_ITERATOR__ [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
@@ -65,9 +71,8 @@ Distributed under the Boost Software License, Version 1.0.
 [/ Internal Links ]
 
 [def __LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
-[def __POD_FUNCTION_TEMPLATE__ [link egg.concepts.pod_function_template POD function template]]
 [def __STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
-[def __OPERATABLE__ [link egg.concepts.operatable_object Operatable]]
+[def __STATIC__ [link egg.concepts.static_function_object Static]]
 [def __AMBI_FUNCTION_OBJECT__ [link egg.concepts.ambi_function_object Ambi Function Object]]
 [def __AMBI__ [link egg.concepts.ambi_function_object Ambi]]
 [def __MAJOR_FUNCTION_OBJECT__ [link egg.concepts.major_function_object Major Function Object]]
@@ -75,33 +80,44 @@ Distributed under the Boost Software License, Version 1.0.
 [def __PIPABLE_FUNCTION_OBJECT__ [link egg.concepts.pipable_function_object Pipable Function Object]]
 [def __PIPABLE__ [link egg.concepts.pipable_function_object Pipable]]
 [def __LITTLE_FUNCTION__ [link egg.concepts.little_function Little Function]]
+[def __RESULT_OF_TUTORIAL__ [link egg.concepts.result_of_tutorial result_of tutorial]]
 
-[def __EGG_FORWARDING_STRATEGIES__ [link egg.forwarding_strategies Forwarding Strageties]]
-[def __EGG_DEDUCING_NULLARY_RETURN_TYPES__ [link egg.forwarding_strategies.deducing_nullary_return_types Deducing nullary return types]]
+[def __EGG_FORWARDING_STRATEGIES__ [link egg.forwarding_strategies Forwarding Strategies]]
+[def __EGG_DETERMINING_NULLARY_RETURN_TYPES__ [link egg.forwarding_strategies.determining_nullary_return_types Determining nullary return types]]
 
 [def __EGG_FUNCTION_BUILDERS__ [link egg.function_builders Function Builders]]
 [def __EGG_FUNCTION_ADAPTORS__ [link egg.function_adaptors Function Adaptors]]
+[def __EGG_FUNCTION_OBJECTS__ [link egg.function_objects Function Objects]]
 [def __EGG_FUNCTION__ [link egg.function_builders.function function]]
 [def __EGG_FUNCTION_FACADE__ [link egg.function_builders.function_facade function_facade]]
-[def __EGG_DEFERRED__ [link egg.function_builders.deferred deferred]]
+[def __EGG_POLY__ [link egg.function_builders.poly poly]]
+[def __EGG_GENERATOR__ [link egg.function_builders.generator generator]]
+[def __EGG_VARIADIC__ [link egg.function_builders.variadic variadic]]
 [def __EGG_MAKE_FUNCTION__ [link egg.function_builders.make_function make_function]]
 
 [def __EGG_AMBI__ [link egg.function_adaptors.ambin ambiN]]
+[def __EGG_COMPOSE__ [link egg.function_adaptors.compose compose]]
 [def __EGG_CURRY__ [link egg.function_adaptors.curryn curryN]]
 [def __EGG_UNCURRY__ [link egg.function_adaptors.uncurry uncurry]]
 [def __EGG_FUSE__ [link egg.function_adaptors.fuse fuse]]
 [def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse unfuse]]
 [def __EGG_LAZY__ [link egg.function_adaptors.lazy lazy]]
+[def __EGG_FIX__ [link egg.function_adaptors.fix fix]]
+[def __EGG_MEMOIZE__ [link egg.function_adaptors.memoize memoize]]
 [def __EGG_PIPABLE__ [link egg.function_adaptors.pipable pipable]]
-[def __EGG_RET__ [link egg.function_adaptors.ret ret]]
+[def __EGG_RETURN__ [link egg.function_adaptors.return_ return_]]
 [def __EGG_BLL_BIND__ [link egg.function_objects.bll_bind bll_bind]]
+[def __EGG_GET__ [link egg.function_objects.get get]]
+[def __EGG_PACK__ [link egg.function_objects.pack pack]]
+[def __EGG_CONSTRUCT__ [link egg.function_objects.construct construct]]
+[def __EGG_CONSTRUCT_BRACED1__ [link egg.function_objects.construct_braced1 construct_braced1]]
+[def __EGG_CONSTRUCT_BRACED2__ [link egg.function_objects.construct_braced2 construct_braced2]]
+[/ [def __EGG_CONSTRUCT_UNFUSED1__ [link egg.function_objects.construct_unfused1 construct_unfused1]] ]
+[def __EGG_CONSTRUCT_VARIADIC1__ [link egg.function_objects.construct_variadic1 construct_variadic1]]
+[def __EGG_INFIX__ [link egg.utilities.infix infix]]
 
-[def __EGG_GENERATOR__ [link egg.object_generator.generator generator]]
-[def __EGG_GENERATING_FORMS__ [link egg.object_generator.generating_forms Generating forms]]
-
-[def __PSTADE_RESULT_OF__ [link egg.workarounds.pstade__result_of pstade::result_of]]
-[def __EGG_DEFER__ [link egg.workarounds.defer BOOST_EGG_DEFER]]
-[def __EGG_DEDUCED_FORM__ [link egg.workarounds.deduced_form deduced_form]]
+[def __EGG_RESULT_OF__ [link egg.workarounds.egg__result_of egg::result_of]]
+[def __EGG_USE_DEDUCED_FORM__ [link egg.workarounds.use_deduced_form use_deduced_form]]
 
 
 
@@ -112,7 +128,6 @@ Distributed under the Boost Software License, Version 1.0.
 [include function_builders.qbk]
 [include function_adaptors.qbk]
 [include function_objects.qbk]
-[include object_generator.qbk]
 [include utilities.qbk]
 [include configuration.qbk]
 [include workarounds.qbk]
