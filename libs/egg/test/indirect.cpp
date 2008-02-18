@@ -12,9 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 
 
 #include "./using_egg.hpp"

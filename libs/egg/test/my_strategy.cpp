@@ -49,7 +49,7 @@ BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 0>::
 BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 1>::type>));
 
 //[code_my_strategy_function
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
     template<class Lit>
     struct function<Lit, my_strategy>

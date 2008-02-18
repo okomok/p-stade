@@ -12,16 +12,12 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
-
-
 #include "./using_egg.hpp"
 
 
 void egg_test()
 {
     {
-        using namespace pstade;
         BOOST_CHECK(to_string(1) == std::string("1"));
         BOOST_CHECK((1|to_string) == std::string("1"));
 #if defined(BOOST_MSVC)

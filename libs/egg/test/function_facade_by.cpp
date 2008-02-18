@@ -16,13 +16,12 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <pstade/test.hpp>
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/by_ref.hpp>
 
 
-using namespace boost::egg;
+#include "./using_egg.hpp"
 
 
 struct my_value_identity :

@@ -56,8 +56,6 @@ BOOST_EGG_CONST((result_of_lazy<base_minus>::type), lazy_minus) = BOOST_EGG_LAZY
 
 void egg_test()
 {
-    using namespace pstade;
-
     {
         BOOST_CHECK(lazy_minus(bll::_1, 2)(3|to_ref) == 1);
         BOOST_CHECK(lazy(base_minus())(bll::_1, 2)(3|to_ref) == 1);

@@ -24,8 +24,6 @@ PSTADE_TEST_IS_RESULT_OF((bool), T_is_upper(wchar_t))
 
 void egg_test()
 {
-    using namespace pstade;
-
     {
         BOOST_CHECK(is_alpha('a'));
         BOOST_CHECK(is_upper('A', std::locale()));
