@@ -20,7 +20,7 @@
 #include <boost/lexical_cast.hpp>
 
 
-using boost::egg::result_of;
+using boost::egg::result_of_;
 using namespace boost::egg;
 
 
@@ -44,7 +44,7 @@ T_plus const plus = BOOST_EGG_POLY();
 void test_builder()
 {
     // Boost.ResultOf compatible
-    result_of<T_plus(int, int)>::type r = plus(1, 2);
+    result_of_<T_plus(int, int)>::type r = plus(1, 2);
     BOOST_CHECK(r == 3);
 
     // Boost.Lambda compatible
@@ -63,7 +63,7 @@ void test_adaptor()
     BOOST_CHECK(r == 3);
 
     // Dynamic initialization without macros.
-    result_of<T_pipable(T_plus const &)>::type your_plus = pipable(plus);
+    result_of_<T_pipable(T_plus const &)>::type your_plus = pipable(plus);
     BOOST_CHECK((1|your_plus(2)) == 3);
 }
 //]

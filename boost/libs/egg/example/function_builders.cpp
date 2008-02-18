@@ -31,7 +31,7 @@
 #include <boost/ref.hpp>
 
 
-using boost::egg::result_of;
+using boost::egg::result_of_;
 using namespace boost::egg;
 
 
@@ -177,7 +177,7 @@ template<class F, class X>
 struct mono_twice
 {
     typedef typename
-        result_of<F(typename result_of<F(X &)>::type)>::type
+        result_of_<F(typename result_of_<F(X &)>::type)>::type
     result_type;
 
     result_type operator()(F &f, X &x) const
