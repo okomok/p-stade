@@ -53,10 +53,10 @@ namespace boost { namespace egg { namespace details {
             return call_aux<Re>(t, typename tuple_length<Tuple>::type());
         }
 
-    #define PSTADE_result_of_get(Z, N, _) typename result_of_tuple_get<N, Tuple>::type
+    #define BOOST_EGG_result_of_get(Z, N, _) typename result_of_tuple_get<N, Tuple>::type
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/tuple_fuse.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_result_of_get
+    #undef  BOOST_EGG_result_of_get
     };
 
     typedef
@@ -81,7 +81,7 @@ namespace boost { namespace egg { namespace details {
     template<class Tuple>
     struct apply_aux< Tuple, mpl::int_<n> > :
         result_of<
-            Base const( BOOST_PP_ENUM(n, PSTADE_result_of_get, ~) )
+            Base const( BOOST_PP_ENUM(n, BOOST_EGG_result_of_get, ~) )
         >
     { };
 

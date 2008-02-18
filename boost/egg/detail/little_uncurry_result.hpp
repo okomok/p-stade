@@ -38,14 +38,14 @@ namespace boost { namespace egg { namespace details {
         template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
         struct BOOST_EGG_APPLY_DECL;
 
-    #define PSTADE_open_result_of(Z, I, _)  typename result_of<
-    #define PSTADE_close_result_of(Z, I, _) >::type(typename result_of_forwarding<Strategy const, n, I, BOOST_PP_CAT(A, I)>::type)
-    #define PSTADE_paren(Z, I, _) ( egg::forwarding<Strategy const, n, I>(BOOST_PP_CAT(a, I)) )
+    #define BOOST_EGG_open_result_of(Z, I, _)  typename result_of<
+    #define BOOST_EGG_close_result_of(Z, I, _) >::type(typename result_of_forwarding<Strategy const, n, I, BOOST_PP_CAT(A, I)>::type)
+    #define BOOST_EGG_paren(Z, I, _) ( egg::forwarding<Strategy const, n, I>(BOOST_PP_CAT(a, I)) )
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_ARITY, <boost/egg/detail/little_uncurry_result.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_paren
-    #undef  PSTADE_close_result_of
-    #undef  PSTADE_open_result_of
+    #undef  BOOST_EGG_paren
+    #undef  BOOST_EGG_close_result_of
+    #undef  BOOST_EGG_open_result_of
     };
 
 
@@ -60,16 +60,16 @@ namespace boost { namespace egg { namespace details {
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of<
-            BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_open_result_of, ~)
+            BOOST_PP_REPEAT_FROM_TO(1, n, BOOST_EGG_open_result_of, ~)
                 Base const(typename result_of_forwarding<Strategy const, n, 0, A0>::type)
-            BOOST_PP_REPEAT_FROM_TO(1, n, PSTADE_close_result_of, ~)
+            BOOST_PP_REPEAT_FROM_TO(1, n, BOOST_EGG_close_result_of, ~)
         >      
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return m_base BOOST_PP_REPEAT(n, PSTADE_paren, ~) ;
+        return m_base BOOST_PP_REPEAT(n, BOOST_EGG_paren, ~) ;
     }
 
 

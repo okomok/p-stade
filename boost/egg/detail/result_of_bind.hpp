@@ -26,10 +26,10 @@ namespace boost { namespace egg {
     template<class Base, class NullaryResult, BOOST_EGG_PP_ENUM_PARAMS_WITH(BOOST_EGG_MAX_LINEAR_ARITY, class Arg, = void)>
     struct result_of_bind;
 
-#define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <boost/egg/detail/result_of_bind.hpp>))
+#define BOOST_EGG_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_max_arity, <boost/egg/detail/result_of_bind.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_max_arity
+#undef  BOOST_EGG_max_arity
 
 
 } } // namespace boost::egg

@@ -12,15 +12,15 @@
 #if !defined(BOOST_EGG_PERFECT_STRATEGY_PARAMS)
     #error Please define BOOST_EGG_PERFECT_STRATEGY_PARAMS.
 #endif
-#define PSTADE_stg     BOOST_PP_TUPLE_ELEM(2, 0, BOOST_EGG_PERFECT_STRATEGY_PARAMS)
-#define PSTADE_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(2, 1, BOOST_EGG_PERFECT_STRATEGY_PARAMS))
+#define BOOST_EGG_stg     BOOST_PP_TUPLE_ELEM(2, 0, BOOST_EGG_PERFECT_STRATEGY_PARAMS)
+#define BOOST_EGG_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(2, 1, BOOST_EGG_PERFECT_STRATEGY_PARAMS))
 
 
 namespace boost { namespace egg {
 
 
     template<class Little>
-    struct function<Little, PSTADE_stg>
+    struct function<Little, BOOST_EGG_stg>
     {
         #include BOOST_EGG_FUNCTION_PREAMBLE()
 
@@ -32,13 +32,13 @@ namespace boost { namespace egg {
         }
 
     // 0ary-
-    #define PSTADE_call_operator(R, BitSeq) \
-        PSTADE_call_operator_aux( \
-            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq), \
-            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param,    ~, BitSeq) \
+    #define BOOST_EGG_call_operator(R, BitSeq) \
+        BOOST_EGG_call_operator_aux( \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_arg_type, ~, BitSeq), \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_param,    ~, BitSeq) \
         ) \
     /**/
-    #define PSTADE_call_operator_aux(ArgTypes, Params) \
+    #define BOOST_EGG_call_operator_aux(ArgTypes, Params) \
         template<BOOST_PP_ENUM_PARAMS(n, class A)> \
         typename apply_little<Little const, ArgTypes>::type \
         operator()(Params) const \
@@ -46,30 +46,30 @@ namespace boost { namespace egg {
             return call_little(m_little, BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
-    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
-    #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
-    #define PSTADE_c0
-    #define PSTADE_c1 const
-    #define PSTADE_ac0(A) A
-    #define PSTADE_ac1(A) BOOST_EGG_DEDUCED_CONST(A)
-        #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (PSTADE_arities, <boost/egg/detail/perfect_strategy_include.hpp>)
+    #define BOOST_EGG_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(BOOST_EGG_ac, Bit)(BOOST_PP_CAT(A, I))
+    #define BOOST_EGG_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(BOOST_EGG_c, Bit) & BOOST_PP_CAT(a, I)
+    #define BOOST_EGG_c0
+    #define BOOST_EGG_c1 const
+    #define BOOST_EGG_ac0(A) A
+    #define BOOST_EGG_ac1(A) BOOST_EGG_DEDUCED_CONST(A)
+        #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (BOOST_EGG_arities, <boost/egg/detail/perfect_strategy_include.hpp>)
         #include BOOST_EGG_PP_ARRAY_ITERATE()
-    #undef  PSTADE_ac1
-    #undef  PSTADE_ac0
-    #undef  PSTADE_c1
-    #undef  PSTADE_c0
-    #undef  PSTADE_param
-    #undef  PSTADE_arg_type
-    #undef  PSTADE_call_operator_aux
-    #undef  PSTADE_call_operator
+    #undef  BOOST_EGG_ac1
+    #undef  BOOST_EGG_ac0
+    #undef  BOOST_EGG_c1
+    #undef  BOOST_EGG_c0
+    #undef  BOOST_EGG_param
+    #undef  BOOST_EGG_arg_type
+    #undef  BOOST_EGG_call_operator_aux
+    #undef  BOOST_EGG_call_operator
     };
 
 
 } } // namespace boost::egg
 
 
-#undef  PSTADE_arities
-#undef  PSTADE_stg
+#undef  BOOST_EGG_arities
+#undef  BOOST_EGG_stg
 #undef  BOOST_EGG_PERFECT_STRATEGY_PARAMS
 
 
@@ -87,7 +87,7 @@ namespace boost { namespace egg {
 
 #else
 
-    BOOST_PP_SEQ_FOR_EACH_PRODUCT(PSTADE_call_operator, BOOST_EGG_PP_SEQ_REPEAT((0)(1), n))
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(BOOST_EGG_call_operator, BOOST_EGG_PP_SEQ_REPEAT((0)(1), n))
 
 #endif // n == 0
 

@@ -52,12 +52,12 @@
         #define BOOST_EGG_BIND_R } }
 
 
-    #define PSTADE_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
-    #define PSTADE_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, PSTADE_max_arity, <boost/egg/bind_n.hpp>))
+    #define BOOST_EGG_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
+    #define BOOST_EGG_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_max_arity, <boost/egg/bind_n.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_max_arity
-    #undef  PSTADE_arg
+    #undef  BOOST_EGG_max_arity
+    #undef  BOOST_EGG_arg
 
 
     } } // namespace boost::egg
@@ -79,7 +79,7 @@
         struct BOOST_EGG_PP_CAT3(little_bind, n, _result)
         {
             Base m_base;
-            BOOST_PP_REPEAT(n, PSTADE_arg, ~)
+            BOOST_PP_REPEAT(n, BOOST_EGG_arg, ~)
 
             Base const &base() const
             {
@@ -87,14 +87,14 @@
             }
 
             // 0ary - BOOST_EGG_MAX_ARITYary
-        #define PSTADE_meta_substitute(Z, N, _) \
+        #define BOOST_EGG_meta_substitute(Z, N, _) \
             typename result_of_ref< \
                 typename result_of_ref< \
                     details::T_substitute(BOOST_PP_CAT(Arg, N) const &) \
                 >::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &)) \
             >::type \
         /**/
-        #define PSTADE_substitute(Z, N, _) \
+        #define BOOST_EGG_substitute(Z, N, _) \
             details::substitute(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
         /**/
 
@@ -104,8 +104,8 @@
             #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, BOOST_EGG_MAX_ARITY, <boost/egg/bind_n.hpp>))
             #include BOOST_PP_ITERATE()
 
-        #undef  PSTADE_substitute
-        #undef  PSTADE_meta_substitute
+        #undef  BOOST_EGG_substitute
+        #undef  BOOST_EGG_meta_substitute
         };
 
 
@@ -177,7 +177,7 @@
             result_of_ref<
                 typename result_of_ref<typename result_of_ref<details::T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, PSTADE_meta_substitute, ~)
+                    BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
                 )
             >
         { };
@@ -195,7 +195,7 @@
             result_of_ref<
                 typename result_of_ref<typename result_of_ref<details::T_substitute(Base &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, PSTADE_meta_substitute, ~)
+                    BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
                 )
             >
         { };
@@ -208,7 +208,7 @@
             return
                 details::substitute(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, PSTADE_substitute, ~)
+                    BOOST_PP_ENUM(n, BOOST_EGG_substitute, ~)
                 );
         }
 

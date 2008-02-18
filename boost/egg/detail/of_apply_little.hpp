@@ -30,10 +30,10 @@ namespace boost { namespace egg { namespace details {
     template<class FunCall>
     struct of_apply_little;
 
-#define PSTADE_unref(Z, I, _) typename unref<typename bytag_at<stg_t, n, I>::type, BOOST_PP_CAT(A, I)>::type
+#define BOOST_EGG_unref(Z, I, _) typename unref<typename bytag_at<stg_t, n, I>::type, BOOST_PP_CAT(A, I)>::type
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/of_apply_little.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_unref
+#undef  BOOST_EGG_unref
 
 
 } } } // namespace boost::egg::details
@@ -56,7 +56,7 @@ namespace boost { namespace egg { namespace details {
         stg_t;
 
         typedef typename
-            apply_little<little_t, BOOST_PP_ENUM(n, PSTADE_unref, ~)>::type
+            apply_little<little_t, BOOST_PP_ENUM(n, BOOST_EGG_unref, ~)>::type
         type;
     };
 

@@ -19,7 +19,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class T>
     struct pass_by_value :
-        boost::remove_cv<typename boost::decay<T>::type>
+        remove_cv<typename decay<T>::type>
     { };
 
 

@@ -48,21 +48,21 @@ namespace boost { namespace egg {
             template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_BLL_BIND_MAX_ARITY, A)>
             struct BOOST_EGG_APPLY_DECL;
 
-        #define PSTADE_bind_tuple_mapper(N) \
+        #define BOOST_EGG_bind_tuple_mapper(N) \
             typename lambda::detail::bind_tuple_mapper< \
                 BOOST_EGG_PP_ENUM_PARAMS_WITH(N, typename fun_to_ref<A, >::type) \
             >::type \
         /**/
-        #define PSTADE_lambda_functor_base(N) \
+        #define BOOST_EGG_lambda_functor_base(N) \
             lambda::lambda_functor_base< \
                 lambda::action<N, lambda::function_action<N> >, \
-                PSTADE_bind_tuple_mapper(N) \
+                BOOST_EGG_bind_tuple_mapper(N) \
             > \
         /**/
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_BLL_BIND_MAX_ARITY, <boost/egg/bll/bind.hpp>))
             #include BOOST_PP_ITERATE()
-        #undef  PSTADE_lambda_functor_base
-        #undef  PSTADE_bind_tuple_mapper
+        #undef  BOOST_EGG_lambda_functor_base
+        #undef  BOOST_EGG_bind_tuple_mapper
         };
 
 
@@ -87,7 +87,7 @@ namespace boost { namespace egg {
     {
         typedef
             lambda::lambda_functor<
-                PSTADE_lambda_functor_base(n)
+                BOOST_EGG_lambda_functor_base(n)
             > // const
         type;
     };
@@ -95,8 +95,8 @@ namespace boost { namespace egg {
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return PSTADE_lambda_functor_base(n)(
-            PSTADE_bind_tuple_mapper(n)(
+        return BOOST_EGG_lambda_functor_base(n)(
+            BOOST_EGG_bind_tuple_mapper(n)(
                 BOOST_PP_ENUM_PARAMS(n, a)
             )
         );

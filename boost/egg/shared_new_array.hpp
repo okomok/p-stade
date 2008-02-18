@@ -1,5 +1,5 @@
-#ifndef PSTADE_SHARED_NEW_ARRAY_HPP
-#define PSTADE_SHARED_NEW_ARRAY_HPP
+#ifndef BOOST_EGG_SHARED_NEW_ARRAY_HPP
+#define BOOST_EGG_SHARED_NEW_ARRAY_HPP
 #include <boost/egg/detail/prefix.hpp>
 
 
