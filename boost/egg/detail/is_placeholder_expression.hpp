@@ -19,9 +19,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Expr>
     struct is_placeholder_expression :
-        mpl::is_lambda_expression<
-            typename boost::remove_cv<Expr>::type
-        >
+        mpl::is_lambda_expression<typename remove_cv<Expr>::type>
     { };
 
 

@@ -52,7 +52,7 @@ namespace boost { namespace egg {
     BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
     typename apply_little<
         Little const
-        BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, typename boost::remove_reference<A, >::type BOOST_PP_INTERCEPT)
+        BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, typename remove_reference<A, >::type BOOST_PP_INTERCEPT)
     >::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &&a)) const
     {

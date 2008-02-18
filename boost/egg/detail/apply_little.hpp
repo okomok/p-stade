@@ -36,9 +36,7 @@ namespace boost { namespace egg {
 // 0ary
     template<class Little>
     struct apply_little<Little> :
-        details::nullary_result_of_little<
-            typename boost::remove_const<Little>::type
-        >
+        details::nullary_result_of_little<typename remove_const<Little>::type>
     { };
 
     template<class Little>

@@ -30,7 +30,7 @@ namespace boost { namespace egg {
     template<class Tuple>
     struct fusion_length :
         mpl::int_<
-            mpl::size<typename boost::remove_cv<Tuple>::type>::type::value
+            mpl::size<typename remove_cv<Tuple>::type>::type::value
         >
     { };
 

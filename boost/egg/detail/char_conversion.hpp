@@ -45,7 +45,7 @@ namespace boost { namespace egg {
         {
             template<class Me, class CharT, class Locale = void>
             struct apply :
-                boost::remove_cv<CharT>
+                remove_cv<CharT>
             { };
 
             template<class Re, class CharT>
