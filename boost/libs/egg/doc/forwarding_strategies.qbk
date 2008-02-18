@@ -146,7 +146,7 @@ Egg performs the "perfect forwarding" by default.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= PSTADE_EGG_MAX_ARITY`.
+* `0 <= K && K <= BOOST_EGG_MAX_ARITY`.
 * If `Expr(_arg_list(a, by_perfect))` is a precondition as valid expression, `Expr(_arg_list(b, by_perfect))` must be well-formed.
 * If `Expr(_meta_arg_list(a, by_perfect))` is a precondition as valid expression, `Expr(_meta_arg_list(b, by_perfect))` must be well-formed.
 
@@ -194,7 +194,7 @@ Egg performs the "perfect forwarding" by default.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 * `aI` is not a rvalue.
 
 [heading Example]
@@ -241,7 +241,7 @@ Egg performs the "perfect forwarding" by default.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 
 [heading Example]
 * `_meta_arg_list(a, by_cref)` is `int const,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
@@ -288,7 +288,7 @@ Also, it can forward "movable" rvalues like `std::auto_ptr<>` with keeping movab
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 
 [heading Example]
 * `_meta_arg_list(a, by_value)` is `int,int,int` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
@@ -346,11 +346,11 @@ Egg provides the uniform way to define your own strategy.
         [[*Semantics]]
     ]
     [
-        [`#include PSTADE_EGG_FUNCTION_PREAMBLE()`]
+        [`#include BOOST_EGG_FUNCTION_PREAMBLE()`]
         [See below.]
     ]
     [
-        [`PSTADE_EGG_DEDUCED_CONST(A)`]
+        [`BOOST_EGG_DEDUCED_CONST(A)`]
         [`A const`]
     ]
     [
@@ -368,7 +368,7 @@ Egg provides the uniform way to define your own strategy.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 
 [heading Your strategy tag]
 A user-defined strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
@@ -376,12 +376,12 @@ A user-defined strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arit
 
 [heading Specializing `function<>`]
 Using your strategy tag, `function<>` template can be specialized.
-`PSTADE_EGG_FUNCTION_PREAMBLE()` must be placed in first,
+`BOOST_EGG_FUNCTION_PREAMBLE()` must be placed in first,
 which automagically defines nested typedefs `little_type`, `strategy_type`, and `result<...>` etc.
 [code_my_strategy_function]
 For some compiler bugs, you can call neither `result` template nor `_Lit::call` directly.
 You have to use `apply_little` and `call_little` instead.
-Moreover, if you want to support buggy msvc-7.1, `PSTADE_EGG_DEDUCED_CONST` instead of `const` must be used.
+Moreover, if you want to support buggy msvc-7.1, `BOOST_EGG_DEDUCED_CONST` instead of `const` must be used.
 Also notice that `_Lit` is /cv-qualifier/ sensitive.
 
 [heading Your strategy completed]
@@ -431,8 +431,8 @@ Let's look into the new valid expressions.
 [section PERFECT_STRATEGY]
 
 [heading Description]
-When you require a perfect forwarding strategy to support more arity than `PSTADE_EGG_MAX_ARITY`,
-you can define your own forwarding strategy using `PSTADE_EGG_PERFECT_STRATEGY` macro.
+When you require a perfect forwarding strategy to support more arity than `BOOST_EGG_MAX_ARITY`,
+you can define your own forwarding strategy using `BOOST_EGG_PERFECT_STRATEGY` macro.
 
 [heading Header]
 * `<boost/egg/perfect_strategy.hpp>`
@@ -463,7 +463,7 @@ you can define your own forwarding strategy using `PSTADE_EGG_PERFECT_STRATEGY` 
 [heading Preconditions]
 * `Tag` is a type.
 * `AritySeq` is a __BOOST_PREPROCESSOR__ sequence of numbers.
-* `PSTADE_EGG_PERFECT_STRATEGY(Tag, AritySeq)` is placed in the global namespace.
+* `BOOST_EGG_PERFECT_STRATEGY(Tag, AritySeq)` is placed in the global namespace.
 
 [heading Example]
 [code_my_perfect]

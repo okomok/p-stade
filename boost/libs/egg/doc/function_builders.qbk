@@ -154,7 +154,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_GENERATOR()`]
+        [`BOOST_EGG_GENERATOR()`]
         [A braced initializer of `generator<Lam, _Stg, Cons, R0>::type`]
     ]
     [
@@ -180,7 +180,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR()`.
+* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_GENERATOR()`.
 * `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [note `Lam` is not instantiated while invoking `_mpl::apply`, so that any static assertion in generated type doesn't fail.]
@@ -260,7 +260,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_IMPLICIT()`]
+        [`BOOST_EGG_IMPLICIT()`]
         [A braced initializer of `implicit<Lam, _Stg>::type`]
     ]
     [
@@ -287,7 +287,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
       For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
-* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_IMPLICIT()`.
+* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_IMPLICIT()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
@@ -326,7 +326,7 @@ When you want to build stateless one, `poly` is the coolest builder.
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_POLY()`]
+        [`BOOST_EGG_POLY()`]
         [A braced initializer of `poly<Lam,...>::type`]
     ]
     [
@@ -356,7 +356,7 @@ When you want to build stateless one, `poly` is the coolest builder.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_POLY()`.
+* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_POLY()`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
@@ -395,7 +395,7 @@ to be /statically initialized/ without `static_`.
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`PSTADE_EGG_STATIC()`]
+        [`BOOST_EGG_STATIC()`]
         [A braced initializer of `static_<Lam, _Stg>::type`]
     ]
     [
@@ -417,7 +417,7 @@ to be /statically initialized/ without `static_`.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_STATIC()`.
+* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_STATIC()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
@@ -454,19 +454,19 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
         [`result_of_unfuse<function<_Lit, by_cref>, R0, Pack, _Stg>::type`]
     ]
     [
-        [`PSTADE_EGG_VARIADIC_L _lit PSTADE_EGG_VARIADIC_R`]
+        [`BOOST_EGG_VARIADIC_L _lit BOOST_EGG_VARIADIC_R`]
         [A braced initializer of `variadic<_typeof(_lit),...>::type`]
     ]
     [
-        [`PSTADE_EGG_VARIADIC(L)`]
-        [`PSTADE_EGG_VARIADIC_L L PSTADE_EGG_VARIADIC_R`]
+        [`BOOST_EGG_VARIADIC(L)`]
+        [`BOOST_EGG_VARIADIC_L L BOOST_EGG_VARIADIC_R`]
     ]
     [
         [`variadic_poly<Lam, _Stg = _ud, Pack = _ud, R0 = _ud>::type`]
         [`result_of_unfuse<poly<Lam, by_cref>::type, R0, Pack, _Stg>::type`]
     ]
     [
-        [`PSTADE_EGG_VARIADIC_POLY()`]
+        [`BOOST_EGG_VARIADIC_POLY()`]
         [A braced initializer of `variadic_poly<Lam,...>::type`]
     ]
     [
@@ -577,11 +577,11 @@ The following macros assist such routine work.
         [[*Semantics]]
     ]
     [
-        [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TYPE(T)`]
+        [`BOOST_EGG_RESISTER_NULLARY_RESULT_OF_TYPE(T)`]
         [`T` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
     ]
     [
-        [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TEMPLATE(X, S)`]
+        [`BOOST_EGG_RESISTER_NULLARY_RESULT_OF_TEMPLATE(X, S)`]
         [`X<...>` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
     ]
 ]
