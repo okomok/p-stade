@@ -14,7 +14,7 @@
 
 #include <iostream>
 #include <boost/noncopyable.hpp>
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 
 
 #include "./using_egg.hpp"
@@ -122,24 +122,24 @@ void test_static()
     static_base_t const& crB = D;
     {
         static_derived_t& rD1 = egg::static_downcast<static_derived_t>(rB);
-        BOOST_CHECK( is_same(D, rD1) );
+        BOOST_CHECK( is_same_obj(D, rD1) );
         static_derived_t& rD2 = egg::static_downcast<static_derived_t&>(rB); // & is optional
-        BOOST_CHECK( is_same(D, rD2) );
+        BOOST_CHECK( is_same_obj(D, rD2) );
 
         static_derived_t const& crD1 = egg::static_downcast<static_derived_t>(rB);
-        BOOST_CHECK( is_same(D, crD1) );
+        BOOST_CHECK( is_same_obj(D, crD1) );
         static_derived_t const& crD2 = egg::static_downcast<static_derived_t const>(rB); // const is optional (of course)
-        BOOST_CHECK( is_same(D, crD2) );
+        BOOST_CHECK( is_same_obj(D, crD2) );
         static_derived_t const& crD3 = egg::static_downcast<static_derived_t const&>(rB); // & is optional
-        BOOST_CHECK( is_same(D, crD3) );
+        BOOST_CHECK( is_same_obj(D, crD3) );
     }
     {
         static_derived_t const& crD1 = egg::static_downcast<static_derived_t>(crB);
-        BOOST_CHECK( is_same(D, crD1) );
+        BOOST_CHECK( is_same_obj(D, crD1) );
         static_derived_t const& crD2 = egg::static_downcast<static_derived_t const>(crB); // const is optional
-        BOOST_CHECK( is_same(D, crD2) );
+        BOOST_CHECK( is_same_obj(D, crD2) );
         static_derived_t const& crD3 = egg::static_downcast<static_derived_t const&>(crB); // & is optional
-        BOOST_CHECK( is_same(D, crD3) );
+        BOOST_CHECK( is_same_obj(D, crD3) );
     }
 }
 
@@ -155,24 +155,24 @@ void test_polymorphic()
     polymorphic_base_t const& crB = D;
     {
         polymorphic_derived_t& rD1 = egg::static_downcast<polymorphic_derived_t>(rB);
-        BOOST_CHECK( is_same(D, rD1) );
+        BOOST_CHECK( is_same_obj(D, rD1) );
         polymorphic_derived_t& rD2 = egg::static_downcast<polymorphic_derived_t&>(rB); // & is optional
-        BOOST_CHECK( is_same(D, rD2) );
+        BOOST_CHECK( is_same_obj(D, rD2) );
 
         polymorphic_derived_t const& crD1 = egg::static_downcast<polymorphic_derived_t>(rB);
-        BOOST_CHECK( is_same(D, crD1) );
+        BOOST_CHECK( is_same_obj(D, crD1) );
         polymorphic_derived_t const& crD2 = egg::static_downcast<polymorphic_derived_t const>(rB); // const is optional (of course)
-        BOOST_CHECK( is_same(D, crD2) );
+        BOOST_CHECK( is_same_obj(D, crD2) );
         polymorphic_derived_t const& crD3 = egg::static_downcast<polymorphic_derived_t const&>(rB); // & is optional
-        BOOST_CHECK( is_same(D, crD3) );
+        BOOST_CHECK( is_same_obj(D, crD3) );
     }
     {
         polymorphic_derived_t const& crD1 = egg::static_downcast<polymorphic_derived_t>(crB);
-        BOOST_CHECK( is_same(D, crD1) );
+        BOOST_CHECK( is_same_obj(D, crD1) );
         polymorphic_derived_t const& crD2 = egg::static_downcast<polymorphic_derived_t const>(crB); // const is optional
-        BOOST_CHECK( is_same(D, crD2) );
+        BOOST_CHECK( is_same_obj(D, crD2) );
         polymorphic_derived_t const& crD3 = egg::static_downcast<polymorphic_derived_t const&>(crB); // & is optional
-        BOOST_CHECK( is_same(D, crD3) );
+        BOOST_CHECK( is_same_obj(D, crD3) );
     }
 }
 
@@ -184,15 +184,15 @@ void test_sametype()
 {
     {
         blur b;
-        BOOST_CHECK( is_same(b, egg::static_downcast<blur>(b)) );
+        BOOST_CHECK( is_same_obj(b, egg::static_downcast<blur>(b)) );
     }
     {
         polyblur b;
-        BOOST_CHECK( is_same(b, egg::static_downcast<polyblur>(b)) );
+        BOOST_CHECK( is_same_obj(b, egg::static_downcast<polyblur>(b)) );
     }
     {
         int x = 10;
-        BOOST_CHECK( is_same(x, egg::static_downcast<int>(x)) );
+        BOOST_CHECK( is_same_obj(x, egg::static_downcast<int>(x)) );
     }
 }
 

@@ -17,7 +17,7 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #if defined(BOOST_EGG_HAS_FUSIONS)

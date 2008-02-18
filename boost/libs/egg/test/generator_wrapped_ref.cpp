@@ -13,7 +13,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 #include <boost/ref.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -60,16 +60,16 @@ void egg_test()
     {
         int i = 0;
 #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1 copies for some reason.
-        BOOST_CHECK( is_same(make_foo(boost::ref(i)).m_x, i) );
+        BOOST_CHECK( is_same_obj(make_foo(boost::ref(i)).m_x, i) );
 #endif
         foo<int&> r = make_foo(boost::ref(i));
-        BOOST_CHECK(is_same(r.m_x, i));
+        BOOST_CHECK(is_same_obj(r.m_x, i));
         
         foo<int const&> cr = make_foo(boost::cref(i));
-        BOOST_CHECK(is_same(r.m_x, i));
+        BOOST_CHECK(is_same_obj(r.m_x, i));
     }
     {
         int i = 0;
-        BOOST_CHECK( !is_same(make_foo(i).m_x, i) );
+        BOOST_CHECK( !is_same_obj(make_foo(i).m_x, i) );
     }
 }

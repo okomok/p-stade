@@ -17,7 +17,7 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/get.hpp>
@@ -61,10 +61,10 @@ void egg_test()
         tup_t t(i, 1.0);
 
         int v = 999;
-        BOOST_CHECK( egg::is_same(v, egg::get_c<0>(fusion_prepend(t, v))) );
-        BOOST_CHECK( !egg::is_same(v, egg::get_c<0>(X_fusion_prepend<by_value>()(t, v))) ); // copied
-        BOOST_CHECK( egg::is_same(boost::get<0>(t), egg::get_c<1>(fusion_prepend(t, v))) );
-        BOOST_CHECK( !egg::is_same(boost::get<1>(t), egg::get_c<2>(fusion_prepend(t, v))) ); // copied without Fusion.
+        BOOST_CHECK( egg::is_same_obj(v, egg::get_c<0>(fusion_prepend(t, v))) );
+        BOOST_CHECK( !egg::is_same_obj(v, egg::get_c<0>(X_fusion_prepend<by_value>()(t, v))) ); // copied
+        BOOST_CHECK( egg::is_same_obj(boost::get<0>(t), egg::get_c<1>(fusion_prepend(t, v))) );
+        BOOST_CHECK( !egg::is_same_obj(boost::get<1>(t), egg::get_c<2>(fusion_prepend(t, v))) ); // copied without Fusion.
     }
 
 #if defined(BOOST_EGG_HAS_FUSIONS)
@@ -73,10 +73,10 @@ void egg_test()
         boost::fusion::vector<int&, double> t(i, 1.0);
 
         int v = 999;
-        BOOST_CHECK( egg::is_same(v, egg::get_c<0>(fusion_prepend(t, v))) );
-        BOOST_CHECK( !egg::is_same(v, egg::get_c<0>(X_fusion_prepend<by_value>()(t, v))) ); // copied
-        BOOST_CHECK( egg::is_same(boost::fusion::at_c<0>(t), egg::get_c<1>(fusion_prepend(t, v))) );
-        BOOST_CHECK( egg::is_same(boost::fusion::at_c<1>(t), egg::get_c<2>(fusion_prepend(t, v))) ); // not copied with Fusion.
+        BOOST_CHECK( egg::is_same_obj(v, egg::get_c<0>(fusion_prepend(t, v))) );
+        BOOST_CHECK( !egg::is_same_obj(v, egg::get_c<0>(X_fusion_prepend<by_value>()(t, v))) ); // copied
+        BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<0>(t), egg::get_c<1>(fusion_prepend(t, v))) );
+        BOOST_CHECK( egg::is_same_obj(boost::fusion::at_c<1>(t), egg::get_c<2>(fusion_prepend(t, v))) ); // not copied with Fusion.
     }
 #endif
 }

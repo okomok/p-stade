@@ -16,7 +16,7 @@
 #include "./check_is_result_of.hpp"
 #include <boost/egg/result_of.hpp>
 #include <boost/optional/optional.hpp>
-#include <boost/egg/is_same.hpp>
+#include <boost/egg/is_same_obj.hpp>
 #include <boost/egg/bll/optional.hpp>
 #include <memory>
 
@@ -53,14 +53,14 @@ void egg_test()
         int *p = &x;
         result_of<T_dereference(int *&)>::type
             r = dereference(p);
-        BOOST_CHECK(is_same(r, *p));
+        BOOST_CHECK(is_same_obj(r, *p));
     }
     {
         boost::optional<int> o;
         o = 12;
         result_of<T_dereference(boost::optional<int>&)>::type
             r = dereference(o);
-        BOOST_CHECK(is_same(r, *o));
+        BOOST_CHECK(is_same_obj(r, *o));
     }
     {
         int x = 12;
@@ -68,8 +68,8 @@ void egg_test()
         o = x;
         result_of<T_dereference(boost::optional<int&>&)>::type
             r = dereference(o);
-        BOOST_CHECK(is_same(x, *o));
-        BOOST_CHECK(is_same(r, *o));
+        BOOST_CHECK(is_same_obj(x, *o));
+        BOOST_CHECK(is_same_obj(r, *o));
     }
     {
         std::auto_ptr<int> const p(new int(3));
