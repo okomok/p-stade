@@ -43,8 +43,8 @@ BOOST_EGG_ADL_BARRIER(bool_testable) {
             // In fact, these assertions seem not to work.
             //
             // Your type is already bool-testable.
-            // BOOST_MPL_ASSERT_NOT((boost::is_convertible<Derived, char>));
-            // BOOST_MPL_ASSERT_NOT((boost::is_convertible<Derived, int short>));
+            // BOOST_MPL_ASSERT_NOT((is_convertible<Derived, char>));
+            // BOOST_MPL_ASSERT_NOT((is_convertible<Derived, int short>));
         }
 
         // Prefer 'friend' to member for disambiguity.
