@@ -24,8 +24,6 @@ PSTADE_TEST_IS_RESULT_OF((wchar_t), T_to_lower(wchar_t))
 
 void egg_test()
 {
-    using namespace pstade;
-
     {
         BOOST_CHECK(to_lower('A') == 'a');
         BOOST_CHECK(to_lower('A', std::locale()) == 'a');

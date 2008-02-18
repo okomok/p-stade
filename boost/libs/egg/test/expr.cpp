@@ -17,7 +17,7 @@
 #include <boost/typeof/typeof.hpp>
 #include <boost/egg/get.hpp>
 #include <boost/egg/unfuse.hpp>
-#include <pstade/fake.hpp>
+#include <boost/egg/detail/fake.hpp>
 
 
 #include "./using_egg.hpp"
@@ -57,7 +57,7 @@ test_type()
 template<class F>
 struct result_of_test_template
 {
-    typedef BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, egg::expr<int(char, int)>(unfuse(pstade::fake<F&>())));
+    typedef BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, egg::expr<int(char, int)>(unfuse(details::fake<F&>())));
     typedef typename nested::type type;
 };
 

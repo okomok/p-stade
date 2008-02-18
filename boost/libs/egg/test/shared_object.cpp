@@ -12,9 +12,6 @@
 #include "./egg_unit_test.hpp"
 
 
-#include <pstade/test.hpp>
-
-
 #include "./using_egg.hpp"
 
 

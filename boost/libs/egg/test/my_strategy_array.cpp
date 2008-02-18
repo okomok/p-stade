@@ -28,7 +28,6 @@
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/by_ref.hpp>
 #include <boost/egg/const.hpp>
-#include <pstade/enable_if.hpp>
 
 
 
@@ -36,7 +35,7 @@ struct my_strategy : boost::mpl::always<boost::egg::by_perfect> {};
 struct my_c_strategy : boost::mpl::always<boost::egg::by_cref> {};
 
 
-namespace pstade { namespace egg {
+namespace boost { namespace egg {
 
 
     template<class Lit>

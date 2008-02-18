@@ -24,8 +24,6 @@ PSTADE_TEST_IS_RESULT_OF((bool), T_is_classified_as(wchar_t, std::ctype_base::ma
 
 void egg_test()
 {
-    using namespace pstade;
-
     {
         BOOST_CHECK(is_classified_as('1', std::ctype_base::digit));
         BOOST_CHECK(is_classified_as('1', std::ctype_base::digit, std::locale()));
