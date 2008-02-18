@@ -81,7 +81,7 @@ namespace boost { namespace egg {
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 struct little_bgn
 {
@@ -148,102 +148,102 @@ T identity_(T x) { return x; }
 void egg_test()
 {
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_bgn(int(&)[3])>::type, int *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_bgn(int(&)[3])>::type, int *>));
         int a[3] = {};
         int *p = my_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_bgn(int(&)[3])>::type, int *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_bgn(int(&)[3])>::type, int *>));
     }
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_bgn(int const(&)[3])>::type, int const *>));
         int const a[3] = {};
         int const *p = my_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_bgn(int const(&)[3])>::type, int const *>));
     }
 
 
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_per_bgn(int(&)[3])>::type, int *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_per_bgn(int(&)[3])>::type, int *>));
         int a[3] = {};
         int *p = per_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_per_bgn(int(&)[3])>::type, int *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_per_bgn(int(&)[3])>::type, int *>));
     }
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_per_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_per_bgn(int const(&)[3])>::type, int const *>));
         int const a[3] = {};
         int const *p = per_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_per_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_per_bgn(int const(&)[3])>::type, int const *>));
     }
 
 
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_ref_bgn(int(&)[3])>::type, int *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_ref_bgn(int(&)[3])>::type, int *>));
         int a[3] = {};
         int *p = ref_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_ref_bgn(int(&)[3])>::type, int *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_ref_bgn(int(&)[3])>::type, int *>));
     }
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_ref_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_ref_bgn(int const(&)[3])>::type, int const *>));
         int const a[3] = {};
         int const *p = ref_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_ref_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_ref_bgn(int const(&)[3])>::type, int const *>));
     }
 
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_cref_bgn(int(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_cref_bgn(int(&)[3])>::type, int const *>));
         int a[3] = {};
         int const *p = cref_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_cref_bgn(int(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_cref_bgn(int(&)[3])>::type, int const *>));
     }
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_cref_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_cref_bgn(int const(&)[3])>::type, int const *>));
         int const a[3] = {};
         int const *p = cref_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_cref_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_cref_bgn(int const(&)[3])>::type, int const *>));
     }
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_cref_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_cref_bgn(int const(&)[3])>::type, int const *>));
         int a[3] = {};
         int const *p = cref_bgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_cref_bgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_cref_bgn(int const(&)[3])>::type, int const *>));
     }
 
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
         int const a[3] = {};
         int const *p = my_cbgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
     }
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
         int a[3] = {};
         int const *p = my_cbgn(a);
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
     }
 
 
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
         int const a[3] = {};
         int const *p = ::identity_(my_cbgn(a));
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
     }
     {
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
         int a[3] = {};
         int const *p = ::identity_(my_cbgn(a));
         BOOST_CHECK( p == &a[0] );
-        BOOST_MPL_ASSERT((boost::is_same<result_of<T_my_cbgn(int const(&)[3])>::type, int const *>));
+        BOOST_MPL_ASSERT((boost::is_same<result_of_<T_my_cbgn(int const(&)[3])>::type, int const *>));
     }
 }

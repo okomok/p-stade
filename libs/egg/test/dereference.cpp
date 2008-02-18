@@ -22,7 +22,7 @@
 
 
 using namespace boost::egg;
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
 CHECK_IS_RESULT_OF((int&), T_dereference(int *))
@@ -51,14 +51,14 @@ void egg_test()
     {
         int x = 12;
         int *p = &x;
-        result_of<T_dereference(int *&)>::type
+        result_of_<T_dereference(int *&)>::type
             r = dereference(p);
         BOOST_CHECK(is_same_obj(r, *p));
     }
     {
         boost::optional<int> o;
         o = 12;
-        result_of<T_dereference(boost::optional<int>&)>::type
+        result_of_<T_dereference(boost::optional<int>&)>::type
             r = dereference(o);
         BOOST_CHECK(is_same_obj(r, *o));
     }
@@ -66,7 +66,7 @@ void egg_test()
         int x = 12;
         boost::optional<int&> o;
         o = x;
-        result_of<T_dereference(boost::optional<int&>&)>::type
+        result_of_<T_dereference(boost::optional<int&>&)>::type
             r = dereference(o);
         BOOST_CHECK(is_same_obj(x, *o));
         BOOST_CHECK(is_same_obj(r, *o));

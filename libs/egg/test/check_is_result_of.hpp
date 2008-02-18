@@ -19,7 +19,7 @@
 #define CHECK_IS_RESULT_OF(Result, FunCall) \
     BOOST_MPL_ASSERT((boost::is_same< \
         BOOST_EGG_UNPAREN(Result), \
-        boost::egg::result_of<FunCall>::type \
+        boost::egg::result_of_<FunCall>::type \
     >)); \
 /**/
 

@@ -17,7 +17,7 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
 struct foo_
@@ -37,9 +37,9 @@ BOOST_EGG_CONST((T_foo), foo) = BOOST_EGG_CURRY3({});
 void egg_test()
 {
     {
-        typedef result_of<T_foo(int)>::type T_foo1;
+        typedef result_of_<T_foo(int)>::type T_foo1;
         T_foo1 const foo1 = foo(1);
-        typedef result_of<T_foo1(int)>::type T_foo2;
+        typedef result_of_<T_foo1(int)>::type T_foo2;
         T_foo2 const foo2 = foo1(2);
 
         BOOST_CHECK( foo2(3) == 1+2+3 );

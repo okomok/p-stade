@@ -80,17 +80,17 @@ void egg_test()
     ::test_automatic();
 
     {
-        boost::egg::result_of<X_copy<my>(int)>::type
+        boost::egg::result_of_<X_copy<my>(int)>::type
             r = egg::copy<my>(10);
         BOOST_CHECK(r.m_i == 10);
     }
     {
-        boost::egg::result_of<X_copy<char>(int)>::type
+        boost::egg::result_of_<X_copy<char>(int)>::type
             r = egg::copy<char>(10);
         BOOST_CHECK(r == char(10));
     }
     { // same type (does nothing)
-        boost::egg::result_of<X_copy<int>(int)>::type
+        boost::egg::result_of_<X_copy<int>(int)>::type
             r = egg::copy<int>(10);
         BOOST_CHECK(r == 10);
     }

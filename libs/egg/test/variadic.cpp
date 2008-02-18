@@ -16,14 +16,14 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
 struct little_second
 {
     template<class Me, class Args>
     struct apply :
-        result_of<X_get_c<1>(Args&)>
+        result_of_<X_get_c<1>(Args&)>
     { };
 
     template<class Re, class Args>

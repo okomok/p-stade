@@ -27,7 +27,7 @@ struct little_second
 {
     template<class Me, class Args>
     struct apply :
-        boost::egg::result_of<X_get_c<1>(Args&)>
+        boost::egg::result_of_<X_get_c<1>(Args&)>
     { };
 
     template<class Re, class Args>

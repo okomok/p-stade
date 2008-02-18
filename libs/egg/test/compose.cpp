@@ -56,8 +56,8 @@ using namespace boost::egg;
 BOOST_MPL_ASSERT((
     boost::is_same<
         std::string,
-        boost::egg::result_of<
-            boost::egg::result_of<
+        boost::egg::result_of_<
+            boost::egg::result_of_<
                 T_compose(T_value const, bar_fun)
             >::type
             (char)
@@ -71,7 +71,7 @@ template<class F>
 void nullary_result_of_check(F f)
 {
     BOOST_MPL_ASSERT((boost::is_same<
-        typename boost::egg::result_of<F()>::type,
+        typename boost::egg::result_of_<F()>::type,
         int
     >));
 }

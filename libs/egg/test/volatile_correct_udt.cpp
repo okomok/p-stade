@@ -18,7 +18,7 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 struct A
 {
@@ -48,7 +48,7 @@ CHECK_IS_RESULT_OF((A const&), T_identity(A const volatile))
 #endif
 
 
-typedef result_of<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
+typedef result_of_<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
 CHECK_IS_RESULT_OF((A&), func_t(A&))
 CHECK_IS_RESULT_OF((A const&), func_t(A const&))
 CHECK_IS_RESULT_OF((A volatile&), func_t(A volatile&))

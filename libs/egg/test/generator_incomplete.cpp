@@ -24,7 +24,7 @@ template<class T>
 struct klass;
 
 typedef generator< klass< deduce<boost::mpl::_1, as_value> > >::type T_make_klass;
-BOOST_MPL_ASSERT((boost::is_same< boost::egg::result_of<T_make_klass(int&)>::type, klass<int> >));
+BOOST_MPL_ASSERT((boost::is_same< boost::egg::result_of_<T_make_klass(int&)>::type, klass<int> >));
 
 
 void egg_test()

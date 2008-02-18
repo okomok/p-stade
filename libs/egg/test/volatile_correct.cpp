@@ -18,7 +18,7 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::result_of;
+using boost::egg::result_of_;
 
 
 CHECK_IS_RESULT_OF((int&), T_identity(int&))
@@ -33,7 +33,7 @@ CHECK_IS_RESULT_OF((int const&), T_identity(int volatile))
 CHECK_IS_RESULT_OF((int const&), T_identity(int const volatile))
 #endif
 
-typedef result_of<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
+typedef result_of_<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
 CHECK_IS_RESULT_OF((int&), func_t(int&))
 CHECK_IS_RESULT_OF((int const&), func_t(int const&))
 CHECK_IS_RESULT_OF((int volatile&), func_t(int volatile&))

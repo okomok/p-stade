@@ -23,10 +23,10 @@
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<>,
-                 boost::egg::result_of<boost::egg::T_fusion_pack()>::type > ));
+                 boost::egg::result_of_<boost::egg::T_fusion_pack()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<int&, int const&>,
-                 boost::egg::result_of<boost::egg::T_fusion_pack(int&, int)>::type > ));
+                 boost::egg::result_of_<boost::egg::T_fusion_pack(int&, int)>::type > ));
 
 
 void test_()
@@ -54,10 +54,10 @@ void test_()
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<>,
-                 boost::egg::result_of<boost::egg::X_fusion_pack<boost::egg::by_ref>()>::type > ));
+                 boost::egg::result_of_<boost::egg::X_fusion_pack<boost::egg::by_ref>()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<int&, int const&>,
-                 boost::egg::result_of<boost::egg::X_fusion_pack<boost::egg::by_ref>(int&, int const&)>::type > ));
+                 boost::egg::result_of_<boost::egg::X_fusion_pack<boost::egg::by_ref>(int&, int const&)>::type > ));
 
 
 void test_ref()

@@ -34,11 +34,11 @@ void test_tuple()
     using namespace egg;
 
     // lvalue
-    BOOST_MPL_ASSERT((boost::is_same<To&, typename boost::egg::result_of<X_fusion_drop_c<N>(From&)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of<X_fusion_drop_c<N>(From const&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To&, typename boost::egg::result_of_<X_fusion_drop_c<N>(From&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of_<X_fusion_drop_c<N>(From const&)>::type>));
     // rvalue
-    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of<X_fusion_drop_c<N>(From)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of<X_fusion_drop_c<N>(From const)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of_<X_fusion_drop_c<N>(From)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of_<X_fusion_drop_c<N>(From const)>::type>));
 }
 
 
@@ -49,11 +49,11 @@ void test_tuple0()
     using namespace egg;
 
     // lvalue
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From&)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From const&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of_<X_fusion_drop_c<N>(From&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of_<X_fusion_drop_c<N>(From const&)>::type>));
     // rvalue
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From const)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of_<X_fusion_drop_c<N>(From)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of_<X_fusion_drop_c<N>(From const)>::type>));
 }
 
 
@@ -66,11 +66,11 @@ void test_fusion()
     using namespace egg;
 
     // lvalue
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From&)>::type>));
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From const&)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of_<X_fusion_drop_c<N>(From&)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of_<X_fusion_drop_c<N>(From const&)>::type>));
     // rvalue
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From)>::type>));
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From const)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of_<X_fusion_drop_c<N>(From)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of_<X_fusion_drop_c<N>(From const)>::type>));
 }
 
 #endif

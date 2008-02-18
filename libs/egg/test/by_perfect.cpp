@@ -173,7 +173,7 @@ CHECK_IS_RESULT_OF((int) const, T_keep_const(int const))
 void egg_test()
 {
     {
-        boost::egg::result_of<T_foo(int, int)>::type x = foo(1, 2);
+        boost::egg::result_of_<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
 
         int i = 5;
@@ -181,7 +181,7 @@ void egg_test()
         BOOST_CHECK( boost::lambda::bind(foo, 3, 2)() == "2" );
     }
     {
-        boost::egg::result_of<T_foo(int)>::type x = foo(1);
+        boost::egg::result_of_<T_foo(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
 
         int i = 5;
@@ -189,31 +189,31 @@ void egg_test()
         BOOST_CHECK( boost::lambda::bind(foo, boost::lambda::_1)(i) == 1 );
     }
     {
-        boost::egg::result_of<T_foo()>::type x = foo();
+        boost::egg::result_of_<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
 
         BOOST_CHECK( boost::lambda::bind(foo)() == '0' );
     }
 
     {
-        boost::egg::result_of<T_bar<int, int>(int, int)>::type x = foo(1, 2);
+        boost::egg::result_of_<T_bar<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::egg::result_of<T_bar<int, int>(int)>::type x = foo(1);
+        boost::egg::result_of_<T_bar<int, int>(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::egg::result_of<T_bar<int, int>()>::type x = foo();
+        boost::egg::result_of_<T_bar<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {
         int i = 10;
-        boost::egg::result_of<T_identity(int&)>::type x = identity(i);
+        boost::egg::result_of_<T_identity(int&)>::type x = identity(i);
         BOOST_CHECK( &x == &i );
     }
     {
-        boost::egg::result_of<T_keep_const(int)>::type x = keep_const(3);
+        boost::egg::result_of_<T_keep_const(int)>::type x = keep_const(3);
         (void)x;
     }
 }

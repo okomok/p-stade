@@ -36,7 +36,7 @@ struct little_identity
 
 struct my_identity : function<little_identity>
 {
-    boost::egg::result_of<my_identity(int&)>::type bar(int i) const
+    boost::egg::result_of_<my_identity(int&)>::type bar(int i) const
     {
         return (*this)(i);
     }
