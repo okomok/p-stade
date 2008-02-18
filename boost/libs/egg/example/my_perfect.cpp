@@ -1,15 +1,14 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
 
 
 // Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/minimal_test.hpp>
+#include "../test/egg_test.hpp"
 
 //[code_my_perfect
 #include <boost/mpl/always.hpp>
@@ -17,7 +16,7 @@
 #include <boost/egg/function_fwd.hpp>
 
 /*<< Declare your strategy tag. >>*/
-struct my_perfect : boost::mpl::always<pstade::egg::by_perfect> {};
+struct my_perfect : boost::mpl::always<boost::egg::by_perfect> {};
 
 /*<< `(2)(7)` means call operators can take is 2 or 7 arguments by perfect forwarding. >>*/
 #define  BOOST_EGG_PERFECT_STRATEGY_PARAMS (::my_perfect, (2)(7))
@@ -25,7 +24,7 @@ struct my_perfect : boost::mpl::always<pstade::egg::by_perfect> {};
 //]
 
 #include <boost/egg/pipable.hpp>
-using namespace pstade::egg;
+using namespace boost::egg;
 
 //[code_my_perfect_pipable
 struct base_plus2_7
@@ -54,7 +53,7 @@ void test()
 //]
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     ::test();
 }
