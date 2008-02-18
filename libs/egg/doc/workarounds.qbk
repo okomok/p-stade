@@ -5,7 +5,7 @@ Egg provides some workaround utilities.
 [import ../test/use_deduced_form.cpp]
 
 
-[section egg::result_of]
+[section result_of_]
 
 [heading Description]
 `boost::result_of` has some problems especially under Boost1.34 or below:
@@ -27,7 +27,7 @@ Egg provides some workaround utilities.
         [[*Semantics]]
     ]
     [
-        [`result_of`]
+        [`result_of_`]
         [`boost::result_of` with some workaround.]
     ]
 ]

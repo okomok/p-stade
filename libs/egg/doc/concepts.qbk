@@ -260,7 +260,7 @@ non-/const-qualified/ type (as __STATIC_FUNCTION_OBJECT__ does so), you could om
 * msvc-7.1 and msvc-8.0 doesn't work with /POD/ templates.
 * A /const-qualified/ function pointer doesn't work.
 
-These bugs can be worked around by `egg::result_of` in `<boost/egg/result_of.hpp>`.
+These bugs can be worked around by `egg::result_of_` in `<boost/egg/result_of.hpp>`.
 The first bug is fixed with Boost1.35.
 
 [heading See also]
