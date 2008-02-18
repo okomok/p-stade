@@ -9,8 +9,6 @@
 
 
 #include "./egg_all.hpp"
-#undef BOOST_EGG_DETAIL_EGG_HPP
-#undef BOOST_EGG_DETAIL_EGG_PENDING_HPP
 #include "./egg_all.hpp"
 
 
@@ -39,7 +37,7 @@ using namespace boost::egg;
 using boost::egg::plus;
 
 
-// warning check should be shown in IDE.
+// warning check: This must be shown in IDE.
 struct no_assignment
 {
     int const &x;
