@@ -5,13 +5,15 @@ Egg provides some workaround utilities.
 [import ../test/use_deduced_form.cpp]
 
 
-[section result_of_]
+[section result\_of_]
 
 [heading Description]
 `boost::result_of` has some problems especially under Boost1.34 or below:
 
 * `boost::result_of` can't take a /const-qualified function pointer/ as the target function.
 * Under msvc-7.1 or msvc-8.0 with Boost1.34 or below, `boost::result_of` can't take a /POD/ template as the target function. 
+
+So that, Egg provides its own "result_of" with slightly different name.
 
 [note If you already use Boost1.35 and don't pass a /const-qualified function pointer/, you don't need this workaround.]
 
