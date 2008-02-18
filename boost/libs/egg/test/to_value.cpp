@@ -12,17 +12,17 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 #include <memory>
 
 
 #include "./using_egg.hpp"
 
 
-PSTADE_TEST_IS_RESULT_OF((int), T_to_value(int))
-PSTADE_TEST_IS_RESULT_OF((int), T_to_value(int&))
-PSTADE_TEST_IS_RESULT_OF((int), T_to_value(int const&))
-PSTADE_TEST_IS_RESULT_OF((int), T_to_value(int const))
+CHECK_IS_RESULT_OF((int), T_to_value(int))
+CHECK_IS_RESULT_OF((int), T_to_value(int&))
+CHECK_IS_RESULT_OF((int), T_to_value(int const&))
+CHECK_IS_RESULT_OF((int), T_to_value(int const))
 
 
 void egg_test()

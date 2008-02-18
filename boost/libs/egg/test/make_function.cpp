@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/by_perfect.hpp>
 
@@ -39,7 +39,7 @@ struct little
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((function<little>), T_make_function(little))
+CHECK_IS_RESULT_OF((function<little>), T_make_function(little))
 
 
 void egg_test()

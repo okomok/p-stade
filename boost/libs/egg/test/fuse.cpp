@@ -15,7 +15,6 @@
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/egg/pack.hpp>
-#include <pstade/unused.hpp>
 
 
 int my_plus(int x, int y, int z)
@@ -67,6 +66,7 @@ void egg_test()
         ::my_f f0;
         result_of_fuse< ::my_f >::type f1 = BOOST_EGG_FUSE_L f0 BOOST_EGG_FUSE_R;
         result_of_fuse< ::my_f >::type f2 = BOOST_EGG_FUSE({});
-        pstade::unused(f1, f2);
+        (void)f1;
+        (void)f2;
     }
 }

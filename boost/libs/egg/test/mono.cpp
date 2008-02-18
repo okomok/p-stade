@@ -17,7 +17,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/identity.hpp>
 #include <boost/egg/functional.hpp> // plus
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
@@ -62,8 +62,8 @@ T_mono_foo1 const mono_foo1 = BOOST_EGG_MONO_L {} BOOST_EGG_MONO_R;
 typedef result_of_mono<my_foo, char()>::type T_mono_foo0;
 T_mono_foo0 const mono_foo0 = BOOST_EGG_MONO_L {} BOOST_EGG_MONO_R;
 
-PSTADE_TEST_IS_RESULT_OF((int), T_mono_foo1(std::string const&))
-PSTADE_TEST_IS_RESULT_OF((char), T_mono_foo0())
+CHECK_IS_RESULT_OF((int), T_mono_foo1(std::string const&))
+CHECK_IS_RESULT_OF((char), T_mono_foo0())
 
 
 

@@ -13,22 +13,11 @@
 
 
 #include <string>
-#include <pstade/constant.hpp>
-#include <pstade/test.hpp>
+#include <boost/egg/const.hpp>
+#include "./check_is_result_of.hpp"
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
-#include <boost/egg/detail/unparen.hpp>
-
-
-    #define PSTADE_AMBI(N, Object, Function) \
-        namespace BOOST_PP_CAT(pstade_ambi_workarea_of_, Object) { \
-            using namespace ::boost::mpl::placeholders; \
-            typedef ::boost::egg::result_of< ::boost::egg::BOOST_PP_CAT(T_ambi, N)(BOOST_EGG_UNPAREN(Function)) >::type op; \
-        } \
-        typedef BOOST_PP_CAT(pstade_ambi_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
-        BOOST_EGG_CONST((BOOST_PP_CAT(T_, Object)), Object) = BOOST_EGG_AMBI({}); \
-    /**/
+#include "./using_egg.hpp"
 
 
 struct impl_interface0
@@ -41,7 +30,7 @@ struct impl_interface0
     }
 };
 
-PSTADE_AMBI(0, interface0, (impl_interface0))
+BOOST_EGG_CONST((result_of_ambi0(impl_interface0)>::type), interface0) = BOOST_EGG_AMBI();
 
 
 struct impl_interface1
@@ -54,7 +43,7 @@ struct impl_interface1
     }
 };
 
-PSTADE_CONSTANT(interface1, (boost::egg::result_of<boost::egg::T_ambi1(impl_interface1)>::type))
+BOOST_EGG_CONST((result_of_ambi1(impl_interface1)>::type), interface1) = BOOST_EGG_AMBI();
 
 
 struct impl_interface4
@@ -67,10 +56,10 @@ struct impl_interface4
     }
 };
 
-PSTADE_CONSTANT(interface4, (boost::egg::result_of<boost::egg::T_ambi4(impl_interface4)>::type))
+BOOST_EGG_CONST((result_of_ambi4(impl_interface4)>::type), interface4) = BOOST_EGG_AMBI();
 
 
-PSTADE_TEST_IS_RESULT_OF((std::string), T_interface0(std::string))
+CHECK_IS_RESULT_OF((std::string), T_interface0(std::string))
 
 
 void egg_test()

@@ -12,26 +12,26 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
 
 
-PSTADE_TEST_IS_RESULT_OF((int const&), T_to_ref(int))
-PSTADE_TEST_IS_RESULT_OF((int&), T_to_ref(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_to_ref(int const&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_to_ref(int const))
+CHECK_IS_RESULT_OF((int const&), T_to_ref(int))
+CHECK_IS_RESULT_OF((int&), T_to_ref(int&))
+CHECK_IS_RESULT_OF((int const&), T_to_ref(int const&))
+CHECK_IS_RESULT_OF((int const&), T_to_ref(int const))
 
-PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int const&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_to_cref(int const))
+CHECK_IS_RESULT_OF((int const&), T_to_cref(int))
+CHECK_IS_RESULT_OF((int const&), T_to_cref(int&))
+CHECK_IS_RESULT_OF((int const&), T_to_cref(int const&))
+CHECK_IS_RESULT_OF((int const&), T_to_cref(int const))
 
-PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int))
-PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int&))
-PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int const&))
-PSTADE_TEST_IS_RESULT_OF((int&), T_to_mref(int const))
+CHECK_IS_RESULT_OF((int&), T_to_mref(int))
+CHECK_IS_RESULT_OF((int&), T_to_mref(int&))
+CHECK_IS_RESULT_OF((int&), T_to_mref(int const&))
+CHECK_IS_RESULT_OF((int&), T_to_mref(int const))
 
 
 void egg_test()

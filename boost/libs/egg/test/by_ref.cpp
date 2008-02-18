@@ -15,17 +15,11 @@
 #include <string>
 #include <memory> // auto_ptr
 #include <boost/egg/result_of.hpp>
-#include <pstade/unused.hpp>
-#include <pstade/test.hpp>
-
-
+#include "./check_is_result_of.hpp"
 #include <boost/egg/const.hpp>
-#include <boost/egg/detail/unparen.hpp>
 
-    #define BOOST_EGG_FUNCTION_BY_REF(O, B) \
-        typedef boost::egg::function<BOOST_EGG_UNPAREN(B), boost::egg::by_ref> BOOST_PP_CAT(T_, O); \
-        BOOST_EGG_CONST((BOOST_PP_CAT(T_, O)), O) = { { } }; \
-    /**/
+
+#include "./using_egg.hpp"
 
 
 struct little_foo
@@ -63,13 +57,15 @@ struct little_foo
     }
 };
 
-BOOST_EGG_FUNCTION_BY_REF(foo, (little_foo))
+typedef function<little_foo, by_ref> T_foo;
+BOOST_EGG_CONST((T_foo), foo) = {{}};
 
-PSTADE_TEST_IS_RESULT_OF((int), T_foo(int&, int&))
-PSTADE_TEST_IS_RESULT_OF((int) const, T_foo(int const&, int&))
-PSTADE_TEST_IS_RESULT_OF((int&), T_foo(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_foo(int const&))
-PSTADE_TEST_IS_RESULT_OF((char), T_foo())
+
+CHECK_IS_RESULT_OF((int), T_foo(int&, int&))
+CHECK_IS_RESULT_OF((int) const, T_foo(int const&, int&))
+CHECK_IS_RESULT_OF((int&), T_foo(int&))
+CHECK_IS_RESULT_OF((int const&), T_foo(int const&))
+CHECK_IS_RESULT_OF((char), T_foo())
 
 
 struct little_big_arity
@@ -87,8 +83,8 @@ struct little_big_arity
     }
 };
 
-BOOST_EGG_FUNCTION_BY_REF(big_arity, (little_big_arity))
-
+typedef function<little_big_arity, by_ref> T_big_arity;
+BOOST_EGG_CONST((T_big_arity), big_arity) = {{}};
 
 
 void egg_test()

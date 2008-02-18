@@ -12,10 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <boost/type_traits/is_pod.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/utility/result_of.hpp>
-#include <pstade/unused.hpp>
 
 
 struct T_foo :
@@ -285,21 +282,25 @@ void egg_test()
     {
         int volatile x = 0;
         int volatile &x_ = ::my_identity()(x);
-        pstade::unused(x, x_);
+        (void)x;
+        (void)x_;
     }
     {
         int const volatile x = 0;
         int const volatile &x_ = ::my_identity()(x);
-        pstade::unused(x, x_);
+        (void)x;
+        (void)x_;
     }
 #if !defined(__GNUC__)
     {
         ::A const volatile &x_ = ::my_identity()(::get_volatile());
-        pstade::unused(x_);
+        (void)x;
+        (void)x_;
     }
     {
         ::A const volatile &x_ = ::my_identity()(::get_cv());
-        pstade::unused(x_);
+        (void)x;
+        (void)x_;
     }
 #endif
     {

@@ -16,7 +16,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/auto_new.hpp>
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
@@ -35,17 +35,17 @@ struct my_ptr
     boost::shared_ptr<T> m_ptr;
 };
 
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(int *))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(std::auto_ptr<int>))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(boost::shared_ptr<int>))
+CHECK_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(int *))
+CHECK_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(std::auto_ptr<int>))
+CHECK_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(boost::shared_ptr<int>))
 
 
 struct B { virtual ~B() { } };
 struct D : B { };
 
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(D *))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(std::auto_ptr<D>))
-PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(boost::shared_ptr<D>))
+CHECK_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(D *))
+CHECK_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(std::auto_ptr<D>))
+CHECK_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(boost::shared_ptr<D>))
 
 
 

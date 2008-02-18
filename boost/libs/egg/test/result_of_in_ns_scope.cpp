@@ -9,6 +9,6 @@
 
 
 // Same as:
-// #include "./as_mpl_lambda.cpp"
+// #include "./before_mpl_lambda.cpp"
 
 int main() {}

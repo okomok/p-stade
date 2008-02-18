@@ -12,14 +12,14 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
 
 
-PSTADE_TEST_IS_RESULT_OF((bool), T_is_alpha(char, std::locale))
-PSTADE_TEST_IS_RESULT_OF((bool), T_is_upper(wchar_t))
+CHECK_IS_RESULT_OF((bool), T_is_alpha(char, std::locale))
+CHECK_IS_RESULT_OF((bool), T_is_upper(wchar_t))
 
 
 void egg_test()

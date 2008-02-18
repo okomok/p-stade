@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 #include <boost/preprocessor/facilities/identity.hpp>
 
 
@@ -38,7 +38,7 @@ void egg_test()
     }
     {
         typedef boost::egg::result_of<T_perfect(::nonperfect)>::type perf_t;
-        PSTADE_TEST_IS_RESULT_OF((int), perf_t(int))
+        CHECK_IS_RESULT_OF((int), perf_t(int))
 
         perf_t perf = BOOST_EGG_PERFECT({});
         BOOST_CHECK( perf(10) == 10 );

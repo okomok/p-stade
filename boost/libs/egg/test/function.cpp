@@ -14,21 +14,15 @@
 
 #include <string>
 #include <boost/egg/result_of.hpp>
-#include <pstade/unused.hpp>
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
-
-
 #include <boost/egg/const.hpp>
-#include <boost/egg/detail/unparen.hpp>
 
-    #define BOOST_EGG_FUNCTION_DEF(O, B) \
-        typedef boost::egg::function<BOOST_EGG_UNPAREN(B)> BOOST_PP_CAT(T_, O); \
-        BOOST_EGG_CONST((BOOST_PP_CAT(T_, O)), O) = BOOST_EGG_FUNCTION({}); \
-    /**/
+
+#include "./using_egg.hpp"
 
 
 struct little_foo
@@ -71,9 +65,9 @@ struct little_foo
 BOOST_EGG_FUNCTION_DEF(foo, (little_foo))
 
 
-PSTADE_TEST_IS_RESULT_OF((std::string), T_foo(int, double))
-PSTADE_TEST_IS_RESULT_OF((int), T_foo(int))
-PSTADE_TEST_IS_RESULT_OF((char), T_foo())
+CHECK_IS_RESULT_OF((std::string), T_foo(int, double))
+CHECK_IS_RESULT_OF((int), T_foo(int))
+CHECK_IS_RESULT_OF((char), T_foo())
 
 
 template< class T0, class T1 >
@@ -141,10 +135,10 @@ typedef boost::egg::function<little_identity, boost::egg::by_perfect> T_identity
 T_identity const identity = { {} };
 
 
-PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_identity(int const))
+CHECK_IS_RESULT_OF((int&), T_identity(int&))
+CHECK_IS_RESULT_OF((int const&), T_identity(int))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const&))
+CHECK_IS_RESULT_OF((int const&), T_identity(int const))
 
 
 struct little_keep_const
@@ -167,10 +161,10 @@ BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfe
 BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfect, int const&>::type, int const >));
 BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfect, int>::type, int const >));
 BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfect, int const>::type, int const >));
-PSTADE_TEST_IS_RESULT_OF((int), T_keep_const(int&))
-PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int))
-PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int const&))
-PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int const))
+CHECK_IS_RESULT_OF((int), T_keep_const(int&))
+CHECK_IS_RESULT_OF((int) const, T_keep_const(int))
+CHECK_IS_RESULT_OF((int) const, T_keep_const(int const&))
+CHECK_IS_RESULT_OF((int) const, T_keep_const(int const))
 
 
 

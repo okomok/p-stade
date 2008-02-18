@@ -19,7 +19,7 @@
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/functional.hpp> // plus
 #include <boost/egg/to_ref.hpp>
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 using namespace boost::egg;
@@ -56,7 +56,7 @@ void egg_test()
 
         b_t b = bll_bind(&sum_of_args_1, 10);
 
-        PSTADE_TEST_IS_RESULT_OF((int), b_t())
+        CHECK_IS_RESULT_OF((int), b_t())
 
         boost::egg::result_of<b_t()>::type b_ = b();
         BOOST_CHECK(b_ == 10);

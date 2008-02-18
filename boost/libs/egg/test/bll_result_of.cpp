@@ -17,7 +17,7 @@
 #include <boost/egg/bll/bind.hpp>
 #include <boost/egg/functional.hpp> // plus
 #include <boost/egg/identity.hpp>
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 namespace bll = boost::lambda;
@@ -26,46 +26,46 @@ using boost::egg::result_of;
 
 
 // 1ary
-PSTADE_TEST_IS_RESULT_OF((int&), T_bll_1(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int const&))
-PSTADE_TEST_IS_RESULT_OF((int volatile&), T_bll_1(int volatile&))
-PSTADE_TEST_IS_RESULT_OF((int const volatile&), T_bll_1(int const volatile&))
+CHECK_IS_RESULT_OF((int&), T_bll_1(int&))
+CHECK_IS_RESULT_OF((int const&), T_bll_1(int const&))
+CHECK_IS_RESULT_OF((int volatile&), T_bll_1(int volatile&))
+CHECK_IS_RESULT_OF((int const volatile&), T_bll_1(int const volatile&))
 
 // Boost1.34 too can take rvalue if const-qualified one.
 // Notice that function signature don't know cv-qualifier of parameters.
 #if 1
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int))
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int const))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const))
 #if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
     // intel propagate cv-qualifiers. It seems a bug.
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int volatile))
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int const volatile))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int volatile))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const volatile))
 #endif
 #endif
 
 // 2ary
-PSTADE_TEST_IS_RESULT_OF((int&), T_bll_1(int&, double&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int const&, double&))
+CHECK_IS_RESULT_OF((int&), T_bll_1(int&, double&))
+CHECK_IS_RESULT_OF((int const&), T_bll_1(int const&, double&))
 #if 1
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int, double&))
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int const, double&))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int, double&))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const, double&))
 #endif
 
 // 3ary
-PSTADE_TEST_IS_RESULT_OF((int&), T_bll_1(int&, double&, double&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int const&, double&, double&))
+CHECK_IS_RESULT_OF((int&), T_bll_1(int&, double&, double&))
+CHECK_IS_RESULT_OF((int const&), T_bll_1(int const&, double&, double&))
 #if 1
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int, double&, double&))
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1(int const, double&, double&))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int, double&, double&))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const, double&, double&))
 #endif
 
 
 // const doesn't affect.
-PSTADE_TEST_IS_RESULT_OF((int&), T_bll_1 const(int&))
-PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1 const(int const&))
+CHECK_IS_RESULT_OF((int&), T_bll_1 const(int&))
+CHECK_IS_RESULT_OF((int const&), T_bll_1 const(int const&))
 #if 1
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1 const(int))
-    PSTADE_TEST_IS_RESULT_OF((int const&), T_bll_1 const(int const))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1 const(int))
+    CHECK_IS_RESULT_OF((int const&), T_bll_1 const(int const))
 #endif
 
 
@@ -107,12 +107,12 @@ void egg_test()
         typedef result_of<T_bll_bind(T_plus const&, int, T_bll_1 const&)>::type fun_t;
         fun_t fun = bll_bind(plus, 3, bll_1);
 
-        PSTADE_TEST_IS_RESULT_OF((int), fun_t(int&))
-        PSTADE_TEST_IS_RESULT_OF((int), fun_t(int const&))
+        CHECK_IS_RESULT_OF((int), fun_t(int&))
+        CHECK_IS_RESULT_OF((int), fun_t(int const&))
 
 #if 1
-        PSTADE_TEST_IS_RESULT_OF((int), fun_t(int))
-        PSTADE_TEST_IS_RESULT_OF((int), fun_t(int const))
+        CHECK_IS_RESULT_OF((int), fun_t(int))
+        CHECK_IS_RESULT_OF((int), fun_t(int const))
 #endif
 
         int i = 9;
@@ -126,12 +126,12 @@ void egg_test()
         typedef result_of<T_bll_bind(T_identity const&, T_bll_1 const&)>::type fun_t;
         fun_t fun = bll_bind(identity, bll_1);
 
-        PSTADE_TEST_IS_RESULT_OF((int&), fun_t(int&))
-        PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int const&))
+        CHECK_IS_RESULT_OF((int&), fun_t(int&))
+        CHECK_IS_RESULT_OF((int const&), fun_t(int const&))
 
 #if 1
-        PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int))
-        PSTADE_TEST_IS_RESULT_OF((int const&), fun_t(int const))
+        CHECK_IS_RESULT_OF((int const&), fun_t(int))
+        CHECK_IS_RESULT_OF((int const&), fun_t(int const))
 #endif
 
         int i = 9;

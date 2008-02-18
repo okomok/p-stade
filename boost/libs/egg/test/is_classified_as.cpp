@@ -12,14 +12,14 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
 
 
-PSTADE_TEST_IS_RESULT_OF((bool), T_is_classified_as(char, std::ctype_base::mask const&))
-PSTADE_TEST_IS_RESULT_OF((bool), T_is_classified_as(wchar_t, std::ctype_base::mask const&, std::locale const&))
+CHECK_IS_RESULT_OF((bool), T_is_classified_as(char, std::ctype_base::mask const&))
+CHECK_IS_RESULT_OF((bool), T_is_classified_as(wchar_t, std::ctype_base::mask const&, std::locale const&))
 
 
 void egg_test()

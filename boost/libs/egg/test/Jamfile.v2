@@ -1,4 +1,4 @@
-# (C) Copyright 2007: Shunsuke Sogame
+# (C) Copyright 2007-2008: Shunsuke Sogame
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -8,19 +8,15 @@ project
     : requirements
       <library>/boost/test//boost_test_exec_monitor/<link>static
       <library>/boost/test//boost_unit_test_framework/<link>static
-      <toolset>intel:<debug-symbols>off
     ;
 
 test-suite "egg" :
-    [ run after.cpp ]
     [ run always.cpp ]
     [ run ambi.cpp ]
     [ run ambi_by.cpp ]
     [ run apply.cpp ]
     [ run arg.cpp ]
     [ run auto_new.cpp ]
-    [ run auto_object.cpp ]
-    [ run before.cpp ]
     [ run before_mpl_apply.cpp ]
     [ run big_arity.cpp ]
     [ run bind_abstract.cpp ]
@@ -62,7 +58,6 @@ test-suite "egg" :
     [ run free_derived_test.cpp ]
     [ run free_dm_test.cpp ]
     [ run free_test.cpp ]
-    [ run from.cpp ]
     [ run function.cpp ]
     [ run function_facade.cpp ]
     [ run function_facade_by.cpp ]
@@ -101,7 +96,7 @@ test-suite "egg" :
     [ run integral.cpp ]
     [ run integral_cast.cpp ]
     [ run is_classified_as.cpp ]
-    [ run is_same.cpp ]
+    [ run is_same_obj.cpp ]
     [ run lazy.cpp ]
     [ run lexical.cpp ]
     [ run lexical_cast.cpp ]
@@ -114,18 +109,12 @@ test-suite "egg" :
     [ run move_assign.cpp ]
     [ run my_strategy.cpp ]
     [ run my_strategy_array.cpp ]
-#    [ run named.cpp ]
-#    [ run named_nullary.cpp ]
-#    [ run named_nc.cpp ]
-#    [ run named_tag.cpp ]
     [ run nc_little.cpp ]
     [ run new.cpp ]
     [ run new_array.cpp ]
     [ run not.cpp ]
     [ compile-fail nullary_function_fail.cpp ]
     [ run pack.cpp ]
-    [ run parallel.cpp : : : <library>/boost/thread//boost_thread/<link>static <threading>multi ]
-    [ run parallel.cpp : : : <define>BOOST_EGG_DISABLE_THREADS=1 : parallel_no_threads ]
     [ run perfect.cpp ]
     [ run pipable.cpp ]
     [ run pipable_by.cpp ]
@@ -162,7 +151,6 @@ test-suite "egg" :
     [ run uncurry.cpp ]
     [ run unfuse.cpp ]
     [ run unref.cpp ]
-    [ run unwrap_ref.cpp ]
     [ run use_deduced_form.cpp ]
     [ run variadic.cpp ]
     [ run variadic_poly.cpp ]

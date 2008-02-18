@@ -19,7 +19,7 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/egg/detail/unparen.hpp>
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 
@@ -45,7 +45,7 @@ struct your_type
 };
 
 BOOST_EGG_OBJECT_GENERATOR(make_your_type, (your_type< deduce<_1, as_value> >))
-PSTADE_TEST_IS_RESULT_OF((your_type<int>), T_make_your_type(int&))
+CHECK_IS_RESULT_OF((your_type<int>), T_make_your_type(int&))
 
 
 using namespace boost::egg;
@@ -61,20 +61,20 @@ struct my_type
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, boost::use_default, char >::type T_make_my_type_v;
 T_make_my_type_v const make_my_type_v = BOOST_EGG_GENERATOR();
-PSTADE_TEST_IS_RESULT_OF((my_type<int>), T_make_my_type_v(int&))
-PSTADE_TEST_IS_RESULT_OF((char), T_make_my_type_v())
+CHECK_IS_RESULT_OF((my_type<int>), T_make_my_type_v(int&))
+CHECK_IS_RESULT_OF((char), T_make_my_type_v())
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_ref> > >::type T_make_my_type_r;
 T_make_my_type_r const make_my_type_r = BOOST_EGG_GENERATOR();
-PSTADE_TEST_IS_RESULT_OF((my_type<int const&>), T_make_my_type_r(int))
-PSTADE_TEST_IS_RESULT_OF((my_type<int&>), T_make_my_type_r(int&))
+CHECK_IS_RESULT_OF((my_type<int const&>), T_make_my_type_r(int))
+CHECK_IS_RESULT_OF((my_type<int&>), T_make_my_type_r(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > >::type T_make_my_type_q;
 T_make_my_type_q const make_my_type_q = BOOST_EGG_GENERATOR();
-PSTADE_TEST_IS_RESULT_OF((my_type<int const>), T_make_my_type_q(int))
-PSTADE_TEST_IS_RESULT_OF((my_type<int>), T_make_my_type_q(int&))
+CHECK_IS_RESULT_OF((my_type<int const>), T_make_my_type_q(int))
+CHECK_IS_RESULT_OF((my_type<int>), T_make_my_type_q(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > >::type T_make_my_type_v_d;

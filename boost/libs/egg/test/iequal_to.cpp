@@ -12,13 +12,13 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/test.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"
 
 
-PSTADE_TEST_IS_RESULT_OF((bool), T_iequal_to(char, char))
+CHECK_IS_RESULT_OF((bool), T_iequal_to(char, char))
 
 
 void egg_test()
