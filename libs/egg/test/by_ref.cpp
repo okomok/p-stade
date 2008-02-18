@@ -14,7 +14,7 @@
 
 #include <string>
 #include <memory> // auto_ptr
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/test.hpp>
 
@@ -95,16 +95,16 @@ void egg_test()
 {
     {
         int i = 1, j = 2;
-        pstade::result_of<T_foo(int&, int&)>::type x = foo(i, j);
+        boost::egg::result_of<T_foo(int&, int&)>::type x = foo(i, j);
         BOOST_CHECK( x == 3 );
     }
     {
         int i = 1;
-        pstade::result_of<T_foo(int&)>::type x = foo(i);
+        boost::egg::result_of<T_foo(int&)>::type x = foo(i);
         BOOST_CHECK( &i == &x );
     }
     {
-        pstade::result_of<T_foo()>::type x = foo();
+        boost::egg::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {

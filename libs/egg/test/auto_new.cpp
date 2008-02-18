@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/auto_new.hpp>
-#include <pstade/unit_test.hpp>
+#include "./egg_unit_test.hpp"
 
 
 #include <pstade/test.hpp>
@@ -36,7 +36,7 @@ PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<udt>), X_auto_new<udt>(int,int))
 PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<udt const>), X_auto_new<udt const>(int,int))
 
 
-void pstade_unit_test()
+void egg_unit_test()
 {
     {
         std::auto_ptr<udt> p = X_auto_new<udt>()(1,2);

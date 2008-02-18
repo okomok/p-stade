@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/shared_new_array.hpp>
-#include <pstade/unit_test.hpp>
+#include "./egg_unit_test.hpp"
 
 
 #include <pstade/test.hpp>
@@ -31,7 +31,7 @@ PSTADE_TEST_IS_RESULT_OF((boost::shared_array<udt>), X_shared_new_array<udt>(int
 PSTADE_TEST_IS_RESULT_OF((boost::shared_array<udt const>), X_shared_new_array<udt const>(int))
 
 
-void pstade_unit_test()
+void egg_unit_test()
 {
     {
         boost::shared_array<udt> p = X_shared_new_array<udt>()(12);

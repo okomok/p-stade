@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/construct.hpp>
-#include <pstade/unit_test.hpp>
+#include "./egg_unit_test.hpp"
 
 
 #include <pstade/test.hpp>
@@ -36,7 +36,7 @@ PSTADE_TEST_IS_RESULT_OF((udt), X_construct<udt>(int,int))
 PSTADE_TEST_IS_RESULT_OF((udt) const, X_construct<udt const>(int,int))
 
 
-void pstade_unit_test()
+void egg_unit_test()
 {
     {
         udt x = X_construct<udt>()(1,2);
