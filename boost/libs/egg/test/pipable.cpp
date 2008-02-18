@@ -1,4 +1,4 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,13 +9,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pipable.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/egg/pstade/unparenthesize.hpp>
+#include <pstade/unparenthesize.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 #include "./large_arity_id0.hpp"
@@ -28,7 +28,7 @@
             using namespace boost::mpl::placeholders; \
             typedef pstade::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
         } \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = BOOST_EGG_PIPABLE({}); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE({}); \
     /**/
 
 
@@ -101,7 +101,7 @@ PSTADE_decl_pipable(my_append, (my_append_t))
 
 using namespace pstade::egg;
 
-result_of_pipable<T_large_arity_id0, by_cref>::type const lar = BOOST_EGG_PIPABLE_L {} BOOST_EGG_PIPABLE_R;
+result_of_pipable<T_large_arity_id0, by_cref>::type const lar = PSTADE_EGG_PIPABLE_L {} PSTADE_EGG_PIPABLE_R;
 
 
 void pstade_minimal_test()

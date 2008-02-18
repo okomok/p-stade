@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,14 +9,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/function_extension.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/function_extension.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/function_fwd.hpp>
-#include <boost/egg/pipable.hpp>
-#include <boost/egg/ambi.hpp>
-#include <boost/egg/const.hpp>
+#include <pstade/egg/function_fwd.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/egg/const.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/always.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -52,33 +51,38 @@ BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 0>::
 BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 1>::type>));
 
 //[code_my_strategy_function
-namespace pstade { namespace egg { // TODO: moved to boost.
+namespace pstade { namespace egg {
 
     template<class Lit>
     struct function<Lit, my_strategy>
     {
         /*<< Don't miss `#include` directive. >>*/
-        #include BOOST_EGG_FUNCTION_PREAMBLE()
+        #include PSTADE_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
-        Lit little() const { return m_lit; }
+        Lit const & little() const { return m_lit; }
+
+        typename apply_little<Lit const>::type operator()() const
+        {
+            return call_little(m_lit);
+        }
 
         template<class A1>
         typename apply_little<Lit const, A1>::type operator()(A1& i) const
         {
-            return egg::call_little<typename apply_little<Lit const, A1>::type>(m_lit, i);
+            return call_little(m_lit, i);
         }
 
         template<class A1>
-        typename apply_little<Lit const, A1 const>::type operator()(A1 const& i) const
+        typename apply_little<Lit const, PSTADE_EGG_DEDUCED_CONST(A1)>::type operator()(A1 const& i) const
         {
-            return egg::call_little<typename apply_little<Lit const, A1 const>::type>(m_lit, i);
+            return call_little(m_lit, i);
         }
 
         template<class A1, class A2>
         typename apply_little<Lit const, A1, A2>::type operator()(A1 i, A2 j) const
         {
-            return egg::call_little<typename apply_little<Lit const, A1, A2>::type>(m_lit, i, j);
+            return call_little(m_lit, i, j);
         }
     };
 
@@ -108,6 +112,14 @@ struct base_plus2
 
 struct little_id1
 {
+    typedef char nullary_result_type;
+
+    template<class Re>
+    Re call() const
+    {
+        return '0';
+    }
+
     template<class Me, class A>
     struct apply
     {
@@ -121,22 +133,18 @@ struct little_id1
     }
 };
 typedef function<little_id1, my_strategy> T_id1;
-BOOST_EGG_CONST((T_id1), id1) = {{}};
+PSTADE_EGG_CONST((T_id1), id1) = {{}};
 
 
 typedef result_of_pipable<base_mult3, my_strategy>::type T_mult3;
-BOOST_EGG_CONST((T_mult3), mult3) = {{}};
-typedef result_of_ambi1<base_plus2, my_strategy>::type T_plus2;
-BOOST_EGG_CONST((T_plus2), plus2) = {{}};
+PSTADE_EGG_CONST((T_mult3), mult3) = {{}};
 
 
 void pstade_minimal_test()
 {
     BOOST_CHECK( (3|mult3(4, 5)) == 3*4*5 );
 
-    BOOST_CHECK( plus2(1, 2) == 3 );
-    BOOST_CHECK( (1|plus2(2)) == 3 );
-
     int x = 10;
+    BOOST_CHECK( id1() == '0' );
     BOOST_CHECK( &(id1(x)) == &x );
 }

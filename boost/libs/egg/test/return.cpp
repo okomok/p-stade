@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,8 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/return.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/return.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/mpl/always.hpp>
@@ -18,8 +18,8 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 
-#include <boost/egg/pstade/result_of_lambda.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <pstade/result_of_lambda.hpp>
+#include <pstade/pod_constant.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 
 
@@ -56,9 +56,9 @@ int my_fun1(int x)
 }
 
 PSTADE_POD_CONSTANT(
-    (pstade::egg::result_of_return<my_fun_t, int >::type) const,
+    (pstade::egg::result_of_return<my_fun_t, int >::type),
     fun_return_int
-) = BOOST_EGG_RETURN_L {} BOOST_EGG_RETURN_R;
+) = PSTADE_EGG_RETURN_L {} PSTADE_EGG_RETURN_R;
 
 
 void pstade_minimal_test()
@@ -124,7 +124,7 @@ void pstade_minimal_test()
     }
 
     {
-        egg::result_of_return< my_fun_t, int >::type perf = BOOST_EGG_RETURN({});
+        egg::result_of_return< my_fun_t, int >::type perf = PSTADE_EGG_RETURN({});
         BOOST_CHECK( perf(1,3) == 4);
     }
 }

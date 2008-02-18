@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,12 +9,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/bind_n.hpp>
-#include <boost/egg/placeholders.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/bind_n.hpp>
+#include <pstade/egg/placeholders.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/const.hpp>
+#include <pstade/egg/const.hpp>
 
 
 namespace egg = pstade::egg;
@@ -31,11 +31,11 @@ struct T_my_plus
     }
 };
 
-BOOST_EGG_CONST((T_my_plus), my_plus) = {};
+PSTADE_EGG_CONST((T_my_plus), my_plus) = {};
 
 
-typedef result_of_bind3<T_my_plus, boost::use_default, int, int, T_placeholder1>::type T_bplus;
-BOOST_EGG_CONST((T_bplus), bplus) = BOOST_EGG_BIND_L {}, 7, 8, BOOST_EGG_PLACEHOLDER BOOST_EGG_BIND_R;
+typedef result_of_bind3<T_my_plus, boost::use_default, int, int, placeholders::TT_1>::type T_bplus;
+PSTADE_EGG_CONST((T_bplus), bplus) = PSTADE_EGG_BIND_L {}, 7, 8, PSTADE_EGG_PLACEHOLDER PSTADE_EGG_BIND_R;
 
 
 struct T_my_2times
@@ -48,7 +48,7 @@ struct T_my_2times
     }
 };
 
-BOOST_EGG_CONST((T_my_2times), my_2times) = {};
+PSTADE_EGG_CONST((T_my_2times), my_2times) = {};
 
 
 void pstade_minimal_test()

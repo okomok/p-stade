@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,14 +9,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/static_downcast.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/static_downcast.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <iostream>
 #include <boost/noncopyable.hpp>
-#include <boost/egg/pstade/unused.hpp>
-#include <boost/egg/is_same.hpp>
+#include <pstade/unused.hpp>
+#include <pstade/egg/is_same.hpp>
 
 
 namespace egg = pstade::egg;

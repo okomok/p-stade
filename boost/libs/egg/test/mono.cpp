@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,16 +9,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/mono.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/mono.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/egg/identity.hpp>
-#include <boost/egg/functional.hpp> // plus
-#include <boost/egg/pstade/test.hpp>
+#include <pstade/egg/identity.hpp>
+#include <pstade/egg/functional.hpp> // plus
+#include <pstade/test.hpp>
 
 
 namespace egg = pstade::egg;
@@ -60,9 +60,9 @@ struct my_foo
 };
 
 typedef result_of_mono<my_foo, int(std::string)>::type T_mono_foo1;
-T_mono_foo1 const mono_foo1 = BOOST_EGG_MONO_L {} BOOST_EGG_MONO_R;
+T_mono_foo1 const mono_foo1 = PSTADE_EGG_MONO_L {} PSTADE_EGG_MONO_R;
 typedef result_of_mono<my_foo, char()>::type T_mono_foo0;
-T_mono_foo0 const mono_foo0 = BOOST_EGG_MONO_L {} BOOST_EGG_MONO_R;
+T_mono_foo0 const mono_foo0 = PSTADE_EGG_MONO_L {} PSTADE_EGG_MONO_R;
 
 PSTADE_TEST_IS_RESULT_OF((int), T_mono_foo1(std::string const&))
 PSTADE_TEST_IS_RESULT_OF((char), T_mono_foo0())

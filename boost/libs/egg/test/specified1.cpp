@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,8 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/specified.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/specified.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/mpl/if.hpp>
@@ -28,8 +28,8 @@ struct T_my_cast
     }
 };
 
-#define  BOOST_EGG_SPECIFIED_PARAMS (my_cast, T_my_cast, 1, (1))
-#include BOOST_EGG_SPECIFIED()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (my_cast, T_my_cast, 1, (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 template<class X, int Y>
@@ -43,8 +43,8 @@ struct T_my_cast_
     }
 };
 
-#define  BOOST_EGG_SPECIFIED_PARAMS (my_cast_, T_my_cast_, (class)(int), (1))
-#include BOOST_EGG_SPECIFIED()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (my_cast_, T_my_cast_, (class)(int), (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 struct x
@@ -108,8 +108,8 @@ struct T_array_check
     T_array_check() { } // for Boost v1.33 result_of
 };
 
-#define  BOOST_EGG_SPECIFIED_PARAMS (array_check, T_array_check, 1, (1))
-#include BOOST_EGG_SPECIFIED()
+#define  PSTADE_EGG_SPECIFIED_PARAMS (array_check, T_array_check, 1, (1))
+#include PSTADE_EGG_SPECIFIED()
 
 
 void pstade_minimal_test()

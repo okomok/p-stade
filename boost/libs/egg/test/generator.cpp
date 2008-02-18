@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,32 +9,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/generator.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
-#include <boost/egg/pstade/unparenthesize.hpp>
-#include <boost/egg/by_perfect.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/unparenthesize.hpp>
+#include <pstade/egg/by_perfect.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/egg/pstade/unparenthesize.hpp>
-#include <boost/egg/pstade/test.hpp>
+#include <pstade/unparenthesize.hpp>
+#include <pstade/test.hpp>
 
 
 
 namespace deducers = pstade::egg;
 
 
-#define BOOST_EGG_OBJECT_GENERATOR(G, L) \
+#define PSTADE_EGG_OBJECT_GENERATOR(G, L) \
     namespace BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G) { \
         using namespace boost::mpl::placeholders; \
         using namespace pstade::egg; \
         typedef pstade::egg::generator<PSTADE_UNPARENTHESIZE(L)>::type op; \
     } \
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(T_, G); \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, G)), G) = BOOST_EGG_GENERATOR(); \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, G)), G) = PSTADE_EGG_GENERATOR(); \
 /**/
 
 
@@ -45,7 +45,7 @@ struct your_type
     { };
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_your_type, (your_type< deduce<_1, as_value> >))
+PSTADE_EGG_OBJECT_GENERATOR(make_your_type, (your_type< deduce<_1, as_value> >))
 PSTADE_TEST_IS_RESULT_OF((your_type<int>), T_make_your_type(int&))
 
 
@@ -60,26 +60,26 @@ struct my_type
 };
 
 
-typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, char >::type T_make_my_type_v;
-T_make_my_type_v const make_my_type_v = BOOST_EGG_GENERATOR();
+typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, boost::use_default, char >::type T_make_my_type_v;
+T_make_my_type_v const make_my_type_v = PSTADE_EGG_GENERATOR();
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), T_make_my_type_v(int&))
 PSTADE_TEST_IS_RESULT_OF((char), T_make_my_type_v())
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_ref> > >::type T_make_my_type_r;
-T_make_my_type_r const make_my_type_r = BOOST_EGG_GENERATOR();
+T_make_my_type_r const make_my_type_r = PSTADE_EGG_GENERATOR();
 PSTADE_TEST_IS_RESULT_OF((my_type<int const&>), T_make_my_type_r(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int&>), T_make_my_type_r(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > >::type T_make_my_type_q;
-T_make_my_type_q const make_my_type_q = BOOST_EGG_GENERATOR();
+T_make_my_type_q const make_my_type_q = PSTADE_EGG_GENERATOR();
 PSTADE_TEST_IS_RESULT_OF((my_type<int const>), T_make_my_type_q(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), T_make_my_type_q(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > >::type T_make_my_type_v_d;
-T_make_my_type_v_d const make_my_type_v_d = BOOST_EGG_GENERATOR();
+T_make_my_type_v_d const make_my_type_v_d = PSTADE_EGG_GENERATOR();
 
 
 
@@ -92,7 +92,7 @@ struct gcc_bug // Boost1.33 only; Boost1.34 fixed this!
     { };
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_gcc_bug, (gcc_bug< deduce<_1, as_value> >))
+PSTADE_EGG_OBJECT_GENERATOR(make_gcc_bug, (gcc_bug< deduce<_1, as_value> >))
 
 
 template< class A0 >
@@ -102,7 +102,7 @@ struct return_const
     { }
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_return_const, (return_const< deduce<_1, as_value> >) const)
+PSTADE_EGG_OBJECT_GENERATOR(make_return_const, (return_const< deduce<_1, as_value> >) const)
 
 
 template< class A0, class A1, class A2 >
@@ -117,9 +117,9 @@ struct A {};
 struct B {};
 struct C {};
 
-BOOST_EGG_OBJECT_GENERATOR( make_number312, (number< deduce<_3, as_value>, deduce<_1, as_value>, deduce<_2, as_value> >) )
-BOOST_EGG_OBJECT_GENERATOR( make_number111, (number< deduce<_1, as_value>, deduce<_1, as_value>, deduce<_1, as_value> >) )
-BOOST_EGG_OBJECT_GENERATOR( make_number213, (number< deduce<_2, as_value>, deduce<_1, as_value>, deduce<_3, as_value> >) )
+PSTADE_EGG_OBJECT_GENERATOR( make_number312, (number< deduce<_3, as_value>, deduce<_1, as_value>, deduce<_2, as_value> >) )
+PSTADE_EGG_OBJECT_GENERATOR( make_number111, (number< deduce<_1, as_value>, deduce<_1, as_value>, deduce<_1, as_value> >) )
+PSTADE_EGG_OBJECT_GENERATOR( make_number213, (number< deduce<_2, as_value>, deduce<_1, as_value>, deduce<_3, as_value> >) )
 
 
 struct H
@@ -149,8 +149,8 @@ struct deduce_to_hello :
 { };
 
 typedef generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > >::type T_make_nap;
-#if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
-    T_make_nap const make_nap = BOOST_EGG_GENERATOR();
+#if !BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(3)) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
+    T_make_nap const make_nap = PSTADE_EGG_GENERATOR();
 #endif
 
 
@@ -162,7 +162,7 @@ struct must_mutable
     explicit must_mutable(A0) { }
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_must_mutable, (must_mutable<_1>))
+PSTADE_EGG_OBJECT_GENERATOR(make_must_mutable, (must_mutable<_1>))
 
 
 void pstade_minimal_test()
@@ -206,7 +206,7 @@ void pstade_minimal_test()
         //number<A, B, C> x = ::make_number_(A(), B(), C());
     }
 
-#if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
+#if !BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(3)) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
     {
         needs_all_param<H, int> x = ::make_nap(H());
         needs_all_param<H> y = ::make_nap(H());

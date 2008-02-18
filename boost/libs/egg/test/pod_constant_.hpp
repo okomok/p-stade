@@ -22,8 +22,8 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pod.hpp>
 #include <boost/version.hpp>
-#include <boost/egg/pstade/in_unnamed.hpp>
-#include <boost/egg/pstade/unparenthesize.hpp>
+#include <pstade/in_unnamed.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 // msvc optimizers can static-initialize, though.

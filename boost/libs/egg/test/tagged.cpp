@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,8 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/tagged.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/tagged.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/mpl/assert.hpp>
@@ -36,8 +36,8 @@ struct tag2;
 typedef result_of_tagged<my_foo, tag1>::type T_my_foo1;
 typedef result_of_tagged<my_foo, tag2>::type T_my_foo2;
 
-T_my_foo1 const my_foo1 = BOOST_EGG_TAGGED_L {} BOOST_EGG_TAGGED_R;
-T_my_foo2 const my_foo2 = BOOST_EGG_TAGGED({});
+T_my_foo1 const my_foo1 = PSTADE_EGG_TAGGED_L {} PSTADE_EGG_TAGGED_R;
+T_my_foo2 const my_foo2 = PSTADE_EGG_TAGGED({});
 
 
 BOOST_MPL_ASSERT_NOT((is_tagged_with<my_foo, tag1>));
@@ -67,4 +67,5 @@ void pstade_minimal_test()
 {
     BOOST_CHECK( my_foo1(1, 2) == 3 );
     BOOST_CHECK( my_foo2(1, 2) == 3 );
+    BOOST_CHECK( egg::tagged<tag1>(my_foo())(1, 2) == 3 );
 }

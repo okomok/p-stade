@@ -1,4 +1,4 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,8 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/curry.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/curry.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 struct foo

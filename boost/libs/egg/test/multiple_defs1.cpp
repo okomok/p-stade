@@ -1,6 +1,7 @@
+// #include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,16 +10,45 @@
 
 
 #include "./egg_all.hpp"
+#undef PSTADE_EGG_DETAIL_EGG_HPP
+#undef PSTADE_EGG_DETAIL_EGG_PENDING_HPP
 #include "./egg_all.hpp"
 
-#include <boost/egg/alias.hpp>
+
+#include <pstade/minimal_test.hpp>
 
 
-using namespace boost::egg;
-using boost::egg::plus;
+#include <pstade/egg/alias.hpp>
 
 
-int main()
+#if defined(_CRT_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+#if defined(_SCL_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+
+#if defined(PSTADE_CRT_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+#if defined(PSTADE_SCL_SECURE_NO_DEPRECATE)
+#error oops.
+#endif
+
+
+using namespace pstade::egg;
+using pstade::egg::plus;
+
+
+// warning check should be shown in IDE.
+struct no_assignment
 {
-    return 0;
+    int const &x;
+};
+
+
+void pstade_minimal_test()
+{
+    int x;
+    no_assignment a = { x };
 }

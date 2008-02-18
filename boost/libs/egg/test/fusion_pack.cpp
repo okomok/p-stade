@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,9 +9,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/fusion/pack.hpp>
-#include <boost/egg/by_ref.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/fusion/pack.hpp>
+#include <pstade/egg/by_ref.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/mpl/assert.hpp>
@@ -20,7 +20,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/comparison.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/egg/pstade/result_of.hpp>
+#include <pstade/result_of.hpp>
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<>,

@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,10 +9,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/unlambda.hpp>
-#include <boost/egg/bind.hpp>
-#include <boost/egg/placeholders.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/unlambda.hpp>
+#include <pstade/egg/bind.hpp>
+#include <pstade/egg/placeholders.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 namespace egg = pstade::egg;
@@ -48,7 +48,7 @@ void pstade_minimal_test()
 #if 0
 
 #include <boost/bind.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/minimal_test.hpp>
 
 using namespace boost;
 
@@ -76,7 +76,7 @@ void pstade_minimal_test()
 
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/minimal_test.hpp>
 
 using namespace boost::lambda;
 

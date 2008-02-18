@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,14 +9,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/lazy.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/lazy.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/pstade/test.hpp>
-#include <boost/egg/pstade/pod_constant.hpp>
-#include <boost/egg/bll/placeholders.hpp>
-#include <boost/egg/to_ref.hpp>
+#include <pstade/test.hpp>
+#include <pstade/pod_constant.hpp>
+#include <pstade/egg/bll/placeholders.hpp>
+#include <pstade/egg/to_ref.hpp>
 
 
 namespace bll = boost::lambda;
@@ -53,7 +53,7 @@ struct big_arity
 };
 
 
-PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = BOOST_EGG_LAZY({});
+PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = PSTADE_EGG_LAZY({});
 
 
 void pstade_minimal_test()
@@ -63,7 +63,9 @@ void pstade_minimal_test()
     {
         BOOST_CHECK(lazy_minus(bll::_1, 2)(3|to_ref) == 1);
         BOOST_CHECK(lazy(base_minus())(bll::_1, 2)(3|to_ref) == 1);
+#if 0 // rejected
         BOOST_CHECK(lazy(base_minus(), bll_bind)(bll::_1, 2)(3|to_ref) == 1);
+#endif
     }
     {
         BOOST_CHECK(lazy_minus(bll::_1, bll::_2)(8|to_ref, 3|to_ref) == 5);

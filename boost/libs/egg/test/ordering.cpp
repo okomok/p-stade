@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,21 +9,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 struct T_foo
 {
-    template< class Result, class A0 >
-    Result call(A0& a0) const
+    template< class Re, class A0 >
+    Re call(A0& a0) const
     {
-        return Result();
+        return Re();
     }
 
-    template< class Result, class A0 >
-    Result call(A0 const&) const
+    template< class Re, class A0 >
+    Re call(A0 const&) const
     {
-        return Result();
+        return Re();
     }
 };
 

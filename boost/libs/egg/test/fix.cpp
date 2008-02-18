@@ -1,7 +1,7 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
-// Boost.Egg
+// PStade.Egg
 //
 // Copyright Shunsuke Sogame 2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -9,11 +9,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/fix.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include <pstade/egg/fix.hpp>
+#include <pstade/minimal_test.hpp>
 
 
-#include <boost/egg/deduced_form.hpp> // "incompletable" check.
+#include <pstade/egg/use_deduced_form.hpp> // "incompletable" check.
 
 
 #include <iostream>
@@ -48,8 +48,7 @@ struct T_uncurried_fact_
 };
 
 typedef result_of_curry2<T_uncurried_fact_>::type T_fact_;
-PSTADE_POD_CONSTANT((T_fact_), fact_) = BOOST_EGG_CURRY2_L {} BOOST_EGG_CURRY2_R;
-
+PSTADE_POD_CONSTANT((T_fact_), fact_) = PSTADE_EGG_CURRY2({});
 
 struct T_uncurried_wrap
 {
@@ -66,7 +65,7 @@ struct T_uncurried_wrap
 };
 
 typedef result_of_curry3<T_uncurried_wrap>::type T_wrap;
-PSTADE_POD_CONSTANT((T_wrap), wrap) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
+PSTADE_POD_CONSTANT((T_wrap), wrap) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
 
 struct T_uncurried_wrap2
 {
@@ -83,16 +82,21 @@ struct T_uncurried_wrap2
 };
 
 typedef result_of_curry4<T_uncurried_wrap2>::type T_wrap2;
-PSTADE_POD_CONSTANT((T_wrap2), wrap2) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
+PSTADE_POD_CONSTANT((T_wrap2), wrap2) = PSTADE_EGG_CURRY3_L {} PSTADE_EGG_CURRY3_R;
 
 
 void pstade_minimal_test()
 {
     {
         BOOST_CHECK( 89 == fix( curry2(unfixed_fib()) )(10) );
+        BOOST_CHECK( 89 == fix2(unfixed_fib())(10) );
     }
     {
         BOOST_CHECK( 3628800 == fix(fact_)(10) );
+
+        typedef result_of_fix<T_fact_>::type T_fixed_fact;
+        T_fixed_fact const fixed_fact = PSTADE_EGG_FIX(fact_);
+        BOOST_CHECK( 3628800 == fixed_fact(10) );
     }
     {
         BOOST_CHECK( 3628800 == fix(wrap(fact_))(10) );
