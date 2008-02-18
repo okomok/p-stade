@@ -19,7 +19,7 @@ namespace boost { namespace egg { namespace details {
 
     template<int N, class Tuple>
     struct tuple_element :
-        tuples::element<N, typename boost::remove_cv<Tuple>::type>
+        tuples::element<N, typename remove_cv<Tuple>::type>
     { };
 
 

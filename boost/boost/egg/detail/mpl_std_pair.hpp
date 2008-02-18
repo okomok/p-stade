@@ -46,7 +46,7 @@ namespace boost { namespace egg { namespace mpl_std_pair {
     template<class Pair>
     struct iterator<Pair, 0>
     {
-        typedef boost::mpl::random_access_iterator_tag category;
+        typedef mpl::random_access_iterator_tag category;
         typedef typename Pair::first_type type;
         typedef iterator<Pair, 1> next;
         typedef ERROR_BOOST_EGG_MPL_STD_PAIR_OUT_OF_RANGE<iterator> prior;
@@ -55,7 +55,7 @@ namespace boost { namespace egg { namespace mpl_std_pair {
     template<class Pair>
     struct iterator<Pair, 1>
     {
-        typedef boost::mpl::random_access_iterator_tag category;
+        typedef mpl::random_access_iterator_tag category;
         typedef typename Pair::second_type type;
         typedef iterator<Pair, 2> next;
         typedef iterator<Pair, 0> prior;
@@ -64,7 +64,7 @@ namespace boost { namespace egg { namespace mpl_std_pair {
     template<class Pair>
     struct iterator<Pair, 2>
     {
-        typedef boost::mpl::random_access_iterator_tag category;
+        typedef mpl::random_access_iterator_tag category;
         typedef ERROR_BOOST_EGG_MPL_STD_PAIR_DANGLING<iterator> type;
         typedef ERROR_BOOST_EGG_MPL_STD_PAIR_OUT_OF_RANGE<iterator> next;
         typedef iterator<Pair, 1> prior;

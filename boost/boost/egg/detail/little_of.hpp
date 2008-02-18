@@ -33,7 +33,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Function>
     struct little_of :
-        little_of_aux<typename boost::remove_cv<Function>::type>
+        little_of_aux<typename remove_cv<Function>::type>
     { };
 
 

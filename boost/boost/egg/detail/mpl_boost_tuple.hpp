@@ -42,9 +42,6 @@ struct ERROR_BOOST_EGG_MPL_BOOST_TUPLE_DANGLING;
 namespace boost { namespace egg { namespace mpl_boost_tuple {
 
 
-    namespace tuples = boost::tuples;
-
-
     struct tag;
 
 
@@ -54,7 +51,7 @@ namespace boost { namespace egg { namespace mpl_boost_tuple {
     template<class HT, class TT>
     struct iterator< tuples::cons<HT, TT> >
     {
-        typedef boost::mpl::forward_iterator_tag category;
+        typedef mpl::forward_iterator_tag category;
         typedef HT type;
         typedef iterator<TT> next;
         typedef ERROR_BOOST_EGG_MPL_BOOST_TUPLE_NOT_BIDIRECTIONAL prior;
@@ -63,7 +60,7 @@ namespace boost { namespace egg { namespace mpl_boost_tuple {
     template< >
     struct iterator< tuples::null_type >
     {
-        typedef boost::mpl::forward_iterator_tag category;
+        typedef mpl::forward_iterator_tag category;
         typedef ERROR_BOOST_EGG_MPL_BOOST_TUPLE_DANGLING<iterator> type;
         typedef ERROR_BOOST_EGG_MPL_BOOST_TUPLE_OUT_OF_RANGE<iterator> next;
         typedef ERROR_BOOST_EGG_MPL_BOOST_TUPLE_NOT_BIDIRECTIONAL prior;

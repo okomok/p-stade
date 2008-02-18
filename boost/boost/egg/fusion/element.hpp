@@ -28,7 +28,7 @@ namespace boost { namespace egg {
 
     template<class Tuple, class N>
     struct fusion_element :
-        mpl::at<typename boost::remove_cv<Tuple>::type, N>
+        mpl::at<typename remove_cv<Tuple>::type, N>
     { };
 
     template<class Tuple, int N>

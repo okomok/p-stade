@@ -22,7 +22,7 @@ namespace boost { namespace egg { namespace details {
     template<class Tuple>
     struct tuple_length :
         mpl::int_<
-            tuples::length<typename boost::remove_cv<Tuple>::type>::value
+            tuples::length<typename remove_cv<Tuple>::type>::value
         >
     { };
 

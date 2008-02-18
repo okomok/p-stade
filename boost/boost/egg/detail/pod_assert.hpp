@@ -38,23 +38,23 @@
 
 
     #define BOOST_EGG_POD_ASSERT_aux(T) \
-        BOOST_EGG_POD_ASSERTION_FAILURE failed() \
+        ERROR_BOOST_EGG_POD_ASSERTION_FAILURE failed() \
         { \
             return boost::egg::details::must_be_pod(boost::egg::details::make_pod<void T>::value()); \
         } \
     /**/
 
 
-struct BOOST_EGG_POD_ASSERTION_FAILURE { };
+struct ERROR_BOOST_EGG_POD_ASSERTION_FAILURE { };
 
 
 namespace boost { namespace egg { namespace details {
 
 
     // Some compilers can warn if non-POD passed through ellipsis. 
-    inline BOOST_EGG_POD_ASSERTION_FAILURE must_be_pod(...)
+    inline ERROR_BOOST_EGG_POD_ASSERTION_FAILURE must_be_pod(...)
     {
-        return BOOST_EGG_POD_ASSERTION_FAILURE();
+        return ERROR_BOOST_EGG_POD_ASSERTION_FAILURE();
     }
 
 

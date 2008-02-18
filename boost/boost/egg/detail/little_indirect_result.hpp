@@ -33,7 +33,7 @@ namespace boost { namespace egg { namespace details {
         reference;
 
         typedef typename
-            boost::remove_reference<reference>::type
+            remove_reference<reference>::type
         func_type; // may be noncopyable.
 
         Ptr m_ptr;
