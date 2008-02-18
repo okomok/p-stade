@@ -14,7 +14,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <pstade/test.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/egg/is_same.hpp>
 #include <boost/egg/bll/optional.hpp>
@@ -22,7 +22,7 @@
 
 
 using namespace boost::egg;
-using pstade::result_of;
+using boost::egg::result_of;
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_dereference(int *))

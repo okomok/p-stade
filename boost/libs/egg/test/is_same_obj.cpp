@@ -1,4 +1,3 @@
-#include <boost/egg/pstade/vodka/drink.hpp>
 
 
 // Boost.Egg
@@ -10,7 +9,7 @@
 
 
 #include <boost/egg/is_same.hpp>
-#include <boost/egg/pstade/minimal_test.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/egg/pstade/test.hpp>

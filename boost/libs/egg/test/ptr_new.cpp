@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/ptr_new.hpp>
-#include <pstade/unit_test.hpp>
+#include "./egg_unit_test.hpp"
 
 
 #include <pstade/test.hpp>
@@ -37,7 +37,7 @@ PSTADE_TEST_IS_RESULT_OF((udt *), X_ptr_new<udt *>(int,int))
 PSTADE_TEST_IS_RESULT_OF((udt const*), X_ptr_new<udt const *>(int,int))
 
 
-void pstade_unit_test()
+void egg_unit_test()
 {
     {
         udt *p = X_ptr_new<udt *>()(1,2);

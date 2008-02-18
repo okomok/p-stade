@@ -24,7 +24,7 @@
     #define PSTADE_AMBI(N, Object, Function) \
         namespace BOOST_PP_CAT(pstade_ambi_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::pstade::result_of< ::boost::egg::BOOST_PP_CAT(T_ambi, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
+            typedef ::boost::egg::result_of< ::boost::egg::BOOST_PP_CAT(T_ambi, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_ambi_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
         BOOST_EGG_CONST((BOOST_PP_CAT(T_, Object)), Object) = BOOST_EGG_AMBI({}); \
@@ -54,7 +54,7 @@ struct impl_interface1
     }
 };
 
-PSTADE_CONSTANT(interface1, (pstade::result_of<boost::egg::T_ambi1(impl_interface1)>::type))
+PSTADE_CONSTANT(interface1, (boost::egg::result_of<boost::egg::T_ambi1(impl_interface1)>::type))
 
 
 struct impl_interface4
@@ -67,7 +67,7 @@ struct impl_interface4
     }
 };
 
-PSTADE_CONSTANT(interface4, (pstade::result_of<boost::egg::T_ambi4(impl_interface4)>::type))
+PSTADE_CONSTANT(interface4, (boost::egg::result_of<boost::egg::T_ambi4(impl_interface4)>::type))
 
 
 PSTADE_TEST_IS_RESULT_OF((std::string), T_interface0(std::string))

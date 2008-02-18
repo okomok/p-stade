@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/delete.hpp>
-#include <pstade/unit_test.hpp>
+#include "./egg_unit_test.hpp"
 
 
 #include <pstade/test.hpp>
@@ -29,7 +29,7 @@ PSTADE_TEST_IS_RESULT_OF((void), T_delete_(udt *))
 PSTADE_TEST_IS_RESULT_OF((void), T_delete_(udt *))
 
 
-void pstade_unit_test()
+void egg_unit_test()
 {
     {
         delete_(new int(3));

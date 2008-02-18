@@ -14,7 +14,7 @@
 
 #include <string>
 #include <memory> // auto_ptr
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/test.hpp>
 
@@ -110,15 +110,15 @@ BOOST_EGG_FUNCTION_BY_VALUE(big_arity, (little_big_arity))
 void egg_test()
 {
     {
-        pstade::result_of<T_foo(int, int)>::type x = foo(1, 2);
+        boost::egg::result_of<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == 3 );
     }
     {
-        pstade::result_of<T_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
+        boost::egg::result_of<T_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
         BOOST_CHECK( *x == 3 );
     }
     {
-        pstade::result_of<T_foo()>::type x = foo();
+        boost::egg::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {

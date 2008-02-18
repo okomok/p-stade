@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/memoize.hpp>
-#include <pstade/unit_test.hpp>
+#include "./egg_unit_test.hpp"
 
 
 #include <boost/progress.hpp>
@@ -37,7 +37,7 @@ struct fib_block
 };
 
 
-void pstade_unit_test()
+void egg_unit_test()
 {
     {
         BOOST_CHECK(memoize(fib_block())(10) == 89);
