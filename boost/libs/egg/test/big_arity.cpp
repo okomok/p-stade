@@ -1,19 +1,18 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_EGG_MAX_ARITY 8
-#define PSTADE_EGG_MAX_LINEAR_ARITY 20
-#include <pstade/egg/detail/egg.hpp>
-#include <pstade/egg/detail/egg_pending.hpp>
-#include <pstade/minimal_test.hpp>
+#define BOOST_EGG_MAX_ARITY 8
+#define BOOST_EGG_MAX_LINEAR_ARITY 20
+#include <boost/egg/detail/egg.hpp>
+#include <boost/egg/detail/egg_pending.hpp>
+#include "./egg_test.hpp"
 
 
 using namespace pstade::egg;
@@ -31,10 +30,10 @@ struct T_your
     }
 };
 
-result_of_return<T_your, int, by_cref>::type const your = PSTADE_EGG_RETURN_L {} PSTADE_EGG_RETURN_R;
+result_of_return<T_your, int, by_cref>::type const your = BOOST_EGG_RETURN_L {} BOOST_EGG_RETURN_R;
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     my m = pstade::egg::constructor(1,2,3,4,5,6,7,8);
     BOOST_CHECK( 3 == your(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20) );

@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // Boost.Egg
@@ -9,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/minimal_test.hpp>
+#include "./egg_test.hpp"
 
 
 template<class T>
@@ -18,7 +17,7 @@ void foo(T const&) {}
 void bar() {}
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     ::foo(bar);
 }

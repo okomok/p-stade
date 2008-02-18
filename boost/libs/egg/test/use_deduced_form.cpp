@@ -1,23 +1,22 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/use_deduced_form.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/use_deduced_form.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/by_perfect.hpp>
-#include <pstade/egg/by_cref.hpp>
-#include <pstade/egg/by_ref.hpp>
-#include <pstade/egg/by_value.hpp>
-#include <pstade/egg/function_facade.hpp>
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/by_ref.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/function_facade.hpp>
 #include <boost/utility/addressof.hpp>
 
 
@@ -105,7 +104,7 @@ struct T_foo_ :
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     int i = 12;
     {

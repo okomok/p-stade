@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/function.hpp>
+#include "./egg_test.hpp"
 
 
 #include <string>
@@ -26,9 +25,9 @@
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 
-    #define PSTADE_EGG_FUNCTION_DEF(O, B) \
+    #define BOOST_EGG_FUNCTION_DEF(O, B) \
         typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(T_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = PSTADE_EGG_FUNCTION({}); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = BOOST_EGG_FUNCTION({}); \
     /**/
 
 
@@ -69,7 +68,7 @@ struct little_foo
     }
 };
 
-PSTADE_EGG_FUNCTION_DEF(foo, (little_foo))
+BOOST_EGG_FUNCTION_DEF(foo, (little_foo))
 
 
 PSTADE_TEST_IS_RESULT_OF((std::string), T_foo(int, double))
@@ -120,7 +119,7 @@ struct T_bar :
     pstade::egg::function< little_bar<T0, T1>, pstade::egg::by_perfect >
 { };
 
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2)
 
 
 struct little_identity
@@ -175,7 +174,7 @@ PSTADE_TEST_IS_RESULT_OF((int) const, T_keep_const(int const))
 
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         pstade::result_of<T_foo(int, int)>::type x = foo(1, 2);

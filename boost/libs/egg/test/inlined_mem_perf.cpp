@@ -1,15 +1,14 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/inlined.hpp>
+#include <boost/egg/inlined.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -57,7 +56,7 @@ double test_inlined(long& k)
     {
         boost::timer t;
         for (long i = 0; i < g_repeats; ++i) {
-            k += boost::bind<long>(PSTADE_EGG_INLINE(&klass::plus), obj, _1, i)(i);
+            k += boost::bind<long>(BOOST_EGG_INLINE(&klass::plus), obj, _1, i)(i);
         }
 
         measured = t.elapsed();

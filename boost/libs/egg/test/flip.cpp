@@ -1,21 +1,19 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/flip.hpp>
+#include <boost/egg/flip.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
-#include <pstade/minimal_test.hpp>
+#include "./egg_test.hpp"
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 int minus(int a, int b)
@@ -35,7 +33,7 @@ struct less
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         BOOST_CHECK(flip(&minus)(0, 1) == 1);
@@ -43,7 +41,7 @@ void pstade_minimal_test()
     }
     {
         ::less l;
-        result_of_flip< ::less >::type fl = PSTADE_EGG_FLIP(l);
+        result_of_flip< ::less >::type fl = BOOST_EGG_FLIP(l);
         BOOST_CHECK( l(0, 1) );
         BOOST_CHECK( !fl(0, 1) );
     }

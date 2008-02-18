@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/indirect.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/indirect.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/test.hpp>
@@ -18,8 +17,7 @@
 #include <boost/preprocessor/facilities/identity.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct T_foo
@@ -34,16 +32,16 @@ struct T_foo
 
 
 result_of_indirect<T_indirect const *>::type const
-    inindirect = PSTADE_EGG_INDIRECT(&indirect);
+    inindirect = BOOST_EGG_INDIRECT(&indirect);
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         ::T_foo foo;
 
         typedef pstade::result_of<T_indirect(::T_foo *)>::type ip_t;
-        ip_t ip = PSTADE_EGG_INDIRECT_L &foo PSTADE_EGG_INDIRECT_R;
+        ip_t ip = BOOST_EGG_INDIRECT_L &foo BOOST_EGG_INDIRECT_R;
 
         PSTADE_TEST_IS_RESULT_OF((int), ip_t(int, int))
 

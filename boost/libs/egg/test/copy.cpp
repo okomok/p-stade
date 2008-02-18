@@ -1,25 +1,23 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/copy.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/copy.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/result_of.hpp>
-#include <pstade/egg/implicit.hpp>
+#include <boost/egg/implicit.hpp>
 #include <boost/mpl/placeholders.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 template<class To>
@@ -34,7 +32,7 @@ struct T_cast0
 };
 
 typedef pstade::egg::implicit< T_cast0<boost::mpl::_> >::type T_auto_cast0;
-T_auto_cast0 const auto_cast0 = PSTADE_EGG_IMPLICIT();
+T_auto_cast0 const auto_cast0 = BOOST_EGG_IMPLICIT();
 
 
 struct xxx
@@ -77,7 +75,7 @@ struct my
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     ::test_automatic();
 

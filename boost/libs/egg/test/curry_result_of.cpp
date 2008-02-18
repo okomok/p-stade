@@ -1,24 +1,22 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/curry.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/curry.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/result_of.hpp>
-#include <pstade/egg/const.hpp>
+#include <boost/egg/const.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 using pstade::result_of;
 
 
@@ -33,10 +31,10 @@ struct foo_
 };
 
 typedef result_of_curry3<foo_>::type T_foo;
-PSTADE_EGG_CONST((T_foo), foo) = PSTADE_EGG_CURRY3({});
+BOOST_EGG_CONST((T_foo), foo) = BOOST_EGG_CURRY3({});
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         typedef result_of<T_foo(int)>::type T_foo1;

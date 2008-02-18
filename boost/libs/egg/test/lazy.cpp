@@ -1,27 +1,25 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/lazy.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/lazy.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/test.hpp>
 #include <pstade/pod_constant.hpp>
-#include <pstade/egg/bll/placeholders.hpp>
-#include <pstade/egg/to_ref.hpp>
+#include <boost/egg/bll/placeholders.hpp>
+#include <boost/egg/to_ref.hpp>
 
 
 namespace bll = boost::lambda;
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct base_minus
@@ -53,10 +51,10 @@ struct big_arity
 };
 
 
-PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = PSTADE_EGG_LAZY({});
+PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = BOOST_EGG_LAZY({});
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     using namespace pstade;
 

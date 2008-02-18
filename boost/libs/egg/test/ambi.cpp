@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,8 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/ambi.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/ambi.hpp>
+#include "./egg_test.hpp"
 
 
 #include <string>
@@ -28,7 +27,7 @@
             typedef ::pstade::result_of< ::pstade::egg::BOOST_PP_CAT(T_ambi, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_ambi_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Object)), Object) = PSTADE_EGG_AMBI({}); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, Object)), Object) = BOOST_EGG_AMBI({}); \
     /**/
 
 
@@ -74,7 +73,7 @@ PSTADE_CONSTANT(interface4, (pstade::result_of<pstade::egg::T_ambi4(impl_interfa
 PSTADE_TEST_IS_RESULT_OF((std::string), T_interface0(std::string))
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     std::string s("interface");
     {

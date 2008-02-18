@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/functional.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/functional.hpp>
+#include "./egg_test.hpp"
 
 struct my_t
 {
@@ -19,7 +18,7 @@ struct my_t
 
 my_t operator+(my_t, my_t) { return my_t(); }
 
-void pstade_minimal_test()
+void egg_test()
 {
     BOOST_CHECK( pstade::egg::equal_to(1, 1) );
     BOOST_CHECK(!pstade::egg::equal_to(0, 1) );

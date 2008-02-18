@@ -1,24 +1,23 @@
-// #include <pstade/vodka/drink.hpp>
+// 
 
-
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
 #include "./egg_all.hpp"
-#undef PSTADE_EGG_DETAIL_EGG_HPP
-#undef PSTADE_EGG_DETAIL_EGG_PENDING_HPP
+#undef BOOST_EGG_DETAIL_EGG_HPP
+#undef BOOST_EGG_DETAIL_EGG_PENDING_HPP
 #include "./egg_all.hpp"
 
 
-#include <pstade/minimal_test.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/alias.hpp>
+#include <boost/egg/alias.hpp>
 
 
 #if defined(_CRT_SECURE_NO_DEPRECATE)
@@ -47,7 +46,7 @@ struct no_assignment
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     int x;
     no_assignment a = { x };

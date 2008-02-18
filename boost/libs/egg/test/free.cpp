@@ -1,23 +1,21 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/free.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/free.hpp>
+#include "./egg_test.hpp"
 
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct my
@@ -35,7 +33,7 @@ struct my
 
 
 result_of_free<int(my::*)(int, int) const>::type const
-    freed_plus = PSTADE_EGG_FREE(&my::plus);
+    freed_plus = BOOST_EGG_FREE(&my::plus);
 
 
 struct your
@@ -62,19 +60,19 @@ struct your
 };
 
 result_of_free<int(your::*)(int, int)>::type const
-    freed_your_plus = PSTADE_EGG_FREE(&your::plus);
+    freed_your_plus = BOOST_EGG_FREE(&your::plus);
 
 result_of_free<int(your::*)(int, int) const>::type const
-    freed_your_plus_c = PSTADE_EGG_FREE(&your::plus);
+    freed_your_plus_c = BOOST_EGG_FREE(&your::plus);
 
 result_of_free<int(your::*)(int, int) volatile>::type const
-    freed_your_plus_v = PSTADE_EGG_FREE(&your::plus);
+    freed_your_plus_v = BOOST_EGG_FREE(&your::plus);
 
 result_of_free<int(your::*)(int, int) const volatile>::type const
-    freed_your_plus_cv = PSTADE_EGG_FREE(&your::plus);
+    freed_your_plus_cv = BOOST_EGG_FREE(&your::plus);
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     my y;
     {

@@ -1,19 +1,18 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/bll/poly.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/bll/poly.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/to_ref.hpp>
+#include <boost/egg/to_ref.hpp>
 #include <string>
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/test.hpp>
@@ -22,12 +21,11 @@
 namespace ll = boost::lambda::ll;
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 typedef result_of_bll_poly<ll::equal>::type adapted_equal;
-adapted_equal const adapted_equal_fun = PSTADE_EGG_BLL_POLY({});
+adapted_equal const adapted_equal_fun = BOOST_EGG_BLL_POLY({});
 PSTADE_TEST_IS_RESULT_OF((bool), adapted_equal(int*, int*, int*))
 
 
@@ -47,7 +45,7 @@ struct nullary_sig
 };
 
 typedef result_of_bll_poly_nullary< ::nullary_sig >::type adapted_nullary;
-adapted_nullary const adapted_nullary_fun = PSTADE_EGG_BLL_POLY_L {} PSTADE_EGG_BLL_POLY_R;
+adapted_nullary const adapted_nullary_fun = BOOST_EGG_BLL_POLY_L {} BOOST_EGG_BLL_POLY_R;
 PSTADE_TEST_IS_RESULT_OF((int), adapted_nullary())
 
 
@@ -58,7 +56,7 @@ struct null_op
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         pstade::result_of<T_bll_poly(ll::for_each)>::type adapted  = bll_poly(ll::for_each());

@@ -1,27 +1,25 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/register_nullary_result.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/register_nullary_result.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/function_facade.hpp>
-#include <pstade/egg/function.hpp>
+#include <boost/egg/function_facade.hpp>
+#include <boost/egg/function.hpp>
 #include <boost/mpl/assert.hpp>
 #include <pstade/result_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 using pstade::result_of;
 
 
@@ -101,12 +99,12 @@ struct five :
 } }
 
 
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(three)
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(my::your::three)
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(three)
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(my::your::three)
 
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(four, (class)(class))
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(my::four, 2)
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(my::our::five, (int)(class)(int)(class))
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(four, (class)(class))
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(my::four, 2)
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(my::our::five, (int)(class)(int)(class))
 
 
 BOOST_MPL_ASSERT((boost::is_same<result_of<three()>::type, int>));
@@ -123,7 +121,7 @@ BOOST_MPL_ASSERT((boost::is_same<result_of<my::four<int, int> const()>::type, in
 BOOST_MPL_ASSERT((boost::is_same<result_of<my::our::five<3, int, 2, int> const()>::type, int>));
 
 
-void pstade_minimal_test()
+void egg_test()
 {
 
 }

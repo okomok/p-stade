@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,14 +8,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/compose.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/compose.hpp>
+#include "./egg_test.hpp"
 
 
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/egg/to_value.hpp>
+#include <boost/egg/to_value.hpp>
 
 
 std::string g_str("x");
@@ -79,7 +78,7 @@ void nullary_result_of_check(F f)
 
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         BOOST_CHECK( compose(pstade::egg::to_value, ::bar_fun())('c') == std::string("x") );

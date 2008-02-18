@@ -1,24 +1,22 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/perfect.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/perfect.hpp>
+#include "./egg_test.hpp"
 
 
 #include <pstade/test.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 struct nonperfect
@@ -33,7 +31,7 @@ struct nonperfect
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         BOOST_CHECK( perfect(::nonperfect())(10) == 10 );
@@ -42,7 +40,7 @@ void pstade_minimal_test()
         typedef pstade::result_of<T_perfect(::nonperfect)>::type perf_t;
         PSTADE_TEST_IS_RESULT_OF((int), perf_t(int))
 
-        perf_t perf = PSTADE_EGG_PERFECT({});
+        perf_t perf = BOOST_EGG_PERFECT({});
         BOOST_CHECK( perf(10) == 10 );
     }
 }

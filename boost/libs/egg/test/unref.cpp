@@ -1,24 +1,22 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/detail/unref.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/detail/unref.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_perfect, int&>::type, int>));
 BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_perfect, int const&>::type, int const>));
@@ -48,6 +46,6 @@ BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int (&)[12]>::type, int
 BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int const (&)[12]>::type, int const*>));
 
 
-void pstade_minimal_test()
+void egg_test()
 {
 }

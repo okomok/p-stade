@@ -1,33 +1,31 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/implicit.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/implicit.hpp>
+#include "./egg_test.hpp"
 
 
-#include <pstade/egg/construct.hpp>
-#include <pstade/egg/by_value.hpp>
-#include <pstade/egg/const.hpp>
+#include <boost/egg/construct.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/const.hpp>
 #include <memory>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 typedef implicit<X_construct<mpl_1, mpl_2>, by_value>::type T_value_constructor;
-PSTADE_EGG_CONST((T_value_constructor), value_constructor) = PSTADE_EGG_IMPLICIT();
+BOOST_EGG_CONST((T_value_constructor), value_constructor) = BOOST_EGG_IMPLICIT();
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         // how to test?

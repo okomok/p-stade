@@ -1,4 +1,3 @@
-#include <pstade/vodka/drink.hpp>
 
 
 // PStade.Wine
@@ -9,8 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/curry.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/curry.hpp>
+#include "./egg_test.hpp"
 
 
 struct foo
@@ -32,7 +31,7 @@ void regular_check(F f)
 }
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     using namespace pstade::egg;
 

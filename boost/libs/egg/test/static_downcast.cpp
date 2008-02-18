@@ -1,26 +1,24 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/static_downcast.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/static_downcast.hpp>
+#include "./egg_test.hpp"
 
 
 #include <iostream>
 #include <boost/noncopyable.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/egg/is_same.hpp>
+#include <boost/egg/is_same.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
 enum test_code
@@ -200,7 +198,7 @@ void test_sametype()
 }
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     ::test_crtp();
     ::test_static();

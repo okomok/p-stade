@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function_facade.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/function_facade.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/type_traits/is_pod.hpp>
@@ -61,7 +60,7 @@ struct T_foo :
     }
 };
 
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(T_foo)
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(T_foo)
 
 
 T_foo const foo = T_foo();
@@ -106,7 +105,7 @@ struct T_bar :
     }
 };
 
-PSTADE_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2) 
+BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(T_bar, 2) 
 
 
 struct dummy { };
@@ -236,7 +235,7 @@ struct our_identity :
 };
 
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         boost::result_of<T_foo(int, int)>::type x = foo(1, 2);

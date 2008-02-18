@@ -1,16 +1,15 @@
-#include <pstade/vodka/drink.hpp>
 
 
-// PStade.Egg
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2007.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/always.hpp>
-#include <pstade/minimal_test.hpp>
+#include <boost/egg/always.hpp>
+#include "./egg_test.hpp"
 
 
 #include <boost/ref.hpp>
@@ -18,12 +17,11 @@
 #include <boost/utility/addressof.hpp>
 
 
-namespace egg = pstade::egg;
-using namespace egg;
+#include "./using_egg.hpp"
 
 
-result_of_always<int>::type const always_3 = PSTADE_EGG_ALWAYS_L 3 PSTADE_EGG_ALWAYS_R;
-result_of_always<int>::type const always_4 = PSTADE_EGG_ALWAYS(4);
+result_of_always<int>::type const always_3 = BOOST_EGG_ALWAYS_L 3 BOOST_EGG_ALWAYS_R;
+result_of_always<int>::type const always_4 = BOOST_EGG_ALWAYS(4);
 
 
 struct my_klass : boost::noncopyable
@@ -41,7 +39,7 @@ struct to_any
     }
 };
 
-void pstade_minimal_test()
+void egg_test()
 {
     {
         int i = 3;
