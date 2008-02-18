@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 
 
 #include "./using_egg.hpp"
@@ -36,7 +36,7 @@ struct little_identity
 
 struct my_identity : function<little_identity>
 {
-    pstade::result_of<my_identity(int&)>::type bar(int i) const
+    boost::egg::result_of<my_identity(int&)>::type bar(int i) const
     {
         return (*this)(i);
     }

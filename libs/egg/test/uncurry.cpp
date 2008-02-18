@@ -1,8 +1,8 @@
 
 
-// PStade.Wine
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -14,9 +14,9 @@
 
 
 #include <boost/egg/to_string.hpp>
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 
-using pstade::egg::to_string;
+using boost::egg::to_string;
 
 
 struct my_plus2
@@ -36,11 +36,11 @@ struct my_plus2
     }
 };
 
-typedef pstade::egg::result_of_curry2<my_plus2>::type T_curried_plus2;
-PSTADE_POD_CONSTANT((T_curried_plus2), curried_plus2) = BOOST_EGG_CURRY2({});
+typedef boost::egg::result_of_curry2<my_plus2>::type T_curried_plus2;
+BOOST_EGG_CONST((T_curried_plus2), curried_plus2) = BOOST_EGG_CURRY2({});
 
-typedef pstade::egg::result_of_uncurry<T_curried_plus2>::type T_still_plus2;
-PSTADE_POD_CONSTANT((T_still_plus2), still_plus2) = BOOST_EGG_UNCURRY_L BOOST_EGG_CURRY2_L {} BOOST_EGG_CURRY2_R BOOST_EGG_UNCURRY_R;
+typedef boost::egg::result_of_uncurry<T_curried_plus2>::type T_still_plus2;
+BOOST_EGG_CONST((T_still_plus2), still_plus2) = BOOST_EGG_UNCURRY_L BOOST_EGG_CURRY2_L {} BOOST_EGG_CURRY2_R BOOST_EGG_UNCURRY_R;
 
 
 struct my_plus3
@@ -96,16 +96,16 @@ struct my_plus5
     }
 };
 
-typedef pstade::egg::result_of_curry5<my_plus5>::type T_curried_plus5;
-PSTADE_POD_CONSTANT((T_curried_plus5), curried_plus5) = BOOST_EGG_CURRY5_L {} BOOST_EGG_CURRY5_R;
+typedef boost::egg::result_of_curry5<my_plus5>::type T_curried_plus5;
+BOOST_EGG_CONST((T_curried_plus5), curried_plus5) = BOOST_EGG_CURRY5_L {} BOOST_EGG_CURRY5_R;
 
-typedef pstade::egg::result_of_uncurry<T_curried_plus5>::type T_still_plus5;
-PSTADE_POD_CONSTANT((T_still_plus5), still_plus5) = BOOST_EGG_UNCURRY_L BOOST_EGG_CURRY5_L {} BOOST_EGG_CURRY5_R BOOST_EGG_UNCURRY_R;
+typedef boost::egg::result_of_uncurry<T_curried_plus5>::type T_still_plus5;
+BOOST_EGG_CONST((T_still_plus5), still_plus5) = BOOST_EGG_UNCURRY_L BOOST_EGG_CURRY5_L {} BOOST_EGG_CURRY5_R BOOST_EGG_UNCURRY_R;
 
 
 void egg_test()
 {
-    using namespace pstade::egg;
+    using namespace boost::egg;
 
     {
         BOOST_CHECK(

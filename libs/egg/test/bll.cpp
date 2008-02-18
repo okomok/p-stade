@@ -11,18 +11,18 @@
 #include <boost/egg/bll/bind.hpp>
 #include <boost/egg/bll/unlambda.hpp>
 #include <boost/egg/bll/placeholders.hpp>
-#include <pstade/result_of_lambda.hpp>
+#include <boost/egg/result_of_lambda.hpp>
 #include "./egg_test.hpp"
 
 
 #include <boost/egg/lazy.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/egg/functional.hpp> // plus
 #include <boost/egg/to_ref.hpp>
 #include <pstade/test.hpp>
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 int sum_of_args_1(int a) { return a; }
@@ -37,7 +37,7 @@ int big_arity(int, int, int, int, int, int, int, int, int)
 void egg_test()
 {
     {
-        pstade::result_of<T_bll_bind(T_plus, T_bll_1, int)>::type b =
+        boost::egg::result_of<T_bll_bind(T_plus, T_bll_1, int)>::type b =
             bll_bind(plus, bll_1, 10);
 
         BOOST_CHECK( b(20|to_ref) == 30 );
@@ -51,14 +51,14 @@ void egg_test()
     }
     {
         typedef
-            pstade::result_of<T_bll_bind(int (*)(int), int)>::type
+            boost::egg::result_of<T_bll_bind(int (*)(int), int)>::type
         b_t;
 
         b_t b = bll_bind(&sum_of_args_1, 10);
 
         PSTADE_TEST_IS_RESULT_OF((int), b_t())
 
-        pstade::result_of<b_t()>::type b_ = b();
+        boost::egg::result_of<b_t()>::type b_ = b();
         BOOST_CHECK(b_ == 10);
     }
     {
@@ -66,7 +66,7 @@ void egg_test()
         BOOST_CHECK( f(1,2) == 3 );
 
         // unlambda it!
-        pstade::result_of<T_bll_unlambda(T_bll_1)>::type u = bll_unlambda(bll_1);
+        boost::egg::result_of<T_bll_unlambda(T_bll_1)>::type u = bll_unlambda(bll_1);
         int i = 10;
         BOOST_CHECK( boost::lambda::bind(u, bll_1)(i) == 10 );
     }

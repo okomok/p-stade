@@ -68,8 +68,8 @@ double test_inlined(long& k)
 
 double test_static(long& k)
 {
-    static pstade::egg::result_of_return<long(*)(long, long), boost::use_default,
-        pstade::egg::by_value>::type const
+    static boost::egg::result_of_return<long(*)(long, long), boost::use_default,
+        boost::egg::by_value>::type const
         static_plus = BOOST_EGG_RETURN(&plus);
 
     double measured = 0;

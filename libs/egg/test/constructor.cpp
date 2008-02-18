@@ -14,11 +14,11 @@
 
 #include <boost/egg/to_value.hpp>
 #include <string>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <utility>
 
 
-using pstade::result_of;
+using boost::egg::result_of;
 #include "./using_egg.hpp"
 
 

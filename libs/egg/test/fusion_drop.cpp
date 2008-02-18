@@ -17,7 +17,7 @@
 #include <boost/mpl/equal.hpp>
 #include <boost/egg/is_same.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 
 #if defined(BOOST_EGG_HAS_FUSIONS)
 #include <boost/fusion/include/mpl.hpp>
@@ -30,30 +30,30 @@
 template<int N, class From, class To>
 void test_tuple()
 {
-    namespace egg = pstade::egg;
+    namespace egg = boost::egg;
     using namespace egg;
 
     // lvalue
-    BOOST_MPL_ASSERT((boost::is_same<To&, typename pstade::result_of<X_fusion_drop_c<N>(From&)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<To const&, typename pstade::result_of<X_fusion_drop_c<N>(From const&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To&, typename boost::egg::result_of<X_fusion_drop_c<N>(From&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of<X_fusion_drop_c<N>(From const&)>::type>));
     // rvalue
-    BOOST_MPL_ASSERT((boost::is_same<To const&, typename pstade::result_of<X_fusion_drop_c<N>(From)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<To const&, typename pstade::result_of<X_fusion_drop_c<N>(From const)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of<X_fusion_drop_c<N>(From)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<To const&, typename boost::egg::result_of<X_fusion_drop_c<N>(From const)>::type>));
 }
 
 
 template<int N, class From>
 void test_tuple0()
 {
-    namespace egg = pstade::egg;
+    namespace egg = boost::egg;
     using namespace egg;
 
     // lvalue
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename pstade::result_of<X_fusion_drop_c<N>(From&)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename pstade::result_of<X_fusion_drop_c<N>(From const&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From&)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From const&)>::type>));
     // rvalue
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename pstade::result_of<X_fusion_drop_c<N>(From)>::type>));
-    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename pstade::result_of<X_fusion_drop_c<N>(From const)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From)>::type>));
+    BOOST_MPL_ASSERT((boost::is_same<boost::tuples::null_type, typename boost::egg::result_of<X_fusion_drop_c<N>(From const)>::type>));
 }
 
 
@@ -62,15 +62,15 @@ void test_tuple0()
 template<int N, class From, class To>
 void test_fusion()
 {
-    namespace egg = pstade::egg;
+    namespace egg = boost::egg;
     using namespace egg;
 
     // lvalue
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename pstade::result_of<X_fusion_drop_c<N>(From&)>::type>));
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename pstade::result_of<X_fusion_drop_c<N>(From const&)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From&)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From const&)>::type>));
     // rvalue
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename pstade::result_of<X_fusion_drop_c<N>(From)>::type>));
-    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename pstade::result_of<X_fusion_drop_c<N>(From const)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From)>::type>));
+    BOOST_MPL_ASSERT((boost::mpl::equal<To, typename boost::egg::result_of<X_fusion_drop_c<N>(From const)>::type>));
 }
 
 #endif
@@ -89,7 +89,7 @@ void egg_test()
         ::test_tuple0< 4, tuple<char, int, double, int&> >();
         ::test_tuple0< 0, null_type >();
 
-        namespace egg = pstade::egg;
+        namespace egg = boost::egg;
         int k = 999;
         tuple<char, int, double, int&> t('a', 1, 1.0, k);
         BOOST_CHECK( egg::is_same(boost::get<3>(egg::fusion_drop_c<0>(t)), k) );
@@ -111,7 +111,7 @@ void egg_test()
         ::test_fusion< 3, vector<char, int, double, int&>, vector<int&> >();
         ::test_fusion< 4, vector<char, int, double, int&>, vector<> >();
 
-        namespace egg = pstade::egg;
+        namespace egg = boost::egg;
         int k = 999;
         vector<char, int, double, int&> t('a', 1, 1.0, k);
         BOOST_CHECK( egg::is_same(boost::fusion::at_c<3>(egg::fusion_drop_c<0>(t)), k) );

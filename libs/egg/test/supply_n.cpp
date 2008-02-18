@@ -17,7 +17,7 @@
 
 
 namespace mpl = boost::mpl;
-using namespace pstade::egg::detail;
+using namespace boost::egg::detail;
 
 
 

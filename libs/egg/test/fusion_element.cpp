@@ -25,7 +25,7 @@
 #endif
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 namespace pair_test {

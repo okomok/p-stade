@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/egg/implicit.hpp>
 #include <boost/mpl/placeholders.hpp>
 
@@ -31,7 +31,7 @@ struct T_cast0
     }
 };
 
-typedef pstade::egg::implicit< T_cast0<boost::mpl::_> >::type T_auto_cast0;
+typedef boost::egg::implicit< T_cast0<boost::mpl::_> >::type T_auto_cast0;
 T_auto_cast0 const auto_cast0 = BOOST_EGG_IMPLICIT();
 
 
@@ -80,17 +80,17 @@ void egg_test()
     ::test_automatic();
 
     {
-        pstade::result_of<X_copy<my>(int)>::type
+        boost::egg::result_of<X_copy<my>(int)>::type
             r = egg::copy<my>(10);
         BOOST_CHECK(r.m_i == 10);
     }
     {
-        pstade::result_of<X_copy<char>(int)>::type
+        boost::egg::result_of<X_copy<char>(int)>::type
             r = egg::copy<char>(10);
         BOOST_CHECK(r == char(10));
     }
     { // same type (does nothing)
-        pstade::result_of<X_copy<int>(int)>::type
+        boost::egg::result_of<X_copy<int>(int)>::type
             r = egg::copy<int>(10);
         BOOST_CHECK(r == 10);
     }

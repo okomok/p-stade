@@ -17,7 +17,7 @@
 #include <boost/ref.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 
 
 #include "./using_egg.hpp"
@@ -34,25 +34,25 @@ struct foo
 typedef generator< foo< deduce<boost::mpl::_1, as_wrapped_ref> > >::type T_make_foo;
 T_make_foo const make_foo = BOOST_EGG_GENERATOR();
 
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(boost::reference_wrapper<int>&)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(boost::reference_wrapper<int>&)>::type,
                  foo<int&> >));
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(boost::reference_wrapper<int> const&)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(boost::reference_wrapper<int> const&)>::type,
                  foo<int&> >));
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(boost::reference_wrapper<int>)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(boost::reference_wrapper<int>)>::type,
                  foo<int&> >));
 
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(boost::reference_wrapper<int const>&)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(boost::reference_wrapper<int const>&)>::type,
                  foo<int const&> >));
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(boost::reference_wrapper<int const> const&)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(boost::reference_wrapper<int const> const&)>::type,
                  foo<int const&> >));
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(boost::reference_wrapper<int const>)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(boost::reference_wrapper<int const>)>::type,
                  foo<int const&> >));
 
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(int&)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(int&)>::type,
                  foo<int> >));
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(int const&)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(int const&)>::type,
                  foo<int> >));
-BOOST_MPL_ASSERT((boost::is_same<pstade::result_of<T_make_foo(int)>::type,
+BOOST_MPL_ASSERT((boost::is_same<boost::egg::result_of<T_make_foo(int)>::type,
                  foo<int> >));
 
 void egg_test()

@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 #include <pstade/unparenthesize.hpp>
 #include <boost/egg/by_perfect.hpp>
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 
 
 #include <boost/tuple/tuple.hpp>
@@ -23,17 +23,17 @@
 
 
 
-namespace deducers = pstade::egg;
+namespace deducers = boost::egg;
 
 
 #define BOOST_EGG_OBJECT_GENERATOR(G, L) \
     namespace BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G) { \
         using namespace boost::mpl::placeholders; \
-        using namespace pstade::egg; \
-        typedef pstade::egg::generator<PSTADE_UNPARENTHESIZE(L)>::type op; \
+        using namespace boost::egg; \
+        typedef boost::egg::generator<PSTADE_UNPARENTHESIZE(L)>::type op; \
     } \
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(T_, G); \
-    PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, G)), G) = BOOST_EGG_GENERATOR(); \
+    BOOST_EGG_CONST((BOOST_PP_CAT(T_, G)), G) = BOOST_EGG_GENERATOR(); \
 /**/
 
 
@@ -48,7 +48,7 @@ BOOST_EGG_OBJECT_GENERATOR(make_your_type, (your_type< deduce<_1, as_value> >))
 PSTADE_TEST_IS_RESULT_OF((your_type<int>), T_make_your_type(int&))
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 template< class A0, class A1 = char >
@@ -189,7 +189,7 @@ void egg_test()
 
     {
         return_const<int> x = ::make_return_const(1);
-        BOOST_MPL_ASSERT(( boost::is_const<pstade::result_of< ::T_make_return_const(int) >::type> ));
+        BOOST_MPL_ASSERT(( boost::is_const<boost::egg::result_of< ::T_make_return_const(int) >::type> ));
     }
 
     {

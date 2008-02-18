@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/egg/function.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/egg/get.hpp>
@@ -27,7 +27,7 @@ struct little_second
 {
     template<class Me, class Args>
     struct apply :
-        pstade::result_of<X_get_c<1>(Args&)>
+        boost::egg::result_of<X_get_c<1>(Args&)>
     { };
 
     template<class Re, class Args>

@@ -13,7 +13,7 @@
 
 
 #include <pstade/test.hpp>
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 #include <boost/egg/bll/placeholders.hpp>
 #include <boost/egg/to_ref.hpp>
 
@@ -51,7 +51,7 @@ struct big_arity
 };
 
 
-PSTADE_POD_CONSTANT((result_of_lazy<base_minus>::type), lazy_minus) = BOOST_EGG_LAZY({});
+BOOST_EGG_CONST((result_of_lazy<base_minus>::type), lazy_minus) = BOOST_EGG_LAZY({});
 
 
 void egg_test()

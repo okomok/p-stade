@@ -22,7 +22,7 @@
 #include <boost/egg/by_ref.hpp>
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 struct my_value_identity :

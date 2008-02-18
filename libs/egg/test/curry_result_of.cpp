@@ -12,12 +12,12 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/egg/const.hpp>
 
 
 #include "./using_egg.hpp"
-using pstade::result_of;
+using boost::egg::result_of;
 
 
 struct foo_

@@ -15,7 +15,7 @@
 #include "./egg_test.hpp"
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 struct my
 {
@@ -35,6 +35,6 @@ result_of_return<T_your, int, by_cref>::type const your = BOOST_EGG_RETURN_L {} 
 
 void egg_test()
 {
-    my m = pstade::egg::constructor(1,2,3,4,5,6,7,8);
+    my m = boost::egg::constructor(1,2,3,4,5,6,7,8);
     BOOST_CHECK( 3 == your(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20) );
 }

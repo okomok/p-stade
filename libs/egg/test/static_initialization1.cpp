@@ -19,7 +19,7 @@ T_my_id const &get_my_id1( )
    return my_id;
 }
 
-int i = get_my_id2()|pstade::egg::to_base();
+int i = get_my_id2()|boost::egg::to_base();
 
 
 T_my_idr const &get_my_idr1( )
@@ -27,7 +27,7 @@ T_my_idr const &get_my_idr1( )
    return my_idr;
 }
 
-int ir = get_my_idr2()|pstade::egg::to_base();
+int ir = get_my_idr2()|boost::egg::to_base();
 
 
 T_my_func const &get_my_func1( )
@@ -41,9 +41,9 @@ T_my_idrr const &get_my_idrr1( )
    return my_idrr;
 }
 
-int irr = get_my_idrr2()|pstade::egg::to_base();
+int irr = get_my_idrr2()|boost::egg::to_base();
 
-int ifun = get_my_func2()|pstade::egg::to_base();
+int ifun = get_my_func2()|boost::egg::to_base();
 /*
 = get_my_func2().
     little().
@@ -63,7 +63,7 @@ T_pipa const &get_pipa1( )
    return pipa;
 }
 
-int ipi = get_pipa2()|pstade::egg::to_base();
+int ipi = get_pipa2()|boost::egg::to_base();
 
 
 T_auxi const &get_auxi1( )
@@ -71,7 +71,7 @@ T_auxi const &get_auxi1( )
    return auxi;
 }
 
-int iau = get_auxi2()|pstade::egg::to_base();
+int iau = get_auxi2()|boost::egg::to_base();
 
 
 T_construct_int const &get_cons_int1( )
@@ -79,5 +79,5 @@ T_construct_int const &get_cons_int1( )
    return construct_int;
 }
 
-T_construct_int::little_type cons_int = get_cons_int2()|pstade::egg::to_base();
+T_construct_int::little_type cons_int = get_cons_int2()|boost::egg::to_base();
 

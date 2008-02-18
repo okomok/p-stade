@@ -19,19 +19,19 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/comparison.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<>,
-                 pstade::result_of<pstade::egg::T_fusion_pack()>::type > ));
+                 boost::egg::result_of<boost::egg::T_fusion_pack()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<int&, int const&>,
-                 pstade::result_of<pstade::egg::T_fusion_pack(int&, int)>::type > ));
+                 boost::egg::result_of<boost::egg::T_fusion_pack(int&, int)>::type > ));
 
 
 void test_()
 {
-    using namespace pstade::egg;
+    using namespace boost::egg;
 
     BOOST_CHECK( boost::fusion::make_vector(1,2,3,4,5) == fusion_pack(1,2,3,4,5) );
     BOOST_CHECK( boost::fusion::make_vector(1,2,3,4)   == fusion_pack(1,2,3,4)   );
@@ -54,15 +54,15 @@ void test_()
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<>,
-                 pstade::result_of<pstade::egg::X_fusion_pack<pstade::egg::by_ref>()>::type > ));
+                 boost::egg::result_of<boost::egg::X_fusion_pack<boost::egg::by_ref>()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::fusion::vector<int&, int const&>,
-                 pstade::result_of<pstade::egg::X_fusion_pack<pstade::egg::by_ref>(int&, int const&)>::type > ));
+                 boost::egg::result_of<boost::egg::X_fusion_pack<boost::egg::by_ref>(int&, int const&)>::type > ));
 
 
 void test_ref()
 {
-    using namespace pstade::egg;
+    using namespace boost::egg;
 
     int const i0 = 0, i1 = 1, i2 = 2, i3 = 3, i4 = 4;
     int i5 = 5, i6 = 6, i7 = 7, i8 = 8, i9 = 9;

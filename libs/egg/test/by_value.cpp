@@ -19,15 +19,15 @@
 #include <pstade/test.hpp>
 
 
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
 
     #define BOOST_EGG_FUNCTION_BY_VALUE(O, B) \
-        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_value> BOOST_PP_CAT(T_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
+        typedef boost::egg::function<PSTADE_UNPARENTHESIZE(B), boost::egg::by_value> BOOST_PP_CAT(T_, O); \
+        BOOST_EGG_CONST((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
 
 

@@ -20,7 +20,7 @@
 #include <boost/utility/addressof.hpp>
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 //[code_use_deduced_form_example

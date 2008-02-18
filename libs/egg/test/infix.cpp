@@ -23,17 +23,17 @@ struct str_plus_int
 
     result_type operator()(std::string s, int i) const
     {
-        return s + pstade::egg::to_string(i);
+        return s + boost::egg::to_string(i);
     }
 };
 
 
 void egg_test()
 {
-    using pstade::egg::plus;
+    using boost::egg::plus;
 
     {
-        using namespace pstade::egg::infix;
+        using namespace boost::egg::infix;
 
         std::string l("hello");
         int r = 12;
@@ -43,7 +43,7 @@ void egg_test()
         BOOST_CHECK( (l ^str_plus_int()^ r) == "hello12" );
     }
     {
-        using namespace pstade::egg::infix;
+        using namespace boost::egg::infix;
 
         int l = 10, r = 12;
         BOOST_CHECK( (10 ^plus^ 12) == 22 );
@@ -52,7 +52,7 @@ void egg_test()
         BOOST_CHECK( (l ^plus^ r) == 22 );
     }
     {
-        using namespace pstade::egg::infix;
+        using namespace boost::egg::infix;
 
         BOOST_CHECK( (10 ^plus^ 12 ^plus^ 3) == 25 );
     }

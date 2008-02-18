@@ -18,7 +18,7 @@
 
 void egg_test()
 {
-    namespace egg = pstade::egg;
+    namespace egg = boost::egg;
     using namespace egg;
 
     boost::function<int(int)> f = curry2(plus)(1);

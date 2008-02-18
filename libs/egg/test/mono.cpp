@@ -71,7 +71,7 @@ void egg_test()
 {
     {
         int i = 10;
-        pstade::result_of<X_mono<boost::use_default(int &)>(T_identity const&)>::type a = 
+        boost::egg::result_of<X_mono<boost::use_default(int &)>(T_identity const&)>::type a = 
             egg::mono<boost::use_default(int &)>(identity);
         BOOST_CHECK( a(i) == 10 );
         BOOST_CHECK( &(egg::mono<boost::use_default(int&)>(identity)(i)) == &i );
@@ -79,7 +79,7 @@ void egg_test()
     }
     {
         int i = 10;
-        pstade::result_of<X_mono<boost::use_default(int&, int const&)>(T_plus const&)>::type a = 
+        boost::egg::result_of<X_mono<boost::use_default(int&, int const&)>(T_plus const&)>::type a = 
             egg::mono<boost::use_default(int&, int const&)>(plus);
         BOOST_CHECK( a(i, 4) == 14 );
         BOOST_CHECK(( egg::mono<boost::use_default(int&, int const&)>(plus)(i, 4) == 14 ));

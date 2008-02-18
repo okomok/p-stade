@@ -13,12 +13,12 @@
 
 #include <boost/egg/identity.hpp>
 #include <boost/egg/bll.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <pstade/test.hpp>
 
 
 #include "./using_egg.hpp"
-using pstade::result_of;
+using boost::egg::result_of;
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))

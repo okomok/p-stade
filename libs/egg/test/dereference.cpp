@@ -21,7 +21,7 @@
 #include <memory>
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 using pstade::result_of;
 
 

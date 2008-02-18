@@ -12,11 +12,11 @@
 #include "./egg_test.hpp"
 
 #include <boost/egg/get.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 
 
 #include "./using_egg.hpp"
-using pstade::result_of;
+using boost::egg::result_of;
 
 
 struct little_second

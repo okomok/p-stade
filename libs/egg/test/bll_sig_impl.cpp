@@ -33,7 +33,7 @@ struct T_my_plus
     }
 
     template<class FunArgs>
-    struct sig : pstade::egg::bll_sig_impl<FunArgs>
+    struct sig : boost::egg::bll_sig_impl<FunArgs>
     { };
 };
 

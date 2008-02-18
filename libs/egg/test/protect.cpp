@@ -14,7 +14,7 @@
 #include "./egg_test.hpp"
 
 
-namespace egg = pstade::egg;
+namespace egg = boost::egg;
 
 
 struct T_foo
