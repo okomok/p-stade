@@ -17,7 +17,6 @@
 #include <boost/egg/apply.hpp>
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/auto_new.hpp>
-//#include <boost/egg/auto_object.hpp>
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/by_ref.hpp>
