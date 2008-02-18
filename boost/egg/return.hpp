@@ -58,7 +58,7 @@ namespace boost { namespace egg {
 
 
     template<class Return, class Base> inline
-    typename result_of<X_return<Return>(Base &)>::type return_(Base base)
+    typename result_of_<X_return<Return>(Base &)>::type return_(Base base)
     {
         return X_return<Return>()(base);
     }

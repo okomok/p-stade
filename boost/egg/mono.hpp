@@ -68,7 +68,7 @@ namespace boost { namespace egg {
     { };
 
     template<class Signature, class Base> inline
-    typename result_of<X_mono<Signature>(Base &)>::type mono(Base base)
+    typename result_of_<X_mono<Signature>(Base &)>::type mono(Base base)
     {
         return X_mono<Signature>()(base);
     }
@@ -90,7 +90,7 @@ namespace boost { namespace egg {
     {
         typedef typename
             details::eval_if_use_default< R,
-                result_of<Base const(fparams)>
+                result_of_<Base const(fparams)>
             >::type
         result_type;
 

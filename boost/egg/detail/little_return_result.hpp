@@ -45,7 +45,7 @@ namespace boost { namespace egg { namespace details {
 
     // 0ary
         typedef typename
-            eval_if_use_default< Return, result_of<Base const()> >::type
+            eval_if_use_default< Return, result_of_<Base const()> >::type
         nullary_result_type;
 
         template<class Re>
@@ -74,7 +74,7 @@ namespace boost { namespace egg { namespace details {
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         eval_if_use_default< Return,
-            result_of<Base const(BOOST_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
+            result_of_<Base const(BOOST_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
         >
     { };
 

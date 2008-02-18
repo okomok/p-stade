@@ -62,8 +62,8 @@ namespace boost { namespace egg { namespace details {
 
     template<class Tuple>
     struct apply_aux< Tuple, mpl::int_<n> > :
-        result_of<
-            Base const( BOOST_EGG_PP_ENUM_PARAMS_WITH(n, typename result_of<X_get_c<BOOST_EGG_PP_INT_, >(Tuple &)>::type) )
+        result_of_<
+            Base const( BOOST_EGG_PP_ENUM_PARAMS_WITH(n, typename result_of_<X_get_c<BOOST_EGG_PP_INT_, >(Tuple &)>::type) )
         >
     { };
 

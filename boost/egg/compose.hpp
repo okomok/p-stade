@@ -25,10 +25,10 @@ namespace boost { namespace egg {
 
 
     // The nullary result type must be explicitly specified.
-    // 'result_of<F(result_of<G()>::type)>::type' is always instantiated,
-    // but it may be ill-formed, if 'result_of<G()>::type' is 'void', or
+    // 'result_of_<F(result_of_<G()>::type)>::type' is always instantiated,
+    // but it may be ill-formed, if 'result_of_<G()>::type' is 'void', or
     // an invalid type like 'tuples::null_type' which Boost.Lambda returns instead of 'void'.
-    // If such an invalid type is always 'void', then 'result_of<F()>::type' is always well-formed.
+    // If such an invalid type is always 'void', then 'result_of_<F()>::type' is always well-formed.
     // But, it is not a general solution. "compose2" to call 'f(g1, g2)' would be ill-formed after all.
 
 
@@ -43,10 +43,10 @@ namespace boost { namespace egg {
 
             template<class Me, class Args>
             struct apply :
-                result_of<
+                result_of_<
                     F const(
-                        typename result_of<
-                            typename result_of<details::T_tuple_fuse(G const &)>::type(Args &)
+                        typename result_of_<
+                            typename result_of_<details::T_tuple_fuse(G const &)>::type(Args &)
                         >::type
                     )
                 >

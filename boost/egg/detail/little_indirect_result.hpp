@@ -29,7 +29,7 @@ namespace boost { namespace egg { namespace details {
     struct little_indirect_result
     {
         typedef typename
-            result_of<T_dereference(Ptr const &)>::type
+            result_of_<T_dereference(Ptr const &)>::type
         reference;
 
         typedef typename
@@ -45,7 +45,7 @@ namespace boost { namespace egg { namespace details {
 
     // 0ary
         typedef typename
-            result_of<func_type()>::type
+            result_of_<func_type()>::type
         nullary_result_type;
 
         template<class Re>
@@ -73,7 +73,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of<func_type(BOOST_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
+        result_of_<func_type(BOOST_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>

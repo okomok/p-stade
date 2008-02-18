@@ -48,7 +48,7 @@ namespace boost { namespace egg {
 
 
     template<class FunCall>
-    struct result_of;
+    struct result_of_;
 
 
     namespace result_of_detail {
@@ -109,7 +109,7 @@ namespace boost { namespace egg {
 
 
     template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_of<Fun(fparams)> :
+    struct result_of_<Fun(fparams)> :
         boost::result_of<
             typename result_of_detail::patch<Fun>::type(fparams)
         >

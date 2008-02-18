@@ -112,7 +112,7 @@ namespace boost { namespace egg {
 
         // member function pointers
         template<class Ptr> inline
-        typename details::lazy_disable_if<is_pointer<Ptr>, result_of<T_free_(Ptr &)> >::type
+        typename details::lazy_disable_if<is_pointer<Ptr>, result_of_<T_free_(Ptr &)> >::type
         adapt(Ptr ptr)
         {
             return free_(ptr);

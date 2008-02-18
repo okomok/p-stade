@@ -57,13 +57,13 @@ namespace boost { namespace egg { namespace detail_vc7_1 {
 
     template<class Fun, class A0>
     struct result_of1< Fun, A0 > :
-        result_of<Fun(A0)>
+        result_of_<Fun(A0)>
     { };
 
     // Delay to const-qualify for array type.
     template<class Fun, class A0>
     struct result_of1< Fun, const_ref<A0> > :
-        result_of<Fun(A0 const &)> // Write 'const' without metafuntion for 'result_of'.
+        result_of_<Fun(A0 const &)> // Write 'const' without metafuntion for 'result_of'.
     { };
 
 
@@ -77,7 +77,7 @@ namespace boost { namespace egg { namespace detail_vc7_1 {
     #define BOOST_EGG_result_of_aux(ArgTypes, Params) \
         template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)> \
         struct BOOST_PP_CAT(result_of, n)< Fun, ArgTypes > : \
-            boost::egg::result_of<Fun(Params)> \
+            boost::egg::result_of_<Fun(Params)> \
         { }; \
     /**/
     #define BOOST_EGG_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(BOOST_EGG_ac, Bit)(BOOST_PP_CAT(A, I))

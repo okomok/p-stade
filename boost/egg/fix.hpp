@@ -42,11 +42,11 @@ namespace boost { namespace egg {
         {
             template<class Me, class Base, class Arg>
             struct apply :
-                result_of<
-                    typename result_of<
+                result_of_<
+                    typename result_of_<
                         Base(
-                            typename result_of<
-                                result_of<T_curry2(uncurried &)>::type(Base &)
+                            typename result_of_<
+                                result_of_<T_curry2(uncurried &)>::type(Base &)
                             >::type
                         )
                     >::type(Arg &)

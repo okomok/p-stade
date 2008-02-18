@@ -71,7 +71,7 @@ namespace boost { namespace egg { namespace details {
 
         template<class Me, class ArgZ>
         struct apply :
-            result_of<
+            result_of_<
                 Base const(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, Arg, const &), ArgZ &)
             >
         { };

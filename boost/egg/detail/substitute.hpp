@@ -29,7 +29,7 @@ namespace boost { namespace egg { namespace details {
         struct apply :
             mpl::eval_if< is_bind_expression<X>,
                 mpl::identity<X &>,
-                result_of<T_always_ref(X &)>
+                result_of_<T_always_ref(X &)>
             >
         { };
 
