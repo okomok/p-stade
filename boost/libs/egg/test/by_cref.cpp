@@ -14,17 +14,17 @@
 
 #include <string>
 #include <memory> // auto_ptr
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/test.hpp>
 
 
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 #include <pstade/unparenthesize.hpp>
 
     #define BOOST_EGG_FUNCTION_BY_CREF(O, B) \
-        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_cref> BOOST_PP_CAT(T_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
+        typedef boost::egg::function<PSTADE_UNPARENTHESIZE(B), boost::egg::by_cref> BOOST_PP_CAT(T_, O); \
+        BOOST_EGG_CONST((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
 
 
@@ -93,11 +93,11 @@ BOOST_EGG_FUNCTION_BY_CREF(big_arity, (little_big_arity))
 void egg_test()
 {
     {
-        pstade::result_of<T_foo(int, int)>::type x = foo(1, 2);
+        boost::egg::result_of<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == 3 );
     }
     {
-        pstade::result_of<T_foo()>::type x = foo();
+        boost::egg::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {

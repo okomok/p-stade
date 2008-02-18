@@ -28,5 +28,5 @@ void egg_test()
 {
     a_struct* a = 0;
 
-    pstade::egg::bind(&f, boost::ref(*a));
+    boost::egg::bind(&f, boost::ref(*a));
 }

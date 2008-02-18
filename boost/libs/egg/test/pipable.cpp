@@ -1,8 +1,8 @@
 
 
-// PStade.Wine
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -12,7 +12,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -25,9 +25,9 @@
     #define PSTADE_decl_pipable(O, F) \
         namespace BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O) { \
             using namespace boost::mpl::placeholders; \
-            typedef pstade::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
+            typedef boost::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
         } \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = BOOST_EGG_PIPABLE({}); \
+        BOOST_EGG_CONST((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = BOOST_EGG_PIPABLE({}); \
     /**/
 
 
@@ -98,7 +98,7 @@ struct my_append_t
 PSTADE_decl_pipable(my_append, (my_append_t))
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 result_of_pipable<T_large_arity_id0, by_cref>::type const lar = BOOST_EGG_PIPABLE_L {} BOOST_EGG_PIPABLE_R;
 

@@ -19,12 +19,12 @@
 #include <pstade/test.hpp>
 
 
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 #include <pstade/unparenthesize.hpp>
 
     #define BOOST_EGG_FUNCTION_BY_REF(O, B) \
-        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B), pstade::egg::by_ref> BOOST_PP_CAT(T_, O); \
-        PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_, O)), O) = { { } }; \
+        typedef boost::egg::function<PSTADE_UNPARENTHESIZE(B), boost::egg::by_ref> BOOST_PP_CAT(T_, O); \
+        BOOST_EGG_CONST((BOOST_PP_CAT(T_, O)), O) = { { } }; \
     /**/
 
 

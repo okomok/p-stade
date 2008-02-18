@@ -81,7 +81,7 @@ int detect_errors(bool x)
 
 int main()
 {
-    using pstade::egg::free_;
+    using boost::egg::free_;
 
     X x;
 

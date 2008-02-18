@@ -1,8 +1,8 @@
 
 
-// PStade.Wine
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,9 +15,9 @@
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/egg/to_string.hpp>
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 
-using pstade::egg::to_string;
+using boost::egg::to_string;
 
 
 struct my_plus2
@@ -37,8 +37,8 @@ struct my_plus2
     }
 };
 
-typedef pstade::egg::result_of_curry2<my_plus2>::type T_curried_plus2;
-PSTADE_POD_CONSTANT((T_curried_plus2), curried_plus2) = BOOST_EGG_CURRY2_L {} BOOST_EGG_CURRY2_R;
+typedef boost::egg::result_of_curry2<my_plus2>::type T_curried_plus2;
+BOOST_EGG_CONST((T_curried_plus2), curried_plus2) = BOOST_EGG_CURRY2_L {} BOOST_EGG_CURRY2_R;
 
 
 struct my_plus3
@@ -58,8 +58,8 @@ struct my_plus3
     }
 };
 
-typedef pstade::egg::result_of_curry3<my_plus3>::type T_curried_plus3;
-PSTADE_POD_CONSTANT((T_curried_plus3), curried_plus3) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
+typedef boost::egg::result_of_curry3<my_plus3>::type T_curried_plus3;
+BOOST_EGG_CONST((T_curried_plus3), curried_plus3) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
 
 
 struct my_plus4
@@ -79,8 +79,8 @@ struct my_plus4
     }
 };
 
-typedef pstade::egg::result_of_curry4<my_plus4>::type T_curried_plus4;
-PSTADE_POD_CONSTANT((T_curried_plus4), curried_plus4) = BOOST_EGG_CURRY4_L {} BOOST_EGG_CURRY4_R;
+typedef boost::egg::result_of_curry4<my_plus4>::type T_curried_plus4;
+BOOST_EGG_CONST((T_curried_plus4), curried_plus4) = BOOST_EGG_CURRY4_L {} BOOST_EGG_CURRY4_R;
 
 
 struct my_plus5
@@ -102,8 +102,8 @@ struct my_plus5
     int dummy1, dummy2; // for checking braced initialization.
 };
 
-typedef pstade::egg::result_of_curry5<my_plus5>::type T_curried_plus5;
-PSTADE_POD_CONSTANT((T_curried_plus5), curried_plus5) = BOOST_EGG_CURRY5_L {1,2} BOOST_EGG_CURRY5_R;
+typedef boost::egg::result_of_curry5<my_plus5>::type T_curried_plus5;
+BOOST_EGG_CONST((T_curried_plus5), curried_plus5) = BOOST_EGG_CURRY5_L {1,2} BOOST_EGG_CURRY5_R;
 
 
 template<class F>
@@ -139,7 +139,7 @@ struct foo3
 
 void egg_test()
 {
-    using namespace pstade::egg;
+    using namespace boost::egg;
 
     {
         BOOST_CHECK(

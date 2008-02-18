@@ -17,13 +17,13 @@
 
 void egg_test()
 {
-    BOOST_CHECK( pstade::egg::logical_not(false) );
-    BOOST_CHECK( pstade::egg::negate(3) == -3 );
+    BOOST_CHECK( boost::egg::logical_not(false) );
+    BOOST_CHECK( boost::egg::negate(3) == -3 );
 
     std::auto_ptr<int> const p(new int(3));
     *p = 4;
 
 #if 1
-    pstade::egg::dereference(p) = 4;
+    boost::egg::dereference(p) = 4;
 #endif
 }

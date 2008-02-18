@@ -19,7 +19,7 @@
 #include <pstade/test.hpp>
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 using pstade::enable_if;
 
 

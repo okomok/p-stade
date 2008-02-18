@@ -20,21 +20,21 @@ int square(int n)
     return n * n;
 }
 
-typedef pstade::egg::inlined<int(*)(int), &square>::type T_insquare;
+typedef boost::egg::inlined<int(*)(int), &square>::type T_insquare;
 BOOST_EGG_CONST((T_insquare), insquare) = BOOST_EGG_INLINED();
 
-typedef pstade::egg::inlined<int(*)(int), square>::type T_insquare_;
+typedef boost::egg::inlined<int(*)(int), square>::type T_insquare_;
 BOOST_EGG_CONST((T_insquare_), insquare_) = BOOST_EGG_INLINED();
 
 #if 0 // gcc-4.1 doesn't work.
-typedef pstade::egg::inlined<int(&)(int), square>::type T_rinsquare;
+typedef boost::egg::inlined<int(&)(int), square>::type T_rinsquare;
 BOOST_EGG_CONST((T_rinsquare), rinsquare) = BOOST_EGG_INLINED();
 #endif
 
 template<class Ptr, Ptr ptr>
 void test_tpl()
 {
-    BOOST_CHECK(( typename pstade::egg::inlined<Ptr, ptr>::type()(3) == 9 ));
+    BOOST_CHECK(( typename boost::egg::inlined<Ptr, ptr>::type()(3) == 9 ));
 
 #if 0 // Only msvc-9.0 works.
     BOOST_CHECK( BOOST_EGG_INLINE(ptr)(3) == 9 );

@@ -20,7 +20,7 @@
 
 
 typedef implicit< X_construct<>, by_value >::type T_constructor_by_value;
-PSTADE_POD_CONSTANT((T_constructor_by_value), constructor_by_value) = BOOST_EGG_IMPLICIT();
+BOOST_EGG_CONST((T_constructor_by_value), constructor_by_value) = BOOST_EGG_IMPLICIT();
 
 
 struct A

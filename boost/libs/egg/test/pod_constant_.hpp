@@ -1,9 +1,9 @@
-#ifndef PSTADE_POD_CONSTANT_HPP
-#define PSTADE_POD_CONSTANT_HPP
+#ifndef BOOST_EGG_CONST_HPP
+#define BOOST_EGG_CONST_HPP
 
 
 
-// PStade.Wine
+// Boost.Egg
 //
 // Copyright Shunsuke Sogame 2005-2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
@@ -28,30 +28,30 @@
 
 // msvc optimizers can static-initialize, though.
 #if 0 // BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
-    #define PSTADE_POD_CONSTANT_NO_STATIC_INITIALIZATION
+    #define BOOST_EGG_CONST_NO_STATIC_INITIALIZATION
 #endif
 
 
 // Do you know the exact condition?
 #if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
-    #define PSTADE_POD_CONSTANT_HAS_IS_POD
+    #define BOOST_EGG_CONST_HAS_IS_POD
 #endif
 
 
-#define PSTADE_POD_CONSTANT(F, O) \
-    PSTADE_POD_CONSTANT_aux1(PSTADE_UNPARENTHESIZE(F), O) \
+#define BOOST_EGG_CONST(F, O) \
+    BOOST_EGG_CONST_aux1(PSTADE_UNPARENTHESIZE(F), O) \
 /**/
 
 
-    #define PSTADE_POD_CONSTANT_aux1(F, O) \
-        PSTADE_POD_CONSTANT_pod_check(F) \
-        PSTADE_POD_CONSTANT_aux2(F, O) \
+    #define BOOST_EGG_CONST_aux1(F, O) \
+        BOOST_EGG_CONST_pod_check(F) \
+        BOOST_EGG_CONST_aux2(F, O) \
     /**/
 
 
-#if !defined(PSTADE_POD_CONSTANT_NO_STATIC_INITIALIZATION)
+#if !defined(BOOST_EGG_CONST_NO_STATIC_INITIALIZATION)
 
-    #define PSTADE_POD_CONSTANT_aux2(F, O) \
+    #define BOOST_EGG_CONST_aux2(F, O) \
         template<class T> \
         struct BOOST_PP_CAT(static_const_of_, O) \
         { \
@@ -67,18 +67,18 @@
 
 #else
 
-    #define PSTADE_POD_CONSTANT_aux2(F, O) \
+    #define BOOST_EGG_CONST_aux2(F, O) \
         F const O \
     /**/
 
 #endif
 
 
-#if defined(PSTADE_POD_CONSTANT_HAS_IS_POD)
+#if defined(BOOST_EGG_CONST_HAS_IS_POD)
     // msvc says error C2370 in the case of 'BOOST_MPL_ASSERT'.
-    #define PSTADE_POD_CONSTANT_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
+    #define BOOST_EGG_CONST_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
 #else
-    #define PSTADE_POD_CONSTANT_pod_check(F)
+    #define BOOST_EGG_CONST_pod_check(F)
 #endif
 
 

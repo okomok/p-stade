@@ -40,28 +40,28 @@ int main()
 {
     X x = { 0 };
 
-    pstade::egg::free_( &X::m )( x ) = 401;
+    boost::egg::free_( &X::m )( x ) = 401;
 
     BOOST_TEST( x.m == 401 );
-    BOOST_TEST( pstade::egg::free_( &X::m )( x ) == 401 );
+    BOOST_TEST( boost::egg::free_( &X::m )( x ) == 401 );
 
-    pstade::egg::free_( &X::m )( &x ) = 502;
+    boost::egg::free_( &X::m )( &x ) = 502;
 
     BOOST_TEST( x.m == 502 );
-    BOOST_TEST( pstade::egg::free_( &X::m )( &x ) == 502 );
+    BOOST_TEST( boost::egg::free_( &X::m )( &x ) == 502 );
 
     X * px = &x;
 
-    pstade::egg::free_( &X::m )( px ) = 603;
+    boost::egg::free_( &X::m )( px ) = 603;
 
     BOOST_TEST( x.m == 603 );
-    BOOST_TEST( pstade::egg::free_( &X::m )( px ) == 603 );
+    BOOST_TEST( boost::egg::free_( &X::m )( px ) == 603 );
 
     X const & cx = x;
     X const * pcx = &x;
 
-    BOOST_TEST( pstade::egg::free_( &X::m )( cx ) == 603 );
-    BOOST_TEST( pstade::egg::free_( &X::m )( pcx ) == 603 );
+    BOOST_TEST( boost::egg::free_( &X::m )( cx ) == 603 );
+    BOOST_TEST( boost::egg::free_( &X::m )( pcx ) == 603 );
 
     return boost::report_errors();
 }

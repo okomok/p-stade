@@ -23,14 +23,14 @@ struct my {
 };
 
 // `&` can't be omitted. See: 5.3.1/3.
-typedef pstade::egg::inlined<int(my::*)(int), &my::square>::type T_insquare;
+typedef boost::egg::inlined<int(my::*)(int), &my::square>::type T_insquare;
 BOOST_EGG_CONST((T_insquare), insquare) = BOOST_EGG_INLINED();
 
 template<class Ptr, Ptr ptr>
 void test_tpl(my y)
 {
-    BOOST_CHECK(( typename pstade::egg::inlined<Ptr, ptr>::type()(y, 3) == 9 ));
-    BOOST_CHECK(( typename pstade::egg::inlined<Ptr, ptr>::type()(&y, 3) == 9 ));
+    BOOST_CHECK(( typename boost::egg::inlined<Ptr, ptr>::type()(y, 3) == 9 ));
+    BOOST_CHECK(( typename boost::egg::inlined<Ptr, ptr>::type()(&y, 3) == 9 ));
 }
 
 void egg_test()

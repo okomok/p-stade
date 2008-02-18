@@ -1,8 +1,8 @@
 
 
-// PStade.Wine
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -50,14 +50,14 @@ A get_A() { return A(); }
 B get_B() { return B(); }
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 /*
 BOOST_MPL_ASSERT((
     boost::is_same<
         std::string,
-        pstade::result_of<
-            pstade::result_of<
+        boost::egg::result_of<
+            boost::egg::result_of<
                 T_compose(T_value const, bar_fun)
             >::type
             (char)
@@ -71,7 +71,7 @@ template<class F>
 void nullary_result_of_check(F f)
 {
     BOOST_MPL_ASSERT((boost::is_same<
-        typename pstade::result_of<F()>::type,
+        typename boost::egg::result_of<F()>::type,
         int
     >));
 }
@@ -81,7 +81,7 @@ void nullary_result_of_check(F f)
 void egg_test()
 {
     {
-        BOOST_CHECK( compose(pstade::egg::to_value, ::bar_fun())('c') == std::string("x") );
+        BOOST_CHECK( compose(boost::egg::to_value, ::bar_fun())('c') == std::string("x") );
     }
     {
         // make_zero is known to be nullary and composable to increment.

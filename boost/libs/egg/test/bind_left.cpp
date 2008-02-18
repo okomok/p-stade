@@ -13,7 +13,7 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <pstade/test.hpp>
 
 

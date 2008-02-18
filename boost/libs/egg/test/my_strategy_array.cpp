@@ -32,8 +32,8 @@
 
 
 
-struct my_strategy : boost::mpl::always<pstade::egg::by_perfect> {};
-struct my_c_strategy : boost::mpl::always<pstade::egg::by_cref> {};
+struct my_strategy : boost::mpl::always<boost::egg::by_perfect> {};
+struct my_c_strategy : boost::mpl::always<boost::egg::by_cref> {};
 
 
 namespace pstade { namespace egg {
@@ -82,7 +82,7 @@ namespace pstade { namespace egg {
 
 
 #include "./using_egg.hpp"
-using pstade::result_of;
+using boost::egg::result_of;
 
 struct little_bgn
 {

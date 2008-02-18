@@ -21,8 +21,8 @@
 
 
 namespace bll = boost::lambda;
-using namespace pstade::egg;
-using pstade::result_of;
+using namespace boost::egg;
+using boost::egg::result_of;
 
 
 // 1ary

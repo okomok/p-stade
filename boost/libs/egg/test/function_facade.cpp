@@ -19,7 +19,7 @@
 
 
 struct T_foo :
-    pstade::egg::function_facade<T_foo, boost::use_default, char>
+    boost::egg::function_facade<T_foo, boost::use_default, char>
 {
     template< class Me, class A0, class A1 = void >
     struct apply
@@ -54,7 +54,7 @@ struct T_foo :
     }
 
     // complete check
-    pstade::result_of<T_foo(int, int)>::type bar() const
+    boost::egg::result_of<T_foo(int, int)>::type bar() const
     {
         return (*this)(1, 2);
     }
@@ -70,7 +70,7 @@ T_foo const foo = T_foo();
 
 template< class T0, class T1 >
 struct T_bar :
-    pstade::egg::function_facade< T_bar<T0, T1>, boost::use_default, char >
+    boost::egg::function_facade< T_bar<T0, T1>, boost::use_default, char >
 {
     template< class Me, class A0, class A1 = void >
     struct apply
@@ -167,7 +167,7 @@ namespace boost {
 
 
 struct error_msg_check :
-    pstade::egg::function_facade<error_msg_check>
+    boost::egg::function_facade<error_msg_check>
 {
     template< class Me, class A0 >
     struct apply
@@ -184,7 +184,7 @@ struct error_msg_check :
 
 
 struct my_identity :
-    pstade::egg::function_facade<my_identity>
+    boost::egg::function_facade<my_identity>
 {
     template< class Me, class A0 >
     struct apply
@@ -215,7 +215,7 @@ A const volatile get_cv()
 
 
 struct our_identity :
-    pstade::egg::function_facade<our_identity>
+    boost::egg::function_facade<our_identity>
 {
     template< class Me, class A0 >
     struct apply

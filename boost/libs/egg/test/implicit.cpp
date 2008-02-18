@@ -16,18 +16,18 @@
 
 
 #include <pstade/unparenthesize.hpp>
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 #include <boost/mpl/placeholders.hpp>
 
 
     #define PSTADE_IMPLICIT(Object, Lambda) \
         namespace BOOST_PP_CAT(pstade_implicit_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::pstade::egg::implicit<PSTADE_UNPARENTHESIZE(Lambda)>::type op; \
+            typedef ::boost::egg::implicit<PSTADE_UNPARENTHESIZE(Lambda)>::type op; \
         } \
         \
         typedef BOOST_PP_CAT(pstade_implicit_workarea_of_, Object)::op BOOST_PP_CAT(T_, Object); \
-        PSTADE_POD_CONSTANT( (BOOST_PP_CAT(T_, Object)), Object ) = BOOST_EGG_IMPLICIT();
+        BOOST_EGG_CONST( (BOOST_PP_CAT(T_, Object)), Object ) = BOOST_EGG_IMPLICIT();
     /**/
 
 

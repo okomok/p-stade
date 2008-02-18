@@ -46,7 +46,7 @@ struct T_uncurried_fact_
 };
 
 typedef result_of_curry2<T_uncurried_fact_>::type T_fact_;
-PSTADE_POD_CONSTANT((T_fact_), fact_) = BOOST_EGG_CURRY2({});
+BOOST_EGG_CONST((T_fact_), fact_) = BOOST_EGG_CURRY2({});
 
 struct T_uncurried_wrap
 {
@@ -63,7 +63,7 @@ struct T_uncurried_wrap
 };
 
 typedef result_of_curry3<T_uncurried_wrap>::type T_wrap;
-PSTADE_POD_CONSTANT((T_wrap), wrap) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
+BOOST_EGG_CONST((T_wrap), wrap) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
 
 struct T_uncurried_wrap2
 {
@@ -80,7 +80,7 @@ struct T_uncurried_wrap2
 };
 
 typedef result_of_curry4<T_uncurried_wrap2>::type T_wrap2;
-PSTADE_POD_CONSTANT((T_wrap2), wrap2) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
+BOOST_EGG_CONST((T_wrap2), wrap2) = BOOST_EGG_CURRY3_L {} BOOST_EGG_CURRY3_R;
 
 
 void egg_test()

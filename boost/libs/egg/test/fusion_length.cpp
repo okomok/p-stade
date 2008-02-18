@@ -26,7 +26,7 @@
 #endif
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 typedef std::pair<int, char> pair_t;

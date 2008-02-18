@@ -12,10 +12,10 @@
 #include "./egg_test.hpp"
 
 
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 
 
-using namespace pstade::egg;
+using namespace boost::egg;
 
 
 void egg_test()

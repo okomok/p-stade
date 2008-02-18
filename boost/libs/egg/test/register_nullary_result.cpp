@@ -15,12 +15,12 @@
 #include <boost/egg/function_facade.hpp>
 #include <boost/egg/function.hpp>
 #include <boost/mpl/assert.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 
 #include "./using_egg.hpp"
-using pstade::result_of;
+using boost::egg::result_of;
 
 
 

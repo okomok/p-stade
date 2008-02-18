@@ -17,8 +17,8 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 
-#include <pstade/result_of_lambda.hpp>
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/result_of_lambda.hpp>
+#include <boost/egg/const.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 
 
@@ -44,7 +44,7 @@ struct my_fun0_t
 template< class FunctorWithResult >
 int foo(FunctorWithResult fun)
 {
-    typename pstade::result_of<FunctorWithResult(int)>::type x = fun(1, 2);
+    typename boost::egg::result_of<FunctorWithResult(int)>::type x = fun(1, 2);
     return x;
 }
 
@@ -54,15 +54,15 @@ int my_fun1(int x)
     return x;
 }
 
-PSTADE_POD_CONSTANT(
-    (pstade::egg::result_of_return<my_fun_t, int >::type),
+BOOST_EGG_CONST(
+    (boost::egg::result_of_return<my_fun_t, int >::type),
     fun_return_int
 ) = BOOST_EGG_RETURN_L {} BOOST_EGG_RETURN_R;
 
 
 void egg_test()
 {
-    namespace egg = pstade::egg;
+    namespace egg = boost::egg;
     namespace lambda = boost::lambda;
 
     ::my_fun_t my_fun;
@@ -95,8 +95,8 @@ void egg_test()
 
     ::my_fun0_t my_fun0;
     {
-        pstade::result_of<
-            pstade::result_of<egg::X_return< int >(my_fun0_t)>::type()
+        boost::egg::result_of<
+            boost::egg::result_of<egg::X_return< int >(my_fun0_t)>::type()
         >::type result = egg::X_return< int >()(my_fun0)();
         BOOST_CHECK( result == 10 );
     }

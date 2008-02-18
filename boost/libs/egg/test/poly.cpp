@@ -13,7 +13,7 @@
 
 
 #include <pstade/test.hpp>
-#include <pstade/pod_constant.hpp>
+#include <boost/egg/const.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 
@@ -124,18 +124,18 @@ struct base_neg
 };
 
 
-typedef pstade::egg::poly< foo<boost::mpl::_> >::type T_identity;
-PSTADE_POD_CONSTANT((T_identity), identity) = BOOST_EGG_POLY();
+typedef boost::egg::poly< foo<boost::mpl::_> >::type T_identity;
+BOOST_EGG_CONST((T_identity), identity) = BOOST_EGG_POLY();
 
-typedef pstade::egg::poly<foo<boost::mpl::_>, boost::use_default>::type T_identity_;
-PSTADE_POD_CONSTANT((T_identity_), identity_) = BOOST_EGG_POLY();
+typedef boost::egg::poly<foo<boost::mpl::_>, boost::use_default>::type T_identity_;
+BOOST_EGG_CONST((T_identity_), identity_) = BOOST_EGG_POLY();
 
-typedef pstade::egg::poly< nested_plus >::type T_nplus;
-PSTADE_POD_CONSTANT((T_nplus), nplus) = BOOST_EGG_POLY();
+typedef boost::egg::poly< nested_plus >::type T_nplus;
+BOOST_EGG_CONST((T_nplus), nplus) = BOOST_EGG_POLY();
 
 
-typedef pstade::egg::poly< base_neg, boost::use_default, pstade::egg::use_nullary_result >::type T_neg;
-PSTADE_POD_CONSTANT((T_neg), neg) = BOOST_EGG_POLY();
+typedef boost::egg::poly< base_neg, boost::use_default, boost::egg::use_nullary_result >::type T_neg;
+BOOST_EGG_CONST((T_neg), neg) = BOOST_EGG_POLY();
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), T_identity(int&))

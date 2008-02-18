@@ -1,8 +1,8 @@
 
 
-// PStade.Wine
+// Boost.Egg
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -47,7 +47,7 @@ struct my_f
 
 void egg_test()
 {
-    using namespace pstade::egg;
+    using namespace boost::egg;
 
     {
         BOOST_CHECK(
@@ -61,7 +61,7 @@ void egg_test()
     }
     {
         ::nc x;
-        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::pack(x)) == 3 );
+        BOOST_CHECK( fuse(&::take_nc)(boost::egg::pack(x)) == 3 );
     }
     {
         ::my_f f0;

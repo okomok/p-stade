@@ -35,8 +35,8 @@
 #endif
 
 
-using namespace pstade::egg;
-using pstade::egg::plus;
+using namespace boost::egg;
+using boost::egg::plus;
 
 
 // warning check should be shown in IDE.

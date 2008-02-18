@@ -13,7 +13,7 @@
 
 
 #include <pstade/test.hpp>
-#include <pstade/result_of.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 
 
@@ -40,7 +40,7 @@ void egg_test()
     {
         ::T_foo foo;
 
-        typedef pstade::result_of<T_indirect(::T_foo *)>::type ip_t;
+        typedef boost::egg::result_of<T_indirect(::T_foo *)>::type ip_t;
         ip_t ip = BOOST_EGG_INDIRECT_L &foo BOOST_EGG_INDIRECT_R;
 
         PSTADE_TEST_IS_RESULT_OF((int), ip_t(int, int))
