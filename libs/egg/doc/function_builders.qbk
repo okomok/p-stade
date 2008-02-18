@@ -4,6 +4,7 @@ Function builders build __MAJOR_FUNCTION_OBJECT__ type,
 which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [import ../example/function_builders.cpp]
+[import ../example/variadic_plus.cpp]
 
 
 
@@ -17,14 +18,14 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 * `<boost/egg/function.hpp>`
 
 [heading Synopsys]
-    template<class Little, class Stg = _default>
+    template<class Little, class Stg = _ud>
     struct function
     {
         typedef Little little_type;
-        typedef function function_type;
+        typedef Stg strategy_type;
 
         Little lit; // exposition only
-        Little little() const { return lit; }
+        Little const & little() const { return lit; }
 
         // unspecified
         // ...
@@ -54,6 +55,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 ]
 
 [heading Preconditions]
+* `_Lit` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
@@ -67,7 +69,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION_FACADE__
-* __EGG_DEDUCED_FORM__
+* __EGG_USE_DEDUCED_FORM__
 * __EGG_MAKE_FUNCTION__
 
 [endsect]
@@ -80,6 +82,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [heading Description]
 `function_facade` creates a new __MAJOR_FUNCTION_OBJECT__ type using "CRTP".
 Though a type built from `function_facade` can't be a /POD/ type, it can have non-default constructors.
+This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 [heading Header]
 * `<boost/egg/function_facade.hpp>`
@@ -108,7 +111,7 @@ Though a type built from `function_facade` can't be a /POD/ type, it can have no
 ]
 
 [heading Preconditions]
-* `_lit` is an object whose type is derived from `function_facade<_typeof(_lit), R0 = _default, _Stg = _default>`.
+* `_lit` is an object whose type is derived from `function_facade<_typeof(_lit), _Stg = _ud, R0 = _ud>`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -117,65 +120,7 @@ Though a type built from `function_facade` can't be a /POD/ type, it can have no
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION__
-* __EGG_DEDUCED_FORM__
-
-[endsect]
-
-
-
-
-[section deferred]
-
-[heading Description]
-`deferred` is akin to `boost::detail::functionN` family.
-It is useful because `operator()` can use nested typedefs.
-
-[heading Header]
-* `<boost/egg/deferred.hpp>`
-
-[heading Notation]
-* `f` is an object of `deferred<Lam, _Stg>::type`.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`deferred<Lam, _Stg = _default>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
-    ]
-    [
-        [`BOOST_EGG_DEFERRED()`]
-        [A braced initializer of `deferred<Lam, _Stg>::type`]
-    ]
-    [
-        [`f(a1,...,aN)`]
-        [`boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
-    ]
-]
-
-[heading Preconditions]
-* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
-* `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `boost::mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression.
-* The corresponding semantics is a valid expression.
-
-[heading Invariants]
-* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_DEFERRED()`.
-* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
-
-[caution For some compiler bug, `deferred` randomly fails to work as a __POLYMORPHIC_FUNCTION_OBJECT__ under msvc-8.0.
-         Use `BOOST_EGG_DEFER` and `BOOST_EGG_DEFER_BY` if you need portability. ]
-
-
-[heading Example]
-[code_deferred_example]
-
-[heading See also]
-* __EGG_FORWARDING_STRATEGIES__
-* __EGG_DEFER__
+* __EGG_USE_DEDUCED_FORM__
 
 [endsect]
 
@@ -183,23 +128,20 @@ It is useful because `operator()` can use nested typedefs.
 
 
 [section generator]
-See [link egg.object_generator Object Generator] section.
-[endsect]
-
-
-
-
-[section automatic]
 
 [heading Description]
-`automatic` adds automatic conversion support to a cast form function.
+`generator` builds "object generator".
 
 [heading Header]
-* `<boost/egg/automatic.hpp>`
+* `<boost/egg/generator.hpp>`
 
 [heading Notation]
-* `u` is an object of `automatic<Lam, _Stg>::type`.
-* `f` is an object of `boost::mpl::apply<Lam, _typeof(to)>::type`.
+* `C(Lam)` is
+    * a type which behaves like `Lam` with no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
+    * `Lam` itself otherwise.
+* `g` is an object of `generator<Lam, _Stg, Cons, R0>::type`.
+* `T` is `_mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
+* `Cst(U)` is `_mpl::apply<X_construct<_mpl::_1, _mpl::_2>, U, _Stg>::type` if `Cons` is `_ud`, `_mpl::apply<Cons, U, _Stg>::type` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -208,36 +150,217 @@ See [link egg.object_generator Object Generator] section.
         [[*Semantics]]
     ]
     [
-        [`automatic<Lam, _Stg = _default>::type`]
+        [`generator<Lam, _Stg = _ud, Cons = _ud, R0 = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`BOOST_EGG_AUTOMATIC()`]
-        [A braced initializer of `automatic<Lam, _Stg>::type`]
+        [`PSTADE_EGG_GENERATOR()`]
+        [A braced initializer of `generator<Lam, _Stg, Cons, R0>::type`]
     ]
     [
-        [`To to = u(a1,...,aN);`]
-        [`To to = boost::implicit_cast<_typeof(to)>( f(_arg_list(a, _Stg)) );`]
+        [`g(a1,...,aN)`]
+        [`Cst(T)()(_fwd_arg_list(a, _Stg))`]
+    ]
+    [
+        [`g()`]
+        [`Cst(_decltype_r0(R0, _mpl::apply<C(Lam)>::type())()()`]
+    ]
+    [
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
+    ]
+    [
+        [`_mpl::_`]
+        [`_mpl::_`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= _TUPLE_MAX_SIZE`.
-* `Lam` is an __MPL_LAMBDA_EXPRESSION__ which is neither /reference/ nor /cv-qualified/.
-* `f` is a __POLYMORPHIC_FUNCTION_OBJECT__.
-* There is a type `X_` such that `boost::is_convertible<X_, _typeof(to)>::value == false`.
+* `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_GENERATOR()`.
+* `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[note `Lam` is not instantiated while invoking `_mpl::apply`, so that any static assertion in generated type doesn't fail.]
+
+[heading Deducers]
+Some basic and useful __METAFUNCTION_CLASS__ types are provided for better error messages.
+You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though.
+
+[heading Valid expressions of Deducers]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`deduce<A, As>`]
+        [` _mpl::apply<As, A>` if the corresponding argument is passed; ill-formed otherwise.]
+    ]
+    [
+        [`deduce<A, As, Def>`]
+        [` _mpl::apply<As, A>` if the corresponding argument is passed; `_mpl::identity<Def>` otherwise.]
+    ]
+    [
+        [`as_ref`]
+        [`boost::add_reference<_mpl::_>`]
+    ]
+    [
+        [`as_cref`]
+        [`boost::add_reference< boost::add_const<_mpl::_> >`]
+    ]
+    [
+        [`as_value`]
+        [`boost::remove_cv< boost::decay<_mpl::_> >`]
+    ]
+    [
+        [`as_qualified`]
+        [`_mpl::identity<_mpl::_>`]
+    ]
+]
+
+[heading Example]
+[code_generator_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_DETERMINING_NULLARY_RETURN_TYPES__
+* __EGG_CONSTRUCT__
+* __EGG_CONSTRUCT_BRACED1__
+* __EGG_CONSTRUCT_BRACED2__
+* __EGG_CONSTRUCT_VARIADIC1__
+
+[endsect]
+
+
+
+
+[section implicit]
+
+[heading Description]
+`implicit` adds implicit conversion support to a cast form function.
+
+[heading Header]
+* `<boost/egg/implicit.hpp>`
+
+[heading Notation]
+* `u` is an object of `implicit<Lam, _Stg>::type`.
+* `F` is `_mpl::apply<Lam, _typeof(to), _Stg>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`implicit<Lam, _Stg = _ud>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_IMPLICIT()`]
+        [A braced initializer of `implicit<Lam, _Stg>::type`]
+    ]
+    [
+        [`To to = u(a1,...,aN);`]
+        [`To to = boost::implicit_cast<_typeof(to)>( fuse(F())(X_pack<_Stg>()(a1,...,aN)) );`]
+    ]
+    [
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
+    ]
+    [
+        [`_mpl::_`]
+        [`_mpl::_`]
+    ]
+]
+
+[heading Preconditions]
+* `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
+* `boost::is_convertible<unspecified, _typeof(to)>::value == false`.
 * The corresponding semantics is a valid expression.
 * `u` is not placed in a default argument list.
 
-[note These valid expressions imply that the automatic deduction is available everywhere /copy-initialization/ is invoked.
+[note These valid expressions imply that the implicit conversion is available everywhere /copy-initialization/ is invoked.
       For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
-* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_AUTOMATIC()`.
+* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_IMPLICIT()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
-[code_automatic_example]
+[code_implicit_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+* __EGG_PACK__
+
+[endsect]
+
+
+
+
+[section poly]
+
+[heading Description]
+`poly` is a port of `detail::function` family which is secretly contained in __BOOST_ACCUMULATORS__.
+Though `poly` can't build "stateful" function, you can access nested typedefs from `operator()` body.
+When you want to build stateless one, `poly` is the coolest builder.
+
+[heading Header]
+* `<boost/egg/poly.hpp>`
+
+[heading Notation]
+* `f` is an object of `poly<Lam,...>::type`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`poly<Lam, _Stg = _ud, R0 = _ud>::type`]
+        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+    ]
+    [
+        [`PSTADE_EGG_POLY()`]
+        [A braced initializer of `poly<Lam,...>::type`]
+    ]
+    [
+        [`f(a1,...,aN)`]
+        [`_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`f()`]
+        [`_mpl::apply<Lam>::type()()`]
+    ]
+    [
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
+    ]
+    [
+        [`_mpl::_`]
+        [`_mpl::_`]
+    ]
+]
+
+[heading Preconditions]
+* `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
+* `_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression
+  such that it is the same as `_decltype(_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg)))`.
+* If `R0` is `use_nullary_result`, `_mpl::apply<Lam>::type::result_type` is a valid expression
+  such that it is the same as `_decltype(_mpl::apply<Lam>::type()())`.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_POLY()`.
+* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[heading Example]
+[code_poly_example]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -250,16 +373,16 @@ See [link egg.object_generator Object Generator] section.
 [section static_]
 
 [heading Description]
-Though Egg provides a __FUNCTION_OBJECT__ class template which begins with `X_`,
-such object isn't POD and no initialization way is offered. So that,
-`static_` builds a POD object from class template specialization of `X_xxx` in Egg.
+`static_` builds /POD/ __FUNCTION_OBJECT__ from __DEFAULT_CONSTRUCTIBLE__ one.
+Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
+to be /statically initialized/ without `static_`.
 
 [heading Header]
 * `<boost/egg/static.hpp>`
 
 [heading Notation]
-* `X` is a template specialization which begin with `X_` in Egg.
-* `f` is an object of `static_<X>::type`.
+* `u` is an object of `static_<Lam, _Stg>::type`.
+* `F` is `_mpl::apply<Lam, _Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -268,20 +391,91 @@ such object isn't POD and no initialization way is offered. So that,
         [[*Semantics]]
     ]
     [
-        [`static_<X>::type`]
+        [`static_<Lam, _Stg = _ud>::type`]
         [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
     ]
     [
-        [`BOOST_EGG_STATIC_L X BOOST_EGG_STATIC_R`]
-        [A braced initializer of `static_<X>::type`]
+        [`PSTADE_EGG_STATIC()`]
+        [A braced initializer of `static_<Lam, _Stg>::type`]
     ]
     [
-        [`BOOST_EGG_STATIC(X)`]
-        [`BOOST_EGG_STATIC_L X BOOST_EGG_STATIC_R`]
+        [`u(a1,...,aN)`]
+        [`F()(_fwd_arg_list(a, _Stg))`]
     ]
     [
-        [`f`]
-        [`X()`]
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
+    ]
+    [
+        [`_mpl::_`]
+        [`_mpl::_`]
+    ]
+]
+
+[heading Preconditions]
+* `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
+* The corresponding semantics is a valid expression.
+
+[heading Invariants]
+* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_STATIC()`.
+* `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+
+[heading Example]
+[code_static_example]
+
+[heading See also]
+* __EGG_FORWARDING_STRATEGIES__
+
+[endsect]
+
+
+
+
+[section variadic]
+
+[heading Description]
+`variadic` emulates __VARIADIC_FUNCTION__ in C++98.
+In fact, this is a shortcut to __EGG_UNFUSE__.
+
+[heading Header]
+* `<boost/egg/variadic.hpp>`
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`variadic<_Lit, _Stg = _ud, Pack = _ud, R0 = _ud>::type`]
+        [`result_of_unfuse<function<_Lit, by_cref>, R0, Pack, _Stg>::type`]
+    ]
+    [
+        [`PSTADE_EGG_VARIADIC_L _lit PSTADE_EGG_VARIADIC_R`]
+        [A braced initializer of `variadic<_typeof(_lit),...>::type`]
+    ]
+    [
+        [`PSTADE_EGG_VARIADIC(L)`]
+        [`PSTADE_EGG_VARIADIC_L L PSTADE_EGG_VARIADIC_R`]
+    ]
+    [
+        [`variadic_poly<Lam, _Stg = _ud, Pack = _ud, R0 = _ud>::type`]
+        [`result_of_unfuse<poly<Lam, by_cref>::type, R0, Pack, _Stg>::type`]
+    ]
+    [
+        [`PSTADE_EGG_VARIADIC_POLY()`]
+        [A braced initializer of `variadic_poly<Lam,...>::type`]
+    ]
+    [
+        [`_mpl::_##M`]
+        [`_mpl::_##M`]
+    ]
+    [
+        [`_mpl::_`]
+        [`_mpl::_`]
     ]
 ]
 
@@ -289,14 +483,15 @@ such object isn't POD and no initialization way is offered. So that,
 * The corresponding semantics is a valid expression.
 
 [heading Invariants]
-* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_STATIC_L` and `BOOST_EGG_STATIC_R`.
-* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* What the corresponding semantics implies.
 
 [heading Example]
-[code_static_example]
+[code_variadic_plus]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
+* __EGG_UNFUSE__
+* __EGG_CONSTRUCT_VARIADIC1__
 
 [endsect]
 
@@ -325,7 +520,7 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
         [[*Semantics]]
     ]
     [
-        [`X_make_function<_Stg = _default>`]
+        [`X_make_function<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -353,13 +548,21 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
 
 
 
-[section Comparison operators]
+[/
+
+[section Nullary result_of registration]
 
 [heading Description]
-When comparison operators needed, you have to include the header below.
+__BOOST_RESULT_OF__ treats nullary-callable type as special case.
+A nullary __FUNCTION_OBJECT__ which doesn't have nested `result_type`
+must inform __BOOST_RESULT_OF__ about its nullary return type by (possibly partially) specializing `boost::result_of`.
+The following macros assist such routine work.
+
+[note If a __FUNCTION_OBJECT__ is a template specialization of `function<...>`, these macros are not needed at all.
+      But a nullary __FUNCTION_OBJECT__ derived from `function<...>` needs these. ]
 
 [heading Header]
-* `<boost/egg/function_comparison.hpp>`
+* `<boost/egg/register_nullary_result.hpp>`
 
 [heading Model of]
 * ...
@@ -374,23 +577,36 @@ When comparison operators needed, you have to include the header below.
         [[*Semantics]]
     ]
     [
-        [`f op g`]
-        [`f.little() op g.little()` ]
+        [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TYPE(T)`]
+        [`T` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
+    ]
+    [
+        [`PSTADE_EGG_RESISTER_NULLARY_RESULT_OF_TEMPLATE(X, S)`]
+        [`X<...>` becomes __POLYMORPHIC_FUNCTION_OBJECT__ which is nullary-callable.]
     ]
 ]
 
 [heading Preconditions]
-* `f` and `g` is a `function<_Lit, _Stg>` object.
-* `op` is `==`, `!=`, `<`, `>`, `<=`, or `>=`.
-* The corresponding semantics is a valid expression.
+* These macros must be used in the global namespace.
+* `T` and `X<...>` is a nullary-callable __FUNCTION_OBJECT__ type.
+* `BOOST_TYPEOF_REGISTER_TYPE(T)` is a valid expression.
+* `BOOST_TYPEOF_REGISTER_TEMPLATE(X, S)` is a valid expression.
+* If `T` is a type which is derived from neither `function<...>` nor `function_facade<...>`,
+    * `T::nullary_result_type` and `T::mutable_nullary_result_type` must be a valid expression.
+* If `X<...>` is a template specialization which is derived from neither `function<...>` nor `function_facade<...>`,
+    * `X<...>::nullary_result_type` and `X<...>::mutable_nullary_result_type` must be a valid expression.
 
 [heading Example]
 ...
 
 [heading See also]
 * __EGG_FUNCTION__
+* __EGG_FUNCTION_FACADE__
+* __BOOST_TYPEOF__
 
 [endsect]
+
+]
 
 
 

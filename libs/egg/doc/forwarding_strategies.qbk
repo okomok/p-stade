@@ -1,11 +1,9 @@
 [section Forwarding Strategies]
 
-
-A Forwarding Strategy is a type which has two associated imaginary operators
-`_arg_list` and `_meta_arg_list` which takes a token sequence and a strategy.
-If the first argument of `arg_list` or `_meta_arg_list` is not a sequence,
-assume it is "one element" sequence.
-Egg components use `by_perfect` when you omit or specify `_default` for strategy parameter.
+A Forwarding Strategy is a type which has three associated imaginary operators
+`_bytag_at`, `_arg_list` and `_meta_arg_list`.
+Egg predefines the fundamental strategies: `by_perfect`, `by_ref`, `by_cref`, and `by_value`.
+Also note Egg components use `by_perfect` when you omit or specify `_ud` for strategy parameter.
 
 This section uses the following notation.
 
@@ -28,6 +26,7 @@ This section uses the following notation.
     ]
     [
         [`_val(a)`]
+        [/ implicit_cast means this is not direct-initialization but copy-initialization. ]
         [`const_cast<V &>(static_cast<V const &>(boost::implicit_cast<V>(a)))`]
     ]
     [
@@ -40,6 +39,8 @@ This section uses the following notation.
 [note `_val(a)` copies `a` and turns it into mutable lvalue in order to work around __FORWARDING_PROBLEM__.
       You shouldn't take reference in __LITTLE_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
 
+[note Under msvc-7.1, `a` in `_cref(a)` can't be function name.
+           It is preferable to add `&` then turn function name into function pointer. ]
 
 [import ../example/my_perfect.cpp]
 
@@ -54,6 +55,10 @@ Egg defines the following imaginary operators for its documentation.
 [heading Header]
 * ...
 
+[heading Notation]
+* `K` is length of `a`.
+* `fwd_arg(a, _Stg, K, I)` is `_rval(aI)` if `_bytag_at(_Stg, K, I)` is `by_value`, `_arg_list(aI, _Stg)` otherwise.
+
 [heading Valid expressions]
 [table 
     [
@@ -61,11 +66,15 @@ Egg defines the following imaginary operators for its documentation.
         [[*Semantics]]
     ]
     [
+        [`_bytag_at(_Stg, K, I)`]
+        [See each section of `_Stg`.]
+    ]
+    [
         [`_arg_list(a, _Stg)`]
         [See each section of `_Stg`.]
     ]
     [
-        [`_arg_list(a, _default)`]
+        [`_arg_list(a, _ud)`]
         [`_arg_list(a, by_perfect)`]
     ]
     [
@@ -73,21 +82,20 @@ Egg defines the following imaginary operators for its documentation.
         [See each section of `_Stg`.]
     ]
     [
-        [`_meta_arg_list(a, _default)`]
+        [`_meta_arg_list(a, _ud)`]
         [`_meta_arg_list(a, by_perfect)`]
     ]
     [
-        [`_safe_arg_list(a, _Stg)`]
-        [`_rval(a1),...,_rval(aK)` if `_Stg` is `by_value`. `_arg_list(a, _Stg)` otherwise.]
+        [`_fwd_arg_list(a, _Stg)`]
+        [`fwd_arg(a, _Stg, K, 0),...,fwd_arg(a, _Stg, K, K-1)`]
     ]
 ]
 
-[important `_arg_list` and `_safe_arg_list` has slightly different semantics.
+[important `_arg_list` and `_fwd_arg_list` has slightly different semantics.
            Put simply, in case of __EGG_FUNCTION_ADAPTORS__ with `by_value`,
            a base __FUNCTION_OBJECT__ too must take arguments by value or const reference. ]
 
 [heading Preconditions]
-* `_Stg` is `by_perfect`, `by_ref`, `by_value` or `_default`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -109,11 +117,19 @@ Egg performs the "perfect forwarding" by default.
 [heading Header]
 * `<boost/egg/by_perfect.hpp>`
 
+[heading Notation]
+* `remove_cr(x)` is `boost::remove_const<boost::remove_reference<_decltype(x)>::type>::type`.
+* `bI` is any object such that `remove_cr(bI)` is the same as `remove_cr(aI)`.
+
 [heading Valid expressions]
 [table 
     [
         [[*Valid expression]]
         [[*Semantics]]
+    ]
+    [
+        [`_bytag_at(by_perfect, K, I)`]
+        [`by_perfect`]
     ]
     [
         [`_arg_list(a, by_perfect)`]
@@ -130,8 +146,9 @@ Egg performs the "perfect forwarding" by default.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= BOOST_EGG_MAX_ARITY`.
-* `aI` is neither /function reference/ nor /function name/.
+* `0 <= K && K <= PSTADE_EGG_MAX_ARITY`.
+* If `Expr(_arg_list(a, by_perfect))` is a precondition as valid expression, `Expr(_arg_list(b, by_perfect))` must be well-formed.
+* If `Expr(_meta_arg_list(a, by_perfect))` is a precondition as valid expression, `Expr(_meta_arg_list(b, by_perfect))` must be well-formed.
 
 [heading Example]
 * `_meta_arg_list(a, by_perfect)` is `int,const int,int const` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
@@ -147,7 +164,7 @@ Egg performs the "perfect forwarding" by default.
 [section by_ref]
 
 [heading Description]
-`by_ref` offers a large arity, but can't take a non-const rvalue.
+`by_ref` offers large arity, but can't take non-const rvalues.
 
 [heading Header]
 * `<boost/egg/by_ref.hpp>`
@@ -157,6 +174,10 @@ Egg performs the "perfect forwarding" by default.
     [
         [[*Valid expression]]
         [[*Semantics]]
+    ]
+    [
+        [`_bytag_at(by_ref, K, I)`]
+        [`by_ref`]
     ]
     [
         [`_arg_list(a, by_ref)`]
@@ -173,7 +194,7 @@ Egg performs the "perfect forwarding" by default.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 * `aI` is not a rvalue.
 
 [heading Example]
@@ -190,7 +211,7 @@ Egg performs the "perfect forwarding" by default.
 [section by_cref]
 
 [heading Description]
-`by_cref` takes the arguments by /const reference/.
+`by_cref` takes arguments by /const reference/.
 
 [heading Header]
 * `<boost/egg/by_cref.hpp>`
@@ -200,6 +221,10 @@ Egg performs the "perfect forwarding" by default.
     [
         [[*Valid expression]]
         [[*Semantics]]
+    ]
+    [
+        [`_bytag_at(by_cref, K, I)`]
+        [`by_cref`]
     ]
     [
         [`_arg_list(a, by_cref)`]
@@ -216,7 +241,7 @@ Egg performs the "perfect forwarding" by default.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 
 [heading Example]
 * `_meta_arg_list(a, by_cref)` is `int const,const int,int const` if `a` is `i,ci,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
@@ -232,7 +257,8 @@ Egg performs the "perfect forwarding" by default.
 [section by_value]
 
 [heading Description]
-`by_value` takes the arguments by value, which means that it can take a temporary "movable type" like `std::auto_ptr<>`.
+`by_value` takes arguments by value so that arguments are "decayed".
+Also, it can forward "movable" rvalues like `std::auto_ptr<>` with keeping movability.
 
 [heading Header]
 * `<boost/egg/by_value.hpp>`
@@ -242,6 +268,10 @@ Egg performs the "perfect forwarding" by default.
     [
         [[*Valid expression]]
         [[*Semantics]]
+    ]
+    [
+        [`_bytag_at(by_value, K, I)`]
+        [`by_value`]
     ]
     [
         [`_arg_list(a, by_value)`]
@@ -258,7 +288,7 @@ Egg performs the "perfect forwarding" by default.
 ]
 
 [heading Preconditions]
-* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 
 [heading Example]
 * `_meta_arg_list(a, by_value)` is `int,int,int` if `a` is `i,3,ci`, where `i` is non-const lvalue and `ci` is a const lvalue.
@@ -271,7 +301,7 @@ Egg performs the "perfect forwarding" by default.
 
 
 
-[section Deducing nullary return types]
+[section Determining nullary return types]
 
 [heading Description]
 C++ instantiates the declarations of non-dependent member function templates, so that
@@ -279,12 +309,16 @@ some __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__ require a special w
 Here an imaginary operator is defined for the documentation.
 
 [heading Valid expressions and semantics]
-* `_deduce_r0(R0, expr)` is defined by the following:
-    * If `R0` is `_default`, it is a valid expression and returns an unspecified type .
+* `_decltype_r0(R0, expr)` is defined by the following:
+    * If `R0` is `_ud`, it is a valid expression and returns an unspecified type .
     * If `R0` is `use_nullary_result`,
-        * If `_decltype(_epxr)` is a valid expression, it is a valid expression and returns `_decltype(expr)`.
+        * If `_decltype(expr)` is a valid expression, it is a valid expression and returns `_decltype(expr)`.
         * Otherwise, it is not a valid expression.
     * Otherwise, `R0`.
+
+[note __BOOST_RESULT_OF__ too offers a special workaround:
+      A nullary callable `class F` without nested `result_type` must specialize `result_of<F()>`. `result_of<F()>::type` is `void` otherwise.
+      Unfortunately, that isn't generic workaround. Consider `f(g(), h())` such that `f` isn't a 2ary function. ]
 
 [heading See also]
 * __BOOST_RESULT_OF__
@@ -312,38 +346,43 @@ Egg provides the uniform way to define your own strategy.
         [[*Semantics]]
     ]
     [
-        [`#include BOOST_EGG_FUNCTION_PREAMBLE()`]
+        [`#include PSTADE_EGG_FUNCTION_PREAMBLE()`]
         [See below.]
+    ]
+    [
+        [`PSTADE_EGG_DEDUCED_CONST(A)`]
+        [`A const`]
     ]
     [
         [`apply_little<_Lit, A1,...,AK>`]
         [`_Lit::apply<A1,...,AK>`]
     ]
     [
-        [`egg::call_little<R>(_lit, a1,...,aK)`]
-        [`_lit.call<R>(a1,...,aK)`]
+        [`call_little(_lit, a1,...,aK)`]
+        [`_lit.call<apply_little<_meta_arg_list([_lit]++a, by_ref)>::type>(a1,...,aK)`]
     ]
     [
         [`by_perfect`, `by_ref`, `by_cref`, and `by_value`]
-        [These can be used as return type of strategy tag.]
+        [These can be used as "meta" return type of strategy tag.]
     ]
 ]
 
 [heading Preconditions]
-* `Sig` is a /function type/.
-* `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
+* `0 <= K && K <= PSTADE_EGG_MAX_LINEAR_ARITY`.
 
 [heading Your strategy tag]
-A strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
+A user-defined strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
 [code_my_strategy_tag]
 
 [heading Specializing `function<>`]
 Using your strategy tag, `function<>` template can be specialized.
-`BOOST_EGG_FUNCTION_PREAMBLE()` must be placed in first,
-which automagically defines nested typedefs `little_type`, `nullary_result_type`, `result` etc.
+`PSTADE_EGG_FUNCTION_PREAMBLE()` must be placed in first,
+which automagically defines nested typedefs `little_type`, `strategy_type`, and `result<...>` etc.
 [code_my_strategy_function]
 For some compiler bugs, you can call neither `result` template nor `_Lit::call` directly.
-You have to use `apply_little` and `call_little` instead. Also notice that `_Lit` is /cv-qualifier/ sensitive.
+You have to use `apply_little` and `call_little` instead.
+Moreover, if you want to support buggy msvc-7.1, `PSTADE_EGG_DEDUCED_CONST` instead of `const` must be used.
+Also notice that `_Lit` is /cv-qualifier/ sensitive.
 
 [heading Your strategy completed]
 Now `function<>` with your strategy has become the __MAJOR_FUNCTION_OBJECT__ type.
@@ -352,7 +391,6 @@ Let's look into the new valid expressions.
 [heading Notation]
 * `StgTag` is a __METAFUNCTION_CLASS__ which you have defined.
 * `StgTag_` is (possibly cv-qualified) `StgTag`.
-* `By(I)` is `StgTag::apply< StgTag_, boost::mpl::int_<K>, boost::mpl::int_<I> >::type`.
 
 [heading New valid expressions]
 [table 
@@ -361,13 +399,17 @@ Let's look into the new valid expressions.
         [[*Semantics]]
     ]
     [
+        [`_bytag_at(StgTag, K, I)`]
+        [`StgTag_::apply< StgTag_, _mpl::int_<K>, _mpl::int_<I> >::type`]
+    ]
+    [
         [`_arg_list(a, StgTag)`]
-        [`_arg_list(a1, By(0)),...,_arg_list(aK, By(K))`]
+        [`_arg_list([a1], _bytag_at(StgTag, K, 0))++...++_arg_list([aK], _bytag_at(StgTag, K, K-1))`]
     ]
 
     [
         [`_meta_arg_list(a, StgTag)`]
-        [`_meta_arg_list(a1, By(0)),...,_meta_arg_list(aK, By(K))`]
+        [`_meta_arg_list([a1], _bytag_at(StgTag, K, 0))++...++_meta_arg_list([aK], _bytag_at(StgTag, K, K-1))`]
     ]
     [
         [`function<_Lit, StgTag>`]
@@ -389,8 +431,8 @@ Let's look into the new valid expressions.
 [section PERFECT_STRATEGY]
 
 [heading Description]
-When you require a perfect forwarding strategy to support more arity than `BOOST_EGG_MAX_ARITY`,
-you can define your own forwarding strategy using `BOOST_EGG_PERFECT_STRATEGY` macro.
+When you require a perfect forwarding strategy to support more arity than `PSTADE_EGG_MAX_ARITY`,
+you can define your own forwarding strategy using `PSTADE_EGG_PERFECT_STRATEGY` macro.
 
 [heading Header]
 * `<boost/egg/perfect_strategy.hpp>`
@@ -421,7 +463,7 @@ you can define your own forwarding strategy using `BOOST_EGG_PERFECT_STRATEGY` m
 [heading Preconditions]
 * `Tag` is a type.
 * `AritySeq` is a __BOOST_PREPROCESSOR__ sequence of numbers.
-* `BOOST_EGG_PERFECT_STRATEGY(Tag, AritySeq)` is placed in the global namespace.
+* `PSTADE_EGG_PERFECT_STRATEGY(Tag, AritySeq)` is placed in the global namespace.
 
 [heading Example]
 [code_my_perfect]

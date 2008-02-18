@@ -53,4 +53,25 @@
 
 
 
+[heading Version 0.90.5]
+* `generator` and `function_facade` template parameter order changed.
+* `ambi` takes only `_Bytag`.
+* `always` doesn't treat `reference_wrapper` as special case.
+* Comparison operators removed.
+* `adapted_to` added.
+* `generator` revised.
+* `static_` revised.
+* `lazy` and `unfuse` takes no helper FunctionObjects.
+* `_M` macros removed.
+* `fix` documented.
+* `call_strategy` renamed to `use_deduced_form`.
+* `flip` documented.
+* `automatic` renamed to `implicit`.
+* `deferred` renamed to `poly`.
+* `EGG_DEFER` removed.
+* `variadic` added.
+
+
+
+
 [endsect]

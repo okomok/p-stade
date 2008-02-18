@@ -1,10 +1,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Chapter 1. Egg 0.90.4</title>
+<title>Chapter 1. Egg 0.90.5</title>
 <link rel="stylesheet" href="boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="index.html" title="Chapter 1. Egg 0.90.4">
+<link rel="start" href="index.html" title="Chapter 1. Egg 0.90.5">
 <link rel="next" href="egg/concepts.html" title="Concepts">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -14,10 +14,10 @@
 <div class="chapter" lang="en">
 <div class="titlepage"><div>
 <div><h2 class="title">
-<a name="egg"></a>Chapter 1. Egg 0.90.4</h2></div>
+<a name="egg"></a>Chapter 1. Egg 0.90.5</h2></div>
 <div><p class="copyright">Copyright © 2007 -2008 Shunsuke Sogame</p></div>
 <div><div class="legalnotice">
-<a name="id431760"></a><p>
+<a name="id431754"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -28,8 +28,9 @@
 <dl>
 <dt><span class="section"><a href="index.html#egg.overview">Overview</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="index.html#egg.overview.disclaimer">Disclaimer</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.preface">Preface</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.motivation">Motivation</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.requirements">Requirements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.portability">Portability</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.rationale">Rationale</a></span></dt>
@@ -56,7 +57,7 @@
 <dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_ref">by_ref</a></span></dt>
 <dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_cref">by_cref</a></span></dt>
 <dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.by_value">by_value</a></span></dt>
-<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.deducing_nullary_return_types">Deducing
+<dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.determining_nullary_return_types">Determining
       nullary return types</a></span></dt>
 <dt><span class="section"><a href="egg/forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy">Writing
       your strategy</a></span></dt>
@@ -65,13 +66,12 @@
 <dd><dl>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.function">function</a></span></dt>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.function_facade">function_facade</a></span></dt>
-<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.deferred">deferred</a></span></dt>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.generator">generator</a></span></dt>
-<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.automatic">automatic</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.implicit">implicit</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.poly">poly</a></span></dt>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.static_">static_</a></span></dt>
+<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.variadic">variadic</a></span></dt>
 <dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.make_function">make_function</a></span></dt>
-<dt><span class="section"><a href="egg/function_builders.html#egg.function_builders.comparison_operators">Comparison
-      operators</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/function_adaptors.html">Function Adaptors</a></span></dt>
 <dd><dl>
@@ -79,6 +79,8 @@
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.compose">compose</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.curryn">curryN</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.uncurry">uncurry</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.fix">fix</a></span></dt>
+<dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.flip">flip</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.fuse">fuse</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.unfuse">unfuse</a></span></dt>
 <dt><span class="section"><a href="egg/function_adaptors.html#egg.function_adaptors.indirect">indirect</a></span></dt>
@@ -93,24 +95,24 @@
 </dl></dd>
 <dt><span class="section"><a href="egg/function_objects.html">Function Objects</a></span></dt>
 <dd><dl>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.adapted_to">adapted_to</a></span></dt>
 <dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.always">always</a></span></dt>
 <dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.apply">apply</a></span></dt>
-<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.identity">identity</a></span></dt>
 <dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.bll_bind">bll_bind</a></span></dt>
 <dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.bll_n">bll_N</a></span></dt>
-<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.tuple_get">tuple_get</a></span></dt>
-<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.tuple_pack">tuple_pack</a></span></dt>
-</dl></dd>
-<dt><span class="section"><a href="egg/object_generator.html">Object Generator</a></span></dt>
-<dd><dl>
-<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.generator">generator</a></span></dt>
-<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.generating_forms">Generating forms</a></span></dt>
-<dt><span class="section"><a href="egg/object_generator.html#egg.object_generator.deducers">Deducers</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.construct">construct</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.construct_braced1">construct_braced1</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.construct_braced2">construct_braced2</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.construct_variadic1">construct_variadic1</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.get">get</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.identity">identity</a></span></dt>
+<dt><span class="section"><a href="egg/function_objects.html#egg.function_objects.pack">pack</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/utilities.html">Utilities</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="egg/utilities.html#egg.utilities.bll_result_of_hpp">bll/result_of.hpp</a></span></dt>
+<dt><span class="section"><a href="egg/utilities.html#egg.utilities.expr">expr</a></span></dt>
 <dt><span class="section"><a href="egg/utilities.html#egg.utilities.infix">infix</a></span></dt>
+<dt><span class="section"><a href="egg/utilities.html#egg.utilities.bll_result_of_hpp">bll/result_of.hpp</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/configuration.html">Configuration</a></span></dt>
 <dd><dl>
@@ -119,10 +121,9 @@
 </dl></dd>
 <dt><span class="section"><a href="egg/workarounds.html">Workarounds</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.pstade__result_of">pstade::result_of</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.egg__result_of">egg::result_of</a></span></dt>
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.detect_result_type_hpp">detect_result_type.hpp</a></span></dt>
-<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.deduced_form">deduced_form</a></span></dt>
-<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.defer">DEFER</a></span></dt>
+<dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.use_deduced_form">use_deduced_form</a></span></dt>
 <dt><span class="section"><a href="egg/workarounds.html#egg.workarounds.const">CONST</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/version_history.html">Version History</a></span></dt>
@@ -132,48 +133,189 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="egg.overview"></a><a href="index.html#egg.overview" title="Overview">Overview</a></h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="index.html#egg.overview.disclaimer">Disclaimer</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.preface">Preface</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#egg.overview.motivation">Motivation</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.requirements">Requirements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.portability">Portability</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.rationale">Rationale</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.acknowledgements">Acknowledgements</a></span></dt>
 <dt><span class="section"><a href="index.html#egg.overview.notation">Notation</a></span></dt>
 </dl></div>
-<p>
-      &#8220;<span class="quote">An Egg to day is better than a Hen to-morrow.</span>&#8221; -- Benjamin Franklin
-    </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.overview.disclaimer"></a><a href="index.html#egg.overview.disclaimer" title="Disclaimer">Disclaimer</a></h3></div></div></div>
+<a name="egg.overview.preface"></a><a href="index.html#egg.overview.preface" title="Preface">Preface</a></h3></div></div></div>
 <p>
-        This library is not part of Boost.
+        &#8220;<span class="quote">An Egg to day is better than a Hen to-morrow.</span>&#8221; -- Benjamin
+        Franklin
       </p>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.overview.introduction"></a><a href="index.html#egg.overview.introduction" title="Introduction">Introduction</a></h3></div></div></div>
 <p>
-        Unlike other modern languages, it is very difficult to make a function in
-        C++ especially if you want to support <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
-        and <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>.
-        Egg is a small header-only framework of building functions, and offers higher-order
-        functions.
+        Egg is a header-only library for building <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a> which can be used with <a href="http://www.boost.org/libs/lambda/" target="_top">Boost.Lambda</a>.
+        Such a function object is named <a href="egg/concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+        Function Object</a>.
       </p>
 <p>
+        Egg mainly provides three components:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<a href="egg/function_builders.html" title="Function Builders">Function Builders</a> which build
+          <a href="egg/concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a> into
+          <a href="egg/concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
+        </li>
+<li>
+<a href="egg/function_adaptors.html" title="Function Adaptors">Function Adaptors</a> which take
+          <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+          Function Object</a> then return adapted one.
+        </li>
+<li>
+<a href="egg/function_objects.html" title="Function Objects">Function Objects</a> which are
+          ports of famous function templates.
+        </li>
+</ul></div>
+<p>
+        Also, Egg provides the way to specify how to forward arguments. (See <a href="egg/forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a>.) Egg emulates,
+        by default, the "perfect forwarding" using <code class="computeroutput"><span class="identifier">by_perfect</span></code>.
+        <code class="computeroutput"><span class="identifier">by_perfect</span></code> usually works
+        well, so that you need not fully understand that section at first.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.overview.motivation"></a><a href="index.html#egg.overview.motivation" title="Motivation">Motivation</a></h3></div></div></div>
+<a name="egg.overview.motivation.what_s_polymorphic_function_object_"></a><h5>
+<a name="id431795"></a>
+        <a href="index.html#egg.overview.motivation.what_s_polymorphic_function_object_">What's
+        Polymorphic Function Object?</a>
+      </h5>
+<p>
+        In short, <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a> is <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+        Object</a> which can be used with <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>.
+        (See also <a href="egg/concepts.html#egg.concepts.result_of_tutorial" title="result_of tutorial">result_of tutorial</a>.)
+        <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
+        is a <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html" target="_top">Metafunction</a>
+        to extract function return types without help of C++0x <code class="computeroutput"><span class="identifier">decltype</span></code>,
+        so that it enables you to do the functional programming in C++03.
+      </p>
+<a name="egg.overview.motivation.polymorphic_function_object_models_"></a><h5>
+<a name="id487259"></a>
+        <a href="index.html#egg.overview.motivation.polymorphic_function_object_models_">Polymorphic
+        Function Object Models?</a>
+      </h5>
+<p>
+        Fortunately, <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a> types are superset of <a href="http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html" target="_top">Adaptable
+        Function Object</a> types, so that you don't need extra efforts to play
+        with Egg if you're already familiar with that concept. For example, the followings
+        are trivially conforming <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a> types:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          function pointers
+        </li>
+<li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>
+<li>
+          function objects <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(...)</span></code> returns.
+        </li>
+<li><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function</span><span class="special">&lt;...&gt;</span></code></li>
+</ul></div>
+<p>
+        These function objects have nested <code class="computeroutput"><span class="identifier">result_type</span></code>,
+        meaning that its return type doesn't depend on its argument types. Such a
+        function object is trivially conforming <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a>. It is really easy to build such one:
         </p>
 <p>
           
 </p>
 <pre class="programlisting">
-<span class="comment">// This initialization incurs no runtime overhead.
-</span><span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">(*)(</span><span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span>
-    <span class="identifier">to_upper</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_PIPABLE</span><span class="special">(&amp;</span><span class="identifier">toupper</span><span class="special">);</span>
-
-<span class="keyword">void</span> <span class="identifier">test</span><span class="special">()</span>
+<span class="keyword">struct</span> <span class="identifier">T_to_string</span>
 <span class="special">{</span>
-    <span class="keyword">int</span> <span class="identifier">maybeI</span> <span class="special">=</span> <span class="char">'i'</span><span class="special">|</span><span class="identifier">to_upper</span><span class="special">|</span><span class="identifier">pipable</span><span class="special">(&amp;</span><span class="identifier">tolower</span><span class="special">)|</span><span class="identifier">to_upper</span><span class="special">();</span>
-    <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybeI</span> <span class="special">==</span> <span class="char">'I'</span><span class="special">);</span>
+    <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
+    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">t</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;(</span><span class="identifier">t</span><span class="special">);</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="identifier">T_to_string</span> <span class="keyword">const</span> <span class="identifier">to_string</span> <span class="special">=</span> <span class="special">{};</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list"></table></div>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.overview.motivation.egg_what_for_"></a><h5>
+<a name="id431335"></a>
+        <a href="index.html#egg.overview.motivation.egg_what_for_">Egg what for?</a>
+      </h5>
+<p>
+        Unfortunately, if you need a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a> whose return type depends on its argument types,
+        it is not easy. There are many compiler bugs, pitfalls, and typings.
+      </p>
+<p>
+        Egg is the framework for building such function objects.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">X</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Y</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">mono_plus</span>
+<span class="special">{</span>
+    <span class="comment">// Determining return type
+</span>    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">X</span> <span class="special">&amp;</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">Y</span> <span class="special">&amp;</span><span class="identifier">y</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">+</span> <span class="identifier">y</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="comment">// Building MajorFunction
+</span><span class="keyword">typedef</span> <span class="identifier">poly</span><span class="special">&lt;</span> <span class="identifier">mono_plus</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">T_plus</span><span class="special">;</span>
+<span class="identifier">T_plus</span> <span class="keyword">const</span> <span class="identifier">plus</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_POLY</span><span class="special">();</span>
+
+<span class="keyword">void</span> <span class="identifier">test_builder</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="comment">// Boost.ResultOf compatible
+</span>    <span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">T_plus</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">2</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">r</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
+
+    <span class="comment">// Boost.Lambda compatible
+</span>    <span class="keyword">namespace</span> <span class="identifier">bll</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">;</span>
+    <span class="keyword">using</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">;</span>
+    <span class="identifier">string</span> <span class="identifier">one</span><span class="special">(</span><span class="string">"1"</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="string">"12"</span> <span class="special">==</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">plus</span><span class="special">,</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <span class="identifier">string</span><span class="special">(</span><span class="string">"2"</span><span class="special">))(</span><span class="identifier">one</span><span class="special">));</span>
+<span class="special">}</span>
+
+<span class="comment">// Static initialization which incurs no runtime overhead.
+</span><span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="identifier">T_plus</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span> <span class="identifier">my_plus</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_PIPABLE</span><span class="special">({{}});</span>
+
+<span class="keyword">void</span> <span class="identifier">test_adaptor</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">r</span> <span class="special">=</span> <span class="number">1</span><span class="special">|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">2</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">r</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
+
+    <span class="comment">// Dynamic initialization without macros.
+</span>    <span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span> <span class="keyword">const</span> <span class="special">&amp;)&gt;::</span><span class="identifier">type</span> <span class="identifier">your_plus</span> <span class="special">=</span> <span class="identifier">pipable</span><span class="special">(</span><span class="identifier">plus</span><span class="special">);</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">((</span><span class="number">1</span><span class="special">|</span><span class="identifier">your_plus</span><span class="special">(</span><span class="number">2</span><span class="special">))</span> <span class="special">==</span> <span class="number">3</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -191,10 +333,17 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.overview.requirements"></a><a href="index.html#egg.overview.requirements" title="Requirements">Requirements</a></h3></div></div></div>
-<div class="itemizedlist"><ul type="disc"><li>
-<a href="http://www.boost.org" target="_top">Boost C++ Libraries</a> Version 1.34.0
+<div class="itemizedlist"><ul type="disc">
+<li>
+<a href="http://www.boost.org" target="_top">Boost C++ Libraries</a> Version 1.34.1
           or later (build not required)
-        </li></ul></div>
+        </li>
+<li>
+<a href="http://www.boost-consulting.com/vault/index.php?action=downloadfile&amp;filename=egg.zip&amp;directory=Function%20Objects&amp;" target="_top">Boost.Egg</a>
+          at Boost.Vault/FunctionObjects or <a href="https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk/boost" target="_top">svn
+          repository</a>.
+        </li>
+</ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -218,9 +367,6 @@
 <li>
           MinGW with GCC 4.1.2
         </li>
-<li>
-          Intel C++ Compiler Professional Edition 10.1 for Windows
-        </li>
 </ul></div>
 </div>
 <div class="section" lang="en">
@@ -232,8 +378,11 @@
           Forwarding Problem</a>.
         </li>
 <li>
-          Egg framework provides a way of <span class="emphasis"><em>static initialization</em></span>
+          Egg framework provides the way of <span class="emphasis"><em>static initialization</em></span>
           if possible.
+        </li>
+<li>
+          Egg doesn't introduce any new "traits".
         </li>
 </ul></div>
 </div>
@@ -250,8 +399,12 @@
           initialization</em></span>.
         </li>
 <li>
-          Special thanks to Cryolite, Takeshi Mouri, yotto-k and Yusuke Kajimoto.
-          These people are instrumental in the design and development of Egg.
+          Special thanks to Cryolite, Hitobashira, Kazuhiro Inaba, Takeshi Mouri,
+          yotto-k, and Yusuke Kajimoto. These people are instrumental in the design
+          and development of Egg.
+        </li>
+<li>
+          Special thanks to Dan Marsden, who is review manager of this library.
         </li>
 </ul></div>
 </div>
@@ -378,7 +531,7 @@
 <td>
               <p>
                 A type which is one of the <a href="egg/forwarding_strategies.html" title="Forwarding Strategies">Forwarding
-                Strageties</a>.
+                Strategies</a>.
               </p>
               </td>
 </tr>
@@ -398,7 +551,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_default</span></code>
+                <code class="computeroutput"><span class="identifier">_ud</span></code>
               </p>
               </td>
 <td>
@@ -410,7 +563,19 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_TUPLE_MAX_SIZE</span></code>
+                <code class="computeroutput"><span class="identifier">_mpl</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_PACK_MAX_SIZE</span></code>
               </p>
               </td>
 <td>
@@ -422,7 +587,31 @@
 <tr>
 <td>
               <p>
+                <code class="computeroutput"><span class="special">[</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">]</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An imaginary operator to construct parameter list.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
                 <code class="computeroutput"><span class="special">++</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                An imaginary operator to concatenate parameter lists.
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput">##</code>
               </p>
               </td>
 <td>
@@ -444,7 +633,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: January 12, 2008 at 01:00:59 GMT</p></small></td>
+<td align="left"><small><p>Last revised: February 18, 2008 at 19:24:36 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

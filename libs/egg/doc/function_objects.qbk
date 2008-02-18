@@ -32,22 +32,22 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_++op<R = _default, _Stg = _default>`]
+        [`X_##op<R = _ud, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_++op<R, _Stg>()(a1,...,aN)`]
-        [`do_(op, _safe_arg_list(a, _Stg))`]
+        [`X_##op<R, _Stg>()(a1,...,aN)`]
+        [`do_(op, _fwd_arg_list(a, _Stg))`]
     ]
     [
         [`op`]
-        [__STATIC_FUNCTION_OBJECT__ which behaves as if it were `X_++op<>()`.]
+        [__STATIC_FUNCTION_OBJECT__ which behaves as if it were `X_##op<>()`.]
     ]
 ]
 
 [heading Preconditions]
 * `op` is one of the [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/boost_proto/users_guide/expression_construction/tags_and_meta_functions.html tag names] of __BOOST_PROTO__.
-* `R` specifies operator return type. If `R` is `_default`, it is deduced by using __BOOST_LAMBDA__ [@http://www.boost.org/doc/html/lambda/extending.html deduction system].
+* `R` specifies operator return type. If `R` is `_ud`, it is deduced by using __BOOST_LAMBDA__ [@http://www.boost.org/doc/html/lambda/extending.html deduction system].
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -59,6 +59,58 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [endsect]
 
 ]
+
+
+
+
+[section adapted_to]
+
+[heading Description]
+`adapted_to` provides the way to access underlying base __FUNCTION_OBJECT__ or __LITTLE_FUNCTION__ from adapted __FUNCTION_OBJECT__.
+
+[heading Header]
+* `<boost/egg/adapted_to.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `b` is a base object such that `_decltype(b)` is `B const &`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_adapted_to<B>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_adapted_to<B>()(f)`]
+        [Extracts `b` from `f`.]
+    ]
+    [
+        [`egg::adapted_to<B>(f)`]
+        [`X_adapted_to<B>()(f)`]
+    ]
+]
+
+[heading Preconditions]
+* `f` is a __FUNCTION_OBJECT__ which __EGG_FUNCTION_ADAPTORS__ or __EGG_FUNCTION_BUILDERS__ makes.
+* `B` is a base __FUNCTION_OBJECT__ or __LITTLE_FUNCTION__ type.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+[code_adapted_to_comparison]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
 
 
 [section always]
@@ -73,8 +125,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `b` is an object of type which is not `boost::reference_wrapper<>`.
-* `w` is an object of `boost::reference_wrapper<>`.
+* `bound(x)` is `_fwd_arg_list([x], by_value)`.
 
 [heading Valid expressions]
 [table 
@@ -84,20 +135,29 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`always(x)`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __MAJOR_FUNCTION_OBJECT__ which holds `bound(x)`.]
     ]
     [
-        [`always(b)(a1,...,aN)`]
-        [`boost::implicit_cast<_typeof(b)>(b)`]
+        [`always(x)(a1,...,aN)`]
+        [`_arg_list(bound(x), by_cref)`]
     ]
     [
-        [`always(w)(a1,...,aN)`]
-        [`w.get()`]
+        [`always_ref`]
+        [__STATIC_FUNCTION_OBJECT__]
+    ]
+    [
+        [`always_ref(y)`]
+        [A __MAJOR_FUNCTION_OBJECT__]
+    ]
+    [
+        [`always_ref(y)(a1,...,aN)`]
+        [`_arg_list([y], by_perfect)`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= BOOST_EGG_MAX_LINEAR_ARITY`.
+* `0 <= N && N <= PSTADE_EGG_MAX_LINEAR_ARITY`.
+* `_typeof(x)` is __COPY_CONSTRUCTIBLE__.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -132,12 +192,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_apply<_Stg = _default>`]
+        [`X_apply<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_apply<_Stg>()(_pfo, a1,...,aN)`]
-        [`_pfo(_safe_arg_list(a, _Stg))` ]
+        [`X_apply<_Stg>()(_pfo,a1,...,aN)`]
+        [`_const(_pfo)(_fwd_arg_list(a, _Stg))` ]
     ]
     [
         [`apply`]
@@ -146,7 +206,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* `_safe_arg_list(b, _Stg)` is a valid expression, where `b` is `_pfo, a1,...,aN`.
+* `_arg_list([_pfo,a1,...,aN], _Stg)` is a valid expression.
 * The corresponding semantics is a valid expression.
 
 
@@ -161,16 +221,18 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section identity]
+[/
+
+[section auto_new]
 
 [heading Description]
-`identity` returns argument unchanged.
+`auto_new` returns a `std::auto_ptr<>`.
 
 [heading Header]
-* `<boost/egg/identity.hpp>`
+* `<boost/egg/auto_new.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* ...
 
 [heading Notation]
 * ...
@@ -182,16 +244,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_identity<_Stg = _default>`]
+        [`X_auto_new<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_identity<_Stg>()(a)`]
-        [`_safe_arg_list(a, _Stg)` ]
+        [`X_auto_new<T, _Stg>()(a1,...,aN)`]
+        [`std::auto_ptr<T>(new T(_fwd_arg_list(a, _Stg)))`]
     ]
     [
-        [`identity`]
-        [`X_identity<>()`]
+        [`egg::auto_new<T>(a1,...,aN)`]
+        [`X_auto_new<T>()(a1,...,aN)`]
     ]
 ]
 
@@ -206,6 +268,55 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 [endsect]
 
+
+
+
+[section shared_new]
+
+[heading Description]
+`shared_new` returns a `boost::shared_ptr<>`.
+
+[heading Header]
+* `<boost/egg/shared_new.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_shared_new<T, _Stg = _ud>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_shared_new<T, _Stg>()(a1,...,aN)`]
+        [`boost::shared_ptr<T>(new T(_fwd_arg_list(a, _Stg)))`]
+    ]
+    [
+        [`egg::shared_new<T>(a1,...,aN)`]
+        [`X_shared_new<T>()(a1,...,aN)`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* ...
+
+[endsect]
+
+]
 
 
 
@@ -230,13 +341,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`bll_bind(f, a1,...,aN)`]
-        [__POLYMORPHIC__ `boost::lambda::bind(f, a1,...,aN)`]
+        [`bll_bind(a1,...,aN)`]
+        [__POLYMORPHIC__ `boost::lambda::bind(_fwd_arg_list(a, by_cref))`]
     ]
 ]
 
 [heading Preconditions]
-* `0 <= N && N <= 9`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -272,13 +382,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`bll_++N`]
-        [__POLYMORPHIC__ `boost::lambda::_++N`]
+        [`bll_##N`]
+        [__POLYMORPHIC__ `boost::lambda::_##N`]
     ]
 ]
 
 [heading Preconditions]
-* `1 <= N && N <= 3`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
@@ -292,13 +401,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section tuple_get]
+[section construct]
 
 [heading Description]
-`tuple_get` is akin to `boost::get`.
+`X_construct` is constructor as __FUNCTION_OBJECT__.
 
 [heading Header]
-* `<boost/egg/tuple/get.hpp>`
+* `<boost/egg/construct.hpp>`
 
 [heading Model of]
 * ...
@@ -313,24 +422,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_tuple_get<N>`]
+        [`X_construct<T, _Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_tuple_get<N>()(t)`]
-        [`boost::get<N::value>(t)`]
+        [`X_construct<T, _Stg>()(a1,...,aN)`]
+        [`T(_fwd_arg_list(a, _Stg))`]
     ]
     [
-        [`X_tuple_get_c<n>`]
-        [`X_tuple_get< boost::mpl::int_<n> >`]
-    ]
-    [
-        [`egg::tuple_get<N>(t)`]
-        [`X_tuple_get<N>()(t)`]
-    ]
-    [
-        [`egg::tuple_get_c<n>(t)`]
-        [`X_tuple_get_c<n>()(t)`]
+        [`X_construct<>`]
+        [`X_construct<_mpl::_1, _mpl::_2>`]
     ]
 ]
 
@@ -341,6 +442,261 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ...
 
 [heading See also]
+* __EGG_GENERATOR__
+
+[endsect]
+
+
+
+
+[section construct_braced1]
+
+[heading Description]
+`X_construct_braced1` constructs object using braced-initializer.
+
+[heading Header]
+* `<boost/egg/construct_braced1.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_construct_braced1<T, _Stg = _ud>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_construct_braced1<T, _Stg>()(a1,...,aN)`]
+        [`T t = {_fwd_arg_list(a, _Stg)}; return t;`]
+    ]
+    [
+        [`X_construct_braced1<>`]
+        [`X_construct_braced1<_mpl::_1, _mpl::_2>`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_GENERATOR__
+
+[endsect]
+
+
+
+
+[section construct_braced2]
+
+[heading Description]
+`X_construct_braced2` constructs object using braced-initializer.
+
+[heading Header]
+* `<boost/egg/construct_braced2.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_construct_braced2<T, _Stg = _ud>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_construct_braced2<T, _Stg>()(a1,...,aN)`]
+        [`T t = {{_fwd_arg_list(a, _Stg)}}; return t;`]
+    ]
+    [
+        [`X_construct_braced2<>`]
+        [`X_construct_braced2<_mpl::_1, _mpl::_2>`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_GENERATOR__
+
+[endsect]
+
+
+
+[/
+
+[section construct_unfused1]
+
+[heading Description]
+`X_construct_unfused1` constructs result of __EGG_UNFUSE__ using braced-initializer.
+
+[heading Header]
+* `<boost/egg/construct_unfused1.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_construct_unfused1<T, _Stg = _ud>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_construct_unfused1<T, _Stg>()(a1,...,aN)`]
+        [`T t = PSTADE_EGG_UNFUSE_L {_fwd_arg_list(a, _Stg)} PSTADE_EGG_UNFUSE_R; return t;`]
+    ]
+    [
+        [`X_construct_unfused1<>`]
+        [`X_construct_unfused1<_mpl::_1, _mpl::_2>`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_UNFUSE__
+* __EGG_GENERATOR__
+
+[endsect]
+
+]
+
+
+
+
+[section construct_variadic1]
+
+[heading Description]
+`X_construct_variadic1` constructs __EGG_VARIADIC__ object using braced-initializer.
+
+[heading Header]
+* `<boost/egg/construct_variadic1.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_construct_variadic1<T, _Stg = _ud>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_construct_variadic1<T, _Stg>()(a1,...,aN)`]
+        [`T t = PSTADE_EGG_VARIADIC_L {_fwd_arg_list(a, _Stg)} PSTADE_EGG_VARIADIC_R; return t;`]
+    ]
+    [
+        [`X_construct_variadic1<>`]
+        [`X_construct_variadic1<_mpl::_1, _mpl::_2>`]
+    ]
+]
+
+[heading Preconditions]
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __EGG_VARIADIC__
+* __EGG_GENERATOR__
+
+[endsect]
+
+
+
+
+[section get]
+
+[heading Description]
+`get<N>` is akin to `boost::tuples::get<N::value>`.
+
+[heading Header]
+* `<boost/egg/get.hpp>`
+
+[heading Model of]
+* ...
+
+[heading Notation]
+* `fusion` is `boost::fusion`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_get<N>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_get<N>()(t)`]
+        [`fusion::deref(fusion::advance<N>(fusion::begin(t)))`]
+    ]
+    [
+        [`X_get_c<n>`]
+        [`X_get< _mpl::int_<n> >`]
+    ]
+    [
+        [`egg::get<N>(t)`]
+        [`X_get<N>()(t)`]
+    ]
+    [
+        [`egg::get_c<n>(t)`]
+        [`X_get_c<n>()(t)`]
+    ]
+]
+
+[heading Preconditions]
+* `t` can be `boost::tuple<...>` or `std::pair<...>`.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_FUSION__
 * __BOOST_TUPLE__
 
 [endsect]
@@ -348,19 +704,19 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
-[section tuple_pack]
+[section identity]
 
 [heading Description]
-`tuple_pack` is a __STATIC_FUNCTION_OBJECT__ which represents `boost::tie` but /const-qualifier/ sensitive.
+`identity` returns argument unchanged.
 
 [heading Header]
-* `<boost/egg/tuple/pack.hpp>`
+* `<boost/egg/identity.hpp>`
 
 [heading Model of]
 * __STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `refs(c1,...,cK)` is `c1&,...,cK&`.
+* ...
 
 [heading Valid expressions]
 [table 
@@ -369,30 +725,133 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_tuple_pack<_Stg = _default>`]
+        [`X_identity<_Stg = _ud>`]
         [A __MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_tuple_pack<_Stg>()(a1,...,aN)`]
-        [`boost::tuple<refs(_meta_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+        [`X_identity<_Stg>()(a1)`]
+        [`_fwd_arg_list([a1], _Stg)` ]
     ]
     [
-        [`tuple_pack`]
-        [`X_tuple_pack<>()`]
+        [`identity`]
+        [`X_identity<>()`]
     ]
 ]
 
 [heading Preconditions]
-* `_Stg` is not `by_value`.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
 ...
 
 [heading See also]
+* ...
+
+[endsect]
+
+
+
+
+[section pack]
+
+[heading Description]
+`pack` makes `boost::tuple<...>` for argument forwarding.
+
+[heading Header]
+* `<boost/egg/pack.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_pack<_Stg = _ud>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_pack<_Stg>()(a1,...,aN)`]
+        [`boost::tuple<dts_(_fwd_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`pack`]
+        [`X_pack<>()`]
+    ]
+]
+
+[heading Preconditions]
+* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_FUSION__
 * __BOOST_TUPLE__
 
 [endsect]
+
+
+
+
+[/
+
+[section fusion_pack]
+
+[heading Description]
+`fusion_pack` makes `boost::fusion::vector<>` for arguments for forwarding.
+
+[heading Header]
+* `<boost/egg/fusion/pack.hpp>`
+
+[heading Model of]
+* __STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_fusion_pack<_Stg = _ud>`]
+        [A __MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_fusion_pack<_Stg>()(a1,...,aN)`]
+        [`boost::fusion::vector<dts_(_fwd_arg_list(a, _Stg))>(_arg_list(a, _Stg))`]
+    ]
+    [
+        [`fusion_pack`]
+        [`X_fusion_pack<>()`]
+    ]
+]
+
+[heading Preconditions]
+* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
+* The corresponding semantics is a valid expression.
+
+[heading Example]
+...
+
+[heading See also]
+* __BOOST_FUSION__
+* __BOOST_TUPLE__
+
+[endsect]
+
+]
 
 
 

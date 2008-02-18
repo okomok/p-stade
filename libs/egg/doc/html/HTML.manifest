@@ -4,7 +4,6 @@ egg/forwarding_strategies.html
 egg/function_builders.html
 egg/function_adaptors.html
 egg/function_objects.html
-egg/object_generator.html
 egg/utilities.html
 egg/configuration.html
 egg/workarounds.html

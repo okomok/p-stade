@@ -2,10 +2,10 @@
 
 Egg provides some workaround utilities.
 
-[import ../test/deduced_form.cpp]
+[import ../test/use_deduced_form.cpp]
 
 
-[section pstade::result_of]
+[section egg::result_of]
 
 [heading Description]
 `boost::result_of` has some problems especially under Boost1.34 or below:
@@ -18,7 +18,7 @@ Egg provides some workaround utilities.
 [note The former bug can probably be worked around by applying a patch to __BOOST_RESULT_OF__. ]
 
 [heading Header]
-* `<boost/egg/pstade/result_of.hpp>`
+* `<boost/egg/result_of.hpp>`
 
 [heading Valid expressions]
 [table 
@@ -27,7 +27,7 @@ Egg provides some workaround utilities.
         [[*Semantics]]
     ]
     [
-        [`pstade::result_of`]
+        [`result_of`]
         [`boost::result_of` with some workaround.]
     ]
 ]
@@ -55,26 +55,26 @@ use this header.
         [[*Semantics]]
     ]
     [
-        [`#include <boost/egg/pstade/detect_result_type.hpp>`]
+        [`#include <boost/egg/detect_result_type.hpp>`]
         [A msvc workaround for `BOOST_MPL_HAS_XXX_TRAIT_DEF`]
     ]
 ]
 
 [heading Preconditions]
-* `<boost/egg/pstade/detect_result_type.hpp>` must be included before any Boost headers.
+* `<boost/egg/detect_result_type.hpp>` must be included before any Boost headers.
 
 [endsect]
 
 
 
 
-[section deduced_form]
+[section use_deduced_form]
 
 [heading Description]
 Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
 
 [heading Header]
-* `<boost/egg/deduced_form.hpp>`
+* `<boost/egg/use_deduced_form.hpp>`
 
 [heading Valid expressions]
 [table 
@@ -83,57 +83,19 @@ Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same a
         [[*Semantics]]
     ]
     [
-        [`deduced_form`]
-        [A type]
+        [`boost::type<...>`]
+        [Passed to `call` as the first argument.]
     ]
 ]
 
 [heading Example]
-[code_deduced_form_example]
+[code_use_deduced_form_example]
 
 [note You can also use __BOOST_ENABLE_IF__ instead. ]
 
 [heading See also]
 * __EGG_FUNCTION__
 * __EGG_FUNCTION_FACADE__
-
-[endsect]
-
-
-
-
-[section DEFER]
-
-[heading Description]
-Under msvc-9.0 or below, `boost::mpl::apply<PlaceholderExpression,..>` randomly fails
-at the instantiation process in `boost::result_of`.
-So that, `deferred` that depends on `boost::mpl::apply` needs a workaround.
-
-[heading Header]
-* `<boost/egg/deferred.hpp>`
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`BOOST_EGG_DEFER((Lam))`]
-        [`deferred<Lam>::type` with some workaround.]
-    ]
-    [
-        [`BOOST_EGG_DEFER_BY((Lam), _Stg)`]
-        [`deferred<Lam, _Stg>::type` with some workaround.]
-    ]
-]
-
-[heading Preconditions]
-* This macro is placed in non-deduced context, meaning that you can't add `typename` to this macro.
-* The corresponding semantics is a valid expression.
-
-[heading See also]
-* __EGG_DEFERRED__
 
 [endsect]
 
@@ -160,7 +122,7 @@ GCC might show unused variable warnings without this macro.
         [[*Semantics]]
     ]
     [
-        [`BOOST_EGG_CONST((F), obj) = init;`]
+        [`PSTADE_EGG_CONST((F), obj) = init;`]
         [`F const obj = init;`]
     ]
 ]
@@ -171,7 +133,7 @@ GCC might show unused variable warnings without this macro.
 * The corresponding semantics is a valid expression.
 
 [heading Example]
-    BOOST_EGG_CONST((T_foo), foo) = &foo_impl;
+    PSTADE_EGG_CONST((T_foo), foo) = &foo_impl;
 
 [heading See also]
 * ...

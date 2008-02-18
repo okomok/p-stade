@@ -17,7 +17,7 @@ A __LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using 
 For any __LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 
 * `a` is a named lvalue.
-* If token `a` doesn't begin with a single underscore, `T_++a` is `_typeof(a)`; `TT++a` otherwise.
+* If token `a` doesn't begin with a single underscore, `T_##a` is `_typeof(a)`; `TT##a` otherwise.
 
 [heading Example]
 [code_concepts_lexically_typed_object]
@@ -114,6 +114,8 @@ for any __MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
 
 * `f` can be used as the first argument of `boost::lambda::bind`.
 
+[tip This concept can be implemented without depending on __BOOST_LAMBDA__ library. ]
+
 [heading Example]
 ...
 
@@ -148,8 +150,8 @@ for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 
 * `x<A1,...,AN>::type` is a POD __MAJOR_FUNCTION_OBJECT__ type.
 * `x<A1,...,AN>::type` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
-* `BOOST_EGG_++TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
-* Non-local object `x<A1,...,AN>::type` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_++TOUPPER(x)()`.
+* `PSTADE_EGG_##TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
+* Non-local object `x<A1,...,AN>::type` with /static storage duration/ is /statically initialized/ if initialized using `PSTADE_EGG_##TOUPPER(x)()`.
 
 [heading Example]
 [code_concepts_pod_function_builder]
@@ -180,7 +182,9 @@ A __STATIC_FUNCTION_OBJECT__ is a __MAJOR_FUNCTION_OBJECT__ which is intended to
 In addition to the requirements defined in the refinements,
 for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
-* `_typeof(f)` is a /POD/ type, and `f` is /statically initialized/.
+* `_typeof(f)` is a /POD/ type in C++03 (a /trivial/ type in C++0x).
+* `_typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `f` is /statically initialized/.
 * `boost::remove_reference<_decltype(f)>::type` is `_typeof(f) const`.
 * If `boost::result_of<_typeof(f) const(a1,...,aN)>::type` is a valid expression,
   `boost::result_of<_typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
@@ -205,7 +209,7 @@ for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 A __LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 
 [heading Refinement of]
-* __COPY_CONSTRUCTIBLE__
+* ...
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
@@ -256,11 +260,11 @@ non-/const-qualified/ type (as __STATIC_FUNCTION_OBJECT__ does so), you could om
 * msvc-7.1 and msvc-8.0 doesn't work with /POD/ templates.
 * A /const-qualified/ function pointer doesn't work.
 
-These bugs can be worked around by `pstade::result_of` in `<boost/egg/pstade/result_of.hpp>`.
+These bugs can be worked around by `egg::result_of` in `<boost/egg/result_of.hpp>`.
 The first bug is fixed with Boost1.35.
 
 [heading See also]
-* __PSTADE_RESULT_OF__
+* __EGG_RESULT_OF__
 
 [endsect]
 
