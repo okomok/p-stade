@@ -10,7 +10,7 @@
 
 #include <boost/egg/generator.hpp>
 #include "./egg_test.hpp"
-#include <pstade/unparenthesize.hpp>
+#include <boost/egg/detail/unparen.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/const.hpp>
 
@@ -18,7 +18,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/mpl/assert.hpp>
-#include <pstade/unparenthesize.hpp>
+#include <boost/egg/detail/unparen.hpp>
 #include <pstade/test.hpp>
 
 
@@ -30,7 +30,7 @@ namespace deducers = boost::egg;
     namespace BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G) { \
         using namespace boost::mpl::placeholders; \
         using namespace boost::egg; \
-        typedef boost::egg::generator<PSTADE_UNPARENTHESIZE(L)>::type op; \
+        typedef boost::egg::generator<BOOST_EGG_UNPAREN(L)>::type op; \
     } \
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(T_, G); \
     BOOST_EGG_CONST((BOOST_PP_CAT(T_, G)), G) = BOOST_EGG_GENERATOR(); \

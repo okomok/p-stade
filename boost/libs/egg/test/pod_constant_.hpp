@@ -23,7 +23,7 @@
 #include <boost/type_traits/is_pod.hpp>
 #include <boost/version.hpp>
 #include <pstade/in_unnamed.hpp>
-#include <pstade/unparenthesize.hpp>
+#include <boost/egg/detail/unparen.hpp>
 
 
 // msvc optimizers can static-initialize, though.
@@ -39,7 +39,7 @@
 
 
 #define BOOST_EGG_CONST(F, O) \
-    BOOST_EGG_CONST_aux1(PSTADE_UNPARENTHESIZE(F), O) \
+    BOOST_EGG_CONST_aux1(BOOST_EGG_UNPAREN(F), O) \
 /**/
 
 

@@ -14,7 +14,7 @@
 
 #include <boost/egg/const.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <pstade/unparenthesize.hpp>
+#include <boost/egg/detail/unparen.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
 #include "./large_arity_id0.hpp"
@@ -25,7 +25,7 @@
     #define PSTADE_decl_pipable(O, F) \
         namespace BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O) { \
             using namespace boost::mpl::placeholders; \
-            typedef boost::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
+            typedef boost::egg::result_of_pipable<BOOST_EGG_UNPAREN(F)>::type pipe; \
         } \
         BOOST_EGG_CONST((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = BOOST_EGG_PIPABLE({}); \
     /**/
