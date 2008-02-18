@@ -2,7 +2,7 @@
 #define BOOST_EGG_DETAIL_IF_USE_DEFAULT_HPP
 
 
-// PStade.Egg
+// Boost.Egg
 //
 // Copyright Shunsuke Sogame 2006-2008.
 // Distributed under the Boost Software License, Version 1.0.
