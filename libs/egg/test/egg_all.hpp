@@ -76,7 +76,6 @@
 #include <boost/egg/register_nullary_result.hpp>
 #include <boost/egg/regular.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/result_of_ref.hpp>
 #include <boost/egg/return.hpp>
 #include <boost/egg/shared_object.hpp>
 #include <boost/egg/specified.hpp>
