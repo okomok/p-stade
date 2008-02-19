@@ -6,29 +6,33 @@ import testing ;
 
 project
     : requirements
-      <library>/boost/test//boost_test_exec_monitor/<link>static
-      <library>/boost/test//boost_unit_test_framework/<link>static
-      <toolset>intel:<debug-symbols>off
+        <toolset>intel:<debug-symbols>off
+        <toolset>msvc-7.1:<debug-symbols>off
+        <toolset>gcc:<cxxflags>-ftemplate-depth-1024
+        <library>/boost/test//boost_test_exec_monitor
+        <library>/boost/test//boost_unit_test_framework
+        <link>static
     ;
 
-test-suite "egg_example" :
-    [ run adapted_to_comparison.cpp ]
-    [ run composing.cpp ]
-    [ run concepts.cpp ]
-    [ run currying.cpp ]
-    [ run freed_prisoner.cpp ]
-    [ run function_adaptors.cpp ]
-    [ run function_builders.cpp ]
-#    [ run fusing.cpp ]
-    [ run infix_apply.cpp ]
-    [ run introduction.cpp ]
-    [ run mono_lambda.cpp ]
-    [ run monopoly.cpp ]
-    [ run my_perfect.cpp ]
-    [ run nested_lambda.cpp ]
-    [ run result_of_tutorial.cpp ]
-    [ run typeof_meets_type_erasure.cpp ]
-    [ run unnamed_recursion.cpp ]
-#    [ run variadic_plus.cpp ]
+test-suite "egg_example"
+    :
+        [ run adapted_to_comparison.cpp ]
+        [ run composing.cpp ]
+        [ run concepts.cpp ]
+        [ run currying.cpp ]
+        [ run freed_prisoner.cpp ]
+        [ run function_adaptors.cpp ]
+        [ run function_builders.cpp ]
+    #    [ run fusing.cpp ]
+        [ run infix_apply.cpp ]
+        [ run introduction.cpp ]
+        [ run mono_lambda.cpp ]
+        [ run monopoly.cpp ]
+        [ run my_perfect.cpp ]
+        [ run nested_lambda.cpp ]
+        [ run result_of_tutorial.cpp ]
+        [ run typeof_meets_type_erasure.cpp ]
+        [ run unnamed_recursion.cpp ]
+    #    [ run variadic_plus.cpp ]
     ;
 
