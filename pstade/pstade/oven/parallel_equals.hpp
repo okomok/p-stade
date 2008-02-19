@@ -19,7 +19,6 @@
 #include <boost/ref.hpp>
 #include <boost/thread/thread.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/make_function.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
@@ -178,7 +177,8 @@ namespace parallel_equals_detail {
         template< class Result, class Difference, class Range1, class Range2 >
         Result call(Difference& grainsize, Range1& rng1, Range2& rng2) const
         {
-            return egg::make_function(*this)(grainsize, rng1, rng2, detail::equal_to);
+            egg::function<little> self = {*this};
+            return self(grainsize, rng1, rng2, detail::equal_to);
         }
     };
 

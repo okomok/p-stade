@@ -16,7 +16,6 @@
 #include <boost/next_prior.hpp> // next
 #include <boost/range/empty.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/make_function.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
@@ -95,8 +94,10 @@ namespace parallel_reduce_detail {
 
             if (boost::empty(rng))
                 return init;
-            else
-                return fun(init, egg::make_function(*this)(grainsize, rng, fun));
+            else {
+                egg::function<little> self = {*this};
+                return fun(init, self(grainsize, rng, fun));
+            }
         }
     };
 

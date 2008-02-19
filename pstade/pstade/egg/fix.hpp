@@ -23,7 +23,6 @@
 #include "./compose.hpp"
 #include "./curry.hpp" // curry2
 #include "./detail/bind_left1.hpp"
-#include "./make_function.hpp"
 
 
 namespace pstade { namespace egg {

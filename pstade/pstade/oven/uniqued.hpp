@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/make_function.hpp>
 #include <pstade/egg/not.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
@@ -51,7 +50,8 @@ namespace uniqued_detail {
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            return egg::make_function(*this)(rng, detail::equal_to);
+            egg::function<little> self = {*this};
+            return self(rng, detail::equal_to);
         }
     };
 

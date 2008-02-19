@@ -12,7 +12,6 @@
 
 
 #include <locale>
-#include <pstade/egg/make_function.hpp>
 #include <pstade/result_of.hpp>
 #include "./detail/little_to_adaptor.hpp"
 #include "./transformed.hpp"
@@ -65,7 +64,8 @@ namespace wide_chars_detail {
         template< class Result, class Range > inline
         Result call(Range& rng) const
         {
-            return egg::make_function(*this)(rng, std::locale());
+            egg::function<little> self = {*this};
+            return self(rng, std::locale());
         }
     };
 

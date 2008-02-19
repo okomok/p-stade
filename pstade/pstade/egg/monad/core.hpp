@@ -65,7 +65,6 @@
 #include "../always.hpp"
 #include "../copy.hpp"
 #include "../function.hpp"
-#include "../make_function.hpp"
 #include "../use_deduced_form.hpp"
 
 
@@ -177,7 +176,8 @@ namespace pstade { namespace egg {
             {
                 typedef ext::Monad<Re> extM_t_;
                 typedef typename extM_t_::template wrap<A>::type MA_t;
-                return make_function(*this)(egg::copy<MA_t>(w), f);
+                function<little> self = {*this};
+                return self(egg::copy<MA_t>(w), f);
             }
 
             template<class Me, class MA, class A_MB>

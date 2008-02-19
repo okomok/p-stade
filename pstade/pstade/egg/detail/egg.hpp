@@ -69,7 +69,6 @@
 #include "../keyword.hpp"
 #include "../lexical.hpp"
 #include "../locale.hpp"
-#include "../make_function.hpp"
 #include "../memoize.hpp"
 #include "../mono.hpp"
 #include "../move_assign.hpp"

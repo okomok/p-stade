@@ -1,35 +1,21 @@
-#include <algorithm>
-#include <iostream>
-#include <iterator>
-#include <vector>
+#include <boost/tuple/tuple.hpp>
+#include <boost/iterator/zip_iterator.hpp>
+#include <map>
+#include <boost/ptr_container/ptr_map.hpp>
+#include <pstade/oven/detail/zip_iterator_hack.hpp>
 
-#include <boost/bind.hpp>
-#include <boost/lexical_cast.hpp>
+using boost::zip_iterator;
+using boost::tuple;
+using boost::make_tuple;
+using boost::ptr_map;
+using std::map;
 
-static unsigned int INDEX = 0;
-
-class A {
-
-public:
-    A() : myIndex(boost::lexical_cast<std::string>(INDEX++)) {};
-
-    std::string GetIndex() const { return myIndex; }
-
-private:
-    std::string myIndex;
-};
-
-int main()
-{
-    std::vector<A> aArray(10);
-    std::vector<std::string> values;
-    values.reserve(10);
-
-    std::transform(aArray.begin(),aArray.end(), std::back_inserter(values),
-                   boost::bind(&A::GetIndex, _1));
-
-    std::copy(values.begin(), values.end(),
-              std::ostream_iterator<std::string>(std::cout, ","));
-
-    return 0;
+int main() {
+  //typedef map<int, int> theMapType;
+  typedef boost::ptr_map<int, int> theMapType;
+  typedef zip_iterator
+     <tuple<theMapType::iterator, theMapType::iterator> > zipIter;
+  theMapType map1;
+  theMapType map2;
+  zipIter(make_tuple(map1.begin(), map2.begin()));
 }

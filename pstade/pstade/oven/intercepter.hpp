@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
 #include "./detail/little_to_adaptor.hpp"

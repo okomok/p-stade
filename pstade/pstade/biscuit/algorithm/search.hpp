@@ -13,7 +13,6 @@
 #include <boost/assert.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/make_function.hpp>
 #include <pstade/egg/specified.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
@@ -61,7 +60,8 @@ namespace search_detail {
         template< class Result, class ParsingRange, class MatchResults >
         Result call(ParsingRange& r, MatchResults& rs) const
         {
-            return egg::make_function(*this)(r, rs, null_state);
+            egg::function<little> self = {*this};
+            return self(r, rs, null_state);
         }
     };
 

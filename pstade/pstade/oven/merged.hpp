@@ -21,7 +21,6 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/make_function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
@@ -152,7 +151,8 @@ namespace merged_detail {
         template< class Result, class Range1, class Range2 >
         Result call(Range1& rng1, Range2& rng2) const
         {
-            return egg::make_function(*this)(rng1, rng2, detail::less);
+            egg::function<little> self = {*this};
+            return self(rng1, rng2, detail::less);
         }
 
         template< class Result, class Iterator1, class Iterator2, class Compare >

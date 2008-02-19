@@ -12,7 +12,6 @@
 
 
 #include <locale>
-#include <pstade/egg/make_function.hpp>
 #include <pstade/result_of.hpp>
 #include "../concepts.hpp"
 #include "../range_value.hpp"
@@ -77,7 +76,8 @@ struct xxx_chars
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            return egg::make_function(*this)(rng, std::locale());
+            egg::function<little> self = {*this};
+            return self(rng, std::locale());
         }
     };
 };

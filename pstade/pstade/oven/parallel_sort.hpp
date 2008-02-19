@@ -13,7 +13,6 @@
 
 #include <algorithm> // inplace_merge, sort
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/make_function.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
@@ -71,7 +70,8 @@ namespace parallel_sort_detail {
         template< class Result, class Difference, class Range >
         void call(Difference& grainsize, Range& rng) const
         {
-            egg::make_function(*this)(grainsize, rng, detail::less);
+            egg::function<little> self = {*this};
+            self(grainsize, rng, detail::less);
         }
     };
 
