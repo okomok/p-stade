@@ -20,8 +20,13 @@ struct base { };
 
 
 // works only on MWCW 9 and Visual C++ 8.
-BOOST_MPL_ASSERT((boost::is_pod< base<int> >));
-BOOST_MPL_ASSERT((boost::is_pod< base<boost::mpl::_> >));
+#if (defined(__MSL_CPP__) && (__MSL_CPP__ >= 0x8000)) \
+ || (defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215))
+
+    BOOST_MPL_ASSERT((boost::is_pod< base<int> >));
+    BOOST_MPL_ASSERT((boost::is_pod< base<boost::mpl::_> >));
+
+#endif
 
 
 void egg_test()
