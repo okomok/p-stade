@@ -13,6 +13,7 @@
 
 #include <string>
 #include <boost/egg/ambi.hpp>
+#include <boost/egg/by_cref.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/lexical.hpp>
 

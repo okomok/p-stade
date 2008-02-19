@@ -23,28 +23,22 @@
 #include <boost/egg/preprocessor/enum_template_params.hpp>
 
 
-namespace boost { namespace egg {
+namespace boost { namespace egg { namespace details {
 
 
     BOOST_EGG_HAS_XXX(use_deduced_form)
 
 
-    namespace details {
+    template<class Little, class Re>
+    struct call_little_impl<Little, Re,
+        typename enable_if< has_use_deduced_form<Little> >::type>
+    {
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/use_deduced_form.hpp>))
+        #include BOOST_PP_ITERATE()
+    };
 
 
-        template<class Little, class Re>
-        struct call_little_impl<Little, Re,
-            typename enable_if< has_use_deduced_form<Little> >::type>
-        {
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/use_deduced_form.hpp>))
-            #include BOOST_PP_ITERATE()
-        };
-
-
-    } // namespace details
-
-
-} } // namespace boost::egg
+} } } // namespace boost::egg::details
 
 
 #include <boost/egg/detail/suffix.hpp>

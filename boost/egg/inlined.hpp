@@ -152,7 +152,7 @@ namespace boost { namespace egg {
 #else
 #define n BOOST_PP_ITERATION()
 
-#define fparams BOOST_EGG_PP_ENUM_PARAMS_IN_FUN_SPEC(n, A)
+#define fparams BOOST_EGG_ENUM_PARAMS_IN_FUN_SPEC(n, A)
 
 
     // function pointers
