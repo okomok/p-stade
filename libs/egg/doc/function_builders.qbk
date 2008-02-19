@@ -498,6 +498,8 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 
 
 
+[/
+
 [section make_function]
 
 [heading Description]
@@ -544,6 +546,8 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
 * __EGG_FUNCTION__
 
 [endsect]
+
+]
 
 
 
