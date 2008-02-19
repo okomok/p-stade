@@ -10,6 +10,8 @@
 
 #include "./egg_test.hpp"
 
+#include <boost/egg/detail/boost_workaround.hpp>
+
 
 template<class T>
 void foo(T const&) {}
@@ -19,5 +21,7 @@ void bar() {}
 
 void egg_test()
 {
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
     ::foo(bar);
+#endif
 }
