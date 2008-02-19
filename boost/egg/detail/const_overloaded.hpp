@@ -35,9 +35,9 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/detail/enable_if.hpp> // disable_if
 #include <boost/egg/detail/boost_workaround.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
 
 
 // This macro can't always be turned on; especially under VC++.

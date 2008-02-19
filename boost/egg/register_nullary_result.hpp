@@ -13,9 +13,9 @@
 
 #include <boost/egg/detail/boost_result_of_fwd.hpp>
 #include <boost/egg/detail/in_fun_spec.hpp>
-#include <boost/egg/detail/pp_seq_enum_args.hpp>
-#include <boost/egg/detail/pp_seq_enum_params.hpp>
-#include <boost/egg/detail/pp_to_template_param_seq.hpp>
+#include <boost/egg/preprocessor/seq_enum_args.hpp>
+#include <boost/egg/preprocessor/seq_enum_params.hpp>
+#include <boost/egg/preprocessor/to_template_param_seq.hpp>
 
 
 #define BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TYPE(X) \

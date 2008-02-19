@@ -33,10 +33,10 @@
 #include <boost/preprocessor/seq/to_array.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_HAS_RVALUE_REFS
-#include <boost/egg/detail/pp_array_iterate.hpp>
-#include <boost/egg/detail/pp_seq_enum_args.hpp>
-#include <boost/egg/detail/pp_seq_enum_params.hpp>
-#include <boost/egg/detail/pp_to_template_param_seq.hpp>
+#include <boost/egg/preprocessor/array_iterate.hpp>
+#include <boost/egg/preprocessor/seq_enum_args.hpp>
+#include <boost/egg/preprocessor/seq_enum_params.hpp>
+#include <boost/egg/preprocessor/to_template_param_seq.hpp>
 #include <boost/egg/result_of.hpp>
 
 
@@ -56,9 +56,9 @@
     #include <boost/preprocessor/seq/for_each_product.hpp>
     #include <boost/preprocessor/punctuation/comma_if.hpp>
     #include <boost/egg/detail/const_overloaded.hpp>
-    #include <boost/egg/detail/pp_seq_params.hpp>
-    #include <boost/egg/detail/pp_seq_repeat.hpp>
     #include <boost/egg/detail/result_of_in_ns_scope.hpp>
+    #include <boost/egg/preprocessor/seq_params.hpp>
+    #include <boost/egg/preprocessor/seq_repeat.hpp>
 
     #define BOOST_EGG_SPECIFIED() <boost/egg/detail/specified_include.hpp>
 

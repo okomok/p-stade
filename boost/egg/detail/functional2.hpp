@@ -18,10 +18,10 @@
 #include <boost/egg/bll/return_type.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/const.hpp>
+#include <boost/egg/preprocessor/array_iterate.hpp>
 #include <boost/egg/detail/adl_barrier.hpp>
 #include <boost/egg/detail/derived_from.hpp>
 #include <boost/egg/detail/if_use_default.hpp>
-#include <boost/egg/detail/pp_array_iterate.hpp>
 
 
 namespace boost { namespace egg {

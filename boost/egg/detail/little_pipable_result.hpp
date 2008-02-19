@@ -22,11 +22,11 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/function_fwd.hpp>
 #include <boost/egg/pack.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/is_a_or_b.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
 #include <boost/egg/detail/tuple_fuse.hpp>
 #include <boost/egg/detail/tuple_prepend.hpp>
 

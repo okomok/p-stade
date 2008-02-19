@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/egg/bind_n.hpp>
 #include <boost/egg/config.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 
 
 namespace boost { namespace egg {

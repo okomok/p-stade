@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_DETAIL_PP_LINE_HPP
-#define BOOST_EGG_DETAIL_PP_LINE_HPP
+#ifndef BOOST_EGG_PP_LINE_HPP
+#define BOOST_EGG_PP_LINE_HPP
 
 
 // Boost.Egg

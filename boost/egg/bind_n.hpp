@@ -37,11 +37,11 @@
     #include <boost/egg/const.hpp>
     #include <boost/egg/detail/boost_use_default_fwd.hpp>
     #include <boost/egg/detail/derived_from.hpp>
-    #include <boost/egg/detail/pp_cat3.hpp>
-    #include <boost/egg/detail/pp_enum_params_with.hpp>
     #include <boost/egg/detail/substitute.hpp>
     #include <boost/egg/detail/use_nullary_result.hpp>
     #include <boost/egg/is_bind_expression.hpp>
+    #include <boost/egg/preprocessor/cat3.hpp>
+    #include <boost/egg/preprocessor/enum_params_with.hpp>
     #include <boost/egg/result_of_ref.hpp>
 
 

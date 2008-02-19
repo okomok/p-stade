@@ -18,7 +18,7 @@
 
 
 #define BOOST_EGG_PP_ARRAY_ITERATE() \
-    <boost/egg/detail/pp_array_iterate_include.hpp> \
+    <boost/egg/preprocessor/detail/array_iterate_include.hpp> \
 /**/
 
 #define BOOST_EGG_PP_ARRAY_ITERATION() \

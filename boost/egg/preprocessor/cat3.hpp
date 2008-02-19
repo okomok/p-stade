@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_DETAIL_PP_CAT3_HPP
-#define BOOST_EGG_DETAIL_PP_CAT3_HPP
+#ifndef BOOST_EGG_PP_CAT3_HPP
+#define BOOST_EGG_PP_CAT3_HPP
 
 
 // Boost.Egg

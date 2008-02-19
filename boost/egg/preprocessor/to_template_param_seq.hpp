@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_DETAIL_PP_TO_TEMPLATE_PARAM_SEQ_HPP
-#define BOOST_EGG_DETAIL_PP_TO_TEMPLATE_PARAM_SEQ_HPP
+#ifndef BOOST_EGG_PP_TO_TEMPLATE_PARAM_SEQ_HPP
+#define BOOST_EGG_PP_TO_TEMPLATE_PARAM_SEQ_HPP
 
 
 // Boost.Egg
@@ -13,7 +13,7 @@
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
-#include <boost/egg/detail/pp_is_seq.hpp>
+#include <boost/egg/preprocessor/is_seq.hpp>
 
 
 // Same as 'BOOST_TYPEOF_TOSEQ' at <boost/typeof/template_encoding.hpp>

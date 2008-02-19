@@ -15,8 +15,8 @@
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/preprocessor/enum_template_params.hpp>
 #include <boost/egg/detail/call_little_impl_fwd.hpp>
-#include <boost/egg/detail/pp_enum_template_params.hpp>
 
 
 namespace boost { namespace egg { namespace details {

@@ -31,9 +31,9 @@
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
 #include <boost/egg/const.hpp>
+#include <boost/egg/preprocessor/cat3.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/detail/pp_cat3.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
 
 
 namespace boost { namespace egg { namespace details {

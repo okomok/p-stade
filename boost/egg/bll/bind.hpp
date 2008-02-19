@@ -23,7 +23,7 @@
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/const.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/bll/config.hpp>
 #include <boost/egg/bll/result_of.hpp> // inclusion guaranteed
 
