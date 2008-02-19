@@ -129,7 +129,7 @@ namespace boost { namespace egg {
     } // namespace always_ref_detail
 
     typedef function<always_ref_detail::little, by_perfect> T_always_ref;
-    BOOST_EGG_CONST((T_always_ref), always_ref) = BOOST_EGG_GENERATOR();
+    BOOST_EGG_CONST((T_always_ref), always_ref) = {{}};
 
 
 } } // namespace boost::egg
