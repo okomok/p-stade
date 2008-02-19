@@ -70,6 +70,7 @@
 * `deferred` renamed to `poly`.
 * `EGG_DEFER` removed.
 * `variadic` added.
+* `make_function` removed.
 
 
 
