@@ -37,12 +37,12 @@
     #include <boost/egg/const.hpp>
     #include <boost/egg/detail/boost_use_default_fwd.hpp>
     #include <boost/egg/detail/derived_from.hpp>
+    #include <boost/egg/detail/result_of_ref.hpp>
     #include <boost/egg/detail/substitute.hpp>
     #include <boost/egg/detail/use_nullary_result.hpp>
     #include <boost/egg/is_bind_expression.hpp>
     #include <boost/egg/preprocessor/cat3.hpp>
     #include <boost/egg/preprocessor/enum_params_with.hpp>
-    #include <boost/egg/result_of_ref.hpp>
 
 
     namespace boost { namespace egg {
@@ -74,39 +74,52 @@
     #include BOOST_PP_ASSIGN_SLOT(1)
     #define n BOOST_PP_SLOT(1)
 
+    #define bindN_detail BOOST_EGG_PP_CAT3(bind, n, _detail)
 
-        template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-        struct BOOST_EGG_PP_CAT3(little_bind, n, _result)
-        {
-            Base m_base;
-            BOOST_PP_REPEAT(n, BOOST_EGG_arg, ~)
 
-            Base const &base() const
+        namespace bindN_detail {
+
+
+            using details::T_substitute;
+            using details::substitute;
+            using details::result_of_ref;
+
+
+            template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+            struct little_result
             {
-                return m_base;
-            }
+                Base m_base;
+                BOOST_PP_REPEAT(n, BOOST_EGG_arg, ~)
 
-            // 0ary - BOOST_EGG_MAX_ARITYary
-        #define BOOST_EGG_meta_substitute(Z, N, _) \
-            typename result_of_ref< \
+                Base const &base() const
+                {
+                    return m_base;
+                }
+
+                // 0ary - BOOST_EGG_MAX_ARITYary
+            #define BOOST_EGG_meta_substitute(Z, N, _) \
                 typename result_of_ref< \
-                    details::T_substitute(BOOST_PP_CAT(Arg, N) const &) \
-                >::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &)) \
-            >::type \
-        /**/
-        #define BOOST_EGG_substitute(Z, N, _) \
-            details::substitute(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
-        /**/
+                    typename result_of_ref< \
+                        T_substitute(BOOST_PP_CAT(Arg, N) const &) \
+                    >::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &)) \
+                >::type \
+            /**/
+            #define BOOST_EGG_substitute(Z, N, _) \
+                substitute(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
+            /**/
 
-            template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
-            struct BOOST_EGG_APPLY_DECL;
+                template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
+                struct BOOST_EGG_APPLY_DECL;
 
-            #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, BOOST_EGG_MAX_ARITY, <boost/egg/bind_n.hpp>))
-            #include BOOST_PP_ITERATE()
+                #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, BOOST_EGG_MAX_ARITY, <boost/egg/bind_n.hpp>))
+                #include BOOST_PP_ITERATE()
 
-        #undef  BOOST_EGG_substitute
-        #undef  BOOST_EGG_meta_substitute
-        };
+            #undef  BOOST_EGG_substitute
+            #undef  BOOST_EGG_meta_substitute
+            };
+
+
+        } // namespace bindN_detail
 
 
         template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
@@ -114,7 +127,7 @@
         {
             typedef
                 function<
-                    BOOST_EGG_PP_CAT3(little_bind, n, _result)<
+                    bindN_detail::little_result<
                         Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
                     >,
                     by_perfect
@@ -126,7 +139,7 @@
         template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
         struct is_bind_expression<
                 function<
-                    BOOST_EGG_PP_CAT3(little_bind, n, _result)<
+                    bindN_detail::little_result<
                         Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
                     >,
                     by_perfect
@@ -135,32 +148,41 @@
         { };
 
 
-        template<class NullaryResult>
-        struct BOOST_PP_CAT(little_bind, n)
-        {
-            template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-            struct apply :
-                BOOST_PP_CAT(result_of_bind, n)<
-                    Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
-                >
-            { };
+        namespace bindN_detail {
 
-            template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
-            Re call(Base base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, arg)) const
+
+            template<class NullaryResult>
+            struct little
             {
-                Re r = BOOST_EGG_BIND_L base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg) BOOST_EGG_BIND_R;
-                return r;
-            }
-        };
+                template<class Me, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+                struct apply :
+                    BOOST_PP_CAT(result_of_bind, n)<
+                        Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
+                    >
+                { };
+
+                template<class Re, class Base BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
+                Re call(Base base BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, Arg, arg)) const
+                {
+                    Re r = BOOST_EGG_BIND_L base BOOST_PP_ENUM_TRAILING_PARAMS(n, arg) BOOST_EGG_BIND_R;
+                    return r;
+                }
+            };
+
+
+        } // namespace bindN_detail
+
 
         template<class NullaryResult = use_default>
         struct BOOST_PP_CAT(X_bind, n) : details::derived_from<
-            function<BOOST_PP_CAT(little_bind, n)<NullaryResult>, by_value> >
+            function<bindN_detail::little<NullaryResult>, by_value> >
         { };
 
         typedef BOOST_PP_CAT(X_bind, n)<>::base_class BOOST_PP_CAT(T_bind, n);
         BOOST_EGG_CONST((BOOST_PP_CAT(T_bind, n)), BOOST_PP_CAT(bind, n)) = {{}};
 
+
+    #undef  bindN_detail
 
     #undef  n
 
@@ -175,7 +197,7 @@
 
         struct extract_nullary_result :
             result_of_ref<
-                typename result_of_ref<typename result_of_ref<details::T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
+                typename result_of_ref<typename result_of_ref<T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
                 (
                     BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
                 )
@@ -193,7 +215,7 @@
         template<class Me, BOOST_PP_ENUM_PARAMS(m, class A)>
         struct apply<Me, BOOST_PP_ENUM_PARAMS(m, A)> :
             result_of_ref<
-                typename result_of_ref<typename result_of_ref<details::T_substitute(Base &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
+                typename result_of_ref<typename result_of_ref<T_substitute(Base &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
                 (
                     BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
                 )
@@ -206,7 +228,7 @@
         Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, &a)) const
         {
             return
-                details::substitute(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
+                substitute(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
                 (
                     BOOST_PP_ENUM(n, BOOST_EGG_substitute, ~)
                 );

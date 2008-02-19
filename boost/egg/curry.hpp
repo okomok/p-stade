@@ -97,7 +97,7 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace BOOST_EGG_PP_CAT3(curry, n, _detail)
+    } // namespace curryN_detail
 
 
     typedef function<BOOST_EGG_PP_CAT3(curry, n, _detail)::little, by_value> BOOST_PP_CAT(T_curry, n);

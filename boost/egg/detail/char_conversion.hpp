@@ -62,7 +62,7 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace BOOST_EGG_PP_CAT3(to_, name, _detail)
+    } // namespace to_NAME_detail
 
 
     typedef function<BOOST_EGG_PP_CAT3(to_, name, _detail)::little, by_cref> BOOST_EGG_PP_CAT3(T_, to_, name);

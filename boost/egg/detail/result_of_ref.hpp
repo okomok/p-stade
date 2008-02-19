@@ -1,7 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef BOOST_EGG_RESULT_OF_REF_HPP
-#define BOOST_EGG_RESULT_OF_REF_HPP
-#include <boost/egg/detail/prefix.hpp>
+#ifndef BOOST_EGG_DETAIL_RESULT_OF_REF_HPP
+#define BOOST_EGG_DETAIL_RESULT_OF_REF_HPP
 
 
 // Boost.Egg
@@ -22,24 +21,23 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/egg/detail/in_fun_spec.hpp>
 #include <boost/egg/result_of.hpp>
+#include <boost/egg/detail/in_fun_spec.hpp>
 
 
-namespace boost { namespace egg {
+namespace boost { namespace egg { namespace details {
 
 
     template<class FunCall>
     struct result_of_ref;
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <boost/egg/result_of_ref.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <boost/egg/detail/result_of_ref.hpp>))
     #include BOOST_PP_ITERATE()
 
 
-} } // namespace boost::egg
+} } } // namespace boost::egg::details
 
 
-#include <boost/egg/detail/suffix.hpp>
 #endif
 #else
 #define n BOOST_PP_ITERATION()
