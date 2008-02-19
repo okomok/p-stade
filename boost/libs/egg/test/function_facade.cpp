@@ -13,6 +13,11 @@
 
 
 #include <boost/mpl/assert.hpp>
+#include <string>
+
+
+template<class X>
+void my_used(X&) {}
 
 
 struct T_foo :
@@ -282,25 +287,23 @@ void egg_test()
     {
         int volatile x = 0;
         int volatile &x_ = ::my_identity()(x);
-        (void)x;
-        (void)x_;
+        ::my_used(x);
+        ::my_used(x_);
     }
     {
         int const volatile x = 0;
         int const volatile &x_ = ::my_identity()(x);
-        (void)x;
-        (void)x_;
+        ::my_used(x);
+        ::my_used(x_);
     }
-#if !defined(__GNUC__)
+#if !BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
     {
         ::A const volatile &x_ = ::my_identity()(::get_volatile());
-        (void)x;
-        (void)x_;
+        ::my_used(x_);
     }
     {
         ::A const volatile &x_ = ::my_identity()(::get_cv());
-        (void)x;
-        (void)x_;
+        ::my_used(x_);
     }
 #endif
     {

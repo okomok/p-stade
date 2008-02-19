@@ -31,7 +31,7 @@ struct impl_interface0
 };
 
 typedef result_of_ambi0<impl_interface0>::type T_interface0;
-BOOST_EGG_CONST((T_interface0), interface0) = BOOST_EGG_AMBI();
+BOOST_EGG_CONST((T_interface0), interface0) = BOOST_EGG_AMBI({});
 
 
 struct impl_interface1
@@ -44,7 +44,7 @@ struct impl_interface1
     }
 };
 
-BOOST_EGG_CONST((result_of_ambi1<impl_interface1>::type), interface1) = BOOST_EGG_AMBI();
+BOOST_EGG_CONST((result_of_ambi1<impl_interface1>::type), interface1) = BOOST_EGG_AMBI({});
 
 
 struct impl_interface4
@@ -57,7 +57,7 @@ struct impl_interface4
     }
 };
 
-BOOST_EGG_CONST((result_of_ambi4<impl_interface4>::type), interface4) = BOOST_EGG_AMBI();
+BOOST_EGG_CONST((result_of_ambi4<impl_interface4>::type), interface4) = BOOST_EGG_AMBI({});
 
 
 CHECK_IS_RESULT_OF((std::string), T_interface0(std::string))

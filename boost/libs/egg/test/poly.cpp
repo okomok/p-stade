@@ -16,6 +16,7 @@
 #include <boost/egg/const.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <string>
 
 
 template<class X>
