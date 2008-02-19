@@ -176,7 +176,7 @@ namespace pstade { namespace egg {
             {
                 typedef ext::Monad<Re> extM_t_;
                 typedef typename extM_t_::template wrap<A>::type MA_t;
-                function<little> self = {*this};
+                function<little_bind> self = {*this};
                 return self(egg::copy<MA_t>(w), f);
             }
 
