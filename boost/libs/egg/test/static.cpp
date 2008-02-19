@@ -20,7 +20,7 @@
 
 
 
-typedef static_< X_construct<int, mpl_1> >::type T_construct_int;
+typedef static_< X_construct<int, boost::mpl::_1> >::type T_construct_int;
 T_construct_int const construct_int = BOOST_EGG_STATIC();
 
 

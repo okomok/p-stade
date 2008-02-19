@@ -30,7 +30,8 @@ struct impl_interface0
     }
 };
 
-BOOST_EGG_CONST((result_of_ambi0<impl_interface0>::type), interface0) = BOOST_EGG_AMBI();
+typedef result_of_ambi0<impl_interface0>::type T_interface0;
+BOOST_EGG_CONST((T_interface0), interface0) = BOOST_EGG_AMBI();
 
 
 struct impl_interface1

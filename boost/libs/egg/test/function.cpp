@@ -158,10 +158,10 @@ struct little_keep_const
 };
 typedef boost::egg::function<little_keep_const, boost::egg::by_perfect> T_keep_const;
 T_keep_const const keep_const = { {} };
-BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfect, int&>::type, int >));
-BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfect, int const&>::type, int const >));
-BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfect, int>::type, int const >));
-BOOST_MPL_ASSERT((boost::is_same< boost::egg::detail::unref<boost::egg::by_perfect, int const>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perfect, int&>::type, int >));
+BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perfect, int const&>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perfect, int>::type, int const >));
+BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perfect, int const>::type, int const >));
 CHECK_IS_RESULT_OF((int), T_keep_const(int&))
 CHECK_IS_RESULT_OF((int) const, T_keep_const(int))
 CHECK_IS_RESULT_OF((int) const, T_keep_const(int const&))
