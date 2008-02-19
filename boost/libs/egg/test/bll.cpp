@@ -11,7 +11,7 @@
 #include <boost/egg/bll/bind.hpp>
 #include <boost/egg/bll/unlambda.hpp>
 #include <boost/egg/bll/placeholders.hpp>
-#include <boost/egg/result_of_lambda.hpp>
+#include <boost/egg/bll/result_of.hpp>
 #include "./egg_test.hpp"
 
 

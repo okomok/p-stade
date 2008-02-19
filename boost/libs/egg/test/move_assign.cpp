@@ -22,7 +22,7 @@ namespace my {
     struct klass { };
 
     inline
-    void pstade_egg_move_assign(klass& from, klass& to)
+    void boost_egg_move_assign(klass& from, klass& to)
     {
         g_customized = true;
     }

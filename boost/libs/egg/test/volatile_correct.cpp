@@ -12,7 +12,8 @@
 
 
 #include <boost/egg/identity.hpp>
-#include <boost/egg/bll.hpp>
+#include <boost/egg/bll/bind.hpp>
+#include <boost/egg/bll/placeholders.hpp>
 #include <boost/egg/result_of.hpp>
 #include "./check_is_result_of.hpp"
 

@@ -33,7 +33,7 @@ void egg_test()
 
     {
         int i1 = 1, i2 = 2, i3 = 3, i4 = 4, i5 = 5;
-        BOOST_CHECK(detail::substitute(X_arg<2>())(i1, i2, i3, i4, i5) == 2);
-        BOOST_CHECK(detail::substitute(placeholders::_2)(i1, i2, i3, i4, i5) == 2);
+        BOOST_CHECK(details::substitute(X_arg<2>())(i1, i2, i3, i4, i5) == 2);
+        BOOST_CHECK(details::substitute(placeholders::_2)(i1, i2, i3, i4, i5) == 2);
     }
 }

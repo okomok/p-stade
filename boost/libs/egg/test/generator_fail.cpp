@@ -20,11 +20,12 @@
 
 
 #include "./using_egg.hpp"
+namespace mpl = boost::mpl;
 
 
 typedef
     generator<
-        std::pair< deduce<mpl_1, as_value>, deduce<mpl_2, as_value> >
+        std::pair< deduce<mpl::_1, as_value>, deduce<mpl::_2, as_value> >
     >::type
 T_make_pair;
 

@@ -23,8 +23,6 @@ CHECK_IS_RESULT_OF((bool), T_iequal_to(char, char))
 
 void egg_test()
 {
-    using namespace pstade;
-
     {
         BOOST_CHECK(iequal_to('a', 'A'));
         BOOST_CHECK(iequal_to('a', 'A', std::locale()));

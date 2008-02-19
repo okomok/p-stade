@@ -13,6 +13,7 @@
 
 
 #include <boost/egg/result_of.hpp>
+#include "./check_is_result_of.hpp"
 
 
 #include "./using_egg.hpp"

@@ -18,32 +18,33 @@
 
 #include "./using_egg.hpp"
 
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_perfect, int&>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_perfect, int const&>::type, int const>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_perfect, int>::type, int const>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_perfect, int const>::type, int const>));
+
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_perfect, int&>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_perfect, int const&>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_perfect, int>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_perfect, int const>::type, int const>));
 
 
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_ref, int&>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_ref, int const&>::type, int const>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_ref, int const>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_ref, int&>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_ref, int const&>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_ref, int const>::type, int const>));
 
 
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_cref, int&>::type, int const>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_cref, int const&>::type, int const>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_cref, int>::type, int const>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_cref, int const>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_cref, int&>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_cref, int const&>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_cref, int>::type, int const>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_cref, int const>::type, int const>));
 
 
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int&>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int const&>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int const>::type, int>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int (&)(int)>::type, int (*)(int)>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int [12]>::type, int *>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int const [12]>::type, int const*>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int (&)[12]>::type, int *>));
-BOOST_MPL_ASSERT((boost::is_same<detail::unref<by_value, int const (&)[12]>::type, int const*>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int&>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int const&>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int const>::type, int>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int (&)(int)>::type, int (*)(int)>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int [12]>::type, int *>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int const [12]>::type, int const*>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int (&)[12]>::type, int *>));
+BOOST_MPL_ASSERT((boost::is_same<details::unref<by_value, int const (&)[12]>::type, int const*>));
 
 
 void egg_test()

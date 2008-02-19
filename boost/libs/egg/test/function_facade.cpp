@@ -155,7 +155,7 @@ struct T_hoge
 namespace boost {
 
     template< class T0, class T1 >
-    struct result_of_<T_hoge<T0, T1>()>
+    struct result_of<T_hoge<T0, T1>()>
     {
         typedef char type;
     };
@@ -235,41 +235,41 @@ struct our_identity :
 void egg_test()
 {
     {
-        boost::result_of_<T_foo(int, int)>::type x = foo(1, 2);
+        boost::result_of<T_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of_<T_foo(int)>::type x = foo(1);
+        boost::result_of<T_foo(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of_<T_foo()>::type x = foo();
+        boost::result_of<T_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 
     {
-        boost::result_of_<T_bar<int, int>(int, int)>::type x = foo(1, 2);
+        boost::result_of<T_bar<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of_<T_bar<int, int>(int)>::type x = foo(1);
+        boost::result_of<T_bar<int, int>(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of_<T_bar<int, int>()>::type x = foo();
+        boost::result_of<T_bar<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 
     {
-        boost::result_of_<T_hoge<int, int>(int, int)>::type x = foo(1, 2);
+        boost::result_of<T_hoge<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of_<T_hoge<int, int>(int)>::type x = foo(1);
+        boost::result_of<T_hoge<int, int>(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of_<T_hoge<int, int>()>::type x = foo();
+        boost::result_of<T_hoge<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 

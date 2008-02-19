@@ -104,7 +104,6 @@ test-suite "egg" :
     [ run logical.cpp ]
     [ run make_function.cpp ]
     [ run memoize.cpp ]
-    [ run monad.cpp ]
     [ run mono.cpp ]
     [ run move_assign.cpp ]
     [ run my_strategy.cpp ]

@@ -19,6 +19,9 @@
 #include <boost/egg/const.hpp>
 
 
+#include "./using_egg.hpp"
+
+
 struct little_foo
 {
     template< class Me, class A0, class A1 = void >

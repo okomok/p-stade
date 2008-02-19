@@ -23,6 +23,7 @@
 
 
 #include "./using_egg.hpp"
+namespace mpl = boost::mpl;
 
 
 struct my0
@@ -49,11 +50,11 @@ struct your
 
 struct nullary_check_pod0 { };
 struct nullary_check_pod1 { nullary_check_pod0 m; };
-generator<nullary_check_pod0, boost::use_default, X_construct_braced1<mpl_1, mpl_2>, nullary_check_pod0>::type const
+generator<nullary_check_pod0, boost::use_default, X_construct_braced1<mpl::_1, mpl::_2>, nullary_check_pod0>::type const
     make_nullary_check_pod0 = BOOST_EGG_GENERATOR();
-generator<nullary_check_pod1, boost::use_default, X_construct_braced2<mpl_1, mpl_2>, nullary_check_pod1>::type const
+generator<nullary_check_pod1, boost::use_default, X_construct_braced2<mpl::_1, mpl::_2>, nullary_check_pod1>::type const
     make_nullary_check_pod1 = BOOST_EGG_GENERATOR();
-generator<nullary_check_pod0, boost::use_default, X_construct<mpl_1, mpl_2>, nullary_check_pod0>::type const
+generator<nullary_check_pod0, boost::use_default, X_construct<mpl::_1, mpl::_2>, nullary_check_pod0>::type const
     make_nullary_check_type = BOOST_EGG_GENERATOR();
 
 

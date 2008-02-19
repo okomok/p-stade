@@ -44,9 +44,9 @@ struct my_strategy
 };
 //]
 
-BOOST_MPL_ASSERT((boost::is_same<by_perfect, detail::bytag_at<my_strategy, 1, 0>::type>));
-BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 0>::type>));
-BOOST_MPL_ASSERT((boost::is_same<by_value, detail::bytag_at<my_strategy, 2, 1>::type>));
+BOOST_MPL_ASSERT((boost::is_same<by_perfect, details::bytag_at<my_strategy, 1, 0>::type>));
+BOOST_MPL_ASSERT((boost::is_same<by_value, details::bytag_at<my_strategy, 2, 0>::type>));
+BOOST_MPL_ASSERT((boost::is_same<by_value, details::bytag_at<my_strategy, 2, 1>::type>));
 
 //[code_my_strategy_function
 namespace boost { namespace egg {
