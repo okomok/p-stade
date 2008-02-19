@@ -140,6 +140,7 @@ test-suite "egg"
         [ run strong_assign.cpp ]
         [ run supply_n.cpp ]
         [ run tagged.cpp ]
+        [ run template_arguments.cpp ]
         [ run to_lower.cpp ]
         [ run to_ref.cpp ]
         [ run to_shared_ptr.cpp ]
