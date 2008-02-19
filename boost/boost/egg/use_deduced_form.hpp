@@ -20,7 +20,7 @@
 #include <boost/egg/detail/call_little_impl_fwd.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/has_xxx.hpp>
-#include <boost/egg/detail/pp_enum_template_params.hpp>
+#include <boost/egg/preprocessor/enum_template_params.hpp>
 
 
 namespace boost { namespace egg {

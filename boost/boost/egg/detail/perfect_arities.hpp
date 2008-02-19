@@ -12,7 +12,7 @@
 
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
-#include <boost/egg/detail/pp_seq_range.hpp>
+#include <boost/egg/preprocessor/seq_range.hpp>
 
 
 #define BOOST_EGG_PERFECT_ARITIES() \

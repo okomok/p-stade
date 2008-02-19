@@ -16,8 +16,8 @@
 #include <boost/preprocessor/seq/to_array.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_HAS_RVALUE_REFS
-#include <boost/egg/detail/pp_array_iterate.hpp>
 #include <boost/egg/function_extension.hpp>
+#include <boost/egg/preprocessor/array_iterate.hpp>
 
 
 #if defined(BOOST_EGG_HAS_RVALUE_REFS)
@@ -28,7 +28,7 @@
     #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
     #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
     #include <boost/type_traits/remove_reference.hpp>
-    #include <boost/egg/detail/pp_enum_template_params.hpp>
+    #include <boost/egg/preprocessor/enum_template_params.hpp>
 
     #define BOOST_EGG_PERFECT_STRATEGY() <boost/egg/detail/rr_perfect_strategy_include.hpp>
 
@@ -38,7 +38,7 @@
     #include <boost/preprocessor/seq/for_each_i.hpp>
     #include <boost/preprocessor/seq/for_each_product.hpp>
     #include <boost/egg/detail/deduced_const.hpp>
-    #include <boost/egg/detail/pp_seq_repeat.hpp>
+    #include <boost/egg/preprocessor/seq_repeat.hpp>
 
     #define BOOST_EGG_PERFECT_STRATEGY() <boost/egg/detail/perfect_strategy_include.hpp>
 

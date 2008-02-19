@@ -15,9 +15,9 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/fusion/length.hpp>
 #include <boost/egg/get.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
+#include <boost/egg/preprocessor/int_n.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
-#include <boost/egg/detail/pp_int_n.hpp>
 
 
 namespace boost { namespace egg { namespace details {

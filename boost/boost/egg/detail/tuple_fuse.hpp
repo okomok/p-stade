@@ -19,9 +19,9 @@
 #include <boost/egg/const.hpp>
 #include <boost/egg/construct_braced2.hpp>
 #include <boost/egg/generator.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
+#include <boost/egg/preprocessor/int_n.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
-#include <boost/egg/detail/pp_int_n.hpp>
 #include <boost/egg/detail/result_of_tuple_get.hpp>
 #include <boost/egg/detail/tuple_length.hpp>
 

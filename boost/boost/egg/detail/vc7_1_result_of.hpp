@@ -34,9 +34,9 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
+#include <boost/egg/preprocessor/seq_repeat.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
-#include <boost/egg/detail/pp_seq_repeat.hpp>
 
 
 #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1

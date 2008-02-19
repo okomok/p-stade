@@ -27,8 +27,8 @@
 #include <boost/egg/detail/derived_from.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/is_a_or_b.hpp>
-#include <boost/egg/detail/pp_cat3.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
+#include <boost/egg/preprocessor/cat3.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/forward.hpp>
 #include <boost/egg/function_fwd.hpp>
 #include <boost/egg/generator.hpp>

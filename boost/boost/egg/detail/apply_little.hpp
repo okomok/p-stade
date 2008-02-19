@@ -22,8 +22,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/detail/nullary_result_of_little.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
 
 
 namespace boost { namespace egg {

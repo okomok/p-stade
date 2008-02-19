@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_DETAIL_PP_SEQ_REPEAT_HPP
-#define BOOST_EGG_DETAIL_PP_SEQ_REPEAT_HPP
+#ifndef BOOST_EGG_PP_SEQ_REPEAT_HPP
+#define BOOST_EGG_PP_SEQ_REPEAT_HPP
 
 
 // Boost.Egg
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/detail/pp_seq_cycle.hpp>
+#include <boost/egg/preprocessor/seq_cycle.hpp>
 
 
 // A -> (A)(A)..(A)

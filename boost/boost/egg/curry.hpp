@@ -22,7 +22,7 @@
 #include <boost/egg/detail/bind_left1.hpp>
 #include <boost/egg/detail/bind_leftx.hpp>
 #include <boost/egg/detail/curry_result_initializers.hpp>
-#include <boost/egg/detail/pp_cat3.hpp>
+#include <boost/egg/preprocessor/cat3.hpp>
 #include <boost/egg/result_of.hpp>
 
 

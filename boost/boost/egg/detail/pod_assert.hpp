@@ -17,8 +17,8 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <boost/egg/preprocessor/line.hpp>
 #include <boost/egg/detail/fake.hpp>
-#include <boost/egg/detail/pp_line.hpp>
 
 
 #define BOOST_EGG_POD_ASSERT(T) \

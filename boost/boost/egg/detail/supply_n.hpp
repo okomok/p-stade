@@ -27,10 +27,10 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/egg/preprocessor/cat3.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/detail/affect.hpp>
 #include <boost/egg/detail/is_placeholder_expression.hpp>
-#include <boost/egg/detail/pp_cat3.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
 #include <boost/egg/detail/template_arguments.hpp>
 
 

@@ -24,8 +24,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
 #include <boost/egg/detail/use_nullary_result.hpp>
 
 

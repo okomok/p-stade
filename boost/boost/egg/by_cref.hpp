@@ -22,9 +22,9 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
-#include <boost/egg/detail/pp_enum_template_params.hpp>
 #include <boost/egg/detail/result_of_forward.hpp>
 #include <boost/egg/function_extension.hpp>
+#include <boost/egg/preprocessor/enum_template_params.hpp>
 
 
 namespace boost { namespace egg {

@@ -32,8 +32,8 @@
 #include <boost/egg/const.hpp>
 #include <boost/egg/construct_braced2.hpp>
 #include <boost/egg/generator.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/detail/pp_enum_params_with.hpp>
 
 
 namespace boost { namespace egg { namespace details {

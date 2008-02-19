@@ -14,9 +14,9 @@
 #include <locale>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/egg/const.hpp>
+#include <boost/egg/preprocessor/array_iterate.hpp>
+#include <boost/egg/preprocessor/cat3.hpp>
 #include <boost/egg/detail/adl_barrier.hpp>
-#include <boost/egg/detail/pp_array_iterate.hpp>
-#include <boost/egg/detail/pp_cat3.hpp>
 
 
 namespace boost { namespace egg {
