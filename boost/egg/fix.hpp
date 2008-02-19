@@ -22,7 +22,6 @@
 #include <boost/egg/const.hpp>
 #include <boost/egg/curry.hpp> // curry2
 #include <boost/egg/detail/bind_left1.hpp>
-#include <boost/egg/make_function.hpp>
 #include <boost/egg/result_of.hpp>
 
 

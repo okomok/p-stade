@@ -57,6 +57,7 @@
     #include <boost/preprocessor/punctuation/comma_if.hpp>
     #include <boost/egg/detail/const_overloaded.hpp>
     #include <boost/egg/detail/pp_seq_params.hpp>
+    #include <boost/egg/detail/pp_seq_repeat.hpp>
     #include <boost/egg/detail/result_of_in_ns_scope.hpp>
 
     #define BOOST_EGG_SPECIFIED() <boost/egg/detail/specified_include.hpp>
