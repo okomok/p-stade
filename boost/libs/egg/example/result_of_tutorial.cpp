@@ -43,6 +43,8 @@ void test_chain()
         T_plus(result_of<T_plus(int, int)>::type, int const &)
     >::type r
         = T_plus()(T_plus()(1, 2), i);
+
+    BOOST_CHECK( r == 6 );
 }
 //]
 

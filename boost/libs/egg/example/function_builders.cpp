@@ -205,6 +205,12 @@ void test_poly()
 //[code_static_example
 typedef static_<X_apply<boost::mpl::_1>, by_value>::type T_apply_by_value;
 T_apply_by_value const apply_by_value = BOOST_EGG_STATIC();
+
+void test_static()
+{
+    // decayed to function pointer.
+    BOOST_CHECK( apply_by_value(increment, 3) == 4 );
+}
 //]
 
 
@@ -253,5 +259,6 @@ void egg_test()
 #endif
     test_automatic();
     test_poly();
+    test_static();
     test_generator();
 }
