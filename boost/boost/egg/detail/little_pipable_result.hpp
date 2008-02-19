@@ -45,12 +45,15 @@ namespace pipable_operators {
     namespace here = pipable_operators;
 
 
+    typedef X_tuple_prepend<by_ref> S_tuple_prepend;
+
+
     template<class O, class Base, class Args>
     struct result_of_output :
         result_of_<
             typename result_of_<
                 T_tuple_fuse(Base const &)
-            >::type(typename result_of_<X_tuple_prepend<by_ref>(Args const &, O &)>::type)
+            >::type(typename result_of_<S_tuple_prepend(Args const &, O &)>::type)
         >
     { };
 
@@ -60,6 +63,8 @@ namespace pipable_operators {
     template<class Base, class Strategy, class OperandBytag, class Args = tuples::null_type>
     struct little_pipable_result
     {
+        typedef X_pack<Strategy> S_pack;
+
         Base m_base;
         Args m_args;
 
@@ -72,7 +77,7 @@ namespace pipable_operators {
         typename result_of_output<O, Base, Args>::type
         output(O &o) const
         {
-            return tuple_fuse(m_base)(X_tuple_prepend<by_ref>()(m_args, o));
+            return tuple_fuse(m_base)(S_tuple_prepend()(m_args, o));
         }
 
         template<class Args_>
@@ -178,14 +183,14 @@ namespace pipable_operators {
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         function_with<
-            typename result_of_<X_pack<Strategy>(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type
+            typename result_of_<S_pack(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))>::type
         >
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        Re r = { { m_base, X_pack<Strategy>()(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        Re r = { { m_base, S_pack()(BOOST_PP_ENUM_PARAMS(n, a)) } };
         return r;
     }
 

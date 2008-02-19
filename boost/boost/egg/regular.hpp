@@ -29,15 +29,17 @@ namespace boost { namespace egg {
         template<class Strategy>
         struct little
         {
+            typedef X_indirect<Strategy> S_indirect;
+
             template<class Me, class Base>
             struct apply :
-                result_of_<X_indirect<Strategy>(details::regularized<Base>)>
+                result_of_<S_indirect(details::regularized<Base>)>
             { };
 
             template<class Re, class Base>
             Re call(Base base) const
             {
-                return X_indirect<Strategy>()(details::regularized<Base>(base));
+                return S_indirect()(details::regularized<Base>(base));
             }
         };
 

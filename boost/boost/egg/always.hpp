@@ -110,18 +110,18 @@ namespace boost { namespace egg {
         {
             typedef
                 X_unfuse<use_nullary_result, use_default, by_cref>
-            unfuse_t;
+            S_unfuse;
 
             template<class Me, class T>
             struct apply :
-                result_of_<unfuse_t(fused_result<T> &)>
+                result_of_<S_unfuse(fused_result<T> &)>
             { };
 
             template<class Re, class T>
             Re call(T &t) const
             {
                 fused_result<T> f = {boost::addressof(t)};
-                return unfuse_t()(f);
+                return S_unfuse()(f);
             }
 
         };

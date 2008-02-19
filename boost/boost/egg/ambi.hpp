@@ -101,17 +101,19 @@ namespace boost { namespace egg {
             struct BOOST_EGG_APPLY_DECL;
 
         // as pipe
+            typedef X_pipable<Bytag, Bytag> S_pipable;
+
             template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
             struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
                 result_of_<
-                    typename result_of_<X_pipable<Bytag, Bytag>(Base const &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))
+                    typename result_of_<S_pipable(Base const &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))
                 >
             { };
 
             template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
             Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
             {
-                return X_pipable<Bytag, Bytag>()(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
+                return S_pipable()(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
             }
 
         // as function call
