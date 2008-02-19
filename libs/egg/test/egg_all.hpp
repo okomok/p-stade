@@ -59,7 +59,6 @@
 #include <boost/egg/is_same_obj.hpp>
 #include <boost/egg/lexical.hpp>
 #include <boost/egg/locale.hpp>
-#include <boost/egg/make_function.hpp>
 #include <boost/egg/memoize.hpp>
 #include <boost/egg/mono.hpp>
 #include <boost/egg/move_assign.hpp>
