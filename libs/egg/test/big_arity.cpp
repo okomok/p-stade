@@ -10,12 +10,12 @@
 
 #define BOOST_EGG_MAX_ARITY 8
 #define BOOST_EGG_MAX_LINEAR_ARITY 20
-#include <boost/egg/detail/egg.hpp>
-#include <boost/egg/detail/egg_pending.hpp>
+#include "./egg_all.hpp"
 #include "./egg_test.hpp"
 
 
 using namespace boost::egg;
+
 
 struct my
 {

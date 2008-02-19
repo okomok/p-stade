@@ -143,7 +143,7 @@ void egg_test()
 
     {
         BOOST_CHECK(
-            detail::bind_left1(::my_plus2(), 5)(7) == "57"
+            details::bind_left1(::my_plus2(), 5)(7) == "57"
         );
     }
     {
@@ -158,7 +158,7 @@ void egg_test()
     }
     {
         BOOST_CHECK(
-            detail::bind_left2(::my_plus3(), 5, 7)(2) == "572"
+            details::bind_left2(::my_plus3(), 5, 7)(2) == "572"
         );
     }
     {

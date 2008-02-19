@@ -20,8 +20,17 @@ using namespace boost::egg;
 
 void egg_test()
 {
-    unsigned int ui = 0;
-    signed int i = 0;
+    {
+        unsigned int ui = 0;
+        signed int i = 0;
 
-    ui = i|integral();
+        ui = i|integral();
+    }
+    {
+        unsigned int ui = 0;
+        signed int i = 0;
+
+        ui = X_integral_cast<signed int>()(i);
+        ui = integral_cast<signed int>(i);
+    }
 }

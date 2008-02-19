@@ -17,7 +17,7 @@
 
 
 namespace mpl = boost::mpl;
-using namespace boost::egg::detail;
+using namespace boost::egg::details;
 
 
 

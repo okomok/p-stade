@@ -17,9 +17,8 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 
-#include <boost/egg/result_of_lambda.hpp>
+#include <boost/egg/bll/result_of.hpp>
 #include <boost/egg/const.hpp>
-#include <boost/preprocessor/facilities/identity.hpp>
 
 
 struct my_fun_t

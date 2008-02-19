@@ -19,9 +19,10 @@
 
 
 #include "./using_egg.hpp"
+namespace mpl = boost::mpl;
 
 
-typedef implicit<X_construct<mpl_1, mpl_2>, by_value>::type T_value_constructor;
+typedef implicit<X_construct<mpl::_1, mpl::_2>, by_value>::type T_value_constructor;
 BOOST_EGG_CONST((T_value_constructor), value_constructor) = BOOST_EGG_IMPLICIT();
 
 

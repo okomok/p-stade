@@ -134,7 +134,7 @@ T_auxi const &get_auxi1();
 T_auxi const &get_auxi2();
 
 
-typedef boost::egg::static_<boost::egg::X_construct<int, boost::egg::mpl_1> >::type T_construct_int;
+typedef boost::egg::static_<boost::egg::X_construct<int, boost::mpl::_1> >::type T_construct_int;
 T_construct_int const construct_int = BOOST_EGG_STATIC();
 T_construct_int const &get_cons_int1();
 T_construct_int const &get_cons_int2();

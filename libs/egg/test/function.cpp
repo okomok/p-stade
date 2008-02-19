@@ -62,7 +62,8 @@ struct little_foo
     }
 };
 
-BOOST_EGG_FUNCTION_DEF(foo, (little_foo))
+typedef function<little_foo> T_foo;
+BOOST_EGG_CONST((T_foo), foo) = {{}};
 
 
 CHECK_IS_RESULT_OF((std::string), T_foo(int, double))
