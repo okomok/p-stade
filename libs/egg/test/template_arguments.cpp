@@ -32,7 +32,7 @@ struct klass0
 };
 
 BOOST_MPL_ASSERT((boost::is_same<Egg_vector(0)<>, template_arguments_of< klass0 >::type>));
-BOOST_MPL_ASSERT((boost::is_same<klass0, template_arguments_copy< Egg_vector(0)<>, klass0 >::type>))
+BOOST_MPL_ASSERT((boost::is_same<klass0, template_arguments_copy< Egg_vector(0)<>, klass0 >::type>));
 
 
 template<class T0>
@@ -58,7 +58,7 @@ struct klass2
 };
 
 BOOST_MPL_ASSERT((boost::is_same<Egg_vector(2)<int&, double>, template_arguments_of< klass2<int&, double> >::type>));
-BOOST_MPL_ASSERT((boost::is_same<klass2<int&, double>, (template_arguments_copy< Egg_vector(2)<int&, double>, klass2<char, char> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<klass2<int&, double>, template_arguments_copy< Egg_vector(2)<int&, double>, klass2<char, char> >::type>));
 
 typedef
     boost::mpl::apply< template_arguments_of< klass2<boost::mpl::_1> >::type, int >::type
