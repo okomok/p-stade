@@ -26,8 +26,8 @@
 #include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/is_convertible.hpp>
+#include <boost/egg/explicit.hpp>
 #include <boost/egg/implicit.hpp>
-#include <boost/egg/specified.hpp>
 
 
 namespace boost { namespace egg {
@@ -69,8 +69,8 @@ namespace boost { namespace egg {
         }
     };
 
-    #define  BOOST_EGG_SPECIFIED_PARAMS (adapted_to, X_adapted_to, (class), (1))
-    #include BOOST_EGG_SPECIFIED()
+    #define  BOOST_EGG_EXPLICIT_PARAMS (adapted_to, X_adapted_to, (class), (1))
+    #include BOOST_EGG_EXPLICIT()
 
 
     typedef result_of_ambi0<implicit<X_adapted_to<mpl::_1>, by_perfect>::type, by_perfect>::type T_to_base;

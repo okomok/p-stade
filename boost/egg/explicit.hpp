@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_SPECIFIED_HPP
-#define BOOST_EGG_SPECIFIED_HPP
+#ifndef BOOST_EGG_EXPLICIT_HPP
+#define BOOST_EGG_EXPLICIT_HPP
 #include <boost/egg/detail/prefix.hpp>
 
 
@@ -22,8 +22,8 @@
 //
 // namespace my {
 //     template<class T> struct T_my_cast { .. };
-//     #define  BOOST_EGG_SPECIFIED_PARAMS (my_cast, T_my_cast, (class), (1)(3))
-//     #include BOOST_EGG_SPECIFIED()
+//     #define  BOOST_EGG_EXPLICIT_PARAMS (my_cast, T_my_cast, (class), (1)(3))
+//     #include BOOST_EGG_EXPLICIT()
 // }
 //
 // 5 or more arity is not recommended; it tends to make so many functions.
@@ -47,7 +47,7 @@
     #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
     #include <boost/egg/detail/std_forward.hpp>
 
-    #define BOOST_EGG_SPECIFIED() <boost/egg/detail/rr_specified_include.hpp>
+    #define BOOST_EGG_EXPLICIT() <boost/egg/detail/rr_explicit_include.hpp>
 
 #else
 
@@ -60,7 +60,7 @@
     #include <boost/egg/preprocessor/seq_params.hpp>
     #include <boost/egg/preprocessor/seq_repeat.hpp>
 
-    #define BOOST_EGG_SPECIFIED() <boost/egg/detail/specified_include.hpp>
+    #define BOOST_EGG_EXPLICIT() <boost/egg/detail/explicit_include.hpp>
 
 #endif
 

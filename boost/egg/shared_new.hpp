@@ -13,9 +13,9 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/egg/detail/perfect_arities.hpp>
+#include <boost/egg/explicit.hpp>
 #include <boost/egg/ptr_new.hpp>
 #include <boost/egg/register_nullary_result.hpp>
-#include <boost/egg/specified.hpp>
 
 
 namespace boost { namespace egg {
@@ -26,8 +26,8 @@ namespace boost { namespace egg {
         X_ptr_new<shared_ptr<T>, Strategy>
     { };
 
-    #define  BOOST_EGG_SPECIFIED_PARAMS (shared_new, X_shared_new, (class), BOOST_EGG_PERFECT_ARITIES())
-    #include BOOST_EGG_SPECIFIED()
+    #define  BOOST_EGG_EXPLICIT_PARAMS (shared_new, X_shared_new, (class), BOOST_EGG_PERFECT_ARITIES())
+    #include BOOST_EGG_EXPLICIT()
 
 
 } } // namespace boost::egg

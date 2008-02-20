@@ -27,7 +27,7 @@
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/detail/affect.hpp>
 #include <boost/egg/detail/enable_if.hpp>
-#include <boost/egg/specified.hpp>
+#include <boost/egg/explicit.hpp>
 
 
 namespace boost { namespace egg {
@@ -82,8 +82,8 @@ namespace boost { namespace egg {
     { };
 
 
-    #define  BOOST_EGG_SPECIFIED_PARAMS (static_downcast, X_static_downcast, (class), (1))
-    #include BOOST_EGG_SPECIFIED()
+    #define  BOOST_EGG_EXPLICIT_PARAMS (static_downcast, X_static_downcast, (class), (1))
+    #include BOOST_EGG_EXPLICIT()
 
 
 } } // namespace boost::egg
