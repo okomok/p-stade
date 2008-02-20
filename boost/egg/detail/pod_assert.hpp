@@ -17,12 +17,12 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <boost/egg/preprocessor/line.hpp>
+#include <boost/egg/preprocessor/counter.hpp>
 #include <boost/egg/detail/fake.hpp>
 
 
 #define BOOST_EGG_POD_ASSERT(T) \
-    struct BOOST_PP_CAT(pod_assertion_in_line_, BOOST_EGG_PP_LINE()) \
+    struct BOOST_PP_CAT(pod_assertion_in_line_, BOOST_EGG_PP_COUNTER()) \
     { \
         BOOST_EGG_POD_ASSERT_aux(T) \
     } \

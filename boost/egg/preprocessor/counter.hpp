@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_PP_LINE_HPP
-#define BOOST_EGG_PP_LINE_HPP
+#ifndef BOOST_EGG_PREPROCESSOR_COUNTER_HPP
+#define BOOST_EGG_PREPROCESSOR_COUNTER_HPP
 
 
 // Boost.Egg
@@ -21,9 +21,9 @@
 
 
 #   if BOOST_WORKAROUND(BOOST_MSVC, >= 1300)
-#       define BOOST_EGG_PP_LINE() __COUNTER__
+#       define BOOST_EGG_PP_COUNTER() __COUNTER__
 #   else
-#       define BOOST_EGG_PP_LINE() __LINE__
+#       define BOOST_EGG_PP_COUNTER() __LINE__
 #   endif
 
 
