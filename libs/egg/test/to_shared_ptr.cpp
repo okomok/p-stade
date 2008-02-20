@@ -20,7 +20,7 @@
 
 
 #include "./using_egg.hpp"
-using boost::egg::details::enable_if;
+using boost::egg::enable_if_;
 
 
 template<class T>
@@ -28,7 +28,7 @@ struct my_ptr
 {
     template<class P>
     explicit my_ptr(P p,
-        typename enable_if< is_to_shared_ptr_param<T, P> >::type = 0)
+        typename enable_if_< is_to_shared_ptr_param<T, P> >::type = 0)
         : m_ptr(to_shared_ptr(p))
     { }
 
