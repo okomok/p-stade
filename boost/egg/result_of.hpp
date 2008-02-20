@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_RESULT_OF_HPP
 #define BOOST_EGG_RESULT_OF_HPP
-#include "./detail/prefix.hpp"
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -101,6 +101,7 @@ namespace boost { namespace egg {
 } } // namespace boost::egg
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif
 #else
 #define n BOOST_PP_ITERATION()
