@@ -18,7 +18,7 @@
 #include <boost/mpl/assert.hpp>
 
 
-using namespace boost::egg::details;
+using namespace boost::egg;
 
 
 namespace temp {
@@ -26,7 +26,7 @@ namespace temp {
 
     template< class T0 >
     void foo(T0,
-        typename enable_if< boost::is_pointer<T0> >::type * = 0)
+        typename enable_if_< boost::is_pointer<T0> >::type * = 0)
     {
     }
 
@@ -45,7 +45,7 @@ struct bar
 };
 
 template< class T >
-struct bar<T, typename enable_if< boost::is_pointer<T> >::type>
+struct bar<T, typename enable_if_< boost::is_pointer<T> >::type>
 {
     typedef double type;
 };
