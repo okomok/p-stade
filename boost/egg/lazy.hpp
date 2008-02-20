@@ -12,7 +12,6 @@
 
 
 #include <boost/egg/bll/bind.hpp>
-#include <boost/egg/by_cref.hpp>
 #include <boost/egg/by_ref.hpp>
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/const.hpp>
@@ -70,7 +69,7 @@ namespace boost { namespace egg {
                 Base,
                 typename details::if_use_default<Bind, T_bll_bind>::type
             >,
-            by_cref
+            by_value // not by_cref, following Boost.Bind.
         >
     { };
 
