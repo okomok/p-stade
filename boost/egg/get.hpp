@@ -42,7 +42,7 @@ namespace boost { namespace egg {
 
         template<class N, class Tuple>
         struct tuple_get_impl<N, Tuple,
-            typename enable_if< is_fusion_sequence<Tuple> >::type>
+            typename enable_if_< is_fusion_sequence<Tuple> >::type>
         {
             typedef typename
                 fusion::result_of::deref<
@@ -95,7 +95,7 @@ namespace boost { namespace egg {
         };
 
         template<class N, class Tuple>
-        struct tuple_get_impl<N, Tuple, typename enable_if< is_std_pair<Tuple> >::type> :
+        struct tuple_get_impl<N, Tuple, typename enable_if_< is_std_pair<Tuple> >::type> :
             pair_get_aux<N::value, Tuple>
         { };
 

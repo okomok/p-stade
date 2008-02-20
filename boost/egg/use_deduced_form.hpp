@@ -31,7 +31,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Little, class Re>
     struct call_little_impl<Little, Re,
-        typename enable_if< has_use_deduced_form<Little> >::type>
+        typename enable_if_< has_use_deduced_form<Little> >::type>
     {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/use_deduced_form.hpp>))
         #include BOOST_PP_ITERATE()

@@ -110,7 +110,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class N, class Tuple>
     struct tuple_drop_impl<N, Tuple,
-        typename enable_if< is_boost_tuple<Tuple> >::type>
+        typename enable_if_< is_boost_tuple<Tuple> >::type>
     {
         typedef typename
             tuple_drop_aux<N::value, Tuple>::result_type

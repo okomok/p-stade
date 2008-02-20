@@ -40,7 +40,7 @@ namespace boost { namespace egg {
 
 
         template<class Derived, class Base> inline
-        Derived *aux_(Base *pbase, typename details::disable_if<is_polymorphic<Base> >::type = 0)
+        Derived *aux_(Base *pbase, typename disable_if_<is_polymorphic<Base> >::type = 0)
         {
             BOOST_MPL_ASSERT((is_base_of<
                 typename remove_cv<Base>::type,
@@ -51,7 +51,7 @@ namespace boost { namespace egg {
         }
 
         template<class Derived, class Base> inline
-        Derived *aux_(Base *pbase, typename details::enable_if< is_polymorphic<Base> >::type = 0)
+        Derived *aux_(Base *pbase, typename enable_if_< is_polymorphic<Base> >::type = 0)
         {
             return boost::polymorphic_downcast<Derived *>(pbase);
         }

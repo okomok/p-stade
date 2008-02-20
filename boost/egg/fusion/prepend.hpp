@@ -39,7 +39,7 @@ namespace boost { namespace egg {
 
         template<class Bytag, class Tuple, class A>
         struct tuple_prepend_impl<Bytag, Tuple, A,
-            typename enable_if< is_fusion_sequence<Tuple> >::type>
+            typename enable_if_< is_fusion_sequence<Tuple> >::type>
         {
             typedef
                 fusion::single_view<

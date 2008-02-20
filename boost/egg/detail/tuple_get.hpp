@@ -55,7 +55,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class N, class Tuple>
     struct tuple_get_impl<N, Tuple,
-        typename enable_if< is_boost_tuple<Tuple> >::type
+        typename enable_if_< is_boost_tuple<Tuple> >::type
     >
     {
         typedef typename

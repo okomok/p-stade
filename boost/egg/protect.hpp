@@ -46,7 +46,7 @@ namespace boost { namespace egg {
 
 
     template<class X>
-    struct is_bind_expression_set<X, typename details::enable_if< is_tagged_with<X, protect_detail::tag> >::type> :
+    struct is_bind_expression_set<X, typename enable_if_< is_tagged_with<X, protect_detail::tag> >::type> :
         mpl::true_
     { };
 

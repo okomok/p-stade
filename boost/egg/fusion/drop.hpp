@@ -38,7 +38,7 @@ namespace boost { namespace egg {
 
         template<class N, class Tuple>
         struct tuple_drop_impl<N, Tuple,
-            typename enable_if< is_fusion_sequence<Tuple> >::type>
+            typename enable_if_< is_fusion_sequence<Tuple> >::type>
         {
             typedef
                 fusion::iterator_range<

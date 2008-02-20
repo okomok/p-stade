@@ -62,7 +62,7 @@ namespace boost { namespace egg {
 
     template<class X, class Tag>
     struct is_bind_expression_tagged :
-        is_bind_expression_set<X, details::enabler>
+        is_bind_expression_set<X, enabler>
     { };
 
 

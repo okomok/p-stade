@@ -104,7 +104,7 @@ namespace boost { namespace egg {
 
         // function pointers
         template<class Ptr> inline
-        typename details::lazy_enable_if< is_pointer<Ptr>, mpl::identity<Ptr> >::type
+        typename lazy_enable_if_< is_pointer<Ptr>, mpl::identity<Ptr> >::type
         adapt(Ptr ptr)
         {
             return ptr;
@@ -112,7 +112,7 @@ namespace boost { namespace egg {
 
         // member function pointers
         template<class Ptr> inline
-        typename details::lazy_disable_if<is_pointer<Ptr>, result_of_<T_free_(Ptr &)> >::type
+        typename lazy_disable_if_<is_pointer<Ptr>, result_of_<T_free_(Ptr &)> >::type
         adapt(Ptr ptr)
         {
             return free_(ptr);

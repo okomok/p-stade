@@ -49,13 +49,13 @@
 #if defined(BOOST_EGG_CONST_OVERLOADED_REQUIRED)
 
     #define BOOST_EGG_CONST_OVERLOADED(T) \
-        , typename boost::egg::details::disable_if< \
+        , typename boost::egg::disable_if_< \
             boost::is_const<T> \
         >::type = 0 \
     /**/
 
     #define BOOST_EGG_CONST_OVERLOADED_SEQ(Ts) \
-        , typename boost::egg::details::disable_if< \
+        , typename boost::egg::disable_if_< \
             boost::egg::details::contains_const<BOOST_PP_SEQ_ENUM(Ts)> \
         >::type = 0 \
     /**/
