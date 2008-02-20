@@ -2,13 +2,13 @@
 
 // Boost.Egg
 //
-// Copyright Shunsuke Sogame 2005-2007-2008.
+// Copyright Shunsuke Sogame 2007-2008.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/specified.hpp>
+#include <boost/egg/explicit.hpp>
 #include "./egg_test.hpp"
 
 
@@ -26,8 +26,9 @@ struct T_my_cast
         return i;
     }
 };
-#define  BOOST_EGG_SPECIFIED_PARAMS (my_cast, T_my_cast, 1, (1))
-#include BOOST_EGG_SPECIFIED()
+
+#define  BOOST_EGG_EXPLICIT_PARAMS (my_cast, T_my_cast, 1, (1))
+#include BOOST_EGG_EXPLICIT()
 
 
 template<class X, int Y>
@@ -41,8 +42,8 @@ struct T_my_cast_
     }
 };
 
-#define  BOOST_EGG_SPECIFIED_PARAMS (my_cast_, T_my_cast_, (class)(int), (1))
-#include BOOST_EGG_SPECIFIED()
+#define  BOOST_EGG_EXPLICIT_PARAMS (my_cast_, T_my_cast_, (class)(int), (1))
+#include BOOST_EGG_EXPLICIT()
 
 
 struct x
@@ -64,54 +65,6 @@ struct x
 
     int m_i;
 };
-
-template<class X>
-struct T_my_make
-{
-    typedef X result_type;
-
-    template< class A0 >
-    X operator()(A0& a0) const
-    {
-        return X(a0);
-    }
-
-    template< class A0, class A1 >
-    X operator()(A0& a0, A1& a1) const
-    {
-        return X(a0, a1);
-    }
-};
-
-#define  BOOST_EGG_SPECIFIED_PARAMS (my_make, T_my_make, 1, (1)(2))
-#include BOOST_EGG_SPECIFIED()
-
-
-template<class X, int N>
-struct T_my_make_0_3
-{
-    typedef X result_type;
-
-    X operator()() const
-    {
-        return X();
-    }
-
-    template< class A0 >
-    X operator()(A0& a0) const
-    {
-        return X(a0);
-    }
-
-    template< class A0, class A1, class A2 >
-    X operator()(A0& a0, A1& a1, A2& a2) const
-    {
-        return X(a0, a1, a2);
-    }
-};
-
-#define  BOOST_EGG_SPECIFIED_PARAMS (my_make_0_3, T_my_make_0_3, (class)(int), (3)(0)(1))
-#include BOOST_EGG_SPECIFIED()
 
 
 struct const_ { };
@@ -154,8 +107,8 @@ struct T_array_check
     T_array_check() { } // for Boost v1.33 result_of
 };
 
-#define  BOOST_EGG_SPECIFIED_PARAMS (array_check, T_array_check, 1, (1))
-#include BOOST_EGG_SPECIFIED()
+#define  BOOST_EGG_EXPLICIT_PARAMS (array_check, T_array_check, 1, (1))
+#include BOOST_EGG_EXPLICIT()
 
 
 void egg_test()
@@ -163,15 +116,6 @@ void egg_test()
     {
         BOOST_CHECK( ::my_cast<int>(3) == 3 );
         BOOST_CHECK(( ::my_cast_<int, 1>(3) == 3 ));
-    }
-    {
-        BOOST_CHECK( ::my_make< ::x >(3).m_i == 3 );
-        BOOST_CHECK( ::my_make< ::x >(3, 4).m_i == 7 );
-    }
-    {
-        BOOST_CHECK(( ::my_make_0_3< ::x, 0 >().m_i == 7 ));
-        BOOST_CHECK(( ::my_make_0_3< ::x, 0 >(3).m_i == 3 ));
-        BOOST_CHECK(( ::my_make_0_3< ::x, 0 >(3, 4, 5).m_i == 12 ));
     }
     {
         int arr[10] = { };

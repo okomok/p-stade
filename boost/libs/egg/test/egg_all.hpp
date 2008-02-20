@@ -38,6 +38,7 @@
 #include <boost/egg/detect_result_type.hpp>
 #include <boost/egg/do_swap.hpp>
 #include <boost/egg/expr.hpp>
+#include <boost/egg/explicit.hpp>
 #include <boost/egg/fix.hpp>
 #include <boost/egg/flip.hpp>
 #include <boost/egg/forward.hpp>
@@ -78,7 +79,6 @@
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/return.hpp>
 #include <boost/egg/shared_object.hpp>
-#include <boost/egg/specified.hpp>
 #include <boost/egg/static.hpp>
 #include <boost/egg/static_down.hpp>
 #include <boost/egg/static_downcast.hpp>
