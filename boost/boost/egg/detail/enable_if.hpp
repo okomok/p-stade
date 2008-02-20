@@ -14,37 +14,37 @@
 #include <boost/egg/detail/unspecified.hpp>
 
 
-namespace boost { namespace egg { namespace details {
+namespace boost { namespace egg {
 
 
     typedef unspecified *enabler;
 
 
     template<class Cond, class T = enabler> 
-    struct enable_if :
+    struct enable_if_ :
         boost::enable_if<Cond, T>
     { };
 
 
     template<class Cond, class F> 
-    struct lazy_enable_if :
+    struct lazy_enable_if_ :
         boost::lazy_enable_if<Cond, F>
     { };
 
 
     template<class Cond, class T = enabler> 
-    struct disable_if :
+    struct disable_if_ :
         boost::disable_if<Cond, T>
     { };
 
 
     template<class Cond, class F> 
-    struct lazy_disable_if :
+    struct lazy_disable_if_ :
         boost::lazy_disable_if<Cond, F>
     { };
 
 
-} } } // namespace boost::egg::details
+} } // namespace boost::egg
 
 
 #endif

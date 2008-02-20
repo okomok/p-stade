@@ -116,14 +116,14 @@ namespace pipable_operators {
     //
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
+    typename lazy_enable_if_< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
     operator|(O &o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
         return pi.little().output(o);
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<BOOST_EGG_DEDUCED_CONST(O), Base, Args> >::type
+    typename lazy_enable_if_< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<BOOST_EGG_DEDUCED_CONST(O), Base, Args> >::type
     operator|(O const &o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
         return pi.little().output(o);
@@ -131,7 +131,7 @@ namespace pipable_operators {
 
     // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
-    typename lazy_enable_if< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
+    typename lazy_enable_if_< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
     operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
     {
         // For movable types, we can't turn `o` into const-reference.
@@ -143,14 +143,14 @@ namespace pipable_operators {
     //
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
+    typename lazy_enable_if_< is_a_or_b<OperandBytag, by_perfect, by_ref>, result_of_output<O, Base, Args> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O &o)
     {
         return pi.little().output(o);
     }
 
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
-    typename lazy_enable_if< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<BOOST_EGG_DEDUCED_CONST(O), Base, Args> >::type
+    typename lazy_enable_if_< is_a_or_b<OperandBytag, by_perfect, by_cref>, result_of_output<BOOST_EGG_DEDUCED_CONST(O), Base, Args> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O const &o)
     {
         return pi.little().output(o);
@@ -158,7 +158,7 @@ namespace pipable_operators {
 
     // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
-    typename lazy_enable_if< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
+    typename lazy_enable_if_< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O o)
     {
         return pi.little().output(o);

@@ -40,14 +40,14 @@ namespace boost { namespace egg {
 
         template<class Adapted>
         Base operator()(Adapted &ad,
-            typename details::enable_if<
+            typename enable_if_<
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
                 mpl::and_<
-                    details::is_convertible<Adapted &, Base>,
+                    is_convertible_<Adapted &, Base>,
                     mpl::not_< is_const<Adapted> >
                 >
 #else
-                details::is_convertible<Adapted &, Base>
+                is_convertible_<Adapted &, Base>
 #endif
             >::type = 0) const
         {
@@ -56,14 +56,14 @@ namespace boost { namespace egg {
 
         template<class Adapted>
         Base operator()(Adapted const &ad,
-            typename details::enable_if< details::is_convertible<Adapted const &, Base> >::type = 0) const
+            typename enable_if_< is_convertible_<Adapted const &, Base> >::type = 0) const
         {
             return ad;
         }
 
         template<class Adapted>
         Base operator()(Adapted const &ad,
-            typename details::disable_if<details::is_convertible<Adapted const &, Base> >::type = 0) const
+            typename disable_if_<is_convertible_<Adapted const &, Base> >::type = 0) const
         {
             return (*this)(ad.base());
         }

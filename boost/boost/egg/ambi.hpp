@@ -134,7 +134,6 @@ namespace boost { namespace egg {
 #if n == 0
 
         struct lookup_ambi_operator { };
-        using details::lazy_enable_if;
         using details::is_a_or_b;
 
 
@@ -142,14 +141,14 @@ namespace boost { namespace egg {
         //
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of_<Base(O &)> >::type
+        typename lazy_enable_if_< is_a_or_b<Bytag, by_perfect, by_ref>, result_of_<Base(O &)> >::type
         operator|(O &o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
         }
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of_<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
+        typename lazy_enable_if_< is_a_or_b<Bytag, by_perfect, by_cref>, result_of_<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
         operator|(O const &o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(o);
@@ -157,7 +156,7 @@ namespace boost { namespace egg {
 
         // by_value
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
+        typename lazy_enable_if_< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
         operator|(O o, function<little_result<Base, Bytag>, Bytag> pi)
         {
             return pi.little().m_base(egg::forward<by_value>(o));
@@ -168,14 +167,14 @@ namespace boost { namespace egg {
         //
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_ref>, result_of_<Base(O &)> >::type
+        typename lazy_enable_if_< is_a_or_b<Bytag, by_perfect, by_ref>, result_of_<Base(O &)> >::type
         operator|=(function<little_result<Base, Bytag>, Bytag> pi, O &o)
         {
             return pi.little().m_base(o);
         }
 
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_a_or_b<Bytag, by_perfect, by_cref>, result_of_<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
+        typename lazy_enable_if_< is_a_or_b<Bytag, by_perfect, by_cref>, result_of_<Base(BOOST_EGG_DEDUCED_CONST(O)&)> >::type
         operator|=(function<little_result<Base, Bytag>, Bytag> pi, O const &o)
         {
             return pi.little().m_base(o);
@@ -183,7 +182,7 @@ namespace boost { namespace egg {
 
         // by_value
         template<class O, class Base, class Bytag> inline
-        typename lazy_enable_if< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
+        typename lazy_enable_if_< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
         operator|=(function<little_result<Base, Bytag>, Bytag> pi, O o)
         {
             return pi.little().m_base(egg::forward<by_value>(o));

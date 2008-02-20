@@ -20,7 +20,7 @@
 namespace boost { namespace egg {
 
 
-    template<class F, class EnableIf = details::enabler>
+    template<class F, class EnableIf = enabler>
     struct X_resolve
     {
         typedef F *result_type;
@@ -33,7 +33,7 @@ namespace boost { namespace egg {
 
     template<class F>
     struct X_resolve<F,
-        typename details::enable_if<
+        typename enable_if_<
             mpl::or_< is_pointer<F>, is_member_function_pointer<F> >
         >::type>
     {

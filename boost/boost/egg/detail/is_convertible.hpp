@@ -21,24 +21,24 @@
 #include <boost/egg/detail/boost_workaround.hpp>
 
 
-namespace boost { namespace egg { namespace details {
+namespace boost { namespace egg {
 
 
     template<class From, class To>
-    struct is_convertible :
+    struct is_convertible_ :
         boost::is_convertible<From, To>
     { };
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
     template<class To>
-    struct is_convertible<To, To> :
+    struct is_convertible_<To, To> :
         mpl::true_
     { };
 #endif
 
 
-} } } // namespace boost::egg::details
+} } // namespace boost::egg
 
 
 #endif

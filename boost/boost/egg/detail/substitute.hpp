@@ -34,13 +34,13 @@ namespace boost { namespace egg { namespace details {
         { };
 
         template<class Re, class X>
-        Re call(X &x, typename enable_if< is_bind_expression<X> >::type = 0) const
+        Re call(X &x, typename enable_if_< is_bind_expression<X> >::type = 0) const
         {
             return x;
         }
 
         template<class Re, class X>
-        Re call(X &x, typename disable_if<is_bind_expression<X> >::type = 0) const
+        Re call(X &x, typename disable_if_<is_bind_expression<X> >::type = 0) const
         {
             return always_ref(x);
         }

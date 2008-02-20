@@ -81,7 +81,7 @@ namespace boost { namespace egg {
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
                 // Thanks to Sergey Shandar.
                 // In fact, SFINAE in exception-specification isn't allowed.
-                throw(typename details::disable_if<is_same<To, ref_from const>, std::exception>::type)
+                throw(typename disable_if_<is_same<To, ref_from const>, std::exception>::type)
 #endif
             {
                 return get<To>();

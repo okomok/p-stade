@@ -57,7 +57,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Bytag, class Tuple, class A>
     struct tuple_prepend_impl<Bytag, Tuple, A,
-        typename enable_if< is_boost_tuple<Tuple> >::type>
+        typename enable_if_< is_boost_tuple<Tuple> >::type>
     {
         typedef
             tuples::cons<

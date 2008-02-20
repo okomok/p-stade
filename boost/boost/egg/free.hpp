@@ -74,9 +74,9 @@ namespace boost { namespace egg {
 
         template<class Me, class U>
         struct apply :
-            mpl::eval_if< details::is_convertible<U, T const *>,
+            mpl::eval_if< is_convertible_<U, T const *>,
                 details::affect<typename remove_pointer<typename remove_cv<U>::type>::type &, R>,
-                mpl::eval_if< details::is_convertible<U, T const &>,
+                mpl::eval_if< is_convertible_<U, T const &>,
                     details::affect<U &, R>,
                     mpl::identity<R const &> // unknown
                 >
@@ -111,7 +111,7 @@ namespace boost { namespace egg {
     // unknown
         template<class Re, class U>
         Re call(boost::type<Re>, U const &u,
-            typename details::disable_if< details::is_convertible<U const &, T const &> >::type = 0) const
+            typename disable_if_< is_convertible_<U const &, T const &> >::type = 0) const
         {
             BOOST_EGG_GET_POINTER_PREAMBLE()
             return (get_pointer(u)->*m_base);
