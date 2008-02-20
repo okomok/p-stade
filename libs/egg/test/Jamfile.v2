@@ -59,7 +59,6 @@ test-suite "egg"
         [ run do_swap.cpp ]
         [ run enable_if.cpp ]
         [ run explicit.cpp ]
-        [ run explicit1.cpp ]
         [ run expr.cpp ]
         [ run expr.cpp : : : <define>BOOST_TYPEOF_EMULATION : expr_emulation ]
         [ run fake.cpp ]
