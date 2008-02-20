@@ -1,4 +1,4 @@
-// 
+
 
 // Boost.Egg
 //
@@ -12,7 +12,7 @@
 #include "./egg_all.hpp"
 
 
-#include "./egg_test.hpp"
+// #include "./egg_test.hpp"
 
 
 #include <boost/egg/alias.hpp>
@@ -34,7 +34,6 @@
 
 
 using namespace boost::egg;
-using boost::egg::plus;
 
 
 // warning check: This must be shown in IDE.
@@ -44,8 +43,10 @@ struct no_assignment
 };
 
 
-void egg_test()
+int main()
 {
     int x;
     no_assignment a = { x };
+
+    return 0;
 }
