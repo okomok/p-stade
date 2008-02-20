@@ -18,6 +18,8 @@ namespace boost { namespace egg { namespace details {
 
 
 BOOST_EGG_ADL_BARRIER(swappable) {
+
+
     template< class Derived, class Injector = null_injector<Derived> >
     struct swappable :
         Injector
@@ -28,7 +30,9 @@ BOOST_EGG_ADL_BARRIER(swappable) {
             x.swap(y);
         }
     };
-}
+
+
+} // ADL barrier
 
 
 } } } // namespace boost::egg::details

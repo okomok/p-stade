@@ -20,8 +20,8 @@
 
 #include <boost/implicit_cast.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <boost/egg/detail/adl_barrier.hpp>
+#include <boost/egg/detail/is_convertible.hpp>
 #include <boost/egg/detail/null_injector.hpp>
 #include <boost/egg/detail/safe_bool.hpp>
 
@@ -30,6 +30,8 @@ namespace boost { namespace egg { namespace details {
 
 
 BOOST_EGG_ADL_BARRIER(bool_testable) {
+
+
     template< class Derived, class Injector = null_injector<Derived> >
     struct bool_testable :
         Injector
@@ -72,6 +74,8 @@ BOOST_EGG_ADL_BARRIER(bool_testable) {
         x.does_not_support_comparisons();
         return false;
     }
+
+
 } // ADL barrier
 
 
