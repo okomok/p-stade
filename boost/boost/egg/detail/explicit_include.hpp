@@ -16,13 +16,13 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
-#if !defined(BOOST_EGG_SPECIFIED_PARAMS)
-    #error Please define BOOST_EGG_SPECIFIED_PARAMS.
+#if !defined(BOOST_EGG_EXPLICIT_PARAMS)
+    #error Please define BOOST_EGG_EXPLICIT_PARAMS.
 #endif
-#define BOOST_EGG_name    BOOST_PP_TUPLE_ELEM(4, 0, BOOST_EGG_SPECIFIED_PARAMS)
-#define BOOST_EGG_op      BOOST_PP_TUPLE_ELEM(4, 1, BOOST_EGG_SPECIFIED_PARAMS)
-#define BOOST_EGG_params  BOOST_EGG_PP_TO_TEMPLATE_PARAM_SEQ(BOOST_PP_TUPLE_ELEM(4, 2, BOOST_EGG_SPECIFIED_PARAMS))
-#define BOOST_EGG_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(4, 3, BOOST_EGG_SPECIFIED_PARAMS))
+#define BOOST_EGG_name    BOOST_PP_TUPLE_ELEM(4, 0, BOOST_EGG_EXPLICIT_PARAMS)
+#define BOOST_EGG_op      BOOST_PP_TUPLE_ELEM(4, 1, BOOST_EGG_EXPLICIT_PARAMS)
+#define BOOST_EGG_params  BOOST_EGG_PP_TO_TEMPLATE_PARAM_SEQ(BOOST_PP_TUPLE_ELEM(4, 2, BOOST_EGG_EXPLICIT_PARAMS))
+#define BOOST_EGG_arities BOOST_PP_SEQ_TO_ARRAY(BOOST_PP_TUPLE_ELEM(4, 3, BOOST_EGG_EXPLICIT_PARAMS))
 
 
     #define BOOST_EGG_function(R, BitSeq) \
@@ -46,7 +46,7 @@
     #define BOOST_EGG_c1 const
     #define BOOST_EGG_ac0(A) A &
     #define BOOST_EGG_ac1(A) BOOST_EGG_CONST_REF(A)
-        #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (BOOST_EGG_arities, <boost/egg/detail/specified_include.hpp>)
+        #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (BOOST_EGG_arities, <boost/egg/detail/explicit_include.hpp>)
         #include BOOST_EGG_PP_ARRAY_ITERATE()
     #undef  BOOST_EGG_ac1
     #undef  BOOST_EGG_ac0
@@ -62,7 +62,7 @@
 #undef  BOOST_EGG_params
 #undef  BOOST_EGG_op
 #undef  BOOST_EGG_name
-#undef  BOOST_EGG_SPECIFIED_PARAMS
+#undef  BOOST_EGG_EXPLICIT_PARAMS
 
 
 #else

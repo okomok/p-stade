@@ -19,7 +19,7 @@
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/is_std_pair.hpp>
 #include <boost/egg/detail/tuple_get.hpp>
-#include <boost/egg/specified.hpp>
+#include <boost/egg/explicit.hpp>
 
 #if defined(BOOST_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
@@ -109,8 +109,8 @@ namespace boost { namespace egg {
     { };
 
 BOOST_EGG_ADL_BARRIER(get) {
-    #define  BOOST_EGG_SPECIFIED_PARAMS (get, X_get, (class), (1))
-    #include BOOST_EGG_SPECIFIED()
+    #define  BOOST_EGG_EXPLICIT_PARAMS (get, X_get, (class), (1))
+    #include BOOST_EGG_EXPLICIT()
 }
 
     template<int N>
@@ -118,8 +118,8 @@ BOOST_EGG_ADL_BARRIER(get) {
         X_get< mpl::int_<N> >
     { };
 
-    #define  BOOST_EGG_SPECIFIED_PARAMS (get_c, X_get_c, (int), (1))
-    #include BOOST_EGG_SPECIFIED()
+    #define  BOOST_EGG_EXPLICIT_PARAMS (get_c, X_get_c, (int), (1))
+    #include BOOST_EGG_EXPLICIT()
 
 
 } } // namespace boost::egg

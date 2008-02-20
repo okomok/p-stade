@@ -12,7 +12,7 @@
 
 // What:
 //
-// Used with <boost/egg/specified.hpp>.
+// Used with <boost/egg/explicit.hpp>.
 // This is required only in namespace scope.
 // See <boost/egg/detail/vc7_1_result_of.hpp> in detail.
 

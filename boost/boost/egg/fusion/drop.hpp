@@ -14,7 +14,7 @@
 #include <boost/mpl/int.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_HAS_FUSIONS
-#include <boost/egg/specified.hpp>
+#include <boost/egg/explicit.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/tuple_drop.hpp>
 
@@ -70,8 +70,8 @@ namespace boost { namespace egg {
         details::X_tuple_drop<N, by_perfect>
     { };
 
-     #define  BOOST_EGG_SPECIFIED_PARAMS (fusion_drop, X_fusion_drop, (class), (1))
-     #include BOOST_EGG_SPECIFIED()
+     #define  BOOST_EGG_EXPLICIT_PARAMS (fusion_drop, X_fusion_drop, (class), (1))
+     #include BOOST_EGG_EXPLICIT()
 
 
     template<int N>
@@ -79,8 +79,8 @@ namespace boost { namespace egg {
         X_fusion_drop< mpl::int_<N> >
     { };
 
-     #define  BOOST_EGG_SPECIFIED_PARAMS (fusion_drop_c, X_fusion_drop_c, (int), (1))
-     #include BOOST_EGG_SPECIFIED()
+     #define  BOOST_EGG_EXPLICIT_PARAMS (fusion_drop_c, X_fusion_drop_c, (int), (1))
+     #include BOOST_EGG_EXPLICIT()
 
 
 } } // namespace boost::egg
