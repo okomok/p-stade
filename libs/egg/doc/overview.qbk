@@ -73,7 +73,7 @@ This makes `plus` be /statically initialized/, meaning that
 the initialization doesn't incur any runtime overhead,
 and the famous "static initialization order fiasco" never kicks in.
 Also notice that `my_plus` is initialized using "ugly" macro `BOOST_EGG_PIPABLE`.
-This macro is regarded as "static-storage constructor".
+This macro is regarded as "static-storage function call".
 In fact, this macro is tangled braced-initializer, so that we have no choice but to use macro.
 [endsect]
 
