@@ -155,7 +155,7 @@ CHECK_IS_RESULT_OF(std::string, T_identity(char const&))
 
 
 CHECK_IS_RESULT_OF(int, T_nplus(int&, int))
-CHECK_IS_RESULT_OF(int const, T_nplus(int, int, int))
+CHECK_IS_RESULT_OF(int, T_nplus(int, int, int))
 
 CHECK_IS_RESULT_OF(int, T_neg(int&))
 CHECK_IS_RESULT_OF(char, T_neg())

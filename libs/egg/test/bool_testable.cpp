@@ -10,6 +10,7 @@
 
 
 #include <boost/egg/detail/bool_testable.hpp>
+#include "./egg_test.hpp"
 
 
 #include <iostream>
