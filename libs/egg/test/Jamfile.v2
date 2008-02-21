@@ -21,26 +21,19 @@ rule make-tests
 
     for local f in [ set.difference [ glob *.cpp ] : [ glob noglob_*.cpp ] ]
     {
-        if [ MATCH run_fail_*.cpp : $(f) ]
+        switch $(f)
         {
-            r += [ run-fail $(f) ] ;
-        }
-        else if [ MATCH compile_fail_*.cpp : $(f) ]
-        {
-            r += [ compile-fail $(f) ] ;
-        }
-        else if [ MATCH compile_*.cpp : $(f) ]
-        {
-            r += [ compile $(f) ] ;
-        }
-        else if [ MATCH typeof_with_*.cpp : $(f) ]
-        {
-            r += [ run $(f) : : : <define>BOOST_TYPEOF_NATIVE : native_$(f) ] ;
-            r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f) ] ;
-        }
-        else
-        {
-            r += [ run $(f) ] ;
+            case run_fail_*.cpp :
+                r += [ run-fail $(f) ] ;
+            case compile_fail_*.cpp :
+                r += [ compile-fail $(f) ] ;
+            case compile_*.cpp :
+                r += [ compile $(f) ] ;
+            case typeof_with_*.cpp :
+	            r += [ run $(f) : : : <define>BOOST_TYPEOF_NATIVE : native_$(f:B) ] ;
+	            r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f:B) ] ;
+	        case * :
+                r += [ run $(f) ] ;
         }
     }
 
