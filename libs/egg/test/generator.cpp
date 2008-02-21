@@ -102,7 +102,7 @@ struct return_const
 };
 
 typedef
-    boost::egg::generator<return_const< deduce<boost::mpl::_1, as_value> const>::type
+    boost::egg::generator<return_const< deduce<boost::mpl::_1, as_value> > const>::type
 T_make_return_const;
 T_make_return_const const make_return_const = BOOST_EGG_GENERATOR();
 
