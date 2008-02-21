@@ -15,9 +15,6 @@
 // #include "./egg_test.hpp"
 
 
-#include <boost/egg/alias.hpp>
-
-
 #if defined(_CRT_SECURE_NO_DEPRECATE)
 #error oops.
 #endif
