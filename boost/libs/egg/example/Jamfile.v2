@@ -14,25 +14,20 @@ project
         <link>static
     ;
 
+rule examples
+{
+    local r ;
+
+    for local f in [ set.difference [ glob *.cpp ] : [ glob noglob_*.cpp ] ]
+    {
+        r += [ run $(f) ] ;
+    }
+
+    return $(r) ;
+}
+
 test-suite "egg_example"
     :
-        [ run adapted_to_comparison.cpp ]
-        [ run composing.cpp ]
-        [ run concepts.cpp ]
-        [ run currying.cpp ]
-        [ run freed_prisoner.cpp ]
-        [ run function_adaptors.cpp ]
-        [ run function_builders.cpp ]
-    #    [ run fusing.cpp ]
-        [ run infix_apply.cpp ]
-        [ run introduction.cpp ]
-        [ run mono_lambda.cpp ]
-        [ run monopoly.cpp ]
-        [ run my_perfect.cpp ]
-        [ run nested_lambda.cpp ]
-        [ run result_of_tutorial.cpp ]
-        [ run typeof_meets_type_erasure.cpp ]
-        [ run unnamed_recursion.cpp ]
-    #    [ run variadic_plus.cpp ]
+        [ examples ]
     ;
 
