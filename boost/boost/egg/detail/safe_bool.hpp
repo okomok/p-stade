@@ -33,6 +33,10 @@ namespace boost { namespace egg { namespace details {
     typedef int safe_bool_box::*safe_bool;
 
 
+    BOOST_EGG_CONST((safe_bool), safe_true)  = &safe_bool_box::true_;
+    BOOST_EGG_CONST((safe_bool), safe_false) = BOOST_EGG_NULLPTR;
+
+
     struct T_make_safe_bool
     {
         typedef safe_bool result_type;
@@ -41,15 +45,11 @@ namespace boost { namespace egg { namespace details {
         template<class Expr>
         result_type operator()(Expr const &b) const
         {
-            return b ? &safe_bool_box::true_ : BOOST_EGG_NULLPTR;
+            return b ? safe_true : safe_false;
         }
     };
 
     BOOST_EGG_CONST((T_make_safe_bool), make_safe_bool) = {};
-
-
-    BOOST_EGG_CONST((safe_bool), safe_true)  = &safe_bool_box::true_;
-    BOOST_EGG_CONST((safe_bool), safe_false) = BOOST_EGG_NULLPTR;
 
 
 } } } // namespace boost::egg::details
