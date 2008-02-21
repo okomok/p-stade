@@ -39,18 +39,18 @@ struct little_plus
     }
 };
 
-typedef function<little_plus> T_plus; /*< Building LittleFunction into MajorFunction. >*/
+typedef function<little_plus> T_plus; /*< Building __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__ type. >*/
 T_plus const plus = {{}};
 
 void test_builder()
 {
-    result_of_<T_plus(int, int)>::type r = plus(1, 2); /*< Boost.ResultOf compatible. >*/
+    result_of_<T_plus(int, int)>::type r = plus(1, 2); /*< __BOOST_RESULT_OF__ compatible. >*/
     BOOST_CHECK(r == 3);
 
     namespace bll = boost::lambda;
     using std::string;
     string one("1");
-    BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one)); /*< Boost.Lambda compatible. >*/
+    BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one)); /*< __BOOST_LAMBDA__ compatible. >*/
 }
 
 result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< Static initialization without runtime overhead. >*/
