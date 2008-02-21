@@ -19,6 +19,9 @@
 #include "./using_egg.hpp"
 
 
+namespace bll = boost::lambda;
+
+
 template< class F >
 void regular_check(F const f)
 {
@@ -31,8 +34,8 @@ void regular_check(F const f)
 void egg_unit_test()
 {
     {
-        ::regular_check(regular(lambda::_1 != 'c'));
-        ::regular_check(regular(lambda::_1 += 1));
+        ::regular_check(regular(bll::_1 != 'c'));
+        ::regular_check(regular(bll::_1 += 1));
     }
 }
 
