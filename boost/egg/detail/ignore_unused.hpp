@@ -11,9 +11,9 @@
 
 
 #if defined(__GNUC__)
-    #define BOOST_EGG_IGNORE_UNUSED __attribute__ ((__unused__))
+    #define BOOST_EGG_IGNORE_UNUSED(O) __attribute__ ((__unused__)) O
 #else
-    #define BOOST_EGG_IGNORE_UNUSED
+    #define BOOST_EGG_IGNORE_UNUSED(O) O
 #endif
 
 
