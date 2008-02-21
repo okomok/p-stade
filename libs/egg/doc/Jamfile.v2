@@ -14,7 +14,8 @@ boostbook standalone
         egg
     :
         <xsl:param>nav.layout=none
-#        <xsl:param>navig.graphics=0
+#        <xsl:param>html.stylesheet=../../../../doc/html/boostbook.css
+        <xsl:param>navig.graphics=1
         <xsl:param>boost.image.src=boost.png
         <xsl:param>boost.image.alt=Boost
         <xsl:param>boost.image.w=277
@@ -27,6 +28,3 @@ boostbook standalone
         <xsl:param>callout.graphics.path=../images/callouts//
 #        <xsl:param>boost.root=../../../../..
     ;
-
-# install html : ../../../doc/html/boostbook.css ;
-
