@@ -23,7 +23,7 @@
 #include <boost/egg/detail/adl_barrier.hpp>
 #include <boost/egg/detail/is_convertible.hpp>
 #include <boost/egg/detail/null_injector.hpp>
-#include <boost/egg/detail/safe_bool.hpp>
+#include <boost/egg/detail/safe_bool.hpp> // inclusion guaranteed
 
 
 namespace boost { namespace egg { namespace details {
