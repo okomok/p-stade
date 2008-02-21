@@ -10,14 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define BOOST_EGG_UNUSED(X) ((void)(X))
-
-
 #if defined(__GNUC__)
-    #define BOOST_EGG_UNUSED_VAR(X) __attribute__ ((__unused__)) X
+    #define BOOST_EGG_UNUSED(X) __attribute__ ((__unused__)) X
 #else
-    #define BOOST_EGG_UNUSED_VAR(X) X
+    #define BOOST_EGG_UNUSED(X) X
 #endif
+
+
+#define BOOST_EGG_IGNORE_UNUSED(X) ((void)(X))
 
 
 #endif

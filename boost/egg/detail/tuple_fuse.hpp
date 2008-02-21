@@ -89,7 +89,7 @@ namespace boost { namespace egg { namespace details {
     template<class Re, class Tuple>
     Re call_aux(Tuple &t, mpl::int_<n>) const
     {
-        BOOST_EGG_UNUSED(t); // when n == 0.
+        BOOST_EGG_IGNORE_UNUSED(t); // when n == 0.
         return m_base( BOOST_EGG_PP_ENUM_PARAMS_WITH(n, tuples::get<BOOST_EGG_PP_INT_, >(t)) );
     }
 
