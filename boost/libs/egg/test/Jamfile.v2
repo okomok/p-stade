@@ -3,6 +3,7 @@
 # (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 import testing ;
+import set ;
 
 project
     : requirements
@@ -14,164 +15,45 @@ project
         <link>static
     ;
 
+rule make-tests
+{
+    local r ;
+
+    for local f in [ set.difference [ glob *.cpp ] : [ glob noglob_*.cpp ] ]
+    {
+        if [ MATCH run_fail_*.cpp : $(f) ]
+        {
+            r += [ run-fail $(f) ] ;
+        }
+        else if [ MATCH compile_fail_*.cpp : $(f) ]
+        {
+            r += [ compile-fail $(f) ] ;
+        }
+        else if [ MATCH compile_*.cpp : $(f) ]
+        {
+            r += [ compile $(f) ] ;
+        }
+        else if [ MATCH typeof_with_*.cpp : $(f) ]
+        {
+            r += [ run $(f) : : : <define>BOOST_TYPEOF_NATIVE : native_$(f) ] ;
+            r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f) ] ;
+        }
+        else
+        {
+            r += [ run $(f) ] ;
+        }
+    }
+
+    return $(r) ;
+}
+
 test-suite "egg"
     :
-        [ run adl_barrier.cpp ]
-        [ run affect.cpp ]
-        [ run always.cpp ]
-        [ run ambi.cpp ]
-        [ run ambi_by.cpp ]
-        [ run apply.cpp ]
-        [ run arg.cpp ]
-        [ run auto_new.cpp ]
-        [ run before_mpl_apply.cpp ]
-        [ run big_arity.cpp ]
-        [ run bind_abstract.cpp ]
-        [ run bind_left.cpp ]
-        [ run bind_n.cpp ]
-        [ run bind_nested.cpp ]
-        [ run bind_tests_simple.cpp ]
-        [ run bll.cpp ]
-        [ run bll_poly.cpp ]
-        [ run bll_result_of.cpp ]
-        [ run bll_return_type.cpp ]
-        [ run bll_sig_impl.cpp ]
-        [ run bool_testable.cpp ]
-        [ run typeof_boost_function.cpp ]
-        [ run typeof_boost_function.cpp : : : <define>BOOST_TYPEOF_EMULATION : typeof_boost_function_emulation ]
-        [ run by_cref.cpp ]
-        [ run by_perfect.cpp ]
-        [ run by_ref.cpp ]
-        [ run by_value.cpp ]
-        [ run const.cpp ]
-        [ run compose.cpp ]
-        [ run construct.cpp ]
-        [ run construct_xxx.cpp ]
-        [ run constructor.cpp ]
-        [ run copy.cpp ]
-        [ run copy_assign.cpp ]
-        [ run curry.cpp ]
-        [ run curry_array.cpp ]
-        [ run curry_regular.cpp ]
-        [ run curry_result_of.cpp ]
-        [ run delete.cpp ]
-        [ run delete_array.cpp ]
-        [ run dereference.cpp ]
-        [ run do_swap.cpp ]
-        [ run enable_if.cpp ]
-        [ run explicit.cpp ]
-        [ run expr.cpp ]
-        [ run expr.cpp : : : <define>BOOST_TYPEOF_EMULATION : expr_emulation ]
-        [ run fake.cpp ]
-        [ run fix.cpp ]
-        [ run flip.cpp ]
-        [ run free.cpp ]
-        [ run free_derived_test.cpp ]
-        [ run free_dm_test.cpp ]
-        [ run free_test.cpp ]
-        [ run function.cpp ]
-        [ run function_facade.cpp ]
-        [ run function_facade_by.cpp ]
-        [ run function_name_by_perfect.cpp ]
-        [ run functional.cpp ]
-        [ run functional1.cpp ]
-        [ run functional2.cpp ]
-        [ run fuse.cpp ]
-        [ run fusion_drop.cpp ]
-        [ run fusion_element.cpp ]
-        [ run fusion_length.cpp ]
-        [ run fusion_prepend.cpp ]
-    #    [ run fusion_pack.cpp ]
-        [ run generator.cpp ]
-        [ compile-fail generator_fail.cpp ]
-        [ run generator_incomplete.cpp ]
-        [ run generator_simple.cpp ]
-        [ run generator_wrapped_ref.cpp ]
-        [ run get.cpp ]
-        [ run has_xxx.cpp ]
-        [ run identity.cpp ]
-        [ run iequal_to.cpp ]
-        [ run if_use_default.cpp ]
-        [ run implicit.cpp ]
-        [ run implicit_by.cpp ]
-        [ compile-fail implicit_fail.cpp ]
-        [ run implicit_ref.cpp ]
-        [ run incomplete_little.cpp ]
-        [ run indirect.cpp ]
-        [ run infix.cpp ]
-        [ run inheritance.cpp ]
-        [ run inlined.cpp ]
-        [ run inlined.cpp : : : <define>BOOST_TYPEOF_EMULATION : inlined_emulation ]
-        [ run inlined_mem.cpp ]
-        [ run inlined_mem.cpp : : : <define>BOOST_TYPEOF_EMULATION : inlined_mem_emulation ]
-    #    [ run inlined_perf.cpp : : : : : <variant>release ]
-    #    [ run inlined_mem_perf.cpp : : : : : <variant>release ]
-        [ run integral.cpp ]
-        [ run is_classified_as.cpp ]
-        [ run is_same_obj.cpp ]
-        [ run lazy.cpp ]
-        [ run lexical.cpp ]
-        [ run locale.cpp ]
-        [ run logical.cpp ]
-        [ run memoize.cpp ]
-        [ run mono.cpp ]
-        [ run move_assign.cpp ]
-        [ run my_strategy.cpp ]
-        [ run my_strategy_array.cpp ]
-        [ run nc_little.cpp ]
-        [ run new.cpp ]
-        [ run new_array.cpp ]
-        [ run not.cpp ]
-        [ compile-fail nullary_function_fail.cpp ]
-        [ run pack.cpp ]
-        [ run perfect.cpp ]
-        [ run pipable.cpp ]
-        [ run pipable_by.cpp ]
-        [ run placeholders.cpp ]
-        [ run plain.cpp ]
-        [ run preprocessor.cpp ]
-        [ run poly.cpp ]
-        [ run protect.cpp ]
-        [ run ptr_new.cpp ]
-        [ run register_nullary_result.cpp ]
-        [ run regular.cpp ]
-        [ run resolve.cpp ]
-        [ run result_of.cpp ]
-        [ run result_of_in_ns_scope.cpp ]
-        [ run return.cpp ]
-        [ run shared_new.cpp ]
-        [ run shared_new_array.cpp ]
-        [ run shared_object.cpp ]
-        [ run static.cpp ]
-        [ run static_downcast.cpp ]
-        [ run static_down.cpp ]
-        [ run-fail static_downcast_fail.cpp ]
-        [ run static_initialization1.cpp static_initialization2.cpp : : : : static_initialization ]
-        [ run strong_assign.cpp ]
-        [ run supply_n.cpp ]
-        [ run tagged.cpp ]
-        [ run template_arguments.cpp ]
-        [ run to_lower.cpp ]
-        [ run to_ref.cpp ]
-        [ run to_shared_ptr.cpp ]
-        [ run to_string.cpp ]
-        [ run to_upper.cpp ]
-        [ run to_value.cpp ]
-        [ run uncurry.cpp ]
-        [ run unfuse.cpp ]
-        [ run unparen.cpp ]
-        [ run unref.cpp ]
-        [ run use_deduced_form.cpp ]
-        [ run variadic.cpp ]
-        [ run variadic_poly.cpp ]
-        [ run volatile_correct.cpp ]
-        [ run volatile_correct_udt.cpp ]
-        [ run with_boost_function.cpp ]
-        [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
-        [ run __cv_ignored.cpp ]
-        [ run __fewer_braces.cpp ]
-        [ run __is_pod.cpp ]
-        [ run __mem_fun_ordering.cpp ]
-        [ run __vs_incomplete.cpp ]
+        [ make-tests ]
+    #    [ run noglob_fusion_pack.cpp ]
+    #    [ run noglob_inlined_perf.cpp : : : : : <variant>release ]
+    #    [ run noglob_inlined_mem_perf.cpp : : : : : <variant>release ]
+        [ run noglob_static_initialization1.cpp noglob_static_initialization2.cpp : : : : static_initialization ]
+        [ link noglob_multiple_defs1.cpp noglob_multiple_defs2.cpp : : multiple_defs ]
     ;
 

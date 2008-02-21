@@ -185,22 +185,25 @@ void test()
 void test_normal()
 {
     my_bool_testable_t b(true);
-    if (b.is_good())
-        pstade::used(b);
+    if (b.is_good()) {
+        (void)b;
+    }
 }
 
 void test_idiom()
 {
     my_bool_testable_t b(true);
-    if (b.is_good_safe_bool())
-        pstade::used(b);
+    if (b.is_good_safe_bool()) {
+        (void)b;
+    }
 }
 
 void test_testable()
 {
     my_bool_testable_t b(true);
-    if (b)
-        pstade::used(b);
+    if (b) {
+        (void)b;
+    }
 }
 
 
