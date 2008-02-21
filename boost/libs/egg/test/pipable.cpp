@@ -22,7 +22,7 @@
 #include <string>
 
 
-    #define PSTADE_decl_pipable(O, F) \
+    #define EGG_pipable_def(O, F) \
         namespace BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O) { \
             using namespace boost::mpl::placeholders; \
             typedef boost::egg::result_of_pipable<BOOST_EGG_UNPAREN(F)>::type pipe; \
@@ -42,7 +42,7 @@ struct my_fun_t
     }
 };
 
-PSTADE_decl_pipable(my_fun, (my_fun_t))
+EGG_pipable_def(my_fun, (my_fun_t))
 
 
 struct your_fun_t
@@ -55,7 +55,7 @@ struct your_fun_t
     }
 };
 
-PSTADE_decl_pipable(your_fun, (your_fun_t))
+EGG_pipable_def(your_fun, (your_fun_t))
 
 
 struct my_plus_t
@@ -68,7 +68,7 @@ struct my_plus_t
     }
 };
 
-PSTADE_decl_pipable(my_plus, (my_plus_t))
+EGG_pipable_def(my_plus, (my_plus_t))
 
 
 struct my_mult_t
@@ -81,7 +81,7 @@ struct my_mult_t
     }
 };
 
-PSTADE_decl_pipable(my_mult, (my_mult_t))
+EGG_pipable_def(my_mult, (my_mult_t))
 
 
 struct my_append_t
@@ -95,7 +95,7 @@ struct my_append_t
     }
 };
 
-PSTADE_decl_pipable(my_append, (my_append_t))
+EGG_pipable_def(my_append, (my_append_t))
 
 
 using namespace boost::egg;

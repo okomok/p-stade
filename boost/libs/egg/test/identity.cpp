@@ -19,12 +19,12 @@
 #include "./using_egg.hpp"
 
 
-CHECK_IS_RESULT_OF((const int&), T_identity(int))
-CHECK_IS_RESULT_OF((int&), T_identity(int&))
-CHECK_IS_RESULT_OF((const int&), T_identity(int const&))
-CHECK_IS_RESULT_OF((const int&), T_identity(int const))
+CHECK_IS_RESULT_OF(const int&, T_identity(int))
+CHECK_IS_RESULT_OF(int&, T_identity(int&))
+CHECK_IS_RESULT_OF(const int&, T_identity(int const&))
+CHECK_IS_RESULT_OF(const int&, T_identity(int const))
 
-CHECK_IS_RESULT_OF((int), X_identity<by_value>(int&))
+CHECK_IS_RESULT_OF(int, X_identity<by_value>(int&))
 
 
 void egg_test()

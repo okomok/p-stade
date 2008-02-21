@@ -18,8 +18,8 @@
 #include "./using_egg.hpp"
 
 
-CHECK_IS_RESULT_OF((char), T_to_upper(char, std::locale))
-CHECK_IS_RESULT_OF((wchar_t), T_to_upper(wchar_t))
+CHECK_IS_RESULT_OF(char, T_to_upper(char, std::locale))
+CHECK_IS_RESULT_OF(wchar_t, T_to_upper(wchar_t))
 
 
 void egg_test()

@@ -60,7 +60,7 @@ struct impl_interface4
 BOOST_EGG_CONST((result_of_ambi4<impl_interface4>::type), interface4) = BOOST_EGG_AMBI({});
 
 
-CHECK_IS_RESULT_OF((std::string), T_interface0(std::string))
+CHECK_IS_RESULT_OF(std::string, T_interface0(std::string))
 
 
 void egg_test()

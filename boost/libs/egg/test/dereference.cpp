@@ -25,25 +25,25 @@ using namespace boost::egg;
 using boost::egg::result_of_;
 
 
-CHECK_IS_RESULT_OF((int&), T_dereference(int *))
-CHECK_IS_RESULT_OF((int&), T_dereference(int * const))
-CHECK_IS_RESULT_OF((int&), T_dereference(int * &))
-CHECK_IS_RESULT_OF((int&), T_dereference(int * const &))
+CHECK_IS_RESULT_OF(int&, T_dereference(int *))
+CHECK_IS_RESULT_OF(int&, T_dereference(int * const))
+CHECK_IS_RESULT_OF(int&, T_dereference(int * &))
+CHECK_IS_RESULT_OF(int&, T_dereference(int * const &))
 
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::shared_ptr<int>))
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::shared_ptr<int> const))
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::shared_ptr<int> &))
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::shared_ptr<int> const &))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::shared_ptr<int>))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::shared_ptr<int> const))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::shared_ptr<int> &))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::shared_ptr<int> const &))
 
-CHECK_IS_RESULT_OF((int const&), T_dereference(boost::optional<int>))
-CHECK_IS_RESULT_OF((int const&), T_dereference(boost::optional<int> const))
-CHECK_IS_RESULT_OF((int&),       T_dereference(boost::optional<int> &))
-CHECK_IS_RESULT_OF((int const&), T_dereference(boost::optional<int> const &))
+CHECK_IS_RESULT_OF(int const&, T_dereference(boost::optional<int>))
+CHECK_IS_RESULT_OF(int const&, T_dereference(boost::optional<int> const))
+CHECK_IS_RESULT_OF(int&,       T_dereference(boost::optional<int> &))
+CHECK_IS_RESULT_OF(int const&, T_dereference(boost::optional<int> const &))
 
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::optional<int&>))
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::optional<int&> const))
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::optional<int&> &))
-CHECK_IS_RESULT_OF((int&), T_dereference(boost::optional<int&> const &))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::optional<int&>))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::optional<int&> const))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::optional<int&> &))
+CHECK_IS_RESULT_OF(int&, T_dereference(boost::optional<int&> const &))
 
 
 void egg_test()

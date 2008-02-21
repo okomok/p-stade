@@ -36,30 +36,30 @@ struct A
 };
 
 
-CHECK_IS_RESULT_OF((A&), T_identity(A&))
-CHECK_IS_RESULT_OF((A const&), T_identity(A const&))
-CHECK_IS_RESULT_OF((A volatile&), T_identity(A volatile&))
-CHECK_IS_RESULT_OF((A const volatile&), T_identity(A const volatile&))
-CHECK_IS_RESULT_OF((A const&), T_identity(A))
-CHECK_IS_RESULT_OF((A const&), T_identity(A const))
+CHECK_IS_RESULT_OF(A&, T_identity(A&))
+CHECK_IS_RESULT_OF(A const&, T_identity(A const&))
+CHECK_IS_RESULT_OF(A volatile&, T_identity(A volatile&))
+CHECK_IS_RESULT_OF(A const volatile&, T_identity(A const volatile&))
+CHECK_IS_RESULT_OF(A const&, T_identity(A))
+CHECK_IS_RESULT_OF(A const&, T_identity(A const))
 
 #if 0 // rvalue udt seems illegal according to Comeau.
-CHECK_IS_RESULT_OF((A const&), T_identity(A volatile))
-CHECK_IS_RESULT_OF((A const&), T_identity(A const volatile))
+CHECK_IS_RESULT_OF(A const&, T_identity(A volatile))
+CHECK_IS_RESULT_OF(A const&, T_identity(A const volatile))
 #endif
 
 
 typedef result_of_<T_bll_bind(T_identity const&, T_bll_1 const&)>::type func_t;
-CHECK_IS_RESULT_OF((A&), func_t(A&))
-CHECK_IS_RESULT_OF((A const&), func_t(A const&))
-CHECK_IS_RESULT_OF((A volatile&), func_t(A volatile&))
-CHECK_IS_RESULT_OF((A const volatile&), func_t(A const volatile&))
+CHECK_IS_RESULT_OF(A&, func_t(A&))
+CHECK_IS_RESULT_OF(A const&, func_t(A const&))
+CHECK_IS_RESULT_OF(A volatile&, func_t(A volatile&))
+CHECK_IS_RESULT_OF(A const volatile&, func_t(A const volatile&))
 #if defined(BOOST_EGG_BLL_PERFECT_FUNCTORS)
-    CHECK_IS_RESULT_OF((A const&), func_t(A))
-    CHECK_IS_RESULT_OF((A const&), func_t(A const))
+    CHECK_IS_RESULT_OF(A const&, func_t(A))
+    CHECK_IS_RESULT_OF(A const&, func_t(A const))
 #if 0 // rvalue udt seems illegal according to Comeau.
-    CHECK_IS_RESULT_OF((A const&), func_t(A volatile))
-    CHECK_IS_RESULT_OF((A const&), func_t(A const volatile))
+    CHECK_IS_RESULT_OF(A const&, func_t(A volatile))
+    CHECK_IS_RESULT_OF(A const&, func_t(A const volatile))
 #endif
 #endif
 

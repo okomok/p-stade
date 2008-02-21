@@ -20,7 +20,7 @@
 #include <boost/mpl/placeholders.hpp>
 
 
-    #define PSTADE_IMPLICIT(Object, Lambda) \
+    #define EGG_implicit_def(Object, Lambda) \
         namespace BOOST_PP_CAT(pstade_implicit_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
             typedef ::boost::egg::implicit<BOOST_EGG_UNPAREN(Lambda)>::type op; \
@@ -44,7 +44,7 @@ struct T_cast0
     }
 };
 
-PSTADE_IMPLICIT(auto_cast0, (T_cast0<boost::mpl::_1>))
+EGG_implicit_def(auto_cast0, (T_cast0<boost::mpl::_1>))
 
 
 template<class To>
@@ -59,7 +59,7 @@ struct T_cast1
     }
 };
 
-PSTADE_IMPLICIT(auto_cast1, (T_cast1<_>))
+EGG_implicit_def(auto_cast1, (T_cast1<_>))
 
 
 template<class To>
@@ -74,7 +74,7 @@ struct T_cast2
     }
 };
 
-PSTADE_IMPLICIT(auto_cast2, (T_cast2<_>))
+EGG_implicit_def(auto_cast2, (T_cast2<_>))
 
 
 void egg_test()

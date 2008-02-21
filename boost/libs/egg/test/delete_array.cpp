@@ -22,11 +22,11 @@ struct udt
 {};
 
 
-CHECK_IS_RESULT_OF((void), T_delete_array(int *))
+CHECK_IS_RESULT_OF(void, T_delete_array(int *))
 
 
-CHECK_IS_RESULT_OF((void), T_delete_array(udt *))
-CHECK_IS_RESULT_OF((void), T_delete_array(udt *))
+CHECK_IS_RESULT_OF(void, T_delete_array(udt *))
+CHECK_IS_RESULT_OF(void, T_delete_array(udt *))
 
 
 void egg_unit_test()

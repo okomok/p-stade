@@ -26,7 +26,7 @@ namespace ll = boost::lambda::ll;
 
 typedef result_of_bll_poly<ll::equal>::type adapted_equal;
 adapted_equal const adapted_equal_fun = BOOST_EGG_BLL_POLY({});
-CHECK_IS_RESULT_OF((bool), adapted_equal(int*, int*, int*))
+CHECK_IS_RESULT_OF(bool, adapted_equal(int*, int*, int*))
 
 
 struct nullary_sig
@@ -46,7 +46,7 @@ struct nullary_sig
 
 typedef result_of_bll_poly_nullary< ::nullary_sig >::type adapted_nullary;
 adapted_nullary const adapted_nullary_fun = BOOST_EGG_BLL_POLY_L {} BOOST_EGG_BLL_POLY_R;
-CHECK_IS_RESULT_OF((int), adapted_nullary())
+CHECK_IS_RESULT_OF(int, adapted_nullary())
 
 
 struct null_op

@@ -42,7 +42,7 @@ void egg_test()
         typedef boost::egg::result_of_<T_indirect(::T_foo *)>::type ip_t;
         ip_t ip = BOOST_EGG_INDIRECT_L &foo BOOST_EGG_INDIRECT_R;
 
-        CHECK_IS_RESULT_OF((int), ip_t(int, int))
+        CHECK_IS_RESULT_OF(int, ip_t(int, int))
 
         int r = ip(1, 2);
         BOOST_CHECK( r == 3 );

@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/unparen.hpp>
+#include <boost/egg/detail/unparen.hpp>
 #include "./egg_test.hpp"
 
 
@@ -26,10 +26,12 @@ typedef pair_t const volatile cv_pair_t;
 
 
 BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((std::pair<int, double>)), pair_t >));
-BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((std::pair<int, double>) const), c_pair_t >));
-BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((std::pair<int, double>) volatile), v_pair_t >));
-#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
-    BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((std::pair<int, double>) const volatile), cv_pair_t >));
+#if 0 // rejected
+    BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((std::pair<int, double>) const), c_pair_t >));
+    BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((std::pair<int, double>) volatile), v_pair_t >));
+    #if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
+        BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((std::pair<int, double>) const volatile), cv_pair_t >));
+    #endif
 #endif
 BOOST_MPL_ASSERT(( boost::is_same< BOOST_EGG_UNPAREN((void)), void >));
 

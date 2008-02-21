@@ -28,12 +28,12 @@ struct udt
 };
 
 
-CHECK_IS_RESULT_OF((int), X_construct<int>())
-CHECK_IS_RESULT_OF((int), X_construct<int>(int))
+CHECK_IS_RESULT_OF(int, X_construct<int>())
+CHECK_IS_RESULT_OF(int, X_construct<int>(int))
 
 
-CHECK_IS_RESULT_OF((udt), X_construct<udt>(int,int))
-CHECK_IS_RESULT_OF((udt) const, X_construct<udt const>(int,int))
+CHECK_IS_RESULT_OF(udt, X_construct<udt>(int,int))
+CHECK_IS_RESULT_OF(udt const, X_construct<udt const>(int,int))
 
 
 void egg_unit_test()
