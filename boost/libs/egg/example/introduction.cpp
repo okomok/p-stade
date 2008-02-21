@@ -10,7 +10,7 @@
 
 #include "../test/egg_test.hpp"
 #include <boost/egg/pipable.hpp>
-#include <boost/egg/poly.hpp>
+#include <boost/egg/function.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/lambda/bind.hpp>
@@ -25,21 +25,24 @@ using namespace boost::egg;
 
 
 //[code_introduction
-template<class X, class Y>
-struct mono_plus
+struct little_plus
 {
-    // Determining return type
-    typedef typename boost::remove_cv<X>::type result_type;
+    template<class Me, class X, class Y>
+    struct apply
+        // Determining return type
+        : boost::remove_cv<X>
+    { };
 
-    result_type operator()(X &x, Y &y) const
+    template<class Re, class X, class Y>
+    Re call(X &x, Y &y) const
     {
         return x + y;
     }
 };
 
 // Building MajorFunction
-typedef poly< mono_plus<boost::mpl::_, boost::mpl::_> >::type T_plus;
-T_plus const plus = BOOST_EGG_POLY();
+typedef function<little_plus> T_plus;
+T_plus const plus = {{}};
 
 void test_builder()
 {
