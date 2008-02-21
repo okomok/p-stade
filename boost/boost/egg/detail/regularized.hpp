@@ -91,7 +91,7 @@ namespace boost { namespace egg { namespace details {
     // bool_testable
         operator safe_bool() const
         {
-            return details::make_safe_bool(m_opx);
+            return make_safe_bool(m_opx);
         }
 
     // swappable

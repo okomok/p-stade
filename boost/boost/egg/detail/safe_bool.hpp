@@ -33,12 +33,19 @@ namespace boost { namespace egg { namespace details {
     typedef int safe_bool_box::*safe_bool;
 
 
-    // delay evaluation using template to suppress VC++ warning.
-    template<class Expr> inline
-    safe_bool make_safe_bool(Expr const &b)
+    struct T_make_safe_bool
     {
-        return b ? &safe_bool_box::true_ : BOOST_EGG_NULLPTR;
-    }
+        typedef safe_bool result_type;
+
+        // delay evaluation using template to suppress VC++ warning.
+        template<class Expr>
+        result_type operator()(Expr const &b) const
+        {
+            return b ? &safe_bool_box::true_ : BOOST_EGG_NULLPTR;
+        }
+    };
+
+    BOOST_EGG_CONST((T_make_safe_bool), make_safe_bool) = {};
 
 
     BOOST_EGG_CONST((safe_bool), safe_true)  = &safe_bool_box::true_;
