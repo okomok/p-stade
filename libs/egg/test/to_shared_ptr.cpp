@@ -35,17 +35,17 @@ struct my_ptr
     boost::shared_ptr<T> m_ptr;
 };
 
-CHECK_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(int *))
-CHECK_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(std::auto_ptr<int>))
-CHECK_IS_RESULT_OF((boost::shared_ptr<int>), T_to_shared_ptr(boost::shared_ptr<int>))
+CHECK_IS_RESULT_OF(boost::shared_ptr<int>, T_to_shared_ptr(int *))
+CHECK_IS_RESULT_OF(boost::shared_ptr<int>, T_to_shared_ptr(std::auto_ptr<int>))
+CHECK_IS_RESULT_OF(boost::shared_ptr<int>, T_to_shared_ptr(boost::shared_ptr<int>))
 
 
 struct B { virtual ~B() { } };
 struct D : B { };
 
-CHECK_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(D *))
-CHECK_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(std::auto_ptr<D>))
-CHECK_IS_RESULT_OF((boost::shared_ptr<B>), X_to_shared_ptr<B>(boost::shared_ptr<D>))
+CHECK_IS_RESULT_OF(boost::shared_ptr<B>, X_to_shared_ptr<B>(D *))
+CHECK_IS_RESULT_OF(boost::shared_ptr<B>, X_to_shared_ptr<B>(std::auto_ptr<D>))
+CHECK_IS_RESULT_OF(boost::shared_ptr<B>, X_to_shared_ptr<B>(boost::shared_ptr<D>))
 
 
 

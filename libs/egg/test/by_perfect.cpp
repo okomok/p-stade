@@ -66,9 +66,9 @@ typedef function<little_foo, by_perfect> T_foo;
 BOOST_EGG_CONST((T_foo), foo) = {{}};
 
 
-CHECK_IS_RESULT_OF((std::string), T_foo(int, double))
-CHECK_IS_RESULT_OF((int), T_foo(int))
-CHECK_IS_RESULT_OF((char), T_foo())
+CHECK_IS_RESULT_OF(std::string, T_foo(int, double))
+CHECK_IS_RESULT_OF(int, T_foo(int))
+CHECK_IS_RESULT_OF(char, T_foo())
 
 
 template< class T0, class T1 >
@@ -137,10 +137,10 @@ typedef boost::egg::function<little_identity, boost::egg::by_perfect> T_identity
 T_identity const identity = { {} };
 
 
-CHECK_IS_RESULT_OF((int&), T_identity(int&))
-CHECK_IS_RESULT_OF((int const&), T_identity(int))
-CHECK_IS_RESULT_OF((int const&), T_identity(int const&))
-CHECK_IS_RESULT_OF((int const&), T_identity(int const))
+CHECK_IS_RESULT_OF(int&, T_identity(int&))
+CHECK_IS_RESULT_OF(int const&, T_identity(int))
+CHECK_IS_RESULT_OF(int const&, T_identity(int const&))
+CHECK_IS_RESULT_OF(int const&, T_identity(int const))
 
 
 struct little_keep_const
@@ -163,10 +163,10 @@ BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perf
 BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perfect, int const&>::type, int const >));
 BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perfect, int>::type, int const >));
 BOOST_MPL_ASSERT((boost::is_same< boost::egg::details::unref<boost::egg::by_perfect, int const>::type, int const >));
-CHECK_IS_RESULT_OF((int), T_keep_const(int&))
-CHECK_IS_RESULT_OF((int) const, T_keep_const(int))
-CHECK_IS_RESULT_OF((int) const, T_keep_const(int const&))
-CHECK_IS_RESULT_OF((int) const, T_keep_const(int const))
+CHECK_IS_RESULT_OF(int, T_keep_const(int&))
+CHECK_IS_RESULT_OF(int const, T_keep_const(int))
+CHECK_IS_RESULT_OF(int const, T_keep_const(int const&))
+CHECK_IS_RESULT_OF(int const, T_keep_const(int const))
 
 
 

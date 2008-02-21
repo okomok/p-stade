@@ -38,7 +38,7 @@ void egg_test()
     }
     {
         typedef boost::egg::result_of_<T_perfect(::nonperfect)>::type perf_t;
-        CHECK_IS_RESULT_OF((int), perf_t(int))
+        CHECK_IS_RESULT_OF(int, perf_t(int))
 
         perf_t perf = BOOST_EGG_PERFECT({});
         BOOST_CHECK( perf(10) == 10 );

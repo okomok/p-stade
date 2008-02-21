@@ -56,7 +56,7 @@ void egg_test()
 
         b_t b = bll_bind(&sum_of_args_1, 10);
 
-        CHECK_IS_RESULT_OF((int), b_t())
+        CHECK_IS_RESULT_OF(int, b_t())
 
         boost::egg::result_of_<b_t()>::type b_ = b();
         BOOST_CHECK(b_ == 10);

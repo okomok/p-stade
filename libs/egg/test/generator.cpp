@@ -26,7 +26,7 @@
 namespace deducers = boost::egg;
 
 
-#define BOOST_EGG_OBJECT_GENERATOR(G, L) \
+#define EGG_generator_def(G, L) \
     namespace BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G) { \
         using namespace boost::mpl::placeholders; \
         using namespace boost::egg; \
@@ -44,8 +44,8 @@ struct your_type
     { };
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_your_type, (your_type< deduce<_1, as_value> >))
-CHECK_IS_RESULT_OF((your_type<int>), T_make_your_type(int&))
+EGG_generator_def(make_your_type, (your_type< deduce<_1, as_value> >))
+CHECK_IS_RESULT_OF(your_type<int>, T_make_your_type(int&))
 
 
 using namespace boost::egg;
@@ -61,20 +61,20 @@ struct my_type
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, boost::use_default, char >::type T_make_my_type_v;
 T_make_my_type_v const make_my_type_v = BOOST_EGG_GENERATOR();
-CHECK_IS_RESULT_OF((my_type<int>), T_make_my_type_v(int&))
-CHECK_IS_RESULT_OF((char), T_make_my_type_v())
+CHECK_IS_RESULT_OF(my_type<int>, T_make_my_type_v(int&))
+CHECK_IS_RESULT_OF(char, T_make_my_type_v())
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_ref> > >::type T_make_my_type_r;
 T_make_my_type_r const make_my_type_r = BOOST_EGG_GENERATOR();
-CHECK_IS_RESULT_OF((my_type<int const&>), T_make_my_type_r(int))
-CHECK_IS_RESULT_OF((my_type<int&>), T_make_my_type_r(int&))
+CHECK_IS_RESULT_OF(my_type<int const&>, T_make_my_type_r(int))
+CHECK_IS_RESULT_OF(my_type<int&>, T_make_my_type_r(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > >::type T_make_my_type_q;
 T_make_my_type_q const make_my_type_q = BOOST_EGG_GENERATOR();
-CHECK_IS_RESULT_OF((my_type<int const>), T_make_my_type_q(int))
-CHECK_IS_RESULT_OF((my_type<int>), T_make_my_type_q(int&))
+CHECK_IS_RESULT_OF(my_type<int const>, T_make_my_type_q(int))
+CHECK_IS_RESULT_OF(my_type<int>, T_make_my_type_q(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > >::type T_make_my_type_v_d;
@@ -91,7 +91,7 @@ struct gcc_bug // Boost1.33 only; Boost1.34 fixed this!
     { };
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_gcc_bug, (gcc_bug< deduce<_1, as_value> >))
+EGG_generator_def(make_gcc_bug, (gcc_bug< deduce<_1, as_value> >))
 
 
 template< class A0 >
@@ -101,7 +101,7 @@ struct return_const
     { }
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_return_const, (return_const< deduce<_1, as_value> >) const)
+EGG_generator_def(make_return_const, (return_const< deduce<_1, as_value> >) const)
 
 
 template< class A0, class A1, class A2 >
@@ -116,9 +116,9 @@ struct A {};
 struct B {};
 struct C {};
 
-BOOST_EGG_OBJECT_GENERATOR( make_number312, (number< deduce<_3, as_value>, deduce<_1, as_value>, deduce<_2, as_value> >) )
-BOOST_EGG_OBJECT_GENERATOR( make_number111, (number< deduce<_1, as_value>, deduce<_1, as_value>, deduce<_1, as_value> >) )
-BOOST_EGG_OBJECT_GENERATOR( make_number213, (number< deduce<_2, as_value>, deduce<_1, as_value>, deduce<_3, as_value> >) )
+EGG_generator_def( make_number312, (number< deduce<_3, as_value>, deduce<_1, as_value>, deduce<_2, as_value> >) )
+EGG_generator_def( make_number111, (number< deduce<_1, as_value>, deduce<_1, as_value>, deduce<_1, as_value> >) )
+EGG_generator_def( make_number213, (number< deduce<_2, as_value>, deduce<_1, as_value>, deduce<_3, as_value> >) )
 
 
 struct H
@@ -161,7 +161,7 @@ struct must_mutable
     explicit must_mutable(A0) { }
 };
 
-BOOST_EGG_OBJECT_GENERATOR(make_must_mutable, (must_mutable<_1>))
+EGG_generator_def(make_must_mutable, (must_mutable<_1>))
 
 
 void egg_test()

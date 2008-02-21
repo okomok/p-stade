@@ -61,11 +61,11 @@ typedef function<little_foo, by_cref> T_foo;
 BOOST_EGG_CONST((T_foo), foo) = {{}};
 
 
-CHECK_IS_RESULT_OF((int) const, T_foo(int, int))
-CHECK_IS_RESULT_OF((int) const, T_foo(int&, int))
-CHECK_IS_RESULT_OF((int) const, T_foo(int const&, int))
-CHECK_IS_RESULT_OF((std::auto_ptr<int>) const, T_foo(std::auto_ptr<int>))
-CHECK_IS_RESULT_OF((char), T_foo())
+CHECK_IS_RESULT_OF(int const, T_foo(int, int))
+CHECK_IS_RESULT_OF(int const, T_foo(int&, int))
+CHECK_IS_RESULT_OF(int const, T_foo(int const&, int))
+CHECK_IS_RESULT_OF(std::auto_ptr<int> const, T_foo(std::auto_ptr<int>))
+CHECK_IS_RESULT_OF(char, T_foo())
 
 
 struct little_big_arity

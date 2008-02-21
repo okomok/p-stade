@@ -16,7 +16,7 @@
 #include "./using_egg.hpp"
 
 
-CHECK_IS_RESULT_OF((bool), T_is_same_obj(int, int&))
+CHECK_IS_RESULT_OF(bool, T_is_same_obj(int, int&))
 
 
 void egg_test()

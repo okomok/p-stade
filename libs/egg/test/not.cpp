@@ -50,14 +50,14 @@ void egg_test()
     }
     {
         typedef boost::egg::result_of_<T_not_(::less)>::type nl_t;
-        CHECK_IS_RESULT_OF((bool), nl_t(int, int))
+        CHECK_IS_RESULT_OF(bool, nl_t(int, int))
 
         nl_t nl = not_(::less());
         BOOST_CHECK( !nl(0, 1) );
     }
     {
         typedef boost::egg::result_of_<T_not_(::foo)>::type nf_t;
-        CHECK_IS_RESULT_OF((bool), nf_t())
+        CHECK_IS_RESULT_OF(bool, nf_t())
 
         nf_t nf = not_(::foo());
         BOOST_CHECK( nf() );

@@ -62,8 +62,8 @@ T_mono_foo1 const mono_foo1 = BOOST_EGG_MONO_L {} BOOST_EGG_MONO_R;
 typedef result_of_mono<my_foo, char()>::type T_mono_foo0;
 T_mono_foo0 const mono_foo0 = BOOST_EGG_MONO_L {} BOOST_EGG_MONO_R;
 
-CHECK_IS_RESULT_OF((int), T_mono_foo1(std::string const&))
-CHECK_IS_RESULT_OF((char), T_mono_foo0())
+CHECK_IS_RESULT_OF(int, T_mono_foo1(std::string const&))
+CHECK_IS_RESULT_OF(char, T_mono_foo0())
 
 
 

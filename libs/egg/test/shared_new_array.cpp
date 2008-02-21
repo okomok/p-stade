@@ -23,12 +23,12 @@ struct udt
 };
 
 
-CHECK_IS_RESULT_OF((boost::shared_array<int>), X_shared_new_array<int>(int))
-CHECK_IS_RESULT_OF((boost::shared_array<int>), X_shared_new_array<int>(int))
+CHECK_IS_RESULT_OF(boost::shared_array<int>, X_shared_new_array<int>(int))
+CHECK_IS_RESULT_OF(boost::shared_array<int>, X_shared_new_array<int>(int))
 
 
-CHECK_IS_RESULT_OF((boost::shared_array<udt>), X_shared_new_array<udt>(int))
-CHECK_IS_RESULT_OF((boost::shared_array<udt const>), X_shared_new_array<udt const>(int))
+CHECK_IS_RESULT_OF(boost::shared_array<udt>, X_shared_new_array<udt>(int))
+CHECK_IS_RESULT_OF(boost::shared_array<udt const>, X_shared_new_array<udt const>(int))
 
 
 void egg_unit_test()

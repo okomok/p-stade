@@ -28,12 +28,12 @@ struct udt
 };
 
 
-CHECK_IS_RESULT_OF((boost::shared_ptr<int>), X_shared_new<int>())
-CHECK_IS_RESULT_OF((boost::shared_ptr<int>), X_shared_new<int>(int))
+CHECK_IS_RESULT_OF(boost::shared_ptr<int>, X_shared_new<int>())
+CHECK_IS_RESULT_OF(boost::shared_ptr<int>, X_shared_new<int>(int))
 
 
-CHECK_IS_RESULT_OF((boost::shared_ptr<udt>), X_shared_new<udt>(int,int))
-CHECK_IS_RESULT_OF((boost::shared_ptr<udt const>), X_shared_new<udt const>(int,int))
+CHECK_IS_RESULT_OF(boost::shared_ptr<udt>, X_shared_new<udt>(int,int))
+CHECK_IS_RESULT_OF(boost::shared_ptr<udt const>, X_shared_new<udt const>(int,int))
 
 
 void egg_unit_test()

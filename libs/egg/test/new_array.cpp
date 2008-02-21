@@ -22,11 +22,11 @@ struct udt
 {};
 
 
-CHECK_IS_RESULT_OF((int *), X_new_array<int>(int))
+CHECK_IS_RESULT_OF(int *, X_new_array<int>(int))
 
 
-CHECK_IS_RESULT_OF((udt *), X_new_array<udt>(int))
-CHECK_IS_RESULT_OF((udt const*), X_new_array<udt const>(int))
+CHECK_IS_RESULT_OF(udt *, X_new_array<udt>(int))
+CHECK_IS_RESULT_OF(udt const*, X_new_array<udt const>(int))
 
 
 void egg_unit_test()

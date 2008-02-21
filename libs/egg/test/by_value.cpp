@@ -70,11 +70,11 @@ struct little_foo
 typedef function<little_foo, by_value> T_foo;
 BOOST_EGG_CONST((T_foo), foo) = {{}};
 
-CHECK_IS_RESULT_OF((int), T_foo(int, int))
-CHECK_IS_RESULT_OF((int), T_foo(int&, int))
-CHECK_IS_RESULT_OF((int), T_foo(int const&, int))
-CHECK_IS_RESULT_OF((std::auto_ptr<int>), T_foo(std::auto_ptr<int>))
-CHECK_IS_RESULT_OF((char), T_foo())
+CHECK_IS_RESULT_OF(int, T_foo(int, int))
+CHECK_IS_RESULT_OF(int, T_foo(int&, int))
+CHECK_IS_RESULT_OF(int, T_foo(int const&, int))
+CHECK_IS_RESULT_OF(std::auto_ptr<int>, T_foo(std::auto_ptr<int>))
+CHECK_IS_RESULT_OF(char, T_foo())
 
 
 std::auto_ptr<int> make_auto_ptr()

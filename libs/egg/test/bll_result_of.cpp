@@ -26,46 +26,46 @@ using boost::egg::result_of_;
 
 
 // 1ary
-CHECK_IS_RESULT_OF((int&), T_bll_1(int&))
-CHECK_IS_RESULT_OF((int const&), T_bll_1(int const&))
-CHECK_IS_RESULT_OF((int volatile&), T_bll_1(int volatile&))
-CHECK_IS_RESULT_OF((int const volatile&), T_bll_1(int const volatile&))
+CHECK_IS_RESULT_OF(int&, T_bll_1(int&))
+CHECK_IS_RESULT_OF(int const&, T_bll_1(int const&))
+CHECK_IS_RESULT_OF(int volatile&, T_bll_1(int volatile&))
+CHECK_IS_RESULT_OF(int const volatile&, T_bll_1(int const volatile&))
 
 // Boost1.34 too can take rvalue if const-qualified one.
 // Notice that function signature don't know cv-qualifier of parameters.
 #if 1
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int))
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int const))
 #if !BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, BOOST_TESTED_AT(1000))
     // intel propagate cv-qualifiers. It seems a bug.
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int volatile))
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const volatile))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int volatile))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int const volatile))
 #endif
 #endif
 
 // 2ary
-CHECK_IS_RESULT_OF((int&), T_bll_1(int&, double&))
-CHECK_IS_RESULT_OF((int const&), T_bll_1(int const&, double&))
+CHECK_IS_RESULT_OF(int&, T_bll_1(int&, double&))
+CHECK_IS_RESULT_OF(int const&, T_bll_1(int const&, double&))
 #if 1
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int, double&))
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const, double&))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int, double&))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int const, double&))
 #endif
 
 // 3ary
-CHECK_IS_RESULT_OF((int&), T_bll_1(int&, double&, double&))
-CHECK_IS_RESULT_OF((int const&), T_bll_1(int const&, double&, double&))
+CHECK_IS_RESULT_OF(int&, T_bll_1(int&, double&, double&))
+CHECK_IS_RESULT_OF(int const&, T_bll_1(int const&, double&, double&))
 #if 1
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int, double&, double&))
-    CHECK_IS_RESULT_OF((int const&), T_bll_1(int const, double&, double&))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int, double&, double&))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1(int const, double&, double&))
 #endif
 
 
 // const doesn't affect.
-CHECK_IS_RESULT_OF((int&), T_bll_1 const(int&))
-CHECK_IS_RESULT_OF((int const&), T_bll_1 const(int const&))
+CHECK_IS_RESULT_OF(int&, T_bll_1 const(int&))
+CHECK_IS_RESULT_OF(int const&, T_bll_1 const(int const&))
 #if 1
-    CHECK_IS_RESULT_OF((int const&), T_bll_1 const(int))
-    CHECK_IS_RESULT_OF((int const&), T_bll_1 const(int const))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1 const(int))
+    CHECK_IS_RESULT_OF(int const&, T_bll_1 const(int const))
 #endif
 
 
@@ -107,12 +107,12 @@ void egg_test()
         typedef result_of_<T_bll_bind(T_plus const&, int, T_bll_1 const&)>::type fun_t;
         fun_t fun = bll_bind(plus, 3, bll_1);
 
-        CHECK_IS_RESULT_OF((int), fun_t(int&))
-        CHECK_IS_RESULT_OF((int), fun_t(int const&))
+        CHECK_IS_RESULT_OF(int, fun_t(int&))
+        CHECK_IS_RESULT_OF(int, fun_t(int const&))
 
 #if 1
-        CHECK_IS_RESULT_OF((int), fun_t(int))
-        CHECK_IS_RESULT_OF((int), fun_t(int const))
+        CHECK_IS_RESULT_OF(int, fun_t(int))
+        CHECK_IS_RESULT_OF(int, fun_t(int const))
 #endif
 
         int i = 9;
@@ -126,12 +126,12 @@ void egg_test()
         typedef result_of_<T_bll_bind(T_identity const&, T_bll_1 const&)>::type fun_t;
         fun_t fun = bll_bind(identity, bll_1);
 
-        CHECK_IS_RESULT_OF((int&), fun_t(int&))
-        CHECK_IS_RESULT_OF((int const&), fun_t(int const&))
+        CHECK_IS_RESULT_OF(int&, fun_t(int&))
+        CHECK_IS_RESULT_OF(int const&, fun_t(int const&))
 
 #if 1
-        CHECK_IS_RESULT_OF((int const&), fun_t(int))
-        CHECK_IS_RESULT_OF((int const&), fun_t(int const))
+        CHECK_IS_RESULT_OF(int const&, fun_t(int))
+        CHECK_IS_RESULT_OF(int const&, fun_t(int const))
 #endif
 
         int i = 9;
