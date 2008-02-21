@@ -89,7 +89,7 @@ namespace boost { namespace egg {
 
     BOOST_PP_SEQ_FOR_EACH_PRODUCT(BOOST_EGG_call_operator, BOOST_EGG_PP_SEQ_REPEAT((0)(1), n))
 
-#endif // n == 0
+#endif
 
 
 #undef  n

@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_DETAIL_IGNORE_UNUSED_HPP
-#define BOOST_EGG_DETAIL_IGNORE_UNUSED_HPP
+#ifndef BOOST_EGG_DETAIL_UNUSED_HPP
+#define BOOST_EGG_DETAIL_UNUSED_HPP
 
 
 // Boost.Egg
@@ -10,10 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define BOOST_EGG_UNUSED(X) ((void)(X))
+
+
 #if defined(__GNUC__)
-    #define BOOST_EGG_IGNORE_UNUSED(O) __attribute__ ((__unused__)) O
+    #define BOOST_EGG_UNUSED_VAR(X) __attribute__ ((__unused__)) X
 #else
-    #define BOOST_EGG_IGNORE_UNUSED(O) O
+    #define BOOST_EGG_UNUSED_VAR(X) X
 #endif
 
 

@@ -24,6 +24,7 @@
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/detail/result_of_tuple_get.hpp>
 #include <boost/egg/detail/tuple_length.hpp>
+#include <boost/egg/detail/unused.hpp>
 
 
 namespace boost { namespace egg { namespace details {
@@ -88,7 +89,7 @@ namespace boost { namespace egg { namespace details {
     template<class Re, class Tuple>
     Re call_aux(Tuple &t, mpl::int_<n>) const
     {
-        (void)t; // for n == 0.
+        BOOST_EGG_UNUSED(t); // when n == 0.
         return m_base( BOOST_EGG_PP_ENUM_PARAMS_WITH(n, tuples::get<BOOST_EGG_PP_INT_, >(t)) );
     }
 
