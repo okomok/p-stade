@@ -30,7 +30,7 @@ rule tests
             case compile_*.cpp :
                 r += [ compile $(f) ] ;
             case typeof_with_*.cpp :
-                    r += [ run $(f) : : : <define>BOOST_TYPEOF_NATIVE : native_$(f:B) ] ;
+                    r += [ run $(f) : : : : $(f:B) ] ;
                     r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f:B) ] ;
             case * :
                 r += [ run $(f) ] ;
@@ -43,7 +43,6 @@ rule tests
 test-suite "egg"
     :
         [ tests ]
-    #    [ run noglob_fusion_pack.cpp ]
     #    [ run noglob_inlined_perf.cpp : : : : : <variant>release ]
     #    [ run noglob_inlined_mem_perf.cpp : : : : : <variant>release ]
         [ link noglob_static_initialization1.cpp noglob_static_initialization2.cpp : : static_initialization ]
