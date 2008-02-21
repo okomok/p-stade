@@ -56,9 +56,8 @@ void egg_test()
         (a, b) == plus(plus(4, a), b) );
 
     //[code_bll_bind_example
-    /*<< This is currying in __BOOST_LAMBDA__. >>*/
     // \x -> (\y -> plus(x, y))
-    BOOST_CHECK( lazy(bll_bind)(plus, _1, bll::protect(_1))
+    BOOST_CHECK( lazy(bll_bind)(plus, _1, bll::protect(_1)) /*< This is currying in __BOOST_LAMBDA__. >*/
         (a)(b) == plus(a, b) );
     //]
 

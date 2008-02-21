@@ -41,8 +41,7 @@ struct little_unwrap
     template<class Me, class A>
     struct apply
     {
-        /*<< `A` is possibly cv-qualifed but not reference type. >>*/
-        typedef A &type;
+        typedef A &type; /*< `A` is possibly cv-qualifed but not reference type. >*/
     };
 
     template<class Me, class T>
@@ -58,8 +57,7 @@ struct little_unwrap
     };
 
     template<class Re, class A>
-    /*<< `Re` is `apply<little_unwrap const, A>::type`. >>*/
-    Re call(A &a) const
+    Re call(A &a) const /*< `Re` is `apply<little_unwrap const, A>::type`, which is passed by Egg. >*/
     {
         return a;
     }
@@ -84,13 +82,11 @@ struct little_value_identity
     template<class Me, class A>
     struct apply
     {
-        /*<< `A` is a "plain" type. >>*/
-        typedef A type;
+        typedef A type; /*< `A` is a "plain" type. >*/
     };
 
     template<class Re, class A>
-    /*<< `Re` is `A`. >>*/
-    Re call(A a) const
+    Re call(A a) const /*< `Re` is `A`. >*/
     {
         return a;
     }
@@ -231,8 +227,7 @@ typedef
     generator<
         array_int4,
         boost::use_default,
-        /*<< `X_construct_braced1` too is ok. gcc-4.1 warns about fewer braces, though. >>*/
-        X_construct_braced2<>
+        X_construct_braced2<> /*< `X_construct_braced1` too is ok. gcc-4.1 warns about fewer braces, though. >*/
     >::type
 T_make_array4;
 

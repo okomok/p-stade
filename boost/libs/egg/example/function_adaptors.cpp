@@ -74,8 +74,7 @@ result_of_uncurry<
 >::type const another_plus
     =
 BOOST_EGG_UNCURRY_L
-    /*<< `&curried_plus` is an /address constant expression/, so that `another_plus` can be /statically initialized/. >>*/
-    BOOST_EGG_INDIRECT(&curried_plus)
+    BOOST_EGG_INDIRECT(&curried_plus) /*< `&curried_plus` is an /address constant expression/, so that `another_plus` can be /statically initialized/. >*/
 BOOST_EGG_UNCURRY_R
     ;
 //]
@@ -93,8 +92,7 @@ void test_lazy()
 {
     namespace bll = boost::lambda;
 
-    /*<< Boost1.35 or later won't require `make_const`. >>*/
-    BOOST_CHECK( my_Plus(bll::_1, 3)(bll::make_const(2)) == 2+3 );
+    BOOST_CHECK( my_Plus(bll::_1, 3)(bll::make_const(2)) == 2+3 ); /*< Boost1.35 or later won't require `make_const`. >*/
 
     int two = 2, four = 4;
     BOOST_CHECK( my_Plus(my_Plus(bll::_1, 3), my_Plus(bll::_2, bll::_1))

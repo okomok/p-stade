@@ -25,6 +25,6 @@ boostbook standalone
 #        <xsl:param>toc.section.depth=4
 #        <xsl:param>toc.max.depth=4
 #        <xsl:param>generate.section.toc.level=4
-        <xsl:param>callout.graphics.path=../images/callouts//
+        <xsl:param>callout.graphics.path=images/callouts/
 #        <xsl:param>boost.root=../../../../..
     ;

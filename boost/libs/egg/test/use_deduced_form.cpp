@@ -26,8 +26,7 @@ using namespace boost::egg;
 //[code_use_deduced_form_example
 struct little_foo
 {
-    /*<< Egg turns on the workaround if nested `use_deduced_form` is found. >>*/
-    typedef little_foo use_deduced_form;
+    typedef little_foo use_deduced_form; /*< Egg turns on the workaround if nested `use_deduced_form` is found. >*/
 
     template<class Me, class A1>
     struct apply
@@ -35,9 +34,8 @@ struct little_foo
         typedef A1 &type;
     };
 
-    /*<< `Re` is given with the first argument using `boost::type`. >>*/
     template<class Re, class A1>
-    Re call(boost::type<Re>, A1 &a1) const
+    Re call(boost::type<Re>, A1 &a1) const /*< `Re` is given with the first argument using `boost::type`. >*/
     {
         return a1;
     }

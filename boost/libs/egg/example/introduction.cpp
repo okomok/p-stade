@@ -29,8 +29,7 @@ struct little_plus
 {
     template<class Me, class X, class Y>
     struct apply
-        // Determining return type
-        : boost::remove_cv<X>
+        : boost::remove_cv<X> /*< Determining return type. >*/
     { };
 
     template<class Re, class X, class Y>
@@ -40,33 +39,28 @@ struct little_plus
     }
 };
 
-// Building MajorFunction
-typedef function<little_plus> T_plus;
+typedef function<little_plus> T_plus; /*< Building LittleFunction into MajorFunction. >*/
 T_plus const plus = {{}};
 
 void test_builder()
 {
-    // Boost.ResultOf compatible
-    result_of_<T_plus(int, int)>::type r = plus(1, 2);
+    result_of_<T_plus(int, int)>::type r = plus(1, 2); /*< Boost.ResultOf compatible. >*/
     BOOST_CHECK(r == 3);
 
-    // Boost.Lambda compatible
     namespace bll = boost::lambda;
     using std::string;
     string one("1");
-    BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one));
+    BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one)); /*< Boost.Lambda compatible. >*/
 }
 
-// Static initialization which incurs no runtime overhead.
-result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}});
+result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< Static initialization without runtime overhead. >*/
 
 void test_adaptor()
 {
     int r = 1|my_plus(2);
     BOOST_CHECK(r == 3);
 
-    // Dynamic initialization without macros.
-    result_of_<T_pipable(T_plus const &)>::type your_plus = pipable(plus);
+    result_of_<T_pipable(T_plus const &)>::type your_plus = pipable(plus); /*< Dynamic initialization without macros. >*/
     BOOST_CHECK((1|your_plus(2)) == 3);
 }
 //]
