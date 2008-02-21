@@ -4,6 +4,8 @@
 
 import testing ;
 
+import set ;
+
 project
     : requirements
         <toolset>intel:<debug-symbols>off
