@@ -15,7 +15,7 @@ project
         <link>static
     ;
 
-rule make-tests
+rule tests
 {
     local r ;
 
@@ -30,9 +30,9 @@ rule make-tests
             case compile_*.cpp :
                 r += [ compile $(f) ] ;
             case typeof_with_*.cpp :
-	            r += [ run $(f) : : : <define>BOOST_TYPEOF_NATIVE : native_$(f:B) ] ;
-	            r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f:B) ] ;
-	        case * :
+                    r += [ run $(f) : : : <define>BOOST_TYPEOF_NATIVE : native_$(f:B) ] ;
+                    r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f:B) ] ;
+            case * :
                 r += [ run $(f) ] ;
         }
     }
@@ -42,11 +42,11 @@ rule make-tests
 
 test-suite "egg"
     :
-        [ make-tests ]
+        [ tests ]
     #    [ run noglob_fusion_pack.cpp ]
     #    [ run noglob_inlined_perf.cpp : : : : : <variant>release ]
     #    [ run noglob_inlined_mem_perf.cpp : : : : : <variant>release ]
-        [ run noglob_static_initialization1.cpp noglob_static_initialization2.cpp : : : : static_initialization ]
+        [ link noglob_static_initialization1.cpp noglob_static_initialization2.cpp : : static_initialization ]
         [ link noglob_multiple_defs1.cpp noglob_multiple_defs2.cpp : : multiple_defs ]
     ;
 
