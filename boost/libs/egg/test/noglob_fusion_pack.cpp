@@ -9,13 +9,10 @@
 
 
 #include <boost/egg/fusion/pack.hpp>
+#include <boost/egg/by_ref.hpp>
 #include "./egg_test.hpp"
 
-#if defined(BOOST_EGG_HAS_FUSIONS)
 
-
-
-#include <boost/egg/by_ref.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/fusion/include/vector.hpp>
@@ -82,17 +79,9 @@ void test_ref()
     BOOST_CHECK( &(boost::fusion::at_c<9>(X_fusion_pack<by_ref>()(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9))) == &i9 );
 }
 
+
 void egg_test()
 {
     test_();
     test_ref();
 }
-
-
-
-#else
-
-void egg_test()
-{ }
-
-#endif
