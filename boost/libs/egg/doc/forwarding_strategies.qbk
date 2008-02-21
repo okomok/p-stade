@@ -2,8 +2,8 @@
 
 A Forwarding Strategy is a type which has three associated imaginary operators
 `_bytag_at`, `_arg_list` and `_meta_arg_list`.
-Egg predefines the fundamental strategies: `by_perfect`, `by_ref`, `by_cref`, and `by_value`.
-Also note Egg components use `by_perfect` when you omit or specify `_ud` for strategy parameter.
+Egg predefines the fundamental strategy quartet: `by_perfect`, `by_ref`, `by_cref`, and `by_value`.
+Also note Egg components use `by_perfect` when you omit or specify `boost::use_default` for strategy parameter.
 
 This section uses the following notation.
 
