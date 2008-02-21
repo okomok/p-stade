@@ -11,14 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/detail/ignore_unused.hpp>
+#include <boost/egg/detail/unused.hpp>
 #include <boost/egg/detail/pod_assert.hpp>
 #include <boost/egg/detail/unparen.hpp>
 
 
 #define BOOST_EGG_CONST(F, O) \
     BOOST_EGG_POD_ASSERT_OF(F, O); \
-    BOOST_EGG_UNPAREN(F) const BOOST_EGG_IGNORE_UNUSED(O) \
+    BOOST_EGG_UNPAREN(F) const BOOST_EGG_UNUSED_VAR(O) \
 /**/
 
 
