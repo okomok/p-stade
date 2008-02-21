@@ -11,9 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/detail/unused.hpp>
 #include <boost/egg/detail/pod_assert.hpp>
 #include <boost/egg/detail/unparen.hpp>
+#include <boost/egg/detail/unused.hpp>
 
 
 #define BOOST_EGG_CONST(F, O) \
