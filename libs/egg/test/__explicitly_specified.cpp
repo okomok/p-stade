@@ -11,6 +11,9 @@
 #include "./egg_test.hpp"
 
 
+#include <boost/egg/detail/boost_workaround.hpp>
+
+
 struct T_foo
 {
     template< class Re, class A0 >
@@ -30,5 +33,8 @@ struct T_foo
 void egg_test()
 {
     double const d = 0;
+#if !BOOST_WORKAROUND(__GNUC__, == 3)
     T_foo().call<int>(d);
+#endif
+    (void)d;
 }
