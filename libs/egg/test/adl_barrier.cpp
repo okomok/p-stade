@@ -12,6 +12,9 @@
 #include "./egg_test.hpp"
 
 
+#include <boost/egg/detail/boost_workaround.hpp>
+
+
 // See:
 // http://sourceforge.net/mailarchive/message.php?msg_id=14648776
 struct using_directive_not_broken
@@ -77,7 +80,10 @@ void end(yyy::bbb) { }
 void egg_test()
 {
     xxx::aaa a;
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1500) // what a compiler.
     begin(a);
+#endif
+    (void)a;
 
     yyy::bbb b;
     end(b);
