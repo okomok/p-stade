@@ -2,9 +2,8 @@
     Copyright (c) 2004 Joel de Guzman
     http://spirit.sourceforge.net/
 
-    Use, modification and distribution is subject to the Boost Software
-    License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-    http://www.boost.org/LICENSE_1_0.txt)
+    Distributed under the Boost Software License, Version 1.0. (See accompany-
+    ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 
 /*=============================================================================
@@ -62,12 +61,6 @@
         padding:  0pc 0pc 0pc 0pc;
     }
 
-    /* added by MB */
-    code.computeroutput
-    {
-        font-size: 9pt;
-    }
-
 /*=============================================================================
     Headings
 =============================================================================*/
@@ -116,7 +109,7 @@
     .section h2 { font-size: 140% }
     .section h3 { font-size: 130% }
     .section h4 { font-size: 120% }
-    .section h5 { font-size:  90% } /* fixed by MB: original:110% */
+    .section h5 { font-size: 110% }
     .section h6 { font-size: 100% }
 
     /* Code on titles */
@@ -193,6 +186,21 @@
     }
 
 /*=============================================================================
+    Copyright footer
+=============================================================================*/
+    .copyright-footer
+    {
+        text-align: right;
+        font-size: 70%;
+    }
+
+    .copyright-footer p
+    {
+        text-align: right;
+        font-size: 80%;
+    }
+
+/*=============================================================================
     Table of contents
 =============================================================================*/
 
@@ -253,6 +261,22 @@
         font-size: 80%;
     }
 
+    table.simplelist
+    {
+        width: auto !important;
+        margin: 0em !important;
+        padding: 0em !important;
+        border: none !important;
+    }
+    table.simplelist td
+    {
+        margin: 0em !important;
+        padding: 0em !important;
+        text-align: left !important;
+        font-size: 9pt !important;
+        border: none !important;
+    }
+
 /*=============================================================================
     Blurbs
 =============================================================================*/
@@ -262,35 +286,18 @@
     div.important,
     div.caution,
     div.warning,
-    div.sidebar
+    p.blurb
     {
         font-size: 9pt; /* A little bit smaller than the main text */
         line-height: 1.2;
         display: block;
         margin: 1pc 4% 0pc 4%;
-        padding: 0.5pc 0.5pc 0.0pc 0.5pc;
+        padding: 0.5pc 0.5pc 0.5pc 0.5pc;
     }
 
-    div.sidebar img
+    p.blurb img
     {
         padding: 1pt;
-    }
-
-/*=============================================================================
-    Callouts
-=============================================================================*/
-    .line_callout_bug img
-    {
-        float: left;
-        position:relative;
-        left: 4px;
-        top: -12px;
-        clear: left;
-        margin-left:-22px;
-    }
-
-    .callout_bug img
-    {
     }
 
 /*=============================================================================
@@ -365,6 +372,10 @@
 
     @media screen
     {
+        body {
+            background-color: #FFFFFF;
+        }
+        
     /* Links */
         a
         {
@@ -432,7 +443,7 @@
         div.important,
         div.caution,
         div.warning,
-        div.sidebar
+        p.blurb
         {
             border: 1px solid #DCDCDC;
         }
@@ -455,6 +466,11 @@
         {
             background-color: #F0F0F0;
             border: 1px solid #DCDCDC;
+        }
+
+        .copyright-footer
+        {
+            color: #8F8F8F;
         }
 
     /* Misc */
@@ -526,9 +542,47 @@
             border: 1px solid gray;
         }
 
+        table.simplelist tr td
+        {
+            border: none !important;
+        }
+
     /* Misc */
         span.highlight
         {
             font-weight: bold;
         }
     }
+
+/*=============================================================================
+    Images
+=============================================================================*/
+
+    span.inlinemediaobject img
+    {
+        vertical-align: middle;
+    }
+
+/*==============================================================================
+    Super and Subscript: style so that line spacing isn't effected, see
+    http://www.adobe.com/cfusion/communityengine/index.cfm?event=showdetails&productId=1&postId=5341
+==============================================================================*/
+
+sup,
+sub {
+	height: 0;
+	line-height: 1;
+	vertical-align: baseline;
+	_vertical-align: bottom;
+	position: relative;
+	
+}
+
+sup {
+	bottom: 1ex;
+}
+
+sub {
+	top: .5ex;
+}
+
