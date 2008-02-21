@@ -154,7 +154,6 @@ namespace boost { namespace egg {
             return pi.little().m_base(o);
         }
 
-        // by_value
         template<class O, class Base, class Bytag> inline
         typename lazy_enable_if_< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
         operator|(O o, function<little_result<Base, Bytag>, Bytag> pi)
@@ -180,7 +179,6 @@ namespace boost { namespace egg {
             return pi.little().m_base(o);
         }
 
-        // by_value
         template<class O, class Base, class Bytag> inline
         typename lazy_enable_if_< is_same<Bytag, by_value>, result_of_<Base(O)> >::type
         operator|=(function<little_result<Base, Bytag>, Bytag> pi, O o)

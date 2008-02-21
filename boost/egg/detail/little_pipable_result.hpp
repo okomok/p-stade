@@ -129,7 +129,6 @@ namespace pipable_operators {
         return pi.little().output(o);
     }
 
-    // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if_< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
     operator|(O o, function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi)
@@ -156,7 +155,6 @@ namespace pipable_operators {
         return pi.little().output(o);
     }
 
-    // by_value
     template<class O, class Base, class Strategy, class OperandBytag, class Args> inline
     typename lazy_enable_if_< is_same<OperandBytag, by_value>, result_of_output<O, Base, Args> >::type
     operator|=(function<little_pipable_result<Base, Strategy, OperandBytag, Args>, Strategy> const &pi, O o)
