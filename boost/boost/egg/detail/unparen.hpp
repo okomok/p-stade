@@ -17,22 +17,11 @@
 // 'BOOST_PARAMETER_PARENTHESIZED_TYPE' with Boost v1.34
 
 
-// What:
-//
-// Makes decayed-T with cv-qualifier from
-// BOOST_EGG_UNPAREN((T)cv-qualifier), where cv-qualifier is optional.
+#include <boost/egg/detail/in_fun_spec.hpp>
 
 
-#include <boost/egg/detail/unspecified.hpp>
-
-
-#define BOOST_EGG_UNPAREN(TQ) \
-    boost::egg::details::unparen<void(boost::egg::unspecified::*) TQ>::type \
-/**/
-
-#define BOOST_EGG_UNPAREN_TPL \
-    typename BOOST_EGG_UNPAREN \
-/**/
+#define BOOST_EGG_UNPAREN(T) boost::egg::details::unparen< void T >::type
+#define BOOST_EGG_UNPAREN_TPL typename BOOST_EGG_UNPAREN
 
 
 namespace boost { namespace egg { namespace details {
@@ -43,33 +32,15 @@ namespace boost { namespace egg { namespace details {
 
 
     template<class T>
-    struct unparen<void (unspecified::*)(T)>
+    struct unparen<void(T)>
     {
         typedef T type;
     };
 
     template< >
-    struct unparen<void (unspecified::*)(void)>
+    struct unparen<void(BOOST_EGG_VOID_IN_FUN_SPEC)>
     {
         typedef void type;
-    };
-
-    template<class T>
-    struct unparen<void (unspecified::*)(T) const>
-    {
-        typedef T const type;
-    };
-
-    template<class T>
-    struct unparen<void (unspecified::*)(T) volatile>
-    {
-        typedef T volatile type;
-    };
-
-    template<class T>
-    struct unparen<void (unspecified::*)(T) const volatile>
-    {
-        typedef T const volatile type;
     };
 
 
