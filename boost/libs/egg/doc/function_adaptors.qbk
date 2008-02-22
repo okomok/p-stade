@@ -13,10 +13,10 @@
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
 Function Adaptor provides, if possible, two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
-an __MPL_METAFUNCTION__ with the corresponding macro for /static initialization/.
+an __MPL_METAFUNCTION__ with the corresponding macro for __STATIC_INITIALIZATION__.
 An adapted non-local __FUNCTION_OBJECT__ with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__
 if the base __FUNCTION_OBJECT__ type is __POD__ and an expression passed to the macro is a /constant expression/.
-Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__-ness of base __FUNCTION_OBJECT__ unless otherwise specified.
+Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__-ness of base __FUNCTION_OBJECT__ unless otherwise specified.
 
 [ note If a macro argument is not guaranteed to contain no commas and recursions,
        you must use `BOOST_EGG_XXX_L` and `BOOST_EGG_XXX_R` instead of `BOOST_EGG_XXX`. ]
@@ -819,7 +819,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * A __FUNCTION_OBJECT__ returned from `memoize(_pfo)` must always be called with the same type arguments.
-* `_typeof(a1)` is __ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
+* `_typeof(a1)` is __COPY_ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
 * `_decltype( _pfo(fixed, _fwd_arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
 
@@ -1049,7 +1049,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [section regular]
 
 [heading Description]
-A __BOOST_LAMBDA__ functor is neither __DEFAULT_CONSTRUCTIBLE__ nor __ASSIGNABLE__.
+A __BOOST_LAMBDA__ functor is neither __DEFAULT_CONSTRUCTIBLE__ nor __COPY_ASSIGNABLE__.
 An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 `regular` converts it into comfortable one for iterators.
 
@@ -1070,7 +1070,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`regular(f)`]
-        [A __EGG_MAJOR_FUNCTION_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.]
     ]
     [
         [`regular(f)(a1,...,aN)`]

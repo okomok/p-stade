@@ -149,7 +149,7 @@ In addition to the requirements defined in the refinements,
 for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 
 * `x<A1,...,AN>::type` is __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type.
-* `x<A1,...,AN>::type` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `x<A1,...,AN>::type` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 * `BOOST_EGG_##TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
 * Non-local object `x<A1,...,AN>::type` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_##TOUPPER(x)()`.
 
@@ -183,7 +183,7 @@ In addition to the requirements defined in the refinements,
 for any __EGG_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
 * `_typeof(f)` is __POD__ in C++03 (a /trivial/ type in C++0x).
-* `_typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `_typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 * `f` is __STATICALLY_INITIALIZED__.
 * `boost::remove_reference<_decltype(f)>::type` is `_typeof(f) const`.
 * If `boost::result_of<_typeof(f) const(a1,...,aN)>::type` is a valid expression,
@@ -248,17 +248,17 @@ Thanks to these two convention, you can easily write a "chain" of __BOOST_RESULT
 [code_result_of_tutorial2]
 
 A /callable type/ can't be a /reference type/ but must be "const-correct",
-meaning that you must add `const` to /const-qualified/ __FUNCTION_OBJECT__ type:
+meaning that you must add `const` to __CONST_QUALIFIED__ __FUNCTION_OBJECT__ type:
 [code_result_of_tutorial3]
 
-However, if a library guarantees the same behavior between /const-qualified/ type and
-non-/const-qualified/ type (as __EGG_STATIC_FUNCTION_OBJECT__ does so), you could omit `const`:
+However, if a library guarantees the same behavior between __CONST_QUALIFIED__ type and
+non-__CONST_QUALIFIED__ type (as __EGG_STATIC_FUNCTION_OBJECT__ does so), you could omit `const`:
 [code_result_of_tutorial4]
 
 [heading Bugs]
 
 * msvc-7.1 and msvc-8.0 doesn't work with __POD__ templates.
-* A /const-qualified/ function pointer doesn't work.
+* A __CONST_QUALIFIED__ function pointer doesn't work.
 
 These bugs can be worked around by `egg::result_of_` in `<boost/egg/result_of.hpp>`.
 The first bug is fixed with Boost1.35.

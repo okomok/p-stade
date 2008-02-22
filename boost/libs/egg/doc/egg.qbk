@@ -53,7 +53,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 [/ Concepts ]
 
-[def __ASSIGNABLE__ [@http://boost.org/doc/html/Assignable.html Assignable]]
+[def __COPY_ASSIGNABLE__ [@http://boost.org/doc/html/Assignable.html Copy Assignable]]
 [def __COPY_CONSTRUCTIBLE__ [@http://boost.org/doc/html/CopyConstructible.html Copy Constructible]]
 [def __EQUALITY_COMPARABLE__ [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
 [def __DEFAULT_CONSTRUCTIBLE__ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
@@ -72,8 +72,12 @@ Distributed under the Boost Software License, Version 1.0.
 [def __INPUT_ITERATOR__ [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
 
 [def __POD__ POD]
-[def __STATICALLY_INITIALIZED__ statically initialized]
-[def __STATIC_STORAGE_DURATION__ static storage duration]
+[def __REFERENCE_TYPE__ reference-type]
+[def __CV_QUALIFIED__ cv-qualified]
+[def __CONST_QUALIFIED__ const-qualified]
+[def __STATIC_INITIALIZATION__ static-initialization]
+[def __STATICALLY_INITIALIZED__ statically-initialized]
+[def __STATIC_STORAGE_DURATION__ static-storage-duration]
 [def __PRECONDITION_AS_IS__ The corresponding semantics is a valid expression.]
 
 

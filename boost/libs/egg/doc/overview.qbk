@@ -110,7 +110,7 @@ Egg is known to work on the following platforms:
 [section Rationale]
 
 * Egg works around __FORWARDING_PROBLEM__.
-* Egg framework provides the way of /static initialization/ if possible.
+* Egg framework provides the way of __STATIC_INITIALIZATION__ if possible.
 * Egg doesn't introduce any new "traits".
 
 [endsect]
@@ -120,7 +120,7 @@ Egg is known to work on the following platforms:
 
 [section Acknowledgements]
 * Special thanks to David Abrahams. __FORWARDING_PROBLEM__ workaround is based on his __DAVID_CALLABLE__.
-* Special thanks to Eric Niebler, who pointed out importance of /static initialization/.
+* Special thanks to Eric Niebler, who pointed out importance of __STATIC_INITIALIZATION__.
 * Special thanks to Cryolite, Hitobashira, Kazuhiro Inaba, Takeshi Mouri, yotto-k, and Yusuke Kajimoto.
   These people are instrumental in the design and development of Egg.
 * Special thanks to Dan Marsden, who is review manager of this library.
@@ -157,7 +157,7 @@ This document uses the following notation.
     ]
     [
         [`_PFo`]
-        [A __POLYMORPHIC_FUNCTION_OBJECT__ type which is neither /reference/ nor /cv-qualified/.]
+        [A __POLYMORPHIC_FUNCTION_OBJECT__ type which is neither __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
     ]
     [
         [`_lit`]
@@ -165,7 +165,7 @@ This document uses the following notation.
     ]
     [
         [`_Lit`]
-        [A __EGG_LITTLE_FUNCTION__ type which is neither /reference/ nor /cv-qualified/.]
+        [A __EGG_LITTLE_FUNCTION__ type which is neither __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
     ]
     [
         [`_Stg`]
