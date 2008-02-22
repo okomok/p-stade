@@ -39,7 +39,7 @@ struct little_plus
     }
 };
 
-typedef function<little_plus> T_plus; /*< Building __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__ type. >*/
+typedef function<little_plus> T_plus; /*< Building __EGG_LITTLE_FUNCTION__ into __EGG_MAJOR_FUNCTION_OBJECT__ type. >*/
 T_plus const plus = {{}};
 
 void test_builder()

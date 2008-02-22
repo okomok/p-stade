@@ -26,11 +26,11 @@ This library is not part of Boost (yet).
 [section Introduction]
 
 Egg is a header-only library for building __POLYMORPHIC_FUNCTION_OBJECT__ which can be used
-with __BOOST_LAMBDA__. Such a function object is named __MAJOR_FUNCTION_OBJECT__.
+with __BOOST_LAMBDA__. Such a function object is named __EGG_MAJOR_FUNCTION_OBJECT__.
 
 Egg mainly provides three components:
 
-* __EGG_FUNCTION_BUILDERS__ which build __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__.
+* __EGG_FUNCTION_BUILDERS__ which build __EGG_LITTLE_FUNCTION__ into __EGG_MAJOR_FUNCTION_OBJECT__.
 * __EGG_FUNCTION_ADAPTORS__ which take __POLYMORPHIC_FUNCTION_OBJECT__ then return adapted one.
 * __EGG_FUNCTION_OBJECTS__ which are ports of famous function templates.
 
@@ -40,8 +40,8 @@ Egg emulates, by default, the "perfect forwarding" using `by_perfect`.
 
 [heading So what's Polymorphic Function Object?]
 In short, __POLYMORPHIC_FUNCTION_OBJECT__ is __FUNCTION_OBJECT__ which can be used with __BOOST_RESULT_OF__.
-(See also __RESULT_OF_TUTORIAL__.)
-__BOOST_RESULT_OF__ is a __METAFUNCTION__ to extract function return types without help of C++0x `decltype`,
+(See also __EGG_RESULT_OF_TUTORIAL__.)
+__BOOST_RESULT_OF__ is an __MPL_METAFUNCTION__ to extract function return types without help of C++0x `decltype`,
 so that it enables you to do the functional programming in C++03.
 
 [heading Polymorphic Function Object Models?]
@@ -68,8 +68,8 @@ Egg is the framework for building such function objects.
 
 [heading POD-oriented programming]
 As shown above, Egg offers unfamiliar syntax using braces and macros.
-`T_plus` is /POD/ type, and `plus` is initialized using braced-initializer `{{}}`.
-This makes `plus` be /statically initialized/, meaning that
+`T_plus` is __POD__, and `plus` is initialized using braced-initializer `{{}}`.
+This makes `plus` be __STATICALLY_INITIALIZED__, meaning that
 the initialization doesn't incur any runtime overhead,
 and the famous "static initialization order fiasco" never kicks in.
 Also notice that `my_plus` is initialized using "ugly" macro `BOOST_EGG_PIPABLE`.
@@ -161,11 +161,11 @@ This document uses the following notation.
     ]
     [
         [`_lit`]
-        [A __LITTLE_FUNCTION__ object]
+        [A __EGG_LITTLE_FUNCTION__ object]
     ]
     [
         [`_Lit`]
-        [A __LITTLE_FUNCTION__ type which is neither /reference/ nor /cv-qualified/.]
+        [A __EGG_LITTLE_FUNCTION__ type which is neither /reference/ nor /cv-qualified/.]
     ]
     [
         [`_Stg`]

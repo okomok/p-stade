@@ -36,7 +36,7 @@ So that, type registrations into __BOOST_TYPEOF__ can be minimized.
 
 [heading Preconditions]
 * Except for `boost::use_default`, types in `Sig` is registered to __BOOST_TYPEOF__.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Example]
 [code_typeof_meets_type_erasure]
@@ -79,7 +79,7 @@ Egg provides __FCPP__ infix operator syntax.
 [heading Preconditions]
 * `using namespace infix;` is placed before the valid expression.
 * `operator^` is not overloaded with `_typeof(a1)`.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
 * `^_pfo^` behaves as if it had left to right associativity.
