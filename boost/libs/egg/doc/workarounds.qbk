@@ -11,7 +11,7 @@ Egg provides some workaround utilities.
 `boost::result_of` has some problems especially under Boost1.34 or below:
 
 * `boost::result_of` can't take a /const-qualified function pointer/ as the target function.
-* Under msvc-7.1 or msvc-8.0 with Boost1.34 or below, `boost::result_of` can't take a /POD/ template as the target function. 
+* Under msvc-7.1 or msvc-8.0 with Boost1.34 or below, `boost::result_of` can't take __POD__ template as the target function. 
 
 So that, Egg provides its own "result_of" with slightly different name.
 
@@ -73,7 +73,7 @@ use this header.
 [section use_deduced_form]
 
 [heading Description]
-Under GCC 3.4.x, when you overload `call` in __LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
+Under GCC 3.4.x, when you overload `call` in __EGG_LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
 
 [heading Header]
 * `<boost/egg/use_deduced_form.hpp>`
@@ -130,9 +130,9 @@ GCC might show unused variable warnings without this macro.
 ]
 
 [heading Preconditions]
-* `F` is a /POD/ type which is not /cv-qualified/.
+* `F` is __POD__ which is not /cv-qualified/.
 * This macro is placed in namespace scope.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Example]
     BOOST_EGG_CONST((T_foo), foo) = &foo_impl;

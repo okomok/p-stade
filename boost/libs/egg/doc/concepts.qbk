@@ -8,13 +8,13 @@
 [section Lexically Typed Object]
 
 [heading Description]
-A __LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using prefix `T_`.
+A __EGG_LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using prefix `T_`.
 
 [heading Refinement of]
 * ...
 
 [heading Requirements]
-For any __LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
+For any __EGG_LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 
 * `a` is a named lvalue.
 * If token `a` doesn't begin with a single underscore, `T_##a` is `_typeof(a)`; `TT##a` otherwise.
@@ -26,7 +26,7 @@ For any __LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 * ...
 
 [heading See also]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [endsect]
 
@@ -36,14 +36,14 @@ For any __LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 [section Pipable Function Object]
 
 [heading Description]
-A __PIPABLE_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which behaves as if it were a "pipe" using `operator|` and `operator|=`.
+A __EGG_PIPABLE_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which behaves as if it were a "pipe" using `operator|` and `operator|=`.
 
 [heading Refinement of]
 * __FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
-for any __PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
+for any __EGG_PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 
 * `x|p(x1,...,xN)` is a valid expresion if and only if `p(x1,...,xN)|=x` is a valid expression.
 * `x|p(x1,...,xN)` and `p(x1,...,xN)|=x` have the same effects.
@@ -60,7 +60,7 @@ for any __PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 [heading See also]
 * __EXTENSION_METHOD__
 * __EGG_PIPABLE__
-* __AMBI_FUNCTION_OBJECT__
+* __EGG_AMBI_FUNCTION_OBJECT__
 
 [endsect]
 
@@ -70,19 +70,19 @@ for any __PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 [section Ambi Function Object]
 
 [heading Description]
-An __AMBI_FUNCTION_OBJECT__ is a __PIPABLE_FUNCTION_OBJECT__ which can be used also as free function.
+An __EGG_AMBI_FUNCTION_OBJECT__ is a __EGG_PIPABLE_FUNCTION_OBJECT__ which can be used also as free function.
 
 [heading Refinement of]
-* __PIPABLE_FUNCTION_OBJECT__
+* __EGG_PIPABLE_FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
-for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
+for any __EGG_AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 
 * `x|i(x1,...,xN)` is a valid expression if and only if `i(x, x1,...,xN)` is a valid expression.
 * `x|i(x1,...,xN)` and `i(x, x1,...,xN)` have the same effects.
 
-[note A __PIPABLE_FUNCTION_OBJECT__ can be overloaded with different arities, whereas __AMBI_FUNCTION_OBJECT__ cannot.]
+[note A __EGG_PIPABLE_FUNCTION_OBJECT__ can be overloaded with different arities, whereas __EGG_AMBI_FUNCTION_OBJECT__ cannot.]
 
 [heading Example]
 [code_concepts_ambi_function_object]
@@ -92,7 +92,7 @@ for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 
 [heading See also]
 * __EGG_AMBI__
-* __PIPABLE_FUNCTION_OBJECT__
+* __EGG_PIPABLE_FUNCTION_OBJECT__
 
 [endsect]
 
@@ -102,15 +102,15 @@ for any __AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 [section Major Function Object]
 
 [heading Description]
-A __MAJOR_FUNCTION_OBJECT__ is a __POLYMORPHIC_FUNCTION_OBJECT__ which can be used with __BOOST_LAMBDA__.
-Egg is a library which helps you define your own __MAJOR_FUNCTION_OBJECT__.
+A __EGG_MAJOR_FUNCTION_OBJECT__ is a __POLYMORPHIC_FUNCTION_OBJECT__ which can be used with __BOOST_LAMBDA__.
+Egg is a library which helps you define your own __EGG_MAJOR_FUNCTION_OBJECT__.
 
 [heading Refinement of]
 * __POLYMORPHIC_FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
-for any __MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
+for any __EGG_MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
 
 * `f` can be used as the first argument of `boost::lambda::bind`.
 
@@ -136,10 +136,10 @@ for any __MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
 [section Major Function Builder]
 
 [heading Description]
-A __MAJOR_FUNCTION_BUILDER__ is a __METAFUNCTION__ which returns a POD __MAJOR_FUNCTION_OBJECT__ type.
+A __EGG_MAJOR_FUNCTION_BUILDER__ is __MPL_METAFUNCTION__ which returns __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type.
 
 [heading Refinement of]
-* __METAFUNCTION__
+* __MPL_METAFUNCTION__
 
 [heading Notation]
 * `TOUPPER(x)` is a token that `x` is converted to uppercase.
@@ -148,10 +148,10 @@ A __MAJOR_FUNCTION_BUILDER__ is a __METAFUNCTION__ which returns a POD __MAJOR_F
 In addition to the requirements defined in the refinements,
 for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 
-* `x<A1,...,AN>::type` is a POD __MAJOR_FUNCTION_OBJECT__ type.
+* `x<A1,...,AN>::type` is __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type.
 * `x<A1,...,AN>::type` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 * `BOOST_EGG_##TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
-* Non-local object `x<A1,...,AN>::type` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_##TOUPPER(x)()`.
+* Non-local object `x<A1,...,AN>::type` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_##TOUPPER(x)()`.
 
 [heading Example]
 [code_concepts_pod_function_builder]
@@ -160,7 +160,7 @@ for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 * ...
 
 [heading See also]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [endsect]
 
@@ -172,19 +172,19 @@ for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 [section Static Function Object]
 
 [heading Description]
-A __STATIC_FUNCTION_OBJECT__ is a __MAJOR_FUNCTION_OBJECT__ which is intended to replace normal functions.
+A __EGG_STATIC_FUNCTION_OBJECT__ is a __EGG_MAJOR_FUNCTION_OBJECT__ which is intended to replace normal functions.
 
 [heading Refinement of]
-* __LEXICALLY_TYPED_OBJECT__
-* __MAJOR_FUNCTION_OBJECT__
+* __EGG_LEXICALLY_TYPED_OBJECT__
+* __EGG_MAJOR_FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
-for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
+for any __EGG_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
-* `_typeof(f)` is a /POD/ type in C++03 (a /trivial/ type in C++0x).
+* `_typeof(f)` is __POD__ in C++03 (a /trivial/ type in C++0x).
 * `_typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
-* `f` is /statically initialized/.
+* `f` is __STATICALLY_INITIALIZED__.
 * `boost::remove_reference<_decltype(f)>::type` is `_typeof(f) const`.
 * If `boost::result_of<_typeof(f) const(a1,...,aN)>::type` is a valid expression,
   `boost::result_of<_typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
@@ -206,14 +206,14 @@ for any __STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 [section Little Function]
 
 [heading Description]
-A __LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
+A __EGG_LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 
 [heading Refinement of]
 * ...
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
-for any __LITTLE_FUNCTION__ type `L` the following must be met:
+for any __EGG_LITTLE_FUNCTION__ type `L` the following must be met:
 
 * `L` has a nested class template named `apply`, where `apply<...>::type` means return type of function calls.
 * `L` has a const /member function/ named `call` whose return type is explicitly specified by the first template parameter.
@@ -252,12 +252,12 @@ meaning that you must add `const` to /const-qualified/ __FUNCTION_OBJECT__ type:
 [code_result_of_tutorial3]
 
 However, if a library guarantees the same behavior between /const-qualified/ type and
-non-/const-qualified/ type (as __STATIC_FUNCTION_OBJECT__ does so), you could omit `const`:
+non-/const-qualified/ type (as __EGG_STATIC_FUNCTION_OBJECT__ does so), you could omit `const`:
 [code_result_of_tutorial4]
 
 [heading Bugs]
 
-* msvc-7.1 and msvc-8.0 doesn't work with /POD/ templates.
+* msvc-7.1 and msvc-8.0 doesn't work with __POD__ templates.
 * A /const-qualified/ function pointer doesn't work.
 
 These bugs can be worked around by `egg::result_of_` in `<boost/egg/result_of.hpp>`.

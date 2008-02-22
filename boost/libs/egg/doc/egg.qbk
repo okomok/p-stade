@@ -21,66 +21,77 @@ Distributed under the Boost Software License, Version 1.0.
 
 [/ External Links ]
 
-[def __BOOST__ [@http://www.boost.org Boost C++ Libraries]]
-[def __BOOST_ACCUMULATORS__ [@http://boost-sandbox.sourceforge.net/libs/accumulators/doc/html/index.html Boost.Accumulators]]
-[def __BOOST_ENABLE_IF__ [@http://www.boost.org/libs/utility/enable_if.html Boost.EnableIf]]
-[def __BOOST_FUNCTION__ [@http://www.boost.org/libs/function/ Boost.Function]]
-[def __BOOST_FUSION__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/index.html Boost.Fusion]]
-[def __BOOST_ITERATOR__ [@http://boost.org/libs/iterator/doc/index.html Boost.Iterator]]
-[def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ Boost.Lambda]]
-[def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html Boost.Phoenix]]
-[def __BOOST_PREPROCESSOR__ [@http://www.boost.org/libs/preprocessor/doc/index.html Boost.Preprocessor]]
-[def __BOOST_PROTO__ [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/ Boost.Proto]]
-[def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of Boost.ResultOf]]
-[def __BOOST_TUPLE__ [@http://www.boost.org/libs/tuple/index.html Boost.Tuple]]
-[def __BOOST_TYPEOF__ [@http://www.boost.org/libs/typeof/index.html Boost.Typeof]]
+[def __BOOST__ [@http://www.boost.org [*Boost C++ Libraries]]]
+[def __BOOST_ACCUMULATORS__ [@http://boost-sandbox.sourceforge.net/libs/accumulators/doc/html/index.html [*Boost.Accumulators]]]
+[def __BOOST_ENABLE_IF__ [@http://www.boost.org/libs/utility/enable_if.html [*Boost.EnableIf]]]
+[def __BOOST_FUNCTION__ [@http://www.boost.org/libs/function/ [*Boost.Function]]]
+[def __BOOST_FUSION__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/index.html [*Boost.Fusion]]]
+[def __BOOST_ITERATOR__ [@http://boost.org/libs/iterator/doc/index.html [*Boost.Iterator]]]
+[def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ [*Boost.Lambda]]]
+[def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html [*Boost.Phoenix]]]
+[def __BOOST_PREPROCESSOR__ [@http://www.boost.org/libs/preprocessor/doc/index.html [*Boost.Preprocessor]]]
+[def __BOOST_PROTO__ [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/ [*Boost.Proto]]]
+[def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of [*Boost.ResultOf]]]
+[def __BOOST_TUPLE__ [@http://www.boost.org/libs/tuple/index.html [*Boost.Tuple]]]
+[def __BOOST_TYPEOF__ [@http://www.boost.org/libs/typeof/index.html [*Boost.Typeof]]]
+
 [def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 P-Stade C++ Libraries]]
 [def __FCPP__ [@http://www.cc.gatech.edu/~yannis/fc++/ FC++]]
 [def __EXTENSION_METHOD__ [@http://en.wikipedia.org/wiki/Extension_method Extension method]]
 
-[def __ASSIGNABLE__            [@http://boost.org/doc/html/Assignable.html Assignable]]
-[def __COPY_CONSTRUCTIBLE__    [@http://boost.org/doc/html/CopyConstructible.html Copy Constructible]]
-[def __EQUALITY_COMPARABLE__   [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
+[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]]
+[def __FUSION_FUNCTIONAL__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional.html Fusion Functional Adapters]]
+
+[def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
+[def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826 callable]]
+
+[def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
+[def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
+
+
+
+
+[/ Concepts ]
+
+[def __ASSIGNABLE__ [@http://boost.org/doc/html/Assignable.html Assignable]]
+[def __COPY_CONSTRUCTIBLE__ [@http://boost.org/doc/html/CopyConstructible.html Copy Constructible]]
+[def __EQUALITY_COMPARABLE__ [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
 [def __DEFAULT_CONSTRUCTIBLE__ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
 [def __POLYMORPHIC_FUNCTION_OBJECT__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html Polymorphic Function Object]]
 [def __POLYMORPHIC__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html Polymorphic]]
 [def __FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/functors.html Function Object]]
-[def __METAFUNCTION__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html Metafunction]]
-[def __METAFUNCTION_CLASS__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html Metafunction Class]]
+[def __MPL_METAFUNCTION__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html MPL Metafunction]]
+[def __MPL_METAFUNCTION_CLASS__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html MPL Metafunction Class]]
 [def __MPL_INTEGRAL_CONSTANT__ [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant]]
 [def __MPL_LAMBDA_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html MPL Lambda Expression]]
 [def __MPL_PLACEHOLDER_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/placeholder-expression.html MPL Placeholder Expression]]
 [def __MPL_FORWARD_SEQUENCE__ [@http://www.boost.org/libs/mpl/doc/refmanual/forward-sequence.html MPL Forward Sequence]]
 [def __SGI_ADAPTABLE_FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable Function Object]]
 [def __SGI_ADAPTABLE__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable]]
-
-[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]]
-[def __BOOST_FUSION_FUNCTIONAL__ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/adapters.html Fusion Functional Adapters]]
-
-[def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
-[def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826  callable]]
-
-[def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
-[def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
-
+[def __FUSION_FORWARD_SEQUENCE__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/sequence/concepts/forward_sequence.html Fusion Forward Sequence]]
 [def __INPUT_ITERATOR__ [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
+
+[def __POD__ POD]
+[def __STATICALLY_INITIALIZED__ statically initialized]
+[def __STATIC_STORAGE_DURATION__ static storage duration]
+[def __PRECONDITION_AS_IS__ The corresponding semantics is a valid expression.]
 
 
 
 
 [/ Internal Links ]
 
-[def __LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
-[def __STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
-[def __STATIC__ [link egg.concepts.static_function_object Static]]
-[def __AMBI_FUNCTION_OBJECT__ [link egg.concepts.ambi_function_object Ambi Function Object]]
-[def __AMBI__ [link egg.concepts.ambi_function_object Ambi]]
-[def __MAJOR_FUNCTION_OBJECT__ [link egg.concepts.major_function_object Major Function Object]]
-[def __MAJOR__ [link egg.concepts.major_function_object Major]]
-[def __PIPABLE_FUNCTION_OBJECT__ [link egg.concepts.pipable_function_object Pipable Function Object]]
-[def __PIPABLE__ [link egg.concepts.pipable_function_object Pipable]]
-[def __LITTLE_FUNCTION__ [link egg.concepts.little_function Little Function]]
-[def __RESULT_OF_TUTORIAL__ [link egg.concepts.result_of_tutorial result_of tutorial]]
+[def __EGG_LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
+[def __EGG_STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
+[def __EGG_STATIC__ [link egg.concepts.static_function_object Static]]
+[def __EGG_AMBI_FUNCTION_OBJECT__ [link egg.concepts.ambi_function_object Ambi Function Object]]
+[def __EGG_AMBI__ [link egg.concepts.ambi_function_object Ambi]]
+[def __EGG_MAJOR_FUNCTION_OBJECT__ [link egg.concepts.major_function_object Major Function Object]]
+[def __EGG_MAJOR__ [link egg.concepts.major_function_object Major]]
+[def __EGG_PIPABLE_FUNCTION_OBJECT__ [link egg.concepts.pipable_function_object Pipable Function Object]]
+[def __EGG_PIPABLE__ [link egg.concepts.pipable_function_object Pipable]]
+[def __EGG_LITTLE_FUNCTION__ [link egg.concepts.little_function Little Function]]
+[def __EGG_RESULT_OF_TUTORIAL__ [link egg.concepts.result_of_tutorial result_of tutorial]]
 
 [def __EGG_FORWARDING_STRATEGIES__ [link egg.forwarding_strategies Forwarding Strategies]]
 [def __EGG_DETERMINING_NULLARY_RETURN_TYPES__ [link egg.forwarding_strategies.determining_nullary_return_types Determining nullary return types]]

@@ -12,9 +12,9 @@
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
 Function Adaptor provides, if possible, two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
-a __METAFUNCTION__ with the corresponding macro for /static initialization/.
-An adapted non-local __FUNCTION_OBJECT__ with /static storage duration/ is /statically initialized/
-if the base __FUNCTION_OBJECT__ type is a /POD/ type and an expression passed to the macro is a /constant expression/.
+an __MPL_METAFUNCTION__ with the corresponding macro for /static initialization/.
+An adapted non-local __FUNCTION_OBJECT__ with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__
+if the base __FUNCTION_OBJECT__ type is __POD__ and an expression passed to the macro is a /constant expression/.
 Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__-ness of base __FUNCTION_OBJECT__ unless otherwise specified.
 
 [ note If a macro argument is not guaranteed to contain no commas and recursions,
@@ -26,13 +26,13 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [section ambiN]
 
 [heading Description]
-`ambi` family helps you to makes an __AMBI_FUNCTION_OBJECT__.
+`ambi` family helps you to makes an __EGG_AMBI_FUNCTION_OBJECT__.
 
 [heading Header]
 * `<boost/egg/ambi.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, _Bytag)` is an object of `result_of_ambi##N<_typeof(d), _Bytag>::type` initialized using `d` or an initializer.
@@ -45,7 +45,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_ambi##N<_PFo, _Bytag = _ud>::type`]
-        [An __AMBI__ __MAJOR_FUNCTION_OBJECT__ type.]
+        [An __EGG_AMBI__ __EGG_MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
         [`BOOST_EGG_AMBI_L init BOOST_EGG_AMBI_R`]
@@ -61,7 +61,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_ambi##N<_Bytag = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_ambi##N<_Bytag>()(d)`]
@@ -77,10 +77,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `N <= _PACK_MAX_ARITY-1`
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * If `_Bytag` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
-* The corresponding expression is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_ambi##N<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_ambi##N<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
 [code_ambi_example]
@@ -102,7 +102,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/compose.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d1, d2, R0, _Stg)` is an object of `result_of_compose<_typeof(d1),_typeof(d2), R0, _Stg>::type`  initialized using `d1` and `d1` or these initializer.
@@ -115,7 +115,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_compose<_Dco1, _Dco2, R0 = _ud, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_COMPOSE_L init1 , init2 BOOST_EGG_COMPOSE_R`]
@@ -131,7 +131,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_compose<R0 = _ud, _Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_compose<R0, _Stg>()(d1, d2)`]
@@ -146,13 +146,13 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * `0 <= N && N <= _PACK_MAX_ARITY`.
 * There is a `d1_` and `d2_` such that `_Dco1 d1_ = init1; _Dco2 d2_ = init2;` is a valid expression.
-* The corresponding expression is a valid expression.
+* __PRECONDITION_AS_IS__
 * `_decltype_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
 
 [note The last precondition means that `fc(d1, d2, R0, _Stg)` is NOT nullary-callable if `R0` is `_ud`. ]
 
 [heading Invariants]
-* `result_of_compose<_Dco1, _Dco2,...>::type` is a /POD/ type if and only if `_Dco1` and `_Dco2` is a /POD/ type.
+* `result_of_compose<_Dco1, _Dco2,...>::type` is __POD__ if and only if `_Dco1` and `_Dco2` is __POD__.
 
 [heading Example]
 [code_example_composing]
@@ -175,7 +175,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/curry.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_curry##N<_typeof(d)>::type` initialized using `d` or an initializer.
@@ -188,7 +188,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_curry##N<_PFo>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_CURRY##N##_L init BOOST_EGG_CURRY##N##_R`]
@@ -212,10 +212,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `N` is the arity of `_PFo` such that `2 <= N && N <= BOOST_EGG_MAX_ARITY`.
 * For all `I` such that `1 <= I && I <= N-1`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* The corresponding expression is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_curry##N<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_curry##N<_PFo>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
 [code_curry_example]
@@ -238,7 +238,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/uncurry.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, _Stg)` is an object of `result_of_uncurry<_typeof(d), _Stg>::type` initialized using `d` or an initializer.
@@ -252,7 +252,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_uncurry<_PFo, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_UNCURRY_L init BOOST_EGG_UNCURRY_R`]
@@ -268,7 +268,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_uncurry<_Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_uncurry<_Stg>()(d)`]
@@ -283,10 +283,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * `2 <= N && N <= BOOST_EGG_MAX_ARITY`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* The corresponding expression is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_uncurry<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_uncurry<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Currying Currying]
@@ -306,7 +306,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/fix.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * ...
@@ -321,7 +321,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [/
     [
         [`result_of_fix<_PFo>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_FIX_L init BOOST_EGG_FIX_R`]
@@ -338,13 +338,13 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fix2`]
-        [__STATIC__ `compose(fix, curry2)`]
+        [__EGG_STATIC__ `compose(fix, curry2)`]
     ]
 ]
 
 [heading Preconditions]
 [/ * There is a `d_` such that `_PFo d_ = init;` is a valid expression. ]
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [note `fix(_pfo)` that is passed to `_pfo` as the first argument represents `_pfo` itself.
       Also notice that `_pfo` must be curried in advance. ]
@@ -372,7 +372,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/flip.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, _Stg)` is an object of `result_of_flip<_typeof(d), _Stg>::type` initialized using `d` or an initializer.
@@ -385,7 +385,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_flip<_PFo, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_FLIP_L init BOOST_EGG_FLIP_R`]
@@ -401,7 +401,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_flip<_Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_flip<_Stg>()(d)`]
@@ -415,10 +415,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Preconditions]
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_flip<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_flip<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
 ...
@@ -442,7 +442,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/free.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(p)` is an object of `result_of_free<_typeof(p)>::type` initialized using `p` or an initializer.
@@ -456,7 +456,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_free<MPtr>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_FREE_L init BOOST_EGG_FREE_R`]
@@ -494,10 +494,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `a1` is convertible to `C const&`.
 * `b1` is not convertible to `C const&`.
 * There is a `p_` such that `Pco p_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_free<MPtr>::type` is a /POD/ type.
+* `result_of_free<MPtr>::type` is __POD__.
 
 [heading Example]
 [code_freed_prisoner]
@@ -515,13 +515,13 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [section fuse]
 
 [heading Description]
-`fuse` converts the base __FUNCTION_OBJECT__ into a unary __FUNCTION_OBJECT__ which takes a tuple.
+`fuse` converts __FUNCTION_OBJECT__ into unary __FUNCTION_OBJECT__ which takes __FUSION_FORWARD_SEQUENCE__.
 
 [heading Header]
 * `<boost/egg/fuse.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_fuse<_typeof(d)>::type` initialized using `d` or an initializer.
@@ -535,7 +535,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_fuse<_PFo>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_FUSE_L init BOOST_EGG_FUSE_R`]
@@ -547,7 +547,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`fc(d)(t)`]
-        [`_const(d)(boost::fusion::at_c<0>(t_),...,boost::fusion::at_c<N-1>(t_))`]
+        [`_const(d)(egg::get_c<0>(t_),...,egg::get_c<N-1>(t_))`]
     ]
     [
         [`fuse(d)`]
@@ -558,17 +558,18 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * `1 <= N && N <= _PACK_MAX_ARITY`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_fuse<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_fuse<_PFo>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
 [code_fuse_example]
 
 [heading See also]
-* __BOOST_FUSION_FUNCTIONAL__
+* __FUSION_FUNCTIONAL__
 * __VARIADIC_TEMPLATES__
+* __EGG_GET__
 * __EGG_UNFUSE__
 
 [endsect]
@@ -585,7 +586,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/unfuse.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, R0, _Stg)` is an object of `result_of_unfuse<_typeof(d), R0, Pack, _Stg>::type` initialized using `d` or an initializer.
@@ -599,7 +600,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_unfuse<_PFo, R0 = _ud, Pack = _ud, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_UNFUSE_L init BOOST_EGG_UNFUSE_R`]
@@ -615,7 +616,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_unfuse<R0 = _ud, Pack = _ud, _Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_unfuse<R0, Pack, _Stg>()(d)`]
@@ -629,19 +630,19 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 
 [heading Preconditions]
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 * `_decltype_r0(R0, d(pack_())` is a valid expression which specifies the nullary return type.
 * If `Pack` isn't `_ud`, `_mpl::apply<Pack, by_ref>::type` is a valid expression.
 
 [heading Invariants]
-* `result_of_unfuse<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_unfuse<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
 [code_unfuse_example]
 
 [heading See also]
 * __EGG_DETERMINING_NULLARY_RETURN_TYPES__
-* __BOOST_FUSION_FUNCTIONAL__
+* __FUSION_FUNCTIONAL__
 * __VARIADIC_TEMPLATES__
 * __EGG_FUSE__
 * __EGG_VARIADIC__
@@ -662,7 +663,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 * `<boost/egg/indirect.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(p, _Stg)` is an object of `result_of_indirect<_typeof(p), _Stg>::type` initialized using `p` or an initializer.
@@ -675,7 +676,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`result_of_indirect<Pco, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_INDIRECT_L init BOOST_EGG_INDIRECT_R`]
@@ -691,7 +692,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
     ]
     [
         [`X_indirect<_Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_indirect<_Stg>()(p)`]
@@ -706,10 +707,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE_
 [heading Preconditions]
 * `boost::pointee<Pco>::type` is __POLYMORPHIC_FUNCTION_OBJECT__ type.
 * There is a `p_` such that `Pco p_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_indirect<Pco,...>::type` is a /POD/ type if and only if `Pco` is a /POD/ type.
+* `result_of_indirect<Pco,...>::type` is __POD__ if and only if `Pco` is __POD__.
 
 [heading Example]
 [code_indirect_example]
@@ -732,7 +733,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `<boost/egg/lazy.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(f)` is an object of `result_of_lazy<_typeof(f), Bind>::type` initialized using `f` or an initializer.
@@ -746,7 +747,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_lazy<F, Bind = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_LAZY_L init BOOST_EGG_LAZY_R`]
@@ -768,10 +769,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * There is a `f_` such that `F f_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_lazy<F>::type` is a /POD/ type if and only if `F` is a /POD/ type.
+* `result_of_lazy<F>::type` is __POD__ if and only if `F` is __POD__.
 
 [heading Example]
 [code_lazy_example]
@@ -794,7 +795,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `<boost/egg/memoize.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fixed` is an unspecified unary __FUNCTION_OBJECT__ which represents `_pfo` itself.
@@ -807,7 +808,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_pfo)`]
-        [A __MAJOR_FUNCTION_OBJECT__]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__]
     ]
     [
         [`memoize(_pfo)(a1)`]
@@ -815,13 +816,11 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
 ]
 
-[note `memoize` can't offer the way to /statically initialize/ a memoized __FUNCTION_OBJECT__.]
-
 [heading Preconditions]
 * A __FUNCTION_OBJECT__ returned from `memoize(_pfo)` must always be called with the same type arguments.
 * `_typeof(a1)` is __ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
 * `_decltype( _pfo(fixed, _fwd_arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Example]
 [code_memoize_example]
@@ -861,7 +860,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_mono<Fun, Sig>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_MONO_L init BOOST_EGG_MONO_R`]
@@ -877,7 +876,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`X_mono<Sig>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_mono<Sig>()(f)`]
@@ -894,17 +893,17 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `Sig` is a /function/ type.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
 * If `R` is `_ud`, `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_mono<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
+* `result_of_mono<Fun,...>::type` is __POD__ if and only if `Fun` is __POD__.
 * `result_of_mono<Fun,...>::type` is __SGI_ADAPTABLE__ if and only if `N` is `1` or `2`.
 
 [heading Example]
 [code_mono_example]
 
 [heading See also]
-* __BOOST_FUSION_FUNCTIONAL__
+* __FUSION_FUNCTIONAL__
 * __SGI_ADAPTABLE__
 
 [endsect]
@@ -921,7 +920,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `<boost/egg/perfect.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d)` is an object of `result_of_perfect<_typeof(d)>::type` initialized using `d` or an initializer.
@@ -934,7 +933,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_perfect<_PFo>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_PERFECT_L init BOOST_EGG_PERFECT_R`]
@@ -956,10 +955,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_perfect<_PFo>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_perfect<_PFo>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
     BOOST_CHECK( perfect(boost::lambda::_1)(12) == 12 );
@@ -975,13 +974,13 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [section pipable]
 
 [heading Description]
-`pipable` adapts a base __FUNCTION_OBJECT__ into __PIPABLE_FUNCTION_OBJECT__.
+`pipable` adapts a base __FUNCTION_OBJECT__ into __EGG_PIPABLE_FUNCTION_OBJECT__.
 
 [heading Header]
 * `<boost/egg/pipable.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * `fc(d, _Stg, _Bytag)` is an object of `result_of_pipable<_typeof(d), _Stg, _Bytag>::type` initialized using `d` or an initializer.
@@ -994,7 +993,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`result_of_pipable<_PFo, _Stg = _ud, _Bytag = _ud>::type`]
-        [A __PIPABLE__ __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_PIPABLE__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_PIPABLE_L init BOOST_EGG_PIPABLE_R`]
@@ -1010,7 +1009,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`X_pipable<_Stg = _ud, _Bytag = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_pipable<_Stg, _Bytag>()(d)`]
@@ -1027,10 +1026,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `N+1 <= _PACK_MAX_ARITY`
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_pipable<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_pipable<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
 [code_pipable_example]
@@ -1057,7 +1056,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * `<boost/egg/regular.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * ...
@@ -1070,7 +1069,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`regular(f)`]
-        [A __MAJOR_FUNCTION_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.]
     ]
     [
         [`regular(f)(a1,...,aN)`]
@@ -1080,7 +1079,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 
 [heading Preconditions]
 * `f` is a __BOOST_LAMBDA__ functor or __POLYMORPHIC_FUNCTION_OBJECT__.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Example]
 ...
@@ -1115,7 +1114,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`result_of_return<Fun, R = _ud, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_RETURN_L init BOOST_EGG_RETURN_R`]
@@ -1131,7 +1130,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`X_return<R, _Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_return<R, _Stg>()(f)`]
@@ -1147,10 +1146,10 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * `Fun` is a __FUNCTION_OBJECT__ type.
 * `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type if `R` is `_ud`.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_return<Fun,...>::type` is a /POD/ type if and only if `Fun` is a /POD/ type.
+* `result_of_return<Fun,...>::type` is __POD__ if and only if `Fun` is __POD__.
 
 [heading Example]
 ...
@@ -1185,7 +1184,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
     ]
     [
         [`result_of_tagged<_PFo, Tag, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_TAGGED_L init BOOST_EGG_TAGGED_R`]
@@ -1212,10 +1211,10 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [heading Preconditions]
 * `Tag` is any (possibly incomplete) type.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_tagged<_PFo,...>::type` is a /POD/ type if and only if `_PFo` is a /POD/ type.
+* `result_of_tagged<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 * `result_of_tagged<_PFo, Tag1,...>::type` is the same type as `result_of_tagged<_PFo, Tag2,...>::type` if and only if `Tag1` is the same type as `Tag2`.
 
 [heading Example]

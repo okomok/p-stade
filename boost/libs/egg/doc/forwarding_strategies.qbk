@@ -37,7 +37,7 @@ This section uses the following notation.
 , where `V` is `boost::remove_cv<boost::decay<_typeof(a)>::type>::type`.
 
 [note `_val(a)` copies `a` and turns it into mutable lvalue in order to work around __FORWARDING_PROBLEM__.
-      You shouldn't take reference in __LITTLE_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
+      You shouldn't take reference in __EGG_LITTLE_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
 
 [note Under msvc-7.1, `a` in `_cref(a)` can't be function name.
            It is preferable to add `&` then turn function name into function pointer. ]
@@ -96,7 +96,7 @@ Egg defines the following imaginary operators for its documentation.
            a base __FUNCTION_OBJECT__ too must take arguments by value or const reference. ]
 
 [heading Preconditions]
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Example]
 ...
@@ -371,7 +371,7 @@ Egg provides the uniform way to define your own strategy.
 * `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 
 [heading Your strategy tag]
-A user-defined strategy tag is a __METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
+A user-defined strategy tag is __MPL_METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `_Bytag`.
 [code_my_strategy_tag]
 
 [heading Specializing `function<>`]
@@ -385,11 +385,11 @@ Moreover, if you want to support buggy msvc-7.1, `BOOST_EGG_DEDUCED_CONST` inste
 Also notice that `_Lit` is /cv-qualifier/ sensitive.
 
 [heading Your strategy completed]
-Now `function<>` with your strategy has become the __MAJOR_FUNCTION_OBJECT__ type.
+Now `function<>` with your strategy has become the __EGG_MAJOR_FUNCTION_OBJECT__ type.
 Let's look into the new valid expressions.
 
 [heading Notation]
-* `StgTag` is a __METAFUNCTION_CLASS__ which you have defined.
+* `StgTag` is __MPL_METAFUNCTION_CLASS__ which you have defined.
 * `StgTag_` is (possibly cv-qualified) `StgTag`.
 
 [heading New valid expressions]

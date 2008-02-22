@@ -1,6 +1,6 @@
 [section Function Builders]
 
-Function builders build __MAJOR_FUNCTION_OBJECT__ type,
+Function builders build __EGG_MAJOR_FUNCTION_OBJECT__ type,
 which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [import ../example/function_builders.cpp]
@@ -12,7 +12,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [section function]
 
 [heading Description]
-`function` is the "kernel" class template which builds a __LITTLE_FUNCTION__ into __MAJOR_FUNCTION_OBJECT__ type.
+`function` is the "kernel" class template which builds a __EGG_LITTLE_FUNCTION__ into __EGG_MAJOR_FUNCTION_OBJECT__ type.
 
 [heading Header]
 * `<boost/egg/function.hpp>`
@@ -42,7 +42,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
     ]
     [
         [`function<_Lit, _Stg>`]
-        [A __MAJOR_FUNCTION_OBJECT__ /aggregate/ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ /aggregate/ type]
     ]
     [
         [`f(a1,...,aN)`]
@@ -56,10 +56,10 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [heading Preconditions]
 * `_Lit` is __COPY_CONSTRUCTIBLE__.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `function<_Lit, _Stg>` is a /POD/ type if and only if `_Lit` is a /POD/ type.
+* `function<_Lit, _Stg>` is __POD__ if and only if `_Lit` is __POD__.
 * `function<_Lit, _Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `_Lit` is __DEFAULT_CONSTRUCTIBLE__.
 * `function<_Lit, _Stg>` is __ASSIGNABLE__ if and only if `_Lit` is __ASSIGNABLE__.
 
@@ -80,8 +80,8 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [section function_facade]
 
 [heading Description]
-`function_facade` creates a new __MAJOR_FUNCTION_OBJECT__ type using "CRTP".
-Though a type built from `function_facade` can't be a /POD/ type, it can have non-default constructors.
+`function_facade` creates a new __EGG_MAJOR_FUNCTION_OBJECT__ type using "CRTP".
+Though a type built from `function_facade` can't be __POD__, it can have non-default constructors.
 This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 [heading Header]
@@ -98,7 +98,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
     ]
     [
         [`_lit`]
-        [A __MAJOR_FUNCTION_OBJECT__]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__]
     ]
     [
         [`_lit(a1,...,aN)`]
@@ -112,7 +112,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 [heading Preconditions]
 * `_lit` is an object whose type is derived from `function_facade<_typeof(_lit), _Stg = _ud, R0 = _ud>`.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Example]
 [code_function_facade_example]
@@ -151,7 +151,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
     ]
     [
         [`generator<Lam, _Stg = _ud, Cons = _ud, R0 = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_GENERATOR()`]
@@ -177,16 +177,16 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 [heading Preconditions]
 * `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* Non-local object `g` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_GENERATOR()`.
+* Non-local object `g` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_GENERATOR()`.
 * `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [note `Lam` is not instantiated while invoking `_mpl::apply`, so that any static assertion in generated type doesn't fail.]
 
 [heading Deducers]
-Some basic and useful __METAFUNCTION_CLASS__ types are provided for better error messages.
+Some basic and useful __MPL_METAFUNCTION_CLASS__ types are provided for better error messages.
 You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though.
 
 [heading Valid expressions of Deducers]
@@ -257,7 +257,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`implicit<Lam, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_IMPLICIT()`]
@@ -280,14 +280,14 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 [heading Preconditions]
 * `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
 * `boost::is_convertible<unspecified, _typeof(to)>::value == false`.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 * `u` is not placed in a default argument list.
 
 [note These valid expressions imply that the implicit conversion is available everywhere /copy-initialization/ is invoked.
       For example, you can place `u` in /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
-* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_IMPLICIT()`.
+* Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_IMPLICIT()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
@@ -323,7 +323,7 @@ When you want to build stateless one, `poly` is the coolest builder.
     ]
     [
         [`poly<Lam, _Stg = _ud, R0 = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_POLY()`]
@@ -353,10 +353,10 @@ When you want to build stateless one, `poly` is the coolest builder.
   such that it is the same as `_decltype(_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg)))`.
 * If `R0` is `use_nullary_result`, `_mpl::apply<Lam>::type::result_type` is a valid expression
   such that it is the same as `_decltype(_mpl::apply<Lam>::type()())`.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* Non-local object `f` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_POLY()`.
+* Non-local object `f` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_POLY()`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
@@ -375,7 +375,7 @@ When you want to build stateless one, `poly` is the coolest builder.
 [heading Description]
 `static_` builds /POD/ __FUNCTION_OBJECT__ from __DEFAULT_CONSTRUCTIBLE__ one.
 Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
-to be /statically initialized/ without `static_`.
+to be __STATICALLY_INITIALIZED__ without `static_`.
 
 [heading Header]
 * `<boost/egg/static.hpp>`
@@ -392,7 +392,7 @@ to be /statically initialized/ without `static_`.
     ]
     [
         [`static_<Lam, _Stg = _ud>::type`]
-        [A __MAJOR_FUNCTION_OBJECT__ /POD/ type]
+        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_STATIC()`]
@@ -414,10 +414,10 @@ to be /statically initialized/ without `static_`.
 
 [heading Preconditions]
 * `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* Non-local object `u` with /static storage duration/ is /statically initialized/ if initialized using `BOOST_EGG_STATIC()`.
+* Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_STATIC()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
 
 [heading Example]
@@ -480,7 +480,7 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 ]
 
 [heading Preconditions]
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Invariants]
 * What the corresponding semantics implies.
@@ -504,13 +504,13 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 
 [heading Description]
 `make_function` is the object generator of `function<>`.
-This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNCTION__`call`.
+This is useful when you need a "self" __EGG_MAJOR_FUNCTION_OBJECT__ in __EGG_LITTLE_FUNCTION__`call`.
 
 [heading Header]
 * `<boost/egg/make_function.hpp>`
 
 [heading Model of]
-* __STATIC_FUNCTION_OBJECT__
+* __EGG_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
 * ...
@@ -523,7 +523,7 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
     ]
     [
         [`X_make_function<_Stg = _ud>`]
-        [A __MAJOR_FUNCTION_OBJECT__ type]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`X_make_function<_Stg>()(_lit)`]
@@ -536,7 +536,7 @@ This is useful when you need a "self" __MAJOR_FUNCTION_OBJECT__ in __LITTLE_FUNC
 ]
 
 [heading Preconditions]
-* The corresponding semantics is a valid expression.
+* __PRECONDITION_AS_IS__
 
 [heading Example]
 ...
