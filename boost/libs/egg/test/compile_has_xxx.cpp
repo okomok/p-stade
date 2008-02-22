@@ -9,7 +9,6 @@
 
 
 #include <boost/egg/detail/has_xxx.hpp>
-#include "./egg_test.hpp"
 
 
 #include <boost/mpl/assert.hpp>
@@ -78,7 +77,3 @@ namespace nested_type
     BOOST_MPL_ASSERT(( has_xxx<b6> ));
 //    BOOST_MPL_ASSERT(( has_xxx<b7> )); // error: vc8, vc9, gcc3, gcc4
 }
-
-
-void egg_test()
-{ }
