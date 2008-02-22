@@ -61,7 +61,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [heading Invariants]
 * `function<_Lit, _Stg>` is __POD__ if and only if `_Lit` is __POD__.
 * `function<_Lit, _Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `_Lit` is __DEFAULT_CONSTRUCTIBLE__.
-* `function<_Lit, _Stg>` is __ASSIGNABLE__ if and only if `_Lit` is __ASSIGNABLE__.
+* `function<_Lit, _Stg>` is __COPY_ASSIGNABLE__ if and only if `_Lit` is __COPY_ASSIGNABLE__.
 
 [heading Example]
 [code_function_example]
@@ -176,12 +176,12 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 ]
 
 [heading Preconditions]
-* `Lam` is an (possibly /cv-qualified/) __MPL_LAMBDA_EXPRESSION__.
+* `Lam` is an (possibly __CV_QUALIFIED__) __MPL_LAMBDA_EXPRESSION__.
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
 * Non-local object `g` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_GENERATOR()`.
-* `g` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `g` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [note `Lam` is not instantiated while invoking `_mpl::apply`, so that any static assertion in generated type doesn't fail.]
 
@@ -288,7 +288,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 [heading Invariants]
 * Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_IMPLICIT()`.
-* `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
 [code_implicit_example]
@@ -357,7 +357,7 @@ When you want to build stateless one, `poly` is the coolest builder.
 
 [heading Invariants]
 * Non-local object `f` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_POLY()`.
-* `f` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `f` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
 [code_poly_example]
@@ -373,7 +373,7 @@ When you want to build stateless one, `poly` is the coolest builder.
 [section static_]
 
 [heading Description]
-`static_` builds /POD/ __FUNCTION_OBJECT__ from __DEFAULT_CONSTRUCTIBLE__ one.
+`static_` builds __POD__ __FUNCTION_OBJECT__ from __DEFAULT_CONSTRUCTIBLE__ one.
 Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
 to be __STATICALLY_INITIALIZED__ without `static_`.
 
@@ -418,7 +418,7 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
 
 [heading Invariants]
 * Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_STATIC()`.
-* `u` is __DEFAULT_CONSTRUCTIBLE__ and __ASSIGNABLE__.
+* `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
 [code_static_example]
