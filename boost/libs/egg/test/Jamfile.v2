@@ -30,7 +30,7 @@ rule tests
             case compile_*.cpp :
                 r += [ compile $(f) ] ;
             case typeof_with_*.cpp :
-                    r += [ run $(f) : : : : $(f:B) ] ;
+                    r += [ run $(f) ] ;
                     r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f:B) ] ;
             case * :
                 r += [ run $(f) ] ;
