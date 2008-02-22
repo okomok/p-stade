@@ -7,6 +7,7 @@
 [import ../example/freed_prisoner.cpp]
 [import ../example/fusing.cpp]
 [import ../example/composing.cpp]
+[import ../example/be_regular.cpp]
 
 
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
@@ -1082,7 +1083,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[code_be_regular]
 
 [heading See also]
 * __BOOST_ITERATOR__
