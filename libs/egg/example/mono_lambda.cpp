@@ -30,6 +30,7 @@ BOOST_CHECK(
         egg::mono<bool(int const&)>(bll::_1 != 12)
     ) (12)
 );
+
 BOOST_CHECK(
     std::bind1st(
         egg::mono<boost::use_default(int const&, int const&)>(bll::_1 == bll::_2),
