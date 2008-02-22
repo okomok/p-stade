@@ -10,12 +10,12 @@ Egg provides some workaround utilities.
 [heading Description]
 `boost::result_of` has some problems especially under Boost1.34 or below:
 
-* `boost::result_of` can't take a __CONST_QUALIFIED__ function-pointer as the target function.
+* `boost::result_of` can't take a __CV_QUALIFIED__ function pointer as the target function.
 * Under msvc-7.1 or msvc-8.0 with Boost1.34 or below, `boost::result_of` can't take __POD__ template as the target function. 
 
 So that, Egg provides its own "result_of" with slightly different name.
 
-[note If you already use Boost1.35 and don't pass a __CONST_QUALIFIED__ function-pointer, you don't need this workaround.]
+[note If you already use Boost1.35 and don't pass a __CV_QUALIFIED__ function pointer, you don't need this workaround.]
 
 [note The former bug can probably be worked around by applying a patch to __BOOST_RESULT_OF__. ]
 
@@ -111,7 +111,7 @@ When you define a __FUNCTION_OBJECT__ in namespace scope,
 GCC might show unused variable warnings without this macro.
 
 [note Strictly speaking, a __CONST_QUALIFIED__ object in namespace scope incurs ODR(One Definition Rule) violation.
-      Though a conforming workaround is found, even GCC can't do the right thing around address-constant-expression.
+      Though a conforming workaround is found, even GCC can't do the right thing around /address constant expression/.
       Anyway, it is unlikely for this violation to cause significant problem. ]
 
 [heading Header]
