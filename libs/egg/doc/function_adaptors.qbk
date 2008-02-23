@@ -1,15 +1,5 @@
 [section Function Adaptors]
 
-[import ../example/function_adaptors.cpp]
-[import ../example/mono_lambda.cpp]
-[import ../example/adapted_to_comparison.cpp]
-[import ../example/unnamed_recursion.cpp]
-[import ../example/freed_prisoner.cpp]
-[import ../example/fusing.cpp]
-[import ../example/composing.cpp]
-[import ../example/be_regular.cpp]
-
-
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
 Function Adaptor provides, if possible, two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
@@ -84,7 +74,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_ambi##N<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-[code_ambi_example]
+[import ../example/ambi.cpp]
+[code_example_ambi]
 
 [heading See also]
 * __EGG_PIPABLE__
@@ -156,7 +147,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_compose<_Dco1, _Dco2,...>::type` is __POD__ if and only if `_Dco1` and `_Dco2` is __POD__.
 
 [heading Example]
-[code_example_composing]
+[import ../example/compose.cpp]
+[code_example_compose]
 
 [heading See also]
 * __EGG_DETERMINING_NULLARY_RETURN_TYPES__
@@ -219,7 +211,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_curry##N<_PFo>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-[code_curry_example]
+[import ../example/curry.cpp]
+[code_example_curry]
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Currying Currying]
@@ -289,6 +282,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [heading Invariants]
 * `result_of_uncurry<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
+[heading Example]
+[import ../example/uncurry.cpp]
+[code_example_uncurry]
+
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Currying Currying]
 * __EGG_CURRY__
@@ -351,7 +348,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
       Also notice that `_pfo` must be curried in advance. ]
 
 [heading Example]
-[code_unnamed_recursion]
+[import ../example/fix.cpp]
+[code_example_fix]
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]
@@ -422,7 +420,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_flip<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-[../import/flip.cpp]
+[import ../example/flip.cpp]
 [code_example_flip]
 
 [heading See also]
@@ -502,7 +500,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_free<MPtr>::type` is __POD__.
 
 [heading Example]
-[code_freed_prisoner]
+[import ../example/free.cpp]
+[code_example_free]
 
 [heading See also]
 * ...
@@ -566,7 +565,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_fuse<_PFo>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-[code_fuse_example]
+[import ../example/fuse.cpp]
+[code_example_fuse]
 
 [heading See also]
 * __FUSION_FUNCTIONAL__
@@ -640,7 +640,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_unfuse<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-[code_unfuse_example]
+[import ../example/unfuse.cpp]
+[code_example_unfuse]
 
 [heading See also]
 * __EGG_DETERMINING_NULLARY_RETURN_TYPES__
@@ -715,7 +716,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_indirect<Pco,...>::type` is __POD__ if and only if `Pco` is __POD__.
 
 [heading Example]
-[code_indirect_example]
+[import ../example/indirect.cpp]
+[code_example_indirect]
 
 [heading See also]
 * __BOOST_INDIRECT_ITERATOR__
@@ -777,7 +779,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `result_of_lazy<F>::type` is __POD__ if and only if `F` is __POD__.
 
 [heading Example]
-[code_lazy_example]
+[import ../example/lazy.cpp]
+[code_example_lazy]
 
 [heading See also]
 * __BOOST_PHOENIX__
@@ -825,7 +828,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-[code_memoize_example]
+[import ../example/memoize.cpp]
+[code_example_memoize]
 
 [heading See also]
 * [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]
@@ -902,7 +906,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `result_of_mono<Fun,...>::type` is __SGI_ADAPTABLE__ if and only if `N` is `1` or `2`.
 
 [heading Example]
-[code_mono_example]
+[import ../example/mono.cpp]
+[code_example_mono]
 
 [heading See also]
 * __FUSION_FUNCTIONAL__
@@ -1035,7 +1040,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `result_of_pipable<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-[code_pipable_example]
+[import ../example/pipable.cpp]
+[code_example_pipable]
 
 [tip According to Charles Brockman's research, "pipAble" is not misspelling of "pipEable". ]
 
@@ -1085,7 +1091,8 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-[code_be_regular]
+[import ../example/regular.cpp]
+[code_example_regular]
 
 [heading See also]
 * __BOOST_ITERATOR__
@@ -1222,7 +1229,8 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * `result_of_tagged<_PFo, Tag1,...>::type` is the same type as `result_of_tagged<_PFo, Tag2,...>::type` if and only if `Tag1` is the same type as `Tag2`.
 
 [heading Example]
-...
+[import ../example/tagged.cpp]
+[code_example_tagged]
 
 [heading See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2141.html Strong Typedefs in C++09(Revisited)]
