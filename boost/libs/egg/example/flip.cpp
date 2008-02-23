@@ -9,7 +9,6 @@
 
 
 #include <boost/egg/flip.hpp>
-#include <boost/egg/bll/result_of.hpp>
 
 
 #include "./using_bll.hpp"

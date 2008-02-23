@@ -3,9 +3,6 @@
 Function builders build __EGG_MAJOR_FUNCTION_OBJECT__ type,
 which can be used with `boost::lambda::bind` and `boost::result_of`.
 
-[import ../example/function_builders.cpp]
-[import ../example/variadic_plus.cpp]
-
 
 
 
