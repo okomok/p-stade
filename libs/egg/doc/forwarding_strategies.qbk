@@ -389,7 +389,7 @@ Let's look into the new valid expressions.
 
 [heading Notation]
 * `StgTag` is __MPL_METAFUNCTION_CLASS__ which you have defined.
-* `StgTag_` is (possibly cv-qualified) `StgTag`.
+* `StgTag_` is (possibly __CV_QUALIFIED__) `StgTag`.
 
 [heading New valid expressions]
 [table 

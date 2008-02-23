@@ -19,7 +19,7 @@
 
 //[code_example_indirect
 typedef
-    result_of_pipable< /*< Let's `pipable` be __EGG_PIPABLE__.>*/
+    result_of_pipable< /*< Make `pipable` be __EGG_PIPABLE__.>*/
         result_of_indirect<T_pipable const *>::type
     >::type
 T_pipi;
