@@ -8,16 +8,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "../test/egg_test.hpp"
-
-
 #include <boost/egg/curry.hpp>
 #include <boost/egg/uncurry.hpp>
 #include <boost/egg/compose.hpp>
 #include <iostream>
 
 
-using namespace boost::egg;
+#include "./egg_example.hpp"
 
 
 struct T_my_plus
@@ -74,7 +71,7 @@ BOOST_EGG_CURRY2_R
     ;
 
 
-void egg_test()
+void egg_example()
 {
     BOOST_CHECK( my_func(3)(4) == -7 );
     BOOST_CHECK( my_func2(3)(4) == 7 );

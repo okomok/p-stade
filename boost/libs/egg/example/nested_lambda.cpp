@@ -10,16 +10,11 @@
 
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/bll/bind.hpp>
-#include "../test/egg_test.hpp"
-
-
 #include <boost/egg/functional.hpp> // plus
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/core.hpp>
 
 
-using namespace boost::egg;
-namespace bll = boost::lambda;
+#include "./using_bll.hpp"
+#include "./egg_example.hpp"
 
 
 struct T_my_apply
@@ -38,7 +33,7 @@ T_my_apply const my_apply = {};
 result_of_lazy<T_my_apply>::type const my_Apply = BOOST_EGG_LAZY({});
 
 
-void egg_test()
+void egg_example()
 {
     result_of_<T_lazy(T_plus const&)>::type Plus = lazy(plus);
 
@@ -55,11 +50,9 @@ void egg_test()
     BOOST_CHECK( Plus(Plus(4, _1), _2)
         (a, b) == plus(plus(4, a), b) );
 
-    //[code_bll_bind_example
     // \x -> (\y -> plus(x, y))
     BOOST_CHECK( lazy(bll_bind)(plus, _1, bll::protect(_1)) /*< This is currying in __BOOST_LAMBDA__. >*/
         (a)(b) == plus(a, b) );
-    //]
 
     // complicated
     // \x -> my_apply(\y -> plus(x, y), plus(x, 3))

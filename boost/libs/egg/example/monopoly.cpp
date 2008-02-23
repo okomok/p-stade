@@ -11,14 +11,12 @@
 #include <boost/egg/mono.hpp>
 #include <boost/egg/poly.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include "../test/egg_test.hpp"
 
 
-namespace egg = boost::egg;
-using namespace egg;
+#include "./egg_example.hpp"
 
 
-//[code_monopoly
+//[code_example_monopoly
 template<class X = boost::mpl::_, class Y = X>
 struct mono_minus
 {
@@ -30,9 +28,10 @@ struct mono_minus
     }
 };
 
-void test()
+void egg_example()
 {
     using boost::use_default;
+
     {
         int r = mono_minus<int const, int const>()(5, 2);
         BOOST_CHECK( r == 3 );
@@ -47,9 +46,3 @@ void test()
     }
 }
 //]
-
-
-void egg_test()
-{
-    test();
-}

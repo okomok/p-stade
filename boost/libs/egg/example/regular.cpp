@@ -10,20 +10,15 @@
 
 #include <boost/egg/regular.hpp>
 #include <boost/iterator/filter_iterator.hpp>
-#include <boost/lambda/core.hpp>
-#include <boost/lambda/lambda.hpp>
-#include "../test/egg_test.hpp"
-
-#include <algorithm>
+#include <algorithm> // equal
 
 
-namespace egg = boost::egg;
-using namespace egg;
-namespace bll = boost::lambda;
+#include "./using_bll.hpp"
+#include "./egg_example.hpp"
 
 
-//[code_be_regular
-void test()
+//[code_example_regular
+void egg_example()
 {
     int a1[6] = {1,2,3,4,5,6};
     int a2[3] = {2,4,6};
@@ -34,8 +29,3 @@ void test()
     );
 }
 //]
-
-void egg_test()
-{
-    test();
-}
