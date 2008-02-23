@@ -22,6 +22,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/const.hpp>
+#include <boost/egg/detail/pass_by_value.hpp>
 #include <boost/egg/fix.hpp>
 #include <boost/egg/forward.hpp>
 #include <boost/egg/function_facade.hpp>
@@ -39,8 +40,10 @@ namespace boost { namespace egg {
         {
             template<class Me, class Base, class Fixed, class Arg>
             struct apply :
-                result_of_<
-                    typename result_of_<Base(Fixed &)>::type(Arg)
+                details::pass_by_value<
+                    typename result_of_<
+                        typename result_of_<Base(Fixed &)>::type(Arg)
+                    >::type
                 >
             { };
 
