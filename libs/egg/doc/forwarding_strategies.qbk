@@ -381,8 +381,7 @@ which automagically defines nested typedefs `little_type`, `strategy_type`, and 
 [code_my_strategy_function]
 For some compiler bugs, you can call neither `result` template nor `_Lit::call` directly.
 You have to use `apply_little` and `call_little` instead.
-Moreover, if you want to support buggy msvc-7.1, `BOOST_EGG_DEDUCED_CONST` instead of `const` must be used.
-Also notice that `_Lit` is /cv-qualifier/ sensitive.
+Moreover, if you want to support buggy msvc-7.1, `BOOST_EGG_DEDUCED_CONST` instead of `const` must be used in `apply_little`.
 
 [heading Your strategy completed]
 Now `function<>` with your strategy has become the __EGG_MAJOR_FUNCTION_OBJECT__ type.

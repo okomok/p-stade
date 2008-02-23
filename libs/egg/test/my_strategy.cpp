@@ -25,10 +25,8 @@
 //[code_my_strategy_tag
 struct my_strategy
 {
-    // You could use mpl::vector and mpl::at.
-
     template<class _, class Arity, class Index>
-    struct apply;
+    struct apply; /*< You can also use `mpl::vector` and `mpl::at`. >*/
 
     template<class _>
     struct apply<_, boost::mpl::int_<1>, boost::mpl::int_<0> >
@@ -59,27 +57,31 @@ namespace boost { namespace egg {
         Lit m_lit;
         Lit const & little() const { return m_lit; }
 
-        typename apply_little<Lit const>::type operator()() const
+        typename apply_little<Lit const>::type /*< `apply_little` requires `_Lit` to be const-correct. >*/
+        operator()() const
         {
             return call_little(m_lit);
         }
 
         template<class A1>
-        typename apply_little<Lit const, A1>::type operator()(A1& i) const
+        typename apply_little<Lit const, A1>::type
+        operator()(A1 &a1) const
         {
-            return call_little(m_lit, i);
+            return call_little(m_lit, a1);
         }
 
         template<class A1>
-        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type operator()(A1 const& i) const
+        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type /*< `BOOST_EGG_DEDUCED_CONST` works around msvc-7.1 bug around array. >*/
+        operator()(A1 const &a1) const
         {
-            return call_little(m_lit, i);
+            return call_little(m_lit, a1);
         }
 
         template<class A1, class A2>
-        typename apply_little<Lit const, A1, A2>::type operator()(A1 i, A2 j) const
+        typename apply_little<Lit const, A1, A2>::type
+        operator()(A1 a1, A2 a2) const
         {
-            return call_little(m_lit, i, j);
+            return call_little(m_lit, a1, a2);
         }
     };
 
