@@ -10,6 +10,9 @@
 
 #include <boost/egg/static.hpp>
 #include <boost/egg/apply.hpp>
+#include <boost/mpl/always.hpp>
+#include <functional> // plus
+#include <cstddef> // ptrdiff_t
 
 
 #include "./egg_example.hpp"
@@ -19,11 +22,15 @@
 typedef static_<X_apply<boost::mpl::_1>, by_value>::type T_apply_by_value;
 T_apply_by_value const apply_by_value = BOOST_EGG_STATIC();
 
-int increment(int i) { return i + 1; }
+typedef static_< boost::mpl::always< std::plus<int> > >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
+T_my_plus const my_plus = BOOST_EGG_STATIC();
+
+std::ptrdiff_t distance(int *first, int *last) { return last - first; }
 
 void egg_example()
 {
-    // decayed to function pointer.
-    BOOST_CHECK( apply_by_value(increment, 3) == 4 );
+    int a[2] = {1,2};
+    BOOST_CHECK( apply_by_value(distance, a, a+2) == 2 ); /*< `distance` and `a` are decayed. >*/
+    BOOST_CHECK( my_plus(a[0], a[1]) == 3 );
 }
 //]
