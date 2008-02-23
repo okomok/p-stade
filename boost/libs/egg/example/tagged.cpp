@@ -18,16 +18,6 @@
 
 
 //[code_example_tagged
-struct base_my_mult
-{
-    typedef int result_type;
-
-    int operator()(int x, int y) const
-    {
-        return x * y;
-    }
-};
-
 struct tag1;
 struct tag2;
 typedef result_of_tagged<std::multiplies<int>, tag1>::type T_my_mult1;

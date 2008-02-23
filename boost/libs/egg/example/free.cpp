@@ -9,17 +9,14 @@
 
 
 #include <boost/egg/free.hpp>
-#include "../test/egg_test.hpp"
 
 
-namespace egg = boost::egg;
-using namespace egg;
+#include "./egg_example.hpp"
+
 
 // See also 17.4.4.4.
 
-
-
-//[code_freed_prisoner
+//[code_example_free
 struct cage
 {
     int prisoner;
@@ -28,14 +25,9 @@ struct cage
 result_of_free<int (cage::*)>::type const
     freed_prisoner = BOOST_EGG_FREE(&cage::prisoner);
 
-void test_prisoner()
+void egg_example()
 {
     cage c = {777};
     BOOST_CHECK(freed_prisoner(c) == 777);
 }
 //]
-
-void egg_test()
-{
-    ::test_prisoner();
-}
