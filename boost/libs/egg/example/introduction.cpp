@@ -8,7 +8,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "../test/egg_test.hpp"
 #include <boost/egg/pipable.hpp>
 #include <boost/egg/function.hpp>
 #include <boost/egg/result_of.hpp>
@@ -20,8 +19,7 @@
 #include <boost/lexical_cast.hpp>
 
 
-using boost::egg::result_of_;
-using namespace boost::egg;
+#include "./egg_example.hpp"
 
 
 //[code_introduction
@@ -42,7 +40,7 @@ struct little_plus
 typedef function<little_plus> T_plus; /*< Building __EGG_LITTLE_FUNCTION__ into __EGG_MAJOR_FUNCTION_OBJECT__ type. >*/
 T_plus const plus = {{}};
 
-void test_builder()
+void egg_builder()
 {
     result_of_<T_plus(int, int)>::type r = plus(1, 2); /*< __BOOST_RESULT_OF__ compatible. >*/
     BOOST_CHECK(r == 3);
@@ -55,20 +53,20 @@ void test_builder()
 
 result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< Static initialization without runtime overhead. >*/
 
-void test_adaptor()
+void egg_adaptor()
 {
-    int r = 1|my_plus(2);
-    BOOST_CHECK(r == 3);
+    int r = 1|my_plus(2)|my_plus(3); /*< `pipable` is __EXTENSION_METHOD__ emulation in C++. >*/
+    BOOST_CHECK(r == 1+2+3);
 
     result_of_<T_pipable(T_plus const &)>::type your_plus = pipable(plus); /*< Dynamic initialization without macros. >*/
-    BOOST_CHECK((1|your_plus(2)) == 3);
+    BOOST_CHECK((1|your_plus(2)) == 1+2);
 }
 //]
 
 //[code_introduction_fixed_result
-struct T_to_string
+struct T_to_string /*< Egg doesn't appreciate `std::unary_function<>`, because inheriting it keeps types out of __POD__. >*/
 {
-    typedef std::string result_type;
+    typedef std::string result_type; /*< `argument_type` etc is not needed. >*/
 
     template<class T>
     result_type operator()(T const &t) const
@@ -80,10 +78,10 @@ struct T_to_string
 T_to_string const to_string = {};
 //]
 
-void egg_test()
+void egg_example()
 {
-    ::test_builder();
-    ::test_adaptor();
+    ::egg_builder();
+    ::egg_adaptor();
 
     BOOST_CHECK( to_string(1) == "1" );
 }

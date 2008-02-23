@@ -366,6 +366,7 @@ When you want to build stateless one, `poly` is the coolest builder.
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
+* __EGG_MONO__
 
 [endsect]
 
@@ -495,6 +496,7 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_UNFUSE__
+* __EGG_POLY__
 * __EGG_CONSTRUCT_VARIADIC1__
 
 [endsect]
