@@ -20,10 +20,10 @@
 #include <map>
 #include <boost/any.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/egg/by_cref.hpp>
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/fix.hpp>
+#include <boost/egg/forward.hpp>
 #include <boost/egg/function_facade.hpp>
 #include <boost/egg/result_of.hpp>
 
@@ -35,17 +35,17 @@ namespace boost { namespace egg {
 
 
         struct wrap_ :
-            function_facade<wrap_, by_cref>
+            function_facade<wrap_, by_value>
         {
             template<class Me, class Base, class Fixed, class Arg>
             struct apply :
                 result_of_<
-                    typename result_of_<Base(Fixed const &)>::type(Arg const &)
+                    typename result_of_<Base(Fixed &)>::type(Arg)
                 >
             { };
 
             template<class Re, class Base, class Fixed, class Arg>
-            Re call(Base &base, Fixed &fixed, Arg const &arg) const
+            Re call(Base base, Fixed fixed, Arg arg) const
             {
                 typedef std::map<Arg, Re> map_t;
 
@@ -58,7 +58,7 @@ namespace boost { namespace egg {
                 if (it != m.end())
                     return it->second;
                 else
-                    return m[arg] = base(fixed)(arg);
+                    return m[arg] = base(fixed)(egg::forward<by_value>(arg));
             }
 
             wrap_() :
