@@ -332,7 +332,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 ]
     [
         [`fix(_pfo)(a1)`]
-        [`_const(_pfo)(fix(_pfo))(_arg_list(a1, by_perfect))`]
+        [`_const(_pfo)(fix(_pfo))(_fwd_arg_list([a1], by_perfect))`]
     ]
     [
         [`fix2`]
@@ -352,6 +352,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [code_example_fix]
 
 [heading See also]
+* [@http://citeseer.ist.psu.edu/51062.html Using FIX to Handle Errors Without Exceptions, and Other Programming Tricks]
 * [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]
 * __EGG_CURRY__
 * __EGG_MEMOIZE__
