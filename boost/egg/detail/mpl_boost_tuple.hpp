@@ -27,7 +27,7 @@
 #include <boost/mpl/size_fwd.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/egg/detail/boost_tuple_fwd.hpp>
+#include <boost/egg/detail/boost_tuple_fwd.hpp> // BOOST_EGG_BOOST_TUPLE_MAX_SIZE
 
 
 struct ERROR_BOOST_EGG_MPL_BOOST_TUPLE_NOT_BIDIRECTIONAL;
