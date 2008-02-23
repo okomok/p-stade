@@ -817,14 +817,14 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`memoize(_pfo)(a1)`]
-        [`_const(_pfo)(fixed, _fwd_arg_list(_fwd_arg_list(a, by_cref), by_value))`]
+        [`_const(_pfo)(fixed, _fwd_arg_list([a1], by_value))`]
     ]
 ]
 
 [heading Preconditions]
 * A __FUNCTION_OBJECT__ returned from `memoize(_pfo)` must always be called with the same type arguments.
 * `_typeof(a1)` is __COPY_ASSIGNABLE__, __COPY_CONSTRUCTIBLE__ and __EQUALITY_COMPARABLE__.
-* `_decltype( _pfo(fixed, _fwd_arg_list(a, by_cref)) )` is __COPY_CONSTRUCTIBLE__.
+* `_decltype( _const(_pfo)(fixed, _fwd_arg_list(a, by_value)) )` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
