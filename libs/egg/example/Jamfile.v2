@@ -22,7 +22,7 @@ rule examples
     {
         switch $(f)
         {
-            case noglob_*.cpp :
+            case *_noglob.cpp :
                 # skip
             case *.cpp :
                 r += [ run $(f) ] ;
