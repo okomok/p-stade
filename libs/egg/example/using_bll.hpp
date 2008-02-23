@@ -12,6 +12,7 @@
 
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <boost/egg/bll/result_of.hpp>
 
 
 namespace bll = boost::lambda;

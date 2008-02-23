@@ -10,15 +10,11 @@
 
 #include <boost/egg/variadic.hpp>
 #include <string>
-#include <boost/lambda/core.hpp>
-#include <boost/lambda/lambda.hpp>
 #include <boost/fusion/include/boost_tuple.hpp>
 #include <boost/fusion/include/for_each.hpp>
 #include <boost/fusion/include/accumulate.hpp>
-#include <boost/egg/bll/placeholders.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/egg/bll/result_of.hpp>
 #include <boost/egg/bll/string.hpp>
 
 
