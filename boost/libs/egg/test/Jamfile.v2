@@ -22,18 +22,18 @@ rule tests
     {
         switch $(f)
         {
-            case noglob_*.cpp :
+            case *_noglob.cpp :
                 # skip
-            case run_fail_*.cpp :
+            case *_run_fail.cpp :
                 r += [ run-fail $(f) ] ;
-            case compile_fail_*.cpp :
+            case *_compile_fail.cpp :
                 r += [ compile-fail $(f) ] ;
-            case compile_*.cpp :
+            case *_compile.cpp :
                 r += [ compile $(f) ] ;
-            case typeof_with_*.cpp :
+            case *_with_typeof.cpp :
                     r += [ run $(f) ] ;
-                    r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : emulated_$(f:B) ] ;
-            case * :
+                    r += [ run $(f) : : : <define>BOOST_TYPEOF_EMULATION : $(f:B)_emulation ] ;
+            case *.cpp :
                 r += [ run $(f) ] ;
         }
     }
@@ -44,10 +44,10 @@ rule tests
 test-suite "egg"
     :
         [ tests ]
-    #    [ run noglob_large_arity.cpp ]
-    #    [ run noglob_inlined_perf.cpp : : : : : <variant>release ]
-    #    [ run noglob_inlined_mem_perf.cpp : : : : : <variant>release ]
-        [ link noglob_static_initialization1.cpp noglob_static_initialization2.cpp : : static_initialization ]
-        [ link noglob_multiple_defs1.cpp noglob_multiple_defs2.cpp : : multiple_defs ]
+    #    [ run large_arity_noglob.cpp ]
+    #    [ run inlined_perf_noglob.cpp : : : : : <variant>release ]
+    #    [ run inlined_mem_perf_noglob.cpp : : : : : <variant>release ]
+        [ link static_initialization1_noglob.cpp static_initialization2_noglob.cpp : : static_initialization ]
+        [ link multiple_defs1_noglob.cpp multiple_defs2_noglob.cpp : : multiple_defs ]
     ;
 
