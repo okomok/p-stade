@@ -4,8 +4,6 @@
 
 import testing ;
 
-import set ;
-
 project
     : requirements
         <toolset>intel:<debug-symbols>off
@@ -20,9 +18,15 @@ rule examples
 {
     local r ;
 
-    for local f in [ set.difference [ glob *.cpp ] : [ glob noglob_*.cpp ] ]
+    for local f in [ glob *.cpp ]
     {
-        r += [ run $(f) ] ;
+        switch $(f)
+        {
+            case noglob_*.cpp :
+                # skip
+            case *.cpp :
+                r += [ run $(f) ] ;
+        }
     }
 
     return $(r) ;
