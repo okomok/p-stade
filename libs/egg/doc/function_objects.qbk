@@ -161,7 +161,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/always.cpp]
+[code_example_always]
 
 [heading See also]
 * ...
@@ -391,7 +392,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/bll_placeholders.cpp]
+[code_example_bll_placeholders]
 
 [heading See also]
 * __BOOST_LAMBDA__

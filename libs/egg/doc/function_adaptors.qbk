@@ -422,7 +422,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * `result_of_flip<_PFo,...>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-...
+[../import/flip.cpp]
+[code_example_flip]
 
 [heading See also]
 * ...
@@ -962,7 +963,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `result_of_perfect<_PFo>::type` is __POD__ if and only if `_PFo` is __POD__.
 
 [heading Example]
-    BOOST_CHECK( perfect(boost::lambda::_1)(12) == 12 );
+[import ../example/perfect.cpp]
+[code_example_perfect]
 
 [heading See also]
 * ...
@@ -1153,7 +1155,8 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 * `result_of_return<Fun,...>::type` is __POD__ if and only if `Fun` is __POD__.
 
 [heading Example]
-...
+[import ../example/return.cpp]
+[code_example_return]
 
 [heading See also]
 * ...
