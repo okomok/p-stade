@@ -26,7 +26,7 @@ namespace boost { namespace egg {
 
     template<class From, class To>
     struct is_convertible_ :
-        boost::is_convertible<From, To>
+        is_convertible<From, To>
     { };
 
 
