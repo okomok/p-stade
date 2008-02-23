@@ -10,14 +10,12 @@
 
 #include <boost/egg/adapted_to.hpp>
 #include <boost/egg/curry.hpp>
-#include "../test/egg_test.hpp"
 
 
-namespace egg = boost::egg;
-using namespace egg;
+#include "./egg_example.hpp"
 
 
-//[code_adapted_to_comparison
+//[code_example_adapted_to
 struct base_plus
 {
     int id;
@@ -39,7 +37,7 @@ bool operator==(T_curried_plus const &left, T_curried_plus const &right)
     return egg::adapted_to<base_plus>(left).id == egg::adapted_to<base_plus>(right).id;
 }
 
-void test()
+void egg_example()
 {
     BOOST_CHECK( curried_plus777(4)(9) == 4+9 );
     BOOST_CHECK( egg::adapted_to<base_plus>(curried_plus777).id == 777);
@@ -47,9 +45,3 @@ void test()
     BOOST_CHECK(!(curried_plus777 == curried_plus999) );
 }
 //]
-
-
-void egg_test()
-{
-    test();
-}

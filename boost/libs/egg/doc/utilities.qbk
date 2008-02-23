@@ -1,8 +1,5 @@
 [section Utilities]
 
-[/ [import ../example/infix_apply.cpp] ]
-[import ../example/typeof_meets_type_erasure.cpp]
-
 
 
 
@@ -39,7 +36,8 @@ So that, type registrations into __BOOST_TYPEOF__ can be minimized.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-[code_typeof_meets_type_erasure]
+[import ../example/expr.cpp]
+[code_example_expr]
 
 [heading See also]
 * __BOOST_FUNCTION__
@@ -85,7 +83,8 @@ Egg provides __FCPP__ infix operator syntax.
 * `^_pfo^` behaves as if it had left to right associativity.
 
 [heading Example]
-[code_infix_plus_example]
+[import ../example/infix.cpp]
+[code_example_infix]
 
 [heading See also]
 * __FCPP__
