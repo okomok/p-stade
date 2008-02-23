@@ -24,7 +24,7 @@ typedef
     >::type
 T_pipi;
 
-T_pipi const pipi /*< `&pipable` is an /address constant expression/, so that `pipi` can be /statically initialized/. >*/
+T_pipi const pipi /*< `&pipable` is an /address constant expression/, so that `pipi` can be __STATICALLY_INITIALIZED__. >*/
   = BOOST_EGG_PIPABLE_L
         BOOST_EGG_INDIRECT(&pipable) /*< A macro invocation must be sandwiched using `_L` and `_R`. >*/
     BOOST_EGG_PIPABLE_R;
