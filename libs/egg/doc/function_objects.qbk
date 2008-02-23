@@ -103,7 +103,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-[code_adapted_to_comparison]
+[import ../example/adapted_to.cpp]
+[code_example_adapted_to]
 
 [heading See also]
 * ...
@@ -172,6 +173,55 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+[section identity]
+
+[heading Description]
+`identity` returns argument unchanged.
+
+[heading Header]
+* `<boost/egg/identity.hpp>`
+
+[heading Model of]
+* __EGG_STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_identity<_Stg = _ud>`]
+        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_identity<_Stg>()(a1)`]
+        [`_fwd_arg_list([a1], _Stg)` ]
+    ]
+    [
+        [`identity`]
+        [`X_identity<>()`]
+    ]
+]
+
+[heading Preconditions]
+* __PRECONDITION_AS_IS__
+
+[heading Example]
+[import ../example/identity.cpp]
+[code_example_identity]
+
+[heading See also]
+* ...
+
+[endsect]
+
+
+
+
 [section apply]
 
 [heading Description]
@@ -212,7 +262,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 [heading Example]
-[code_infix_apply_example]
+[import ../example/apply.cpp]
+[code_example_apply]
 
 [heading See also]
 * ...
@@ -262,7 +313,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/auto_new.cpp]
+[code_example_auto_new]
 
 [heading See also]
 * ...
@@ -310,7 +362,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/shared_new.cpp]
+[code_example_share_new]
 
 [heading See also]
 * ...
@@ -351,7 +404,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-[code_bll_bind_example]
+[import ../example/bll_bind.cpp]
+[code_example_bll_bind]
 
 [heading See also]
 * __BOOST_LAMBDA__
@@ -441,7 +495,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/construct.cpp]
+[code_example_construct]
 
 [heading See also]
 * __EGG_GENERATOR__
@@ -695,59 +750,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/get.cpp]
+[code_example_get]
 
 [heading See also]
 * __BOOST_FUSION__
 * __BOOST_TUPLE__
-
-[endsect]
-
-
-
-
-[section identity]
-
-[heading Description]
-`identity` returns argument unchanged.
-
-[heading Header]
-* `<boost/egg/identity.hpp>`
-
-[heading Model of]
-* __EGG_STATIC_FUNCTION_OBJECT__
-
-[heading Notation]
-* ...
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`X_identity<_Stg = _ud>`]
-        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`X_identity<_Stg>()(a1)`]
-        [`_fwd_arg_list([a1], _Stg)` ]
-    ]
-    [
-        [`identity`]
-        [`X_identity<>()`]
-    ]
-]
-
-[heading Preconditions]
-* __PRECONDITION_AS_IS__
-
-[heading Example]
-...
-
-[heading See also]
-* ...
 
 [endsect]
 
@@ -793,7 +801,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/pack.cpp]
+[code_example_pack]
 
 [heading See also]
 * __BOOST_FUSION__
@@ -845,7 +854,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-...
+[import ../example/fusion_pack.cpp]
+[code_example_fusion_pack]
 
 [heading See also]
 * __BOOST_FUSION__
