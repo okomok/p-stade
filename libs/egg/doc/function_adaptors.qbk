@@ -911,8 +911,9 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [code_example_mono]
 
 [heading See also]
+* __SGI_ADAPTABLE_FUNCTION_OBJECT__
 * __FUSION_FUNCTIONAL__
-* __SGI_ADAPTABLE__
+* __EGG_POLY__
 
 [endsect]
 

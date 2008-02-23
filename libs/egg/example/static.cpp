@@ -19,8 +19,8 @@
 
 
 //[code_example_static
-typedef static_<X_apply<boost::mpl::_1>, by_value>::type T_apply_by_value;
-T_apply_by_value const apply_by_value = BOOST_EGG_STATIC();
+typedef static_<X_apply<boost::mpl::_1>, by_cref>::type T_my_apply;
+T_my_apply const my_apply = BOOST_EGG_STATIC();
 
 typedef static_< boost::mpl::always< std::plus<int> > >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
 T_my_plus const my_plus = BOOST_EGG_STATIC();
@@ -29,8 +29,6 @@ std::ptrdiff_t distance(int *first, int *last) { return last - first; }
 
 void egg_example()
 {
-    int a[2] = {1,2};
-    BOOST_CHECK( apply_by_value(distance, a, a+2) == 2 ); /*< `distance` and `a` are decayed. >*/
-    BOOST_CHECK( my_plus(a[0], a[1]) == 3 );
+    BOOST_CHECK( my_apply(my_plus, 1, 2) == 3 );
 }
 //]
