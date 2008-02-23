@@ -3,7 +3,6 @@
 # (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 import testing ;
-import set ;
 
 project
     : requirements
@@ -19,10 +18,12 @@ rule tests
 {
     local r ;
 
-    for local f in [ set.difference [ glob *.cpp ] : [ glob noglob_*.cpp ] ]
+    for local f in [ glob *.cpp ]
     {
         switch $(f)
         {
+            case noglob_*.cpp :
+                # skip
             case run_fail_*.cpp :
                 r += [ run-fail $(f) ] ;
             case compile_fail_*.cpp :
