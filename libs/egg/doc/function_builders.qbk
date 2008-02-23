@@ -64,7 +64,8 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 * `function<_Lit, _Stg>` is __COPY_ASSIGNABLE__ if and only if `_Lit` is __COPY_ASSIGNABLE__.
 
 [heading Example]
-[code_function_example]
+[import ../example/function.cpp]
+[code_example_function]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -115,7 +116,8 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
-[code_function_facade_example]
+[import ../example/function_facade.cpp]
+[code_example_function_facade]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -222,7 +224,8 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 ]
 
 [heading Example]
-[code_generator_example]
+[import ../example/generator.cpp]
+[code_example_generator]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -291,7 +294,8 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
-[code_implicit_example]
+[import ../example/implicit.cpp]
+[code_example_implicit]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -360,7 +364,8 @@ When you want to build stateless one, `poly` is the coolest builder.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
-[code_poly_example]
+[import ../example/poly.cpp]
+[code_example_poly]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -421,7 +426,8 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
-[code_static_example]
+[import ../example/static.cpp]
+[code_example_static]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
@@ -486,7 +492,8 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 * What the corresponding semantics implies.
 
 [heading Example]
-[code_variadic_plus]
+[import ../example/variadic.cpp]
+[code_example_variadic]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__

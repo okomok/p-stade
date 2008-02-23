@@ -9,10 +9,7 @@
 
 
 #include <boost/egg/variadic.hpp>
-#include "../test/egg_test.hpp"
-
 #include <string>
-
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/fusion/include/boost_tuple.hpp>
@@ -25,12 +22,11 @@
 #include <boost/egg/bll/string.hpp>
 
 
-namespace bll = boost::lambda;
-namespace egg = boost::egg;
-using namespace egg;
+#include "./using_bll.hpp"
+#include "./egg_example.hpp"
 
 
-//[code_variadic_plus
+//[code_example_variadic
 template<class Args>
 struct mono_vplus
 {
@@ -52,7 +48,7 @@ struct mono_vplus
 typedef variadic_poly< mono_vplus<boost::mpl::_1> >::type T_vplus;
 T_vplus const vplus = BOOST_EGG_VARIADIC_POLY();
 
-void test()
+void egg_example()
 {
     using std::string;
 
@@ -61,9 +57,3 @@ void test()
         == vplus(string("1"), string("8")) );
 }
 //]
-
-
-void egg_test()
-{
-    ::test();
-}

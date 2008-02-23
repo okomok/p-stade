@@ -10,7 +10,6 @@
 
 #include <boost/egg/always.hpp>
 #include <string>
-#include <boost/utility/addressof.hpp>
 
 
 #include "./egg_example.hpp"
@@ -21,6 +20,6 @@ void egg_example()
 {
     int ten = 10;
     BOOST_CHECK( always(ten)(1,2,3,4,5) == 10 );
-    BOOST_CHECK( boost::addressof(always_ref(ten)(1,2,3,4,5)) == boost::addressof(ten) );
+    BOOST_CHECK( &(always_ref(ten)(1,2,3,4,5)) == &ten );
 }
 //]
