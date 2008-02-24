@@ -30,8 +30,7 @@ struct fused_print
     }
 };
 
-typedef result_of_unfuse<fused_print>::type T_print;
-T_print const print = BOOST_EGG_UNFUSE({});
+result_of_unfuse<fused_print>::type const print = BOOST_EGG_UNFUSE({});
 
 void egg_example()
 {

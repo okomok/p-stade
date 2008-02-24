@@ -51,14 +51,14 @@ void egg_builder()
     BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one)); /*< __BOOST_LAMBDA__ compatible. >*/
 }
 
-result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< Static initialization without runtime overhead. >*/
+result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< __STATIC_INITIALIZATION__ without runtime overhead. >*/
 
 void egg_adaptor()
 {
     int r = 1|my_plus(2)|my_plus(3); /*< This is __EXTENSION_METHOD__ emulation in C++. >*/
     BOOST_CHECK(r == 1+2+3);
 
-    result_of_<T_pipable(T_plus const &)>::type your_plus = pipable(plus); /*< Dynamic initialization without macros. >*/
+    result_of_<T_pipable(T_plus const &)>::type your_plus = pipable(plus); /*< Using __EGG_PIPABLE__ as higher-order function. >*/
     BOOST_CHECK((1|your_plus(2)) == 1+2);
 }
 //]

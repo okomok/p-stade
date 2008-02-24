@@ -26,8 +26,7 @@ struct base_my_minus
     }
 };
 
-typedef result_of_curry2<base_my_minus>::type T_curried_minus;
-T_curried_minus const curried_minus = BOOST_EGG_CURRY2({});
+result_of_curry2<base_my_minus>::type const curried_minus = BOOST_EGG_CURRY2({});
 
 void egg_example()
 {
