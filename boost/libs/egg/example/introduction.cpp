@@ -37,7 +37,7 @@ struct little_plus
     }
 };
 
-typedef function<little_plus> T_plus; /*< Building __EGG_LITTLE_FUNCTION__ into __EGG_MAJOR_FUNCTION_OBJECT__ type. >*/
+typedef function<little_plus> T_plus; /*< Building __CONCEPT_LITTLE_FUNCTION__ into __CONCEPT_MAJOR_FUNCTION_OBJECT__ type. >*/
 T_plus const plus = {{}};
 
 void egg_builder()
@@ -55,7 +55,7 @@ result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< Sta
 
 void egg_adaptor()
 {
-    int r = 1|my_plus(2)|my_plus(3); /*< `pipable` is __EXTENSION_METHOD__ emulation in C++. >*/
+    int r = 1|my_plus(2)|my_plus(3); /*< This is __EXTENSION_METHOD__ emulation in C++. >*/
     BOOST_CHECK(r == 1+2+3);
 
     result_of_<T_pipable(T_plus const &)>::type your_plus = pipable(plus); /*< Dynamic initialization without macros. >*/

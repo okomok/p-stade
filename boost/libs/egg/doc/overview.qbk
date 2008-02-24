@@ -26,11 +26,11 @@ This library is not part of Boost (yet).
 [section Introduction]
 
 Egg is a header-only library for building __POLYMORPHIC_FUNCTION_OBJECT__ which can be used
-with __BOOST_LAMBDA__. Such a function object is named __EGG_MAJOR_FUNCTION_OBJECT__.
+with __BOOST_LAMBDA__. Such a function object is named __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 
 Egg mainly provides three components:
 
-* __EGG_FUNCTION_BUILDERS__ which build __EGG_LITTLE_FUNCTION__ into __EGG_MAJOR_FUNCTION_OBJECT__.
+* __EGG_FUNCTION_BUILDERS__ which build __CONCEPT_LITTLE_FUNCTION__ into __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 * __EGG_FUNCTION_ADAPTORS__ which take __POLYMORPHIC_FUNCTION_OBJECT__ then return adapted one.
 * __EGG_FUNCTION_OBJECTS__ which are ports of famous function templates.
 
@@ -161,11 +161,11 @@ This document uses the following notation.
     ]
     [
         [`_lit`]
-        [A __EGG_LITTLE_FUNCTION__ object]
+        [A __CONCEPT_LITTLE_FUNCTION__ object]
     ]
     [
         [`_Lit`]
-        [A __EGG_LITTLE_FUNCTION__ type which is neither __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
+        [A __CONCEPT_LITTLE_FUNCTION__ type which is neither __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
     ]
     [
         [`_Stg`]

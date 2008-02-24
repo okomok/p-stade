@@ -25,8 +25,6 @@ T_my_apply const my_apply = BOOST_EGG_STATIC();
 typedef static_< boost::mpl::always< std::plus<int> > >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
 T_my_plus const my_plus = BOOST_EGG_STATIC();
 
-std::ptrdiff_t distance(int *first, int *last) { return last - first; }
-
 void egg_example()
 {
     BOOST_CHECK( my_apply(my_plus, 1, 2) == 3 );

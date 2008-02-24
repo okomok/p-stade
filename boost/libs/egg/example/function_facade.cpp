@@ -38,7 +38,7 @@ private:
     T m_x;
 };
 
-/*< `plus_to<>` is already __EGG_MAJOR_FUNCTION_OBJECT__ type. >*/
+/*< `plus_to<>` is already __CONCEPT_MAJOR_FUNCTION_OBJECT__ type. >*/
 template<class T>
 plus_to<T> make_plus_to(T x)
 {
