@@ -206,6 +206,8 @@ Also, assume that every expression is placed after:
     namespace egg = boost::egg;
     using namespace egg;
 
+Every example source code can be found at `libs/egg/example`.
+
 [endsect]
 
 
