@@ -13,7 +13,7 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
@@ -30,23 +30,15 @@ namespace boost { namespace egg {
         template<class T, class Strategy>
         struct little
         {
-        // 0ary
             typedef T *nullary_result_type;
 
-            template<class Re>
-            Re call() const
-            {
-                return new T();
-            }
-
-        // 1ary-
             template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_LINEAR_ARITY, A)>
             struct apply
             {
                 typedef T *type;
             };
 
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/new.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/new.hpp>))
             #include BOOST_PP_ITERATE()
         };
 
@@ -72,7 +64,7 @@ BOOST_EGG_REGISTER_NULLARY_RESULT_OF_TEMPLATE(boost::egg::X_new, (class)(class))
 #define n BOOST_PP_ITERATION()
 
 
-    template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
+    template<class Re BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
         return new T(BOOST_EGG_FORWARDING_ARGS(n, a, Strategy const));
