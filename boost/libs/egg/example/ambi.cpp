@@ -26,8 +26,7 @@ struct base_my_plus
     }
 };
 
-typedef result_of_ambi1<base_my_plus>::type T_my_plus;
-T_my_plus const my_plus = BOOST_EGG_AMBI({});
+result_of_ambi1<base_my_plus>::type const my_plus = BOOST_EGG_AMBI({});
 
 void egg_example()
 {
