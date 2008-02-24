@@ -17,7 +17,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [section ambiN]
 
 [heading Description]
-`ambi` family helps you to makes an __CONCEPT_AMBI_FUNCTION_OBJECT__.
+`ambi` family helps you to make __CONCEPT_AMBI_FUNCTION_OBJECT__.
 
 [heading Header]
 * `<boost/egg/ambi.hpp>`
