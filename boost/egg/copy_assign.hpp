@@ -49,7 +49,13 @@ namespace boost { namespace egg {
     } // namespace copy_assign_detail
 
 
-    typedef result_of_ambi1<function<copy_assign_detail::little, by_perfect>, by_perfect>::type T_copy_assign;
+    typedef
+        result_of_ambi1<
+            function<copy_assign_detail::little, by_perfect>,
+            by_perfect
+        >::type
+    T_copy_assign;
+
     BOOST_EGG_CONST((T_copy_assign), copy_assign) = BOOST_EGG_AMBI({{}});
 
 

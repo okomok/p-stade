@@ -73,11 +73,26 @@ namespace boost { namespace egg {
     #include BOOST_EGG_EXPLICIT()
 
 
-    typedef result_of_ambi0<implicit<X_adapted_to<mpl::_1>, by_perfect>::type, by_perfect>::type T_to_base;
-    BOOST_EGG_CONST((T_to_base), to_base) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
+    typedef
+        result_of_ambi0<
+            implicit<X_adapted_to<mpl::_1>, by_perfect>::type,
+            by_perfect
+        >::type
+    T_to_base;
 
-    typedef result_of_ambi0<implicit_ref<X_adapted_to<mpl::_1>, by_perfect>::type, by_perfect>::type T_to_base_ref;
-    BOOST_EGG_CONST((T_to_base_ref), to_base_ref) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
+    BOOST_EGG_CONST((T_to_base), to_base)
+        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
+
+
+    typedef
+        result_of_ambi0<
+            implicit_ref<X_adapted_to<mpl::_1>, by_perfect>::type,
+            by_perfect
+        >::type
+    T_to_base_ref;
+
+    BOOST_EGG_CONST((T_to_base_ref), to_base_ref)
+        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
 
 
 } } // namespace boost::egg

@@ -21,7 +21,13 @@
 namespace boost { namespace egg {
 
 
-    typedef implicit<X_shared_new<pointee<mpl::_1>, mpl::_2>, by_perfect>::type T_shared_object;
+    typedef 
+        implicit<
+            X_shared_new<pointee<mpl::_1>, mpl::_2>,
+            by_perfect
+        >::type
+    T_shared_object;
+
     BOOST_EGG_CONST((T_shared_object), shared_object) = BOOST_EGG_IMPLICIT();
 
 

@@ -90,8 +90,12 @@ namespace boost { namespace egg {
     #define BOOST_EGG_FIX(F) BOOST_EGG_FIX_L F BOOST_EGG_FIX_R
 
 
-    typedef result_of_compose<T_fix, T_curry2, use_default, by_perfect>::type T_fix2;
-    BOOST_EGG_CONST((T_fix2), fix2) = BOOST_EGG_COMPOSE_L BOOST_EGG_FIX_INIT, BOOST_EGG_CURRY_INIT BOOST_EGG_COMPOSE_R;
+    typedef
+        result_of_compose<T_fix, T_curry2, use_default, by_perfect>::type
+    T_fix2;
+
+    BOOST_EGG_CONST((T_fix2), fix2)
+        = BOOST_EGG_COMPOSE_L BOOST_EGG_FIX_INIT, BOOST_EGG_CURRY_INIT BOOST_EGG_COMPOSE_R;
 
 
 } } // namespace boost::egg
