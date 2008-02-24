@@ -93,7 +93,7 @@ Egg defines the following imaginary operators for its documentation.
 
 [important `_arg_list` and `_fwd_arg_list` has slightly different semantics.
            Put simply, in case of __EGG_FUNCTION_ADAPTORS__ with `by_value`,
-           a base __FUNCTION_OBJECT__ too must take arguments by value or const reference. ]
+           a "base" __FUNCTION_OBJECT__ too must take arguments by value or const reference. ]
 
 [heading Preconditions]
 * __PRECONDITION_AS_IS__
