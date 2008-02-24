@@ -73,7 +73,7 @@ use this header.
 [section use_deduced_form]
 
 [heading Description]
-Under GCC 3.4.x, when you overload `call` in __EGG_LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
+Under GCC 3.4.x, when you overload `call` in __CONCEPT_LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
 
 [heading Header]
 * `<boost/egg/use_deduced_form.hpp>`

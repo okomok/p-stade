@@ -37,7 +37,7 @@ This section uses the following notation.
 , where `V` is `boost::remove_cv<boost::decay<_typeof(a)>::type>::type`.
 
 [note `_val(a)` copies `a` and turns it into mutable lvalue in order to work around __FORWARDING_PROBLEM__.
-      You shouldn't take reference in __EGG_LITTLE_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
+      You shouldn't take reference in __CONCEPT_LITTLE_FUNCTION__ `call` with `by_value` strategy, unless writing generic one. ]
 
 [note Under msvc-7.1, `a` in `_cref(a)` can't be function name.
            It is preferable to add `&` then turn function name into function pointer. ]
@@ -384,7 +384,7 @@ You have to use `apply_little` and `call_little` instead.
 Moreover, if you want to support buggy msvc-7.1, `BOOST_EGG_DEDUCED_CONST` instead of `const` must be used in `apply_little`.
 
 [heading Your strategy completed]
-Now `function<>` with your strategy has become the __EGG_MAJOR_FUNCTION_OBJECT__ type.
+Now `function<>` with your strategy has become the __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
 Let's look into the new valid expressions.
 
 [heading Notation]

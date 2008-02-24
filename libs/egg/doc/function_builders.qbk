@@ -1,6 +1,6 @@
 [section Function Builders]
 
-Function builders build __EGG_MAJOR_FUNCTION_OBJECT__ type,
+Function builders build __CONCEPT_MAJOR_FUNCTION_OBJECT__ type,
 which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 
@@ -9,7 +9,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [section function]
 
 [heading Description]
-`function` is the "kernel" class template which builds a __EGG_LITTLE_FUNCTION__ into __EGG_MAJOR_FUNCTION_OBJECT__ type.
+`function` is the "kernel" class template which builds a __CONCEPT_LITTLE_FUNCTION__ into __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
 
 [heading Header]
 * `<boost/egg/function.hpp>`
@@ -39,7 +39,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
     ]
     [
         [`function<_Lit, _Stg>`]
-        [A __EGG_MAJOR_FUNCTION_OBJECT__ /aggregate/ type]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ /aggregate/ type]
     ]
     [
         [`f(a1,...,aN)`]
@@ -68,7 +68,6 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION_FACADE__
 * __EGG_USE_DEDUCED_FORM__
-* __EGG_MAKE_FUNCTION__
 
 [endsect]
 
@@ -78,7 +77,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [section function_facade]
 
 [heading Description]
-`function_facade` creates a new __EGG_MAJOR_FUNCTION_OBJECT__ type using "CRTP".
+`function_facade` creates a new __CONCEPT_MAJOR_FUNCTION_OBJECT__ type using "CRTP".
 Though a type built from `function_facade` can't be __POD__, it can have non-default constructors.
 This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
@@ -96,7 +95,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
     ]
     [
         [`_lit`]
-        [A __EGG_MAJOR_FUNCTION_OBJECT__]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__]
     ]
     [
         [`_lit(a1,...,aN)`]
@@ -150,7 +149,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
     ]
     [
         [`generator<Lam, _Stg = _ud, Cons = _ud, R0 = _ud>::type`]
-        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
+        [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_GENERATOR()`]
@@ -257,7 +256,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`implicit<Lam, _Stg = _ud>::type`]
-        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
+        [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_IMPLICIT()`]
@@ -324,7 +323,7 @@ When you want to build stateless one, `poly` is the coolest builder.
     ]
     [
         [`poly<Lam, _Stg = _ud, R0 = _ud>::type`]
-        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
+        [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_POLY()`]
@@ -395,7 +394,7 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
     ]
     [
         [`static_<Lam, _Stg = _ud>::type`]
-        [A __POD__ __EGG_MAJOR_FUNCTION_OBJECT__ type]
+        [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_STATIC()`]
@@ -500,60 +499,6 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 * __EGG_CONSTRUCT_VARIADIC1__
 
 [endsect]
-
-
-
-
-[/
-
-[section make_function]
-
-[heading Description]
-`make_function` is the object generator of `function<>`.
-This is useful when you need a "self" __EGG_MAJOR_FUNCTION_OBJECT__ in __EGG_LITTLE_FUNCTION__`call`.
-
-[heading Header]
-* `<boost/egg/make_function.hpp>`
-
-[heading Model of]
-* __EGG_STATIC_FUNCTION_OBJECT__
-
-[heading Notation]
-* ...
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`X_make_function<_Stg = _ud>`]
-        [A __EGG_MAJOR_FUNCTION_OBJECT__ type]
-    ]
-    [
-        [`X_make_function<_Stg>()(_lit)`]
-        [`function<_typeof(_lit), _Stg> f = {_lit}; return f;`]
-    ]
-    [
-        [`make_function`]
-        [`X_make_function<>()`]
-    ]
-]
-
-[heading Preconditions]
-* __PRECONDITION_AS_IS__
-
-[heading Example]
-...
-
-[heading See also]
-* __EGG_FORWARDING_STRATEGIES__
-* __EGG_FUNCTION__
-
-[endsect]
-
-]
 
 
 
