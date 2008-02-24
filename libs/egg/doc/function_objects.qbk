@@ -66,7 +66,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section adapted_to]
 
 [heading Description]
-`adapted_to` provides the way to access underlying base __FUNCTION_OBJECT__ or __CONCEPT_LITTLE_FUNCTION__ from adapted __FUNCTION_OBJECT__.
+`adapted_to` provides the way to access underlying "base" __FUNCTION_OBJECT__ or __CONCEPT_LITTLE_FUNCTION__ from adapted __FUNCTION_OBJECT__.
 
 [heading Header]
 * `<boost/egg/adapted_to.hpp>`
@@ -75,7 +75,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * ...
 
 [heading Notation]
-* `b` is a base object such that `_decltype(b)` is `B const &`.
+* `b` is a "base" object such that `_decltype(b)` is `B const &`.
 
 [heading Valid expressions]
 [table 
@@ -99,7 +99,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 [heading Preconditions]
 * `f` is a __FUNCTION_OBJECT__ which __EGG_FUNCTION_ADAPTORS__ or __EGG_FUNCTION_BUILDERS__ makes.
-* `B` is a base __FUNCTION_OBJECT__ or __CONCEPT_LITTLE_FUNCTION__ type.
+* `B` is a "base" __FUNCTION_OBJECT__ or __CONCEPT_LITTLE_FUNCTION__ type.
 * __PRECONDITION_AS_IS__
 
 [heading Example]

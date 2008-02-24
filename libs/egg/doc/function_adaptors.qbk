@@ -5,11 +5,11 @@ and returns an "adapted" __FUNCTION_OBJECT__.
 Function Adaptor provides, if possible, two interfaces: A normal higher-order __FUNCTION_OBJECT__, and
 an __MPL_METAFUNCTION__ with the corresponding macro for __STATIC_INITIALIZATION__.
 An adapted non-local __FUNCTION_OBJECT__ with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__
-if the base __FUNCTION_OBJECT__ type is __POD__ and an expression passed to the macro is a /constant expression/.
+if the "base" __FUNCTION_OBJECT__ type is __POD__ and an expression passed to the macro is a /constant expression/.
 Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__-ness of base __FUNCTION_OBJECT__ unless otherwise specified.
 
-[ note If a macro argument is not guaranteed to contain no commas and recursions,
-       you must use `BOOST_EGG_XXX_L` and `BOOST_EGG_XXX_R` instead of `BOOST_EGG_XXX`. ]
+[important If a macro argument is not guaranteed to contain no commas and recursions,
+           you must use `BOOST_EGG_XXX_L ... BOOST_EGG_XXX_R` instead of `BOOST_EGG_XXX(...)`. ]
 
 
 
@@ -162,7 +162,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [section curryN]
 
 [heading Description]
-`curry` family turns a base __FUNCTION_OBJECT__ into curried one.
+`curry` family turns __FUNCTION_OBJECT__ into curried one.
 
 [heading Header]
 * `<boost/egg/curry.hpp>`
@@ -844,7 +844,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [section mono]
 
 [heading Description]
-`mono` turns a base __FUNCTION_OBJECT__ into "monomorphic" one which contains no templates.
+`mono` turns __FUNCTION_OBJECT__ into "monomorphic" one which contains no templates.
 
 [heading Header]
 * `<boost/egg/mono.hpp>`
@@ -984,7 +984,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [section pipable]
 
 [heading Description]
-`pipable` adapts a base __FUNCTION_OBJECT__ into __CONCEPT_PIPABLE_FUNCTION_OBJECT__.
+`pipable` adapts __FUNCTION_OBJECT__ into __CONCEPT_PIPABLE_FUNCTION_OBJECT__.
 
 [heading Header]
 * `<boost/egg/pipable.hpp>`
@@ -1107,7 +1107,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [section return_]
 
 [heading Description]
-`return_` just calls a base __FUNCTION_OBJECT__ with possibly modified return type.
+`return_` just calls __FUNCTION_OBJECT__ with possibly modified return type.
 
 [heading Header]
 * `<boost/egg/return.hpp>`
