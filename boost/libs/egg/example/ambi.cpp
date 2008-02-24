@@ -26,7 +26,7 @@ struct base_my_plus
     }
 };
 
-result_of_ambi1<base_my_plus>::type const my_plus = BOOST_EGG_AMBI({});
+result_of_ambi1<base_my_plus>::type const my_plus = BOOST_EGG_AMBI({}); /*< Notice this is not `ambi2` but `ambi1`. >*/
 
 void egg_example()
 {
@@ -38,4 +38,3 @@ void egg_example()
     BOOST_CHECK( ( 1|ambi1(std_plus)(2) ) == 3 );
 }
 //]
-
