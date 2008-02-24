@@ -12,9 +12,9 @@
 
 
 #include <boost/egg/ambi.hpp>
+#include <boost/egg/by_perfect.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/do_swap.hpp>
-#include <boost/egg/function.hpp>
 
 
 namespace boost { namespace egg {
@@ -44,7 +44,7 @@ namespace boost { namespace egg {
     } // namespace strong_assign_detail
 
 
-    typedef result_of_ambi1< function<strong_assign_detail::little> >::type T_strong_assign;
+    typedef result_of_ambi1<function<strong_assign_detail::little, by_perfect>, by_perfect>::type T_strong_assign;
     BOOST_EGG_CONST((T_strong_assign), strong_assign) = BOOST_EGG_AMBI({{}});
 
 
