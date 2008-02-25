@@ -27,7 +27,7 @@
 #endif
 
 
-int check_include_guard()
+int check_include_guards()
 {
     using namespace boost;
 
