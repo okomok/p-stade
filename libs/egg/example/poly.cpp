@@ -12,7 +12,6 @@
 #include <boost/egg/result_of.hpp>
 
 
-#include "./using_bll.hpp"
 #include "./egg_example.hpp"
 
 
@@ -36,8 +35,10 @@ T_twice;
 
 T_twice const twice = BOOST_EGG_POLY();
 
+int increment(int i) { return i + 1; }
+
 void egg_example()
 {
-    BOOST_CHECK(twice(bll::_1 + 1, 3) == 5);
+    BOOST_CHECK(twice(&increment, 3) == 5);
 }
 //]

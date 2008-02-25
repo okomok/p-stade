@@ -25,6 +25,6 @@ void egg_example()
 
     // \x -> (\y -> plus(x, y))
     BOOST_CHECK( lazy(bll_bind)(plus, _1, bll::protect(_1)) /*< This is currying in __BOOST_LAMBDA__. >*/
-        (3)(4) == plus(3, 4) );
+        (bll::make_const(3))(bll::make_const(4)) == plus(3, 4) );
 }
 //]
