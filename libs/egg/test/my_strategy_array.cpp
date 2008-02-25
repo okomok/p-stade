@@ -41,7 +41,7 @@ namespace boost { namespace egg {
     template<class Lit>
     struct function<Lit, my_strategy>
     {
-        #include BOOST_EGG_FUNCTION_PREAMBLE()
+        BOOST_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
         Lit const& little() const { return m_lit; }
@@ -64,7 +64,7 @@ namespace boost { namespace egg {
     template<class Lit>
     struct function<Lit, my_c_strategy>
     {
-        #include BOOST_EGG_FUNCTION_PREAMBLE()
+        BOOST_EGG_FUNCTION_PREAMBLE()
 
         Lit m_lit;
         Lit const& little() const { return m_lit; }
