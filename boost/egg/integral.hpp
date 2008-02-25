@@ -44,8 +44,15 @@ namespace boost { namespace egg {
     }
 
 
-    typedef result_of_ambi0<implicit<X_integral_cast<mpl::_1>, by_value>::type, by_value>::type T_integral;
-    BOOST_EGG_CONST((T_integral), integral) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
+    typedef
+        result_of_ambi0<
+            implicit<X_integral_cast<mpl::_1>, by_value>::type,
+            by_value
+        >::type
+    T_integral;
+
+    BOOST_EGG_CONST((T_integral), integral)
+        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
 
 
 } } // namespace boost::egg
