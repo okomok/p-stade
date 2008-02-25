@@ -28,7 +28,7 @@
 #include <boost/egg/detail/affect.hpp>
 #include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
-#include <boost/egg/detail/explicit.hpp>
+#include <boost/egg/detail/explicit1.hpp>
 
 
 namespace boost { namespace egg {
