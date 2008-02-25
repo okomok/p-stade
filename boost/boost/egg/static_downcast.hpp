@@ -26,8 +26,8 @@
 #include <boost/utility/addressof.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/detail/affect.hpp>
+#include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
-#include <boost/egg/explicit.hpp>
 
 
 namespace boost { namespace egg {
@@ -82,8 +82,19 @@ namespace boost { namespace egg {
     { };
 
 
-    #define  BOOST_EGG_EXPLICIT_PARAMS (static_downcast, X_static_downcast, (class), (1))
-    #include BOOST_EGG_EXPLICIT()
+    template<class Derived, class Base> inline
+    typename details::affect<Base &, Derived>::type
+    static_downcast(Base &base BOOST_EGG_CONST_OVERLOADED(Base))
+    {
+        return X_static_downcast<Derived>()(base);
+    }
+
+    template<class Derived, class Base> inline
+    typename details::affect<Base const &, Derived>::type
+    static_downcast(Base const &base)
+    {
+        return X_static_downcast<Derived>()(base);
+    }
 
 
 } } // namespace boost::egg
