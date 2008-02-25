@@ -12,7 +12,6 @@
 
 
 #include <boost/shared_ptr.hpp>
-#include <boost/egg/detail/perfect_arities.hpp>
 #include <boost/egg/ptr_new.hpp>
 #include <boost/egg/register_nullary_result.hpp>
 
