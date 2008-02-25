@@ -103,7 +103,7 @@ struct T_array_check
     T_array_check() { } // for Boost v1.33 result_of
 };
 
-BOOST_EGG_EXPLICIT1(array_check, T_array_check, (class))
+BOOST_EGG_EXPLICIT1(array_check, T_array_check, 1)
 
 
 void egg_test()
