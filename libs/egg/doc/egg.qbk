@@ -107,6 +107,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION_FACADE__ [link egg.function_builders.function_facade `function_facade`]]
 [def __EGG_POLY__ [link egg.function_builders.poly `poly`]]
 [def __EGG_GENERATOR__ [link egg.function_builders.generator `generator`]]
+[def __EGG_STATIC__ [link egg.function_builders.static_ `static_`]]
 [def __EGG_VARIADIC__ [link egg.function_builders.variadic `variadic`]]
 
 [def __EGG_AMBI__ [link egg.function_adaptors.ambin `ambiN`]]
@@ -114,7 +115,8 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_CURRY__ [link egg.function_adaptors.curryn `curryN`]]
 [def __EGG_UNCURRY__ [link egg.function_adaptors.uncurry `uncurry`]]
 [def __EGG_FUSE__ [link egg.function_adaptors.fuse `fuse`]]
-[def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse `unfuse`]]
+[def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse `unfuse`]
+[def __EGG_INDIRECT__ [link egg.function_adaptors.indirect `indirect`]]]
 [def __EGG_LAZY__ [link egg.function_adaptors.lazy `lazy`]]
 [def __EGG_FIX__ [link egg.function_adaptors.fix `fix`]]
 [def __EGG_MEMOIZE__ [link egg.function_adaptors.memoize `memoize`]]

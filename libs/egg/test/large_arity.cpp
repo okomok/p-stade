@@ -8,18 +8,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define BOOST_EGG_MAX_ARITY 8
+#define BOOST_EGG_MAX_ARITY 6
 #define BOOST_EGG_MAX_LINEAR_ARITY 20
+#include "./egg_all.hpp"
 #include "./egg_all.hpp"
 #include "./egg_test.hpp"
 
 
-using namespace boost::egg;
+#include "./using_egg.hpp"
 
 
 struct my
 {
-    my(int,int,int,int,int,int,int,int) {}
+    my(int,int,int,int,int,int) {}
 };
 
 struct T_your
@@ -35,6 +36,7 @@ result_of_return<T_your, int, by_cref>::type const your = BOOST_EGG_RETURN_L {} 
 
 void egg_test()
 {
-    my m = boost::egg::constructor(1,2,3,4,5,6,7,8);
+    my m = constructor(1,2,3,4,5,6);
+    (void)m;
     BOOST_CHECK( 3 == your(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20) );
 }

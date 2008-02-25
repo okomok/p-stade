@@ -428,6 +428,7 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
+* __EGG_INDIRECT__
 
 [endsect]
 
