@@ -58,6 +58,7 @@
 #include <boost/egg/infix.hpp>
 #include <boost/egg/integral.hpp>
 #include <boost/egg/is_same_obj.hpp>
+#include <boost/egg/lazy.hpp>
 #include <boost/egg/lexical.hpp>
 #include <boost/egg/locale.hpp>
 #include <boost/egg/memoize.hpp>

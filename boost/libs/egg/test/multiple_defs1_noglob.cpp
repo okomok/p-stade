@@ -68,7 +68,12 @@ int check_include_guards()
     using egg::get;
     using egg::pack;
     using egg::result_of_;
+    using egg::details::has_use_deduced_form;
     #if !defined(BOOST_EGG_CONST)
+        #error oops.
+    #endif
+
+    #if !defined(BOOST_EGG_FUNCTION_PREAMBLE)
         #error oops.
     #endif
     using egg::apply_little;
