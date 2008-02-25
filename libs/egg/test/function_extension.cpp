@@ -22,7 +22,7 @@
 
 #include "./using_egg.hpp"
 
-//[code_my_strategy_tag
+
 struct my_strategy
 {
     template<class _, class Arity, class Index>
@@ -31,7 +31,7 @@ struct my_strategy
     template<class _>
     struct apply<_, boost::mpl::int_<1>, boost::mpl::int_<0> >
     {
-        typedef by_perfect type; /*< You could also use `mpl::vector` and `mpl::at`. >*/
+        typedef by_perfect type;
     };
 
     template<class _, class Index>
@@ -52,13 +52,11 @@ struct my_strategy
         typedef by_ref type;
     };
 };
-//]
 
 BOOST_MPL_ASSERT((boost::is_same<by_perfect, details::bytag_at<my_strategy, 1, 0>::type>));
 BOOST_MPL_ASSERT((boost::is_same<by_value, details::bytag_at<my_strategy, 2, 0>::type>));
 BOOST_MPL_ASSERT((boost::is_same<by_value, details::bytag_at<my_strategy, 2, 1>::type>));
 
-//[code_my_strategy_function
 namespace boost { namespace egg {
 
     template<class Lit>
@@ -70,14 +68,13 @@ namespace boost { namespace egg {
         Lit const & little() const { return m_lit; }
 
     // 0ary
-        typename apply_little<Lit const>::type /*< `apply_little` requires `_Lit` to be const-correct. >*/
+        typename apply_little<Lit const>::type
         operator()() const
         {
             return call_little(m_lit);
         }
 
     // 1ary: by_perfect
-    //  BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(1) would be expaneded to these.
         template<class A1>
         typename apply_little<Lit const, A1>::type
         operator()(A1 &a1) const
@@ -86,7 +83,7 @@ namespace boost { namespace egg {
         }
 
         template<class A1>
-        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type /*< `BOOST_EGG_DEDUCED_CONST` works around msvc-7.1 bug around array. >*/
+        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type
         operator()(A1 const &a1) const
         {
             return call_little(m_lit, a1);
@@ -113,7 +110,6 @@ namespace boost { namespace egg {
     };
 
 } }
-//]
 
 struct base_mult3
 {
