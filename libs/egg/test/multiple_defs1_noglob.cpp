@@ -29,7 +29,7 @@
 
 int check_include_guard()
 {
-    using namespace boost::egg;
+    using namespace boost;
 
     using egg::function;
     using egg::function_facade;
