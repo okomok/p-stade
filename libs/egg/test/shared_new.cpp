@@ -43,9 +43,11 @@ void egg_unit_test()
         BOOST_CHECK(p->m_i == 1);
         BOOST_CHECK(p->m_j == 2);
     }
+#if 0 // rejected
     {
         boost::shared_ptr<udt> p = egg::shared_new<udt>(1,2);
         BOOST_CHECK(p->m_i == 1);
         BOOST_CHECK(p->m_j == 2);
     }
+#endif
 }
