@@ -330,7 +330,7 @@ Here an imaginary operator is defined for the documentation.
 
 [section Writing your strategy]
 
-[import ../test/my_strategy.cpp]
+[import ../example/writing_your_strategy.cpp]
 
 [heading Description]
 The predefined strategies, `by_perfect` etc, may be too simple to meet your requirements.
