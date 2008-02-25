@@ -29,13 +29,13 @@
     #include <boost/egg/preprocessor/enum_template_params.hpp>
 
 
-    #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N) \
+    #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N, Cv) \
         BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(N, class A) \
         typename apply_little< \
-            little_type const \
+            little_type Cv() \
             BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(N, typename remove_reference<A, >::type BOOST_PP_INTERCEPT) \
         >::type \
-        operator()(BOOST_PP_ENUM_BINARY_PARAMS(N, A, &&a)) const \
+        operator()(BOOST_PP_ENUM_BINARY_PARAMS(N, A, &&a)) Cv() \
         { \
             return call_little(this->little() BOOST_PP_ENUM_TRAILING_PARAMS(N, a)); \
         } \
@@ -62,8 +62,8 @@
     /**/
 
         #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) \
-            typename apply_little<little_type Cv>::type \
-            operator()() Cv \
+            typename apply_little<little_type Cv()>::type \
+            operator()() Cv() \
             { \
                 return call_little(this->little()); \
             } \
@@ -71,8 +71,8 @@
 
         #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_op(R, Cv, Qs, Rs) \
             template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Qs), class A)> \
-            typename apply_little<little_type Cv, BOOST_PP_SEQ_ENUM(Qs)>::type \
-            operator()(BOOST_EGG_PP_SEQ_ENUM_PARAMS(Rs, a)) Cv \
+            typename apply_little<little_type Cv(), BOOST_PP_SEQ_ENUM(Qs)>::type \
+            operator()(BOOST_EGG_PP_SEQ_ENUM_PARAMS(Rs, a)) Cv() \
             { \
                 return call_little(this->little(), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Qs), a)); \
             } \
