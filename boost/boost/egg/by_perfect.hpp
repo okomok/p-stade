@@ -76,7 +76,7 @@ namespace boost { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(n, const)
+    BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(n, BOOST_PP_IDENTITY(const))
 
 
 #undef  n

@@ -11,6 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/facilities/empty.hpp> // inclusion guaranteed
+#include <boost/preprocessor/facilities/identity.hpp> // inclusion guaranteed
 #include <boost/egg/detail/apply_little.hpp>
 #include <boost/egg/detail/call_little.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
