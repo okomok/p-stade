@@ -17,7 +17,6 @@
 #include <boost/egg/preprocessor/seq_enum_args.hpp>
 #include <boost/egg/preprocessor/seq_enum_params.hpp>
 #include <boost/egg/preprocessor/seq_params.hpp>
-#include <boost/egg/preprocessor/seq_range.hpp>
 #include <boost/egg/preprocessor/seq_repeat.hpp>
 #include "./egg_test.hpp"
 
@@ -140,7 +139,6 @@ namespace seq_ {
         cyfoo(1, 1, 1, 1, 1, 1);
         seq_params3(1, 1, 1);
 
-        BOOST_CHECK( 3+4+5 == plus( BOOST_PP_SEQ_ENUM( BOOST_EGG_PP_SEQ_RANGE(3, 6) ) ) );
         BOOST_CHECK( 1+1+1 == plus( BOOST_PP_SEQ_ENUM( BOOST_EGG_PP_SEQ_REPEAT(1, 3) ) ) );
     }
 
