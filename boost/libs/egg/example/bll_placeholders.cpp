@@ -14,6 +14,7 @@
 #include <functional> // plus
 
 
+#include "./using_bll.hpp"
 #include "./egg_example.hpp"
 
 
@@ -27,6 +28,6 @@ void egg_example()
     >::type
         f = bll_bind(plus, bll_1, 10);
 
-    BOOST_CHECK( f(2) == 12 );
+    BOOST_CHECK( f(bll::make_const(2)) == 12 );
 }
 //]

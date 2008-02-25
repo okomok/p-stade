@@ -8,6 +8,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/egg/config.hpp>
+#if defined(BOOST_EGG_HAS_FUSIONS)
+
+
 #include <boost/egg/variadic.hpp>
 #include <string>
 #include <boost/fusion/include/boost_tuple.hpp>
@@ -53,3 +57,10 @@ void egg_example()
         == vplus(string("1"), string("8")) );
 }
 //]
+
+
+#else
+
+int main() {}
+
+#endif

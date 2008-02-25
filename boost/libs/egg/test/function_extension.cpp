@@ -98,7 +98,7 @@ namespace boost { namespace egg {
         }
 
     // 3ary: by_perfect
-        BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(3)
+        BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(3, const)
 
     // 4ary: by_ref
         template<class A1, class A2, class A3, class A4>

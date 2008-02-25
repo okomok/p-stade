@@ -8,6 +8,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/egg/config.hpp>
+#if defined(BOOST_EGG_HAS_FUSIONS)
+
+
 #include <boost/egg/unfuse.hpp>
 #include <boost/fusion/include/boost_tuple.hpp>
 #include <boost/fusion/include/for_each.hpp>
@@ -37,3 +41,10 @@ void egg_example()
     print(1, '2', "34");
 }
 //]
+
+
+#else
+
+int main() {}
+
+#endif
