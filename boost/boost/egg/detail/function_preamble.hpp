@@ -17,7 +17,36 @@
 #include <boost/egg/detail/strategy_of.hpp>
 
    
-#define BOOST_EGG_FUNCTION_PREAMBLE() <boost/egg/detail/function_preamble_include.hpp>
+#define BOOST_EGG_FUNCTION_PREAMBLE() \
+    \
+    typedef typename \
+        details::little_of<function>::type \
+    little_type; \
+    \
+    typedef typename \
+        details::strategy_of<function>::type \
+    strategy_type; \
+    \
+    typedef typename \
+        details::nullary_result_of_little<little_type, function>::type \
+    nullary_result_type; \
+    \
+    template<class BoostEgg_FunCall> \
+    struct result : \
+        details::of_apply_little<BoostEgg_FunCall> \
+    { }; \
+    \
+    template<class BoostEgg_FunArgs> \
+    struct sig : \
+        bll_sig_impl<BoostEgg_FunArgs> \
+    { }; \
+    \
+    little_type const &base() const \
+    { \
+        return this->little(); \
+    } \
+    \
+/**/
 
 
 #endif
