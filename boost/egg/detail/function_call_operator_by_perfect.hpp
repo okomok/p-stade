@@ -45,24 +45,20 @@
 #else
 
 
-    #include <boost/preprocessor/cat.hpp>
     #include <boost/preprocessor/control/if.hpp>
-    #include <boost/preprocessor/punctuation/comma_if.hpp>
     #include <boost/preprocessor/repetition/enum_params.hpp>
-    #include <boost/preprocessor/seq/for_each_i.hpp>
-    #include <boost/preprocessor/seq/for_each_product.hpp>
-    #include <boost/preprocessor/seq/seq.hpp> // HEAD, TAIL
+    #include <boost/preprocessor/seq/enum.hpp>
     #include <boost/preprocessor/seq/size.hpp>
     #include <boost/preprocessor/tuple/eat.hpp>
-    #include <boost/egg/preprocessor/seq_repeat.hpp>
-    #include <boost/egg/detail/deduced_const.hpp>
+    #include <boost/egg/preprocessor/for_each_by_perfect.hpp>
+    #include <boost/egg/preprocessor/seq_enum_params.hpp>
 
 
     #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N, Cv) \
         BOOST_PP_IF( N, \
-            BOOST_PP_SEQ_FOR_EACH_PRODUCT, \
-            BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) BOOST_PP_TUPLE_EAT(2) \
-        )(BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux, ((Cv))BOOST_EGG_PP_SEQ_REPEAT((0)(1), N)) \
+            BOOST_EGG_PP_FOR_EACH_BY_PERFECT, \
+            BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) BOOST_PP_TUPLE_EAT(4) \
+        )(N, A, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_op, Cv) \
     /**/
 
         #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) \
@@ -73,37 +69,14 @@
             } \
         /**/
 
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux(R, Cv_BitSeq) \
-            BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux_( \
-                BOOST_PP_SEQ_SIZE(BOOST_PP_SEQ_TAIL(Cv_BitSeq)), \
-                BOOST_PP_SEQ_HEAD(Cv_BitSeq), \
-                BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_arg_type, ~, BOOST_PP_SEQ_TAIL(Cv_BitSeq)), \
-                BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_param,    ~, BOOST_PP_SEQ_TAIL(Cv_BitSeq)) \
-            ) \
-        /**/
-
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux_(N, Cv, ArgTypes, Params) \
-            template<BOOST_PP_ENUM_PARAMS(N, class A)> \
-            typename apply_little<little_type Cv, ArgTypes>::type \
-            operator()(Params) Cv \
+        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_op(R, Cv, Qs, Rs) \
+            template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Qs), class A)> \
+            typename apply_little<little_type Cv, BOOST_PP_SEQ_ENUM(Qs)>::type \
+            operator()(BOOST_EGG_PP_SEQ_ENUM_PARAMS(Rs, a)) Cv \
             { \
-                return call_little(this->little(), BOOST_PP_ENUM_PARAMS(N, a)); \
+                return call_little(this->little(), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Qs), a)); \
             } \
         /**/
-
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_arg_type(R, _, I, Bit) \
-            BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_ac, Bit)(BOOST_PP_CAT(A, I)) \
-        /**/
-
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_param(R, _, I, Bit) \
-            BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_c, Bit) & BOOST_PP_CAT(a, I) \
-        /**/
-
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_c0
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_c1 const
-
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_ac0(A) A
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_ac1(A) BOOST_EGG_DEDUCED_CONST(A)
 
 
 #endif // defined(BOOST_EGG_HAS_RVALUE_REFS)
