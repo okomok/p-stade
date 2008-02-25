@@ -27,9 +27,22 @@
 #endif
 
 
-int check_include_guards()
+void check_include_guards()
 {
     using namespace boost;
+
+    using egg::by_perfect;
+    using egg::by_ref;
+    using egg::by_cref;
+    using egg::by_value;
+    #if !defined(BOOST_EGG_FUNCTION_PREAMBLE)
+        #error oops.
+    #endif
+    using egg::apply_little;
+    using egg::call_little;
+    #if !defined(BOOST_EGG_DEDUCED_CONST)
+        #error oops.
+    #endif
 
     using egg::function;
     using egg::function_facade;
@@ -67,18 +80,14 @@ int check_include_guards()
     using egg::X_construct_variadic1;
     using egg::get;
     using egg::pack;
+
+    using egg::expr;
+    using namespace egg::infix;
+    using namespace boost::lambda_result_of_detail;
+
     using egg::result_of_;
     using egg::details::has_use_deduced_form;
     #if !defined(BOOST_EGG_CONST)
-        #error oops.
-    #endif
-
-    #if !defined(BOOST_EGG_FUNCTION_PREAMBLE)
-        #error oops.
-    #endif
-    using egg::apply_little;
-    using egg::call_little;
-    #if !defined(BOOST_EGG_DEDUCED_CONST)
         #error oops.
     #endif
 }
