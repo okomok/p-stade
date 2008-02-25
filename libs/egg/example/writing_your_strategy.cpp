@@ -9,18 +9,14 @@
 
 
 #include <boost/egg/function_extension.hpp>
-#include "./egg_test.hpp"
 
 
-#include <boost/egg/function_fwd.hpp>
 #include <boost/egg/pipable.hpp>
 #include <boost/egg/const.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/mpl/always.hpp>
-#include <boost/type_traits/is_same.hpp>
 
 
-#include "./using_egg.hpp"
+#include "./egg_example.hpp"
+
 
 //[code_example_writing_your_strategy_tag
 struct your_strategy
@@ -46,7 +42,7 @@ struct your_strategy
 namespace boost { namespace egg {
 
     template<class Lit>
-    struct function<Lit, my_strategy>
+    struct function<Lit, your_strategy>
     {
         BOOST_EGG_FUNCTION_PREAMBLE() /*< This must be placed first. >*/
 
@@ -87,6 +83,7 @@ namespace boost { namespace egg {
 } }
 //]
 
+
 struct base_mult3
 {
     typedef int result_type;
@@ -96,7 +93,6 @@ struct base_mult3
         return i*j*k;
     }
 };
-
 
 struct base_plus2
 {
@@ -130,39 +126,19 @@ struct little_id1
         return a;
     }
 };
-typedef function<little_id1, my_strategy> T_id1;
+
+typedef function<little_id1, your_strategy> T_id1;
 BOOST_EGG_CONST((T_id1), id1) = {{}};
 
-
-typedef result_of_pipable<base_mult3, my_strategy>::type T_mult3;
+typedef result_of_pipable<base_mult3, your_strategy>::type T_mult3;
 BOOST_EGG_CONST((T_mult3), mult3) = {{}};
 
 
-struct little_plus3
-{
-    template<class Me, class A1, class A2, class A3>
-    struct apply
-    {
-        typedef A1 type;
-    };
-
-    template<class Re, class A1, class A2, class A3>
-    Re call(A 1&a1, A2 &a2, A3 &a3) const
-    {
-        return a1+a2+a3;
-    }
-};
-typedef function<little_plus3, my_strategy> T_plus3;
-BOOST_EGG_CONST((T_plus3), plus3) = {{}};
-
-
-
-void egg_test()
+void egg_example()
 {
     BOOST_CHECK( (3|mult3(4, 5)) == 3*4*5 );
 
     int x = 10;
     BOOST_CHECK( id1() == '0' );
     BOOST_CHECK( &(id1(x)) == &x );
-    BOOST_CHECK( plus3(1,2,3) == 1+2+3 );
 }

@@ -383,9 +383,7 @@ Using your strategy tag, `function<>` template can be specialized.
 `BOOST_EGG_FUNCTION_PREAMBLE()` must be placed in first,
 which automagically defines nested typedefs `little_type`, `strategy_type`, and `result<...>` etc.
 [code_example_writing_your_strategy_specializing]
-It is very demanding to define /call operator/ for `by_perfect` with large arity.
-In such case, `BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT` is helpful.
-Also note that, for some compiler bugs, you can use neither `result` template nor `_Lit::call` directly.
+For some compiler bugs, you can use neither `result` template nor `_Lit::call` directly.
 You have to use `apply_little` and `call_little` instead.
 Moreover, if you want to support buggy msvc-7.1, `BOOST_EGG_DEDUCED_CONST` instead of `const` must be used in `apply_little`.
 
