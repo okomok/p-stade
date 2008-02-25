@@ -12,15 +12,21 @@
 
 #include <boost/egg/preprocessor/seq_enum_args.hpp>
 #include <boost/egg/preprocessor/seq_enum_params.hpp>
+#include <boost/egg/preprocessor/to_template_param_seq.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/const_overloaded.hpp>
 
 
+#define BOOST_EGG_EXPLICIT1(Name, X_, Params) \
+    BOOST_EGG_EXPLICIT1_aux(Name, X_, BOOST_EGG_PP_TO_TEMPLATE_PARAM_SEQ(Params)) \
+/**/
+
+
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
 
 
-    #define BOOST_EGG_EXPLICIT1(Name, X_, Params) \
+    #define BOOST_EGG_EXPLICIT1_aux(Name, X_, Params) \
         \
         template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(Params, T), class A> inline \
         typename boost::egg::result_of_<X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)>(A &)>::type \
@@ -57,7 +63,7 @@
 #else
 
 
-    #define BOOST_EGG_EXPLICIT1(Name, X_, Params) \
+    #define BOOST_EGG_EXPLICIT1_aux(Name, X_, Params) \
         \
         template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(Params, T), class A> inline \
         typename boost::egg::result_of_<X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)>(A &)>::type \
