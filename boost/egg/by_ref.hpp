@@ -33,7 +33,7 @@ namespace boost { namespace egg {
     template<class Little>
     struct function<Little, by_ref>
     {
-        #include BOOST_EGG_FUNCTION_PREAMBLE()
+        BOOST_EGG_FUNCTION_PREAMBLE()
 
         Little m_little;
 
