@@ -14,6 +14,7 @@
 #include <boost/egg/detail/apply_little.hpp>
 #include <boost/egg/detail/call_little.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
+#include <boost/egg/detail/function_call_operator_by_perfect.hpp>
 #include <boost/egg/detail/function_preamble.hpp>
 #include <boost/egg/function_fwd.hpp>
 
