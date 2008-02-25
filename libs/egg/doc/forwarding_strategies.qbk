@@ -346,15 +346,7 @@ Egg provides the uniform way to define your own strategy.
         [[*Semantics]]
     ]
     [
-        [`#include BOOST_EGG_FUNCTION_PREAMBLE()`]
-        [See below.]
-    ]
-    [
-        [`BOOST_EGG_DEDUCED_CONST(A)`]
-        [`A const`]
-    ]
-    [
-        [`BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N)`]
+        [`BOOST_EGG_FUNCTION_PREAMBLE()`]
         [See below.]
     ]
     [
@@ -368,6 +360,10 @@ Egg provides the uniform way to define your own strategy.
     [
         [`by_perfect`, `by_ref`, `by_cref`, and `by_value`]
         [These can be used as "meta" return type of strategy tag.]
+    ]
+    [
+        [`BOOST_EGG_DEDUCED_CONST(A)`]
+        [`A const`]
     ]
 ]
 
