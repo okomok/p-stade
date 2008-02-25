@@ -12,6 +12,7 @@
 
 
 #include <boost/egg/ambi.hpp>
+#include <boost/egg/by_perfect.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/implicit.hpp>
 #include <boost/egg/static_downcast.hpp>
@@ -20,8 +21,15 @@
 namespace boost { namespace egg {
 
 
-    typedef result_of_ambi0<implicit_ref< X_static_downcast<mpl::_1> >::type>::type T_static_down;
-    BOOST_EGG_CONST((T_static_down), static_down) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
+    typedef
+        result_of_ambi0<
+            implicit_ref<X_static_downcast<mpl::_1>, by_perfect>::type,
+            by_perfect
+        >::type
+    T_static_down;
+
+    BOOST_EGG_CONST((T_static_down), static_down)
+        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
 
 
 } } // namespace boost::egg
