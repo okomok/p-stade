@@ -26,18 +26,30 @@
 struct my_strategy
 {
     template<class _, class Arity, class Index>
-    struct apply; /*< You can also use `mpl::vector` and `mpl::at`. >*/
+    struct apply;
 
     template<class _>
     struct apply<_, boost::mpl::int_<1>, boost::mpl::int_<0> >
     {
-        typedef by_perfect type;
+        typedef by_perfect type; /*< You could also use `mpl::vector` and `mpl::at`. >*/
     };
 
     template<class _, class Index>
     struct apply<_, boost::mpl::int_<2>, Index>
     {
         typedef by_value type;
+    };
+
+    template<class _, class Index>
+    struct apply<_, boost::mpl::int_<3>, Index>
+    {
+        typedef by_perfect type;
+    };
+
+    template<class _, class Index>
+    struct apply<_, boost::mpl::int_<4>, Index>
+    {
+        typedef by_ref type;
     };
 };
 //]
@@ -57,12 +69,15 @@ namespace boost { namespace egg {
         Lit m_lit;
         Lit const & little() const { return m_lit; }
 
+    // 0ary
         typename apply_little<Lit const>::type /*< `apply_little` requires `_Lit` to be const-correct. >*/
         operator()() const
         {
             return call_little(m_lit);
         }
 
+    // 1ary: by_perfect
+    //  BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(1) would be expaneded to these.
         template<class A1>
         typename apply_little<Lit const, A1>::type
         operator()(A1 &a1) const
@@ -77,11 +92,23 @@ namespace boost { namespace egg {
             return call_little(m_lit, a1);
         }
 
+    // 2ary: by_value
         template<class A1, class A2>
         typename apply_little<Lit const, A1, A2>::type
         operator()(A1 a1, A2 a2) const
         {
             return call_little(m_lit, a1, a2);
+        }
+
+    // 3ary: by_perfect
+        BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(3)
+
+    // 4ary: by_ref
+        template<class A1, class A2, class A3, class A4>
+        typename apply_little<Lit const, A1, A2, A3, A4>::type
+        operator()(A1& a1, A2& a2, A3 &a3, A4& a4) const
+        {
+            return call_little(m_lit, a1, a2, a3, a4);
         }
     };
 
@@ -139,6 +166,25 @@ typedef result_of_pipable<base_mult3, my_strategy>::type T_mult3;
 BOOST_EGG_CONST((T_mult3), mult3) = {{}};
 
 
+struct little_plus3
+{
+    template<class Me, class A1, class A2, class A3>
+    struct apply
+    {
+        typedef A1 type;
+    };
+
+    template<class Re, class A1, class A2, class A3>
+    Re call(A 1&a1, A2 &a2, A3 &a3) const
+    {
+        return a1+a2+a3;
+    }
+};
+typedef function<little_plus3, my_strategy> T_plus3;
+BOOST_EGG_CONST((T_plus3), plus3) = {{}};
+
+
+
 void egg_test()
 {
     BOOST_CHECK( (3|mult3(4, 5)) == 3*4*5 );
@@ -146,4 +192,5 @@ void egg_test()
     int x = 10;
     BOOST_CHECK( id1() == '0' );
     BOOST_CHECK( &(id1(x)) == &x );
+    BOOST_CHECK( plus3(1,2,3) == 1+2+3 );
 }
