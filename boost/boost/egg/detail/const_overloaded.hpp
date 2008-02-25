@@ -37,11 +37,6 @@
 
 // This macro can't always be turned on; especially under VC++.
 #if BOOST_WORKAROUND(__GNUC__, == 3) || BOOST_WORKAROUND(__EDG_VERSION__, BOOST_TESTED_AT(306))
-    #define BOOST_EGG_CONST_OVERLOADED_REQUIRED
-#endif
-
-
-#if defined(BOOST_EGG_CONST_OVERLOADED_REQUIRED)
 
     #define BOOST_EGG_CONST_OVERLOADED(T) \
         , typename boost::egg::disable_if_< boost::is_const<T> >::type = 0 \
