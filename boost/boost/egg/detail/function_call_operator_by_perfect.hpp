@@ -51,38 +51,41 @@
     #include <boost/preprocessor/repetition/enum_params.hpp>
     #include <boost/preprocessor/seq/for_each_i.hpp>
     #include <boost/preprocessor/seq/for_each_product.hpp>
+    #include <boost/preprocessor/seq/seq.hpp> // HEAD, TAIL
     #include <boost/preprocessor/seq/size.hpp>
+    #include <boost/preprocessor/tuple/eat.hpp>
     #include <boost/egg/preprocessor/seq_repeat.hpp>
     #include <boost/egg/detail/deduced_const.hpp>
 
 
-    #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N) \
+    #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N, Cv) \
         BOOST_PP_IF( N, \
             BOOST_PP_SEQ_FOR_EACH_PRODUCT, \
-            BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux0 \
-        )(BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux, BOOST_EGG_PP_SEQ_REPEAT((0)(1), N)) \
+            BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) BOOST_PP_TUPLE_EAT(2) \
+        )(BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux, ((Cv))BOOST_EGG_PP_SEQ_REPEAT((0)(1), N)) \
     /**/
 
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux0(Unused, Unused_) \
-            typename apply_little<little_type const>::type \
-            operator()() const \
+        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) \
+            typename apply_little<little_type Cv>::type \
+            operator()() Cv \
             { \
                 return call_little(this->little()); \
             } \
         /**/
 
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux(R, BitSeq) \
+        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux(R, Cv_BitSeq) \
             BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux_( \
-                BOOST_PP_SEQ_SIZE(BitSeq), \
-                BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_arg_type, ~, BitSeq), \
-                BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_param,    ~, BitSeq) \
+                BOOST_PP_SEQ_SIZE(BOOST_PP_SEQ_TAIL(Cv_BitSeq)), \
+                BOOST_PP_SEQ_HEAD(Cv_BitSeq), \
+                BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_arg_type, ~, BOOST_PP_SEQ_TAIL(Cv_BitSeq)), \
+                BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_param,    ~, BOOST_PP_SEQ_TAIL(Cv_BitSeq)) \
             ) \
         /**/
 
-        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux_(N, ArgTypes, Params) \
+        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_aux_(N, Cv, ArgTypes, Params) \
             template<BOOST_PP_ENUM_PARAMS(N, class A)> \
-            typename apply_little<little_type const, ArgTypes>::type \
-            operator()(Params) const \
+            typename apply_little<little_type Cv, ArgTypes>::type \
+            operator()(Params) Cv \
             { \
                 return call_little(this->little(), BOOST_PP_ENUM_PARAMS(N, a)); \
             } \
