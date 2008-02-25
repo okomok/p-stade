@@ -171,7 +171,7 @@ struct little_plus3
     };
 
     template<class Re, class A1, class A2, class A3>
-    Re call(A 1&a1, A2 &a2, A3 &a3) const
+    Re call(A1 &a1, A2 &a2, A3 &a3) const
     {
         return a1+a2+a3;
     }
