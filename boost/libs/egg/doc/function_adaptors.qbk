@@ -721,6 +721,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [code_example_indirect]
 
 [heading See also]
+* __EGG_STATIC__
 * __BOOST_INDIRECT_ITERATOR__
 
 [endsect]

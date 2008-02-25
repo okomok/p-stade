@@ -11,7 +11,9 @@
 #include <boost/egg/indirect.hpp>
 #include <boost/egg/pipable.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/noncopyable.hpp>
 #include <functional> // plus
+#include <algorithm> // for_each
 
 
 #include "./egg_example.hpp"
@@ -29,9 +31,29 @@ T_pipi const pipi /*< `&pipable` is an /address constant expression/, so that `p
         BOOST_EGG_INDIRECT(&pipable) /*< A macro invocation must be sandwiched using `_L` and `_R`. >*/
     BOOST_EGG_PIPABLE_R;
 
+struct counter :
+    private boost::noncopyable
+{
+    typedef void result_type;
+
+    void operator()(int) const
+    {
+        m_count += 1;
+    }
+
+    mutable int m_count;
+    counter() : m_count(0) {}
+};
+
 void egg_example()
 {
     std::plus<int> plus;
+    BOOST_CHECK( (1|pipable(plus)(3)) == 1+3 );
     BOOST_CHECK( (1|(plus|pipi)(3)) == 1+3 );
+
+    counter c;
+    int a[] = {1,2,3};
+    std::for_each(a, a+3, indirect(&c)); /*< `indirect(&c)` is copyable, whereas `c` is not. >*/
+    BOOST_CHECK(c.m_count == 3);
 }
 //]

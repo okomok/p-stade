@@ -84,6 +84,7 @@
 #include <boost/egg/static_downcast.hpp>
 #include <boost/egg/strong_assign.hpp>
 #include <boost/egg/tagged.hpp>
+#include <boost/egg/throw.hpp>
 #include <boost/egg/to_ref.hpp>
 #include <boost/egg/to_shared_ptr.hpp>
 #include <boost/egg/to_string.hpp>

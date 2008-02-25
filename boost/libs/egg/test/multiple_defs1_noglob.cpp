@@ -9,7 +9,7 @@
 
 
 #include "./egg_all.hpp"
-#include "./egg_all.hpp"
+#include "./egg_all.hpp" // check include guards.
 
 
 // #include "./egg_test.hpp"
