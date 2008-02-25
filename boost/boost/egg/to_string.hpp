@@ -21,10 +21,23 @@
 namespace boost { namespace egg {
 
 
-    typedef result_of_ambi0<X_lexical_cast<std::string>, by_cref>::type T_to_string;
+    typedef
+        result_of_ambi0<
+            X_lexical_cast<std::string>,
+            by_cref
+        >::type
+    T_to_string;
+
     BOOST_EGG_CONST((T_to_string), to_string) = BOOST_EGG_AMBI({});
 
-    typedef result_of_ambi0<X_lexical_cast<std::wstring>, by_cref>::type T_to_wstring;
+
+    typedef
+        result_of_ambi0<
+            X_lexical_cast<std::wstring>,
+            by_cref
+        >::type
+    T_to_wstring;
+
     BOOST_EGG_CONST((T_to_wstring), to_wstring) = BOOST_EGG_AMBI({});
 
 

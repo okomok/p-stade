@@ -41,7 +41,13 @@ namespace boost { namespace egg {
     } // namespace to_value_detail
 
 
-    typedef result_of_ambi0<function<to_value_detail::little, by_value>, by_value>::type T_to_value;
+    typedef
+        result_of_ambi0<
+            function<to_value_detail::little, by_value>,
+            by_value
+        >::type
+    T_to_value;
+
     BOOST_EGG_CONST((T_to_value), to_value) = BOOST_EGG_AMBI({{}});
 
 

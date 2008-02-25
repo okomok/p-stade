@@ -33,8 +33,15 @@ namespace boost { namespace egg {
         }
     };
 
-    typedef result_of_ambi0<implicit<X_lexical_cast<mpl::_1>, by_cref>::type, by_cref>::type T_lexical;
-    BOOST_EGG_CONST((T_lexical), lexical) = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
+    typedef
+        result_of_ambi0<
+            implicit<X_lexical_cast<mpl::_1>, by_cref>::type,
+            by_cref
+        >::type
+    T_lexical;
+
+    BOOST_EGG_CONST((T_lexical), lexical)
+        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
 
 
 } } // namespace boost::egg
