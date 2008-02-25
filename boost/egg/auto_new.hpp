@@ -13,7 +13,6 @@
 
 #include <memory> // auto_ptr
 #include <boost/egg/detail/perfect_arities.hpp>
-#include <boost/egg/explicit.hpp>
 #include <boost/egg/ptr_new.hpp>
 #include <boost/egg/register_nullary_result.hpp>
 
@@ -25,9 +24,6 @@ namespace boost { namespace egg {
     struct X_auto_new :
         X_ptr_new<std::auto_ptr<T>, Strategy>
     { };
-
-    #define  BOOST_EGG_EXPLICIT_PARAMS (auto_new, X_auto_new, (class), BOOST_EGG_PERFECT_ARITIES())
-    #include BOOST_EGG_EXPLICIT()
 
 
 } } // namespace boost::egg

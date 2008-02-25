@@ -16,10 +16,10 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_HAS_FUSIONS
 #include <boost/egg/detail/adl_barrier.hpp>
 #include <boost/egg/detail/affect.hpp>
+#include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/is_std_pair.hpp>
 #include <boost/egg/detail/tuple_get.hpp>
-#include <boost/egg/explicit.hpp>
 
 #if defined(BOOST_EGG_HAS_FUSIONS)
     #include <boost/fusion/include/advance.hpp>
@@ -109,8 +109,19 @@ namespace boost { namespace egg {
     { };
 
 BOOST_EGG_ADL_BARRIER(get) {
-    #define  BOOST_EGG_EXPLICIT_PARAMS (get, X_get, (class), (1))
-    #include BOOST_EGG_EXPLICIT()
+    template<class N, class Tuple> inline
+    typename details::tuple_get_impl<N, Tuple>::result_type
+    get(Tuple &t BOOST_EGG_CONST_OVERLOADED(Tuple))
+    {
+        return X_get<N>()(t);
+    }
+
+    template<class N, class Tuple> inline
+    typename details::tuple_get_impl<N, Tuple const>::result_type
+    get(Tuple const &t)
+    {
+        return X_get<N>()(t);
+    }
 }
 
     template<int N>
@@ -118,8 +129,19 @@ BOOST_EGG_ADL_BARRIER(get) {
         X_get< mpl::int_<N> >
     { };
 
-    #define  BOOST_EGG_EXPLICIT_PARAMS (get_c, X_get_c, (int), (1))
-    #include BOOST_EGG_EXPLICIT()
+    template<int N, class Tuple> inline
+    typename details::tuple_get_impl<mpl::int_<N>, Tuple>::result_type
+    get_c(Tuple &t BOOST_EGG_CONST_OVERLOADED(Tuple))
+    {
+        return X_get_c<N>()(t);
+    }
+
+    template<int N, class Tuple> inline
+    typename details::tuple_get_impl<mpl::int_<N>, Tuple const>::result_type
+    get_c(Tuple const &t)
+    {
+        return X_get_c<N>()(t);
+    }
 
 
 } } // namespace boost::egg
