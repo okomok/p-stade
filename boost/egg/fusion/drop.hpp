@@ -16,6 +16,7 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_HAS_FUSIONS
 #include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
+#include <boost/egg/detail/explicit1.hpp>
 #include <boost/egg/detail/tuple_drop.hpp>
 
 #if defined(BOOST_EGG_HAS_FUSIONS)
@@ -70,19 +71,7 @@ namespace boost { namespace egg {
         details::X_tuple_drop<N, by_perfect>
     { };
 
-    template<class N, class Tuple> inline
-    typename details::tuple_drop_impl<N, Tuple>::result_type
-    fusion_drop(Tuple &t BOOST_EGG_CONST_OVERLOADED(Tuple))
-    {
-        return X_fusion_drop<N>()(t);
-    }
-
-    template<class N, class Tuple> inline
-    typename details::tuple_drop_impl<N, Tuple const>::result_type
-    fusion_drop(Tuple const &t)
-    {
-        return X_fusion_drop<N>()(t);
-    }
+    BOOST_EGG_EXPLICIT1(fusion_drop, X_fusion_drop, (class))
 
 
     template<int N>
@@ -90,19 +79,7 @@ namespace boost { namespace egg {
         X_fusion_drop< mpl::int_<N> >
     { };
 
-    template<int N, class Tuple> inline
-    typename details::tuple_drop_impl<mpl::int_<N>, Tuple>::result_type
-    fusion_drop_c(Tuple &t BOOST_EGG_CONST_OVERLOADED(Tuple))
-    {
-        return X_fusion_drop_c<N>()(t);
-    }
-
-    template<int N, class Tuple> inline
-    typename details::tuple_drop_impl<mpl::int_<N>, Tuple const>::result_type
-    fusion_drop_c(Tuple const &t)
-    {
-        return X_fusion_drop_c<N>()(t);
-    }
+    BOOST_EGG_EXPLICIT1(fusion_drop_c, X_fusion_drop_c, (int))
 
 
 } } // namespace boost::egg

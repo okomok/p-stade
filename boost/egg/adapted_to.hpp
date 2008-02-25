@@ -26,6 +26,7 @@
 #include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
+#include <boost/egg/detail/explicit1.hpp>
 #include <boost/egg/detail/is_convertible.hpp>
 #include <boost/egg/implicit.hpp>
 
@@ -70,17 +71,7 @@ namespace boost { namespace egg {
     };
 
 
-    template<class Base, class Adapted> inline
-    Base adapted_to(Adapted &ad BOOST_EGG_CONST_OVERLOADED(Adapted))
-    {
-        return X_adapted_to<Base>()(ad);
-    }
-
-    template<class Base, class Adapted> inline
-    Base adapted_to(Adapted const &ad)
-    {
-        return X_adapted_to<Base>()(ad);
-    }
+    BOOST_EGG_EXPLICIT1(adapted_to, X_adapted_to, (class))
 
 
     typedef

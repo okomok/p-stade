@@ -18,6 +18,7 @@
 #include <boost/egg/detail/affect.hpp>
 #include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
+#include <boost/egg/detail/explicit1.hpp>
 #include <boost/egg/detail/is_std_pair.hpp>
 #include <boost/egg/detail/tuple_get.hpp>
 
@@ -109,19 +110,7 @@ namespace boost { namespace egg {
     { };
 
 BOOST_EGG_ADL_BARRIER(get) {
-    template<class N, class Tuple> inline
-    typename details::tuple_get_impl<N, Tuple>::result_type
-    get(Tuple &t BOOST_EGG_CONST_OVERLOADED(Tuple))
-    {
-        return X_get<N>()(t);
-    }
-
-    template<class N, class Tuple> inline
-    typename details::tuple_get_impl<N, Tuple const>::result_type
-    get(Tuple const &t)
-    {
-        return X_get<N>()(t);
-    }
+    BOOST_EGG_EXPLICIT1(get, X_get, (class))
 }
 
     template<int N>
@@ -129,19 +118,7 @@ BOOST_EGG_ADL_BARRIER(get) {
         X_get< mpl::int_<N> >
     { };
 
-    template<int N, class Tuple> inline
-    typename details::tuple_get_impl<mpl::int_<N>, Tuple>::result_type
-    get_c(Tuple &t BOOST_EGG_CONST_OVERLOADED(Tuple))
-    {
-        return X_get_c<N>()(t);
-    }
-
-    template<int N, class Tuple> inline
-    typename details::tuple_get_impl<mpl::int_<N>, Tuple const>::result_type
-    get_c(Tuple const &t)
-    {
-        return X_get_c<N>()(t);
-    }
+    BOOST_EGG_EXPLICIT1(get_c, X_get_c, (int))
 
 
 } } // namespace boost::egg
