@@ -31,14 +31,14 @@
         details::nullary_result_of_little<little_type, function>::type \
     nullary_result_type; \
     \
-    template<class BoostEgg_FunCall> \
+    template<class FunCall> \
     struct result : \
-        details::of_apply_little<BoostEgg_FunCall> \
+        details::of_apply_little<FunCall> \
     { }; \
     \
-    template<class BoostEgg_FunArgs> \
+    template<class FunArgs> \
     struct sig : \
-        bll_sig_impl<BoostEgg_FunArgs> \
+        bll_sig_impl<FunArgs> \
     { }; \
     \
     little_type const &base() const \
