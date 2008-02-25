@@ -30,48 +30,49 @@
 int check_include_guard()
 {
     using namespace boost::egg;
-    using function;
-    using function_facade;
-    using generator;
-    using implicit;
-    using poly;
-    using static_;
-    using variadic;
-    using ambi1;
-    using compose;
-    using curry2;
-    using uncurry;
-    using fix;
-    using flip;
-    using fuse;
-    using unfuse;
-    using indirect;
-    using lazy;
-    using memoize;
-    using mono;
-    using perfect;
-    using pipable;
-    using regular;
-    using return_;
-    using tagged;
-    using adapted_to;
-    using always;
-    using identity;
-    using apply;
-    using bll_bind;
-    using bll_1;
-    using X_construct;
-    using X_construct_braced1;
-    using X_construct_braced2;
-    using X_construct_variadic1;
-    using get;
-    using pack;
-    using result_of_;
+
+    using egg::function;
+    using egg::function_facade;
+    using egg::generator;
+    using egg::implicit;
+    using egg::poly;
+    using egg::static_;
+    using egg::variadic;
+    using egg::ambi1;
+    using egg::compose;
+    using egg::curry2;
+    using egg::uncurry;
+    using egg::fix;
+    using egg::flip;
+    using egg::fuse;
+    using egg::unfuse;
+    using egg::indirect;
+    using egg::lazy;
+    using egg::memoize;
+    using egg::mono;
+    using egg::perfect;
+    using egg::pipable;
+    using egg::regular;
+    using egg::return_;
+    using egg::tagged;
+    using egg::adapted_to;
+    using egg::always;
+    using egg::identity;
+    using egg::apply;
+    using egg::bll_bind;
+    using egg::bll_1;
+    using egg::X_construct;
+    using egg::X_construct_braced1;
+    using egg::X_construct_braced2;
+    using egg::X_construct_variadic1;
+    using egg::get;
+    using egg::pack;
+    using egg::result_of_;
     #if !defined(BOOST_EGG_CONST)
         #error oops.
     #endif
-    using apply_little;
-    using call_little;
+    using egg::apply_little;
+    using egg::call_little;
     #if !defined(BOOST_EGG_DEDUCED_CONST)
         #error oops.
     #endif
