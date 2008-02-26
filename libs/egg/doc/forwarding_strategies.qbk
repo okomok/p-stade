@@ -366,8 +366,8 @@ Egg provides the uniform way to define your own strategy.
         [These can be used as "meta" return type of strategy tag.]
     ]
     [
-        [`BOOST_EGG_DEDUCED_CONST(A)`]
-        [`A const`]
+        [`BOOST_EGG_DEDUCED_CONST(T)`]
+        [`T const`]
     ]
     [
         [`BOOST_PP_IDENTITY`]
