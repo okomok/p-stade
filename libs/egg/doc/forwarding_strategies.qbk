@@ -376,7 +376,7 @@ Egg provides the uniform way to define your own strategy.
 ]
 
 [heading Preconditions]
-* `N` is arity of call operator.
+* `N` is arity of call operator such that `N >= 1`.
 * `Cv()` is /cv-qualifier/ of call operator.
 * `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 
