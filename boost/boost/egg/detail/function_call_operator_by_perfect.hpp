@@ -71,7 +71,10 @@
 
         #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_op(R, Bits, Cv) \
             template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
-            typename apply_little<little_type Cv(), BOOST_EGG_PP_BITS_ENUM_DEDUCED_R(R, Bits, A)>::type \
+            typename apply_little< \
+                little_type Cv(), \
+                BOOST_EGG_PP_BITS_ENUM_DEDUCED_R(R, Bits, A) \
+            >::type \
             operator()(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a)) Cv() \
             { \
                 return call_little(this->little(), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), a)); \
