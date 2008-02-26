@@ -42,7 +42,7 @@ namespace mpl = boost::mpl;
     } \
 /**/
 
-BOOST_EGG_PP_FOR_EACH_BITS(MACRO, std::string, 3)
+BOOST_EGG_PP_FOR_EACH_BITS(3, MACRO, std::string)
 
 
 void egg_test()
