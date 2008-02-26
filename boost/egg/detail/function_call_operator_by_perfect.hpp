@@ -18,19 +18,21 @@
 
     #include <boost/preprocessor/facilities/intercept.hpp>
     #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-    #include <boost/preprocessor/repetition/enum_params.hpp>
+    #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
+    #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
     #include <boost/type_traits/remove_reference.hpp>
+    #include <boost/egg/preprocessor/enum_template_params.hpp>
 
 
     #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N, Cv) \
-        template<BOOST_PP_ENUM_PARAMS(N, class A)> \
+        BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(N, class A) \
         typename apply_little< \
-            little_type Cv(), \
-            BOOST_PP_ENUM_BINARY_PARAMS(N, typename remove_reference<A, >::type BOOST_PP_INTERCEPT) \
+            little_type Cv() \
+            BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(N, typename remove_reference<A, >::type BOOST_PP_INTERCEPT) \
         >::type \
         operator()(BOOST_PP_ENUM_BINARY_PARAMS(N, A, &&a)) Cv() \
         { \
-            return call_little(this->little(), BOOST_PP_ENUM_PARAMS(N, a)); \
+            return call_little(this->little() BOOST_PP_ENUM_TRAILING_PARAMS(N, a)); \
         } \
     /**/
 
@@ -38,16 +40,29 @@
 #else
 
 
+    #include <boost/preprocessor/control/if.hpp>
     #include <boost/preprocessor/repetition/enum_params.hpp>
     #include <boost/preprocessor/seq/size.hpp>
+    #include <boost/preprocessor/tuple/eat.hpp>
     #include <boost/egg/preprocessor/bits_enum_binary_params.hpp>
     #include <boost/egg/preprocessor/bits_enum_deduced.hpp>
     #include <boost/egg/preprocessor/for_each_bits.hpp>
 
 
     #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N, Cv) \
-        BOOST_EGG_PP_FOR_EACH_BITS(N, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_op, Cv) \
+        BOOST_PP_IF( N, \
+            BOOST_EGG_PP_FOR_EACH_BITS, \
+            BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) BOOST_PP_TUPLE_EAT(3) \
+        )(N, BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_op, Cv) \
     /**/
+
+        #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT0(Cv) \
+            typename apply_little<little_type Cv()>::type \
+            operator()() Cv() \
+            { \
+                return call_little(this->little()); \
+            } \
+        /**/
 
         #define BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT_op(R, Bits, Cv) \
             template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
