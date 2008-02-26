@@ -44,12 +44,12 @@
     #include <boost/egg/detail/enable_if.hpp> // disable_if_
 
 
-    #define BOOST_EGG_CONST_OVERLOADED(T) \
+    #define BOOST_EGG_CONST_OVERLOADED1(T) \
         , typename boost::egg::disable_if_< boost::is_const<T> >::type = 0 \
     /**/
 
 
-    #define BOOST_EGG_CONST_OVERLOADED_PARAMS(N, T) \
+    #define BOOST_EGG_CONST_OVERLOADED(N, T) \
         , typename boost::egg::disable_if_< \
             boost::egg::details::exists_const<BOOST_PP_ENUM_PARAMS(N, T)> \
         >::type = 0 \
@@ -75,8 +75,8 @@
 #else
 
 
-    #define BOOST_EGG_CONST_OVERLOADED(T)
-    #define BOOST_EGG_CONST_OVERLOADED_PARAMS(N, T)
+    #define BOOST_EGG_CONST_OVERLOADED1(T)
+    #define BOOST_EGG_CONST_OVERLOADED(N, T)
 
 
 #endif
