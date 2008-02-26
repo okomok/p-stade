@@ -37,6 +37,7 @@
 #include <boost/egg/delete_array.hpp>
 #include <boost/egg/detect_result_type.hpp>
 #include <boost/egg/do_swap.hpp>
+#include <boost/egg/explicit.hpp>
 #include <boost/egg/expr.hpp>
 #include <boost/egg/fix.hpp>
 #include <boost/egg/flip.hpp>

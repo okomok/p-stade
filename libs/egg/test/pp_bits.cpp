@@ -34,7 +34,7 @@ namespace mpl = boost::mpl;
     template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class Arg)> \
     void foo(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, Arg, &arg)) \
     { \
-        std::string s("abc"); (void)s; \
+        Data s("abc"); (void)s; \
         typedef mpl::vector<BOOST_EGG_PP_BITS_ENUM_DEDUCED_R(R, Bits, Arg)> qualified_t; \
         typedef mpl::vector<BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, Arg, & BOOST_PP_INTERCEPT)> refs_t; \
         BOOST_MPL_ASSERT((mpl::equal<refs_t, typename mpl::transform_view<qualified_t, boost::add_reference<mpl::_1> >::type>)); \
