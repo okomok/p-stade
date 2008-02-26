@@ -93,7 +93,7 @@ void check_include_guards()
 }
 
 
-// warning check: This must be shown in IDE.
+// warning check: warning must be shown in IDE.
 struct no_assignment
 {
     int const &x;
