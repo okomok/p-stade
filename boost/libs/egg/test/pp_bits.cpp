@@ -8,12 +8,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/preprocessor/for_each_by_perfect.hpp>
+#include <boost/egg/preprocessor/for_each_bits.hpp>
+#include <boost/egg/preprocessor/bits_enum_binary_params.hpp>
+#include <boost/egg/preprocessor/bits_enum_deduced.hpp>
 #include "./egg_test.hpp"
 
 
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -23,37 +24,25 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/egg/preprocessor/seq_enum_params.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
 
 
 namespace mpl = boost::mpl;
 
 
-#define MACRO(R, Int, Qs, Rs) \
-    template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Qs), class Arg)> \
-    void foo(BOOST_EGG_PP_SEQ_ENUM_PARAMS(Rs, arg)) \
+#define MACRO(R, Bits, Data) \
+    template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class Arg)> \
+    void foo(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, Arg, &arg)) \
     { \
         std::string s("abc"); (void)s; \
-        typedef mpl::vector<BOOST_PP_SEQ_ENUM(Qs)> qualified_t; \
-        typedef mpl::vector<BOOST_PP_SEQ_ENUM(Rs)> refs_t; \
+        typedef mpl::vector<BOOST_EGG_PP_BITS_ENUM_DEDUCED_R(R, Bits, Arg)> qualified_t; \
+        typedef mpl::vector<BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, Arg, & BOOST_PP_INTERCEPT)> refs_t; \
         BOOST_MPL_ASSERT((mpl::equal<refs_t, typename mpl::transform_view<qualified_t, boost::add_reference<mpl::_1> >::type>)); \
         BOOST_CHECK(arg0+arg1+arg2 == 6+7+8); \
     } \
 /**/
 
-
-#define MACRO_(R, Int, Qs, _) \
-    template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Qs), class Arg)> \
-    void bar(BOOST_EGG_PP_SEQ_ENUM_PARAMS(Qs, & arg)) \
-    { \
-        std::string s("abc"); (void)s; \
-        BOOST_CHECK(arg0+arg1+arg2 == 6+7+8); \
-    } \
-/**/
-
-
-BOOST_EGG_PP_FOR_EACH_BY_PERFECT(3, Arg, MACRO, std::string)
-
-BOOST_EGG_PP_FOR_EACH_BY_PERFECT(3, Arg, MACRO_, std::string)
+BOOST_EGG_PP_FOR_EACH_BITS(MACRO, std::string, 3)
 
 
 void egg_test()
@@ -61,6 +50,5 @@ void egg_test()
     {
         int i7 = 7;
         ::foo(6,i7,8);
-        ::bar(6,i7,8);
     }
 }
