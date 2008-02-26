@@ -13,7 +13,7 @@
 
 
 template<class E, class A>
-void algo1(A& a BOOST_EGG_CONST_OVERLOADED(A))
+void algo1(A& a BOOST_EGG_CONST_OVERLOADED1(A))
 {
     (void)a;
 }
@@ -26,16 +26,16 @@ void algo1(A const& a)
 
 
 // Can be added to both.
-// But if BOOST_EGG_CONST_OVERLOADED is turned on,
+// But if BOOST_EGG_CONST_OVERLOADED1 is turned on,
 // VC++ would be broken when 'A' is deduced as an array type.
 template<class E, class A>
-void algo1_(A& a BOOST_EGG_CONST_OVERLOADED(A))
+void algo1_(A& a BOOST_EGG_CONST_OVERLOADED1(A))
 {
     (void)a;
 }
 
 template<class E, class A>
-void algo1_(A const& a BOOST_EGG_CONST_OVERLOADED(A))
+void algo1_(A const& a BOOST_EGG_CONST_OVERLOADED1(A))
 {
     (void)a;
 }
@@ -43,25 +43,25 @@ void algo1_(A const& a BOOST_EGG_CONST_OVERLOADED(A))
 
 // forwarding
 template<class E, class A0, class A1>
-void algo2(A0& a0, A1& a1 BOOST_EGG_CONST_OVERLOADED_PARAMS(2, A))
+void algo2(A0& a0, A1& a1 BOOST_EGG_CONST_OVERLOADED(2, A))
 {
     (void)a0; (void)a1;
 }
 
 template<class E, class A0, class A1>
-void algo2(A0& a0, A1 const& a1 BOOST_EGG_CONST_OVERLOADED_PARAMS(2, A))
+void algo2(A0& a0, A1 const& a1 BOOST_EGG_CONST_OVERLOADED(2, A))
 {
     (void)a0; (void)a1;
 }
 
 template<class E, class A0, class A1>
-void algo2(A0 const& a0, A1& a1 BOOST_EGG_CONST_OVERLOADED_PARAMS(2, A))
+void algo2(A0 const& a0, A1& a1 BOOST_EGG_CONST_OVERLOADED(2, A))
 {
     (void)a0; (void)a1;
 }
 
 template<class E, class A0, class A1>
-void algo2(A0 const& a0, A1 const& a1 BOOST_EGG_CONST_OVERLOADED_PARAMS(2, A))
+void algo2(A0 const& a0, A1 const& a1 BOOST_EGG_CONST_OVERLOADED(2, A))
 {
     (void)a0; (void)a1;
 }
