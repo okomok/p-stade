@@ -101,7 +101,7 @@
                     BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, & BOOST_PP_INTERCEPT) \
                 ) \
             >::type \
-            BOOST_PP_ARRAY_ELEM(0, Nm_X_P)(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a) BOOST_EGG_CONST_OVERLOADED_PARAMS(BOOST_PP_SEQ_SIZE(Bits), A)) \
+            BOOST_PP_ARRAY_ELEM(0, Nm_X_P)(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a) BOOST_EGG_CONST_OVERLOADED(BOOST_PP_SEQ_SIZE(Bits), A)) \
             { \
                 return BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>()( \
                     BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), a) \

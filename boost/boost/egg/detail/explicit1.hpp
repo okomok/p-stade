@@ -30,7 +30,7 @@
         \
         template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(Params, T), class A> inline \
         typename boost::egg::result_of_<X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)>(A &)>::type \
-        Name(A &a BOOST_EGG_CONST_OVERLOADED(A)) \
+        Name(A &a BOOST_EGG_CONST_OVERLOADED1(A)) \
         { \
             return X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)>()(a); \
         } \
@@ -67,7 +67,7 @@
         \
         template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(Params, T), class A> inline \
         typename boost::egg::result_of_<X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)>(A &)>::type \
-        Name(A &a BOOST_EGG_CONST_OVERLOADED(A)) \
+        Name(A &a BOOST_EGG_CONST_OVERLOADED1(A)) \
         { \
             return X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)>()(a); \
         } \
