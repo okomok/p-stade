@@ -16,11 +16,10 @@
 #include <boost/egg/preprocessor/seq_repeat.hpp>
 
 
-#define BOOST_EGG_PP_FOR_EACH_BITS(Macro, Data, Count) \
+#define BOOST_EGG_PP_FOR_EACH_BITS(Count, Macro, Data) \
     BOOST_PP_SEQ_FOR_EACH_PRODUCT(BOOST_EGG_PP_FOR_EACH_BITS_op, (((2, (Macro, Data))))BOOST_EGG_PP_SEQ_REPEAT((0)(1), Count)) \
 /**/
 
-    // If msvc-7.1 array had no bug, `_reference` would be unneeded.
     #define BOOST_EGG_PP_FOR_EACH_BITS_op(R, A_Bits) \
         BOOST_EGG_PP_FOR_EACH_BITS_macro(A_Bits) \
             (R, BOOST_PP_SEQ_TAIL(A_Bits), BOOST_EGG_PP_FOR_EACH_BITS_data(A_Bits)) \
