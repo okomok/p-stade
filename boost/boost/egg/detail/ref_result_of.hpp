@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef BOOST_EGG_DETAIL_RESULT_OF_REF_HPP
-#define BOOST_EGG_DETAIL_RESULT_OF_REF_HPP
+#ifndef BOOST_EGG_DETAIL_REF_RESULT_OF_HPP
+#define BOOST_EGG_DETAIL_REF_RESULT_OF_HPP
 
 
 // Boost.Egg
@@ -14,7 +14,7 @@
 // What:
 //
 // Boost.ResultOf doesn't support:
-//     result_of_<F &(int,...)>::type
+//     result_of<F &(int,...)>::type
 // A target function sometimes may be a reference.
 
 
@@ -29,9 +29,9 @@ namespace boost { namespace egg { namespace details {
 
 
     template<class FunCall>
-    struct result_of_ref;
+    struct ref_result_of;
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <boost/egg/detail/result_of_ref.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <boost/egg/detail/ref_result_of.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -46,7 +46,7 @@ namespace boost { namespace egg { namespace details {
 
 
     template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct result_of_ref<Fun(fparams)> :
+    struct ref_result_of<Fun(fparams)> :
         result_of_<
             typename remove_reference<Fun>::type(fparams)
         >
