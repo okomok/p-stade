@@ -11,23 +11,17 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
+#include <boost/egg/preprocessor/bits_enum.hpp>
 
 
 // (0)(1)(1) -> A0, A1 const, A2 const
 #define BOOST_EGG_PP_BITS_ENUM_DEDUCED_R(R, Bits, A) \
-    BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_PP_BITS_ENUM_DEDUCED_op, A, Bits) \
+    BOOST_EGG_PP_BITS_ENUM_R(R, Bits, BOOST_EGG_PP_BITS_ENUM_DEDUCED_w0, BOOST_EGG_PP_BITS_ENUM_DEDUCED_w1, A) \
 /**/
 
-    #define BOOST_EGG_PP_BITS_ENUM_DEDUCED_op(R, A, I, Bit) \
-        BOOST_PP_COMMA_IF(I) \
-            BOOST_PP_CAT(BOOST_EGG_PP_BITS_ENUM_DEDUCED_ac, Bit)(BOOST_PP_CAT(A, I)) \
-    /**/
-
-    #define BOOST_EGG_PP_BITS_ENUM_DEDUCED_ac0(P) P
-    #define BOOST_EGG_PP_BITS_ENUM_DEDUCED_ac1(P) BOOST_EGG_DEDUCED_CONST(P)
+    #define BOOST_EGG_PP_BITS_ENUM_DEDUCED_w0(R, I, A) BOOST_PP_CAT(A, I)
+    #define BOOST_EGG_PP_BITS_ENUM_DEDUCED_w1(R, I, A) BOOST_EGG_DEDUCED_CONST(BOOST_PP_CAT(A, I))
 
 
 #endif
