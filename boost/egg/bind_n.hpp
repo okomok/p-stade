@@ -37,7 +37,7 @@
     #include <boost/egg/const.hpp>
     #include <boost/egg/detail/boost_use_default_fwd.hpp>
     #include <boost/egg/detail/derived_from.hpp>
-    #include <boost/egg/detail/result_of_ref.hpp>
+    #include <boost/egg/detail/ref_result_of.hpp>
     #include <boost/egg/detail/substitute.hpp>
     #include <boost/egg/detail/use_nullary_result.hpp>
     #include <boost/egg/is_bind_expression.hpp>
@@ -82,7 +82,7 @@
 
             using details::T_substitute;
             using details::substitute;
-            using details::result_of_ref;
+            using details::ref_result_of;
 
 
             template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
@@ -98,8 +98,8 @@
 
                 // 0ary - BOOST_EGG_MAX_ARITYary
             #define BOOST_EGG_meta_substitute(Z, N, _) \
-                typename result_of_ref< \
-                    typename result_of_ref< \
+                typename ref_result_of< \
+                    typename ref_result_of< \
                         T_substitute(BOOST_PP_CAT(Arg, N) const &) \
                     >::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &)) \
                 >::type \
@@ -196,8 +196,8 @@
     #if m == 0
 
         struct extract_nullary_result :
-            result_of_ref<
-                typename result_of_ref<typename result_of_ref<T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
+            ref_result_of<
+                typename ref_result_of<typename ref_result_of<T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
                 (
                     BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
                 )
@@ -214,8 +214,8 @@
 
         template<class Me, BOOST_PP_ENUM_PARAMS(m, class A)>
         struct apply<Me, BOOST_PP_ENUM_PARAMS(m, A)> :
-            result_of_ref<
-                typename result_of_ref<typename result_of_ref<T_substitute(Base &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
+            ref_result_of<
+                typename ref_result_of<typename ref_result_of<T_substitute(Base &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
                 (
                     BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
                 )
