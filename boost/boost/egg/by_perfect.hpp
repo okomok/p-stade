@@ -25,7 +25,7 @@ namespace boost { namespace egg {
     namespace details {
 
 
-        // by_perfect(use_default) isn't complete type.
+        // by_perfect(use_default) is incomplete.
 
         template<int Arity, int Index>
         struct bytag_at<by_perfect, Arity, Index>
