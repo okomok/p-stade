@@ -11,6 +11,7 @@
 #include <boost/egg/detail/explicit1.hpp>
 
 
+#include <boost/type_traits/is_const.hpp>
 #include "./egg_test.hpp"
 
 
