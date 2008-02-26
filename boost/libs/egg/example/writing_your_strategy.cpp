@@ -57,6 +57,8 @@ namespace boost { namespace egg {
         }
 
     // 1ary: by_perfect
+        BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(1, BOOST_PP_IDENTITY(const))  /*< Wrap /cv-qualifier/ with `BOOST_PP_IDENTITY`. Egg supports only `const` for now, though. >*/
+    /*  is expanded to...
         template<class A1>
         typename apply_little<Lit const, A1>::type
         operator()(A1 &a1) const
@@ -65,11 +67,12 @@ namespace boost { namespace egg {
         }
 
         template<class A1>
-        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type /*< `BOOST_EGG_DEDUCED_CONST` works around msvc-7.1 bug around array. >*/
+        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type
         operator()(A1 const &a1) const
         {
             return call_little(m_lit, a1);
         }
+    */
 
     // 2ary: by_value
         template<class A1, class A2>
