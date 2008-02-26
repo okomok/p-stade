@@ -1,5 +1,6 @@
 #ifndef BOOST_EGG_EXPLICIT_HPP
 #define BOOST_EGG_EXPLICIT_HPP
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -115,4 +116,5 @@
 #endif // defined(BOOST_EGG_HAS_RVALUE_REFS)
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif
