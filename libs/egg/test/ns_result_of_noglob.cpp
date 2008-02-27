@@ -8,4 +8,4 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Same as "./before_mpl_lambda.cpp".
+// Same as "./before_mpl_apply.cpp".
