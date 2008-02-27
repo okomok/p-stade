@@ -69,9 +69,13 @@ Egg is the framework for building such function objects.
 [heading POD-oriented programming]
 As shown above, Egg offers unfamiliar syntax using braces and macros.
 `T_plus` is __POD__, and `plus` is initialized using braced-initializer `{{}}`.
-This makes `plus` be __STATICALLY_INITIALIZED__, meaning that
-the initialization doesn't incur any runtime overhead,
-and the famous "static initialization order fiasco" never kicks in.
+This makes `plus` be __STATICALLY_INITIALIZED__.
+The __STATIC_INITIALIZATION__ advantages are:
+
+* No runtime overhead.
+* No compile-time overhead of `result_of` instantiation.
+* No "static initialization order fiasco".
+
 Also notice that `my_plus` is initialized using "ugly" macro `BOOST_EGG_PIPABLE`.
 This macro is regarded as "static-storage function call".
 In fact, this macro is tangled braced-initializer, so that we have no choice but to use macro.
