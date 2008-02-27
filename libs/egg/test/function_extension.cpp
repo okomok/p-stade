@@ -18,6 +18,8 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/always.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/at.hpp>
 
 
 #include "./using_egg.hpp"
@@ -51,11 +53,19 @@ struct my_strategy
     {
         typedef by_ref type;
     };
+
+    typedef boost::mpl::vector<by_perfect, by_ref, by_value, by_perfect, by_cref> five;
+
+    template<class _, class Index>
+    struct apply<_, boost::mpl::int_<5>, Index > :
+        boost::mpl::at<five, Index>
+    { };
 };
 
 BOOST_MPL_ASSERT((boost::is_same<by_perfect, details::bytag_at<my_strategy, 1, 0>::type>));
 BOOST_MPL_ASSERT((boost::is_same<by_value, details::bytag_at<my_strategy, 2, 0>::type>));
 BOOST_MPL_ASSERT((boost::is_same<by_value, details::bytag_at<my_strategy, 2, 1>::type>));
+BOOST_MPL_ASSERT((boost::is_same<by_perfect, details::bytag_at<my_strategy, 5, 3>::type>));
 
 namespace boost { namespace egg {
 
@@ -75,38 +85,19 @@ namespace boost { namespace egg {
         }
 
     // 1ary: by_perfect
-        template<class A1>
-        typename apply_little<Lit const, A1>::type
-        operator()(A1 &a1) const
-        {
-            return call_little(m_lit, a1);
-        }
-
-        template<class A1>
-        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A1)>::type
-        operator()(A1 const &a1) const
-        {
-            return call_little(m_lit, a1);
-        }
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect), BOOST_PP_IDENTITY(const))
 
     // 2ary: by_value
-        template<class A1, class A2>
-        typename apply_little<Lit const, A1, A2>::type
-        operator()(A1 a1, A2 a2) const
-        {
-            return call_little(m_lit, a1, a2);
-        }
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_value)(by_value), BOOST_PP_IDENTITY(const))
 
     // 3ary: by_perfect
-        BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(3, BOOST_PP_IDENTITY(const))
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_perfect)(by_perfect), BOOST_PP_IDENTITY(const))
 
     // 4ary: by_ref
-        template<class A1, class A2, class A3, class A4>
-        typename apply_little<Lit const, A1, A2, A3, A4>::type
-        operator()(A1& a1, A2& a2, A3 &a3, A4& a4) const
-        {
-            return call_little(m_lit, a1, a2, a3, a4);
-        }
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_ref)(by_ref)(by_ref)(by_ref), BOOST_PP_IDENTITY(const))
+
+    // 5ary: mixed
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_ref)(by_value)(by_perfect)(by_cref), BOOST_PP_IDENTITY(const))
     };
 
 } }
