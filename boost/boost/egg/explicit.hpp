@@ -67,19 +67,19 @@
     /**/
 
 
-    #define BOOST_EGG_EXPLICIT_op(R, Bits, Nm_X_P) \
-        template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
-        BOOST_EGG_NS_RESULT_OF( \
-            (BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>), \
-            (BOOST_PP_SEQ_SIZE(Bits), (BOOST_EGG_PP_BITS_ENUM_R(R, Bits, BOOST_EGG_EXPLICIT_op_w0, BOOST_EGG_EXPLICIT_op_w1, ~))) \
-        ) \
-        BOOST_PP_ARRAY_ELEM(0, Nm_X_P)(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a) BOOST_EGG_CONST_OVERLOADED(BOOST_PP_SEQ_SIZE(Bits), A)) \
-        { \
-            return BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>()( \
-                BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), a) \
-            ); \
-        } \
-    /**/
+        #define BOOST_EGG_EXPLICIT_op(R, Bits, Nm_X_P) \
+            template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
+            BOOST_EGG_NS_RESULT_OF( \
+                (BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>), \
+                (BOOST_PP_SEQ_SIZE(Bits), (BOOST_EGG_PP_BITS_ENUM_R(R, Bits, BOOST_EGG_EXPLICIT_op_w0, BOOST_EGG_EXPLICIT_op_w1, ~))) \
+            ) \
+            BOOST_PP_ARRAY_ELEM(0, Nm_X_P)(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a) BOOST_EGG_CONST_OVERLOADED(BOOST_PP_SEQ_SIZE(Bits), A)) \
+            { \
+                return BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>()( \
+                    BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), a) \
+                ); \
+            } \
+        /**/
 
         #define BOOST_EGG_EXPLICIT_op_w0(R, I, _) BOOST_PP_CAT(A, I) &
         #define BOOST_EGG_EXPLICIT_op_w1(R, I, _) BOOST_EGG_NS_CONST_REF(BOOST_PP_CAT(A, I))

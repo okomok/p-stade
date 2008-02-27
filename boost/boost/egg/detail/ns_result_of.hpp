@@ -15,8 +15,6 @@
 // See "./ns_result_of1.hpp"
 
 
-#include <boost/preprocessor/seq/enum.hpp>
-#include <boost/preprocessor/tuple/to_seq.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/unparen.hpp>
 #include <boost/egg/detail/ns_const_ref.hpp> // inclusion guaranteed
@@ -24,11 +22,12 @@
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
 
+    #include <boost/preprocessor/tuple/rem.hpp>
     #include <boost/egg/detail/vc7_1_result_of.hpp>
 
     #define BOOST_EGG_NS_RESULT_OF(F, ArgArray) \
         typename boost::egg::detail_vc7_1::result_of< \
-            BOOST_EGG_UNPAREN_TPL(F), BOOST_PP_SEQ_ENUM(BOOST_PP_TUPLE_TO_SEQ ArgArray) \
+            BOOST_EGG_UNPAREN_TPL(F), BOOST_PP_TUPLE_REM_CTOR ArgArray \
         >::type \
     /**/
 
