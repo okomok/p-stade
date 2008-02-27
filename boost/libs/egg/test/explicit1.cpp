@@ -11,6 +11,11 @@
 #include <boost/egg/detail/explicit1.hpp>
 
 
+#if defined(BOOST_EGG_DETAIL_VC7_1_RESULT_OF_HPP)
+    #error oops.
+#endif
+
+
 #include <boost/type_traits/is_const.hpp>
 #include "./egg_test.hpp"
 
