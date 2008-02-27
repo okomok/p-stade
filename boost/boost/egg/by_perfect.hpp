@@ -17,6 +17,7 @@
 #include <boost/egg/detail/bytag_at.hpp>
 #include <boost/egg/detail/result_of_forward.hpp>
 #include <boost/egg/function_extension.hpp>
+#include <boost/egg/preprocessor/seq_repeat.hpp>
 
 
 namespace boost { namespace egg {
@@ -55,7 +56,13 @@ namespace boost { namespace egg {
             return m_little;
         }
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_ARITY, <boost/egg/by_perfect.hpp>))
+        typename apply_little<Little const>::type
+        operator()() const
+        {
+            return call_little(m_little);
+        }
+
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_ARITY, <boost/egg/by_perfect.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -76,7 +83,7 @@ namespace boost { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(n, BOOST_PP_IDENTITY(const))
+    BOOST_EGG_FUNCTION_CALL_OPERATOR(BOOST_EGG_PP_SEQ_REPEAT(by_perfect, n), BOOST_PP_IDENTITY(const))
 
 
 #undef  n
