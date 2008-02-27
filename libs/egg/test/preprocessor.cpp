@@ -10,7 +10,6 @@
 
 #include <boost/egg/preprocessor/cat3.hpp>
 #include <boost/egg/preprocessor/enum_params_with.hpp>
-#include <boost/egg/preprocessor/enum_template_params.hpp>
 #include <boost/egg/preprocessor/int_n.hpp>
 #include <boost/egg/preprocessor/is_seq.hpp>
 #include <boost/egg/preprocessor/seq_cycle.hpp>
@@ -60,30 +59,6 @@ namespace enum_params_with_ {
         int i = 0;
         foo_(i, i, i, i, i);
         cfoo_(1, 1, 1, 1, 1);
-    }
-
-}
-
-
-namespace enum_params_template_params_ {
-
-    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(5, class A)
-    void foo_( BOOST_EGG_PP_ENUM_PARAMS_WITH(5, A, &) )
-    {
-        return;
-    }
-
-    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(0, class A)
-    void foo_( BOOST_EGG_PP_ENUM_PARAMS_WITH(0, A, &) )
-    {
-        return;
-    }
-
-    void test_()
-    {
-        int i = 0;
-        foo_(i, i, i, i, i);
-        foo_();
     }
 
 }
