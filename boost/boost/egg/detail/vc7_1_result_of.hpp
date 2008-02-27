@@ -50,6 +50,7 @@ namespace boost { namespace egg { namespace detail_vc7_1 {
 #else
 #define n BOOST_PP_ITERATION()
 
+
     BOOST_EGG_PP_SEQ_FOR_EACH_PRODUCT(
         BOOST_PP_SEQ_TRANSFORM(BOOST_EGG_BYTAG_TO_SEQ, ~, BOOST_EGG_PP_SEQ_REPEAT(by_perfect, n)), \
         BOOST_EGG_spec, ~ \
