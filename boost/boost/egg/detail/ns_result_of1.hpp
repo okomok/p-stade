@@ -23,10 +23,10 @@
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
 
-    #include <boost/egg/detail/vc7_1_result_of.hpp>
+    #include <boost/egg/detail/vc7_1_result_of1.hpp>
 
     #define BOOST_EGG_NS_RESULT_OF1(F, A) \
-        typename boost::egg::detail_vc7_1::result_of< BOOST_EGG_UNPAREN_TPL(F), A >::type \
+        typename boost::egg::detail_vc7_1::result_of1< BOOST_EGG_UNPAREN_TPL(F), A >::type \
     /**/
 
 #else
