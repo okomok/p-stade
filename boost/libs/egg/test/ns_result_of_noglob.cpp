@@ -8,4 +8,4 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Same as "oven/example/permutations.cpp".
+// Same as "./before_mpl_lambda.cpp".
