@@ -76,7 +76,7 @@ namespace boost { namespace egg {
             return call_little(m_lit, a0, a1);
         }
     */
-    
+
     // 3ary: by_value
         template<class A0, class A1, class A2>
         typename apply_little<Lit const, A0, A1, A2>::type

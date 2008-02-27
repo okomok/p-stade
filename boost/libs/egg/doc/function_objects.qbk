@@ -5,8 +5,6 @@ Egg no longer considers function templates to be useful, so that it provides
 "objectified" functions which replace some famous function templates.
 
 
-[import ../example/infix_apply.cpp]
-[import ../example/nested_lambda.cpp]
 
 
 [/

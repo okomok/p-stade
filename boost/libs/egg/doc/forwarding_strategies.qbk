@@ -42,8 +42,6 @@ This section uses the following notation.
 [note Under msvc-7.1, `a` in `_cref(a)` can't be function name.
            It is preferable to add `&` then turn function name into function pointer. ]
 
-[import ../example/my_perfect.cpp]
-
 
 
 
