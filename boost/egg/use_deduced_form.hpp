@@ -13,14 +13,13 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp> // inclusion guaranteed
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/detail/call_little_impl_fwd.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/has_xxx.hpp>
-#include <boost/egg/preprocessor/enum_template_params.hpp>
 
 
 namespace boost { namespace egg { namespace details {
@@ -33,7 +32,14 @@ namespace boost { namespace egg { namespace details {
     struct call_little_impl<Little, Re,
         typename enable_if_< has_use_deduced_form<Little> >::type>
     {
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/use_deduced_form.hpp>))
+    // 0ary
+        static Re call(Little &little)
+        {
+            return little.call(boost::type<Re>());
+        }
+
+    // 1ary-
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/use_deduced_form.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -47,10 +53,10 @@ namespace boost { namespace egg { namespace details {
 #define n BOOST_PP_ITERATION()
 
 
-    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
-    static Re call(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
+    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    static Re call(Little &little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a))
     {
-        return little.call(boost::type<Re>() BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return little.call(boost::type<Re>(), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 
