@@ -39,11 +39,11 @@ Distributed under the Boost Software License, Version 1.0.
 [def __FCPP__ [@http://www.cc.gatech.edu/~yannis/fc++/ [*FC++]]]
 [def __EXTENSION_METHOD__ [@http://en.wikipedia.org/wiki/Extension_method Extension method]]
 
-[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]]
+[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html `boost::indirect_iterator`]]
 [def __FUSION_FUNCTIONAL__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional.html Fusion Functional Adapters]]
 
 [def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
-[def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826 callable]]
+[def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826 `callable`]]
 
 [def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
 [def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
