@@ -36,12 +36,13 @@ struct counter :
 {
     typedef void result_type;
 
-    void operator()(int) const
+    template<class T>
+    void operator()(T const &)
     {
         m_count += 1;
     }
 
-    mutable int m_count;
+    int m_count;
     counter() : m_count(0) {}
 };
 
