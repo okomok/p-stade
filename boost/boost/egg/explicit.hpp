@@ -66,7 +66,6 @@
         BOOST_EGG_PP_FOR_EACH_BITS(N, BOOST_EGG_EXPLICIT_op, (3, (Name, X_, BOOST_EGG_PP_TO_TEMPLATE_PARAM_SEQ(Params)))) \
     /**/
 
-
         #define BOOST_EGG_EXPLICIT_op(R, Bits, Nm_X_P) \
             template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
             BOOST_EGG_NS_RESULT_OF( \
