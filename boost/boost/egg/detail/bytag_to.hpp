@@ -12,6 +12,7 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
+#include <boost/egg/detail/ns_const_ref.hpp>
 
 
 #define BOOST_EGG_BYTAG_TO_SEQ(S, _, Bytag) \
@@ -40,6 +41,15 @@
     #define BOOST_EGG_BYTAG_TO_DEDUCED_by_ref(I) BOOST_PP_CAT(A, I)
     #define BOOST_EGG_BYTAG_TO_DEDUCED_by_cref(I) BOOST_EGG_DEDUCED_CONST(BOOST_PP_CAT(A, I))
     #define BOOST_EGG_BYTAG_TO_DEDUCED_by_value(I) BOOST_PP_CAT(A, I)
+
+
+#define BOOST_EGG_BYTAG_TO_NS_DEDUCED(R, _, I, Bytag) \
+    BOOST_PP_CAT(BOOST_EGG_BYTAG_TO_NS_DEDUCED_, Bytag)(I) \
+/**/
+
+    #define BOOST_EGG_BYTAG_TO_NS_DEDUCED_by_ref(I) BOOST_PP_CAT(A, I) &
+    #define BOOST_EGG_BYTAG_TO_NS_DEDUCED_by_cref(I) BOOST_EGG_NS_CONST_REF(BOOST_PP_CAT(A, I))
+    #define BOOST_EGG_BYTAG_TO_NS_DEDUCED_by_value(I) BOOST_PP_CAT(A, I) &
 
 
 #endif
