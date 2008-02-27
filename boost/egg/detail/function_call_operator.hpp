@@ -28,6 +28,7 @@
     #include <boost/egg/preprocessor/seq_enum_i.hpp>
     #include <boost/egg/preprocessor/seq_for_each_product.hpp>
     #include <boost/egg/detail/bytag_to.hpp>
+    #include <boost/egg/detail/eat_mutable.hpp>
 
 
     #define BOOST_EGG_FUNCTION_CALL_OPERATOR(BytagSeq, Cv) \
@@ -39,10 +40,10 @@
         #define BOOST_EGG_FUNCTION_CALL_OPERATOR_op(R, BytagSeq, Cv) \
             template<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(BytagSeq), class A)> \
             typename apply_little< \
-                little_type Cv(), \
+                little_type BOOST_EGG_EAT_MUTABLE(Cv), \
                 BOOST_EGG_PP_SEQ_ENUM_I_R(R, BytagSeq, BOOST_EGG_BYTAG_TO_DEDUCED, ~) \
             >::type \
-            operator()(BOOST_EGG_PP_SEQ_ENUM_I_R(R, BytagSeq, BOOST_EGG_BYTAG_TO_PARAM, ~)) Cv() \
+            operator()(BOOST_EGG_PP_SEQ_ENUM_I_R(R, BytagSeq, BOOST_EGG_BYTAG_TO_PARAM, ~)) BOOST_EGG_EAT_MUTABLE(Cv) \
             { \
                 return call_little(this->little(), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(BytagSeq), a)); \
             } \
