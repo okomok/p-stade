@@ -52,11 +52,12 @@
 
 
     #include <boost/preprocessor/array/elem.hpp>
-    #include <boost/preprocessor/cat.hpp>
+    #include <boost/preprocessor/facilities/intercept.hpp>
     #include <boost/preprocessor/repetition/enum_params.hpp>
     #include <boost/preprocessor/seq/size.hpp>
-    #include <boost/preprocessor/tuple/eat.hpp>
-    #include <boost/egg/detail/boost_workaround.hpp>
+    #include <boost/egg/detail/const_overloaded.hpp>
+    #include <boost/egg/detail/ns_result_of.hpp>
+    #include <boost/egg/preprocessor/bits_enum.hpp>
     #include <boost/egg/preprocessor/bits_enum_binary_params.hpp>
     #include <boost/egg/preprocessor/for_each_bits.hpp>
 
@@ -66,51 +67,22 @@
     /**/
 
 
-    #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-
-        #include <boost/egg/detail/vc7_1_result_of.hpp>
-        #include <boost/egg/preprocessor/bits_enum.hpp>
-
-        #define BOOST_EGG_EXPLICIT_op(R, Bits, Nm_X_P) \
-            template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
-            typename boost::egg::vc7_1_detail::BOOST_PP_CAT(result_of, BOOST_PP_SEQ_SIZE(Bits))< \
-                BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>, \
-                BOOST_EGG_PP_BITS_ENUM_R(R, Bits, BOOST_EGG_EXPLICIT_op_w0, BOOST_EGG_EXPLICIT_op_w1, ~) \
-            >::type \
-            BOOST_PP_ARRAY_ELEM(0, Nm_X_P)(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a)) \
-            { \
-                return BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>()( \
-                    BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), a) \
-                ); \
-            } \
-        /**/
+    #define BOOST_EGG_EXPLICIT_op(R, Bits, Nm_X_P) \
+        template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
+        BOOST_EGG_NS_RESULT_OF( \
+            (BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>), \
+            (BOOST_PP_SEQ_SIZE(Bits), (BOOST_EGG_PP_BITS_ENUM_R(R, Bits, BOOST_EGG_EXPLICIT_op_w0, BOOST_EGG_EXPLICIT_op_w1, ~))) \
+        ) \
+        BOOST_PP_ARRAY_ELEM(0, Nm_X_P)(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a) BOOST_EGG_CONST_OVERLOADED(BOOST_PP_SEQ_SIZE(Bits), A)) \
+        { \
+            return BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>()( \
+                BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), a) \
+            ); \
+        } \
+    /**/
 
         #define BOOST_EGG_EXPLICIT_op_w0(R, I, _) BOOST_PP_CAT(A, I) &
-        #define BOOST_EGG_EXPLICIT_op_w1(R, I, _) boost::egg::vc7_1_detail::const_ref<BOOST_PP_CAT(A, I)>
-
-    #else
-
-        #include <boost/preprocessor/facilities/intercept.hpp>
-        #include <boost/egg/detail/const_overloaded.hpp>
-        #include <boost/egg/preprocessor/for_each_bits.hpp>
-        #include <boost/egg/result_of.hpp>
-
-        #define BOOST_EGG_EXPLICIT_op(R, Bits, Nm_X_P) \
-            template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), class A)> \
-            typename boost::egg::result_of_< \
-                BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>( \
-                    BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, & BOOST_PP_INTERCEPT) \
-                ) \
-            >::type \
-            BOOST_PP_ARRAY_ELEM(0, Nm_X_P)(BOOST_EGG_PP_BITS_ENUM_BINARY_PARAMS_R(R, Bits, A, &a) BOOST_EGG_CONST_OVERLOADED(BOOST_PP_SEQ_SIZE(Bits), A)) \
-            { \
-                return BOOST_PP_ARRAY_ELEM(1, Nm_X_P)<BOOST_EGG_PP_SEQ_ENUM_ARGS(BOOST_PP_ARRAY_ELEM(2, Nm_X_P), T)>()( \
-                    BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(Bits), a) \
-                ); \
-            } \
-        /**/
-
-    #endif // BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+        #define BOOST_EGG_EXPLICIT_op_w1(R, I, _) BOOST_EGG_NS_CONST_REF(BOOST_PP_CAT(A, I))
 
 
 #endif // defined(BOOST_EGG_HAS_RVALUE_REFS)
