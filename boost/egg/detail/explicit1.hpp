@@ -13,7 +13,7 @@
 #include <boost/egg/preprocessor/seq_enum_args.hpp>
 #include <boost/egg/preprocessor/seq_enum_params.hpp>
 #include <boost/egg/preprocessor/to_template_param_seq.hpp>
-#include <boost/egg/detail/const_overloaded.hpp>
+#include <boost/egg/detail/const_overloaded1.hpp>
 #include <boost/egg/detail/ns_result_of1.hpp>
 
 
