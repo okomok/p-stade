@@ -350,10 +350,6 @@ Egg provides the uniform way to define your own strategy.
         [See below.]
     ]
     [
-        [`BOOST_EGG_FUNCTION_CALL_OPERATOR(Bytags, Cv)`]
-        [See below.]
-    ]
-    [
         [`apply_little<_Lit, A1,...,AK>`]
         [`_Lit::apply<A1,...,AK>`]
     ]
@@ -366,12 +362,12 @@ Egg provides the uniform way to define your own strategy.
         [These can be used as "meta" return type of strategy tag.]
     ]
     [
-        [`BOOST_EGG_DEDUCED_CONST(T)`]
-        [`T const`]
+        [`BOOST_EGG_FUNCTION_CALL_OPERATOR(Bytags, Cv)`]
+        [See below.]
     ]
     [
-        [`BOOST_PP_IDENTITY`]
-        [as-is]
+        [`BOOST_EGG_DEDUCED_CONST(T)`]
+        [`T const`]
     ]
 ]
 
