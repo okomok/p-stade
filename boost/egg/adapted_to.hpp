@@ -24,7 +24,6 @@
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
-#include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/explicit1.hpp>
 #include <boost/egg/detail/is_convertible.hpp>
