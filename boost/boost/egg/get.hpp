@@ -16,7 +16,6 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_HAS_FUSIONS
 #include <boost/egg/detail/adl_barrier.hpp>
 #include <boost/egg/detail/affect.hpp>
-#include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/explicit1.hpp>
 #include <boost/egg/detail/is_std_pair.hpp>

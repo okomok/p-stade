@@ -14,7 +14,6 @@
 #include <boost/mpl/int.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_HAS_FUSIONS
-#include <boost/egg/detail/const_overloaded.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/explicit1.hpp>
 #include <boost/egg/detail/tuple_drop.hpp>

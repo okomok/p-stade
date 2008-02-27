@@ -36,7 +36,7 @@
 
         template<BOOST_EGG_PP_ENUM_PARAMS_WITH(10, class T, = void)>
         struct exists_const :
-            or10< BOOST_EGG_PP_ENUM_PARAMS_WITH(5, is_const<T, >) >
+            or10< BOOST_EGG_PP_ENUM_PARAMS_WITH(10, is_const<T, >) >
         { };
 
     } } } // namespace boost::egg::details
