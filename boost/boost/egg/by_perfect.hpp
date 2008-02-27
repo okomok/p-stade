@@ -56,12 +56,14 @@ namespace boost { namespace egg {
             return m_little;
         }
 
+    // 0ary
         typename apply_little<Little const>::type
         operator()() const
         {
             return call_little(m_little);
         }
 
+    // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_ARITY, <boost/egg/by_perfect.hpp>))
         #include BOOST_PP_ITERATE()
     };

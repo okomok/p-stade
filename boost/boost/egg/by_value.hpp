@@ -16,12 +16,11 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/detail/plain.hpp>
 #include <boost/egg/detail/result_of_forward.hpp>
 #include <boost/egg/function_extension.hpp>
-#include <boost/egg/preprocessor/enum_template_params.hpp>
 
 
 namespace boost { namespace egg {
@@ -44,7 +43,15 @@ namespace boost { namespace egg {
             return m_little;
         }
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_value.hpp>))
+    // 0ary
+        typename apply_little<Little const>::type
+        operator()() const
+        {
+            return call_little(m_little);
+        }
+
+    // 1ary-
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_value.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -67,11 +74,11 @@ namespace boost { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
-    typename apply_little<Little const BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>::type
+    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    typename apply_little<Little const, BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
     {
-        return call_little(m_little BOOST_PP_ENUM_TRAILING_PARAMS(n, a));
+        return call_little(m_little, BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 

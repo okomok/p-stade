@@ -12,10 +12,9 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
-#include <boost/egg/preprocessor/enum_template_params.hpp>
 #include <boost/egg/detail/call_little_impl_fwd.hpp>
 
 
@@ -25,7 +24,14 @@ namespace boost { namespace egg { namespace details {
     template<class Little, class Re, class EnableIf>
     struct call_little_impl
     {
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/call_little_impl.hpp>))
+    // 0ary
+        static Re call(Little &little)
+        {
+            return little.template call<Re>();
+        }
+
+    // 1ary-
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/call_little_impl.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -38,8 +44,8 @@ namespace boost { namespace egg { namespace details {
 #define n BOOST_PP_ITERATION()
 
 
-    BOOST_EGG_PP_ENUM_TEMPLATE_PARAMS(n, class A)
-    static Re call(Little &little BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(n, A, &a))
+    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    static Re call(Little &little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a))
     {
         return little.template call<Re>(BOOST_PP_ENUM_PARAMS(n, a));
     }
