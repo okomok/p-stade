@@ -17,8 +17,8 @@
 
 
 #include <boost/egg/detail/boost_workaround.hpp>
-#include <boost/egg/detail/unparen.hpp>
 #include <boost/egg/detail/ns_const_ref.hpp> // inclusion guaranteed
+#include <boost/egg/detail/unparen.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
