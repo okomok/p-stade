@@ -60,7 +60,7 @@ namespace boost { namespace egg {
         }
 
     // 2ary: by_perfect, by_ref
-        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_ref), const)  /*< Wrap /cv-qualifier/ with `BOOST_PP_IDENTITY`. Egg supports only `const` for now, though. >*/
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_ref), const)
     /*  is expanded to...
         template<class A0, class A1>
         typename apply_little<Lit const, A0, A1>::type
