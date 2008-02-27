@@ -27,7 +27,7 @@ struct T_my_cast
     }
 };
 
-BOOST_EGG_EXPLICIT(1, my_cast, T_my_cast, (class))
+BOOST_EGG_EXPLICIT(my_cast, T_my_cast, (class), (by_perfect))
 
 
 template<class X, int Y>
@@ -41,7 +41,7 @@ struct T_my_cast_
     }
 };
 
-BOOST_EGG_EXPLICIT(1, my_cast_, T_my_cast_, (class)(int))
+BOOST_EGG_EXPLICIT(my_cast_, T_my_cast_, (class)(int), (by_perfect))
 
 
 struct x
@@ -82,8 +82,8 @@ struct T_my_make
     }
 };
 
-BOOST_EGG_EXPLICIT(1, my_make, T_my_make, 1)
-BOOST_EGG_EXPLICIT(2, my_make, T_my_make, (class))
+BOOST_EGG_EXPLICIT(my_make, T_my_make, 1, (by_perfect))
+BOOST_EGG_EXPLICIT(my_make, T_my_make, (class), (by_perfect)(by_perfect))
 
 
 template<class X, int N>
@@ -109,8 +109,8 @@ struct T_my_make_0_3
     }
 };
 
-BOOST_EGG_EXPLICIT(1, my_make_0_3, T_my_make_0_3, (class)(int))
-BOOST_EGG_EXPLICIT(3, my_make_0_3, T_my_make_0_3, (class)(int))
+BOOST_EGG_EXPLICIT(my_make_0_3, T_my_make_0_3, (class)(int), (by_perfect))
+BOOST_EGG_EXPLICIT(my_make_0_3, T_my_make_0_3, (class)(int), (by_perfect)(by_perfect)(by_perfect))
 
 
 struct const_ { };
@@ -153,7 +153,7 @@ struct T_array_check
     T_array_check() { } // for Boost v1.33 result_of
 };
 
-BOOST_EGG_EXPLICIT(1, array_check, T_array_check, 1)
+BOOST_EGG_EXPLICIT(array_check, T_array_check, (class), (by_perfect))
 
 
 void egg_test()

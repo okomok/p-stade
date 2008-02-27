@@ -350,7 +350,7 @@ Egg provides the uniform way to define your own strategy.
         [See below.]
     ]
     [
-        [`BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT(N, Cv)`]
+        [`BOOST_EGG_FUNCTION_CALL_OPERATOR(Bytags, Cv)`]
         [See below.]
     ]
     [
@@ -376,7 +376,7 @@ Egg provides the uniform way to define your own strategy.
 ]
 
 [heading Preconditions]
-* `N` is arity of call operator.
+* `Bytags` is __PP_SEQUENCE__ of `by_perfect`, `by_ref`, `by_cref`, and `by_value`.
 * `Cv()` is /cv-qualifier/ of call operator.
 * `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 
@@ -389,7 +389,7 @@ Using your strategy tag, `function<>` template can be specialized.
 `BOOST_EGG_FUNCTION_PREAMBLE()` must be placed in first,
 which automagically defines nested typedefs `little_type`, `strategy_type`, and `result<...>` etc.
 [code_example_writing_your_strategy_specializing]
-For `by_perfect` call operators, it is easy and preferable to use `BOOST_EGG_FUNCTION_CALL_OPERATOR_BY_PERFECT`,
+For `by_perfect` call operators, it is easy and preferable to use `BOOST_EGG_FUNCTION_CALL_OPERATOR`,
 which will compile much faster in C++0x.
 Also note, in order to work around some compiler bugs, you can use neither `result` template nor `_Lit::call` directly.
 You have to use `apply_little` and `call_little` instead.
