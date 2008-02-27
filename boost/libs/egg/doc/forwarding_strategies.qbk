@@ -377,7 +377,7 @@ Egg provides the uniform way to define your own strategy.
 
 [heading Preconditions]
 * `Bytags` is __PP_SEQUENCE__ of `by_perfect`, `by_ref`, `by_cref`, and `by_value`.
-* `Cv()` is /cv-qualifier/ of call operator.
+* `Cv` is /cv-qualifier/ of call operator; If it is empty, `Cv` must be `mutable`.
 * `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 
 [heading Your strategy tag]

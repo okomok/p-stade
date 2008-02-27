@@ -85,19 +85,19 @@ namespace boost { namespace egg {
         }
 
     // 1ary: by_perfect
-        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect), BOOST_PP_IDENTITY(const))
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect), const)
 
     // 2ary: by_value
-        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_value)(by_value), BOOST_PP_IDENTITY(const))
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_value)(by_value), const)
 
     // 3ary: by_perfect
-        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_perfect)(by_perfect), BOOST_PP_IDENTITY(const))
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_perfect)(by_perfect), const)
 
     // 4ary: by_ref
-        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_ref)(by_ref)(by_ref)(by_ref), BOOST_PP_IDENTITY(const))
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_ref)(by_ref)(by_ref)(by_ref), const)
 
     // 5ary: mixed
-        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_ref)(by_value)(by_perfect)(by_cref), BOOST_PP_IDENTITY(const))
+        BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_ref)(by_value)(by_perfect)(by_cref), const)
     };
 
 } }
