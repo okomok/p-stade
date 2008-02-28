@@ -379,12 +379,12 @@
     /* Links */
         a
         {
-            color: #005a9c;
+            color: #9c005a;
         }
 
         a:visited
         {
-            color: #9c5a9c;
+            color: #9c9c5a;
         }
 
         h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
@@ -396,14 +396,14 @@
         }
 
     /* Syntax Highlighting */
-        .keyword        { color: #0000AA; }
+        .keyword        { color: #AA0000; }
         .identifier     { color: #000000; }
         .special        { color: #707070; }
-        .preprocessor   { color: #402080; }
-        .char           { color: teal; }
-        .comment        { color: #800000; }
-        .string         { color: teal; }
-        .number         { color: teal; }
+        .preprocessor   { color: #804020; }
+        .char           { color: 800080; }
+        .comment        { color: #008000; }
+        .string         { color: 800080; }
+        .number         { color: 800080; }
         .white_bkd      { background-color: #FFFFFF; }
         .dk_grey_bkd    { background-color: #999999; }
 
@@ -476,7 +476,7 @@
     /* Misc */
         span.highlight
         {
-            color: #00A000;
+            color: #0000A0;
         }
     }
 
