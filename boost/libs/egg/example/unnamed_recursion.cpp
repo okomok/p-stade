@@ -17,14 +17,12 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
-#include "../test/egg_test.hpp"
 #include <boost/egg/const.hpp>
 #include <boost/function.hpp>
 
 
-namespace bll = boost::lambda;
-namespace egg = boost::egg;
-using namespace egg;
+#include "./using_bll.hpp"
+#include "./egg_example.hpp"
 
 
 struct T_inc
@@ -40,7 +38,7 @@ struct T_inc
 BOOST_EGG_CONST((T_inc), inc) = {};
 
 
-void unnamed_recursion()
+void egg_example()
 {
     using bll::_1;
     using bll::_2;
@@ -63,23 +61,15 @@ void unnamed_recursion()
         (_2 * lazy(_1)(_2 - 1))(inc, ten) == 10 * inc(10-1)
     );
 
-//[code_unnamed_recursion
-int r =
-    fix2(
-        bll::ret<int>(
-            bll::if_then_else_return( _2 == 0,
-                1,
-                _2 * lazy(_1)(_2 - 1)
+    int r =
+        fix2(
+            bll::ret<int>(
+                bll::if_then_else_return( _2 == 0,
+                    1,
+                    _2 * lazy(_1)(_2 - 1)
+                )
             )
-        )
-    ) (5);
+        ) (5);
 
-BOOST_CHECK(r == 5*4*3*2*1);
-//]
-}
-
-
-void egg_test()
-{
-    ::unnamed_recursion();
+    BOOST_CHECK(r == 5*4*3*2*1);
 }
