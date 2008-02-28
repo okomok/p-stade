@@ -23,7 +23,7 @@
 #if 0 // rejected
 typedef int arr_t[20];
 BOOST_MPL_ASSERT((boost::is_same<detail::bound<arr_t const>::type, int const(&)[20]>));
-PSTADE_TEST_IS_SAME((detail::bound<int const>::type), (int))
+BOOST_TEST_IS_SAME((detail::bound<int const>::type), (int))
 #endif 
 
 

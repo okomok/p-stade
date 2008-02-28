@@ -19,10 +19,10 @@
 #error oops.
 #endif
 
-#if defined(PSTADE_CRT_SECURE_NO_DEPRECATE)
+#if defined(BOOST_EGG_CRT_SECURE_NO_DEPRECATE)
 #error oops.
 #endif
-#if defined(PSTADE_SCL_SECURE_NO_DEPRECATE)
+#if defined(BOOST_EGG_SCL_SECURE_NO_DEPRECATE)
 #error oops.
 #endif
 
@@ -36,6 +36,9 @@ void check_include_guards()
     using egg::by_cref;
     using egg::by_value;
     #if !defined(BOOST_EGG_FUNCTION_PREAMBLE)
+        #error oops.
+    #endif
+    #if !defined(BOOST_EGG_FUNCTION_CALL_OPERATOR)
         #error oops.
     #endif
     using egg::apply_little;
