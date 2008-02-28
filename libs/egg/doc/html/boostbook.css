@@ -379,7 +379,7 @@
     /* Links */
         a
         {
-            color: #9c005a;
+            color: #009c5a;
         }
 
         a:visited
@@ -396,14 +396,14 @@
         }
 
     /* Syntax Highlighting */
-        .keyword        { color: #AA0000; }
+        .keyword        { color: #00AA00; }
         .identifier     { color: #000000; }
         .special        { color: #707070; }
-        .preprocessor   { color: #804020; }
-        .char           { color: 800080; }
-        .comment        { color: #008000; }
-        .string         { color: 800080; }
-        .number         { color: 800080; }
+        .preprocessor   { color: #408020; }
+        .char           { color: teal; }
+        .comment        { color: #800000; }
+        .string         { color: teal; }
+        .number         { color: teal; }
         .white_bkd      { background-color: #FFFFFF; }
         .dk_grey_bkd    { background-color: #999999; }
 
