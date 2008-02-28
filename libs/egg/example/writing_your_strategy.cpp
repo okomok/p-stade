@@ -61,7 +61,7 @@ namespace boost { namespace egg {
 
     // 2ary: by_perfect, by_ref
         BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_ref), const)
-    /*  is expanded to...
+#if 0 // This is expaneded to...
         template<class A0, class A1>
         typename apply_little<Lit const, A0, A1>::type
         operator()(A0 &a0, A1& a1) const
@@ -75,7 +75,7 @@ namespace boost { namespace egg {
         {
             return call_little(m_lit, a0, a1);
         }
-    */
+#endif
 
     // 3ary: by_value
         template<class A0, class A1, class A2>
