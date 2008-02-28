@@ -15,7 +15,6 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
 #include <boost/egg/detail/bytag_at.hpp>
-#include <boost/egg/detail/result_of_forward.hpp>
 #include <boost/egg/function_extension.hpp>
 #include <boost/egg/preprocessor/seq_repeat.hpp>
 
@@ -66,13 +65,6 @@ namespace boost { namespace egg {
     // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_ARITY, <boost/egg/by_perfect.hpp>))
         #include BOOST_PP_ITERATE()
-    };
-
-
-    template<class Lvalue>
-    struct result_of_forward<by_perfect, Lvalue>
-    {
-        typedef Lvalue &type;
     };
 
 

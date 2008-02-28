@@ -11,12 +11,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <cstddef> // size_t
+#include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
 #include <boost/egg/detail/adl_barrier.hpp>
+#include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/bytag_at.hpp>
-#include <boost/egg/detail/result_of_forward.hpp>
+#include <boost/egg/detail/plain.hpp>
+#include <boost/egg/function_fwd.hpp> // bytags
 
 
 namespace boost { namespace egg {
@@ -24,6 +28,9 @@ namespace boost { namespace egg {
 
     // forward
     //
+
+    template<class Bytag, class Lvalue>
+    struct result_of_forward;
 
 BOOST_EGG_ADL_BARRIER(forward) { // for C++0x
     template<class Bytag, class Lvalue> inline
@@ -33,6 +40,39 @@ BOOST_EGG_ADL_BARRIER(forward) { // for C++0x
         return v;
     }
 }
+
+    template<class Lvalue>
+    struct result_of_forward<by_perfect, Lvalue>
+    {
+        typedef Lvalue &type;
+    };
+
+    template<class Lvalue>
+    struct result_of_forward<by_ref, Lvalue>
+    {
+        typedef Lvalue &type;
+    };
+
+    template<class Lvalue>
+    struct result_of_forward<by_cref, Lvalue const>
+    {
+        typedef Lvalue const &type;
+    };
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+    template<class T, std::size_t N>
+    struct result_of_forward<by_cref, T const[N]>
+    {
+        typedef T const (&type)[N];
+    };
+#endif
+
+    template<class Lvalue>
+    struct result_of_forward<by_value, Lvalue>
+    {
+        BOOST_MPL_ASSERT((details::is_plain<Lvalue>));
+        typedef Lvalue type; // For movable types, you can't add const-qualifier.
+    };
 
 
     // forwarding

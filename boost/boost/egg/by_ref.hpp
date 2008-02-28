@@ -17,7 +17,6 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
-#include <boost/egg/detail/result_of_forward.hpp>
 #include <boost/egg/function_extension.hpp>
 
 
@@ -51,13 +50,6 @@ namespace boost { namespace egg {
     // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/by_ref.hpp>))
         #include BOOST_PP_ITERATE()
-    };
-
-
-    template<class Lvalue>
-    struct result_of_forward<by_ref, Lvalue>
-    {
-        typedef Lvalue &type;
     };
 
 
