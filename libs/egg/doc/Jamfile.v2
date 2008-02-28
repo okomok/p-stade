@@ -14,17 +14,8 @@ boostbook standalone
         egg
     :
         <xsl:param>nav.layout=none
-#        <xsl:param>html.stylesheet=../../../../doc/html/boostbook.css
         <xsl:param>navig.graphics=1
-        <xsl:param>boost.image.src=boost.png
-        <xsl:param>boost.image.alt=Boost
-        <xsl:param>boost.image.w=277
-        <xsl:param>boost.image.h=86
         <xsl:param>chunk.section.depth=1
-#        <xsl:param>chunk.first.sections=1
-#        <xsl:param>toc.section.depth=4
-#        <xsl:param>toc.max.depth=4
-#        <xsl:param>generate.section.toc.level=4
-        <xsl:param>callout.graphics.path=images/callouts/
+#        <xsl:param>html.stylesheet=../../../../doc/html/boostbook.css
 #        <xsl:param>boost.root=../../../../..
     ;
