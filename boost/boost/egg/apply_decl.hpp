@@ -13,7 +13,8 @@
 
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/repetition/enum_shifted_binary_params.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
 
 
@@ -27,10 +28,9 @@
 
 
 #define BOOST_EGG_APPLY_DECL_PARAMS(N, A) \
-    class BOOST_PP_CAT(A, 0) BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(N), BOOST_EGG_APPLY_DECL_PARAMS_op, A) \
+    class BOOST_PP_CAT(A, 0), \
+        BOOST_PP_ENUM_SHIFTED_BINARY_PARAMS(BOOST_PP_INC(N), class A, = void BOOST_PP_INTERCEPT) \
 /**/
-
-    #define BOOST_EGG_APPLY_DECL_PARAMS_op(Z, N, A) , class BOOST_PP_CAT(A, N) = void
 
 
 #include <boost/egg/detail/suffix.hpp>
