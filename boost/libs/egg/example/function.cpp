@@ -22,7 +22,7 @@ struct little_unwrap
     template<class Me, class A>
     struct apply
     {
-        typedef A &type; /*< `A` is possibly cv-qualifed but not reference type. >*/
+        typedef A &type; /*< `A` is possibly __CV_QUALIFIED__ but not __REFERENCE_TYPE__. >*/
     };
 
     template<class Me, class T>

@@ -51,7 +51,7 @@ void egg_builder()
     BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one)); /*< __BOOST_LAMBDA__ compatible. >*/
 }
 
-result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< __STATIC_INITIALIZATION__ without runtime overhead. >*/
+result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< The __STATIC_INITIALIZATION__ without runtime overhead. >*/
 
 void egg_adaptor()
 {
