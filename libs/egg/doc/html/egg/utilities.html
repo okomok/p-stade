@@ -1,0 +1,359 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Utilities</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="prev" href="function_objects.html" title="Function Objects">
+<link rel="next" href="configuration.html" title="Configuration">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="function_objects.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="configuration.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="egg.utilities"></a><a href="utilities.html" title="Utilities">Utilities</a></h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="utilities.html#egg.utilities.expr">expr</a></span></dt>
+<dt><span class="section"><a href="utilities.html#egg.utilities.infix">infix</a></span></dt>
+<dt><span class="section"><a href="utilities.html#egg.utilities.bll_result_of_hpp">bll/result_of.hpp</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.utilities.expr"></a><a href="utilities.html#egg.utilities.expr" title="expr">expr</a></h3></div></div></div>
+<a name="egg.utilities.expr.description"></a><h5>
+<a name="id586162"></a>
+        <a href="utilities.html#egg.utilities.expr.description">Description</a>
+      </h5>
+<p>
+        "typeof" and "type-erasure" are not conflicting forces.
+        <code class="computeroutput"><span class="identifier">expr</span></code> performs type-erasure
+        when native typeof isn't available. So that, type registrations into <a href="http://www.boost.org/libs/typeof/index.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>
+        can be minimized.
+      </p>
+<a name="egg.utilities.expr.header"></a><h5>
+<a name="id586215"></a>
+        <a href="utilities.html#egg.utilities.expr.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">expr</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.utilities.expr.model_of"></a><h5>
+<a name="id586297"></a>
+        <a href="utilities.html#egg.utilities.expr.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.utilities.expr.notation"></a><h5>
+<a name="id586328"></a>
+        <a href="utilities.html#egg.utilities.expr.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.utilities.expr.valid_expressions"></a><h5>
+<a name="id586360"></a>
+        <a href="utilities.html#egg.utilities.expr.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">egg</span><span class="special">::</span><span class="identifier">expr</span><span class="special">&lt;</span><span class="identifier">Sig</span><span class="special">&gt;(</span><span class="identifier">_pfo</span><span class="special">)</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_mono</span><span class="special">&lt;</span><span class="identifier">Sig</span><span class="special">&gt;()(</span><span class="identifier">_pfo</span><span class="special">)</span></code>
+                which can be used with <a href="http://www.boost.org/libs/typeof/index.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>.
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="egg.utilities.expr.preconditions"></a><h5>
+<a name="id586545"></a>
+        <a href="utilities.html#egg.utilities.expr.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Except for <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">use_default</span></code>, types in <code class="computeroutput"><span class="identifier">Sig</span></code>
+          is registered to <a href="http://www.boost.org/libs/typeof/index.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.utilities.expr.example"></a><h5>
+<a name="id586627"></a>
+        <a href="utilities.html#egg.utilities.expr.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">void</span> <span class="identifier">egg_example</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">BOOST_AUTO</span><span class="special">(</span><span class="identifier">f</span><span class="special">,</span>
+        <span class="identifier">egg</span><span class="special">::</span><span class="identifier">expr</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;(</span><span class="identifier">unfuse</span><span class="special">(</span><span class="identifier">fuse</span><span class="special">(</span><span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">+</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">_2</span><span class="special">)))</span> <span class="special">);</span>
+
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">f</span><span class="special">(</span><span class="number">1</span><span class="special">,</span><span class="number">2</span><span class="special">)</span> <span class="special">==</span> <span class="number">1</span><span class="special">+</span><span class="number">2</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.utilities.expr.see_also"></a><h5>
+<a name="id586905"></a>
+        <a href="utilities.html#egg.utilities.expr.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.boost.org/libs/function/" target="_top"><span class="bold"><strong>Boost.Function</strong></span></a></li>
+<li><a href="http://www.boost.org/libs/typeof/index.html" target="_top"><span class="bold"><strong>Boost.Typeof</strong></span></a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.utilities.infix"></a><a href="utilities.html#egg.utilities.infix" title="infix">infix</a></h3></div></div></div>
+<a name="egg.utilities.infix.description"></a><h5>
+<a name="id586978"></a>
+        <a href="utilities.html#egg.utilities.infix.description">Description</a>
+      </h5>
+<p>
+        Egg provides <a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a> infix operator syntax.
+      </p>
+<a name="egg.utilities.infix.header"></a><h5>
+<a name="id587017"></a>
+        <a href="utilities.html#egg.utilities.infix.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">infix</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.utilities.infix.model_of"></a><h5>
+<a name="id587100"></a>
+        <a href="utilities.html#egg.utilities.infix.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.utilities.infix.notation"></a><h5>
+<a name="id587132"></a>
+        <a href="utilities.html#egg.utilities.infix.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.utilities.infix.valid_expressions"></a><h5>
+<a name="id587164"></a>
+        <a href="utilities.html#egg.utilities.infix.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">a1</span> <span class="special">^</span><span class="identifier">_pfo</span><span class="special">^</span>
+                <span class="identifier">a2</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">_pfo</span><span class="special">(</span><span class="identifier">_arg_list</span><span class="special">([</span><span class="identifier">a1</span><span class="special">],</span>
+                <span class="identifier">by_perfect</span><span class="special">)++</span><span class="identifier">_arg_list</span><span class="special">([</span><span class="identifier">a2</span><span class="special">],</span>
+                <span class="identifier">by_perfect</span><span class="special">))</span></code>
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="egg.utilities.infix.preconditions"></a><h5>
+<a name="id587365"></a>
+        <a href="utilities.html#egg.utilities.infix.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="keyword">using</span> <span class="keyword">namespace</span>
+          <span class="identifier">infix</span><span class="special">;</span></code>
+          is placed before the valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="keyword">operator</span><span class="special">^</span></code>
+          is not overloaded with <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">a1</span><span class="special">)</span></code>.
+        </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
+</ul></div>
+<a name="egg.utilities.infix.invariants"></a><h5>
+<a name="id587479"></a>
+        <a href="utilities.html#egg.utilities.infix.invariants">Invariants</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="special">^</span><span class="identifier">_pfo</span><span class="special">^</span></code> behaves as if it had left to right associativity.
+        </li></ul></div>
+<a name="egg.utilities.infix.example"></a><h5>
+<a name="id587532"></a>
+        <a href="utilities.html#egg.utilities.infix.example">Example</a>
+      </h5>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="keyword">void</span> <span class="identifier">egg_example</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">infix</span><span class="special">;</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">plus</span><span class="special">;</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="special">(</span><span class="number">1</span> <span class="special">^</span><span class="identifier">plus</span><span class="special">^</span> <span class="number">2</span><span class="special">)</span> <span class="special">==</span> <span class="number">3</span> <span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+      </p>
+<a name="egg.utilities.infix.see_also"></a><h5>
+<a name="id587733"></a>
+        <a href="utilities.html#egg.utilities.infix.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a></li>
+<li><a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable"><code class="computeroutput"><span class="identifier">pipable</span></code></a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="egg.utilities.bll_result_of_hpp"></a><a href="utilities.html#egg.utilities.bll_result_of_hpp" title="bll/result_of.hpp">bll/result_of.hpp</a></h3></div></div></div>
+<a name="egg.utilities.bll_result_of_hpp.description"></a><h5>
+<a name="id587816"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.description">Description</a>
+      </h5>
+<p>
+        This header lets a <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a> functor be a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a>.
+      </p>
+<a name="egg.utilities.bll_result_of_hpp.header"></a><h5>
+<a name="id587864"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">bll</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="egg.utilities.bll_result_of_hpp.model_of"></a><h5>
+<a name="id587958"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.model_of">Model of</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.utilities.bll_result_of_hpp.notation"></a><h5>
+<a name="id587991"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.notation">Notation</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.utilities.bll_result_of_hpp.valid_expressions"></a><h5>
+<a name="id588025"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.valid_expressions">Valid expressions</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                <span class="bold"><strong>Valid expression</strong></span>
+              </p>
+              </th>
+<th>
+              <p>
+                <span class="bold"><strong>Semantics</strong></span>
+              </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">bll</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>
+                functor becomes a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+                Function Object</a>.
+              </p>
+              </td>
+</tr></tbody>
+</table></div>
+<a name="egg.utilities.bll_result_of_hpp.preconditions"></a><h5>
+<a name="id588205"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.preconditions">Preconditions</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
+        </li></ul></div>
+<a name="egg.utilities.bll_result_of_hpp.example"></a><h5>
+<a name="id588238"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.example">Example</a>
+      </h5>
+<p>
+        ...
+      </p>
+<a name="egg.utilities.bll_result_of_hpp.see_also"></a><h5>
+<a name="id588267"></a>
+        <a href="utilities.html#egg.utilities.bll_result_of_hpp.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a></li></ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2007 -2008 Shunsuke Sogame<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="function_objects.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="configuration.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
