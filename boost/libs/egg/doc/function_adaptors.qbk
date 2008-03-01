@@ -898,7 +898,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
-* `Sig` is a /function/ type.
+* `Sig` is a /function type/.
 * There is a `f_` such that `Fun f_ = init;` is a valid expression.
 * If `R` is `_ud`, `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
 * __PRECONDITION_AS_IS__
