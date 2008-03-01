@@ -16,6 +16,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
 #include <boost/egg/forward.hpp>
