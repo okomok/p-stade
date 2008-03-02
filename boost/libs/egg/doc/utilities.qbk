@@ -70,7 +70,7 @@ Egg provides __FCPP__ infix operator syntax.
     ]
     [
         [`a1 ^_pfo^ a2`]
-        [`_pfo(_arg_list([a1], by_perfect)++_arg_list([a2], by_perfect))`]
+        [`_pfo(_fwd_arg_list([a1], by_perfect)++_fwd_arg_list([a2], by_perfect))`]
     ]
 ]
 
