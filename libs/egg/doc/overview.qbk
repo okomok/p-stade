@@ -189,10 +189,6 @@ This document uses the following notation.
         [`boost::mpl`]
     ]
     [
-        [`_PACK_MAX_SIZE`]
-        [`10`]
-    ]
-    [
         [`[a1,...,aN]`]
         [An imaginary operator to construct parameter list.]
     ]
