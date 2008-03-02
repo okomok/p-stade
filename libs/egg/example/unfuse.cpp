@@ -12,10 +12,12 @@
 #if defined(BOOST_EGG_HAS_FUSIONS)
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/egg/unfuse.hpp>
 #include <boost/fusion/include/boost_tuple.hpp>
 #include <boost/fusion/include/for_each.hpp>
 #include <iostream>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 #include "./using_bll.hpp"
