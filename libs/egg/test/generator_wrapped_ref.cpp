@@ -29,7 +29,7 @@ struct foo
     explicit foo(Ref x) : m_x(x) { }
     Ref m_x;
 
-private
+private:
     foo & operator=(foo const &);
 };
 
