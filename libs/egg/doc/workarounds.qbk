@@ -110,7 +110,7 @@ Under GCC 3.4.x, when you overload `call` in __CONCEPT_LITTLE_FUNCTION__ with th
 When you define a __FUNCTION_OBJECT__ in namespace scope,
 GCC might show unused variable warnings without this macro.
 
-[note Strictly speaking, a __CONST_QUALIFIED__ object in namespace scope incurs ODR(One Definition Rule) violation.
+[tip Strictly speaking, a __CONST_QUALIFIED__ object in namespace scope incurs ODR(One Definition Rule) violation.
       Though a conforming workaround is found, even GCC can't do the right thing around /address constant expression/.
       Anyway, it is unlikely for this violation to cause significant problem. ]
 
