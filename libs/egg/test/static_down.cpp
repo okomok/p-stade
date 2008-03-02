@@ -23,9 +23,13 @@ struct my_base : boost::noncopyable
     virtual ~my_base() {}
 };
 
+
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 struct my_derived : my_base
 {
 };
+#include BOOST_EGG_SUPPRESS_WARNING_END()
+
 
 void egg_test()
 {

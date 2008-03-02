@@ -37,6 +37,10 @@ void egg_test()
     {
         std::auto_ptr<int> x(new int(3));
         std::auto_ptr<int> x_ = x|to_value;
+        x_|to_value();
+        to_value(x_);
+
+        // For some reason, msvc-7.1 shows warning C4239.
         x_ = x_|to_value();
         x_ = to_value(x_);
     }
