@@ -615,7 +615,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
     ]
     [
         [`fc(d, R0, _Stg)(a1,...,aN)`]
-        [`_const(d)( pack_(_arg_list(a, _Stg)) )`]
+        [`_const(d)( pack_(_fwd_arg_list(a, _Stg)) )`]
     ]
     [
         [`X_unfuse<R0 = _ud, Pack = _ud, _Stg = _ud>`]
