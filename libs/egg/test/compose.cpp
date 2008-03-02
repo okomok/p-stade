@@ -68,7 +68,7 @@ BOOST_MPL_ASSERT((
 
 
 template<class F>
-void nullary_result_of_check(F f)
+void nullary_result_of_check(F )
 {
     BOOST_MPL_ASSERT((boost::is_same<
         typename boost::egg::result_of_<F()>::type,

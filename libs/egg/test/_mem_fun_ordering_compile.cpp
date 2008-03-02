@@ -36,6 +36,7 @@ void egg_test()
     typedef void (my::*ptr_t)() const;
 
     ptr_t p = &my::foo;
+    (void)p;
 
 //    ::take_m(&my::foo);
  //   ::take_c(&my::foo);

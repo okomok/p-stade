@@ -43,7 +43,7 @@ struct base_get5th
 {
     typedef int const& result_type;
 
-    result_type operator()(int i1, int i2, int i3, int i4, int const& i5, int i6, int i7) const
+    result_type operator()(int , int , int , int , int const& i5, int , int ) const
     {
         return i5;
     }

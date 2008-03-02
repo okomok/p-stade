@@ -33,7 +33,7 @@ struct eater
     template<class T>
     explicit eater(T) { }
 
-    eater(int i) { }
+    eater(int ) { }
 
     eater() { }
 };

@@ -76,5 +76,8 @@ void egg_test()
         nullary_check_pod0 r0 = make_nullary_check_pod0();
         nullary_check_pod1 r1 = make_nullary_check_pod1();
         nullary_check_pod0 rt = make_nullary_check_type();
+        (void)r0;
+        (void)r1;
+        (void)rt;
     }
 }
