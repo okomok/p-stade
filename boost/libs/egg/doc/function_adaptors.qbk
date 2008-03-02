@@ -65,7 +65,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 ]
 
 [heading Preconditions]
-* `N <= _PACK_MAX_ARITY-1`
+* `N <= _PACK_MAX_ARITY-1`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * If `_Bytag` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
@@ -1034,7 +1034,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `0 <= N && N+1 <= BOOST_EGG_MAX_LINEAR_ARITY`.
-* `N+1 <= _PACK_MAX_ARITY`
+* `N+1 <= _PACK_MAX_ARITY`.
 * There is a `d_` such that `_PFo d_ = init;` is a valid expression.
 * If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
