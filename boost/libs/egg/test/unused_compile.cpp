@@ -12,15 +12,9 @@
 #include "./egg_test.hpp"
 
 
-void foo(int x)
-{
-    BOOST_EGG_IGNORE_UNUSED(x);
-}
-
 int const BOOST_EGG_UNUSED(y) = 0;
 
 
 void egg_test()
 {
-    ::foo(3);
 }

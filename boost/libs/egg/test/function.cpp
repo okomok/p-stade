@@ -12,6 +12,7 @@
 #include "./egg_test.hpp"
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <string>
 #include <boost/egg/result_of.hpp>
 #include "./check_is_result_of.hpp"
@@ -20,6 +21,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/egg/const.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 #include "./using_egg.hpp"

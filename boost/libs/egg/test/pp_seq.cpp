@@ -28,6 +28,7 @@ void bar(int,  int , int)
     void BOOST_PP_CAT(foo, BOOST_PP_SEQ_CAT(Seq))() \
     { \
         Data i = BOOST_PP_SEQ_CAT(Seq); \
+        (void)i; \
         ::bar( BOOST_EGG_PP_SEQ_ENUM_I_R(R, Seq, MACRO2, int) ); \
     } \
 /**/

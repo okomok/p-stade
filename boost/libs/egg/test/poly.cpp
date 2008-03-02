@@ -40,7 +40,7 @@ struct foo<char>
 {
     typedef std::string result_type;
 
-    result_type operator()(char ch) const
+    result_type operator()(char ) const
     {
         return std::string("char");
     }

@@ -12,6 +12,7 @@
 #include "./egg_test.hpp"
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/tuple/tuple.hpp>
 #include <utility>
 #include <boost/mpl/int.hpp>
@@ -25,6 +26,7 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #endif
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 #include "./using_egg.hpp"

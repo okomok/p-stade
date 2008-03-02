@@ -12,6 +12,7 @@
 #include "./egg_test.hpp"
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/tuple/tuple.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/equal.hpp>
@@ -25,6 +26,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/equal_to.hpp>
 #endif
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 template<int N, class From, class To>

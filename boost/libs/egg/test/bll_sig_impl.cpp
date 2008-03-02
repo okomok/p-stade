@@ -11,8 +11,11 @@
 #include <boost/egg/bll/sig_impl.hpp>
 #include "./egg_test.hpp"
 
+
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/bind.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 struct T_my_plus

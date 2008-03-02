@@ -37,7 +37,7 @@ struct nullary_sig
   };
 
   template <class A >
-  int operator()(A a, A b) const
+  int operator()(A , A ) const
   { return 2; }
 
   int operator()() const
