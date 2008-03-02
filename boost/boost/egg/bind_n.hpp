@@ -74,10 +74,8 @@
     #include BOOST_PP_ASSIGN_SLOT(1)
     #define n BOOST_PP_SLOT(1)
 
-    #define bindN_detail BOOST_EGG_PP_CAT3(bind, n, _detail)
 
-
-        namespace bindN_detail {
+        namespace BOOST_EGG_PP_CAT3(bind, n, _detail) {
 
 
             using details::T_substitute;
@@ -119,7 +117,7 @@
             };
 
 
-        } // namespace bindN_detail
+        } // namespace BOOST_EGG_PP_CAT3(bind, n, _detail)
 
 
         template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
@@ -127,7 +125,7 @@
         {
             typedef
                 function<
-                    bindN_detail::little_result<
+                    BOOST_EGG_PP_CAT3(bind, n, _detail)::little_result<
                         Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
                     >,
                     by_perfect
@@ -139,7 +137,7 @@
         template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
         struct is_bind_expression<
                 function<
-                    bindN_detail::little_result<
+                    BOOST_EGG_PP_CAT3(bind, n, _detail)::little_result<
                         Base, NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, Arg)
                     >,
                     by_perfect
@@ -148,7 +146,7 @@
         { };
 
 
-        namespace bindN_detail {
+        namespace BOOST_EGG_PP_CAT3(bind, n, _detail) {
 
 
             template<class NullaryResult>
@@ -175,14 +173,12 @@
 
         template<class NullaryResult = use_default>
         struct BOOST_PP_CAT(X_bind, n) : details::derived_from<
-            function<bindN_detail::little<NullaryResult>, by_value> >
+            function<BOOST_EGG_PP_CAT3(bind, n, _detail)::little<NullaryResult>, by_value> >
         { };
 
         typedef BOOST_PP_CAT(X_bind, n)<>::base_class BOOST_PP_CAT(T_bind, n);
         BOOST_EGG_CONST((BOOST_PP_CAT(T_bind, n)), BOOST_PP_CAT(bind, n)) = {{}};
 
-
-    #undef  bindN_detail
 
     #undef  n
 
