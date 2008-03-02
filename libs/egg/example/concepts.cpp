@@ -8,13 +8,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "../test/egg_test.hpp"
-
 
 #include <algorithm>
-#include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <cctype>
+
+
+#include "./egg_example.hpp"
 
 
 namespace lexically_typed_object {
@@ -27,26 +27,6 @@ TT_1 _1;
 //]
 }
 
-namespace pod_function_builder {
-//[code_concepts_pod_function_builder
-template<class R>
-struct X_construct
-{
-    struct type
-    {
-        R operator()(R x) const
-        {
-            return R(x);
-        }
-    };
-};
-
-#define X_CONSTRUCT() {}
-
-typedef X_construct<int>::type T_construct_int;
-T_construct_int const construct_int = X_CONSTRUCT();
-//]
-}
 
 namespace pipable_function_object {
 //[code_concepts_pipable_function_object
@@ -148,7 +128,7 @@ struct little_identity
 }
 
 
-void egg_test()
+void egg_example()
 {
     pipable_function_object::test();
     ambi_function_object::test();
