@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/shared_new_array.hpp>
-#include "./egg_unit_test.hpp"
+#include "./egg_test.hpp"
 
 
 #include "./check_is_result_of.hpp"
@@ -31,7 +31,7 @@ CHECK_IS_RESULT_OF(boost::shared_array<udt>, X_shared_new_array<udt>(int))
 CHECK_IS_RESULT_OF(boost::shared_array<udt const>, X_shared_new_array<udt const>(int))
 
 
-void egg_unit_test()
+void egg_test()
 {
     {
         boost::shared_array<udt> p = X_shared_new_array<udt>()(12);

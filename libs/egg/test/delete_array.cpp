@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/delete_array.hpp>
-#include "./egg_unit_test.hpp"
+#include "./egg_test.hpp"
 
 
 #include "./check_is_result_of.hpp"
@@ -29,7 +29,7 @@ CHECK_IS_RESULT_OF(void, T_delete_array(udt *))
 CHECK_IS_RESULT_OF(void, T_delete_array(udt *))
 
 
-void egg_unit_test()
+void egg_test()
 {
     {
         delete_array(new int[3]);

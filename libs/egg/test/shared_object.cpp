@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/shared_object.hpp>
-#include "./egg_unit_test.hpp"
+#include "./egg_test.hpp"
 
 
 #include "./using_egg.hpp"
@@ -35,7 +35,7 @@ boost::shared_ptr<udt> bar()
 }
 
 
-void egg_unit_test()
+void egg_test()
 {
     {
         boost::shared_ptr<int> p = shared_object();
