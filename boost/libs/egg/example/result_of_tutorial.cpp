@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "../test/egg_test.hpp"
+#include "./egg_example.hpp"
 
 
 
@@ -69,7 +69,7 @@ void test_nonconst()
 //]
 
 
-void egg_test()
+void egg_example()
 {
     test_lvalue();
     test_const();
