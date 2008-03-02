@@ -8,8 +8,11 @@ project
     : requirements
         <toolset>gcc:<cxxflags>-ftemplate-depth-1024
         <toolset>intel:<debug-symbols>off
+        <toolset>intel:<cxxflags>/nologo
+        <toolset>intel:<linkflags>/nologo
         <toolset>intel:<define>_SECURE_SCL=0
-        <toolset>msvc:<cxxflags>/wd4819
+        <toolset>msvc:<warnings>all
+        <toolset>msvc:<cxxflags>/wd4819 # needed for svn:keywords - temporary.
         <toolset>msvc-7.1:<debug-symbols>off
         <define>BOOST_ALL_NO_LIB=1
     ;
