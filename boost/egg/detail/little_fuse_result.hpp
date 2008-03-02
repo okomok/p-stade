@@ -18,6 +18,7 @@
 #include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/preprocessor/int_n.hpp>
 #include <boost/egg/result_of.hpp>
+#include <boost/egg/detail/ignore_unused.hpp>
 
 
 namespace boost { namespace egg { namespace details {
@@ -70,6 +71,7 @@ namespace boost { namespace egg { namespace details {
     template<class Re, class Tuple>
     Re call_aux(Tuple &t, mpl::int_<n>) const
     {
+        BOOST_EGG_IGNORE_UNUSED(t); // when n == 0.
         return m_base( BOOST_EGG_PP_ENUM_PARAMS_WITH(n, X_get_c<BOOST_EGG_PP_INT_, >()(t)) );
     }
 
