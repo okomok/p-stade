@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/regular.hpp>
-#include "./egg_unit_test.hpp"
+#include "./egg_test.hpp"
 
 
 #include <boost/lambda/lambda.hpp>
@@ -31,7 +31,7 @@ void regular_check(F const f)
 }
 
 
-void egg_unit_test()
+void egg_test()
 {
     {
         ::regular_check(regular(bll::_1 != 'c'));

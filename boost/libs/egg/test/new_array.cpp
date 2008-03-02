@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/new_array.hpp>
-#include "./egg_unit_test.hpp"
+#include "./egg_test.hpp"
 
 
 #include "./check_is_result_of.hpp"
@@ -29,7 +29,7 @@ CHECK_IS_RESULT_OF(udt *, X_new_array<udt>(int))
 CHECK_IS_RESULT_OF(udt const*, X_new_array<udt const>(int))
 
 
-void egg_unit_test()
+void egg_test()
 {
     {
         udt *p = X_new_array<udt>()(10);

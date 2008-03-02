@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/new.hpp>
-#include "./egg_unit_test.hpp"
+#include "./egg_test.hpp"
 
 
 #include "./check_is_result_of.hpp"
@@ -36,7 +36,7 @@ CHECK_IS_RESULT_OF(udt *, X_new<udt>(int,int))
 CHECK_IS_RESULT_OF(udt const*, X_new<udt const>(int,int))
 
 
-void egg_unit_test()
+void egg_test()
 {
     {
         udt *p = X_new<udt>()(1,2);
