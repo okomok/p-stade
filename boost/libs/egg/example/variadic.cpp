@@ -12,6 +12,7 @@
 #if defined(BOOST_EGG_HAS_FUSIONS)
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/egg/variadic.hpp>
 #include <string>
 #include <boost/fusion/include/boost_tuple.hpp>
@@ -20,6 +21,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/egg/bll/string.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 #include "./using_bll.hpp"

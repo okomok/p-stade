@@ -10,9 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+
+#include <boost/egg/bll/result_of.hpp>
+
+
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
-#include <boost/egg/bll/result_of.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 namespace bll = boost::lambda;

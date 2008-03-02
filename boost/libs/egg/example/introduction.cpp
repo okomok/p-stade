@@ -11,12 +11,16 @@
 #include <boost/egg/pipable.hpp>
 #include <boost/egg/function.hpp>
 #include <boost/egg/result_of.hpp>
+
+
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <string>
 #include <boost/lexical_cast.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 #include "./egg_example.hpp"
