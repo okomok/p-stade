@@ -12,8 +12,10 @@
 #include "./egg_test.hpp"
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 #include "./using_egg.hpp"

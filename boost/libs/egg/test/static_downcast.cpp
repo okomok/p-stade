@@ -112,8 +112,10 @@ void test_crtp()
 }
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 struct static_base_t : boost::noncopyable { };
 struct static_derived_t : static_base_t { };
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 void test_static()
 {
@@ -144,8 +146,10 @@ void test_static()
 }
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 struct polymorphic_base_t : boost::noncopyable { virtual ~polymorphic_base_t() { } };
 struct polymorphic_derived_t : polymorphic_base_t { };
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t>));
 
 void test_polymorphic()

@@ -12,6 +12,7 @@
 #include "./egg_test.hpp"
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/mpl/always.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/bind.hpp>
@@ -19,6 +20,7 @@
 
 #include <boost/egg/bll/result_of.hpp>
 #include <boost/egg/const.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 struct my_fun_t
