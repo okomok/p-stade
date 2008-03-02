@@ -200,6 +200,10 @@ This document uses the following notation.
         [`##`]
         [An imaginary operator to concatenate tokens.]
     ]
+    [
+        [`_PACK_MAX_ARITY`]
+        [`10`]
+    ]
 ]
 
 Also, assume that every expression is placed after:
