@@ -17,7 +17,4 @@
 #endif
 
 
-#define BOOST_EGG_IGNORE_UNUSED(X) ((void)(X))
-
-
 #endif

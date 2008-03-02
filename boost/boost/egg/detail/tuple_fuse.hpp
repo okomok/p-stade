@@ -22,9 +22,9 @@
 #include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/preprocessor/int_n.hpp>
 #include <boost/egg/result_of.hpp>
+#include <boost/egg/detail/ignore_unused.hpp>
 #include <boost/egg/detail/result_of_tuple_get.hpp>
 #include <boost/egg/detail/tuple_length.hpp>
-#include <boost/egg/detail/unused.hpp>
 
 
 namespace boost { namespace egg { namespace details {

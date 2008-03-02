@@ -26,6 +26,7 @@
     #include <boost/egg/by_perfect.hpp>
     #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
     #include <boost/egg/detail/derived_from.hpp>
+    #include <boost/egg/detail/ignore_unused.hpp>
     #include <boost/egg/forward.hpp>
     #include <boost/egg/is_bind_expression.hpp>
 
@@ -126,6 +127,7 @@
         template<class Re, BOOST_PP_ENUM_PARAMS(m, class A)>
         Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, &a)) const
         {
+            BOOST_EGG_IGNORE_UNUSED_PARAMS(m, a)
             return egg::forwarding<Strategy const, m, BOOST_PP_DEC(n)>(BOOST_PP_CAT(a, BOOST_PP_DEC(n)));
         }
 
