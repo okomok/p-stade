@@ -12,4 +12,3 @@
 
 
 #include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
-
