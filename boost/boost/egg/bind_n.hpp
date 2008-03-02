@@ -117,7 +117,7 @@
             };
 
 
-        } // namespace BOOST_EGG_PP_CAT3(bind, n, _detail)
+        } // namespace bindN_detail
 
 
         template<class Base, class NullaryResult BOOST_PP_ENUM_TRAILING_PARAMS(n, class Arg)>
