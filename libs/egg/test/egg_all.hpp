@@ -92,7 +92,6 @@
 #include <boost/egg/to_value.hpp>
 #include <boost/egg/uncurry.hpp>
 #include <boost/egg/unfuse.hpp>
-#include <boost/egg/use_deduced_form.hpp>
 #include <boost/egg/variadic.hpp>
 
 

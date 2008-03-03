@@ -12,9 +12,6 @@
 #include "./egg_test.hpp"
 
 
-#include <boost/egg/use_deduced_form.hpp> // "incompletable" check.
-
-
 #include <iostream>
 
 

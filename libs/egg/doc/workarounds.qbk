@@ -2,7 +2,7 @@
 
 Egg provides some workaround utilities.
 
-[import ../test/use_deduced_form.cpp]
+
 
 
 [section result\_of_]
@@ -21,6 +21,9 @@ So that, Egg provides its own "result_of" with slightly different name.
 
 [heading Header]
 * `<boost/egg/result_of.hpp>`
+
+[heading Preconditions]
+* ...
 
 [heading Valid expressions]
 [table 
@@ -70,13 +73,14 @@ use this header.
 
 
 
-[section use_deduced_form]
+[section OVERLOADED]
 
 [heading Description]
-Under GCC 3.4.x, when you overload `call` in __CONCEPT_LITTLE_FUNCTION__ with the same arity, the following workaround is needed.
+Under GCC 3.4.x, when you overload `call` in __CONCEPT_LITTLE_FUNCTION__ with the same arity,
+the following workaround is needed to disambiguate overload resolution.
 
 [heading Header]
-* `<boost/egg/use_deduced_form.hpp>`
+* ...
 
 [heading Valid expressions]
 [table 
@@ -85,13 +89,23 @@ Under GCC 3.4.x, when you overload `call` in __CONCEPT_LITTLE_FUNCTION__ with th
         [[*Semantics]]
     ]
     [
-        [`boost::type<...>`]
-        [Passed to `call` as the first argument.]
+        [`BOOST_EGG_OVERLOADED_PREAMBLE()`]
+        [Turns on the workaround.]
+    ]
+    [
+        [`BOOST_EGG_OVERLOADED(R)`]
+        [Helps overload resolution.]
     ]
 ]
 
+[heading Preconditions]
+* `BOOST_EGG_OVERLOADED_PREAMBLE()` is placed first in __CONCEPT_LITTLE_FUNCTION__.
+* `BOOST_EGG_OVERLOADED(R)` is placed first in `call` parameter list.
+* `R` is return type of `call`.
+
 [heading Example]
-[code_use_deduced_form_example]
+[import ../test/overloaded.cpp]
+[code_example_overloaded]
 
 [note You can also use __BOOST_ENABLE_IF__ instead. ]
 
