@@ -14,7 +14,7 @@
 
 #if BOOST_WORKAROUND(__GNUC__, == 3)
     #define BOOST_EGG_NEEDS_OVERLOADED
-    #include <boost/egg/detail/enable_if.hpp>
+    #include <boost/egg/detail/enable_if.hpp> // inclusion guaranteed
     #include <boost/egg/detail/has_xxx.hpp>
 #endif
 
