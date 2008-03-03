@@ -61,16 +61,16 @@ namespace boost { namespace egg {
 
     // 2ary: by_perfect, by_ref
         BOOST_EGG_FUNCTION_CALL_OPERATOR((by_perfect)(by_ref), const)
-#if 0 // This is expaneded to...
+#if 0   // Macro above is expaneded to...
         template<class A0, class A1>
         typename apply_little<Lit const, A0, A1>::type
-        operator()(A0 &a0, A1& a1) const
+        operator()(A0 &a0, A1 &a1) const
         {
             return call_little(m_lit, a0, a1);
         }
 
         template<class A0, class A1>
-        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A0), A1>::type
+        typename apply_little<Lit const, BOOST_EGG_DEDUCED_CONST(A0), A1>::type /*< `BOOST_EGG_DEDUCED_CONST` works around msvc-7.1 array bug. >*/
         operator()(A0 const &a0, A1 &a1) const
         {
             return call_little(m_lit, a0, a1);

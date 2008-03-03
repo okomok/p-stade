@@ -31,7 +31,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.result__of_"></a><a href="workarounds.html#egg.workarounds.result__of_" title="result_of_">result_of_</a></h3></div></div></div>
 <a name="egg.workarounds.result__of_.description"></a><h5>
-<a name="id589264"></a>
+<a name="id589303"></a>
         <a href="workarounds.html#egg.workarounds.result__of_.description">Description</a>
       </h5>
 <p>
@@ -72,12 +72,12 @@
         </p></td></tr>
 </table></div>
 <a name="egg.workarounds.result__of_.header"></a><h5>
-<a name="id589420"></a>
+<a name="id589459"></a>
         <a href="workarounds.html#egg.workarounds.result__of_.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.result__of_.valid_expressions"></a><h5>
-<a name="id589504"></a>
+<a name="id589543"></a>
         <a href="workarounds.html#egg.workarounds.result__of_.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -115,7 +115,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.detect_result_type_hpp"></a><a href="workarounds.html#egg.workarounds.detect_result_type_hpp" title="detect_result_type.hpp">detect_result_type.hpp</a></h3></div></div></div>
 <a name="egg.workarounds.detect_result_type_hpp.description"></a><h5>
-<a name="id589651"></a>
+<a name="id589690"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.description">Description</a>
       </h5>
 <p>
@@ -136,7 +136,7 @@
         </p></td></tr>
 </table></div>
 <a name="egg.workarounds.detect_result_type_hpp.valid_expressions"></a><h5>
-<a name="id589772"></a>
+<a name="id589811"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -171,7 +171,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.workarounds.detect_result_type_hpp.preconditions"></a><h5>
-<a name="id589937"></a>
+<a name="id589976"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -182,7 +182,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.use_deduced_form"></a><a href="workarounds.html#egg.workarounds.use_deduced_form" title="use_deduced_form">use_deduced_form</a></h3></div></div></div>
 <a name="egg.workarounds.use_deduced_form.description"></a><h5>
-<a name="id590041"></a>
+<a name="id590080"></a>
         <a href="workarounds.html#egg.workarounds.use_deduced_form.description">Description</a>
       </h5>
 <p>
@@ -191,12 +191,12 @@
         the same arity, the following workaround is needed.
       </p>
 <a name="egg.workarounds.use_deduced_form.header"></a><h5>
-<a name="id590092"></a>
+<a name="id590132"></a>
         <a href="workarounds.html#egg.workarounds.use_deduced_form.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">use_deduced_form</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.use_deduced_form.valid_expressions"></a><h5>
-<a name="id590177"></a>
+<a name="id590216"></a>
         <a href="workarounds.html#egg.workarounds.use_deduced_form.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -232,7 +232,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.workarounds.use_deduced_form.example"></a><h5>
-<a name="id590308"></a>
+<a name="id590348"></a>
         <a href="workarounds.html#egg.workarounds.use_deduced_form.example">Example</a>
       </h5>
 <p>
@@ -243,7 +243,7 @@
 <pre class="programlisting">
 <span class="keyword">struct</span> <span class="identifier">little_foo</span>
 <span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="identifier">little_foo</span> <span class="identifier">use_deduced_form</span><span class="special">;</span> <span class="callout_bug"><a name="egg23co" href="workarounds.html#egg23"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+    <span class="keyword">typedef</span> <span class="identifier">little_foo</span> <span class="identifier">use_deduced_form</span><span class="special">;</span> <span class="callout_bug"><a name="egg24co" href="workarounds.html#egg24"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
 
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Me</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">apply</span>
@@ -252,7 +252,7 @@
     <span class="special">};</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Re</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">&gt;</span>
-    <span class="identifier">Re</span> <span class="identifier">call</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">type</span><span class="special">&lt;</span><span class="identifier">Re</span><span class="special">&gt;,</span> <span class="identifier">A1</span> <span class="special">&amp;</span><span class="identifier">a1</span><span class="special">)</span> <span class="keyword">const</span> <span class="callout_bug"><a name="egg24co" href="workarounds.html#egg24"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+    <span class="identifier">Re</span> <span class="identifier">call</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">type</span><span class="special">&lt;</span><span class="identifier">Re</span><span class="special">&gt;,</span> <span class="identifier">A1</span> <span class="special">&amp;</span><span class="identifier">a1</span><span class="special">)</span> <span class="keyword">const</span> <span class="callout_bug"><a name="egg25co" href="workarounds.html#egg25"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
     <span class="special">{</span>
         <span class="keyword">return</span> <span class="identifier">a1</span><span class="special">;</span>
     <span class="special">}</span>
@@ -275,13 +275,13 @@
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg23"></a><a href="#egg23co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="egg24"></a><a href="#egg24co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> Egg turns on the workaround if nested <code class="computeroutput"><span class="identifier">use_deduced_form</span></code>
           is found. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg24"></a><a href="#egg24co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<a name="egg25"></a><a href="#egg25co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">Re</span></code> is given with
           the first argument using <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">type</span></code>.
           </p></td>
@@ -301,7 +301,7 @@
         </p></td></tr>
 </table></div>
 <a name="egg.workarounds.use_deduced_form.see_also"></a><h5>
-<a name="id590971"></a>
+<a name="id591009"></a>
         <a href="workarounds.html#egg.workarounds.use_deduced_form.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -313,7 +313,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.const"></a><a href="workarounds.html#egg.workarounds.const" title="CONST">CONST</a></h3></div></div></div>
 <a name="egg.workarounds.const.description"></a><h5>
-<a name="id591059"></a>
+<a name="id591098"></a>
         <a href="workarounds.html#egg.workarounds.const.description">Description</a>
       </h5>
 <p>
@@ -335,12 +335,12 @@
         </p></td></tr>
 </table></div>
 <a name="egg.workarounds.const.header"></a><h5>
-<a name="id591118"></a>
+<a name="id591156"></a>
         <a href="workarounds.html#egg.workarounds.const.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="keyword">const</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.const.valid_expressions"></a><h5>
-<a name="id591200"></a>
+<a name="id591239"></a>
         <a href="workarounds.html#egg.workarounds.const.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -377,7 +377,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.workarounds.const.preconditions"></a><h5>
-<a name="id591385"></a>
+<a name="id591424"></a>
         <a href="workarounds.html#egg.workarounds.const.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -393,14 +393,14 @@
         </li>
 </ul></div>
 <a name="egg.workarounds.const.example"></a><h5>
-<a name="id591446"></a>
+<a name="id591485"></a>
         <a href="workarounds.html#egg.workarounds.const.example">Example</a>
       </h5>
 <pre class="programlisting">
 <span class="identifier">BOOST_EGG_CONST</span><span class="special">((</span><span class="identifier">T_foo</span><span class="special">),</span> <span class="identifier">foo</span><span class="special">)</span> <span class="special">=</span> <span class="special">&amp;</span><span class="identifier">foo_impl</span><span class="special">;</span>
 </pre>
 <a name="egg.workarounds.const.see_also"></a><h5>
-<a name="id591532"></a>
+<a name="id591571"></a>
         <a href="workarounds.html#egg.workarounds.const.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
