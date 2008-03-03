@@ -28,8 +28,8 @@ struct X_lexical_cast
     }
 };
 
-implicit< X_lexical_cast<boost::mpl::_> >::type const
-    lexical = BOOST_EGG_IMPLICIT();
+implicit< X_lexical_cast<boost::mpl::_> >::type
+    const lexical = BOOST_EGG_IMPLICIT();
 
 void egg_example()
 {
