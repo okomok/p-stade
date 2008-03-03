@@ -80,7 +80,9 @@ namespace boost { namespace egg {
                 result_of_<
                     T_fix(
                         typename result_of_<
-                            typename result_of_<T_curry3(wrap_)>::type(typename result_of_<T_curry2(Base_ &)>::type)
+                            typename result_of_<T_curry3(wrap_)>::type(
+                                typename result_of_<T_curry2(Base_ &)>::type
+                            )
                         >::type
                     )
                 >
@@ -90,7 +92,9 @@ namespace boost { namespace egg {
             Re call(Base_ base) const
             {
                 return fix(
-                    curry3(wrap_())(curry2(base))
+                    curry3(wrap_())(
+                        curry2(base)
+                    )
                 );
             }
         };
