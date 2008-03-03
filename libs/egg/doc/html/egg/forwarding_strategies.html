@@ -1111,16 +1111,16 @@
 
     <span class="comment">// 2ary: by_perfect, by_ref
 </span>        <span class="identifier">BOOST_EGG_FUNCTION_CALL_OPERATOR</span><span class="special">((</span><span class="identifier">by_perfect</span><span class="special">)(</span><span class="identifier">by_ref</span><span class="special">),</span> <span class="keyword">const</span><span class="special">)</span>
-<span class="preprocessor">#if</span> <span class="number">0</span> <span class="comment">// This is expaneded to...
+<span class="preprocessor">#if</span> <span class="number">0</span>   <span class="comment">// Macro above is expaneded to...
 </span>        <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">A0</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">&gt;</span>
         <span class="keyword">typename</span> <span class="identifier">apply_little</span><span class="special">&lt;</span><span class="identifier">Lit</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">A0</span><span class="special">,</span> <span class="identifier">A1</span><span class="special">&gt;::</span><span class="identifier">type</span>
-        <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">A0</span> <span class="special">&amp;</span><span class="identifier">a0</span><span class="special">,</span> <span class="identifier">A1</span><span class="special">&amp;</span> <span class="identifier">a1</span><span class="special">)</span> <span class="keyword">const</span>
+        <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">A0</span> <span class="special">&amp;</span><span class="identifier">a0</span><span class="special">,</span> <span class="identifier">A1</span> <span class="special">&amp;</span><span class="identifier">a1</span><span class="special">)</span> <span class="keyword">const</span>
         <span class="special">{</span>
             <span class="keyword">return</span> <span class="identifier">call_little</span><span class="special">(</span><span class="identifier">m_lit</span><span class="special">,</span> <span class="identifier">a0</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">);</span>
         <span class="special">}</span>
 
         <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">A0</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A1</span><span class="special">&gt;</span>
-        <span class="keyword">typename</span> <span class="identifier">apply_little</span><span class="special">&lt;</span><span class="identifier">Lit</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">BOOST_EGG_DEDUCED_CONST</span><span class="special">(</span><span class="identifier">A0</span><span class="special">),</span> <span class="identifier">A1</span><span class="special">&gt;::</span><span class="identifier">type</span>
+        <span class="keyword">typename</span> <span class="identifier">apply_little</span><span class="special">&lt;</span><span class="identifier">Lit</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">BOOST_EGG_DEDUCED_CONST</span><span class="special">(</span><span class="identifier">A0</span><span class="special">),</span> <span class="identifier">A1</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="callout_bug"><a name="egg11co" href="forwarding_strategies.html#egg11"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
         <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">A0</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">a0</span><span class="special">,</span> <span class="identifier">A1</span> <span class="special">&amp;</span><span class="identifier">a1</span><span class="special">)</span> <span class="keyword">const</span>
         <span class="special">{</span>
             <span class="keyword">return</span> <span class="identifier">call_little</span><span class="special">(</span><span class="identifier">m_lit</span><span class="special">,</span> <span class="identifier">a0</span><span class="special">,</span> <span class="identifier">a1</span><span class="special">);</span>
@@ -1157,6 +1157,12 @@
           requires <code class="computeroutput"><span class="identifier">_Lit</span></code> to be const-correct.
           </p></td>
 </tr>
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg11"></a><a href="#egg11co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
+<td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">BOOST_EGG_DEDUCED_CONST</span></code>
+          works around msvc-7.1 array bug. </p></td>
+</tr>
 </table></div>
 <p>
         </p>
@@ -1171,7 +1177,7 @@
         in <code class="computeroutput"><span class="identifier">apply_little</span></code>.
       </p>
 <a name="egg.forwarding_strategies.writing_your_strategy.your_strategy_completed"></a><h5>
-<a name="id529877"></a>
+<a name="id529918"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.your_strategy_completed">Your
         strategy completed</a>
       </h5>
@@ -1181,7 +1187,7 @@
         Function Object</a> type. Let's look into the new valid expressions.
       </p>
 <a name="egg.forwarding_strategies.writing_your_strategy.notation"></a><h5>
-<a name="id529936"></a>
+<a name="id529977"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1195,7 +1201,7 @@
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.new_valid_expressions"></a><h5>
-<a name="id530022"></a>
+<a name="id530062"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.new_valid_expressions">New
         valid expressions</a>
       </h5>
@@ -1287,7 +1293,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.see_also"></a><h5>
-<a name="id530740"></a>
+<a name="id530781"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.see_also">See
         also</a>
       </h5>
