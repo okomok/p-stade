@@ -18,19 +18,13 @@
 #include <boost/type.hpp> // inclusion guaranteed
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/detail/call_little_impl_fwd.hpp>
-#include <boost/egg/detail/enable_if.hpp>
-#include <boost/egg/detail/has_xxx.hpp>
 
 
 namespace boost { namespace egg { namespace details {
 
 
-    BOOST_EGG_HAS_XXX(use_deduced_form)
-
-
     template<class Little, class Re>
-    struct call_little_impl<Little, Re,
-        typename enable_if_< has_use_deduced_form<Little> >::type>
+    struct call_little_impl<Little, Re, typename Little::use_deduced_form>
     {
     // 0ary
         static Re call(Little &little)
