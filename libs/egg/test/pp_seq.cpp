@@ -17,8 +17,10 @@
 #include <boost/preprocessor/seq/cat.hpp>
 
 
-void bar(int,  int , int)
-{ }
+int bar(int i, int j, int k)
+{
+    return i - j + k;
+}
 
 
 #define MACRO2(R, Data, I, Elem) (Data)Elem
@@ -36,6 +38,9 @@ void bar(int,  int , int)
 BOOST_EGG_PP_SEQ_FOR_EACH_PRODUCT( ((1)(2)) ((0)) ((3)(4)) , MACRO, long)
 
 
+#define MACRO3(R, Data, I, Elem) Elem + I
+
 void egg_test()
 {
+    BOOST_CHECK( (2+0)-(1+1)+(4+2) == ::bar( BOOST_EGG_PP_SEQ_ENUM_I((2)(1)(4), MACRO3, int) ) );
 }
