@@ -59,7 +59,7 @@ Such a function object is trivially conforming __POLYMORPHIC_FUNCTION_OBJECT__.
 It is really easy to build such one:
 [code_introduction_fixed_result]
 
-Note that `to_string` is used also with `boost::lambda::bind`. In other words, it conforms to __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+Note that `to_string` can be used also with `boost::lambda::bind`. In other words, it conforms to __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 
 [heading Egg what for?]
 Unfortunately, if you need a __POLYMORPHIC_FUNCTION_OBJECT__ whose return type depends on

@@ -17,9 +17,10 @@
 #include <boost/ref.hpp>
 
 
-struct a_struct {
-
+struct a_struct
+{
   virtual void f() = 0;
+  virtual ~a_struct() {}
 };
 
 void f(a_struct&) {}

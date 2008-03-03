@@ -18,12 +18,14 @@
 #include "./using_egg.hpp"
 
 
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 struct polymorphic_base_t : boost::noncopyable { virtual ~polymorphic_base_t() { } };
 struct polymorphic_derived_t : polymorphic_base_t { };
 BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t>));
 BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t const>));
 BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t volatile>));
 BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t volatile const>));
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 void egg_test()
