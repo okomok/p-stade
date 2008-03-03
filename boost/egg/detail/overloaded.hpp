@@ -12,35 +12,39 @@
 
 #include <boost/egg/detail/boost_workaround.hpp>
 
+
 #if BOOST_WORKAROUND(__GNUC__, == 3)
+
+
     #define BOOST_EGG_NEEDS_OVERLOADED
     #include <boost/egg/detail/enable_if.hpp> // inclusion guaranteed
     #include <boost/egg/detail/has_xxx.hpp>
-#endif
 
 
-namespace boost { namespace egg { namespace details {
+    namespace boost { namespace egg { namespace details {
 
 
-#if defined(BOOST_EGG_NEEDS_OVERLOADED)
+        template<class Re>
+        struct overloaded { };
 
-    template<class Re>
-    struct overloaded { };
+        BOOST_EGG_HAS_XXX(boost_egg_overloaded)
 
-    BOOST_EGG_HAS_XXX(boost_egg_overloaded)
+
+    } } } // namespace boost::egg::details
+
 
     #define BOOST_EGG_OVERLOADED_PREAMBLE() typedef void boost_egg_overloaded;
     #define BOOST_EGG_OVERLOADED(R) boost::egg::details::overloaded< R >, 
 
+
 #else
+
 
     #define BOOST_EGG_OVERLOADED_PREAMBLE()
     #define BOOST_EGG_OVERLOADED(R)
 
+
 #endif
-
-
-} } } // namespace boost::egg::details
 
 
 #endif
