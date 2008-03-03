@@ -212,7 +212,6 @@ namespace boost { namespace mpl {
     };
 
 
-
 } } // namespace boost::mpl
 
 
