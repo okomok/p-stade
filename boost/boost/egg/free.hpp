@@ -40,7 +40,6 @@
 #include <boost/egg/detail/in_fun_spec.hpp>
 #include <boost/egg/detail/is_convertible.hpp>
 #include <boost/egg/detail/wrap.hpp>
-#include <boost/egg/use_deduced_form.hpp>
 
 
 namespace boost { namespace egg {
@@ -71,7 +70,7 @@ namespace boost { namespace egg {
             return m_base;
         }
 
-        typedef void use_deduced_form;
+        BOOST_EGG_OVERLOADED_PREAMBLE()
 
         template<class Me, class U>
         struct apply :
@@ -86,32 +85,32 @@ namespace boost { namespace egg {
 
     // convertibles
         template<class Re>
-        Re call(boost::type<Re>, T *p) const
+        Re call(BOOST_EGG_OVERLOADED(Re) T *p) const
         {
             return (p->*m_base);
         }
 
         template<class Re>
-        Re call(boost::type<Re>, T const *p) const
+        Re call(BOOST_EGG_OVERLOADED(Re) T const *p) const
         {
             return (p->*m_base);
         }
 
         template<class Re>
-        Re call(boost::type<Re>, T &t) const
+        Re call(BOOST_EGG_OVERLOADED(Re) T &t) const
         {
             return (t.*m_base);
         }
 
         template<class Re>
-        Re call(boost::type<Re>, T const &t) const
+        Re call(BOOST_EGG_OVERLOADED(Re) T const &t) const
         {
             return (t.*m_base);
         }
 
     // unknown
         template<class Re, class U>
-        Re call(boost::type<Re>, U const &u,
+        Re call(BOOST_EGG_OVERLOADED(Re) U const &u,
             typename disable_if_< is_convertible_<U const &, T const &> >::type = 0) const
         {
             BOOST_EGG_GET_POINTER_PREAMBLE()

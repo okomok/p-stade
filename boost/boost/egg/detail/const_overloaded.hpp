@@ -18,7 +18,7 @@
 #include <boost/egg/detail/const_overloaded1.hpp>
 
 
-#if defined(BOOST_EGG_CONST_OVERLOADED_REQUIRED)
+#if defined(BOOST_EGG_NEEDS_CONST_OVERLOADED)
 
     #include <boost/preprocessor/repetition/enum_params.hpp>
     #include <boost/type_traits/is_const.hpp>

@@ -11,6 +11,7 @@
 
 
 #include <boost/utility/enable_if.hpp>
+#include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/unspecified.hpp>
 
 
@@ -42,6 +43,20 @@ namespace boost { namespace egg {
     struct lazy_disable_if_ :
         lazy_disable_if<Cond, F>
     { };
+
+
+#if BOOST_WORKAROUND(__GNUC__, == 3)
+    namespace details {
+        template<int>
+        struct enable_enable_if
+        {
+            enable_enable_if(int) { }
+        };
+    }
+    #define BOOST_EGG_ENABLE_ENABLE_IF(Id) , boost::egg::details::enable_enable_if< Id > = 0
+#else
+    #define BOOST_EGG_ENABLE_ENABLE_IF(Id)
+#endif
 
 
 } } // namespace boost::egg
