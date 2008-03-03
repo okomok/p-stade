@@ -80,10 +80,17 @@ struct T_my_make
     {
         return X(a0, a1);
     }
+
+    template< class A0, class A1, class A2 >
+    X operator()(A0& a0, A1& a1, A2 v) const
+    {
+        return X(a0, a1, v);
+    }
 };
 
 BOOST_EGG_EXPLICIT(my_make, T_my_make, 1, (by_perfect))
 BOOST_EGG_EXPLICIT(my_make, T_my_make, (class), (by_perfect)(by_perfect))
+BOOST_EGG_EXPLICIT(my_make, T_my_make, (class), (by_perfect)(by_perfect)(by_value))
 
 
 template<class X, int N>
