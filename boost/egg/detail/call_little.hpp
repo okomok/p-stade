@@ -57,8 +57,8 @@ namespace boost { namespace egg {
     operator()(Little &little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a) BOOST_EGG_ENABLE_ENABLE_IF(0)) const
     {
         return little.call(
-            details::overloaded<typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type>(),
-        BOOST_PP_ENUM_PARAMS(n, a));
+            details::overloaded<typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type>()
+        , BOOST_PP_ENUM_PARAMS(n, a));
     }
 
     template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
