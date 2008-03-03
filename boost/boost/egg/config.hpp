@@ -35,8 +35,8 @@
 #endif
 
 
-#if defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_EGG_DISABLE_RVALUE_REFS)
-//    #define BOOST_EGG_HAS_RVALUE_REFS
+#if 0 // defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_EGG_DISABLE_RVALUE_REFS)
+    #define BOOST_EGG_HAS_RVALUE_REFS
 #endif
 
 
