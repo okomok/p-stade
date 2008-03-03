@@ -35,7 +35,7 @@
         #define BOOST_EGG_EXPLICIT_aux(Name, X_, Params, BytagSeq) \
             template<BOOST_EGG_PP_SEQ_ENUM_PARAMS(Params, T), BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(BytagSeq), class A)> \
             typename boost::egg::result_of_< \
-                X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)>, \
+                X_<BOOST_EGG_PP_SEQ_ENUM_ARGS(Params, T)> \
                 (BOOST_EGG_PP_SEQ_ENUM_I(BytagSeq, BOOST_EGG_EXPLICIT_bytag_to_deduced, ~)) \
             >::type \
             Name(BOOST_EGG_PP_SEQ_ENUM_I(BytagSeq, BOOST_EGG_BYTAG_TO_PARAM, ~)) \
