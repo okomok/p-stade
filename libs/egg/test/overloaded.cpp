@@ -19,9 +19,6 @@
 #include <boost/utility/addressof.hpp>
 
 
-using namespace boost::egg;
-
-
 //[code_example_overloaded
 struct little_foo
 {
@@ -45,6 +42,10 @@ struct little_foo
         return a1;
     }
 };
+
+
+using namespace boost::egg;
+
 
 typedef function<little_foo> T_foo;
 //]
