@@ -67,7 +67,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION_FACADE__
-* __EGG_USE_DEDUCED_FORM__
+* __EGG_OVERLOADED__
 
 [endsect]
 
@@ -118,7 +118,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
 * __EGG_FUNCTION__
-* __EGG_USE_DEDUCED_FORM__
+* __EGG_OVERLOADED__
 
 [endsect]
 

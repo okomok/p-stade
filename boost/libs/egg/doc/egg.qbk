@@ -135,7 +135,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_INFIX__ [link egg.utilities.infix `infix`]]
 
 [def __EGG_RESULT_OF__ [link egg.workarounds.result__of_ `egg::result_of_`]]
-[def __EGG_USE_DEDUCED_FORM__ [link egg.workarounds.use_deduced_form `use_deduced_form`]]
+[def __EGG_OVERLOADED__ [link egg.workarounds.overloaded `BOOST_EGG_OVERLOADED`]]
 
 
 

@@ -89,7 +89,6 @@ void check_include_guards()
     using namespace boost::lambda_result_of_detail;
 
     using egg::result_of_;
-    using egg::details::has_use_deduced_form;
     #if !defined(BOOST_EGG_CONST)
         #error oops.
     #endif

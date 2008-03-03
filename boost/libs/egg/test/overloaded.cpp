@@ -8,7 +8,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/use_deduced_form.hpp>
 #include "./egg_test.hpp"
 
 
@@ -23,10 +22,10 @@
 using namespace boost::egg;
 
 
-//[code_use_deduced_form_example
+//[code_example_overloaded
 struct little_foo
 {
-    typedef little_foo use_deduced_form; /*< Egg turns on the workaround if nested `use_deduced_form` is found. >*/
+    BOOST_EGG_OVERLOADED_PREAMBLE() /*< Egg turns on the workaround if this macro is found. >*/
 
     template<class Me, class A1>
     struct apply
@@ -35,13 +34,13 @@ struct little_foo
     };
 
     template<class Re, class A1>
-    Re call(boost::type<Re>, A1 &a1) const /*< `Re` is given with the first argument using `boost::type`. >*/
+    Re call(BOOST_EGG_OVERLOADED(Re) A1 &a1) const /*< Notice there is no trailing comma. >*/
     {
         return a1;
     }
 
     template<class Re, class A1>
-    Re call(boost::type<Re>, A1 const &a1) const
+    Re call(BOOST_EGG_OVERLOADED(Re) A1 const &a1) const
     {
         return a1;
     }
@@ -54,7 +53,7 @@ typedef function<little_foo, by_cref> T_crfoo;
 
 struct little_vfoo
 {
-    typedef little_vfoo use_deduced_form;
+    BOOST_EGG_OVERLOADED_PREAMBLE()
 
     template<class Me, class A1>
     struct apply
@@ -63,13 +62,13 @@ struct little_vfoo
     };
 
     template<class Re, class A1>
-    Re call(boost::type<Re>, A1 &a1) const
+    Re call(BOOST_EGG_OVERLOADED(Re) A1 &a1) const
     {
         return a1;
     }
 
     template<class Re, class A1>
-    Re call(boost::type<Re>, A1 const &a1) const
+    Re call(BOOST_EGG_OVERLOADED(Re) A1 const &a1) const
     {
         return a1;
     }
@@ -77,10 +76,34 @@ struct little_vfoo
 typedef function<little_vfoo, by_value> T_vfoo;
 
 
+
+struct little_normal_foo
+{
+    template<class Me, class A1>
+    struct apply
+    {
+        typedef A1 type;
+    };
+
+    template<class Re, class A1>
+    Re call(A1 &a1) const
+    {
+        return a1;
+    }
+
+    template<class Re, class A1>
+    Re call(A1 const &a1) const
+    {
+        return a1;
+    }
+};
+typedef function<little_normal_foo, by_value> T_normal_foo;
+
+
 struct T_foo_ :
     function_facade<T_foo_>
 {
-    typedef T_foo_ use_deduced_form;
+    BOOST_EGG_OVERLOADED_PREAMBLE()
 
     template<class Me, class A1>
     struct apply
@@ -89,13 +112,13 @@ struct T_foo_ :
     };
 
     template<class Re, class A1>
-    Re call(boost::type<Re>, A1 &a1) const
+    Re call(BOOST_EGG_OVERLOADED(Re) A1 &a1) const
     {
         return a1;
     }
 
     template<class Re, class A1>
-    Re call(boost::type<Re>, A1 const&a1) const
+    Re call(BOOST_EGG_OVERLOADED(Re) A1 const&a1) const
     {
         return a1;
     }
@@ -115,6 +138,7 @@ void egg_test()
         BOOST_CHECK( T_crfoo()(12) == 12 );
 
         BOOST_CHECK( T_vfoo()(12) == 12 );
+        BOOST_CHECK( T_normal_foo()(12) == 12 );
 
         BOOST_CHECK( boost::addressof(T_foo_()(i)) == &i );
     }
