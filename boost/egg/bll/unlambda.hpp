@@ -14,7 +14,6 @@
 #include <boost/lambda/core.hpp> // unlambda
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/const.hpp>
-#include <boost/egg/use_deduced_form.hpp>
 #include <boost/egg/bll/result_of.hpp> // inclusion guaranteed
 
 
@@ -26,7 +25,7 @@ namespace boost { namespace egg {
 
         struct little
         {
-            typedef void use_deduced_form;
+            BOOST_EGG_OVERLOADED_PREAMBLE()
 
             template<class Me, class Function>
             struct apply
@@ -41,13 +40,13 @@ namespace boost { namespace egg {
             };
 
             template<class Re, class Function>
-            Re call(boost::type<Re>, Function fun) const
+            Re call(BOOST_EGG_OVERLOADED(Re) Function fun) const
             {
                 return fun;
             }
 
             template<class Re, class Arg>
-            Re call(boost::type<Re>, lambda::lambda_functor<Arg> lam) const
+            Re call(BOOST_EGG_OVERLOADED(Re) lambda::lambda_functor<Arg> lam) const
             {
                 return lambda::unlambda(lam);
             }
