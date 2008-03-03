@@ -10,7 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/detail/enable_if.hpp>
+// See:
+//
+// Quick-n-Dirty Type Categorization at Boost.Proto document.
 
 
 namespace boost { namespace egg { namespace details {
@@ -18,7 +20,7 @@ namespace boost { namespace egg { namespace details {
 
     // Little is guaranteed to be complete when call_little_impl instantiated,
     // because this is instantiated only in function body.
-    template<class Little, class Re, class EnableIf = enabler>
+    template<class Little, class Re, class Void = void>
     struct call_little_impl;
 
 

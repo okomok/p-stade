@@ -26,7 +26,7 @@ namespace boost { namespace egg {
 
         struct little
         {
-            typedef little use_deduced_form;
+            typedef void use_deduced_form;
 
             template<class Me, class Function>
             struct apply

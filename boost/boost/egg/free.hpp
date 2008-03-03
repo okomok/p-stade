@@ -34,6 +34,7 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/const.hpp>
 #include <boost/egg/detail/affect.hpp>
+#include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/detail/free_call.hpp>
 #include <boost/egg/detail/get_pointer_preamble.hpp>
 #include <boost/egg/detail/in_fun_spec.hpp>
@@ -70,7 +71,7 @@ namespace boost { namespace egg {
             return m_base;
         }
 
-        typedef result_of_free use_deduced_form;
+        typedef void use_deduced_form;
 
         template<class Me, class U>
         struct apply :

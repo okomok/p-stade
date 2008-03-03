@@ -21,7 +21,7 @@
 namespace boost { namespace egg { namespace details {
 
 
-    template<class Little, class Re, class EnableIf>
+    template<class Little, class Re, class Void>
     struct call_little_impl
     {
     // 0ary
