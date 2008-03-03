@@ -22,8 +22,7 @@ struct cage
     int prisoner;
 };
 
-result_of_free<int (cage::*)>::type const
-    freed_prisoner = BOOST_EGG_FREE(&cage::prisoner);
+result_of_free<int (cage::*)>::type const freed_prisoner = BOOST_EGG_FREE(&cage::prisoner);
 
 void egg_example()
 {
