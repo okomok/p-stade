@@ -11,6 +11,8 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/egg/config.hpp> // BOOST_EGG_HAS_RVALUE_REFS
 #include <boost/egg/detail/deduced_const.hpp>
 #include <boost/egg/detail/ns_const_ref.hpp>
 
@@ -32,6 +34,9 @@
     #define BOOST_EGG_BYTAG_TO_PARAM_by_ref(I) BOOST_PP_CAT(A, I) & BOOST_PP_CAT(a, I)
     #define BOOST_EGG_BYTAG_TO_PARAM_by_cref(I) BOOST_PP_CAT(A, I) const & BOOST_PP_CAT(a, I)
     #define BOOST_EGG_BYTAG_TO_PARAM_by_value(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(a, I)
+#if defined(BOOST_EGG_HAS_RVALUE_REFS)
+    #define BOOST_EGG_BYTAG_TO_PARAM_by_perfect(I) BOOST_PP_CAT(A, I) && BOOST_PP_CAT(a, I)
+#endif
 
 
 #define BOOST_EGG_BYTAG_TO_DEDUCED(R, _, I, Bytag) \
@@ -41,6 +46,9 @@
     #define BOOST_EGG_BYTAG_TO_DEDUCED_by_ref(I) BOOST_PP_CAT(A, I)
     #define BOOST_EGG_BYTAG_TO_DEDUCED_by_cref(I) BOOST_EGG_DEDUCED_CONST(BOOST_PP_CAT(A, I))
     #define BOOST_EGG_BYTAG_TO_DEDUCED_by_value(I) BOOST_PP_CAT(A, I)
+#if defined(BOOST_EGG_HAS_RVALUE_REFS)
+    #define BOOST_EGG_BYTAG_TO_DEDUCED_by_perfect(I) typename boost::remove_reference<BOOST_PP_CAT(A, I)>::type
+#endif
 
 
 // For msvc-7.1 bug workaround

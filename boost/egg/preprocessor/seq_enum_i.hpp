@@ -15,6 +15,11 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 
 
+#define BOOST_EGG_PP_SEQ_ENUM_I(Seq, Macro, Data) \
+    BOOST_PP_SEQ_FOR_EACH_I(BOOST_EGG_PP_SEQ_ENUM_I_op, (2, (Macro, Data)), Seq) \
+/**/
+
+
 #define BOOST_EGG_PP_SEQ_ENUM_I_R(R, Seq, Macro, Data) \
     BOOST_PP_SEQ_FOR_EACH_I_R(R, BOOST_EGG_PP_SEQ_ENUM_I_op, (2, (Macro, Data)), Seq) \
 /**/
