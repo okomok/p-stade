@@ -13,6 +13,7 @@
 
 #include <boost/config.hpp>
 #include <boost/version.hpp>
+#include <boost/egg/detail/boost_workaround.hpp>
 
 
 #if !defined(BOOST_EGG_MAX_ARITY)
