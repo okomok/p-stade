@@ -65,4 +65,10 @@ void egg_test()
         T_FOO FOO;
         BOOST_CHECK( FOO(level_0(_1), level_1(_1), level_2(_1))(6)(1)(3) == foo(6,1,3) );
     }
+    {
+        // \x -> (\y -> foo(x, y, 30))
+        typedef result_of_lazy_1<T_foo>::type T_FOO;
+        T_FOO FOO;
+        BOOST_CHECK( FOO(level_0(_1), level_1(_1), 30)(6)(1) == foo(6,1,30) );
+    }
 }
