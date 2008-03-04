@@ -15,9 +15,9 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/egg/apply_little.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
 #include <boost/egg/detail/affect.hpp>
-#include <boost/egg/detail/apply_little.hpp>
 #include <boost/egg/detail/bytag_at.hpp>
 #include <boost/egg/detail/little_of.hpp>
 #include <boost/egg/detail/strategy_of.hpp>

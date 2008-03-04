@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef BOOST_EGG_DETAIL_APPLY_LITTLE_HPP
-#define BOOST_EGG_DETAIL_APPLY_LITTLE_HPP
+#ifndef BOOST_EGG_APPLY_LITTLE_HPP
+#define BOOST_EGG_APPLY_LITTLE_HPP
 
 
 // Boost.Egg
@@ -22,8 +22,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
-#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/detail/nullary_result_of_little.hpp>
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 
 
 namespace boost { namespace egg {
@@ -43,7 +43,7 @@ namespace boost { namespace egg {
     struct apply_little<Little volatile>;
 
 // 1ary-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/apply_little.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/apply_little.hpp>))
     #include BOOST_PP_ITERATE()
 
 

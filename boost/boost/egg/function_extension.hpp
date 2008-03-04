@@ -11,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/detail/apply_little.hpp>
-#include <boost/egg/detail/call_little.hpp>
+#include <boost/egg/apply_little.hpp>
+#include <boost/egg/call_little.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
 #include <boost/egg/detail/function_call_operator.hpp>
 #include <boost/egg/detail/function_preamble.hpp>
