@@ -150,7 +150,7 @@ the following workaround is needed to disambiguate overload resolution.
 
 [heading Preconditions]
 * `BOOST_EGG_OVERLOADED_PREAMBLE()` is placed first in __CONCEPT_LITTLE_FUNCTION__.
-* `BOOST_EGG_OVERLOADED(R)` is placed first in `call` parameter list.
+* `BOOST_EGG_OVERLOADED(R)` is placed first in parameter list of every `call`.
 * `R` is return type of `call`.
 
 [heading Example]
@@ -158,7 +158,7 @@ the following workaround is needed to disambiguate overload resolution.
 [code_example_overloaded]
 
 [heading See also]
-* [@http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/2dc6189c2eec0fd5/ topic at comp.lang.moderated]
+* [@http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/2dc6189c2eec0fd5/ Topic at comp.lang.moderated]
 * __EGG_FUNCTION__
 * __EGG_FUNCTION_FACADE__
 

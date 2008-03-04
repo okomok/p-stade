@@ -957,13 +957,15 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">apply_little</span><span class="special">&lt;</span><span class="identifier">_Lit</span><span class="special">,</span>
-                <span class="identifier">A1</span><span class="special">,...,</span><span class="identifier">AK</span><span class="special">&gt;</span></code>
+                <code class="computeroutput"><span class="identifier">apply_little</span><span class="special">&lt;</span><span class="identifier">Lit</span><span class="special">,</span>
+                <span class="identifier">A1</span><span class="special">,...,</span><span class="identifier">AK</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">_Lit</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">A1</span><span class="special">,...,</span><span class="identifier">AK</span><span class="special">&gt;</span></code>
+                <code class="computeroutput"><span class="identifier">Lit</span><span class="special">::</span><span class="identifier">nullary_result_type</span></code> if <code class="computeroutput"><span class="identifier">K</span> <span class="special">==</span>
+                <span class="number">0</span></code>; <code class="computeroutput"><span class="identifier">Lit</span><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lit</span><span class="special">,</span> <span class="identifier">A1</span><span class="special">,...,</span><span class="identifier">AK</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                otherwise.
               </p>
               </td>
 </tr>
@@ -1020,7 +1022,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.preconditions"></a><h5>
-<a name="id527599"></a>
+<a name="id527665"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1039,9 +1041,12 @@
           <span class="identifier">K</span> <span class="special">&lt;=</span>
           <span class="identifier">BOOST_EGG_MAX_LINEAR_ARITY</span></code>.
         </li>
+<li>
+          The corresponding semantics is a valid expression.
+        </li>
 </ul></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.your_strategy_tag"></a><h5>
-<a name="id527770"></a>
+<a name="id527841"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.your_strategy_tag">Your
         strategy tag</a>
       </h5>
@@ -1078,7 +1083,7 @@
 <p>
       </p>
 <a name="egg.forwarding_strategies.writing_your_strategy.specializing__code__phrase_role__identifier__function__phrase__phrase_role__special___lt__gt___phrase___code_"></a><h5>
-<a name="id528372"></a>
+<a name="id528444"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.specializing__code__phrase_role__identifier__function__phrase__phrase_role__special___lt__gt___phrase___code_">Specializing
         <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;&gt;</span></code></a>
       </h5>
@@ -1177,7 +1182,7 @@
         in <code class="computeroutput"><span class="identifier">apply_little</span></code>.
       </p>
 <a name="egg.forwarding_strategies.writing_your_strategy.your_strategy_completed"></a><h5>
-<a name="id529918"></a>
+<a name="id529990"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.your_strategy_completed">Your
         strategy completed</a>
       </h5>
@@ -1187,7 +1192,7 @@
         Function Object</a> type. Let's look into the new valid expressions.
       </p>
 <a name="egg.forwarding_strategies.writing_your_strategy.notation"></a><h5>
-<a name="id529977"></a>
+<a name="id530049"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1201,7 +1206,7 @@
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.new_valid_expressions"></a><h5>
-<a name="id530062"></a>
+<a name="id530134"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.new_valid_expressions">New
         valid expressions</a>
       </h5>
@@ -1293,7 +1298,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.writing_your_strategy.see_also"></a><h5>
-<a name="id530781"></a>
+<a name="id530853"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_strategy.see_also">See
         also</a>
       </h5>

@@ -98,6 +98,9 @@ void check_include_guards()
     #if !defined(BOOST_EGG_OVERLOADED)
         #error oops.
     #endif
+
+    using egg::apply_little;
+    using egg::call_little;
 }
 
 
