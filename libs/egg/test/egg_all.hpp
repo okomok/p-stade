@@ -16,11 +16,13 @@
 #include <boost/egg/ambi.hpp>
 #include <boost/egg/apply.hpp>
 #include <boost/egg/apply_decl.hpp>
+#include <boost/egg/apply_little.hpp>
 #include <boost/egg/auto_new.hpp>
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/by_ref.hpp>
 #include <boost/egg/by_value.hpp>
+#include <boost/egg/call_little.hpp>
 #include <boost/egg/compose.hpp>
 #include <boost/egg/config.hpp>
 #include <boost/egg/const.hpp>

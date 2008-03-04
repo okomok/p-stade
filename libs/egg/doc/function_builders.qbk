@@ -39,7 +39,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
     ]
     [
         [`function<_Lit, _Stg>`]
-        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ /aggregate/ type]
+        [An /aggregate/ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`f(a1,...,aN)`]
