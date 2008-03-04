@@ -61,6 +61,7 @@
 #include <boost/egg/integral.hpp>
 #include <boost/egg/is_same_obj.hpp>
 #include <boost/egg/lazy.hpp>
+#include <boost/egg/level.hpp>
 #include <boost/egg/lexical.hpp>
 #include <boost/egg/locale.hpp>
 #include <boost/egg/memoize.hpp>
@@ -119,7 +120,6 @@
 #include <boost/egg/bll/optional.hpp>
 #include <boost/egg/bll/placeholders.hpp>
 #include <boost/egg/bll/poly.hpp>
-#include <boost/egg/bll/protect.hpp>
 #include <boost/egg/bll/sig_impl.hpp>
 #include <boost/egg/bll/string.hpp>
 #include <boost/egg/bll/result_of.hpp>
