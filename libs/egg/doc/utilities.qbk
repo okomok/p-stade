@@ -106,9 +106,6 @@ This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__
 [heading Model of]
 * ...
 
-[heading Notation]
-* ...
-
 [heading Valid expressions]
 [table 
     [
