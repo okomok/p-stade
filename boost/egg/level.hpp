@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_BLL_LEVEL_HPP
-#define BOOST_EGG_BLL_LEVEL_HPP
+#ifndef BOOST_EGG_LEVEL_HPP
+#define BOOST_EGG_LEVEL_HPP
 #include <boost/egg/detail/prefix.hpp>
 
 
