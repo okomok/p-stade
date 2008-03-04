@@ -37,6 +37,9 @@ So that, Egg provides its own "result_of" with slightly different name.
     ]
 ]
 
+[heading See also]
+* [@http://svn.boost.org/trac/boost/ticket/1310 #1310]
+
 [endsect]
 
 
@@ -72,7 +75,7 @@ use this header.
 * `<boost/egg/detect_result_type.hpp>` must be included before any Boost headers.
 
 [heading See also]
-* ...
+* [@http://svn.boost.org/trac/boost/ticket/1317 #1317]
 
 [endsect]
 
@@ -155,6 +158,7 @@ the following workaround is needed to disambiguate overload resolution.
 [code_example_overloaded]
 
 [heading See also]
+* [@http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/2dc6189c2eec0fd5/ topic at comp.lang.moderated]
 * __EGG_FUNCTION__
 * __EGG_FUNCTION_FACADE__
 
