@@ -15,6 +15,7 @@
 // A quick workaround applying lazy_enable_if to
 // `egg::call_little::operator()` didn't work,
 // for gcc-3.4 has ETI bug around lazy_enable_if.
+// See also "Quick-n-Dirty Type Categorization" at Boost.Proto doc.
 
 
 #include <boost/egg/config.hpp>
