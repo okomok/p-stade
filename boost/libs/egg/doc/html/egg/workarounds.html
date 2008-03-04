@@ -31,7 +31,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.result__of_"></a><a href="workarounds.html#egg.workarounds.result__of_" title="result_of_">result_of_</a></h3></div></div></div>
 <a name="egg.workarounds.result__of_.description"></a><h5>
-<a name="id589303"></a>
+<a name="id589270"></a>
         <a href="workarounds.html#egg.workarounds.result__of_.description">Description</a>
       </h5>
 <p>
@@ -52,10 +52,10 @@
         So that, Egg provides its own "result_of" with slightly different
         name.
       </p>
-<div class="note"><table border="0" summary="Note">
+<div class="caution"><table border="0" summary="Caution">
 <tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/html/images/note.png"></td>
-<th align="left">Note</th>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../../../doc/html/images/caution.png"></td>
+<th align="left">Caution</th>
 </tr>
 <tr><td align="left" valign="top"><p>
           If you already use Boost1.35 and don't pass a <span class="emphasis"><em>cv-qualified</em></span>
@@ -72,19 +72,19 @@
         </p></td></tr>
 </table></div>
 <a name="egg.workarounds.result__of_.header"></a><h5>
-<a name="id589459"></a>
+<a name="id589425"></a>
         <a href="workarounds.html#egg.workarounds.result__of_.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.result__of_.preconditions"></a><h5>
-<a name="id589543"></a>
+<a name="id589510"></a>
         <a href="workarounds.html#egg.workarounds.result__of_.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           ...
         </li></ul></div>
 <a name="egg.workarounds.result__of_.valid_expressions"></a><h5>
-<a name="id589577"></a>
+<a name="id589543"></a>
         <a href="workarounds.html#egg.workarounds.result__of_.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -122,7 +122,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.detect_result_type_hpp"></a><a href="workarounds.html#egg.workarounds.detect_result_type_hpp" title="detect_result_type.hpp">detect_result_type.hpp</a></h3></div></div></div>
 <a name="egg.workarounds.detect_result_type_hpp.description"></a><h5>
-<a name="id589724"></a>
+<a name="id589690"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.description">Description</a>
       </h5>
 <p>
@@ -142,8 +142,13 @@
           This bug can probably be worked around by applying a patch to <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a> and <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a>.
         </p></td></tr>
 </table></div>
+<a name="egg.workarounds.detect_result_type_hpp.header"></a><h5>
+<a name="id589811"></a>
+        <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.header">Header</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">detect_result_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.detect_result_type_hpp.valid_expressions"></a><h5>
-<a name="id589844"></a>
+<a name="id589896"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.valid_expressions">Valid
         expressions</a>
       </h5>
@@ -172,24 +177,31 @@
               </td>
 <td>
               <p>
-                A msvc workaround for <code class="computeroutput"><span class="identifier">BOOST_MPL_HAS_XXX_TRAIT_DEF</span></code>
+                Turns on the workaround.
               </p>
               </td>
 </tr></tbody>
 </table></div>
 <a name="egg.workarounds.detect_result_type_hpp.preconditions"></a><h5>
-<a name="id590009"></a>
+<a name="id590048"></a>
         <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">detect_result_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code> must be included before any Boost headers.
+        </li></ul></div>
+<a name="egg.workarounds.detect_result_type_hpp.see_also"></a><h5>
+<a name="id590134"></a>
+        <a href="workarounds.html#egg.workarounds.detect_result_type_hpp.see_also">See also</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+          ...
         </li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.const"></a><a href="workarounds.html#egg.workarounds.const" title="CONST">CONST</a></h3></div></div></div>
 <a name="egg.workarounds.const.description"></a><h5>
-<a name="id590112"></a>
+<a name="id590184"></a>
         <a href="workarounds.html#egg.workarounds.const.description">Description</a>
       </h5>
 <p>
@@ -211,12 +223,12 @@
         </p></td></tr>
 </table></div>
 <a name="egg.workarounds.const.header"></a><h5>
-<a name="id590170"></a>
+<a name="id590243"></a>
         <a href="workarounds.html#egg.workarounds.const.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="keyword">const</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.const.valid_expressions"></a><h5>
-<a name="id590253"></a>
+<a name="id590325"></a>
         <a href="workarounds.html#egg.workarounds.const.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -253,7 +265,7 @@
 </tr></tbody>
 </table></div>
 <a name="egg.workarounds.const.preconditions"></a><h5>
-<a name="id590438"></a>
+<a name="id590510"></a>
         <a href="workarounds.html#egg.workarounds.const.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -269,14 +281,14 @@
         </li>
 </ul></div>
 <a name="egg.workarounds.const.example"></a><h5>
-<a name="id590499"></a>
+<a name="id590571"></a>
         <a href="workarounds.html#egg.workarounds.const.example">Example</a>
       </h5>
 <pre class="programlisting">
 <span class="identifier">BOOST_EGG_CONST</span><span class="special">((</span><span class="identifier">T_foo</span><span class="special">),</span> <span class="identifier">foo</span><span class="special">)</span> <span class="special">=</span> <span class="special">&amp;</span><span class="identifier">foo_impl</span><span class="special">;</span>
 </pre>
 <a name="egg.workarounds.const.see_also"></a><h5>
-<a name="id590585"></a>
+<a name="id590657"></a>
         <a href="workarounds.html#egg.workarounds.const.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -287,7 +299,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.workarounds.overloaded"></a><a href="workarounds.html#egg.workarounds.overloaded" title="OVERLOADED">OVERLOADED</a></h3></div></div></div>
 <a name="egg.workarounds.overloaded.description"></a><h5>
-<a name="id590635"></a>
+<a name="id590708"></a>
         <a href="workarounds.html#egg.workarounds.overloaded.description">Description</a>
       </h5>
 <p>
@@ -297,12 +309,12 @@
         resolution.
       </p>
 <a name="egg.workarounds.overloaded.header"></a><h5>
-<a name="id590687"></a>
+<a name="id590760"></a>
         <a href="workarounds.html#egg.workarounds.overloaded.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">overloaded</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.workarounds.overloaded.valid_expressions"></a><h5>
-<a name="id590771"></a>
+<a name="id590843"></a>
         <a href="workarounds.html#egg.workarounds.overloaded.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -350,7 +362,7 @@
 </tbody>
 </table></div>
 <a name="egg.workarounds.overloaded.preconditions"></a><h5>
-<a name="id590924"></a>
+<a name="id590996"></a>
         <a href="workarounds.html#egg.workarounds.overloaded.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -368,7 +380,7 @@
         </li>
 </ul></div>
 <a name="egg.workarounds.overloaded.example"></a><h5>
-<a name="id591051"></a>
+<a name="id591124"></a>
         <a href="workarounds.html#egg.workarounds.overloaded.example">Example</a>
       </h5>
 <p>
@@ -423,17 +435,8 @@
         </p>
 <p>
       </p>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/html/images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-          You can also use <a href="http://www.boost.org/libs/utility/enable_if.html" target="_top"><span class="bold"><strong>Boost.EnableIf</strong></span></a> instead.
-        </p></td></tr>
-</table></div>
 <a name="egg.workarounds.overloaded.see_also"></a><h5>
-<a name="id591594"></a>
+<a name="id591648"></a>
         <a href="workarounds.html#egg.workarounds.overloaded.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">

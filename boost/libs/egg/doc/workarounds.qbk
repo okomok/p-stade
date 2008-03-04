@@ -15,7 +15,7 @@ Egg provides some workaround utilities.
 
 So that, Egg provides its own "result_of" with slightly different name.
 
-[note If you already use Boost1.35 and don't pass a __CV_QUALIFIED__ function pointer, you don't need this workaround.]
+[caution If you already use Boost1.35 and don't pass a __CV_QUALIFIED__ function pointer, you don't need this workaround.]
 
 [note The former bug can probably be worked around by applying a patch to __BOOST_RESULT_OF__. ]
 
@@ -53,6 +53,9 @@ use this header.
 
 [note This bug can probably be worked around by applying a patch to __BOOST_LAMBDA__ and __BOOST_RESULT_OF__. ]
 
+[heading Header]
+* `<boost/egg/detect_result_type.hpp>`
+
 [heading Valid expressions]
 [table 
     [
@@ -61,12 +64,15 @@ use this header.
     ]
     [
         [`#include <boost/egg/detect_result_type.hpp>`]
-        [A msvc workaround for `BOOST_MPL_HAS_XXX_TRAIT_DEF`]
+        [Turns on the workaround.]
     ]
 ]
 
 [heading Preconditions]
 * `<boost/egg/detect_result_type.hpp>` must be included before any Boost headers.
+
+[heading See also]
+* ...
 
 [endsect]
 
@@ -147,8 +153,6 @@ the following workaround is needed to disambiguate overload resolution.
 [heading Example]
 [import ../test/overloaded.cpp]
 [code_example_overloaded]
-
-[note You can also use __BOOST_ENABLE_IF__ instead. ]
 
 [heading See also]
 * __EGG_FUNCTION__
