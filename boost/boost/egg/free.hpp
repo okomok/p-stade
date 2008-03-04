@@ -40,6 +40,7 @@
 #include <boost/egg/detail/in_fun_spec.hpp>
 #include <boost/egg/detail/is_convertible.hpp>
 #include <boost/egg/detail/wrap.hpp>
+#include <boost/egg/overloaded.hpp>
 
 
 namespace boost { namespace egg {
