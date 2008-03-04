@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_BLL_PROTECT_HPP
-#define BOOST_EGG_BLL_PROTECT_HPP
+#ifndef BOOST_EGG_BLL_LEVEL_HPP
+#define BOOST_EGG_BLL_LEVEL_HPP
 #include <boost/egg/detail/prefix.hpp>
 
 
@@ -24,7 +24,7 @@
 namespace boost { namespace egg {
 
 
-    namespace bll_protect_detail {
+    namespace level_detail {
 
 
         struct little
@@ -68,23 +68,27 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace bll_protect
+    } // namespace level
 
 
-    typedef static_<X_identity<mpl::_1>, by_cref>::type T_bll_protect_0;
-    BOOST_EGG_CONST((T_bll_protect_0), bll_protect_0) = BOOST_EGG_STATIC();
+    typedef static_<X_identity<mpl::_1>, by_cref>::type T_level_0;
+    BOOST_EGG_CONST((T_level_0), level_0) = BOOST_EGG_STATIC();
 
-    #define BOOST_EGG_BLL_PROTECT_1_INIT {{}}
-    typedef function<bll_protect_detail::little, by_cref> T_bll_protect_1;
-    BOOST_EGG_CONST((T_bll_protect_1), bll_protect_1) = BOOST_EGG_BLL_PROTECT_1_INIT;
+    #define BOOST_EGG_LEVEL_1_INIT {{}}
+    typedef function<level_detail::little, by_cref> T_level_1;
+    BOOST_EGG_CONST((T_level_1), level_1) = BOOST_EGG_LEVEL_1_INIT;
 
-    #define BOOST_EGG_BLL_PROTECT_2_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_BLL_PROTECT_1_INIT, BOOST_EGG_BLL_PROTECT_1_INIT BOOST_EGG_COMPOSE_R
-    typedef result_of_compose<T_bll_protect_1, T_bll_protect_1, use_default, by_cref>::type T_bll_protect_2;
-    BOOST_EGG_CONST((T_bll_protect_2), bll_protect_2) = BOOST_EGG_BLL_PROTECT_2_INIT;
+    #define BOOST_EGG_LEVEL_2_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_LEVEL_1_INIT, BOOST_EGG_LEVEL_1_INIT BOOST_EGG_COMPOSE_R
+    typedef result_of_compose<T_level_1, T_level_1, use_default, by_cref>::type T_level_2;
+    BOOST_EGG_CONST((T_level_2), level_2) = BOOST_EGG_LEVEL_2_INIT;
 
-    #define BOOST_EGG_BLL_PROTECT_3_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_BLL_PROTECT_1_INIT, BOOST_EGG_BLL_PROTECT_2_INIT BOOST_EGG_COMPOSE_R
-    typedef result_of_compose<T_bll_protect_1, T_bll_protect_2, use_default, by_cref>::type T_bll_protect_3;
-    BOOST_EGG_CONST((T_bll_protect_3), bll_protect_3) = BOOST_EGG_BLL_PROTECT_3_INIT;
+    #define BOOST_EGG_LEVEL_3_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_LEVEL_1_INIT, BOOST_EGG_LEVEL_2_INIT BOOST_EGG_COMPOSE_R
+    typedef result_of_compose<T_level_1, T_level_2, use_default, by_cref>::type T_level_3;
+    BOOST_EGG_CONST((T_level_3), level_3) = BOOST_EGG_LEVEL_3_INIT;
+
+    #define BOOST_EGG_LEVEL_4_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_LEVEL_1_INIT, BOOST_EGG_LEVEL_3_INIT BOOST_EGG_COMPOSE_R
+    typedef result_of_compose<T_level_1, T_level_3, use_default, by_cref>::type T_level_4;
+    BOOST_EGG_CONST((T_level_4), level_4) = BOOST_EGG_LEVEL_4_INIT;
 
 
 } } // namespace boost::egg
