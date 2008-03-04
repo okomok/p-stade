@@ -49,13 +49,13 @@ namespace boost { namespace egg {
             { };
 
             template<class Re, class CharT>
-            Re call(CharT const &ch, std::locale const &loc) const
+            Re call(CharT &ch, std::locale const &loc) const
             {
                 return std::use_facet< std::ctype<Re> >(loc).BOOST_PP_CAT(to, name)(ch);
             }
 
             template<class Re, class CharT>
-            Re call(CharT const &ch) const
+            Re call(CharT &ch) const
             {
                 return call<Re>(ch, std::locale());
             }
