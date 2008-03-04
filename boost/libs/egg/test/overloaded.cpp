@@ -34,6 +34,7 @@ struct little_foo
         return a1;
     }
 };
+//]
 
 
 #include "./egg_test.hpp"
@@ -49,7 +50,6 @@ using namespace boost::egg;
 
 
 typedef function<little_foo> T_foo;
-//]
 typedef function<little_foo, by_ref> T_rfoo;
 typedef function<little_foo, by_cref> T_crfoo;
 

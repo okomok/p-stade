@@ -121,7 +121,7 @@ Under GCC 3.4.x, when you overload `call` in __CONCEPT_LITTLE_FUNCTION__ with th
 the following workaround is needed to disambiguate overload resolution.
 
 [heading Header]
-* <boost/egg/overloaded.hpp>
+* `<boost/egg/overloaded.hpp>`
 
 [heading Valid expressions]
 [table 
