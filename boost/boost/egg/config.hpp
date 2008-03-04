@@ -12,6 +12,7 @@
 
 
 #include <boost/config.hpp>
+#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/version.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
 
@@ -23,6 +24,16 @@
 
 #if !defined(BOOST_EGG_MAX_LINEAR_ARITY)
     #define BOOST_EGG_MAX_LINEAR_ARITY 10
+#endif
+
+
+#if !defined(BOOST_EGG_PIPABLE_MAX_ARITY)
+    #define BOOST_EGG_PIPABLE_MAX_ARITY BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
+#endif
+
+
+#if !defined(BOOST_EGG_LAZY_MAX_LEVEL)
+    #define BOOST_EGG_LAZY_MAX_LEVEL 5
 #endif
 
 

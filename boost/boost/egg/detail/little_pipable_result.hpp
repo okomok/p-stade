@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -19,7 +18,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/by_ref.hpp>
-#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY, BOOST_EGG_PIPABLE_MAX_ARITY
 #include <boost/egg/function_fwd.hpp>
 #include <boost/egg/pack.hpp>
 #include <boost/egg/preprocessor/enum_params_with.hpp>
@@ -29,11 +28,6 @@
 #include <boost/egg/detail/is_a_or_b.hpp>
 #include <boost/egg/detail/tuple_fuse.hpp>
 #include <boost/egg/detail/tuple_prepend.hpp>
-
-
-#define BOOST_EGG_PIPABLE_MAX_ARITY \
-    BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY) \
-/**/
 
 
 namespace boost { namespace egg { namespace details {
