@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef BOOST_EGG_DETAIL_CALL_LITTLE_HPP
-#define BOOST_EGG_DETAIL_CALL_LITTLE_HPP
+#ifndef BOOST_EGG_CALL_LITTLE_HPP
+#define BOOST_EGG_CALL_LITTLE_HPP
 
 
 // Boost.Egg
@@ -14,9 +14,9 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/egg/apply_little.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY, BOOST_EGG_NEEDS_OVERLOADED
 #include <boost/egg/const.hpp>
-#include <boost/egg/detail/apply_little.hpp>
 
 #if defined(BOOST_EGG_NEEDS_OVERLOADED)
     #include <boost/egg/detail/overloaded_call_little.hpp>
@@ -37,7 +37,7 @@ namespace boost { namespace egg {
         }
 
     // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/call_little.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/call_little.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
@@ -64,7 +64,6 @@ namespace boost { namespace egg {
         return little.template call<
             typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type
         >(BOOST_PP_ENUM_PARAMS(n, a));
-
 #endif
     }
 
