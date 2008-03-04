@@ -14,11 +14,13 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY, BOOST_EGG_NEEDS_OVERLOADED
 #include <boost/egg/const.hpp>
 #include <boost/egg/detail/apply_little.hpp>
-#include <boost/egg/detail/boost_workaround.hpp>
-#include <boost/egg/detail/overloaded.hpp>
+
+#if defined(BOOST_EGG_NEEDS_OVERLOADED)
+    #include <boost/egg/detail/overloaded_call_little.hpp>
+#endif
 
 
 namespace boost { namespace egg {
@@ -50,38 +52,21 @@ namespace boost { namespace egg {
 #define n BOOST_PP_ITERATION()
 
 
-#if defined(BOOST_EGG_NEEDS_OVERLOADED)
-
-    template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename lazy_enable_if_< details::has_boost_egg_overloaded<Little>, apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)> >::type
-    operator()(Little &little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a) BOOST_EGG_ENABLE_ENABLE_IF(0)) const
-    {
-        return little.call(
-            details::overloaded<typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type>()
-        , BOOST_PP_ENUM_PARAMS(n, a));
-    }
-
-    template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename lazy_disable_if_<details::has_boost_egg_overloaded<Little>, apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)> >::type
-    operator()(Little &little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a) BOOST_EGG_ENABLE_ENABLE_IF(1)) const
-    {
-        return little.template call<
-            typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type
-        >(BOOST_PP_ENUM_PARAMS(n, a));
-    }
-
-#else
-
     template<class Little, BOOST_PP_ENUM_PARAMS(n, class A)>
     typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(Little &little, BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
+#if defined(BOOST_EGG_NEEDS_OVERLOADED)
+        return details::overloaded_call_little<Little,
+            typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type
+        >::call(little, BOOST_PP_ENUM_PARAMS(n, a));
+#else
         return little.template call<
             typename apply_little<Little, BOOST_PP_ENUM_PARAMS(n, A)>::type
         >(BOOST_PP_ENUM_PARAMS(n, a));
-    }
 
 #endif
+    }
 
 
 #undef  n

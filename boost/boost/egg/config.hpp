@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_HAS_THREADS, BOOST_HAS_RVALUE_REFS
+#include <boost/config.hpp>
 #include <boost/version.hpp>
 
 
@@ -37,6 +37,11 @@
 
 #if 0 // defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_EGG_DISABLE_RVALUE_REFS)
     #define BOOST_EGG_HAS_RVALUE_REFS
+#endif
+
+
+#if BOOST_WORKAROUND(__GNUC__, == 3)
+    #define BOOST_EGG_NEEDS_OVERLOADED
 #endif
 
 
