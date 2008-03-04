@@ -58,4 +58,17 @@ void egg_example()
     // \x -> my_apply(\y -> plus(x, y), plus(x, 3))
     BOOST_CHECK( my_Apply(lazy(bll_bind)(plus, _1, bll::protect(_1)), Plus(_1, 3))
         (a) == plus(a, a+3) );
+
+
+    typedef result_of_lazy<T_bll_bind>::type T_Bind;
+    T_Bind Bind;
+
+    BOOST_CHECK( my_Apply(Bind(plus, _1, bll::protect(_1)), Plus(_1, 3))
+        (a) == plus(a, a+3) );
+
+    typedef result_of_lazy<T_plus, T_Bind>::type T_PLus;
+    T_PLus PLus;
+
+    BOOST_CHECK( my_Apply(PLus(_1, bll::protect(_1)), Plus(_1, 3))
+        (a) == plus(a, a+3) );
 }
