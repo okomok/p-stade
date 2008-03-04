@@ -92,6 +92,12 @@ void check_include_guards()
     #if !defined(BOOST_EGG_CONST)
         #error oops.
     #endif
+    #if !defined(BOOST_EGG_OVERLOADED_PREAMBLE)
+        #error oops.
+    #endif
+    #if !defined(BOOST_EGG_OVERLOADED)
+        #error oops.
+    #endif
 }
 
 
