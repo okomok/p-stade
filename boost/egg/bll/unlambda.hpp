@@ -14,6 +14,7 @@
 #include <boost/lambda/core.hpp> // unlambda
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/const.hpp>
+#include <boost/egg/overloaded.hpp>
 #include <boost/egg/bll/result_of.hpp> // inclusion guaranteed
 
 

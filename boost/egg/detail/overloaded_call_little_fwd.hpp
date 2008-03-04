@@ -13,14 +13,15 @@
 // Note:
 //
 // A quick workaround applying lazy_enable_if to
-// `egg::call_little` didn't work; gcc-3.4 has ETI bug around lazy_enable_if.
+// `egg::call_little::operator()` didn't work,
+// for gcc-3.4 has ETI bug around lazy_enable_if.
 
 
 #include <boost/egg/config.hpp>
 
 
 #if !defined(BOOST_EGG_NEEDS_OVERLOADED)
-    #error This header is needed only with BOOST_EGG_NEEDS_OVERLOADED.
+    #error This header is needed only for BOOST_EGG_NEEDS_OVERLOADED.
 #endif
 
 
