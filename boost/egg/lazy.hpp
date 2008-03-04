@@ -107,7 +107,7 @@ namespace boost { namespace egg {
 
     }
 
-    // 2level-
+    // 1level-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_LAZY_MAX_LEVEL, <boost/egg/lazy.hpp>))
     #include BOOST_PP_ITERATE()
 
