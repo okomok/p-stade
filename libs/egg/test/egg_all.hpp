@@ -66,6 +66,7 @@
 #include <boost/egg/move_assign.hpp>
 #include <boost/egg/new.hpp>
 #include <boost/egg/new_array.hpp>
+#include <boost/egg/overloaded.hpp>
 #include <boost/egg/ptr_new.hpp>
 #include <boost/egg/resolve.hpp>
 #include <boost/egg/shared_new.hpp>

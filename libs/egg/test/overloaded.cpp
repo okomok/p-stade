@@ -8,15 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./egg_test.hpp"
-
-
-#include <boost/egg/by_perfect.hpp>
-#include <boost/egg/by_cref.hpp>
-#include <boost/egg/by_ref.hpp>
-#include <boost/egg/by_value.hpp>
-#include <boost/egg/function_facade.hpp>
-#include <boost/utility/addressof.hpp>
+#include <boost/egg/overloaded.hpp>
 
 
 //[code_example_overloaded
@@ -42,6 +34,15 @@ struct little_foo
         return a1;
     }
 };
+
+
+#include "./egg_test.hpp"
+#include <boost/egg/by_perfect.hpp>
+#include <boost/egg/by_cref.hpp>
+#include <boost/egg/by_ref.hpp>
+#include <boost/egg/by_value.hpp>
+#include <boost/egg/function_facade.hpp>
+#include <boost/utility/addressof.hpp>
 
 
 using namespace boost::egg;
