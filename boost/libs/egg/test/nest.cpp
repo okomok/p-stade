@@ -71,7 +71,7 @@ void egg_test()
     {
         // \x -> (\y -> foo(x, y, 30))
         typedef result_of_nest2<T_foo>::type T_FOO;
-        T_FOO FOO;
+        T_FOO FOO = BOOST_EGG_NEST({});
         BOOST_CHECK( FOO(lv0(_1), lv1(_1), 30)(6)(1) == foo(6,1,30) );
     }
 }
