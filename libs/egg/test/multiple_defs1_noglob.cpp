@@ -102,7 +102,7 @@ void check_include_guards()
     using egg::apply_little;
     using egg::call_little;
 
-    using egg::nest;
+    using egg::nest2;
     using egg::lv1;
 }
 
