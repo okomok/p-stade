@@ -920,6 +920,80 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 
 
+[/
+
+[section nestN]
+
+[heading Description]
+`nestN` with `lv` is a syntax sugar for nested `lazy` functions,
+which enables you to write complicated lambda expressions.
+
+[heading Header]
+* `<boost/egg/nest.hpp>`
+
+[heading Model of]
+* __CONCEPT_STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `fc(f)` is an object of `result_of_nest##N<_typeof(f), Bind>::type` initialized using `f` or an initializer.
+* `bind_` is `bll_bind` if `Bind` is `_ud`, `Bind()` otherwise.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_nest##K<F, Bind = _ud>::type`]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`BOOST_EGG_NEST_L init BOOST_EGG_NEST_R`]
+        [A braced initializer of `result_of_nest##N<F>::type`]
+    ]
+    [
+        [`BOOST_EGG_NEST(I)`]
+        [`BOOST_EGG_NEST_L I BOOST_EGG_NEST_R`]
+    ]
+    [
+        [`fc(f)(a1,...,aN)`]
+        [__POLYMORPHIC__ `lazy(lazy(...K times...(bind_)...))(fwd_arg_list([f]++a, by_value))`]
+    ]
+    [
+        [`nest##K(f)`]
+        [`fc(f)`]
+    ]
+    [
+        [`lv##M(f)`]
+        [`boost::lambda::protect(boost::lambda::protect(...M times...(f)...))`]
+    ]
+]
+
+[heading Preconditions]
+* `1 <= K && K <= 5`.
+* `0 <= M && M <= 4`.
+* There is a `f_` such that `F f_ = init;` is a valid expression.
+* __PRECONDITION_AS_IS__
+
+[heading Invariants]
+* `result_of_lazy<F>::type` is __POD__ if and only if `F` is __POD__.
+
+[heading Example]
+[import ../example/nest.cpp]
+[code_example_nest]
+
+[heading See also]
+* __EGG_LAZY__
+* __BOOST_PHOENIX__
+* __BOOST_LAMBDA__
+
+[endsect]
+
+]
+
+
+
 
 [section perfect]
 

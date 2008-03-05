@@ -9,71 +9,34 @@
 
 
 #include <boost/egg/nest.hpp>
-#include <boost/egg/lazy.hpp>
-#include <boost/egg/bll/bind.hpp>
-#include <boost/egg/functional.hpp> // plus
+#include <functional> // plus
+#include <boost/egg/apply.hpp>
 
 
 #include "./using_bll.hpp"
 #include "./egg_example.hpp"
 
 
-struct T_my_apply
+int foo(int i, int j, int k)
 {
-    typedef int result_type;
-
-    template<class F>
-    int operator()(F f, int n) const
-    {
-        return f(n);
-    }
-};
-
-T_my_apply const my_apply = {};
-
-result_of_lazy<T_my_apply>::type const my_Apply = BOOST_EGG_LAZY({});
+    return i + j - k;
+}
 
 
+//[code_example_nest
 void egg_example()
 {
-    result_of_<T_lazy(T_plus const&)>::type Plus = lazy(plus);
-
     using bll::_1;
     using bll::_2;
+    std::plus<int> plus;
+    std::minus<int> minus;
 
-    int a = 3, b = 5;
+    // \x -> (\y -> (\z -> foo(y,z,x)))
+    BOOST_CHECK( nest3(foo)(lv1(_1), lv2(_1), lv0(_1)) /*< Works as `curry3`. >*/
+        (3)(6)(1) == foo(6,1,3) );
 
-    // \x -> plus(7, x)
-    BOOST_CHECK( Plus(7, _1)
-        (a) == plus(7, a) );
-
-    // \(x,y) -> plus(plus(x), y)
-    BOOST_CHECK( Plus(Plus(4, _1), _2)
-        (a, b) == plus(plus(4, a), b) );
-
-    // \x -> (\y -> plus(x, y))
-    BOOST_CHECK( lazy(bll_bind)(plus, _1, bll::protect(_1))
-        (a)(b) == plus(a, b) );
-
-    // complicated
-    // \x -> my_apply(\y -> plus(x, y), plus(x, 3))
-    BOOST_CHECK( my_Apply(lazy(bll_bind)(plus, _1, bll::protect(_1)), Plus(_1, 3))
-        (a) == plus(a, a+3) );
-
-
-    typedef result_of_lazy<T_bll_bind>::type T_Bind;
-    T_Bind Bind;
-
-    BOOST_CHECK( my_Apply(Bind(plus, _1, bll::protect(_1)), Plus(_1, 3))
-        (a) == plus(a, a+3) );
-
-    typedef result_of_lazy<T_plus, T_Bind>::type T_PLus;
-    T_PLus PLus;
-
-    BOOST_CHECK( my_Apply(PLus(_1, bll::protect(_1)), Plus(_1, 3))
-        (a) == plus(a, a+3) );
-
-    // using `nest` and `lv`
-    BOOST_CHECK( nest1(my_apply)(nest2(plus)(lv0(_1), lv1(_1)), nest1(plus)(lv0(_1), 3))
-        (a) == plus(a, a+3) );
+    // \x -> apply(\y -> minus(x,y), plus(x,3))
+    BOOST_CHECK( nest1(apply)(nest2(minus)(lv0(_1), lv1(_1)), nest1(plus)(lv0(_1), 3)) /*< By the definition, `nest1` has the same semantics as __EGG_LAZY__. >*/
+        (9) == minus(9, plus(9,3))  );
 }
+//]
