@@ -57,17 +57,20 @@ void egg_test()
         typedef result_of_lazy<T_foo, T_BInd>::type T_FOO;
         T_FOO FOO;
         BOOST_CHECK( FOO(lv0(_1), lv1(_1), lv2(_1))(6)(1)(3) == foo(6,1,3) );
-        BOOST_CHECK( nest2(foo)(lv0(_1), lv1(_1), lv2(_1))(6)(1)(3) == foo(6,1,3) );
+        BOOST_CHECK( nest3(foo)(lv0(_1), lv1(_1), lv2(_1))(6)(1)(3) == foo(6,1,3) );
+    }
+    {
+        BOOST_CHECK( nest1(foo)(1,2,_1)(3) == foo(1,2,3) );
     }
     {
         // \x -> (\y -> (\z -> foo(x,y,z))
-        typedef result_of_nest2<T_foo>::type T_FOO;
+        typedef result_of_nest3<T_foo>::type T_FOO;
         T_FOO FOO;
         BOOST_CHECK( FOO(lv0(_1), lv1(_1), lv2(_1))(6)(1)(3) == foo(6,1,3) );
     }
     {
         // \x -> (\y -> foo(x, y, 30))
-        typedef result_of_nest1<T_foo>::type T_FOO;
+        typedef result_of_nest2<T_foo>::type T_FOO;
         T_FOO FOO;
         BOOST_CHECK( FOO(lv0(_1), lv1(_1), 30)(6)(1) == foo(6,1,30) );
     }
