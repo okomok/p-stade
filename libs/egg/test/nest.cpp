@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/level.hpp>
+#include <boost/egg/nest.hpp>
 #include "./egg_test.hpp"
 
 
@@ -44,11 +44,11 @@ void egg_test()
 
     {
         int i = 3, j = 9;
-        BOOST_CHECK( level_0(i) == i );
-        BOOST_CHECK( level_0(_1)(i) == i );
-        BOOST_CHECK( level_1(_1)(j)(i) == i );
-        BOOST_CHECK( level_2(_1)(j)(j)(i) == i );
-        BOOST_CHECK( level_3(_1)(j)(j)(j)(i) == i );
+        BOOST_CHECK( lv0(i) == i );
+        BOOST_CHECK( lv0(_1)(i) == i );
+        BOOST_CHECK( lv1(_1)(j)(i) == i );
+        BOOST_CHECK( lv2(_1)(j)(j)(i) == i );
+        BOOST_CHECK( lv3(_1)(j)(j)(j)(i) == i );
     }
     {
         // \x -> (\y -> (\z -> foo(x,y,z))
@@ -56,19 +56,19 @@ void egg_test()
         typedef result_of_lazy<T_bll_bind, T_Bind>::type T_BInd;
         typedef result_of_lazy<T_foo, T_BInd>::type T_FOO;
         T_FOO FOO;
-        BOOST_CHECK( FOO(level_0(_1), level_1(_1), level_2(_1))(6)(1)(3) == foo(6,1,3) );
-        BOOST_CHECK( lazy_2(foo)(level_0(_1), level_1(_1), level_2(_1))(6)(1)(3) == foo(6,1,3) );
+        BOOST_CHECK( FOO(lv0(_1), lv1(_1), lv2(_1))(6)(1)(3) == foo(6,1,3) );
+        BOOST_CHECK( nest2(foo)(lv0(_1), lv1(_1), lv2(_1))(6)(1)(3) == foo(6,1,3) );
     }
     {
         // \x -> (\y -> (\z -> foo(x,y,z))
-        typedef result_of_lazy_2<T_foo>::type T_FOO;
+        typedef result_of_nest2<T_foo>::type T_FOO;
         T_FOO FOO;
-        BOOST_CHECK( FOO(level_0(_1), level_1(_1), level_2(_1))(6)(1)(3) == foo(6,1,3) );
+        BOOST_CHECK( FOO(lv0(_1), lv1(_1), lv2(_1))(6)(1)(3) == foo(6,1,3) );
     }
     {
         // \x -> (\y -> foo(x, y, 30))
-        typedef result_of_lazy_1<T_foo>::type T_FOO;
+        typedef result_of_nest1<T_foo>::type T_FOO;
         T_FOO FOO;
-        BOOST_CHECK( FOO(level_0(_1), level_1(_1), 30)(6)(1) == foo(6,1,30) );
+        BOOST_CHECK( FOO(lv0(_1), lv1(_1), 30)(6)(1) == foo(6,1,30) );
     }
 }
