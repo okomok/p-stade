@@ -8,6 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/egg/nest.hpp>
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/bll/bind.hpp>
 #include <boost/egg/functional.hpp> // plus
@@ -70,5 +71,9 @@ void egg_example()
     T_PLus PLus;
 
     BOOST_CHECK( my_Apply(PLus(_1, bll::protect(_1)), Plus(_1, 3))
+        (a) == plus(a, a+3) );
+
+    // using `nest` and `lv`
+    BOOST_CHECK( nest1(my_apply)(nest2(plus)(lv0(_1), lv1(_1)), nest1(plus)(lv0(_1), 3))
         (a) == plus(a, a+3) );
 }
