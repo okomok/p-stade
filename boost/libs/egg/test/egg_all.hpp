@@ -61,12 +61,12 @@
 #include <boost/egg/integral.hpp>
 #include <boost/egg/is_same_obj.hpp>
 #include <boost/egg/lazy.hpp>
-#include <boost/egg/level.hpp>
 #include <boost/egg/lexical.hpp>
 #include <boost/egg/locale.hpp>
 #include <boost/egg/memoize.hpp>
 #include <boost/egg/mono.hpp>
 #include <boost/egg/move_assign.hpp>
+#include <boost/egg/nest.hpp>
 #include <boost/egg/new.hpp>
 #include <boost/egg/new_array.hpp>
 #include <boost/egg/overloaded.hpp>
