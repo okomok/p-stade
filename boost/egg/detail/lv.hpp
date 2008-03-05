@@ -88,12 +88,6 @@ namespace boost { namespace egg {
     typedef result_of_compose<T_lv1, T_lv3, use_default, by_value>::type T_lv4;
     BOOST_EGG_CONST((T_lv4), lv4) = BOOST_EGG_LV4_INIT;
 
-#if 0 // msvc C1054 error
-    #define BOOST_EGG_LV5_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_LV1_INIT, BOOST_EGG_LV4_INIT BOOST_EGG_COMPOSE_R
-    typedef result_of_compose<T_lv1, T_lv4, use_default, by_value>::type T_lv5;
-    BOOST_EGG_CONST((T_lv5), lv5) = BOOST_EGG_LV5_INIT;
-#endif
-
 
 } } // namespace boost::egg
 
