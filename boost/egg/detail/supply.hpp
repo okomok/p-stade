@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef BOOST_EGG_DETAIL_SUPPLY_N_HPP
-#define BOOST_EGG_DETAIL_SUPPLY_N_HPP
+#ifndef BOOST_EGG_DETAIL_SUPPLY_HPP
+#define BOOST_EGG_DETAIL_SUPPLY_HPP
 
 
 // Boost.Egg
@@ -69,7 +69,7 @@ namespace boost { namespace egg { namespace details {
     };
 
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <boost/egg/detail/supply_n.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <boost/egg/detail/supply.hpp>))
     #include BOOST_PP_ITERATE()
 
 

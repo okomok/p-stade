@@ -19,7 +19,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/construct.hpp>
-#include <boost/egg/detail/supply_n.hpp>
+#include <boost/egg/detail/supply.hpp>
 #include <boost/egg/detail/use_nullary_result.hpp>
 
 
