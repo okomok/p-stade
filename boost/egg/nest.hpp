@@ -29,7 +29,7 @@ namespace boost { namespace egg {
 
     #define BOOST_EGG_NEST_L BOOST_EGG_LAZY_L
     #define BOOST_EGG_NEST_R BOOST_EGG_LAZY_R
-    #define BOOST_EGG_NEST(F) BOOST_EGG_NEST_L F BOOST_NEST_R
+    #define BOOST_EGG_NEST(F) BOOST_EGG_NEST_L F BOOST_EGG_NEST_R
 
 
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_NEST_MAX_LEVEL, <boost/egg/nest.hpp>))
