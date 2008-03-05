@@ -32,17 +32,6 @@ namespace boost { namespace egg {
     #define BOOST_EGG_NEST(F) BOOST_EGG_NEST_L F BOOST_NEST_R
 
 
-    namespace nest0_detail {
-
-        template<class Bind>
-        struct nested
-        {
-            typedef Bind type;
-        };
-
-    }
-
-    // 1level-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_NEST_MAX_LEVEL, <boost/egg/nest.hpp>))
     #include BOOST_PP_ITERATE()
 
@@ -54,16 +43,21 @@ namespace boost { namespace egg {
 #endif
 #else
 #define n BOOST_PP_ITERATION()
-#define n_1 BOOST_PP_DEC(n)
 
 
     namespace BOOST_EGG_PP_CAT3(nest, n, _detail) {
-
+#if n == 1
+        template<class Bind>
+        struct nested
+        {
+            typedef Bind type;
+        };
+#else
         template<class Bind>
         struct nested :
-            result_of_lazy<Bind, typename BOOST_EGG_PP_CAT3(nest, n_1, _detail)::nested<Bind>::type>
+            result_of_lazy<Bind, typename BOOST_EGG_PP_CAT3(nest, BOOST_PP_DEC(n), _detail)::nested<Bind>::type>
         { };
-
+#endif
     }
 
     template<class Base, class Bind = use_default>
@@ -89,6 +83,5 @@ namespace boost { namespace egg {
     BOOST_EGG_CONST((BOOST_PP_CAT(T_nest, n)), BOOST_PP_CAT(nest, n)) = BOOST_EGG_GENERATOR();
 
 
-#undef  n_1
 #undef  n
 #endif
