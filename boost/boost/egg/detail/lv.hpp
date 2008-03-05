@@ -1,6 +1,5 @@
 #ifndef BOOST_EGG_LEVEL_HPP
 #define BOOST_EGG_LEVEL_HPP
-#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -24,7 +23,7 @@
 namespace boost { namespace egg {
 
 
-    namespace level_detail {
+    namespace lv_detail {
 
 
         struct little
@@ -38,7 +37,7 @@ namespace boost { namespace egg {
             };
 
             template<class Me, class Arg>
-            struct apply< Me, lambda::lambda_functor<Arg> const >
+            struct apply<Me, lambda::lambda_functor<Arg> const>
             {
                 typedef
                     lambda::lambda_functor<
@@ -68,31 +67,30 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace level
+    } // namespace lv_detail
 
 
-    typedef static_<X_identity<mpl::_1>, by_cref>::type T_level_0;
-    BOOST_EGG_CONST((T_level_0), level_0) = BOOST_EGG_STATIC();
+    typedef X_identity<by_cref>::base_class T_lv0;
+    BOOST_EGG_CONST((T_lv0), lv0) = {{}};
 
     #define BOOST_EGG_LEVEL_1_INIT {{}}
-    typedef function<level_detail::little, by_cref> T_level_1;
-    BOOST_EGG_CONST((T_level_1), level_1) = BOOST_EGG_LEVEL_1_INIT;
+    typedef function<lv_detail::little, by_cref> T_lv1;
+    BOOST_EGG_CONST((T_lv1), lv1) = BOOST_EGG_LEVEL_1_INIT;
 
     #define BOOST_EGG_LEVEL_2_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_LEVEL_1_INIT, BOOST_EGG_LEVEL_1_INIT BOOST_EGG_COMPOSE_R
-    typedef result_of_compose<T_level_1, T_level_1, use_default, by_cref>::type T_level_2;
-    BOOST_EGG_CONST((T_level_2), level_2) = BOOST_EGG_LEVEL_2_INIT;
+    typedef result_of_compose<T_lv1, T_lv1, use_default, by_cref>::type T_lv2;
+    BOOST_EGG_CONST((T_lv2), lv2) = BOOST_EGG_LEVEL_2_INIT;
 
     #define BOOST_EGG_LEVEL_3_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_LEVEL_1_INIT, BOOST_EGG_LEVEL_2_INIT BOOST_EGG_COMPOSE_R
-    typedef result_of_compose<T_level_1, T_level_2, use_default, by_cref>::type T_level_3;
-    BOOST_EGG_CONST((T_level_3), level_3) = BOOST_EGG_LEVEL_3_INIT;
+    typedef result_of_compose<T_lv1, T_lv2, use_default, by_cref>::type T_lv3;
+    BOOST_EGG_CONST((T_lv3), lv3) = BOOST_EGG_LEVEL_3_INIT;
 
     #define BOOST_EGG_LEVEL_4_INIT BOOST_EGG_COMPOSE_L BOOST_EGG_LEVEL_1_INIT, BOOST_EGG_LEVEL_3_INIT BOOST_EGG_COMPOSE_R
-    typedef result_of_compose<T_level_1, T_level_3, use_default, by_cref>::type T_level_4;
-    BOOST_EGG_CONST((T_level_4), level_4) = BOOST_EGG_LEVEL_4_INIT;
+    typedef result_of_compose<T_lv1, T_lv3, use_default, by_cref>::type T_lv4;
+    BOOST_EGG_CONST((T_lv4), lv4) = BOOST_EGG_LEVEL_4_INIT;
 
 
 } } // namespace boost::egg
 
 
-#include <boost/egg/detail/suffix.hpp>
 #endif

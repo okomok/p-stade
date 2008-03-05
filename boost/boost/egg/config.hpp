@@ -32,8 +32,8 @@
 #endif
 
 
-#if !defined(BOOST_EGG_LAZY_MAX_LEVEL)
-    #define BOOST_EGG_LAZY_MAX_LEVEL 5
+#if !defined(BOOST_EGG_NEST_MAX_LEVEL)
+    #define BOOST_EGG_NEST_MAX_LEVEL 5
 #endif
 
 
