@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef BOOST_EGG_LAZY_HPP
 #define BOOST_EGG_LAZY_HPP
 #include <boost/egg/detail/prefix.hpp>
@@ -12,13 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/egg/bll/bind.hpp>
 #include <boost/egg/by_ref.hpp>
 #include <boost/egg/by_value.hpp>
-#include <boost/egg/config.hpp> // BOOST_EGG_LAZY_MAX_LEVEL
 #include <boost/egg/const.hpp>
 #include <boost/egg/construct_variadic1.hpp>
 #include <boost/egg/detail/derived_from.hpp>
@@ -26,7 +21,6 @@
 #include <boost/egg/detail/tuple_fuse.hpp>
 #include <boost/egg/detail/tuple_prepend.hpp>
 #include <boost/egg/generator.hpp>
-#include <boost/egg/preprocessor/cat3.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/variadic.hpp>
 
@@ -97,63 +91,8 @@ namespace boost { namespace egg {
     BOOST_EGG_CONST((T_lazy), lazy) = BOOST_EGG_GENERATOR();
 
 
-    namespace lazy_0_detail {
-
-        template<class Bind>
-        struct nested
-        {
-            typedef Bind type;
-        };
-
-    }
-
-    // 1level-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_LAZY_MAX_LEVEL, <boost/egg/lazy.hpp>))
-    #include BOOST_PP_ITERATE()
-
-
 } } // namespace boost::egg
 
 
 #include <boost/egg/detail/suffix.hpp>
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-#define n_1 BOOST_PP_DEC(n)
-
-
-    namespace BOOST_EGG_PP_CAT3(lazy_, n, _detail) {
-
-        template<class Bind>
-        struct nested :
-            result_of_lazy<Bind, typename BOOST_EGG_PP_CAT3(lazy_, n_1, _detail)::nested<Bind>::type>
-        { };
-
-    }
-
-    template<class Base, class Bind = use_default>
-    struct BOOST_PP_CAT(result_of_lazy_, n) :
-        result_of_lazy<
-            Base,
-            typename BOOST_EGG_PP_CAT3(lazy_, n, _detail)::nested<
-                typename details::if_use_default<Bind, T_bll_bind>::type
-            >::type
-        >
-    { };
-
-    template<class Bind = use_default>
-    struct BOOST_PP_CAT(X_lazy_, n) :
-        X_lazy<
-            typename BOOST_EGG_PP_CAT3(lazy_, n, _detail)::nested<
-                typename details::if_use_default<Bind, T_bll_bind>::type
-            >::type
-        >
-    { };
-
-    typedef BOOST_PP_CAT(X_lazy_, n)<>::base_class BOOST_PP_CAT(T_lazy_, n);
-    BOOST_EGG_CONST((BOOST_PP_CAT(T_lazy_, n)), BOOST_PP_CAT(lazy_, n)) = BOOST_EGG_GENERATOR();
-
-
-#undef  n_1
-#undef  n
 #endif
