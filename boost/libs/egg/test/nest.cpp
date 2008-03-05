@@ -38,9 +38,29 @@ struct T_foo
 T_foo const foo = {};
 
 
+struct T_weird
+{
+    typedef int result_type;
+
+    template<class F>
+    int operator()(int a, int b, F f) const
+    {
+        return f(b) - a;
+    }
+};
+
+T_weird const weird = {};
+
+int my_plus(int i, int j)
+{
+    return i + j;
+}
+
+
 void egg_test()
 {
     using bll::_1;
+    using bll::_2;
 
     {
         int i = 3, j = 9;
@@ -73,5 +93,10 @@ void egg_test()
         typedef result_of_nest2<T_foo>::type T_FOO;
         T_FOO FOO = BOOST_EGG_NEST({});
         BOOST_CHECK( FOO(lv0(_1), lv1(_1), 30)(6)(1) == foo(6,1,30) );
+    }
+    {
+        // \x -> \y,z -> weird(y, z, \w -> my_plus(x, w))
+        BOOST_CHECK( nest2(weird)(lv1(_1), lv1(_2), nest3(my_plus)(lv0(_1), lv2(_1))) (3)(8,7)
+            == my_plus(3, 7) - 8 );
     }
 }
