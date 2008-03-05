@@ -768,8 +768,16 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [__POLYMORPHIC__ `bind_(_fwd_arg_list([f]++a, by_value))`]
     ]
     [
-        [`lazy(f)`]
+        [`X_lazy<Bind = _ud>`]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_lazy<Bind>()(f)`]
         [`fc(f)`]
+    ]
+    [
+        [`lazy`]
+        [`X_lazy<>()`]
     ]
 ]
 
@@ -778,7 +786,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_lazy<F>::type` is __POD__ if and only if `F` is __POD__.
+* `result_of_lazy<F, Bind>::type` is __POD__ if and only if `F` is __POD__.
 
 [heading Example]
 [import ../example/lazy.cpp]
@@ -920,12 +928,13 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 
 
+
 [/
 
-[section nestN]
+[section nestK]
 
 [heading Description]
-`nestN` with `lv` is a syntax sugar for nested `lazy` functions,
+`nestK` with `lvK` is a syntax sugar for nested `lazy` functions,
 which enables you to write complicated lambda expressions.
 
 [heading Header]
@@ -935,8 +944,11 @@ which enables you to write complicated lambda expressions.
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(f)` is an object of `result_of_nest##N<_typeof(f), Bind>::type` initialized using `f` or an initializer.
+* `fc(f)` is an object of `result_of_nest##K<_typeof(f), Bind>::type` initialized using `f` or an initializer.
 * `bind_` is `bll_bind` if `Bind` is `_ud`, `Bind()` otherwise.
+* `BIND(K)` is:
+    * `_typeof(bind_)` if `K == 1`.
+    * `result_of_lazy<_typeof(bind_), result_of_lazy<_typeof(bind_),...K-1 times...>::type>::type` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -950,7 +962,7 @@ which enables you to write complicated lambda expressions.
     ]
     [
         [`BOOST_EGG_NEST_L init BOOST_EGG_NEST_R`]
-        [A braced initializer of `result_of_nest##N<F>::type`]
+        [A braced initializer of `result_of_nest##K<F>::type`]
     ]
     [
         [`BOOST_EGG_NEST(I)`]
@@ -958,11 +970,19 @@ which enables you to write complicated lambda expressions.
     ]
     [
         [`fc(f)(a1,...,aN)`]
-        [__POLYMORPHIC__ `lazy(lazy(...K times...(bind_)...))(fwd_arg_list([f]++a, by_value))`]
+        [__POLYMORPHIC__ `X_lazy<BIND(K)>()(f)(_fwd_arg_list(a, by_value))`]
+    ]
+    [
+        [`X_nest##K<Bind = _ud>`]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_nest##K<Bind>()(f)`]
+        [`fc(f)`]
     ]
     [
         [`nest##K(f)`]
-        [`fc(f)`]
+        [`X_nest##K<>()(f)`]
     ]
     [
         [`lv##M(f)`]
@@ -977,7 +997,7 @@ which enables you to write complicated lambda expressions.
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_lazy<F>::type` is __POD__ if and only if `F` is __POD__.
+* `result_of_nest##K<F, Bind>::type` is __POD__ if and only if `F` is __POD__.
 
 [heading Example]
 [import ../example/nest.cpp]
