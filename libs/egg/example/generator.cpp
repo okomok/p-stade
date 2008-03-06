@@ -42,7 +42,7 @@ void egg_example()
     BOOST_CHECK( make_pair(10, std::string("generator"))
         == std::make_pair(10, std::string("generator")) );
 
-    int ten = 10;
-    BOOST_CHECK( &(boost::get<1>(my_pack('a', ten))) == &ten );
+    int _10_ = 10;
+    BOOST_CHECK( &(boost::get<1>(my_pack('a', _10_))) == &_10_ );
 }
 //]
