@@ -22,7 +22,20 @@
 namespace boost { namespace egg { namespace details {
 
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_NEST_MAX_LEVEL, <boost/egg/detail/nest_impl.hpp>))
+// level1
+    template<class Bind>
+    struct nest_impl1_with
+    {
+        typedef Bind type;
+    };
+
+    template<class Bind>
+    struct X_nest_impl1 :
+        X_lazy<typename nest_impl1_with<Bind>::type>
+    { };
+
+// level2-
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, BOOST_EGG_NEST_MAX_LEVEL, <boost/egg/detail/nest_impl.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -34,25 +47,18 @@ namespace boost { namespace egg { namespace details {
 #define n BOOST_PP_ITERATION()
 
 
-    namespace BOOST_EGG_PP_CAT3(nest_impl, n, _detail) {
-#if n == 1
-        template<class Bind>
-        struct with_
-        {
-            typedef Bind type;
-        };
-#else
-        template<class Bind>
-        struct with_ :
-            result_of_lazy<Bind, typename BOOST_EGG_PP_CAT3(nest_impl, BOOST_PP_DEC(n), _detail)::with_<Bind>::type>
-        { };
-#endif
-    }
+    template<class Bind>
+    struct BOOST_EGG_PP_CAT3(nest_impl, n, _with) :
+        result_of_lazy<
+            Bind,
+            typename BOOST_EGG_PP_CAT3(nest_impl, BOOST_PP_DEC(n), _with)<Bind>::type
+        >
+    { };
 
     template<class Bind>
     struct BOOST_PP_CAT(X_nest_impl, n) :
         X_lazy<
-            typename BOOST_EGG_PP_CAT3(nest_impl, n, _detail)::with_<Bind>::type
+            typename BOOST_EGG_PP_CAT3(nest_impl, n, _with)::with<Bind>::type
         >
     { };
 
