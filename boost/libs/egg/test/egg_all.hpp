@@ -120,6 +120,7 @@
 #include <boost/egg/bll/optional.hpp>
 #include <boost/egg/bll/placeholders.hpp>
 #include <boost/egg/bll/poly.hpp>
+#include <boost/egg/bll/protect.hpp>
 #include <boost/egg/bll/sig_impl.hpp>
 #include <boost/egg/bll/string.hpp>
 #include <boost/egg/bll/result_of.hpp>
