@@ -34,6 +34,7 @@ namespace boost { namespace egg { namespace details {
         X_lazy<typename nest_impl1_with<Bind>::type>
     { };
 
+
 // level2-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, BOOST_EGG_MAX_NEST_LEVEL, <boost/egg/detail/nest_impl.hpp>))
     #include BOOST_PP_ITERATE()
