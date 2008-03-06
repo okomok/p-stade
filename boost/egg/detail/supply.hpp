@@ -30,7 +30,7 @@
 #include <boost/egg/preprocessor/cat3.hpp>
 #include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/detail/affect.hpp>
-#include <boost/egg/detail/is_placeholder_expression.hpp>
+#include <boost/egg/detail/is_mpl_placeholder_expr.hpp>
 #include <boost/egg/detail/template_arguments.hpp>
 
 
@@ -92,7 +92,7 @@ namespace boost { namespace egg { namespace details {
 
     template<class Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
     struct BOOST_PP_CAT(supply, n) :
-        mpl::eval_if< is_placeholder_expression<Expr>,
+        mpl::eval_if< is_mpl_placeholder_expr<Expr>,
             supply_placeholder<Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>,
             BOOST_EGG_PP_CAT3(supply, n, _meta)<Expr BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>
         >
