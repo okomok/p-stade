@@ -25,6 +25,7 @@
     #include <boost/egg/apply_decl.hpp>
     #include <boost/egg/by_perfect.hpp>
     #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+    #include <boost/egg/detail/boost_is_placeholder_fwd.hpp>
     #include <boost/egg/detail/derived_from.hpp>
     #include <boost/egg/detail/ignore_unused.hpp>
     #include <boost/egg/forward.hpp>
@@ -66,9 +67,6 @@
 
     namespace boost {
 
-
-        template<class T>
-        struct is_placeholder;
 
         template<int N, class Strategy>
         struct is_placeholder< egg::X_arg<N, Strategy> >
