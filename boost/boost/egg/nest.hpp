@@ -63,19 +63,13 @@ namespace boost { namespace egg {
         template<class Bind, class Protect>
         struct little
         {
-#if n != 1
-            typedef function<BOOST_EGG_PP_CAT3(nest, BOOST_PP_DEC(n), _detail)::little<Bind, Protect>, by_value> S_nestN_1;
-#endif
+            typedef BOOST_PP_CAT(X_nest, BOOST_PP_DEC(n))<Bind, Protect> S_nestN_1;
             typedef BOOST_PP_CAT(details::X_nest_impl, n)<Bind> S_nest_implN;
 
             template<class Me, class Fun>
             struct apply :
                 mpl::eval_if< is_placeholder_<Fun>,
-#if n == 1
-                    result_of_<Protect(Fun &)>,
-#else
                     result_of_<Protect(typename result_of_<S_nestN_1(Fun &)>::type)>,
-#endif
                     result_of_<S_nest_implN(Fun &)>
                 >
             { };
@@ -83,11 +77,7 @@ namespace boost { namespace egg {
             template<class Re, class Fun>
             Re call(Fun fun, typename enable_if_< is_placeholder_<Fun> >::type = 0) const
             {
-#if n == 1
-                return Protect()(fun);
-#else
                 return Protect()(S_nestN_1()(fun));
-#endif
             }
 
             template<class Re, class Fun>
