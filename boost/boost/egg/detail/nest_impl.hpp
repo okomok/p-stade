@@ -14,7 +14,7 @@
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/egg/config.hpp> // BOOST_EGG_NEST_MAX_LEVEL
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_NEST_LEVEL
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/preprocessor/cat3.hpp>
 
@@ -35,11 +35,11 @@ namespace boost { namespace egg { namespace details {
     { };
 
 // level2-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, BOOST_EGG_NEST_MAX_LEVEL, <boost/egg/detail/nest_impl.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, BOOST_EGG_MAX_NEST_LEVEL, <boost/egg/detail/nest_impl.hpp>))
     #include BOOST_PP_ITERATE()
 
 
-} } // namespace boost::egg::details
+} } } // namespace boost::egg::details
 
 
 #endif
@@ -58,7 +58,7 @@ namespace boost { namespace egg { namespace details {
     template<class Bind>
     struct BOOST_PP_CAT(X_nest_impl, n) :
         X_lazy<
-            typename BOOST_EGG_PP_CAT3(nest_impl, n, _with)::with<Bind>::type
+            typename BOOST_EGG_PP_CAT3(nest_impl, n, _with)<Bind>::type
         >
     { };
 

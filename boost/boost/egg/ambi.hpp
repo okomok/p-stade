@@ -44,7 +44,7 @@ namespace boost { namespace egg {
     #define BOOST_EGG_AMBI(F) BOOST_EGG_AMBI_L F BOOST_EGG_AMBI_R
 
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_PIPABLE_MAX_ARITY, <boost/egg/ambi.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_PIPABLE_ARITY, <boost/egg/ambi.hpp>))
     #include BOOST_PP_ITERATE()
 
 

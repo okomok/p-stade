@@ -18,7 +18,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/apply_decl.hpp>
 #include <boost/egg/by_ref.hpp>
-#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY, BOOST_EGG_PIPABLE_MAX_ARITY
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY, BOOST_EGG_MAX_PIPABLE_ARITY
 #include <boost/egg/function_fwd.hpp>
 #include <boost/egg/pack.hpp>
 #include <boost/egg/preprocessor/enum_params_with.hpp>
@@ -95,10 +95,10 @@ namespace pipable_operators {
         }
 
     // 1ary-
-        template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_PIPABLE_MAX_ARITY, A)>
+        template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_PIPABLE_ARITY, A)>
         struct BOOST_EGG_APPLY_DECL;
 
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_PIPABLE_MAX_ARITY, <boost/egg/detail/little_pipable_result.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_PIPABLE_ARITY, <boost/egg/detail/little_pipable_result.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
