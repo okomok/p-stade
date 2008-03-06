@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_DETAIL_IS_PLACEHOLDER_EXPRESSION_HPP
-#define BOOST_EGG_DETAIL_IS_PLACEHOLDER_EXPRESSION_HPP
+#ifndef BOOST_EGG_DETAIL_IS_MPL_PLACEHOLDER_EXPR_HPP
+#define BOOST_EGG_DETAIL_IS_MPL_PLACEHOLDER_EXPR_HPP
 
 
 // Boost.Egg
@@ -18,7 +18,7 @@ namespace boost { namespace egg { namespace details {
 
 
     template<class Expr>
-    struct is_placeholder_expression :
+    struct is_mpl_placeholder_expr :
         mpl::is_lambda_expression<typename remove_cv<Expr>::type>
     { };
 
