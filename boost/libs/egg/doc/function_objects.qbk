@@ -372,6 +372,9 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+
+[/
+
 [section bll_bind]
 
 [heading Description]
@@ -455,6 +458,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __EGG_LAZY__
 
 [endsect]
+
+]
 
 
 

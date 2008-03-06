@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/bll/placeholders.hpp>
-#include <boost/egg/bll/bind.hpp>
+#include <boost/egg/lazy.hpp>
 #include <boost/egg/result_of.hpp>
 #include <functional> // plus
 
@@ -24,9 +24,9 @@ void egg_example()
     std::plus<int> plus;
 
     result_of_<
-        T_bll_bind(std::plus<int> &, T_bll_1 const &, int)
+        result_of_<T_lazy(std::plus<int> &)>::type(T_bll_1 const &, int)
     >::type
-        f = bll_bind(plus, bll_1, 10);
+        f = lazy(plus)(bll_1, 10);
 
     int _2_ = 2;
     BOOST_CHECK( f(_2_) == 12 );

@@ -27,6 +27,7 @@ void egg_example()
     int r =
         fix2(
             bll::ret<int>(
+                // \(f,a) -> a == 0 ? 1 : a * f(a-1)
                 bll::if_then_else_return( _2 == 0,
                     1,
                     _2 * lazy(_1)(_2 - 1)

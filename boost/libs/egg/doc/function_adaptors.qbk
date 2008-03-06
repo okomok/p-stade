@@ -743,7 +743,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Notation]
 * `fc(f)` is an object of `result_of_lazy<_typeof(f), Bind>::type` initialized using `f` or an initializer.
-* `bind_` is `bll_bind` if `Bind` is `_ud`, `Bind()` otherwise.
+* `bind_` is `boost::lambda::bind` if `Bind` is `_ud`, `Bind()` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -793,6 +793,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [code_example_lazy]
 
 [heading See also]
+* __EGG_NEST__
 * __BOOST_PHOENIX__
 * __BOOST_LAMBDA__
 
@@ -942,8 +943,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `bind_` is `bll_bind` if `Bind` is `_ud`, `Bind()` otherwise.
-* `protect_` is `bll_protect` if `Protect` is `_ud`, `Protect()` otherwise.
+* `bind_` is an imaginary __FUNCTION_OBJECT__ behaving as `boost::lambda::bind` if `Bind` is `_ud`, `Bind()` otherwise.
+* `protect_` is `boost::lambda::protect` if `Protect` is `_ud`, `Protect()` otherwise.
 * `BIND(K)` is:
     * `_typeof(bind_)` if `K == 1`.
     * `result_of_lazy<_typeof(bind_), result_of_lazy<_typeof(bind_),...K-1 times...>::type>::type` otherwise.
