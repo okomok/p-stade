@@ -9,13 +9,16 @@
 
 
 #include <boost/egg/nest.hpp>
+#include "./egg_test.hpp"
+
+
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/bll/bind.hpp>
 #include <boost/egg/functional.hpp> // plus
 
 
-#include "./using_bll.hpp"
-#include "./egg_example.hpp"
+#include "./using_egg.hpp"
+namespace bll = boost::lambda;
 
 
 struct T_my_apply
@@ -34,7 +37,7 @@ T_my_apply const my_apply = {};
 result_of_lazy<T_my_apply>::type const my_Apply = BOOST_EGG_LAZY({});
 
 
-void egg_example()
+void egg_test()
 {
     result_of_<T_lazy(T_plus const&)>::type Plus = lazy(plus);
 
