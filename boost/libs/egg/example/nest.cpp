@@ -31,12 +31,14 @@ void egg_example()
     std::plus<int> plus;
     std::minus<int> minus;
 
+    int _6_ = 6, _1_ = 1, _3_ = 3, _9_ = 9;
+
     // \x -> (\y -> (\z -> foo(y,z,x)))
     BOOST_CHECK( nest3(foo)(lv1(_1), lv2(_1), lv0(_1)) /*< Works as `curry3`. >*/
-        (3)(6)(1) == foo(6,1,3) );
+        (_3_)(_6_)(_1_) == foo(6,1,3) );
 
     // \x -> apply(\y -> minus(x,y), plus(x,3))
     BOOST_CHECK( nest1(apply)(nest2(minus)(lv0(_1), lv1(_1)), nest1(plus)(lv0(_1), 3)) /*< By the definition, `nest1` has the same semantics as __EGG_LAZY__. >*/
-        (9) == minus(9, plus(9,3))  );
+        (_9_) == minus(9, plus(9,3))  );
 }
 //]

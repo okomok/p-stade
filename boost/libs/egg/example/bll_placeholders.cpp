@@ -28,6 +28,7 @@ void egg_example()
     >::type
         f = bll_bind(plus, bll_1, 10);
 
-    BOOST_CHECK( f(bll::make_const(2)) == 12 );
+    int _2_ = 2;
+    BOOST_CHECK( f(_2_) == 12 );
 }
 //]
