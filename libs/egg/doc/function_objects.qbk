@@ -414,6 +414,51 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 
 
+[section bll_protect]
+
+[heading Description]
+`bll_protect` is a __CONCEPT_STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::protect`.
+
+[heading Header]
+* `<boost/egg/bll/protect.hpp>`
+
+[heading Model of]
+* __CONCEPT_STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* ...
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`bll_protect(a1,...,aN)`]
+        [__POLYMORPHIC__ `boost::lambda::protect(_fwd_arg_list(a, by_cref))`]
+    ]
+]
+
+[heading Preconditions]
+* __PRECONDITION_AS_IS__
+
+[heading Example]
+...
+[/
+[import ../example/bll_protect.cpp]
+[code_example_bll_protect]
+]
+
+[heading See also]
+* __BOOST_LAMBDA__
+* __EGG_LAZY__
+
+[endsect]
+
+
+
+
 [section bll_N]
 
 [heading Description]
@@ -862,6 +907,69 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [endsect]
 
 ]
+
+
+
+
+[section nestK]
+
+[heading Description]
+`nestK` can be regarded as generalized __EGG_LAZY__, which enables you to write nested lambda expressions.
+`K` represents nesting level of lambda expression.
+
+[heading Header]
+* `<boost/egg/nest.hpp>`
+
+[heading Model of]
+* __CONCEPT_STATIC_FUNCTION_OBJECT__
+
+[heading Notation]
+* `bind_` is `bll_bind` if `Bind` is `_ud`, `Bind()` otherwise.
+* `protect_` is `bll_protect` if `Protect` is `_ud`, `Protect()` otherwise.
+* `BIND(K)` is:
+    * `_typeof(bind_)` if `K == 1`.
+    * `result_of_lazy<_typeof(bind_), result_of_lazy<_typeof(bind_),...K-1 times...>::type>::type` otherwise.
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`X_nest##K<Bind = _ud, Protect = _ud>`]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_nest##K<Bind, Protect>()(f)(a1,...,aN)`]
+        [__POLYMORPHIC__ `X_lazy<BIND(K)>()(f)(_fwd_arg_list(a, by_value))`]
+    ]
+    [
+        [`X_nest##K<Bind, Protect>()(p)`]
+        [__POLYMORPHIC__ `protect_(protect_(...K times...(p)...))`]
+    ]
+    [
+        [`nest##K(x)`]
+        [`X_nest##K<>()(x)`]
+    ]
+]
+
+[heading Preconditions]
+* `0 <= K && K <= 5`.
+* `boost::is_placeholder<_typeof(f)>::value == false`.
+* `boost::is_placeholder<_typeof(p)>::value == true`.
+* __PRECONDITION_AS_IS__
+
+[heading Example]
+[import ../example/nest.cpp]
+[code_example_nest]
+
+[heading See also]
+* __EGG_LAZY__
+* __BOOST_PHOENIX__
+* __BOOST_LAMBDA__
+
+[endsect]
 
 
 
