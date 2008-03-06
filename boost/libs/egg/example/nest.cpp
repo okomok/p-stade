@@ -39,7 +39,7 @@ void egg_example()
         (_3_)(_6_)(_1_) == foo(6,1,3) );
 
     // \x -> apply(\y -> minus(x,y), plus(x,3))
-    BOOST_CHECK( nest1(apply)(nest2(minus)(nest0(_1), nest1(_1)), nest1(plus)(nest0(_1), 3)) /*< By the definition, `nest1` has the same semantics as __EGG_LAZY__. >*/
+    BOOST_CHECK( nest1(apply)(nest2(minus)(nest0(_1), nest1(_1)), nest1(plus)(nest0(_1), 3)) /*< By the definition, `nest1(apply)` has the same semantics as `lazy(apply)`. >*/
         (_9_) == minus(9, plus(9,3))  );
 }
 //]
