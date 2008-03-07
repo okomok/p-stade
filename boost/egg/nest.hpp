@@ -26,6 +26,7 @@
 #include <boost/egg/detail/if_use_default.hpp>
 #include <boost/egg/detail/is_placeholder.hpp>
 #include <boost/egg/detail/nest_impl.hpp>
+#include <boost/egg/detail/unplace.hpp> // inclusion guaranteed
 #include <boost/egg/identity.hpp>
 #include <boost/egg/preprocessor/cat3.hpp>
 #include <boost/egg/result_of.hpp>
