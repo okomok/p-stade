@@ -10,8 +10,10 @@
 [heading Description]
 A __CONCEPT_LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable by using prefix `T_`.
 
+[/
 [heading Refinement of]
 * ...
+]
 
 [heading Requirements]
 For any __CONCEPT_LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
@@ -22,8 +24,10 @@ For any __CONCEPT_LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 [heading Example]
 [code_concepts_lexically_typed_object]
 
+[/
 [heading Models]
 * ...
+]
 
 [heading See also]
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
@@ -54,8 +58,10 @@ for any __CONCEPT_PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 [heading Example]
 [code_concepts_pipable_function_object]
 
+[/
 [heading Models]
 * ...
+]
 
 [heading See also]
 * __EXTENSION_METHOD__
@@ -87,8 +93,10 @@ for any __CONCEPT_AMBI_FUNCTION_OBJECT__ `i` the following must be met:
 [heading Example]
 [code_concepts_ambi_function_object]
 
+[/
 [heading Models]
 * ...
+]
 
 [heading See also]
 * __EGG_AMBI__
@@ -116,11 +124,13 @@ for any __CONCEPT_MAJOR_FUNCTION_OBJECT__ `f` the following must be met:
 
 [tip This concept can be implemented without depending on __BOOST_LAMBDA__ library. ]
 
+[/
 [heading Example]
 ...
 
 [heading Models]
 * ...
+]
 
 [heading See also]
 * __BOOST_LAMBDA__
@@ -156,8 +166,10 @@ for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 [heading Example]
 [code_concepts_pod_function_builder]
 
+[/
 [heading Models]
 * ...
+]
 
 [heading See also]
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
@@ -192,8 +204,10 @@ for any __CONCEPT_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 [heading Example]
 [code_concepts_static_function_object]
 
+[/
 [heading Models]
 * ...
+]
 
 [heading See also]
 * __BOOST_RESULT_OF__
@@ -221,8 +235,10 @@ for any __CONCEPT_LITTLE_FUNCTION__ type `L` the following must be met:
 [heading Example]
 [code_concepts_little_function]
 
+[/
 [heading Models]
 * ...
+]
 
 [heading See also]
 * __EGG_FUNCTION_BUILDERS__

@@ -50,8 +50,10 @@ This section uses the following notation.
 [heading Description]
 Egg defines the following imaginary operators for its documentation.
 
+[/
 [heading Header]
 * ...
+]
 
 [heading Notation]
 * `K` is length of `a`.
