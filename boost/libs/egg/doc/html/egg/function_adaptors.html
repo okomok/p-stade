@@ -2771,16 +2771,16 @@
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">plus</span><span class="special">;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">minus</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">minus</span><span class="special">;</span>
 
-    <span class="keyword">int</span> <span class="identifier">_6_</span> <span class="special">=</span> <span class="number">6</span><span class="special">,</span> <span class="identifier">_1_</span> <span class="special">=</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">_3_</span> <span class="special">=</span> <span class="number">3</span><span class="special">,</span> <span class="identifier">_9_</span> <span class="special">=</span> <span class="number">9</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">i6</span> <span class="special">=</span> <span class="number">6</span><span class="special">,</span> <span class="identifier">i1</span> <span class="special">=</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">i3</span> <span class="special">=</span> <span class="number">3</span><span class="special">,</span> <span class="identifier">i9</span> <span class="special">=</span> <span class="number">9</span><span class="special">;</span>
 
 <span class="comment">// Lv: 0     1      2          3
 </span>    <span class="comment">// \x -&gt; (\y -&gt; (\(z,w) -&gt; foo(y,w,z,x))))
 </span>    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">nest3</span><span class="special">(</span><span class="identifier">foo</span><span class="special">)(</span><span class="identifier">nest1</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="identifier">nest2</span><span class="special">(</span><span class="identifier">_2</span><span class="special">),</span> <span class="identifier">nest2</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="identifier">nest0</span><span class="special">(</span><span class="identifier">_1</span><span class="special">))</span> <span class="callout_bug"><a name="egg23co" href="function_adaptors.html#egg23"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
-        <span class="special">(</span><span class="identifier">_3_</span><span class="special">)(</span><span class="identifier">_6_</span><span class="special">)(</span><span class="identifier">_1_</span><span class="special">,</span><span class="identifier">_9_</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">foo</span><span class="special">(</span><span class="number">6</span><span class="special">,</span><span class="number">9</span><span class="special">,</span><span class="number">1</span><span class="special">,</span><span class="number">3</span><span class="special">)</span> <span class="special">);</span>
+        <span class="special">(</span><span class="identifier">i3</span><span class="special">)(</span><span class="identifier">i6</span><span class="special">)(</span><span class="identifier">i1</span><span class="special">,</span><span class="identifier">i9</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">foo</span><span class="special">(</span><span class="number">6</span><span class="special">,</span><span class="number">9</span><span class="special">,</span><span class="number">1</span><span class="special">,</span><span class="number">3</span><span class="special">)</span> <span class="special">);</span>
 
     <span class="comment">// \x -&gt; apply(\y -&gt; minus(x,y), plus(x,3))
 </span>    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">nest1</span><span class="special">(</span><span class="identifier">apply</span><span class="special">)(</span><span class="identifier">nest2</span><span class="special">(</span><span class="identifier">minus</span><span class="special">)(</span><span class="identifier">nest0</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="identifier">nest1</span><span class="special">(</span><span class="identifier">_1</span><span class="special">)),</span> <span class="identifier">nest1</span><span class="special">(</span><span class="identifier">plus</span><span class="special">)(</span><span class="identifier">nest0</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="number">3</span><span class="special">))</span> <span class="callout_bug"><a name="egg24co" href="function_adaptors.html#egg24"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
-        <span class="special">(</span><span class="identifier">_9_</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">minus</span><span class="special">(</span><span class="number">9</span><span class="special">,</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">9</span><span class="special">,</span><span class="number">3</span><span class="special">))</span>  <span class="special">);</span>
+        <span class="special">(</span><span class="identifier">i9</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">minus</span><span class="special">(</span><span class="number">9</span><span class="special">,</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">9</span><span class="special">,</span><span class="number">3</span><span class="special">))</span>  <span class="special">);</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -2809,7 +2809,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.nestn.see_also"></a><h5>
-<a name="id572724"></a>
+<a name="id572725"></a>
         <a href="function_adaptors.html#egg.function_adaptors.nestn.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -2823,7 +2823,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.perfect"></a><a href="function_adaptors.html#egg.function_adaptors.perfect" title="perfect">perfect</a></h3></div></div></div>
 <a name="egg.function_adaptors.perfect.description"></a><h5>
-<a name="id572844"></a>
+<a name="id572845"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.description">Description</a>
       </h5>
 <p>
@@ -2831,17 +2831,17 @@
         forwarding".
       </p>
 <a name="egg.function_adaptors.perfect.header"></a><h5>
-<a name="id572885"></a>
+<a name="id572886"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">perfect</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.perfect.model_of"></a><h5>
-<a name="id572968"></a>
+<a name="id572969"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.function_adaptors.perfect.notation"></a><h5>
-<a name="id573008"></a>
+<a name="id573009"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2934,7 +2934,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.perfect.preconditions"></a><h5>
-<a name="id573630"></a>
+<a name="id573631"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -2950,7 +2950,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.perfect.invariants"></a><h5>
-<a name="id573724"></a>
+<a name="id573725"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2958,7 +2958,7 @@
           is <span class="emphasis"><em>POD</em></span> if and only if <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__PFo</span></code></a></code> is <span class="emphasis"><em>POD</em></span>.
         </li></ul></div>
 <a name="egg.function_adaptors.perfect.example"></a><h5>
-<a name="id573826"></a>
+<a name="id573827"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.example">Example</a>
       </h5>
 <p>
@@ -2995,7 +2995,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.perfect.see_also"></a><h5>
-<a name="id574257"></a>
+<a name="id574258"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3006,7 +3006,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.pipable"></a><a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable">pipable</a></h3></div></div></div>
 <a name="egg.function_adaptors.pipable.description"></a><h5>
-<a name="id574308"></a>
+<a name="id574309"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.description">Description</a>
       </h5>
 <p>
@@ -3015,17 +3015,17 @@
         Function Object</a>.
       </p>
 <a name="egg.function_adaptors.pipable.header"></a><h5>
-<a name="id574364"></a>
+<a name="id574365"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">pipable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.pipable.model_of"></a><h5>
-<a name="id574447"></a>
+<a name="id574448"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.function_adaptors.pipable.notation"></a><h5>
-<a name="id574488"></a>
+<a name="id574489"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3184,7 +3184,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.pipable.invariants"></a><h5>
-<a name="id575963"></a>
+<a name="id575964"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3253,7 +3253,7 @@
         </p></td></tr>
 </table></div>
 <a name="egg.function_adaptors.pipable.see_also"></a><h5>
-<a name="id577374"></a>
+<a name="id577375"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -3295,7 +3295,7 @@
           ...
         </li></ul></div>
 <a name="egg.function_adaptors.regular.valid_expressions"></a><h5>
-<a name="id577688"></a>
+<a name="id577689"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
