@@ -130,6 +130,12 @@ void egg_test()
             == my_minus(7, 2) );
     }
     {
+        int i8 = 8, i7 = 7;
+        // \x -> (\y -> (\z -> x(y, z)))
+        BOOST_CHECK( nest3(unplace(_1))(nest1(_1), nest2(_1)) (&my_minus)(i8)(i7)
+            == my_minus(8, 7) );
+    }
+    {
         int i7 = 7;
         // \x -> (\y -> x(y, 2))
         BOOST_CHECK( details::X_nest_impl2<T_bll_bind>()(nest0(_1))(nest1(_1), 2) (&my_minus)(i7)
