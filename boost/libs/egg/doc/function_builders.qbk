@@ -15,7 +15,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 * `<boost/egg/function.hpp>`
 
 [heading Synopsys]
-    template<class Little, class Stg = _ud>
+    template<class Little, class Stg = __ud>
     struct function
     {
         typedef Little little_type;
@@ -29,7 +29,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
     };
 
 [heading Notation]
-* `f` is an object of `function<_Lit, _Stg>`.
+* `f` is an object of `function<__Lit, __Stg>`.
 
 [heading Valid expressions]
 [table 
@@ -38,27 +38,27 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
         [[*Semantics]]
     ]
     [
-        [`function<_Lit, _Stg>`]
+        [`function<__Lit, __Stg>`]
         [An /aggregate/ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`f(a1,...,aN)`]
-        [`f.little().call<_Lit::apply<_Lit const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+        [`f.little().call<__Lit::apply<__Lit const, __meta_arg_list(a, __Stg)>::type>(__arg_list(a, __Stg))`]
     ]
     [
         [`f()`]
-        [`f.little().call<_Lit::nullary_result_type>()`]
+        [`f.little().call<__Lit::nullary_result_type>()`]
     ]
 ]
 
 [heading Preconditions]
-* `_Lit` is __COPY_CONSTRUCTIBLE__.
+* `__Lit` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `function<_Lit, _Stg>` is __POD__ if and only if `_Lit` is __POD__.
-* `function<_Lit, _Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `_Lit` is __DEFAULT_CONSTRUCTIBLE__.
-* `function<_Lit, _Stg>` is __COPY_ASSIGNABLE__ if and only if `_Lit` is __COPY_ASSIGNABLE__.
+* `function<__Lit, __Stg>` is __POD__ if and only if `__Lit` is __POD__.
+* `function<__Lit, __Stg>` is __DEFAULT_CONSTRUCTIBLE__ if and only if `__Lit` is __DEFAULT_CONSTRUCTIBLE__.
+* `function<__Lit, __Stg>` is __COPY_ASSIGNABLE__ if and only if `__Lit` is __COPY_ASSIGNABLE__.
 
 [heading Example]
 [import ../example/function.cpp]
@@ -94,21 +94,21 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
         [[*Semantics]]
     ]
     [
-        [`_lit`]
+        [`__lit`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__]
     ]
     [
-        [`_lit(a1,...,aN)`]
-        [`_lit.call<_typeof(_lit)::apply<_typeof(_lit) const, _meta_arg_list(a, _Stg)>::type>(_arg_list(a, _Stg))`]
+        [`__lit(a1,...,aN)`]
+        [`__lit.call<__typeof(__lit)::apply<__typeof(__lit) const, __meta_arg_list(a, __Stg)>::type>(__arg_list(a, __Stg))`]
     ]
     [
-        [`_lit()`]
-        [`_lit.call<R0>()`]
+        [`__lit()`]
+        [`__lit.call<R0>()`]
     ]
 ]
 
 [heading Preconditions]
-* `_lit` is an object whose type is derived from `function_facade<_typeof(_lit), _Stg = _ud, R0 = _ud>`.
+* `__lit` is an object whose type is derived from `function_facade<__typeof(__lit), __Stg = __ud, R0 = __ud>`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
@@ -137,9 +137,9 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 * `C(Lam)` is
     * a type which behaves like `Lam` with no nested `type` if `Lam` is an __MPL_PLACEHOLDER_EXPRESSION__.
     * `Lam` itself otherwise.
-* `g` is an object of `generator<Lam, _Stg, Cons, R0>::type`.
-* `T` is `_mpl::apply<C(Lam), _meta_arg_list(a, _Stg)>::type`.
-* `Cst(U)` is `_mpl::apply<X_construct<_mpl::_1, _mpl::_2>, U, _Stg>::type` if `Cons` is `_ud`, `_mpl::apply<Cons, U, _Stg>::type` otherwise.
+* `g` is an object of `generator<Lam, __Stg, Cons, R0>::type`.
+* `T` is `__mpl::apply<C(Lam), __meta_arg_list(a, __Stg)>::type`.
+* `Cst(U)` is `__mpl::apply<X_construct<__mpl::_1, __mpl::_2>, U, __Stg>::type` if `Cons` is `__ud`, `__mpl::apply<Cons, U, __Stg>::type` otherwise.
 
 [heading Valid expressions]
 [table 
@@ -148,23 +148,23 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
         [[*Semantics]]
     ]
     [
-        [`generator<Lam, _Stg = _ud, Cons = _ud, R0 = _ud>::type`]
+        [`generator<Lam, __Stg = __ud, Cons = __ud, R0 = __ud>::type`]
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_GENERATOR()`]
-        [A braced initializer of `generator<Lam, _Stg, Cons, R0>::type`]
+        [A braced initializer of `generator<Lam, __Stg, Cons, R0>::type`]
     ]
     [
         [`g(a1,...,aN)`]
-        [`Cst(T)()(_fwd_arg_list(a, _Stg))`]
+        [`Cst(T)()(__fwd_arg_list(a, __Stg))`]
     ]
     [
         [`g()`]
-        [`Cst(_decltype_r0(R0, _mpl::apply<C(Lam)>::type())()()`]
+        [`Cst(__decltype_r0(R0, __mpl::apply<C(Lam)>::type())()()`]
     ]
     [
-        [`_mpl::_##M` and `_mpl::_`]
+        [`__mpl::_##M` and `__mpl::_`]
         [as-is]
     ]
 ]
@@ -177,7 +177,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 * Non-local object `g` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_GENERATOR()`.
 * `g` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
-[note `Lam` is not instantiated while invoking `_mpl::apply`, so that any static assertion in generated type doesn't fail.]
+[note `Lam` is not instantiated while invoking `__mpl::apply`, so that any static assertion in generated type doesn't fail.]
 
 [heading Deducers]
 Some basic and useful __MPL_METAFUNCTION_CLASS__ types are provided for better error messages.
@@ -191,27 +191,27 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
     ]
     [
         [`deduce<A, As>`]
-        [` _mpl::apply<As, A>` if the corresponding argument is passed; ill-formed otherwise.]
+        [` __mpl::apply<As, A>` if the corresponding argument is passed; ill-formed otherwise.]
     ]
     [
         [`deduce<A, As, Def>`]
-        [` _mpl::apply<As, A>` if the corresponding argument is passed; `_mpl::identity<Def>` otherwise.]
+        [` __mpl::apply<As, A>` if the corresponding argument is passed; `__mpl::identity<Def>` otherwise.]
     ]
     [
         [`as_ref`]
-        [`boost::add_reference<_mpl::_>`]
+        [`boost::add_reference<__mpl::_>`]
     ]
     [
         [`as_cref`]
-        [`boost::add_reference< boost::add_const<_mpl::_> >`]
+        [`boost::add_reference< boost::add_const<__mpl::_> >`]
     ]
     [
         [`as_value`]
-        [`boost::remove_cv< boost::decay<_mpl::_> >`]
+        [`boost::remove_cv< boost::decay<__mpl::_> >`]
     ]
     [
         [`as_qualified`]
-        [`_mpl::identity<_mpl::_>`]
+        [`__mpl::identity<__mpl::_>`]
     ]
 ]
 
@@ -241,8 +241,8 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 * `<boost/egg/implicit.hpp>`
 
 [heading Notation]
-* `u` is an object of `implicit<Lam, _Stg>::type`.
-* `F` is `_mpl::apply<Lam, _typeof(to), _Stg>::type`.
+* `u` is an object of `implicit<Lam, __Stg>::type`.
+* `F` is `__mpl::apply<Lam, __typeof(to), __Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -251,26 +251,26 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [[*Semantics]]
     ]
     [
-        [`implicit<Lam, _Stg = _ud>::type`]
+        [`implicit<Lam, __Stg = __ud>::type`]
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_IMPLICIT()`]
-        [A braced initializer of `implicit<Lam, _Stg>::type`]
+        [A braced initializer of `implicit<Lam, __Stg>::type`]
     ]
     [
         [`To to = u(a1,...,aN);`]
-        [`To to = boost::implicit_cast<_typeof(to)>( fuse(F())(X_pack<_Stg>()(a1,...,aN)) );`]
+        [`To to = boost::implicit_cast<__typeof(to)>( fuse(F())(X_pack<__Stg>()(a1,...,aN)) );`]
     ]
     [
-        [`_mpl::_##M` and `_mpl::_`]
+        [`__mpl::_##M` and `__mpl::_`]
         [as-is]
     ]
 ]
 
 [heading Preconditions]
 * `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
-* `boost::is_convertible<unspecified, _typeof(to)>::value == false`.
+* `boost::is_convertible<unspecified, __typeof(to)>::value == false`.
 * __PRECONDITION_AS_IS__
 * `u` is not placed in a default argument list.
 
@@ -314,7 +314,7 @@ When you want to build stateless one, `poly` is the coolest builder.
         [[*Semantics]]
     ]
     [
-        [`poly<Lam, _Stg = _ud, R0 = _ud>::type`]
+        [`poly<Lam, __Stg = __ud, R0 = __ud>::type`]
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
@@ -323,24 +323,24 @@ When you want to build stateless one, `poly` is the coolest builder.
     ]
     [
         [`f(a1,...,aN)`]
-        [`_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg))`]
+        [`__mpl::apply<Lam, __meta_arg_list(a, __Stg)>::type()(__arg_list(a, __Stg))`]
     ]
     [
         [`f()`]
-        [`_mpl::apply<Lam>::type()()`]
+        [`__mpl::apply<Lam>::type()()`]
     ]
     [
-        [`_mpl::_##M` and `_mpl::_`]
+        [`__mpl::_##M` and `__mpl::_`]
         [as-is]
     ]
 ]
 
 [heading Preconditions]
 * `1 <= N && N <= BOOST_MPL_LIMIT_METAFUNCTION_ARITY`, which has a default value `5`.
-* `_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type::result_type` is a valid expression
-  such that it is the same as `_decltype(_mpl::apply<Lam, _meta_arg_list(a, _Stg)>::type()(_arg_list(a, _Stg)))`.
-* If `R0` is `use_nullary_result`, `_mpl::apply<Lam>::type::result_type` is a valid expression
-  such that it is the same as `_decltype(_mpl::apply<Lam>::type()())`.
+* `__mpl::apply<Lam, __meta_arg_list(a, __Stg)>::type::result_type` is a valid expression
+  such that it is the same as `__decltype(__mpl::apply<Lam, __meta_arg_list(a, __Stg)>::type()(__arg_list(a, __Stg)))`.
+* If `R0` is `use_nullary_result`, `__mpl::apply<Lam>::type::result_type` is a valid expression
+  such that it is the same as `__decltype(__mpl::apply<Lam>::type()())`.
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
@@ -371,8 +371,8 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
 * `<boost/egg/static.hpp>`
 
 [heading Notation]
-* `u` is an object of `static_<Lam, _Stg>::type`.
-* `F` is `_mpl::apply<Lam, _Stg>::type`.
+* `u` is an object of `static_<Lam, __Stg>::type`.
+* `F` is `__mpl::apply<Lam, __Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -381,19 +381,19 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
         [[*Semantics]]
     ]
     [
-        [`static_<Lam, _Stg = _ud>::type`]
+        [`static_<Lam, __Stg = __ud>::type`]
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_STATIC()`]
-        [A braced initializer of `static_<Lam, _Stg>::type`]
+        [A braced initializer of `static_<Lam, __Stg>::type`]
     ]
     [
         [`u(a1,...,aN)`]
-        [`F()(_fwd_arg_list(a, _Stg))`]
+        [`F()(__fwd_arg_list(a, __Stg))`]
     ]
     [
-        [`_mpl::_##M` and `_mpl::_`]
+        [`__mpl::_##M` and `__mpl::_`]
         [as-is]
     ]
 ]
@@ -438,27 +438,27 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
         [[*Semantics]]
     ]
     [
-        [`variadic<_Lit, _Stg = _ud, Pack = _ud, R0 = _ud>::type`]
-        [`result_of_unfuse<function<_Lit, by_cref>, R0, Pack, _Stg>::type`]
+        [`variadic<__Lit, __Stg = __ud, Pack = __ud, R0 = __ud>::type`]
+        [`result_of_unfuse<function<__Lit, by_cref>, R0, Pack, __Stg>::type`]
     ]
     [
-        [`BOOST_EGG_VARIADIC_L _lit BOOST_EGG_VARIADIC_R`]
-        [A braced initializer of `variadic<_typeof(_lit),...>::type`]
+        [`BOOST_EGG_VARIADIC_L __lit BOOST_EGG_VARIADIC_R`]
+        [A braced initializer of `variadic<__typeof(__lit),...>::type`]
     ]
     [
         [`BOOST_EGG_VARIADIC(L)`]
         [`BOOST_EGG_VARIADIC_L L BOOST_EGG_VARIADIC_R`]
     ]
     [
-        [`variadic_poly<Lam, _Stg = _ud, Pack = _ud, R0 = _ud>::type`]
-        [`result_of_unfuse<poly<Lam, by_cref>::type, R0, Pack, _Stg>::type`]
+        [`variadic_poly<Lam, __Stg = __ud, Pack = __ud, R0 = __ud>::type`]
+        [`result_of_unfuse<poly<Lam, by_cref>::type, R0, Pack, __Stg>::type`]
     ]
     [
         [`BOOST_EGG_VARIADIC_POLY()`]
         [A braced initializer of `variadic_poly<Lam,...>::type`]
     ]
     [
-        [`_mpl::_##M` and `_mpl::_`]
+        [`__mpl::_##M` and `__mpl::_`]
         [as-is]
     ]
 ]

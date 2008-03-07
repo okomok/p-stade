@@ -26,8 +26,8 @@ So that, type registrations into __BOOST_TYPEOF__ can be minimized.
         [[*Semantics]]
     ]
     [
-        [`egg::expr<Sig>(_pfo)`]
-        [`X_mono<Sig>()(_pfo)` which can be used with __BOOST_TYPEOF__.]
+        [`egg::expr<Sig>(__pfo)`]
+        [`X_mono<Sig>()(__pfo)` which can be used with __BOOST_TYPEOF__.]
     ]
 ]
 
@@ -69,18 +69,18 @@ Egg provides __FCPP__ infix operator syntax.
         [[*Semantics]]
     ]
     [
-        [`a1 ^_pfo^ a2`]
-        [`_pfo(_fwd_arg_list([a1], by_perfect)++_fwd_arg_list([a2], by_perfect))`]
+        [`a1 ^__pfo^ a2`]
+        [`__pfo(__fwd_arg_list([a1], by_perfect)++__fwd_arg_list([a2], by_perfect))`]
     ]
 ]
 
 [heading Preconditions]
 * `using namespace infix;` is placed before the valid expression.
-* `operator^` is not overloaded with `_typeof(a1)`.
+* `operator^` is not overloaded with `__typeof(a1)`.
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `^_pfo^` behaves as if it had left to right associativity.
+* `^__pfo^` behaves as if it had left to right associativity.
 
 [heading Example]
 [import ../example/infix.cpp]

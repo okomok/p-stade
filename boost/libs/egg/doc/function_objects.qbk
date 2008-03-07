@@ -30,12 +30,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_##op<R = _ud, _Stg = _ud>`]
+        [`X_##op<R = __ud, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_##op<R, _Stg>()(a1,...,aN)`]
-        [`do_(op, _fwd_arg_list(a, _Stg))`]
+        [`X_##op<R, __Stg>()(a1,...,aN)`]
+        [`do_(op, __fwd_arg_list(a, __Stg))`]
     ]
     [
         [`op`]
@@ -45,7 +45,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 
 [heading Preconditions]
 * `op` is one of the [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/boost_proto/users_guide/expression_construction/tags_and_meta_functions.html tag names] of __BOOST_PROTO__.
-* `R` specifies operator return type. If `R` is `_ud`, it is deduced by using __BOOST_LAMBDA__ [@http://www.boost.org/doc/html/lambda/extending.html deduction system].
+* `R` specifies operator return type. If `R` is `__ud`, it is deduced by using __BOOST_LAMBDA__ [@http://www.boost.org/doc/html/lambda/extending.html deduction system].
 * __PRECONDITION_AS_IS__
 
 [heading Example]
@@ -73,7 +73,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * ...
 
 [heading Notation]
-* `b` is a "base" object such that `_decltype(b)` is `B const &`.
+* `b` is a "base" object such that `__decltype(b)` is `B const &`.
 
 [heading Valid expressions]
 [table 
@@ -124,7 +124,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `bound(x)` is `_fwd_arg_list([x], by_value)`.
+* `bound(x)` is `__fwd_arg_list([x], by_value)`.
 
 [heading Valid expressions]
 [table 
@@ -138,7 +138,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`always(x)(a1,...,aN)`]
-        [`_fwd_arg_list(bound(x), by_cref)`]
+        [`__fwd_arg_list(bound(x), by_cref)`]
     ]
     [
         [`always_ref`]
@@ -150,13 +150,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`always_ref(y)(a1,...,aN)`]
-        [`_fwd_arg_list([y], by_perfect)`]
+        [`__fwd_arg_list([y], by_perfect)`]
     ]
 ]
 
 [heading Preconditions]
 * `0 <= N && N <= BOOST_EGG_MAX_LINEAR_ARITY`.
-* `_typeof(x)` is __COPY_CONSTRUCTIBLE__.
+* `__typeof(x)` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
@@ -192,12 +192,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_identity<_Stg = _ud>`]
+        [`X_identity<__Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_identity<_Stg>()(a1)`]
-        [`_fwd_arg_list([a1], _Stg)` ]
+        [`X_identity<__Stg>()(a1)`]
+        [`__fwd_arg_list([a1], __Stg)` ]
     ]
     [
         [`identity`]
@@ -241,12 +241,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_apply<_Stg = _ud>`]
+        [`X_apply<__Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_apply<_Stg>()(_pfo,a1,...,aN)`]
-        [`_const(_pfo)(_fwd_arg_list(a, _Stg))` ]
+        [`X_apply<__Stg>()(__pfo,a1,...,aN)`]
+        [`__const(__pfo)(__fwd_arg_list(a, __Stg))` ]
     ]
     [
         [`apply`]
@@ -255,7 +255,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* `_fwd_arg_list([_pfo,a1,...,aN], _Stg)` is a valid expression.
+* `__fwd_arg_list([__pfo,a1,...,aN], __Stg)` is a valid expression.
 * __PRECONDITION_AS_IS__
 
 
@@ -294,12 +294,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_auto_new<T, _Stg = _ud>`]
+        [`X_auto_new<T, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_auto_new<T, _Stg>()(a1,...,aN)`]
-        [`std::auto_ptr<T>(new T(_fwd_arg_list(a, _Stg)))`]
+        [`X_auto_new<T, __Stg>()(a1,...,aN)`]
+        [`std::auto_ptr<T>(new T(__fwd_arg_list(a, __Stg)))`]
     ]
     [
         [`egg::auto_new<T>(a1,...,aN)`]
@@ -343,12 +343,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_shared_new<T, _Stg = _ud>`]
+        [`X_shared_new<T, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_shared_new<T, _Stg>()(a1,...,aN)`]
-        [`boost::shared_ptr<T>(new T(_fwd_arg_list(a, _Stg)))`]
+        [`X_shared_new<T, __Stg>()(a1,...,aN)`]
+        [`boost::shared_ptr<T>(new T(__fwd_arg_list(a, __Stg)))`]
     ]
     [
         [`egg::shared_new<T>(a1,...,aN)`]
@@ -397,7 +397,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`bll_bind(a1,...,aN)`]
-        [__POLYMORPHIC__ `boost::lambda::bind(_fwd_arg_list(a, by_cref))`]
+        [__POLYMORPHIC__ `boost::lambda::bind(__fwd_arg_list(a, by_cref))`]
     ]
 ]
 
@@ -439,7 +439,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`bll_protect(a1,...,aN)`]
-        [__POLYMORPHIC__ `boost::lambda::protect(_fwd_arg_list(a, by_cref))`]
+        [__POLYMORPHIC__ `boost::lambda::protect(__fwd_arg_list(a, by_cref))`]
     ]
 ]
 
@@ -526,16 +526,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct<T, _Stg = _ud>`]
+        [`X_construct<T, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_construct<T, _Stg>()(a1,...,aN)`]
-        [`T(_fwd_arg_list(a, _Stg))`]
+        [`X_construct<T, __Stg>()(a1,...,aN)`]
+        [`T(__fwd_arg_list(a, __Stg))`]
     ]
     [
         [`X_construct<>`]
-        [`X_construct<_mpl::_1, _mpl::_2>`]
+        [`X_construct<__mpl::_1, __mpl::_2>`]
     ]
 ]
 
@@ -575,16 +575,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct_braced1<T, _Stg = _ud>`]
+        [`X_construct_braced1<T, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_construct_braced1<T, _Stg>()(a1,...,aN)`]
-        [`T t = {_fwd_arg_list(a, _Stg)}; return t;`]
+        [`X_construct_braced1<T, __Stg>()(a1,...,aN)`]
+        [`T t = {__fwd_arg_list(a, __Stg)}; return t;`]
     ]
     [
         [`X_construct_braced1<>`]
-        [`X_construct_braced1<_mpl::_1, _mpl::_2>`]
+        [`X_construct_braced1<__mpl::_1, __mpl::_2>`]
     ]
 ]
 
@@ -623,16 +623,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct_braced2<T, _Stg = _ud>`]
+        [`X_construct_braced2<T, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_construct_braced2<T, _Stg>()(a1,...,aN)`]
-        [`T t = {{_fwd_arg_list(a, _Stg)}}; return t;`]
+        [`X_construct_braced2<T, __Stg>()(a1,...,aN)`]
+        [`T t = {{__fwd_arg_list(a, __Stg)}}; return t;`]
     ]
     [
         [`X_construct_braced2<>`]
-        [`X_construct_braced2<_mpl::_1, _mpl::_2>`]
+        [`X_construct_braced2<__mpl::_1, __mpl::_2>`]
     ]
 ]
 
@@ -672,16 +672,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct_unfused1<T, _Stg = _ud>`]
+        [`X_construct_unfused1<T, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_construct_unfused1<T, _Stg>()(a1,...,aN)`]
-        [`T t = BOOST_EGG_UNFUSE_L {_fwd_arg_list(a, _Stg)} BOOST_EGG_UNFUSE_R; return t;`]
+        [`X_construct_unfused1<T, __Stg>()(a1,...,aN)`]
+        [`T t = BOOST_EGG_UNFUSE_L {__fwd_arg_list(a, __Stg)} BOOST_EGG_UNFUSE_R; return t;`]
     ]
     [
         [`X_construct_unfused1<>`]
-        [`X_construct_unfused1<_mpl::_1, _mpl::_2>`]
+        [`X_construct_unfused1<__mpl::_1, __mpl::_2>`]
     ]
 ]
 
@@ -723,16 +723,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_construct_variadic1<T, _Stg = _ud>`]
+        [`X_construct_variadic1<T, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_construct_variadic1<T, _Stg>()(a1,...,aN)`]
-        [`T t = BOOST_EGG_VARIADIC_L {_fwd_arg_list(a, _Stg)} BOOST_EGG_VARIADIC_R; return t;`]
+        [`X_construct_variadic1<T, __Stg>()(a1,...,aN)`]
+        [`T t = BOOST_EGG_VARIADIC_L {__fwd_arg_list(a, __Stg)} BOOST_EGG_VARIADIC_R; return t;`]
     ]
     [
         [`X_construct_variadic1<>`]
-        [`X_construct_variadic1<_mpl::_1, _mpl::_2>`]
+        [`X_construct_variadic1<__mpl::_1, __mpl::_2>`]
     ]
 ]
 
@@ -781,7 +781,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
     ]
     [
         [`X_get_c<n>`]
-        [`X_get< _mpl::int_<n> >`]
+        [`X_get< __mpl::int_<n> >`]
     ]
     [
         [`egg::get<N>(t)`]
@@ -822,7 +822,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
+* `dts_(c1,...,cK)` is `__decltype(c1),...,__decltype(cK)`.
 
 [heading Valid expressions]
 [table 
@@ -831,12 +831,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_pack<_Stg = _ud>`]
+        [`X_pack<__Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_pack<_Stg>()(a1,...,aN)`]
-        [`boost::tuple<dts_(_fwd_arg_list(a, _Stg))>(_fwd_arg_list(a, _Stg))`]
+        [`X_pack<__Stg>()(a1,...,aN)`]
+        [`boost::tuple<dts_(__fwd_arg_list(a, __Stg))>(__fwd_arg_list(a, __Stg))`]
     ]
     [
         [`pack`]
@@ -845,7 +845,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
+* If `__bytag_at(__Stg, N, I)` is `by_value`, `__typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
@@ -875,7 +875,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `dts_(c1,...,cK)` is `_decltype(c1),...,_decltype(cK)`.
+* `dts_(c1,...,cK)` is `__decltype(c1),...,__decltype(cK)`.
 
 [heading Valid expressions]
 [table 
@@ -884,12 +884,12 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_fusion_pack<_Stg = _ud>`]
+        [`X_fusion_pack<__Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_fusion_pack<_Stg>()(a1,...,aN)`]
-        [`boost::fusion::vector<dts_(_fwd_arg_list(a, _Stg))>(_fwd_arg_list(a, _Stg))`]
+        [`X_fusion_pack<__Stg>()(a1,...,aN)`]
+        [`boost::fusion::vector<dts_(__fwd_arg_list(a, __Stg))>(__fwd_arg_list(a, __Stg))`]
     ]
     [
         [`fusion_pack`]
@@ -898,7 +898,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* If `_bytag_at(_Stg, N, I)` is `by_value`, `_typeof(aI)` is __COPY_CONSTRUCTIBLE__.
+* If `__bytag_at(__Stg, N, I)` is `by_value`, `__typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 * __PRECONDITION_AS_IS__
 
 [heading Example]

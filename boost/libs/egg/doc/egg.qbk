@@ -141,6 +141,37 @@ Distributed under the Boost Software License, Version 1.0.
 
 
 
+[/ Notations ]
+
+[def __decltype [link egg.overview.notation `__decltype`]]
+[def __typeof [link egg.overview.notation `__typeof`]]
+[def __const [link egg.overview.notation `__const`]]
+[def __pfo [link egg.overview.notation `__pfo`]]
+[def __PFo [link egg.overview.notation `__PFo`]]
+[def __lit [link egg.overview.notation `__lit`]]
+[def __Lit [link egg.overview.notation `__Lit`]]
+[def __Stg [link egg.overview.notation `__Stg`]]
+[def __Bytag [link egg.overview.notation `__Bytag`]]
+[def __ud [link egg.overview.notation `__ud`]]
+[def __mpl [link egg.overview.notation `__mpl`]]
+[def __MAX_PACK_ARITY [link egg.overview.notation `__MAX_PACK_ARITY`]]
+
+[def __arg [link egg.forwarding_strategies `__arg`]]
+[def __ref [link egg.forwarding_strategies `__ref`]]
+[def __cref [link egg.forwarding_strategies `__cref`]]
+[def __val [link egg.forwarding_strategies `__val`]]
+[def __rval [link egg.forwarding_strategies `__rval`]]
+
+[def __bytag_at [link egg.forwarding_strategies.argument_list `__bytag_at`]]
+[def __arg_list [link egg.forwarding_strategies.argument_list `__arg_list`]]
+[def __meta_arg_list [link egg.forwarding_strategies.argument_list `__meta_arg_list`]]
+[def __fwd_arg_list [link egg.forwarding_strategies.argument_list `__fwd_arg_list`]]
+
+[def __decltype_r0 [link egg.forwarding_strategies.determining_nullary_return_types `__decltype_r0`]]
+
+
+
+
 [include overview.qbk]
 [include concepts.qbk]
 [include forwarding_strategies.qbk]

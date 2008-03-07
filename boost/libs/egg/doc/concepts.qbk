@@ -17,7 +17,7 @@ A __CONCEPT_LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable b
 For any __CONCEPT_LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 
 * `a` is a named lvalue.
-* If token `a` doesn't begin with a single underscore, `T_##a` is `_typeof(a)`; `TT##a` otherwise.
+* If token `a` doesn't begin with a single underscore, `T_##a` is `__typeof(a)`; `TT##a` otherwise.
 
 [heading Example]
 [code_concepts_lexically_typed_object]
@@ -182,12 +182,12 @@ A __CONCEPT_STATIC_FUNCTION_OBJECT__ is a __CONCEPT_MAJOR_FUNCTION_OBJECT__ whic
 In addition to the requirements defined in the refinements,
 for any __CONCEPT_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
-* `_typeof(f)` is __POD__ in C++03 (a /trivial type/ in C++0x).
-* `_typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
+* `__typeof(f)` is __POD__ in C++03 (a /trivial type/ in C++0x).
+* `__typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 * `f` is __STATICALLY_INITIALIZED__.
-* `boost::remove_reference<_decltype(f)>::type` is `_typeof(f) const`.
-* If `boost::result_of<_typeof(f) const(a1,...,aN)>::type` is a valid expression,
-  `boost::result_of<_typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
+* `boost::remove_reference<__decltype(f)>::type` is `__typeof(f) const`.
+* If `boost::result_of<__typeof(f) const(a1,...,aN)>::type` is a valid expression,
+  `boost::result_of<__typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
 
 [heading Example]
 [code_concepts_static_function_object]
