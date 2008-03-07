@@ -48,7 +48,7 @@ namespace boost { namespace egg {
             };
 
             template<class Re, class T>
-            Re call(BOOST_EGG_OVERLOADED(Re) T& t) const
+            Re call(BOOST_EGG_OVERLOADED(Re) T &t) const
             {
                 return t;
             }
