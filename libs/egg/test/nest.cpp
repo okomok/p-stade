@@ -19,6 +19,8 @@
 
 
 #include <boost/egg/lazy.hpp>
+#include <boost/egg/identity.hpp>
+#include <boost/egg/apply.hpp>
 
 
 #include "./using_egg.hpp"
@@ -111,6 +113,27 @@ void egg_test()
         // \x -> (\y -> (\z -> y(z, x)))
         BOOST_CHECK( nest3(nest1(_1))(nest2(_1), nest0(_1)) (i8)(&my_minus)(i7) // msvc-7.1 needs `&`.
             == my_minus(7, 8) );
+    }
+    {
+        int i7 = 7;
+        // \x -> (\y -> x(y, 2))
+#if 0 // nest2(nest0(_1)) <=> nest2(_1) <=> unintentionally protect(protect(_1))
+        BOOST_CHECK( nest2(nest0(_1))(nest1(_1), 2) (&my_minus)(i7)
+            == my_minus(7, 2) );
+#endif
+        // \x -> (\y -> apply(x, y, 2)) // same effect as above.
+        BOOST_CHECK( nest2(apply)(nest0(_1), nest1(_1), 2) (&my_minus)(i7)
+            == my_minus(7, 2) );
+
+        // \x -> (\y -> identity(x)(y, 2)) // same effect as above.
+        BOOST_CHECK( nest2(lazy(identity)(nest0(_1)))(nest1(_1), 2) (&my_minus)(i7)
+            == my_minus(7, 2) );
+    }
+    {
+        int i7 = 7;
+        // \x -> (\y -> x(y, 2))
+        BOOST_CHECK( details::X_nest_impl2<T_bll_bind>()(nest0(_1))(nest1(_1), 2) (&my_minus)(i7)
+            == my_minus(7, 2) );
     }
 #if 0 // doesn't work.
     {
