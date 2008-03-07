@@ -28,7 +28,7 @@ void egg_example()
     >::type
         f = lazy(plus)(bll_1, 10);
 
-    int _2_ = 2;
-    BOOST_CHECK( f(_2_) == 12 );
+    int i2 = 2;
+    BOOST_CHECK( f(i2) == 12 );
 }
 //]

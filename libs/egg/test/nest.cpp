@@ -67,9 +67,9 @@ void egg_test()
     using bll::_1;
     using bll::_2;
 
-    int _6_ = 6;
-    int _1_ = 1;
-    int _3_ = 3;
+    int i6 = 6;
+    int i1 = 1;
+    int i3 = 3;
 
     {
         int i = 3, j = 9;
@@ -85,38 +85,38 @@ void egg_test()
         typedef result_of_lazy<T_bll_bind, T_Bind>::type T_BInd;
         typedef result_of_lazy<T_foo, T_BInd>::type T_FOO;
         T_FOO FOO;
-        BOOST_CHECK( FOO(nest0(_1), nest1(_1), nest2(_1))(_6_)(_1_)(_3_) == foo(6,1,3) );
-        BOOST_CHECK( nest3(foo)(nest0(_1), nest1(_1), nest2(_1))(_6_)(_1_)(_3_) == foo(6,1,3) );
+        BOOST_CHECK( FOO(nest0(_1), nest1(_1), nest2(_1))(i6)(i1)(i3) == foo(6,1,3) );
+        BOOST_CHECK( nest3(foo)(nest0(_1), nest1(_1), nest2(_1))(i6)(i1)(i3) == foo(6,1,3) );
     }
     {
-        BOOST_CHECK( nest1(foo)(1,2,_1)(_3_) == foo(1,2,3) );
+        BOOST_CHECK( nest1(foo)(1,2,_1)(i3) == foo(1,2,3) );
     }
     {
         // \x -> (\y -> (\z -> foo(x,y,z))
-        BOOST_CHECK( nest3(foo)(nest0(_1), nest1(_1), nest2(_1))(_6_)(_1_)(_3_) == foo(6,1,3) );
+        BOOST_CHECK( nest3(foo)(nest0(_1), nest1(_1), nest2(_1))(i6)(i1)(i3) == foo(6,1,3) );
     }
     {
         // \x -> (\y -> foo(x, y, 30))
-        BOOST_CHECK( nest2(foo)(nest0(_1), nest1(_1), 30)(_6_)(_1_) == foo(6,1,30) );
+        BOOST_CHECK( nest2(foo)(nest0(_1), nest1(_1), 30)(i6)(i1) == foo(6,1,30) );
     }
     {
-        int _8_ = 8, _7_ = 7;
+        int i8 = 8, i7 = 7;
         // \x -> \y,z -> weird(y, z, \w -> my_plus(x, w))
-        BOOST_CHECK( nest2(weird)(nest1(_1), nest1(_2), nest3(my_plus)(nest0(_1), nest2(_1))) (_3_)(_8_,_7_)
+        BOOST_CHECK( nest2(weird)(nest1(_1), nest1(_2), nest3(my_plus)(nest0(_1), nest2(_1))) (i3)(i8,i7)
             == my_plus(3, 7) - 8 );
     }
     {
         // Surprisingly, this works. I don't know why. :-)
-        int _8_ = 8, _7_ = 7;
+        int i8 = 8, i7 = 7;
         // \x -> (\y -> (\z -> y(z, x)))
-        BOOST_CHECK( nest3(nest1(_1))(nest2(_1), nest0(_1)) (_8_)(&my_minus)(_7_) // msvc-7.1 needs `&`.
+        BOOST_CHECK( nest3(nest1(_1))(nest2(_1), nest0(_1)) (i8)(&my_minus)(i7) // msvc-7.1 needs `&`.
             == my_minus(7, 8) );
     }
 #if 0 // doesn't work.
     {
-        int _8_ = 8, _7_ = 7;
+        int i8 = 8, i7 = 7;
         // \x -> (\y -> y-x)
-        BOOST_CHECK( nest2(nest1(_1) - nest0(_1)) (_8_)(_7_)
+        BOOST_CHECK( nest2(nest1(_1) - nest0(_1)) (i8)(i7)
             ==  7-8 );
     }
 #endif
