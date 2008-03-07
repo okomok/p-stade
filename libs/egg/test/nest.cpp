@@ -56,6 +56,11 @@ int my_plus(int i, int j)
     return i + j;
 }
 
+int my_minus(int i, int j)
+{
+    return i - j;
+}
+
 
 void egg_test()
 {
@@ -100,4 +105,19 @@ void egg_test()
         BOOST_CHECK( nest2(weird)(nest1(_1), nest1(_2), nest3(my_plus)(nest0(_1), nest2(_1))) (_3_)(_8_,_7_)
             == my_plus(3, 7) - 8 );
     }
+    {
+        // Surprisingly, this works. I don't know why. :-)
+        int _8_ = 8, _7_ = 7;
+        // \x -> (\y -> (\z -> y(z, x)))
+        BOOST_CHECK( nest3(nest1(_1))(nest2(_1), nest0(_1)) (_8_)(&my_minus)(_7_) // msvc-7.1 needs `&`.
+            == my_minus(7, 8) );
+    }
+#if 0 // doesn't work.
+    {
+        int _8_ = 8, _7_ = 7;
+        // \x -> (\y -> y-x)
+        BOOST_CHECK( nest2(nest1(_1) - nest0(_1)) (_8_)(_7_)
+            ==  7-8 );
+    }
+#endif
 }

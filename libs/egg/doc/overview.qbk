@@ -147,47 +147,47 @@ This document uses the following notation.
         [[*Semantics]]
     ]
     [
-        [`_decltype`]
+        [`__decltype`]
         [An imaginary operator which is the same as `decltype` of C++0x.]
     ]
     [
-        [`_typeof(a)`]
-        [`boost::remove_cv<boost::remove_reference<_decltype(a)>::type>::type`]
+        [`__typeof(a)`]
+        [`boost::remove_cv<boost::remove_reference<__decltype(a)>::type>::type`]
     ]
     [
-        [`_const(a)`]
-        [`static_cast<_typeof(a) const>(a)`]
+        [`__const(a)`]
+        [`static_cast<__typeof(a) const>(a)`]
     ]
     [
-        [`_pfo`]
+        [`__pfo`]
         [A __POLYMORPHIC_FUNCTION_OBJECT__]
     ]
     [
-        [`_PFo`]
+        [`__PFo`]
         [A __POLYMORPHIC_FUNCTION_OBJECT__ type which is neither __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
     ]
     [
-        [`_lit`]
+        [`__lit`]
         [A __CONCEPT_LITTLE_FUNCTION__ object]
     ]
     [
-        [`_Lit`]
+        [`__Lit`]
         [A __CONCEPT_LITTLE_FUNCTION__ type which is neither __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
     ]
     [
-        [`_Stg`]
+        [`__Stg`]
         [A type which is one of the __EGG_FORWARDING_STRATEGIES__.]
     ]
     [
-        [`_Bytag`]
+        [`__Bytag`]
         [A type which is one of `by_perfect`, `by_ref`, `by_cref`, and `by_value`.]
     ]
     [
-        [`_ud`]
+        [`__ud`]
         [`boost::use_default`]
     ]
     [
-        [`_mpl`]
+        [`__mpl`]
         [`boost::mpl`]
     ]
     [
@@ -203,7 +203,7 @@ This document uses the following notation.
         [An imaginary operator to concatenate tokens.]
     ]
     [
-        [`_PACK_MAX_ARITY`]
+        [`__MAX_PACK_ARITY`]
         [`10`]
     ]
 ]

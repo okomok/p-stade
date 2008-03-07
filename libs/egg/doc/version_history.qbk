@@ -55,7 +55,7 @@
 
 [heading Version 0.90.5]
 * `generator` and `function_facade` template parameter order changed.
-* `ambi` takes only `_Bytag`.
+* `ambi` takes only `__Bytag`.
 * `always` doesn't treat `reference_wrapper` as special case.
 * Comparison operators removed.
 * `adapted_to` added.
@@ -71,6 +71,7 @@
 * `EGG_DEFER` removed.
 * `variadic` added.
 * `make_function` removed.
+* `nestN` added.
 
 
 
