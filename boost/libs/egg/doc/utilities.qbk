@@ -13,11 +13,13 @@ So that, type registrations into __BOOST_TYPEOF__ can be minimized.
 [heading Header]
 * `<boost/egg/expr.hpp>`
 
+[/
 [heading Model of]
 * ...
 
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -56,11 +58,13 @@ Egg provides __FCPP__ infix operator syntax.
 [heading Header]
 * `<boost/egg/infix.hpp>`
 
+[/
 [heading Model of]
 * ...
 
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -103,8 +107,10 @@ This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__
 [heading Header]
 * `<boost/egg/bll/result_of.hpp>`
 
+[/
 [heading Model of]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -118,11 +124,13 @@ This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__
     ]
 ]
 
+[/
 [heading Preconditions]
 * ...
 
 [heading Example]
 ...
+]
 
 [heading See also]
 * __BOOST_LAMBDA__

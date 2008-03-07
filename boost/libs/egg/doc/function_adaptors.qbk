@@ -307,9 +307,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [heading Model of]
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
+[/
 [heading Notation]
-* ...
-[/ * `fc(d)` is an object of `result_of_fix<__typeof(d)>::type` initialized using `d` or an initializer. ]
+ * `fc(d)` is an object of `result_of_fix<__typeof(d)>::type` initialized using `d` or an initializer.
+]
 
 [heading Valid expressions]
 [table 
@@ -425,8 +426,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [import ../example/flip.cpp]
 [code_example_flip]
 
+[/
 [heading See also]
 * ...
+]
 
 [endsect]
 
@@ -505,8 +508,10 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [import ../example/free.cpp]
 [code_example_free]
 
+[/
 [heading See also]
 * ...
+]
 
 [endsect]
 
@@ -860,8 +865,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Header]
 * `<boost/egg/mono.hpp>`
 
+[/
 [heading Model of]
 * ...
+]
 
 [heading Notation]
 * `fc(f)` is an object of `result_of_mono<__typeof(f), Sig>::type` initialized using `f` or an initializer.
@@ -1050,7 +1057,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [code_example_perfect]
 
 [heading See also]
-* ...
+* __EGG_RETURN__
 
 [endsect]
 
@@ -1145,8 +1152,10 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [heading Model of]
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
+[/
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -1188,8 +1197,10 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [heading Header]
 * `<boost/egg/return.hpp>`
 
+[/
 [heading Model of]
 * ...
+]
 
 [heading Notation]
 * `fc(f, R, __Stg)` is an object of `result_of_return<__typeof(f), R, __Stg>::type` initialized using `f` or an initializer.
@@ -1244,7 +1255,7 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [code_example_return]
 
 [heading See also]
-* ...
+* __EGG_PERFECT__
 
 [endsect]
 
@@ -1259,8 +1270,10 @@ An iterator holding such a functor can't conform to even __INPUT_ITERATOR__.
 [heading Header]
 * `<boost/egg/tagged.hpp>`
 
+[/
 [heading Model of]
 * ...
+]
 
 [heading Notation]
 * `fc(d, Tag, __Stg)` is an object of `result_of_tagged<__typeof(d), Tag, __Stg>::type` initialized using `d` or an initializer.

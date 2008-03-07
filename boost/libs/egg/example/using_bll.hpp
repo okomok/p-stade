@@ -11,6 +11,7 @@
 
 
 
+#include <boost/egg/config.hpp>
 #include <boost/egg/bll/result_of.hpp>
 
 

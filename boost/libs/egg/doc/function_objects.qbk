@@ -69,8 +69,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Header]
 * `<boost/egg/adapted_to.hpp>`
 
+[/
 [heading Model of]
 * ...
+]
 
 [heading Notation]
 * `b` is a "base" object such that `__decltype(b)` is `B const &`.
@@ -105,7 +107,9 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [code_example_adapted_to]
 
 [heading See also]
-* ...
+* __EGG_FUNCTION_BUILDERS__
+* __EGG_FUNCTION_ADAPTORS__
+* __CONCEPT_LITTLE_FUNCTION__
 
 [endsect]
 
@@ -164,7 +168,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [code_example_always]
 
 [heading See also]
-* ...
+* __EGG_IDENTITY__
 
 [endsect]
 
@@ -182,8 +186,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Model of]
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
+[/
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -213,7 +219,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [code_example_identity]
 
 [heading See also]
-* ...
+* __EGG_ALWAYS__
 
 [endsect]
 
@@ -231,8 +237,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Model of]
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
+[/
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -263,8 +271,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [import ../example/apply.cpp]
 [code_example_apply]
 
+[/
 [heading See also]
 * ...
+]
 
 [endsect]
 
@@ -475,8 +485,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Model of]
 * __CONCEPT_STATIC_FUNCTION_OBJECT__ but not __STATICALLY_INITIALIZED__.
 
+[/
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -513,11 +525,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Header]
 * `<boost/egg/construct.hpp>`
 
+[/
 [heading Model of]
 * ...
 
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -562,11 +576,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Header]
 * `<boost/egg/construct_braced1.hpp>`
 
+[/
 [heading Model of]
 * ...
 
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -610,11 +626,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Header]
 * `<boost/egg/construct_braced2.hpp>`
 
+[/
 [heading Model of]
 * ...
 
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -710,11 +728,13 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Header]
 * `<boost/egg/construct_variadic1.hpp>`
 
+[/
 [heading Model of]
 * ...
 
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -759,8 +779,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [heading Header]
 * `<boost/egg/get.hpp>`
 
+[/
 [heading Model of]
 * ...
+]
 
 [heading Notation]
 * `fusion` is `boost::fusion`.

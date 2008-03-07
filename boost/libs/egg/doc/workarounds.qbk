@@ -22,8 +22,10 @@ So that, Egg provides its own "result_of" with slightly different name.
 [heading Header]
 * `<boost/egg/result_of.hpp>`
 
+[/
 [heading Preconditions]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -115,8 +117,10 @@ GCC might show unused variable warnings without this macro.
 [heading Example]
     BOOST_EGG_CONST((T_foo), foo) = &foo_impl;
 
+[/
 [heading See also]
 * ...
+]
 
 [endsect]
 

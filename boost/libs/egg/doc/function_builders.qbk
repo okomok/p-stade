@@ -84,8 +84,10 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 [heading Header]
 * `<boost/egg/function_facade.hpp>`
 
+[/
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -428,8 +430,10 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 [heading Header]
 * `<boost/egg/variadic.hpp>`
 
+[/
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 
@@ -500,11 +504,13 @@ The following macros assist such routine work.
 [heading Header]
 * `<boost/egg/register_nullary_result.hpp>`
 
+[/
 [heading Model of]
 * ...
 
 [heading Notation]
 * ...
+]
 
 [heading Valid expressions]
 [table 

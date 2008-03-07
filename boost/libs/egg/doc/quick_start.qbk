@@ -1,0 +1,107 @@
+[section Quick Start]
+
+
+
+
+[section Installing Egg]
+
+[heading Getting Egg]
+You can get __EGG_ZIP__ from __BOOST_VAULT__\/FunctionObjects.
+Also, if you have a svn client, __EGG_SVN__ is available using the following command:
+[pre
+    svn export https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk\/boost/ boost_egg
+]
+
+
+[heading Building Egg]
+Egg is a header-only library.
+It is unneeded to build or link to any lib files.
+
+[heading Requirements]
+Egg requires __BOOST__ Version 1.34.1 or later.
+You don't need to build any Boost libraries.
+
+[heading Portability]
+Egg is known to work on the following platforms:
+
+* Microsoft Visual C++ Version 7.1 or later
+* GCC 3.4.4 or later
+
+[endsect]
+
+
+
+
+[section Using Egg]
+
+[heading Hello Builder]
+In short, Egg is a library for building functions.
+Is C++ a language which requires library for building functions?
+The answer might be yes if you want to build __POLYMORPHIC_FUNCTION_OBJECT__ type.
+Below is the minimal example building such a function:
+[import ../example/hello_builder.cpp]
+[code_example_hello_builder]
+
+Egg defines the concept, __CONCEPT_LITTLE_FUNCTION__, from which
+Egg framework grows __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
+You can choose your favorite builder from __EGG_FUNCTION_BUILDERS__,
+then pass __CONCEPT_LITTLE_FUNCTION__ to it.
+In the example above, __EGG_FUNCTION__ is used, which is the most primitive and
+lightweight builder.
+
+[heading Hello Adaptor]
+Egg provides __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
+[import ../example/hello_adaptor.cpp]
+[code_example_hello_adaptor]
+
+__EGG_FUNCTION_ADAPTORS__ provides several "views" into functions.
+You can adapt a function into __EGG_LAZY__, __EGG_PIPABLE__, or __EGG_TAGGED__ function etc
+on demand.
+
+[endsect]
+
+
+
+
+[section Reading Doc]
+The organization of Egg is "flat".
+Egg can be regarded as federation of __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__.
+Each component is usually independent from each other, so that you can read the sections with any order.
+
+[heading Concepts]
+__EGG_CONCEPTS__ describes the concepts used in Egg.
+By the design rationale, __EGG_CONCEPTS__ doesn't introduce any new "traits" something like `is_bindable<>` etc.
+Those just define the valid expressions and semantics.
+The most important concepts are __CONCEPT_LITTLE_FUNCTION__ and __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+Other conepts could be read on demand.
+
+[heading Forwarding Strategies]
+__EGG_FORWARDING_STRATEGIES__ defines strategy tags for argument forwarding.
+Most of all Egg components take a parameter for them.
+Fortunately, the default behavior, __EGG_BY_PERFECT__, works so well in most cases
+that you could skip to read __EGG_FORWARDING_STRATEGIES__ for now.
+
+[heading Function Builders]
+__EGG_FUNCTION_BUILDERS__ build __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
+As mentioned above, __EGG_FUNCTION__ is the most primitive builder.
+First, it might be preferable to understand __EGG_FUNCTION__ with __CONCEPT_LITTLE_FUNCTION__ concept.
+Second, I recommend __EGG_POLY__, which is a cool builder originally written by David Abrahams.
+
+[heading Function Adaptors]
+__EGG_FUNCTION_ADAPTORS__ are higher-order functions which take a function then return adapted function.
+__EGG_FUSE__ and __EGG_UNFUSE__ might be one of the most interesting adaptors, which provides "fusing".
+
+[heading Function Objects and Utilities]
+__EGG_FUNCTION_OBJECTS__ provides useful functions which have been requested in __BOOST_USERS__ several times.
+For __EGG_UTILITIES__, __EGG_INFIX__ might be interesting, which is ported from __FCPP__.
+
+[heading Workarounds]
+__EGG_WORKAROUNDS__ is set of workarounds.
+For now, only __EGG_CONST__ might be worth to read.
+
+[endsect]
+
+
+
+
+[endsect]
