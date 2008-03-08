@@ -19,7 +19,7 @@ A __CONCEPT_LEXICALLY_TYPED_OBJECT__ is a named lvalue whose type is referable b
 For any __CONCEPT_LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 
 * `a` is a named lvalue.
-* If token `a` doesn't begin with a single underscore, `T_##a` is `__typeof(a)`; `TT##a` otherwise.
+* If token `a` doesn't begin with a single underscore, `T_%%a` is `__typeof(a)`; `TT%%a` otherwise.
 
 [heading Example]
 [code_concepts_lexically_typed_object]
@@ -160,8 +160,8 @@ for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 
 * `x<A1,...,AN>::type` is __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
 * `x<A1,...,AN>::type` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
-* `BOOST_EGG_##TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
-* Non-local object `x<A1,...,AN>::type` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_##TOUPPER(x)()`.
+* `BOOST_EGG_%%TOUPPER(x)()` is a (possibly braced) initializer to initialize `x<A1,...,AN>::type` object.
+* Non-local object `x<A1,...,AN>::type` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_%%TOUPPER(x)()`.
 
 [heading Example]
 [code_concepts_pod_function_builder]
