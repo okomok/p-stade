@@ -26,7 +26,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d, __Bytag)` is an object of `result_of_ambi##N<__typeof(d), __Bytag>::type` initialized using `d` or an initializer.
+* `fc(d, __Bytag)` is an object of `result_of_ambi%%N<__typeof(d), __Bytag>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -35,12 +35,12 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
         [[*Semantics]]
     ]
     [
-        [`result_of_ambi##N<__PFo, __Bytag = __ud>::type`]
+        [`result_of_ambi%%N<__PFo, __Bytag = __ud>::type`]
         [An __CONCEPT_AMBI__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.]
     ]
     [
         [`BOOST_EGG_AMBI_L init BOOST_EGG_AMBI_R`]
-        [A braced initializer of `result_of_ambi##N<__PFo,...>::type`]
+        [A braced initializer of `result_of_ambi%%N<__PFo,...>::type`]
     ]
     [
         [`BOOST_EGG_AMBI(I)`]
@@ -51,16 +51,16 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
         [`__const(d)(__fwd_arg_list([o]++a, __Bytag))`]
     ]
     [
-        [`X_ambi##N<__Bytag = __ud>`]
+        [`X_ambi%%N<__Bytag = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_ambi##N<__Bytag>()(d)`]
+        [`X_ambi%%N<__Bytag>()(d)`]
         [`fc(d, __Bytag)`]
     ]
     [
-        [`ambi##N`]
-        [`X_ambi##N<>()`]
+        [`ambi%%N`]
+        [`X_ambi%%N<>()`]
     ]
 ]
 
@@ -71,7 +71,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_ambi##N<__PFo,...>::type` is __POD__ if and only if `__PFo` is __POD__.
+* `result_of_ambi%%N<__PFo,...>::type` is __POD__ if and only if `__PFo` is __POD__.
 
 [heading Example]
 [import ../example/ambi.cpp]
@@ -171,7 +171,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * __CONCEPT_STATIC_FUNCTION_OBJECT__
 
 [heading Notation]
-* `fc(d)` is an object of `result_of_curry##N<__typeof(d)>::type` initialized using `d` or an initializer.
+* `fc(d)` is an object of `result_of_curry%%N<__typeof(d)>::type` initialized using `d` or an initializer.
 
 [heading Valid expressions]
 [table 
@@ -180,23 +180,23 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
         [[*Semantics]]
     ]
     [
-        [`result_of_curry##N<__PFo>::type`]
+        [`result_of_curry%%N<__PFo>::type`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`BOOST_EGG_CURRY##N##_L init BOOST_EGG_CURRY##N##_R`]
-        [A braced initializer of `result_of_curry##N<__PFo>::type`]
+        [`BOOST_EGG_CURRY%%N%%_L init BOOST_EGG_CURRY%%N%%_R`]
+        [A braced initializer of `result_of_curry%%N<__PFo>::type`]
     ]
     [
-        [`BOOST_EGG_CURRY##N(I)`]
-        [`BOOST_EGG_CURRY##N##_L I BOOST_EGG_CURRY##N##_R`]
+        [`BOOST_EGG_CURRY%%N(I)`]
+        [`BOOST_EGG_CURRY%%N%%_L I BOOST_EGG_CURRY%%N%%_R`]
     ]
     [
         [`fc(d)(a1)...(aN)`]
         [`__const(d)(__fwd_arg_list([a1,...,a(N-1)], by_value)++__fwd_arg_list([aN], by_perfect))`]
     ]
     [
-        [`curry##N(d)`]
+        [`curry%%N(d)`]
         [`fc(d)`]
     ]
 ]
@@ -208,7 +208,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 * __PRECONDITION_AS_IS__
 
 [heading Invariants]
-* `result_of_curry##N<__PFo>::type` is __POD__ if and only if `__PFo` is __POD__.
+* `result_of_curry%%N<__PFo>::type` is __POD__ if and only if `__PFo` is __POD__.
 
 [heading Example]
 [import ../example/curry.cpp]
@@ -965,20 +965,20 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`X_nest##N<Bind = __ud, Protect = __ud>`]
+        [`X_nest%%N<Bind = __ud, Protect = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_nest##N<Bind, Protect>()(f)(a1,...,aK)`]
+        [`X_nest%%N<Bind, Protect>()(f)(a1,...,aK)`]
         [__POLYMORPHIC__ `X_lazy<BIND(N)>()(f)(__fwd_arg_list(a, by_value))`]
     ]
     [
-        [`X_nest##N<Bind, Protect>()(p)`]
+        [`X_nest%%N<Bind, Protect>()(p)`]
         [__POLYMORPHIC__ `protect_(protect_(...N times...(p)...))`]
     ]
     [
-        [`nest##N(x)`]
-        [`X_nest##N<>()(x)`]
+        [`nest%%N(x)`]
+        [`X_nest%%N<>()(x)`]
     ]
 ]
 

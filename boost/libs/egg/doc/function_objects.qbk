@@ -30,16 +30,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`X_##op<R = __ud, __Stg = __ud>`]
+        [`X_%%op<R = __ud, __Stg = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_##op<R, __Stg>()(a1,...,aN)`]
+        [`X_%%op<R, __Stg>()(a1,...,aN)`]
         [`do_(op, __fwd_arg_list(a, __Stg))`]
     ]
     [
         [`op`]
-        [__CONCEPT_STATIC_FUNCTION_OBJECT__ which behaves as if it were `X_##op<>()`.]
+        [__CONCEPT_STATIC_FUNCTION_OBJECT__ which behaves as if it were `X_%%op<>()`.]
     ]
 ]
 
@@ -497,8 +497,8 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [[*Semantics]]
     ]
     [
-        [`bll_##N`]
-        [__POLYMORPHIC__ `boost::lambda::_##N`]
+        [`bll_%%N`]
+        [__POLYMORPHIC__ `boost::lambda::_%%N`]
     ]
 ]
 

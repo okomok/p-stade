@@ -208,7 +208,7 @@ This document uses the following notation.
         [An imaginary operator to concatenate parameter lists.]
     ]
     [
-        [`##`]
+        [`%%`]
         [An imaginary operator to concatenate tokens.]
     ]
     [
