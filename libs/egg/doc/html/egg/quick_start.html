@@ -27,11 +27,11 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.quick_start.installing_egg"></a><a href="quick_start.html#egg.quick_start.installing_egg" title="Installing Egg">Installing Egg</a></h3></div></div></div>
 <a name="egg.quick_start.installing_egg.getting_egg"></a><h5>
-<a name="id514684"></a>
+<a name="id514577"></a>
         <a href="quick_start.html#egg.quick_start.installing_egg.getting_egg">Getting Egg</a>
       </h5>
 <p>
-        You can get <a href="http://tinyurl.com/34lgda" target="_top"><code class="computeroutput"><span class="identifier">egg</span><span class="special">.</span><span class="identifier">zip</span></code></a>
+        You can get <a href="http://www.boost-consulting.com/vault/index.php?action=downloadfile&amp;filename=egg.zip&amp;directory=Function%20Objects&amp;" target="_top"><code class="computeroutput"><span class="identifier">egg</span><span class="special">.</span><span class="identifier">zip</span></code></a>
         from <a href="http://www.boost-consulting.com/vault/index.php" target="_top">Boost.Vault</a>/FunctionObjects.
         Also, if you have a svn client, <a href="https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk/boost" target="_top">Egg
         svn repository</a> is available using the following command:
@@ -39,7 +39,7 @@
 <pre class="programlisting">svn export https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk/boost/ boost_egg
 </pre>
 <a name="egg.quick_start.installing_egg.building_egg"></a><h5>
-<a name="id514761"></a>
+<a name="id514657"></a>
         <a href="quick_start.html#egg.quick_start.installing_egg.building_egg">Building Egg</a>
       </h5>
 <p>
@@ -47,7 +47,7 @@
         files.
       </p>
 <a name="egg.quick_start.installing_egg.requirements"></a><h5>
-<a name="id514789"></a>
+<a name="id514685"></a>
         <a href="quick_start.html#egg.quick_start.installing_egg.requirements">Requirements</a>
       </h5>
 <p>
@@ -56,7 +56,7 @@
         to build any Boost libraries.
       </p>
 <a name="egg.quick_start.installing_egg.portability"></a><h5>
-<a name="id514829"></a>
+<a name="id514725"></a>
         <a href="quick_start.html#egg.quick_start.installing_egg.portability">Portability</a>
       </h5>
 <p>
@@ -75,7 +75,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.quick_start.using_egg"></a><a href="quick_start.html#egg.quick_start.using_egg" title="Using Egg">Using Egg</a></h3></div></div></div>
 <a name="egg.quick_start.using_egg.hello_builder"></a><h5>
-<a name="id514887"></a>
+<a name="id514781"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.hello_builder">Hello Builder</a>
       </h5>
 <p>
@@ -97,12 +97,12 @@
 
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">egg</span><span class="special">;</span>
 
-<span class="keyword">struct</span> <span class="identifier">little_identity</span> <span class="callout_bug"><a name="egg9co" href="quick_start.html#egg9"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+<span class="keyword">struct</span> <span class="identifier">little_identity</span> <span class="callout_bug"><a name="egg6co" href="quick_start.html#egg6"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
 <span class="special">{</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Me</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">apply</span>
     <span class="special">{</span>
-        <span class="keyword">typedef</span> <span class="identifier">T</span> <span class="special">&amp;</span><span class="identifier">type</span><span class="special">;</span> <span class="callout_bug"><a name="egg10co" href="quick_start.html#egg10"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+        <span class="keyword">typedef</span> <span class="identifier">T</span> <span class="special">&amp;</span><span class="identifier">type</span><span class="special">;</span> <span class="callout_bug"><a name="egg7co" href="quick_start.html#egg7"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
     <span class="special">};</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Re</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -112,14 +112,14 @@
     <span class="special">}</span>
 <span class="special">};</span>
 
-<span class="keyword">typedef</span> <span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">little_identity</span><span class="special">&gt;</span> <span class="identifier">T_identity</span><span class="special">;</span> <span class="callout_bug"><a name="egg11co" href="quick_start.html#egg11"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
+<span class="keyword">typedef</span> <span class="identifier">function</span><span class="special">&lt;</span><span class="identifier">little_identity</span><span class="special">&gt;</span> <span class="identifier">T_identity</span><span class="special">;</span> <span class="callout_bug"><a name="egg8co" href="quick_start.html#egg8"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
 <span class="identifier">T_identity</span> <span class="keyword">const</span> <span class="identifier">identity</span> <span class="special">=</span> <span class="special">{{}};</span>
 
 <span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">10</span><span class="special">;</span>
-    <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_identity</span><span class="special">(</span><span class="keyword">int</span> <span class="special">&amp;)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">identity</span><span class="special">(</span><span class="identifier">i</span><span class="special">);</span> <span class="callout_bug"><a name="egg12co" href="quick_start.html#egg12"><img src="../images/callouts/4.png" alt="4" border="0"></a></span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span><span class="special">;</span> <span class="callout_bug"><a name="egg13co" href="quick_start.html#egg13"><img src="../images/callouts/5.png" alt="5" border="0"></a></span>
+    <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_identity</span><span class="special">(</span><span class="keyword">int</span> <span class="special">&amp;)&gt;::</span><span class="identifier">type</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">identity</span><span class="special">(</span><span class="identifier">i</span><span class="special">);</span> <span class="callout_bug"><a name="egg9co" href="quick_start.html#egg9"><img src="../images/callouts/4.png" alt="4" border="0"></a></span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">r</span><span class="special">;</span> <span class="callout_bug"><a name="egg10co" href="quick_start.html#egg10"><img src="../images/callouts/5.png" alt="5" border="0"></a></span>
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
@@ -133,32 +133,32 @@
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg9"></a><a href="#egg9co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="egg6"></a><a href="#egg6co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> Conforms <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>.
           </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg10"></a><a href="#egg10co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<a name="egg7"></a><a href="#egg7co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
 <td valign="top" align="left"><p> The return type is depend on argument type. In other words, it is <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic</a>.
           </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg11"></a><a href="#egg11co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
+<a name="egg8"></a><a href="#egg8co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
 <td valign="top" align="left"><p> <a href="function_builders.html#egg.function_builders.function" title="function"><code class="computeroutput"><span class="identifier">function</span></code></a>
           is one of the <a href="function_builders.html" title="Function Builders">Function Builders</a>.
           </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg12"></a><a href="#egg12co"><img src="../images/callouts/4.png" alt="4" border="0"></a> </td>
+<a name="egg9"></a><a href="#egg9co"><img src="../images/callouts/4.png" alt="4" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">identity</span></code> can be used with
           <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a>. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg13"></a><a href="#egg13co"><img src="../images/callouts/5.png" alt="5" border="0"></a> </td>
+<a name="egg10"></a><a href="#egg10co"><img src="../images/callouts/5.png" alt="5" border="0"></a> </td>
 <td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">10</span></code>.
           </p></td>
 </tr>
@@ -175,7 +175,7 @@
         primitive and lightweight builder.
       </p>
 <a name="egg.quick_start.using_egg.hello_adaptor"></a><h5>
-<a name="id515868"></a>
+<a name="id515763"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.hello_adaptor">Hello Adaptor</a>
       </h5>
 <p>
@@ -198,19 +198,19 @@
 <span class="special">{</span>
     <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
 
-    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">y</span><span class="special">)</span> <span class="keyword">const</span> <span class="callout_bug"><a name="egg14co" href="quick_start.html#egg14"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">y</span><span class="special">)</span> <span class="keyword">const</span> <span class="callout_bug"><a name="egg11co" href="quick_start.html#egg11"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
     <span class="special">{</span>
         <span class="keyword">return</span> <span class="identifier">x</span> <span class="special">+</span> <span class="identifier">y</span><span class="special">;</span>
     <span class="special">}</span>
 <span class="special">};</span>
 
 <span class="identifier">result_of_lazy</span><span class="special">&lt;</span><span class="identifier">T_plus</span><span class="special">&gt;::</span><span class="identifier">type</span>
-    <span class="keyword">const</span> <span class="identifier">Plus</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_LAZY</span><span class="special">({});</span> <span class="callout_bug"><a name="egg15co" href="quick_start.html#egg15"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+    <span class="keyword">const</span> <span class="identifier">Plus</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_LAZY</span><span class="special">({});</span> <span class="callout_bug"><a name="egg12co" href="quick_start.html#egg12"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
 
 <span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="keyword">namespace</span> <span class="identifier">bll</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">;</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">Plus</span><span class="special">(</span><span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <span class="number">20</span><span class="special">)(</span><span class="number">10</span><span class="special">);</span> <span class="callout_bug"><a name="egg16co" href="quick_start.html#egg16"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">Plus</span><span class="special">(</span><span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <span class="number">20</span><span class="special">)(</span><span class="number">10</span><span class="special">);</span> <span class="callout_bug"><a name="egg13co" href="quick_start.html#egg13"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
@@ -224,19 +224,19 @@
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg14"></a><a href="#egg14co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="egg11"></a><a href="#egg11co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> Don't forget <span class="emphasis"><em>const-qualifer</em></span>. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg15"></a><a href="#egg15co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<a name="egg12"></a><a href="#egg12co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
 <td valign="top" align="left"><p> Making <code class="computeroutput"><span class="identifier">T_plus</span></code> <a href="function_adaptors.html#egg.function_adaptors.lazy" title="lazy"><code class="computeroutput"><span class="identifier">lazy</span></code></a>, which can be used with
           <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>
           placeholders. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg16"></a><a href="#egg16co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
+<a name="egg13"></a><a href="#egg13co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
 <td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">30</span></code>. </p></td>
 </tr>
 </table></div>
@@ -258,8 +258,17 @@
         is usually independent from each other, so that you can read the sections
         with any order.
       </p>
+<a name="egg.quick_start.reading_doc.notation"></a><h5>
+<a name="id516596"></a>
+        <a href="quick_start.html#egg.quick_start.reading_doc.notation">Notation</a>
+      </h5>
+<p>
+        <a href="../index.html#egg.overview.notation" title="Notation">Notation</a> introduces several
+        keywords for documentation. A word which begins with <code class="computeroutput"><span class="identifier">__</span></code>
+        is a keyword. When you forget its semantics, just click the keyword.
+      </p>
 <a name="egg.quick_start.reading_doc.concepts"></a><h5>
-<a name="id516702"></a>
+<a name="id516645"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.concepts">Concepts</a>
       </h5>
 <p>
@@ -272,7 +281,7 @@
         Other conepts could be read on demand.
       </p>
 <a name="egg.quick_start.reading_doc.forwarding_strategies"></a><h5>
-<a name="id516788"></a>
+<a name="id516732"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.forwarding_strategies">Forwarding
         Strategies</a>
       </h5>
@@ -284,7 +293,7 @@
         Strategies</a> for now.
       </p>
 <a name="egg.quick_start.reading_doc.function_builders"></a><h5>
-<a name="id516859"></a>
+<a name="id516802"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_builders">Function Builders</a>
       </h5>
 <p>
@@ -295,7 +304,7 @@
         written by David Abrahams.
       </p>
 <a name="egg.quick_start.reading_doc.function_adaptors"></a><h5>
-<a name="id516971"></a>
+<a name="id516915"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_adaptors">Function Adaptors</a>
       </h5>
 <p>
@@ -304,7 +313,7 @@
         interesting adaptors, which provides "fusing".
       </p>
 <a name="egg.quick_start.reading_doc.function_objects_and_utilities"></a><h5>
-<a name="id517048"></a>
+<a name="id516992"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_objects_and_utilities">Function
         Objects and Utilities</a>
       </h5>
@@ -316,7 +325,7 @@
         might be interesting, which is ported from <a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a>.
       </p>
 <a name="egg.quick_start.reading_doc.workarounds"></a><h5>
-<a name="id517134"></a>
+<a name="id517078"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.workarounds">Workarounds</a>
       </h5>
 <p>
