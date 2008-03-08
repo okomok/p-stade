@@ -68,6 +68,10 @@ The organization of Egg is "flat".
 Egg can be regarded as federation of __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__.
 Each component is usually independent from each other, so that you can read the sections with any order.
 
+[heading Notation]
+__EGG_NOTATION__ introduces several keywords for documentation.
+A word which begins with `__` is a keyword. When you forget its semantics, just click the keyword.
+
 [heading Concepts]
 __EGG_CONCEPTS__ describes the concepts used in Egg.
 By the design rationale, __EGG_CONCEPTS__ doesn't introduce any new "traits" something like `is_bindable<>` etc.

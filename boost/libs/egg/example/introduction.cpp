@@ -46,16 +46,16 @@ T_plus const plus = {{}};
 
 void egg_builder()
 {
-    result_of_<T_plus(int, int)>::type r = plus(1, 2); /*< __BOOST_RESULT_OF__ compatible. >*/
+    result_of_<T_plus(int, int)>::type r = plus(1, 2);
     BOOST_CHECK(r == 3);
 
     namespace bll = boost::lambda;
     using std::string;
     string one("1");
-    BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one)); /*< __BOOST_LAMBDA__ compatible. >*/
+    BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one));
 }
 
-result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}}); /*< The __STATIC_INITIALIZATION__ without runtime overhead. >*/
+result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}});
 
 void egg_adaptor()
 {
@@ -70,7 +70,7 @@ void egg_adaptor()
 //[code_introduction_fixed_result
 struct T_to_string /*< Egg doesn't appreciate `std::unary_function<>`, because inheriting it keeps types out of __POD__. >*/
 {
-    typedef std::string result_type; /*< `argument_type` etc is not needed. >*/
+    typedef std::string result_type; /*< `argument_type` etc are not needed. >*/
 
     template<class T>
     result_type operator()(T const &t) const
