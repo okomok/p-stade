@@ -20,7 +20,7 @@
 
 #define PSTADE_OVEN_BASE_TO_ADAPTOR(O, B) \
     namespace BOOST_PP_CAT(adaptor_workarea_of_, O) { \
-        using namespace boost::mpl::placeholders; \
+        using boost::mpl::_; \
         typedef pstade::egg::poly<PSTADE_UNPARENTHESIZE(B)>::type op; \
     } \
     typedef BOOST_PP_CAT(adaptor_workarea_of_, O)::op BOOST_PP_CAT(T_make_, O); \
