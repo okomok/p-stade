@@ -53,15 +53,31 @@ struct T_weird
 
 T_weird const weird = {};
 
-int my_plus(int i, int j)
-{
-    return i + j;
-}
 
-int my_minus(int i, int j)
+struct T_my_plus
 {
-    return i - j;
-}
+    typedef int result_type;
+
+    int operator()(int i, int j) const
+    {
+        return i + j;
+    }
+};
+
+T_my_plus const my_plus = {};
+
+
+struct T_my_minus
+{
+    typedef int result_type;
+
+    int operator()(int i, int j) const
+    {
+        return i - j;
+    }
+};
+
+T_my_minus const my_minus = {};
 
 
 void egg_test()
@@ -111,34 +127,34 @@ void egg_test()
         // Surprisingly, this works. I don't know why. :-)
         int i8 = 8, i7 = 7;
         // \x -> (\y -> (\z -> y(z, x)))
-        BOOST_CHECK( nest3(nest1(_1))(nest2(_1), nest0(_1)) (i8)(&my_minus)(i7) // msvc-7.1 needs `&`.
+        BOOST_CHECK( nest3(nest1(_1))(nest2(_1), nest0(_1)) (i8)(my_minus)(i7) // msvc-7.1 needs `&`.
             == my_minus(7, 8) );
     }
     {
         int i7 = 7;
         // \x -> (\y -> x(y, 2))
 #if 0 // nest2(nest0(_1)) <=> nest2(_1) <=> unintentionally protect(protect(_1))
-        BOOST_CHECK( nest2(nest0(_1))(nest1(_1), 2) (&my_minus)(i7)
+        BOOST_CHECK( nest2(nest0(_1))(nest1(_1), 2) (my_minus)(i7)
             == my_minus(7, 2) );
 #endif
         // \x -> (\y -> apply(x, y, 2)) // same effect as above.
-        BOOST_CHECK( nest2(apply)(nest0(_1), nest1(_1), 2) (&my_minus)(i7)
+        BOOST_CHECK( nest2(apply)(nest0(_1), nest1(_1), 2) (my_minus)(i7)
             == my_minus(7, 2) );
 
         // \x -> (\y -> identity(x)(y, 2)) // same effect as above.
-        BOOST_CHECK( nest2(lazy(identity)(nest0(_1)))(nest1(_1), 2) (&my_minus)(i7)
+        BOOST_CHECK( nest2(lazy(identity)(nest0(_1)))(nest1(_1), 2) (my_minus)(i7)
             == my_minus(7, 2) );
     }
     {
         int i8 = 8, i7 = 7;
         // \x -> (\y -> (\z -> x(y, z)))
-        BOOST_CHECK( nest3(unplace(_1))(nest1(_1), nest2(_1)) (&my_minus)(i8)(i7)
+        BOOST_CHECK( nest3(unplace(_1))(nest1(_1), nest2(_1)) (my_minus)(i8)(i7)
             == my_minus(8, 7) );
     }
     {
         int i7 = 7;
         // \x -> (\y -> x(y, 2))
-        BOOST_CHECK( details::X_nest_impl2<T_bll_bind>()(nest0(_1))(nest1(_1), 2) (&my_minus)(i7)
+        BOOST_CHECK( details::X_nest_impl2<T_bll_bind>()(nest0(_1))(nest1(_1), 2) (my_minus)(i7)
             == my_minus(7, 2) );
     }
 #if 0 // doesn't work.
