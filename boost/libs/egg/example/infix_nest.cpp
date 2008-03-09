@@ -14,10 +14,13 @@
 #include <boost/egg/placeholders.hpp>
 #include <boost/egg/functional.hpp> // minus
 #include <boost/egg/nest.hpp>
+#include <boost/version.hpp>
 
 
 #include "./egg_example.hpp"
 
+
+#if BOOST_VERSION >= 103500 // works only if boost::is_placeholder available.
 
 //[code_example_infix_nest
 void egg_example()
@@ -33,3 +36,10 @@ void egg_example()
     BOOST_CHECK( (nest1(_1) ^nest2(minus)^ nest0(_1))(5)(8) == 8 - 5 );
 }
 //]
+
+#else
+
+void egg_example()
+{ }
+
+#endif

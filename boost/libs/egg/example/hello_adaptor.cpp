@@ -31,7 +31,8 @@ result_of_lazy<T_plus>::type
 int main()
 {
     namespace bll = boost::lambda;
-    std::cout << Plus(bll::_1, 20)(10); /*< Prints `30`. >*/
+    int i10 = 10;
+    std::cout << Plus(bll::_1, 20)(i10); /*< Prints `30`. >*/
 
     return 0;
 }
