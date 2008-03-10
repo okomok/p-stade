@@ -9,7 +9,7 @@
 You can get __EGG_ZIP__ from __BOOST_VAULT__\/FunctionObjects.
 Also, if you have a svn client, __EGG_SVN__ is available using the following command:
 [pre
-    svn export https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk\/boost/ boost_egg
+    svn co https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk\/boost/ boost_egg
 ]
 
 
