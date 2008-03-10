@@ -1,5 +1,6 @@
 #ifndef BOOST_EGG_DETECT_RESULT_TYPE_HPP
 #define BOOST_EGG_DETECT_RESULT_TYPE_HPP
+#include <boost/egg/detail/prefix.hpp>
 
 
 // Boost.Egg
@@ -26,4 +27,5 @@
 #endif
 
 
+#include <boost/egg/detail/suffix.hpp>
 #endif
