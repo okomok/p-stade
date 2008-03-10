@@ -35,11 +35,11 @@ void egg_example()
 
 // Lv: 0     1      2          3
     // \x -> (\y -> (\(z,w) -> foo(y,w,z,x))))
-    BOOST_CHECK( nest3(foo)(nest1(_1), nest2(_2), nest2(_1), nest0(_1)) /*< `nest0` does nothing, meaning that `nest0(_1)` behaves as `_1`. >*/
+    BOOST_CHECK( nest3(foo)(_1_(_1), _2_(_2), _2_(_1), _0_(_1)) /*< `_N_` turns a placeholder into nested one. >*/
         (i3)(i6)(i1,i9) == foo(6,9,1,3) );
 
     // \x -> apply(\y -> minus(x,y), plus(x,3))
-    BOOST_CHECK( nest1(apply)(nest2(minus)(nest0(_1), nest1(_1)), nest1(plus)(nest0(_1), 3)) /*< `nest1(apply)` has the same semantics as `lazy(apply)`. >*/
+    BOOST_CHECK( nest1(apply)(nest2(minus)(_0_(_1), _1_(_1)), nest1(plus)(_0_(_1), 3)) /*< By the definition, `nest1` has the same semantics as __EGG_LAZY__. >*/
         (i9) == minus(9, plus(9,3))  );
 }
 //]
