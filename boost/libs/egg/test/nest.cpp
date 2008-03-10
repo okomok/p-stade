@@ -80,6 +80,21 @@ struct T_my_minus
 T_my_minus const my_minus = {};
 
 
+
+struct T_lala
+{
+    typedef int result_type;
+
+    template<class F, class G>
+    int operator()(F f, G g) const
+    {
+        return f(10) + g(20);
+    }
+};
+
+T_lala const lala = {};
+
+
 void egg_test()
 {
     using bll::_1;
@@ -167,4 +182,9 @@ void egg_test()
             ==  7-8 );
     }
 #endif
+    {
+        // \x -> lala(\y->minus(x, y), \y -> minus(y, x))
+        BOOST_CHECK( nest1(lala)(nest2(my_minus)(_0_(_1), _1_(_1)), nest2(my_minus)(_1_(_1), _0_(_1)))
+            (3) == my_minus(3, 10) + my_minus(20, 3) );
+    }
 }
