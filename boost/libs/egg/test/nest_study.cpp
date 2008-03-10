@@ -77,6 +77,6 @@ void egg_test()
         (a) == plus(a, a+3) );
 
     // using `nest` and `nest`
-    BOOST_CHECK( nest1(my_apply)(nest2(plus)(nest0(_1), nest1(_1)), nest1(plus)(nest0(_1), 3))
+    BOOST_CHECK( nest1(my_apply)(nest2(plus)(_0_(_1), _1_(_1)), nest1(plus)(_0_(_1), 3))
         (a) == plus(a, a+3) );
 }
