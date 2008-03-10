@@ -12,7 +12,6 @@
 
 
 #include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/egg/bll/protect.hpp>
 #include <boost/egg/by_value.hpp>
