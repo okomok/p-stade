@@ -28,12 +28,12 @@ void egg_example()
     using namespace infix;
     using namespace placeholders;
 
-    X_nest0<T_bind, T_protect> nest0;
-    X_nest1<T_bind, T_protect> nest1;
-    X_nest2<T_bind, T_protect> nest2;
+    X_nest2<T_bind> nest2;
+    XX_0_<T_protect> _0_;
+    XX_1_<T_protect> _1_;
 
     // \x -> (\y -> y - x)
-    BOOST_CHECK( (nest1(_1) ^nest2(minus)^ nest0(_1))(5)(8) == 8 - 5 );
+    BOOST_CHECK( (_1_(_1) ^nest2(minus)^ _0_(_1))(5)(8) == 8 - 5 );
 }
 //]
 

@@ -954,9 +954,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `bll_bind` is an imaginary __FUNCTION_OBJECT__ behaving as if it were `boost::lambda::bind`.
 * `bind_` is `bll_bind` if `Bind` is `__ud`, `Bind()` otherwise.
 * `protect_` is `boost::lambda::protect` if `Protect` is `__ud`, `Protect()` otherwise.
-* `BIND(N)` is:
-    * `__typeof(bind_)` if `N == 1`.
-    * `result_of_lazy<__typeof(bind_), result_of_lazy<__typeof(bind_),...N-1 times...>::type>::type` otherwise.
+* `LAZY(N)` is:
+    * If `N == 0`, `X_identity<by_value>()`.
+    * Else if `N == 1`, `X_lazy<__typeof(bind_)>()`.
+    * Otherwise, `X_lazy<result_of_lazy<__typeof(bind_), result_of_lazy<__typeof(bind_),...N-1 times...>::type>::type>()`.
 
 [heading Valid expressions]
 [table 
@@ -965,27 +966,33 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [[*Semantics]]
     ]
     [
-        [`X_nest%%N<Bind = __ud, Protect = __ud>`]
+        [`X_nest%%N<Bind = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`X_nest%%N<Bind, Protect>()(f)(a1,...,aK)`]
-        [__POLYMORPHIC__ `X_lazy<BIND(N)>()(f)(__fwd_arg_list(a, by_value))`]
-    ]
-    [
-        [`X_nest%%N<Bind, Protect>()(p)`]
-        [__POLYMORPHIC__ `protect_(protect_(...N times...(p)...))`]
+        [`X_nest%%N<Bind>()(f)(a1,...,aK)`]
+        [__POLYMORPHIC__ `LAZY(N)(f)(__fwd_arg_list(a, by_value))`]
     ]
     [
         [`nest%%N(x)`]
         [`X_nest%%N<>()(x)`]
     ]
+    [
+        [`XX_%%N%%_<Protect = __ud>`]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`XX_%%N%%_<Protect>()(p)`]
+        [__POLYMORPHIC__ `protect_(protect_(...N times...(p)...))`]
+    ]
+    [
+        [`_%%N%%_`]
+        [__CONCEPT_STATIC__ `XX_%%N%%_<>()`]
+    ]
 ]
 
 [heading Preconditions]
 * `0 <= N && N <= 5`.
-* `boost::is_placeholder<__typeof(f)>::value == false`.
-* `boost::is_placeholder<__typeof(p)>::value == true`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
