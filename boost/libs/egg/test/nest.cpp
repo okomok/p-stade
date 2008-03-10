@@ -130,16 +130,15 @@ void egg_test()
         // Surprisingly, this works. I don't know why. :-)
         int i8 = 8, i7 = 7;
         // \x -> (\y -> (\z -> y(z, x)))
-        BOOST_CHECK( nest3(_1_(_1))(_2_(_1), _0_(_1)) (i8)(my_minus)(i7) // msvc-7.1 needs `&`.
+        BOOST_CHECK( nest3(_1_(_1))(_2_(_1), _0_(_1)) (i8)(my_minus)(i7)
             == my_minus(7, 8) );
     }
     {
         int i7 = 7;
         // \x -> (\y -> x(y, 2))
-#if 0 // _2_(_0_(_1)) <=> _2_(_1) <=> unintentionally protect(protect(_1))
-        BOOST_CHECK( _2_(_0_(_1))(_1_(_1), 2) (my_minus)(i7)
+        BOOST_CHECK( nest2(_0_(_1))(_1_(_1), 2) (my_minus)(i7)
             == my_minus(7, 2) );
-#endif
+
         // \x -> (\y -> apply(x, y, 2)) // same effect as above.
         BOOST_CHECK( nest2(apply)(_0_(_1), _1_(_1), 2) (my_minus)(i7)
             == my_minus(7, 2) );
