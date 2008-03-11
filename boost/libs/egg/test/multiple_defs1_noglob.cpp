@@ -103,10 +103,11 @@ void check_include_guards()
     using egg::call_little;
 
     using egg::nest2;
+    using egg::_3_;
 }
 
 
-// warning check: warning must be shown in IDE.
+// checking right pragmas: warnings must be shown.
 struct no_assignment
 {
     int const &x;
