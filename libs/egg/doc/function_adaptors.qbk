@@ -978,21 +978,22 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`X_nest%%N<>()(x)`]
     ]
     [
-        [`XX_%%N%%_<Protect = __ud>`]
+        [`XX_%%M%%_<Protect = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`XX_%%N%%_<Protect>()(p)`]
-        [__POLYMORPHIC__ `protect_(protect_(...N times...(p)...))`]
+        [`XX_%%M%%_<Protect>()(p)`]
+        [__POLYMORPHIC__ `protect_(protect_(...M times...(p)...))`]
     ]
     [
-        [`_%%N%%_`]
-        [__CONCEPT_STATIC__ `XX_%%N%%_<>()`]
+        [`_%%M%%_`]
+        [__CONCEPT_STATIC__ `XX_%%M%%_<>()`]
     ]
 ]
 
 [heading Preconditions]
 * `0 <= N && N <= 5`.
+* `0 <= N && M <= 4`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
