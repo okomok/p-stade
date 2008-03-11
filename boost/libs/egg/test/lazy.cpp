@@ -54,6 +54,12 @@ struct big_arity
 BOOST_EGG_CONST((result_of_lazy<base_minus>::type), lazy_minus) = BOOST_EGG_LAZY({});
 
 
+struct A
+{
+    int foo(int i) const { return i; }
+};
+
+
 void egg_test()
 {
     {
@@ -62,6 +68,10 @@ void egg_test()
 #if 0 // rejected
         BOOST_CHECK(lazy(base_minus(), bll_bind)(bll::_1, 2)(3|to_ref) == 1);
 #endif
+    }
+    {
+        A a;
+        BOOST_CHECK(lazy(&A::foo)(a, bll::_1)(3|to_ref) == 3);
     }
     {
         BOOST_CHECK(lazy_minus(bll::_1, bll::_2)(8|to_ref, 3|to_ref) == 5);
