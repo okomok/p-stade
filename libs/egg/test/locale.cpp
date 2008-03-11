@@ -28,4 +28,10 @@ void egg_test()
         BOOST_CHECK(is_alpha('a'));
         BOOST_CHECK(is_upper('A', std::locale()));
     }
+    {
+        BOOST_CHECK(to_upper('a') == 'A');
+        BOOST_CHECK(to_lower('A') == 'a');
+        BOOST_CHECK(to_upper('a', std::locale()) == 'A');
+        BOOST_CHECK(to_lower('A', std::locale()) == 'a');
+    }
 }
