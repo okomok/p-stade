@@ -16,7 +16,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/egg/bll/bind.hpp>
 #include <boost/egg/by_value.hpp>
-#include <boost/egg/config.hpp> // BOOST_EGG_MAX_NEST_LEVEL
+#include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
 #include <boost/egg/const.hpp>
 #include <boost/egg/detail/if_use_default.hpp>
 #include <boost/egg/detail/nest_placeholder.hpp> // inclusion guaranteed
@@ -39,7 +39,7 @@ namespace boost { namespace egg {
 
 
 // level1-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_NEST_LEVEL, <boost/egg/nest.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_ARITY, <boost/egg/nest.hpp>))
     #include BOOST_PP_ITERATE()
 
 
