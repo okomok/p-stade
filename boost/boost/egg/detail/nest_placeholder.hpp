@@ -38,7 +38,7 @@ namespace boost { namespace egg {
 
 
 // level1-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_NEST_LEVEL, <boost/egg/detail/nest_placeholder.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_PP_DEC(BOOST_EGG_MAX_NEST_LEVEL), <boost/egg/detail/nest_placeholder.hpp>))
     #include BOOST_PP_ITERATE()
 
 
