@@ -6,9 +6,10 @@
 [section expr]
 
 [heading Description]
-"typeof" and "type-erasure" are not conflicting forces.
-`expr` performs type-erasure when native typeof isn't available.
-So that, type registrations into __BOOST_TYPEOF__ can be minimized.
+You may think it is very cumbersome to write `result_of` expressions.
+On the other hand, __BOOST_FUNCTION__ may incur a slight overhead.
+Using `expr` with __BOOST_TYPEOF__, you can define __FUNCTION_OBJECT__
+with maximal efficiency and portability.
 
 [heading Header]
 * `<boost/egg/expr.hpp>`
@@ -36,6 +37,9 @@ So that, type registrations into __BOOST_TYPEOF__ can be minimized.
 [heading Preconditions]
 * Except for `boost::use_default`, types in `Sig` is registered to __BOOST_TYPEOF__.
 * __PRECONDITION_AS_IS__
+
+[note `expr` performs type-erasure when native typeof isn't available
+      so that type registrations into __BOOST_TYPEOF__ can be minimized. ]
 
 [heading Example]
 [import ../example/expr.cpp]
