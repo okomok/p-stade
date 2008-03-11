@@ -993,7 +993,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Preconditions]
 * `0 <= N && N <= 5`.
-* `0 <= N && M <= 4`.
+* `0 <= M && M <= N-1`.
 * __PRECONDITION_AS_IS__
 
 [heading Example]
