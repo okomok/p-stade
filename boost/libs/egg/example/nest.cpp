@@ -35,7 +35,7 @@ void egg_example()
 
 // Lv: 0     1      2          3
     // \x -> (\y -> (\(z,w) -> foo(y,w,z,x))))
-    BOOST_CHECK( nest3(foo)(_1_(_1), _2_(_2), _2_(_1), _0_(_1)) /*< `_N_` turns a placeholder into nested one. >*/
+    BOOST_CHECK( nest3(foo)(_1_(_1), _2_(_2), _2_(_1), _0_(_1)) /*< `_M_` turns a placeholder into nested one. >*/
         (i3)(i6)(i1,i9) == foo(6,9,1,3) );
 
     // \x -> apply(\y -> minus(x,y), plus(x,3))
