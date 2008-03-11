@@ -42,6 +42,7 @@ So that, type registrations into __BOOST_TYPEOF__ can be minimized.
 [code_example_expr]
 
 [heading See also]
+* __EGG_MONO__
 * __BOOST_FUNCTION__
 * __BOOST_TYPEOF__
 
@@ -134,6 +135,7 @@ This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__
 
 [heading See also]
 * __BOOST_LAMBDA__
+* __BOOST_RESULT_OF__
 
 [endsect]
 
