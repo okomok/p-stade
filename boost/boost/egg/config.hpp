@@ -32,11 +32,6 @@
 #endif
 
 
-#if !defined(BOOST_EGG_MAX_NEST_LEVEL)
-    #define BOOST_EGG_MAX_NEST_LEVEL 5
-#endif
-
-
 #if defined(BOOST_HAS_THREADS) && !defined(BOOST_EGG_DISABLE_THREADS)
     #define BOOST_EGG_HAS_THREADS
 #endif
