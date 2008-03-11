@@ -14,6 +14,4 @@
 
 void egg_test()
 {
-
-
 }
