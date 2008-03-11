@@ -47,7 +47,6 @@ rule tests
 test-suite "egg"
     :
         [ tests ]
-    #    [ run large_arity_noglob.cpp ]
     #    [ run inlined_perf_noglob.cpp : : : : : <variant>release ]
     #    [ run inlined_mem_perf_noglob.cpp : : : : : <variant>release ]
         [ link static_initialization1_noglob.cpp static_initialization2_noglob.cpp : : static_initialization ]
