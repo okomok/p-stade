@@ -17,9 +17,14 @@
 
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/functional.hpp> // plus
+#include <boost/egg/functional.hpp>
 #include <boost/egg/to_ref.hpp>
 #include "./check_is_result_of.hpp"
+
+
+#include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
+#include <boost/lambda/lambda.hpp>
+#include BOOST_EGG_SUPPRESS_WARNING_END()
 
 
 using namespace boost::egg;
@@ -75,4 +80,11 @@ void egg_test()
         int (*pf)(int,int) = &my_minus;
         BOOST_CHECK( lazy(bll_bind)(bll_1, boost::lambda::protect(bll_1), 10)(pf)(i) == -7 );
     }
+#if 0 // Boost.Lambda itself seems not to extend return type deduction system.
+    {
+        int i = 3;
+        result_of_<T_minus(T_bll_1 const &, int)>::type f = minus(bll_1, 3);
+        BOOST_CHECK(f(i) == 0);
+    }
+#endif
 }
