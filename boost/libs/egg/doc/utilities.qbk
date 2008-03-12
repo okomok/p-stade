@@ -6,10 +6,8 @@
 [section expr]
 
 [heading Description]
-You may think it is very cumbersome to write `result_of` expressions.
-On the other hand, __BOOST_FUNCTION__ may incur a slight overhead.
-Using `expr` with __BOOST_TYPEOF__, you can define __FUNCTION_OBJECT__
-with maximal efficiency and portability.
+`expr`, cooperating with __BOOST_TYPEOF__,
+enables you to extract type of expression without `resulf_of`.
 
 [heading Header]
 * `<boost/egg/expr.hpp>`

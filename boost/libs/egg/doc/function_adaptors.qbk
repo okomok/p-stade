@@ -794,6 +794,9 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Invariants]
 * `result_of_lazy<F, Bind>::type` is __POD__ if and only if `F` is __POD__.
 
+[tip When you provide a __EGG_LAZY__ __FUNCTION_OBJECT__, its "base" function too should be provided
+     with consistent naming convention. So that, your clients can use it with __EGG_NEST__. ]
+
 [heading Example]
 [import ../example/lazy.cpp]
 [code_example_lazy]
@@ -1131,6 +1134,9 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Invariants]
 * `result_of_pipable<__PFo,...>::type` is __POD__ if and only if `__PFo` is __POD__.
+
+[tip When you provide a __CONCEPT_PIPABLE_FUNCTION_OBJECT__, its "base" function too should be provided
+     with consistent naming convention. So that, your clients can use it with `result_of`. ]
 
 [heading Example]
 [import ../example/pipable.cpp]
