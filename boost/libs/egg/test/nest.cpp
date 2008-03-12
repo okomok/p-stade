@@ -183,8 +183,9 @@ void egg_test()
     }
 #endif
     {
+        int i3 = 3;
         // \x -> lala(\y->minus(x, y), \y -> minus(y, x))
         BOOST_CHECK( nest1(lala)(nest2(my_minus)(_0_(_1), _1_(_1)), nest2(my_minus)(_1_(_1), _0_(_1)))
-            (3) == my_minus(3, 10) + my_minus(20, 3) );
+            (i3) == my_minus(3, 10) + my_minus(20, 3) );
     }
 }
