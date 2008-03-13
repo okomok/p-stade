@@ -35,4 +35,9 @@ void egg_test()
     BOOST_CHECK( boost::egg::divides(31, 5) == 6 );
     BOOST_CHECK( boost::egg::modulus(31, 5) == 1 );
     BOOST_CHECK( boost::egg::multiplies(3, 5) == 15 );
+
+    {
+        int a[] = {0,1,2};
+        BOOST_CHECK( boost::egg::subscript(a, 2) == 2 );
+    }
 }
