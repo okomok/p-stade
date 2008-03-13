@@ -12,11 +12,11 @@
 
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/ref.hpp>
 #include <boost/egg/always.hpp>
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/is_bind_expression.hpp>
+#include <boost/egg/result_of.hpp>
 #include <boost/egg/detail/adl_barrier.hpp>
 #include <boost/egg/detail/enable_if.hpp>
 
