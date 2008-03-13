@@ -55,6 +55,7 @@
 #include <boost/egg/get.hpp>
 #include <boost/egg/identity.hpp>
 #include <boost/egg/iequal_to.hpp>
+#include <boost/egg/if_else.hpp>
 #include <boost/egg/implicit.hpp>
 #include <boost/egg/indirect.hpp>
 #include <boost/egg/infix.hpp>
