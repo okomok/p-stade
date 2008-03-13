@@ -44,7 +44,7 @@
             };
 
 
-        } // namespace BOOST_PP_CAT(name, _detail)
+        } // namespace name_detail
 
 
         template<class Strategy = by_perfect>

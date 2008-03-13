@@ -59,8 +59,11 @@ namespace boost { namespace egg {
 #undef  entries
 
 
+#define BOOST_EGG_sub() BOOST_EGG_sub_
+#define BOOST_EGG_sub_(A) [A]
+
 #define entries \
-    (10,( \
+    (11,( \
         (id(<<=), shift_left_assign,   lambda::bitwise_assignment_action<lambda::leftshift_action>), \
         (id(>>=), shift_right_assign,  lambda::bitwise_assignment_action<lambda::rightshift_action>), \
         (id(*=),  multiplies_assign,   lambda::arithmetic_assignment_action<lambda::multiply_action>), \
@@ -70,12 +73,16 @@ namespace boost { namespace egg {
         (id(-=),  minus_assign,        lambda::arithmetic_assignment_action<lambda::minus_action>), \
         (id(&=),  bitwise_and_assign,  lambda::bitwise_assignment_action<lambda::and_action>), \
         (id(|=),  bitwise_or_assign,   lambda::bitwise_assignment_action<lambda::or_action>), \
-        (id(^=),  bitwise_xor_assign,  lambda::bitwise_assignment_action<lambda::xor_action>) \
+        (id(^=),  bitwise_xor_assign,  lambda::bitwise_assignment_action<lambda::xor_action>), \
+        (BOOST_EGG_sub, subscript,     lambda::other_action<lambda::subscript_action>) \
     ) ) \
 /**/
     #define  BOOST_EGG_PP_ARRAY_ITERATION_PARAMS (entries, <boost/egg/detail/functional2.hpp>)
     #include BOOST_EGG_PP_ARRAY_ITERATE()
 #undef  entries
+
+#undef BOOST_EGG_sub_
+#undef BOOST_EGG_sub
 
 
 #undef  id
@@ -108,12 +115,12 @@ namespace boost { namespace egg {
             template<class Re, class A1, class A2>
             Re call(A1 &a1, A2 &a2) const
             {
-                return a1 op() a2;
+                return (a1) op() (a2);
             }
         };
 
 
-    } // namespace BOOST_PP_CAT(name, _detail)
+    } // namespace name_detail
 
 
     template<class Return = use_default, class Strategy = by_perfect>
@@ -121,8 +128,8 @@ namespace boost { namespace egg {
         function<BOOST_PP_CAT(name, _detail)::little<Return>, Strategy> >
     { };
 
-BOOST_EGG_ADL_BARRIER(functional2) {
     typedef BOOST_PP_CAT(X_, name)<>::base_class BOOST_PP_CAT(T_, name);
+BOOST_EGG_ADL_BARRIER(functional2) {
     BOOST_EGG_CONST((BOOST_PP_CAT(T_, name)), name) = {{}};
 }
 
