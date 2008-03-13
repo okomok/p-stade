@@ -84,7 +84,7 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace BOOST_PP_CAT(name, _detail)
+    } // namespace name_detail
 
 
     template<class Return = use_default, class Strategy = by_perfect>
@@ -92,8 +92,8 @@ namespace boost { namespace egg {
         function<BOOST_PP_CAT(name, _detail)::little<Return>, Strategy> >
     { };
 
-BOOST_EGG_ADL_BARRIER(functional1) {
     typedef BOOST_PP_CAT(X_, name)<>::base_class BOOST_PP_CAT(T_, name);
+BOOST_EGG_ADL_BARRIER(functional1) {
     BOOST_EGG_CONST((BOOST_PP_CAT(T_, name)), name) = {{}};
 }
 
