@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_DETAIL_SUBSTITUTE_HPP
-#define BOOST_EGG_DETAIL_SUBSTITUTE_HPP
+#ifndef BOOST_EGG_DETAIL_REPLACE_HPP
+#define BOOST_EGG_DETAIL_REPLACE_HPP
 
 
 // Boost.Egg
@@ -16,14 +16,15 @@
 #include <boost/egg/always.hpp>
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/const.hpp>
-#include <boost/egg/detail/enable_if.hpp>
 #include <boost/egg/is_bind_expression.hpp>
+#include <boost/egg/detail/adl_barrier.hpp>
+#include <boost/egg/detail/enable_if.hpp>
 
 
 namespace boost { namespace egg { namespace details {
 
 
-    struct little_substitute
+    struct little_replace
     {
         template<class Me, class X>
         struct apply :
@@ -46,8 +47,10 @@ namespace boost { namespace egg { namespace details {
         }
     };
 
-    typedef function<little_substitute, by_cref> T_substitute;
-    BOOST_EGG_CONST((T_substitute), substitute) = {{}};
+    typedef function<little_replace, by_cref> T_replace;
+BOOST_EGG_ADL_BARRIER(replace) {
+    BOOST_EGG_CONST((T_replace), replace) = {{}};
+}
 
 
 } } } // namespace boost::egg::details

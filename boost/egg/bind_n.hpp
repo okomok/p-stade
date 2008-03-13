@@ -38,7 +38,7 @@
     #include <boost/egg/detail/boost_use_default_fwd.hpp>
     #include <boost/egg/detail/derived_from.hpp>
     #include <boost/egg/detail/ref_result_of.hpp>
-    #include <boost/egg/detail/substitute.hpp>
+    #include <boost/egg/detail/replace.hpp>
     #include <boost/egg/detail/use_nullary_result.hpp>
     #include <boost/egg/is_bind_expression.hpp>
     #include <boost/egg/preprocessor/cat3.hpp>
@@ -78,8 +78,8 @@
         namespace BOOST_EGG_PP_CAT3(bind, n, _detail) {
 
 
-            using details::T_substitute;
-            using details::substitute;
+            using details::T_replace;
+            using details::replace;
             using details::ref_result_of;
 
 
@@ -95,15 +95,15 @@
                 }
 
                 // 0ary - BOOST_EGG_MAX_ARITYary
-            #define BOOST_EGG_meta_substitute(Z, N, _) \
+            #define BOOST_EGG_meta_replace(Z, N, _) \
                 typename ref_result_of< \
                     typename ref_result_of< \
-                        T_substitute(BOOST_PP_CAT(Arg, N) const &) \
+                        T_replace(BOOST_PP_CAT(Arg, N) const &) \
                     >::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &)) \
                 >::type \
             /**/
-            #define BOOST_EGG_substitute(Z, N, _) \
-                substitute(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
+            #define BOOST_EGG_replace(Z, N, _) \
+                replace(BOOST_PP_CAT(m_arg, N))(BOOST_PP_ENUM_PARAMS(m, a)) \
             /**/
 
                 template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
@@ -112,8 +112,8 @@
                 #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, BOOST_EGG_MAX_ARITY, <boost/egg/bind_n.hpp>))
                 #include BOOST_PP_ITERATE()
 
-            #undef  BOOST_EGG_substitute
-            #undef  BOOST_EGG_meta_substitute
+            #undef  BOOST_EGG_replace
+            #undef  BOOST_EGG_meta_replace
             };
 
 
@@ -193,9 +193,9 @@
 
         struct extract_nullary_result :
             ref_result_of<
-                typename ref_result_of<typename ref_result_of<T_substitute(Base &)>::type()>::type // `Base const` in Boost.Bind.
+                typename ref_result_of<typename ref_result_of<T_replace(Base &)>::type()>::type // `Base const` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
+                    BOOST_PP_ENUM(n, BOOST_EGG_meta_replace, ~)
                 )
             >
         { };
@@ -211,9 +211,9 @@
         template<class Me, BOOST_PP_ENUM_PARAMS(m, class A)>
         struct apply<Me, BOOST_PP_ENUM_PARAMS(m, A)> :
             ref_result_of<
-                typename ref_result_of<typename ref_result_of<T_substitute(Base &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
+                typename ref_result_of<typename ref_result_of<T_replace(Base &)>::type(BOOST_EGG_PP_ENUM_PARAMS_WITH(m, A, &))>::type // `Base const` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, BOOST_EGG_meta_substitute, ~)
+                    BOOST_PP_ENUM(n, BOOST_EGG_meta_replace, ~)
                 )
             >
         { };
@@ -224,9 +224,9 @@
         Re call(BOOST_PP_ENUM_BINARY_PARAMS(m, A, &a)) const
         {
             return
-                substitute(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
+                replace(m_base)(BOOST_PP_ENUM_PARAMS(m, a)) // `m_base` in Boost.Bind.
                 (
-                    BOOST_PP_ENUM(n, BOOST_EGG_substitute, ~)
+                    BOOST_PP_ENUM(n, BOOST_EGG_replace, ~)
                 );
         }
 
