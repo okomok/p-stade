@@ -14,7 +14,6 @@
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/curry.hpp> // curry3
-#include <boost/egg/detail/ref_result_of.hpp>
 #include <boost/egg/result_of.hpp>
 
 
@@ -30,7 +29,7 @@ namespace boost { namespace egg {
         {
             template<class Me, class A, class B, class C>
             struct apply :
-                details::ref_result_of<
+                result_of_<
                     typename result_of_<A(C &)>::type(
                         typename result_of_<B(C &)>::type
                     )
