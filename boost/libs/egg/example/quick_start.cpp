@@ -36,6 +36,7 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
+#define foreach BOOST_FOREACH
 
 namespace imperfect {
 
@@ -66,8 +67,9 @@ namespace imperfect {
     void test_make_filtered()
     {
         std::string src("abXcdXefXgh");
-        BOOST_FOREACH (char ch, make_filtered(src, &is_not_X))
+        foreach (char ch, make_filtered(src, &is_not_X)) {
             std::cout << ch; /*< Prints `abcdefgh`. >*/
+        }
     }
 
 } // namespace imperfect
@@ -120,11 +122,13 @@ void test_make_filtered()
         T_make_filtered(std::string &, bool(*)(char))
     >::type lowers = make_filtered(src, &is_lower);
 
-    BOOST_FOREACH (char ch, lowers)
+    foreach (char ch, lowers) {
         std::cout << ch; /*< Prints `abcdefgh`. >*/
+    }
 
-    BOOST_FOREACH (char ch, make_filtered(make_filtered(src, &is_not_X), &is_not_Y)) /*< Notice outmost `make_filtered` takes rvalue. >*/
+    foreach (char ch, make_filtered(make_filtered(src, &is_not_X), &is_not_Y)) { /*< Notice outmost `make_filtered` takes rvalue. >*/
         std::cout << ch; /*< Prints `abcdefgh`. >*/
+    }
 }
 //]
 
@@ -138,8 +142,9 @@ boost::egg::result_of_pipable<T_make_filtered>::type
 void test_filtered()
 {
     std::string src("abXcYdXefXgYhY");
-    BOOST_FOREACH (char ch, src|filtered(&is_not_X)|filtered(&is_not_Y))
+    foreach (char ch, src|filtered(&is_not_X)|filtered(&is_not_Y)) {
         std::cout << ch; /*< Prints `abcdefgh`. >*/
+    }
 }
 //]
 
@@ -152,8 +157,9 @@ template<class MakeRange>
 void my_foreach(MakeRange make)
 {
     std::string src("abXcYdXefXgYhY");
-    BOOST_FOREACH (char ch, make(src))
+    foreach (char ch, make(src)) {
         std::cout << ch;
+    }
 }
 
 void test_lazy()
