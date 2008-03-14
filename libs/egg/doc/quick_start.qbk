@@ -39,7 +39,7 @@ Assume you have to design lazily filtered sequences. (It is called `filter` in _
 Thanks to __BOOST_ITERATOR__ and __BOOST_RANGE__, it is pretty straight forward:
 [code_quick_start_make_filtered_imperfect]
 
-This code snippet reveals several problems:
+Even if you don't fully understand this code snippet, you can notice that it reveals several problems:
 
 # A function template is not an object.
     * To get a __FUNCTION_OBJECT__, You have to make a pointer from a template, which is difficult or sometimes impossible.
@@ -93,7 +93,7 @@ In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 
 `make_filtered(make_filtered(...),...)` might be less readable.
 Egg provides __EGG_PIPABLE__, which is one of the __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
-[code_quick_start_filtered]
+[code_quick_start_pipable]
 
 __EGG_PIPABLE__ can be regarded as __EXTENSION_METHOD__ emulation in C++.
 In addition, __EGG_LAZY__, cooperating with __BOOST_LAMBDA__, adapts a function into lazily evaluated one:

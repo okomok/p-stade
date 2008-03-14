@@ -107,7 +107,7 @@ typedef
     boost::egg::poly< mono_make_filtered<boost::mpl::_, boost::mpl::_> >::type
 T_make_filtered;
 
-T_make_filtered const make_filtered = BOOST_EGG_POLY();
+T_make_filtered const make_filtered = BOOST_EGG_POLY(); /*< This macro ensures __STATIC_INITIALIZATION__. >*/
 
 
 bool is_not_X(char ch) { return ch != 'X'; }
@@ -133,17 +133,17 @@ void test_make_filtered()
 //]
 
 
-//[code_quick_start_filtered
+//[code_quick_start_pipable
 #include <boost/egg/pipable.hpp>
 
 boost::egg::result_of_pipable<T_make_filtered>::type
     const filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_POLY() BOOST_EGG_PIPABLE_R; /*< Recall the initializer of `T_make_filtered` is `BOOST_EGG_POLY()`. >*/
 
-void test_filtered()
+void test_pipable()
 {
     std::string src("abXcYdXefXgYhY");
     foreach (char ch, src|filtered(&is_not_X)|filtered(&is_not_Y)) {
-        std::cout << ch; /*< Prints `abcdefgh`. >*/
+        std::cout << ch;
     }
 }
 //]
@@ -165,8 +165,11 @@ void my_foreach(MakeRange make)
 void test_lazy()
 {
     namespace bll = boost::lambda;
-    boost::egg::result_of_lazy<T_make_filtered>::type make_Filtered; /*< The macro initializer is needed only in namespace scope. >*/
-    ::my_foreach(make_Filtered(make_Filtered(bll::_1, &is_not_X), &is_not_Y)); /*< Prints `abcdefgh`. >*/
+
+    ::my_foreach(boost::egg::lazy(make_filtered)(bll::_1, &is_lower)); /*< Using __EGG_LAZY__ as higher-order function. >*/
+
+    boost::egg::result_of_lazy<T_make_filtered>::type make_Filtered; /*< When you dislike to write `boost::egg::lazy` multiple times, the metafunction also is available. >*/
+    ::my_foreach(make_Filtered(make_Filtered(bll::_1, &is_not_X), &is_not_Y));
 }
 //]
 
@@ -175,6 +178,6 @@ int main()
 {
     imperfect::test_make_filtered();
     test_make_filtered();
-    test_filtered();
+    test_pipable();
     test_lazy();
 }
