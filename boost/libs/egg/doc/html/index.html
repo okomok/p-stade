@@ -44,7 +44,10 @@
 <dt><span class="section"><a href="egg/quick_start.html">Quick Start</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="egg/quick_start.html#egg.quick_start.installing_egg">Installing Egg</a></span></dt>
-<dt><span class="section"><a href="egg/quick_start.html#egg.quick_start.using_egg">Using Egg</a></span></dt>
+<dt><span class="section"><a href="egg/quick_start.html#egg.quick_start.why_egg_">Why Egg?</a></span></dt>
+<dt><span class="section"><a href="egg/quick_start.html#egg.quick_start.building_functions">Building functions</a></span></dt>
+<dt><span class="section"><a href="egg/quick_start.html#egg.quick_start.higher_order_functions">Higher-order
+      functions</a></span></dt>
 <dt><span class="section"><a href="egg/quick_start.html#egg.quick_start.reading_doc">Reading Doc</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="egg/concepts.html">Concepts</a></span></dt>
@@ -156,8 +159,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.overview.preface"></a><a href="index.html#egg.overview.preface" title="Preface">Preface</a></h3></div></div></div>
 <p>
-        &#8220;<span class="quote">An Egg to day is better than a Hen to-morrow.</span>&#8221; -- Benjamin
-        Franklin
+        &#8220;<span class="quote">An Egg to day is better than a Hen tomorrow.</span>&#8221; -- Benjamin Franklin
       </p>
 </div>
 <div class="section" lang="en">
@@ -172,8 +174,8 @@
 <a name="egg.overview.introduction"></a><a href="index.html#egg.overview.introduction" title="Introduction">Introduction</a></h3></div></div></div>
 <p>
         Egg is a header-only library for building <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-        Function Object</a> which can be used with <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>. Such a function object is named
-        <a href="egg/concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
+        Function Object</a> which can be used with <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>. Such a function object is called
+        a <a href="egg/concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
       </p>
 <p>
         Egg mainly provides three components:
@@ -181,13 +183,12 @@
 <div class="itemizedlist"><ul type="disc">
 <li>
 <a href="egg/function_builders.html" title="Function Builders">Function Builders</a> which build
-          <a href="egg/concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a> into
-          <a href="egg/concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
+          __CONCEPT_LITTLE<span class="underline">FUNCTION</span>_s into __CONCEPT_MAJOR_FUNCTION<span class="underline">OBJECT</span>_s.
         </li>
 <li>
 <a href="egg/function_adaptors.html" title="Function Adaptors">Function Adaptors</a> which take
-          <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-          Function Object</a> then return adapted one.
+          __POLYMORPHIC_FUNCTION<span class="underline">OBJECT</span>_s then
+          return adapted ones.
         </li>
 <li>
 <a href="egg/function_objects.html" title="Function Objects">Function Objects</a> which are
@@ -201,21 +202,21 @@
         well, so that you need not fully understand that section at first.
       </p>
 <a name="egg.overview.introduction.so_what_s_polymorphic_function_object_"></a><h5>
-<a name="id441159"></a>
+<a name="id441153"></a>
         <a href="index.html#egg.overview.introduction.so_what_s_polymorphic_function_object_">So
         what's Polymorphic Function Object?</a>
       </h5>
 <p>
-        In short, <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-        Function Object</a> is <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+        In short, a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a> is a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
         Object</a> which can be used with <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a>. (See also <a href="egg/concepts.html#egg.concepts.result_of_tutorial" title="result_of tutorial">result_of
         tutorial</a>.) <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a> is an <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html" target="_top">MPL
-        Metafunction</a> to extract function return types without help of C++0x
-        <code class="computeroutput"><span class="identifier">decltype</span></code>, so that it enables
+        Metafunction</a> to extract function return types without the help of
+        C++0x <code class="computeroutput"><span class="identifier">decltype</span></code>, which enables
         you to do the functional programming in C++03.
       </p>
 <a name="egg.overview.introduction.polymorphic_function_object_models_"></a><h5>
-<a name="id441254"></a>
+<a name="id441248"></a>
         <a href="index.html#egg.overview.introduction.polymorphic_function_object_models_">Polymorphic
         Function Object Models?</a>
       </h5>
@@ -238,10 +239,10 @@
 <li><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">function</span><span class="special">&lt;...&gt;</span></code></li>
 </ul></div>
 <p>
-        These function objects have nested <code class="computeroutput"><span class="identifier">result_type</span></code>,
-        meaning that its return type doesn't depend on its argument types. Such a
-        function object is trivially conforming <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-        Function Object</a>. It is really easy to build such one:
+        These function objects have a nested <code class="computeroutput"><span class="identifier">result_type</span></code>,
+        meaning that their return type doesn't depend on its argument types. Such
+        a function object is trivially conforming <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        Function Object</a>. It is really easy to build one:
         </p>
 <p>
           
@@ -286,10 +287,11 @@
       </p>
 <p>
         Note that <code class="computeroutput"><span class="identifier">to_string</span></code> can be
-        used also with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>. In other words, it conforms to <a href="egg/concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
+        used also with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>. In other words, it is a model of
+        <a href="egg/concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
       </p>
 <a name="egg.overview.introduction.egg_what_for_"></a><h5>
-<a name="id441530"></a>
+<a name="id441524"></a>
         <a href="index.html#egg.overview.introduction.egg_what_for_">Egg what for?</a>
       </h5>
 <p>
@@ -380,7 +382,7 @@
 <p>
       </p>
 <a name="egg.overview.introduction.pod_oriented_programming"></a><h5>
-<a name="id513082"></a>
+<a name="id513078"></a>
         <a href="index.html#egg.overview.introduction.pod_oriented_programming">POD-oriented
         programming</a>
       </h5>
@@ -388,7 +390,7 @@
         As shown above, Egg offers unfamiliar syntax using braces and macros. <code class="computeroutput"><span class="identifier">T_plus</span></code> is <span class="emphasis"><em>POD</em></span>, and
         <code class="computeroutput"><span class="identifier">plus</span></code> is initialized using
         braced-initializer <code class="computeroutput"><span class="special">{{}}</span></code>. This
-        makes <code class="computeroutput"><span class="identifier">plus</span></code> be <span class="emphasis"><em>statically
+        ensures <code class="computeroutput"><span class="identifier">plus</span></code> is <span class="emphasis"><em>statically
         initialized</em></span>. The <span class="emphasis"><em>static initialization</em></span> advantages
         are:
       </p>
@@ -407,9 +409,9 @@
 <p>
         Also notice that <code class="computeroutput"><span class="identifier">my_plus</span></code>
         is initialized using "ugly" macro <code class="computeroutput"><span class="identifier">BOOST_EGG_PIPABLE</span></code>.
-        This macro is regarded as "static-storage function call". In fact,
-        this macro is tangled braced-initializer, so that we have no choice but to
-        use macro.
+        This macro can be regarded as "static-storage function call". In
+        fact, this macro is a tangled braced-initializer, so that we have no choice
+        but to use macro.
       </p>
 </div>
 <div class="section" lang="en">
@@ -423,7 +425,7 @@
 <li>
 <a href="http://www.boost-consulting.com/vault/index.php?action=downloadfile&amp;filename=egg.zip&amp;directory=Function%20Objects&amp;" target="_top"><code class="computeroutput"><span class="identifier">egg</span><span class="special">.</span><span class="identifier">zip</span></code></a> at <a href="http://www.boost-consulting.com/vault/index.php" target="_top">Boost.Vault</a>/FunctionObjects
           <div class="itemizedlist"><ul type="circle"><li>
-<a href="https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk/boost" target="_top">Egg
+              The <a href="https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk/boost" target="_top">Egg
               svn repository</a> also is available.
             </li></ul></div>
 </li>
@@ -584,7 +586,7 @@
 <td>
               <p>
                 A <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-                Function Object</a> type which is neither <span class="emphasis"><em>reference
+                Function Object</a> type which is neither a <span class="emphasis"><em>reference
                 type</em></span> nor <span class="emphasis"><em>cv-qualified</em></span>.
               </p>
               </td>
@@ -611,7 +613,8 @@
 <td>
               <p>
                 A <a href="egg/concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>
-                type which is neither <span class="emphasis"><em>reference type</em></span> nor <span class="emphasis"><em>cv-qualified</em></span>.
+                type which is neither a <span class="emphasis"><em>reference type</em></span> nor
+                <span class="emphasis"><em>cv-qualified</em></span>.
               </p>
               </td>
 </tr>
@@ -673,7 +676,7 @@
               </td>
 <td>
               <p>
-                An imaginary operator to construct parameter list.
+                An imaginary operator to construct a parameter list.
               </p>
               </td>
 </tr>
@@ -729,7 +732,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 12, 2008 at 06:37:45 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 14, 2008 at 09:08:42 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

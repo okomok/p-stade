@@ -33,6 +33,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html [*Boost.Phoenix]]]
 [def __BOOST_PREPROCESSOR__ [@http://www.boost.org/libs/preprocessor/doc/index.html [*Boost.Preprocessor]]]
 [def __BOOST_PROTO__ [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/ [*Boost.Proto]]]
+[def __BOOST_RANGE__ [@http://www.boost.org/libs/range/index.html [*Boost.Range]]]
 [def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of [*Boost.ResultOf]]]
 [def __BOOST_TUPLE__ [@http://www.boost.org/libs/tuple/index.html [*Boost.Tuple]]]
 [def __BOOST_TYPEOF__ [@http://www.boost.org/libs/typeof/index.html [*Boost.Typeof]]]
@@ -54,6 +55,8 @@ Distributed under the Boost Software License, Version 1.0.
 
 [def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
 [def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
+
+[def __HASKELL__ [@http://www.haskell.org/ Haskell]]
 
 
 

@@ -90,7 +90,7 @@ In fact, this macro is a tangled braced-initializer, so that we have no choice b
 
 * __BOOST__ Version 1.34.1 or later (build not required)
 * __EGG_ZIP__ at __BOOST_VAULT__\/FunctionObjects
-    * __EGG_SVN__ also is available.
+    * The __EGG_SVN__ also is available.
 
 [endsect]
 
