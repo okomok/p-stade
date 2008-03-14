@@ -93,6 +93,7 @@
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">range</span><span class="special">/</span><span class="identifier">end</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">range</span><span class="special">/</span><span class="identifier">iterator_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">range</span><span class="special">/</span><span class="identifier">result_iterator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#define</span> <span class="identifier">foreach</span> <span class="identifier">BOOST_FOREACH</span>
 
 <span class="keyword">namespace</span> <span class="identifier">imperfect</span> <span class="special">{</span>
 
@@ -123,8 +124,9 @@
     <span class="keyword">void</span> <span class="identifier">test_make_filtered</span><span class="special">()</span>
     <span class="special">{</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"abXcdXefXgh"</span><span class="special">);</span>
-        <span class="identifier">BOOST_FOREACH</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_not_X</span><span class="special">))</span>
+        <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_not_X</span><span class="special">))</span> <span class="special">{</span>
             <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span> <span class="callout_bug"><a name="egg7co" href="quick_start.html#egg7"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+        <span class="special">}</span>
     <span class="special">}</span>
 
 <span class="special">}</span> <span class="comment">// namespace imperfect
@@ -258,11 +260,13 @@
         <span class="identifier">T_make_filtered</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&amp;,</span> <span class="keyword">bool</span><span class="special">(*)(</span><span class="keyword">char</span><span class="special">))</span>
     <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">lowers</span> <span class="special">=</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_lower</span><span class="special">);</span>
 
-    <span class="identifier">BOOST_FOREACH</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">lowers</span><span class="special">)</span>
+    <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">lowers</span><span class="special">)</span> <span class="special">{</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span> <span class="callout_bug"><a name="egg9co" href="quick_start.html#egg9"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+    <span class="special">}</span>
 
-    <span class="identifier">BOOST_FOREACH</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_not_X</span><span class="special">),</span> <span class="special">&amp;</span><span class="identifier">is_not_Y</span><span class="special">))</span> <span class="callout_bug"><a name="egg10co" href="quick_start.html#egg10"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
+    <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_not_X</span><span class="special">),</span> <span class="special">&amp;</span><span class="identifier">is_not_Y</span><span class="special">))</span> <span class="special">{</span> <span class="callout_bug"><a name="egg10co" href="quick_start.html#egg10"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span> <span class="callout_bug"><a name="egg11co" href="quick_start.html#egg11"><img src="../images/callouts/4.png" alt="4" border="0"></a></span>
+    <span class="special">}</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -370,8 +374,9 @@
 <span class="keyword">void</span> <span class="identifier">test_filtered</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"abXcYdXefXgYhY"</span><span class="special">);</span>
-    <span class="identifier">BOOST_FOREACH</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">src</span><span class="special">|</span><span class="identifier">filtered</span><span class="special">(&amp;</span><span class="identifier">is_not_X</span><span class="special">)|</span><span class="identifier">filtered</span><span class="special">(&amp;</span><span class="identifier">is_not_Y</span><span class="special">))</span>
+    <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">src</span><span class="special">|</span><span class="identifier">filtered</span><span class="special">(&amp;</span><span class="identifier">is_not_X</span><span class="special">)|</span><span class="identifier">filtered</span><span class="special">(&amp;</span><span class="identifier">is_not_Y</span><span class="special">))</span> <span class="special">{</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span> <span class="callout_bug"><a name="egg13co" href="quick_start.html#egg13"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+    <span class="special">}</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -415,8 +420,9 @@
 <span class="keyword">void</span> <span class="identifier">my_foreach</span><span class="special">(</span><span class="identifier">MakeRange</span> <span class="identifier">make</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"abXcYdXefXgYhY"</span><span class="special">);</span>
-    <span class="identifier">BOOST_FOREACH</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make</span><span class="special">(</span><span class="identifier">src</span><span class="special">))</span>
+    <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make</span><span class="special">(</span><span class="identifier">src</span><span class="special">))</span> <span class="special">{</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span>
+    <span class="special">}</span>
 <span class="special">}</span>
 
 <span class="keyword">void</span> <span class="identifier">test_lazy</span><span class="special">()</span>
@@ -463,7 +469,7 @@
         with any order.
       </p>
 <a name="egg.quick_start.reading_doc.notation"></a><h5>
-<a name="id519447"></a>
+<a name="id519526"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.notation">Notation</a>
       </h5>
 <p>
@@ -472,7 +478,7 @@
         just click the keyword.
       </p>
 <a name="egg.quick_start.reading_doc.concepts"></a><h5>
-<a name="id519497"></a>
+<a name="id519576"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.concepts">Concepts</a>
       </h5>
 <p>
@@ -485,7 +491,7 @@
         Other conepts can read on demand.
       </p>
 <a name="egg.quick_start.reading_doc.forwarding_strategies"></a><h5>
-<a name="id519585"></a>
+<a name="id519663"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.forwarding_strategies">Forwarding
         Strategies</a>
       </h5>
@@ -497,7 +503,7 @@
         Strategies</a> when first reading the documentation.
       </p>
 <a name="egg.quick_start.reading_doc.function_builders"></a><h5>
-<a name="id519656"></a>
+<a name="id519735"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_builders">Function Builders</a>
       </h5>
 <p>
@@ -508,7 +514,7 @@
         written by David Abrahams.
       </p>
 <a name="egg.quick_start.reading_doc.function_adaptors"></a><h5>
-<a name="id519769"></a>
+<a name="id519848"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_adaptors">Function Adaptors</a>
       </h5>
 <p>
@@ -517,7 +523,7 @@
         interesting adaptors, which provides "fusing".
       </p>
 <a name="egg.quick_start.reading_doc.function_objects_and_utilities"></a><h5>
-<a name="id519846"></a>
+<a name="id519925"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_objects_and_utilities">Function
         Objects and Utilities</a>
       </h5>
@@ -529,7 +535,7 @@
         might be interesting, which is ported from <a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a>.
       </p>
 <a name="egg.quick_start.reading_doc.workarounds"></a><h5>
-<a name="id519933"></a>
+<a name="id520011"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.workarounds">Workarounds</a>
       </h5>
 <p>
