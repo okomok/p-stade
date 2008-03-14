@@ -68,6 +68,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EQUALITY_COMPARABLE__ [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
 [def __DEFAULT_CONSTRUCTIBLE__ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
 [def __POLYMORPHIC_FUNCTION_OBJECT__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html Polymorphic Function Object]]
+[def __POLYMORPHIC_FUNCTION_OBJECTS__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html Polymorphic Function Objects]]
 [def __POLYMORPHIC__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html Polymorphic]]
 [def __FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/functors.html Function Object]]
 [def __MPL_METAFUNCTION__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html MPL Metafunction]]
@@ -106,6 +107,13 @@ Distributed under the Boost Software License, Version 1.0.
 [def __CONCEPT_PIPABLE_FUNCTION_OBJECT__ [link egg.concepts.pipable_function_object Pipable Function Object]]
 [def __CONCEPT_PIPABLE__ [link egg.concepts.pipable_function_object Pipable]]
 [def __CONCEPT_LITTLE_FUNCTION__ [link egg.concepts.little_function Little Function]]
+
+[def __CONCEPT_LEXICALLY_TYPED_OBJECTS__ [link egg.concepts.lexically_typed_object Lexically Typed Objects]]
+[def __CONCEPT_STATIC_FUNCTION_OBJECTS__ [link egg.concepts.static_function_object Static Function Objects]]
+[def __CONCEPT_AMBI_FUNCTION_OBJECTS__ [link egg.concepts.ambi_function_object Ambi Function Objects]]
+[def __CONCEPT_MAJOR_FUNCTION_OBJECTS__ [link egg.concepts.major_function_object Major Function Objects]]
+[def __CONCEPT_PIPABLE_FUNCTION_OBJECTS__ [link egg.concepts.pipable_function_object Pipable Function Objects]]
+[def __CONCEPT_LITTLE_FUNCTIONS__ [link egg.concepts.little_function Little Functions]]
 
 [def __EGG_CONCEPTS__ [link egg.concepts Concepts]]
 [def __EGG_RESULT_OF_TUTORIAL__ [link egg.concepts.result_of_tutorial result_of tutorial]]

@@ -107,6 +107,7 @@ T_make_filtered;
 
 T_make_filtered const make_filtered = BOOST_EGG_POLY();
 
+
 bool is_not_X(char ch) { return ch != 'X'; }
 bool is_not_Y(char ch) { return ch != 'Y'; }
 bool is_lower(char ch) { return std::islower(ch, std::locale()); }

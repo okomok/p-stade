@@ -30,13 +30,9 @@ with __BOOST_LAMBDA__. Such a function object is called a __CONCEPT_MAJOR_FUNCTI
 
 Egg mainly provides three components:
 
-* __EGG_FUNCTION_BUILDERS__ which build __CONCEPT_LITTLE_FUNCTION__s into __CONCEPT_MAJOR_FUNCTION_OBJECT__s.
-* __EGG_FUNCTION_ADAPTORS__ which take __POLYMORPHIC_FUNCTION_OBJECT__s then return adapted ones.
+* __EGG_FUNCTION_BUILDERS__ which build __CONCEPT_LITTLE_FUNCTIONS__ into __CONCEPT_MAJOR_FUNCTION_OBJECTS__.
+* __EGG_FUNCTION_ADAPTORS__ which take __POLYMORPHIC_FUNCTION_OBJECTS__ then return adapted ones.
 * __EGG_FUNCTION_OBJECTS__ which are ports of famous function templates.
-
-Also, Egg provides the way to specify how to forward arguments. (See __EGG_FORWARDING_STRATEGIES__.)
-Egg emulates, by default, the "perfect forwarding" using `by_perfect`.
-`by_perfect` usually works well, so that you need not fully understand that section at first.
 
 [heading So what's Polymorphic Function Object?]
 In short, a __POLYMORPHIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which can be used with __BOOST_RESULT_OF__.
