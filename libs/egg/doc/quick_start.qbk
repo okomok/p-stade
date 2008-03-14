@@ -7,7 +7,7 @@
 
 [heading Getting Egg]
 You can get __EGG_ZIP__ from __BOOST_VAULT__\/FunctionObjects.
-Also, if you have a svn client, __EGG_SVN__ is available using the following command:
+Also, if you have a svn client, the __EGG_SVN__ is available using the following command:
 [pre
     svn co https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk\/boost/ boost_egg
 ]
@@ -15,7 +15,7 @@ Also, if you have a svn client, __EGG_SVN__ is available using the following com
 
 [heading Building Egg]
 Egg is a header-only library.
-It is unneeded to build or link to any lib files.
+There is no need to build or link to any lib files.
 
 [heading Requirements]
 Egg requires __BOOST__ Version 1.34.1 or later.
@@ -42,7 +42,7 @@ Below is the minimal example building such a function:
 [import ../example/hello_builder.cpp]
 [code_example_hello_builder]
 
-Egg defines the concept, __CONCEPT_LITTLE_FUNCTION__, from which
+Egg defines the concept __CONCEPT_LITTLE_FUNCTION__, from which
 Egg framework grows __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
 You can choose your favorite builder from __EGG_FUNCTION_BUILDERS__,
 then pass __CONCEPT_LITTLE_FUNCTION__ to it.
@@ -69,21 +69,21 @@ Egg can be regarded as federation of __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTIO
 Each component is usually independent from each other, so that you can read the sections with any order.
 
 [heading Notation]
-__EGG_NOTATION__ introduces several keywords for documentation.
+The __EGG_NOTATION__ section introduces several keywords for documentation.
 A word which begins with `__` is a keyword. When you forget its semantics, just click the keyword.
 
 [heading Concepts]
-__EGG_CONCEPTS__ describes the concepts used in Egg.
+The __EGG_CONCEPTS__ section describes the concepts used in Egg.
 By the design rationale, __EGG_CONCEPTS__ doesn't introduce any new "traits" something like `is_bindable<>` etc.
 Those just define the valid expressions and semantics.
 The most important concepts are __CONCEPT_LITTLE_FUNCTION__ and __CONCEPT_MAJOR_FUNCTION_OBJECT__.
-Other conepts could be read on demand.
+Other conepts can read on demand.
 
 [heading Forwarding Strategies]
 __EGG_FORWARDING_STRATEGIES__ defines strategy tags for argument forwarding.
-Most of all Egg components take a parameter for them.
+Almost all of Egg requires these as parameters.
 Fortunately, the default behavior, __EGG_BY_PERFECT__, works so well in most cases
-that you could skip to read __EGG_FORWARDING_STRATEGIES__ for now.
+that you can skip reading __EGG_FORWARDING_STRATEGIES__ when first reading the documentation.
 
 [heading Function Builders]
 __EGG_FUNCTION_BUILDERS__ build __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
@@ -100,8 +100,8 @@ __EGG_FUNCTION_OBJECTS__ provides useful functions which have been requested in 
 For __EGG_UTILITIES__, __EGG_INFIX__ might be interesting, which is ported from __FCPP__.
 
 [heading Workarounds]
-__EGG_WORKAROUNDS__ is set of workarounds.
-For now, only __EGG_CONST__ might be worth to read.
+__EGG_WORKAROUNDS__ is a set of workarounds.
+For now, only __EGG_CONST__ might be worth reading.
 
 [endsect]
 
