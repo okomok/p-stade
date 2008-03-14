@@ -257,7 +257,7 @@ for any __CONCEPT_LITTLE_FUNCTION__ type `L` the following must be met:
 
 [heading How to call]
 
-lvalues are indicated by passing a reference type, rvalues are indicated by passing a non-reference type:
+Lvalues are indicated by passing a reference type, rvalues are indicated by passing a non-reference type:
 [code_result_of_tutorial1]
 
 Thanks to this convention, you can easily write a "chain" of __BOOST_RESULT_OF__:
