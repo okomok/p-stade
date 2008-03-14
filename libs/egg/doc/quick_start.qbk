@@ -1,5 +1,7 @@
 [section Quick Start]
 
+[import ../example/quick_start.cpp]
+
 
 
 
@@ -32,31 +34,72 @@ Egg is known to work on the following platforms:
 
 
 
-[section Using Egg]
+[section Why Egg?]
+Assume you have to design lazily filtered sequences. (It is called `filter` in __HASKELL__.)
+Thanks to __BOOST_ITERATOR__ and __BOOST_RANGE__, it is pretty straight forward:
+[code_quick_start_make_filtered_imperfect]
 
-[heading Hello Builder]
+This code snippet reveals several problems:
+
+# A function template is not an object.
+    * To get a __FUNCTION_OBJECT__, You have to make a pointer from a template, which is difficult or sometimes impossible.
+# Forwarding problem
+    * `make_filtered` above can't take non-const rvalues. So, you have to write also `make_filtered(Range const &, Predicate)` version.
+      Such irritating job is called __FORWARDING_PROBLEM__.
+# Unintentional ADL
+    * If `make_filtered` is called without qualification, your compiler will look into all the associated namespaces
+      in order to find the name `make_filtered`.
+# Repeated tokens
+    * `make_filtered` clearly contains cut-n-paste tokens both in function declaration and body.
+      This is well-known anti-pattern.
+# Return type is unknown.
+    * How can your clients know the return type of `make_filtered`?
+      It is not good to document compicated return types.
+
+Egg solves these problems.
+
+[endsect]
+
+
+
+
+[section Building functions]
 In short, Egg is a library for building functions.
-Is C++ a language which requires library for building functions?
-The answer might be yes if you want to build __POLYMORPHIC_FUNCTION_OBJECT__ type.
-Below is the minimal example building such a function:
-[import ../example/hello_builder.cpp]
-[code_example_hello_builder]
+Let's build `make_filtered` by using one of the __EGG_FUNCTION_BUILDERS__, __EGG_POLY__:
+[code_quick_start_make_filtered]
 
-Egg defines the concept __CONCEPT_LITTLE_FUNCTION__, from which
-Egg framework grows __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
-You can choose your favorite builder from __EGG_FUNCTION_BUILDERS__,
-then pass __CONCEPT_LITTLE_FUNCTION__ to it.
-In the example above, __EGG_FUNCTION__ is used, which is the most primitive and
-lightweight builder.
+Egg solves the problems stated above:
 
-[heading Hello Adaptor]
-Egg provides __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
-[import ../example/hello_adaptor.cpp]
-[code_example_hello_adaptor]
+# `make_filtered` is a __FUNCTION_OBJECT__.
+    * You can pass it to algorithms as is.
+# No forwarding problem
+    * You can pass non-const rvalues to `make_filtered` without extra efforts.
+# No ADL
+    * Now `make_filtered` is an object, so that ADL isn't triggered.
+# No repeated tokens
+    * You can access `iter_t` and `result_type` from `operator()` body.
+# __BOOST_RESULT_OF__ compatible
+    * Your clients can extract return types using standardized interface `result_of`.
 
-__EGG_FUNCTION_ADAPTORS__ provides several "views" into functions.
-You can adapt a function into __EGG_LAZY__, __EGG_PIPABLE__, or __EGG_TAGGED__ function etc
-on demand.
+As a bonus, `make_filtered` can be passed to `boost::lambda::bind`.
+In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+
+[endsect]
+
+
+
+
+[section Higher-order functions]
+
+`make_filtered(make_filtered(...),...)` might be less readable.
+Egg provides __EGG_PIPABLE__, which is one of the __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
+[code_quick_start_filtered]
+
+__EGG_PIPABLE__ can be regarded as __EXTENSION_METHOD__ emulation in C++.
+In addition, __EGG_LAZY__, cooperating with __BOOST_LAMBDA__, adapts a function into lazily evaluated one:
+[code_quick_start_lazy]
+
+__EGG_FUNCTION_ADAPTORS__ can provide several "views" into functions on demand.
 
 [endsect]
 
@@ -80,7 +123,7 @@ The most important concepts are __CONCEPT_LITTLE_FUNCTION__ and __CONCEPT_MAJOR_
 Other conepts can read on demand.
 
 [heading Forwarding Strategies]
-__EGG_FORWARDING_STRATEGIES__ defines strategy tags for argument forwarding.
+The __EGG_FORWARDING_STRATEGIES__ section defines strategy tags for argument forwarding.
 Almost all of Egg requires these as parameters.
 Fortunately, the default behavior, __EGG_BY_PERFECT__, works so well in most cases
 that you can skip reading __EGG_FORWARDING_STRATEGIES__ when first reading the documentation.
@@ -96,7 +139,7 @@ __EGG_FUNCTION_ADAPTORS__ are higher-order functions which take a function then 
 __EGG_FUSE__ and __EGG_UNFUSE__ might be one of the most interesting adaptors, which provides "fusing".
 
 [heading Function Objects and Utilities]
-__EGG_FUNCTION_OBJECTS__ provides useful functions which have been requested in __BOOST_USERS__ several times.
+The __EGG_FUNCTION_OBJECTS__ section provides useful functions which have been requested in __BOOST_USERS__ several times.
 For __EGG_UTILITIES__, __EGG_INFIX__ might be interesting, which is ported from __FCPP__.
 
 [heading Workarounds]
