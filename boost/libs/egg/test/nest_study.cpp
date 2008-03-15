@@ -37,6 +37,11 @@ T_my_apply const my_apply = {};
 result_of_lazy<T_my_apply>::type const my_Apply = BOOST_EGG_LAZY({});
 
 
+int plus_2(int i) { return i + 2; }
+int mult_3(int i) { return i * 3; }
+int minus_5(int i) { return i - 5; }
+
+
 void egg_test()
 {
     result_of_<T_lazy(T_plus const&)>::type Plus = lazy(plus);
@@ -79,4 +84,7 @@ void egg_test()
     // using `nest` and `nest`
     BOOST_CHECK( nest1(my_apply)(nest2(plus)(_0_(_1), _1_(_1)), nest1(plus)(_0_(_1), 3))
         (a) == plus(a, a+3) );
+
+    // function composition
+    BOOST_CHECK( nest1(&plus_2)(nest1(&mult_3)(nest1(&minus_5)(_1)))(a) == plus_2(mult_3(minus_5(a))) );
 }
