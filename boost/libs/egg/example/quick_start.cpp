@@ -118,7 +118,7 @@ void test_make_filtered()
 {
     std::string src("abXcYdXefXgYhY");
 
-    boost::egg::result_of_< /*< __BOOST_RESULT_OF__ isn't used for now. See __EGG_RESULT_OF__. >*/
+    boost::egg::result_of_< /*< `boost::result_of` isn't used for now. See __EGG_RESULT_OF__. >*/
         T_make_filtered(std::string &, bool(*)(char))
     >::type lowers = make_filtered(src, &is_lower);
 
