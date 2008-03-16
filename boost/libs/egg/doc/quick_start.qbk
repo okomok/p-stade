@@ -124,7 +124,7 @@ Other conepts can read on demand.
 
 [heading Forwarding Strategies]
 The __EGG_FORWARDING_STRATEGIES__ section defines strategy tags for argument forwarding.
-Almost all of Egg requires these as parameters.
+Almost all of Egg requires these as parameters. (You will see `__Stg` token is used everywhere.)
 Fortunately, the default behavior, __EGG_BY_PERFECT__, works so well in most cases
 that you can skip reading __EGG_FORWARDING_STRATEGIES__ when first reading the documentation.
 
