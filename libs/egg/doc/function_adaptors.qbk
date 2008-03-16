@@ -19,6 +19,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [heading Description]
 `ambi` family helps you to make __CONCEPT_AMBI_FUNCTION_OBJECT__.
 
+[tip "ambi" is short of "ambidextrous". ]
+
 [heading Header]
 * `<boost/egg/ambi.hpp>`
 
@@ -1080,6 +1082,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Description]
 `pipable` adapts __FUNCTION_OBJECT__ into __CONCEPT_PIPABLE_FUNCTION_OBJECT__.
 
+[tip According to Charles Brockman's research, "pip[_a]ble" is not misspelling of "pip[_ea]ble". ]
+
 [heading Header]
 * `<boost/egg/pipable.hpp>`
 
@@ -1141,8 +1145,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Example]
 [import ../example/pipable.cpp]
 [code_example_pipable]
-
-[tip According to Charles Brockman's research, "pip[_a]ble" is not misspelling of "pip[_ea]ble". ]
 
 [heading See also]
 * __EGG_AMBI__
