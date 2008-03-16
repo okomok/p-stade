@@ -11,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/lambda.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
-#include <boost/egg/detail/before_mpl_apply.hpp>
 #include <boost/egg/detail/little_poly.hpp>
 #include <boost/egg/by_perfect.hpp>
 
@@ -24,7 +24,11 @@ namespace boost { namespace egg {
     struct poly
     {
         typedef
-            function<details::little_poly<BOOST_EGG_BEFORE_MPL_APPLY_TPL(Expr), NullaryResult>, Strategy>
+            // `lambda` keeps this from being unintentionally a LambdaExpression.
+            function<
+                details::little_poly<typename mpl::lambda<Expr>::type, NullaryResult>,
+                Strategy
+            >
         type;
     };
 
