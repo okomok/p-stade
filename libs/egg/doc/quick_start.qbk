@@ -45,8 +45,10 @@ Egg is known to work on the following platforms:
 
 
 
+[section Using Egg]
 
-[section Problems of function templates]
+
+[heading Problems of function templates]
 Assume you have to design lazily filtered sequences. (It is called `filter` in __HASKELL__.)
 Thanks to __BOOST_ITERATOR__ and __BOOST_RANGE__, it is pretty straight forward:
 [code_quick_start_make_filtered_imperfect]
@@ -70,12 +72,8 @@ Even if you don't fully understand this code snippet, you can notice that it rev
 
 Egg solves these problems.
 
-[endsect]
 
-
-
-
-[section Building functions]
+[heading Building functions]
 In short, Egg is a library for building functions.
 Let's build `make_filtered` by using one of the __EGG_FUNCTION_BUILDERS__, __EGG_POLY__:
 [code_quick_start_make_filtered]
@@ -96,12 +94,8 @@ Egg solves the problems stated above:
 As a bonus, `make_filtered` can be passed to `boost::lambda::bind`.
 In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 
-[endsect]
 
-
-
-
-[section Higher-order functions]
+[heading Higher-order functions]
 
 `make_filtered(make_filtered(...),...)` might be less readable.
 Egg provides __EGG_PIPABLE__, which is one of the __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
@@ -114,42 +108,31 @@ In addition, __EGG_LAZY__, cooperating with __BOOST_LAMBDA__, adapts a function 
 __EGG_FUNCTION_ADAPTORS__ can provide several "views" into functions on demand.
 Let's look into some usefull adaptors.
 
-[endsect]
 
-
-
-
-[section Getting initializers]
+[heading Getting initializers]
 
 As mentioned [link egg.overview.introduction.pod_oriented_programming before], the __STATIC_INITIALIZATION__ is important.
 What if you don't know a braced-initializer of a __FUNCTION_OBJECT__ you are adapting? __EGG_INDIRECT__ helps:
 [code_quick_start_indirect]
 
-If you know a __FUNCTION_OBJECT__ you are adapting is __DEFAULT_CONSTRUCTIBLE__, __EGG_STATIC__ is available:.
+If you know a __FUNCTION_OBJECT__ you are adapting is __DEFAULT_CONSTRUCTIBLE__, __EGG_STATIC__ is available:
 [code_quick_start_static_]
 
-[endsect]
 
-
-
-
-[section Partial application]
+[heading Partial application]
 You are sure to know `boost::bind` in __BOOST_BIND__. That is an implementation of partial application.
 __BOOST_LAMBDA__ also offers `boost::lambda::bind`, which is more generic in that it can take __POLYMORPHIC_FUNCTION_OBJECT__\ s.
-But `bind` expressions may be slightly less readable. __EGG_NEST__ offers better syntax so that you can forget `bind`.
+But `bind` expressions may be less readable. __EGG_NEST__ offers better syntax so that you can forget `bind`.
 [code_quick_start_nest]
 
-__EGG_COMPOSE__, __EGG_CURRY__ and __EGG_LAZY__ can be considered as a part of __EGG_NEST__ family,
+__EGG_NEST__ enables you to write any complicated lambda expressions in an automatic manner.
+In addition, __EGG_COMPOSE__, __EGG_CURRY__ and __EGG_LAZY__ can be considered as a part of __EGG_NEST__ family,
 for they can be trivially implemented by __EGG_NEST__:
 [code_quick_start_nest_family]
 
 Note that the three adaptors, unlike __EGG_NEST__, can support __STATIC_INITIALIZATION__.
-[endsect]
 
-
-
-
-[section Fusing]
+[heading Fusing]
 Fusing is the technique of transforming a function into one which takes a tuple.
 A function which takes a tuple is called "fused".
 In Egg, fusing is implemented by __EGG_FUSE__ and __EGG_UNFUSE__:
@@ -160,19 +143,17 @@ If you dislike cut-n-paste and macros, fusing is important:
 
 __VARIADIC_FUNCTION__\ s can be written by __EGG_UNFUSE__ in one shot.
 See also __EGG_VARIADIC__, which is short-cut to __EGG_UNFUSE__.
-[endsect]
 
-
-
-
-[section The Return of the Monomorphic]
+[heading The Return of the Monomorphic]
 You may complain that __EGG_FUNCTION_ADAPTORS__ transform a function into templated one.
 Error messages around templates are actually annoying.
 __EGG_MONO__ transforms a function into non-templated one:
 [code_quick_start_mono]
 
-Notice that a function __EGG_MONO__ returns is a model of __SGI_ADAPTABLE_FUNCTION_OBJECT__,
+Note that a function __EGG_MONO__ returns is a model of __SGI_ADAPTABLE_FUNCTION_OBJECT__,
 which can be used with `std::bind1st` etc.
+
+
 [endsect]
 
 

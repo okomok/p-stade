@@ -20,16 +20,7 @@
 <a name="egg.quick_start"></a><a href="quick_start.html" title="Quick Start">Quick Start</a></h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="quick_start.html#egg.quick_start.installing_egg">Installing Egg</a></span></dt>
-<dt><span class="section"><a href="quick_start.html#egg.quick_start.problems_of_function_templates">Problems
-      of function templates</a></span></dt>
-<dt><span class="section"><a href="quick_start.html#egg.quick_start.building_functions">Building functions</a></span></dt>
-<dt><span class="section"><a href="quick_start.html#egg.quick_start.higher_order_functions">Higher-order
-      functions</a></span></dt>
-<dt><span class="section"><a href="quick_start.html#egg.quick_start.getting_initializers">Getting initializers</a></span></dt>
-<dt><span class="section"><a href="quick_start.html#egg.quick_start.partial_application">Partial application</a></span></dt>
-<dt><span class="section"><a href="quick_start.html#egg.quick_start.fusing">Fusing</a></span></dt>
-<dt><span class="section"><a href="quick_start.html#egg.quick_start.the_return_of_the_monomorphic">The Return
-      of the Monomorphic</a></span></dt>
+<dt><span class="section"><a href="quick_start.html#egg.quick_start.using_egg">Using Egg</a></span></dt>
 <dt><span class="section"><a href="quick_start.html#egg.quick_start.reading_doc">Reading Doc</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
@@ -82,8 +73,12 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.quick_start.problems_of_function_templates"></a><a href="quick_start.html#egg.quick_start.problems_of_function_templates" title="Problems of function templates">Problems
-      of function templates</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg"></a><a href="quick_start.html#egg.quick_start.using_egg" title="Using Egg">Using Egg</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg.problems_of_function_templates"></a><h5>
+<a name="id514808"></a>
+        <a href="quick_start.html#egg.quick_start.using_egg.problems_of_function_templates">Problems
+        of function templates</a>
+      </h5>
 <p>
         Assume you have to design lazily filtered sequences. (It is called <code class="computeroutput"><span class="identifier">filter</span></code> in <a href="http://www.haskell.org/" target="_top">Haskell</a>.)
         Thanks to <a href="http://boost.org/libs/iterator/doc/index.html" target="_top"><span class="bold"><strong>Boost.Iterator</strong></span></a> and <a href="http://www.boost.org/libs/range/index.html" target="_top"><span class="bold"><strong>Boost.Range</strong></span></a>, it is pretty straight forward:
@@ -212,10 +207,10 @@
 <p>
         Egg solves these problems.
       </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.quick_start.building_functions"></a><a href="quick_start.html#egg.quick_start.building_functions" title="Building functions">Building functions</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg.building_functions"></a><h5>
+<a name="id516363"></a>
+        <a href="quick_start.html#egg.quick_start.using_egg.building_functions">Building functions</a>
+      </h5>
 <p>
         In short, Egg is a library for building functions. Let's build <code class="computeroutput"><span class="identifier">make_filtered</span></code> by using one of the <a href="function_builders.html" title="Function Builders">Function Builders</a>, <a href="function_builders.html#egg.function_builders.poly" title="poly"><code class="computeroutput"><span class="identifier">poly</span></code></a>:
         </p>
@@ -366,11 +361,11 @@
         can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>. In other words, it is a model of
         <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
       </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.quick_start.higher_order_functions"></a><a href="quick_start.html#egg.quick_start.higher_order_functions" title="Higher-order functions">Higher-order
-      functions</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg.higher_order_functions"></a><h5>
+<a name="id518355"></a>
+        <a href="quick_start.html#egg.quick_start.using_egg.higher_order_functions">Higher-order
+        functions</a>
+      </h5>
 <p>
         <code class="computeroutput"><span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">make_filtered</span><span class="special">(...),...)</span></code>
         might be less readable. Egg provides <a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable"><code class="computeroutput"><span class="identifier">pipable</span></code></a>, which is one of the <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a> also known as higher-order
@@ -471,10 +466,10 @@
         several "views" into functions on demand. Let's look into some
         usefull adaptors.
       </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.quick_start.getting_initializers"></a><a href="quick_start.html#egg.quick_start.getting_initializers" title="Getting initializers">Getting initializers</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg.getting_initializers"></a><h5>
+<a name="id519635"></a>
+        <a href="quick_start.html#egg.quick_start.using_egg.getting_initializers">Getting initializers</a>
+      </h5>
 <p>
         As mentioned <a href="../index.html#egg.overview.introduction.pod_oriented_programming">before</a>,
         the <span class="emphasis"><em>static initialization</em></span> is important. What if you
@@ -511,7 +506,7 @@
 <p>
         If you know a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
         Object</a> you are adapting is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
-        Constructible</a>, <a href="function_builders.html#egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> is available:.
+        Constructible</a>, <a href="function_builders.html#egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> is available:
         </p>
 <p>
           
@@ -535,8 +530,8 @@
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg17"></a><a href="#egg17co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Assume you don't know T_make_filtered can be initialized using <code class="computeroutput"><span class="identifier">BOOST_EGG_POLY</span><span class="special">()</span></code>,
-          but know it is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+<td valign="top" align="left"><p> Assume you don't know <code class="computeroutput"><span class="identifier">T_make_filtered</span></code>
+          can be initialized using <code class="computeroutput"><span class="identifier">BOOST_EGG_POLY</span><span class="special">()</span></code>, but know it is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
           Constructible</a>. </p></td>
 </tr>
 <tr>
@@ -549,17 +544,17 @@
         </p>
 <p>
       </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.quick_start.partial_application"></a><a href="quick_start.html#egg.quick_start.partial_application" title="Partial application">Partial application</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg.partial_application"></a><h5>
+<a name="id520399"></a>
+        <a href="quick_start.html#egg.quick_start.using_egg.partial_application">Partial application</a>
+      </h5>
 <p>
         You are sure to know <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span></code>
         in <a href="http://www.boost.org/libs/bind/bind.html" target="_top"><span class="bold"><strong>Boost.Bind</strong></span></a>.
         That is an implementation of partial application. <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a> also offers <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>,
         which is more generic in that it can take <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
         Function Object</a>s. But <code class="computeroutput"><span class="identifier">bind</span></code>
-        expressions may be slightly less readable. <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a> offers better syntax so that
+        expressions may be less readable. <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a> offers better syntax so that
         you can forget <code class="computeroutput"><span class="identifier">bind</span></code>.
         </p>
 <p>
@@ -607,11 +602,11 @@
 <p>
       </p>
 <p>
-        <a href="function_adaptors.html#egg.function_adaptors.compose" title="compose"><code class="computeroutput"><span class="identifier">compose</span></code></a>,
-        <a href="function_adaptors.html#egg.function_adaptors.curryn" title="curryN"><code class="computeroutput"><span class="identifier">curryN</span></code></a>
-        and <a href="function_adaptors.html#egg.function_adaptors.lazy" title="lazy"><code class="computeroutput"><span class="identifier">lazy</span></code></a>
-        can be considered as a part of <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a> family, for they can be trivially
-        implemented by <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a>:
+        <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a>
+        enables you to write any complicated lambda expressions in an automatic manner.
+        In addition, <a href="function_adaptors.html#egg.function_adaptors.compose" title="compose"><code class="computeroutput"><span class="identifier">compose</span></code></a>, <a href="function_adaptors.html#egg.function_adaptors.curryn" title="curryN"><code class="computeroutput"><span class="identifier">curryN</span></code></a> and <a href="function_adaptors.html#egg.function_adaptors.lazy" title="lazy"><code class="computeroutput"><span class="identifier">lazy</span></code></a> can be considered as a part
+        of <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a>
+        family, for they can be trivially implemented by <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a>:
         </p>
 <p>
           
@@ -677,10 +672,10 @@
         Note that the three adaptors, unlike <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a>, can support <span class="emphasis"><em>static
         initialization</em></span>.
       </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.quick_start.fusing"></a><a href="quick_start.html#egg.quick_start.fusing" title="Fusing">Fusing</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg.fusing"></a><h5>
+<a name="id522544"></a>
+        <a href="quick_start.html#egg.quick_start.using_egg.fusing">Fusing</a>
+      </h5>
 <p>
         Fusing is the technique of transforming a function into one which takes a
         tuple. A function which takes a tuple is called "fused". In Egg,
@@ -783,11 +778,11 @@
         can be written by <a href="function_adaptors.html#egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a> in one shot. See also <a href="function_builders.html#egg.function_builders.variadic" title="variadic"><code class="computeroutput"><span class="identifier">variadic</span></code></a>,
         which is short-cut to <a href="function_adaptors.html#egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a>.
       </p>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="egg.quick_start.the_return_of_the_monomorphic"></a><a href="quick_start.html#egg.quick_start.the_return_of_the_monomorphic" title="The Return of the Monomorphic">The Return
-      of the Monomorphic</a></h3></div></div></div>
+<a name="egg.quick_start.using_egg.the_return_of_the_monomorphic"></a><h5>
+<a name="id523853"></a>
+        <a href="quick_start.html#egg.quick_start.using_egg.the_return_of_the_monomorphic">The
+        Return of the Monomorphic</a>
+      </h5>
 <p>
         You may complain that <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a>
         transform a function into templated one. Error messages around templates
@@ -834,7 +829,7 @@
 <p>
       </p>
 <p>
-        Notice that a function <a href="function_adaptors.html#egg.function_adaptors.mono" title="mono"><code class="computeroutput"><span class="identifier">mono</span></code></a> returns is a model of <a href="http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html" target="_top">Adaptable Function
+        Note that a function <a href="function_adaptors.html#egg.function_adaptors.mono" title="mono"><code class="computeroutput"><span class="identifier">mono</span></code></a> returns is a model of <a href="http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html" target="_top">Adaptable Function
         Object</a>, which can be used with <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind1st</span></code>
         etc.
       </p>
@@ -849,7 +844,7 @@
         with any order.
       </p>
 <a name="egg.quick_start.reading_doc.notation"></a><h5>
-<a name="id524363"></a>
+<a name="id524446"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.notation">Notation</a>
       </h5>
 <p>
@@ -858,7 +853,7 @@
         just click the keyword.
       </p>
 <a name="egg.quick_start.reading_doc.concepts"></a><h5>
-<a name="id524414"></a>
+<a name="id524496"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.concepts">Concepts</a>
       </h5>
 <p>
@@ -871,7 +866,7 @@
         Other conepts can read on demand.
       </p>
 <a name="egg.quick_start.reading_doc.forwarding_strategies"></a><h5>
-<a name="id524501"></a>
+<a name="id524584"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.forwarding_strategies">Forwarding
         Strategies</a>
       </h5>
@@ -884,7 +879,7 @@
         Strategies</a> when first reading the documentation.
       </p>
 <a name="egg.quick_start.reading_doc.function_builders"></a><h5>
-<a name="id524594"></a>
+<a name="id524676"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_builders">Function Builders</a>
       </h5>
 <p>
@@ -895,7 +890,7 @@
         written by David Abrahams.
       </p>
 <a name="egg.quick_start.reading_doc.function_adaptors"></a><h5>
-<a name="id524707"></a>
+<a name="id524789"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_adaptors">Function Adaptors</a>
       </h5>
 <p>
@@ -904,7 +899,7 @@
         interesting adaptors, which provides "fusing".
       </p>
 <a name="egg.quick_start.reading_doc.function_objects_and_utilities"></a><h5>
-<a name="id524781"></a>
+<a name="id524863"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_objects_and_utilities">Function
         Objects and Utilities</a>
       </h5>
@@ -916,7 +911,7 @@
         might be interesting, which is ported from <a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a>.
       </p>
 <a name="egg.quick_start.reading_doc.workarounds"></a><h5>
-<a name="id524867"></a>
+<a name="id524950"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.workarounds">Workarounds</a>
       </h5>
 <p>

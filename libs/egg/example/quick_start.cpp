@@ -209,7 +209,7 @@ void quick_start_indirect()
 #include <boost/egg/static.hpp>
 #include <boost/mpl/always.hpp>
 
-egg::result_of_pipable< /*< Assume you don't know T_make_filtered can be initialized using `BOOST_EGG_POLY()`, but know it is __DEFAULT_CONSTRUCTIBLE__. >*/
+egg::result_of_pipable< /*< Assume you don't know `T_make_filtered` can be initialized using `BOOST_EGG_POLY()`, but know it is __DEFAULT_CONSTRUCTIBLE__. >*/
     egg::static_< boost::mpl::always<T_make_filtered> >::type /*< For now, wrap it idiomatically by `mpl::always`. >*/
 >::type
     const his_filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_STATIC() BOOST_EGG_PIPABLE_R;
