@@ -1,3 +1,15 @@
+[/
+Boost.Egg
+
+Copyright Shunsuke Sogame 2007-2008.
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+]
+
+
+
+
 [section Forwarding Strategies]
 
 [import ../example/forwarding_strategies.cpp]
@@ -307,33 +319,6 @@ But, if you know `by_value` is used, __CONCEPT_LITTLE_FUNCTION__ `call` should t
 
 
 
-[section Determining nullary return types]
-
-[heading Description]
-C++ instantiates the declarations of non-dependent member function templates, so that
-some __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__ require a special workaround.
-Here an imaginary operator is defined for the documentation.
-
-[heading Valid expressions and semantics]
-* `__decltype_r0(R0, expr)` is defined as follows:
-    * If `R0` is `__ud`, it is a valid expression and returns an unspecified type .
-    * If `R0` is `use_nullary_result`,
-        * If `__decltype(expr)` is a valid expression, it is a valid expression and returns `__decltype(expr)`.
-        * Otherwise, it is not a valid expression.
-    * Otherwise, `R0`.
-
-[tip __BOOST_RESULT_OF__ too offers a special workaround:
-      A nullary callable `class F` without nested `result_type` must specialize `result_of<F()>`. `result_of<F()>::type` is `void` otherwise.
-      Unfortunately, that isn't generic workaround. Consider `f(g(), h())` such that `f` isn't a 2ary function. ]
-
-[heading See also]
-* __BOOST_RESULT_OF__
-
-[endsect]
-
-
-
-
 [section Writing your own strategies]
 
 [import ../example/writing_your_strategy.cpp]
@@ -440,57 +425,29 @@ Let's look into the new valid expressions.
 
 
 
-[/
-
-[section PERFECT_STRATEGY]
+[section Determining nullary return types]
 
 [heading Description]
-When you require a perfect forwarding strategy to support more arity than `BOOST_EGG_MAX_ARITY`,
-you can define your own forwarding strategy using `BOOST_EGG_PERFECT_STRATEGY` macro.
+C++ instantiates the declarations of non-dependent member function templates, so that
+some __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__ require a special workaround.
+Here an imaginary operator is defined for the documentation.
 
-[heading Header]
-* `<boost/egg/perfect_strategy.hpp>`
+[heading Valid expressions and semantics]
+* `__decltype_r0(R0, expr)` is defined as follows:
+    * If `R0` is `__ud`, it is a valid expression and returns an unspecified type .
+    * If `R0` is `use_nullary_result`,
+        * If `__decltype(expr)` is a valid expression, it is a valid expression and returns `__decltype(expr)`.
+        * Otherwise, it is not a valid expression.
+    * Otherwise, `R0`.
 
-[heading Notation]
-* `K` is any element of `AritySeq`.
-
-[heading Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`__arg_list(a, Tag)`]
-        [`__arg(a1),...,__arg(aK)`]
-    ]
-    [
-        [`__meta_arg_list(a, Tag)`]
-        [`__ref(a1),...,__ref(aK)`]
-    ]
-    [
-        [`function<__Lit, Tag>`]
-        [See __EGG_FUNCTION__.]
-    ]
-]
-
-[heading Preconditions]
-* `Tag` is a type.
-* `AritySeq` is a __BOOST_PREPROCESSOR__ sequence of numbers.
-* `BOOST_EGG_PERFECT_STRATEGY(Tag, AritySeq)` is placed in the global namespace.
-
-[heading Example]
-[code_my_perfect]
-
-Now your strategy tag can be passed to `function<>` or __EGG_FUNCTION_ADAPTORS__:
-[code_my_perfect_pipable]
+[tip __BOOST_RESULT_OF__ too offers a special workaround:
+      A nullary callable `class F` without nested `result_type` must specialize `result_of<F()>`. `result_of<F()>::type` is `void` otherwise.
+      Unfortunately, that isn't generic workaround. Consider `f(g(), h())` such that `f` isn't a 2ary function. ]
 
 [heading See also]
-* __FORWARDING_PROBLEM__
+* __BOOST_RESULT_OF__
 
 [endsect]
-
-]
 
 
 

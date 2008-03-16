@@ -1,3 +1,15 @@
+[/
+Boost.Egg
+
+Copyright Shunsuke Sogame 2007-2008.
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+]
+
+
+
+
 [section Function Adaptors]
 
 Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
@@ -18,8 +30,6 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 
 [heading Description]
 `ambi` family helps you to make __CONCEPT_AMBI_FUNCTION_OBJECT__.
-
-[tip "ambi" is short of "ambidextrous". ]
 
 [heading Header]
 * `<boost/egg/ambi.hpp>`
@@ -217,7 +227,7 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 [code_example_curry]
 
 [heading See also]
-* [@http://en.wikipedia.org/wiki/Currying Currying]
+* __CURRYING__
 * __EGG_UNCURRY__
 * __EGG_NEST__
 
@@ -1081,8 +1091,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Description]
 `pipable` adapts __FUNCTION_OBJECT__ into __CONCEPT_PIPABLE_FUNCTION_OBJECT__.
-
-[tip According to Charles Brockman's research, "pip[_a]ble" is not misspelling of "pip[_ea]ble". ]
 
 [heading Header]
 * `<boost/egg/pipable.hpp>`

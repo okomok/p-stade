@@ -25,6 +25,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __BOOST_DEVELOPERS__ [@http://www.boost.org/more/mailing_lists.htm#main Boost developers list]]
 [def __BOOST_USERS__ [@http://www.boost.org/more/mailing_lists.htm#users Boost users list]]
 [def __BOOST_ACCUMULATORS__ [@http://boost-sandbox.sourceforge.net/libs/accumulators/doc/html/index.html [*Boost.Accumulators]]]
+[def __BOOST_BIND__ [@http://www.boost.org/libs/bind/bind.html [*Boost.Bind]]]
 [def __BOOST_ENABLE_IF__ [@http://www.boost.org/libs/utility/enable_if.html [*Boost.EnableIf]]]
 [def __BOOST_FUNCTION__ [@http://www.boost.org/libs/function/ [*Boost.Function]]]
 [def __BOOST_FUSION__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/index.html [*Boost.Fusion]]]
@@ -56,6 +57,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
 [def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
 
+[def __CURRYING__ [@http://en.wikipedia.org/wiki/Currying Currying]]
 [def __HASKELL__ [@http://www.haskell.org/ Haskell]]
 
 
@@ -90,7 +92,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __STATIC_INITIALIZATION__ /static initialization/]
 [def __STATICALLY_INITIALIZED__ /statically initialized/]
 [def __STATIC_STORAGE_DURATION__ /static storage duration/]
-[def __PRECONDITION_AS_IS__ The corresponding semantics is a valid expression.]
+[def __PRECONDITION_AS_IS__ The following are valid expressions.]
 
 
 

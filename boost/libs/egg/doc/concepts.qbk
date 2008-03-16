@@ -1,3 +1,15 @@
+[/
+Boost.Egg
+
+Copyright Shunsuke Sogame 2007-2008.
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+]
+
+
+
+
 [section Concepts]
 
 [import ../example/concepts.cpp]
@@ -42,6 +54,8 @@ For any __CONCEPT_LEXICALLY_TYPED_OBJECT__ `a` the following must be met:
 [heading Description]
 A __CONCEPT_PIPABLE_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which behaves as if it were a "pipe" using `operator|` and `operator|=`.
 
+[tip According to Charles Brockman's research, "pip[_a]ble" is not misspelling of "pip[_ea]ble". ]
+
 [heading Refinement of]
 * __FUNCTION_OBJECT__
 
@@ -77,6 +91,8 @@ for any __CONCEPT_PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 
 [heading Description]
 An __CONCEPT_AMBI_FUNCTION_OBJECT__ is a __CONCEPT_PIPABLE_FUNCTION_OBJECT__ which can be used also as free function.
+
+[tip "ambi" is short of "ambidextrous". ]
 
 [heading Refinement of]
 * __CONCEPT_PIPABLE_FUNCTION_OBJECT__

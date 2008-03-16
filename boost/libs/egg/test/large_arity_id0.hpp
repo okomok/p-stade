@@ -39,13 +39,9 @@ struct T_large_arity_id0
 T_large_arity_id0 const large_arity_id0 = {};
 
 
-namespace {
-
-    namespace large_arity_helpers {
-        int i0 = 0, i1 = 1, i2 = 2, i3 = 3, i4 = 4, i5 = 5, i6 = 6, i7 = 7, i8 = 8, i9 = 9;
-        int const ci0 = 0, ci1 = 1, ci2 = 2, ci3 = 3, ci4 = 4, ci5 = 5, ci6 = 6, ci7 = 7, ci8 = 8, ci9 = 9;
-    }
-
+namespace large_arity_helpers {
+    static int i0 = 0, i1 = 1, i2 = 2, i3 = 3, i4 = 4, i5 = 5, i6 = 6, i7 = 7, i8 = 8, i9 = 9;
+    static int const ci0 = 0, ci1 = 1, ci2 = 2, ci3 = 3, ci4 = 4, ci5 = 5, ci6 = 6, ci7 = 7, ci8 = 8, ci9 = 9;
 }
 
 

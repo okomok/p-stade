@@ -8,15 +8,26 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/egg/nest.hpp>
 #include <boost/egg/poly.hpp>
 #include <boost/egg/pipable.hpp>
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/result_of.hpp>
+#include <boost/egg/static.hpp>
+#include <boost/egg/indirect.hpp>
+#include <boost/egg/compose.hpp>
+#include <boost/egg/curry.hpp>
+#include <boost/egg/fuse.hpp>
+#include <boost/egg/unfuse.hpp>
+#include <boost/egg/mono.hpp>
+
 
 #include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
-#include <boost/lambda/core.hpp> // _1
+#include <functional>
 #include <iostream>
 #include <string>
+#include <boost/mpl/always.hpp>
+#include <boost/lambda/core.hpp> // _1
 #include <boost/foreach.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/range/begin.hpp>
@@ -64,7 +75,7 @@ namespace imperfect {
 
     bool is_not_X(char ch) { return ch != 'X'; }
 
-    void test_make_filtered()
+    void quick_start_make_filtered()
     {
         std::string src("abXcdXefXgh");
         foreach (char ch, make_filtered(src, &is_not_X)) {
@@ -79,6 +90,8 @@ namespace imperfect {
 //[code_quick_start_make_filtered
 #include <boost/egg/poly.hpp>
 #include <locale>
+
+namespace egg = boost::egg;
 
 template<class Range, class Predicate>
 struct mono_make_filtered
@@ -104,7 +117,7 @@ struct mono_make_filtered
 };
 
 typedef
-    boost::egg::poly< mono_make_filtered<boost::mpl::_, boost::mpl::_> >::type
+    egg::poly< mono_make_filtered<boost::mpl::_, boost::mpl::_> >::type
 T_make_filtered;
 
 T_make_filtered const make_filtered = BOOST_EGG_POLY(); /*< This macro ensures __STATIC_INITIALIZATION__. >*/
@@ -114,11 +127,11 @@ bool is_not_X(char ch) { return ch != 'X'; }
 bool is_not_Y(char ch) { return ch != 'Y'; }
 bool is_lower(char ch) { return std::islower(ch, std::locale()); }
 
-void test_make_filtered()
+void quick_start_make_filtered()
 {
     std::string src("abXcYdXefXgYhY");
 
-    boost::egg::result_of_< /*< `boost::result_of` isn't used for now. See __EGG_RESULT_OF__. >*/
+    egg::result_of_< /*< `boost::result_of` isn't used for now. See __EGG_RESULT_OF__. >*/
         T_make_filtered(std::string &, bool(*)(char))
     >::type lowers = make_filtered(src, &is_lower);
 
@@ -136,10 +149,10 @@ void test_make_filtered()
 //[code_quick_start_pipable
 #include <boost/egg/pipable.hpp>
 
-boost::egg::result_of_pipable<T_make_filtered>::type
+egg::result_of_pipable<T_make_filtered>::type
     const filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_POLY() BOOST_EGG_PIPABLE_R; /*< Recall the initializer of `T_make_filtered` is `BOOST_EGG_POLY()`. >*/
 
-void test_pipable()
+void quick_start_pipable()
 {
     std::string src("abXcYdXefXgYhY");
     foreach (char ch, src|filtered(&is_not_X)|filtered(&is_not_Y)) {
@@ -162,22 +175,196 @@ void my_foreach(MakeRange make)
     }
 }
 
-void test_lazy()
+void quick_start_lazy()
 {
     namespace bll = boost::lambda;
 
-    ::my_foreach(boost::egg::lazy(make_filtered)(bll::_1, &is_lower)); /*< Using __EGG_LAZY__ as higher-order function. >*/
+    ::my_foreach(egg::lazy(make_filtered)(bll::_1, &is_lower)); /*< Using __EGG_LAZY__ as higher-order function. >*/
 
-    boost::egg::result_of_lazy<T_make_filtered>::type make_Filtered; /*< When you dislike to write `boost::egg::lazy` multiple times, the metafunction also is available. >*/
+    egg::result_of_lazy<T_make_filtered>::type make_Filtered; /*< When you dislike to write `egg::lazy` multiple times, the metafunction also is available. >*/
     ::my_foreach(make_Filtered(make_Filtered(bll::_1, &is_not_X), &is_not_Y));
+}
+//]
+
+
+//[code_quick_start_indirect
+#include <boost/egg/indirect.hpp>
+
+egg::result_of_pipable< /*< Assume you don't know `T_make_filtered` can be initialized using `BOOST_EGG_POLY()`. >*/
+    egg::result_of_indirect<T_make_filtered const *>::type
+>::type
+    const her_filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_INDIRECT(&make_filtered) BOOST_EGG_PIPABLE_R;
+//]
+
+void quick_start_indirect()
+{
+    std::string src("abXcYdXefXgYhY");
+    foreach (char ch, src|her_filtered(&is_lower)) {
+        std::cout << ch;
+    }
+}
+
+
+//[code_quick_start_static_
+#include <boost/egg/static.hpp>
+#include <boost/mpl/always.hpp>
+
+egg::result_of_pipable< /*< Assume you don't know T_make_filtered can be initialized using `BOOST_EGG_POLY()`, but know it is __DEFAULT_CONSTRUCTIBLE__. >*/
+    egg::static_< boost::mpl::always<T_make_filtered> >::type /*< For now, wrap it idiomatically by `mpl::always`. >*/
+>::type
+    const his_filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_STATIC() BOOST_EGG_PIPABLE_R;
+//]
+
+void quick_start_static_()
+{
+    std::string src("abXcYdXefXgYhY");
+    foreach (char ch, src|her_filtered(&is_lower)) {
+        std::cout << ch;
+    }
+}
+
+
+//[code_quick_start_nest
+#include <boost/egg/nest.hpp>
+#include <boost/lambda/core.hpp> // _1, _2
+#include <functional> // minus
+
+using boost::lambda::_1;
+using boost::lambda::_2;
+using egg::_0_;
+using egg::_1_;
+using egg::_2_;
+
+void quick_start_nest()
+{
+    int i6 = 6, i7 = 7;
+    std::plus<int> plus;
+    std::minus<int> minus;
+
+    int r =
+    // Lv: 0     1          2
+        // \x -> (\(y,z) -> plus(5, y(z, x)))
+        egg::nest2(plus)(5, egg::nest2(_1_(_1))(_1_(_2), _0_(_1)))
+            (i6)(minus, i7);
+
+    std::cout << r; /*< Prints 6.>*/
+}
+//]
+
+//[code_quick_start_nest_family
+#include <boost/egg/nest.hpp>
+#include <boost/egg/compose.hpp>
+#include <boost/egg/curry.hpp>
+#include <boost/egg/lazy.hpp>
+#include <functional> // plus, negate
+
+void quick_start_nest_family()
+{
+    std::plus<int> plus;
+    std::negate<int> negate;
+
+    int i6 = 6, i7 = 7;
+
+// Lv: 0         1
+    // \(x,y) -> negate(plus(x, y))
+    std::cout << egg::nest1(negate)(egg::nest1(plus)(_0_(_1), _0_(_2)))(i6, i7); /*< Prints -13. >*/
+    std::cout << egg::compose(negate, plus)(i6, i7);
+
+// Lv: 0     1      2
+    // \x -> (\y -> plus(x, y))
+    std::cout << egg::nest2(plus)(_0_(_1), _1_(_1))(i6)(i7); /*< Prints 13. >*/
+    std::cout << egg::curry2(plus)(i6)(i7);
+
+// Lv: 0     1
+    // \x -> negate(x)
+    std::cout << egg::nest1(negate)(_0_(_1))(i7); /*< Prints -7. >*/
+    std::cout << egg::lazy(negate)(_1)(i7);
+}
+//]
+
+
+//[code_quick_start_fusing1
+#include <functional> // plus
+#include <boost/tuple/tuple.hpp>
+#include <boost/egg/fuse.hpp>
+#include <boost/egg/unfuse.hpp>
+
+void quick_start_fusing1()
+{
+    std::plus<int> plus;
+
+    std::cout << egg::fuse(plus)(boost::make_tuple(1, 2)); /*< Prints 3. >*/
+    std::cout << egg::unfuse(egg::fuse(plus))(1, 2);
+}
+//]
+
+//[code_quick_start_fusing2
+struct fused_plus
+{
+    typedef int result_type;
+
+    template<class Tuple>
+    int operator()(Tuple const &t) const
+    {
+        return t.get_head() + (*this)(t.get_tail());
+    }
+
+    int operator()(boost::tuples::null_type const &) const
+    {
+        return 0;
+    }
+};
+
+typedef egg::result_of_unfuse<fused_plus>::type T_good_plus;
+T_good_plus const good_plus = BOOST_EGG_UNFUSE({});
+
+void quick_start_fusing2()
+{
+    std::cout << good_plus(1); /*< Prints 1. >*/
+    std::cout << good_plus(1,2); /*< Prints 3. >*/
+    std::cout << good_plus(1,2,3); /*< Prints 6. >*/
+}
+//]
+
+
+//[code_quick_start_mono
+#include <boost/egg/mono.hpp>
+
+egg::result_of_mono<T_good_plus, int(int, int)>::type
+    const int_plus = BOOST_EGG_MONO_L BOOST_EGG_UNFUSE({}) BOOST_EGG_MONO_R;
+
+void quick_start_mono()
+{
+#if 0
+    std::cout << int_plus(std::string("a"), std::string("b")); /*< Would show an error with clear messages. >*/
+#endif
+    std::cout << int_plus(1,2); /*< Prints 3. >*/
 }
 //]
 
 
 int main()
 {
-    imperfect::test_make_filtered();
-    test_make_filtered();
-    test_pipable();
-    test_lazy();
+    imperfect::quick_start_make_filtered();
+    std::cout << std::endl;
+    quick_start_make_filtered();
+    std::cout << std::endl;
+    quick_start_pipable();
+    std::cout << std::endl;
+    quick_start_lazy();
+    std::cout << std::endl;
+    quick_start_indirect();
+    std::cout << std::endl;
+    quick_start_static_();
+    std::cout << std::endl;
+    quick_start_nest();
+    std::cout << std::endl;
+    quick_start_nest_family();
+    std::cout << std::endl;
+    quick_start_fusing1();
+    std::cout << std::endl;
+    quick_start_fusing2();
+    std::cout << std::endl;
+    quick_start_mono();
+    std::cout << std::endl;
 }
