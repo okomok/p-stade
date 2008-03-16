@@ -71,13 +71,13 @@
         template<int N, class Strategy>
         struct is_placeholder< egg::X_arg<N, Strategy> >
         {
-    	    enum _vt { value = N };
+            enum _vt { value = N };
         };
 
         template<int N, class Strategy>
         struct is_placeholder< egg::function<egg::little_arg<N, Strategy>, Strategy> >
         {
-    	    enum _vt { value = N };
+            enum _vt { value = N };
         };
 
 
