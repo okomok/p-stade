@@ -40,8 +40,8 @@ namespace boost { namespace egg {
         >::type
     T_lexical;
 
-    BOOST_EGG_CONST((T_lexical), lexical)
-        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
+    BOOST_EGG_CONST((T_lexical), lexical) =
+        BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
 
 
 } } // namespace boost::egg
