@@ -28,8 +28,8 @@ namespace boost { namespace egg {
         >::type
     T_static_down;
 
-    BOOST_EGG_CONST((T_static_down), static_down)
-        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
+    BOOST_EGG_CONST((T_static_down), static_down) =
+        BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
 
 
 } } // namespace boost::egg

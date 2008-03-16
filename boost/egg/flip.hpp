@@ -13,12 +13,15 @@
 
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/by_value.hpp>
+#include <boost/egg/compose.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/construct_braced2.hpp>
+#include <boost/egg/curry.hpp> // curry2
 #include <boost/egg/detail/derived_from.hpp>
 #include <boost/egg/forward.hpp>
 #include <boost/egg/generator.hpp>
 #include <boost/egg/result_of.hpp>
+#include <boost/egg/uncurry.hpp>
 
 
 namespace boost { namespace egg {
@@ -61,10 +64,10 @@ namespace boost { namespace egg {
     } // namespace flip_detail
 
 
-    template<class BinaryBase, class Strategy = by_perfect>
+    template<class Base, class Strategy = by_perfect>
     struct result_of_flip
     {
-        typedef function<flip_detail::little_result<BinaryBase, Strategy>, Strategy> type;
+        typedef function<flip_detail::little_result<Base, Strategy>, Strategy> type;
     };
 
     #define BOOST_EGG_FLIP_L { {
@@ -83,6 +86,27 @@ namespace boost { namespace egg {
 
     typedef X_flip<>::base_class T_flip;
     BOOST_EGG_CONST((T_flip), flip) = BOOST_EGG_GENERATOR();
+
+
+    // flip1
+    //
+
+    typedef
+        result_of_compose<
+            T_curry2,
+            result_of_compose<
+                T_flip, T_uncurry,
+                use_default, by_perfect
+            >::type,
+            use_default, by_perfect
+        >::type
+    T_flip1;
+
+    BOOST_EGG_CONST((T_flip1), flip1) =
+        BOOST_EGG_COMPOSE_L
+            BOOST_EGG_CURRY_INIT,
+            BOOST_EGG_COMPOSE_L BOOST_EGG_GENERATOR(), BOOST_EGG_GENERATOR() BOOST_EGG_COMPOSE_R
+        BOOST_EGG_COMPOSE_R;
 
 
 } } // namespace boost::egg

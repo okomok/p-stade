@@ -80,8 +80,8 @@ namespace boost { namespace egg {
         >::type
     T_to_base;
 
-    BOOST_EGG_CONST((T_to_base), to_base)
-        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
+    BOOST_EGG_CONST((T_to_base), to_base) =
+        BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT() BOOST_EGG_AMBI_R;
 
 
     typedef
@@ -91,8 +91,8 @@ namespace boost { namespace egg {
         >::type
     T_to_base_ref;
 
-    BOOST_EGG_CONST((T_to_base_ref), to_base_ref)
-        = BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
+    BOOST_EGG_CONST((T_to_base_ref), to_base_ref) =
+        BOOST_EGG_AMBI_L BOOST_EGG_IMPLICIT_REF() BOOST_EGG_AMBI_R;
 
 
 } } // namespace boost::egg
