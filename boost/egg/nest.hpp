@@ -19,6 +19,7 @@
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
 #include <boost/egg/const.hpp>
 #include <boost/egg/detail/if_use_default.hpp>
+#include <boost/egg/detail/nest_names.hpp> // inclusion guaranteed
 #include <boost/egg/detail/nest_placeholder.hpp> // inclusion guaranteed
 #include <boost/egg/identity.hpp>
 #include <boost/egg/lazy.hpp>
