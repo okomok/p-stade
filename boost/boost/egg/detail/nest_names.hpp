@@ -15,21 +15,15 @@
 // using-directive is useless after all.
 
 
+#include <boost/lambda/core.hpp> // placeholders
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
 #include <boost/egg/preprocessor/cat3.hpp>
 
 
-namespace boost { namespace egg {
-
-    struct nest_names;
-
-} }
-
-
 #define BOOST_EGG_NEST_NAMES \
-    /* using */ boost::egg::nest_names \
+    /* using */ boost::lambda::_1; using boost::lambda::_2; using boost::lambda::_3 \
     BOOST_PP_REPEAT_FROM_TO(0, BOOST_PP_INC(BOOST_EGG_MAX_ARITY), BOOST_EGG_NEST_NAMES_using_nest, ~) \
     BOOST_PP_REPEAT_FROM_TO(0, BOOST_EGG_MAX_ARITY, BOOST_EGG_NEST_NAMES_using_N_, ~) \
 /**/
