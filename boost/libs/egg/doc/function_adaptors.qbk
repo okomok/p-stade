@@ -1008,6 +1008,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`_%%M%%_`]
         [__CONCEPT_STATIC__ `XX_%%M%%_<>()`]
     ]
+    [
+        [`using BOOST_EGG_NEST_NAMES;`]
+        [['using-declaration]\ s of `nest%%N`, `_%%M%%_`, and `boost::lambda::_%%K`]
+    ]
 ]
 
 [heading Preconditions]
