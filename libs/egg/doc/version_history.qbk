@@ -75,7 +75,6 @@ http://www.boost.org/LICENSE_1_0.txt)
 * `static_` revised.
 * `lazy` and `unfuse` takes no helper FunctionObjects.
 * `_M` macros removed.
-* `fix` documented.
 * `call_strategy` is revised to `OVERLOADED`.
 * `flip` documented.
 * `automatic` renamed to `implicit`.

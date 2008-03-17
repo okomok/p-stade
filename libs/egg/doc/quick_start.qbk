@@ -183,7 +183,7 @@ that you can skip reading __EGG_FORWARDING_STRATEGIES__ when first reading the d
 
 [heading Function Builders]
 __EGG_FUNCTION_BUILDERS__ build __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
-As mentioned above, __EGG_FUNCTION__ is the most primitive builder.
+__EGG_FUNCTION__ is the most primitive builder, which can be stateful.
 First, it might be preferable to understand __EGG_FUNCTION__ with __CONCEPT_LITTLE_FUNCTION__ concept.
 Second, I recommend __EGG_POLY__, which is a cool builder originally written by David Abrahams.
 
