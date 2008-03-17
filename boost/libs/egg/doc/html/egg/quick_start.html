@@ -81,7 +81,7 @@
       </h5>
 <p>
         Assume you have to design lazily filtered sequences. (It is called <code class="computeroutput"><span class="identifier">filter</span></code> in <a href="http://www.haskell.org/" target="_top">Haskell</a>.)
-        Thanks to <a href="http://boost.org/libs/iterator/doc/index.html" target="_top"><span class="bold"><strong>Boost.Iterator</strong></span></a> and <a href="http://www.boost.org/libs/range/index.html" target="_top"><span class="bold"><strong>Boost.Range</strong></span></a>, it is pretty straight forward:
+        Thanks to <a href="http://boost.org/libs/iterator/doc/index.html" target="_top"><span class="bold"><strong>Boost.Iterator</strong></span></a> and <a href="http://www.boost.org/libs/range/index.html" target="_top"><span class="bold"><strong>Boost.Range</strong></span></a>, it is pretty straightforward:
         </p>
 <p>
           
@@ -513,7 +513,6 @@
 </p>
 <pre class="programlisting">
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="keyword">static</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">mpl</span><span class="special">/</span><span class="identifier">always</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 <span class="identifier">egg</span><span class="special">::</span><span class="identifier">result_of_pipable</span><span class="special">&lt;</span> <span class="callout_bug"><a name="egg17co" href="quick_start.html#egg17"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
     <span class="identifier">egg</span><span class="special">::</span><span class="identifier">static_</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">always</span><span class="special">&lt;</span><span class="identifier">T_make_filtered</span><span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="callout_bug"><a name="egg18co" href="quick_start.html#egg18"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
@@ -544,16 +543,19 @@
         </p>
 <p>
       </p>
+<p>
+        When both ways are available (e.g. <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
+        Function Object</a>), prefer <a href="function_adaptors.html#egg.function_adaptors.indirect" title="indirect"><code class="computeroutput"><span class="identifier">indirect</span></code></a>, which seems to run faster
+        in msvc.
+      </p>
 <a name="egg.quick_start.using_egg.partial_application"></a><h5>
-<a name="id520399"></a>
+<a name="id520380"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.partial_application">Partial application</a>
       </h5>
 <p>
-        You are sure to know <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span></code>
-        in <a href="http://www.boost.org/libs/bind/bind.html" target="_top"><span class="bold"><strong>Boost.Bind</strong></span></a>.
-        That is an implementation of partial application. <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a> also offers <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>,
-        which is more generic in that it can take <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
-        Function Object</a>s. But <code class="computeroutput"><span class="identifier">bind</span></code>
+        You are sure to know <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>
+        in <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>.
+        That is an implementation of partial application. But <code class="computeroutput"><span class="identifier">bind</span></code>
         expressions may be less readable. <a href="function_adaptors.html#egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a> offers better syntax so that
         you can forget <code class="computeroutput"><span class="identifier">bind</span></code>.
         </p>
@@ -567,7 +569,9 @@
 </span>
 <span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_2</span><span class="special">;</span>
-<span class="keyword">using</span> <span class="identifier">egg</span><span class="special">::</span><span class="identifier">_0_</span><span class="special">;</span>
+
+<span class="comment">// These represent nesting levels.
+</span><span class="keyword">using</span> <span class="identifier">egg</span><span class="special">::</span><span class="identifier">_0_</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="identifier">egg</span><span class="special">::</span><span class="identifier">_1_</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="identifier">egg</span><span class="special">::</span><span class="identifier">_2_</span><span class="special">;</span>
 
@@ -595,7 +599,7 @@
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left">
 <a name="egg19"></a><a href="#egg19co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints 6.</p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">6</span></code>.</p></td>
 </tr></table></div>
 <p>
         </p>
@@ -651,17 +655,18 @@
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg20"></a><a href="#egg20co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints -13. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="special">-</span><span class="number">13</span></code>.
+          </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg21"></a><a href="#egg21co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints 13. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">13</span></code>. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg22"></a><a href="#egg22co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints -7. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="special">-</span><span class="number">7</span></code>. </p></td>
 </tr>
 </table></div>
 <p>
@@ -673,7 +678,7 @@
         initialization</em></span>.
       </p>
 <a name="egg.quick_start.using_egg.fusing"></a><h5>
-<a name="id522544"></a>
+<a name="id522543"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.fusing">Fusing</a>
       </h5>
 <p>
@@ -707,7 +712,7 @@
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left">
 <a name="egg23"></a><a href="#egg23co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints 3. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">3</span></code>. </p></td>
 </tr></table></div>
 <p>
         </p>
@@ -756,17 +761,18 @@
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg24"></a><a href="#egg24co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints 1. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">1</span></code>. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg25"></a><a href="#egg25co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints 3. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">3</span></code>. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg26"></a><a href="#egg26co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints 6. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">6</span></code>.
+          </p></td>
 </tr>
 </table></div>
 <p>
@@ -779,7 +785,7 @@
         which is short-cut to <a href="function_adaptors.html#egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a>.
       </p>
 <a name="egg.quick_start.using_egg.the_return_of_the_monomorphic"></a><h5>
-<a name="id523853"></a>
+<a name="id523897"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.the_return_of_the_monomorphic">The
         Return of the Monomorphic</a>
       </h5>
@@ -821,7 +827,8 @@
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg28"></a><a href="#egg28co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
-<td valign="top" align="left"><p> Prints 3. </p></td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">3</span></code>.
+          </p></td>
 </tr>
 </table></div>
 <p>
@@ -844,7 +851,7 @@
         with any order.
       </p>
 <a name="egg.quick_start.reading_doc.notation"></a><h5>
-<a name="id524446"></a>
+<a name="id524501"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.notation">Notation</a>
       </h5>
 <p>
@@ -853,7 +860,7 @@
         just click the keyword.
       </p>
 <a name="egg.quick_start.reading_doc.concepts"></a><h5>
-<a name="id524496"></a>
+<a name="id524552"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.concepts">Concepts</a>
       </h5>
 <p>
@@ -866,7 +873,7 @@
         Other conepts can read on demand.
       </p>
 <a name="egg.quick_start.reading_doc.forwarding_strategies"></a><h5>
-<a name="id524584"></a>
+<a name="id524639"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.forwarding_strategies">Forwarding
         Strategies</a>
       </h5>
@@ -879,7 +886,7 @@
         Strategies</a> when first reading the documentation.
       </p>
 <a name="egg.quick_start.reading_doc.function_builders"></a><h5>
-<a name="id524676"></a>
+<a name="id524732"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_builders">Function Builders</a>
       </h5>
 <p>
@@ -890,7 +897,7 @@
         written by David Abrahams.
       </p>
 <a name="egg.quick_start.reading_doc.function_adaptors"></a><h5>
-<a name="id524789"></a>
+<a name="id524845"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_adaptors">Function Adaptors</a>
       </h5>
 <p>
@@ -899,7 +906,7 @@
         interesting adaptors, which provides "fusing".
       </p>
 <a name="egg.quick_start.reading_doc.function_objects_and_utilities"></a><h5>
-<a name="id524863"></a>
+<a name="id524919"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_objects_and_utilities">Function
         Objects and Utilities</a>
       </h5>
@@ -911,7 +918,7 @@
         might be interesting, which is ported from <a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a>.
       </p>
 <a name="egg.quick_start.reading_doc.workarounds"></a><h5>
-<a name="id524950"></a>
+<a name="id525005"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.workarounds">Workarounds</a>
       </h5>
 <p>

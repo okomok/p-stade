@@ -8,8 +8,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/bind.hpp>
+
+#include <boost/lambda/core.hpp>
+#include <boost/mpl/placeholders.hpp>
+
+
 void foo();
 int i = 0;
+
 
 namespace my {
     void foo();
@@ -18,11 +25,37 @@ namespace my {
 
 namespace your {
 
-    void foo()
+#if 1
+    void bar()
     {
         using namespace my;
-        foo();
-        i;
+        foo(); // ambiguous
+        i; // ambiguous
+    }
+
+    void buz()
+    {
+        using namespace boost::lambda;
+        _1; // ambiguous
+    }
+
+    void bug()
+    {
+        using namespace boost::mpl::placeholders;
+        _1; // ambiguous
+    }
+#endif
+
+    void hog()
+    {
+        using boost::lambda::_1;
+        _1; // ok
+    }
+
+    void hug()
+    {
+        namespace bll = boost::lambda;
+        bll::_1; // ok
     }
 }
 

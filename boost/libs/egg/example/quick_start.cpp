@@ -196,6 +196,7 @@ egg::result_of_pipable< /*< Assume you don't know `T_make_filtered` can be initi
     const her_filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_INDIRECT(&make_filtered) BOOST_EGG_PIPABLE_R;
 //]
 
+
 void quick_start_indirect()
 {
     std::string src("abXcYdXefXgYhY");
@@ -207,13 +208,13 @@ void quick_start_indirect()
 
 //[code_quick_start_static_
 #include <boost/egg/static.hpp>
-#include <boost/mpl/always.hpp>
 
 egg::result_of_pipable< /*< Assume you don't know `T_make_filtered` can be initialized using `BOOST_EGG_POLY()`, but know it is __DEFAULT_CONSTRUCTIBLE__. >*/
     egg::static_< boost::mpl::always<T_make_filtered> >::type /*< For now, wrap it idiomatically by `mpl::always`. >*/
 >::type
     const his_filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_STATIC() BOOST_EGG_PIPABLE_R;
 //]
+
 
 void quick_start_static_()
 {
@@ -231,6 +232,8 @@ void quick_start_static_()
 
 using boost::lambda::_1;
 using boost::lambda::_2;
+
+// These represent nesting levels.
 using egg::_0_;
 using egg::_1_;
 using egg::_2_;
@@ -247,9 +250,10 @@ void quick_start_nest()
         egg::nest2(plus)(5, egg::nest2(_1_(_1))(_1_(_2), _0_(_1)))
             (i6)(minus, i7);
 
-    std::cout << r; /*< Prints 6.>*/
+    std::cout << r; /*< Prints `6`.>*/
 }
 //]
+
 
 //[code_quick_start_nest_family
 #include <boost/egg/nest.hpp>
@@ -267,17 +271,17 @@ void quick_start_nest_family()
 
 // Lv: 0         1
     // \(x,y) -> negate(plus(x, y))
-    std::cout << egg::nest1(negate)(egg::nest1(plus)(_0_(_1), _0_(_2)))(i6, i7); /*< Prints -13. >*/
+    std::cout << egg::nest1(negate)(egg::nest1(plus)(_0_(_1), _0_(_2)))(i6, i7); /*< Prints `-13`. >*/
     std::cout << egg::compose(negate, plus)(i6, i7);
 
 // Lv: 0     1      2
     // \x -> (\y -> plus(x, y))
-    std::cout << egg::nest2(plus)(_0_(_1), _1_(_1))(i6)(i7); /*< Prints 13. >*/
+    std::cout << egg::nest2(plus)(_0_(_1), _1_(_1))(i6)(i7); /*< Prints `13`. >*/
     std::cout << egg::curry2(plus)(i6)(i7);
 
 // Lv: 0     1
     // \x -> negate(x)
-    std::cout << egg::nest1(negate)(_0_(_1))(i7); /*< Prints -7. >*/
+    std::cout << egg::nest1(negate)(_0_(_1))(i7); /*< Prints `-7`. >*/
     std::cout << egg::lazy(negate)(_1)(i7);
 }
 //]
@@ -293,10 +297,11 @@ void quick_start_fusing1()
 {
     std::plus<int> plus;
 
-    std::cout << egg::fuse(plus)(boost::make_tuple(1, 2)); /*< Prints 3. >*/
+    std::cout << egg::fuse(plus)(boost::make_tuple(1, 2)); /*< Prints `3`. >*/
     std::cout << egg::unfuse(egg::fuse(plus))(1, 2);
 }
 //]
+
 
 //[code_quick_start_fusing2
 struct fused_plus
@@ -320,9 +325,9 @@ T_good_plus const good_plus = BOOST_EGG_UNFUSE({});
 
 void quick_start_fusing2()
 {
-    std::cout << good_plus(1); /*< Prints 1. >*/
-    std::cout << good_plus(1,2); /*< Prints 3. >*/
-    std::cout << good_plus(1,2,3); /*< Prints 6. >*/
+    std::cout << good_plus(1); /*< Prints `1`. >*/
+    std::cout << good_plus(1,2); /*< Prints `3`. >*/
+    std::cout << good_plus(1,2,3); /*< Prints `6`. >*/
 }
 //]
 
@@ -338,7 +343,7 @@ void quick_start_mono()
 #if 0
     std::cout << int_plus(std::string("a"), std::string("b")); /*< Would show an error with clear messages. >*/
 #endif
-    std::cout << int_plus(1,2); /*< Prints 3. >*/
+    std::cout << int_plus(1,2); /*< Prints `3`. >*/
 }
 //]
 

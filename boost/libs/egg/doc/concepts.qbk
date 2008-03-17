@@ -78,9 +78,9 @@ for any __CONCEPT_PIPABLE_FUNCTION_OBJECT__ `p` the following must be met:
 ]
 
 [heading See also]
-* __EXTENSION_METHOD__
-* __CONCEPT_PIPABLE__
+* __EGG_PIPABLE__
 * __CONCEPT_AMBI_FUNCTION_OBJECT__
+* __EXTENSION_METHOD__
 
 [endsect]
 

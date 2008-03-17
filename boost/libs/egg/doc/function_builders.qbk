@@ -407,7 +407,7 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
         [`F()(__fwd_arg_list(a, __Stg))`]
     ]
     [
-        [`__mpl::_%%M` and `__mpl::_`]
+        [`__mpl::_%%M`, `__mpl::_` and `__mpl::always`]
         [as-is]
     ]
 ]

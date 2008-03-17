@@ -50,7 +50,7 @@ Egg is known to work on the following platforms:
 
 [heading Problems of function templates]
 Assume you have to design lazily filtered sequences. (It is called `filter` in __HASKELL__.)
-Thanks to __BOOST_ITERATOR__ and __BOOST_RANGE__, it is pretty straight forward:
+Thanks to __BOOST_ITERATOR__ and __BOOST_RANGE__, it is pretty straightforward:
 [code_quick_start_make_filtered_imperfect]
 
 Even if you don't fully understand this code snippet, you can notice that it reveals several problems:
@@ -118,10 +118,10 @@ What if you don't know a braced-initializer of a __FUNCTION_OBJECT__ you are ada
 If you know a __FUNCTION_OBJECT__ you are adapting is __DEFAULT_CONSTRUCTIBLE__, __EGG_STATIC__ is available:
 [code_quick_start_static_]
 
+When both ways are available (e.g. __CONCEPT_STATIC_FUNCTION_OBJECT__), prefer __EGG_INDIRECT__, which seems to run faster in msvc.
 
 [heading Partial application]
-You are sure to know `boost::bind` in __BOOST_BIND__. That is an implementation of partial application.
-__BOOST_LAMBDA__ also offers `boost::lambda::bind`, which is more generic in that it can take __POLYMORPHIC_FUNCTION_OBJECT__\ s.
+You are sure to know `boost::lambda::bind` in __BOOST_LAMBDA__. That is an implementation of partial application.
 But `bind` expressions may be less readable. __EGG_NEST__ offers better syntax so that you can forget `bind`.
 [code_quick_start_nest]
 
