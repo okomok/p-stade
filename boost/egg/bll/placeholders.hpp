@@ -19,20 +19,14 @@
 namespace boost { namespace egg {
 
 
-    namespace bll_placeholders {
+    // These are not pod.
+    typedef remove_const<lambda::placeholder1_type>::type T_bll_1;
+    typedef remove_const<lambda::placeholder2_type>::type T_bll_2;
+    typedef remove_const<lambda::placeholder3_type>::type T_bll_3;
 
-        // These are not pod.
-        typedef remove_const<lambda::placeholder1_type>::type T_bll_1;
-        typedef remove_const<lambda::placeholder2_type>::type T_bll_2;
-        typedef remove_const<lambda::placeholder3_type>::type T_bll_3;
-
-        T_bll_1 const bll_1 = T_bll_1();
-        T_bll_2 const bll_2 = T_bll_2();
-        T_bll_3 const bll_3 = T_bll_3();
-
-    }
-
-    using namespace bll_placeholders;
+    T_bll_1 const bll_1 = T_bll_1();
+    T_bll_2 const bll_2 = T_bll_2();
+    T_bll_3 const bll_3 = T_bll_3();
 
 
 } } // namespace boost::egg
