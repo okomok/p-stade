@@ -188,4 +188,9 @@ void egg_test()
         BOOST_CHECK( nest1(lala)(nest2(my_minus)(_0_(_1), _1_(_1)), nest2(my_minus)(_1_(_1), _0_(_1)))
             (i3) == my_minus(3, 10) + my_minus(20, 3) );
     }
+    {
+        using BOOST_EGG_NEST_NAMES;
+        (void)nest0; (void)nest1; (void)nest2; (void)nest3; (void)nest4; (void)nest5;
+        (void)_0_; (void)_1_; (void)_2_; (void)_3_; (void)_4_;
+    }
 }

@@ -21,6 +21,11 @@ int minus(int a, int b)
     return a - b;
 }
 
+int weird3(int a, int b, int c)
+{
+    return (a - b) * c;
+}
+
 
 struct less
 {
@@ -44,5 +49,15 @@ void egg_test()
         result_of_flip< ::less >::type fl = BOOST_EGG_FLIP(l);
         BOOST_CHECK( l(0, 1) );
         BOOST_CHECK( !fl(0, 1) );
+    }
+    {
+        BOOST_CHECK(flip1(curry2(&minus))(0)(1) == 1);
+        BOOST_CHECK(flip1(curry2(&minus))(1)(0) == -1);
+    }
+    {
+        BOOST_CHECK( flip1(curry3(&weird3))(4)(3)(5) == weird3(3, 4, 5) );
+
+        // See: http://d.hatena.ne.jp/takatoh/20061220
+        BOOST_CHECK( flip1(compose(flip1, curry3(&weird3)))(5)(3)(4) == weird3(3, 4, 5) );
     }
 }

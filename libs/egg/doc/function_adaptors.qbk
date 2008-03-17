@@ -377,6 +377,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 
 
 
+[/
+
 [section flip]
 
 [heading Description]
@@ -444,6 +446,8 @@ Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGN
 ]
 
 [endsect]
+
+]
 
 
 
