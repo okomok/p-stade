@@ -12,14 +12,14 @@
 
 
 #include <cstddef> // size_t
-#include <boost/mpl/assert.hpp>
+// #include <boost/mpl/assert.hpp>
 #include <boost/preprocessor/array/elem.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum.hpp>
 #include <boost/egg/detail/adl_barrier.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
 #include <boost/egg/detail/bytag_at.hpp>
-#include <boost/egg/detail/plain.hpp>
+// #include <boost/egg/detail/plain.hpp>
 #include <boost/egg/function_fwd.hpp> // bytags
 
 
@@ -70,7 +70,7 @@ BOOST_EGG_ADL_BARRIER(forward) { // for C++0x
     template<class Lvalue>
     struct result_of_forward<by_value, Lvalue>
     {
-        BOOST_MPL_ASSERT((details::is_plain<Lvalue>));
+        // BOOST_MPL_ASSERT((details::is_plain<Lvalue>));
         typedef Lvalue type; // For movable types, you can't add const-qualifier.
     };
 
