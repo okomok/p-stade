@@ -65,7 +65,7 @@ which can be used with `boost::lambda::bind` and `boost::result_of`.
 
 [heading Preconditions]
 * `__Lit` is __COPY_CONSTRUCTIBLE__.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
 * `function<__Lit, __Stg>` is __POD__ if and only if `__Lit` is __POD__.
@@ -123,7 +123,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 [heading Preconditions]
 * `__lit` is an object whose type is derived from `function_facade<__typeof(__lit), __Stg = __ud, R0 = __ud>`.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Example]
 [import ../example/function_facade.cpp]
@@ -185,7 +185,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 
 [heading Preconditions]
 * `Lam` is an (possibly __CV_QUALIFIED__) __MPL_LAMBDA_EXPRESSION__.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
 * Non-local object `g` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_GENERATOR()`.
@@ -285,8 +285,8 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 [heading Preconditions]
 * `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
 * `boost::is_convertible<unspecified, __typeof(to)>::value == false`.
-* __PRECONDITION_AS_IS__
 * `u` is not placed in a default argument list.
+[/ * __PRECONDITION_AS_IS__ ]
 
 [note These valid expressions imply that the implicit conversion is available everywhere /copy-initialization/ is invoked.
       For example, you can place `u` in a /return-statement/. The last precondition comes from a bug of GCC.]
@@ -355,7 +355,7 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
   such that it is the same as `__decltype(__mpl::apply<Lam, __meta_arg_list(a, __Stg)>::type()(__arg_list(a, __Stg)))`.
 * If `R0` is `use_nullary_result`, `__mpl::apply<Lam>::type::result_type` is a valid expression
   such that it is the same as `__decltype(__mpl::apply<Lam>::type()())`.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
 * Non-local object `f` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_POLY()`.
@@ -414,7 +414,7 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
 
 [heading Preconditions]
 * `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
 * Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_STATIC()`.
@@ -479,8 +479,10 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
     ]
 ]
 
+[/
 [heading Preconditions]
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
+]
 
 [heading Invariants]
 * What the corresponding semantics implies.

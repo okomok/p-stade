@@ -68,7 +68,7 @@ Even if you don't fully understand this code snippet, you can notice that it rev
       This is well-known anti-pattern.
 # Return type is unknown.
     * How can your clients know the return type of `make_filtered`?
-      It is not good to document compicated return types.
+      It is not good to document complicated return types.
 
 Egg solves these problems.
 
