@@ -20,6 +20,8 @@
 struct using_directive_not_broken
 { };
 
+struct aaa;
+
 
 namespace xxx {
 
