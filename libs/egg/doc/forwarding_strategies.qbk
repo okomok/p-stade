@@ -102,8 +102,10 @@ Egg defines the following imaginary operators for its documentation.
     ]
 ]
 
+[/
 [heading Preconditions]
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
+]
 
 [important `__arg_list` and `__fwd_arg_list` have slightly different semantics.
            Put simply, in the case of __EGG_FUNCTION_ADAPTORS__ with `by_value`,
@@ -366,7 +368,7 @@ Egg provides a uniform way to define your own strategies.
 * `Bytags` is __PP_SEQUENCE__ of `__Bytag`.
 * `Cv` is /cv-qualifier/ of /call operator/. In case of no /cv-qualifier/, `Cv` must be `mutable`.
 * `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Your strategy tag]
 A user-defined strategy tag is __MPL_METAFUNCTION_CLASS__ which takes itself, arity and index, then returns `__Bytag`.

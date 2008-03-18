@@ -46,7 +46,7 @@ enables you to extract type of expression without `resulf_of`.
 
 [heading Preconditions]
 * Except for `boost::use_default`, types in `Sig` is registered to __BOOST_TYPEOF__.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [note `expr` performs type-erasure when native typeof isn't available
       so that type registrations into __BOOST_TYPEOF__ can be minimized. ]
@@ -96,7 +96,7 @@ Egg provides __FCPP__ infix operator syntax.
 [heading Preconditions]
 * `using namespace infix;` is placed before the valid expression.
 * `operator^` is not overloaded with `__typeof(a1)`.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
 * `^__pfo^` behaves as if it had left to right associativity.
@@ -117,7 +117,7 @@ Egg provides __FCPP__ infix operator syntax.
 [section bll/result_of.hpp]
 
 [heading Description]
-This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__.
+This header lets a __BOOST_LAMBDA__ __FUNCTION_OBJECT__ be a __POLYMORPHIC_FUNCTION_OBJECT__.
 
 [heading Header]
 * `<boost/egg/bll/result_of.hpp>`
@@ -135,7 +135,7 @@ This header lets a __BOOST_LAMBDA__ functor be a __POLYMORPHIC_FUNCTION_OBJECT__
     ]
     [
         [`#include <boost/egg/bll/result_of.hpp>`]
-        [A __BOOST_LAMBDA__ functor becomes a __POLYMORPHIC_FUNCTION_OBJECT__.]
+        [A __BOOST_LAMBDA__ __FUNCTION_OBJECT__ becomes a __POLYMORPHIC_FUNCTION_OBJECT__.]
     ]
 ]
 

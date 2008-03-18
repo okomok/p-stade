@@ -124,7 +124,7 @@ GCC might show unused variable warnings without this macro.
 [heading Preconditions]
 * `F` is __POD__ which is not __CV_QUALIFIED__.
 * This macro is placed in namespace scope.
-* __PRECONDITION_AS_IS__
+[/ * __PRECONDITION_AS_IS__ ]
 
 [heading Example]
     BOOST_EGG_CONST((T_foo), foo) = &foo_impl;
