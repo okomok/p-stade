@@ -28,14 +28,14 @@ namespace your {
 #if 1
     void bar()
     {
-        using namespace my;
+        using namespace my; // enclosing bar and my is... global!
         foo(); // ambiguous
         i; // ambiguous
     }
 
     void buz()
     {
-        using namespace boost::lambda;
+        using namespace boost::lambda; // enclosing buz and boost::lambda is... global!
         _1; // ambiguous
     }
 
