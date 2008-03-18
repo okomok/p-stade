@@ -812,7 +812,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section get]
 
 [heading Description]
-`get<N>` is akin to `boost::tuples::get<N::value>`.
+`get` returns the N-th element from the beginning of the __FUSION_FORWARD_SEQUENCE__.
 
 [heading Header]
 * `<boost/egg/get.hpp>`
