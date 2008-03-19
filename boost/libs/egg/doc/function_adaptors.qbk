@@ -78,7 +78,7 @@ The `ambi` family helps you to make __CONCEPT_AMBI_FUNCTION_OBJECT__.
 
 [heading Preconditions]
 * `N <= __MAX_PACK_ARITY-1`.
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 * If `__Bytag` is `by_value`, `__typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 [/ * __PRECONDITION_AS_IS__ ]
 
@@ -149,8 +149,8 @@ The `ambi` family helps you to make __CONCEPT_AMBI_FUNCTION_OBJECT__.
 
 [heading Preconditions]
 * `0 <= N && N <= __MAX_PACK_ARITY`.
-* `d1` is an object such that `__PFo1 d1 = init1;` is a valid expression.
-* `d2` is an object such that `__PFo2 d2 = init2;` is a valid expression.
+* `__PFo1 d1 = init1;` is a valid expression.
+* `__PFo2 d2 = init2;` is a valid expression.
 * `__decltype_r0(R0, d1(d2()))` is a valid expression which specifies the nullary return type.
 [/ * __PRECONDITION_AS_IS__ ]
 
@@ -217,7 +217,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 
 [heading Preconditions]
 * `N` is the arity of `__PFo` such that `2 <= N && N <= BOOST_EGG_MAX_ARITY`.
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 * For all `I` such that `1 <= I && I <= N-1`, `__typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 [/ * __PRECONDITION_AS_IS__ ]
 
@@ -291,7 +291,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 
 [heading Preconditions]
 * `2 <= N && N <= BOOST_EGG_MAX_ARITY`.
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
@@ -358,7 +358,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 
 [/
 [heading Preconditions]
-[/ * `d` is an object such that `__PFo d = init;` is a valid expression. ]
+[/ * `__PFo d = init;` is a valid expression. ]
 [/ * __PRECONDITION_AS_IS__ ]
 ]
 
@@ -434,7 +434,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 ]
 
 [heading Preconditions]
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
@@ -515,7 +515,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 
 [heading Preconditions]
 * `1 <= N && N <= BOOST_EGG_MAX_LINEAR_ARITY`.
-* `p` is an object such that `__PFo p = init;` is a valid expression.
+* `__PFo p = init;` is a valid expression.
 * `MPtr` is member pointer type.
 * `a1` is convertible to `C const&`.
 * `b1` is not convertible to `C const&`.
@@ -585,7 +585,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 
 [heading Preconditions]
 * `1 <= N && N <= __MAX_PACK_ARITY`.
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
@@ -658,7 +658,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 ]
 
 [heading Preconditions]
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 * `__decltype_r0(R0, d(pack_())` is a valid expression which specifies the nullary return type.
 * If `Pack` isn't `__ud`, `__mpl::apply<Pack, by_ref>::type` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
@@ -736,7 +736,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 
 [heading Preconditions]
 * `boost::pointee<Pco>::type` is __POLYMORPHIC_FUNCTION_OBJECT__ type.
-* `p` is an object such that `Pco p = init;` is a valid expression.
+* `Pco p = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
@@ -808,7 +808,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `f` is an object such that `F f = init;` is a valid expression.
+* `F f = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
@@ -939,7 +939,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
 * `Sig` is a /function type/.
-* `f` is an object such that `Fun f = init;` is a valid expression.
+* `Fun f = init;` is a valid expression.
 * If `R` is `__ud`, `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type; `R` specifies a return type of `Fun`, otherwise.
 [/ * __PRECONDITION_AS_IS__ ]
 
@@ -1082,7 +1082,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 ]
 
 [heading Preconditions]
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
@@ -1153,7 +1153,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Preconditions]
 * `0 <= N && N+1 <= BOOST_EGG_MAX_LINEAR_ARITY`.
 * `N+1 <= __MAX_PACK_ARITY`.
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 * If `__bytag_at(__Stg, N, I)` is `by_value`, `__typeof(aI)` is __COPY_CONSTRUCTIBLE__.
 [/ * __PRECONDITION_AS_IS__ ]
 
@@ -1281,7 +1281,7 @@ An iterator holding such a __FUNCTION_OBJECT__ can't conform to even __INPUT_ITE
 [heading Preconditions]
 * `Fun` is a __FUNCTION_OBJECT__ type.
 * `Fun` is a __POLYMORPHIC_FUNCTION_OBJECT__ type if `R` is `__ud`.
-* `f` is an object such that `Fun f = init;` is a valid expression.
+* `Fun f = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
@@ -1349,7 +1349,7 @@ An iterator holding such a __FUNCTION_OBJECT__ can't conform to even __INPUT_ITE
 
 [heading Preconditions]
 * `Tag` is any (possibly incomplete) type.
-* `d` is an object such that `__PFo d = init;` is a valid expression.
+* `__PFo d = init;` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]

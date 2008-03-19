@@ -48,14 +48,17 @@ Distributed under the Boost Software License, Version 1.0.
 [def __FCPP__ [@http://www.cc.gatech.edu/~yannis/fc++/ [*FC++]]]
 [def __EXTENSION_METHOD__ [@http://en.wikipedia.org/wiki/Extension_method Extension method]]
 
+[def __BOOST_ITERATOR_FACADE__ [@http://boost.org/libs/iterator/doc/iterator_facade.html `boost::iterator_facade`]]
 [def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html `boost::indirect_iterator`]]
 [def __FUSION_FUNCTIONAL__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional.html Fusion Functional Adapters]]
 
-[def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm The Forwarding Problem]]
+[def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm Forwarding Problem]]
 [def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826 `callable`]]
 
 [def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
 [def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
+
+[def __OBJECT_GENERATORS__ [@http://www.boost.org/more/generic_programming.html#object_generator Object Generators]]
 
 [def __CURRYING__ [@http://en.wikipedia.org/wiki/Currying Currying]]
 [def __FIXED_POINT_COMBINATOR__ [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]]
@@ -84,7 +87,6 @@ Distributed under the Boost Software License, Version 1.0.
 [def __FUSION_FORWARD_SEQUENCE__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/sequence/concepts/forward_sequence.html Fusion Forward Sequence]]
 [def __INPUT_ITERATOR__ [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
 [def __PP_SEQUENCE__ [@http://www.boost.org/libs/preprocessor/doc/data/sequences.html Preprocessor Sequence]]
-[def __OBJECT_GENERATORS__ [@http://www.boost.org/more/generic_programming.html#object_generator Object Generators]]
 
 [def __POD__ /POD/]
 [def __REFERENCE_TYPE__ /reference type/]

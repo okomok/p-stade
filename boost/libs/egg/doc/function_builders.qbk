@@ -381,6 +381,8 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
 Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
 to be __STATICALLY_INITIALIZED__ without `static_`.
 
+[note When __EGG_INDIRECT__ also is available, prefer __EGG_INDIRECT__, which seems to run faster in msvc. ]
+
 [heading Header]
 * `<boost/egg/static.hpp>`
 

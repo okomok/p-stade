@@ -20,6 +20,8 @@
 #include <boost/egg/fuse.hpp>
 #include <boost/egg/unfuse.hpp>
 #include <boost/egg/mono.hpp>
+#include <boost/egg/generator.hpp>
+#include <boost/egg/function_facade.hpp>
 
 
 #include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
@@ -179,9 +181,9 @@ void quick_start_lazy()
 {
     namespace bll = boost::lambda;
 
-    ::my_foreach(egg::lazy(make_filtered)(bll::_1, &is_lower)); /*< Using __EGG_LAZY__ as higher-order function. >*/
+    egg::result_of_<egg::T_lazy(T_make_filtered const &)>::type
+        make_Filtered = egg::lazy(make_filtered); /*< Using __EGG_LAZY__ as higher-order function. >*/
 
-    egg::result_of_lazy<T_make_filtered>::type make_Filtered; /*< When you dislike to write `egg::lazy` multiple times, the metafunction also is available. >*/
     ::my_foreach(make_Filtered(make_Filtered(bll::_1, &is_not_X), &is_not_Y));
 }
 //]
@@ -206,23 +208,38 @@ void quick_start_indirect()
 }
 
 
-//[code_quick_start_static_
-#include <boost/egg/static.hpp>
+//[code_quick_start_object_generator
+#include <boost/egg/generator.hpp>
 
-egg::result_of_pipable< /*< Assume you don't know `T_make_filtered` can be initialized using `BOOST_EGG_POLY()`, but know it is __DEFAULT_CONSTRUCTIBLE__. >*/
-    egg::static_< boost::mpl::always<T_make_filtered> >::type /*< For now, wrap it idiomatically by `mpl::always`. >*/
->::type
-    const his_filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_STATIC() BOOST_EGG_PIPABLE_R;
-//]
-
-
-void quick_start_static_()
+template<class T>
+struct always_result :
+    egg::function_facade< always_result<T> > /*< __EGG_FUNCTION_FACADE__ might remind you of __BOOST_ITERATOR_FACADE__. >*/
 {
-    std::string src("abXcYdXefXgYhY");
-    foreach (char ch, src|her_filtered(&is_lower)) {
-        std::cout << ch;
+    T m_t;
+    explicit always_result(T const &t) : m_t(t) { }
+
+    template<class Me, class A>
+    struct apply
+    {
+        typedef T const &type;
+    };
+
+    template<class Re, class A>
+    Re call(A &) const
+    {
+        return m_t;
     }
+};
+
+egg::generator<
+    always_result< egg::deduce<boost::mpl::_1, egg::as_value> >
+>::type const always = BOOST_EGG_GENERATOR();
+
+void quick_start_object_generator()
+{
+    std::cout << always(10)(999); /*< Prints `10`. >*/
 }
+//]
 
 
 //[code_quick_start_nest
@@ -360,7 +377,7 @@ int main()
     std::cout << std::endl;
     quick_start_indirect();
     std::cout << std::endl;
-    quick_start_static_();
+    quick_start_object_generator();
     std::cout << std::endl;
     quick_start_nest();
     std::cout << std::endl;

@@ -56,10 +56,10 @@ Thanks to __BOOST_ITERATOR__ and __BOOST_RANGE__, it is pretty straightforward:
 Even if you don't fully understand this code snippet, you can notice that it reveals several problems:
 
 # A function template is not an object.
-    * To get a __FUNCTION_OBJECT__, You have to make a pointer from a template, which is difficult or sometimes impossible.
+    * To get a __FUNCTION_OBJECT__, you have to make a pointer from a template, which is difficult or sometimes impossible.
 # Forwarding problem
     * `make_filtered` above can't take non-const rvalues. So, you have to write also `make_filtered(Range const &, Predicate)` version.
-      Such irritating job is called __FORWARDING_PROBLEM__.
+      Such irritating job is called the __FORWARDING_PROBLEM__.
 # Unintentional ADL
     * If `make_filtered` is called without qualification, your compiler will look into all the associated namespaces
       in order to find the name `make_filtered`.
@@ -115,10 +115,11 @@ As mentioned [link egg.overview.introduction.pod_oriented_programming before], t
 What if you don't know a braced-initializer of a __FUNCTION_OBJECT__ you are adapting? __EGG_INDIRECT__ helps:
 [code_quick_start_indirect]
 
-If you know a __FUNCTION_OBJECT__ you are adapting is __DEFAULT_CONSTRUCTIBLE__, __EGG_STATIC__ is available:
-[code_quick_start_static_]
 
-When both ways are available (e.g. __CONCEPT_STATIC_FUNCTION_OBJECT__), prefer __EGG_INDIRECT__, which seems to run faster in msvc.
+[heading Object generators]
+It is boring to build __OBJECT_GENERATORS__. __EGG_GENERATOR__ makes it easy:
+[code_quick_start_object_generator]
+
 
 [heading Partial application]
 You are sure to know `boost::lambda::bind` in __BOOST_LAMBDA__. That is an implementation of partial application.
@@ -132,6 +133,7 @@ for they can be trivially implemented by __EGG_NEST__:
 
 Note that the three adaptors, unlike __EGG_NEST__, can support __STATIC_INITIALIZATION__.
 
+
 [heading Fusing]
 Fusing is the technique of transforming a function into one which takes a tuple.
 A function which takes a tuple is called "fused".
@@ -143,6 +145,7 @@ If you dislike cut-n-paste and macros, fusing is important:
 
 __VARIADIC_FUNCTION__\ s can be written by __EGG_UNFUSE__ in one shot.
 See also __EGG_VARIADIC__, which is short-cut to __EGG_UNFUSE__.
+
 
 [heading The Return of the Monomorphic]
 You may complain that __EGG_FUNCTION_ADAPTORS__ transform a function into templated one.
