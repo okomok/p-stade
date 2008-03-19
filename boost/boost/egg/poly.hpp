@@ -13,8 +13,8 @@
 
 #include <boost/mpl/lambda.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
-#include <boost/egg/detail/little_poly.hpp>
 #include <boost/egg/by_perfect.hpp>
+#include <boost/egg/detail/little_poly.hpp>
 
 
 namespace boost { namespace egg {
@@ -24,7 +24,8 @@ namespace boost { namespace egg {
     struct poly
     {
         typedef
-            // `lambda` keeps this from being unintentionally a LambdaExpression.
+            // `mpl::lambda` keeps this from being unintentionally a LambdaExpression.
+            // See also <boost/egg/detail/before_mpl_apply.hpp>.
             function<
                 details::little_poly<typename mpl::lambda<Expr>::type, NullaryResult>,
                 Strategy
