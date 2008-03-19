@@ -54,7 +54,7 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace bll_unlambda
+    } // namespace bll_unlambda_detail
 
 
     typedef function<bll_unlambda_detail::little, by_value> T_bll_unlambda;
