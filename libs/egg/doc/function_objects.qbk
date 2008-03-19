@@ -15,6 +15,8 @@ http://www.boost.org/LICENSE_1_0.txt)
 It is difficult or even impossible to get a __FUNCTION_OBJECT__ from a function template.
 Egg no longer considers function templates to be useful, so that it provides
 "objectified" functions which replace some famous function templates.
+Note that a __FUNCTION_OBJECT__ type defined in this section is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__
+unless otherwise specified.
 
 
 
@@ -494,13 +496,16 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 [section bll_N]
 
 [heading Description]
-`bll_N` is a __CONCEPT_STATIC_FUNCTION_OBJECT__ which represents `boost::lambda::_N`.
+`bll_N` is a __CONCEPT_LEXICALLY_TYPED_OBJECT__ which represents `boost::lambda::_N`.
+
+[caution `bll_N` is neither __STATICALLY_INITIALIZED__, __DEFAULT_CONSTRUCTIBLE__ nor __COPY_ASSIGNABLE__. ]
 
 [heading Header]
 * `<boost/egg/bll/placeholders.hpp>`
 
 [heading Model of]
-* __CONCEPT_STATIC_FUNCTION_OBJECT__ but not __STATICALLY_INITIALIZED__.
+* __CONCEPT_LEXICALLY_TYPED_OBJECT__
+* __CONCEPT_MAJOR_FUNCTION_OBJECT__
 
 [/
 [heading Notation]
@@ -518,6 +523,10 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
         [__POLYMORPHIC__ `boost::lambda::_%%N`]
     ]
 ]
+
+[heading Invariants]
+* `boost::remove_reference<__decltype(bll_%%N)>::type` is `T_bll_%%N const`.
+* `boost::result_of<T_bll_%%N const(a1,...,aK)>::type` is the same as `boost::result_of<T_bll_%%N(a1,...,aK)>::type`.
 
 [/
 [heading Preconditions]
