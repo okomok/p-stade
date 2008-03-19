@@ -126,7 +126,7 @@ You are sure to know `boost::lambda::bind` in __BOOST_LAMBDA__. That is an imple
 But `bind` expressions may be less readable. __EGG_NEST__ offers better syntax so that you can forget `bind`.
 [code_quick_start_nest]
 
-__EGG_NEST__ enables you to write any complicated lambda expressions in an automatic manner.
+__EGG_NEST__ enables you to write any complicated lambda expressions in the automatic manner.
 In addition, __EGG_COMPOSE__, __EGG_CURRY__ and __EGG_LAZY__ can be considered as a part of __EGG_NEST__ family,
 for they can be trivially implemented by __EGG_NEST__:
 [code_quick_start_nest_family]
