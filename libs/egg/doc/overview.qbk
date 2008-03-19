@@ -123,7 +123,7 @@ Egg is known to work on the following platforms:
 
 [section Rationale]
 
-* Egg works around __FORWARDING_PROBLEM__.
+* Egg works around the __FORWARDING_PROBLEM__.
 * Egg framework provides the way of __STATIC_INITIALIZATION__.
 * Egg doesn't introduce any new "traits".
 
@@ -136,7 +136,7 @@ Egg is known to work on the following platforms:
 Special thanks to:
 
 * Dan Marsden, review manager of this library.
-* David Abrahams. __FORWARDING_PROBLEM__ workaround is based on his __DAVID_CALLABLE__.
+* David Abrahams. The __FORWARDING_PROBLEM__ workaround is based on his __DAVID_CALLABLE__.
 * Eric Niebler, who pointed out importance of __STATIC_INITIALIZATION__.
 * Cryolite, Hitobashira, Kazuhiro Inaba, Takeshi Mouri, yotto-k, and Yusuke Kajimoto.
 

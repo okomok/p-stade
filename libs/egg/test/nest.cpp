@@ -80,7 +80,6 @@ struct T_my_minus
 T_my_minus const my_minus = {};
 
 
-
 struct T_lala
 {
     typedef int result_type;
@@ -88,7 +87,8 @@ struct T_lala
     template<class F, class G>
     int operator()(F f, G g) const
     {
-        return f(10) + g(20);
+        int i10 = 10, i20 = 20;
+        return f(i10) + g(i20);
     }
 };
 

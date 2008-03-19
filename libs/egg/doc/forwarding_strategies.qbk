@@ -117,7 +117,7 @@ Egg defines the following imaginary operators for its documentation.
 ]
 
 [heading See also]
-* __FORWARDING_PROBLEM__
+* The __FORWARDING_PROBLEM__
 
 [endsect]
 
@@ -169,7 +169,7 @@ Egg performs "perfect forwarding" by default.
 * `__meta_arg_list(a, by_perfect)` is `int,const int,int const` if `a` is `i,3,ci`, where `i` is a non-const lvalue and `ci` is a const lvalue.
 
 [heading See also]
-* __FORWARDING_PROBLEM__
+* The __FORWARDING_PROBLEM__
 
 [endsect]
 
@@ -216,7 +216,7 @@ Egg performs "perfect forwarding" by default.
 * `__meta_arg_list(a, by_ref)` is `int,const int,int const` if `a` is `i,ci,ci`, where `i` is a non-const lvalue and `ci` is a const lvalue.
 
 [heading See also]
-* __FORWARDING_PROBLEM__
+* The __FORWARDING_PROBLEM__
 
 [endsect]
 
@@ -262,7 +262,7 @@ Egg performs "perfect forwarding" by default.
 * `__meta_arg_list(a, by_cref)` is `int const,const int,int const` if `a` is `i,ci,ci`, where `i` is a non-const lvalue and `ci` is a const lvalue.
 
 [heading See also]
-* __FORWARDING_PROBLEM__
+* The __FORWARDING_PROBLEM__
 
 [endsect]
 
@@ -314,7 +314,7 @@ But, if you know `by_value` is used, __CONCEPT_LITTLE_FUNCTION__ `call` should t
 [code_forwarding_strategies_by_value]
 
 [heading See also]
-* __FORWARDING_PROBLEM__
+* The __FORWARDING_PROBLEM__
 
 [endsect]
 
@@ -419,7 +419,7 @@ Let's look into the new valid expressions.
 ]
 
 [heading See also]
-* __FORWARDING_PROBLEM__
+* The __FORWARDING_PROBLEM__
 * __BOOST_RESULT_OF__
 
 [endsect]

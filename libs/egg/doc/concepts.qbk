@@ -217,6 +217,8 @@ for any __CONCEPT_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 * If `boost::result_of<__typeof(f) const(a1,...,aN)>::type` is a valid expression,
   `boost::result_of<__typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
 
+[note A __CONCEPT_STATIC_FUNCTION_OBJECT__ can be /singular/, meaning that it may result in undefined behavior to call a /default constructed/ one. ]
+
 [heading Example]
 [code_concepts_static_function_object]
 
@@ -238,12 +240,13 @@ for any __CONCEPT_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 [heading Description]
 A __CONCEPT_LITTLE_FUNCTION__ type is a type which __EGG_FUNCTION_BUILDERS__ require.
 
+[/
 [heading Refinement of]
 * ...
+]
 
 [heading Requirements]
-In addition to the requirements defined in the refinements,
-for any __CONCEPT_LITTLE_FUNCTION__ type `L` the following must be met:
+For any __CONCEPT_LITTLE_FUNCTION__ type `L` the following must be met:
 
 * `L` has a nested class template named `apply`, where `apply<...>::type` means return type of function calls.
 * `L` has a const /member function/ named `call` whose return type is explicitly specified by the first template parameter.
