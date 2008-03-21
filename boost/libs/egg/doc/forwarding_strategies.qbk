@@ -365,8 +365,9 @@ Egg provides a uniform way to define your own strategies.
 ]
 
 [heading Preconditions]
-* `Bytags` is __PP_SEQUENCE__ of `__Bytag`.
-* `Cv` is /cv-qualifier/ of /call operator/. In case of no /cv-qualifier/, `Cv` must be `mutable`.
+* `Bytags` is a __PP_SEQUENCE__ of `__Bytag`.
+* `Cv` is /cv-qualifier/ of /call operator/. In case of no /cv-qualifier/\ s, `Cv` must be `mutable`.
+* `Cv` must be `const` (for now).
 * `0 <= K && K <= BOOST_EGG_MAX_LINEAR_ARITY`.
 [/ * __PRECONDITION_AS_IS__ ]
 
