@@ -112,7 +112,7 @@ Egg provides the __POLYMORPHIC_FUNCTION_OBJECT__ version of `<functional>`.
 ]
 
 [heading Preconditions]
-* `f` is a __FUNCTION_OBJECT__ which __EGG_FUNCTION_ADAPTORS__ or __EGG_FUNCTION_BUILDERS__ makes.
+* `f` is a __FUNCTION_OBJECT__ which __EGG_FUNCTION_ADAPTORS__ or __EGG_FUNCTION_BUILDERS__ build.
 * `B` is a "base" __FUNCTION_OBJECT__ or __CONCEPT_LITTLE_FUNCTION__ type.
 [/ * __PRECONDITION_AS_IS__ ]
 

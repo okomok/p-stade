@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/bind_n.hpp>
+#include <boost/egg/detail/bind_n.hpp>
 #include <boost/egg/placeholders.hpp>
 #include "./egg_test.hpp"
 

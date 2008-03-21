@@ -105,7 +105,6 @@
 
 #include <boost/egg/arg.hpp>
 #include <boost/egg/bind.hpp>
-#include <boost/egg/bind_n.hpp>
 #include <boost/egg/inlined.hpp>
 #include <boost/egg/is_bind_expression.hpp>
 #include <boost/egg/placeholders.hpp>
