@@ -11,9 +11,8 @@
 #ifndef BOOST_PP_IS_ITERATING
 
 
-    #ifndef BOOST_EGG_BIND_N_HPP
-    #define BOOST_EGG_BIND_N_HPP
-    #include <boost/egg/detail/prefix.hpp>
+    #ifndef BOOST_EGG_DETAIL_BIND_N_HPP
+    #define BOOST_EGG_DETAIL_BIND_N_HPP
 
 
     #include <boost/mpl/bool.hpp>
@@ -35,14 +34,14 @@
     #include <boost/egg/by_value.hpp>
     #include <boost/egg/config.hpp>
     #include <boost/egg/const.hpp>
+    #include <boost/egg/is_bind_expression.hpp>
+    #include <boost/egg/preprocessor/cat3.hpp>
+    #include <boost/egg/preprocessor/enum_params_with.hpp>
     #include <boost/egg/detail/boost_use_default_fwd.hpp>
     #include <boost/egg/detail/derived_from.hpp>
     #include <boost/egg/detail/ref_result_of.hpp>
     #include <boost/egg/detail/replace.hpp>
     #include <boost/egg/detail/use_nullary_result.hpp>
-    #include <boost/egg/is_bind_expression.hpp>
-    #include <boost/egg/preprocessor/cat3.hpp>
-    #include <boost/egg/preprocessor/enum_params_with.hpp>
 
 
     namespace boost { namespace egg {
@@ -54,7 +53,7 @@
 
     #define BOOST_EGG_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
     #define BOOST_EGG_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_max_arity, <boost/egg/bind_n.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_max_arity, <boost/egg/detail/bind_n.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  BOOST_EGG_max_arity
     #undef  BOOST_EGG_arg
@@ -63,7 +62,6 @@
     } } // namespace boost::egg
 
 
-    #include <boost/egg/detail/suffix.hpp>
     #endif // BOOST_EGG_BIND_N_HPP
 
 
@@ -109,7 +107,7 @@
                 template<class Me, BOOST_EGG_APPLY_DECL_PARAMS(BOOST_EGG_MAX_ARITY, A)>
                 struct BOOST_EGG_APPLY_DECL;
 
-                #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, BOOST_EGG_MAX_ARITY, <boost/egg/bind_n.hpp>))
+                #define  BOOST_PP_ITERATION_PARAMS_2 (3, (0, BOOST_EGG_MAX_ARITY, <boost/egg/detail/bind_n.hpp>))
                 #include BOOST_PP_ITERATE()
 
             #undef  BOOST_EGG_replace
