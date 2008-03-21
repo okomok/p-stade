@@ -18,10 +18,10 @@
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/egg/apply_decl.hpp>
-#include <boost/egg/bind_n.hpp>
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/config.hpp>
 #include <boost/egg/const.hpp>
+#include <boost/egg/detail/bind_n.hpp>
 #include <boost/egg/detail/derived_from.hpp>
 #include <boost/egg/detail/result_of_bind.hpp>
 #include <boost/egg/result_of.hpp>
