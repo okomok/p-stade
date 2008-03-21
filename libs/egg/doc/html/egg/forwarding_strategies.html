@@ -991,13 +991,16 @@
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">Bytags</span></code> is <a href="http://www.boost.org/libs/preprocessor/doc/data/sequences.html" target="_top">Preprocessor
+<code class="computeroutput"><span class="identifier">Bytags</span></code> is a <a href="http://www.boost.org/libs/preprocessor/doc/data/sequences.html" target="_top">Preprocessor
           Sequence</a> of <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Bytag</span></code></a></code>.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">Cv</span></code> is <span class="emphasis"><em>cv-qualifier</em></span>
-          of <span class="emphasis"><em>call operator</em></span>. In case of no <span class="emphasis"><em>cv-qualifier</em></span>,
+          of <span class="emphasis"><em>call operator</em></span>. In case of no <span class="emphasis"><em>cv-qualifier</em></span>s,
           <code class="computeroutput"><span class="identifier">Cv</span></code> must be <code class="computeroutput"><span class="keyword">mutable</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">Cv</span></code> must be <code class="computeroutput"><span class="keyword">const</span></code> (for now).
         </li>
 <li>
 <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span>
@@ -1007,7 +1010,7 @@
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.writing_your_own_strategies.your_strategy_tag"></a><h5>
-<a name="id539349"></a>
+<a name="id539376"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_own_strategies.your_strategy_tag">Your
         strategy tag</a>
       </h5>
@@ -1044,7 +1047,7 @@
 <p>
       </p>
 <a name="egg.forwarding_strategies.writing_your_own_strategies.specializing__code__phrase_role__identifier__function__phrase__phrase_role__special___lt__gt___phrase___code_"></a><h5>
-<a name="id539960"></a>
+<a name="id539987"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_own_strategies.specializing__code__phrase_role__identifier__function__phrase__phrase_role__special___lt__gt___phrase___code_">Specializing
         <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;&gt;</span></code></a>
       </h5>
@@ -1145,7 +1148,7 @@
         in <code class="computeroutput"><span class="identifier">apply_little</span></code>.
       </p>
 <a name="egg.forwarding_strategies.writing_your_own_strategies.your_strategy_completed"></a><h5>
-<a name="id541512"></a>
+<a name="id541539"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_own_strategies.your_strategy_completed">Your
         strategy completed</a>
       </h5>
@@ -1155,7 +1158,7 @@
         Function Object</a>. Let's look into the new valid expressions.
       </p>
 <a name="egg.forwarding_strategies.writing_your_own_strategies.notation"></a><h5>
-<a name="id541571"></a>
+<a name="id541598"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_own_strategies.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -1169,7 +1172,7 @@
         </li>
 </ul></div>
 <a name="egg.forwarding_strategies.writing_your_own_strategies.new_valid_expressions"></a><h5>
-<a name="id541658"></a>
+<a name="id541685"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_own_strategies.new_valid_expressions">New
         valid expressions</a>
       </h5>
@@ -1257,7 +1260,7 @@
 </tbody>
 </table></div>
 <a name="egg.forwarding_strategies.writing_your_own_strategies.see_also"></a><h5>
-<a name="id542509"></a>
+<a name="id542536"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.writing_your_own_strategies.see_also">See
         also</a>
       </h5>
@@ -1274,7 +1277,7 @@
 <a name="egg.forwarding_strategies.determining_nullary_return_types"></a><a href="forwarding_strategies.html#egg.forwarding_strategies.determining_nullary_return_types" title="Determining nullary return types">Determining
       nullary return types</a></h3></div></div></div>
 <a name="egg.forwarding_strategies.determining_nullary_return_types.description"></a><h5>
-<a name="id542590"></a>
+<a name="id542616"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.determining_nullary_return_types.description">Description</a>
       </h5>
 <p>
@@ -1284,7 +1287,7 @@
         a special workaround. Here an imaginary operator is defined for the documentation.
       </p>
 <a name="egg.forwarding_strategies.determining_nullary_return_types.valid_expressions_and_semantics"></a><h5>
-<a name="id542644"></a>
+<a name="id542671"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.determining_nullary_return_types.valid_expressions_and_semantics">Valid
         expressions and semantics</a>
       </h5>
@@ -1330,7 +1333,7 @@
         </p></td></tr>
 </table></div>
 <a name="egg.forwarding_strategies.determining_nullary_return_types.see_also"></a><h5>
-<a name="id543070"></a>
+<a name="id543097"></a>
         <a href="forwarding_strategies.html#egg.forwarding_strategies.determining_nullary_return_types.see_also">See
         also</a>
       </h5>
