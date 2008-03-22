@@ -16,15 +16,15 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
-#include <boost/egg/detail/boost_use_default_fwd.hpp>
 
 
 namespace boost { namespace egg { namespace details {
 
 
+    template<class Result>
     struct well_formed
     {
-        typedef use_default result_type; // use_default is useful for NullaryResult.
+        typedef Result result_type;
 
     // 0ary
         result_type operator()() const;
