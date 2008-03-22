@@ -12,13 +12,13 @@
 
 
 #include <boost/function_types/result_type.hpp>
-#include <boost/fusion/include/as_vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/mpl/transform_view.hpp>
 #include <boost/egg/detail/mpl_boost_tuple.hpp>
 #include <boost/egg/detail/overload_resolution.hpp>
+#include <boost/egg/detail/pod_vector.hpp>
 #include <boost/egg/fuse.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/variadic.hpp>
@@ -34,9 +34,9 @@ namespace boost { namespace egg {
         struct little
         {
             typedef typename
-                fusion::result_of::as_vector< // TODO: must be a pod sequence.
+                details::pod_vector<
                     typename mpl::transform_view< FunCalls, function_types::result_type<mpl::_> >::type
-                >::type
+                >
             bases_type;
 
             bases_type m_bases;
@@ -54,7 +54,7 @@ namespace boost { namespace egg {
             Re call(Args &args) const
             {
                 return fuse(
-                    fusion::at<typename details::overload_resolution_index<FunCalls, Args>::type>(m_bases)
+                    m_bases.at_(typename details::overload_resolution_index<FunCalls, Args>::type())
                 )(args);
             }
         };
@@ -73,8 +73,8 @@ namespace boost { namespace egg {
         >
     { };
 
-    #define BOOST_EGG_OVERLOAD_L BOOST_EGG_VARIADIC_L {
-    #define BOOST_EGG_OVERLOAD_R } BOOST_EGG_VARIADIC_R
+    #define BOOST_EGG_OVERLOAD_L BOOST_EGG_VARIADIC_L { {
+    #define BOOST_EGG_OVERLOAD_R } } BOOST_EGG_VARIADIC_R
 
 
 } } // namespace boost::egg
