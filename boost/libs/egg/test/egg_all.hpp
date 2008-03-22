@@ -110,6 +110,9 @@
 #include <boost/egg/placeholders.hpp>
 #include <boost/egg/protect.hpp>
 #include <boost/egg/unlambda.hpp>
+#if BOOST_VERSION >= 103500
+#include <boost/egg/overload.hpp>
+#endif
 
 
 // bll
