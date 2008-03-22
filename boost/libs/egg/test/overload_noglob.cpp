@@ -73,7 +73,7 @@ typedef
 overload_set;
 
 typedef result_of_overload<overload_set>::type T_fun;
-T_fun fun;
+T_fun const fun = BOOST_EGG_OVERLOAD_L {}, {}, {}, {} BOOST_EGG_OVERLOAD_R;
 
 
 BOOST_MPL_ASSERT((details::is_matched::apply<int &, int &>));
@@ -118,7 +118,7 @@ typedef
 overload_set_nullary;
 
 typedef result_of_overload<overload_set_nullary>::type T_fun_nullary;
-T_fun_nullary fun_nullary;
+T_fun_nullary const fun_nullary  = BOOST_EGG_OVERLOAD_L {}, {}, {}, {}, {} BOOST_EGG_OVERLOAD_R;
 
 
 BOOST_MPL_ASSERT((boost::mpl::equal<
