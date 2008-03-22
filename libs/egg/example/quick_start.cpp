@@ -60,7 +60,7 @@ namespace imperfect {
             typename boost::range_result_iterator<Range>::type
         >
     >
-    make_filtered(Range &rng, Predicate pred) /*< Take by reference, for Range isn't always __COPY_CONSTRUCTIBLE__. >*/
+    make_filtered(Range &rng, Predicate pred) /*< Take by reference, for a Range isn't always __COPY_CONSTRUCTIBLE__. >*/
     {
         typedef
             boost::filter_iterator<
@@ -81,8 +81,8 @@ namespace imperfect {
     {
         std::string src("abXcdXefXgh");
         foreach (char ch, make_filtered(src, &is_not_X)) {
-            std::cout << ch; /*< Prints `abcdefgh`. >*/
-        }
+            std::cout << ch;
+        } /*< Prints `abcdefgh`. >*/
     }
 
 } // namespace imperfect
@@ -138,12 +138,12 @@ void quick_start_make_filtered()
     >::type lowers = make_filtered(src, &is_lower);
 
     foreach (char ch, lowers) {
-        std::cout << ch; /*< Prints `abcdefgh`. >*/
-    }
+        std::cout << ch;
+    } /*< Prints `abcdefgh`. >*/
 
     foreach (char ch, make_filtered(make_filtered(src, &is_not_X), &is_not_Y)) { /*< Notice outmost `make_filtered` takes rvalue. >*/
-        std::cout << ch; /*< Prints `abcdefgh`. >*/
-    }
+        std::cout << ch;
+    } /*< Prints `abcdefgh`. >*/
 }
 //]
 

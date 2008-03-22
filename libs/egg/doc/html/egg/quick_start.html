@@ -126,8 +126,8 @@
     <span class="special">{</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"abXcdXefXgh"</span><span class="special">);</span>
         <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_not_X</span><span class="special">))</span> <span class="special">{</span>
-            <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span> <span class="callout_bug"><a name="egg7co" href="quick_start.html#egg7"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
-        <span class="special">}</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span>
+        <span class="special">}</span> <span class="callout_bug"><a name="egg7co" href="quick_start.html#egg7"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
     <span class="special">}</span>
 
 <span class="special">}</span> <span class="comment">// namespace imperfect
@@ -142,7 +142,7 @@
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="egg6"></a><a href="#egg6co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
-<td valign="top" align="left"><p> Take by reference, for Range isn't always <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy
+<td valign="top" align="left"><p> Take by reference, for a Range isn't always <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy
           Constructible</a>. </p></td>
 </tr>
 <tr>
@@ -265,12 +265,12 @@
     <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">lowers</span> <span class="special">=</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_lower</span><span class="special">);</span>
 
     <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">lowers</span><span class="special">)</span> <span class="special">{</span>
-        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span> <span class="callout_bug"><a name="egg10co" href="quick_start.html#egg10"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
-    <span class="special">}</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span>
+    <span class="special">}</span> <span class="callout_bug"><a name="egg10co" href="quick_start.html#egg10"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
 
     <span class="identifier">foreach</span> <span class="special">(</span><span class="keyword">char</span> <span class="identifier">ch</span><span class="special">,</span> <span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">make_filtered</span><span class="special">(</span><span class="identifier">src</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">is_not_X</span><span class="special">),</span> <span class="special">&amp;</span><span class="identifier">is_not_Y</span><span class="special">))</span> <span class="special">{</span> <span class="callout_bug"><a name="egg11co" href="quick_start.html#egg11"><img src="../images/callouts/4.png" alt="4" border="0"></a></span>
-        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span> <span class="callout_bug"><a name="egg12co" href="quick_start.html#egg12"><img src="../images/callouts/5.png" alt="5" border="0"></a></span>
-    <span class="special">}</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">ch</span><span class="special">;</span>
+    <span class="special">}</span> <span class="callout_bug"><a name="egg12co" href="quick_start.html#egg12"><img src="../images/callouts/5.png" alt="5" border="0"></a></span>
 <span class="special">}</span>
 </pre>
 <p>

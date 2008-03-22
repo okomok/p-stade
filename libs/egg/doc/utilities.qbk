@@ -19,7 +19,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 [heading Description]
 `expr`, cooperating with __BOOST_TYPEOF__,
-enables you to extract type of expression without `resulf_of`.
+enables you to extract a type of expression without `resulf_of`.
 
 [heading Header]
 * `<boost/egg/expr.hpp>`
@@ -45,7 +45,7 @@ enables you to extract type of expression without `resulf_of`.
 ]
 
 [heading Preconditions]
-* Except for `boost::use_default`, types in `Sig` is registered to __BOOST_TYPEOF__.
+* Except for `boost::use_default`, types in `Sig` are registered to __BOOST_TYPEOF__.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [note `expr` performs type-erasure when native typeof isn't available
