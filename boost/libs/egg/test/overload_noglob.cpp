@@ -18,6 +18,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <string>
+#include <boost/egg/const.hpp>
 #include "./using_egg.hpp"
 
 
@@ -73,7 +74,7 @@ typedef
 overload_set;
 
 typedef result_of_overload<overload_set>::type T_fun;
-T_fun const fun = BOOST_EGG_OVERLOAD_L {}, {}, {}, {} BOOST_EGG_OVERLOAD_R;
+BOOST_EGG_CONST((T_fun), fun) = BOOST_EGG_OVERLOAD_L {}, {}, {}, {} BOOST_EGG_OVERLOAD_R;
 
 
 BOOST_MPL_ASSERT((details::is_matched::apply<int &, int &>));
