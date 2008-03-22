@@ -12,8 +12,6 @@
 
 
 #include <boost/function_types/result_type.hpp>
-#include <boost/fusion/include/at.hpp>
-#include <boost/fusion/include/mpl.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/mpl/transform_view.hpp>
 #include <boost/egg/detail/mpl_boost_tuple.hpp>
