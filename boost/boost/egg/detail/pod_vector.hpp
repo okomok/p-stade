@@ -12,8 +12,8 @@
 
 
 #include <boost/mpl/at.hpp>
-#include <boost/mpl/size.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/size.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
