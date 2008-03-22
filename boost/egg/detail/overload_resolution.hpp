@@ -14,13 +14,12 @@
 #include <boost/function_types/result_type.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/begin.hpp>
+#include <boost/mpl/begin_end.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/distance.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/empty_sequence.hpp>
 #include <boost/mpl/equal.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -32,6 +31,9 @@
 #include <boost/egg/detail/is_mpl_placeholder_expr.hpp>
 #include <boost/egg/detail/maybe_find.hpp>
 #include <boost/egg/detail/well_formed.hpp>
+
+
+struct ERROR_BOOST_EGG_OVERLOAD_RESOLUTION_FAILURE;
 
 
 namespace boost { namespace egg { namespace details {
@@ -104,7 +106,7 @@ namespace boost { namespace egg { namespace details {
         typedef typename
             mpl::eval_if< is_just<maybe_t>,
                 overload_target<maybe_t>,
-                mpl::identity<well_formed> // dummy in case of no targets found.
+                mpl::identity< well_formed<ERROR_BOOST_EGG_OVERLOAD_RESOLUTION_FAILURE> > // dummy in case of no targets found.
             >::type
         type;
     };
