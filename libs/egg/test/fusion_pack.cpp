@@ -8,6 +8,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 103500
+
+
 #include <boost/egg/fusion/pack.hpp>
 #include <boost/egg/by_ref.hpp>
 #include "./egg_test.hpp"
@@ -85,3 +89,8 @@ void egg_test()
     test_();
     test_ref();
 }
+
+
+#else
+int main() {}
+#endif

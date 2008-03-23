@@ -8,6 +8,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 103500
+
+
 #include <boost/egg/overload.hpp>
 #include "./egg_test.hpp"
 
@@ -155,3 +159,8 @@ void egg_test()
         BOOST_CHECK( fun_nullary() == 999 );
     }
 }
+
+
+#else
+int main() {}
+#endif
