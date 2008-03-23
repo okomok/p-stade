@@ -28,9 +28,18 @@ namespace boost { namespace egg { namespace details {
     struct pod_vector;
 
 
-#define BOOST_EGG_typedef(Z, I, _) typedef typename mpl::at_c<Seq, I>::type BOOST_EGG_PP_CAT3(element, I, _type);
-#define BOOST_EGG_def(Z, I, _) BOOST_EGG_PP_CAT3(element, I, _type) BOOST_PP_CAT(m_element, I);
-#define BOOST_EGG_at_(Z, I, _) BOOST_EGG_PP_CAT3(element, I, _type) const &at_(mpl::int_<I>) const { return BOOST_PP_CAT(m_element, I); }
+#define BOOST_EGG_typedef(Z, I, _) \
+    typedef typename mpl::at_c<Seq, I>::type BOOST_EGG_PP_CAT3(element, I, _type); \
+/**/
+#define BOOST_EGG_def(Z, I, _) \
+    BOOST_EGG_PP_CAT3(element, I, _type) BOOST_PP_CAT(m_element, I); \
+/**/
+#define BOOST_EGG_at_(Z, I, _) \
+    BOOST_EGG_PP_CAT3(element, I, _type) const &at_(mpl::int_<I>) const \
+    { \
+        return BOOST_PP_CAT(m_element, I); \
+    } \
+/**/
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/pod_vector.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  BOOST_EGG_at_
