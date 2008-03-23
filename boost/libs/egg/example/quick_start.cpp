@@ -343,8 +343,8 @@ T_good_plus const good_plus = BOOST_EGG_UNFUSE({});
 void quick_start_fusing2()
 {
     std::cout << good_plus(1); /*< Prints `1`. >*/
-    std::cout << good_plus(1,2); /*< Prints `3`. >*/
-    std::cout << good_plus(1,2,3); /*< Prints `6`. >*/
+    std::cout << good_plus(1, 2); /*< Prints `3`. >*/
+    std::cout << good_plus(1, 2, 3); /*< Prints `6`. >*/
 }
 //]
 
@@ -360,7 +360,7 @@ void quick_start_mono()
 #if 0
     std::cout << int_plus(std::string("a"), std::string("b")); /*< Would show an error with clear messages. >*/
 #endif
-    std::cout << int_plus(1,2); /*< Prints `3`. >*/
+    std::cout << int_plus(1, 2); /*< Prints `3`. >*/
 }
 //]
 
