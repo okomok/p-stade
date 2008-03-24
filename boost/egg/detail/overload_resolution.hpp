@@ -69,23 +69,6 @@ namespace boost { namespace egg { namespace details {
     { };
 
 
-    template<class FunCalls, class Args>
-    struct overload_resolution_index
-    {
-        typedef typename
-            mpl::find_if< FunCalls, has_matched_params<mpl::_, Args> >::type
-        iter_t;
-
-        BOOST_MPL_ASSERT_NOT((is_same<iter_t, typename mpl::end<FunCalls>::type>));
-
-        typedef
-            mpl::int_<
-                mpl::distance<typename mpl::begin<FunCalls>::type, iter_t>::type::value
-            >
-        type;
-    };
-
-
     template<class Maybe>
     struct overload_target :
         function_types::result_type<
@@ -108,6 +91,23 @@ namespace boost { namespace egg { namespace details {
                 overload_target<maybe_t>,
                 mpl::identity< well_formed<ERROR_BOOST_EGG_OVERLOAD_RESOLUTION_FAILURE> > // dummy in case of no targets found.
             >::type
+        type;
+    };
+
+
+    template<class FunCalls, class Args>
+    struct overload_resolution_index
+    {
+        typedef typename
+            mpl::find_if< FunCalls, has_matched_params<mpl::_, Args> >::type
+        iter_t;
+
+        BOOST_MPL_ASSERT_NOT((is_same<iter_t, typename mpl::end<FunCalls>::type>));
+
+        typedef
+            mpl::int_<
+                mpl::distance<typename mpl::begin<FunCalls>::type, iter_t>::type::value
+            >
         type;
     };
 
