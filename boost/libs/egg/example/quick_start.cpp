@@ -91,6 +91,7 @@ namespace imperfect {
 
 //[code_quick_start_make_filtered
 #include <boost/egg/poly.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <locale>
 
 namespace egg = boost::egg;
@@ -100,7 +101,7 @@ struct mono_make_filtered
 {
     typedef
         boost::filter_iterator<
-            Predicate,
+            typename boost::remove_cv<Predicate>::type,
             typename boost::range_result_iterator<Range>::type
         >
     iter_t;

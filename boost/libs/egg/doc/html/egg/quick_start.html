@@ -218,6 +218,7 @@
 </p>
 <pre class="programlisting">
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">poly</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">type_traits</span><span class="special">/</span><span class="identifier">remove_cv</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">locale</span><span class="special">&gt;</span>
 
 <span class="keyword">namespace</span> <span class="identifier">egg</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">egg</span><span class="special">;</span>
@@ -227,7 +228,7 @@
 <span class="special">{</span>
     <span class="keyword">typedef</span>
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filter_iterator</span><span class="special">&lt;</span>
-            <span class="identifier">Predicate</span><span class="special">,</span>
+            <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span><span class="identifier">Predicate</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span>
             <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_result_iterator</span><span class="special">&lt;</span><span class="identifier">Range</span><span class="special">&gt;::</span><span class="identifier">type</span>
         <span class="special">&gt;</span>
     <span class="identifier">iter_t</span><span class="special">;</span>
@@ -361,7 +362,7 @@
         <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
       </p>
 <a name="egg.quick_start.using_egg.higher_order_functions"></a><h5>
-<a name="id518362"></a>
+<a name="id518452"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.higher_order_functions">Higher-order
         functions</a>
       </h5>
@@ -458,7 +459,7 @@
         usefull adaptors.
       </p>
 <a name="egg.quick_start.using_egg.getting_initializers"></a><h5>
-<a name="id519569"></a>
+<a name="id519659"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.getting_initializers">Getting initializers</a>
       </h5>
 <p>
@@ -495,7 +496,7 @@
 <p>
       </p>
 <a name="egg.quick_start.using_egg.object_generators"></a><h5>
-<a name="id519905"></a>
+<a name="id519994"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.object_generators">Object generators</a>
       </h5>
 <p>
@@ -561,7 +562,7 @@
 <p>
       </p>
 <a name="egg.quick_start.using_egg.partial_application"></a><h5>
-<a name="id520799"></a>
+<a name="id520889"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.partial_application">Partial application</a>
       </h5>
 <p>
@@ -690,7 +691,7 @@
         initialization</em></span>.
       </p>
 <a name="egg.quick_start.using_egg.fusing"></a><h5>
-<a name="id522961"></a>
+<a name="id523051"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.fusing">Fusing</a>
       </h5>
 <p>
@@ -797,7 +798,7 @@
         which is short-cut to <a href="function_adaptors.html#egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a>.
       </p>
 <a name="egg.quick_start.using_egg.the_return_of_the_monomorphic"></a><h5>
-<a name="id524319"></a>
+<a name="id524409"></a>
         <a href="quick_start.html#egg.quick_start.using_egg.the_return_of_the_monomorphic">The
         Return of the Monomorphic</a>
       </h5>
@@ -863,7 +864,7 @@
         with any order.
       </p>
 <a name="egg.quick_start.reading_doc.notation"></a><h5>
-<a name="id524924"></a>
+<a name="id525014"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.notation">Notation</a>
       </h5>
 <p>
@@ -872,7 +873,7 @@
         just click the keyword.
       </p>
 <a name="egg.quick_start.reading_doc.concepts"></a><h5>
-<a name="id524974"></a>
+<a name="id525064"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.concepts">Concepts</a>
       </h5>
 <p>
@@ -885,7 +886,7 @@
         Other conepts can read on demand.
       </p>
 <a name="egg.quick_start.reading_doc.forwarding_strategies"></a><h5>
-<a name="id525062"></a>
+<a name="id525152"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.forwarding_strategies">Forwarding
         Strategies</a>
       </h5>
@@ -898,7 +899,7 @@
         Strategies</a> when first reading the documentation.
       </p>
 <a name="egg.quick_start.reading_doc.function_builders"></a><h5>
-<a name="id525154"></a>
+<a name="id525245"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_builders">Function Builders</a>
       </h5>
 <p>
@@ -910,7 +911,7 @@
         written by David Abrahams.
       </p>
 <a name="egg.quick_start.reading_doc.function_adaptors"></a><h5>
-<a name="id525267"></a>
+<a name="id525358"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_adaptors">Function Adaptors</a>
       </h5>
 <p>
@@ -919,7 +920,7 @@
         interesting adaptors, which provides "fusing".
       </p>
 <a name="egg.quick_start.reading_doc.function_objects_and_utilities"></a><h5>
-<a name="id525342"></a>
+<a name="id525432"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.function_objects_and_utilities">Function
         Objects and Utilities</a>
       </h5>
@@ -931,7 +932,7 @@
         might be interesting, which is ported from <a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a>.
       </p>
 <a name="egg.quick_start.reading_doc.workarounds"></a><h5>
-<a name="id525428"></a>
+<a name="id525518"></a>
         <a href="quick_start.html#egg.quick_start.reading_doc.workarounds">Workarounds</a>
       </h5>
 <p>
