@@ -14,7 +14,6 @@
 #include <boost/function_types/result_type.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/mpl/transform_view.hpp>
-#include <boost/egg/detail/mpl_boost_tuple.hpp>
 #include <boost/egg/detail/overload_resolution.hpp>
 #include <boost/egg/detail/pod_vector.hpp>
 #include <boost/egg/fuse.hpp>
