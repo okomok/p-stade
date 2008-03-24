@@ -11,11 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_LINEAR_ARITY
+#include <boost/egg/preprocessor/enum_params_with.hpp>
 
 
 namespace boost { namespace egg { namespace details {
@@ -30,7 +29,7 @@ namespace boost { namespace egg { namespace details {
         result_type operator()() const;
 
     // 1ary-
-        #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/well_formed.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_EGG_MAX_LINEAR_ARITY, <boost/egg/detail/well_formed.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
