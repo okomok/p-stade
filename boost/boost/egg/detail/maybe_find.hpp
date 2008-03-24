@@ -12,8 +12,9 @@
 
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/end.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/find_if.hpp>
-#include <boost/mpl/if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/detail/maybe.hpp>
 
@@ -29,9 +30,9 @@ namespace boost { namespace egg { namespace details {
         iter_t;
 
         typedef typename
-            mpl::if_< is_same<iter_t, typename mpl::end<Seq>::type>,
-                nothing,
-                just<typename mpl::deref<iter_t>::type>
+            mpl::eval_if< is_same<iter_t, typename mpl::end<Seq>::type>,
+                mpl::identity<nothing>,
+                just_eval< mpl::deref<iter_t> >
             >::type
         type;
     };

@@ -73,6 +73,13 @@ namespace boost { namespace egg { namespace details {
     };
 
 
+    template<class A>
+    struct just_eval
+    {
+        typedef just<typename A::type> type;
+    };
+
+
 } } } // namespace boost::egg::details
 
 
