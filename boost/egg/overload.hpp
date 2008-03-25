@@ -14,9 +14,10 @@
 #include <boost/function_types/result_type.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/mpl/transform_view.hpp>
+#include <boost/egg/detail/mpl_boost_tuple.hpp>
 #include <boost/egg/detail/overload_resolution.hpp>
 #include <boost/egg/detail/pod_vector.hpp>
-#include <boost/egg/fuse.hpp>
+#include <boost/egg/detail/tuple_fuse.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/variadic.hpp>
 
@@ -42,7 +43,9 @@ namespace boost { namespace egg {
             struct apply :
                 result_of_<
                     typename result_of_<
-                        T_fuse(typename details::overload_resolution<FunCalls, Args>::type const &)
+                        details::T_tuple_fuse(
+                            typename details::overload_resolution<FunCalls, Args>::type const &
+                        )
                     >::type(Args &)
                 >
             { };
@@ -50,7 +53,7 @@ namespace boost { namespace egg {
             template<class Re, class Args>
             Re call(Args &args) const
             {
-                return fuse(
+                return details::tuple_fuse(
                     m_bases.at_(typename details::overload_resolution_index<FunCalls, Args>::type())
                 )(args);
             }
