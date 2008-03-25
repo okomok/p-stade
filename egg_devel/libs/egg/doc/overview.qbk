@@ -1,0 +1,240 @@
+[/
+Boost.Egg
+
+Copyright Shunsuke Sogame 2007-2008.
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+]
+
+
+
+
+[section Overview]
+
+[import ../example/introduction.cpp]
+
+
+
+
+[section Preface]
+
+["An Egg to day is better than a Hen tomorrow.] -- Benjamin Franklin
+
+[endsect]
+
+
+
+
+[section Disclaimer]
+
+This library is not part of Boost (yet).
+
+[endsect]
+
+
+
+
+[section Introduction]
+
+Egg is a header-only library for building __POLYMORPHIC_FUNCTION_OBJECT__ which can be used
+with __BOOST_LAMBDA__. Such a function object is called a __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+
+Egg mainly provides three components:
+
+* __EGG_FUNCTION_BUILDERS__ which build __CONCEPT_LITTLE_FUNCTION__\ s into __CONCEPT_MAJOR_FUNCTION_OBJECT__\ s.
+* __EGG_FUNCTION_ADAPTORS__ which take __POLYMORPHIC_FUNCTION_OBJECT__\ s then return adapted ones.
+* __EGG_FUNCTION_OBJECTS__ which are ports of famous function templates.
+
+[heading So what's Polymorphic Function Object?]
+In short, a __POLYMORPHIC_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which can be used with __BOOST_RESULT_OF__.
+(See also __EGG_RESULT_OF_TUTORIAL__.)
+__BOOST_RESULT_OF__ is an __MPL_METAFUNCTION__ to extract function return types without the help of C++0x `decltype`,
+which enables you to do the functional programming in C++03.
+
+[heading Polymorphic Function Object Models?]
+Fortunately, __POLYMORPHIC_FUNCTION_OBJECT__ types are a superset of __SGI_ADAPTABLE_FUNCTION_OBJECT__ types,
+so that you don't need extra efforts to play with Egg if you're already familiar with that concept.
+For example, the followings are trivially conforming __POLYMORPHIC_FUNCTION_OBJECT__ types:
+
+* function pointers
+* `std::less<int>`
+* function objects `boost::bind(...)` returns.
+* `boost::function<...>`
+
+These function objects have a nested `result_type`, meaning that their return type doesn't depend on its argument types.
+Such a function object is trivially conforming __POLYMORPHIC_FUNCTION_OBJECT__.
+It is really easy to build one:
+[code_introduction_fixed_result]
+
+Note that `to_string` can be used also with `boost::lambda::bind`. In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+
+[heading Egg what for?]
+Unfortunately, if you need a __POLYMORPHIC_FUNCTION_OBJECT__ whose return type depends on
+its argument types, it is not easy. There are many compiler bugs, pitfalls, and typings.
+
+Egg is the framework for building such function objects.
+[code_introduction]
+
+[heading POD-oriented programming]
+As shown above, Egg offers unfamiliar syntax using braces and macros.
+`T_plus` is __POD__, and `plus` is initialized using braced-initializer `{{}}`.
+This ensures `plus` is __STATICALLY_INITIALIZED__.
+The __STATIC_INITIALIZATION__ advantages are:
+
+* No runtime overhead.
+* No compile-time overhead of `result_of` instantiation.
+* No "static initialization order fiasco".
+
+Also notice that `my_plus` is initialized using "ugly" macro `BOOST_EGG_PIPABLE`.
+This macro can be regarded as "static-storage function call".
+In fact, this macro is a tangled braced-initializer, so that we have no choice but to use macro.
+[endsect]
+
+
+
+
+[section Requirements]
+
+* __BOOST__ Version 1.34.1 or later (build not required)
+* __EGG_ZIP__ at __BOOST_VAULT__\/FunctionObjects
+    * The __EGG_SVN__ also is available.
+
+[endsect]
+
+
+
+
+[section Portability]
+
+Egg is known to work on the following platforms:
+
+* Microsoft Visual C++ .NET Version 7.1 SP1
+* Microsoft Visual C++ 2005 Express Edition SP1
+* Microsoft Visual C++ 2008 Express Edition
+* MinGW with GCC 3.4.4
+* MinGW with GCC 4.1.2
+[/ * Intel C++ Compiler Professional Edition 10.1 for Windows ]
+
+[endsect]
+
+
+
+
+[section Rationale]
+
+* Egg works around the __FORWARDING_PROBLEM__.
+* Egg provides the way of __STATIC_INITIALIZATION__.
+* Egg doesn't introduce any new "traits".
+
+[endsect]
+
+
+
+
+[section Acknowledgements]
+Special thanks to:
+
+* Dan Marsden, review manager of this library.
+* David Abrahams. The __FORWARDING_PROBLEM__ workaround is based on his __DAVID_CALLABLE__.
+* Eric Niebler, who pointed out importance of __STATIC_INITIALIZATION__.
+* Cryolite, Hitobashira, Kazuhiro Inaba, Takeshi Mouri, yotto-k, and Yusuke Kajimoto.
+
+[endsect]
+
+
+
+
+[section Contact]
+
+Any feedbacks can be sent to pstade.mb@gmail.com, __BOOST_DEVELOPERS__ or __BOOST_USERS__.
+
+[endsect]
+
+
+
+
+[section Notation]
+
+This document uses the following notation.
+
+[table
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`__decltype`]
+        [An imaginary operator which is the same as `decltype` of C++0x.]
+    ]
+    [
+        [`__typeof(a)`]
+        [`boost::remove_cv<boost::remove_reference<__decltype(a)>::type>::type`]
+    ]
+    [
+        [`__const(a)`]
+        [`static_cast<__typeof(a) const>(a)`]
+    ]
+    [
+        [`__pfo`]
+        [A __POLYMORPHIC_FUNCTION_OBJECT__]
+    ]
+    [
+        [`__PFo`]
+        [A __POLYMORPHIC_FUNCTION_OBJECT__ type which is neither a __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
+    ]
+    [
+        [`__lit`]
+        [A __CONCEPT_LITTLE_FUNCTION__ object]
+    ]
+    [
+        [`__Lit`]
+        [A __CONCEPT_LITTLE_FUNCTION__ type which is neither a __REFERENCE_TYPE__ nor __CV_QUALIFIED__.]
+    ]
+    [
+        [`__Stg`]
+        [A type which is one of the __EGG_FORWARDING_STRATEGIES__.]
+    ]
+    [
+        [`__Bytag`]
+        [A type which is one of `by_perfect`, `by_ref`, `by_cref`, and `by_value`.]
+    ]
+    [
+        [`__ud`]
+        [`boost::use_default`]
+    ]
+    [
+        [`__mpl`]
+        [`boost::mpl`]
+    ]
+    [
+        [`[a1,...,aN]`]
+        [An imaginary operator to construct a parameter list.]
+    ]
+    [
+        [`++`]
+        [An imaginary operator to concatenate parameter lists.]
+    ]
+    [
+        [`%%`]
+        [An imaginary operator to concatenate tokens.]
+    ]
+    [
+        [`__MAX_PACK_ARITY`]
+        [`10`]
+    ]
+]
+
+Also, assume that every expression is placed after:
+
+    namespace egg = boost::egg;
+    using namespace egg;
+
+Every example source code can be found at `libs/egg/example`.
+
+[endsect]
+
+
+
+
+[endsect]

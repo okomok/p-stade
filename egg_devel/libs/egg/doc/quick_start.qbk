@@ -1,0 +1,210 @@
+[/
+Boost.Egg
+
+Copyright Shunsuke Sogame 2007-2008.
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+]
+
+
+
+
+[section Quick Start]
+
+[import ../example/quick_start.cpp]
+
+
+
+
+[section Installing Egg]
+
+[heading Getting Egg]
+You can get __EGG_ZIP__ from __BOOST_VAULT__\/FunctionObjects.
+Also, if you have an svn client, the __EGG_SVN__ is available using the following command:
+[pre
+    svn co https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk\/boost/ boost_egg
+]
+
+
+[heading Building Egg]
+Egg is a header-only library.
+There is no need to build or link to any lib files.
+
+[heading Requirements]
+Egg requires __BOOST__ Version 1.34.1 or later.
+You don't need to build any Boost libraries.
+
+[heading Portability]
+Egg is known to work on the following platforms:
+
+* Microsoft Visual C++ Version 7.1 or later
+* GCC 3.4.4 or later
+
+[endsect]
+
+
+
+[section Using Egg]
+
+
+[heading Problems of function templates]
+Assume you have to design lazily filtered sequences. (It is called `filter` in __HASKELL__.)
+Thanks to __BOOST_ITERATOR__ and __BOOST_RANGE__, it is pretty straightforward:
+[code_quick_start_make_filtered_imperfect]
+
+Even if you don't fully understand this code snippet, you can notice that it reveals several problems:
+
+# A function template is not an object.
+    * To get a __FUNCTION_OBJECT__, you have to make a pointer from a template, which is difficult or sometimes impossible.
+# Forwarding problem
+    * `make_filtered` above can't take non-const rvalues. So, you have to write also `make_filtered(Range const &, Predicate)` version.
+      Such irritating job is called the __FORWARDING_PROBLEM__.
+# Unintentional ADL
+    * If `make_filtered` is called without qualification, your compiler will look into all the associated namespaces
+      in order to find the name `make_filtered`.
+# Repeated tokens
+    * `make_filtered` clearly contains cut-n-paste tokens both in function declaration and body.
+      This is well-known anti-pattern.
+# Return type is unknown.
+    * How can your clients know the return type of `make_filtered`?
+      It is not good to document complicated return types.
+
+Egg solves these problems.
+
+
+[heading Building functions]
+In short, Egg is a library for building functions.
+Let's build `make_filtered` by using one of the __EGG_FUNCTION_BUILDERS__, __EGG_POLY__:
+[code_quick_start_make_filtered]
+
+Egg solves the problems stated above:
+
+# `make_filtered` is a __FUNCTION_OBJECT__.
+    * You can pass it to algorithms as is.
+# No forwarding problem
+    * You can pass non-const rvalues to `make_filtered` without extra efforts.
+# No ADL
+    * Now `make_filtered` is an object, so that ADL isn't triggered.
+# No repeated tokens
+    * You can access `iter_t` and `result_type` from `operator()` body.
+# __BOOST_RESULT_OF__ compatible
+    * Your clients can extract return types using standardized interface `result_of`.
+
+As a bonus, `make_filtered` can be passed to `boost::lambda::bind`.
+In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+
+
+[heading Higher-order functions]
+
+`make_filtered(make_filtered(...),...)` might be less readable.
+Egg provides __EGG_PIPABLE__, which is one of the __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
+[code_quick_start_pipable]
+
+__EGG_PIPABLE__ can be regarded as __EXTENSION_METHOD__ emulation in C++.
+In addition, __EGG_LAZY__, cooperating with __BOOST_LAMBDA__, adapts a function into lazily evaluated one:
+[code_quick_start_lazy]
+
+__EGG_FUNCTION_ADAPTORS__ can provide several "views" into functions on demand.
+Let's look into some usefull adaptors.
+
+
+[heading Getting initializers]
+
+As mentioned [link egg.overview.introduction.pod_oriented_programming before], the __STATIC_INITIALIZATION__ is important.
+What if you don't know a braced-initializer of a __FUNCTION_OBJECT__ you are adapting? __EGG_INDIRECT__ helps:
+[code_quick_start_indirect]
+
+
+[heading Object generators]
+It is boring to build __OBJECT_GENERATORS__. __EGG_GENERATOR__ makes it easy:
+[code_quick_start_object_generator]
+
+
+[heading Partial application]
+You are sure to know `boost::lambda::bind` in __BOOST_LAMBDA__. That is an implementation of partial application.
+But `bind` expressions may be less readable. __EGG_NEST__ offers better syntax so that you can forget `bind`.
+[code_quick_start_nest]
+
+__EGG_NEST__ enables you to write any complicated lambda expressions in the automatic manner.
+In addition, __EGG_COMPOSE__, __EGG_CURRY__ and __EGG_LAZY__ can be considered as a part of __EGG_NEST__ family,
+for they can be trivially implemented by __EGG_NEST__:
+[code_quick_start_nest_family]
+
+Note that the three adaptors, unlike __EGG_NEST__, can support __STATIC_INITIALIZATION__.
+
+
+[heading Fusing]
+Fusing is the technique of transforming a function into one which takes a tuple.
+A function which takes a tuple is called "fused".
+In Egg, fusing is implemented by __EGG_FUSE__ and __EGG_UNFUSE__:
+[code_quick_start_fusing1]
+
+If you dislike cut-n-paste and macros, fusing is important:
+[code_quick_start_fusing2]
+
+__VARIADIC_FUNCTION__\ s can be written by __EGG_UNFUSE__ in one shot.
+See also __EGG_VARIADIC__, which is short-cut to __EGG_UNFUSE__.
+
+
+[heading The Return of the Monomorphic]
+You may complain that __EGG_FUNCTION_ADAPTORS__ transform a function into templated one.
+Error messages around templates are actually annoying.
+__EGG_MONO__ transforms a function into non-templated one:
+[code_quick_start_mono]
+
+Note that a function __EGG_MONO__ returns is a model of __SGI_ADAPTABLE_FUNCTION_OBJECT__,
+which can be used with `std::bind1st` etc.
+
+
+[endsect]
+
+
+
+
+[section Reading Doc]
+The organization of Egg is "flat".
+Egg can be regarded as federation of __EGG_FUNCTION_BUILDERS__ and __EGG_FUNCTION_ADAPTORS__.
+Each component is usually independent from each other, so that you can read the sections with any order.
+
+[heading Notation]
+The __EGG_NOTATION__ section introduces several keywords for documentation.
+A word which begins with `__` is a keyword. When you forget its semantics, just click the keyword.
+
+[heading Concepts]
+The __EGG_CONCEPTS__ section describes the concepts used in Egg.
+By the design rationale, __EGG_CONCEPTS__ doesn't introduce any new "traits" something like `is_bindable<>` etc.
+Those just define the valid expressions and semantics.
+The most important concepts are __CONCEPT_LITTLE_FUNCTION__ and __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+Other conepts can read on demand.
+
+[heading Forwarding Strategies]
+The __EGG_FORWARDING_STRATEGIES__ section defines strategy tags for argument forwarding.
+Almost all of Egg requires these as parameters. (You will see `__Stg` token is used everywhere.)
+Fortunately, the default behavior, __EGG_BY_PERFECT__, works so well in most cases
+that you can skip reading __EGG_FORWARDING_STRATEGIES__ when first reading the documentation.
+
+[heading Function Builders]
+__EGG_FUNCTION_BUILDERS__ build __CONCEPT_MAJOR_FUNCTION_OBJECT__ type.
+__EGG_FUNCTION__ is the most primitive builder, which can be stateful.
+First, it might be preferable to understand __EGG_FUNCTION__ with __CONCEPT_LITTLE_FUNCTION__ concept.
+Second, I recommend __EGG_POLY__, which is a cool builder originally written by David Abrahams.
+
+[heading Function Adaptors]
+__EGG_FUNCTION_ADAPTORS__ are higher-order functions which take a function then return adapted function.
+__EGG_FUSE__ and __EGG_UNFUSE__ might be one of the most interesting adaptors, which provides "fusing".
+
+[heading Function Objects and Utilities]
+The __EGG_FUNCTION_OBJECTS__ section provides useful functions which have been requested in __BOOST_USERS__ several times.
+For __EGG_UTILITIES__, __EGG_INFIX__ might be interesting, which is ported from __FCPP__.
+
+[heading Workarounds]
+__EGG_WORKAROUNDS__ is a set of workarounds.
+For now, only __EGG_CONST__ might be worth reading.
+
+[endsect]
+
+
+
+
+[endsect]

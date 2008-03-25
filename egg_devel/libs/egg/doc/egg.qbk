@@ -1,0 +1,213 @@
+
+[library Egg
+    [quickbook 1.3]
+    [version 0.90.5]
+    [authors [Sogame, Shunsuke]]
+    [copyright 2007-2008 Shunsuke Sogame]
+    [category functional]
+    [id egg]
+    [dirname egg]
+    [purpose functional programming]
+    [source-mode c++]
+    [license
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+[@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+
+
+
+[/ External Links ]
+
+[def __BOOST__ [@http://www.boost.org [*Boost C++ Libraries]]]
+[def __BOOST_DEVELOPERS__ [@http://www.boost.org/more/mailing_lists.htm#main Boost developers list]]
+[def __BOOST_USERS__ [@http://www.boost.org/more/mailing_lists.htm#users Boost users list]]
+[def __BOOST_ACCUMULATORS__ [@http://boost-sandbox.sourceforge.net/libs/accumulators/doc/html/index.html [*Boost.Accumulators]]]
+[def __BOOST_BIND__ [@http://www.boost.org/libs/bind/bind.html [*Boost.Bind]]]
+[def __BOOST_ENABLE_IF__ [@http://www.boost.org/libs/utility/enable_if.html [*Boost.EnableIf]]]
+[def __BOOST_FUNCTION__ [@http://www.boost.org/libs/function/ [*Boost.Function]]]
+[def __BOOST_FUSION__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/index.html [*Boost.Fusion]]]
+[def __BOOST_ITERATOR__ [@http://boost.org/libs/iterator/doc/index.html [*Boost.Iterator]]]
+[def __BOOST_LAMBDA__ [@http://www.boost.org/libs/lambda/ [*Boost.Lambda]]]
+[def __BOOST_PHOENIX__ [@http://www.boost.org/libs/spirit/phoenix/index.html [*Boost.Phoenix]]]
+[def __BOOST_PREPROCESSOR__ [@http://www.boost.org/libs/preprocessor/doc/index.html [*Boost.Preprocessor]]]
+[def __BOOST_PROTO__ [@http://boost-sandbox.sourceforge.net/libs/proto/doc/html/ [*Boost.Proto]]]
+[def __BOOST_RANGE__ [@http://www.boost.org/libs/range/index.html [*Boost.Range]]]
+[def __BOOST_RESULT_OF__ [@http://www.boost.org/libs/utility/utility.htm#result_of [*Boost.ResultOf]]]
+[def __BOOST_TUPLE__ [@http://www.boost.org/libs/tuple/index.html [*Boost.Tuple]]]
+[def __BOOST_TYPEOF__ [@http://www.boost.org/libs/typeof/index.html [*Boost.Typeof]]]
+[def __BOOST_VAULT__ [@http://www.boost-consulting.com/vault/index.php Boost.Vault]]
+
+[def __EGG_ZIP__ [@http://www.boost-consulting.com/vault/index.php?action=downloadfile&filename=egg.zip&directory=Function%20Objects& [_`egg.zip`]]]
+[def __EGG_SVN__ [@https://p-stade.svn.sourceforge.net/svnroot/p-stade/trunk/boost Egg svn repository]]
+
+[def __PSTADE_RELEASE__ [@http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059 [*P-Stade C++ Libraries]]]
+
+[def __FCPP__ [@http://www.cc.gatech.edu/~yannis/fc++/ [*FC++]]]
+[def __EXTENSION_METHOD__ [@http://en.wikipedia.org/wiki/Extension_method Extension method]]
+
+[def __BOOST_ITERATOR_FACADE__ [@http://boost.org/libs/iterator/doc/iterator_facade.html `boost::iterator_facade`]]
+[def __BOOST_INDIRECT_ITERATOR__ [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html `boost::indirect_iterator`]]
+[def __FUSION_FUNCTIONAL__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional.html Fusion Functional Adapters]]
+
+[def __FORWARDING_PROBLEM__ [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm Forwarding Problem]]
+[def __DAVID_CALLABLE__ [@http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826 `callable`]]
+
+[def __VARIADIC_FUNCTION__ [@http://en.wikipedia.org/wiki/Variadic_function Variadic function]]
+[def __VARIADIC_TEMPLATES__ [@http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html Variadic Templates]]
+
+[def __OBJECT_GENERATORS__ [@http://www.boost.org/more/generic_programming.html#object_generator Object Generators]]
+
+[def __CURRYING__ [@http://en.wikipedia.org/wiki/Currying Currying]]
+[def __FIXED_POINT_COMBINATOR__ [@http://en.wikipedia.org/wiki/Y_combinator Fixed point combinator]]
+[def __HASKELL__ [@http://www.haskell.org/ Haskell]]
+
+
+
+
+[/ Concepts ]
+
+[def __COPY_ASSIGNABLE__ [@http://boost.org/doc/html/Assignable.html Copy Assignable]]
+[def __COPY_CONSTRUCTIBLE__ [@http://boost.org/doc/html/CopyConstructible.html Copy Constructible]]
+[def __EQUALITY_COMPARABLE__ [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
+[def __DEFAULT_CONSTRUCTIBLE__ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
+[def __POLYMORPHIC_FUNCTION_OBJECT__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html Polymorphic Function Object]]
+[def __POLYMORPHIC__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html Polymorphic]]
+[def __FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/functors.html Function Object]]
+[def __MPL_METAFUNCTION__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html MPL Metafunction]]
+[def __MPL_METAFUNCTION_CLASS__ [@http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html MPL Metafunction Class]]
+[def __MPL_INTEGRAL_CONSTANT__ [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant]]
+[def __MPL_LAMBDA_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html MPL Lambda Expression]]
+[def __MPL_PLACEHOLDER_EXPRESSION__ [@http://www.boost.org/libs/mpl/doc/refmanual/placeholder-expression.html MPL Placeholder Expression]]
+[def __MPL_FORWARD_SEQUENCE__ [@http://www.boost.org/libs/mpl/doc/refmanual/forward-sequence.html MPL Forward Sequence]]
+[def __SGI_ADAPTABLE_FUNCTION_OBJECT__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable Function Object]]
+[def __SGI_ADAPTABLE__ [@http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html Adaptable]]
+[def __FUSION_FORWARD_SEQUENCE__ [@http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/sequence/concepts/forward_sequence.html Fusion Forward Sequence]]
+[def __INPUT_ITERATOR__ [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
+[def __PP_SEQUENCE__ [@http://www.boost.org/libs/preprocessor/doc/data/sequences.html Preprocessor Sequence]]
+
+[def __POD__ /POD/]
+[def __REFERENCE_TYPE__ /reference type/]
+[def __CV_QUALIFIED__ /cv-qualified/]
+[def __CONST_QUALIFIED__ /const-qualified/]
+[def __STATIC_INITIALIZATION__ /static initialization/]
+[def __STATICALLY_INITIALIZED__ /statically initialized/]
+[def __STATIC_STORAGE_DURATION__ /static storage duration/]
+[def __PRECONDITION_AS_IS__ The following are valid expressions.]
+
+
+
+
+[/ Internal Links ]
+
+[def __CONCEPT_LEXICALLY_TYPED_OBJECT__ [link egg.concepts.lexically_typed_object Lexically Typed Object]]
+[def __CONCEPT_STATIC_FUNCTION_OBJECT__ [link egg.concepts.static_function_object Static Function Object]]
+[def __CONCEPT_STATIC__ [link egg.concepts.static_function_object Static]]
+[def __CONCEPT_AMBI_FUNCTION_OBJECT__ [link egg.concepts.ambi_function_object Ambi Function Object]]
+[def __CONCEPT_AMBI__ [link egg.concepts.ambi_function_object Ambi]]
+[def __CONCEPT_MAJOR_FUNCTION_OBJECT__ [link egg.concepts.major_function_object Major Function Object]]
+[def __CONCEPT_MAJOR__ [link egg.concepts.major_function_object Major]]
+[def __CONCEPT_PIPABLE_FUNCTION_OBJECT__ [link egg.concepts.pipable_function_object Pipable Function Object]]
+[def __CONCEPT_PIPABLE__ [link egg.concepts.pipable_function_object Pipable]]
+[def __CONCEPT_LITTLE_FUNCTION__ [link egg.concepts.little_function Little Function]]
+
+[def __EGG_CONCEPTS__ [link egg.concepts Concepts]]
+[def __EGG_RESULT_OF_TUTORIAL__ [link egg.concepts.result_of_tutorial result_of tutorial]]
+[def __EGG_FORWARDING_STRATEGIES__ [link egg.forwarding_strategies Forwarding Strategies]]
+[def __EGG_BY_PERFECT__ [link egg.forwarding_strategies.by_perfect `by_perfect`]]
+[def __EGG_DETERMINING_NULLARY_RETURN_TYPES__ [link egg.forwarding_strategies.determining_nullary_return_types Determining nullary return types]]
+[def __EGG_FUNCTION_BUILDERS__ [link egg.function_builders Function Builders]]
+[def __EGG_FUNCTION_ADAPTORS__ [link egg.function_adaptors Function Adaptors]]
+[def __EGG_FUNCTION_OBJECTS__ [link egg.function_objects Function Objects]]
+[def __EGG_UTILITIES__ [link egg.utilities Utilities]]
+[def __EGG_WORKAROUNDS__ [link egg.workarounds Workarounds]]
+
+[def __EGG_FUNCTION__ [link egg.function_builders.function `function`]]
+[def __EGG_FUNCTION_FACADE__ [link egg.function_builders.function_facade `function_facade`]]
+[def __EGG_POLY__ [link egg.function_builders.poly `poly`]]
+[def __EGG_GENERATOR__ [link egg.function_builders.generator `generator`]]
+[def __EGG_STATIC__ [link egg.function_builders.static_ `static_`]]
+[def __EGG_VARIADIC__ [link egg.function_builders.variadic `variadic`]]
+
+[def __EGG_AMBI__ [link egg.function_adaptors.ambin `ambiN`]]
+[def __EGG_COMPOSE__ [link egg.function_adaptors.compose `compose`]]
+[def __EGG_CURRY__ [link egg.function_adaptors.curryn `curryN`]]
+[def __EGG_UNCURRY__ [link egg.function_adaptors.uncurry `uncurry`]]
+[def __EGG_FUSE__ [link egg.function_adaptors.fuse `fuse`]]
+[def __EGG_UNFUSE__ [link egg.function_adaptors.unfuse `unfuse`]]
+[def __EGG_INDIRECT__ [link egg.function_adaptors.indirect `indirect`]]
+[def __EGG_LAZY__ [link egg.function_adaptors.lazy `lazy`]]
+[def __EGG_FIX__ [link egg.function_adaptors.fix `fix`]]
+[def __EGG_MEMOIZE__ [link egg.function_adaptors.memoize `memoize`]]
+[def __EGG_MONO__ [link egg.function_adaptors.mono `mono`]]
+[def __EGG_NEST__ [link egg.function_adaptors.nestn `nestN`]]
+[def __EGG_PERFECT__ [link egg.function_adaptors.perfect `perfect`]]
+[def __EGG_PIPABLE__ [link egg.function_adaptors.pipable `pipable`]]
+[def __EGG_RETURN__ [link egg.function_adaptors.return_ `return_`]]
+[def __EGG_TAGGED__ [link egg.function_adaptors.tagged `tagged`]]
+
+[def __EGG_ALWAYS__ [link egg.function_objects.always `always`]]
+[def __EGG_IDENTITY__ [link egg.function_objects.identity `identity`]]
+[/ [def __EGG_BLL_BIND__ [link egg.function_objects.bll_bind `bll_bind`]] ]
+[def __EGG_GET__ [link egg.function_objects.get `get`]]
+[def __EGG_PACK__ [link egg.function_objects.pack `pack`]]
+[def __EGG_CONSTRUCT__ [link egg.function_objects.construct `construct`]]
+[def __EGG_CONSTRUCT_BRACED1__ [link egg.function_objects.construct_braced1 `construct_braced1`]]
+[def __EGG_CONSTRUCT_BRACED2__ [link egg.function_objects.construct_braced2 `construct_braced2`]]
+[/ [def __EGG_CONSTRUCT_UNFUSED1__ [link egg.function_objects.construct_unfused1 `construct_unfused1`]] ]
+[def __EGG_CONSTRUCT_VARIADIC1__ [link egg.function_objects.construct_variadic1 `construct_variadic1`]]
+[def __EGG_INFIX__ [link egg.utilities.infix `infix`]]
+
+[def __EGG_RESULT_OF__ [link egg.workarounds.result__of_ `egg::result_of_`]]
+[def __EGG_OVERLOADED__ [link egg.workarounds.overloaded `BOOST_EGG_OVERLOADED`]]
+[def __EGG_CONST__ [link egg.workarounds.const `BOOST_EGG_CONST`]]
+
+
+
+
+[/ Notation ]
+
+[def __EGG_NOTATION__ [link egg.overview.notation Notation]]
+
+[def __decltype [link egg.overview.notation `__decltype`]]
+[def __typeof [link egg.overview.notation `__typeof`]]
+[def __const [link egg.overview.notation `__const`]]
+[def __pfo [link egg.overview.notation `__pfo`]]
+[def __PFo [link egg.overview.notation `__PFo`]]
+[def __lit [link egg.overview.notation `__lit`]]
+[def __Lit [link egg.overview.notation `__Lit`]]
+[def __Stg [link egg.overview.notation `__Stg`]]
+[def __Bytag [link egg.overview.notation `__Bytag`]]
+[def __ud [link egg.overview.notation `__ud`]]
+[def __mpl [link egg.overview.notation `__mpl`]]
+[def __MAX_PACK_ARITY [link egg.overview.notation `__MAX_PACK_ARITY`]]
+
+[def __arg [link egg.forwarding_strategies `__arg`]]
+[def __ref [link egg.forwarding_strategies `__ref`]]
+[def __cref [link egg.forwarding_strategies `__cref`]]
+[def __val [link egg.forwarding_strategies `__val`]]
+[def __rval [link egg.forwarding_strategies `__rval`]]
+
+[def __bytag_at [link egg.forwarding_strategies.argument_list `__bytag_at`]]
+[def __arg_list [link egg.forwarding_strategies.argument_list `__arg_list`]]
+[def __meta_arg_list [link egg.forwarding_strategies.argument_list `__meta_arg_list`]]
+[def __fwd_arg_list [link egg.forwarding_strategies.argument_list `__fwd_arg_list`]]
+
+[def __decltype_r0 [link egg.forwarding_strategies.determining_nullary_return_types `__decltype_r0`]]
+
+
+
+
+[include overview.qbk]
+[include quick_start.qbk]
+[include concepts.qbk]
+[include forwarding_strategies.qbk]
+[include function_builders.qbk]
+[include function_adaptors.qbk]
+[include function_objects.qbk]
+[include utilities.qbk]
+[include configuration.qbk]
+[include workarounds.qbk]
+[include version_history.qbk]

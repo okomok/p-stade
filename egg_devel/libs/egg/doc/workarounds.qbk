@@ -1,0 +1,186 @@
+[/
+Boost.Egg
+
+Copyright Shunsuke Sogame 2007-2008.
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+]
+
+
+
+
+[section Workarounds]
+
+Egg provides some workaround utilities.
+
+
+
+
+[section result\_of_]
+
+[heading Description]
+`boost::result_of` has some problems especially under Boost1.34 or below:
+
+* `boost::result_of` can't take a __CV_QUALIFIED__ function pointer as the target function.
+* Under msvc-7.1 or msvc-8.0 with Boost1.34 or below, `boost::result_of` can't take __POD__ template as the target function. 
+
+So that, Egg provides its own "result_of" with slightly different name.
+
+[caution If you already use Boost1.35 and don't pass a __CV_QUALIFIED__ function pointer, you don't need this workaround.]
+
+[note The former bug can probably be worked around by applying a patch to __BOOST_RESULT_OF__. ]
+
+[heading Header]
+* `<boost/egg/result_of.hpp>`
+
+[/
+[heading Preconditions]
+* ...
+]
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`result_of_`]
+        [`boost::result_of` with some workaround.]
+    ]
+]
+
+[heading See also]
+* [@http://svn.boost.org/trac/boost/ticket/1310 #1310]
+
+[endsect]
+
+
+
+
+[section detect_result_type.hpp]
+
+[heading Description]
+`BOOST_MPL_HAS_XXX_TRAIT_DEF`, which __BOOST_RESULT_OF__ and __BOOST_LAMBDA__ depend on,
+sometimes fails to work under the msvc compilers.
+When you see a weird error message such that
+"nested `sig` template is undefined" or "nested `result` template is undefined",
+use this header.
+
+[note This bug can probably be worked around by applying a patch to __BOOST_LAMBDA__ and __BOOST_RESULT_OF__. ]
+
+[heading Header]
+* `<boost/egg/detect_result_type.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`#include <boost/egg/detect_result_type.hpp>`]
+        [Turns on the workaround.]
+    ]
+]
+
+[heading Preconditions]
+* `<boost/egg/detect_result_type.hpp>` must be included before any Boost headers.
+
+[heading See also]
+* [@http://svn.boost.org/trac/boost/ticket/1317 #1317]
+
+[endsect]
+
+
+
+
+[section CONST]
+
+[heading Description]
+When you define a __FUNCTION_OBJECT__ in namespace scope,
+GCC might show unused variable warnings without this macro.
+
+[tip Strictly speaking, a __CONST_QUALIFIED__ object in namespace scope incurs ODR(One Definition Rule) violation.
+      Though a conforming workaround is found, even GCC can't do the right thing around /address constant expression/.
+      Anyway, it is unlikely for this violation to cause significant problem. ]
+
+[heading Header]
+* `<boost/egg/const.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`BOOST_EGG_CONST((F), obj) = init;`]
+        [`F const obj = init;`]
+    ]
+]
+
+[heading Preconditions]
+* `F` is __POD__ which is not __CV_QUALIFIED__.
+* This macro is placed in namespace scope.
+[/ * __PRECONDITION_AS_IS__ ]
+
+[heading Example]
+    BOOST_EGG_CONST((T_foo), foo) = &foo_impl;
+
+[/
+[heading See also]
+* ...
+]
+
+[endsect]
+
+
+
+
+[section OVERLOADED]
+
+[heading Description]
+Under GCC 3.4.x, when you overload `call` in __CONCEPT_LITTLE_FUNCTION__ with the same arity,
+the following workaround is needed to disambiguate overload resolution.
+
+[heading Header]
+* `<boost/egg/overloaded.hpp>`
+
+[heading Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`BOOST_EGG_OVERLOADED_PREAMBLE()`]
+        [Turns on the workaround.]
+    ]
+    [
+        [`BOOST_EGG_OVERLOADED(R)`]
+        [Helps overload resolution.]
+    ]
+]
+
+[heading Preconditions]
+* `BOOST_EGG_OVERLOADED_PREAMBLE()` is placed first in __CONCEPT_LITTLE_FUNCTION__.
+* `BOOST_EGG_OVERLOADED(R)` is placed first in parameter list of every `call`.
+* `R` is return type of `call`.
+
+[heading Example]
+[import ../test/overloaded.cpp]
+[code_example_overloaded]
+
+[heading See also]
+* [@http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/2dc6189c2eec0fd5/ Topic at comp.lang.moderated]
+* __EGG_FUNCTION__
+* __EGG_FUNCTION_FACADE__
+
+[endsect]
+
+
+
+
+[endsect]
