@@ -47,7 +47,6 @@ void egg_example()
     BOOST_CHECK( nest1(apply)(nest2(minus)(_0_(_1), _1_(_1)), nest1(plus)(_0_(_1), 3)) /*< By the definition, `nest1` has the same semantics as __EGG_LAZY__. >*/
         (i9) == minus(9, plus(9,3))  );
 
-
     int w = 7;
     // \x -> (\y -> (\z -> second(y,w,z,x))))
     BOOST_CHECK(
