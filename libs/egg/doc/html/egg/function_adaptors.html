@@ -2386,6 +2386,16 @@
           behaving as if it were <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>.
         </li>
 <li>
+<code class="computeroutput"><span class="identifier">wrap_ref_</span></code> is an imaginary
+          <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+          behaving as if it were <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">ref</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">unwrap_ref_</span></code> is an imaginary
+          <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+          which extracts a wrapped reference from <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">reference_wrapper</span></code>.
+        </li>
+<li>
 <code class="computeroutput"><span class="identifier">bind_</span></code> is <code class="computeroutput"><span class="identifier">bll_bind</span></code> if <code class="computeroutput"><span class="identifier">Bind</span></code>
           is <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a></code>,
           <code class="computeroutput"><span class="identifier">Bind</span><span class="special">()</span></code>
@@ -2415,7 +2425,7 @@
 </li>
 </ul></div>
 <a name="egg.function_adaptors.nestn.valid_expressions"></a><h5>
-<a name="id580694"></a>
+<a name="id580786"></a>
         <a href="function_adaptors.html#egg.function_adaptors.nestn.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -2478,6 +2488,47 @@
 <tr>
 <td>
               <p>
+                <code class="computeroutput"><span class="identifier">X_ref</span><span class="special">%%</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">Bind</span> <span class="special">=</span>
+                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
+                Object</a> type
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">X_ref</span><span class="special">%%</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">Bind</span><span class="special">&gt;()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic</a>
+                <code class="computeroutput"><span class="identifier">compose</span><span class="special">(</span><span class="identifier">X_nest</span><span class="special">%%</span><span class="identifier">N</span><span class="special">&lt;</span><span class="identifier">Bind</span><span class="special">&gt;()(</span><span class="identifier">unwrap_ref_</span><span class="special">),</span>
+                <span class="identifier">wrap_ref_</span><span class="special">)</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">ref</span><span class="special">%%</span><span class="identifier">N</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static</a>
+                <code class="computeroutput"><span class="identifier">X_ref</span><span class="special">%%</span><span class="identifier">N</span><span class="special">&lt;&gt;()</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
                 <code class="computeroutput"><span class="identifier">XX_</span><span class="special">%%</span><span class="identifier">M</span><span class="special">%%</span><span class="identifier">_</span><span class="special">&lt;</span><span class="identifier">Protect</span> <span class="special">=</span>
                 <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;</span></code>
               </p>
@@ -2524,14 +2575,15 @@
 <td>
               <p>
                 <span class="emphasis"><em>using-declaration</em></span>s of <code class="computeroutput"><span class="identifier">nest</span><span class="special">%%</span><span class="identifier">N</span></code>,
-                <code class="computeroutput"><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span><span class="special">%%</span><span class="identifier">_</span></code>, and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">K</span></code>
+                <code class="computeroutput"><span class="identifier">ref</span><span class="special">%%</span><span class="identifier">N</span></code>, <code class="computeroutput"><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span><span class="special">%%</span><span class="identifier">_</span></code>,
+                and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">K</span></code>.
               </p>
               </td>
 </tr>
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.nestn.preconditions"></a><h5>
-<a name="id581567"></a>
+<a name="id581967"></a>
         <a href="function_adaptors.html#egg.function_adaptors.nestn.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -2548,8 +2600,18 @@
           <span class="identifier">N</span><span class="special">-</span><span class="number">1</span></code>.
         </li>
 </ul></div>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/html/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          In nested lambda expressions, <code class="computeroutput"><span class="identifier">refN</span></code>
+          must be used instead of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">ref</span></code>.
+        </p></td></tr>
+</table></div>
 <a name="egg.function_adaptors.nestn.example"></a><h5>
-<a name="id581710"></a>
+<a name="id582152"></a>
         <a href="function_adaptors.html#egg.function_adaptors.nestn.example">Example</a>
       </h5>
 <p>
@@ -2558,6 +2620,11 @@
           
 </p>
 <pre class="programlisting">
+<span class="keyword">int</span> <span class="special">&amp;</span> <span class="identifier">second</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&amp;</span> <span class="identifier">j</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">j</span><span class="special">;</span>
+<span class="special">}</span>
+
 <span class="keyword">void</span> <span class="identifier">egg_example</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="keyword">using</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span><span class="special">;</span>
@@ -2575,6 +2642,15 @@
     <span class="comment">// \x -&gt; apply(\y -&gt; minus(x,y), plus(x,3))
 </span>    <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">nest1</span><span class="special">(</span><span class="identifier">apply</span><span class="special">)(</span><span class="identifier">nest2</span><span class="special">(</span><span class="identifier">minus</span><span class="special">)(</span><span class="identifier">_0_</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="identifier">_1_</span><span class="special">(</span><span class="identifier">_1</span><span class="special">)),</span> <span class="identifier">nest1</span><span class="special">(</span><span class="identifier">plus</span><span class="special">)(</span><span class="identifier">_0_</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="number">3</span><span class="special">))</span> <span class="callout_bug"><a name="egg45co" href="function_adaptors.html#egg45"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
         <span class="special">(</span><span class="identifier">i9</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">minus</span><span class="special">(</span><span class="number">9</span><span class="special">,</span> <span class="identifier">plus</span><span class="special">(</span><span class="number">9</span><span class="special">,</span><span class="number">3</span><span class="special">))</span>  <span class="special">);</span>
+
+
+    <span class="comment">// \x -&gt; (\y -&gt; (\z -&gt; foo(y,w,z,x))))
+</span>    <span class="keyword">int</span> <span class="identifier">w</span> <span class="special">=</span> <span class="number">7</span><span class="special">;</span>
+    <span class="identifier">BOOST_CHECK</span><span class="special">(</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">addressof</span><span class="special">(</span>
+            <span class="identifier">nest3</span><span class="special">(</span><span class="identifier">second</span><span class="special">)(</span><span class="identifier">_1_</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="identifier">ref3</span><span class="special">(</span><span class="identifier">w</span><span class="special">),</span> <span class="identifier">_2_</span><span class="special">(</span><span class="identifier">_1</span><span class="special">),</span> <span class="identifier">_0_</span><span class="special">(</span><span class="identifier">_1</span><span class="special">))</span> <span class="callout_bug"><a name="egg46co" href="function_adaptors.html#egg46"><img src="../images/callouts/3.png" alt="3" border="0"></a></span>
+                <span class="special">(</span><span class="identifier">i1</span><span class="special">)(</span><span class="identifier">i1</span><span class="special">)(</span><span class="identifier">i1</span><span class="special">)</span>
+        <span class="special">)</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">addressof</span><span class="special">(</span><span class="identifier">w</span><span class="special">)</span> <span class="special">);</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -2596,13 +2672,19 @@
 <td valign="top" align="left"><p> By the definition, <code class="computeroutput"><span class="identifier">nest1</span></code>
           has the same semantics as <a href="function_adaptors.html#egg.function_adaptors.lazy" title="lazy"><code class="computeroutput"><span class="identifier">lazy</span></code></a>. </p></td>
 </tr>
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="egg46"></a><a href="#egg46co"><img src="../images/callouts/3.png" alt="3" border="0"></a> </td>
+<td valign="top" align="left"><p> Captures <code class="computeroutput"><span class="identifier">w</span></code>
+          by-reference. </p></td>
+</tr>
 </table></div>
 <p>
         </p>
 <p>
       </p>
 <a name="egg.function_adaptors.nestn.see_also"></a><h5>
-<a name="id582584"></a>
+<a name="id583429"></a>
         <a href="function_adaptors.html#egg.function_adaptors.nestn.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -2617,7 +2699,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.perfect"></a><a href="function_adaptors.html#egg.function_adaptors.perfect" title="perfect">perfect</a></h3></div></div></div>
 <a name="egg.function_adaptors.perfect.description"></a><h5>
-<a name="id582724"></a>
+<a name="id583569"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.description">Description</a>
       </h5>
 <p>
@@ -2625,17 +2707,17 @@
         forwarding".
       </p>
 <a name="egg.function_adaptors.perfect.header"></a><h5>
-<a name="id582765"></a>
+<a name="id583609"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">perfect</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.perfect.model_of"></a><h5>
-<a name="id582848"></a>
+<a name="id583692"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.function_adaptors.perfect.notation"></a><h5>
-<a name="id582889"></a>
+<a name="id583733"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2643,7 +2725,7 @@
           an object of <code class="computeroutput"><span class="identifier">result_of_perfect</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">d</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">d</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.perfect.valid_expressions"></a><h5>
-<a name="id583011"></a>
+<a name="id583855"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -2728,7 +2810,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.perfect.preconditions"></a><h5>
-<a name="id583511"></a>
+<a name="id584355"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2738,7 +2820,7 @@
           is a valid expression.
         </li></ul></div>
 <a name="egg.function_adaptors.perfect.invariants"></a><h5>
-<a name="id583588"></a>
+<a name="id584432"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2746,7 +2828,7 @@
           is <span class="emphasis"><em>POD</em></span> if and only if <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__PFo</span></code></a></code> is <span class="emphasis"><em>POD</em></span>.
         </li></ul></div>
 <a name="egg.function_adaptors.perfect.example"></a><h5>
-<a name="id583690"></a>
+<a name="id584534"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.example">Example</a>
       </h5>
 <p>
@@ -2783,7 +2865,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.perfect.see_also"></a><h5>
-<a name="id584121"></a>
+<a name="id584965"></a>
         <a href="function_adaptors.html#egg.function_adaptors.perfect.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="function_adaptors.html#egg.function_adaptors.return_" title="return_"><code class="computeroutput"><span class="identifier">return_</span></code></a></li></ul></div>
@@ -2792,7 +2874,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.pipable"></a><a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable">pipable</a></h3></div></div></div>
 <a name="egg.function_adaptors.pipable.description"></a><h5>
-<a name="id584192"></a>
+<a name="id585036"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.description">Description</a>
       </h5>
 <p>
@@ -2801,17 +2883,17 @@
         Function Object</a>.
       </p>
 <a name="egg.function_adaptors.pipable.header"></a><h5>
-<a name="id584248"></a>
+<a name="id585092"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">pipable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.pipable.model_of"></a><h5>
-<a name="id584331"></a>
+<a name="id585175"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.function_adaptors.pipable.notation"></a><h5>
-<a name="id584372"></a>
+<a name="id585216"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2821,7 +2903,7 @@
           initialized by <code class="computeroutput"><span class="identifier">d</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.pipable.valid_expressions"></a><h5>
-<a name="id584575"></a>
+<a name="id585419"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -2939,7 +3021,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.pipable.preconditions"></a><h5>
-<a name="id585517"></a>
+<a name="id586361"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -2965,7 +3047,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.pipable.invariants"></a><h5>
-<a name="id585830"></a>
+<a name="id586673"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -2985,7 +3067,7 @@
         </p></td></tr>
 </table></div>
 <a name="egg.function_adaptors.pipable.example"></a><h5>
-<a name="id585962"></a>
+<a name="id586806"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.example">Example</a>
       </h5>
 <p>
@@ -3036,7 +3118,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.pipable.see_also"></a><h5>
-<a name="id587250"></a>
+<a name="id588094"></a>
         <a href="function_adaptors.html#egg.function_adaptors.pipable.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -3048,7 +3130,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.regular"></a><a href="function_adaptors.html#egg.function_adaptors.regular" title="regular">regular</a></h3></div></div></div>
 <a name="egg.function_adaptors.regular.description"></a><h5>
-<a name="id587332"></a>
+<a name="id588176"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.description">Description</a>
       </h5>
 <p>
@@ -3062,17 +3144,17 @@
         converts it into comfortable one for iterators.
       </p>
 <a name="egg.function_adaptors.regular.header"></a><h5>
-<a name="id587421"></a>
+<a name="id588265"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">regular</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.regular.model_of"></a><h5>
-<a name="id587503"></a>
+<a name="id588347"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.model_of">Model of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
 <a name="egg.function_adaptors.regular.valid_expressions"></a><h5>
-<a name="id587545"></a>
+<a name="id588389"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -3123,7 +3205,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.regular.preconditions"></a><h5>
-<a name="id587826"></a>
+<a name="id588670"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3132,7 +3214,7 @@
           Function Object</a>.
         </li></ul></div>
 <a name="egg.function_adaptors.regular.example"></a><h5>
-<a name="id587895"></a>
+<a name="id588739"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.example">Example</a>
       </h5>
 <p>
@@ -3157,7 +3239,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.regular.see_also"></a><h5>
-<a name="id588308"></a>
+<a name="id589152"></a>
         <a href="function_adaptors.html#egg.function_adaptors.regular.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://boost.org/libs/iterator/doc/index.html" target="_top"><span class="bold"><strong>Boost.Iterator</strong></span></a></li></ul></div>
@@ -3166,7 +3248,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.return_"></a><a href="function_adaptors.html#egg.function_adaptors.return_" title="return_">return_</a></h3></div></div></div>
 <a name="egg.function_adaptors.return_.description"></a><h5>
-<a name="id588371"></a>
+<a name="id589215"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.description">Description</a>
       </h5>
 <p>
@@ -3174,12 +3256,12 @@
         possibly with a modified return type.
       </p>
 <a name="egg.function_adaptors.return_.header"></a><h5>
-<a name="id588418"></a>
+<a name="id589262"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="keyword">return</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.return_.notation"></a><h5>
-<a name="id588500"></a>
+<a name="id589344"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3187,7 +3269,7 @@
           is an object of <code class="computeroutput"><span class="identifier">result_of_return</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">),</span> <span class="identifier">R</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">f</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.return_.valid_expressions"></a><h5>
-<a name="id588685"></a>
+<a name="id589529"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -3300,7 +3382,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.return_.preconditions"></a><h5>
-<a name="id589517"></a>
+<a name="id590361"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -3319,7 +3401,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.return_.invariants"></a><h5>
-<a name="id589663"></a>
+<a name="id590507"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3327,7 +3409,7 @@
           only if <code class="computeroutput"><span class="identifier">Fun</span></code> is <span class="emphasis"><em>POD</em></span>.
         </li></ul></div>
 <a name="egg.function_adaptors.return_.example"></a><h5>
-<a name="id589747"></a>
+<a name="id590591"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.example">Example</a>
       </h5>
 <p>
@@ -3346,7 +3428,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.return_.see_also"></a><h5>
-<a name="id589926"></a>
+<a name="id590770"></a>
         <a href="function_adaptors.html#egg.function_adaptors.return_.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="function_adaptors.html#egg.function_adaptors.perfect" title="perfect"><code class="computeroutput"><span class="identifier">perfect</span></code></a></li></ul></div>
@@ -3355,7 +3437,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="egg.function_adaptors.tagged"></a><a href="function_adaptors.html#egg.function_adaptors.tagged" title="tagged">tagged</a></h3></div></div></div>
 <a name="egg.function_adaptors.tagged.description"></a><h5>
-<a name="id589997"></a>
+<a name="id590841"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.description">Description</a>
       </h5>
 <p>
@@ -3364,12 +3446,12 @@
         type. This emulates support for strong typedefs.
       </p>
 <a name="egg.function_adaptors.tagged.header"></a><h5>
-<a name="id590044"></a>
+<a name="id590888"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">tagged</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="egg.function_adaptors.tagged.notation"></a><h5>
-<a name="id590127"></a>
+<a name="id590971"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -3377,7 +3459,7 @@
           is an object of <code class="computeroutput"><span class="identifier">result_of_tagged</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">d</span><span class="special">),</span> <span class="identifier">Tag</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code> initialized by <code class="computeroutput"><span class="identifier">d</span></code>.
         </li></ul></div>
 <a name="egg.function_adaptors.tagged.valid_expressions"></a><h5>
-<a name="id590312"></a>
+<a name="id591156"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.valid_expressions">Valid expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -3480,7 +3562,7 @@
 </tbody>
 </table></div>
 <a name="egg.function_adaptors.tagged.preconditions"></a><h5>
-<a name="id591107"></a>
+<a name="id591950"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -3496,7 +3578,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.tagged.invariants"></a><h5>
-<a name="id591198"></a>
+<a name="id592042"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -3512,7 +3594,7 @@
         </li>
 </ul></div>
 <a name="egg.function_adaptors.tagged.example"></a><h5>
-<a name="id591435"></a>
+<a name="id592278"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.example">Example</a>
       </h5>
 <p>
@@ -3539,7 +3621,7 @@
 <p>
       </p>
 <a name="egg.function_adaptors.tagged.see_also"></a><h5>
-<a name="id591905"></a>
+<a name="id592748"></a>
         <a href="function_adaptors.html#egg.function_adaptors.tagged.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2141.html" target="_top">Strong

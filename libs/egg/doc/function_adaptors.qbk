@@ -975,6 +975,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Notation]
 * `bll_bind` is an imaginary __FUNCTION_OBJECT__ behaving as if it were `boost::lambda::bind`.
+* `wrap_ref_` is an imaginary __FUNCTION_OBJECT__ behaving as if it were `boost::ref`.
+* `unwrap_ref_` is an imaginary __FUNCTION_OBJECT__ which extracts a wrapped reference from `boost::reference_wrapper`.
 * `bind_` is `bll_bind` if `Bind` is `__ud`, `Bind()` otherwise.
 * `protect_` is `boost::lambda::protect` if `Protect` is `__ud`, `Protect()` otherwise.
 * `LAZY(N)` is:
@@ -1001,6 +1003,18 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`X_nest%%N<>()(x)`]
     ]
     [
+        [`X_ref%%N<Bind = __ud>`]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_ref%%N<Bind>()`]
+        [__POLYMORPHIC__ `compose(X_nest%%N<Bind>()(unwrap_ref_), wrap_ref_)`]
+    ]
+    [
+        [`ref%%N`]
+        [__CONCEPT_STATIC__ `X_ref%%N<>()`]
+    ]
+    [
         [`XX_%%M%%_<Protect = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
@@ -1014,7 +1028,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`using BOOST_EGG_NEST_NAMES;`]
-        [['using-declaration]\ s of `nest%%N`, `_%%M%%_`, and `boost::lambda::_%%K`]
+        [['using-declaration]\ s of `nest%%N`, `ref%%N`, `_%%M%%_`, and `boost::lambda::_%%K`.]
     ]
 ]
 
@@ -1022,6 +1036,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `0 <= N && N <= BOOST_EGG_MAX_ARITY`.
 * `0 <= M && M <= N-1`.
 [/ * __PRECONDITION_AS_IS__ ]
+
+[important In nested lambda expressions, `refN` must be used instead of `boost::ref`. ]
 
 [heading Example]
 [import ../example/nest.cpp]

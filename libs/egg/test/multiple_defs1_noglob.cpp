@@ -103,6 +103,7 @@ void check_include_guards()
     using egg::call_little;
 
     using egg::nest2;
+    using egg::ref4;
     using egg::_3_;
 }
 
