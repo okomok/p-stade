@@ -24,7 +24,7 @@ int foo(int i, int j, int k, int m)
 }
 
 //[code_example_nest
-int & second(int, int& j, int, int)
+int & second(int, int &j, int, int)
 {
     return j;
 }
@@ -48,8 +48,8 @@ void egg_example()
         (i9) == minus(9, plus(9,3))  );
 
 
-    // \x -> (\y -> (\z -> foo(y,w,z,x))))
     int w = 7;
+    // \x -> (\y -> (\z -> second(y,w,z,x))))
     BOOST_CHECK(
         boost::addressof(
             nest3(second)(_1_(_1), ref3(w), _2_(_1), _0_(_1)) /*< Captures `w` by-reference. >*/

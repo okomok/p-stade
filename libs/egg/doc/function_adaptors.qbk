@@ -1037,7 +1037,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `0 <= M && M <= N-1`.
 [/ * __PRECONDITION_AS_IS__ ]
 
-[important In nested lambda expressions, `refN` must be used instead of `boost::ref`. ]
+[important For capturing by-reference in nested lambda expressions, `refN` must be used instead of `boost::ref`. ]
 
 [heading Example]
 [import ../example/nest.cpp]
