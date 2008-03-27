@@ -63,7 +63,7 @@ namespace boost { namespace egg {
                 result_of_<
                     typename result_of_<
                         S_nestN(details::T_unwrap_ref const &)
-                    >::type(typename result_of_<details::T_wrap_ref(A&)>::type)
+                    >::type(typename result_of_<details::T_wrap_ref(A &)>::type)
                 >
             { };
 
