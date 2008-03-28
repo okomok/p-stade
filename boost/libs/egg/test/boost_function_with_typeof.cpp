@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/detail/typeof_boost_function.hpp>
+#include <boost/egg/detail/boost_function_typeof.hpp>
 #include "./egg_test.hpp"
 
 

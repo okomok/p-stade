@@ -113,9 +113,9 @@ void ref_check(F f, int& i)
     BOOST_CHECK(f(3)(4) == "57234");
 }
 
-struct nc1_t : boost::noncopyable { };
+struct nc1_t : boost::noncopyable { void buz() {} };
 struct nc2_t : boost::noncopyable { };
-struct nc3_t : boost::noncopyable { };
+struct nc3_t : boost::noncopyable { void biz() {} };
 
 
 struct foo3
@@ -130,8 +130,16 @@ struct foo3
     };
 
     template<class Int1, class Int2>
-    int operator()(Int1&, Int2&, nc3_t&) const
+    int operator()(Int1& i, Int2&, nc3_t& k) const
     {
+        i.buz();
+        k.biz();
+        return 10;
+    }
+
+    int operator()(int, int, nc3_t& k) const
+    {
+        k.biz();
         return 10;
     }
 };
@@ -143,7 +151,7 @@ void egg_test()
 
     {
         BOOST_CHECK(
-            details::bind_left1(::my_plus2(), 5)(7) == "57"
+            details::X_bind_left1< ::my_plus2 >()(::my_plus2(), 5)(7) == "57"
         );
     }
     {
@@ -158,7 +166,7 @@ void egg_test()
     }
     {
         BOOST_CHECK(
-            details::bind_left2(::my_plus3(), 5, 7)(2) == "572"
+            details::X_bind_left2< ::my_plus3 >()(::my_plus3(), 5, 7)(2) == "572"
         );
     }
     {

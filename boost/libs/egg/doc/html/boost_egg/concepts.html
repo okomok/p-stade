@@ -4,8 +4,8 @@
 <title>Concepts</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.5">
-<link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="start" href="../index.html" title="Chapter 1. Boost.Egg Review">
+<link rel="up" href="../index.html" title="Chapter 1. Boost.Egg Review">
 <link rel="prev" href="quick_start.html" title="Quick Start">
 <link rel="next" href="forwarding_strategies.html" title="Forwarding Strategies">
 </head>
@@ -17,39 +17,42 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="egg.concepts"></a><a href="concepts.html" title="Concepts">Concepts</a></h2></div></div></div>
+<a name="boost_egg.concepts"></a><a href="concepts.html" title="Concepts">Concepts</a></h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="concepts.html#egg.concepts.lexically_typed_object">Lexically Typed
+<dt><span class="section"><a href="concepts.html#boost_egg.concepts.lexically_typed_object">Lexically
+      Typed Object</a></span></dt>
+<dt><span class="section"><a href="concepts.html#boost_egg.concepts.pipable_function_object">Pipable Function
       Object</a></span></dt>
-<dt><span class="section"><a href="concepts.html#egg.concepts.pipable_function_object">Pipable Function
+<dt><span class="section"><a href="concepts.html#boost_egg.concepts.ambi_function_object">Ambi Function
       Object</a></span></dt>
-<dt><span class="section"><a href="concepts.html#egg.concepts.ambi_function_object">Ambi Function Object</a></span></dt>
-<dt><span class="section"><a href="concepts.html#egg.concepts.major_function_object">Major Function Object</a></span></dt>
-<dt><span class="section"><a href="concepts.html#egg.concepts.static_function_object">Static Function
+<dt><span class="section"><a href="concepts.html#boost_egg.concepts.major_function_object">Major Function
       Object</a></span></dt>
-<dt><span class="section"><a href="concepts.html#egg.concepts.little_function">Little Function</a></span></dt>
-<dt><span class="section"><a href="concepts.html#egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
+<dt><span class="section"><a href="concepts.html#boost_egg.concepts.static_function_object">Static Function
+      Object</a></span></dt>
+<dt><span class="section"><a href="concepts.html#boost_egg.concepts.little_function">Little Function</a></span></dt>
+<dt><span class="section"><a href="concepts.html#boost_egg.concepts.result_of_tutorial">result_of tutorial</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.lexically_typed_object"></a><a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed
-      Object</a></h3></div></div></div>
-<a name="egg.concepts.lexically_typed_object.description"></a><h5>
-<a name="id525613"></a>
-        <a href="concepts.html#egg.concepts.lexically_typed_object.description">Description</a>
+<a name="boost_egg.concepts.lexically_typed_object"></a><a href="concepts.html#boost_egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically
+      Typed Object</a></h3></div></div></div>
+<a name="boost_egg.concepts.lexically_typed_object.description"></a><h5>
+<a name="id525705"></a>
+        <a href="concepts.html#boost_egg.concepts.lexically_typed_object.description">Description</a>
       </h5>
 <p>
-        A <a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed Object</a>
-        is a named lvalue whose type is referable by using prefix <code class="computeroutput"><span class="identifier">T_</span></code>.
+        A <a href="concepts.html#boost_egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed
+        Object</a> is a named lvalue whose type is referable by using prefix
+        <code class="computeroutput"><span class="identifier">T_</span></code>.
       </p>
-<a name="egg.concepts.lexically_typed_object.requirements"></a><h5>
-<a name="id525664"></a>
-        <a href="concepts.html#egg.concepts.lexically_typed_object.requirements">Requirements</a>
+<a name="boost_egg.concepts.lexically_typed_object.requirements"></a><h5>
+<a name="id525756"></a>
+        <a href="concepts.html#boost_egg.concepts.lexically_typed_object.requirements">Requirements</a>
       </h5>
 <p>
-        For any <a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed
-        Object</a> <code class="computeroutput"><span class="identifier">a</span></code> the following
-        must be met:
+        For any <a href="concepts.html#boost_egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically
+        Typed Object</a> <code class="computeroutput"><span class="identifier">a</span></code> the
+        following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -58,13 +61,13 @@
 <li>
           If token <code class="computeroutput"><span class="identifier">a</span></code> doesn't begin
           with a single underscore, <code class="computeroutput"><span class="identifier">T_</span><span class="special">%%</span><span class="identifier">a</span></code> is
-          <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code>;
+          <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code>;
           <code class="computeroutput"><span class="identifier">TT</span><span class="special">%%</span><span class="identifier">a</span></code> otherwise.
         </li>
 </ul></div>
-<a name="egg.concepts.lexically_typed_object.example"></a><h5>
-<a name="id525828"></a>
-        <a href="concepts.html#egg.concepts.lexically_typed_object.example">Example</a>
+<a name="boost_egg.concepts.lexically_typed_object.example"></a><h5>
+<a name="id525921"></a>
+        <a href="concepts.html#boost_egg.concepts.lexically_typed_object.example">Example</a>
       </h5>
 <p>
         </p>
@@ -82,24 +85,26 @@
         </p>
 <p>
       </p>
-<a name="egg.concepts.lexically_typed_object.see_also"></a><h5>
-<a name="id525950"></a>
-        <a href="concepts.html#egg.concepts.lexically_typed_object.see_also">See also</a>
+<a name="boost_egg.concepts.lexically_typed_object.see_also"></a><h5>
+<a name="id526043"></a>
+        <a href="concepts.html#boost_egg.concepts.lexically_typed_object.see_also">See also</a>
       </h5>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
+          Object</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.pipable_function_object"></a><a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
+<a name="boost_egg.concepts.pipable_function_object"></a><a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
       Object</a></h3></div></div></div>
-<a name="egg.concepts.pipable_function_object.description"></a><h5>
-<a name="id526014"></a>
-        <a href="concepts.html#egg.concepts.pipable_function_object.description">Description</a>
+<a name="boost_egg.concepts.pipable_function_object.description"></a><h5>
+<a name="id526108"></a>
+        <a href="concepts.html#boost_egg.concepts.pipable_function_object.description">Description</a>
       </h5>
 <p>
-        A <a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function Object</a>
-        is a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-        which behaves as if it were a "pipe" using <code class="computeroutput"><span class="keyword">operator</span><span class="special">|</span></code> and <code class="computeroutput"><span class="keyword">operator</span><span class="special">|=</span></code>.
+        A <a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
+        Object</a> is a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+        Object</a> which behaves as if it were a "pipe" using <code class="computeroutput"><span class="keyword">operator</span><span class="special">|</span></code>
+        and <code class="computeroutput"><span class="keyword">operator</span><span class="special">|=</span></code>.
       </p>
 <div class="tip"><table border="0" summary="Tip">
 <tr>
@@ -111,18 +116,18 @@
           is not misspelling of "pip<span class="underline">ea</span>ble".
         </p></td></tr>
 </table></div>
-<a name="egg.concepts.pipable_function_object.refinement_of"></a><h5>
-<a name="id526117"></a>
-        <a href="concepts.html#egg.concepts.pipable_function_object.refinement_of">Refinement
+<a name="boost_egg.concepts.pipable_function_object.refinement_of"></a><h5>
+<a name="id526212"></a>
+        <a href="concepts.html#boost_egg.concepts.pipable_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
-<a name="egg.concepts.pipable_function_object.requirements"></a><h5>
-<a name="id526157"></a>
-        <a href="concepts.html#egg.concepts.pipable_function_object.requirements">Requirements</a>
+<a name="boost_egg.concepts.pipable_function_object.requirements"></a><h5>
+<a name="id526252"></a>
+        <a href="concepts.html#boost_egg.concepts.pipable_function_object.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in the refinements, for any <a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function Object</a>
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function Object</a>
         <code class="computeroutput"><span class="identifier">p</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
@@ -149,9 +154,9 @@
           works with right-to-left associativity.
         </li>
 </ul></div>
-<a name="egg.concepts.pipable_function_object.example"></a><h5>
-<a name="id526555"></a>
-        <a href="concepts.html#egg.concepts.pipable_function_object.example">Example</a>
+<a name="boost_egg.concepts.pipable_function_object.example"></a><h5>
+<a name="id526651"></a>
+        <a href="concepts.html#boost_egg.concepts.pipable_function_object.example">Example</a>
       </h5>
 <p>
         </p>
@@ -192,27 +197,28 @@
         </p>
 <p>
       </p>
-<a name="egg.concepts.pipable_function_object.see_also"></a><h5>
-<a name="id527071"></a>
-        <a href="concepts.html#egg.concepts.pipable_function_object.see_also">See also</a>
+<a name="boost_egg.concepts.pipable_function_object.see_also"></a><h5>
+<a name="id527167"></a>
+        <a href="concepts.html#boost_egg.concepts.pipable_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
-<li><a href="function_adaptors.html#egg.function_adaptors.pipable" title="pipable"><code class="computeroutput"><span class="identifier">pipable</span></code></a></li>
-<li><a href="concepts.html#egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function Object</a></li>
+<li><a href="function_adaptors.html#boost_egg.function_adaptors.pipable" title="pipable"><code class="computeroutput"><span class="identifier">pipable</span></code></a></li>
+<li><a href="concepts.html#boost_egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function Object</a></li>
 <li><a href="http://en.wikipedia.org/wiki/Extension_method" target="_top">Extension method</a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.ambi_function_object"></a><a href="concepts.html#egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function Object</a></h3></div></div></div>
-<a name="egg.concepts.ambi_function_object.description"></a><h5>
-<a name="id527163"></a>
-        <a href="concepts.html#egg.concepts.ambi_function_object.description">Description</a>
+<a name="boost_egg.concepts.ambi_function_object"></a><a href="concepts.html#boost_egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function
+      Object</a></h3></div></div></div>
+<a name="boost_egg.concepts.ambi_function_object.description"></a><h5>
+<a name="id527262"></a>
+        <a href="concepts.html#boost_egg.concepts.ambi_function_object.description">Description</a>
       </h5>
 <p>
-        An <a href="concepts.html#egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function Object</a>
-        is a <a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
-        Object</a> which can be used also as free function.
+        An <a href="concepts.html#boost_egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function
+        Object</a> is a <a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable
+        Function Object</a> which can be used also as free function.
       </p>
 <div class="tip"><table border="0" summary="Tip">
 <tr>
@@ -223,18 +229,19 @@
           "ambi" is short of "ambidextrous".
         </p></td></tr>
 </table></div>
-<a name="egg.concepts.ambi_function_object.refinement_of"></a><h5>
-<a name="id527219"></a>
-        <a href="concepts.html#egg.concepts.ambi_function_object.refinement_of">Refinement
+<a name="boost_egg.concepts.ambi_function_object.refinement_of"></a><h5>
+<a name="id527319"></a>
+        <a href="concepts.html#boost_egg.concepts.ambi_function_object.refinement_of">Refinement
         of</a>
       </h5>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function Object</a></li></ul></div>
-<a name="egg.concepts.ambi_function_object.requirements"></a><h5>
-<a name="id527260"></a>
-        <a href="concepts.html#egg.concepts.ambi_function_object.requirements">Requirements</a>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
+          Object</a></li></ul></div>
+<a name="boost_egg.concepts.ambi_function_object.requirements"></a><h5>
+<a name="id527362"></a>
+        <a href="concepts.html#boost_egg.concepts.ambi_function_object.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in the refinements, for any <a href="concepts.html#egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function Object</a>
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#boost_egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function Object</a>
         <code class="computeroutput"><span class="identifier">i</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
@@ -254,14 +261,14 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-          A <a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
-          Object</a> can be overloaded with different arities, whereas <a href="concepts.html#egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi
+          A <a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
+          Object</a> can be overloaded with different arities, whereas <a href="concepts.html#boost_egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi
           Function Object</a> cannot.
         </p></td></tr>
 </table></div>
-<a name="egg.concepts.ambi_function_object.example"></a><h5>
-<a name="id527536"></a>
-        <a href="concepts.html#egg.concepts.ambi_function_object.example">Example</a>
+<a name="boost_egg.concepts.ambi_function_object.example"></a><h5>
+<a name="id527639"></a>
+        <a href="concepts.html#boost_egg.concepts.ambi_function_object.example">Example</a>
       </h5>
 <p>
         </p>
@@ -307,42 +314,44 @@
         </p>
 <p>
       </p>
-<a name="egg.concepts.ambi_function_object.see_also"></a><h5>
-<a name="id528140"></a>
-        <a href="concepts.html#egg.concepts.ambi_function_object.see_also">See also</a>
+<a name="boost_egg.concepts.ambi_function_object.see_also"></a><h5>
+<a name="id528243"></a>
+        <a href="concepts.html#boost_egg.concepts.ambi_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
-<li><a href="function_adaptors.html#egg.function_adaptors.ambin" title="ambiN"><code class="computeroutput"><span class="identifier">ambiN</span></code></a></li>
-<li><a href="concepts.html#egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function Object</a></li>
+<li><a href="function_adaptors.html#boost_egg.function_adaptors.ambin" title="ambiN"><code class="computeroutput"><span class="identifier">ambiN</span></code></a></li>
+<li><a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
+          Object</a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.major_function_object"></a><a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a></h3></div></div></div>
-<a name="egg.concepts.major_function_object.description"></a><h5>
-<a name="id528222"></a>
-        <a href="concepts.html#egg.concepts.major_function_object.description">Description</a>
+<a name="boost_egg.concepts.major_function_object"></a><a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major Function
+      Object</a></h3></div></div></div>
+<a name="boost_egg.concepts.major_function_object.description"></a><h5>
+<a name="id528327"></a>
+        <a href="concepts.html#boost_egg.concepts.major_function_object.description">Description</a>
       </h5>
 <p>
-        A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>
-        is a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
+        A <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major Function
+        Object</a> is a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
         Function Object</a> which can be used with <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>. Egg is a library which helps
-        you define your own <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+        you define your own <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
         Function Object</a>.
       </p>
-<a name="egg.concepts.major_function_object.refinement_of"></a><h5>
-<a name="id528291"></a>
-        <a href="concepts.html#egg.concepts.major_function_object.refinement_of">Refinement
+<a name="boost_egg.concepts.major_function_object.refinement_of"></a><h5>
+<a name="id528398"></a>
+        <a href="concepts.html#boost_egg.concepts.major_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
           Function Object</a></li></ul></div>
-<a name="egg.concepts.major_function_object.requirements"></a><h5>
-<a name="id528333"></a>
-        <a href="concepts.html#egg.concepts.major_function_object.requirements">Requirements</a>
+<a name="boost_egg.concepts.major_function_object.requirements"></a><h5>
+<a name="id528440"></a>
+        <a href="concepts.html#boost_egg.concepts.major_function_object.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in the refinements, for any <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>
         <code class="computeroutput"><span class="identifier">f</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -358,9 +367,9 @@
           This concept can be implemented without depending on <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a> library.
         </p></td></tr>
 </table></div>
-<a name="egg.concepts.major_function_object.see_also"></a><h5>
-<a name="id528453"></a>
-        <a href="concepts.html#egg.concepts.major_function_object.see_also">See also</a>
+<a name="boost_egg.concepts.major_function_object.see_also"></a><h5>
+<a name="id528563"></a>
+        <a href="concepts.html#boost_egg.concepts.major_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a></li>
@@ -369,42 +378,44 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.static_function_object"></a><a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function
+<a name="boost_egg.concepts.static_function_object"></a><a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
       Object</a></h3></div></div></div>
-<a name="egg.concepts.static_function_object.description"></a><h5>
-<a name="id528529"></a>
-        <a href="concepts.html#egg.concepts.static_function_object.description">Description</a>
+<a name="boost_egg.concepts.static_function_object.description"></a><h5>
+<a name="id528641"></a>
+        <a href="concepts.html#boost_egg.concepts.static_function_object.description">Description</a>
       </h5>
 <p>
-        A <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a>
-        is a <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>
-        which is intended to replace normal functions.
+        A <a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
+        Object</a> is a <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
+        Function Object</a> which is intended to replace normal functions.
       </p>
-<a name="egg.concepts.static_function_object.refinement_of"></a><h5>
-<a name="id528578"></a>
-        <a href="concepts.html#egg.concepts.static_function_object.refinement_of">Refinement
+<a name="boost_egg.concepts.static_function_object.refinement_of"></a><h5>
+<a name="id528690"></a>
+        <a href="concepts.html#boost_egg.concepts.static_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
-<li><a href="concepts.html#egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed Object</a></li>
-<li><a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a></li>
+<li><a href="concepts.html#boost_egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically Typed
+          Object</a></li>
+<li><a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major Function
+          Object</a></li>
 </ul></div>
-<a name="egg.concepts.static_function_object.requirements"></a><h5>
-<a name="id528633"></a>
-        <a href="concepts.html#egg.concepts.static_function_object.requirements">Requirements</a>
+<a name="boost_egg.concepts.static_function_object.requirements"></a><h5>
+<a name="id528746"></a>
+        <a href="concepts.html#boost_egg.concepts.static_function_object.requirements">Requirements</a>
       </h5>
 <p>
-        In addition to the requirements defined in the refinements, for any <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a>
+        In addition to the requirements defined in the refinements, for any <a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a>
         <code class="computeroutput"><span class="identifier">f</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+<code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
           is <span class="emphasis"><em>POD</em></span> in C++03 (a <span class="emphasis"><em>trivial type</em></span>
           in C++0x).
         </li>
 <li>
-<code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+<code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
           is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
           Constructible</a> and <a href="http://boost.org/doc/html/Assignable.html" target="_top">Copy
           Assignable</a>.
@@ -414,11 +425,11 @@
           initialized</em></span>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__decltype</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span> <span class="keyword">const</span></code>.
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__decltype</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span> <span class="keyword">const</span></code>.
         </li>
 <li>
-          If <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span>
-          <span class="keyword">const</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is a valid expression, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is a valid expression which is the
+          If <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span>
+          <span class="keyword">const</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is a valid expression, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is a valid expression which is the
           same type.
         </li>
 </ul></div>
@@ -428,14 +439,15 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-          A <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static Function Object</a>
-          can be <span class="emphasis"><em>singular</em></span>, meaning that it may result in undefined
-          behavior to call a <span class="emphasis"><em>default constructed</em></span> one.
+          A <a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
+          Object</a> can be <span class="emphasis"><em>singular</em></span>, meaning that it may
+          result in undefined behavior to call a <span class="emphasis"><em>default constructed</em></span>
+          one.
         </p></td></tr>
 </table></div>
-<a name="egg.concepts.static_function_object.example"></a><h5>
-<a name="id529122"></a>
-        <a href="concepts.html#egg.concepts.static_function_object.example">Example</a>
+<a name="boost_egg.concepts.static_function_object.example"></a><h5>
+<a name="id529238"></a>
+        <a href="concepts.html#boost_egg.concepts.static_function_object.example">Example</a>
       </h5>
 <p>
         </p>
@@ -450,30 +462,30 @@
         </p>
 <p>
       </p>
-<a name="egg.concepts.static_function_object.see_also"></a><h5>
-<a name="id529257"></a>
-        <a href="concepts.html#egg.concepts.static_function_object.see_also">See also</a>
+<a name="boost_egg.concepts.static_function_object.see_also"></a><h5>
+<a name="id529374"></a>
+        <a href="concepts.html#boost_egg.concepts.static_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.little_function"></a><a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a></h3></div></div></div>
-<a name="egg.concepts.little_function.description"></a><h5>
-<a name="id529319"></a>
-        <a href="concepts.html#egg.concepts.little_function.description">Description</a>
+<a name="boost_egg.concepts.little_function"></a><a href="concepts.html#boost_egg.concepts.little_function" title="Little Function">Little Function</a></h3></div></div></div>
+<a name="boost_egg.concepts.little_function.description"></a><h5>
+<a name="id529436"></a>
+        <a href="concepts.html#boost_egg.concepts.little_function.description">Description</a>
       </h5>
 <p>
-        A <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a> type
-        is a type which <a href="function_builders.html" title="Function Builders">Function Builders</a>
-        require.
+        A <a href="concepts.html#boost_egg.concepts.little_function" title="Little Function">Little Function</a>
+        type is a type which <a href="function_builders.html" title="Function Builders">Function
+        Builders</a> require.
       </p>
-<a name="egg.concepts.little_function.requirements"></a><h5>
-<a name="id529365"></a>
-        <a href="concepts.html#egg.concepts.little_function.requirements">Requirements</a>
+<a name="boost_egg.concepts.little_function.requirements"></a><h5>
+<a name="id529483"></a>
+        <a href="concepts.html#boost_egg.concepts.little_function.requirements">Requirements</a>
       </h5>
 <p>
-        For any <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little Function</a>
+        For any <a href="concepts.html#boost_egg.concepts.little_function" title="Little Function">Little Function</a>
         type <code class="computeroutput"><span class="identifier">L</span></code> the following must
         be met:
       </p>
@@ -488,9 +500,9 @@
           whose return type is explicitly specified by the first template parameter.
         </li>
 </ul></div>
-<a name="egg.concepts.little_function.example"></a><h5>
-<a name="id529502"></a>
-        <a href="concepts.html#egg.concepts.little_function.example">Example</a>
+<a name="boost_egg.concepts.little_function.example"></a><h5>
+<a name="id529620"></a>
+        <a href="concepts.html#boost_egg.concepts.little_function.example">Example</a>
       </h5>
 <p>
         </p>
@@ -517,9 +529,9 @@
         </p>
 <p>
       </p>
-<a name="egg.concepts.little_function.see_also"></a><h5>
-<a name="id529782"></a>
-        <a href="concepts.html#egg.concepts.little_function.see_also">See also</a>
+<a name="boost_egg.concepts.little_function.see_also"></a><h5>
+<a name="id529902"></a>
+        <a href="concepts.html#boost_egg.concepts.little_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="function_builders.html" title="Function Builders">Function Builders</a></li>
@@ -528,7 +540,7 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.concepts.result_of_tutorial"></a><a href="concepts.html#egg.concepts.result_of_tutorial" title="result_of tutorial">result_of tutorial</a></h3></div></div></div>
+<a name="boost_egg.concepts.result_of_tutorial"></a><a href="concepts.html#boost_egg.concepts.result_of_tutorial" title="result_of tutorial">result_of tutorial</a></h3></div></div></div>
 <div class="caution"><table border="0" summary="Caution">
 <tr>
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../../../doc/html/images/caution.png"></td>
@@ -539,9 +551,10 @@
           outdated.
         </p></td></tr>
 </table></div>
-<a name="egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id529873"></a>
-        <a href="concepts.html#egg.concepts.result_of_tutorial.how_to_call">How to call</a>
+<a name="boost_egg.concepts.result_of_tutorial.how_to_call"></a><h5>
+<a name="id529994"></a>
+        <a href="concepts.html#boost_egg.concepts.result_of_tutorial.how_to_call">How to
+        call</a>
       </h5>
 <p>
         Lvalues are indicated by passing a reference type, rvalues are indicated
@@ -621,7 +634,7 @@
       </p>
 <p>
         However, if a library guarantees the same behavior between <span class="emphasis"><em>const-qualified</em></span>
-        type and non-<span class="emphasis"><em>const-qualified</em></span> type (as <a href="concepts.html#egg.concepts.static_function_object" title="Static Function Object">Static
+        type and non-<span class="emphasis"><em>const-qualified</em></span> type (as <a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static
         Function Object</a> does so), you could omit <code class="computeroutput"><span class="keyword">const</span></code>:
         </p>
 <p>
@@ -638,9 +651,9 @@
         </p>
 <p>
       </p>
-<a name="egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id531067"></a>
-        <a href="concepts.html#egg.concepts.result_of_tutorial.bugs">Bugs</a>
+<a name="boost_egg.concepts.result_of_tutorial.bugs"></a><h5>
+<a name="id531191"></a>
+        <a href="concepts.html#boost_egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -655,11 +668,11 @@
         in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">result_of</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
         The first bug is fixed with Boost1.35.
       </p>
-<a name="egg.concepts.result_of_tutorial.see_also"></a><h5>
-<a name="id531192"></a>
-        <a href="concepts.html#egg.concepts.result_of_tutorial.see_also">See also</a>
+<a name="boost_egg.concepts.result_of_tutorial.see_also"></a><h5>
+<a name="id531315"></a>
+        <a href="concepts.html#boost_egg.concepts.result_of_tutorial.see_also">See also</a>
       </h5>
-<div class="itemizedlist"><ul type="disc"><li><a href="workarounds.html#egg.workarounds.result__of_" title="result_of_"><code class="computeroutput"><span class="identifier">egg</span><span class="special">::</span><span class="identifier">result_of_</span></code></a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="workarounds.html#boost_egg.workarounds.result__of_" title="result_of_"><code class="computeroutput"><span class="identifier">egg</span><span class="special">::</span><span class="identifier">result_of_</span></code></a></li></ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

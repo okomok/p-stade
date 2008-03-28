@@ -25,10 +25,12 @@
 #define BOOST_EGG_NEST_NAMES \
     /* using */ boost::lambda::_1; using boost::lambda::_2; using boost::lambda::_3 \
     BOOST_PP_REPEAT_FROM_TO(0, BOOST_PP_INC(BOOST_EGG_MAX_ARITY), BOOST_EGG_NEST_NAMES_using_nest, ~) \
+    BOOST_PP_REPEAT_FROM_TO(0, BOOST_PP_INC(BOOST_EGG_MAX_ARITY), BOOST_EGG_NEST_NAMES_using_ref, ~) \
     BOOST_PP_REPEAT_FROM_TO(0, BOOST_EGG_MAX_ARITY, BOOST_EGG_NEST_NAMES_using_N_, ~) \
 /**/
 
     #define BOOST_EGG_NEST_NAMES_using_nest(Z, N, Unused) ; using boost::egg::BOOST_PP_CAT(nest, N)
+    #define BOOST_EGG_NEST_NAMES_using_ref(Z, N, Unused) ; using boost::egg::BOOST_PP_CAT(ref, N)
     #define BOOST_EGG_NEST_NAMES_using_N_(Z, N, Unused) ; using boost::egg::BOOST_EGG_PP_CAT3(_, N, _)
 
 
