@@ -10,14 +10,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/typeof/std/memory.hpp> // allocator
 #include <boost/typeof/typeof.hpp>
 #include <boost/egg/detail/boost_function_fwd.hpp>
+#if defined(BOOST_FUNCTION_DEFAULT_ALLOCATOR)
+    #include <boost/typeof/std/memory.hpp> // allocator
+#endif
 
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
 
-BOOST_TYPEOF_REGISTER_TEMPLATE(boost::function, (class)(class))
+#if defined(BOOST_FUNCTION_DEFAULT_ALLOCATOR)
+    BOOST_TYPEOF_REGISTER_TEMPLATE(boost::function, (class)(class))
+#else
+    BOOST_TYPEOF_REGISTER_TEMPLATE(boost::function, (class))
+#endif
 
 
 #endif
