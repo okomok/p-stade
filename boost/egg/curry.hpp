@@ -33,7 +33,7 @@ namespace boost { namespace egg {
 
 
     // for curry2 implementation
-    template<class Base, class Target = use_default>
+    template<class Base, class Target = Base>
     struct result_of_curry1
     {
         typedef Base type;
@@ -67,7 +67,6 @@ namespace boost { namespace egg {
     // => bind_left1(bind_left3, fun4)(a1, a2, a3)(a4)
     // => bind_left3(fun4, a1, a2, a3)(a4)
     // => fun4(a1, a2, a3, a4)
-
 
     template<class Base, class Target = Base>
     struct BOOST_PP_CAT(result_of_curry, n) :
