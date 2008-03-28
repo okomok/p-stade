@@ -224,6 +224,9 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 [heading Invariants]
 * `result_of_curry%%N<__PFo>::type` is __POD__ if and only if `__PFo` is __POD__.
 
+[note Arguments except for the last one are captured by-value.
+      When you need to capture by-reference, pass arguments using `boost::ref`. ]
+
 [heading Example]
 [import ../example/curry.cpp]
 [code_example_curry]
@@ -232,6 +235,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 * __CURRYING__
 * __EGG_UNCURRY__
 * __EGG_NEST__
+* __BOOST_REF__
 
 [endsect]
 
@@ -975,6 +979,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [heading Notation]
 * `bll_bind` is an imaginary __FUNCTION_OBJECT__ behaving as if it were `boost::lambda::bind`.
+* `wrap_ref_` is an imaginary __FUNCTION_OBJECT__ behaving as if it were `boost::ref`.
+* `unwrap_ref_` is an imaginary __FUNCTION_OBJECT__ which extracts a wrapped reference from `boost::reference_wrapper`.
 * `bind_` is `bll_bind` if `Bind` is `__ud`, `Bind()` otherwise.
 * `protect_` is `boost::lambda::protect` if `Protect` is `__ud`, `Protect()` otherwise.
 * `LAZY(N)` is:
@@ -1001,6 +1007,18 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
         [`X_nest%%N<>()(x)`]
     ]
     [
+        [`X_ref%%N<Bind = __ud>`]
+        [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
+    ]
+    [
+        [`X_ref%%N<Bind>()`]
+        [__POLYMORPHIC__ `compose(X_nest%%N<Bind>()(unwrap_ref_), wrap_ref_)`]
+    ]
+    [
+        [`ref%%N`]
+        [__CONCEPT_STATIC__ `X_ref%%N<>()`]
+    ]
+    [
         [`XX_%%M%%_<Protect = __ud>`]
         [A __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
@@ -1014,7 +1032,7 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
     ]
     [
         [`using BOOST_EGG_NEST_NAMES;`]
-        [['using-declaration]\ s of `nest%%N`, `_%%M%%_`, and `boost::lambda::_%%K`]
+        [['using-declaration]\ s of `nest%%N`, `ref%%N`, `_%%M%%_`, and `boost::lambda::_%%K`.]
     ]
 ]
 
@@ -1022,6 +1040,8 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `0 <= N && N <= BOOST_EGG_MAX_ARITY`.
 * `0 <= M && M <= N-1`.
 [/ * __PRECONDITION_AS_IS__ ]
+
+[important For capturing by-reference in nested lambda expressions, `refN` must be used instead of `boost::ref`. ]
 
 [heading Example]
 [import ../example/nest.cpp]

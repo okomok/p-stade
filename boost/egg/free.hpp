@@ -120,10 +120,8 @@ namespace boost { namespace egg {
     };
 
 
-#define BOOST_EGG_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_max_arity, <boost/egg/free.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY), <boost/egg/free.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  BOOST_EGG_max_arity
 
 
     namespace free_detail {

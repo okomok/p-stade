@@ -111,7 +111,7 @@ Let's look into some usefull adaptors.
 
 [heading Getting initializers]
 
-As mentioned [link egg.overview.introduction.pod_oriented_programming before], the __STATIC_INITIALIZATION__ is important.
+As mentioned [link boost_egg.overview.introduction.pod_oriented_programming before], the __STATIC_INITIALIZATION__ is important.
 What if you don't know a braced-initializer of a __FUNCTION_OBJECT__ you are adapting? __EGG_INDIRECT__ helps:
 [code_quick_start_indirect]
 

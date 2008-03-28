@@ -18,7 +18,7 @@
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/type_traits/is_same.hpp>
 #include <boost/egg/by_perfect.hpp>
-#include <boost/egg/detail/boost_reference_wrapper_fwd.hpp>
+#include <boost/egg/detail/boost_ref_fwd.hpp>
 #include <boost/egg/detail/little_generator.hpp>
 #include <boost/egg/detail/pass_by_value.hpp>
 #include <boost/egg/detail/unspecified.hpp>

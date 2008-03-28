@@ -52,10 +52,8 @@
 
 
     #define BOOST_EGG_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
-    #define BOOST_EGG_max_arity BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_EGG_max_arity, <boost/egg/detail/bind_n.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_EGG_MAX_LINEAR_ARITY), <boost/egg/detail/bind_n.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  BOOST_EGG_max_arity
     #undef  BOOST_EGG_arg
 
 

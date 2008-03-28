@@ -4,8 +4,8 @@
 <title>Function Builders</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="../index.html" title="Chapter 1. Egg 0.90.5">
-<link rel="up" href="../index.html" title="Chapter 1. Egg 0.90.5">
+<link rel="start" href="../index.html" title="Chapter 1. Boost.Egg Review">
+<link rel="up" href="../index.html" title="Chapter 1. Boost.Egg Review">
 <link rel="prev" href="forwarding_strategies.html" title="Forwarding Strategies">
 <link rel="next" href="function_adaptors.html" title="Function Adaptors">
 </head>
@@ -17,45 +17,45 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="egg.function_builders"></a><a href="function_builders.html" title="Function Builders">Function Builders</a></h2></div></div></div>
+<a name="boost_egg.function_builders"></a><a href="function_builders.html" title="Function Builders">Function Builders</a></h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.function">function</a></span></dt>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.function_facade">function_facade</a></span></dt>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.generator">generator</a></span></dt>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.implicit">implicit</a></span></dt>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.poly">poly</a></span></dt>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.static_">static_</a></span></dt>
-<dt><span class="section"><a href="function_builders.html#egg.function_builders.variadic">variadic</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#boost_egg.function_builders.function">function</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#boost_egg.function_builders.function_facade">function_facade</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#boost_egg.function_builders.generator">generator</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#boost_egg.function_builders.implicit">implicit</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#boost_egg.function_builders.poly">poly</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#boost_egg.function_builders.static_">static_</a></span></dt>
+<dt><span class="section"><a href="function_builders.html#boost_egg.function_builders.variadic">variadic</a></span></dt>
 </dl></div>
 <p>
-      Function builders build <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+      Function builders build <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
       Function Object</a> types, which can be used with <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code> and
       <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>.
     </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.function"></a><a href="function_builders.html#egg.function_builders.function" title="function">function</a></h3></div></div></div>
-<a name="egg.function_builders.function.description"></a><h5>
-<a name="id543341"></a>
-        <a href="function_builders.html#egg.function_builders.function.description">Description</a>
+<a name="boost_egg.function_builders.function"></a><a href="function_builders.html#boost_egg.function_builders.function" title="function">function</a></h3></div></div></div>
+<a name="boost_egg.function_builders.function.description"></a><h5>
+<a name="id543539"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">function</span></code> is the "kernel"
-        class template which transforms a <a href="concepts.html#egg.concepts.little_function" title="Little Function">Little
-        Function</a> into a <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+        class template which transforms a <a href="concepts.html#boost_egg.concepts.little_function" title="Little Function">Little
+        Function</a> into a <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
         Function Object</a>.
       </p>
-<a name="egg.function_builders.function.header"></a><h5>
-<a name="id543398"></a>
-        <a href="function_builders.html#egg.function_builders.function.header">Header</a>
+<a name="boost_egg.function_builders.function.header"></a><h5>
+<a name="id543601"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.function.synopsys"></a><h5>
-<a name="id543481"></a>
-        <a href="function_builders.html#egg.function_builders.function.synopsys">Synopsys</a>
+<a name="boost_egg.function_builders.function.synopsys"></a><h5>
+<a name="id543684"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.synopsys">Synopsys</a>
       </h5>
 <pre class="programlisting">
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Little</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Stg</span> <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Little</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Stg</span> <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">function</span>
 <span class="special">{</span>
     <span class="keyword">typedef</span> <span class="identifier">Little</span> <span class="identifier">little_type</span><span class="special">;</span>
@@ -68,16 +68,17 @@
 </span>    <span class="comment">// ...
 </span><span class="special">};</span>
 </pre>
-<a name="egg.function_builders.function.notation"></a><h5>
-<a name="id543753"></a>
-        <a href="function_builders.html#egg.function_builders.function.notation">Notation</a>
+<a name="boost_egg.function_builders.function.notation"></a><h5>
+<a name="id543958"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>.
+<code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>.
         </li></ul></div>
-<a name="egg.function_builders.function.valid_expressions"></a><h5>
-<a name="id543854"></a>
-        <a href="function_builders.html#egg.function_builders.function.valid_expressions">Valid expressions</a>
+<a name="boost_egg.function_builders.function.valid_expressions"></a><h5>
+<a name="id544059"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.valid_expressions">Valid
+        expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -100,12 +101,12 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
+                <code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
               </p>
               </td>
 <td>
               <p>
-                An <span class="emphasis"><em>aggregate</em></span> <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+                An <span class="emphasis"><em>aggregate</em></span> <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
                 Function Object</a> type
               </p>
               </td>
@@ -118,7 +119,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">little</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a> <span class="keyword">const</span><span class="special">,</span> <a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;(</span><a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
+                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">little</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a> <span class="keyword">const</span><span class="special">,</span> <a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;(</span><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
               </p>
               </td>
 </tr>
@@ -130,45 +131,45 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">little</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">::</span><span class="identifier">nullary_result_type</span><span class="special">&gt;()</span></code>
+                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">little</span><span class="special">().</span><span class="identifier">call</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">::</span><span class="identifier">nullary_result_type</span><span class="special">&gt;()</span></code>
               </p>
               </td>
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.function.preconditions"></a><h5>
-<a name="id544369"></a>
-        <a href="function_builders.html#egg.function_builders.function.preconditions">Preconditions</a>
+<a name="boost_egg.function_builders.function.preconditions"></a><h5>
+<a name="id544575"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code>
+<code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code>
           is <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy Constructible</a>.
         </li></ul></div>
-<a name="egg.function_builders.function.invariants"></a><h5>
-<a name="id544429"></a>
-        <a href="function_builders.html#egg.function_builders.function.invariants">Invariants</a>
+<a name="boost_egg.function_builders.function.invariants"></a><h5>
+<a name="id544637"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
-          is <span class="emphasis"><em>POD</em></span> if and only if <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code> is <span class="emphasis"><em>POD</em></span>.
+<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
+          is <span class="emphasis"><em>POD</em></span> if and only if <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code> is <span class="emphasis"><em>POD</em></span>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
+<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
           is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
-          Constructible</a> if and only if <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code> is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a> if and only if <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code> is <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
           Constructible</a>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
+<code class="computeroutput"><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;</span></code>
           is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Copy Assignable</a>
-          if and only if <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Copy
+          if and only if <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Copy
           Assignable</a>.
         </li>
 </ul></div>
-<a name="egg.function_builders.function.example"></a><h5>
-<a name="id544738"></a>
-        <a href="function_builders.html#egg.function_builders.function.example">Example</a>
+<a name="boost_egg.function_builders.function.example"></a><h5>
+<a name="id544949"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.example">Example</a>
       </h5>
 <p>
         </p>
@@ -181,7 +182,7 @@
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Me</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">apply</span>
     <span class="special">{</span>
-        <span class="keyword">typedef</span> <span class="identifier">A</span> <span class="special">&amp;</span><span class="identifier">type</span><span class="special">;</span> <span class="callout_bug"><a name="egg33co" href="function_builders.html#egg33"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+        <span class="keyword">typedef</span> <span class="identifier">A</span> <span class="special">&amp;</span><span class="identifier">type</span><span class="special">;</span> <span class="callout_bug"><a name="boost_egg33co" href="function_builders.html#boost_egg33"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
     <span class="special">};</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Me</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
@@ -197,7 +198,7 @@
     <span class="special">};</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Re</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A</span><span class="special">&gt;</span>
-    <span class="identifier">Re</span> <span class="identifier">call</span><span class="special">(</span><span class="identifier">A</span> <span class="special">&amp;</span><span class="identifier">a</span><span class="special">)</span> <span class="keyword">const</span> <span class="callout_bug"><a name="egg34co" href="function_builders.html#egg34"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+    <span class="identifier">Re</span> <span class="identifier">call</span><span class="special">(</span><span class="identifier">A</span> <span class="special">&amp;</span><span class="identifier">a</span><span class="special">)</span> <span class="keyword">const</span> <span class="callout_bug"><a name="boost_egg34co" href="function_builders.html#boost_egg34"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
     <span class="special">{</span>
         <span class="keyword">return</span> <span class="identifier">a</span><span class="special">;</span>
     <span class="special">}</span>
@@ -222,13 +223,13 @@
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg33"></a><a href="#egg33co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="boost_egg33"></a><a href="#boost_egg33co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">A</span></code> is possibly <span class="emphasis"><em>cv-qualified</em></span>
           but not <span class="emphasis"><em>reference type</em></span>. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="egg34"></a><a href="#egg34co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<a name="boost_egg34"></a><a href="#boost_egg34co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">Re</span></code>
           is <code class="computeroutput"><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">little_unwrap</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;::</span><span class="identifier">type</span></code>, which is passed by Egg. </p></td>
 </tr>
@@ -237,38 +238,38 @@
         </p>
 <p>
       </p>
-<a name="egg.function_builders.function.see_also"></a><h5>
-<a name="id545742"></a>
-        <a href="function_builders.html#egg.function_builders.function.see_also">See also</a>
+<a name="boost_egg.function_builders.function.see_also"></a><h5>
+<a name="id545958"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a></li>
-<li><a href="function_builders.html#egg.function_builders.function_facade" title="function_facade"><code class="computeroutput"><span class="identifier">function_facade</span></code></a></li>
-<li><a href="workarounds.html#egg.workarounds.overloaded" title="OVERLOADED"><code class="computeroutput"><span class="identifier">BOOST_EGG_OVERLOADED</span></code></a></li>
+<li><a href="function_builders.html#boost_egg.function_builders.function_facade" title="function_facade"><code class="computeroutput"><span class="identifier">function_facade</span></code></a></li>
+<li><a href="workarounds.html#boost_egg.workarounds.overloaded" title="OVERLOADED"><code class="computeroutput"><span class="identifier">BOOST_EGG_OVERLOADED</span></code></a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.function_facade"></a><a href="function_builders.html#egg.function_builders.function_facade" title="function_facade">function_facade</a></h3></div></div></div>
-<a name="egg.function_builders.function_facade.description"></a><h5>
-<a name="id545847"></a>
-        <a href="function_builders.html#egg.function_builders.function_facade.description">Description</a>
+<a name="boost_egg.function_builders.function_facade"></a><a href="function_builders.html#boost_egg.function_builders.function_facade" title="function_facade">function_facade</a></h3></div></div></div>
+<a name="boost_egg.function_builders.function_facade.description"></a><h5>
+<a name="id546062"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function_facade.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">function_facade</span></code> creates a
-        new <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>
-        type using "CRTP". Though a type built from <code class="computeroutput"><span class="identifier">function_facade</span></code>
-        can't be <span class="emphasis"><em>POD</em></span>, it can have non-default constructors.
-        This can be regarded as a port of <a href="http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826" target="_top"><code class="computeroutput"><span class="identifier">callable</span></code></a> to Egg.
+        new <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major Function
+        Object</a> type using "CRTP". Though a type built from <code class="computeroutput"><span class="identifier">function_facade</span></code> can't be <span class="emphasis"><em>POD</em></span>,
+        it can have non-default constructors. This can be regarded as a port of
+        <a href="http://article.gmane.org/gmane.comp.parsers.spirit.devel/2826" target="_top"><code class="computeroutput"><span class="identifier">callable</span></code></a> to Egg.
       </p>
-<a name="egg.function_builders.function_facade.header"></a><h5>
-<a name="id545932"></a>
-        <a href="function_builders.html#egg.function_builders.function_facade.header">Header</a>
+<a name="boost_egg.function_builders.function_facade.header"></a><h5>
+<a name="id546148"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function_facade.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">function_facade</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.function_facade.valid_expressions"></a><h5>
-<a name="id546015"></a>
-        <a href="function_builders.html#egg.function_builders.function_facade.valid_expressions">Valid
+<a name="boost_egg.function_builders.function_facade.valid_expressions"></a><h5>
+<a name="id546232"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function_facade.valid_expressions">Valid
         expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -292,54 +293,54 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a></code>
               </p>
               </td>
 <td>
               <p>
-                A <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
-                Object</a>
-              </p>
-              </td>
-</tr>
-<tr>
-<td>
-              <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
-              </p>
-              </td>
-<td>
-              <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">)::</span><span class="identifier">apply</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">)</span> <span class="keyword">const</span><span class="special">,</span> <a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;(</span><a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
+                A <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
+                Function Object</a>
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">()</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">)</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">R0</span><span class="special">&gt;()</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">)::</span><span class="identifier">apply</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">)</span> <span class="keyword">const</span><span class="special">,</span> <a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;(</span><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
+              </p>
+              </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">()</span></code>
+              </p>
+              </td>
+<td>
+              <p>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">.</span><span class="identifier">call</span><span class="special">&lt;</span><span class="identifier">R0</span><span class="special">&gt;()</span></code>
               </p>
               </td>
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.function_facade.preconditions"></a><h5>
-<a name="id546529"></a>
-        <a href="function_builders.html#egg.function_builders.function_facade.preconditions">Preconditions</a>
+<a name="boost_egg.function_builders.function_facade.preconditions"></a><h5>
+<a name="id546752"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function_facade.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a></code>
-          is an object whose type is derived from <code class="computeroutput"><span class="identifier">function_facade</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">),</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a> <span class="special">=</span>
-          <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">R0</span> <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;</span></code>.
+<code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a></code>
+          is an object whose type is derived from <code class="computeroutput"><span class="identifier">function_facade</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">),</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a> <span class="special">=</span>
+          <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">R0</span> <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;</span></code>.
         </li></ul></div>
-<a name="egg.function_builders.function_facade.example"></a><h5>
-<a name="id546712"></a>
-        <a href="function_builders.html#egg.function_builders.function_facade.example">Example</a>
+<a name="boost_egg.function_builders.function_facade.example"></a><h5>
+<a name="id546937"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function_facade.example">Example</a>
       </h5>
 <p>
         </p>
@@ -370,7 +371,7 @@
     <span class="identifier">T</span> <span class="identifier">m_x</span><span class="special">;</span>
 <span class="special">};</span>
 
-<span class="callout_bug"><a name="egg35co" href="function_builders.html#egg35"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+<span class="callout_bug"><a name="boost_egg35co" href="function_builders.html#boost_egg35"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
 <span class="identifier">plus_to</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">make_plus_to</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">x</span><span class="special">)</span>
 <span class="special">{</span>
@@ -390,44 +391,45 @@
           </p>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left">
-<a name="egg35"></a><a href="#egg35co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="boost_egg35"></a><a href="#boost_egg35co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">plus_to</span><span class="special">&lt;&gt;</span></code>
-          is already <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major Function
-          Object</a> type. </p></td>
+          is already <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
+          Function Object</a> type. </p></td>
 </tr></table></div>
 <p>
         </p>
 <p>
       </p>
-<a name="egg.function_builders.function_facade.see_also"></a><h5>
-<a name="id547443"></a>
-        <a href="function_builders.html#egg.function_builders.function_facade.see_also">See also</a>
+<a name="boost_egg.function_builders.function_facade.see_also"></a><h5>
+<a name="id547670"></a>
+        <a href="function_builders.html#boost_egg.function_builders.function_facade.see_also">See
+        also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a></li>
-<li><a href="function_builders.html#egg.function_builders.function" title="function"><code class="computeroutput"><span class="identifier">function</span></code></a></li>
-<li><a href="workarounds.html#egg.workarounds.overloaded" title="OVERLOADED"><code class="computeroutput"><span class="identifier">BOOST_EGG_OVERLOADED</span></code></a></li>
+<li><a href="function_builders.html#boost_egg.function_builders.function" title="function"><code class="computeroutput"><span class="identifier">function</span></code></a></li>
+<li><a href="workarounds.html#boost_egg.workarounds.overloaded" title="OVERLOADED"><code class="computeroutput"><span class="identifier">BOOST_EGG_OVERLOADED</span></code></a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.generator"></a><a href="function_builders.html#egg.function_builders.generator" title="generator">generator</a></h3></div></div></div>
-<a name="egg.function_builders.generator.description"></a><h5>
-<a name="id547545"></a>
-        <a href="function_builders.html#egg.function_builders.generator.description">Description</a>
+<a name="boost_egg.function_builders.generator"></a><a href="function_builders.html#boost_egg.function_builders.generator" title="generator">generator</a></h3></div></div></div>
+<a name="boost_egg.function_builders.generator.description"></a><h5>
+<a name="id547772"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">generator</span></code> builds <a href="http://www.boost.org/more/generic_programming.html#object_generator" target="_top">Object
         Generators</a>.
       </p>
-<a name="egg.function_builders.generator.header"></a><h5>
-<a name="id547591"></a>
-        <a href="function_builders.html#egg.function_builders.generator.header">Header</a>
+<a name="boost_egg.function_builders.generator.header"></a><h5>
+<a name="id547821"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.generator.notation"></a><h5>
-<a name="id547675"></a>
-        <a href="function_builders.html#egg.function_builders.generator.notation">Notation</a>
+<a name="boost_egg.function_builders.generator.notation"></a><h5>
+<a name="id547904"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -446,25 +448,26 @@
 </ul></div>
 </li>
 <li>
-<code class="computeroutput"><span class="identifier">g</span></code> is an object of <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">,</span>
+<code class="computeroutput"><span class="identifier">g</span></code> is an object of <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">,</span>
           <span class="identifier">Cons</span><span class="special">,</span>
           <span class="identifier">R0</span><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">(</span><span class="identifier">Lam</span><span class="special">),</span> <a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">(</span><span class="identifier">Lam</span><span class="special">),</span> <a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">Cst</span><span class="special">(</span><span class="identifier">U</span><span class="special">)</span></code> is
-          <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">X_construct</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_2</span><span class="special">&gt;,</span> <span class="identifier">U</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code> if <code class="computeroutput"><span class="identifier">Cons</span></code>
-          is <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a></code>,
-          <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Cons</span><span class="special">,</span> <span class="identifier">U</span><span class="special">,</span>
-          <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+          <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">X_construct</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_2</span><span class="special">&gt;,</span> <span class="identifier">U</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code> if <code class="computeroutput"><span class="identifier">Cons</span></code>
+          is <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a></code>,
+          <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Cons</span><span class="special">,</span> <span class="identifier">U</span><span class="special">,</span>
+          <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
           otherwise.
         </li>
 </ul></div>
-<a name="egg.function_builders.generator.valid_expressions"></a><h5>
-<a name="id548306"></a>
-        <a href="function_builders.html#egg.function_builders.generator.valid_expressions">Valid expressions</a>
+<a name="boost_egg.function_builders.generator.valid_expressions"></a><h5>
+<a name="id548537"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.valid_expressions">Valid
+        expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -488,16 +491,16 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
                 <span class="identifier">Cons</span> <span class="special">=</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">R0</span>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">R0</span>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 <td>
               <p>
-                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
                 Function Object</a> type
               </p>
               </td>
@@ -510,7 +513,7 @@
               </td>
 <td>
               <p>
-                A braced initializer of <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">,</span>
+                A braced initializer of <code class="computeroutput"><span class="identifier">generator</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">,</span>
                 <span class="identifier">Cons</span><span class="special">,</span>
                 <span class="identifier">R0</span><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
@@ -524,7 +527,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">Cst</span><span class="special">(</span><span class="identifier">T</span><span class="special">)()(</span><a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__fwd_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
+                <code class="computeroutput"><span class="identifier">Cst</span><span class="special">(</span><span class="identifier">T</span><span class="special">)()(</span><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__fwd_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
               </p>
               </td>
 </tr>
@@ -536,15 +539,15 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">Cst</span><span class="special">(</span><a href="forwarding_strategies.html#egg.forwarding_strategies.determining_nullary_return_types" title="Determining nullary return types"><code class="computeroutput"><span class="identifier">__decltype_r0</span></code></a><span class="special">(</span><span class="identifier">R0</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">(</span><span class="identifier">Lam</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">())()()</span></code>
+                <code class="computeroutput"><span class="identifier">Cst</span><span class="special">(</span><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.determining_nullary_return_types" title="Determining nullary return types"><code class="computeroutput"><span class="identifier">__decltype_r0</span></code></a><span class="special">(</span><span class="identifier">R0</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">C</span><span class="special">(</span><span class="identifier">Lam</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">())()()</span></code>
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
-                and <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
+                and <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
               </p>
               </td>
 <td>
@@ -555,18 +558,18 @@
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.generator.preconditions"></a><h5>
-<a name="id549013"></a>
-        <a href="function_builders.html#egg.function_builders.generator.preconditions">Preconditions</a>
+<a name="boost_egg.function_builders.generator.preconditions"></a><h5>
+<a name="id549249"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">Lam</span></code> is an (possibly <span class="emphasis"><em>cv-qualified</em></span>)
           <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
           Lambda Expression</a>.
         </li></ul></div>
-<a name="egg.function_builders.generator.invariants"></a><h5>
-<a name="id549071"></a>
-        <a href="function_builders.html#egg.function_builders.generator.invariants">Invariants</a>
+<a name="boost_egg.function_builders.generator.invariants"></a><h5>
+<a name="id549305"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -587,13 +590,13 @@
 </tr>
 <tr><td align="left" valign="top"><p>
           <code class="computeroutput"><span class="identifier">Lam</span></code> is not instantiated
-          while invoking <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span></code>, so that any static assertion in
+          while invoking <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span></code>, so that any static assertion in
           generated type doesn't fail.
         </p></td></tr>
 </table></div>
-<a name="egg.function_builders.generator.deducers"></a><h5>
-<a name="id549223"></a>
-        <a href="function_builders.html#egg.function_builders.generator.deducers">Deducers</a>
+<a name="boost_egg.function_builders.generator.deducers"></a><h5>
+<a name="id549459"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.deducers">Deducers</a>
       </h5>
 <p>
         Some basic and useful <a href="http://www.boost.org/libs/mpl/doc/refmanual/metafunction-class.html" target="_top">MPL
@@ -601,9 +604,9 @@
         You can place any elaborate <a href="http://www.boost.org/libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
         Lambda Expression</a> in generating type, though.
       </p>
-<a name="egg.function_builders.generator.valid_expressions_of_deducers"></a><h5>
-<a name="id549269"></a>
-        <a href="function_builders.html#egg.function_builders.generator.valid_expressions_of_deducers">Valid
+<a name="boost_egg.function_builders.generator.valid_expressions_of_deducers"></a><h5>
+<a name="id549507"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.valid_expressions_of_deducers">Valid
         expressions of Deducers</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -632,8 +635,8 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">As</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code> if the corresponding argument
-                is passed; ill-formed otherwise.
+                <code class="computeroutput"> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">As</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code>
+                if the corresponding argument is passed; ill-formed otherwise.
               </p>
               </td>
 </tr>
@@ -645,8 +648,8 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">As</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code> if the corresponding argument
-                is passed; <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">identity</span><span class="special">&lt;</span><span class="identifier">Def</span><span class="special">&gt;</span></code>
+                <code class="computeroutput"> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">As</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code>
+                if the corresponding argument is passed; <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">identity</span><span class="special">&lt;</span><span class="identifier">Def</span><span class="special">&gt;</span></code>
                 otherwise.
               </p>
               </td>
@@ -659,7 +662,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_reference</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span></code>
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_reference</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span></code>
               </p>
               </td>
 </tr>
@@ -672,7 +675,7 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_reference</span><span class="special">&lt;</span>
-                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_const</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span> <span class="special">&gt;</span></code>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_const</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span> <span class="special">&gt;</span></code>
               </p>
               </td>
 </tr>
@@ -685,7 +688,7 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_cv</span><span class="special">&lt;</span>
-                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span> <span class="special">&gt;</span></code>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span> <span class="special">&gt;</span></code>
               </p>
               </td>
 </tr>
@@ -697,15 +700,15 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">identity</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">identity</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">&gt;</span></code>
               </p>
               </td>
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.generator.example"></a><h5>
-<a name="id550027"></a>
-        <a href="function_builders.html#egg.function_builders.generator.example">Example</a>
+<a name="boost_egg.function_builders.generator.example"></a><h5>
+<a name="id550272"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.example">Example</a>
       </h5>
 <p>
         </p>
@@ -721,7 +724,7 @@
 
 <span class="identifier">T_make_pair</span> <span class="keyword">const</span> <span class="identifier">make_pair</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_GENERATOR</span><span class="special">();</span>
 
-<span class="keyword">struct</span> <span class="identifier">tuple_</span> <span class="callout_bug"><a name="egg36co" href="function_builders.html#egg36"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+<span class="keyword">struct</span> <span class="identifier">tuple_</span> <span class="callout_bug"><a name="boost_egg36co" href="function_builders.html#boost_egg36"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
 <span class="special">{</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T1</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T2</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">apply</span>
@@ -749,7 +752,7 @@
           </p>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left">
-<a name="egg36"></a><a href="#egg36co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="boost_egg36"></a><a href="#boost_egg36co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> <a href="http://www.boost.org/libs/tuple/index.html" target="_top"><span class="bold"><strong>Boost.Tuple</strong></span></a>
           template arity is large, so that <code class="computeroutput"><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_x</span></code>
           can't be used. </p></td>
@@ -758,51 +761,52 @@
         </p>
 <p>
       </p>
-<a name="egg.function_builders.generator.see_also"></a><h5>
-<a name="id550864"></a>
-        <a href="function_builders.html#egg.function_builders.generator.see_also">See also</a>
+<a name="boost_egg.function_builders.generator.see_also"></a><h5>
+<a name="id551111"></a>
+        <a href="function_builders.html#boost_egg.function_builders.generator.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a></li>
-<li><a href="forwarding_strategies.html#egg.forwarding_strategies.determining_nullary_return_types" title="Determining nullary return types">Determining
+<li><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.determining_nullary_return_types" title="Determining nullary return types">Determining
           nullary return types</a></li>
-<li><a href="function_objects.html#egg.function_objects.construct" title="construct"><code class="computeroutput"><span class="identifier">construct</span></code></a></li>
-<li><a href="function_objects.html#egg.function_objects.construct_braced1" title="construct_braced1"><code class="computeroutput"><span class="identifier">construct_braced1</span></code></a></li>
-<li><a href="function_objects.html#egg.function_objects.construct_braced2" title="construct_braced2"><code class="computeroutput"><span class="identifier">construct_braced2</span></code></a></li>
-<li><a href="function_objects.html#egg.function_objects.construct_variadic1" title="construct_variadic1"><code class="computeroutput"><span class="identifier">construct_variadic1</span></code></a></li>
+<li><a href="function_objects.html#boost_egg.function_objects.construct" title="construct"><code class="computeroutput"><span class="identifier">construct</span></code></a></li>
+<li><a href="function_objects.html#boost_egg.function_objects.construct_braced1" title="construct_braced1"><code class="computeroutput"><span class="identifier">construct_braced1</span></code></a></li>
+<li><a href="function_objects.html#boost_egg.function_objects.construct_braced2" title="construct_braced2"><code class="computeroutput"><span class="identifier">construct_braced2</span></code></a></li>
+<li><a href="function_objects.html#boost_egg.function_objects.construct_variadic1" title="construct_variadic1"><code class="computeroutput"><span class="identifier">construct_variadic1</span></code></a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.implicit"></a><a href="function_builders.html#egg.function_builders.implicit" title="implicit">implicit</a></h3></div></div></div>
-<a name="egg.function_builders.implicit.description"></a><h5>
-<a name="id551032"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.description">Description</a>
+<a name="boost_egg.function_builders.implicit"></a><a href="function_builders.html#boost_egg.function_builders.implicit" title="implicit">implicit</a></h3></div></div></div>
+<a name="boost_egg.function_builders.implicit.description"></a><h5>
+<a name="id551280"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">implicit</span></code> adds implicit conversion
         support to a cast form function.
       </p>
-<a name="egg.function_builders.implicit.header"></a><h5>
-<a name="id551071"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.header">Header</a>
+<a name="boost_egg.function_builders.implicit.header"></a><h5>
+<a name="id551322"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">implicit</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.implicit.notation"></a><h5>
-<a name="id551153"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.notation">Notation</a>
+<a name="boost_egg.function_builders.implicit.notation"></a><h5>
+<a name="id551404"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">u</span></code> is an object of <code class="computeroutput"><span class="identifier">implicit</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+<code class="computeroutput"><span class="identifier">u</span></code> is an object of <code class="computeroutput"><span class="identifier">implicit</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">F</span></code> is <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">to</span><span class="special">),</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+<code class="computeroutput"><span class="identifier">F</span></code> is <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">to</span><span class="special">),</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li>
 </ul></div>
-<a name="egg.function_builders.implicit.valid_expressions"></a><h5>
-<a name="id551367"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.valid_expressions">Valid expressions</a>
+<a name="boost_egg.function_builders.implicit.valid_expressions"></a><h5>
+<a name="id551619"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.valid_expressions">Valid
+        expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -826,13 +830,13 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">implicit</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 <td>
               <p>
-                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
                 Function Object</a> type
               </p>
               </td>
@@ -845,7 +849,7 @@
               </td>
 <td>
               <p>
-                A braced initializer of <code class="computeroutput"><span class="identifier">implicit</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                A braced initializer of <code class="computeroutput"><span class="identifier">implicit</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 </tr>
@@ -859,16 +863,16 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">To</span> <span class="identifier">to</span>
-                <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">implicit_cast</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">to</span><span class="special">)&gt;(</span>
-                <span class="identifier">fuse</span><span class="special">(</span><span class="identifier">F</span><span class="special">())(</span><span class="identifier">X_pack</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;()(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">))</span> <span class="special">);</span></code>
+                <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">implicit_cast</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">to</span><span class="special">)&gt;(</span>
+                <span class="identifier">fuse</span><span class="special">(</span><span class="identifier">F</span><span class="special">())(</span><span class="identifier">X_pack</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;()(</span><span class="identifier">a1</span><span class="special">,...,</span><span class="identifier">aN</span><span class="special">))</span> <span class="special">);</span></code>
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
-                and <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
+                and <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
               </p>
               </td>
 <td>
@@ -879,9 +883,9 @@
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.implicit.preconditions"></a><h5>
-<a name="id551941"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.preconditions">Preconditions</a>
+<a name="boost_egg.function_builders.implicit.preconditions"></a><h5>
+<a name="id552195"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -890,7 +894,7 @@
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span><span class="identifier">unspecified</span><span class="special">,</span>
-          <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">to</span><span class="special">)&gt;::</span><span class="identifier">value</span> <span class="special">==</span> <span class="keyword">false</span></code>.
+          <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">to</span><span class="special">)&gt;::</span><span class="identifier">value</span> <span class="special">==</span> <span class="keyword">false</span></code>.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">u</span></code> is not placed in a default
@@ -909,9 +913,9 @@
           The last precondition comes from a bug of GCC.
         </p></td></tr>
 </table></div>
-<a name="egg.function_builders.implicit.invariants"></a><h5>
-<a name="id552131"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.invariants">Invariants</a>
+<a name="boost_egg.function_builders.implicit.invariants"></a><h5>
+<a name="id552384"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -925,9 +929,9 @@
           Assignable</a>.
         </li>
 </ul></div>
-<a name="egg.function_builders.implicit.example"></a><h5>
-<a name="id552231"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.example">Example</a>
+<a name="boost_egg.function_builders.implicit.example"></a><h5>
+<a name="id552485"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.example">Example</a>
       </h5>
 <p>
         </p>
@@ -960,21 +964,21 @@
         </p>
 <p>
       </p>
-<a name="egg.function_builders.implicit.see_also"></a><h5>
-<a name="id552683"></a>
-        <a href="function_builders.html#egg.function_builders.implicit.see_also">See also</a>
+<a name="boost_egg.function_builders.implicit.see_also"></a><h5>
+<a name="id552938"></a>
+        <a href="function_builders.html#boost_egg.function_builders.implicit.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a></li>
-<li><a href="function_objects.html#egg.function_objects.pack" title="pack"><code class="computeroutput"><span class="identifier">pack</span></code></a></li>
+<li><a href="function_objects.html#boost_egg.function_objects.pack" title="pack"><code class="computeroutput"><span class="identifier">pack</span></code></a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.poly"></a><a href="function_builders.html#egg.function_builders.poly" title="poly">poly</a></h3></div></div></div>
-<a name="egg.function_builders.poly.description"></a><h5>
-<a name="id552765"></a>
-        <a href="function_builders.html#egg.function_builders.poly.description">Description</a>
+<a name="boost_egg.function_builders.poly"></a><a href="function_builders.html#boost_egg.function_builders.poly" title="poly">poly</a></h3></div></div></div>
+<a name="boost_egg.function_builders.poly.description"></a><h5>
+<a name="id553021"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">poly</span></code> is a port of <code class="computeroutput"><span class="identifier">detail</span><span class="special">::</span><span class="identifier">function</span></code> family which is secretly contained
@@ -985,21 +989,22 @@
         Object</a>, <code class="computeroutput"><span class="identifier">poly</span></code> is the
         coolest builder.
       </p>
-<a name="egg.function_builders.poly.header"></a><h5>
-<a name="id552889"></a>
-        <a href="function_builders.html#egg.function_builders.poly.header">Header</a>
+<a name="boost_egg.function_builders.poly.header"></a><h5>
+<a name="id553145"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">poly</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.poly.notation"></a><h5>
-<a name="id552971"></a>
-        <a href="function_builders.html#egg.function_builders.poly.notation">Notation</a>
+<a name="boost_egg.function_builders.poly.notation"></a><h5>
+<a name="id553228"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">f</span></code> is an object of <code class="computeroutput"><span class="identifier">poly</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,...&gt;::</span><span class="identifier">type</span></code>.
         </li></ul></div>
-<a name="egg.function_builders.poly.valid_expressions"></a><h5>
-<a name="id553048"></a>
-        <a href="function_builders.html#egg.function_builders.poly.valid_expressions">Valid expressions</a>
+<a name="boost_egg.function_builders.poly.valid_expressions"></a><h5>
+<a name="id553306"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.valid_expressions">Valid
+        expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -1023,15 +1028,15 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">poly</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
                 <span class="identifier">R0</span> <span class="special">=</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 <td>
               <p>
-                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
                 Function Object</a> type
               </p>
               </td>
@@ -1056,7 +1061,7 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">()(</span><a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">()(</span><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
               </p>
               </td>
 </tr>
@@ -1068,15 +1073,15 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">()()</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">()()</span></code>
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
-                and <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
+                and <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
               </p>
               </td>
 <td>
@@ -1087,9 +1092,9 @@
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.poly.preconditions"></a><h5>
-<a name="id553708"></a>
-        <a href="function_builders.html#egg.function_builders.poly.preconditions">Preconditions</a>
+<a name="boost_egg.function_builders.poly.preconditions"></a><h5>
+<a name="id553972"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -1100,18 +1105,18 @@
           which has a default value <code class="computeroutput"><span class="number">5</span></code>.
         </li>
 <li>
-<code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">result_type</span></code> is a valid expression such
-          that it is the same as <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__decltype</span></code></a><span class="special">(</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">()(</span><a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span>
-          <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)))</span></code>.
+<code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">result_type</span></code> is a valid expression such
+          that it is the same as <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__decltype</span></code></a><span class="special">(</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__meta_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">()(</span><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span>
+          <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">)))</span></code>.
         </li>
 <li>
-          If <code class="computeroutput"><span class="identifier">R0</span></code> is <code class="computeroutput"><span class="identifier">use_nullary_result</span></code>, <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">result_type</span></code> is a valid expression such
-          that it is the same as <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__decltype</span></code></a><span class="special">(</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">()())</span></code>.
+          If <code class="computeroutput"><span class="identifier">R0</span></code> is <code class="computeroutput"><span class="identifier">use_nullary_result</span></code>, <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">result_type</span></code> is a valid expression such
+          that it is the same as <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__decltype</span></code></a><span class="special">(</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">()())</span></code>.
         </li>
 </ul></div>
-<a name="egg.function_builders.poly.invariants"></a><h5>
-<a name="id554258"></a>
-        <a href="function_builders.html#egg.function_builders.poly.invariants">Invariants</a>
+<a name="boost_egg.function_builders.poly.invariants"></a><h5>
+<a name="id554525"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -1125,9 +1130,9 @@
           Assignable</a>.
         </li>
 </ul></div>
-<a name="egg.function_builders.poly.example"></a><h5>
-<a name="id554359"></a>
-        <a href="function_builders.html#egg.function_builders.poly.example">Example</a>
+<a name="boost_egg.function_builders.poly.example"></a><h5>
+<a name="id554624"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.example">Example</a>
       </h5>
 <p>
         </p>
@@ -1165,21 +1170,21 @@
         </p>
 <p>
       </p>
-<a name="egg.function_builders.poly.see_also"></a><h5>
-<a name="id554994"></a>
-        <a href="function_builders.html#egg.function_builders.poly.see_also">See also</a>
+<a name="boost_egg.function_builders.poly.see_also"></a><h5>
+<a name="id555260"></a>
+        <a href="function_builders.html#boost_egg.function_builders.poly.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a></li>
-<li><a href="function_adaptors.html#egg.function_adaptors.mono" title="mono"><code class="computeroutput"><span class="identifier">mono</span></code></a></li>
+<li><a href="function_adaptors.html#boost_egg.function_adaptors.mono" title="mono"><code class="computeroutput"><span class="identifier">mono</span></code></a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.static_"></a><a href="function_builders.html#egg.function_builders.static_" title="static_">static_</a></h3></div></div></div>
-<a name="egg.function_builders.static_.description"></a><h5>
-<a name="id555076"></a>
-        <a href="function_builders.html#egg.function_builders.static_.description">Description</a>
+<a name="boost_egg.function_builders.static_"></a><a href="function_builders.html#boost_egg.function_builders.static_" title="static_">static_</a></h3></div></div></div>
+<a name="boost_egg.function_builders.static_.description"></a><h5>
+<a name="id555344"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">static_</span></code> builds a <span class="emphasis"><em>POD</em></span>
@@ -1196,31 +1201,32 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-          When <a href="function_adaptors.html#egg.function_adaptors.indirect" title="indirect"><code class="computeroutput"><span class="identifier">indirect</span></code></a>
-          also is available, prefer <a href="function_adaptors.html#egg.function_adaptors.indirect" title="indirect"><code class="computeroutput"><span class="identifier">indirect</span></code></a>, which seems to run faster
-          in msvc.
+          When <a href="function_adaptors.html#boost_egg.function_adaptors.indirect" title="indirect"><code class="computeroutput"><span class="identifier">indirect</span></code></a> also is available, prefer
+          <a href="function_adaptors.html#boost_egg.function_adaptors.indirect" title="indirect"><code class="computeroutput"><span class="identifier">indirect</span></code></a>,
+          which seems to run faster in msvc.
         </p></td></tr>
 </table></div>
-<a name="egg.function_builders.static_.header"></a><h5>
-<a name="id555215"></a>
-        <a href="function_builders.html#egg.function_builders.static_.header">Header</a>
+<a name="boost_egg.function_builders.static_.header"></a><h5>
+<a name="id555485"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="keyword">static</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.static_.notation"></a><h5>
-<a name="id555298"></a>
-        <a href="function_builders.html#egg.function_builders.static_.notation">Notation</a>
+<a name="boost_egg.function_builders.static_.notation"></a><h5>
+<a name="id555568"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.notation">Notation</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">u</span></code> is an object of <code class="computeroutput"><span class="identifier">static_</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+<code class="computeroutput"><span class="identifier">u</span></code> is an object of <code class="computeroutput"><span class="identifier">static_</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">F</span></code> is <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
+<code class="computeroutput"><span class="identifier">F</span></code> is <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">apply</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>.
         </li>
 </ul></div>
-<a name="egg.function_builders.static_.valid_expressions"></a><h5>
-<a name="id555481"></a>
-        <a href="function_builders.html#egg.function_builders.static_.valid_expressions">Valid expressions</a>
+<a name="boost_egg.function_builders.static_.valid_expressions"></a><h5>
+<a name="id555753"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.valid_expressions">Valid
+        expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -1244,13 +1250,13 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">static_</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 <td>
               <p>
-                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#egg.concepts.major_function_object" title="Major Function Object">Major
+                A <span class="emphasis"><em>POD</em></span> <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major
                 Function Object</a> type
               </p>
               </td>
@@ -1263,7 +1269,7 @@
               </td>
 <td>
               <p>
-                A braced initializer of <code class="computeroutput"><span class="identifier">static_</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                A braced initializer of <code class="computeroutput"><span class="identifier">static_</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 </tr>
@@ -1275,16 +1281,16 @@
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">F</span><span class="special">()(</span><a href="forwarding_strategies.html#egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__fwd_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
+                <code class="computeroutput"><span class="identifier">F</span><span class="special">()(</span><a href="forwarding_strategies.html#boost_egg.forwarding_strategies.argument_list" title="Argument list"><code class="computeroutput"><span class="identifier">__fwd_arg_list</span></code></a><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">))</span></code>
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>,
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
-                and <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">always</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>,
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
+                and <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">always</span></code>
               </p>
               </td>
 <td>
@@ -1295,17 +1301,17 @@
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.static_.preconditions"></a><h5>
-<a name="id555981"></a>
-        <a href="function_builders.html#egg.function_builders.static_.preconditions">Preconditions</a>
+<a name="boost_egg.function_builders.static_.preconditions"></a><h5>
+<a name="id556256"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.preconditions">Preconditions</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">F</span></code> is a <a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
           Function Object</a> type.
         </li></ul></div>
-<a name="egg.function_builders.static_.invariants"></a><h5>
-<a name="id556034"></a>
-        <a href="function_builders.html#egg.function_builders.static_.invariants">Invariants</a>
+<a name="boost_egg.function_builders.static_.invariants"></a><h5>
+<a name="id556310"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -1319,9 +1325,9 @@
           Assignable</a>.
         </li>
 </ul></div>
-<a name="egg.function_builders.static_.example"></a><h5>
-<a name="id556135"></a>
-        <a href="function_builders.html#egg.function_builders.static_.example">Example</a>
+<a name="boost_egg.function_builders.static_.example"></a><h5>
+<a name="id556412"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.example">Example</a>
       </h5>
 <p>
         </p>
@@ -1332,7 +1338,7 @@
 <span class="keyword">typedef</span> <span class="identifier">static_</span><span class="special">&lt;</span><span class="identifier">X_apply</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_1</span><span class="special">&gt;,</span> <span class="identifier">by_cref</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">T_my_apply</span><span class="special">;</span>
 <span class="identifier">T_my_apply</span> <span class="keyword">const</span> <span class="identifier">my_apply</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_STATIC</span><span class="special">();</span>
 
-<span class="keyword">typedef</span> <span class="identifier">static_</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">always</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">T_my_plus</span><span class="special">;</span> <span class="callout_bug"><a name="egg37co" href="function_builders.html#egg37"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+<span class="keyword">typedef</span> <span class="identifier">static_</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">always</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">T_my_plus</span><span class="special">;</span> <span class="callout_bug"><a name="boost_egg37co" href="function_builders.html#boost_egg37"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
 <span class="identifier">T_my_plus</span> <span class="keyword">const</span> <span class="identifier">my_plus</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_STATIC</span><span class="special">();</span>
 
 <span class="keyword">void</span> <span class="identifier">egg_example</span><span class="special">()</span>
@@ -1348,7 +1354,7 @@
           </p>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
 <td width="5%" valign="top" align="left">
-<a name="egg37"></a><a href="#egg37co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="boost_egg37"></a><a href="#boost_egg37co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">T_my_plus</span></code> is <span class="emphasis"><em>POD</em></span>,
           whereas <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code>
           is not. </p></td>
@@ -1357,34 +1363,35 @@
         </p>
 <p>
       </p>
-<a name="egg.function_builders.static_.see_also"></a><h5>
-<a name="id556629"></a>
-        <a href="function_builders.html#egg.function_builders.static_.see_also">See also</a>
+<a name="boost_egg.function_builders.static_.see_also"></a><h5>
+<a name="id556910"></a>
+        <a href="function_builders.html#boost_egg.function_builders.static_.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a></li>
-<li><a href="function_adaptors.html#egg.function_adaptors.indirect" title="indirect"><code class="computeroutput"><span class="identifier">indirect</span></code></a></li>
+<li><a href="function_adaptors.html#boost_egg.function_adaptors.indirect" title="indirect"><code class="computeroutput"><span class="identifier">indirect</span></code></a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="egg.function_builders.variadic"></a><a href="function_builders.html#egg.function_builders.variadic" title="variadic">variadic</a></h3></div></div></div>
-<a name="egg.function_builders.variadic.description"></a><h5>
-<a name="id556710"></a>
-        <a href="function_builders.html#egg.function_builders.variadic.description">Description</a>
+<a name="boost_egg.function_builders.variadic"></a><a href="function_builders.html#boost_egg.function_builders.variadic" title="variadic">variadic</a></h3></div></div></div>
+<a name="boost_egg.function_builders.variadic.description"></a><h5>
+<a name="id556991"></a>
+        <a href="function_builders.html#boost_egg.function_builders.variadic.description">Description</a>
       </h5>
 <p>
         <code class="computeroutput"><span class="identifier">variadic</span></code> emulates <a href="http://en.wikipedia.org/wiki/Variadic_function" target="_top">Variadic function</a>s
-        in C++98. In fact, this is a shortcut to <a href="function_adaptors.html#egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a>.
+        in C++98. In fact, this is a shortcut to <a href="function_adaptors.html#boost_egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a>.
       </p>
-<a name="egg.function_builders.variadic.header"></a><h5>
-<a name="id556775"></a>
-        <a href="function_builders.html#egg.function_builders.variadic.header">Header</a>
+<a name="boost_egg.function_builders.variadic.header"></a><h5>
+<a name="id557059"></a>
+        <a href="function_builders.html#boost_egg.function_builders.variadic.header">Header</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">variadic</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="egg.function_builders.variadic.valid_expressions"></a><h5>
-<a name="id556860"></a>
-        <a href="function_builders.html#egg.function_builders.variadic.valid_expressions">Valid expressions</a>
+<a name="boost_egg.function_builders.variadic.valid_expressions"></a><h5>
+<a name="id557143"></a>
+        <a href="function_builders.html#boost_egg.function_builders.variadic.valid_expressions">Valid
+        expressions</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -1407,33 +1414,33 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">variadic</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a> <span class="special">=</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">Pack</span>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
+                <code class="computeroutput"><span class="identifier">variadic</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a> <span class="special">=</span>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">Pack</span>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
                 <span class="identifier">R0</span> <span class="special">=</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">result_of_unfuse</span><span class="special">&lt;</span><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span>
+                <code class="computeroutput"><span class="identifier">result_of_unfuse</span><span class="special">&lt;</span><span class="identifier">function</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Lit</span></code></a><span class="special">,</span>
                 <span class="identifier">by_cref</span><span class="special">&gt;,</span>
                 <span class="identifier">R0</span><span class="special">,</span>
                 <span class="identifier">Pack</span><span class="special">,</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 </tr>
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">BOOST_EGG_VARIADIC_L</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a>
+                <code class="computeroutput"><span class="identifier">BOOST_EGG_VARIADIC_L</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a>
                 <span class="identifier">BOOST_EGG_VARIADIC_R</span></code>
               </p>
               </td>
 <td>
               <p>
-                A braced initializer of <code class="computeroutput"><span class="identifier">variadic</span><span class="special">&lt;</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">),...&gt;::</span><span class="identifier">type</span></code>
+                A braced initializer of <code class="computeroutput"><span class="identifier">variadic</span><span class="special">&lt;</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__lit</span></code></a><span class="special">),...&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 </tr>
@@ -1453,16 +1460,16 @@
 <td>
               <p>
                 <code class="computeroutput"><span class="identifier">variadic_poly</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span>
                 <span class="identifier">Pack</span> <span class="special">=</span>
-                <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">R0</span>
-                <span class="special">=</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">,</span> <span class="identifier">R0</span>
+                <span class="special">=</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__ud</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">result_of_unfuse</span><span class="special">&lt;</span><span class="identifier">poly</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">by_cref</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">R0</span><span class="special">,</span> <span class="identifier">Pack</span><span class="special">,</span> <a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
+                <code class="computeroutput"><span class="identifier">result_of_unfuse</span><span class="special">&lt;</span><span class="identifier">poly</span><span class="special">&lt;</span><span class="identifier">Lam</span><span class="special">,</span> <span class="identifier">by_cref</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">R0</span><span class="special">,</span> <span class="identifier">Pack</span><span class="special">,</span> <a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__Stg</span></code></a><span class="special">&gt;::</span><span class="identifier">type</span></code>
               </p>
               </td>
 </tr>
@@ -1481,8 +1488,8 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
-                and <code class="computeroutput"><a href="../index.html#egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
+                <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span><span class="special">%%</span><span class="identifier">M</span></code>
+                and <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__mpl</span></code></a><span class="special">::</span><span class="identifier">_</span></code>
               </p>
               </td>
 <td>
@@ -1493,16 +1500,16 @@
 </tr>
 </tbody>
 </table></div>
-<a name="egg.function_builders.variadic.invariants"></a><h5>
-<a name="id557798"></a>
-        <a href="function_builders.html#egg.function_builders.variadic.invariants">Invariants</a>
+<a name="boost_egg.function_builders.variadic.invariants"></a><h5>
+<a name="id558086"></a>
+        <a href="function_builders.html#boost_egg.function_builders.variadic.invariants">Invariants</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li>
           What the corresponding semantics implies.
         </li></ul></div>
-<a name="egg.function_builders.variadic.example"></a><h5>
-<a name="id557831"></a>
-        <a href="function_builders.html#egg.function_builders.variadic.example">Example</a>
+<a name="boost_egg.function_builders.variadic.example"></a><h5>
+<a name="id558120"></a>
+        <a href="function_builders.html#boost_egg.function_builders.variadic.example">Example</a>
       </h5>
 <p>
         </p>
@@ -1544,15 +1551,15 @@
         </p>
 <p>
       </p>
-<a name="egg.function_builders.variadic.see_also"></a><h5>
-<a name="id558567"></a>
-        <a href="function_builders.html#egg.function_builders.variadic.see_also">See also</a>
+<a name="boost_egg.function_builders.variadic.see_also"></a><h5>
+<a name="id558858"></a>
+        <a href="function_builders.html#boost_egg.function_builders.variadic.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="forwarding_strategies.html" title="Forwarding Strategies">Forwarding Strategies</a></li>
-<li><a href="function_adaptors.html#egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a></li>
-<li><a href="function_builders.html#egg.function_builders.poly" title="poly"><code class="computeroutput"><span class="identifier">poly</span></code></a></li>
-<li><a href="function_objects.html#egg.function_objects.construct_variadic1" title="construct_variadic1"><code class="computeroutput"><span class="identifier">construct_variadic1</span></code></a></li>
+<li><a href="function_adaptors.html#boost_egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a></li>
+<li><a href="function_builders.html#boost_egg.function_builders.poly" title="poly"><code class="computeroutput"><span class="identifier">poly</span></code></a></li>
+<li><a href="function_objects.html#boost_egg.function_objects.construct_variadic1" title="construct_variadic1"><code class="computeroutput"><span class="identifier">construct_variadic1</span></code></a></li>
 </ul></div>
 </div>
 </div>

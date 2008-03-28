@@ -17,7 +17,7 @@
 
 #if !defined(BOOST_TYPEOF_NATIVE)
     #include <boost/function.hpp>
-    #include <boost/egg/detail/typeof_boost_function.hpp>
+    #include <boost/egg/detail/boost_function_typeof.hpp>
 #endif
 
 

@@ -21,6 +21,7 @@ void egg_test()
 
     (void)_1; (void)_2; (void)_3;
     (void)nest0; (void)nest1; (void)nest2; (void)nest3; (void)nest4; (void)nest5;
+    (void)ref0; (void)ref1; (void)ref2; (void)ref3; (void)ref4; (void)ref5;
     (void)_0_; (void)_1_; (void)_2_; (void)_3_; (void)_4_;
 
     int i9 = 9;
