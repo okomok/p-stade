@@ -224,6 +224,9 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 [heading Invariants]
 * `result_of_curry%%N<__PFo>::type` is __POD__ if and only if `__PFo` is __POD__.
 
+[note Arguments except for the last one are captured by-value.
+      When you need to capture by-reference, pass arguments using `boost::ref`. ]
+
 [heading Example]
 [import ../example/curry.cpp]
 [code_example_curry]
@@ -232,6 +235,7 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 * __CURRYING__
 * __EGG_UNCURRY__
 * __EGG_NEST__
+* __BOOST_REF__
 
 [endsect]
 
