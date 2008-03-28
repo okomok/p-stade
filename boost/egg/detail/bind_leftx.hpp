@@ -32,12 +32,10 @@
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
-#include <boost/egg/const.hpp>
 #include <boost/egg/preprocessor/cat3.hpp>
 #include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/detail/derived_from.hpp>
-#include <boost/egg/detail/if_use_default.hpp>
 #include <boost/egg/detail/uncapture.hpp>
 
 
@@ -48,8 +46,8 @@ namespace boost { namespace egg { namespace details {
 
 
 #define BOOST_EGG_def_arg(Z, N, _) BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(m_arg, N);
-#define BOOST_EGG_meta_uncap(Z, N, _) typename uncapture_if<is_same<Base, target_t>, BOOST_PP_CAT(Arg, N)>::result_type
-#define BOOST_EGG_uncap(Z, N, _) uncapture_if<is_same<Base, target_t>, BOOST_PP_CAT(Arg, N)>()(BOOST_PP_CAT(m_arg, N))
+#define BOOST_EGG_meta_uncap(Z, N, _) typename uncapture_if<is_same<Base, Target>, BOOST_PP_CAT(Arg, N)>::result_type
+#define BOOST_EGG_uncap(Z, N, _) uncapture_if<is_same<Base, Target>, BOOST_PP_CAT(Arg, N)>()(BOOST_PP_CAT(m_arg, N))
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, BOOST_PP_DEC(BOOST_EGG_MAX_ARITY), <boost/egg/detail/bind_leftx.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  BOOST_EGG_uncap
@@ -68,10 +66,6 @@ namespace boost { namespace egg { namespace details {
     template<class Base, BOOST_PP_ENUM_PARAMS(n, class Arg), class Target>
     struct BOOST_EGG_PP_CAT3(little_bind_left, n, _result)
     {
-        typedef typename
-            if_use_default<Target, Base>::type
-        target_t;
-
         Base m_base;
         BOOST_PP_REPEAT(n, BOOST_EGG_def_arg, ~)
 
@@ -119,13 +113,10 @@ namespace boost { namespace egg { namespace details {
         }
     };
 
-    template<class Target = use_default>
+    template<class Target>
     struct BOOST_PP_CAT(X_bind_left, n) : derived_from<
         function<BOOST_PP_CAT(little_bind_left, n)<Target>, by_value> >
     { };
-
-    typedef BOOST_PP_CAT(X_bind_left, n)<>::base_class BOOST_PP_CAT(T_bind_left, n);
-    BOOST_EGG_CONST((BOOST_PP_CAT(T_bind_left, n)), BOOST_PP_CAT(bind_left, n)) = BOOST_EGG_BIND_LEFTX_INIT;
 
 
 #undef  n

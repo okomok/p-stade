@@ -79,8 +79,7 @@ namespace boost { namespace egg {
     template<class Base>
     struct result_of_fix :
         details::result_of_bind_left1<
-            fix_detail::uncurried,
-            Base
+            fix_detail::uncurried, Base, fix_detail::uncurried
         >
     { };
 

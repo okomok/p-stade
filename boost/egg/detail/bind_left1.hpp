@@ -31,13 +31,11 @@
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/config.hpp> // BOOST_EGG_MAX_ARITY
-#include <boost/egg/const.hpp>
 #include <boost/egg/construct_braced2.hpp>
 #include <boost/egg/generator.hpp>
 #include <boost/egg/preprocessor/enum_params_with.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/detail/derived_from.hpp>
-#include <boost/egg/detail/if_use_default.hpp>
 #include <boost/egg/detail/uncapture.hpp>
 
 
@@ -47,10 +45,6 @@ namespace boost { namespace egg { namespace details {
     template<class Fun, class Arg, class Target>
     struct little_bind_left1_result
     {
-        typedef typename
-            if_use_default<Target, Fun>::type
-        target_t;
-
         Fun m_fun;
         Arg m_arg;
 
@@ -68,7 +62,7 @@ namespace boost { namespace egg { namespace details {
     };
 
 
-    template<class Fun, class Arg, class Target = use_default>
+    template<class Fun, class Arg, class Target>
     struct result_of_bind_left1
     {
         typedef
@@ -81,7 +75,7 @@ namespace boost { namespace egg { namespace details {
     #define BOOST_EGG_BIND_LEFT1(F, A) BOOST_EGG_BIND_LEFT1_L F , A BOOST_EGG_BIND_LEFT1_R
 
 
-    template<class Target = use_default>
+    template<class Target>
     struct X_bind_left1 : derived_from_eval<
         generator<
             typename result_of_bind_left1<deduce<mpl::_1, as_value>, deduce<mpl::_2, as_value>, Target>::type,
@@ -89,9 +83,6 @@ namespace boost { namespace egg { namespace details {
             X_construct_braced2<>
         > >
     { };
-
-    typedef X_bind_left1<>::base_class T_bind_left1;
-    BOOST_EGG_CONST((T_bind_left1), bind_left1) = BOOST_EGG_GENERATOR();
 
 
 } } } // namespace boost::egg::details
@@ -105,14 +96,14 @@ namespace boost { namespace egg { namespace details {
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
         result_of_<
-            Fun const(typename uncapture_if<is_same<Fun, target_t>, Arg>::result_type, BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))
+            Fun const(typename uncapture_if<is_same<Fun, Target>, Arg>::result_type, BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, &))
         >
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return m_fun(uncapture_if<is_same<Fun, target_t>, Arg>()(m_arg), BOOST_PP_ENUM_PARAMS(n, a));
+        return m_fun(uncapture_if<is_same<Fun, Target>, Arg>()(m_arg), BOOST_PP_ENUM_PARAMS(n, a));
     }
 
 
