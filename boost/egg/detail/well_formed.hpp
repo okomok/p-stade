@@ -42,8 +42,8 @@ namespace boost { namespace egg { namespace details {
 #define n BOOST_PP_ITERATION()
 
 
-template<BOOST_PP_ENUM_PARAMS(n, class A)>
-result_type operator()(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, const &)) const;
+    template<BOOST_PP_ENUM_PARAMS(n, class A)>
+    result_type operator()(BOOST_EGG_PP_ENUM_PARAMS_WITH(n, A, const &)) const;
 
 
 #undef  n

@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// If there were no fatal error C1054,
+// "uncapture_then" function-adaptor would be a simpler implementation.
+
+
 #include <boost/egg/detail/boost_ref_fwd.hpp>
 
 
