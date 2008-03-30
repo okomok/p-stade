@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/detail/mpL_boost_tuple.hpp>
+#include <boost/egg/detail/mpl_boost_tuple.hpp>
 
 
 #include <boost/mpl/assert.hpp>
