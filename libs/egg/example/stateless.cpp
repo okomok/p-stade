@@ -18,7 +18,7 @@
 #include "./egg_example.hpp"
 
 
-//[code_example_static
+//[code_example_stateless
 typedef stateless<X_apply<boost::mpl::_1>, by_cref>::type T_my_apply;
 T_my_apply const my_apply = BOOST_EGG_STATELESS();
 

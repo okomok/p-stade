@@ -423,8 +423,8 @@ to be __STATICALLY_INITIALIZED__ without `stateless`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
-[import ../example/static.cpp]
-[code_example_static]
+[import ../example/stateless.cpp]
+[code_example_stateless]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__

@@ -26,11 +26,7 @@ typedef result_of_lazy<std::plus<int>, T_bind>::type Plus;
 typedef result_of_lazy<std::minus<int>, T_bind>::type Minus;
 
 stateless< boost::mpl::always<
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
-    result_of_<Plus(TT_1, result_of_<Minus(TT_2, TT_3)>::type)>::type
-#else
-    return_of<Plus(TT_1, Minus(TT_2, TT_3))>::type
-#endif
+    return_of< Plus, TT_1, return_of<Minus, TT_2, TT_3> >::type
 > >::type const foo = BOOST_EGG_STATELESS();
 
 void egg_example()
