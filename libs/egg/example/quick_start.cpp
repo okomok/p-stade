@@ -13,7 +13,7 @@
 #include <boost/egg/pipable.hpp>
 #include <boost/egg/lazy.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/static.hpp>
+#include <boost/egg/stateless.hpp>
 #include <boost/egg/indirect.hpp>
 #include <boost/egg/compose.hpp>
 #include <boost/egg/curry.hpp>

@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/static.hpp>
+#include <boost/egg/stateless.hpp>
 #include "./egg_test.hpp"
 
 
@@ -20,8 +20,8 @@
 
 
 
-typedef static_< X_construct<int, boost::mpl::_1> >::type T_construct_int;
-T_construct_int const construct_int = BOOST_EGG_STATIC();
+typedef stateless< X_construct<int, boost::mpl::_1> >::type T_construct_int;
+T_construct_int const construct_int = BOOST_EGG_STATELESS();
 
 
 void egg_test()

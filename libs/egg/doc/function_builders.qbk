@@ -374,20 +374,20 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
 
 
 
-[section static_]
+[section stateless]
 
 [heading Description]
-`static_` builds a __POD__ __FUNCTION_OBJECT__ from a __DEFAULT_CONSTRUCTIBLE__ one.
+`stateless` builds a __POD__ __FUNCTION_OBJECT__ from a stateless __FUNCTION_OBJECT__.
 Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
-to be __STATICALLY_INITIALIZED__ without `static_`.
+to be __STATICALLY_INITIALIZED__ without `stateless`.
 
 [note When __EGG_INDIRECT__ also is available, prefer __EGG_INDIRECT__, which seems to run faster in msvc. ]
 
 [heading Header]
-* `<boost/egg/static.hpp>`
+* `<boost/egg/stateless.hpp>`
 
 [heading Notation]
-* `u` is an object of `static_<Lam, __Stg>::type`.
+* `u` is an object of `stateless<Lam, __Stg>::type`.
 * `F` is `__mpl::apply<Lam, __Stg>::type`.
 
 [heading Valid expressions]
@@ -397,12 +397,12 @@ to be __STATICALLY_INITIALIZED__ without `static_`.
         [[*Semantics]]
     ]
     [
-        [`static_<Lam, __Stg = __ud>::type`]
+        [`stateless<Lam, __Stg = __ud>::type`]
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
         [`BOOST_EGG_STATIC()`]
-        [A braced initializer of `static_<Lam, __Stg>::type`]
+        [A braced initializer of `stateless<Lam, __Stg>::type`]
     ]
     [
         [`u(a1,...,aN)`]

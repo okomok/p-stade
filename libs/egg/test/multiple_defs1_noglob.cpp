@@ -52,7 +52,7 @@ void check_include_guards()
     using egg::generator;
     using egg::implicit;
     using egg::poly;
-    using egg::static_;
+    using egg::stateless;
     using egg::variadic;
     using egg::ambi1;
     using egg::compose;

@@ -129,7 +129,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION_FACADE__ [link boost_egg.function_builders.function_facade `function_facade`]]
 [def __EGG_POLY__ [link boost_egg.function_builders.poly `poly`]]
 [def __EGG_GENERATOR__ [link boost_egg.function_builders.generator `generator`]]
-[def __EGG_STATIC__ [link boost_egg.function_builders.static_ `static_`]]
+[def __EGG_STATIC__ [link boost_egg.function_builders.stateless `stateless`]]
 [def __EGG_VARIADIC__ [link boost_egg.function_builders.variadic `variadic`]]
 
 [def __EGG_AMBI__ [link boost_egg.function_adaptors.ambin `ambiN`]]

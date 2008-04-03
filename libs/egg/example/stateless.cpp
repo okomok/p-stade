@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/egg/static.hpp>
+#include <boost/egg/stateless.hpp>
 #include <boost/egg/apply.hpp>
 #include <boost/mpl/always.hpp>
 #include <functional> // plus
@@ -19,11 +19,11 @@
 
 
 //[code_example_static
-typedef static_<X_apply<boost::mpl::_1>, by_cref>::type T_my_apply;
-T_my_apply const my_apply = BOOST_EGG_STATIC();
+typedef stateless<X_apply<boost::mpl::_1>, by_cref>::type T_my_apply;
+T_my_apply const my_apply = BOOST_EGG_STATELESS();
 
-typedef static_< boost::mpl::always< std::plus<int> > >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
-T_my_plus const my_plus = BOOST_EGG_STATIC();
+typedef stateless< boost::mpl::always< std::plus<int> > >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
+T_my_plus const my_plus = BOOST_EGG_STATELESS();
 
 void egg_example()
 {
