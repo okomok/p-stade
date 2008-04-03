@@ -17,49 +17,25 @@
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/detail/boost_result_of_fwd.hpp>
 #include <boost/egg/detail/egg_result_of_fwd.hpp>
-#include <boost/egg/detail/tuple_fuse.hpp>
+#include <boost/egg/detail/little_static.hpp>
 #include <boost/egg/result_of.hpp>
-#include <boost/egg/variadic.hpp>
 
 
 namespace boost { namespace egg {
 
 
-    namespace static_detail {
-
-
-        template<class Fun>
-        struct little
-        {
-            template<class Me, class Args>
-            struct apply :
-                result_of_<
-                    typename result_of_<details::T_tuple_fuse(Fun)>::type(Args &)
-                >
-            { };
-
-            template<class Re, class Args>
-            Re call(Args &args) const
-            {
-                return details::tuple_fuse(Fun())(args);
-            }
-        };
-
-
-    } // namespace static_detail
-
-
     template<class Expr, class Strategy = by_perfect>
-    struct static_ :
-        variadic<
-            static_detail::little<typename mpl::apply1<Expr, Strategy>::type>,
-            Strategy,
-            use_default,
-            use_nullary_result
-        >
-    { };
+    struct static_
+    {
+        typedef
+            function<
+                details::little_static<typename mpl::apply1<Expr, Strategy>::type, Strategy>,
+                Strategy
+            >
+        type;
+    };
 
-    #define BOOST_EGG_STATIC() BOOST_EGG_VARIADIC({})
+    #define BOOST_EGG_STATIC() {{}}
 
 
     template<class FunCall, class Strategy>
