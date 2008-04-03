@@ -20,7 +20,7 @@
 #include <boost/egg/ambi.hpp>
 #include <boost/egg/pipable.hpp>
 #include <boost/egg/const.hpp>
-#include <boost/egg/stateless.hpp>
+#include <boost/egg/static.hpp>
 #include <boost/egg/construct.hpp>
 
 
@@ -134,8 +134,8 @@ T_auxi const &get_auxi1();
 T_auxi const &get_auxi2();
 
 
-typedef boost::egg::stateless<boost::egg::X_construct<int, boost::mpl::_1> >::type T_construct_int;
-T_construct_int const construct_int = BOOST_EGG_STATELESS();
+typedef boost::egg::static_<boost::egg::X_construct<int, boost::mpl::_1> >::type T_construct_int;
+T_construct_int const construct_int = BOOST_EGG_STATIC();
 T_construct_int const &get_cons_int1();
 T_construct_int const &get_cons_int2();
 

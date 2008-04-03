@@ -86,7 +86,7 @@
 #include <boost/egg/return.hpp>
 #include <boost/egg/shared_object.hpp>
 #include <boost/egg/starling.hpp>
-#include <boost/egg/stateless.hpp>
+#include <boost/egg/static.hpp>
 #include <boost/egg/static_down.hpp>
 #include <boost/egg/static_downcast.hpp>
 #include <boost/egg/strong_assign.hpp>

@@ -10,7 +10,7 @@
 
 #include <boost/egg/return_of.hpp>
 #include <boost/egg/lazy.hpp>
-#include <boost/egg/stateless.hpp>
+#include <boost/egg/static.hpp>
 #include <boost/egg/bind.hpp>
 #include <boost/egg/placeholders.hpp>
 #include <functional>
@@ -25,9 +25,9 @@ using namespace placeholders;
 typedef result_of_lazy<std::plus<int>, T_bind>::type Plus;
 typedef result_of_lazy<std::minus<int>, T_bind>::type Minus;
 
-stateless<
+static_<
     return_of< Plus, TT_1, return_of<Minus, TT_2, TT_3> >
->::type const foo = BOOST_EGG_STATELESS();
+>::type const foo = BOOST_EGG_STATIC();
 
 void egg_example()
 {

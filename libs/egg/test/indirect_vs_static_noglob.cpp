@@ -9,7 +9,7 @@
 
 
 #include <boost/egg/indirect.hpp>
-#include <boost/egg/stateless.hpp>
+#include <boost/egg/static.hpp>
 #include <boost/egg/fuse.hpp>
 #include <boost/egg/unfuse.hpp>
 #include "./egg_test.hpp"
@@ -32,7 +32,7 @@ T_plus const plus = {};
 
 
 result_of_indirect<T_plus const *>::type const i_plus = BOOST_EGG_INDIRECT(&plus);
-stateless< boost::mpl::always<T_plus> >::type const s_plus = BOOST_EGG_STATELESS();
+static_< boost::mpl::always<T_plus> >::type const s_plus = BOOST_EGG_STATIC();
 result_of_unfuse<result_of_fuse<T_plus>::type>::type const f_plus = BOOST_EGG_UNFUSE_L BOOST_EGG_FUSE({}) BOOST_EGG_UNFUSE_R;
 
 
