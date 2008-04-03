@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_STATELESS_HPP
-#define BOOST_EGG_STATELESS_HPP
+#ifndef BOOST_EGG_STATIC_HPP
+#define BOOST_EGG_STATIC_HPP
 #include <boost/egg/detail/prefix.hpp>
 
 
@@ -15,6 +15,8 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/egg/by_perfect.hpp>
+#include <boost/egg/detail/boost_result_of_fwd.hpp>
+#include <boost/egg/detail/egg_result_of_fwd.hpp>
 #include <boost/egg/detail/tuple_fuse.hpp>
 #include <boost/egg/result_of.hpp>
 #include <boost/egg/variadic.hpp>
@@ -23,7 +25,7 @@
 namespace boost { namespace egg {
 
 
-    namespace stateless_detail {
+    namespace static_detail {
 
 
         template<class Fun>
@@ -44,20 +46,31 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace stateless_detail
+    } // namespace static_detail
 
 
     template<class Expr, class Strategy = by_perfect>
-    struct stateless :
+    struct static_ :
         variadic<
-            stateless_detail::little<typename mpl::apply1<Expr, Strategy>::type>,
+            static_detail::little<typename mpl::apply1<Expr, Strategy>::type>,
             Strategy,
             use_default,
             use_nullary_result
         >
     { };
 
-    #define BOOST_EGG_STATELESS() BOOST_EGG_VARIADIC({})
+    #define BOOST_EGG_STATIC() BOOST_EGG_VARIADIC({})
+
+
+    template<class FunCall, class Strategy>
+    struct static_<result_of<FunCall>, Strategy> :
+        static_<mpl::always<typename result_of<FunCall>::type>, Strategy>
+    { };
+
+    template<class FunCall, class Strategy>
+    struct static_<result_of_<FunCall>, Strategy> :
+        static_<mpl::always<typename result_of_<FunCall>::type>, Strategy>
+    { };
 
 
 } } // namespace boost::egg

@@ -35,6 +35,7 @@
 #include <boost/utility/result_of.hpp>
 #include <boost/version.hpp>
 #include <boost/egg/detail/boost_workaround.hpp>
+#include <boost/egg/detail/egg_result_of_fwd.hpp>
 #include <boost/egg/detail/in_fun_spec.hpp>
 
 
@@ -45,10 +46,6 @@
 
 
 namespace boost { namespace egg {
-
-
-    template<class FunCall>
-    struct result_of_;
 
 
     namespace result_of_detail {
