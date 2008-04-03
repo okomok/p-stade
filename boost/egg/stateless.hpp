@@ -1,5 +1,5 @@
-#ifndef BOOST_EGG_STATIC_HPP
-#define BOOST_EGG_STATIC_HPP
+#ifndef BOOST_EGG_STATELESS_HPP
+#define BOOST_EGG_STATELESS_HPP
 #include <boost/egg/detail/prefix.hpp>
 
 
@@ -23,7 +23,7 @@
 namespace boost { namespace egg {
 
 
-    namespace static_detail {
+    namespace stateless_detail {
 
 
         template<class Fun>
@@ -44,20 +44,20 @@ namespace boost { namespace egg {
         };
 
 
-    } // namespace static_detail
+    } // namespace stateless_detail
 
 
     template<class Expr, class Strategy = by_perfect>
-    struct static_ :
+    struct stateless :
         variadic<
-            static_detail::little<typename mpl::apply1<Expr, Strategy>::type>,
+            stateless_detail::little<typename mpl::apply1<Expr, Strategy>::type>,
             Strategy,
             use_default,
             use_nullary_result
         >
     { };
 
-    #define BOOST_EGG_STATIC() BOOST_EGG_VARIADIC({})
+    #define BOOST_EGG_STATELESS() BOOST_EGG_VARIADIC({})
 
 
 } } // namespace boost::egg
