@@ -25,9 +25,9 @@ using namespace placeholders;
 typedef result_of_lazy<std::plus<int>, T_bind>::type Plus;
 typedef result_of_lazy<std::minus<int>, T_bind>::type Minus;
 
-stateless< boost::mpl::always<
-    return_of< Plus, TT_1, return_of<Minus, TT_2, TT_3> >::type
-> >::type const foo = BOOST_EGG_STATELESS();
+stateless<
+    return_of< Plus, TT_1, return_of<Minus, TT_2, TT_3> >
+>::type const foo = BOOST_EGG_STATELESS();
 
 void egg_example()
 {
