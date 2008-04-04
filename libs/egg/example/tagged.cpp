@@ -20,8 +20,8 @@
 //[code_example_tagged
 struct tag1;
 struct tag2;
-typedef result_of_tagged<std::multiplies<int>, tag1>::type my_mult1;
-typedef result_of_tagged<std::multiplies<int>, tag2>::type my_mult2;
+typedef result_of_<X_tagged<tag1>(std::multiplies<int>)>::type my_mult1;
+typedef result_of_<X_tagged<tag2>(std::multiplies<int>)>::type my_mult2;
 
 void egg_example()
 {
@@ -29,5 +29,4 @@ void egg_example()
     BOOST_STATIC_ASSERT(( !boost::is_same<my_mult1, my_mult2>::value ));
     BOOST_STATIC_ASSERT(( is_tagged_with<my_mult1, tag1>::value ));
 }
-
 //]

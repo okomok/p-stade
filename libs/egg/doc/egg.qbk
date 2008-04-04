@@ -123,7 +123,7 @@ Distributed under the Boost Software License, Version 1.0.
 [def __EGG_FUNCTION_ADAPTORS__ [link boost_egg.function_adaptors Function Adaptors]]
 [def __EGG_FUNCTION_OBJECTS__ [link boost_egg.function_objects Function Objects]]
 [def __EGG_UTILITIES__ [link boost_egg.utilities Utilities]]
-[def __EGG_ADAPTING_STATEFUL_FUNCTIONS__ [link boost_egg.adapting_stateful_functions Adapting statefull functions]]
+[def __EGG_STATEFUL_STATIC_INITIALIZATION__ [link boost_egg.function_adaptors.stateful_static_initialization Stateful static initialization]]
 [def __EGG_WORKAROUNDS__ [link boost_egg.workarounds Workarounds]]
 
 [def __EGG_FUNCTION__ [link boost_egg.function_builders.function `function`]]
@@ -210,7 +210,6 @@ Distributed under the Boost Software License, Version 1.0.
 [include function_adaptors.qbk]
 [include function_objects.qbk]
 [include utilities.qbk]
-[include adapting_stateful_functions.qbk]
 [include configuration.qbk]
 [include workarounds.qbk]
 [include version_history.qbk]
