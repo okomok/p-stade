@@ -14,7 +14,7 @@
 // Note:
 //
 // This can't be implemented by fusing
-// for the maximum efficency and the simplest braced-initializers.
+// for the maximum efficiency and the simplest braced-initializers.
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
