@@ -304,8 +304,8 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
 
 [heading Description]
 `poly` is a port of `detail::function` family which is secretly contained in __BOOST_ACCUMULATORS__.
-Though `poly` can't build "stateful" function, you can access nested typedefs from `operator()` body.
-When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest builder.
+Though `poly` can't build "stateful" functions, you can access nested typedefs from `operator()` body.
+When you want to build a __CONCEPT_STATELESS_FUNCTION_OBJECT__, `poly` is the coolest builder.
 
 [heading Header]
 * `<boost/egg/poly.hpp>`
@@ -365,7 +365,7 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
 [section static_]
 
 [heading Description]
-`static_` builds a __POD__ __FUNCTION_OBJECT__ from a "stateless" __FUNCTION_OBJECT__.
+`static_` builds a __POD__ __FUNCTION_OBJECT__ from a __CONCEPT_STATELESS_FUNCTION_OBJECT__ type.
 
 [heading Header]
 * `<boost/egg/static.hpp>`
@@ -397,10 +397,9 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
     ]
 ]
 
-[/
 [heading Preconditions]
+* `__PFo` is a __CONCEPT_STATELESS_FUNCTION_OBJECT__ type.
 [/ * __PRECONDITION_AS_IS__ ]
-]
 
 [important A __CONCEPT_STATIC_FUNCTION_OBJECT__ type is guaranteed to work with __EGG_STATIC__. ]
 

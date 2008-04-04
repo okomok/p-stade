@@ -14,24 +14,22 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 A Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
-An adapted __FUNCTION_OBJECT__ is:
+An adapted __FUNCTION_OBJECT__ type meets the following:
 
-* __POD__ if and only if its "base" __FUNCTION_OBJECT__ is __POD__.
-* a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
-* able to be __STATICALLY_INITIALIZED__ using __EGG_STATIC__ unless otherwise specified.
+* It is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
+* It is __POD__ if and only if its "base" __FUNCTION_OBJECT__ type is __POD__.
+* It is __CONCEPT_STATELESS__ if and only if its "base" __FUNCTION_OBJECT__ type is __CONCEPT_STATELESS__.
+* It supports __STATIC_INITIALIZATION__ using __EGG_STATIC__ or macros unless otherwise specified.
 
-A Function Adaptor supports, if possible, the three initialization forms:
 [import ../example/function_adaptors.cpp]
 [code_example_function_adaptors]
 
 In namespace scope, __STATIC_INITIALIZATION__ is highly recommended.
 For details about adapting "stateful" functions using macros, see __EGG_STATEFUL_STATIC_INITIALIZATION__.
 
-[important A "base" __FUNCTION_OBJECT__ in __EGG_STATIC__ must be __DEFAULT_CONSTRUCTIBLE__
-         and a default-constructed one is callable. In other words, a "base" must be "stateless".
-         It implies that you can't use any /function pointer/ as a "base".
-         If you want to pass a /function pointer/, see __EGG_STATEFUL_STATIC_INITIALIZATION__.
-         Also note that a __CONCEPT_STATIC_FUNCTION_OBJECT__ type is guaranteed to work with __EGG_STATIC__. ]
+[important __EGG_STATIC__ can't work with an adapted /function pointer/, because it is not __CONCEPT_STATELESS__.
+           See __EGG_STATEFUL_STATIC_INITIALIZATION__ if you need an adapted /function pointer/.
+           Also note that a __CONCEPT_STATIC_FUNCTION_OBJECT__ type is guaranteed to work with __EGG_STATIC__. ]
 
 
 

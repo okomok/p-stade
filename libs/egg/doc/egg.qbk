@@ -104,6 +104,8 @@ Distributed under the Boost Software License, Version 1.0.
 [/ Internal Links ]
 
 [def __CONCEPT_LEXICALLY_TYPED_OBJECT__ [link boost_egg.concepts.lexically_typed_object Lexically Typed Object]]
+[def __CONCEPT_STATELESS_FUNCTION_OBJECT__ [link boost_egg.concepts.stateless_function_object Stateless Function Object]]
+[def __CONCEPT_STATELESS__ [link boost_egg.concepts.stateless_function_object Stateless]]
 [def __CONCEPT_STATIC_FUNCTION_OBJECT__ [link boost_egg.concepts.static_function_object Static Function Object]]
 [def __CONCEPT_STATIC__ [link boost_egg.concepts.static_function_object Static]]
 [def __CONCEPT_AMBI_FUNCTION_OBJECT__ [link boost_egg.concepts.ambi_function_object Ambi Function Object]]

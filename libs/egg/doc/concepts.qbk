@@ -197,6 +197,40 @@ for any __POD_FUNCTION_BUILDER__ `x` the following must be met:
 
 
 
+[section Stateless Function Object]
+
+[heading Description]
+A __CONCEPT_STATELESS_FUNCTION_OBJECT__ is a __FUNCTION_OBJECT__ which is __DEFAULT_CONSTRUCTIBLE__
+and a default-constructed one is callable.
+
+[heading Refinement of]
+* __DEFAULT_CONSTRUCTIBLE__
+* __FUNCTION_OBJECT__
+
+[heading Requirements]
+In addition to the requirements defined in the refinements,
+for any __CONCEPT_STATELESS_FUNCTION_OBJECT__ `f` the following must be met:
+
+* `f(a1,...,aN)` has the same semantics as `__typeof(f)()(a1,...aN)`.
+
+[caution This requirement implies that a /function pointer/ can't be a model of __CONCEPT_STATELESS_FUNCTION_OBJECT__. ]
+
+[/
+[heading Example]
+[code_concepts_static_function_object]
+]
+
+[heading Models]
+* `std::plus<int>`
+
+[heading See also]
+* __BOOST_RESULT_OF__
+
+[endsect]
+
+
+
+
 [section Static Function Object]
 
 [heading Description]
@@ -205,6 +239,7 @@ A __CONCEPT_STATIC_FUNCTION_OBJECT__ is a __CONCEPT_MAJOR_FUNCTION_OBJECT__ whic
 [heading Refinement of]
 * __CONCEPT_LEXICALLY_TYPED_OBJECT__
 * __CONCEPT_MAJOR_FUNCTION_OBJECT__
+* __CONCEPT_STATELESS_FUNCTION_OBJECT__
 
 [heading Requirements]
 In addition to the requirements defined in the refinements,
@@ -212,13 +247,10 @@ for any __CONCEPT_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
 * `__typeof(f)` is __POD__ in C++03 (a /trivial type/ in C++0x).
 * `__typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
-* `f(a1,...,aN)` has the same semantics as `__typeof(f)()(a1,...aN)`.
 * `f` is __STATICALLY_INITIALIZED__.
 * `boost::remove_reference<__decltype(f)>::type` is `__typeof(f) const`.
 * If `boost::result_of<__typeof(f) const(A1,...,AN)>::type` is a valid expression,
   `boost::result_of<__typeof(f)(A1,...,AN)>::type` is a valid expression which is the same type.
-
-[caution The third requirement implies that a function pointer can't be a model of __CONCEPT_STATIC_FUNCTION_OBJECT__. ]
 
 [heading Example]
 [code_concepts_static_function_object]
