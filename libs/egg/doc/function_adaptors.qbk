@@ -241,8 +241,6 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 [heading Description]
 `fix` is __FIXED_POINT_COMBINATOR__, which enables you to write recursive functions on the fly.
 
-[note `fix` doesn't support __STATIC_INITIALIZATION__. ]
-
 [heading Header]
 * `<boost/egg/fix.hpp>`
 
@@ -658,8 +656,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Description]
 `memoize` stores the result of function for later reuse.
 
-[note `memoize` doesn't support __STATIC_INITIALIZATION__. ]
-
 [heading Header]
 * `<boost/egg/memoize.hpp>`
 
@@ -770,8 +766,6 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 [heading Description]
 `nestN` is generalization of __EGG_CURRY__ and __EGG_LAZY__, which enables you to write nested lambda expressions.
 `N` represents nesting level of lambda expression.
-
-[note `nestN` doesn't support __STATIC_INITIALIZATION__. ]
 
 [heading Header]
 * `<boost/egg/nest.hpp>`
