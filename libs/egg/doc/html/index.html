@@ -244,9 +244,9 @@
           
 </p>
 <pre class="programlisting">
-<span class="keyword">struct</span> <span class="identifier">T_to_string</span> <span class="callout_bug"><a name="boost_egg4co" href="index.html#boost_egg4"><img src="images/callouts/1.png" alt="1" border="0"></a></span>
+<span class="keyword">struct</span> <span class="identifier">T_to_string</span> <span class="callout_bug"><a name="boost_egg5co" href="index.html#boost_egg5"><img src="images/callouts/1.png" alt="1" border="0"></a></span>
 <span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">result_type</span><span class="special">;</span> <span class="callout_bug"><a name="boost_egg5co" href="index.html#boost_egg5"><img src="images/callouts/2.png" alt="2" border="0"></a></span>
+    <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">result_type</span><span class="special">;</span> <span class="callout_bug"><a name="boost_egg6co" href="index.html#boost_egg6"><img src="images/callouts/2.png" alt="2" border="0"></a></span>
 
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
     <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">t</span><span class="special">)</span> <span class="keyword">const</span>
@@ -266,13 +266,13 @@
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="boost_egg4"></a><a href="#boost_egg4co"><img src="images/callouts/1.png" alt="1" border="0"></a> </td>
+<a name="boost_egg5"></a><a href="#boost_egg5co"><img src="images/callouts/1.png" alt="1" border="0"></a> </td>
 <td valign="top" align="left"><p> Egg doesn't appreciate <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">unary_function</span><span class="special">&lt;&gt;</span></code>, because inheriting it keeps types
           out of <span class="emphasis"><em>POD</em></span>. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="boost_egg5"></a><a href="#boost_egg5co"><img src="images/callouts/2.png" alt="2" border="0"></a> </td>
+<a name="boost_egg6"></a><a href="#boost_egg6co"><img src="images/callouts/2.png" alt="2" border="0"></a> </td>
 <td valign="top" align="left"><p> <code class="computeroutput"><span class="identifier">argument_type</span></code>
           etc are not needed. </p></td>
 </tr>
@@ -330,15 +330,14 @@
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="string">"12"</span> <span class="special">==</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">plus</span><span class="special">,</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <span class="identifier">string</span><span class="special">(</span><span class="string">"2"</span><span class="special">))(</span><span class="identifier">one</span><span class="special">));</span>
 <span class="special">}</span>
 
-<span class="identifier">static_</span><span class="special">&lt;</span> <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span><span class="special">)&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span>
-    <span class="keyword">const</span> <span class="identifier">my_plus</span> <span class="special">=</span> <span class="special">{{}};</span>
+<span class="identifier">static_</span><span class="special">&lt;</span> <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span><span class="special">)&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span> <span class="identifier">my_plus</span> <span class="special">=</span> <span class="special">{{}};</span> <span class="callout_bug"><a name="boost_egg2co" href="index.html#boost_egg2"><img src="images/callouts/3.png" alt="3" border="0"></a></span>
 
 <span class="keyword">void</span> <span class="identifier">egg_adaptor</span><span class="special">()</span>
 <span class="special">{</span>
-    <span class="keyword">int</span> <span class="identifier">r</span> <span class="special">=</span> <span class="number">1</span><span class="special">|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">2</span><span class="special">)|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">3</span><span class="special">);</span> <span class="callout_bug"><a name="boost_egg2co" href="index.html#boost_egg2"><img src="images/callouts/3.png" alt="3" border="0"></a></span>
+    <span class="keyword">int</span> <span class="identifier">r</span> <span class="special">=</span> <span class="number">1</span><span class="special">|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">2</span><span class="special">)|</span><span class="identifier">my_plus</span><span class="special">(</span><span class="number">3</span><span class="special">);</span> <span class="callout_bug"><a name="boost_egg3co" href="index.html#boost_egg3"><img src="images/callouts/4.png" alt="4" border="0"></a></span>
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">r</span> <span class="special">==</span> <span class="number">1</span><span class="special">+</span><span class="number">2</span><span class="special">+</span><span class="number">3</span><span class="special">);</span>
 
-    <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span> <span class="keyword">const</span> <span class="special">&amp;)&gt;::</span><span class="identifier">type</span> <span class="identifier">your_plus</span> <span class="special">=</span> <span class="identifier">pipable</span><span class="special">(</span><span class="identifier">plus</span><span class="special">);</span> <span class="callout_bug"><a name="boost_egg3co" href="index.html#boost_egg3"><img src="images/callouts/4.png" alt="4" border="0"></a></span>
+    <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span> <span class="keyword">const</span> <span class="special">&amp;)&gt;::</span><span class="identifier">type</span> <span class="identifier">your_plus</span> <span class="special">=</span> <span class="identifier">pipable</span><span class="special">(</span><span class="identifier">plus</span><span class="special">);</span> <span class="callout_bug"><a name="boost_egg4co" href="index.html#boost_egg4"><img src="images/callouts/5.png" alt="5" border="0"></a></span>
     <span class="identifier">BOOST_CHECK</span><span class="special">((</span><span class="number">1</span><span class="special">|</span><span class="identifier">your_plus</span><span class="special">(</span><span class="number">2</span><span class="special">))</span> <span class="special">==</span> <span class="number">1</span><span class="special">+</span><span class="number">2</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
@@ -364,12 +363,18 @@
 <tr>
 <td width="5%" valign="top" align="left">
 <a name="boost_egg2"></a><a href="#boost_egg2co"><img src="images/callouts/3.png" alt="3" border="0"></a> </td>
+<td valign="top" align="left"><p> <a href="boost_egg/function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> ensures <span class="emphasis"><em>static
+          initialization</em></span>. </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="boost_egg3"></a><a href="#boost_egg3co"><img src="images/callouts/4.png" alt="4" border="0"></a> </td>
 <td valign="top" align="left"><p> This is <a href="http://en.wikipedia.org/wiki/Extension_method" target="_top">Extension
           method</a> emulation in C++. </p></td>
 </tr>
 <tr>
 <td width="5%" valign="top" align="left">
-<a name="boost_egg3"></a><a href="#boost_egg3co"><img src="images/callouts/4.png" alt="4" border="0"></a> </td>
+<a name="boost_egg4"></a><a href="#boost_egg4co"><img src="images/callouts/5.png" alt="5" border="0"></a> </td>
 <td valign="top" align="left"><p> Using <a href="boost_egg/function_adaptors.html#boost_egg.function_adaptors.pipable" title="pipable"><code class="computeroutput"><span class="identifier">pipable</span></code></a> as higher-order function.
           </p></td>
 </tr>
@@ -379,7 +384,7 @@
 <p>
       </p>
 <a name="boost_egg.overview.introduction.pod_oriented_programming"></a><h5>
-<a name="id513079"></a>
+<a name="id513128"></a>
         <a href="index.html#boost_egg.overview.introduction.pod_oriented_programming">POD-oriented
         programming</a>
       </h5>
@@ -729,7 +734,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: April 04, 2008 at 07:12:44 GMT</small></p></td>
+<td align="left"><p><small>Last revised: April 04, 2008 at 08:07:39 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

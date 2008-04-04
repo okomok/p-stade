@@ -37,7 +37,7 @@
 <a name="boost_egg.concepts.lexically_typed_object"></a><a href="concepts.html#boost_egg.concepts.lexically_typed_object" title="Lexically Typed Object">Lexically
       Typed Object</a></h3></div></div></div>
 <a name="boost_egg.concepts.lexically_typed_object.description"></a><h5>
-<a name="id525767"></a>
+<a name="id524586"></a>
         <a href="concepts.html#boost_egg.concepts.lexically_typed_object.description">Description</a>
       </h5>
 <p>
@@ -46,7 +46,7 @@
         <code class="computeroutput"><span class="identifier">T_</span></code>.
       </p>
 <a name="boost_egg.concepts.lexically_typed_object.requirements"></a><h5>
-<a name="id525818"></a>
+<a name="id524636"></a>
         <a href="concepts.html#boost_egg.concepts.lexically_typed_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -66,7 +66,7 @@
         </li>
 </ul></div>
 <a name="boost_egg.concepts.lexically_typed_object.example"></a><h5>
-<a name="id525983"></a>
+<a name="id524802"></a>
         <a href="concepts.html#boost_egg.concepts.lexically_typed_object.example">Example</a>
       </h5>
 <p>
@@ -86,7 +86,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.lexically_typed_object.see_also"></a><h5>
-<a name="id526105"></a>
+<a name="id524924"></a>
         <a href="concepts.html#boost_egg.concepts.lexically_typed_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
@@ -97,7 +97,7 @@
 <a name="boost_egg.concepts.pipable_function_object"></a><a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
       Object</a></h3></div></div></div>
 <a name="boost_egg.concepts.pipable_function_object.description"></a><h5>
-<a name="id526170"></a>
+<a name="id524988"></a>
         <a href="concepts.html#boost_egg.concepts.pipable_function_object.description">Description</a>
       </h5>
 <p>
@@ -117,13 +117,13 @@
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.pipable_function_object.refinement_of"></a><h5>
-<a name="id526274"></a>
+<a name="id525093"></a>
         <a href="concepts.html#boost_egg.concepts.pipable_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="boost_egg.concepts.pipable_function_object.requirements"></a><h5>
-<a name="id526314"></a>
+<a name="id525133"></a>
         <a href="concepts.html#boost_egg.concepts.pipable_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -139,13 +139,6 @@
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">p</span><span class="special">(</span><span class="identifier">x1</span><span class="special">,...,</span><span class="identifier">xN</span><span class="special">)|=</span><span class="identifier">x</span></code> have the same effects.
         </li>
 <li>
-          If <code class="computeroutput"><span class="identifier">N</span></code> is <code class="computeroutput"><span class="number">0</span></code>,
-          then <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span><span class="special">()</span></code>,
-          <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">p</span></code>, <code class="computeroutput"><span class="identifier">p</span><span class="special">|=</span><span class="identifier">x</span></code>,
-          and <code class="computeroutput"><span class="identifier">p</span><span class="special">()|=</span><span class="identifier">x</span></code> are valid expressions which have the
-          same effects.
-        </li>
-<li>
 <code class="computeroutput"><span class="keyword">operator</span><span class="special">|</span></code>
           works with left-to-right associativity.
         </li>
@@ -155,7 +148,7 @@
         </li>
 </ul></div>
 <a name="boost_egg.concepts.pipable_function_object.example"></a><h5>
-<a name="id526712"></a>
+<a name="id525413"></a>
         <a href="concepts.html#boost_egg.concepts.pipable_function_object.example">Example</a>
       </h5>
 <p>
@@ -189,7 +182,7 @@
     <span class="keyword">int</span> <span class="identifier">maybeA</span> <span class="special">=</span> <span class="char">'a'</span><span class="special">|</span><span class="identifier">to_upper</span><span class="special">();</span>
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybeA</span> <span class="special">==</span> <span class="char">'A'</span><span class="special">);</span>
 
-    <span class="keyword">int</span> <span class="identifier">maybeB</span> <span class="special">=</span> <span class="identifier">to_upper</span><span class="special">|=</span><span class="char">'b'</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">maybeB</span> <span class="special">=</span> <span class="identifier">to_upper</span><span class="special">()|=</span><span class="char">'b'</span><span class="special">;</span>
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybeB</span> <span class="special">==</span> <span class="char">'B'</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
@@ -198,7 +191,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.pipable_function_object.see_also"></a><h5>
-<a name="id527229"></a>
+<a name="id525930"></a>
         <a href="concepts.html#boost_egg.concepts.pipable_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -212,7 +205,7 @@
 <a name="boost_egg.concepts.ambi_function_object"></a><a href="concepts.html#boost_egg.concepts.ambi_function_object" title="Ambi Function Object">Ambi Function
       Object</a></h3></div></div></div>
 <a name="boost_egg.concepts.ambi_function_object.description"></a><h5>
-<a name="id527323"></a>
+<a name="id526024"></a>
         <a href="concepts.html#boost_egg.concepts.ambi_function_object.description">Description</a>
       </h5>
 <p>
@@ -230,14 +223,14 @@
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.ambi_function_object.refinement_of"></a><h5>
-<a name="id527381"></a>
+<a name="id526082"></a>
         <a href="concepts.html#boost_egg.concepts.ambi_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#boost_egg.concepts.pipable_function_object" title="Pipable Function Object">Pipable Function
           Object</a></li></ul></div>
 <a name="boost_egg.concepts.ambi_function_object.requirements"></a><h5>
-<a name="id527423"></a>
+<a name="id526124"></a>
         <a href="concepts.html#boost_egg.concepts.ambi_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -267,7 +260,7 @@
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.ambi_function_object.example"></a><h5>
-<a name="id527701"></a>
+<a name="id526402"></a>
         <a href="concepts.html#boost_egg.concepts.ambi_function_object.example">Example</a>
       </h5>
 <p>
@@ -303,7 +296,7 @@
 <span class="special">{</span>
     <span class="identifier">ambi</span> <span class="keyword">const</span> <span class="identifier">to_lower</span> <span class="special">=</span> <span class="special">{};</span>
 
-    <span class="keyword">int</span> <span class="identifier">maybei</span> <span class="special">=</span> <span class="char">'I'</span><span class="special">|</span><span class="identifier">to_lower</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">maybei</span> <span class="special">=</span> <span class="char">'I'</span><span class="special">|</span><span class="identifier">to_lower</span><span class="special">();</span>
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="identifier">maybei</span> <span class="special">==</span> <span class="char">'i'</span><span class="special">);</span>
 
     <span class="keyword">int</span> <span class="identifier">maybej</span> <span class="special">=</span> <span class="identifier">to_lower</span><span class="special">(</span><span class="char">'J'</span><span class="special">);</span>
@@ -315,7 +308,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.ambi_function_object.see_also"></a><h5>
-<a name="id528305"></a>
+<a name="id527006"></a>
         <a href="concepts.html#boost_egg.concepts.ambi_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -329,7 +322,7 @@
 <a name="boost_egg.concepts.major_function_object"></a><a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major Function
       Object</a></h3></div></div></div>
 <a name="boost_egg.concepts.major_function_object.description"></a><h5>
-<a name="id528388"></a>
+<a name="id527089"></a>
         <a href="concepts.html#boost_egg.concepts.major_function_object.description">Description</a>
       </h5>
 <p>
@@ -340,14 +333,14 @@
         Function Object</a>.
       </p>
 <a name="boost_egg.concepts.major_function_object.refinement_of"></a><h5>
-<a name="id528459"></a>
+<a name="id527160"></a>
         <a href="concepts.html#boost_egg.concepts.major_function_object.refinement_of">Refinement
         of</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://spirit.sourceforge.net/dl_more/fusion_v2/libs/fusion/doc/html/fusion/functional/concepts/poly.html" target="_top">Polymorphic
           Function Object</a></li></ul></div>
 <a name="boost_egg.concepts.major_function_object.requirements"></a><h5>
-<a name="id528501"></a>
+<a name="id527202"></a>
         <a href="concepts.html#boost_egg.concepts.major_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -368,7 +361,7 @@
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.major_function_object.see_also"></a><h5>
-<a name="id528624"></a>
+<a name="id527326"></a>
         <a href="concepts.html#boost_egg.concepts.major_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -381,7 +374,7 @@
 <a name="boost_egg.concepts.static_function_object"></a><a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
       Object</a></h3></div></div></div>
 <a name="boost_egg.concepts.static_function_object.description"></a><h5>
-<a name="id528702"></a>
+<a name="id527403"></a>
         <a href="concepts.html#boost_egg.concepts.static_function_object.description">Description</a>
       </h5>
 <p>
@@ -390,7 +383,7 @@
         Function Object</a> which is intended to replace normal functions.
       </p>
 <a name="boost_egg.concepts.static_function_object.refinement_of"></a><h5>
-<a name="id528752"></a>
+<a name="id527453"></a>
         <a href="concepts.html#boost_egg.concepts.static_function_object.refinement_of">Refinement
         of</a>
       </h5>
@@ -401,7 +394,7 @@
           Object</a></li>
 </ul></div>
 <a name="boost_egg.concepts.static_function_object.requirements"></a><h5>
-<a name="id528807"></a>
+<a name="id527508"></a>
         <a href="concepts.html#boost_egg.concepts.static_function_object.requirements">Requirements</a>
       </h5>
 <p>
@@ -449,7 +442,7 @@
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.static_function_object.example"></a><h5>
-<a name="id529387"></a>
+<a name="id528088"></a>
         <a href="concepts.html#boost_egg.concepts.static_function_object.example">Example</a>
       </h5>
 <p>
@@ -475,7 +468,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.static_function_object.see_also"></a><h5>
-<a name="id529595"></a>
+<a name="id528296"></a>
         <a href="concepts.html#boost_egg.concepts.static_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a></li></ul></div>
@@ -484,7 +477,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_egg.concepts.little_function"></a><a href="concepts.html#boost_egg.concepts.little_function" title="Little Function">Little Function</a></h3></div></div></div>
 <a name="boost_egg.concepts.little_function.description"></a><h5>
-<a name="id529657"></a>
+<a name="id528358"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.description">Description</a>
       </h5>
 <p>
@@ -493,7 +486,7 @@
         Builders</a> require.
       </p>
 <a name="boost_egg.concepts.little_function.requirements"></a><h5>
-<a name="id529704"></a>
+<a name="id528405"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.requirements">Requirements</a>
       </h5>
 <p>
@@ -513,7 +506,7 @@
         </li>
 </ul></div>
 <a name="boost_egg.concepts.little_function.example"></a><h5>
-<a name="id529842"></a>
+<a name="id528542"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.example">Example</a>
       </h5>
 <p>
@@ -542,7 +535,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.little_function.see_also"></a><h5>
-<a name="id530123"></a>
+<a name="id528824"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -564,7 +557,7 @@
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id530215"></a>
+<a name="id528916"></a>
         <a href="concepts.html#boost_egg.concepts.result_of_tutorial.how_to_call">How to
         call</a>
       </h5>
@@ -664,7 +657,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id531412"></a>
+<a name="id530113"></a>
         <a href="concepts.html#boost_egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -681,7 +674,7 @@
         The first bug is fixed with Boost1.35.
       </p>
 <a name="boost_egg.concepts.result_of_tutorial.see_also"></a><h5>
-<a name="id531536"></a>
+<a name="id530237"></a>
         <a href="concepts.html#boost_egg.concepts.result_of_tutorial.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="workarounds.html#boost_egg.workarounds.result__of_" title="result_of_"><code class="computeroutput"><span class="identifier">egg</span><span class="special">::</span><span class="identifier">result_of_</span></code></a></li></ul></div>

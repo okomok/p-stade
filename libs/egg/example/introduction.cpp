@@ -56,8 +56,7 @@ void egg_builder()
     BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one));
 }
 
-static_< result_of_<T_pipable(T_plus)> >::type
-    const my_plus = {{}};
+static_< result_of_<T_pipable(T_plus)> >::type const my_plus = {{}}; /*< __EGG_STATIC__ ensures __STATIC_INITIALIZATION__. >*/
 
 void egg_adaptor()
 {
