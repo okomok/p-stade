@@ -365,9 +365,7 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
 [section static_]
 
 [heading Description]
-`static_` builds a __POD__ __FUNCTION_OBJECT__ from a stateless __FUNCTION_OBJECT__.
-
-[/ note When __EGG_INDIRECT__ also is available, prefer __EGG_INDIRECT__, which seems to run faster in msvc. ]
+`static_` builds a __POD__ __FUNCTION_OBJECT__ from a "stateless" __FUNCTION_OBJECT__.
 
 [heading Header]
 * `<boost/egg/static.hpp>`

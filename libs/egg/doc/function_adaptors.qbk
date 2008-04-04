@@ -25,7 +25,7 @@ A Function Adaptor supports, if possible, the three initialization forms:
 [code_example_function_adaptors]
 
 In namespace scope, __STATIC_INITIALIZATION__ is highly recommended.
-For details about adapting statefull functions using macros, see __EGG_STATEFUL_STATIC_INITIALIZATION__.
+For details about adapting "stateful" functions using macros, see __EGG_STATEFUL_STATIC_INITIALIZATION__.
 
 [important A "base" __FUNCTION_OBJECT__ in __EGG_STATIC__ must be __DEFAULT_CONSTRUCTIBLE__
          and a default-constructed one is callable. In other words, a "base" must be "stateless".
@@ -1105,8 +1105,9 @@ How can we pass "states" to __EGG_FUNCTION_ADAPTORS__? We need "ugly" macros.
 [heading Notation]
 * `adapt` is one of the name of __EGG_FUNCTION_ADAPTORS__ which supports __STATIC_INITIALIZATION__.
 * `ADAPT` is the uppercase tokens of `adapt`.
-* `B_` is a "base" __FUNCTION_OBJECT__ type passed to `adapt`.
+* `BI` is a "base" __FUNCTION_OBJECT__ type passed to `adapt`.
 * `A_` is an "adapted" __FUNCTION_OBJECT__ type from `B_` by `adapt`.
+* `wrap_` is an imaginary /aggregate/ type which is defined as `struct wrap_ { B1 b1;...BN bN; };`.
 
 [heading Valid expressions]
 [table 
@@ -1116,28 +1117,24 @@ How can we pass "states" to __EGG_FUNCTION_ADAPTORS__? We need "ugly" macros.
     ]
     [
         [`BOOST_EGG_%%ADAPT%%_L init BOOST_EGG_%%ADAPT%%_R`]
-        [A braced initializer of `A_` object]
+        [A braced initializer of `A_` object initialized by `init`_]
     ]
     [
         [`BOOST_EGG_%%ADAPT(init)`]
         [`BOOST_EGG_%%ADAPT%%_L init BOOST_EGG_%%ADAPT%%_R`]
     ]
-    [
-        [`BOOST_EGG_COMPOSE(f, g)`]
-        [`BOOST_EGG_COMPOSE_L f, g BOOST_EGG_COMPOSE_R`]
-    ]
 ]
 
 [heading Preconditions]
-* `B b_ = init;` is a valid expression.
+* `wrap_ w_ = {init};` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
-* `A_` is __POD__ if and only if `B_` is __POD__.
-* `A_` is __DEFAULT_CONSTRUCTIBLE__ if and only if `B_` is __DEFAULT_CONSTRUCTIBLE__.
-* `A_` is __COPY_ASSIGNABLE__ if and only if `B_` is __COPY_ASSIGNABLE__.
+* `A_` is __POD__ if and only if any `BI` is __POD__.
+* `A_` is __DEFAULT_CONSTRUCTIBLE__ if and only if any `BI` is __DEFAULT_CONSTRUCTIBLE__.
+* `A_` is __COPY_ASSIGNABLE__ if and only if any `BI` is __COPY_ASSIGNABLE__.
 * A non-local `A_` object with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__
-  if `B_` is __POD__ and the expression passed to the macro is a /constant expression/.
+  if any `BI` is __POD__ and any expression passed to the macro is a /constant expression/.
 
 [heading Example]
 [import ../example/stateful_static_initialization.cpp]
