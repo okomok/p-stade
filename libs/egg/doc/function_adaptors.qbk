@@ -1126,7 +1126,7 @@ How can we pass "states" to __EGG_FUNCTION_ADAPTORS__? We need "ugly" macros.
 ]
 
 [heading Preconditions]
-* `wrap_ w_ = {init};` is a valid expression.
+* There is a `w_` such that `wrap_ w_ = {init};` is a valid expression.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
