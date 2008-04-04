@@ -14,7 +14,7 @@
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/detail/boost_result_of_fwd.hpp>
 #include <boost/egg/detail/little_static.hpp>
-#include <boost/egg/result_of.hpp>
+#include <boost/egg/result_of.hpp> // inclusion guaranteed
 
 
 namespace boost { namespace egg {
