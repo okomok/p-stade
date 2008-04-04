@@ -18,12 +18,12 @@
 #include "./egg_example.hpp"
 
 
-//[code_example_stateless
-typedef static_<X_apply<boost::mpl::_1>, by_cref>::type T_my_apply;
-T_my_apply const my_apply = BOOST_EGG_STATIC();
-
-typedef static_< boost::mpl::always< std::plus<int> > >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
+//[code_example_static
+typedef static_< std::plus<int> >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
 T_my_plus const my_plus = BOOST_EGG_STATIC();
+
+typedef static_<X_apply<by_cref>, by_cref>::type T_my_apply;
+T_my_apply const my_apply = BOOST_EGG_STATIC();
 
 void egg_example()
 {

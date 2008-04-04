@@ -103,8 +103,17 @@ void test()
 
 namespace static_function_object {
 //[code_concepts_static_function_object
-typedef int (*T_is_alpha)(int ch);
-T_is_alpha const is_alpha = &std::isalpha;
+struct T_is_alpha
+{
+    typedef int result_type;
+
+    result_type operator()(int ch) const
+    {
+        return std::isalpha(ch);
+    }
+};
+
+T_is_alpha const is_alpha = {};
 //]
 }
 

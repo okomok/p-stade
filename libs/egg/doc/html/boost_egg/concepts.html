@@ -421,6 +421,10 @@
           Assignable</a>.
         </li>
 <li>
+          A default-constructed <code class="computeroutput"><a href="../index.html#boost_egg.overview.notation" title="Notation"><code class="computeroutput"><span class="identifier">__typeof</span></code></a><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code> is
+          callable.
+        </li>
+<li>
 <code class="computeroutput"><span class="identifier">f</span></code> is <span class="emphasis"><em>statically
           initialized</em></span>.
         </li>
@@ -433,20 +437,19 @@
           same type.
         </li>
 </ul></div>
-<div class="note"><table border="0" summary="Note">
+<div class="caution"><table border="0" summary="Caution">
 <tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/html/images/note.png"></td>
-<th align="left">Note</th>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../../../doc/html/images/caution.png"></td>
+<th align="left">Caution</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-          A <a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
-          Object</a> can be <span class="emphasis"><em>singular</em></span>, meaning that it may
-          result in undefined behavior to call a <span class="emphasis"><em>default constructed</em></span>
-          one.
+          The third requirement implies that a function pointer is not a model of
+          <a href="concepts.html#boost_egg.concepts.static_function_object" title="Static Function Object">Static Function
+          Object</a>.
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.static_function_object.example"></a><h5>
-<a name="id529238"></a>
+<a name="id529270"></a>
         <a href="concepts.html#boost_egg.concepts.static_function_object.example">Example</a>
       </h5>
 <p>
@@ -455,15 +458,24 @@
           
 </p>
 <pre class="programlisting">
-<span class="keyword">typedef</span> <span class="keyword">int</span> <span class="special">(*</span><span class="identifier">T_is_alpha</span><span class="special">)(</span><span class="keyword">int</span> <span class="identifier">ch</span><span class="special">);</span>
-<span class="identifier">T_is_alpha</span> <span class="keyword">const</span> <span class="identifier">is_alpha</span> <span class="special">=</span> <span class="special">&amp;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">isalpha</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">T_is_alpha</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
+
+    <span class="identifier">result_type</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">ch</span><span class="special">)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">isalpha</span><span class="special">(</span><span class="identifier">ch</span><span class="special">);</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="identifier">T_is_alpha</span> <span class="keyword">const</span> <span class="identifier">is_alpha</span> <span class="special">=</span> <span class="special">{};</span>
 </pre>
 <p>
         </p>
 <p>
       </p>
 <a name="boost_egg.concepts.static_function_object.see_also"></a><h5>
-<a name="id529374"></a>
+<a name="id529479"></a>
         <a href="concepts.html#boost_egg.concepts.static_function_object.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a></li></ul></div>
@@ -472,7 +484,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_egg.concepts.little_function"></a><a href="concepts.html#boost_egg.concepts.little_function" title="Little Function">Little Function</a></h3></div></div></div>
 <a name="boost_egg.concepts.little_function.description"></a><h5>
-<a name="id529436"></a>
+<a name="id529541"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.description">Description</a>
       </h5>
 <p>
@@ -481,7 +493,7 @@
         Builders</a> require.
       </p>
 <a name="boost_egg.concepts.little_function.requirements"></a><h5>
-<a name="id529483"></a>
+<a name="id529588"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.requirements">Requirements</a>
       </h5>
 <p>
@@ -501,7 +513,7 @@
         </li>
 </ul></div>
 <a name="boost_egg.concepts.little_function.example"></a><h5>
-<a name="id529620"></a>
+<a name="id529725"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.example">Example</a>
       </h5>
 <p>
@@ -530,7 +542,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.little_function.see_also"></a><h5>
-<a name="id529902"></a>
+<a name="id530007"></a>
         <a href="concepts.html#boost_egg.concepts.little_function.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -552,7 +564,7 @@
         </p></td></tr>
 </table></div>
 <a name="boost_egg.concepts.result_of_tutorial.how_to_call"></a><h5>
-<a name="id529994"></a>
+<a name="id530099"></a>
         <a href="concepts.html#boost_egg.concepts.result_of_tutorial.how_to_call">How to
         call</a>
       </h5>
@@ -652,7 +664,7 @@
 <p>
       </p>
 <a name="boost_egg.concepts.result_of_tutorial.bugs"></a><h5>
-<a name="id531191"></a>
+<a name="id531296"></a>
         <a href="concepts.html#boost_egg.concepts.result_of_tutorial.bugs">Bugs</a>
       </h5>
 <div class="itemizedlist"><ul type="disc">
@@ -669,7 +681,7 @@
         The first bug is fixed with Boost1.35.
       </p>
 <a name="boost_egg.concepts.result_of_tutorial.see_also"></a><h5>
-<a name="id531315"></a>
+<a name="id531420"></a>
         <a href="concepts.html#boost_egg.concepts.result_of_tutorial.see_also">See also</a>
       </h5>
 <div class="itemizedlist"><ul type="disc"><li><a href="workarounds.html#boost_egg.workarounds.result__of_" title="result_of_"><code class="computeroutput"><span class="identifier">egg</span><span class="special">::</span><span class="identifier">result_of_</span></code></a></li></ul></div>

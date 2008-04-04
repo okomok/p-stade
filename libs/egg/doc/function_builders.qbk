@@ -166,7 +166,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`BOOST_EGG_GENERATOR()`]
+        [`{{}}`]
         [A braced initializer of `generator<Lam, __Stg, Cons, R0>::type`]
     ]
     [
@@ -269,7 +269,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`BOOST_EGG_IMPLICIT()`]
+        [`{{}}`]
         [A braced initializer of `implicit<Lam, __Stg>::type`]
     ]
     [
@@ -332,7 +332,7 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`BOOST_EGG_POLY()`]
+        [`{{}}`]
         [A braced initializer of `poly<Lam,...>::type`]
     ]
     [
@@ -374,21 +374,18 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
 
 
 
-[section stateless]
+[section static_]
 
 [heading Description]
-`stateless` builds a __POD__ __FUNCTION_OBJECT__ from a stateless __FUNCTION_OBJECT__.
-Note that Egg's __FUNCTION_OBJECT__ class templates which begin with `X_` are not guaranteed
-to be __STATICALLY_INITIALIZED__ without `stateless`.
+`static_` builds a __POD__ __FUNCTION_OBJECT__ from a stateless __FUNCTION_OBJECT__.
 
-[note When __EGG_INDIRECT__ also is available, prefer __EGG_INDIRECT__, which seems to run faster in msvc. ]
+[/ note When __EGG_INDIRECT__ also is available, prefer __EGG_INDIRECT__, which seems to run faster in msvc. ]
 
 [heading Header]
-* `<boost/egg/stateless.hpp>`
+* `<boost/egg/static.hpp>`
 
 [heading Notation]
-* `u` is an object of `stateless<Lam, __Stg>::type`.
-* `F` is `__mpl::apply<Lam, __Stg>::type`.
+* `u` is an object of `static_<__PFo, __Stg>::type`.
 
 [heading Valid expressions]
 [table 
@@ -397,34 +394,35 @@ to be __STATICALLY_INITIALIZED__ without `stateless`.
         [[*Semantics]]
     ]
     [
-        [`stateless<Lam, __Stg = __ud>::type`]
+        [`static_<__PFo, __Stg = __ud>::type`]
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`BOOST_EGG_STATIC()`]
-        [A braced initializer of `stateless<Lam, __Stg>::type`]
+        [`static_<result_of<F>, __Stg = __ud>::type`]
+        [`static_<result_of<F>::type, __Stg>::type`]
+    ]
+    [
+        [`{{}}`]
+        [A braced initializer of `static_<__PFo, __Stg>::type`]
     ]
     [
         [`u(a1,...,aN)`]
-        [`F()(__fwd_arg_list(a, __Stg))`]
-    ]
-    [
-        [`__mpl::_%%M`, `__mpl::_` and `__mpl::always`]
-        [as-is]
+        [`__PFo()(__fwd_arg_list(a, __Stg))`]
     ]
 ]
 
+[/
 [heading Preconditions]
-* `F` is a __POLYMORPHIC_FUNCTION_OBJECT__ type.
 [/ * __PRECONDITION_AS_IS__ ]
+]
 
 [heading Invariants]
 * Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_STATIC()`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
-[import ../example/stateless.cpp]
-[code_example_stateless]
+[import ../example/static.cpp]
+[code_example_static]
 
 [heading See also]
 * __EGG_FORWARDING_STRATEGIES__
