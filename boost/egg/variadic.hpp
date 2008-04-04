@@ -13,6 +13,7 @@
 
 #include <boost/egg/by_cref.hpp>
 #include <boost/egg/poly.hpp>
+#include <boost/egg/static.hpp>
 #include <boost/egg/unfuse.hpp>
 
 
@@ -49,15 +50,18 @@ namespace boost { namespace egg {
         class NullaryResult = use_default
     >
     struct variadic_poly :
-        result_of_unfuse<
-            typename poly<Expr, by_variadic>::type,
-            NullaryResult,
-            PackExpr,
+        static_<
+            typename result_of_unfuse<
+                typename poly<Expr, by_variadic>::type,
+                NullaryResult,
+                PackExpr,
+                Strategy
+            >::type,
             Strategy
         >
     { };
 
-    #define BOOST_EGG_VARIADIC_POLY() BOOST_EGG_UNFUSE_L BOOST_EGG_POLY() BOOST_EGG_UNFUSE_R
+    #define BOOST_EGG_VARIADIC_POLY BOOST_EGG_STATIC
 
 
 } } // namespace boost::egg
