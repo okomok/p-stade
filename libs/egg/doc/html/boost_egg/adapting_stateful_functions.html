@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Adapting stateful functions</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Boost.Egg 0.92.0">
+<link rel="up" href="../index.html" title="Chapter 1. Boost.Egg 0.92.0">
+<link rel="prev" href="utilities.html" title="Utilities">
+<link rel="next" href="configuration.html" title="Configuration">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td></tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="utilities.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="configuration.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_egg.adapting_stateful_functions"></a><a href="adapting_stateful_functions.html" title="Adapting stateful functions">Adapting stateful
+    functions</a></h2></div></div></div>
+<p>
+      For some reason, you need <span class="emphasis"><em>statically initialized</em></span> "stateful"
+      functions adapted by <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a>.
+      As you know, the initializer of <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> must be the empty double braces
+      <code class="computeroutput"><span class="special">{{}}</span></code>. How can we pass "states"
+      to <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a>? We
+      need "ugly" macros.
+    </p>
+<p>
+      An adapted non-local <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+      Object</a> with <span class="emphasis"><em>static storage duration</em></span> is <span class="emphasis"><em>statically
+      initialized</em></span> if the "base" <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+      Object</a> type is <span class="emphasis"><em>POD</em></span> and the expression passed to
+      the macro is a <span class="emphasis"><em>constant expression</em></span>. Also, Function Adaptors
+      don't modify <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+      Constructible</a> and <a href="http://boost.org/doc/html/Assignable.html" target="_top">Copy
+      Assignable</a>-ness of base <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
+      Object</a> unless otherwise specified.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2007 -2008 Shunsuke Sogame<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="utilities.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="configuration.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
