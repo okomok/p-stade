@@ -224,7 +224,7 @@ for any __CONCEPT_STATELESS_FUNCTION_OBJECT__ `f` the following must be met:
 * `std::plus<int>`
 
 [heading See also]
-* __BOOST_RESULT_OF__
+* __EGG_STATIC__
 
 [endsect]
 

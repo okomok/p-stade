@@ -14,12 +14,12 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 A Function Adaptor is a higher-order function that takes a "base" __FUNCTION_OBJECT__
 and returns an "adapted" __FUNCTION_OBJECT__.
-An adapted __FUNCTION_OBJECT__ type meets the following:
+An adapted __FUNCTION_OBJECT__ type meets the following unless otherwise specified:
 
 * It is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
-* It is __POD__ if and only if its "base" __FUNCTION_OBJECT__ type is __POD__.
+[/ * It is __POD__ if and only if its "base" __FUNCTION_OBJECT__ type is __POD__. ]
 * It is __CONCEPT_STATELESS__ if and only if its "base" __FUNCTION_OBJECT__ type is __CONCEPT_STATELESS__.
-* It supports __STATIC_INITIALIZATION__ using __EGG_STATIC__ or macros unless otherwise specified.
+* It supports __EGG_STATEFUL_STATIC_INITIALIZATION__ using macros.
 
 [import ../example/function_adaptors.cpp]
 [code_example_function_adaptors]
@@ -271,6 +271,9 @@ The `curry` family turn __FUNCTION_OBJECT__\ s into curried ones.
 [heading Example]
 [import ../example/fix.cpp]
 [code_example_fix]
+
+[heading Invariants]
+* An adapted __FUNCTION_OBJECT__ doesn't support __EGG_STATEFUL_STATIC_INITIALIZATION__.
 
 [heading See also]
 * __FIXED_POINT_COMBINATOR__
@@ -688,6 +691,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 * `__decltype(memoize(__pfo)(a1))` is __COPY_CONSTRUCTIBLE__.
 [/ * __PRECONDITION_AS_IS__ ]
 
+[heading Invariants]
+* An adapted __FUNCTION_OBJECT__ is not __CONCEPT_STATELESS__.
+* An adapted __FUNCTION_OBJECT__ doesn't support __EGG_STATEFUL_STATIC_INITIALIZATION__.
+
 [heading Example]
 [import ../example/memoize.cpp]
 [code_example_memoize]
@@ -838,6 +845,10 @@ __BOOST_PHOENIX__ is able to make a lambda expression without a "bind function".
 
 [important For capturing by-reference in nested lambda expressions, `refN` must be used instead of `boost::ref`. ]
 
+[heading Invariants]
+* An adapted __FUNCTION_OBJECT__ is not __CONCEPT_STATELESS__.
+* An adapted __FUNCTION_OBJECT__ doesn't support __EGG_STATEFUL_STATIC_INITIALIZATION__.
+
 [heading Example]
 [import ../example/nest.cpp]
 [code_example_nest]
@@ -953,8 +964,6 @@ A __BOOST_LAMBDA__ __FUNCTION_OBJECT__ is neither __DEFAULT_CONSTRUCTIBLE__ nor 
 An iterator holding such a __FUNCTION_OBJECT__ can't conform to even __INPUT_ITERATOR__.
 `regular` converts it into comfortable one for iterators.
 
-[note `regular` doesn't support __STATIC_INITIALIZATION__. ]
-
 [heading Header]
 * `<boost/egg/regular.hpp>`
 
@@ -980,6 +989,10 @@ An iterator holding such a __FUNCTION_OBJECT__ can't conform to even __INPUT_ITE
 [heading Preconditions]
 * `f` is a __BOOST_LAMBDA__ __FUNCTION_OBJECT__ or __POLYMORPHIC_FUNCTION_OBJECT__.
 [/ * __PRECONDITION_AS_IS__ ]
+
+[heading Invariants]
+* An adapted __FUNCTION_OBJECT__ is not __CONCEPT_STATELESS__.
+* An adapted __FUNCTION_OBJECT__ doesn't support __EGG_STATEFUL_STATIC_INITIALIZATION__.
 
 [heading Example]
 [import ../example/regular.cpp]
@@ -1101,7 +1114,7 @@ As you know, the initializer of __EGG_STATIC__ must be the empty double braces `
 How can we pass "states" to __EGG_FUNCTION_ADAPTORS__? We need "ugly" macros.
 
 [heading Notation]
-* `adapt` is one of the name of __EGG_FUNCTION_ADAPTORS__ which supports __STATIC_INITIALIZATION__.
+* `adapt` is one of the name of __EGG_FUNCTION_ADAPTORS__.
 * `ADAPT` is the uppercase tokens of `adapt`.
 * `BI` is a "base" object type passed to `adapt`.
 * `A_` is an "adapted" __FUNCTION_OBJECT__ type from `B_` by `adapt`.
