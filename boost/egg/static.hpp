@@ -13,7 +13,6 @@
 
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/detail/boost_result_of_fwd.hpp>
-#include <boost/egg/detail/egg_result_of_fwd.hpp>
 #include <boost/egg/detail/little_static.hpp>
 #include <boost/egg/result_of.hpp>
 
@@ -37,7 +36,7 @@ namespace boost { namespace egg {
 
     template<class FunCall, class Strategy>
     struct static_<result_of<FunCall>, Strategy> :
-        static_<typename result_of<FunCall>::type, Strategy>
+        static_<typename result_of_<FunCall>::type, Strategy>
     { };
 
     template<class FunCall, class Strategy>
