@@ -137,7 +137,7 @@ Special thanks to:
 * Dan Marsden, review manager of this library.
 * David Abrahams. The __FORWARDING_PROBLEM__ workaround is based on his __DAVID_CALLABLE__.
 * Eric Niebler, who pointed out importance of __STATIC_INITIALIZATION__.
-* Giovanni Piero Derreta, who indicated the power of stateless functions and __EGG_STATIC__.
+* Giovanni Piero Deretta, who indicated the power of stateless functions and __EGG_STATIC__.
 * Cryolite, Hitobashira, Kazuhiro Inaba, Takeshi Mouri, yotto-k, and Yusuke Kajimoto.
 
 [endsect]
