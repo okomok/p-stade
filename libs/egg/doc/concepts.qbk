@@ -212,13 +212,13 @@ for any __CONCEPT_STATIC_FUNCTION_OBJECT__ `f` the following must be met:
 
 * `__typeof(f)` is __POD__ in C++03 (a /trivial type/ in C++0x).
 * `__typeof(f)` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
-* A default-constructed `__typeof(f)` is callable.
+* `f(a1,...,aN)` has the same semantics as `__typeof(f)()(a1,...aN)`.
 * `f` is __STATICALLY_INITIALIZED__.
 * `boost::remove_reference<__decltype(f)>::type` is `__typeof(f) const`.
-* If `boost::result_of<__typeof(f) const(a1,...,aN)>::type` is a valid expression,
-  `boost::result_of<__typeof(f)(a1,...,aN)>::type` is a valid expression which is the same type.
+* If `boost::result_of<__typeof(f) const(A1,...,AN)>::type` is a valid expression,
+  `boost::result_of<__typeof(f)(A1,...,AN)>::type` is a valid expression which is the same type.
 
-[caution The third requirement implies that a function pointer is not a model of __CONCEPT_STATIC_FUNCTION_OBJECT__. ]
+[caution The third requirement implies that a function pointer can't be a model of __CONCEPT_STATIC_FUNCTION_OBJECT__. ]
 
 [heading Example]
 [code_concepts_static_function_object]

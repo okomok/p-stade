@@ -27,7 +27,7 @@ typedef result_of_lazy<std::minus<int>, T_bind>::type Minus;
 
 static_<
     return_of< Plus, TT_1, return_of<Minus, TT_2, TT_3> >
->::type const foo = BOOST_EGG_STATIC();
+>::type const foo = {{}};
 
 void egg_example()
 {
