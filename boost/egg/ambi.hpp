@@ -23,6 +23,7 @@
 #include <boost/egg/by_value.hpp>
 #include <boost/egg/const.hpp>
 #include <boost/egg/construct_braced2.hpp>
+#include <boost/egg/detail/ambi_macros.hpp>
 #include <boost/egg/detail/deduced_const.hpp>
 #include <boost/egg/detail/derived_from.hpp>
 #include <boost/egg/detail/enable_if.hpp>

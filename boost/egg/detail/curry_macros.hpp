@@ -11,8 +11,6 @@
 
 
 #include <boost/egg/preprocessor/cat3.hpp>
-#include <boost/egg/detail/bind_left1.hpp>
-#include <boost/egg/detail/bind_leftx.hpp>
 
 
 #define BOOST_EGG_CURRY_L(N) BOOST_EGG_PP_CAT3(BOOST_EGG_CURRY, N, _L)
