@@ -63,25 +63,14 @@ namespace boost { namespace egg {
 
 
     template<class Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, class A)>
-    struct return_of<Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, A)>
+    struct return_of<Fun BOOST_PP_ENUM_TRAILING_PARAMS(n, A)> :
+        result_of_<
+            typename boost::remove_reference<Fun>::type(
+                BOOST_EGG_PP_ENUM_PARAMS_WITH(n, typename return_of_detail::arg_<A, >::type)
+            )
+        >
     {
         typedef void boost_egg_return_of;
-
-        typedef typename
-            result_of_<
-                typename boost::remove_reference<Fun>::type(
-                    BOOST_EGG_PP_ENUM_PARAMS_WITH(n, typename return_of_detail::arg_<A, >::type)
-                )
-            >::type
-        type_;
-
-        typedef type_ type;
-
-        template<BOOST_EGG_PP_ENUM_PARAMS_WITH(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, class A_, = void)>
-        struct apply
-        {
-            typedef type_ type;
-        };
     };
 
 
