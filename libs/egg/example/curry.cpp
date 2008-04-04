@@ -9,6 +9,7 @@
 
 
 #include <boost/egg/curry.hpp>
+#include <boost/egg/static.hpp>
 #include <functional> // minus
 
 
@@ -26,7 +27,8 @@ struct base_my_minus
     }
 };
 
-result_of_curry2<base_my_minus>::type const curried_minus = BOOST_EGG_CURRY2({});
+static_< result_of_<T_curry2(base_my_minus)> >::type
+    const curried_minus = {{}};
 
 void egg_example()
 {

@@ -123,7 +123,7 @@ typedef
     egg::poly< mono_make_filtered<boost::mpl::_, boost::mpl::_> >::type
 T_make_filtered;
 
-T_make_filtered const make_filtered = BOOST_EGG_POLY(); /*< This macro ensures __STATIC_INITIALIZATION__. >*/
+T_make_filtered const make_filtered = {{}};
 
 
 bool is_not_X(char ch) { return ch != 'X'; }
@@ -152,8 +152,8 @@ void quick_start_make_filtered()
 //[code_quick_start_pipable
 #include <boost/egg/pipable.hpp>
 
-egg::result_of_pipable<T_make_filtered>::type
-    const filtered = BOOST_EGG_PIPABLE_L BOOST_EGG_POLY() BOOST_EGG_PIPABLE_R; /*< Recall the initializer of `T_make_filtered` is `BOOST_EGG_POLY()`. >*/
+egg::static_< egg::result_of_<egg::T_pipable(T_make_filtered)> >::type /*< __EGG_STATIC__ ensures __STATIC_INITIALIZATION__. >*/
+    const filtered = {{}};
 
 void quick_start_pipable()
 {
@@ -234,7 +234,7 @@ struct always_result :
 
 egg::generator<
     always_result< egg::deduce<boost::mpl::_1, egg::as_value> >
->::type const always = BOOST_EGG_GENERATOR();
+>::type const always = {{}};
 
 void quick_start_object_generator()
 {
@@ -338,8 +338,8 @@ struct fused_plus
     }
 };
 
-typedef egg::result_of_unfuse<fused_plus>::type T_good_plus;
-T_good_plus const good_plus = BOOST_EGG_UNFUSE({});
+typedef egg::static_< egg::result_of_<egg::T_unfuse(fused_plus)> >::type T_good_plus;
+T_good_plus const good_plus = {{}};
 
 void quick_start_fusing2()
 {
@@ -353,8 +353,8 @@ void quick_start_fusing2()
 //[code_quick_start_mono
 #include <boost/egg/mono.hpp>
 
-egg::result_of_mono<T_good_plus, int(int, int)>::type
-    const int_plus = BOOST_EGG_MONO_L BOOST_EGG_UNFUSE({}) BOOST_EGG_MONO_R;
+egg::static_< egg::result_of_<egg::X_mono<int(int, int)>(T_good_plus)> >::type
+    const int_plus = {{}};
 
 void quick_start_mono()
 {

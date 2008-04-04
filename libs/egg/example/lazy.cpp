@@ -9,6 +9,7 @@
 
 
 #include <boost/egg/lazy.hpp>
+#include <boost/egg/static.hpp>
 
 
 #include "./using_bll.hpp"
@@ -26,7 +27,8 @@ struct base_my_plus
     }
 };
 
-result_of_lazy<base_my_plus>::type const my_Plus = BOOST_EGG_LAZY({});
+static_< result_of_<T_lazy(base_my_plus)> >::type
+    const my_Plus = {{}};
 
 void egg_example()
 {

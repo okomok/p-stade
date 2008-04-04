@@ -33,7 +33,7 @@ typedef
     poly< mono_twice<boost::mpl::_, boost::mpl::_> >::type
 T_twice;
 
-T_twice const twice = BOOST_EGG_POLY();
+T_twice const twice = {{}};
 
 int increment(int i) { return i + 1; }
 

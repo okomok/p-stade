@@ -109,6 +109,7 @@ __EGG_FUNCTION_ADAPTORS__ can provide several "views" into functions on demand.
 Let's look into some usefull adaptors.
 
 
+[/
 [heading Getting initializers]
 
 As mentioned [link boost_egg.overview.introduction.pod_oriented_programming before], the __STATIC_INITIALIZATION__ is important.
@@ -119,6 +120,7 @@ What if you don't know a braced-initializer of a __FUNCTION_OBJECT__ you are ada
 [heading Object generators]
 It is boring to build __OBJECT_GENERATORS__. __EGG_GENERATOR__ makes it easy:
 [code_quick_start_object_generator]
+]
 
 
 [heading Partial application]

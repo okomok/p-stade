@@ -14,6 +14,7 @@
 
 #include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
 #include <boost/egg/unfuse.hpp>
+#include <boost/egg/static.hpp>
 #include <boost/fusion/include/boost_tuple.hpp>
 #include <boost/fusion/include/for_each.hpp>
 #include <iostream>
@@ -36,7 +37,7 @@ struct fused_print
     }
 };
 
-result_of_unfuse<fused_print>::type const print = BOOST_EGG_UNFUSE({});
+static_< result_of_<T_unfuse(fused_print)> >::type const print = {{}};
 
 void egg_example()
 {

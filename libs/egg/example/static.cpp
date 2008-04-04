@@ -20,10 +20,10 @@
 
 //[code_example_static
 typedef static_< std::plus<int> >::type T_my_plus; /*< `T_my_plus` is __POD__, whereas `std::plus<int>` is not. >*/
-T_my_plus const my_plus = BOOST_EGG_STATIC();
+T_my_plus const my_plus = {{}};
 
 typedef static_<X_apply<by_cref>, by_cref>::type T_my_apply;
-T_my_apply const my_apply = BOOST_EGG_STATIC();
+T_my_apply const my_apply = {{}};
 
 void egg_example()
 {

@@ -11,6 +11,7 @@
 #include <boost/egg/pipable.hpp>
 #include <boost/egg/function.hpp>
 #include <boost/egg/result_of.hpp>
+#include <boost/egg/static.hpp>
 
 
 #include BOOST_EGG_SUPPRESS_WARNING_BEGIN()
@@ -55,7 +56,8 @@ void egg_builder()
     BOOST_CHECK("12" == bll::bind(plus, bll::_1, string("2"))(one));
 }
 
-result_of_pipable<T_plus>::type const my_plus = BOOST_EGG_PIPABLE({{}});
+static_< result_of_<T_pipable(T_plus)> >::type
+    const my_plus = {{}};
 
 void egg_adaptor()
 {

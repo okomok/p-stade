@@ -24,7 +24,7 @@ typedef
     >::type
 T_make_pair;
 
-T_make_pair const make_pair = BOOST_EGG_GENERATOR();
+T_make_pair const make_pair = {{}};
 
 struct tuple_ /*< __BOOST_TUPLE__ template arity is large, so that `mpl::_x` can't be used. >*/
 {
@@ -35,7 +35,7 @@ struct tuple_ /*< __BOOST_TUPLE__ template arity is large, so that `mpl::_x` can
     };
 };
 
-generator<tuple_>::type const my_pack = BOOST_EGG_GENERATOR();
+generator<tuple_>::type const my_pack = {{}};
 
 void egg_example()
 {

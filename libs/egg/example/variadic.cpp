@@ -48,7 +48,7 @@ struct mono_vplus
 };
 
 typedef variadic_poly< mono_vplus<boost::mpl::_1> >::type T_vplus;
-T_vplus const vplus = BOOST_EGG_VARIADIC_POLY();
+T_vplus const vplus = {{}};
 
 void egg_example()
 {

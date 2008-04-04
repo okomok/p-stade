@@ -9,6 +9,7 @@
 
 
 #include <boost/egg/ambi.hpp>
+#include <boost/egg/static.hpp>
 #include <functional> // plus
 
 
@@ -26,7 +27,8 @@ struct base_my_plus
     }
 };
 
-result_of_ambi1<base_my_plus>::type const my_plus = BOOST_EGG_AMBI({}); /*< Notice this is not `ambi2` but `ambi1`. >*/
+static_< result_of_<T_ambi1(base_my_plus)> >::type /*< Notice this is not `ambi2` but `ambi1`. >*/
+    const my_plus = {{}};
 
 void egg_example()
 {

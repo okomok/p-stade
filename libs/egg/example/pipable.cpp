@@ -9,6 +9,7 @@
 
 
 #include <boost/egg/pipable.hpp>
+#include <boost/egg/static.hpp>
 
 
 #include "./egg_example.hpp"
@@ -35,18 +36,17 @@ struct weird_mult
     }
 };
 
-result_of_pipable<weird_mult>::type const mult = BOOST_EGG_PIPABLE({});
+static_< result_of_<T_pipable(weird_mult)> >::type
+    const mult = {{}};
 
 void egg_example()
 {
-    BOOST_CHECK( ( 2|mult ) == 2 * 2 );
     BOOST_CHECK( ( 2|mult() ) == 2 * 2 );
     BOOST_CHECK( ( 2|mult(3)|mult(4) ) == 2 * 3 * 4 );
     BOOST_CHECK( ( 2|mult(3, 4) ) == 2 * 3 * 4 );
 
-    BOOST_CHECK( ( mult|=2 ) == 2 * 2 );
     BOOST_CHECK( ( mult()|=2 ) == 2 * 2 );
-    BOOST_CHECK( ( mult|=mult|=2) == (2 * 2) * (2 * 2) );
+    BOOST_CHECK( ( mult()|=mult()|=2) == (2 * 2) * (2 * 2) );
 
     BOOST_CHECK( ( mult(3)|=2 ) == 2 * 3 );
     BOOST_CHECK( ( mult(3, 4)|= 2 ) == 2 * 3 * 4 );

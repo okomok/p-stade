@@ -94,7 +94,8 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 
 [heading Version 0.91.1]
-* `static_` renamed to `static_`.
+* `static_` revised.
+* PipableFunctionObject concept becomes strict.
 
 
 

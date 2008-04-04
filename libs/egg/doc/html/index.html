@@ -330,7 +330,8 @@
     <span class="identifier">BOOST_CHECK</span><span class="special">(</span><span class="string">"12"</span> <span class="special">==</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(</span><span class="identifier">plus</span><span class="special">,</span> <span class="identifier">bll</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <span class="identifier">string</span><span class="special">(</span><span class="string">"2"</span><span class="special">))(</span><span class="identifier">one</span><span class="special">));</span>
 <span class="special">}</span>
 
-<span class="identifier">result_of_pipable</span><span class="special">&lt;</span><span class="identifier">T_plus</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span> <span class="identifier">my_plus</span> <span class="special">=</span> <span class="identifier">BOOST_EGG_PIPABLE</span><span class="special">({{}});</span>
+<span class="identifier">static_</span><span class="special">&lt;</span> <span class="identifier">result_of_</span><span class="special">&lt;</span><span class="identifier">T_pipable</span><span class="special">(</span><span class="identifier">T_plus</span><span class="special">)&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span>
+    <span class="keyword">const</span> <span class="identifier">my_plus</span> <span class="special">=</span> <span class="special">{{}};</span>
 
 <span class="keyword">void</span> <span class="identifier">egg_adaptor</span><span class="special">()</span>
 <span class="special">{</span>
@@ -378,7 +379,7 @@
 <p>
       </p>
 <a name="boost_egg.overview.introduction.pod_oriented_programming"></a><h5>
-<a name="id513057"></a>
+<a name="id513079"></a>
         <a href="index.html#boost_egg.overview.introduction.pod_oriented_programming">POD-oriented
         programming</a>
       </h5>
@@ -728,7 +729,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: April 04, 2008 at 03:15:21 GMT</small></p></td>
+<td align="left"><p><small>Last revised: April 04, 2008 at 07:12:44 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
