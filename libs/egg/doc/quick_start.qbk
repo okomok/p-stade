@@ -94,6 +94,8 @@ Egg solves the problems stated above:
 As a bonus, `make_filtered` can be passed to `boost::lambda::bind`.
 In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 
+As you will see, doubly-braced-initializer `{{}}` is used everywhere for __STATIC_INITIALIZATION__ guaratantee.
+Let's memorize it.
 
 [heading Higher-order functions]
 
@@ -101,12 +103,25 @@ In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 Egg provides __EGG_PIPABLE__, which is one of the __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
 [code_quick_start_pipable]
 
-__EGG_PIPABLE__ can be regarded as __EXTENSION_METHOD__ emulation in C++.
+[heading Static initialization]
+When you want to define an adapted __FUNCTION_OBJECT__ in namespace scope,
+a `result_of` invocation must be wrapped by __EGG_STATIC__.
+__EGG_STATIC__ with double braces `{{}}` ensures __STATIC_INITIALIZATION__ of an adapted __FUNCTION_OBJECT__.
+[code_quick_start_static_pipable]
+
+You can regard `T_pipable` takes an "imaginary" rvalue of `T_make_filtered` in `result_of` expression.
+As you might notice, __EGG_STATIC__ cannot initialize "stateful" functions, meaning that
+`T_make_filtered` must be __DEFAULT_CONSTRUCTIBLE__ and a default-constructed object of type `T_make_filtered`
+is safely callable. When you need to adapt "stateful" functions, see the section __EGG_ADAPTING_STATEFUL_FUNCTIONS__.
+
+Well, __EGG_PIPABLE__ can be regarded as __EXTENSION_METHOD__ emulation in C++.
 In addition, __EGG_LAZY__, cooperating with __BOOST_LAMBDA__, adapts a function into lazily evaluated one:
 [code_quick_start_lazy]
 
 __EGG_FUNCTION_ADAPTORS__ can provide several "views" into functions on demand.
 Let's look into some usefull adaptors.
+
+[caution 
 
 
 [/

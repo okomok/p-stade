@@ -1,10 +1,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Chapter 1. Boost.Egg 0.91.0</title>
+<title>Chapter 1. Boost.Egg 0.92.0</title>
 <link rel="stylesheet" href="boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="index.html" title="Chapter 1. Boost.Egg 0.91.0">
+<link rel="start" href="index.html" title="Chapter 1. Boost.Egg 0.92.0">
 <link rel="next" href="boost_egg/quick_start.html" title="Quick Start">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -14,7 +14,7 @@
 <div class="chapter" lang="en">
 <div class="titlepage"><div>
 <div><h2 class="title">
-<a name="egg"></a>Chapter 1. Boost.Egg 0.91.0</h2></div>
+<a name="egg"></a>Chapter 1. Boost.Egg 0.92.0</h2></div>
 <div><div class="author"><h3 class="author">
 <span class="firstname">Shunsuke</span> <span class="surname">Sogame</span>
 </h3></div></div>
@@ -125,6 +125,8 @@
 <dt><span class="section"><a href="boost_egg/utilities.html#boost_egg.utilities.infix">infix</a></span></dt>
 <dt><span class="section"><a href="boost_egg/utilities.html#boost_egg.utilities.bll_result_of_hpp">bll/result_of.hpp</a></span></dt>
 </dl></dd>
+<dt><span class="section"><a href="boost_egg/adapting_stateful_functions.html">Adapting stateful
+    functions</a></span></dt>
 <dt><span class="section"><a href="boost_egg/configuration.html">Configuration</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="boost_egg/configuration.html#boost_egg.configuration.max_arity">MAX_ARITY</a></span></dt>
@@ -389,10 +391,10 @@
         programming</a>
       </h5>
 <p>
-        As shown above, Egg offers unfamiliar syntax using braces and macros. <code class="computeroutput"><span class="identifier">T_plus</span></code> is <span class="emphasis"><em>POD</em></span>, and
-        <code class="computeroutput"><span class="identifier">plus</span></code> is initialized using
-        braced-initializer <code class="computeroutput"><span class="special">{{}}</span></code>. This
-        ensures <code class="computeroutput"><span class="identifier">plus</span></code> is <span class="emphasis"><em>statically
+        As shown above, Egg offers unfamiliar syntax using doule braces <code class="computeroutput"><span class="special">{{}}</span></code>. <code class="computeroutput"><span class="identifier">T_plus</span></code>
+        is <span class="emphasis"><em>POD</em></span>, and <code class="computeroutput"><span class="identifier">plus</span></code>
+        is initialized using braced-initializer <code class="computeroutput"><span class="special">{{}}</span></code>.
+        This ensures <code class="computeroutput"><span class="identifier">plus</span></code> is <span class="emphasis"><em>statically
         initialized</em></span>. The <span class="emphasis"><em>static initialization</em></span> advantages
         are:
       </p>
@@ -401,19 +403,13 @@
           No runtime overhead.
         </li>
 <li>
-          No compile-time overhead of <code class="computeroutput"><span class="identifier">result_of</span></code>
-          instantiation.
-        </li>
-<li>
           No "static initialization order fiasco".
         </li>
 </ul></div>
 <p>
         Also notice that <code class="computeroutput"><span class="identifier">my_plus</span></code>
-        is initialized using "ugly" macro <code class="computeroutput"><span class="identifier">BOOST_EGG_PIPABLE</span></code>.
-        This macro can be regarded as "static-storage function call". In
-        fact, this macro is a tangled braced-initializer, so that we have no choice
-        but to use macro.
+        is initialized using <a href="boost_egg/function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a>. Wrapping a <code class="computeroutput"><span class="identifier">result_of_</span></code> invocation by <a href="boost_egg/function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> ensures <span class="emphasis"><em>static
+        initialization</em></span>.
       </p>
 </div>
 <div class="section" lang="en">
@@ -489,6 +485,10 @@
         </li>
 <li>
           Eric Niebler, who pointed out importance of <span class="emphasis"><em>static initialization</em></span>.
+        </li>
+<li>
+          Giovanni Piero Derreta, who indicated the power of stateless functions
+          and <a href="boost_egg/function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a>.
         </li>
 <li>
           Cryolite, Hitobashira, Kazuhiro Inaba, Takeshi Mouri, yotto-k, and Yusuke
@@ -734,7 +734,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: April 04, 2008 at 08:07:39 GMT</small></p></td>
+<td align="left"><p><small>Last revised: April 04, 2008 at 18:13:35 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

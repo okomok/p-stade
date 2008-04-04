@@ -152,11 +152,11 @@ void quick_start_make_filtered()
 //[code_quick_start_pipable
 #include <boost/egg/pipable.hpp>
 
-egg::static_< egg::result_of_<egg::T_pipable(T_make_filtered)> >::type /*< __EGG_STATIC__ ensures __STATIC_INITIALIZATION__. >*/
-    const filtered = {{}};
-
 void quick_start_pipable()
 {
+    egg::result_of_<egg::T_pipable(T_make_filtered const &)>::type
+        filtered = egg::pipable(make_filtered);
+
     std::string src("abXcYdXefXgYhY");
     foreach (char ch, src|filtered(&is_not_X)|filtered(&is_not_Y)) {
         std::cout << ch;
@@ -164,6 +164,21 @@ void quick_start_pipable()
 }
 //]
 
+
+//[code_quick_start_static_pipable
+#include <boost/egg/static.hpp>
+
+egg::static_< egg::result_of_<egg::T_pipable(T_make_filtered)> >::type /*< __EGG_STATIC__ ensures __STATIC_INITIALIZATION__ of `filtered`. >*/
+    const filtered = {{}};
+
+void quick_start_static_pipable()
+{
+    std::string src("abXcYdXefXgYhY");
+    foreach (char ch, src|filtered(&is_not_X)|filtered(&is_not_Y)) {
+        std::cout << ch;
+    }
+}
+//]
 
 //[code_quick_start_lazy
 #include <boost/egg/lazy.hpp>

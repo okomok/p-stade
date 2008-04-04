@@ -1,0 +1,23 @@
+[/
+Boost.Egg
+
+Copyright Shunsuke Sogame 2007-2008.
+Distributed under the Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
+]
+
+
+
+
+[section Adapting stateful functions]
+
+For some reason, you need __STATICALLY_INITIALIZED__ "stateful" functions adapted by __EGG_FUNCTION_ADAPTORS__.
+As you know, the initializer of __EGG_STATIC__ must be the empty double braces `{{}}`.
+How can we pass "states" to __EGG_FUNCTION_ADAPTORS__? We need "ugly" macros.
+
+An adapted non-local __FUNCTION_OBJECT__ with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__
+if the "base" __FUNCTION_OBJECT__ type is __POD__ and the expression passed to the macro is a /constant expression/.
+Also, Function Adaptors don't modify __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__-ness of base __FUNCTION_OBJECT__ unless otherwise specified.
+
+[endsect]

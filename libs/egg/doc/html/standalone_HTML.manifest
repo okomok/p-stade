@@ -6,6 +6,7 @@ boost_egg/function_builders.html
 boost_egg/function_adaptors.html
 boost_egg/function_objects.html
 boost_egg/utilities.html
+boost_egg/adapting_stateful_functions.html
 boost_egg/configuration.html
 boost_egg/workarounds.html
 boost_egg/version_history.html

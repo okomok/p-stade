@@ -166,10 +166,6 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`{{}}`]
-        [A braced initializer of `generator<Lam, __Stg, Cons, R0>::type`]
-    ]
-    [
         [`g(a1,...,aN)`]
         [`Cst(T)()(__fwd_arg_list(a, __Stg))`]
     ]
@@ -188,7 +184,7 @@ This can be regarded as a port of __DAVID_CALLABLE__ to Egg.
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
-* Non-local object `g` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_GENERATOR()`.
+* Non-local object `g` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `{{}}`.
 * `g` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [note `Lam` is not instantiated while invoking `__mpl::apply`, so that any static assertion in generated type doesn't fail.]
@@ -269,10 +265,6 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`{{}}`]
-        [A braced initializer of `implicit<Lam, __Stg>::type`]
-    ]
-    [
         [`To to = u(a1,...,aN);`]
         [`To to = boost::implicit_cast<__typeof(to)>( fuse(F())(X_pack<__Stg>()(a1,...,aN)) );`]
     ]
@@ -292,7 +284,7 @@ You can place any elaborate __MPL_LAMBDA_EXPRESSION__ in generating type, though
       For example, you can place `u` in a /return-statement/. The last precondition comes from a bug of GCC.]
 
 [heading Invariants]
-* Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_IMPLICIT()`.
+* Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `{{}}`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
@@ -332,10 +324,6 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`{{}}`]
-        [A braced initializer of `poly<Lam,...>::type`]
-    ]
-    [
         [`f(a1,...,aN)`]
         [`__mpl::apply<Lam, __meta_arg_list(a, __Stg)>::type()(__arg_list(a, __Stg))`]
     ]
@@ -358,7 +346,7 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
 [/ * __PRECONDITION_AS_IS__ ]
 
 [heading Invariants]
-* Non-local object `f` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_POLY()`.
+* Non-local object `f` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `{{}}`.
 * `f` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
@@ -398,12 +386,12 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
         [A __POD__ __CONCEPT_MAJOR_FUNCTION_OBJECT__ type]
     ]
     [
-        [`static_<result_of<F>, __Stg = __ud>::type`]
-        [`static_<result_of<F>::type, __Stg>::type`]
+        [`static_<result_of_<F>, __Stg>::type`]
+        [`static_<result_of_<F>::type, __Stg>::type`]
     ]
     [
-        [`{{}}`]
-        [A braced initializer of `static_<__PFo, __Stg>::type`]
+        [`static_<boost::result_of<F>, __Stg>::type`]
+        [`static_<boost::result_of<F>::type, __Stg>::type`]
     ]
     [
         [`u(a1,...,aN)`]
@@ -416,8 +404,10 @@ When you want to build a stateless __FUNCTION_OBJECT__, `poly` is the coolest bu
 [/ * __PRECONDITION_AS_IS__ ]
 ]
 
+[important A __CONCEPT_STATIC_FUNCTION_OBJECT__ type is guaranteed to work with __EGG_STATIC__. ]
+
 [heading Invariants]
-* Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `BOOST_EGG_STATIC()`.
+* Non-local object `u` with __STATIC_STORAGE_DURATION__ is __STATICALLY_INITIALIZED__ if initialized using `{{}}`.
 * `u` is __DEFAULT_CONSTRUCTIBLE__ and __COPY_ASSIGNABLE__.
 
 [heading Example]
@@ -467,11 +457,7 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
     ]
     [
         [`variadic_poly<Lam, __Stg = __ud, Pack = __ud, R0 = __ud>::type`]
-        [`result_of_unfuse<poly<Lam, by_cref>::type, R0, Pack, __Stg>::type`]
-    ]
-    [
-        [`BOOST_EGG_VARIADIC_POLY()`]
-        [A braced initializer of `variadic_poly<Lam,...>::type`]
+        [`static_<result_of_unfuse<poly<Lam, by_cref>::type, R0, Pack, __Stg>::type>::type`]
     ]
     [
         [`__mpl::_%%M` and `__mpl::_`]
@@ -483,9 +469,6 @@ In fact, this is a shortcut to __EGG_UNFUSE__.
 [heading Preconditions]
 [/ * __PRECONDITION_AS_IS__ ]
 ]
-
-[heading Invariants]
-* What the corresponding semantics implies.
 
 [heading Example]
 [import ../example/variadic.cpp]
