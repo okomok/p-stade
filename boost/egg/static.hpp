@@ -20,29 +20,46 @@
 namespace boost { namespace egg {
 
 
+    namespace static_detail {
+
+
+        template<class Fun, class Void = void>
+        struct fun_
+        {
+            typedef Fun type;
+        };
+
+        template<class ReturnOf>
+        struct fun_<ReturnOf, typename ReturnOf::boost_egg_return_of> :
+            ReturnOf
+        { };
+
+        template<class FunCall>
+        struct fun_< result_of<FunCall> > :
+            result_of_<FunCall>
+        { };
+
+        template<class FunCall>
+        struct fun_< result_of_<FunCall> > :
+            result_of_<FunCall>
+        { };
+
+
+    } // namespace static_detail
+
+
     template<class Fun, class Strategy = by_perfect>
     struct static_
     {
         typedef
             function<
-                details::little_static<Fun, Strategy>,
+                details::little_static<typename static_detail::fun_<Fun>::type, Strategy>,
                 Strategy
             >
         type;
     };
 
     #define BOOST_EGG_STATIC() {{}}
-
-
-    template<class FunCall, class Strategy>
-    struct static_<result_of<FunCall>, Strategy> :
-        static_<typename result_of_<FunCall>::type, Strategy>
-    { };
-
-    template<class FunCall, class Strategy>
-    struct static_<result_of_<FunCall>, Strategy> :
-        static_<typename result_of_<FunCall>::type, Strategy>
-    { };
 
 
 } } // namespace boost::egg
