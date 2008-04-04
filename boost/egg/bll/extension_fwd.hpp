@@ -28,7 +28,7 @@ namespace boost { namespace lambda {
     template<class Act, class A1, class A2>
     struct plain_return_type_2;
 
-    template<class Func>
+    template<class Fun>
     struct function_adaptor;
 
     class member_pointer_action;

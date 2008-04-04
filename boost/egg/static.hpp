@@ -11,9 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/always.hpp> // inclusion guaranteed
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/egg/by_perfect.hpp>
 #include <boost/egg/detail/boost_result_of_fwd.hpp>
 #include <boost/egg/detail/egg_result_of_fwd.hpp>
@@ -24,12 +21,12 @@
 namespace boost { namespace egg {
 
 
-    template<class Expr, class Strategy = by_perfect>
+    template<class Fun, class Strategy = by_perfect>
     struct static_
     {
         typedef
             function<
-                details::little_static<typename mpl::apply1<Expr, Strategy>::type, Strategy>,
+                details::little_static<Fun, Strategy>,
                 Strategy
             >
         type;
@@ -40,12 +37,12 @@ namespace boost { namespace egg {
 
     template<class FunCall, class Strategy>
     struct static_<result_of<FunCall>, Strategy> :
-        static_<mpl::always<typename result_of<FunCall>::type>, Strategy>
+        static_<typename result_of<FunCall>::type, Strategy>
     { };
 
     template<class FunCall, class Strategy>
     struct static_<result_of_<FunCall>, Strategy> :
-        static_<mpl::always<typename result_of_<FunCall>::type>, Strategy>
+        static_<typename result_of_<FunCall>::type, Strategy>
     { };
 
 

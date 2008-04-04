@@ -23,6 +23,7 @@
 #include <boost/egg/detail/tuple_fuse.hpp>
 #include <boost/egg/pack.hpp>
 #include <boost/egg/result_of.hpp>
+#include <boost/egg/static.hpp>
 #include <boost/egg/variadic.hpp>
 
 #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
@@ -38,7 +39,7 @@ namespace boost { namespace egg {
     namespace implicit_detail {
 
 
-        template<class Expr, class Strategy, class Args>
+        template<class Fun, class Strategy, class Args>
         struct from
         {
             Args m_args;
@@ -47,7 +48,7 @@ namespace boost { namespace egg {
             To get() const
             {
                 typedef typename
-                    mpl::apply2<Expr, To, Strategy>::type
+                    mpl::apply2<Fun, To, Strategy>::type
                 fun_t;
 
                 return details::tuple_fuse(fun_t())(m_args);
@@ -61,7 +62,7 @@ namespace boost { namespace egg {
         };
 
 
-        template<class Expr, class Strategy, class Args>
+        template<class Fun, class Strategy, class Args>
         struct ref_from
         {
             Args m_args;
@@ -70,7 +71,7 @@ namespace boost { namespace egg {
             To &get() const
             {
                 typedef typename
-                    mpl::apply2<Expr, To, Strategy>::type
+                    mpl::apply2<Fun, To, Strategy>::type
                 fun_t;
 
                 return details::tuple_fuse(fun_t())(m_args);
@@ -89,7 +90,7 @@ namespace boost { namespace egg {
         };
 
 
-        template<class Expr, class Strategy, template<class, class, class> class From>
+        template<class Fun, class Strategy, template<class, class, class> class From>
         struct little
         {
             template<class Me, class Args>
@@ -97,7 +98,7 @@ namespace boost { namespace egg {
             {
                 typedef 
                     From<
-                        Expr, Strategy,
+                        Fun, Strategy,
                         typename result_of_<
                             typename result_of_<details::T_tuple_fuse(X_pack<Strategy>)>::type(Args &)
                         >::type
@@ -114,10 +115,10 @@ namespace boost { namespace egg {
         };
 
 
-        template<class Expr, class Strategy, template<class, class, class> class From>
+        template<class Fun, class Strategy, template<class, class, class> class From>
         struct aux_ :
             variadic<
-                little<Expr, Strategy, From>,
+                little<Fun, Strategy, From>,
                 Strategy,
                 use_default,
                 use_nullary_result
@@ -125,20 +126,20 @@ namespace boost { namespace egg {
         { };
 
 
-   } // namespace implicit_detail
+    } // namespace implicit_detail
 
 
-    template<class Expr, class Strategy = use_default>
+    template<class Fun, class Strategy = use_default>
     struct implicit :
-        implicit_detail::aux_<Expr, Strategy, implicit_detail::from>
+        static_<typename implicit_detail::aux_<Fun, Strategy, implicit_detail::from>::type, Strategy>
     { };
 
-    template<class Expr, class Strategy = use_default>
+    template<class Fun, class Strategy = use_default>
     struct implicit_ref :
-        implicit_detail::aux_<Expr, Strategy, implicit_detail::ref_from>
+        static_<typename implicit_detail::aux_<Fun, Strategy, implicit_detail::ref_from>::type, Strategy>
     { };
 
-    #define BOOST_EGG_IMPLICIT() BOOST_EGG_VARIADIC({})
+    #define BOOST_EGG_IMPLICIT BOOST_EGG_STATIC
     #define BOOST_EGG_IMPLICIT_REF BOOST_EGG_IMPLICIT
 
 

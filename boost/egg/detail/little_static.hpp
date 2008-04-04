@@ -29,18 +29,18 @@
 namespace boost { namespace egg { namespace details {
 
 
-    template<class Base, class Strategy>
+    template<class Fun, class Strategy>
     struct little_static
     {
     // 0ary
         typedef typename
-            result_of_<Base()>::type
+            result_of_<Fun()>::type
         nullary_result_type;
 
         template<class Re>
         Re call() const
         {
-            return Base();
+            return Fun()();
         }
 
     // 1ary-
@@ -62,13 +62,13 @@ namespace boost { namespace egg { namespace details {
 
     template<class Me, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Me, BOOST_PP_ENUM_PARAMS(n, A)> :
-        result_of_<Base(BOOST_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
+        result_of_<Fun(BOOST_EGG_FORWARDING_META_ARGS(n, A, Strategy const))>
     { };
 
     template<class Re, BOOST_PP_ENUM_PARAMS(n, class A)>
     Re call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, &a)) const
     {
-        return Base()(BOOST_EGG_FORWARDING_ARGS(n, a, Strategy const));
+        return Fun()(BOOST_EGG_FORWARDING_ARGS(n, a, Strategy const));
     }
 
 
