@@ -1105,7 +1105,7 @@ How can we pass "states" to __EGG_FUNCTION_ADAPTORS__? We need "ugly" macros.
 [heading Notation]
 * `adapt` is one of the name of __EGG_FUNCTION_ADAPTORS__ which supports __STATIC_INITIALIZATION__.
 * `ADAPT` is the uppercase tokens of `adapt`.
-* `BI` is a "base" __FUNCTION_OBJECT__ type passed to `adapt`.
+* `BI` is a "base" object type passed to `adapt`.
 * `A_` is an "adapted" __FUNCTION_OBJECT__ type from `B_` by `adapt`.
 * `wrap_` is an imaginary /aggregate/ type which is defined as `struct wrap_ { B1 b1;...BN bN; };`.
 
