@@ -359,13 +359,88 @@
         can be passed to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>. In other words, it is a model of
         <a href="concepts.html#boost_egg.concepts.major_function_object" title="Major Function Object">Major Function Object</a>.
       </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/html/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          As you will see, doubly-braced-initializer <code class="computeroutput"><span class="special">{{}}</span></code>
+          is used everywhere for <span class="emphasis"><em>static initialization</em></span> guaratantee.
+          Let's memorize it!
+        </p></td></tr>
+</table></div>
+<a name="boost_egg.quick_start.using_egg.object_generators"></a><h5>
+<a name="id518610"></a>
+        <a href="quick_start.html#boost_egg.quick_start.using_egg.object_generators">Object
+        generators</a>
+      </h5>
 <p>
-        As you will see, doubly-braced-initializer <code class="computeroutput"><span class="special">{{}}</span></code>
-        is used everywhere for <span class="emphasis"><em>static initialization</em></span> guaratantee.
-        Let's memorize it.
+        Egg provides the several <a href="function_builders.html" title="Function Builders">Function
+        Builders</a>. For example, <a href="function_builders.html#boost_egg.function_builders.generator" title="generator"><code class="computeroutput"><span class="identifier">generator</span></code></a> offers an easy way to
+        build <a href="http://www.boost.org/more/generic_programming.html#object_generator" target="_top">Object
+        Generators</a>:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">egg</span><span class="special">/</span><span class="identifier">generator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">always_result</span> <span class="special">:</span>
+    <span class="identifier">egg</span><span class="special">::</span><span class="identifier">function_facade</span><span class="special">&lt;</span> <span class="identifier">always_result</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="callout_bug"><a name="boost_egg16co" href="quick_start.html#boost_egg16"><img src="../images/callouts/1.png" alt="1" border="0"></a></span>
+<span class="special">{</span>
+    <span class="identifier">T</span> <span class="identifier">m_t</span><span class="special">;</span>
+    <span class="keyword">explicit</span> <span class="identifier">always_result</span><span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">t</span><span class="special">)</span> <span class="special">:</span> <span class="identifier">m_t</span><span class="special">(</span><span class="identifier">t</span><span class="special">)</span> <span class="special">{</span> <span class="special">}</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Me</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">apply</span>
+    <span class="special">{</span>
+        <span class="keyword">typedef</span> <span class="identifier">T</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">type</span><span class="special">;</span>
+    <span class="special">};</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Re</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">A</span><span class="special">&gt;</span>
+    <span class="identifier">Re</span> <span class="identifier">call</span><span class="special">(</span><span class="identifier">A</span> <span class="special">&amp;)</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="keyword">return</span> <span class="identifier">m_t</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">};</span>
+
+<span class="identifier">egg</span><span class="special">::</span><span class="identifier">generator</span><span class="special">&lt;</span>
+    <span class="identifier">always_result</span><span class="special">&lt;</span> <span class="identifier">egg</span><span class="special">::</span><span class="identifier">deduce</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">_1</span><span class="special">,</span> <span class="identifier">egg</span><span class="special">::</span><span class="identifier">as_value</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+<span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span> <span class="identifier">always</span> <span class="special">=</span> <span class="special">{{}};</span>
+
+<span class="keyword">void</span> <span class="identifier">quick_start_object_generator</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">always</span><span class="special">(</span><span class="number">10</span><span class="special">)(</span><span class="number">999</span><span class="special">);</span> <span class="callout_bug"><a name="boost_egg17co" href="quick_start.html#boost_egg17"><img src="../images/callouts/2.png" alt="2" border="0"></a></span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+        </p>
+<p>
+          </p>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="boost_egg16"></a><a href="#boost_egg16co"><img src="../images/callouts/1.png" alt="1" border="0"></a> </td>
+<td valign="top" align="left"><p> <a href="function_builders.html#boost_egg.function_builders.function_facade" title="function_facade"><code class="computeroutput"><span class="identifier">function_facade</span></code></a> might remind you
+          of <a href="http://boost.org/libs/iterator/doc/iterator_facade.html" target="_top"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_facade</span></code></a>. </p></td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left">
+<a name="boost_egg17"></a><a href="#boost_egg17co"><img src="../images/callouts/2.png" alt="2" border="0"></a> </td>
+<td valign="top" align="left"><p> Prints <code class="computeroutput"><span class="number">10</span></code>. </p></td>
+</tr>
+</table></div>
+<p>
+        </p>
+<p>
       </p>
 <a name="boost_egg.quick_start.using_egg.higher_order_functions"></a><h5>
-<a name="id518606"></a>
+<a name="id519516"></a>
         <a href="quick_start.html#boost_egg.quick_start.using_egg.higher_order_functions">Higher-order
         functions</a>
       </h5>
@@ -395,17 +470,32 @@
         </p>
 <p>
       </p>
-<a name="boost_egg.quick_start.using_egg.static_initialization"></a><h5>
-<a name="id519056"></a>
-        <a href="quick_start.html#boost_egg.quick_start.using_egg.static_initialization">Static
-        initialization</a>
+<p>
+        A higher-order function is such a function that takes a function and returns
+        a function. Egg makes use of <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a> to extract return types of
+        function calls.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/html/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          See <a href="concepts.html#boost_egg.concepts.result_of_tutorial" title="result_of tutorial">result_of tutorial</a>
+          if you are not familiar with <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top"><span class="bold"><strong>Boost.ResultOf</strong></span></a>.
+        </p></td></tr>
+</table></div>
+<a name="boost_egg.quick_start.using_egg.static_initialization_of_stateless_functions"></a><h5>
+<a name="id520012"></a>
+        <a href="quick_start.html#boost_egg.quick_start.using_egg.static_initialization_of_stateless_functions">Static
+        initialization of stateless functions</a>
       </h5>
 <p>
         When you want to define an adapted <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
         Object</a> in namespace scope, a <code class="computeroutput"><span class="identifier">result_of</span></code>
-        invocation must be wrapped by <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a>. <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> with double braces <code class="computeroutput"><span class="special">{{}}</span></code> ensures <span class="emphasis"><em>static initialization</em></span>
+        expression must be wrapped by <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a>. <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> with double braces <code class="computeroutput"><span class="special">{{}}</span></code> ensures <span class="emphasis"><em>static initialization</em></span>
         of an adapted <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-        Object</a>.
+        Object</a>:
         </p>
 <p>
           
@@ -442,19 +532,44 @@
 <p>
       </p>
 <p>
-        You can regard <code class="computeroutput"><span class="identifier">T_pipable</span></code>
+        You can see that <code class="computeroutput"><span class="identifier">T_pipable</span></code>
         takes an "imaginary" rvalue of <code class="computeroutput"><span class="identifier">T_make_filtered</span></code>
         in <code class="computeroutput"><span class="identifier">result_of</span></code> expression.
         As you might notice, <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> cannot initialize "stateful"
-        functions, meaning that <code class="computeroutput"><span class="identifier">T_make_filtered</span></code>
-        must be <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
-        Constructible</a> and a default-constructed object of type <code class="computeroutput"><span class="identifier">T_make_filtered</span></code> is safely callable. When
-        you need to adapt "stateful" functions, see the section __EGG_ADAPTING_STATEFUL<span class="underline">FUNCTIONS</span>_.
+        functions, because the initializer of <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> must always be the empty
+        double braces <code class="computeroutput"><span class="special">{{}}</span></code>. That is
+        to say, <code class="computeroutput"><span class="identifier">T_make_filtered</span></code> must
+        be <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+        Constructible</a> and a default-constructed object of type <code class="computeroutput"><span class="identifier">T_make_filtered</span></code> is callable. Such a function
+        is called <a href="concepts.html#boost_egg.concepts.stateless_function_object" title="Stateless Function Object">Stateless</a>.
+        Fortunately, most of all functions in the world are <a href="concepts.html#boost_egg.concepts.stateless_function_object" title="Stateless Function Object">Stateless</a>.
+        All the functions defined in Egg also are <a href="concepts.html#boost_egg.concepts.stateless_function_object" title="Stateless Function Object">Stateless</a>.
+        And most of all the adapted functions which <a href="function_adaptors.html" title="Function Adaptors">Function
+        Adaptors</a> return are <a href="concepts.html#boost_egg.concepts.stateless_function_object" title="Stateless Function Object">Stateless</a>.
+        So that, <a href="function_builders.html#boost_egg.function_builders.static_" title="static_"><code class="computeroutput"><span class="identifier">static_</span></code></a> nicely works.
       </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/html/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          If you need to adapt "stateful" functions, see the section <a href="function_adaptors.html#boost_egg.function_adaptors.stateful_static_initialization" title="Stateful static initialization">Stateful
+          static initialization</a>.
+        </p></td></tr>
+</table></div>
 <p>
-        Well, <a href="function_adaptors.html#boost_egg.function_adaptors.pipable" title="pipable"><code class="computeroutput"><span class="identifier">pipable</span></code></a>
-        can be regarded as <a href="http://en.wikipedia.org/wiki/Extension_method" target="_top">Extension
-        method</a> emulation in C++. In addition, <a href="function_adaptors.html#boost_egg.function_adaptors.lazy" title="lazy"><code class="computeroutput"><span class="identifier">lazy</span></code></a>, cooperating with <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>, adapts a function into lazily
+        In other words, <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a>
+        can provide several "views" into functions on demand. Let's look
+        into some useful adaptors.
+      </p>
+<a name="boost_egg.quick_start.using_egg.lazy_functions"></a><h5>
+<a name="id520784"></a>
+        <a href="quick_start.html#boost_egg.quick_start.using_egg.lazy_functions">Lazy functions</a>
+      </h5>
+<p>
+        <a href="function_adaptors.html#boost_egg.function_adaptors.lazy" title="lazy"><code class="computeroutput"><span class="identifier">lazy</span></code></a>,
+        cooperating with <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>, adapts a function into lazily
         evaluated one:
         </p>
 <p>
@@ -499,34 +614,17 @@
         </p>
 <p>
       </p>
-<p>
-        <a href="function_adaptors.html" title="Function Adaptors">Function Adaptors</a> can
-        provide several "views" into functions on demand. Let's look into
-        some usefull adaptors.
-      </p>
-<div class="caution"><table border="0" summary="Caution">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../../../doc/html/images/caution.png"></td>
-<th align="left">Caution</th>
-</tr>
-<tr><td align="left" valign="top">
-<p>
-        </p>
-<p>
-        </p>
-<p>
-        </p>
-<p>
-          [heading Partial application
-        </p>
-</td></tr>
-</table></div>
+<a name="boost_egg.quick_start.using_egg.partial_application"></a><h5>
+<a name="id521491"></a>
+        <a href="quick_start.html#boost_egg.quick_start.using_egg.partial_application">Partial
+        application</a>
+      </h5>
 <p>
         You are sure to know <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">bind</span></code>
         in <a href="http://www.boost.org/libs/lambda/" target="_top"><span class="bold"><strong>Boost.Lambda</strong></span></a>.
         That is an implementation of partial application. But <code class="computeroutput"><span class="identifier">bind</span></code>
         expressions may be less readable. <a href="function_adaptors.html#boost_egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a> offers better syntax so that
-        you can forget <code class="computeroutput"><span class="identifier">bind</span></code>.
+        you can forget <code class="computeroutput"><span class="identifier">bind</span></code>:
         </p>
 <p>
           
@@ -642,12 +740,18 @@
         </p>
 <p>
       </p>
-<p>
-        Note that the three adaptors, unlike <a href="function_adaptors.html#boost_egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a>, can support <span class="emphasis"><em>static
-        initialization</em></span>.
-      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/html/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          The three adaptors, unlike <a href="function_adaptors.html#boost_egg.function_adaptors.nestn" title="nestN"><code class="computeroutput"><span class="identifier">nestN</span></code></a>, can return a function which
+          is <a href="concepts.html#boost_egg.concepts.stateless_function_object" title="Stateless Function Object">Stateless</a>.
+        </p></td></tr>
+</table></div>
 <a name="boost_egg.quick_start.using_egg.fusing"></a><h5>
-<a name="id522590"></a>
+<a name="id523674"></a>
         <a href="quick_start.html#boost_egg.quick_start.using_egg.fusing">Fusing</a>
       </h5>
 <p>
@@ -754,7 +858,7 @@
         which is short-cut to <a href="function_adaptors.html#boost_egg.function_adaptors.unfuse" title="unfuse"><code class="computeroutput"><span class="identifier">unfuse</span></code></a>.
       </p>
 <a name="boost_egg.quick_start.using_egg.the_return_of_the_monomorphic"></a><h5>
-<a name="id523997"></a>
+<a name="id525080"></a>
         <a href="quick_start.html#boost_egg.quick_start.using_egg.the_return_of_the_monomorphic">The
         Return of the Monomorphic</a>
       </h5>
@@ -821,7 +925,7 @@
         sections with any order.
       </p>
 <a name="boost_egg.quick_start.reading_doc.notation"></a><h5>
-<a name="id524632"></a>
+<a name="id525715"></a>
         <a href="quick_start.html#boost_egg.quick_start.reading_doc.notation">Notation</a>
       </h5>
 <p>
@@ -830,7 +934,7 @@
         just click the keyword.
       </p>
 <a name="boost_egg.quick_start.reading_doc.concepts"></a><h5>
-<a name="id524683"></a>
+<a name="id525766"></a>
         <a href="quick_start.html#boost_egg.quick_start.reading_doc.concepts">Concepts</a>
       </h5>
 <p>
@@ -843,7 +947,7 @@
         Object</a>. Other conepts can read on demand.
       </p>
 <a name="boost_egg.quick_start.reading_doc.forwarding_strategies"></a><h5>
-<a name="id524770"></a>
+<a name="id525853"></a>
         <a href="quick_start.html#boost_egg.quick_start.reading_doc.forwarding_strategies">Forwarding
         Strategies</a>
       </h5>
@@ -856,7 +960,7 @@
         Strategies</a> when first reading the documentation.
       </p>
 <a name="boost_egg.quick_start.reading_doc.function_builders"></a><h5>
-<a name="id524863"></a>
+<a name="id525946"></a>
         <a href="quick_start.html#boost_egg.quick_start.reading_doc.function_builders">Function
         Builders</a>
       </h5>
@@ -870,7 +974,7 @@
         written by David Abrahams.
       </p>
 <a name="boost_egg.quick_start.reading_doc.function_adaptors"></a><h5>
-<a name="id524978"></a>
+<a name="id526062"></a>
         <a href="quick_start.html#boost_egg.quick_start.reading_doc.function_adaptors">Function
         Adaptors</a>
       </h5>
@@ -882,7 +986,7 @@
         might be one of the most interesting adaptors, which provides "fusing".
       </p>
 <a name="boost_egg.quick_start.reading_doc.function_objects_and_utilities"></a><h5>
-<a name="id525057"></a>
+<a name="id526141"></a>
         <a href="quick_start.html#boost_egg.quick_start.reading_doc.function_objects_and_utilities">Function
         Objects and Utilities</a>
       </h5>
@@ -894,7 +998,7 @@
         might be interesting, which is ported from <a href="http://www.cc.gatech.edu/~yannis/fc++/" target="_top"><span class="bold"><strong>FC++</strong></span></a>.
       </p>
 <a name="boost_egg.quick_start.reading_doc.workarounds"></a><h5>
-<a name="id525146"></a>
+<a name="id526230"></a>
         <a href="quick_start.html#boost_egg.quick_start.reading_doc.workarounds">Workarounds</a>
       </h5>
 <p>

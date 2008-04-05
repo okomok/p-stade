@@ -72,7 +72,6 @@ Even if you don't fully understand this code snippet, you can notice that it rev
 
 Egg solves these problems.
 
-
 [heading Building functions]
 In short, Egg is a library for building functions.
 Let's build `make_filtered` by using one of the __EGG_FUNCTION_BUILDERS__, __EGG_POLY__:
@@ -94,53 +93,56 @@ Egg solves the problems stated above:
 As a bonus, `make_filtered` can be passed to `boost::lambda::bind`.
 In other words, it is a model of __CONCEPT_MAJOR_FUNCTION_OBJECT__.
 
-As you will see, doubly-braced-initializer `{{}}` is used everywhere for __STATIC_INITIALIZATION__ guaratantee.
-Let's memorize it.
+[important As you will see, doubly-braced-initializer `{{}}` is used everywhere for __STATIC_INITIALIZATION__ guaratantee.
+           Let's memorize it! ]
+
+
+[heading Object generators]
+Egg provides the several __EGG_FUNCTION_BUILDERS__.
+For example, __EGG_GENERATOR__ offers an easy way to build __OBJECT_GENERATORS__:
+[code_quick_start_object_generator]
+
 
 [heading Higher-order functions]
-
 `make_filtered(make_filtered(...),...)` might be less readable.
 Egg provides __EGG_PIPABLE__, which is one of the __EGG_FUNCTION_ADAPTORS__ also known as higher-order functions:
 [code_quick_start_pipable]
 
-[heading Static initialization]
+A higher-order function is such a function that takes a function and returns a function.
+Egg makes use of __BOOST_RESULT_OF__ to extract return types of function calls.
+
+[note See __EGG_RESULT_OF_TUTORIAL__ if you are not familiar with __BOOST_RESULT_OF__. ]
+
+
+[heading Static initialization of stateless functions]
 When you want to define an adapted __FUNCTION_OBJECT__ in namespace scope,
-a `result_of` invocation must be wrapped by __EGG_STATIC__.
-__EGG_STATIC__ with double braces `{{}}` ensures __STATIC_INITIALIZATION__ of an adapted __FUNCTION_OBJECT__.
+a `result_of` expression must be wrapped by __EGG_STATIC__.
+__EGG_STATIC__ with double braces `{{}}` ensures __STATIC_INITIALIZATION__ of an adapted __FUNCTION_OBJECT__:
 [code_quick_start_static_pipable]
 
-You can regard `T_pipable` takes an "imaginary" rvalue of `T_make_filtered` in `result_of` expression.
-As you might notice, __EGG_STATIC__ cannot initialize "stateful" functions, meaning that
+You can see that `T_pipable` takes an "imaginary" rvalue of `T_make_filtered` in `result_of` expression.
+As you might notice, __EGG_STATIC__ cannot initialize "stateful" functions, because
+the initializer of __EGG_STATIC__ must always be the empty double braces `{{}}`. That is to say,
 `T_make_filtered` must be __DEFAULT_CONSTRUCTIBLE__ and a default-constructed object of type `T_make_filtered`
-is safely callable. When you need to adapt "stateful" functions, see the section __EGG_ADAPTING_STATEFUL_FUNCTIONS__.
+is callable. Such a function is called __CONCEPT_STATELESS__. Fortunately, most of all functions in the world
+are __CONCEPT_STATELESS__. All the functions defined in Egg also are __CONCEPT_STATELESS__.
+And most of all the adapted functions which __EGG_FUNCTION_ADAPTORS__ return are __CONCEPT_STATELESS__.
+So that, __EGG_STATIC__ nicely works.
 
-Well, __EGG_PIPABLE__ can be regarded as __EXTENSION_METHOD__ emulation in C++.
-In addition, __EGG_LAZY__, cooperating with __BOOST_LAMBDA__, adapts a function into lazily evaluated one:
+[note If you need to adapt "stateful" functions, see the section __EGG_STATEFUL_STATIC_INITIALIZATION__. ]
+
+In other words, __EGG_FUNCTION_ADAPTORS__ can provide several "views" into functions on demand.
+Let's look into some useful adaptors.
+
+
+[heading Lazy functions]
+__EGG_LAZY__, cooperating with __BOOST_LAMBDA__, adapts a function into lazily evaluated one:
 [code_quick_start_lazy]
-
-__EGG_FUNCTION_ADAPTORS__ can provide several "views" into functions on demand.
-Let's look into some usefull adaptors.
-
-[caution 
-
-
-[/
-[heading Getting initializers]
-
-As mentioned [link boost_egg.overview.introduction.pod_oriented_programming before], the __STATIC_INITIALIZATION__ is important.
-What if you don't know a braced-initializer of a __FUNCTION_OBJECT__ you are adapting? __EGG_INDIRECT__ helps:
-[code_quick_start_indirect]
-
-
-[heading Object generators]
-It is boring to build __OBJECT_GENERATORS__. __EGG_GENERATOR__ makes it easy:
-[code_quick_start_object_generator]
-]
 
 
 [heading Partial application]
 You are sure to know `boost::lambda::bind` in __BOOST_LAMBDA__. That is an implementation of partial application.
-But `bind` expressions may be less readable. __EGG_NEST__ offers better syntax so that you can forget `bind`.
+But `bind` expressions may be less readable. __EGG_NEST__ offers better syntax so that you can forget `bind`:
 [code_quick_start_nest]
 
 __EGG_NEST__ enables you to write any complicated lambda expressions in the automatic manner.
@@ -148,7 +150,7 @@ In addition, __EGG_COMPOSE__, __EGG_CURRY__ and __EGG_LAZY__ can be considered a
 for they can be trivially implemented by __EGG_NEST__:
 [code_quick_start_nest_family]
 
-Note that the three adaptors, unlike __EGG_NEST__, can support __STATIC_INITIALIZATION__.
+[note The three adaptors, unlike __EGG_NEST__, can return a function which is __CONCEPT_STATELESS__. ]
 
 
 [heading Fusing]
