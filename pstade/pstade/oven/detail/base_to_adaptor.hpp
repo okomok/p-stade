@@ -16,12 +16,13 @@
 #include <pstade/egg/poly.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
+#include <boost/mpl/lambda.hpp>
 
 
 #define PSTADE_OVEN_BASE_TO_ADAPTOR(O, B) \
     namespace BOOST_PP_CAT(adaptor_workarea_of_, O) { \
         using boost::mpl::_; \
-        typedef pstade::egg::poly<PSTADE_UNPARENTHESIZE(B)>::type op; \
+        typedef pstade::egg::poly<boost::mpl::lambda<PSTADE_UNPARENTHESIZE(B)>::type>::type op; \
     } \
     typedef BOOST_PP_CAT(adaptor_workarea_of_, O)::op BOOST_PP_CAT(T_make_, O); \
     PSTADE_POD_CONSTANT((BOOST_PP_CAT(T_make_, O)), BOOST_PP_CAT(make_, O)) = PSTADE_EGG_POLY(); \
