@@ -5,7 +5,7 @@
 
 // PStade.Oven
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame and Norihisa Fujita 2005-2010.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -99,7 +99,7 @@ void pstade_minimal_test()
     }
     {
         int rng[] = { 0, 1 };
-        write(boost::begin(rng), 50);
+		oven::write(boost::begin(rng), 50);
         BOOST_CHECK( rng[0] == 50 );
     }
 }

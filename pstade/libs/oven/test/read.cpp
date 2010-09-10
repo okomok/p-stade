@@ -4,7 +4,7 @@
 
 // PStade.Oven
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame and Norihisa Fujita 2005-2010.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -53,16 +53,16 @@ void test()
 {
     {
         std::string rng("abcdefg");
-        read(boost::begin(rng)) = 'x';
+		oven::read(boost::begin(rng)) = 'x';
         BOOST_CHECK( equals(rng, std::string("xbcdefg")) );
     }
     {
         int rng[] = { 1,2,3 };
-        BOOST_CHECK( &read(boost::begin(rng)) == &rng[0] );
+        BOOST_CHECK( &oven::read(boost::begin(rng)) == &rng[0] );
     }
     {
         int const rng[] = { 1,2,3 };
-        BOOST_CHECK( &read(boost::begin(rng)) == &rng[0] );
+        BOOST_CHECK( &oven::read(boost::begin(rng)) == &rng[0] );
     }
 }
 
