@@ -35,7 +35,7 @@ namespace removed_detail {
     {
         struct T_not {
             typedef bool result_type;
-            T_not(Predicate& pred) : m_pred(pred) {}
+            T_not(Predicate pred) : m_pred(pred) {}
 
             template <class T>
             result_type operator()(T& x) const
@@ -43,7 +43,7 @@ namespace removed_detail {
                 return !m_pred(x);
             }
 
-            Predicate& m_pred;
+            Predicate m_pred;
         };
 
         typedef T_not not_t;
