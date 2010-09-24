@@ -100,8 +100,7 @@ namespace pstade { namespace mpl_boost_tuple {
 } } // namespace pstade::mpl_boost_tuple
 
 #if BOOST_VERSION >= 104200
-    #include <boost/fusion/mpl.hpp>
-    #include <boost/fusion/adapted/boost_tuple/tag_of.hpp>
+    #include <boost/fusion/adapted/boost_tuple.hpp>
 #else
 namespace boost { namespace mpl {
 
@@ -221,9 +220,6 @@ namespace boost { namespace mpl {
 
 
 } } // namespace boost::mpl
-
-
 #endif
 
 #endif
-
