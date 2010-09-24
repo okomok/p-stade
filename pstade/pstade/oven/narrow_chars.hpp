@@ -33,7 +33,7 @@ namespace narrow_chars_detail {
         template< class Result, class CharT >
         Result call(CharT ch, std::locale const& loc) const
         {
-            return std::use_facet< std::ctype<CharT> >(loc).narrow(ch);
+            return std::use_facet< std::ctype<CharT> >(loc).narrow(ch, '\0');
         }
     };
 
