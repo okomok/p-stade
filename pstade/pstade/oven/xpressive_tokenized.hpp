@@ -19,6 +19,7 @@
 #include "./detail/little_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_constant_iterator.hpp"
+#include "./xpressive.hpp"
 
 
 namespace pstade { namespace oven {
