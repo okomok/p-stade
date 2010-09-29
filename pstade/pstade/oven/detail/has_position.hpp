@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/spirit/iterator/position_iterator_fwd.hpp>
+#include <boost/spirit/include/classic_position_iterator_fwd.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -26,12 +26,12 @@ struct is_position_iterator :
 { };
 
 template< class F, class P, class S >
-struct is_position_iterator< boost::spirit::position_iterator<F, P, S> > :
+struct is_position_iterator< boost::spirit::classic::position_iterator<F, P, S> > :
     boost::mpl::true_
 { };
 
 template< class F, class P >
-struct is_position_iterator< boost::spirit::position_iterator2<F, P> > :
+struct is_position_iterator< boost::spirit::classic::position_iterator2<F, P> > :
     boost::mpl::true_
 { };
 

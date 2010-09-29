@@ -17,7 +17,7 @@
 // But this is "conceptually" a noncopyable range.
 
 
-#include <boost/spirit/iterator/file_iterator.hpp>
+#include <boost/spirit/include/classic_file_iterator.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include "./iter_range.hpp"
 #include "./lightweight_copyable.hpp"
@@ -37,7 +37,7 @@ namespace file_range_detail {
     struct super_
     {
         typedef
-            iter_range<boost::spirit::file_iterator<CharT>,
+            iter_range<boost::spirit::classic::file_iterator<CharT>,
                 lightweight_copyable< file_range<CharT> >
             >
         type;
@@ -47,7 +47,7 @@ namespace file_range_detail {
     template< class Super, class CharT >
     Super make(std::string const& path)
     {
-        boost::spirit::file_iterator<CharT> it(path);
+        boost::spirit::classic::file_iterator<CharT> it(path);
         if (!it)
             return Super(it, it);
 

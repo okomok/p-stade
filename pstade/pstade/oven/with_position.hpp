@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/spirit/iterator/position_iterator.hpp>
+#include <boost/spirit/include/classic_position_iterator.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
@@ -32,11 +32,11 @@ namespace with_position_detail {
 
     struct little
     {
-        template< class Myself, class Range, class PositionT = boost::spirit::file_position const, class Int = void >
+        template< class Myself, class Range, class PositionT = boost::spirit::classic::file_position const, class Int = void >
         struct apply
         {
             typedef
-                boost::spirit::position_iterator2< // 2!
+                boost::spirit::classic::position_iterator2< // 2!
                     typename range_iterator<Range>::type,
                     typename pass_by_value<PositionT>::type
                 >
@@ -62,7 +62,7 @@ namespace with_position_detail {
         Result call(Range& rng) const
         {
             egg::function<little> self = {*this};
-            return self(rng, boost::spirit::file_position());
+            return self(rng, boost::spirit::classic::file_position());
         }
     };
 

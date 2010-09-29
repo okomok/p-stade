@@ -41,7 +41,7 @@ struct on_unexpected
 template<class Iter>
 void check_position(Iter first)
 {
-    boost::spirit::file_position pos = oven::position<boost::spirit::file_position>(first);
+    boost::spirit::classic::file_position pos = oven::position<boost::spirit::classic::file_position>(first);
     (void)pos;
 }
 
