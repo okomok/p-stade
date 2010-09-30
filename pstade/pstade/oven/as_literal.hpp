@@ -23,6 +23,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/to_value.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/adl_barrier.hpp>
 #include "./detail/array_to_range.hpp"
 #include "./iter_range.hpp"
 
@@ -61,8 +62,10 @@ namespace as_literal_detail {
 } // namespace as_literal_detail
 
 
-typedef egg::result_of_ambi0<as_literal_detail::op>::type T_as_literal;
-PSTADE_POD_CONSTANT((T_as_literal), as_literal) = PSTADE_EGG_AMBI({{}});
+PSTADE_ADL_BARRIER(as_literal) {
+    typedef egg::result_of_ambi0<as_literal_detail::op>::type T_as_literal;
+    PSTADE_POD_CONSTANT((T_as_literal), as_literal) = PSTADE_EGG_AMBI({{}});
+}
 
 
 } } // namespace pstade::oven
