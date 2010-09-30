@@ -24,7 +24,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/noncopyable.hpp>
 
-#if defined(PSTADE_OVEN_TEST_HAS_0X_LAMBDA_EXPRESSION) && !defined(BOOST_NO_DECLTYPE)
+#if BOOST_VERSION >= 104400 && defined(PSTADE_OVEN_TEST_HAS_0X_LAMBDA_EXPRESSION) && !defined(BOOST_NO_DECLTYPE)
     #define IS_0X_LAMBDA_TEST
 # endif
 
