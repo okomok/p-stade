@@ -35,6 +35,7 @@
 #include <boost/version.hpp>
 #include <pstade/boost_workaround.hpp>
 #include <pstade/in_fun_spec.hpp>
+#include <pstade/is_nullary_callable.hpp>
 #include "./detail/boost_result_of.hpp"
 
 
@@ -94,7 +95,19 @@ namespace pstade {
     } // namespace result_of_detail
 
 
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_RESULT_OF_NUM_ARGS, <pstade/result_of.hpp>))
+    // 0-ary
+    template<class Fun>
+    struct result_of<Fun(void)> :
+        boost::mpl::eval_if< is_nullary_callable<Fun>,
+            boost::result_of<
+                typename result_of_detail::patch<Fun>::type()
+            >,
+            boost::mpl::identity<void>
+        >
+    { };
+
+    // 1ary-
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_RESULT_OF_NUM_ARGS, <pstade/result_of.hpp>))
     #include BOOST_PP_ITERATE()
 
 

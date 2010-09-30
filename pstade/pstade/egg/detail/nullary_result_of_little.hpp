@@ -19,7 +19,7 @@
 
 
 template<class Function>
-struct ERROR_PSTADE_EGG_FUNCTION_NON_NULLARY;
+struct ERROR_PSTADE_EGG_FUNCTION_NON_NULLARY { typedef void nullary_result_type; };
 
 
 namespace pstade { namespace egg { namespace detail {
