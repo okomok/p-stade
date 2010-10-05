@@ -15,6 +15,7 @@
 #include "./extension_fwd.hpp"
 
 
+#if BOOST_VERSION < 103900
 namespace boost { namespace lambda {
 
 
@@ -27,6 +28,7 @@ namespace boost { namespace lambda {
 
 
 } } // namespace boost::lambda
+#endif
 
 
 #include "../detail/suffix.hpp"
