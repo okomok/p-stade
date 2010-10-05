@@ -41,6 +41,7 @@
 #include "../do_iter_swap.hpp"
 #include "../read.hpp"
 #include "./maybe_contains.hpp"
+#include "./minimum_pure.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -58,8 +59,6 @@ struct local_iterator :
 { };
 
 
-// See:
-// http://opensource.adobe.com/iterator_8hpp-source.html#l00087
 template< class SegmentIter, class LocalIter >
 struct concat_iterator_traversal
 {
@@ -72,17 +71,9 @@ struct concat_iterator_traversal
     local_trv_t;
 
     typedef typename
-        boost::mpl::eval_if<
-            boost::mpl::and_<
-                is_convertible<segment_trv_t, boost::bidirectional_traversal_tag>,
-                is_convertible<local_trv_t, boost::bidirectional_traversal_tag>
-            >,
-            boost::mpl::identity<boost::bidirectional_traversal_tag>,
-            boost::mpl::eval_if<
-                is_convertible<local_trv_t, boost::forward_traversal_tag>,
-                boost::mpl::identity<boost::forward_traversal_tag>,
-                boost::mpl::identity<local_trv_t>
-            >
+        minimum_pure<
+            boost::bidirectional_traversal_tag,
+            typename minimum_pure<segment_trv_t, local_trv_t>::type
         >::type
     type;
 };
