@@ -17,7 +17,7 @@
 #include <boost/config.hpp>
 
 
-#if !defined(BOOST_NO_DECLTYPE)
+#if (BOOST_VERSION < 103900 && defined(BOOST_HAS_DECLTYPE)) || (BOOST_VERSION >= 103900 && !defined(BOOST_NO_DECLTYPE))
     #include <utility>
     #include <boost/mpl/identity.hpp>
     #define PSTADE_HAS_IS_NULLARY_CALLABLE
