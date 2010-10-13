@@ -61,6 +61,9 @@ namespace iter_range_detail {
 } // namespace iter_range_detail
 
 
+namespace iter_range_based_for_lookup {
+
+
 template<
     class Iterator,
     class Injector = iter_range_detail::null_injector
@@ -201,6 +204,23 @@ public:
 private:
     Iterator m_first, m_last;
 };
+
+
+template< class It, class In > inline
+It begin(iter_range<It, In> const& rng)
+{
+    return rng.begin();
+}
+template< class It, class In > inline
+It end(iter_range<It, In> const& rng)
+{
+    return rng.end();
+}
+
+
+} // namespace iter_range_based_for_lookup
+
+using iter_range_based_for_lookup::iter_range;
 
 
 template<
